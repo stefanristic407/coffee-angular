@@ -10,7 +10,7 @@
 }
 
 .table-container {
-    margin: .5rem 0;
+    margin: 0.5rem 0;
     border-radius: 4px;
     border: 1px solid #d6d6d6;
     padding: 4px;
@@ -24,12 +24,73 @@
 .header-row {
     border: none !important;
 }
+.tabletView {
+    display: none;
+}
+@media (min-width: 426px) and (max-width: 768px) {
+    .tabletView {
+        display: block;
+    }
+}
+table {
+    input,
+    select {
+        height: 50px !important;
+        padding: 16px;
+    }
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: url(../../../../assets/images/arrow-down.png);
+        background-repeat: no-repeat;
+        background-position: right;
+        background-size: 14px;
+        background-position: right 17px bottom 16px;
+    }
+}
 
-table th,
-table td {
-    border: none !important;
-}    
-.add-vat{
+table th:first-child {
+    border-radius: 4px 0 0 4px;
+}
+
+table th:last-child {
+    border-radius: 0 4px 4px 0;
+}
+
+@media (min-width: 769px) {
+    table {
+        width: 100%;
+        th,
+        td {
+            height: 66px;
+            padding: 24px 16px;
+            p {
+                margin-bottom: 0px;
+            }
+            .delete-cta {
+                margin-top: 12px;
+                margin-left: 12px;
+            }
+        }
+        td {
+            border-bottom: 1px dashed #d6d6d6;
+        }
+        tr:last-child td {
+            border-bottom: none !important;
+        }
+        th:first-child,
+        td:first-child {
+            padding-left: 48px;
+        }
+        th:last-child,
+        td:last-child {
+            padding-right: 48px;
+        }
+    }
+}
+
+.add-vat {
     color: #ffffff;
     border-radius: 4px;
     border: solid 1px #30855c;
@@ -42,4 +103,62 @@ table td {
     width: 17px;
     margin-left: 4px;
     margin-top: -4px;
+}
+
+.mt-43 {
+    margin-top: 43px;
+}
+
+.featureSectionCard {
+    padding: 0.25rem;
+    border: 1px solid #ebebeb;
+    border-radius: 4px;
+    .header-bg {
+        background-color: #f8f8f8;
+        border-radius: 4px;
+    }
+    .header {
+        padding: 0.5rem 0.75rem;
+        width: 100%;
+    }
+    .form-control {
+        height: 46px;
+        padding: 14px 16px;
+    }
+
+    table.mtable {
+        margin: 0.75rem;
+        width: calc(100% - 24px);
+        td {
+            border-bottom: 1px dashed #d6d6d6;
+            padding: 16px 0px !important;
+            height: 50px !important;
+        }
+        td:first-child {
+            padding-left: 0px;
+            width: 50%;
+        }
+        td:last-child {
+            padding-right: 0px;
+            text-align: right;
+        }
+    }
+    table.tTable {
+        width: 100%;
+        th,
+        td {
+            padding: 20px 16px;
+            height: 54px;
+        }
+        td {
+            border-bottom: 1px dashed #d6d6d6;
+        }
+        td:last-child {
+            width: 10rem;
+        }
+    }
+
+    table tr:last-child > td {
+        border-bottom: none;
+    }
 }
