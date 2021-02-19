@@ -16,7 +16,7 @@
                         <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 1440 x 465 px</p>
 
                         <div class="w-100 sewn-form-field mb-4 mb-md-45">
-                            <app-uploader formControlName="banner_file"></app-uploader>
+                            <app-uploader formControlName="banner_file" [width]="1440" [height]="465"></app-uploader>
                             <small *ngIf="infoForm.controls.banner_file.errors?.required" class="p-error">
                                 Please upload
                             </small>
@@ -64,7 +64,7 @@
                                 Upload an Image/Video<span class="star">*</span>
                             </p>
                             <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 815 x 449 px</p>
-                            <app-uploader formControlName="intro_file"></app-uploader>
+                            <app-uploader formControlName="intro_file" [width]="815" [height]="449"></app-uploader>
                             <small *ngIf="infoForm.controls.intro_file.errors?.required" class="p-error">
                                 Please upload
                             </small>
@@ -144,7 +144,11 @@
                                     Upload an Image/Video<span class="star">*</span>
                                 </p>
                                 <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 601 x 395 px</p>
-                                <app-uploader formControlName="step{{ i }}_file"></app-uploader>
+                                <app-uploader
+                                    formControlName="step{{ i }}_file"
+                                    [width]="601"
+                                    [height]="395"
+                                ></app-uploader>
                                 <small *ngIf="infoForm.controls['step' + i + '_file'].errors?.required" class="p-error">
                                     Please upload
                                 </small>
