@@ -1,6 +1,11 @@
 <section>
-    <div class="bg-fff">
-        <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4">
+    <div class="main-block">
+        <div class="row pb-3">
+            <div class="col-10">
+                <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
+            </div>
+        </div>
+        <!-- <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4">
             <span id="title-breadcrumb-1" class="sr-only"></span>
             <ul class="bread-nav">
                 <li class="b-cum">
@@ -27,31 +32,51 @@
                     {{ globals.languageJson?.save }}
                 </button>
             </ul>
-        </nav>
-
-        <section class="new-roasted-batch">
+        </nav> -->
+        <div class="row mt-4 pb-2">
+            <div class="col-12">
+                <span class="primary_txt mb-1">{{ globals.languageJson?.create_roasted_batch }}</span>
+            </div>
+        </div>
+        <div class="mt-4 pb-2" [formGroup]="batchForm" (ngSubmit)="onSave()" novalidate>
             <div class="row">
-                <div class="col-md-8 col-12">
-                    <p class="fnt-18 fnt-muli fnt-700 black">{{ globals.languageJson?.create_roasted_batch }}</p>
+                <div class="col-12 col-sm-12 col-md-3 col-lg-6 col-xl-6 sewn-form-field w-100">
+                    <label>Roast batch name<span class="star">*</span></label>
+                    <input
+                        type="text"
+                        placeholder="Enter a roast batch name"
+                        formControlName="roast_batch_name"
+                        pInputText
+                    />
+                    <small *ngIf="batchForm.controls['roast_batch_name'].errors?.required" class="p-error">
+                        Required
+                    </small>
+                </div>
+            </div>
+        </div>
 
-                    <div class="row pt-3">
-                        <div class="col-12 col-md-6 float-md-left">
-                            <div class="farm-input">
-                                <label class="label p-0">Roast batch name*</label>
-                                <input
-                                    type="text"
-                                    placeholder=""
-                                    [(ngModel)]="roast_batch_name"
-                                    [ngModelOptions]="{ standalone: true }"
-                                />
-                            </div>
+        <div class="row">
+            <div class="col-md-8 col-12">
+                <p class="fnt-18 fnt-muli fnt-700 black">{{ globals.languageJson?.create_roasted_batch }}</p>
+
+                <div class="row pt-3">
+                    <div class="col-12 col-md-6 float-md-left">
+                        <div class="farm-input">
+                            <label class="label p-0">Roast batch name*</label>
+                            <input
+                                type="text"
+                                placeholder=""
+                                [(ngModel)]="roast_batch_name"
+                                [ngModelOptions]="{ standalone: true }"
+                            />
                         </div>
                     </div>
+                </div>
 
-                    <p class="fnt-18 fnt-muli fnt-700 black pt-2 pt-md-4">{{ globals.languageJson?.order_id }}*</p>
+                <p class="fnt-18 fnt-muli fnt-700 black pt-2 pt-md-4">{{ globals.languageJson?.order_id }}*</p>
 
-                    <div class="row pt-3 pb-3">
-                        <!-- <div class="col-12 col-md-6 float-md-left">
+                <div class="row pt-3 pb-3">
+                    <!-- <div class="col-12 col-md-6 float-md-left">
                                 <div class="farm-input ">
                                     <label class="label p-0">Select the order through which the green coffee</label>
                                     <select name="Year" required="" class="form-control select-region">
@@ -65,75 +90,70 @@
 
                             </div> -->
 
-                        <div class="col-12 col-md-6 float-md-left">
-                            <p class="fbt-14 fnt-muli fnt-400 text-clr334">
-                                Select the order through which the green coffee
-                            </p>
-                            <div class="sample_info">
-                                <div
-                                    class="info_heading d-flex cursor-pointer"
-                                    routerLink="/features/select-order-list"
-                                >
-                                    <div class="pull-left sample_info_head">Select the order</div>
-                                    <div class="ml-auto pull-right">
-                                        <img class="pl-1" src="assets/images/arrow-1.png" alt="" />
-                                    </div>
+                    <div class="col-12 col-md-6 float-md-left">
+                        <p class="fbt-14 fnt-muli fnt-400 text-clr334">
+                            Select the order through which the green coffee
+                        </p>
+                        <div class="sample_info">
+                            <div class="info_heading d-flex cursor-pointer" routerLink="/features/select-order-list">
+                                <div class="pull-left sample_info_head">Select the order</div>
+                                <div class="ml-auto pull-right">
+                                    <img class="pl-1" src="assets/images/arrow-1.png" alt="" />
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="row pt-5 pb-3">
-                        <div class="col-12 col-md-6 float-md-left">
-                            <div class="farm-input">
-                                <label class="label p-0">Select roasting profile*</label>
-                                <div class="cupping-total" id="cupping_id">
-                                    <p class="d-inline filter-text" *ngIf="cupping == ''">
-                                        Select type of cupping&nbsp;
+                <div class="row pt-5 pb-3">
+                    <div class="col-12 col-md-6 float-md-left">
+                        <div class="farm-input">
+                            <label class="label p-0">Select roasting profile*</label>
+                            <div class="cupping-total" id="cupping_id">
+                                <p class="d-inline filter-text" *ngIf="cupping == ''">Select type of cupping&nbsp;</p>
+                                <a
+                                    class="pointer-item arrow__spacing"
+                                    [popover]="cuppingTemplate"
+                                    placement="bottom"
+                                    container="body"
+                                    #pop6="bs-popover"
+                                >
+                                    <p class="d-inline filter" *ngIf="cupping == ''" (click)="toggleCupping()">
+                                        &nbsp;
+                                        <img
+                                            class=""
+                                            src="{{
+                                                showCupping
+                                                    ? 'assets/images/down-arrow.svg'
+                                                    : 'assets/images/arrow-cupping.svg'
+                                            }}"
+                                        />
                                     </p>
-                                    <a
-                                        class="pointer-item arrow__spacing"
-                                        [popover]="cuppingTemplate"
-                                        placement="bottom"
-                                        container="body"
-                                        #pop6="bs-popover"
-                                    >
-                                        <p class="d-inline filter" *ngIf="cupping == ''" (click)="toggleCupping()">
-                                            &nbsp;
-                                            <img
-                                                class=""
-                                                src="{{
-                                                    showCupping
-                                                        ? 'assets/images/down-arrow.svg'
-                                                        : 'assets/images/arrow-cupping.svg'
-                                                }}"
-                                            />
-                                        </p>
-                                    </a>
-                                    <p class="d-inline add-variety" *ngIf="cupping != ''">{{ cupping }}</p>
-                                    <a
-                                        class="pointer-item arrow__spacing"
-                                        [popover]="cuppingTemplate"
-                                        placement="bottom"
-                                        container="body"
-                                        #pop7="bs-popover"
-                                    >
-                                        <p class="d-inline filter" *ngIf="cupping != ''" (click)="toggleCupping()">
-                                            &nbsp;<img
-                                                class=""
-                                                src="{{
-                                                    showCupping
-                                                        ? 'assets/images/down-arrow.svg'
-                                                        : 'assets/images/arrow-cupping.svg'
-                                                }}"
-                                            />
-                                        </p>
-                                    </a>
-                                </div>
+                                </a>
+                                <p class="d-inline add-variety" *ngIf="cupping != ''">{{ cupping }}</p>
+                                <a
+                                    class="pointer-item arrow__spacing"
+                                    [popover]="cuppingTemplate"
+                                    placement="bottom"
+                                    container="body"
+                                    #pop7="bs-popover"
+                                >
+                                    <p class="d-inline filter" *ngIf="cupping != ''" (click)="toggleCupping()">
+                                        &nbsp;<img
+                                            class=""
+                                            src="{{
+                                                showCupping
+                                                    ? 'assets/images/down-arrow.svg'
+                                                    : 'assets/images/arrow-cupping.svg'
+                                            }}"
+                                        />
+                                    </p>
+                                </a>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- <div class="col-12 col-md-6 float-md-left">
+                    <!-- <div class="col-12 col-md-6 float-md-left">
                                 <div class="farm-input ">
                                     <label class="label p-0">Quantity after roasted*</label>
                                     <select name="Year" required="" class="form-control select-region">
@@ -144,256 +164,255 @@
                                 </div>
 
                             </div> -->
-                        <div class="col-12 col-md-6 float-md-left">
-                            <div class="farm-input">
-                                <label class="label p-0">Quantity after roasted*</label>
-                                <div class="input-group">
-                                    <input
-                                        type="text"
-                                        placeholder="Enter quantity"
-                                        class="form-control input-group-right-border"
-                                        aria-label="Text input with dropdown button"
-                                        [(ngModel)]="quantity"
+                    <div class="col-12 col-md-6 float-md-left">
+                        <div class="farm-input">
+                            <label class="label p-0">Quantity after roasted*</label>
+                            <div class="input-group">
+                                <input
+                                    type="text"
+                                    placeholder="Enter quantity"
+                                    class="form-control input-group-right-border"
+                                    aria-label="Text input with dropdown button"
+                                    [(ngModel)]="quantity"
+                                    [ngModelOptions]="{ standalone: true }"
+                                />
+                                <div class="input-group-append">
+                                    <!-- <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button> -->
+                                    <select
+                                        name="type"
+                                        required=""
+                                        class="form-control select-region select-form-group-dropdown select-region-local"
+                                        [(ngModel)]="quantity_unit"
                                         [ngModelOptions]="{ standalone: true }"
-                                    />
-                                    <div class="input-group-append">
-                                        <!-- <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button> -->
-                                        <select
-                                            name="type"
-                                            required=""
-                                            class="form-control select-region select-form-group-dropdown select-region-local"
-                                            [(ngModel)]="quantity_unit"
-                                            [ngModelOptions]="{ standalone: true }"
-                                        >
-                                            <option value="kg">Kg</option>
-                                            <option value="lb">lb</option>
-                                        </select>
-                                    </div>
+                                    >
+                                        <option value="kg">Kg</option>
+                                        <option value="lb">lb</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4" *ngIf="showDetails">
-                    <p class="fnt-18 fnt-muli fnt-700 black pt-2 pt-md-4">{{ globals.languageJson?.order_details }}</p>
+            </div>
+            <div class="col-md-4" *ngIf="showDetails">
+                <p class="fnt-18 fnt-muli fnt-700 black pt-2 pt-md-4">{{ globals.languageJson?.order_details }}</p>
 
-                    <div class="order-details-clr">
-                        <div class="row mt-3">
-                            <div class="p-0">
-                                <img
-                                    *ngIf="orderDetails.estate_profile_image_thumbnail_url == ''"
-                                    src="assets/images/profile.svg"
-                                    alt="User"
-                                    class="img-estate profile-pic"
-                                />
-                                <img
-                                    *ngIf="orderDetails.estate_profile_image_thumbnail_url != ''"
-                                    src="{{ orderDetails.estate_profile_image_thumbnail_url }}"
-                                    alt="User"
-                                    class="img-estate profile-pic"
-                                />
-                            </div>
-                            <div class="pull-left">
-                                <ul class="details-list p-0 ml-2 ml-md-3">
-                                    <li class="estate-name">{{ orderDetails.estate_owner }}</li>
-                                    <li class="estate-number pt-1">Coffee Estate</li>
-                                </ul>
-                            </div>
-                            <div class="pull-right ml-auto">
-                                <p>
-                                    <span class="cursor-pointer">
-                                        <img src="assets/images/star-1.png" alt="User" />
-                                        <span class="star-no pl-1"> {{ rating }}</span>
-                                    </span>
-                                </p>
-                                <p>
+                <div class="order-details-clr">
+                    <div class="row mt-3">
+                        <div class="p-0">
+                            <img
+                                *ngIf="orderDetails.estate_profile_image_thumbnail_url == ''"
+                                src="assets/images/profile.svg"
+                                alt="User"
+                                class="img-estate profile-pic"
+                            />
+                            <img
+                                *ngIf="orderDetails.estate_profile_image_thumbnail_url != ''"
+                                src="{{ orderDetails.estate_profile_image_thumbnail_url }}"
+                                alt="User"
+                                class="img-estate profile-pic"
+                            />
+                        </div>
+                        <div class="pull-left">
+                            <ul class="details-list p-0 ml-2 ml-md-3">
+                                <li class="estate-name">{{ orderDetails.estate_owner }}</li>
+                                <li class="estate-number pt-1">Coffee Estate</li>
+                            </ul>
+                        </div>
+                        <div class="pull-right ml-auto">
+                            <p>
+                                <span class="cursor-pointer">
+                                    <img src="assets/images/star-1.png" alt="User" />
+                                    <span class="star-no pl-1"> {{ rating }}</span>
+                                </span>
+                            </p>
+                            <p>
+                                <span
+                                    class="bg-msg"
+                                    (mouseenter)="greenIconShow = true"
+                                    (mouseleave)="greenIconShow = false"
+                                >
+                                    <img
+                                        class="message-icon"
+                                        *ngIf="!greenIconShow"
+                                        src="assets/images/message-icon.svg"
+                                        alt="Message"
+                                    />
+                                    <img
+                                        class="message-icon"
+                                        *ngIf="greenIconShow"
+                                        src="assets/images/green-msg-icon.svg"
+                                        alt="Message"
+                                    />
                                     <span
-                                        class="bg-msg"
-                                        (mouseenter)="greenIconShow = true"
-                                        (mouseleave)="greenIconShow = false"
+                                        class="estate-message pl-2"
+                                        [ngStyle]="{ color: greenIconShow ? 'green' : '' }"
+                                        >{{ globals.languageJson?.message }}</span
                                     >
-                                        <img
-                                            class="message-icon"
-                                            *ngIf="!greenIconShow"
-                                            src="assets/images/message-icon.svg"
-                                            alt="Message"
-                                        />
-                                        <img
-                                            class="message-icon"
-                                            *ngIf="greenIconShow"
-                                            src="assets/images/green-msg-icon.svg"
-                                            alt="Message"
-                                        />
-                                        <span
-                                            class="estate-message pl-2"
-                                            [ngStyle]="{ color: greenIconShow ? 'green' : '' }"
-                                            >{{ globals.languageJson?.message }}</span
-                                        >
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row pt-3">
+                        <table class="recent-time">
+                            <tr>
+                                <td><span class="list-que"> Origin : </span></td>
+                                <td>
+                                    <span class="list-ans">
+                                        {{ orderDetails.origin | country }}
                                     </span>
-                                </p>
-                            </div>
-                        </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="list-que"> Variety : </span></td>
+                                <td>
+                                    <span class="list-ans"> {{ orderDetails.variety | titlecase }} </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="list-que"> Price : </span></td>
+                                <td>
+                                    <span class="list-ans"> ${{ orderDetails.price }} USD/kg </span>
+                                </td>
+                            </tr>
 
-                        <div class="row pt-3">
-                            <table class="recent-time">
-                                <tr>
-                                    <td><span class="list-que"> Origin : </span></td>
-                                    <td>
-                                        <span class="list-ans">
-                                            {{ countryName(orderDetails.origin) | titlecase }}
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="list-que"> Variety : </span></td>
-                                    <td>
-                                        <span class="list-ans"> {{ orderDetails.variety | titlecase }} </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="list-que"> Price : </span></td>
-                                    <td>
-                                        <span class="list-ans"> ${{ orderDetails.price }} USD/kg </span>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td><span class="list-que"> Quantity : </span></td>
+                                <td>
+                                    <span class="list-ans"> {{ orderDetails.quantity }} Kg </span>
+                                </td>
+                            </tr>
 
-                                <tr>
-                                    <td><span class="list-que"> Quantity : </span></td>
-                                    <td>
-                                        <span class="list-ans"> {{ orderDetails.quantity }} Kg </span>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td><span class="list-que"> Date recieved: </span></td>
-                                    <td>
-                                        <span class="list-ans"> {{ orderDetails.created_at | date: 'd MMM y' }} </span>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
+                            <tr>
+                                <td><span class="list-que"> Date recieved: </span></td>
+                                <td>
+                                    <span class="list-ans"> {{ orderDetails.created_at | date: 'd MMM y' }} </span>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <p class="fnt-18 fnt-muli fnt-700 black pt-2 pt-md-4">{{ globals.languageJson?.tasting_notes }}</p>
+        <p class="fnt-18 fnt-muli fnt-700 black pt-2 pt-md-4">{{ globals.languageJson?.tasting_notes }}</p>
 
-            <div class="row pt-3 pb-3">
-                <div class="col-12 col-md-3 float-md-left">
-                    <div class="farm-input">
-                        <label class="label p-0">Aroma*</label>
-                        <input
-                            type="text"
-                            placeholder="Please enter"
-                            [(ngModel)]="aroma"
-                            [ngModelOptions]="{ standalone: true }"
-                        />
-                    </div>
+        <div class="row pt-3 pb-3">
+            <div class="col-12 col-md-3 float-md-left">
+                <div class="farm-input">
+                    <label class="label p-0">Aroma*</label>
+                    <input
+                        type="text"
+                        placeholder="Please enter"
+                        [(ngModel)]="aroma"
+                        [ngModelOptions]="{ standalone: true }"
+                    />
                 </div>
-                <div class="col-12 col-md-3 float-md-left">
-                    <div class="farm-input">
-                        <label class="label p-0">Acidity*</label>
-                        <input
-                            type="text"
-                            placeholder="Please enter"
-                            [(ngModel)]="acidity"
-                            [ngModelOptions]="{ standalone: true }"
-                        />
-                    </div>
+            </div>
+            <div class="col-12 col-md-3 float-md-left">
+                <div class="farm-input">
+                    <label class="label p-0">Acidity*</label>
+                    <input
+                        type="text"
+                        placeholder="Please enter"
+                        [(ngModel)]="acidity"
+                        [ngModelOptions]="{ standalone: true }"
+                    />
                 </div>
-                <div class="col-12 col-md-3 float-md-left">
-                    <div class="farm-input">
-                        <label class="label p-0">Processing*</label>
-                        <input
-                            type="text"
-                            placeholder="Please enter"
-                            [(ngModel)]="processing"
-                            [ngModelOptions]="{ standalone: true }"
-                        />
-                    </div>
+            </div>
+            <div class="col-12 col-md-3 float-md-left">
+                <div class="farm-input">
+                    <label class="label p-0">Processing*</label>
+                    <input
+                        type="text"
+                        placeholder="Please enter"
+                        [(ngModel)]="processing"
+                        [ngModelOptions]="{ standalone: true }"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <div class="row pt-3 pb-3">
+            <div class="col-12 col-md-3 float-md-left">
+                <div class="farm-input">
+                    <label class="label p-0">Body*</label>
+                    <input
+                        type="text"
+                        placeholder="Please enter"
+                        [(ngModel)]="body"
+                        [ngModelOptions]="{ standalone: true }"
+                    />
                 </div>
             </div>
 
-            <div class="row pt-3 pb-3">
-                <div class="col-12 col-md-3 float-md-left">
-                    <div class="farm-input">
-                        <label class="label p-0">Body*</label>
-                        <input
-                            type="text"
-                            placeholder="Please enter"
-                            [(ngModel)]="body"
-                            [ngModelOptions]="{ standalone: true }"
-                        />
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-3 float-md-left">
-                    <div class="farm-input">
-                        <label class="label p-0">Flavour*</label>
-                        <input
-                            type="text"
-                            placeholder="Please enter"
-                            [(ngModel)]="flavour"
-                            [ngModelOptions]="{ standalone: true }"
-                        />
-                    </div>
+            <div class="col-12 col-md-3 float-md-left">
+                <div class="farm-input">
+                    <label class="label p-0">Flavour*</label>
+                    <input
+                        type="text"
+                        placeholder="Please enter"
+                        [(ngModel)]="flavour"
+                        [ngModelOptions]="{ standalone: true }"
+                    />
                 </div>
             </div>
+        </div>
 
-            <div class="row pt-3 pb-3">
-                <div class="col-md-6 col-12">
-                    <a
-                        class="pointer-item"
-                        [popover]="allTemplate"
-                        placement="right"
-                        [outsideClick]="true"
-                        container="body"
-                        #pop2="bs-popover"
-                    >
-                        <span class="share-bor"
-                            ><img src="assets/images/region-plus.svg" alt="farm" class="dwnd-img" /><span
-                                class="share-txt ml-1"
-                            >
-                                Add Descriptors
-                            </span></span
+        <div class="row pt-3 pb-3">
+            <div class="col-md-6 col-12">
+                <a
+                    class="pointer-item"
+                    [popover]="allTemplate"
+                    placement="right"
+                    [outsideClick]="true"
+                    container="body"
+                    #pop2="bs-popover"
+                >
+                    <span class="share-bor"
+                        ><img src="assets/images/region-plus.svg" alt="farm" class="dwnd-img" /><span
+                            class="share-txt ml-1"
                         >
-                    </a>
-                    <div class="chips">
-                        <mat-chip-list #chipList aria-label="language" class="desk-chips">
-                            <mat-chip
-                                *ngFor="let language of langChips"
-                                [selectable]="selectable"
-                                [removable]="removable"
-                                (removed)="remove(language)"
-                                >{{ language.name }}
-                                <img
-                                    *ngIf="removable"
-                                    class="cross-icon"
-                                    src="assets/images/cross-white.svg"
-                                    (click)="remove(language)"
-                                />
-                            </mat-chip>
-                        </mat-chip-list>
-                    </div>
+                            Add Descriptors
+                        </span></span
+                    >
+                </a>
+                <div class="chips">
+                    <mat-chip-list #chipList aria-label="language" class="desk-chips">
+                        <mat-chip
+                            *ngFor="let language of langChips"
+                            [selectable]="selectable"
+                            [removable]="removable"
+                            (removed)="remove(language)"
+                            >{{ language.name }}
+                            <img
+                                *ngIf="removable"
+                                class="cross-icon"
+                                src="assets/images/cross-white.svg"
+                                (click)="remove(language)"
+                            />
+                        </mat-chip>
+                    </mat-chip-list>
                 </div>
             </div>
+        </div>
 
-            <div class="row pt-3 pb-3">
-                <div class="col-12 col-md-6 float-md-left">
-                    <div class="farm-input">
-                        <label class="label p-0"> Roaster Notes*</label>
-                        <textarea
-                            type="text"
-                            rows="4"
-                            cols="50"
-                            [(ngModel)]="notes"
-                            [ngModelOptions]="{ standalone: true }"
-                        ></textarea>
-                    </div>
+        <div class="row pt-3 pb-3">
+            <div class="col-12 col-md-6 float-md-left">
+                <div class="farm-input">
+                    <label class="label p-0"> Roaster Notes*</label>
+                    <textarea
+                        type="text"
+                        rows="4"
+                        cols="50"
+                        [(ngModel)]="notes"
+                        [ngModelOptions]="{ standalone: true }"
+                    ></textarea>
                 </div>
             </div>
-            <button class="cancel mt-2 mb-5">{{ globals.languageJson?.cancel }}</button>
-        </section>
+        </div>
+        <button class="cancel mt-2 mb-5">{{ globals.languageJson?.cancel }}</button>
     </div>
 </section>
 
