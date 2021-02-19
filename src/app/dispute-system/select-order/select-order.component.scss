@@ -1,3 +1,4 @@
+@import 'variables';
 .back-href {
     color: #80460b;
     text-decoration: none;
@@ -31,6 +32,10 @@
 }
 ::ng-deep .orderTable .p-datatable-tbody > tr > td:first-child {
     padding-left: 0px;
+}
+:host ::ng-deep .orderTable .p-radiobutton .p-radiobutton-box.p-highlight {
+    border-color: $primary-color;
+    background: $primary-color;
 }
 .typeofStatus-booked {
     color: #649a2b;

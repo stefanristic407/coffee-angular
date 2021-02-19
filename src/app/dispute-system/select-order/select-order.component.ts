@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { GlobalsService, RoasterserviceService } from '@services';
+import * as moment from 'moment';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -25,6 +26,8 @@ export class SelectOrderComponent implements OnInit {
     selectedOrder: any;
     roasterID: any;
     totalCount = 0;
+    orderType: any;
+    orderID: any;
     constructor(
         public globals: GlobalsService,
         public router: Router,
@@ -38,6 +41,7 @@ export class SelectOrderComponent implements OnInit {
         this.roasterID = this.cookieService.get('roaster_id');
         this.loadFilterValues();
         this.createRoasterTable();
+        //this.displayFilter = 10;
     }
     createRoasterTable() {
         this.tableColumns = [
@@ -102,7 +106,17 @@ export class SelectOrderComponent implements OnInit {
             },
         ];
     }
-    filterCall() {}
+    onTabChange(event) {
+        if (event.index === 1) {
+            this.orderType = 'mr';
+        } else {
+            this.orderType = 'ro';
+        }
+        this.getTableData();
+    }
+    filterCall() {
+        this.getTableData();
+    }
     loadFilterValues() {
         this.originArray = this.globals.countryList;
         this.orderTypeArray = [
@@ -123,17 +137,45 @@ export class SelectOrderComponent implements OnInit {
             { label: '50', value: 50 },
         ];
     }
+    onSelect(ticket) {
+        console.log(ticket);
+    }
     getTableData() {
-        this.roasterService.getEstateOrders(this.roasterID).subscribe((data: any) => {
-            if (data.success) {
+        console.log(this.rangeDates);
+        this.tableValue = [];
+        const postData: any = {};
+        postData.origin = this.originFilter ? this.originFilter : '';
+        postData.order_type = this.statusFilter ? this.statusFilter : '';
+        postData.status = this.typeFilter ? this.typeFilter : '';
+        postData.per_page = this.displayFilter ? this.displayFilter : 1000;
+        postData.start_date = '';
+        postData.end_date = '';
+        if (this.rangeDates && this.rangeDates.length === 2) {
+            postData.start_date = moment(this.rangeDates[0], 'DD/MM/YYYY').format('YYYY-MM-DD');
+            postData.end_date = moment(this.rangeDates[1], 'DD/MM/YYYY').format('YYYY-MM-DD');
+        }
+        this.roasterService.getRoasterOrders(this.roasterID, postData, this.orderType).subscribe((data: any) => {
+            if (data.success && data.result) {
                 data.result.map((ele) => {
+                    if (this.orderType === 'mr') {
+                        ele.price = ele.total_price;
+                    }
                     const findOrderType = this.statusTypeArray.find((item) => item.value === ele.type);
                     ele.type = findOrderType ? findOrderType.label : ele.type;
                     ele.status = ele.status.charAt(0).toUpperCase() + ele.status.slice(1).toLowerCase();
                     return ele;
                 });
+                this.totalCount = data.result_info.total_count;
                 this.tableValue = data.result;
             }
         });
+    }
+    onContinue() {
+        const navigationExtras: NavigationExtras = {
+            queryParams: {
+                orderType: this.orderType ? this.orderType : undefined,
+            },
+        };
+        this.router.navigate(['/dispute-system/raise-ticket', this.selectedOrder.id], navigationExtras);
     }
 }

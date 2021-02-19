@@ -7,6 +7,7 @@ import { DisputeComponent } from './dispute/dispute.component';
 import { FaqQuestionComponent } from './faq-question/faq-question.component';
 import { OrderChatComponent } from './order-chat/order-chat.component';
 import { OrderSupportComponent } from './order-support/order-support.component';
+import { RaiseTicketComponent } from './raise-ticket/raise-ticket.component';
 import { RaisedTicketsComponent } from './raised-tickets/raised-tickets.component';
 import { SelectOrderComponent } from './select-order/select-order.component';
 const routes: Routes = [
@@ -42,6 +43,11 @@ const routes: Routes = [
             {
                 path: 'select-order',
                 component: SelectOrderComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'raise-ticket/:id',
+                component: RaiseTicketComponent,
                 canActivate: [AuthGuard],
             },
             {
