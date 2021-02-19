@@ -9,9 +9,7 @@
             </div>
         </div>
         <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 d-flex">
-            <button class="btn btn-raised ml-auto" [routerLink]="['/dispute-system/raised-tickets/', orderID]">
-                Raise a ticket
-            </button>
+            <button class="btn btn-raised ml-auto" (click)="navigateAssignTicket()">Raise a ticket</button>
         </div>
     </div>
     <div class="row">
@@ -27,12 +25,7 @@
                                 <div class="questionContent" [innerHtml]="item.answer"></div>
                                 <p class="commonContent pt-4 pb-4 mb-0">
                                     Still need help?
-                                    <a
-                                        class="text-highlited"
-                                        routerLink="/ordermanagement/raise-ticket-form"
-                                        [queryParams]="{ id: orderID }"
-                                        >Click here</a
-                                    >
+                                    <a class="text-highlited" (click)="navigateAssignTicket()">Click here</a>
                                     to raise a ticket
                                 </p>
                             </div>
@@ -46,10 +39,7 @@
                     <div
                         class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 justify-content-end d-none d-sm-none d-md-block"
                     >
-                        <button
-                            class="btn btn-raised float-right"
-                            [routerLink]="['/dispute-system/raised-tickets/', orderID]"
-                        >
+                        <button class="btn btn-raised float-right" (click)="navigateAssignTicket()">
                             No, Raise a ticket
                         </button>
                         <button
@@ -68,10 +58,7 @@
                         >
                             Yes
                         </button>
-                        <button
-                            class="btn btn-raised flex-grow-1"
-                            [routerLink]="['/dispute-system/raised-tickets/', orderID]"
-                        >
+                        <button class="btn btn-raised flex-grow-1" (click)="navigateAssignTicket()">
                             No, Raise a ticket
                         </button>
                     </div>

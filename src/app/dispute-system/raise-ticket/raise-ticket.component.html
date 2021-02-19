@@ -1,1 +1,86 @@
-<p>raise-ticket works!</p>
+<div class="main-block">
+    <div class="row mb-3">
+        <div class="col-9">
+            <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
+        </div>
+        <div [formGroup]="searchForm" class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <input
+                type="text"
+                name="search"
+                class="search-raised w-100 m-0"
+                formControlName="searchField"
+                placeholder="{{ globals.languageJson?.search_name_role }}"
+            />
+        </div>
+    </div>
+    <div class="row">
+        <div [formGroup]="ticketForm" class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="col-12">
+                <span class="primary_txt">Raise a ticket</span>
+            </div>
+            <div class="col-12">
+                <div class="col-8 sewn-form-field">
+                    <label>Order ID #<span class="star">*</span></label>
+                    <input type="text" placeholder="product name" formControlName="orderID" pInputText />
+                    <small *ngIf="ticketForm.controls['orderID'].errors?.required" class="p-error"> Required </small>
+                </div>
+                <div class="col-4">
+                    <span
+                        class="raise-chng-ord fnt-muli"
+                        routerLink="/dispute-system/select-order"
+                        [queryParams]="{ id: orderID, orderType: orderType }"
+                    >
+                        <img src="/assets/images/shape-2.png" alt="" /> change order</span
+                    >
+                </div>
+            </div>
+            <div class="col-12 sewn-form-field">
+                <label>What can we help you with?<span class="star">*</span></label>
+                <p-dropdown
+                    [options]="helpTextArray"
+                    optionLabel="label"
+                    placeholder="Select subscription type"
+                    [style]="{ width: '100%' }"
+                    formControlName="dispute_type"
+                    optionValue="value"
+                ></p-dropdown>
+                <small *ngIf="ticketForm.controls['dispute_type'].errors?.required" class="p-error"> Required </small>
+            </div>
+            <div class="col-12 sewn-form-field">
+                <label>Why do you want to dispute the order?</label>
+                <p-dropdown
+                    [options]="reasonTextArray"
+                    optionLabel="label"
+                    placeholder="Select subscription type"
+                    [style]="{ width: '100%' }"
+                    formControlName="dispute_reason"
+                    optionValue="value"
+                ></p-dropdown>
+                <small *ngIf="ticketForm.controls['dispute_reason'].errors?.required" class="p-error"> Required </small>
+            </div>
+            <div class="col-12 sewn-form-field">
+                <label>Describe your problem<span class="star">*</span></label>
+                <textarea
+                    type="text"
+                    class="descriptionText-area"
+                    placeholder="Describe your problem"
+                    formControlName="description"
+                    pInputText
+                ></textarea>
+                <small *ngIf="ticketForm.controls['dispute_reason'].errors?.required" class="p-error"> Required </small>
+            </div>
+            <div class="col-12 sewn-form-field">
+                <label>Whats your solution to the problem? (Optional)</label>
+                <textarea
+                    type="text"
+                    class="descriptionText-area"
+                    placeholder="Describe your problem"
+                    formControlName="solution"
+                    pInputText
+                ></textarea>
+                <small *ngIf="ticketForm.controls['solution'].errors?.required" class="p-error"> Required </small>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"></div>
+    </div>
+</div>
