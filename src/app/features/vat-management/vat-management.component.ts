@@ -59,6 +59,7 @@ export class VatManagementComponent implements OnInit {
 				this.settingBreadCrumb(params.type);
 			} else {
 				this.selectedMobileTab = '';
+				// this.selectTabs();
 				this.settingBreadCrumb();
 			}
 		});
@@ -162,7 +163,11 @@ export class VatManagementComponent implements OnInit {
 		return this.details.controls;
 	}
 	selectTabs(){
-
+		if (this.selectedTab.index === 0){
+			this.selectMobileTab('VAT');
+		} else {
+			this.selectMobileTab('Shipment');
+		}
 	}
 
 	// Mobile view methods
@@ -173,7 +178,7 @@ export class VatManagementComponent implements OnInit {
 	getHeading(){
 		let header = 'Product Settings';
 		if (this.selectedMobileTab){
-			header = this.selectedMobileTab === 'VAT' ? 'VAT Management' : 'Shippment Details';
+			header = this.selectedMobileTab === 'VAT' ? 'VAT Management' : 'Shipment Details';
 		}
 		return header;
 	}

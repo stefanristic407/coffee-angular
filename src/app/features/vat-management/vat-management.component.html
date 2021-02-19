@@ -12,7 +12,7 @@
                     {{getDescription()}}
                 </p>
             </div>
-            <div class="col-md-3 d-sm-none d-md-block d-lg-none tabView">
+            <div class="col-md-3 d-sm-none d-md-block d-lg-none tabView" *ngIf="selectedMobileTab == 'Shipment'">
                 <button *ngIf="editshippingmode && shippData != null" type="button" class="fnt-14 fnt-muli fnt-700 send-invites edit-right" (click)="editShippingInfo()">
                     Edit
                 </button>
@@ -75,7 +75,7 @@
                                                                                 (detailsFormControl.name.touched) &&
                                                                                 detailsFormControl.name.errors?.required
                                                                             ">
-                                                        Shippment type is required
+                                                        Shipment type is required
                                                     </span>
                                                 </div>
                                             </div>
@@ -101,7 +101,7 @@
                                                         </div>
                                                         <span class="text-clrb1f fnt-14 fnt-muli"
                                                             *ngIf="(detailsFormControl.price.touched) && detailsFormControl.price.errors?.required">
-                                                            Shippment price is required
+                                                            Shipment price is required
                                                         </span>
                                                     </div>
                                                 </div>
@@ -262,7 +262,7 @@
                                             name="transcation_type" formControlName="name" />
                                         <span class="text-clrb1f fnt-14 fnt-muli"
                                         *ngIf="(detailsFormControl.name.touched) && detailsFormControl.name.errors?.required">
-                                            Shippment type is required
+                                            Shipment type is required
                                         </span>
                                     </div>
                                     <div class="col-sm-12 col-md-6 form-group sewn-form-field p-0">
@@ -281,7 +281,7 @@
                                         </div>
                                         <span class="text-clrb1f fnt-14 fnt-muli"
                                             *ngIf="(detailsFormControl.price.touched) && detailsFormControl.price.errors?.required">
-                                            Shippment price is required
+                                            Shipment price is required
                                         </span>
                                     </div>
                                     <div class="col-12 p-0">
