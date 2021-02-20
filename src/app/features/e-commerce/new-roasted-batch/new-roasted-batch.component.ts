@@ -79,8 +79,10 @@ export class NewRoastedBatchComponent implements OnInit {
                 this.getOrderDetails();
             }
             this.getRoastedBatch();
-        } else {
+        } else if (this.route.snapshot.queryParams['ordId']) {
             this.ordId = decodeURIComponent(this.route.snapshot.queryParams['ordId']);
+        } else {
+            this.ordId = 'select the order';
         }
         // if (this.globals.selected_order_id == undefined) {
         //     this.showDetails = false;

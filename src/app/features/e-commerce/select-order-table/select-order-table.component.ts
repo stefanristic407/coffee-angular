@@ -257,7 +257,7 @@ export class SelectOrderTableComponent implements OnInit {
         this.selectId = this.selectedOrder.id;
         const navigationExtras: NavigationExtras = {
             queryParams: {
-                ordId: this.selectId ? this.selectId : undefined,
+                ordId: this.selectId ? this.selectId : '',
             },
         };
         this.router.navigate(['/features/new-roasted-batch'], navigationExtras);

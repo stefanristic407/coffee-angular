@@ -153,14 +153,16 @@
 .order-details-clr {
     border-radius: 8px;
     background-color: #faf8f4;
-    padding: 1rem 2.2rem;
+    padding: 2rem 2.9rem;
 }
 
 .recent-time td {
-    padding: 1rem 1rem 1rem 2.5rem !important;
+    padding: 1rem 1rem 1rem 1.5rem !important;
     border: 1px solid #dddddd !important;
 }
-
+.recent-time .recent-data-ans {
+    padding: 1rem 1.6rem 1rem 2.5rem !important;
+}
 .btn-group {
     display: table;
 }
@@ -229,6 +231,8 @@ label span {
 }
 .profile-pic {
     border-radius: 100%;
+    width: 32px;
+    height: 32px;
 }
 
 .weightDiv {
@@ -251,4 +255,34 @@ label span {
 }
 .descriptionText-area {
     height: 6.25rem;
+}
+
+@media screen and (max-width: 767px) {
+    .order_details_card {
+        padding: 1rem 1rem 0.1rem 1rem;
+        background-color: #faf8f4;
+        border-radius: 4px;
+    }
+
+    .order_details_card table.mtable {
+        margin: 0.75rem;
+        width: calc(100% - 24px);
+    }
+    .order_details_card table.mtable td:first-child {
+        padding-left: 0;
+        width: 50%;
+    }
+    .order_details_card table.mtable td {
+        border-bottom: 1px dashed #d6d6d6;
+        padding: 16px 0 !important;
+        height: 50px !important;
+    }
+    .order_details_card table.mtable td:last-child {
+        padding-right: 0;
+        text-align: right;
+    }
+    .order_details_card table tr:last-child > td {
+        border-bottom: none;
+        padding: 16px 0 0 0 !important;
+    }
 }
