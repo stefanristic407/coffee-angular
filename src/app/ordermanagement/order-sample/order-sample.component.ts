@@ -1,4 +1,4 @@
-import { ServiceChatTypes } from './../../../models/service-chat';
+import { ServiceChatTypes } from '../../../models/order-chat';
 // AUTHOR : Sindhuja
 // PAGE DESCRIPTION : This page contains functions of Order Sample.
 import { Component, OnInit, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';

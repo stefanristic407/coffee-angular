@@ -1,9 +1,18 @@
+/* tslint:disable no-string-literal */
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import {} from '@models';
+import { OrderCharThreadListItem } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { WSOrganizationType, ThreadListItem, ThreadMembers, ChatMessage, IncomingChatMessage } from '@models';
+import {
+    WSOrganizationType,
+    ThreadListItem,
+    ThreadMembers,
+    ChatMessage,
+    IncomingChatMessage,
+    ServiceChatTypes,
+} from '@models';
 import { ChatHandlerService, GlobalsService, SocketService, UserserviceService } from '@services';
 @Component({
     selector: 'app-sewn-order-chat',
@@ -15,6 +24,11 @@ export class SewnOrderChatComponent implements OnInit {
     ORGANIZATION_ID: number | null = null;
     USER_ID: number | null = null;
     ORDER_ID: number | null = null;
+    SERVICE_CHAT_TYPE: ServiceChatTypes = null;
+
+    orderDetails: any;
+    threadList: OrderCharThreadListItem[] = [];
+    viewTickets = false;
 
     messageList: ChatMessage[] = [];
     SM: { [SubscriptionName: string]: Subscription } = {}; // Subscrition MAP object
@@ -38,12 +52,22 @@ export class SewnOrderChatComponent implements OnInit {
     constructor(
         private cookieService: CookieService,
         public globals: GlobalsService,
-        private socket: SocketService,
         public chatService: ChatHandlerService,
         private userService: UserserviceService,
+        private activateRoute: ActivatedRoute,
+        private socket: SocketService,
     ) {}
 
     ngOnInit(): void {
+        this.SM['resolvedData'] = this.activateRoute.data.subscribe((res) => {
+            this.threadList = res.threadList;
+            this.orderDetails = res.orderDetails;
+        });
+        this.SM['routeParam'] = this.activateRoute.params.subscribe((param) => {
+            this.ORDER_ID = parseInt(param.orderId, 10);
+            this.SERVICE_CHAT_TYPE = param.chatType;
+        });
+
         this.ORGANIZATION_ID = parseInt(this.cookieService.get('roaster_id'), 10) || null; // NOTE : Please check this on each portal;
         this.USER_ID = parseInt(this.cookieService.get('user_id'), 10) || null; // NOTE : Please check this on each portal;
 
@@ -55,6 +79,7 @@ export class SewnOrderChatComponent implements OnInit {
             console.log('Order chat Message: ORGANIZATION_ID is missing');
         }
         this.audioPlayer.load();
+        this.
     }
 
     getReadableTime(tTime: string = '') {
@@ -123,6 +148,14 @@ export class SewnOrderChatComponent implements OnInit {
             return `url(${profileImageUrl})`;
         } else {
             return `url(assets/images/profile.svg)`; // Placeholder image
+        }
+    }
+
+    ngOnDestroy() {
+        for (const name in this.SM) {
+            if (this.SM[name] && this.SM[name].unsubscribe) {
+                this.SM[name].unsubscribe();
+            }
         }
     }
 }
