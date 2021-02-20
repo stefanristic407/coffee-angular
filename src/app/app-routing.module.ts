@@ -52,7 +52,7 @@ export const routes: Routes = [
     },
     {
         path: 'error',
-        loadChildren: () => import('./error-module/error-module.module').then((m) => m.ErrorModuleModule),
+        loadChildren: () => import('./modules/error-module/error-module.module').then((m) => m.ErrorModuleModule),
     },
     { path: '**', redirectTo: 'auth' },
 ];
