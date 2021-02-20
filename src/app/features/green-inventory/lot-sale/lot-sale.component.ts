@@ -4,6 +4,7 @@ import { RoasterserviceService } from 'src/services/roasters/roasterservice.serv
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
     selector: 'app-lot-sale',
@@ -23,6 +24,8 @@ export class LotSaleComponent implements OnInit {
     status_label = '';
     saleDetailsPresent = false;
     readOnlyMode = false;
+    breadItems: any = [];
+    quantityUnitArray: any = [];
     constructor(
         public globals: GlobalsService,
         public route: ActivatedRoute,
@@ -30,21 +33,34 @@ export class LotSaleComponent implements OnInit {
         public cookieService: CookieService,
         private router: Router,
         private toasterService: ToastrService,
+        private fb: FormBuilder,
     ) {
         this.roaster_id = this.cookieService.get('roaster_id');
         this.route.params.subscribe((params) => {
             this.orderID = params.orderId;
         });
+        this.breadItems = [
+            { label: 'Home', routerLink: '/features/roaster-dashboard' },
+            { label: 'Inventory' },
+            { label: 'Green coffee management', routerLink: '/features/green-coffee-inventory' },
+            { label: 'Procured coffee', routerLink: `/features/procured-coffee/${this.orderID}` },
+            { label: `Order #${this.orderID}` },
+        ];
+        this.quantityUnitArray = [
+            { label: 'Bags', value: 'Bags' },
+            { label: 'Kgs', value: 'Kgs' },
+        ];
     }
+
     ngOnInit(): void {
         this.language();
-        this.saleInformation['name'] = '';
-        this.saleInformation['price'] = '';
-        this.saleInformation['price_unit'] = 'per kg';
-        this.saleInformation['quantity'] = '';
-        this.saleInformation['quantity_type'] = 'per kg';
-        this.saleInformation['minimum_purchase_quantity'] = '';
-        this.saleInformation['vat_rate'] = '';
+        this.saleInformation.name = '';
+        this.saleInformation.price = '';
+        this.saleInformation.price_unit = 'per kg';
+        this.saleInformation.quantity = '';
+        this.saleInformation.quantity_type = 'per kg';
+        this.saleInformation.minimum_purchase_quantity = '';
+        this.saleInformation.vat_rate = '';
         this.getProcuredOrderDetails();
         this.getSaleOrderDetails();
     }
@@ -56,12 +72,12 @@ export class LotSaleComponent implements OnInit {
         this.roasterService.getMarkForSaleDetails(this.roaster_id, this.orderID).subscribe(
             (response) => {
                 console.log(response);
-                if (response['success'] && response['result']) {
-                    this.saleInformation = response['result'];
+                if (response.success && response.result) {
+                    this.saleInformation = response.result;
                     this.saleDetailsPresent = true;
                     this.readOnlyMode = this.saleInformation && this.saleInformation.status === 'SOLD' ? true : false;
-                    this.order_status = response['result']['status'];
-                    this.status_label = this.formatStatus(response['result']['status']);
+                    this.order_status = response.result.status;
+                    this.status_label = this.formatStatus(response.result.status);
                 }
             },
             (err) => {
@@ -81,8 +97,8 @@ export class LotSaleComponent implements OnInit {
         this.roasterService.getProcuredCoffeeDetails(this.roaster_id, this.orderID).subscribe(
             (response) => {
                 console.log(response);
-                if (response['success'] && response['result']) {
-                    this.orderDetails = response['result'];
+                if (response.success && response.result) {
+                    this.orderDetails = response.result;
                 }
             },
             (err) => {
@@ -92,14 +108,14 @@ export class LotSaleComponent implements OnInit {
     }
     updateMarkForSale() {
         const data = this.saleInformation;
-        data['order_id'] = undefined;
-        data['initial_quantity'] = undefined;
-        data['quantity_count'] = undefined;
-        data['roaster_id'] = undefined;
-        data['status'] = undefined;
+        data.order_id = undefined;
+        data.initial_quantity = undefined;
+        data.quantity_count = undefined;
+        data.roaster_id = undefined;
+        data.status = undefined;
         this.roasterService.updateMarkForSale(this.roaster_id, this.orderID, data).subscribe(
             (response) => {
-                if (response && response['success']) {
+                if (response && response.success) {
                     this.toasterService.success('Details updated successfully');
                     this.router.navigate(['/features/green-coffee-inventory']);
                 }
@@ -113,7 +129,7 @@ export class LotSaleComponent implements OnInit {
         const status = { status: this.order_status };
         this.roasterService.updateMarkForSaleStatus(this.roaster_id, this.orderID, status).subscribe(
             (response) => {
-                if (response && response['success']) {
+                if (response && response.success) {
                     this.toasterService.success('Status updated successfully');
                     this.showDropdown = false;
                     this.status_label = this.formatStatus(this.order_status);

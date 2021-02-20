@@ -918,7 +918,7 @@ export class RoasterserviceService {
     }
 
     //upate Mark for Sale from Procured Coffee
-    updateMarkForSale(roaster_id: any, orderID, data) {
+    updateMarkForSale(roaster_id: any, orderID, data): Observable<any> {
         let obj = {};
         obj['method'] = 'PUT';
         obj['api_call'] = '/ro/' + roaster_id + '/procured-coffees/' + orderID + '/sale';
@@ -927,7 +927,7 @@ export class RoasterserviceService {
         return this.http.post(this.url, obj);
     }
     //upate Mark for Sale status
-    updateMarkForSaleStatus(roaster_id: any, orderID, data) {
+    updateMarkForSaleStatus(roaster_id: any, orderID, data): Observable<any> {
         let obj = {};
         obj['method'] = 'PUT';
         obj['api_call'] = '/ro/' + roaster_id + '/procured-coffees/' + orderID + '/sale/status';

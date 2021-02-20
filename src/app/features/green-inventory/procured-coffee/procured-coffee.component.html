@@ -283,10 +283,10 @@
                                                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                                     <div class="real-estate p-date">
                                                         <h6>12 Feb, 2020</h6>
-                                                        <h3>
-                                                            <span class="gray-text">Cup Score :</span>
+                                                        <p class="text-clr334 fnt-600 fnt-14">
+                                                            <span class="text-clr588 fnt-600 fnt-14">Cup Score :</span>
                                                             {{ orderDetails.cup_score ? orderDetails.cup_score : 'NA' }}
-                                                        </h3>
+                                                        </p>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4 col-md-4 col-sm-6">
@@ -294,18 +294,18 @@
                                                         <div class="p-photo">
                                                             <img
                                                                 class="img-procured"
-                                                                [src]="orderDetails?.estate_profile_image_thumbnail_url"
+                                                                [src]="orderDetails?.evaluator_dp_thumb"
                                                             />
                                                         </div>
 
-                                                        <h3>Estate owner</h3>
-                                                        <h6>
+                                                        <h3>
                                                             {{
-                                                                orderDetails.estate_owner
-                                                                    ? orderDetails.estate_owner
+                                                                orderDetails.evaluator_name
+                                                                    ? orderDetails.evaluator_name
                                                                     : 'NA'
                                                             }}
-                                                        </h6>
+                                                        </h3>
+                                                        <h6>Facilitator</h6>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4 col-md-4 col-sm-6 v-report">

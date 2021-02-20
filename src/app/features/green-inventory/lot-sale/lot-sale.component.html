@@ -18,51 +18,10 @@
             </section>
         </div>
 
-        <div class="bg-fff">
-            <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4 row web-sec">
-                <span id="title-breadcrumb-1" class="sr-only"></span>
-                <div class="col-lg-8">
-                    <ul class="bread-nav">
-                        <li class="b-cum">
-                            <a class="b-cum" routerLink="/features/welcome-aboard">{{ globals.languageJson?.home }}</a
-                            ><span class="padl-r" aria-hidden="true">
-                                <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
-                            </span>
-                        </li>
-
-                        <li class="b-cum">
-                            <a class="b-cum" routerLink="/features/green-coffee-inventory">{{
-                                globals.languageJson?.green_coffee_inventory
-                            }}</a
-                            ><span class="padl-r" aria-hidden="true">
-                                <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
-                            </span>
-                        </li>
-                        <li class="b-cum">
-                            <a class="b-cum" routerLink="/features/procured-coffee">Sourced Green Coffee</a
-                            ><span class="padl-r" aria-hidden="true">
-                                <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
-                            </span>
-                        </li>
-                        <li class="b-cum c-pink">Order #{{ orderDetails?.id }}</li>
-                    </ul>
-                </div>
-                <div class="col-lg-1"></div>
-                <!-- <div class="col-lg-2 pull-right margin-right-2rem">
-            <button type="submit" class="col-12 place-order btn">Save changes</button>
-        </div> -->
-            </nav>
+        <div class="main-block">
+            <p-breadcrumb [model]="breadItems"></p-breadcrumb>
 
             <section class="create-role-sec">
-                <!-- <div class="confirm-order mt-4 web-sec">
-            <div class="row">
-                <div class="col-12 col-md-12 col-lg-12">
-                    <h4 class="confirm-txt fnt-play">Confirm Order</h4>
-                    <div class="fill-txt">Your sample has been recieved and graded.</div>
-                    <div class="fill-txt">Please fill in the details to order the complete shipment</div>
-                </div>
-            </div>
-        </div> -->
                 <div class="row w-100 ml-0">
                     <div class="green_grading_cont">
                         <h1>Order #{{ orderDetails?.id }}</h1>
@@ -201,31 +160,6 @@
                 </div>
             </section>
             <section class="create-role-sec mt-48">
-                <!-- <div class="web-sec">
-                <div class="green_grading_cont">
-                    <h1>Sale Information</h1>
-                </div>
-                <div class="col-12 pull-left p-0 border-bottom-gray pb-24">Manage the price, quantity &
-                    delivery charges of coffee marked for sale</div>
-        </div>
-        <div class="row web-sec">
-            <div class="col-12">
-                <div class="col-lg-8 col-md-8 float-L">
-                    <div>
-                        cdfvdfgdf
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 float-L">
-                    <div>
-                        fdvsdvdsdg fdgsdfgdg
-                    </div>
-                </div>
-
-            </div>
-            <div>
-
-            </div>
-        </div> -->
                 <div class="row w-100 ml-0">
                     <div class="green_grading_cont w-100 border-bottom-gray">
                         <div class="float-left">

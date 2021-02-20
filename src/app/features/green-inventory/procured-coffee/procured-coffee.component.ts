@@ -86,9 +86,9 @@ export class ProcuredCoffeeComponent implements OnInit {
             this.orderID = params.orderId;
         });
         this.breadItems = [
-            { label: 'Home', routerLink: '/roaster-dashboard' },
+            { label: 'Home', routerLink: '/features/roaster-dashboard' },
             { label: 'Inventory' },
-            { label: 'Green coffee management', routerLink: '/green-coffee-inventory' },
+            { label: 'Green coffee management', routerLink: '/features/green-coffee-inventory' },
             { label: `Order #${this.orderID}` },
         ];
     }
@@ -127,6 +127,8 @@ export class ProcuredCoffeeComponent implements OnInit {
                     const result = response.result;
                     this.orderDetails.availability_name = result.name;
                     this.orderDetails.cup_score = result.cupping.cup_score;
+                    this.orderDetails.evaluator_name = result.cupping.evaluator_name;
+                    this.orderDetails.evaluator_dp_thumb = result.cupping.evaluator_dp_thumb;
                     this.orderDetails.altitude = result.min_altitude + '-' + result.max_altitude;
                     this.orderDetails.flavour_profile = result.flavours;
                     this.orderDetails.wet_mill = result.wet_milling.name;
