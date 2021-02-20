@@ -60,7 +60,6 @@ export class SelectOrderTableComponent implements OnInit {
     constructor(
         public router: Router,
         public cookieService: CookieService,
-        public dashboard: DashboardserviceService,
         private roasterService: RoasterserviceService,
         private toastrService: ToastrService,
         public globals: GlobalsService,
@@ -252,7 +251,8 @@ export class SelectOrderTableComponent implements OnInit {
         this.router.navigate(['/features/new-roasted-batch']);
     }
 
-    //select order table data
+    // select order table data
+
     getTableData() {
         this.tableValue = [];
         const postData: any = {};
@@ -271,20 +271,5 @@ export class SelectOrderTableComponent implements OnInit {
                 console.log(this.tableValue);
             }
         });
-
-        // this.roasterService.getEstateOrders(this.roasterId).subscribe(
-        // 	data => {
-        // 		console.log(data);
-        // 		if (data['success'] == true) {
-
-        // 				this.data = data['result'];
-        // 				console.log(this.data)
-
-        // 		}
-        // 		else {
-        // 			this.toastrService.error(this.globals.languageJson.error_message);
-        // 		}
-        // 	}
-        // )
     }
 }
