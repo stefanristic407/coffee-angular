@@ -1,7 +1,7 @@
 <div class="main-block">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex align-items-center">
-            <div class="back-href cursor-pointer">
+            <div class="back-href cursor-pointer" [routerLink]="['/dispute-system/raise-ticket/', orderID]">
                 <img class="back-arrow-butn mr-2" src="assets/images/do-back-arrow.svg" />
                 Back to ticket
             </div>
@@ -179,7 +179,11 @@
                                         }"
                                         >&#9679; {{ rowData['type'] }}</span
                                     >
-                                    <p-tableCheckbox class="float-right" [value]="rowData"></p-tableCheckbox>
+                                    <p-tableRadioButton
+                                        class="float-right"
+                                        [value]="rowData"
+                                        (onChange)="onSelect(rowData)"
+                                    ></p-tableRadioButton>
                                 </div>
                             </span>
                             <span *ngSwitchCase="'estate_name'" class="d-md-block">

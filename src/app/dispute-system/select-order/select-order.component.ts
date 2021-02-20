@@ -35,13 +35,16 @@ export class SelectOrderComponent implements OnInit {
         private roasterService: RoasterserviceService,
         private toastrService: ToastrService,
         public route: ActivatedRoute,
+        public activeRoute: ActivatedRoute,
     ) {}
 
     ngOnInit(): void {
         this.roasterID = this.cookieService.get('roaster_id');
         this.loadFilterValues();
         this.createRoasterTable();
-        //this.displayFilter = 10;
+        if (this.activeRoute.snapshot.queryParams.orderId) {
+            this.orderID = this.activeRoute.snapshot.queryParams.orderId;
+        }
     }
     createRoasterTable() {
         this.tableColumns = [

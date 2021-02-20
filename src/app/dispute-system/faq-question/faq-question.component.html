@@ -51,13 +51,7 @@
                         </button>
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3 d-flex d-sm-flex d-md-none">
-                        <button
-                            class="btn btn-stroked mr-3 flex-grow-1"
-                            [routerLink]="['/ordermanagement/order-booked/']"
-                            [queryParams]="{ id: orderID }"
-                        >
-                            Yes
-                        </button>
+                        <button class="btn btn-stroked mr-3 flex-grow-1" (click)="navigateAssignTicket()">Yes</button>
                         <button class="btn btn-raised flex-grow-1" (click)="navigateAssignTicket()">
                             No, Raise a ticket
                         </button>

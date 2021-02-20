@@ -46,7 +46,7 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'raise-ticket/:id',
+                path: 'raise-ticket/:orderId',
                 component: RaiseTicketComponent,
                 canActivate: [AuthGuard],
             },
