@@ -58,12 +58,12 @@
                                 <p-tabView styleClass="pb-3" [(activeIndex)]="selectedIndex">
                                     <p-tabPanel header="Micro roaster">
                                         <div class="pt-3">
-                                            <app-vat-micro-roaster> </app-vat-micro-roaster>
+                                            <app-vat-details feature="mr"> </app-vat-details>
                                         </div>
                                     </p-tabPanel>
                                     <p-tabPanel header="B2B e-commerce">
                                         <div class="pt-3">
-                                            <app-vat-b2b> </app-vat-b2b>
+                                            <app-vat-details feature="b2b_ecommerce"> </app-vat-details>
                                         </div>
                                     </p-tabPanel>
                                 </p-tabView>
@@ -307,12 +307,12 @@
                     <p-tabView styleClass="pb-4" [(activeIndex)]="selectedIndex">
                         <p-tabPanel header="Micro roaster">
                             <div class="pt-3">
-                                <app-vat-micro-roaster [mobile]="true"> </app-vat-micro-roaster>
+                                <app-vat-details [mobile]="true" feature="mr"> </app-vat-details>
                             </div>
                         </p-tabPanel>
                         <p-tabPanel header="B2B e-commerce">
                             <div class="pt-3">
-                                <app-vat-b2b [mobile]="true"> </app-vat-b2b>
+                                <app-vat-details [mobile]="true" feature="b2b_ecommerce"> </app-vat-details>
                             </div>
                         </p-tabPanel>
                     </p-tabView>
