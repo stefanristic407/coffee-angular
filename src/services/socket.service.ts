@@ -4,7 +4,7 @@ import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 import { CookieService } from 'ngx-cookie-service';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Subscription, Subject, BehaviorSubject } from 'rxjs';
-import { ChatUtil } from '@services';
+import { ChatUtil } from './chat/chat-util.service';
 import { distinct } from 'rxjs/operators';
 
 @Injectable({

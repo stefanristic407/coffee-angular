@@ -79,7 +79,6 @@ export class SewnOrderChatComponent implements OnInit {
             console.log('Order chat Message: ORGANIZATION_ID is missing');
         }
         this.audioPlayer.load();
-        this.
     }
 
     getReadableTime(tTime: string = '') {
