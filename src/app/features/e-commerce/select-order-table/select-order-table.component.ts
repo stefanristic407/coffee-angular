@@ -6,6 +6,7 @@ import { RoasterserviceService } from 'src/services/roasters/roasterservice.serv
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { GlobalsService } from 'src/services/globals.service';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-select-order-table',
@@ -19,12 +20,24 @@ export class SelectOrderTableComponent implements OnInit {
     estatetermOrigin: any;
     displayNumbers: any;
     selected: Date[];
-    rangeDates: any;
     showOrigin: boolean = true;
     showType: boolean = true;
     showStatus: boolean = true;
     showDisplay: boolean = true;
     odd: boolean = false;
+
+    originArray = [];
+    originFilter: any;
+    rangeDates: any;
+    displayArray = [];
+    displayFilter: any;
+    tableValue = [];
+    tableColumns = [];
+    selectedOrder: any;
+    roasterID: any;
+    totalCount = 0;
+    orderType: any;
+    orderID: any;
 
     @ViewChild(DataTableDirective, { static: false })
     datatableElement: DataTableDirective;
@@ -53,22 +66,6 @@ export class SelectOrderTableComponent implements OnInit {
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.data = {};
-        // this.data =
-        // 	[
-        //   { orderid: '1000', estatename: 'Finca La Pampa', dataordered: '24 Jan 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-',cuppingscore:'84.5' },
-        // { orderid: '1001', estatename: 'Gesha', dataordered: '21 Jan 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '297kg',cuppingscore:'88' },
-        // { orderid: '1002', estatename: 'Finca La Toboba', dataordered: '22 Apr 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '29kg',cuppingscore:'81.5' },
-        // { orderid: '1003', estatename: 'Asoproaaa', dataordered: '24 Apr 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '-', cuppingscore:'84.5' },
-        // { orderid: '1004', estatename: 'Cafe Directo', dataordered: '25 May 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-',cuppingscore:'85.5' },
-        // { orderid: '1005', estatename: 'La Isabela', dataordered: '26 May 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-',cuppingscore:'86' },
-        // { orderid: '1006', estatename: 'Finca La Pampa', dataordered: '24 Jan 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-', cuppingscore:'84.5' },
-        //     { orderid: '1007', estatename: 'Gesha', dataordered: '21 Jan 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '297kg',cuppingscore:'88' },
-        //     { orderid: '1008', estatename: 'Finca La Toboba', dataordered: '22 Apr 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '29kg',cuppingscore:'81.5' },
-        //     { orderid: '1009', estatename: 'Asoproaaa', dataordered: '24 Apr 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '-',cuppingscore:'84.5' },
-        //     { orderid: '1010', estatename: 'Cafe Directo', dataordered: '25 May 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-',cuppingscore:'85.5' },
-        //     { orderid: '1011', estatename: 'La Isabela', dataordered: '26 May 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-',cuppingscore:'86' },
-        // ];
-        // this.mainData = this.data;
     }
 
     ngOnInit(): void {
@@ -78,83 +75,78 @@ export class SelectOrderTableComponent implements OnInit {
         }
         this.appLanguage = this.globals.languageJson;
 
-        this.dtOptions = {
-            //ajax: this.data,
-            data: this.data,
-            pagingType: 'full_numbers',
-            pageLength: 10,
-            lengthMenu: [
-                [10, 25, 50, 100, -1],
-                [10, 25, 50, 100, 'All'],
-            ],
-            processing: true,
-            language: { search: '' },
-            columns: [
-                {
-                    title: '',
-                    className: 'select-checkbox',
-                    defaultContent: '<input type="radio" name="optradio" class="radio-box">',
-                },
-                {
-                    title: this.globals.languageJson.order_id,
-                    data: 'id',
-                },
-                {
-                    title: this.globals.languageJson.estate_name,
-                    data: 'estate_name',
-                },
-                {
-                    title: this.globals.languageJson.date_ordered,
-                    data: 'created_at',
-                },
-                {
-                    title: this.globals.languageJson.origin,
-                    data: 'origin',
-                },
-                {
-                    title: this.globals.languageJson.species,
-                    data: 'variety',
-                },
-
-                {
-                    title: this.globals.languageJson.quantity,
-                    data: 'quantity',
-                },
-
-                {
-                    title: this.globals.languageJson.cupping_score,
-                    data: 'quantity_count',
-                },
-            ],
-            // createdRow: (row: Node, data: any, index: number) => {
-            // 	const self = this;
-            // 	if($(row).children('td.typeoforderclass').html() == "Booked"){
-            // 		$(row).children('td.typeoforderclass').html('<span class="typeoforder-Booked">&#9679; Booked</span>');
-
-            // 	}
-            // 	if($(row).children('td.typeoforderclass').html() == "Sample"){
-            // 		$(row).children('td.typeoforderclass').html('<span class="typeoforder-Sample">&#9679; Sample</span>');
-
-            // 	}
-            // 	if($(row).children('td.typeoforderclass').html() == "Pre-Booked"){
-            // 		$(row).children('td.typeoforderclass').html('<span class="typeoforder-Pre-Booked">&#9679; Pre-Booked</span>');
-
-            // 	}
-            // },
-        };
         this.estatetermStatus = '';
         this.estatetermOrigin = '';
         this.estatetermType = '';
         this.displayNumbers = '10';
-        $(document).ready(function () {
-            $('.dataTables_length').ready(function () {
-                $('.dataTables_length').hide();
-                $('.dataTables_info').hide();
-                $('#DataTables_Table_0_processing').hide();
-            });
-        });
+        this.getTableData(); //calling estate table data onload
 
-        this.getEstateOrdersData(); //calling estate table data onload
+        this.loadFilterValues();
+        this.createRoasterTable();
+    }
+
+    createRoasterTable() {
+        this.tableColumns = [
+            {
+                field: 'id',
+                header: 'Order ID',
+                sortable: false,
+                width: 7,
+            },
+            {
+                field: 'estate_name',
+                header: 'Estate name',
+                sortable: false,
+                width: 14,
+            },
+            {
+                field: 'created_at',
+                header: 'Date ordered',
+                width: 10,
+            },
+            {
+                field: 'origin',
+                header: 'Origin',
+                sortable: false,
+                width: 10,
+            },
+            {
+                field: 'species',
+                header: 'Variety',
+                sortable: false,
+                width: 10,
+            },
+
+            {
+                field: 'quantity',
+                header: 'Quantity',
+                sortable: false,
+                width: 8,
+            },
+
+            {
+                field: 'cup_score',
+                header: 'Cupping Score',
+                sortable: false,
+                width: 10,
+            },
+        ];
+    }
+
+    filterCall() {
+        this.getTableData();
+    }
+
+    loadFilterValues() {
+        this.originArray = this.globals.countryList;
+        this.displayArray = [
+            { label: '10', value: 10 },
+            { label: '20', value: 20 },
+            { label: '50', value: 50 },
+        ];
+    }
+    onSelect(orderData) {
+        console.log(orderData);
     }
 
     //  Function Name : Check box function.
@@ -241,26 +233,7 @@ export class SelectOrderTableComponent implements OnInit {
             document.getElementById('origin_id').style.border = '1px solid #d6d6d6';
         }
     }
-    //  toggleType() {
-    //   this.showType = !this.showType;
-    //   if(this.showType==false){
-    // 	document.getElementById('type_id').style.border="1px solid #30855c";
-    // }
-    // else{
-    // 	document.getElementById('type_id').style.border="1px solid #d6d6d6";
 
-    // }
-    // }
-    // toggleStatus() {
-    // 	this.showStatus = !this.showStatus;
-    // 	if(this.showStatus==false){
-    // 	  document.getElementById('status_id').style.border="1px solid #30855c";
-    //   }
-    //   else{
-    // 	  document.getElementById('status_id').style.border="1px solid #d6d6d6";
-
-    //   }
-    //   }
     toggleDisplay() {
         this.showDisplay = !this.showDisplay;
         if (this.showDisplay == false) {
@@ -279,24 +252,24 @@ export class SelectOrderTableComponent implements OnInit {
         this.router.navigate(['/features/new-roasted-batch']);
     }
 
-    //select order table data
-    getEstateOrdersData() {
-        this.roasterService.getEstateOrders(this.roasterId).subscribe((data) => {
-            console.log(data);
-            if (data['success'] == true) {
-                // if (data['result'] == null || data['result'].length == 0) {
-                // 	this.hideTable = true ;
-                // }
-                // else {
-                // 	this.hideTable = false;
-                this.data = data['result'];
-                console.log(this.data);
-                // this.mainData = this.data
-                // }
-                // this.estateOrdersActive++;
-            } else {
-                // this.estateOrdersActive++;
-                this.toastrService.error(this.globals.languageJson.error_message);
+    // select order table data
+
+    getTableData() {
+        this.tableValue = [];
+        const postData: any = {};
+        postData.origin = this.originFilter ? this.originFilter : '';
+        postData.per_page = this.displayFilter ? this.displayFilter : 1000;
+        postData.start_date = '';
+        postData.end_date = '';
+        if (this.rangeDates && this.rangeDates.length === 2) {
+            postData.start_date = moment(this.rangeDates[0], 'DD/MM/YYYY').format('YYYY-MM-DD');
+            postData.end_date = moment(this.rangeDates[1], 'DD/MM/YYYY').format('YYYY-MM-DD');
+        }
+        this.roasterService.getRoastedOrders(this.roasterId, postData).subscribe((data: any) => {
+            if (data.success && data.result) {
+                this.totalCount = data.result_info.total_count;
+                this.tableValue = data.result;
+                console.log(this.tableValue);
             }
         });
     }

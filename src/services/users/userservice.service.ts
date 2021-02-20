@@ -635,7 +635,7 @@ export class UserserviceService {
         };
         return this.http.put(this.putUrl, data);
     }
-    addRoastingProfile(roaster_id: any, body: any) {
+    addRoastingProfile(roaster_id: any, body: any): Observable<any> {
         const data = {
             api_call: `/ro/${roaster_id}/roasting-profile`,
             token: this.cookieService.get('Auth'),
@@ -644,7 +644,7 @@ export class UserserviceService {
         };
         return this.http.post(this.roasterUrl, data);
     }
-    getRoastingProfileDetail(roaster_id: any, id: any) {
+    getRoastingProfileDetail(roaster_id: any, id: any): Observable<any> {
         const data = {
             api_call: `/ro/${roaster_id}/roasting-profile/${id}`,
             token: this.cookieService.get('Auth'),
@@ -652,7 +652,7 @@ export class UserserviceService {
         };
         return this.http.post(this.roasterUrl, data);
     }
-    updateRoastingProfileDetail(roaster_id: any, id: any, body: any) {
+    updateRoastingProfileDetail(roaster_id: any, id: any, body: any): Observable<any> {
         const data = {
             api_call: `/ro/${roaster_id}/roasting-profile/${id}`,
             token: this.cookieService.get('Auth'),

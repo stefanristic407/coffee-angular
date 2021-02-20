@@ -1,3 +1,5 @@
+@import 'primeng-table';
+
 .border-total {
     border-radius: 20px;
     border: solid 1px #d6d6d6;
@@ -96,21 +98,21 @@ tr:last-child {
     top: -9px !important;
 }
 
-.b-check:hover input~.checkmark {
+.b-check:hover input ~ .checkmark {
     background-color: #fff;
 }
 
-.b-check input:checked~.checkmark {
+.b-check input:checked ~ .checkmark {
     background-color: #30855c;
 }
 
 .checkmark:after {
-    content: "";
+    content: '';
     position: absolute;
     display: none;
 }
 
-.b-check input:checked~.checkmark:after {
+.b-check input:checked ~ .checkmark:after {
     display: block;
 }
 
@@ -171,4 +173,8 @@ tr:last-child {
 
 .check-middle-header .checkmark {
     top: -3px !important;
+}
+
+.p-datatable .p-datatable-tbody > tr > td:first-child {
+    padding-left: 0rem !important;
 }

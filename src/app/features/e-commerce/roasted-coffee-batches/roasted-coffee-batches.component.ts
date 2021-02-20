@@ -8,6 +8,8 @@ import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { GlobalsService } from 'src/services/globals.service';
 import { UserserviceService } from 'src/services/users/userservice.service';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { SharedServiceService } from '@app/shared/services/shared-service.service';
 
 @Component({
     selector: 'app-roasted-coffee-batches',
@@ -32,7 +34,24 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
     roasterId: any;
     batchId: string | number | boolean;
     modalRef: BsModalRef;
-    deleteBatchId: any;
+    deleteBatchId: '';
+    searchForm: FormGroup;
+    profileArray: any = [];
+    profileFilter;
+    roasterID: any = '';
+    tableColumns = [];
+    tableValue = [];
+    totalCount = 0;
+    termSearch = '';
+    selectedProfiles = [];
+    popupDisplay = false;
+
+    breadItems = [
+        { label: 'Home', routerLink: '/roaster-dashboard' },
+        { label: 'Inventory' },
+        { label: 'New roasted coffee batch' },
+    ];
+    ordId: any;
     constructor(
         public router: Router,
         public cookieService: CookieService,
@@ -41,20 +60,88 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
         private userService: UserserviceService,
         private modalService: BsModalService,
         public globals: GlobalsService,
+        private fb: FormBuilder,
+        public sharedService: SharedServiceService,
     ) {
         this.termStatus = '';
         this.termRole = '';
         this.roasterId = this.cookieService.get('roaster_id');
     }
 
-    openDeleteModal(template1: TemplateRef<any>, deleteId: any) {
-        this.modalRef = this.modalService.show(template1);
-        this.deleteBatchId = deleteId;
+    ngOnInit(): void {
+        this.sharedService.windowWidth = window.innerWidth;
+        if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
+            this.sharedService.isMobileView = true;
+        }
+        this.appLanguage = this.globals.languageJson;
+        this.searchForm = this.fb.group({
+            searchField: new FormControl({ value: '' }, Validators.compose([Validators.required])),
+        });
+        this.searchForm.setValue({ searchField: '' });
+        this.searchForm.controls.searchField.valueChanges.subscribe((value) => {
+            //   this.termSearch = value;
+            this.roasterCoffeeBatchsData();
+        });
+        this.loadFilterValues();
+        this.tableColumns = [
+            {
+                field: 'roast_batch_name',
+                header: 'Batch name',
+                sortable: false,
+                width: 12,
+            },
+            {
+                field: 'order_id',
+                header: 'Order ID',
+                sortable: false,
+                width: 8,
+            },
+            {
+                field: 'estate_name',
+                header: 'Estate name',
+                width: 15,
+            },
+            {
+                field: 'roaster_ref_no',
+                header: 'Roaster Ref. No.',
+                sortable: false,
+                width: 15,
+            },
+            {
+                field: 'created_at',
+                header: 'Created on',
+                sortable: false,
+                width: 10,
+            },
+            {
+                field: 'roasting_profile_quantity',
+                header: 'Quantity',
+                sortable: false,
+                width: 8,
+            },
+            {
+                field: 'roasting_profile_name',
+                header: 'Roasting profile',
+                sortable: false,
+                width: 15,
+            },
+            {
+                field: 'actions',
+                header: 'Actions',
+                sortable: false,
+                width: 15,
+            },
+        ];
     }
 
-    ngOnInit(): void {
-        this.roasterCoffeeBatchsData();
-        this.appLanguage = this.globals.languageJson;
+    loadFilterValues() {
+        this.profileArray = [
+            { label: 'Light', value: 'Light' },
+            { label: 'Light Medium', value: 'Light Medium' },
+            { label: 'Medium', value: 'Medium' },
+            { label: 'Medium Dark', value: 'Medium Dark' },
+            { label: 'Dark', value: 'Dark' },
+        ];
     }
 
     setTeamRole(term: any, roleId: any) {
@@ -91,56 +178,66 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
             document.getElementById('status_id').style.border = '1px solid #d6d6d6';
         }
     }
-    // Function Name : CheckAll
-    // Description: This function helps to check all roles of the role list.
-    checkAll(ev: any) {
-        this.mainData.forEach((x) => (x.state = ev.target.checked));
-    }
-
-    // Function Name : IsAllchecked
-    // Description: This function helps to check single role.
-    isAllChecked() {
-        return this.mainData.every((_) => _.state);
-    }
 
     // Table data
     roasterCoffeeBatchsData() {
-        this.roasterService.getRoasterCoffeeBatchs(this.roasterId).subscribe((data) => {
-            if (data['success'] == true) {
-                if (data['result'] == null || data['result'].length == 0) {
-                    this.odd = true;
-                    this.toastrService.error('Table Data is empty');
+        const postData: any = {};
+
+        postData.status = this.profileFilter ? this.profileFilter : '';
+        postData.name = this.termSearch ? this.termSearch : '';
+        postData.per_page = 100;
+        this.tableValue = [];
+        this.roasterService.getRoasterCoffeeBatchs(this.roasterId, postData).subscribe(
+            (data: any) => {
+                if (data.success) {
+                    this.tableValue = data.result;
                 } else {
-                    this.odd = false;
-                    this.mainData = data['result'];
+                    this.toastrService.error('Error while getting the roasted coffee batch list!');
                 }
-            } else {
-                this.odd = true;
-                this.toastrService.error('Error while getting the agreement list!');
-            }
-        });
+            },
+            (err) => {
+                this.toastrService.error('Error while getting the roasted coffee batch list!');
+            },
+        );
     }
 
     redirectToEdit(item) {
         this.batchId = item.id;
         this.globals.selected_order_id = item.order_id;
+        this.ordId = item.order_id;
+
         let navigationExtras: NavigationExtras = {
             queryParams: {
-                batchId: encodeURIComponent(this.batchId),
+                batchId: this.batchId ? this.batchId : undefined,
+                ordId: this.ordId ? this.ordId : undefined,
             },
         };
-
         this.router.navigate(['/features/new-roasted-batch'], navigationExtras);
     }
 
-    deleteRoastedBatch(deleteId: any) {
-        this.roasterService.deleteRoastedCoffeeBatch(this.roasterId, deleteId).subscribe((data) => {
-            if ((data['success'] = true)) {
-                this.toastrService.success('Roasted Coffee Batch deleted successfully');
-                this.roasterCoffeeBatchsData();
-            } else {
+    deleteRoastedBatch() {
+        this.roasterService.deleteRoastedCoffeeBatch(this.roasterId, this.deleteBatchId).subscribe(
+            (res) => {
+                if (res.success) {
+                    this.toastrService.success('Roasted Coffee Batch deleted successfully');
+                    this.roasterCoffeeBatchsData();
+                } else {
+                    this.toastrService.error('Error while deletign the roasting profile');
+                }
+                this.popupDisplay = false;
+            },
+            (err) => {
+                this.popupDisplay = false;
                 this.toastrService.error('Error while deletign the roasting profile');
-            }
-        });
+            },
+        );
+    }
+    filterCall() {
+        this.roasterCoffeeBatchsData();
+    }
+
+    openDeleteModal(deleteId: any) {
+        this.popupDisplay = true;
+        this.deleteBatchId = deleteId;
     }
 }

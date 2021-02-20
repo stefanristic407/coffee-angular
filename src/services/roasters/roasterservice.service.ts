@@ -592,22 +592,19 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
 
-    getRoastingProfile(roaster_id: any) {
+    getRoastingProfile(roaster_id: any, postData?) {
         var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/roasting-profile';
+        data['api_call'] = '/ro/' + roaster_id + '/roasting-profile?' + this.serlialise(postData);
         // data['params'] = params;
         data['token'] = this.cookieService.get('Auth');
         //  const params = new HttpParams().append( 'file_module', fileModule )
         console.log(data);
         return this.http.post(this.url, data);
     }
-    getRoasterCoffeeBatchs(roaster_id: any) {
+    getRoasterCoffeeBatchs(roaster_id: any, postData?) {
         var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/roasted-batches';
-        // data['params'] = params;
+        data['api_call'] = '/ro/' + roaster_id + '/roasted-batches?' + this.serlialise(postData);
         data['token'] = this.cookieService.get('Auth');
-        //  const params = new HttpParams().append( 'file_module', fileModule )
-        console.log(data);
         return this.http.post(this.url, data);
     }
     getSelectOrderListTable(roaster_id: any) {
@@ -649,16 +646,15 @@ export class RoasterserviceService {
         data['token'] = this.cookieService.get('Auth');
         return this.http.post(this.url, data);
     }
-    getRoasterOrders(roaster_id: any, postData?, orderType?) {
-        const data = {};
+
+    getRoastedOrders(roaster_id: any, postData?) {
+        var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/orders?' + this.serlialise(postData);
-        if (orderType == 'mr') {
-            data['api_call'] = '/ro/' + roaster_id + '/mr-orders?' + this.serlialise(postData);
-        }
         data['token'] = this.cookieService.get('Auth');
         return this.http.post(this.url, data);
     }
-    getRaisedTicketData(roaster_id: any, postData?, orderType?) {
+
+    getRaisedTicketData(roaster_id: any, orderType?) {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/disputes?' + this.serlialise(postData);
         if (orderType == 'MR') {
@@ -771,7 +767,7 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
 
-    deleteRoastedCoffeeBatch(roaster_id: any, batch_id: any) {
+    deleteRoastedCoffeeBatch(roaster_id: any, batch_id: any): Observable<any> {
         var data = {};
         data['api_call'] = `/ro/${roaster_id}/roasted-batches/${batch_id}`;
         data['token'] = this.cookieService.get('Auth');
@@ -862,7 +858,7 @@ export class RoasterserviceService {
     //E-com APIs-ends
 
     //Get Procured Coffees List
-    getProcuredCoffeeList(roaster_id: any, origin?, displayCount?, searchString?) {
+    getProcuredCoffeeList(roaster_id: any, origin?, displayCount?, searchString?): Observable<any> {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/procured-coffees';
         data['method'] = 'GET';

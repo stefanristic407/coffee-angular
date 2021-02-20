@@ -133,6 +133,34 @@
             }
         }
     }
+    .mobile-card-view {
+        .p-datatable table {
+            border-collapse: collapse;
+            table-layout: auto;
+            width: 100%;
+            border: 0px;
+        }
+    }
+    .mobile-card-view {
+        .p-datatable .p-datatable-tbody > tr {
+            border-bottom: 1px dashed #d6d6d6;
+            display: flow-root;
+            margin: 10px 0px 0px 0px;
+            border: solid 1px #ebebeb;
+            background-color: #ffffff;
+        }
+        .p-datatable-tbody > tr > td:first-child {
+            background-color: #f8f8f8;
+        }
+        .p-tabview .p-tabview-panels {
+            border: none;
+            padding: 16px;
+            background: none;
+        }
+        // .p-tabview .p-tabview-nav {
+        //     flex-wrap: wrap;
+        // }
+    }
 }
 
 .p-datatable .p-sortable-column:not(.p-highlight):hover,
