@@ -14,7 +14,6 @@ import { FeaturesComponent } from './features.component';
 import { HelpComponent } from './help/help.component';
 import { LoginSecurityComponent } from './login-security/login-security.component';
 import { MyprofileComponent } from './myprofile/myprofile.component';
-import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { PrivacySettingsComponent } from './privacy-settings/privacy-settings.component';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 import { ProfilePicComponent } from './profile-edit/profile-pic/profile-pic.component';
@@ -133,7 +132,7 @@ import { ProductDetailsComponent } from './e-commerce/product-details/product-de
 import { VarientDetailsComponent } from './e-commerce/varient-details/varient-details.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { RatingModule } from 'primeng/rating';
-import {ListboxModule} from 'primeng/listbox';
+import { ListboxModule } from 'primeng/listbox';
 
 @NgModule({
     declarations: [
@@ -141,7 +140,6 @@ import {ListboxModule} from 'primeng/listbox';
         RoasterOnboardingComponent,
         RoasterQuickSetupComponent,
         RoasterCompleteSetupComponent,
-        PagenotfoundComponent,
         FeaturesComponent,
         WelcomeAboardComponent,
         DashboardNotifyComponent,
@@ -267,7 +265,7 @@ import {ListboxModule} from 'primeng/listbox';
         MatProgressBarModule,
         SharedModule,
         NgxChartsModule,
-        ListboxModule
+        ListboxModule,
     ],
 })
 export class FeaturesModule {}
