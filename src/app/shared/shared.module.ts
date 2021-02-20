@@ -49,6 +49,7 @@ import { Ng2TelInputModule } from 'ng2-tel-input';
 
 import { CountryPipe } from './pipes/country/country.pipe';
 import { EstateBrandLinkPipe } from './pipes/link/estate-brand-link.pipe';
+import { ProfileLinkPipe } from './pipes/link/profile-link.pipe';
 import { RoasterBrandLinkPipe } from './pipes/link/roaster-brand-link.pipe';
 import { OrderRatingLinkPipe } from './pipes/link/order-rating-link.pipe';
 import { FileNamePipe } from './pipes/file-name.pipe';
@@ -171,6 +172,7 @@ const PIPES = [
     EstateBrandLinkPipe,
     FileNamePipe,
     MonthPipe,
+    ProfileLinkPipe,
     RoasterBrandLinkPipe,
     OrderRatingLinkPipe,
     OrgTypePipe,

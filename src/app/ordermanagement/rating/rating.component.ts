@@ -17,6 +17,7 @@ import { OrgType } from '@models';
 export class RatingComponent implements OnInit {
     roasterId: any;
     orgType: OrgType;
+    orgId: number;
     orderId: string;
     ownerName: string;
     companyImg: string;
@@ -41,7 +42,6 @@ export class RatingComponent implements OnInit {
             if (params.has('orgType') && params.has('orderId')) {
                 this.orgType = params.get('orgType') as OrgType;
                 this.orderId = params.get('orderId');
-                console.log(this.orgType, this.orderId);
                 this.getData();
             }
         });
@@ -60,8 +60,10 @@ export class RatingComponent implements OnInit {
         this.roasterSrv.getViewOrderDetails(this.roasterId, this.orderId, this.orgType).subscribe((res: any) => {
             if (res.success) {
                 if (this.orgType === OrgType.ESTATE) {
+                    this.orgId = res.result.estate_id;
                     this.getEstate(res.result.estate_id);
                 } else if (this.orgType === OrgType.MICRO_ROASTER) {
+                    this.orgId = res.result.micro_roaster_id;
                     this.getMicroRoaster(res.result.micro_roaster_id);
                 }
             } else {
