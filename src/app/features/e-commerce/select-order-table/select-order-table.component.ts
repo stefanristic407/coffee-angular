@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { DashboardserviceService } from 'src/services/dashboard/dashboardservice.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
@@ -12,7 +12,7 @@ import * as moment from 'moment';
 @Component({
     selector: 'app-select-order-table',
     templateUrl: './select-order-table.component.html',
-    styleUrls: ['./select-order-table.component.css'],
+    styleUrls: ['./select-order-table.component.scss'],
 })
 export class SelectOrderTableComponent implements OnInit {
     estateterm: any;
@@ -57,6 +57,7 @@ export class SelectOrderTableComponent implements OnInit {
     };
     appLanguage?: any;
     selectedEntry: any;
+    selectId: any;
 
     constructor(
         public router: Router,
@@ -287,5 +288,14 @@ export class SelectOrderTableComponent implements OnInit {
         // 		}
         // 	}
         // )
+    }
+    onContinue() {
+        this.selectId = this.selectedOrder.id;
+        const navigationExtras: NavigationExtras = {
+            queryParams: {
+                ordId: this.selectId ? this.selectId : undefined,
+            },
+        };
+        this.router.navigate(['/features/new-roasted-batch'], navigationExtras);
     }
 }

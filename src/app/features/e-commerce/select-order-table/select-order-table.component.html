@@ -6,11 +6,11 @@
                 Back to ticket
             </div>
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 d-none d-sm-none d-md-flex">
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 d-none d-sm-none d-md-flex" *ngIf="selectedOrder">
             <button class="btn btn-stroked ml-auto">
                 {{ globals.languageJson?.cancel }}
             </button>
-            <button class="btn btn-raised ml-3">Continue</button>
+            <button class="btn btn-raised ml-3" (click)="onContinue()">Continue</button>
         </div>
     </div>
     <div class="row mt-4">
@@ -102,6 +102,16 @@
                             *ngFor="let col of columns"
                             [ngSwitch]="col.field"
                             [style.width]="col.width ? col.width + '%' : '30%'"
+                            [ngClass]="{
+                                'd-none': col.field == 'created_at' || col.field == 'price' || col.field == 'type',
+                                'd-sm-none': col.field == 'created_at' || col.field == 'price' || col.field == 'type',
+                                'd-md-table-cell':
+                                    col.field == 'created_at' || col.field == 'price' || col.field == 'type',
+                                nameMobileHeader: col.field == 'id',
+                                mobileBorderClass:
+                                    col.field == 'estate_name' || col.field == 'origin' || col.field == 'species',
+                                mobileBottom: col.field == 'status'
+                            }"
                         >
                             <span *ngSwitchCase="'id'" class="d-md-block">
                                 <span class="d-none d-sm-none d-md-block tableDataFont">{{ rowData[col.field] }}</span>
