@@ -900,7 +900,7 @@ export class RoasterserviceService {
         return this.http.post(this.url, obj);
     }
     //Get MarkFor Sale order details
-    getMarkForSaleDetails(roaster_id: any, orderID) {
+    getMarkForSaleDetails(roaster_id: any, orderID): Observable<any> {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/procured-coffees/' + orderID + '/sale';
         data['token'] = this.cookieService.get('Auth');
@@ -1038,7 +1038,7 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
     //Get cupping report details
-    getCuppingReportDetails(harvest_id: any) {
+    getCuppingReportDetails(harvest_id: any): Observable<any> {
         var data = {};
         data['api_call'] = '/general/harvests/' + harvest_id + '/cupping-report';
         data['method'] = 'GET';

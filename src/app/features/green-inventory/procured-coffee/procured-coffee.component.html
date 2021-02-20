@@ -46,7 +46,13 @@
                             <div class="row avaialble-mob m-1">
                                 <h2 class="fnt-18 fnt-bold text-clr334 pl-3">Order #{{ orderDetails?.id }}</h2>
                                 <div class="col-sm-12">
-                                    <button class="btn-raised w-100">Mark for sale</button>
+                                    <button
+                                        class="btn-raised w-100"
+                                        routerLink="/features/coffee-sale"
+                                        [queryParams]="{ orderId: orderDetails?.id }"
+                                    >
+                                        Mark for sale
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -204,10 +210,10 @@
                                                                     }}
                                                                 </p>
                                                             </li>
-                                                            <div class="mt-2">
-                                                                <p class="view-report m-0">View more details</p>
-                                                            </div>
                                                         </ul>
+                                                        <div class="mt-2">
+                                                            <p class="view-report m-0">View more details</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </p-tabPanel>
