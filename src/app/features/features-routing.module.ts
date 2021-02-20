@@ -308,7 +308,7 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'procured-coffee',
+                path: 'procured-coffee/:orderId',
                 component: ProcuredCoffeeComponent,
                 canActivate: [AuthGuard],
             },

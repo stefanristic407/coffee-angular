@@ -228,7 +228,7 @@ export class MarkedSaleComponent implements OnInit {
 
     onEdit(item) {
         let link = [];
-        link = [`/features/lot-sale/${item.id}`];
+        link = [`/features/lot-sale/${item.order_id}`];
         return link;
     }
 }

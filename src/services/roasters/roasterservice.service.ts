@@ -891,7 +891,7 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
     //Get Procured Coffees Details
-    getProcuredCoffeeDetails(roaster_id: any, orderID) {
+    getProcuredCoffeeDetails(roaster_id: any, orderID): Observable<any> {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/orders/' + orderID;
         data['token'] = this.cookieService.get('Auth');
@@ -935,7 +935,7 @@ export class RoasterserviceService {
         return this.http.post(this.url, obj);
     }
     //Get Harvest GC available details
-    getGCAvailableDetails(harvest_id: any) {
+    getGCAvailableDetails(harvest_id: any): Observable<any> {
         var data = {};
         data['api_call'] = '/general/availability/gc/' + harvest_id;
         data['token'] = this.cookieService.get('Auth');
@@ -1166,6 +1166,16 @@ export class RoasterserviceService {
             token: this.cookieService.get('Auth'),
             method: 'POST',
             data: { slug },
+        };
+        return this.http.post(this.url, data);
+    }
+
+    // Get the Roaster order notes list
+    getRoasterNotes(roasterId, orderId): Observable<any> {
+        const data = {
+            api_call: `/ro/${roasterId}/orders/${orderId}/notes`,
+            token: this.cookieService.get('Auth'),
+            method: 'GET',
         };
         return this.http.post(this.url, data);
     }

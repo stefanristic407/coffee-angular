@@ -3,7 +3,7 @@
 }
 
 .g-box .ng-star-inserted {
-    border-radius: 0px!important;
+    border-radius: 0px !important;
 }
 
 .source-cont-available {
@@ -36,7 +36,7 @@
 
 .g-thumbs-container,
 #basic-test {
-    background-color: #FFF !important;
+    background-color: #fff !important;
 }
 
 .pro-logo {
@@ -108,9 +108,9 @@
 
 .estate-focus ul {
     margin-bottom: 0;
-    padding: 24px;
-    border: 1px solid #ebebeb;
-    border-radius: 4px;
+    padding: 10px;
+    // border: 1px solid #ebebeb;
+    // border-radius: 4px;
 }
 
 .estate-focus ul li {
@@ -118,6 +118,10 @@
     float: left;
     border-bottom: 1px dashed #eeeeee;
     padding: 16px 0;
+
+    &:last-child {
+        border-bottom: none;
+    }
 }
 
 .estate-focus ul li:last-child {
@@ -154,7 +158,7 @@
 }
 
 .cetify-logo ul li img {
-    width: 100%
+    width: 100%;
 }
 
 .prodcoffee {
@@ -203,7 +207,7 @@
 }
 
 .p-gal img {
-    width: 100%
+    width: 100%;
 }
 
 .profile-des h4 {
@@ -326,13 +330,7 @@
     top: auto;
 }
 
-
 /*Product Details*/
-
-.prodect-details {
-    /* padding: 24px;
-    border: 1px solid #ebebeb; */
-}
 
 .p-h2 {
     color: #232334;
@@ -355,8 +353,6 @@
 }
 
 .produect-pro {
-    border-radius: 2px;
-    border: solid 1px #747588;
     padding: 24px;
 }
 
@@ -401,7 +397,7 @@
 }
 
 .estate-focus .sugar-prod li:before {
-    content: "";
+    content: '';
     position: absolute;
     left: 10px;
     top: 11px;
@@ -486,7 +482,7 @@ ul li {
     display: none;
 }
 
-@media (max-width:640px) {
+@media (max-width: 640px) {
     .source-cont-available {
         padding: 24px 8px;
     }
@@ -563,7 +559,7 @@ ul li {
     }
     .s-certified {
         width: 33%;
-        display: inline-block;
+        // display: inline-block;
         float: right;
     }
     .s-certified ul li {
@@ -667,74 +663,8 @@ ul li {
     }
 }
 
-.nav-pills {
-    border-bottom: 1px solid #dddddd;
-}
-
-li.nav-item {
-    margin-right: 7%;
-    position: relative;
-    top: .25rem;
-}
-
-.nav-pills .nav-link {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    color: #232334;
-    padding-left: 0px;
-    padding-right: 0px;
-}
-
-.nav-pills .nav-link.active,
-.nav-pills .show>.nav-link {
-    color: #232334;
-    font-size: 14px;
-    font-weight: 600;
-    background-color: unset !important;
-    border-radius: unset;
-}
-
-.nav-pills .nav-link.active {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    color: #30855c;
-}
-
-.nav-pills .nav-link.active {
-    position: relative;
-    padding-right: 0px;
-    padding-left: 0px;
-}
-
-.nav-link {
-    display: block;
-    padding: 0rem 1rem .5rem 1rem;
-}
-
-li.nav-item {
-    margin-right: 3%;
-    position: relative;
-    top: .25rem;
-}
-
-.nav-pills .nav-link.active:before {
-    content: '';
-    width: 100%;
-    height: 2px;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    text-align: center;
-    margin: auto;
-    top: 80%;
-    transform: translate(-50%);
-    border-radius: 1.5px;
-    background-color: #30855c;
-}
-
-.mixups-tabs {
-    background-color: #ffffff;
-    overflow: hidden;
+.border-class {
+    border: 1px solid #ebebeb;
+    border-radius: 2px;
+    padding: 10px;
 }
