@@ -16,7 +16,7 @@
                         <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 1440 x 465 px</p>
 
                         <div class="w-100 sewn-form-field mb-4 mb-md-45">
-                            <app-uploader formControlName="banner_file"></app-uploader>
+                            <app-uploader formControlName="banner_file" [width]="1440" [height]="465"></app-uploader>
                             <small *ngIf="infoForm.controls.banner_file.errors?.required" class="p-error">
                                 Please upload
                             </small>
@@ -183,39 +183,42 @@
                             cdkDrag
                             [cdkDragDisabled]="editQuestion"
                         >
-                            <div class="d-flex flex-wrap align-items-center" [id]="'heading' + i">
-                                <div
-                                    class="question-wrap w-mob-100 flex-md-fill d-flex align-items-center justify-content-between br-main br-4 collapsed"
-                                    data-toggle="collapse"
-                                    [attr.data-target]="'#collapse' + i"
-                                    aria-expanded="true"
-                                    [attr.aria-controls]="'collapse' + i"
-                                >
-                                    <div class="d-flex align-items-center overflow-hidden">
-                                        <img src="assets/images/menu-gray.svg" alt="move" class="move-icon" />
-                                        <h2 class="fnt-14 lh-normal fnt-600 text-clr588 ellipsis ml-md-1 mb-0">
-                                            {{ saveddata.question }}
-                                        </h2>
+                            <div class="d-md-flex align-items-start">
+                                <div class="flex-fill">
+                                    <div class="d-flex flex-wrap align-items-center" [id]="'heading' + i">
+                                        <div
+                                            class="question-wrap w-100 d-flex align-items-center br-main br-4 collapsed"
+                                            data-toggle="collapse"
+                                            [attr.data-target]="'#collapse' + i"
+                                            aria-expanded="true"
+                                            [attr.aria-controls]="'collapse' + i"
+                                        >
+                                            <div class="w-100 d-flex align-items-center overflow-hidden">
+                                                <img src="assets/images/menu-gray.svg" alt="move" class="move-icon" />
+                                                <h2 class="fnt-14 lh-normal fnt-600 text-clr588 ellipsis ml-md-1 mb-0">
+                                                    {{ saveddata.question }}
+                                                </h2>
+                                            </div>
+                                            <span class="pi pi-chevron-up float-right"></span>
+                                        </div>
                                     </div>
-                                    <span class="pi pi-chevron-down float-right"></span>
+
+                                    <div
+                                        [id]="'collapse' + i"
+                                        class="collapse"
+                                        [attr.aria-labelledby]="'heading' + i"
+                                        data-parent="#accordionExample"
+                                    >
+                                        <div class="answer-wrap fnt-14 lh-normal fnt-600 text-clr334 br-main">
+                                            {{ saveddata.answer }}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="w-mob-100 d-flex justify-content-end mt-2 mt-md-0">
+                                <div class="btn-wrap w-mob-100 d-flex justify-content-end">
                                     <span class="brown-cta ml-3" (click)="refreshQuestionForm(i)"> Edit </span>
                                     <span class="brown-cta ml-3" (click)="deleteFAQ(saveddata)"> Delete </span>
                                 </div>
                             </div>
-
-                            <div
-                                [id]="'collapse' + i"
-                                class="collapse"
-                                [attr.aria-labelledby]="'heading' + i"
-                                data-parent="#accordionExample"
-                            >
-                                <div class="answer-wrap">
-                                    {{ saveddata.answer }}
-                                </div>
-                            </div>
-
                             <div *ngIf="selQuestion == i" class="mt-4">
                                 <ng-container *ngTemplateOutlet="faqForm; context: { faqIdx: i }"></ng-container>
                             </div>

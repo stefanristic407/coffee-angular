@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { from } from 'rxjs';
-import { PagenotfoundComponent } from '../features/pagenotfound/pagenotfound.component';
 import { AuthComponent } from './auth.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
@@ -14,57 +13,57 @@ import { PageNotFoundComponent } from '../error-module/page-not-found/page-not-f
 import { SignUpComponent } from './sign-up/sign-up.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: AuthComponent,
-    children: [
-      {
-        path: 'login',
-        component: LoginComponent
-      },
-      {
-        path: 'forgot-password',
-        component: ForgotPasswordComponent
-      },
-      {
-        path: 'verify-otp',
-        component: VerifyOtpComponent
-      },
-      {
-        path: 'change-password',
-        component: ChangePasswordComponent
-      },
-      {
-        path: 'setup',
-        component: SetupComponent
-      },
-      {
-        path: 'update-password',
-        component: UpdatePasswordComponent
-      },
-      {
-        path: 'privacy-policy',
-        component: PrivacyPolicyComponent
-      },
-      {
-        path: 'sign-up',
-        component: SignUpComponent
-      },
-      {
+    {
         path: '',
-        redirectTo: 'login',
-        pathMatch: 'full',
-      },
-      {
-        path: '**',
-        component: PageNotFoundComponent
-      }
-    ]
-  }
+        component: AuthComponent,
+        children: [
+            {
+                path: 'login',
+                component: LoginComponent,
+            },
+            {
+                path: 'forgot-password',
+                component: ForgotPasswordComponent,
+            },
+            {
+                path: 'verify-otp',
+                component: VerifyOtpComponent,
+            },
+            {
+                path: 'change-password',
+                component: ChangePasswordComponent,
+            },
+            {
+                path: 'setup',
+                component: SetupComponent,
+            },
+            {
+                path: 'update-password',
+                component: UpdatePasswordComponent,
+            },
+            {
+                path: 'privacy-policy',
+                component: PrivacyPolicyComponent,
+            },
+            {
+                path: 'sign-up',
+                component: SignUpComponent,
+            },
+            {
+                path: '',
+                redirectTo: 'login',
+                pathMatch: 'full',
+            },
+            {
+                path: '**',
+                component: PageNotFoundComponent,
+            },
+        ],
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
-export class AuthRoutingModule { }
+export class AuthRoutingModule {}

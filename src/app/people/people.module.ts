@@ -10,7 +10,6 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { DialogModule } from 'primeng/dialog';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { AddMembersComponent } from './add-members/add-members.component';
-import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { PeopleRoutingModule } from './people-routing.module';
 import { PeopleComponent } from './people.component';
 
@@ -29,7 +28,6 @@ import { AddTeamsModule } from './../add-teams/add-teams.module';
     declarations: [
         PeopleComponent,
         AddMembersComponent,
-        PagenotfoundComponent,
         CustomerManagementComponent,
         MicroRoasterComponent,
         HoReCaComponent,

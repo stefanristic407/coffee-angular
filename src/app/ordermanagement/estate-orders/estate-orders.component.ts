@@ -3,7 +3,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { DashboardserviceService } from 'src/services/dashboard/dashboardservice.service';
 import { DataTableDirective, DataTablesModule } from 'angular-datatables';
 import { data } from 'jquery';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
@@ -68,7 +67,6 @@ export class EstateOrdersComponent implements OnInit {
     constructor(
         public router: Router,
         public cookieService: CookieService,
-        public dashboard: DashboardserviceService,
         private roasterService: RoasterserviceService,
         private toastrService: ToastrService,
         public modalService: BsModalService,

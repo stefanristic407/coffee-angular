@@ -77,10 +77,21 @@
     pointer-events: none;
     opacity: 0.4;
 }
+@media only screen and (max-width: 1240px) {
+    .recoveryDiv {
+        display: none !important;
+    }
+    .recoveryTablet {
+        display: block !important;
+    }
+    .contentDiv {
+        height: auto;
+    }
+}
 @media all and (max-width: 767px) {
     .editBorder {
         border: 0px !important;
-        padding: 1rem;
+        padding: 0px;
         border-radius: 4px;
     }
     .userDiv {

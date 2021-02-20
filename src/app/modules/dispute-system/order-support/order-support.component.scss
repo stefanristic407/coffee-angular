@@ -1,0 +1,53 @@
+@import 'variables';
+.search-raised {
+    height: 38px;
+    background-color: #fff;
+    background: url(/assets/images/search-user.png) no-repeat scroll 11px 11px;
+    background-size: 16px 16px;
+    padding-left: 41px;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: normal;
+    color: #232334;
+    margin-left: 4.7rem;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+}
+.dashboard-button {
+    height: 150px;
+    width: 100%;
+    border-radius: 2px;
+    border: solid 1px #ebebeb;
+    background-color: #ffffff;
+    padding-left: 30px;
+    padding-right: 30px;
+    text-align: center;
+}
+.dashboard-button:hover {
+    border: 1px solid $primary-color;
+}
+.logo-img {
+    bottom: 2px;
+    position: relative;
+}
+.text-highlited {
+    font-weight: 700;
+    color: #80460b !important;
+    cursor: pointer;
+}
+.text-highlited:hover {
+    text-decoration: underline !important;
+}
+.mobileCardDiv {
+    padding: 12px;
+    border: 1px solid #d6d6d6;
+}
+@media all and (max-width: 767px) {
+    .logo-img {
+        bottom: 2px;
+        position: relative;
+        width: 24px;
+        height: 24px;
+    }
+}

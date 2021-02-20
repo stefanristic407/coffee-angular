@@ -1,4 +1,5 @@
-import { OrderChatThreadResolver } from '@services';
+import { CommonModule } from '@angular/common';
+import { OrderChatThreadResolver, OrderDetailsRsolver } from '@services';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 // import { PagenotfoundComponent } from '../people/pagenotfound/pagenotfound.component';
@@ -124,7 +125,7 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'rating',
+                path: 'rating/:orgType/:orderId',
                 component: RatingComponent,
                 canActivate: [AuthGuard],
             },
@@ -135,6 +136,7 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
                 resolve: {
                     threadList: OrderChatThreadResolver,
+                    orderDetails: OrderDetailsRsolver,
                 },
             },
 
@@ -246,7 +248,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
+    imports: [CommonModule, RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
 export class OrdermanagementRoutingModule {}

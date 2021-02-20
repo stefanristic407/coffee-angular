@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { VatserviceService } from '../vatservice.service';
 import { RoasteryProfileService } from '../../roastery-profile/roastery-profile.service';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { CookieService } from 'ngx-cookie-service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-vat-b2b',
   templateUrl: './vat-b2b.component.html',
@@ -20,44 +20,75 @@ export class VatB2bComponent implements OnInit {
 	mradd = true;
 	editTableRow = false;
 	updateVatmode = false;
-	addEcommerce = [
-		{
-			country : '',
-			transaction_type : '',
-			vat_percentage: ''
-		}
-	];
+	addEcommerce = [];
 
 	roasterId: any;
 	showpostdiv = true;
 	resetButtonValue = 'Save';
-	eachCountry: any;
-	eachTransactionType: any;
-	eachVatPercentage: any;
 	eachId: any;
+	b2bEcommerceList: any;
+	editB2Bmode = true;
+	saveB2Bmode = false;
 
-  constructor(private router: Router,
-	             private toastrService: ToastrService,
-	             public cookieService: CookieService,
-              public vatService: VatserviceService,
-	             public roasteryProfileService: RoasteryProfileService,
-	             public userService: UserserviceService
+	editIndex = null;
+	transaction: FormGroup;
+
+	@Input() mobile = false;
+
+  constructor(
+	  private router: Router,
+	  private toastrService: ToastrService,
+	  public cookieService: CookieService,
+	  public roasteryProfileService: RoasteryProfileService,
+	  public userService: UserserviceService,
+	  private fb: FormBuilder
     ) {
 		this.roasterId = this.cookieService.get('roaster_id');
 	}
 
 	ngOnInit(): void {
-		// this.vatService.showadddatadiv = false;
-		this.vatService.getB2bDetails();
+		this.getB2bDetails();
+		this.transaction = this.fb.group({
+			country: ['', Validators.compose([Validators.required])],
+			transaction_type: [null, Validators.compose([Validators.required])],
+			vat_percentage: [null, Validators.compose([Validators.required])],
+			vat_type: ['b2b_ecommerce']
+		});
+	}
+	getB2bDetails(){
+		this.userService.getRoasterVatDetails(this.roasterId, 'b2b_ecommerce').subscribe(
+			result => {
+				this.b2bEcommerceList = result.result;
+			}
+		);
 	}
 	public addNewB2bTranscation(){
-		this.addEcommerce.push({
-			country : '',
-			transaction_type : '',
-			vat_percentage: ''
-		});
-		this.vatService.editB2Bmode = true;
-		this.vatService.saveB2Bmode = true;
+		if (this.mobile){
+			if (!this.editIndex){
+				this.editIndex = this.b2bEcommerceList.length;
+				this.b2bEcommerceList.push({
+					country: '',
+					transaction_type: '',
+					vat_percentage: '',
+				});
+				this.transaction = this.fb.group({
+					country: ['', Validators.compose([Validators.required])],
+					transaction_type: [null, Validators.compose([Validators.required])],
+					vat_percentage: [null, Validators.compose([Validators.required])],
+					vat_type: ['b2b_ecommerce']
+				});
+			} else {
+				this.toastrService.error('Please save the unsaved changes.');
+			}
+		} else {
+			this.addEcommerce.push({
+				country : '',
+				transaction_type : '',
+				vat_percentage: ''
+			});
+			this.editB2Bmode = true;
+			this.saveB2Bmode = true;
+		}
 	}
 	private validateInput(data){
 		let flag = true;
@@ -71,7 +102,19 @@ export class VatB2bComponent implements OnInit {
 		return flag;
 	}
 	public deleteB2BRow( index){
-		this.addEcommerce.splice(index, 1);
+		if (this.mobile){
+			this.b2bEcommerceList.splice(index, 1);
+			this.editIndex = null;
+		} else {
+			this.addEcommerce.splice(index, 1);
+		}
+	}
+	cancelItem(item, index){
+		if (item.id){
+			this.editIndex = null;
+		} else {
+			this.deleteB2BRow(index);
+		}
 	}
 
 	getCountryName(code: any){
@@ -80,13 +123,6 @@ export class VatB2bComponent implements OnInit {
 	}
 	changeCountry() {
 		this.roasteryProfileService.changeCountry(this.roasteryProfileService.country);
-	}
-	onKeyPress(event: any) {
-		if (event.target.value === '') {
-		document.getElementById(event.target.id).style.border = '1px solid #D50000';
-		} else {
-		document.getElementById(event.target.id).style.border = '1px solid #d6d6d6';
-		}
 	}
 	saveB2BVat(){
 		let flag = true;
@@ -97,28 +133,12 @@ export class VatB2bComponent implements OnInit {
 			this.addEcommerce.forEach(element => {
 
 			const body = {
-			country : element.country,
-			transaction_type : element.transaction_type,
-			vat_percentage : element.vat_percentage,
-			vat_type: 'b2b_ecommerce'
+				country : element.country,
+				transaction_type : element.transaction_type,
+				vat_percentage : element.vat_percentage,
+				vat_type: 'b2b_ecommerce'
 			};
-			this.userService.addVatDetails(this.roasterId, body).subscribe(
-			result => {
-				if (result.success){
-					this.resetButtonValue = 'Save';
-					this.toastrService.success('B2B VAT Details added successfully');
-					this.vatService.getB2bDetails();
-					this.addEcommerce = [];
-
-					this.vatService.editB2Bmode = true;
-					this.vatService.saveB2Bmode = false;
-				}
-				else{
-					this.toastrService.error('Error while adding VAT details');
-					this. resetButtonValue = 'Save';
-				}
-			}
-			);
+			this.addNewVatItem(body);
 		});
 		}
 		else {
@@ -126,27 +146,68 @@ export class VatB2bComponent implements OnInit {
 			this.toastrService.error('Fields should not be empty.');
 		  }
 	}
-	updateEachB2bVat(vatItem: any){
-		this.updateVatmode = false;
-		this.editTableRow = true;
-		this.eachCountry = vatItem.country;
-		this.eachTransactionType = vatItem.transaction_type;
-		this.eachVatPercentage = vatItem.vat_percentage;
+	addNewVatItem(body){
+		this.userService.addVatDetails(this.roasterId, body).subscribe(
+		result => {
+			if (result.success){
+				this.resetButtonValue = 'Save';
+				this.toastrService.success('B2B VAT Details added successfully');
+				this.getB2bDetails();
+				this.editIndex = null;
+				this.addEcommerce = [];
+
+				this.editB2Bmode = true;
+				this.saveB2Bmode = false;
+			}
+			else{
+				this.toastrService.error('Error while adding VAT details');
+				this. resetButtonValue = 'Save';
+			}
+		});
+	}
+	updateEachB2bVat(vatItem: any, index = null){
+		if (this.mobile){
+			if (this.editIndex === null){
+				this.editIndex = index;
+				this.transaction = this.fb.group({
+					country: [vatItem.country.toUpperCase(), Validators.compose([Validators.required])],
+					transaction_type: [vatItem.transaction_type, Validators.compose([Validators.required])],
+					vat_percentage: [vatItem.vat_percentage, Validators.compose([Validators.required])],
+					vat_type: ['b2b_ecommerce']
+				});
+			} else {
+				this.toastrService.error('Please save the unsaved changes.');
+			}
+		} else {
+			this.updateVatmode = false;
+			this.editTableRow = true;
+			vatItem.country = vatItem.country.toUpperCase();
+		}
 		this.eachId = vatItem.id;
 	}
 
-	saveEachB2bVat(val: any){
-		const updateData = {
-			country : this.eachCountry,
-			transaction_type : this.eachTransactionType,
-			vat_percentage : this.eachVatPercentage,
+	saveEachB2bVat(vatId: any, data, tab = false){
+		let updateData = {
+			country : data.country,
+			transaction_type : data.transaction_type,
+			vat_percentage : data.vat_percentage,
 			vat_type: 'b2b_ecommerce'
 		};
-		this.userService.updateMrVat(this.roasterId, updateData, val).subscribe(
+		if (this.mobile){
+			if (vatId){
+				updateData = tab ? updateData : data;
+			} else {
+				updateData = tab ? updateData : data;
+				this.addNewVatItem(updateData);
+				return;
+			}
+		}
+		this.userService.updateMrVat(this.roasterId, updateData, vatId).subscribe(
 			result => {
 				if (result.success){
 					this.toastrService.success('B2B VAT Details updated successfully');
-					this.vatService.getB2bDetails();
+					this.getB2bDetails();
+					this.editIndex = null;
 					this.updateVatmode = true;
 					this.editTableRow = false;
 				}
@@ -162,14 +223,18 @@ export class VatB2bComponent implements OnInit {
 				if (result.success){
 					this.toastrService.success('B2B VAT deleted successfully');
 					setTimeout(() => {
-						this.vatService.getB2bDetails();
-					}, 2000);
-					this.vatService.editB2Bmode = true;
+						this.getB2bDetails();
+					}, 1000);
+					this.editIndex = null;
+					this.editB2Bmode = true;
 				}
 				else{
 					this.toastrService.error('Error while deleting VAT details');
 				}
 			}
 		);
+	}
+	get detailsFormControl() {
+		return this.transaction.controls;
 	}
 }

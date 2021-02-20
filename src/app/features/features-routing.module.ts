@@ -447,15 +447,10 @@ const routes: Routes = [
                 component: OtherGenerateReportComponent,
                 canActivate: [AuthGuard],
             },
-
             {
                 path: '',
                 redirectTo: 'roaster-dashboard',
                 pathMatch: 'full',
-            },
-            {
-                path: '**',
-                component: PageNotFoundComponent,
             },
         ],
     },

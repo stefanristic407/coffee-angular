@@ -2,6 +2,7 @@ import { Component, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Gallery, ImageItem, ImageSize } from 'ng-gallery';
+import { ToastrService } from 'ngx-toastr';
 import { Lightbox } from 'ng-gallery/lightbox';
 import { RoasterserviceService } from '@services';
 import { GlobalsService } from '@services';
@@ -27,12 +28,13 @@ export class UploaderComponent implements OnInit, ControlValueAccessor {
     fileIndex = null;
     @Input() count = 1;
     @Input() type = 'all';
+    @Input() width = null;
+    @Input() height = null;
     acceptType: string;
     items = [
         {
             label: 'Edit',
             command: () => {
-                console.log('update');
                 this.fileInput.nativeElement.click();
             },
         },
@@ -67,6 +69,7 @@ export class UploaderComponent implements OnInit, ControlValueAccessor {
     constructor(
         public gallery: Gallery,
         public lightbox: Lightbox,
+        private toastrService: ToastrService,
         private globalSrv: GlobalsService,
         private roasterSrv: RoasterserviceService,
     ) {}
@@ -84,34 +87,60 @@ export class UploaderComponent implements OnInit, ControlValueAccessor {
     fileChangeEvent(event: any) {
         if (event.target.files && event.target.files[0]) {
             const file = event.target.files[0];
-            this.roasterSrv.uploadBrandProfile(file).subscribe(
-                (res: any) => {
-                    if (res.success) {
-                        if (this.count > 1) {
-                            if (this.fileIndex) {
-                                this.files[this.fileIndex] = res.result;
-                            } else {
-                                this.files = this.files.concat([res.result]);
-                            }
-                            this.onChange(this.files);
+            if (!file) {
+                this.toastrService.error(`Please select the correct file`);
+            }
+            if (file.type.startsWith('image') && (this.width || this.height)) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const img = new Image();
+                    img.onload = () => {
+                        if (
+                            (this.width && this.width !== img.naturalWidth) ||
+                            (this.height && this.height !== img.naturalHeight)
+                        ) {
+                            this.toastrService.error(
+                                `Image should be ${this.width || 'NA'} x ${this.height || 'NA'} size`,
+                            );
                         } else {
-                            this.files = JSON.parse(JSON.stringify([res.result]));
-                            this.onChange(res.result);
-                            console.log('Wizard file:', res.result, this.files);
+                            this.upload(file);
                         }
-                    }
-                },
-                (err: HttpErrorResponse) => {
-                    console.log(err);
-                },
-            );
+                        window.URL.revokeObjectURL(img.src);
+                    };
+                    img.src = window.URL.createObjectURL(file);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                this.upload(file);
+            }
         }
+    }
+
+    upload(file) {
+        this.roasterSrv.uploadBrandProfile(file).subscribe(
+            (res: any) => {
+                if (res.success) {
+                    if (this.count > 1) {
+                        if (this.fileIndex) {
+                            this.files[this.fileIndex] = res.result;
+                        } else {
+                            this.files = this.files.concat([res.result]);
+                        }
+                        this.onChange(this.files);
+                    } else {
+                        this.files = JSON.parse(JSON.stringify([res.result]));
+                        this.onChange(res.result);
+                    }
+                }
+            },
+            (err: HttpErrorResponse) => {
+                console.log(err);
+            },
+        );
     }
 
     delete(idx) {
         this.files.splice(idx, 1);
-        console.log(idx, this.files);
-
         if (this.count > 1) {
             this.onChange(this.files);
         } else {

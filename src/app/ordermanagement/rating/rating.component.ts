@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { FormService } from '@services';
 import { GlobalsService } from '@services';
+import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
-import { OrderBookedService } from '../order-booked/order-booked.service';
+import { OrgType } from '@models';
 
 @Component({
     selector: 'app-rating',
@@ -14,20 +16,35 @@ import { OrderBookedService } from '../order-booked/order-booked.service';
 })
 export class RatingComponent implements OnInit {
     roasterId: any;
+    orgType: OrgType;
+    orgId: number;
+    orderId: string;
+    ownerName: string;
+    companyImg: string;
+    rating: number;
+    country: string;
     submitted = false;
-
     infoForm: FormGroup;
 
     constructor(
         private fb: FormBuilder,
         private formSrv: FormService,
+        private route: ActivatedRoute,
+        private router: Router,
         public globals: GlobalsService,
+        public roasterSrv: RoasterserviceService,
         public userService: UserserviceService,
         public cookieService: CookieService,
-        public bookedService: OrderBookedService,
         private toastrService: ToastrService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
+        this.route.paramMap.subscribe((params) => {
+            if (params.has('orgType') && params.has('orderId')) {
+                this.orgType = params.get('orgType') as OrgType;
+                this.orderId = params.get('orderId');
+                this.getData();
+            }
+        });
     }
 
     ngOnInit(): void {
@@ -39,11 +56,50 @@ export class RatingComponent implements OnInit {
         });
     }
 
+    getData() {
+        this.roasterSrv.getViewOrderDetails(this.roasterId, this.orderId, this.orgType).subscribe((res: any) => {
+            if (res.success) {
+                if (this.orgType === OrgType.ESTATE) {
+                    this.orgId = res.result.estate_id;
+                    this.getEstate(res.result.estate_id);
+                } else if (this.orgType === OrgType.MICRO_ROASTER) {
+                    this.orgId = res.result.micro_roaster_id;
+                    this.getMicroRoaster(res.result.micro_roaster_id);
+                }
+            } else {
+                this.router.navigateByUrl('/');
+            }
+        });
+    }
+
+    getEstate(estateId) {
+        console.log('this.getEstate');
+        this.userService.getAvailableEstateList(this.roasterId, estateId).subscribe((res: any) => {
+            if (res.success) {
+                this.ownerName = res.result.owner_name;
+                this.companyImg = res.result.company_image_thumbnail_url;
+                this.rating = res.result.rating;
+                this.country = res.result.country;
+            }
+        });
+    }
+
+    getMicroRoaster(estateId) {
+        this.userService.getMicroDetails(this.roasterId, estateId).subscribe((res: any) => {
+            if (res.success) {
+                this.ownerName = res.result.owner_name;
+                this.companyImg = res.result.company_image_thumbnail_url;
+                this.rating = res.result.rating;
+                this.country = res.result.country;
+            }
+        });
+    }
+
     submitRating() {
         if (this.infoForm.valid) {
             this.submitted = true;
             this.userService
-                .addReviewOrder(this.roasterId, this.bookedService.oId, this.infoForm.value)
+                .addReviewOrder(this.roasterId, this.orderId, this.infoForm.value, this.orgType)
                 .subscribe((res: any) => {
                     this.submitted = false;
                     if (res.success) {

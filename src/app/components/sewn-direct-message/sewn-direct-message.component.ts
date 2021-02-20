@@ -1,5 +1,5 @@
 /* tslint:disable no-string-literal */
-import { UserserviceService, SocketService, ChatHandlerService } from '@services';
+import { UserserviceService, SocketService, ChatHandlerService, ChatUtil } from '@services';
 import { HttpClient } from '@angular/common/http';
 import { GlobalsService } from '@services';
 import { catchError, debounce, first, filter } from 'rxjs/operators';
@@ -39,7 +39,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     SM: { [SubscriptionName: string]: Subscription } = {}; // Subscrition MAP object
     threadList: ThreadListItem[] = [];
-    authenticationState = new BehaviorSubject<'IP' | 'FAIL' | 'SUCCESS'>('IP');
+
     userStatusTimerRef = 0;
     unReadTimerRef = 0;
     usersList: UserListItem[] = [];
@@ -86,6 +86,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         public chatService: ChatHandlerService,
         private userService: UserserviceService,
         public http: HttpClient,
+        private chatUtil: ChatUtil,
     ) {}
 
     ngOnInit(): void {
@@ -116,7 +117,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     initializeWebSocket() {
-        this.authenticationState.next('IP');
         this.SM['WSSubscription'] = this.socket.chatReceive
             .pipe(
                 catchError((err: any, caught: Observable<any>) => {
@@ -144,7 +144,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                     this.handleRequestedThreadDetails(WSmsg as WSResponse<ThreadListItem>);
                 }
             });
-        this.socket.chatSent.next(this.getAuthenicationPayload()); // Authenticate
     }
 
     getMultipleUserDetailsPayload() {
@@ -165,7 +164,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             });
         });
         return {
-            timestamp: this.getTimeStamp(),
+            timestamp: this.chatUtil.getTimeStamp(),
             type: WSChatMessageType.users,
             data: {
                 members: Object.values(userPayload),
@@ -175,7 +174,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     getCurrentThreadPayload() {
         return {
-            timestamp: this.getTimeStamp(),
+            timestamp: this.chatUtil.getTimeStamp(),
             type: WSChatMessageType.threads,
             data: {
                 user_id: this.USER_ID,
@@ -189,7 +188,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     getUnReadPayload() {
         return {
-            timestamp: this.getTimeStamp(),
+            timestamp: this.chatUtil.getTimeStamp(),
             type: WSChatMessageType.unread,
         };
     }
@@ -202,13 +201,13 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 content: message,
                 meta_data: '',
             },
-            timestamp: this.getTimeStamp(),
+            timestamp: this.chatUtil.getTimeStamp(),
         };
     }
 
     getHistoryPayload(thread: ThreadListItem) {
         return {
-            timestamp: this.getTimeStamp(),
+            timestamp: this.chatUtil.getTimeStamp(),
             type: WSChatMessageType.history,
             data: {
                 thread_id: thread.id,
@@ -220,26 +219,10 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         };
     }
 
-    getAuthenicationPayload() {
-        // Not sure about the replace/split found same in old code
-        let userToken = this.cookieService.get('Auth')?.replace(/\r/g, '')?.split(/\n/)[0];
-        if (!userToken) {
-            console.error('User token parese error');
-            userToken = '';
-        }
-        return {
-            timestamp: this.getTimeStamp(),
-            type: WSChatMessageType.auth,
-            data: {
-                user_token: userToken,
-            },
-        };
-    }
-
     findThread(payload: OpenChatThread) {
         console.log('Open chat request payload', payload);
         this.socket.chatSent.next({
-            timestamp: this.getTimeStamp(),
+            timestamp: this.chatUtil.getTimeStamp(),
             type: WSChatMessageType.getCreate,
             data: payload,
         });
@@ -247,7 +230,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     threadRequestByNewMessage(threadId: number) {
         this.socket.chatSent.next({
-            timestamp: this.getTimeStamp(),
+            timestamp: this.chatUtil.getTimeStamp(),
             type: WSChatMessageType.thread,
             data: {
                 thread_id: threadId,
@@ -259,7 +242,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         message: ChatMessage | IncomingChatMessage,
         thread: ThreadListItem,
     ): ChatMessage | IncomingChatMessage {
-        message.computed_date = this.getReadableTime(message.updated_at || message.created_at);
+        message.computed_date = this.chatUtil.getReadableTime(message.updated_at || message.created_at);
         if (thread.computed_targetedUser.id === message.member.id) {
             message.computed_author = thread.computed_targetedUser;
             message.isActiveUser = false;
@@ -271,7 +254,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
     processThreadUser(threadUser: ThreadMembers): ThreadMembers {
         threadUser.last_seen = threadUser.last_seen || '';
-        threadUser.computed_lastseen = this.getReadableTime(threadUser.last_seen || '');
+        threadUser.computed_lastseen = this.chatUtil.getReadableTime(threadUser.last_seen || '');
         threadUser.computed_organization_name = this.getOrganization(threadUser.org_type);
         threadUser.computed_fullname = threadUser.first_name + ' ' + threadUser.last_name;
         threadUser.computed_profile_dp = this.getProfileImageBgStyle(threadUser.profile_pic);
@@ -299,8 +282,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         thread.computed_activeUser = activeUser[0];
         thread.computed_targetedUser = targtedUserList[0];
         thread.computed_targetedUserList = targtedUserList;
-        thread.computed_createdAt = this.getReadableTime(thread.activity_created_at || '');
-        thread.computed_thread_createdAt = this.getReadableTime(thread.created_at || '');
+        thread.computed_createdAt = this.chatUtil.getReadableTime(thread.activity_created_at || '');
+        thread.computed_thread_createdAt = this.chatUtil.getReadableTime(thread.created_at || '');
         thread.computed_lastActivityText =
             thread.content.length > 100 ? thread.content.slice(0, 100) + '...' : thread.content;
         return thread;
@@ -317,7 +300,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                     if (user) {
                         this.processThreadUser(user);
                     }
-                    if (this.openedThread)
+                    if (this.openedThread) {
                         if (this.openedThread && this.openedThread.id === message.thread_id) {
                             this.updateChatMessageBodyElRef();
                             // let isOnChatBottom = this.isCurrentlyBottom();
@@ -340,17 +323,19 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                                 this.playNotificationSound('INCOMING');
                             }
                         }
-                    const threadIndex = this.threadList.findIndex((thread) => thread.id === inThread.id);
-                    this.threadList.splice(threadIndex, 1);
-                    this.threadList.unshift(inThread); //Pushing into top
-                } else {
-                    this.threadRequestByNewMessage(message.thread_id);
+                        const threadIndex = this.threadList.findIndex((thread) => thread.id === inThread.id);
+                        this.threadList.splice(threadIndex, 1);
+                        this.threadList.unshift(inThread); //Pushing into top
+                    } else {
+                        this.threadRequestByNewMessage(message.thread_id);
+                    }
                 }
+            } else {
+                console.log('Websocket:Incoming Message : Failure');
             }
-        } else {
-            console.log('Websocket:Incoming Message : Failure');
         }
     }
+
     isCurrentlyBottom() {
         if (this.chatMessageBodyElement) {
             return (
@@ -395,7 +380,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                     member.last_seen =
                         userStatusMap[`${member.user_id}_${member.org_type}_${member.org_id}`]?.last_seen || '';
                     member.online = userStatusMap[`${member.user_id}_${member.org_type}_${member.org_id}`].online;
-                    member.computed_lastseen = this.getReadableTime(member.last_seen || '');
+                    member.computed_lastseen = this.chatUtil.getReadableTime(member.last_seen || '');
                 });
             });
         } else {
@@ -471,19 +456,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     handleAuthResponse(WSmsg: WSResponse<null>) {
-        this.authenticationState.next(WSmsg.code === 200 || WSmsg.code === 409 ? 'SUCCESS' : 'FAIL');
-        if (WSmsg.code === 400) {
-            console.log('Websocket:Auth: Invalid Input Data Format ');
-        } else if (WSmsg.code === 401) {
-            console.log('Websocket:Auth: Authentication Error');
-        } else if (WSmsg.code === 409) {
-            console.log('Websocket:Auth: Already Authenticated Error');
-        } else if (WSmsg.code === 422) {
-            console.log('Websocket:Auth: Validation Error');
-        } else if (WSmsg.code === 200) {
-            this.authenticationState.next('SUCCESS');
+        if (WSmsg.code === 200) {
             this.socket.chatSent.next(this.getCurrentThreadPayload());
-            console.log('Websocket:Auth: Success');
         }
     }
 
@@ -515,10 +489,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         }
         this.unReadTimerRef = (window.setTimeout(this.updateUnRead, this.UPDATE_UNREAD_INTERVAL) as unknown) as number;
     };
-
-    getTimeStamp(): string {
-        return moment.utc().format();
-    }
 
     ngOnDestroy() {
         for (const name in this.SM) {
@@ -620,29 +590,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         if (this.chatMessageBodyElement && this.chatMessageFormElement && this.chatMessageHeadElement) {
             const diff = this.chatMessageFormElement.offsetHeight + this.chatMessageHeadElement.offsetHeight;
             this.render.setStyle(this.chatMessageBodyElement, 'height', `calc( 100% - ${diff}px)`);
-        }
-    }
-
-    getReadableTime(tTime: string = '') {
-        const todayDate = moment();
-        const messageDate = moment(tTime);
-        if (messageDate.isValid || tTime) {
-            const isSameYear = todayDate.year() === messageDate.year();
-            const isSameMonth = isSameYear && todayDate.month() === messageDate.month();
-            const isSameDay = isSameMonth && todayDate.date() === messageDate.date();
-            const isYesterDay = !isSameDay && todayDate.isSame(messageDate.clone().add(1, 'day'), 'date');
-            if (isSameDay) {
-                return messageDate.format('hh.mm a');
-            } else if (isYesterDay) {
-                return messageDate.format('[Yesterday] hh.mm a');
-            } else if (isSameYear) {
-                return messageDate.format('MMM DD, hh.mm a');
-            } else {
-                return messageDate.format('YYYY MMM DD, hh.mm a');
-            }
-        } else {
-            console.log('Date Parse error');
-            return '';
         }
     }
 
@@ -847,7 +794,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     openThreadWithUser(item: UserListItem | RecentUserListItem) {
         this.socket.chatSent.next({
-            timestamp: this.getTimeStamp(),
+            timestamp: this.chatUtil.getTimeStamp(),
             type: WSChatMessageType.getCreate,
             data: {
                 org_id: item.organization_id,
@@ -866,7 +813,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     sendReadToken(lastMessageId: number) {
         this.socket.chatSent.next({
             type: WSChatMessageType.read,
-            timestamp: this.getTimeStamp(),
+            timestamp: this.chatUtil.getTimeStamp(),
             data: {
                 thread_id: this.openedThread.id,
                 last_read_id: lastMessageId,

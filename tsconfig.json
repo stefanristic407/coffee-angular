@@ -19,7 +19,8 @@
             "@services": ["src/services/index"],
             "@shared": ["src/app/shared/index"],
             "@modules/*": ["src/app/modules/*"],
-            "@models": ["src/models/index"]
+            "@models": ["src/models/index"],
+            "@guards": ["src/app/guards/index"]
         }
     },
     "angularCompilerOptions": {

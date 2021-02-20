@@ -8,7 +8,6 @@ import { MicroRoasterDetailsComponent } from './customer-management/micro-roaste
 import { HorecaDetailsComponent } from './customer-management/horeca-details/horeca-details.component';
 import { DiscountEditComponent } from './customer-management/discount-edit/discount-edit.component';
 import { InviteNewUserComponent } from './../add-teams/invite-new-user/invite-new-user.component';
-import { PageNotFoundComponent } from '../error-module/page-not-found/page-not-found.component';
 import { PermissionErrorComponent } from '../people/permission-error/permission-error.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { CreateRoleComponent } from './../add-teams/create-role/create-role.component';
@@ -90,10 +89,6 @@ const routes: Routes = [
                 path: '',
                 redirectTo: 'create-role',
                 pathMatch: 'full',
-            },
-            {
-                path: '**',
-                component: PageNotFoundComponent,
             },
         ],
     },
