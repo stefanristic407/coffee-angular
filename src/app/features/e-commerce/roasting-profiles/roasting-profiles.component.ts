@@ -12,7 +12,7 @@ import { SharedServiceService } from '@app/shared/services/shared-service.servic
 @Component({
     selector: 'app-roasting-profiles',
     templateUrl: './roasting-profiles.component.html',
-    styleUrls: ['./roasting-profiles.component.css'],
+    styleUrls: ['./roasting-profiles.component.scss'],
 })
 export class RoastingProfilesComponent implements OnInit {
     termRole: any;
