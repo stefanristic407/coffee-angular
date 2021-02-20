@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { GlobalsService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { MenuItem } from 'primeng/api';
@@ -18,6 +18,7 @@ export class FaqQuestionComponent implements OnInit {
     constructor(
         public globals: GlobalsService,
         private route: ActivatedRoute,
+        public router: Router,
         public userService: UserserviceService,
         public cookieService: CookieService,
     ) {}
@@ -58,6 +59,15 @@ export class FaqQuestionComponent implements OnInit {
         this.breadCrumbItem.push(obj4);
         this.breadCrumbItem.push(obj5);
         this.getFAQList();
+    }
+    navigateAssignTicket() {
+        // const navigationExtras: NavigationExtras = {
+        //     queryParams: {
+        //         disputeID: this.orderID,
+        //         id: this.orderID,
+        //     },
+        // };
+        this.router.navigate(['/dispute-system/raise-ticket', this.orderID]);
     }
     getFAQList() {
         this.userService.getDisputeFAQList(this.roasterID).subscribe(

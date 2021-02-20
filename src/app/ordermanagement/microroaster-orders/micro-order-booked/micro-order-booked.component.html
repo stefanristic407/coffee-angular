@@ -556,7 +556,8 @@
                 <button
                     type="button"
                     class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
-                    routerLink="/ordermanagement/order-chat"
+                    [routerLink]="['/dispute-system/order-chat', bookId]"
+                    [queryParams]="{ orderType: 'MR' }"
                 >
                     Order #{{ bookId }} chat <span class="chat-indicator"> &#x25CF;</span
                     ><img class="pull-right ml-auto" src="assets/images/back-arrow.png" />
