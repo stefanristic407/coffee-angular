@@ -329,8 +329,7 @@
                                     *ngIf="bookedService.order_status !== 'RECEIVED'"
                                     type="submit"
                                     class="cancel-order btn mt-3"
-                                    routerLink="/ordermanagement/order-support"
-                                    [queryParams]="{ id: orderBookId }"
+                                    routerLink="['/dispute-system/order-support', orderBookId]"
                                 >
                                     {{ globals.languageJson?.have_a_problem }}
                                 </button>
@@ -404,8 +403,7 @@
                                 *ngIf="bookedService.order_status !== 'RECEIVED'"
                                 type="button"
                                 class="btn problem-btn"
-                                routerLink="/ordermanagement/order-support"
-                                [queryParams]="{ id: orderBookId }"
+                                routerLink="['/dispute-system/order-support', orderBookId]"
                             >
                                 {{ globals.languageJson?.have_a_problem }}
                             </button>
@@ -416,8 +414,7 @@
                             *ngIf="bookedService.order_status !== 'RECEIVED'"
                             type="button"
                             class="btn problem-btn"
-                            routerLink="/ordermanagement/order-support"
-                            [queryParams]="{ id: orderBookId }"
+                            routerLink="['/dispute-system/order-support', orderBookId]"
                         >
                             {{ globals.languageJson?.have_a_problem }}
                         </button>
@@ -718,7 +715,7 @@
                 <button
                     type="button"
                     class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
-                    [routerLink]="['/ordermanagement/order-chat/', SERVICE_TYPE, orderBookId]"
+                    [routerLink]="['/dispute-system/order-chat/', orderBookId]"
                 >
                     {{ globals.languageJson?.order }} #{{ orderBookId }} {{ globals.languageJson?.chat }}
                     <span class="chat-indicator"> &#x25CF;</span

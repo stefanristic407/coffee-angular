@@ -24,7 +24,8 @@ export const routes: Routes = [
             },
             {
                 path: 'dispute-system',
-                loadChildren: () => import('./dispute-system/dispute-system.module').then((m) => m.DisputeSystemModule),
+                loadChildren: () =>
+                    import('./modules/dispute-system/dispute-system.module').then((m) => m.DisputeSystemModule),
             },
             { path: 'people', loadChildren: () => import('./people/people.module').then((m) => m.PeopleModule) },
             {

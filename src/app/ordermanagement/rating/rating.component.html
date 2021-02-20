@@ -60,7 +60,12 @@
                                             </span>
                                         </span>
                                         <div class="v-divider mx-3"></div>
-                                        <a class="arrow-link green">{{ globals.languageJson?.contact_details }}</a>
+                                        <a
+                                            class="arrow-link green"
+                                            [href]="orgType | profileLink: orgId"
+                                            target="_blank"
+                                            >{{ globals.languageJson?.contact_details }}</a
+                                        >
                                     </li>
                                 </ul>
                             </div>

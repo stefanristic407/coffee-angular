@@ -308,7 +308,7 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'procured-coffee',
+                path: 'procured-coffee/:orderId',
                 component: ProcuredCoffeeComponent,
                 canActivate: [AuthGuard],
             },
@@ -323,7 +323,7 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'lot-sale',
+                path: 'lot-sale/:orderId',
                 component: LotSaleComponent,
                 canActivate: [AuthGuard],
             },
@@ -447,15 +447,10 @@ const routes: Routes = [
                 component: OtherGenerateReportComponent,
                 canActivate: [AuthGuard],
             },
-
             {
                 path: '',
                 redirectTo: 'roaster-dashboard',
                 pathMatch: 'full',
-            },
-            {
-                path: '**',
-                component: PageNotFoundComponent,
             },
         ],
     },
