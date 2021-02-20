@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { VatserviceService } from './vatservice.service';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { CookieService } from 'ngx-cookie-service';
 import { AnyARecord } from 'dns';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-vat-management',
@@ -13,8 +13,8 @@ import { AnyARecord } from 'dns';
 })
 export class VatManagementComponent implements OnInit {
 	// tslint:disable: indent
-	saveshippingmode: boolean;
-	editshippingmode: boolean;
+	saveshippingmode = false;
+	editshippingmode = true;
 	roasterId: any;
 	shippingName: any;
 	dayMin: any;
@@ -27,53 +27,82 @@ export class VatManagementComponent implements OnInit {
 	options: any;
 	selectedTab = {name: 'Vat Management', code: '', index: 0};
 	selectedIndex = 0;
-
-	constructor(private router: Router,
-		           private toastrService: ToastrService,
-		           public vatService: VatserviceService,
-		           public userService: UserserviceService,
-		           public cookieService: CookieService
+	details: FormGroup;
+	shippingDetails = {
+		id: '',
+		name: '',
+		price: '',
+		day_min: '',
+		day_max: ''
+	};
+	selectedMobileTab = '';
+	constructor(
+		private router: Router,
+		private toastrService: ToastrService,
+		public userService: UserserviceService,
+		public cookieService: CookieService,
+		private route: ActivatedRoute,
+		public fb: FormBuilder
 		) {
 		this.roasterId = this.cookieService.get('roaster_id');
 	}
 
 	ngOnInit(): void {
 		this.getShippingInfo();
-		this.breadItems = [
-            { label: 'Home', routerLink: '/features/welcome-aboard' },
-            { label: 'Product Settings' },
-        ];
 		this.options = [
 			{name: 'Vat Management', code: '', index: 0},
 			{name: 'Shipping Details', code: '', index: 1}
 		];
+		this.route.queryParams.subscribe( params => {
+			if (params.type){
+				this.selectedMobileTab = params.type;
+				this.settingBreadCrumb(params.type);
+			} else {
+				this.selectedMobileTab = '';
+				// this.selectTabs();
+				this.settingBreadCrumb();
+			}
+		});
+	}
+	settingBreadCrumb(type = null){
+		if (type){
+			this.breadItems = [
+				{ label: 'Home', routerLink: '/features/welcome-aboard' },
+				{ label: 'Product Settings', routerLink: '/features/vat-management' },
+				{ label: type === 'VAT' ? 'VAT Management' : 'Shipping Details'}
+			];
+		} else {
+			this.breadItems = [
+				{ label: 'Home', routerLink: '/features/welcome-aboard' },
+				{ label: 'Product Settings' },
+			];
+		}
 	}
 	getShippingInfo(){
 		this.userService.getRoasterShippingTypes(this.roasterId).subscribe(
 			result => {
 				if (result.success){
 					this.shippData = result.result;
-					this.firstLoadMode();
 					if (this.shippData.length !== 0){
-						this.shipId = result.result[0].id;
-						this.shippingName = result.result[0].name;
-						this.dayMin = result.result[0].day_min;
-						this.dayMax = result.result[0].day_max;
-						this.shippingPrice = result.result[0].price;
+						this.shippingDetails = this.shippData[0];
+						this.shipId = this.shippingDetails.id;
+						this.details = this.fb.group({
+							name: [this.shippingDetails.name, Validators.compose([Validators.required])],
+							day_min: [this.shippingDetails.day_min, Validators.compose([Validators.required])],
+							day_max: [this.shippingDetails.day_max, Validators.compose([Validators.required])],
+							price: [this.shippingDetails.price, Validators.compose([Validators.required])],
+						});
+					} else {
+						this.details = this.fb.group({
+							name: ['', Validators.compose([Validators.required])],
+							day_min: [null, Validators.compose([Validators.required])],
+							day_max: [null, Validators.compose([Validators.required])],
+							price: [null, Validators.compose([Validators.required])],
+						});
 					}
 				}
 			}
 		);
-	}
-	firstLoadMode(){
-		if (this.shippData.length !== 0){
-			this.editshippingmode = true;
-			this.saveshippingmode = false;
-		}
-		else{
-			this.saveshippingmode = true;
-			this.editshippingmode = false;
-		}
 	}
 	private validateInput(){
 		let flag = true;
@@ -84,61 +113,45 @@ export class VatManagementComponent implements OnInit {
 	}
 
 	saveShippingInfo(){
-		const flag = this.validateInput();
-		if (flag){
-			if (this.shippData.length === 0){
+		if (this.shippData.length === 0){
+			this.resetButtonValue = 'Saving';
+			const body = this.details.value;
+			this.userService.addRoasterShippingDetails(this.roasterId, body).subscribe(
+			response => {
+				if (response.success){
+					this.resetButtonValue = 'Save';
+					this.toastrService.success('Shipping  Details saved successfully');
+					this.getShippingInfo();
+					this.editshippingmode = true;
+					this.saveshippingmode = false;
+				}
+				else{
+					this.toastrService.error('Error while saving shipping  details');
+					this.resetButtonValue = 'Save';
+				}
+			}
+			);
+		}
+		else{
+			if (this.shipId){
 				this.resetButtonValue = 'Saving';
-				const body = {
-					name : this.shippingName,
-					day_min : Number(this.dayMin),
-					day_max : Number(this.dayMax),
-					price: Number(this.shippingPrice)
-				};
-				this.userService.addRoasterShippingDetails(this.roasterId, body).subscribe(
-				response => {
-					if (response.success){
+				const data = this.details.value;
+				this.userService.updateRoasterShippingTypes(this.roasterId, this.shipId, data).subscribe(
+				res => {
+					if (res.success){
 						this.resetButtonValue = 'Save';
-						this.toastrService.success('Shipping  Details saved successfully');
+						this.toastrService.success('Shipping Details Updated successfully');
 						this.getShippingInfo();
 						this.editshippingmode = true;
 						this.saveshippingmode = false;
 					}
 					else{
-						this.toastrService.error('Error while saving shipping  details');
+						this.toastrService.error('Error while updating shipping  details');
 						this.resetButtonValue = 'Save';
 					}
 				}
 				);
 			}
-			else{
-				if (this.shipId){
-					this.resetButtonValue = 'Saving';
-					const data = {
-						name : this.shippingName,
-						day_min : Number(this.dayMin),
-						day_max : Number(this.dayMax),
-						price: Number(this.shippingPrice)
-					};
-					this.userService.updateRoasterShippingTypes(this.roasterId, this.shipId, data).subscribe(
-					res => {
-						if (res.success){
-							this.resetButtonValue = 'Save';
-							this.toastrService.success('Shipping Details Updated successfully');
-							this.editshippingmode = true;
-							this.saveshippingmode = false;
-						}
-						else{
-							this.toastrService.error('Error while updating shipping  details');
-							this.resetButtonValue = 'Save';
-						}
-					}
-					);
-				}
-			}
-		}
-		else{
-			this.toastrService.error('Fields should not be empty.');
-			this.resetButtonValue = 'Save';
 		}
 	}
 
@@ -146,7 +159,34 @@ export class VatManagementComponent implements OnInit {
 		this.saveshippingmode = true;
 		this.editshippingmode = false;
 	}
+	get detailsFormControl() {
+		return this.details.controls;
+	}
 	selectTabs(){
+		if (this.selectedTab.index === 0){
+			this.selectMobileTab('VAT');
+		} else {
+			this.selectMobileTab('Shipment');
+		}
+	}
 
+	// Mobile view methods
+	selectMobileTab(feature){
+		this.selectedMobileTab = feature;
+		this.router.navigate(['/features/vat-management'], {queryParams: {type: feature}});
+	}
+	getHeading(){
+		let header = 'Product Settings';
+		if (this.selectedMobileTab){
+			header = this.selectedMobileTab === 'VAT' ? 'VAT Management' : 'Shipment Details';
+		}
+		return header;
+	}
+	getDescription(){
+		let description = 'Set-up your billing details, terms and conditions of use, privacy and cookie policies here.';
+		if (this.selectedMobileTab){
+			description = this.selectedMobileTab === 'VAT' ? 'Manage VAT for green coffee and B2B orders' : 'Set shipping price and estimated delivery time';
+		}
+		return description;
 	}
 }

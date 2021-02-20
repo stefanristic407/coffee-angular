@@ -14,7 +14,7 @@
         </button>
     </div>
 
-    <div class="mob-negative">
+    <div class="mx-n2 mx-md-0">
         <div class="feedback-total br-main br-8 mt-3 mt-md-45">
             <h1 class="fnt-18 fnt-md-16 lh-normal fnt-bold text-clr334">
                 {{ globals.languageJson?.leave_a_feedback }}
@@ -32,43 +32,40 @@
                         <div class="d-flex m-0">
                             <app-avatar
                                 [size]="globals.device === 'mobile' ? 39 : 70"
-                                [src]="bookedService.company_image_thumbnail_url"
-                                [name]="bookedService.owner_name"
+                                [src]="companyImg"
+                                [name]="ownerName"
                             ></app-avatar>
 
                             <div class="pl-2 pl-md-3">
-                                <ul class="p-0">
-                                    <li class="d-flex align-items-end mb-1 mb-md-2">
-                                        <span class="fnt-16 lh-normal fnt-bold text-clr334">{{
-                                            bookedService.owner_name
-                                        }}</span>
-                                        <span class="fnt-14 lh-normal fnt-600 text-clr97 ml-3 d-none d-md-block"
-                                            >{{ globals.languageJson?.last_seen }} 4:30pm
-                                        </span>
+                                <ul class="p-0 mb-4">
+                                    <li class="fnt-16 lh-normal fnt-bold text-clr334 mb-1 mb-md-2">
+                                        {{ ownerName }}
                                     </li>
-                                    <li class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-1 mb-md-2">Estate</li>
-                                    <p class="fnt-12 lh-normal fnt-600 text-clr97 d-md-none mt-1 mb-3">
-                                        {{ globals.languageJson?.last_seen }} 4:30pm
-                                    </p>
+                                    <li class="fnt-mb-14 lh-normal fnt-bold text-clr588 mb-2">
+                                        {{ orgType | orgType }}
+                                    </li>
                                     <li class="d-flex mb-3">
                                         <span class="fnt-12">
-                                            <p-rating
-                                                [ngModel]="bookedService.rating"
-                                                [cancel]="false"
-                                                [readonly]="true"
-                                            ></p-rating
+                                            <p-rating [ngModel]="rating" [cancel]="false" [readonly]="true"></p-rating
                                         ></span>
                                         <span class="fnt-14 lh-normal fnt-bold text-clr334 ml-1">
-                                            {{ bookedService.rating }}
+                                            {{ rating }}
                                         </span>
                                     </li>
-                                    <li>
-                                        <span class="fnt-14 lh-normal fnt-bold text-clr588"
-                                            ><img class="pr-1" src="/assets/images/location-rating.png" alt="" />
-                                            {{ bookedService.country | country }}</span
+                                    <li class="d-flex">
+                                        <span class="d-flex align-items-center">
+                                            <img class="pr-2" src="/assets/images/location-rating.png" alt="" />
+                                            <span class="fnt-14 lh-normal fnt-bold text-clr588">
+                                                {{ country | country }}
+                                            </span>
+                                        </span>
+                                        <div class="v-divider mx-3"></div>
+                                        <a
+                                            class="arrow-link green"
+                                            [href]="orgType | profileLink: orgId"
+                                            target="_blank"
+                                            >{{ globals.languageJson?.contact_details }}</a
                                         >
-                                        <span class="v-divider mx-3"></span>
-                                        <a class="arrow-link green">{{ globals.languageJson?.contact_details }}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -132,11 +129,11 @@
                             <div class="sewn-form-field col-lg-11 col-md-12 mt-4 mb-0">
                                 <label class="text-clr588">{{ globals.languageJson?.write_a_review }}</label>
                                 <textarea
-                                    class="form-control area-border"
-                                    placeholder="{{ globals.languageJson?.short_description }}"
                                     formControlName="review"
                                     rows="4"
                                     cols="50"
+                                    placeholder="{{ globals.languageJson?.short_description }}"
+                                    pInputTextarea
                                 ></textarea>
                                 <small *ngIf="infoForm.controls.review.errors?.required" class="p-error fnt-14 fnt-600">
                                     Please write your review

@@ -15210,7 +15210,7 @@ table.dataTable thead .sorting_desc:before {
 
 .view-order {
     font-weight: bold !important;
-    color: #80460b !important;
+    color: #80450a !important;
     position: relative;
 }
 
@@ -15221,12 +15221,12 @@ table.dataTable thead .sorting_desc:before {
     height: 1px;
     left: 0;
     bottom: 15px;
-    background-color: #80460b;
+    background-color: #80450a;
     transition: 0.4s ease-in-out;
 }
 
 .view-order:hover {
-    color: #80460b;
+    color: #80450a;
     text-decoration: underline;
 }
 

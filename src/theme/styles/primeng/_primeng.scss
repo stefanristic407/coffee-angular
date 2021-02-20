@@ -66,6 +66,10 @@
     .ng-touched + .p-error {
         display: block !important;
     }
+    input.ng-invalid.ng-touched,
+    input.ng-invalid.ng-touched + .input-group-append {
+        border-color: $error-border-color !important;
+    }
 
     // Styles for inputgroup with custom addon
     .p-inputgroup.custom-addon {

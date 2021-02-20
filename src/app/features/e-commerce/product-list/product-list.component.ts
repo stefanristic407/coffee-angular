@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
-import { DashboardserviceService, GlobalsService, RoasterserviceService } from '@services';
+import { GlobalsService, RoasterserviceService } from '@services';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -36,7 +36,6 @@ export class ProductListComponent implements OnInit {
     constructor(
         public router: Router,
         public cookieService: CookieService,
-        public dashboard: DashboardserviceService,
         private roasterService: RoasterserviceService,
         private toastrService: ToastrService,
         public modalService: BsModalService,
