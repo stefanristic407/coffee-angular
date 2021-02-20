@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SharedServiceService } from '@app/shared/services/shared-service.service';
 import { RoasterserviceService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -125,12 +124,12 @@ export class CreateRoleComponent implements OnInit {
         };
         const obj2: MenuItem = {
             label: this.globals.languageJson?.people,
-            routerLink: '/people/manage-role',
+            routerLink: '/team-management/manage-role',
             disabled: false,
         };
         const obj3: MenuItem = {
             label: this.globals.languageJson?.manage_roles,
-            routerLink: '/people/manage-role',
+            routerLink: '/team-management/manage-role',
             disabled: false,
         };
         const obj4: MenuItem = { label: this.globals.languageJson?.create_role };
@@ -177,10 +176,10 @@ export class CreateRoleComponent implements OnInit {
                 if (permissionResult.success) {
                     this.toasterService.success('Permission created successfully for added role.');
                 }
-                this.route.navigate(['/people/manage-role']);
+                this.route.navigate(['/team-management/manage-role']);
             },
             (err) => {
-                this.route.navigate(['/people/manage-role']);
+                this.route.navigate(['/team-management/manage-role']);
             },
         );
     }
@@ -204,7 +203,7 @@ export class CreateRoleComponent implements OnInit {
                     if (!permissionResult.success) {
                         this.toasterService.error('System role permissions cannot be altered');
                         setTimeout(() => {
-                            this.route.navigate(['/people/manage-role']);
+                            this.route.navigate(['/team-management/manage-role']);
                         }, 2000);
                     }
                 }
@@ -219,7 +218,7 @@ export class CreateRoleComponent implements OnInit {
                     if (flagTrue) {
                         this.displayModal = true;
                     } else {
-                        this.route.navigate(['/people/manage-role']);
+                        this.route.navigate(['/team-management/manage-role']);
                     }
                 }
             }

@@ -329,7 +329,7 @@
                                     *ngIf="bookedService.order_status !== 'RECEIVED'"
                                     type="submit"
                                     class="cancel-order btn mt-3"
-                                    routerLink="['/dispute-system/order-support', orderBookId]"
+                                    [routerLink]="['/dispute-system/order-support', orderBookId]"
                                 >
                                     {{ globals.languageJson?.have_a_problem }}
                                 </button>
@@ -403,7 +403,7 @@
                                 *ngIf="bookedService.order_status !== 'RECEIVED'"
                                 type="button"
                                 class="btn problem-btn"
-                                routerLink="['/dispute-system/order-support', orderBookId]"
+                                [routerLink]="['/dispute-system/order-support', orderBookId]"
                             >
                                 {{ globals.languageJson?.have_a_problem }}
                             </button>
@@ -414,7 +414,7 @@
                             *ngIf="bookedService.order_status !== 'RECEIVED'"
                             type="button"
                             class="btn problem-btn"
-                            routerLink="['/dispute-system/order-support', orderBookId]"
+                            [routerLink]="['/dispute-system/order-support', orderBookId]"
                         >
                             {{ globals.languageJson?.have_a_problem }}
                         </button>

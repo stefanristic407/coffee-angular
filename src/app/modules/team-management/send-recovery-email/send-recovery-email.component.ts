@@ -58,7 +58,7 @@ export class SendRecoveryEmailComponent implements OnInit {
             this.userID = decodeURIComponent(this.route.snapshot.queryParams.userID);
         } else {
             this.toastrService.error('Error in getting the user Id');
-            this.router.navigate(['/people/user-management']);
+            this.router.navigate(['/team-management/user-management']);
         }
         this.getUserData();
     }
@@ -107,7 +107,7 @@ export class SendRecoveryEmailComponent implements OnInit {
         };
         const obj2: MenuItem = {
             label: this.globals.languageJson?.people,
-            routerLink: '/people/manage-role',
+            routerLink: '//team-management/manage-role',
         };
         const obj3: MenuItem = {
             label: 'User Management',
