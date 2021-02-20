@@ -15,7 +15,7 @@ import { SharedServiceService } from '@app/shared/services/shared-service.servic
 @Component({
     selector: 'app-roasted-coffee-batches',
     templateUrl: './roasted-coffee-batches.component.html',
-    styleUrls: ['./roasted-coffee-batches.component.css'],
+    styleUrls: ['./roasted-coffee-batches.component.scss'],
 })
 export class RoastedCoffeeBatchesComponent implements OnInit {
     termRole: any;

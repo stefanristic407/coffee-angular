@@ -12,7 +12,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 @Component({
     selector: 'app-new-roasted-batch',
     templateUrl: './new-roasted-batch.component.html',
-    styleUrls: ['./new-roasted-batch.component.css'],
+    styleUrls: ['./new-roasted-batch.component.scss'],
 })
 export class NewRoastedBatchComponent implements OnInit {
     cupping_type: any = '';

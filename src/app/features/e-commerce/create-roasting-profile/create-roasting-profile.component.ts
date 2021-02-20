@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 @Component({
     selector: 'app-create-roasting-profile',
     templateUrl: './create-roasting-profile.component.html',
-    styleUrls: ['./create-roasting-profile.component.css'],
+    styleUrls: ['./create-roasting-profile.component.scss'],
 })
 export class CreateRoastingProfileComponent implements OnInit {
     appLanguage?: any;
