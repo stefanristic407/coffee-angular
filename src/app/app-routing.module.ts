@@ -27,6 +27,11 @@ export const routes: Routes = [
                 loadChildren: () =>
                     import('./modules/dispute-system/dispute-system.module').then((m) => m.DisputeSystemModule),
             },
+            {
+                path: 'team-management',
+                loadChildren: () =>
+                    import('./modules/team-management/team-management.module').then((m) => m.TeamManagementModule),
+            },
             { path: 'people', loadChildren: () => import('./people/people.module').then((m) => m.PeopleModule) },
             {
                 path: 'invite-friends',

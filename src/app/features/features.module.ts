@@ -103,8 +103,7 @@ import { ProcessDetailsComponent } from './green-grading/process-details/process
 import { MarkedSaleComponent } from './green-inventory/green-coffee-inventory/marked-sale/marked-sale.component';
 import { CoffeeProcuredTabComponent } from './green-inventory/green-coffee-inventory/coffee-procured-tab/coffee-procured-tab.component';
 import { VatManagementComponent } from './vat-management/vat-management.component';
-import { VatMicroRoasterComponent } from './vat-management/vat-micro-roaster/vat-micro-roaster.component';
-import { VatB2bComponent } from './vat-management/vat-b2b/vat-b2b.component';
+import { VatDetailsComponent } from './vat-management/vat-details/vat-details.component';
 import { QAForumComponent } from './Farm Link/q-a-forum/q-a-forum.component';
 import { AssignedComponent } from './Farm Link/q-a-forum/assigned/assigned.component';
 import { ForumComponent } from './Farm Link/q-a-forum/forum/forum.component';
@@ -224,8 +223,7 @@ import { ListboxModule } from 'primeng/listbox';
         MarkedSaleComponent,
         CoffeeProcuredTabComponent,
         VatManagementComponent,
-        VatMicroRoasterComponent,
-        VatB2bComponent,
+        VatDetailsComponent,
         QAForumComponent,
         AssignedComponent,
         ForumComponent,

@@ -7,18 +7,28 @@
         </div>
         <div class="row">
             <div class="col-md-9 col-12 mp-0">
-                <p class="fnt-18 fnt-muli fnt-700 text-clr334 m-0">{{getHeading()}}</p>
+                <p class="fnt-18 fnt-muli fnt-700 text-clr334 m-0">{{ getHeading() }}</p>
                 <p class="fnt-14 fnt-muli fnt-400 text-clr73c mb-0">
-                    {{getDescription()}}
+                    {{ getDescription() }}
                 </p>
             </div>
             <div class="col-md-3 d-sm-none d-md-block d-lg-none tabView" *ngIf="selectedMobileTab == 'Shipment'">
-                <button *ngIf="editshippingmode && shippData != null" type="button" class="fnt-14 fnt-muli fnt-700 send-invites edit-right" (click)="editShippingInfo()">
+                <button
+                    *ngIf="editshippingmode && shippData != null"
+                    type="button"
+                    class="fnt-14 fnt-muli fnt-700 btn btn-raised pull-right"
+                    (click)="editShippingInfo()"
+                >
                     Edit
                 </button>
-                <button *ngIf="saveshippingmode"  type="button" class="fnt-14 fnt-muli fnt-700 send-invites edit-right" (click)="saveShippingInfo()"
-                    [disabled]=" details.invalid || resetButtonValue === 'Saving'">
-                    {{ resetButtonValue}}
+                <button
+                    *ngIf="saveshippingmode"
+                    type="button"
+                    class="fnt-14 fnt-muli fnt-700 btn btn-raised pull-right"
+                    (click)="saveShippingInfo()"
+                    [disabled]="details.invalid || resetButtonValue === 'Saving'"
+                >
+                    {{ resetButtonValue }}
                     <img class="loader" *ngIf="resetButtonValue === 'Saving'" src="assets/images/orange-loader.gif" />
                 </button>
             </div>
@@ -27,10 +37,15 @@
         <div class="d-none d-lg-block">
             <div class="row pt-4">
                 <div class="col-md-3 col-xs-12 mb-3">
-                    <p-listbox [options]="options" [(ngModel)]="selectedTab" optionLabel="name" (onClick)="selectTabs()">
+                    <p-listbox
+                        [options]="options"
+                        [(ngModel)]="selectedTab"
+                        optionLabel="name"
+                        (onClick)="selectTabs()"
+                    >
                         <ng-template let-option pTemplate="item">
                             <div class="d-flex">
-                                <div>{{option.name}}</div>
+                                <div>{{ option.name }}</div>
                                 <i class="selectedMenu fa fa-angle-right"></i>
                             </div>
                         </ng-template>
@@ -43,133 +58,184 @@
                                 <p-tabView styleClass="pb-3" [(activeIndex)]="selectedIndex">
                                     <p-tabPanel header="Micro roaster">
                                         <div class="pt-3">
-                                            <app-vat-micro-roaster> </app-vat-micro-roaster>
+                                            <app-vat-details feature="mr"> </app-vat-details>
                                         </div>
                                     </p-tabPanel>
                                     <p-tabPanel header="B2B e-commerce">
                                         <div class="pt-3">
-                                            <app-vat-b2b> </app-vat-b2b>
+                                            <app-vat-details feature="b2b_ecommerce"> </app-vat-details>
                                         </div>
                                     </p-tabPanel>
                                 </p-tabView>
                             </div>
                         </div>
-                        <div class="col-12" *ngIf="selectedTab.index == 1">
-                            <div class="row ml-0" *ngIf="saveshippingmode">
+                        <div class="col-12 pl-2" *ngIf="selectedTab.index == 1">
+                            <div class="row m-0" *ngIf="saveshippingmode">
                                 <div class="pls-note col-12">
-                                    <p class="fnt-13 fnt-400 fnt-muli text-clr334 m-0">
-                                        The shipping price & estimated delivery time you set will be applicable to all green coffee
-                                        and roasted coffee
-                                        you sell on the platform.
+                                    <p class="fnt-14 fnt-400 fnt-muli text-clr334 m-0">
+                                        The shipping price & estimated delivery time you set will be applicable to all
+                                        green coffee and roasted coffee you sell on the platform.
                                     </p>
                                 </div>
                                 <form [formGroup]="details" novalidate>
-                                    <div class="col-md-12 Onboard-rows">
-                                        <div class="Onboard-rows__inputs pt-5">
+                                    <div class="col-md-12 p-0">
+                                        <div class="pt-4">
                                             <div class="row">
-                                                <div class="col-12 col-md-4 Onboard-input sewn-form-field">
-                                                    <label class="fnt-14 fnt-muli fnt-600 text-clr334">Shipping type *</label>
-                                                    <input class="w-100" type="text" placeholder="Please enter shipping name"
-                                                        name="transcation_type" formControlName="name" />
-                                                    <span class="text-clrb1f fnt-14 fnt-muli" *ngIf="
-                                                                                (detailsFormControl.name.touched) &&
-                                                                                detailsFormControl.name.errors?.required
-                                                                            ">
+                                                <div class="col-12 col-md-4 form-group sewn-form-field">
+                                                    <label class="fnt-14 fnt-muli fnt-600 text-clr334"
+                                                        >Shipping type *</label
+                                                    >
+                                                    <input
+                                                        class="form-control"
+                                                        type="text"
+                                                        placeholder="Please enter shipping name"
+                                                        name="transcation_type"
+                                                        formControlName="name"
+                                                    />
+                                                    <span
+                                                        class="text-clrb1f fnt-14 fnt-muli"
+                                                        *ngIf="
+                                                            detailsFormControl.name.touched &&
+                                                            detailsFormControl.name.errors?.required
+                                                        "
+                                                    >
                                                         Shipment type is required
                                                     </span>
                                                 </div>
                                             </div>
-            
+
                                             <div class="row">
-                                                <div class="col-12 col-md-4 Onboard-input">
+                                                <div class="col-12 col-md-4">
                                                     <div class="form-input sewn-form-field">
-                                                        <label class="fnt-14 fnt-muli fnt-600 text-clr334">Shipping
-                                                            Price<span>*</span></label>
+                                                        <label class="fnt-14 fnt-muli fnt-600 text-clr334"
+                                                            >Shipping Price<span>*</span></label
+                                                        >
                                                         <div class="input-group">
-                                                            <input type="number" placeholder="Please enter shipping amount"
+                                                            <input
+                                                                type="number"
+                                                                placeholder="Please enter shipping amount"
                                                                 class="form-control input-group-right-border"
                                                                 aria-label="Text input with dropdown button"
-                                                                formControlName="price" />
+                                                                formControlName="price"
+                                                            />
                                                             <div class="input-group-append">
-                                                                <select name="Year" required=""
-                                                                    class="form-control select-region select-form-group-dropdown select-region-local">
+                                                                <select
+                                                                    name="Year"
+                                                                    required=""
+                                                                    class="form-control select-region select-form-group-dropdown select-region-local"
+                                                                >
                                                                     <option value="USD">USD</option>
-                                                                    <option value="USD" ng-reflect-value="Yes">USD</option>
                                                                     <!-- <option value="per mkg" ng-reflect-value="No">per mkg</option> -->
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        <span class="text-clrb1f fnt-14 fnt-muli"
-                                                            *ngIf="(detailsFormControl.price.touched) && detailsFormControl.price.errors?.required">
+                                                        <span
+                                                            class="text-clrb1f fnt-14 fnt-muli"
+                                                            *ngIf="
+                                                                detailsFormControl.price.touched &&
+                                                                detailsFormControl.price.errors?.required
+                                                            "
+                                                        >
                                                             Shipment price is required
                                                         </span>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-md-4 Onboard-input">
+                                                <div class="col-12 col-md-4">
                                                     <div class="form-input sewn-form-field">
-                                                        <label class="fnt-14 fnt-muli fnt-600 text-clr334">Estimated delivery
-                                                            time<span>*</span></label>
+                                                        <label class="fnt-14 fnt-muli fnt-600 text-clr334"
+                                                            >Estimated delivery time<span>*</span></label
+                                                        >
                                                         <div class="input-group">
-                                                            <input type="number" placeholder=""
+                                                            <input
+                                                                type="number"
+                                                                placeholder=""
                                                                 class="form-control input-group-right-border"
                                                                 aria-label="Text input with dropdown button"
-                                                                formControlName="day_min" />
+                                                                formControlName="day_min"
+                                                            />
                                                             <div class="input-group-append">
-                                                                <span name="Year" required=""
-                                                                    class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no">
+                                                                <span
+                                                                    name="Year"
+                                                                    required=""
+                                                                    class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no"
+                                                                >
                                                                     <option value="USD">Days</option>
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                        <span class="text-clrb1f fnt-14 fnt-muli"
-                                                            *ngIf="(detailsFormControl.day_min.touched) && detailsFormControl.day_min.errors?.required">
+                                                        <span
+                                                            class="text-clrb1f fnt-14 fnt-muli"
+                                                            *ngIf="
+                                                                detailsFormControl.day_min.touched &&
+                                                                detailsFormControl.day_min.errors?.required
+                                                            "
+                                                        >
                                                             Required
                                                         </span>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-md-4 Onboard-input">
+                                                <div class="col-12 col-md-4">
                                                     <div class="form-input sewn-form-field">
-                                                        <label class="fnt-14 fnt-muli fnt-600 text-clr334">Estimated delivery
-                                                            time<span>*</span></label>
+                                                        <label class="fnt-14 fnt-muli fnt-600 text-clr334"
+                                                            >Estimated delivery time<span>*</span></label
+                                                        >
                                                         <div class="input-group">
-                                                            <input type="number" placeholder=""
+                                                            <input
+                                                                type="number"
+                                                                placeholder=""
                                                                 class="form-control input-group-right-border"
                                                                 aria-label="Text input with dropdown button"
-                                                                formControlName="day_max" />
+                                                                formControlName="day_max"
+                                                            />
                                                             <div class="input-group-append">
-                                                                <span name="Year" required=""
-                                                                    class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no">
+                                                                <span
+                                                                    name="Year"
+                                                                    required=""
+                                                                    class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no"
+                                                                >
                                                                     <option value="USD">Days</option>
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                        <span class="text-clrb1f fnt-14 fnt-muli"
-                                                            *ngIf="(detailsFormControl.day_max.touched) && detailsFormControl.day_max.errors?.required">
+                                                        <span
+                                                            class="text-clrb1f fnt-14 fnt-muli"
+                                                            *ngIf="
+                                                                detailsFormControl.day_max.touched &&
+                                                                detailsFormControl.day_max.errors?.required
+                                                            "
+                                                        >
                                                             Required
                                                         </span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-12">
-                                                <button type="submit" class="fnt-14 fnt-muli fnt-700 send-invites edit-right"
-                                                    (click)="saveShippingInfo()" [disabled]="resetButtonValue === 'Saving'">
-                                                    {{ resetButtonValue}}
-                                                    <img class="loader" *ngIf="resetButtonValue === 'Saving'"
-                                                        src="assets/images/orange-loader.gif" />
+                                                <button
+                                                    type="submit"
+                                                    class="fnt-14 fnt-muli fnt-700 btn btn-raised pull-right"
+                                                    (click)="saveShippingInfo()"
+                                                    [disabled]="resetButtonValue === 'Saving'"
+                                                >
+                                                    {{ resetButtonValue }}
+                                                    <img
+                                                        class="loader"
+                                                        *ngIf="resetButtonValue === 'Saving'"
+                                                        src="assets/images/orange-loader.gif"
+                                                    />
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
                                 </form>
                             </div>
-            
+
                             <!-- after save -->
-            
-                            <div class="row" *ngIf="editshippingmode && shippData != null">
+
+                            <div class="row m-0" *ngIf="editshippingmode && shippData != null">
                                 <div class="pls-note col-12">
-                                    <p class="fnt-13 fnt-400 fnt-muli text-clr334 m-0">
-                                        This information will be used for all orders placed on the platform by the Roasters
-                                        and Micro roasters.
+                                    <p class="fnt-14 fnt-400 fnt-muli text-clr334 m-0">
+                                        This information will be used for all orders placed on the platform by the
+                                        Roasters and Micro roasters.
                                     </p>
                                 </div>
                                 <div class="shipping-border col-12 mt-4">
@@ -189,16 +255,20 @@
                                         <tr>
                                             <td><span class="list-que"> Estimated delivery time : </span></td>
                                             <td>
-                                                <span class="list-ans"> {{ shippingDetails.day_min }} - {{ shippingDetails.day_max
-                                                    }} Days </span>
+                                                <span class="list-ans">
+                                                    {{ shippingDetails.day_min }} - {{ shippingDetails.day_max }} Days
+                                                </span>
                                             </td>
                                         </tr>
                                     </table>
                                 </div>
-            
+
                                 <div class="col-12 mt-3">
-                                    <button type="button" class="fnt-14 fnt-muli fnt-700 send-invites edit-right"
-                                        (click)="editShippingInfo()">
+                                    <button
+                                        type="button"
+                                        class="fnt-14 fnt-muli fnt-700 btn btn-raised pull-right"
+                                        (click)="editShippingInfo()"
+                                    >
                                         Edit
                                     </button>
                                 </div>
@@ -214,15 +284,21 @@
                 <div class="col-sm-12 col-md-6 px-0 pr-md-2">
                     <div class="feature-card">
                         <label class="fnt-16 fnt-multi fnt-bold txt-clr334" for="">VAT management</label>
-                        <span class="fnt-16 fnt-multi fnt-500txt-clr334">Manage VAT for green coffee and B2B orders</span>
-                        <button class="btn btn-raised mt-4" (click)="selectMobileTab('VAT')"> Manage VAT Rate</button>
+                        <span class="fnt-16 fnt-multi fnt-500txt-clr334"
+                            >Manage VAT for green coffee and B2B orders</span
+                        >
+                        <button class="btn btn-raised mt-4" (click)="selectMobileTab('VAT')">Manage VAT Rate</button>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6 px-0 pl-md-2">
                     <div class="feature-card">
                         <label class="fnt-16 fnt-multi fnt-bold txt-clr334" for="">Shipping Details</label>
-                        <span class="fnt-16 fnt-multi fnt-500 txt-clr334">Set shipping price and estimated delivery time</span>
-                        <button class="btn btn-raised mt-4" (click)="selectMobileTab('Shipment')"> Manage Shipping Details</button>
+                        <span class="fnt-16 fnt-multi fnt-500 txt-clr334"
+                            >Set shipping price and estimated delivery time</span
+                        >
+                        <button class="btn btn-raised mt-4" (click)="selectMobileTab('Shipment')">
+                            Manage Shipping Details
+                        </button>
                     </div>
                 </div>
             </div>
@@ -231,12 +307,12 @@
                     <p-tabView styleClass="pb-4" [(activeIndex)]="selectedIndex">
                         <p-tabPanel header="Micro roaster">
                             <div class="pt-3">
-                                <app-vat-micro-roaster [mobile]="true"> </app-vat-micro-roaster>
+                                <app-vat-details [mobile]="true" feature="mr"> </app-vat-details>
                             </div>
                         </p-tabPanel>
                         <p-tabPanel header="B2B e-commerce">
                             <div class="pt-3">
-                                <app-vat-b2b [mobile]="true"> </app-vat-b2b>
+                                <app-vat-details [mobile]="true" feature="b2b_ecommerce"> </app-vat-details>
                             </div>
                         </p-tabPanel>
                     </p-tabView>
@@ -245,10 +321,9 @@
             <div class="pt-4" *ngIf="selectedMobileTab == 'Shipment'">
                 <div class="row" *ngIf="saveshippingmode">
                     <div class="pls-note col-12">
-                        <p class="fnt-13 fnt-400 fnt-muli text-clr334 m-0">
+                        <p class="fnt-14 fnt-400 fnt-muli text-clr334 m-0">
                             The shipping price & estimated delivery time you set will be applicable to all green coffee
-                            and roasted coffee
-                            you sell on the platform.
+                            and roasted coffee you sell on the platform.
                         </p>
                     </div>
                     <form [formGroup]="details" novalidate>
@@ -257,79 +332,134 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6 form-group sewn-form-field p-0 pr-md-3">
                                         <label class="fnt-14 fnt-muli fnt-600 text-clr334">Shipping type *</label>
-                                        <input class="form-control" type="text"
+                                        <input
+                                            class="form-control"
+                                            type="text"
                                             placeholder="Please enter shipping name"
-                                            name="transcation_type" formControlName="name" />
-                                        <span class="text-clrb1f fnt-14 fnt-muli"
-                                        *ngIf="(detailsFormControl.name.touched) && detailsFormControl.name.errors?.required">
+                                            name="transcation_type"
+                                            formControlName="name"
+                                        />
+                                        <span
+                                            class="text-clrb1f fnt-14 fnt-muli"
+                                            *ngIf="
+                                                detailsFormControl.name.touched &&
+                                                detailsFormControl.name.errors?.required
+                                            "
+                                        >
                                             Shipment type is required
                                         </span>
                                     </div>
                                     <div class="col-sm-12 col-md-6 form-group sewn-form-field p-0">
-                                        <label class="fnt-14 fnt-muli fnt-600 text-clr334">Shipping
-                                            Price<span>*</span></label>
+                                        <label class="fnt-14 fnt-muli fnt-600 text-clr334"
+                                            >Shipping Price<span>*</span></label
+                                        >
                                         <div class="input-group">
-                                            <input type="number" placeholder="Please enter shipping amount" class="form-control input-group-right-border"
-                                                aria-label="Text input with dropdown button" formControlName="price" />
+                                            <input
+                                                type="number"
+                                                placeholder="Please enter shipping amount"
+                                                class="form-control input-group-right-border"
+                                                aria-label="Text input with dropdown button"
+                                                formControlName="price"
+                                            />
                                             <div class="input-group-append">
-                                                <select name="Year" required=""
-                                                    class="form-control select-region select-form-group-dropdown select-region-local">
+                                                <select
+                                                    name="Year"
+                                                    required=""
+                                                    class="form-control select-region select-form-group-dropdown select-region-local"
+                                                >
                                                     <option value="USD">USD</option>
-                                                    <option value="USD" ng-reflect-value="Yes">USD</option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <span class="text-clrb1f fnt-14 fnt-muli"
-                                            *ngIf="(detailsFormControl.price.touched) && detailsFormControl.price.errors?.required">
+                                        <span
+                                            class="text-clrb1f fnt-14 fnt-muli"
+                                            *ngIf="
+                                                detailsFormControl.price.touched &&
+                                                detailsFormControl.price.errors?.required
+                                            "
+                                        >
                                             Shipment price is required
                                         </span>
                                     </div>
                                     <div class="col-12 p-0">
-                                        <label class="fnt-14 fnt-muli fnt-600 text-clr334">Estimated delivery
-                                            time<span>*</span></label>
+                                        <label class="fnt-14 fnt-muli fnt-600 text-clr334"
+                                            >Estimated delivery time<span>*</span></label
+                                        >
                                     </div>
                                     <div class="d-flex justify-content-between">
                                         <div class="form-group sewn-form-field mr-2 tabWidth">
                                             <div class="input-group">
-                                                <input type="number" placeholder="" class="form-control input-group-right-border"
-                                                    aria-label="Text input with dropdown button" formControlName="day_min" />
+                                                <input
+                                                    type="number"
+                                                    placeholder=""
+                                                    class="form-control input-group-right-border"
+                                                    aria-label="Text input with dropdown button"
+                                                    formControlName="day_min"
+                                                />
                                                 <div class="input-group-append">
-                                                    <span name="Year" required=""
-                                                        class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no">
+                                                    <span
+                                                        name="Year"
+                                                        required=""
+                                                        class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no"
+                                                    >
                                                         <option value="USD">Days</option>
                                                     </span>
                                                 </div>
                                             </div>
-                                            <span class="text-clrb1f fnt-14 fnt-muli"
-                                                *ngIf="(detailsFormControl.day_min.touched) && detailsFormControl.day_min.errors?.required">
+                                            <span
+                                                class="text-clrb1f fnt-14 fnt-muli"
+                                                *ngIf="
+                                                    detailsFormControl.day_min.touched &&
+                                                    detailsFormControl.day_min.errors?.required
+                                                "
+                                            >
                                                 Required
                                             </span>
                                         </div>
                                         <div class="form-group sewn-form-field tabWidth">
                                             <div class="input-group">
-                                                <input type="number" placeholder="" class="form-control input-group-right-border"
-                                                    aria-label="Text input with dropdown button" formControlName="day_max" />
+                                                <input
+                                                    type="number"
+                                                    placeholder=""
+                                                    class="form-control input-group-right-border"
+                                                    aria-label="Text input with dropdown button"
+                                                    formControlName="day_max"
+                                                />
                                                 <div class="input-group-append">
-                                                    <span name="Year" required=""
-                                                        class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no">
+                                                    <span
+                                                        name="Year"
+                                                        required=""
+                                                        class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no"
+                                                    >
                                                         <option value="USD">Days</option>
                                                     </span>
                                                 </div>
                                             </div>
-                                            <span class="text-clrb1f fnt-14 fnt-muli"
-                                                *ngIf="(detailsFormControl.day_max.touched) && detailsFormControl.day_max.errors?.required">
+                                            <span
+                                                class="text-clrb1f fnt-14 fnt-muli"
+                                                *ngIf="
+                                                    detailsFormControl.day_max.touched &&
+                                                    detailsFormControl.day_max.errors?.required
+                                                "
+                                            >
                                                 Required
                                             </span>
                                         </div>
-                                        
                                     </div>
                                 </div>
                                 <div class="row d-sm-block d-md-none">
-                                    <button type="submit" class="col-12 fnt-14 fnt-muli fnt-700 send-invites edit-right"
-                                        (click)="saveShippingInfo()" [disabled]=" details.invalid || resetButtonValue === 'Saving'">
-                                        {{ resetButtonValue}}
-                                        <img class="loader" *ngIf="resetButtonValue === 'Saving'"
-                                            src="assets/images/orange-loader.gif" />
+                                    <button
+                                        type="submit"
+                                        class="col-12 fnt-14 fnt-muli fnt-700 btn btn-raised"
+                                        (click)="saveShippingInfo()"
+                                        [disabled]="details.invalid || resetButtonValue === 'Saving'"
+                                    >
+                                        {{ resetButtonValue }}
+                                        <img
+                                            class="loader"
+                                            *ngIf="resetButtonValue === 'Saving'"
+                                            src="assets/images/orange-loader.gif"
+                                        />
                                     </button>
                                 </div>
                             </div>
@@ -338,9 +468,9 @@
                 </div>
                 <div class="row" *ngIf="editshippingmode && shippData != null">
                     <div class="pls-note col-12">
-                        <p class="fnt-13 fnt-400 fnt-muli text-clr334 m-0">
-                            This information will be used for all orders placed on the platform by the Roasters
-                            and Micro roasters.
+                        <p class="fnt-14 fnt-400 fnt-muli text-clr334 m-0">
+                            This information will be used for all orders placed on the platform by the Roasters and
+                            Micro roasters.
                         </p>
                     </div>
                     <div class="shipping-border col-12 mt-4">
@@ -360,19 +490,23 @@
                             <tr>
                                 <td><span class="list-que"> Estimated delivery time : </span></td>
                                 <td>
-                                    <span class="list-ans"> {{ shippingDetails.day_min }} - {{ shippingDetails.day_max
-                                        }} Days </span>
+                                    <span class="list-ans">
+                                        {{ shippingDetails.day_min }} - {{ shippingDetails.day_max }} Days
+                                    </span>
                                 </td>
                             </tr>
                         </table>
                     </div>
                     <div class="col-12 p-0 d-sm-block d-md-none mt-3">
-                        <button type="button" class="col-12 fnt-14 fnt-muli fnt-700 send-invites edit-right" (click)="editShippingInfo()">
+                        <button
+                            type="button"
+                            class="col-12 fnt-14 fnt-muli fnt-700 btn btn-raised"
+                            (click)="editShippingInfo()"
+                        >
                             Edit
                         </button>
                     </div>
                 </div>
-                
             </div>
         </div>
     </div>

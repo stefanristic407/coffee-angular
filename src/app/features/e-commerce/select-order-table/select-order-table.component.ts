@@ -265,7 +265,7 @@ export class SelectOrderTableComponent implements OnInit {
             postData.start_date = moment(this.rangeDates[0], 'DD/MM/YYYY').format('YYYY-MM-DD');
             postData.end_date = moment(this.rangeDates[1], 'DD/MM/YYYY').format('YYYY-MM-DD');
         }
-        this.roasterService.getRoastedOrders(this.roasterId, postData).subscribe((data: any) => {
+        this.roasterService.getEstateOrders(this.roasterId, postData, this.orderType).subscribe((data: any) => {
             if (data.success && data.result) {
                 this.totalCount = data.result_info.total_count;
                 this.tableValue = data.result;

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VatB2bComponent } from './vat-b2b.component';
+import { VatDetailsComponent } from './vat-details.component';
 
-describe('VatB2bComponent', () => {
-  let component: VatB2bComponent;
-  let fixture: ComponentFixture<VatB2bComponent>;
+describe('VatDetailsComponent', () => {
+  let component: VatDetailsComponent;
+  let fixture: ComponentFixture<VatDetailsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VatB2bComponent ]
+      declarations: [ VatDetailsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VatB2bComponent);
+    fixture = TestBed.createComponent(VatDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

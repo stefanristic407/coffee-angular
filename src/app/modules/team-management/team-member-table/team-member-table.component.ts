@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators';
-import { ChatHandlerService } from './../../../services/chat/chat-handler.service';
+import { ChatHandlerService } from './../../../../services/chat/chat-handler.service';
 import { WSOrganizationType } from '@models';
 
 @Component({
@@ -220,7 +220,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
         };
         const obj2: MenuItem = {
             label: this.globals.languageJson?.people,
-            routerLink: '/people/manage-role',
+            routerLink: '//team-management/manage-role',
             disabled: false,
         };
         const obj4: MenuItem = { label: this.globals.languageJson?.manage_roles };
@@ -242,7 +242,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
                 roleID: encodeURIComponent(this.currentRoleID),
             },
         };
-        this.router.navigate(['/people/invite-member'], navigationExtras);
+        this.router.navigate(['/team-management/invite-member'], navigationExtras);
     }
     assignUsersToRole(): void {
         let count = 0;
@@ -276,7 +276,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
             },
         };
 
-        this.router.navigate(['/people/edit-members'], navigationExtras);
+        this.router.navigate(['/team-management/edit-members'], navigationExtras);
     }
     // Function Name : Open Modal
     // Description: This function helps to get the Role Id from user management page
