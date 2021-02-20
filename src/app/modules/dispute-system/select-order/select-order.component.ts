@@ -111,7 +111,7 @@ export class SelectOrderComponent implements OnInit {
     }
     onTabChange(event) {
         if (event.index === 1) {
-            this.orderType = 'mr';
+            this.orderType = 'MR';
         } else {
             this.orderType = 'ro';
         }
@@ -140,11 +140,7 @@ export class SelectOrderComponent implements OnInit {
             { label: '50', value: 50 },
         ];
     }
-    onSelect(ticket) {
-        console.log(ticket);
-    }
     getTableData() {
-        console.log(this.rangeDates);
         this.tableValue = [];
         const postData: any = {};
         postData.origin = this.originFilter ? this.originFilter : '';
@@ -157,7 +153,7 @@ export class SelectOrderComponent implements OnInit {
             postData.start_date = moment(this.rangeDates[0], 'DD/MM/YYYY').format('YYYY-MM-DD');
             postData.end_date = moment(this.rangeDates[1], 'DD/MM/YYYY').format('YYYY-MM-DD');
         }
-        this.roasterService.getRoasterOrders(this.roasterID, postData, this.orderType).subscribe((data: any) => {
+        this.roasterService.getEstateOrders(this.roasterID, postData, this.orderType).subscribe((data: any) => {
             if (data.success && data.result) {
                 data.result.map((ele) => {
                     if (this.orderType === 'mr') {

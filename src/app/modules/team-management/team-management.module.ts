@@ -7,7 +7,9 @@ import { TeamMemberTableComponent } from './team-member-table/team-member-table.
 import { InviteNewUserComponent } from './invite-new-user/invite-new-user.component';
 import { EditUserDetailsComponent } from './edit-user-details/edit-user-details.component';
 import { SendRecoveryEmailComponent } from './send-recovery-email/send-recovery-email.component';
-import { SharedModule } from './../shared/shared.module';
+import { SharedModule } from './../../shared/shared.module';
+import { TeamManagementComponent } from './team-management/team-management.component';
+import { TeamManagementRoutingModule } from './team-management-routing';
 
 @NgModule({
     declarations: [
@@ -18,7 +20,8 @@ import { SharedModule } from './../shared/shared.module';
         InviteNewUserComponent,
         EditUserDetailsComponent,
         SendRecoveryEmailComponent,
+        TeamManagementComponent,
     ],
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, TeamManagementRoutingModule],
 })
-export class AddTeamsModule {}
+export class TeamManagementModule {}

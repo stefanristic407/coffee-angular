@@ -50,8 +50,8 @@ export const menuItems = [
         'user-management',
         'user-reports',
     ]),
-    new Menu(81, 'Roles', '/people/manage-role', null, null, null, false, 8, ['acl-management', 'acl-list']),
-    new Menu(82, 'User Settings', '/people/team-members', null, null, null, false, 8, [
+    new Menu(81, 'Roles', '/team-management/manage-role', null, null, null, false, 8, ['acl-management', 'acl-list']),
+    new Menu(82, 'User Settings', '/team-management/team-members', null, null, null, false, 8, [
         'user-management',
         'user-reports',
     ]),

@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { OrderChatThreadResolver, OrderDetailsRsolver } from '@services';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-// import { PagenotfoundComponent } from '../people/pagenotfound/pagenotfound.component';
 import { EstateOrdersComponent } from './estate-orders/estate-orders.component';
 import { MyordersComponent } from './myorders/myorders.component';
 import { OrderBookedComponent } from './order-booked/order-booked.component';

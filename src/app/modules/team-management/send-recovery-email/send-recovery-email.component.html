@@ -15,7 +15,7 @@
                 <button
                     *ngIf="!isEdit"
                     class="btn pull-right btn-stroked d-md-block d-none mr-3"
-                    routerLink="/people/manage-role"
+                    routerLink="//team-management/manage-role"
                 >
                     {{ globals.languageJson?.cancel }}
                 </button>
@@ -146,7 +146,11 @@
                     <button *ngIf="!isEdit" class="btn btn-raised w-100" (click)="isEdit = !isEdit; updateForm()">
                         {{ globals.languageJson?.edit }}
                     </button>
-                    <button *ngIf="!isEdit" class="btn btn-stroked w-100 mt-3" routerLink="/people/manage-role">
+                    <button
+                        *ngIf="!isEdit"
+                        class="btn btn-stroked w-100 mt-3"
+                        routerLink="//team-management/manage-role"
+                    >
                         {{ globals.languageJson?.cancel }}
                     </button>
                     <button *ngIf="isEdit" class="btn btn-raised w-100" (click)="onSave()">

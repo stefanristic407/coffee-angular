@@ -66,7 +66,7 @@ export class InviteNewUserComponent implements OnInit {
         };
         const obj2: MenuItem = {
             label: this.globals.languageJson?.people,
-            routerLink: '/people/manage-role',
+            routerLink: '/team-management/manage-role',
             disabled: false,
         };
         const obj4: MenuItem = { label: this.globals.languageJson?.manage_roles };
@@ -81,7 +81,7 @@ export class InviteNewUserComponent implements OnInit {
                 const userInput = this.getUserInputObj(ele);
                 this.addUserToRoaster(userInput);
                 if (index === getArrayLength - 1) {
-                    this.router.navigate(['/people/user-management']);
+                    this.router.navigate(['/team-management/user-management']);
                 }
             });
         } else {

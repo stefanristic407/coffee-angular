@@ -1,0 +1,89 @@
+<div class="main-block">
+    <div class="row mb-3">
+        <div class="col-10">
+            <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
+        </div>
+        <div class="col-2">
+            <button
+                type="submit"
+                class="btn pull-right btn-stroked d-md-block d-none"
+                routerLink="/team-management/manage-role"
+            >
+                {{ globals.languageJson?.cancel }}
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="d-none d-sm-none d-md-block primary_txt">
+                {{ globals.languageJson?.new_members_to }}
+                <span class="d-inline primary_txt roleTxt-selector" (click)="op.toggle($event)">
+                    {{ selectedRole }}
+                    <img src="assets/images/active.png" alt="user" class="icon-select image_cursor"
+                /></span>
+            </div>
+            <div class="d-block d-sm-block d-md-none primary_txt">Create Role</div>
+        </div>
+    </div>
+    <div class="d-block d-sm-block d-md-none col-12 p-0 mt-3">
+        <div class="sewn-form-field w-100">
+            <label>Add member<span class="star">*</span></label>
+            <p-dropdown
+                [options]="roleList"
+                optionLabel="name"
+                placeholder="Select role"
+                [style]="{ width: '100%' }"
+                [(ngModel)]="currentRoleID"
+                optionValue="id"
+            ></p-dropdown>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
+            <app-edit-user-details></app-edit-user-details>
+        </div>
+    </div>
+    <div class="row">
+        <div class="d-none d-sm-none d-md-block col-md-4 col-12 mt-5">
+            <div class="d-flex flex-wrap">
+                <button
+                    (click)="onInvite()"
+                    [disabled]="!currentRoleID"
+                    class="btn-raised mb-3 w-mob-100 order-1 order-md-2"
+                >
+                    Send Invites
+                </button>
+            </div>
+        </div>
+        <div class="d-block d-sm-block d-md-none col-md-4 col-12 mt-3">
+            <div class="d-flex flex-wrap">
+                <button
+                    (click)="onInvite()"
+                    [disabled]="!currentRoleID"
+                    class="btn-raised mb-3 w-mob-100 order-1 order-md-2"
+                >
+                    Send Invites
+                </button>
+                <button
+                    routerLink="/team-management/manage-role"
+                    [disabled]="!currentRoleID"
+                    class="btn-stroked mb-3 w-mob-100 order-1 order-md-2"
+                >
+                    {{ globals.languageJson?.cancel }}
+                </button>
+            </div>
+        </div>
+    </div>
+    <p-overlayPanel #op [dismissable]="true" appendTo="body">
+        <div class="overflow-popover">
+            <ul class="custom-popover">
+                <li class="content_list" *ngFor="let role of roleList" (click)="setTeamRole(role); op.hide()">
+                    {{ role.name }}
+                </li>
+            </ul>
+            <button class="btn btn-raised" routerLink="/team-management/create-role">
+                {{ globals.languageJson?.add_role }}
+            </button>
+        </div>
+    </p-overlayPanel>
+</div>

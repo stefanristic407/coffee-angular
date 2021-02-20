@@ -640,21 +640,17 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
 
-    getEstateOrders(roaster_id: any, queryParams = '') {
-        var data = {};
-        data['api_call'] = `/ro/${roaster_id}/orders${queryParams}`;
-        data['token'] = this.cookieService.get('Auth');
+    getEstateOrders(roaster_id: any, postData = null, orderType = '') {
+        let data: any = {};
+        data.api_call = '/ro/' + roaster_id + '/orders?' + this.serlialise(postData);
+        if (orderType == 'MR') {
+            data.api_call = '/ro/' + roaster_id + '/mr-orders?' + this.serlialise(postData);
+        }
+        data.token = this.cookieService.get('Auth');
         return this.http.post(this.url, data);
     }
 
-    getRoastedOrders(roaster_id: any, postData?) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/orders?' + this.serlialise(postData);
-        data['token'] = this.cookieService.get('Auth');
-        return this.http.post(this.url, data);
-    }
-
-    getRaisedTicketData(roaster_id: any, orderType?) {
+    getRaisedTicketData(roaster_id: any, orderType?, postData?) {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/disputes?' + this.serlialise(postData);
         if (orderType == 'MR') {
@@ -746,7 +742,7 @@ export class RoasterserviceService {
         data['token'] = this.cookieService.get('Auth');
         return this.http.post(this.url, data);
     }
-    getViewOrderDetails(roaster_id: any, order_id: any, orderType?) {
+    getViewOrderDetails(roaster_id: any, order_id: any, orderType = null) {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/orders/' + order_id;
         if (orderType && (orderType == 'MR' || orderType == 'mr')) {

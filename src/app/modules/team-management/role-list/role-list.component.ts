@@ -96,7 +96,7 @@ export class RoleListComponent implements OnInit {
         };
         const obj2: MenuItem = {
             label: this.globals.languageJson?.people,
-            routerLink: '/people/manage-role',
+            routerLink: '//team-management/manage-role',
             disabled: false,
         };
         const obj4: MenuItem = { label: this.globals.languageJson?.manage_roles };
@@ -111,7 +111,7 @@ export class RoleListComponent implements OnInit {
                 isAddMember: isAdd,
             },
         };
-        this.router.navigate(['/people/team-members'], navigationExtras);
+        this.router.navigate(['/team-management/team-members'], navigationExtras);
     }
     openDeleteModal(template1: TemplateRef<any>, deleteId: any): void {
         const config = {
@@ -131,7 +131,7 @@ export class RoleListComponent implements OnInit {
         });
     }
     updateRole(id: any): void {
-        this.router.navigate(['/people/create-role', id]);
+        this.router.navigate(['/team-management/create-role', id]);
     }
     duplicateRole(id: any): void {
         const navigationExtras: NavigationExtras = {
@@ -139,6 +139,6 @@ export class RoleListComponent implements OnInit {
                 duplicate: true,
             },
         };
-        this.router.navigate(['/people/create-role', id], navigationExtras);
+        this.router.navigate(['/team-management/create-role', id], navigationExtras);
     }
 }

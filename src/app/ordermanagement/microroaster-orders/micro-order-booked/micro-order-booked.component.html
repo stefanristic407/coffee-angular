@@ -308,8 +308,8 @@
                             <button
                                 type="button"
                                 class="btn problem-btn"
-                                routerLink="/ordermanagement/order-support"
-                                [queryParams]="{ id: bookId, orderType: 'MR' }"
+                                [routerLink]="['/dispute-system/order-chat', bookId]"
+                                [queryParams]="{ orderType: 'MR' }"
                             >
                                 Have a problem?
                             </button>
