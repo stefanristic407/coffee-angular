@@ -7,8 +7,8 @@ import { RaisedTicketsComponent } from './raised-tickets/raised-tickets.componen
 import { FaqQuestionComponent } from './faq-question/faq-question.component';
 import { RaiseTicketComponent } from './raise-ticket/raise-ticket.component';
 import { SelectOrderComponent } from './select-order/select-order.component';
-import { SharedModule } from './../shared/shared.module';
-import { PeopleRoutingModule } from './dispute-routing.module';
+import { SharedModule } from '@shared';
+import { DisputeSystemRoutingModule } from './dispute-routing.module';
 import { DisputeComponent } from './dispute/dispute.component';
 import { AccordionModule } from 'primeng/accordion';
 
@@ -23,6 +23,6 @@ import { AccordionModule } from 'primeng/accordion';
         SelectOrderComponent,
         DisputeComponent,
     ],
-    imports: [CommonModule, SharedModule, PeopleRoutingModule, AccordionModule],
+    imports: [CommonModule, SharedModule, DisputeSystemRoutingModule, AccordionModule],
 })
 export class DisputeSystemModule {}

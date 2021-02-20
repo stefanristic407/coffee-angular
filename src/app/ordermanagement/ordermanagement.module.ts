@@ -1,3 +1,4 @@
+import { SewnOrderChatComponent } from './sewn-order-chat/sewn-order-chat.component';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -136,6 +137,7 @@ import { AssignUserComponent } from './assign-user/assign-user.component';
         MrRequestDetailsComponent,
         BookedShippingComponent,
         AssignUserComponent,
+        SewnOrderChatComponent,
     ],
     imports: [
         CommonModule,

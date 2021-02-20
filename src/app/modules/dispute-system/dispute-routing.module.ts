@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PageNotFoundComponent } from '../error-module/page-not-found/page-not-found.component';
-import { AuthGuard } from '../guards/auth.guard';
+import { AuthGuard } from '@guards';
 import { AssignUserComponent } from './assign-user/assign-user.component';
 import { DisputeComponent } from './dispute/dispute.component';
 import { FaqQuestionComponent } from './faq-question/faq-question.component';
@@ -55,10 +54,6 @@ const routes: Routes = [
                 redirectTo: 'order-chat',
                 pathMatch: 'full',
             },
-            {
-                path: '**',
-                component: PageNotFoundComponent,
-            },
         ],
     },
 ];
@@ -67,4 +62,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
-export class PeopleRoutingModule {}
+export class DisputeSystemRoutingModule {}
