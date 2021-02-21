@@ -83,7 +83,7 @@
 .custom-popover li {
     list-style: none;
     padding-right: 4.5rem;
-    border: none!important;
+    border: none !important;
 }
 
 .content_list {
@@ -94,7 +94,7 @@
     padding: 10px 0px 8px 3px;
     cursor: pointer;
 }
-.content_list:hover{
+.content_list:hover {
     color: #232334;
     background-color: #f8f8f8;
 }
@@ -134,7 +134,6 @@
     color: #ffffff;
     /* box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5); */
 }
-
 
 /* .addrole_content {
     font-family: Muli;
@@ -202,7 +201,7 @@
 .memberConfirmPasswordError,
 .timeZoneError,
 .languageError {
-    color: #D50000;
+    color: #d50000;
     font-size: 14px;
 }
 
@@ -218,7 +217,7 @@ a.b-cum:hover {
 }
 
 .disable {
-    background-color: #f3efe8!important;
+    background-color: #f3efe8 !important;
     cursor: not-allowed;
 }
 
@@ -228,14 +227,14 @@ a.b-cum:hover {
 
 .bread-nav {
     padding-left: 3rem;
-    padding-top: 2rem;}
-
+    padding-top: 2rem;
+}
 
 /***********NEW CSS**************/
 
 .left-space {
     padding-left: 3rem !important;
-    padding-top:2rem;
+    padding-top: 2rem;
 }
 
 label {
@@ -263,21 +262,20 @@ label {
     padding: 1% 6%;
     margin-left: 1rem;
 }
-.chn-btn:hover{
+.chn-btn:hover {
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 .rectangle_dropdown {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
     background-color: #ffffff;
-    background: url(../../../assets/images/role-down.svg) right 16px top 16px no-repeat;
+    background: url(/assets/images/role-down.svg) right 16px top 16px no-repeat;
     -webkit-appearance: none;
     font-family: Muli;
     font-size: 14px;
     font-weight: 500;
     color: #232334;
     height: 46px !important;
-
 }
 @media all and (max-width: 767px) {
     .mobview_add {
@@ -299,13 +297,13 @@ label {
         font-weight: bold;
         margin-bottom: 0;
     }
-    
+
     .padding-spacing {
         margin-left: 4px;
         margin-right: 4px;
     }
     .cancel {
-        background-color: #FDFDFD;
+        background-color: #fdfdfd;
         border: 1px solid #30855c;
         color: #30855c;
         padding: 12px 16px;
@@ -314,7 +312,6 @@ label {
         margin-top: 12px;
         border-radius: 4px;
         margin-bottom: 4rem;
-
     }
     .update {
         border: 1px solid #30855c;
@@ -342,12 +339,12 @@ label {
         padding-right: 1rem;
     }
     .mob-space {
-        padding: 0
+        padding: 0;
     }
     .bread-nav {
-       padding-left: 1rem;
-       padding-top: 0;
-       padding-bottom: 1rem;
+        padding-left: 1rem;
+        padding-top: 0;
+        padding-bottom: 1rem;
     }
 }
 

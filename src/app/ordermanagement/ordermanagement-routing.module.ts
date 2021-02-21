@@ -36,7 +36,6 @@ import { MicroOrderBookedComponent } from './microroaster-orders/micro-order-boo
 import { MicroOrderSampleComponent } from './microroaster-orders/micro-order-sample/micro-order-sample.component';
 import { SampleOrderConfirmationComponent } from './microroaster-orders/micro-order-sample/sample-order-confirmation/sample-order-confirmation.component';
 import { BookedOrderConfirmationComponent } from './microroaster-orders/micro-order-booked/booked-order-confirmation/booked-order-confirmation.component';
-import { PageNotFoundComponent } from '../error-module/page-not-found/page-not-found.component';
 import { MrOrdersComponent } from './microroaster-orders/mr-orders/mr-orders.component';
 import { MrRequestDetailsComponent } from './microroaster-orders/mr-request-details/mr-request-details.component';
 import { AuthGuard } from '../guards/auth.guard';
@@ -119,7 +118,7 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'review-ratings',
+                path: 'review-ratings/:orgType/:orderId',
                 component: ReviewRatingsComponent,
                 canActivate: [AuthGuard],
             },
@@ -237,10 +236,6 @@ const routes: Routes = [
                 path: '',
                 redirectTo: 'myorders',
                 pathMatch: 'full',
-            },
-            {
-                path: '**',
-                component: PageNotFoundComponent,
             },
         ],
     },

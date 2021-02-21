@@ -32,7 +32,10 @@ export const routes: Routes = [
                 loadChildren: () =>
                     import('./modules/team-management/team-management.module').then((m) => m.TeamManagementModule),
             },
-            { path: 'people', loadChildren: () => import('./people/people.module').then((m) => m.PeopleModule) },
+            {
+                path: 'people',
+                loadChildren: () => import('./modules/people/people.module').then((m) => m.PeopleModule),
+            },
             {
                 path: 'invite-friends',
                 loadChildren: () =>
@@ -52,7 +55,7 @@ export const routes: Routes = [
     },
     {
         path: 'error',
-        loadChildren: () => import('./error-module/error-module.module').then((m) => m.ErrorModuleModule),
+        loadChildren: () => import('./modules/error-module/error-module.module').then((m) => m.ErrorModuleModule),
     },
     { path: '**', redirectTo: 'auth' },
 ];

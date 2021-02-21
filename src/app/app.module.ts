@@ -27,7 +27,7 @@ import { MenuComponent } from '@components';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { ErrorIntercept } from './error-module/error.interceptor';
+import { ErrorIntercept } from './modules/error-module/error.interceptor';
 
 import 'hammerjs';
 import { AuthGuard } from './guards/auth.guard';

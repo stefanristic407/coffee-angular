@@ -16,10 +16,6 @@ export class VatManagementComponent implements OnInit {
     saveshippingmode = false;
     editshippingmode = true;
     roasterId: any;
-    shippingName: any;
-    dayMin: any;
-    dayMax: any;
-    shippingPrice: any;
     shipId: any;
     shippData: any;
     resetButtonValue = 'Save';
@@ -102,14 +98,6 @@ export class VatManagementComponent implements OnInit {
             }
         });
     }
-    private validateInput() {
-        let flag = true;
-        if (this.shippingName === '' || this.dayMin === '' || this.dayMax === '' || this.shippingPrice === '') {
-            flag = false;
-        }
-        return flag;
-    }
-
     saveShippingInfo() {
         if (this.shippData.length === 0) {
             this.resetButtonValue = 'Saving';
