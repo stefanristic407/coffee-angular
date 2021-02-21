@@ -11,6 +11,7 @@ import { GlobalsService } from 'src/services/globals.service';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
+import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'app-roasted-coffee-batches',
@@ -46,12 +47,8 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
     termSearch = '';
     selectedProfiles = [];
     popupDisplay = false;
+    breadCrumbItem: MenuItem[] = [];
 
-    breadItems = [
-        { label: 'Home', routerLink: '/roaster-dashboard' },
-        { label: 'Inventory' },
-        { label: 'New roasted coffee batch' },
-    ];
     ordId: any;
     constructor(
         public router: Router,
@@ -85,6 +82,7 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
             this.roasterCoffeeBatchsData();
         });
         this.loadFilterValues();
+        this.supplyBreadCrumb();
         this.tableColumns = [
             {
                 field: 'roast_batch_name',
@@ -145,7 +143,25 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
             { label: 'Dark', value: 'Dark' },
         ];
     }
-
+    supplyBreadCrumb(): void {
+        const obj1: MenuItem = {
+            label: 'Home',
+            routerLink: '/features/welcome-aboard',
+            disabled: false,
+        };
+        const obj2: MenuItem = {
+            label: 'Inventory',
+            routerLink: '/features/welcome-aboard',
+            disabled: false,
+        };
+        const obj3: MenuItem = {
+            label: 'New roasted coffee batch',
+            disabled: false,
+        };
+        this.breadCrumbItem.push(obj1);
+        this.breadCrumbItem.push(obj2);
+        this.breadCrumbItem.push(obj3);
+    }
     setTeamRole(term: any, roleId: any) {
         this.teamRole = term;
         this.role_id = roleId;

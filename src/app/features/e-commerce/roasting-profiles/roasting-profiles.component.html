@@ -14,13 +14,30 @@
                 </button>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-4 mt-md-0">
             <div class="col-12">
                 <span class="primary_txt mb-1">{{ globals.languageJson?.roasting_profiles }}</span>
             </div>
         </div>
-
-        <div class="row mt-4 pb-2">
+        <div class="row mt-4 mb-4 d-block d-sm-block d-md-none">
+            <div class="col-12 col-sm-12">
+                <button type="submit" class="btn btn-raised w-100" [routerLink]="['/features/create-roasting-profile']">
+                    Create new
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="d-block d-sm-block d-md-none col-12 mb-3" [formGroup]="searchForm">
+                <input
+                    type="text"
+                    name="search"
+                    class="search-raised w-100 ml-0"
+                    formControlName="searchField"
+                    placeholder="{{ globals.languageJson?.search_name_role }}"
+                />
+            </div>
+        </div>
+        <div class="row mt-md-4 mt-0 pb-2">
             <div class="col-12 col-sm-12 col-md-6 filterLayout">
                 <p-dropdown
                     [options]="roastLevelArray"
@@ -46,7 +63,7 @@
             </div>
         </div>
 
-        <div class="table-container userTable mt-2 mb-2 productListTable bord-profile">
+        <div class="table-container userTable mt-2 mb-2 pt-0 productListTable bord-profile">
             <p-table
                 #myTable
                 [class.table-mobile]="sharedService.isMobileView"
