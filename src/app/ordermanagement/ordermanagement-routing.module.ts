@@ -118,7 +118,7 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'review-ratings',
+                path: 'review-ratings/:orgType/:orderId',
                 component: ReviewRatingsComponent,
                 canActivate: [AuthGuard],
             },

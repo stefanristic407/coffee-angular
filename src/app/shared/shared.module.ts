@@ -50,6 +50,7 @@ import { Ng2TelInputModule } from 'ng2-tel-input';
 import { CountryPipe } from './pipes/country/country.pipe';
 import { EstateBrandLinkPipe } from './pipes/link/estate-brand-link.pipe';
 import { ProfileLinkPipe } from './pipes/link/profile-link.pipe';
+import { ReviewLinkPipe } from './pipes/link/review-link.pipe';
 import { RoasterBrandLinkPipe } from './pipes/link/roaster-brand-link.pipe';
 import { OrderRatingLinkPipe } from './pipes/link/order-rating-link.pipe';
 import { OrderLinkPipe } from './pipes/link/order-link.pipe';
@@ -86,6 +87,8 @@ import { LineChartComponent } from './components/line-chart/line-chart.component
 import { TimeRangeComponent } from './components/time-range/time-range.component';
 import { DayPickerComponent } from './components/day-picker/day-picker.component';
 import { PhoneNumberComponent } from './components/phone-number/phone-number.component';
+import { ReviewSummaryComponent } from './components/review-summary/review-summary.component';
+import { ReviewsComponent } from './components/reviews/reviews.component';
 // #region material
 const MATMODULES = [];
 // #endregion
@@ -165,6 +168,8 @@ const COMPONENTS = [
     BreadcrumbComponent,
     HorizontalBarComponent,
     PhoneNumberComponent,
+    ReviewSummaryComponent,
+    ReviewsComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 const DIRECTIVES = [];
@@ -174,6 +179,7 @@ const PIPES = [
     FileNamePipe,
     MonthPipe,
     ProfileLinkPipe,
+    ReviewLinkPipe,
     RoasterBrandLinkPipe,
     OrderRatingLinkPipe,
     OrderLinkPipe,

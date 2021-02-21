@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { GlobalsService } from '@services';
 import * as _ from 'underscore';
+import { OrgType } from '@models';
 
 @Injectable({
     providedIn: 'root',
@@ -170,7 +171,7 @@ export class SourcingService {
     }
 
     getEstateReviews() {
-        this.userService.getEachEsateReviews(this.estateId).subscribe((res: any) => {
+        this.userService.getReviews(this.estateId, OrgType.ESTATE).subscribe((res: any) => {
             if (res.success) {
                 this.reviewsList = res.result;
             }
@@ -178,7 +179,7 @@ export class SourcingService {
     }
 
     getEstateSummary() {
-        this.userService.getEachEsateReviewsSummary(this.estateId).subscribe((res: any) => {
+        this.userService.getReviewsSummary(this.estateId, OrgType.ESTATE).subscribe((res: any) => {
             if (res.success) {
                 this.estateReviewsSummary = res.result.summary;
                 this.estateReviewsAverage = res.result.average;

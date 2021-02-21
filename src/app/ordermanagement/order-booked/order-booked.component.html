@@ -524,7 +524,7 @@
                             <ul class="details-list p-0 ml-2 ml-md-3">
                                 <li class="estate-name">{{ bookedService.owner_name }}</li>
                                 <li class="estate-number pt-1">
-                                    <span class="cursor-pointer" routerLink="/ordermanagement/review-ratings">
+                                    <span class="cursor-pointer" [routerLink]="orgType | reviewLink: orderBookId">
                                         <img class="" src="assets/images/star-1.png" alt="User" />
                                         <span class="star-no pl-1">{{ bookedService.rating }}</span>
                                     </span>

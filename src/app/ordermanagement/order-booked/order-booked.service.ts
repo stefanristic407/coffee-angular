@@ -6,6 +6,7 @@ import { RoasterserviceService } from 'src/services/roasters/roasterservice.serv
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from 'src/services/users/userservice.service';
+import { OrgType } from '@models';
 
 @Injectable({
     providedIn: 'root',
@@ -167,7 +168,7 @@ export class OrderBookedService {
         });
     }
     getEstateReviews(data: any, reviewOrderId: any) {
-        this.userService.getEachEsateReviews(data, reviewOrderId).subscribe((res) => {
+        this.userService.getReviews(data, OrgType.ESTATE, reviewOrderId).subscribe((res) => {
             if (res['success'] == true) {
                 this.reviewsList = res['result'];
                 console.log(this.reviewsList);
@@ -175,7 +176,7 @@ export class OrderBookedService {
         });
     }
     getEstateSummary(data: any) {
-        this.userService.getEachEsateReviewsSummary(data).subscribe((res) => {
+        this.userService.getReviewsSummary(data, OrgType.ESTATE).subscribe((res) => {
             if (res['success'] == true) {
                 this.summaryList = res['result'];
                 console.log(this.summaryList);
