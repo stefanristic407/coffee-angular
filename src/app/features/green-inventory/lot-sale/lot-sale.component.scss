@@ -7,7 +7,6 @@ th {
     font-size: 14px;
     font-weight: bold !important;
     color: #232334;
-    /* padding-right: 12px; */
 }
 
 .table thead th {
@@ -17,16 +16,15 @@ th {
 }
 
 .table tbody td {
-    /* padding-left: 2rem;
-    padding-top: 17px;
-    padding-bottom: 17px; */
     padding: 16px;
     padding-right: 0px;
 }
 
-.table th,
-.table td {
-    border-top: none !important;
+.table {
+    th,
+    td {
+        border-top: none !important;
+    }
 }
 
 td {
@@ -50,21 +48,6 @@ td {
     margin-top: 3.2rem !important;
 }
 
-.place-order {
-    border-radius: 4px;
-    background-color: #30855c;
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    color: #ffffff;
-    padding: 12px 24px;
-    /* height: 46px; */
-}
-
-.place-order:hover {
-    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-}
-
 .green_grading_cont h1 {
     font-family: Muli;
     font-size: 18px;
@@ -80,10 +63,10 @@ td {
     text-align: right;
     color: #80460b;
     text-decoration: underline;
-}
 
-.text-brown a {
-    cursor: pointer;
+    a {
+        cursor: pointer;
+    }
 }
 
 .border-bottom-gray {
@@ -128,41 +111,9 @@ td {
     margin-bottom: 2rem;
 }
 
-.farm-input input {
-    font-size: 14px;
-    line-height: 24px;
-    padding: 16px;
-    height: 50px !important;
-    color: #232334 !important;
-}
-
-.ord_cancel {
-    border-radius: 4px;
-    border: solid 1px #30855c;
-    background-color: #ffffff;
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    color: #30855c;
-    padding: 0px 15px;
-    height: 46px;
-    text-decoration: none;
-
-    &:hover {
-        color: #ffffff;
-        background-color: #30855c;
-    }
-}
-
-.bottom-border {
-    border-bottom: solid 1px #d6d6d6;
-    padding-bottom: 2rem;
-}
-
 /********Modal********/
 
-label,
-.text-gray {
+label {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
@@ -174,14 +125,6 @@ label span {
     color: #ff1e5a;
 }
 
-.form-control {
-    height: 46px;
-    border-radius: 4px;
-    border: solid 1px #d6d6d6;
-    font-size: 14px !important;
-    font-weight: 600;
-}
-
 .min-Text {
     opacity: 0.99;
     font-family: Muli;
@@ -191,57 +134,12 @@ label span {
     margin-bottom: 20px;
 }
 
-.in-stock {
-    font-family: Muli;
-    font-size: 18px;
-    font-weight: bold;
-    line-height: 1.22;
-    color: #1c1c1c;
-}
-
-select {
-    color: #232334 !important;
-}
-
 .web-sec {
     display: block;
 }
 
 .mob-sec {
     display: none;
-}
-
-.confirm-ordererror,
-.countryError,
-.addressError,
-.cityError,
-.zipError {
-    color: #d50000;
-    font-size: 14px;
-}
-
-.margin-right-2rem {
-    margin-right: 2rem;
-}
-
-.btn-group {
-    display: table;
-}
-
-.select-form-group-dropdown {
-    background-color: #f8f8f8;
-    border: 0px;
-    /* border-bottom-left-radius: 0px;
-    border-top-left-radius: 0px; */
-    border-radius: 4px;
-}
-
-.select-region-local {
-    height: 38px !important;
-}
-
-.input-group-right-border {
-    border-right: 0px;
 }
 
 .input-group-append {
@@ -286,40 +184,24 @@ select {
     .back-icon {
         border-bottom: 1px solid #ebebeb;
         padding-bottom: 13px;
-    }
-    .back-icon a {
-        font-size: 14px;
-        color: #80460b;
-        font-weight: 600;
-    }
-    .back-icon img {
-        margin-right: 5px;
-    }
-    .create-role-sec {
-        margin-left: 1rem;
-        margin-right: 1rem;
-    }
-    .confirm-order {
-        padding: 1rem;
-    }
-    .confirm-txt {
-        font-size: 18px;
-        font-weight: normal;
-    }
-    .fill-txt {
-        font-size: 12px;
-        font-weight: 500;
-        line-height: 20px;
+        a {
+            font-size: 14px;
+            color: #80460b;
+            font-weight: 600;
+        }
+        img {
+            margin-right: 5px;
+        }
     }
     .estate-list {
         border: 1px solid #ebebeb;
         padding: 1rem;
-    }
-    .estate-list h3 {
-        font-size: 16px;
-        font-weight: bold;
-        color: #232334;
-        font-family: Muli;
+        h3 {
+            font-size: 16px;
+            font-weight: bold;
+            color: #232334;
+            font-family: Muli;
+        }
     }
     .recent td {
         padding: 1rem 2.8rem 1rem 0rem;
@@ -340,81 +222,11 @@ select {
     tr:last-child td {
         border-bottom: 0;
     }
-    .search-border {
-        border: 1px solid #d6d6d6;
-        padding: 10px;
-        margin-left: 10px;
-        border-radius: 4px;
-    }
-    .price-total {
-        margin-right: 0rem;
-    }
-    .ord-quantity,
-    .amount {
-        color: #747588;
-    }
-    .search {
-        height: auto;
-        border: none !important;
-        width: 60px;
-    }
-    .search:focus {
-        box-shadow: none !important;
-    }
-    .space-top {
-        margin-top: 2rem;
-    }
-    .bag {
-        font-size: 14px;
-        font-weight: 600;
-        color: #747588;
-    }
-    .boder-name {
-        border-top: 1px solid #d6d6d6;
-        padding-top: 1.2rem;
-    }
-    .edit-div {
-        border-top: 1px solid #d6d6d6;
-        margin-top: 1rem !important;
-        padding-top: 1.3rem;
-    }
-    .save-top {
-        margin-top: 0.5rem;
-    }
     .col-lg-15 {
         margin-right: 0px;
     }
-    .section-region {
-        background: url(../../../../assets/images/active-region.svg) right 7px top 14px no-repeat;
-    }
 }
 
-.rectangle_dropdown {
-    border-radius: 4px;
-    border: solid 1px #d6d6d6;
-    background-color: #ffffff;
-    background: url('../../../../assets/images/role-down.svg') right 16px top 16px no-repeat;
-    /* background: url('/../../../../assets/images/role-down.svg') right 16px top 16px no-repeat; */
-    -webkit-appearance: none;
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 500;
-    color: #232334;
-    height: 46px !important;
-    cursor: pointer;
-}
-
-.seviceProvider {
-    border: #d6d6d6;
-    padding: 5px;
-    color: #232334;
-    background-color: #ffffff;
-}
-
-.weightDiv {
-    border-radius: 4px;
-    border: 1px solid #d6d6d6;
-}
 .weightInputGroupDiv {
     border: 1px solid #d6d6d6;
 }

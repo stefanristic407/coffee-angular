@@ -1,37 +1,22 @@
-.source-knowmore-avail .contact-us-avail {
-    color: #ffffff;
-}
-
-.g-box .ng-star-inserted {
-    border-radius: 0px !important;
-}
-
 .source-cont-available {
     background: #fff;
     padding: 1rem 2.5rem;
 }
 
-.back-page a {
-    font-size: 16px;
-    color: #80460b;
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.det-tit h2 {
-    font-size: 18px;
-    font-weight: bold;
-    color: #242424;
-    text-transform: capitalize;
-}
-
-.det-tit h6 {
-    font-family: Muli;
-    font-size: 18px;
-    font-weight: bold;
-    color: #242424;
-    text-transform: capitalize;
+.det-tit {
+    h2 {
+        font-size: 18px;
+        font-weight: bold;
+        color: #242424;
+        text-transform: capitalize;
+    }
+    h6 {
+        font-family: Muli;
+        font-size: 18px;
+        font-weight: bold;
+        color: #242424;
+        text-transform: capitalize;
+    }
 }
 
 .g-thumbs-container,
@@ -39,64 +24,20 @@
     background-color: #fff !important;
 }
 
-.pro-logo {
-    float: left;
-    margin-right: 10px;
-}
-
-.des-content article {
-    width: 65%;
-    border: 1px solid #000;
-    float: left;
-    margin-right: 1.5%;
-    padding: 32px 24px;
-    border-radius: 4px;
-    border: solid 1px #ebebeb;
-}
-
-.des-content aside {
-    width: 33.5%;
-    border-radius: 4px;
-    border: solid 1px #ebebeb;
-    float: left;
-    padding: 32px 24px;
-    border-radius: 4px;
-}
-
-.stit h2 {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 16px;
-}
-
-.stit p {
-    font-size: 16px;
-    font-weight: normal;
-    margin-bottom: 25px;
-}
-
-.stit p:last-child {
-    margin-bottom: 40px;
-}
-
-.source-cont-available .nav-item {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-}
-
-.real-estate h6 {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 3px;
-    margin-top: 12px;
-    color: #747588;
-}
-
-.real-estate h3 {
-    font-size: 16px;
-    font-weight: bold;
-    color: #232334;
-    text-transform: capitalize;
+.real-estate {
+    h6 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 3px;
+        margin-top: 12px;
+        color: #747588;
+    }
+    h3 {
+        font-size: 16px;
+        font-weight: bold;
+        color: #232334;
+        text-transform: capitalize;
+    }
 }
 
 .estate-focus h3 {
@@ -166,38 +107,37 @@
     position: relative;
     height: 234px;
     background: #000;
+    h4 {
+        color: #fff;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translate(0px, -50%);
+        padding: 24px;
+        font-size: 18px;
+    }
 }
 
-.prodcoffee h4 {
-    color: #fff;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translate(0px, -50%);
-    padding: 24px;
-    font-size: 18px;
-}
-
-.prebook a {
-    width: 100%;
-    text-align: center;
-    border-radius: 4px;
-    font-weight: bold;
-    padding: 10px 16px;
-    border: 1px solid #30855c;
-    font-size: 14px;
-    color: #30855c;
-    margin-right: 12px;
-}
-
-.prebook a:last-child {
-    margin-right: 0;
-}
-
-.prebook a:hover {
-    text-decoration: none;
-    background: #30855c;
-    color: #fff;
+.prebook {
+    a {
+        width: 100%;
+        text-align: center;
+        border-radius: 4px;
+        font-weight: bold;
+        padding: 10px 16px;
+        border: 1px solid #30855c;
+        font-size: 14px;
+        color: #30855c;
+        margin-right: 12px;
+        &:last-child {
+            margin-right: 0;
+        }
+        &:hover {
+            text-decoration: none;
+            background: #30855c;
+            color: #fff;
+        }
+    }
 }
 
 .employer h2 {
@@ -210,16 +150,17 @@
     width: 100%;
 }
 
-.profile-des h4 {
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    margin-top: 12px;
-}
-
-.profile-des h6 {
-    font-size: 14px;
-    font-weight: 500;
+.profile-des {
+    h4 {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        margin-top: 12px;
+    }
+    h6 {
+        font-size: 14px;
+        font-weight: 500;
+    }
 }
 
 .msg-chat {
@@ -227,18 +168,16 @@
     padding: 4px 13px 6px;
     float: left;
     border-radius: 4px;
-}
-
-.msg-chat p {
-    margin-bottom: 0;
+    p {
+        margin-bottom: 0;
+    }
 }
 
 .gals {
     margin-bottom: 25px;
-}
-
-.gals img {
-    width: 100%;
+    img {
+        width: 100%;
+    }
 }
 
 .whyus-zoom img {
@@ -267,21 +206,18 @@
     left: 32px;
     width: 540px;
     padding: 5% 2% 0 4%;
-}
-
-.marklist h2 {
-    font-size: 47px;
-    font-style: italic;
-    margin-bottom: 12px;
-}
-
-.marklist h5 {
-    font-size: 16px;
-}
-
-.marklist h2 span {
-    width: 100%;
-    display: block;
+    h2 {
+        font-size: 47px;
+        font-style: italic;
+        margin-bottom: 12px;
+        span {
+            width: 100%;
+            display: block;
+        }
+    }
+    h5 {
+        font-size: 16px;
+    }
 }
 
 .mark-brand {
@@ -289,22 +225,19 @@
     top: 50%;
     transform: translate(0, -50%);
     left: 30px;
-}
-
-.mark-brand h3 {
-    font-size: 38px;
-    font-style: italic;
-    padding-right: 4rem;
-    color: #c69c6c;
-}
-
-.mark-brand p {
-    font-size: 14px;
-    margin-bottom: 16px;
-}
-
-.mark-brand p:last-child {
-    margin-bottom: 0;
+    h3 {
+        font-size: 38px;
+        font-style: italic;
+        padding-right: 4rem;
+        color: #c69c6c;
+    }
+    p {
+        font-size: 14px;
+        margin-bottom: 16px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
 }
 
 .video-btn {
