@@ -84,12 +84,6 @@ export class NewRoastedBatchComponent implements OnInit {
         } else {
             this.ordId = 'select the order';
         }
-        // if (this.globals.selected_order_id == undefined) {
-        //     this.showDetails = false;
-        // } else {
-        //     this.showDetails = true;
-        //     this.getOrderDetails();
-        // }
         this.batchForm = this.fb.group({
             roast_batch_name: ['', Validators.compose([Validators.required])],
             roasting_profile_id: ['', Validators.compose([Validators.required])],
@@ -129,41 +123,17 @@ export class NewRoastedBatchComponent implements OnInit {
         this.breadCrumbItem.push(obj2);
         this.breadCrumbItem.push(obj3);
     }
-
-    // setCupping(cuppdata: any) {
-    //     this.cupping = cuppdata;
-    // }
-    // toggleCupping() {
-    //     this.showCupping = !this.showCupping;
-    //     if (this.showCupping == false) {
-    //         document.getElementById('cupping_id').style.border = '1px solid #d6d6d6';
-    //     } else {
-    //         document.getElementById('cupping_id').style.border = '1px solid #d6d6d6';
-    //     }
-    // }
-
     addLang(value: any) {
         const id = value.id;
         const name = value.name;
-
-        // Add our fruit
         if ((name || '').trim()) {
             this.langChips.push(value);
             this.flavour_profile_array.push(id);
         }
-
-        console.log(this.flavour_profile_array);
-
-        // // Reset the input value
-        // if (input) {
-        //   input.value = '';
-        // }
     }
 
     remove(lang: any): void {
         const index = this.langChips.indexOf(lang);
-        // this.langChips.slice(lang);
-
         console.log(this.flavour_profile_array);
         if (index >= 0) {
             this.langChips.splice(index, 1);
