@@ -187,26 +187,10 @@
                         <span class="text-brown float-right" (click)="showDropdown = true"><a>Change status</a> </span>
                     </div>
 
-                    <!-- change status-->
-                    <!-- <div *ngIf="showDropdown" class="col-sm-12 col-md-3 col-lg-3 col-xl-3 current-s-bg d-flex">
-                        <div class="farm-input">
-                            <select
-                                class="form-control select-region status-width"
-                                [(ngModel)]="order_status"
-                                name="coffee"
-                                required=""
-                            >
-                                <option value="IN_STOCK" selected>In Stock</option>
-                                <option value="SOLD">Sold</option>
-                                <option value="HIDDEN">Hidden</option>
-                            </select>
-                        </div>
-                    </div> -->
                     <div
                         *ngIf="showDropdown"
                         class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100 current-s-bg d-flex"
                     >
-                        <!-- <label>Roast level<span class="star">*</span></label> -->
                         <p-dropdown
                             [options]="stockTypeArray"
                             optionLabel="label"
@@ -218,7 +202,6 @@
                         <small *ngIf="coffeeSaleForm.controls['status'].errors?.required" class="p-error">
                             Required
                         </small>
-                        <!-- <span (click)="updateStatus()" class="text-brown pl-4 pt-2"><a>Save</a> </span> -->
                     </div>
                 </div>
 
@@ -371,170 +354,13 @@
                 </div>
 
                 <div class="row no-padding-RL">
-                    <!-- <div class="col-lg-12 col-md-12">
-                        <div class="col-lg-8 col-md-8 float-L no-padding-RL">
-                            <div class="select col-lg-15 no-padding-RL">
-                                <label>Product Name<span class="star">*</span></label>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    class="form-control"
-                                    [(ngModel)]="saleInformation['name']"
-                                    placeholder="Give a name to this green coffee"
-                                />
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 float-L no-padding-RL">
-                            <div class="form-input col-lg-15 no-padding-RL">
-                                <label>Selling price<span>*</span>(in USD)</label>
-
-                                <div class="input-group">
-                                    <input
-                                        type="number"
-                                        placeholder="Enter the selling price"
-                                        class="form-control input-group-right-border"
-                                        aria-label="Text input with dropdown button"
-                                        type="number"
-                                        [(ngModel)]="saleInformation['price']"
-                                    />
-                                    <div class="input-group-append">
-                                        <select
-                                            name="Year"
-                                            required=""
-                                            [(ngModel)]="saleInformation['price_unit']"
-                                            class="form-control select-region select-form-group-dropdown select-region-local"
-                                        >
-                                            <option value="per kg" ng-reflect-value="kg">per kg</option>
-                                            <option value="gram" ng-reflect-value="gram">gram</option>
-                                            <option value="per mkg" ng-reflect-value="mkg">per mkg</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-3 float-L no-padding-RL">
-                            <div class="form-input col-lg-15 no-padding-RL">
-                                <label> quantity for sale<span>*</span></label>
-                                <div class="input-group">
-                                    <input
-                                        type="number"
-                                        placeholder="Enter no. of coffee bags for sale"
-                                        [(ngModel)]="saleInformation['quantity']"
-                                        class="form-control input-group-right-border"
-                                        aria-label="Text input with dropdown button"
-                                    />
-                                    <div class="input-group-append">
-                                        <select
-                                            name="Year"
-                                            required=""
-                                            type="number"
-                                            class="form-control select-region select-form-group-dropdown select-region-local"
-                                            [(ngModel)]="saleInformation['quantity_type']"
-                                        >
-                                            <option value="per kg" ng-reflect-value="bags">bags</option>
-                                            <option value="gram" ng-reflect-value="bags">bags</option>
-                                            <option value="per mkg" ng-reflect-value="bags">bags</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-3 float-L no-padding-RL">
-                            <div class="select col-lg-15 no-padding-RL">
-                                <label>Remaining quantity<span class="star">*</span></label>
-                                <input type="text" name="name" disabled class="form-control" placeholder="-" />
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-3 float-L no-padding-RL">
-                            <div class="form-input col-lg-15 no-padding-RL">
-                                <label>Minimum order quantity<span>*</span></label>
-                                <div class="input-group">
-                                    <input
-                                        type="number"
-                                        type="number"
-                                        placeholder="Enter a no. of bags"
-                                        class="form-control input-group-right-border"
-                                        [(ngModel)]="saleInformation['minimum_purchase_quantity']"
-                                        aria-label="Text input with dropdown button"
-                                    />
-                                    <div class="input-group-append">
-                                        <select
-                                            name="Year"
-                                            required=""
-                                            class="form-control select-region select-form-group-dropdown select-region-local"
-                                        >
-                                            <option value="per kg">bags</option>
-                                            <option value="gram" ng-reflect-value="Yes">bags</option>
-                                            <option value="per mkg" ng-reflect-value="No">bags</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-3 float-L no-padding-RL">
-                            <div class="form-input col-lg-15 no-padding-RL">
-                                <label>Weight / bag*<span>*</span></label>
-                                <div class="input-group">
-                                    <input
-                                        type="text"
-                                        type="number"
-                                        placeholder="Enter a no. of Kg"
-                                        class="form-control input-group-right-border"
-                                        aria-label="Text input with dropdown button"
-                                    />
-                                    <div class="input-group-append">
-                                        <select
-                                            name="Year"
-                                            required=""
-                                            class="form-control select-region select-form-group-dropdown select-region-local"
-                                        >
-                                            <option value="per kg">Kg</option>
-                                            <option value="kg" ng-reflect-value="Yes">kg</option>
-                                            <option value="3" ng-reflect-value="No">bags</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <!-- <div class="col-lg-8 col-md-8 float-L no-padding-RL">
-                    <div class="col-lg-6 col-md-6 float-L no-padding-RL">
-                        <div class="select col-lg-15">
-                            <label>Product Name<span  class="star">*</span></label>
-                            <input type="text" name="name" placeholder="" class="form-control">
-                        </div> 
-                    </div>
-
-                </div> -->
-
-                    <!-- <div class="col-lg-12 col-md-12">
-                        <div class="col-lg-3 col-md-3 float-L no-padding-RL">
-                            <div class="select col-lg-15 no-padding-RL">
-                                <label>VAT Rate<span class="star">*</span></label>
-                                <input
-                                    type="number"
-                                    placeholder="Enter VAT Rate"
-                                    name="name"
-                                    [(ngModel)]="saleInformation['vat_rate']"
-                                    class="form-control"
-                                />
-                            </div>
-                        </div>
-                    </div> -->
                     <div class="col-lg-12 col-md-12 web-sec">
-                        <!-- <div class="float-left mt-48 mb-48 col-sm-8">
-                            <button class="btn ord_cancel mt-32">Delete product from listing</button>
-                        </div> -->
-
                         <div class="float-right mt-48 mb-48">
                             <button type="button" class="btn btn-stroked mt-32" (click)="onCancel()">Cancel</button>
                             <button type="submit" class="ml-3 btn-raised btn" (click)="onSave()">Mark for sale</button>
                         </div>
                     </div>
-                    <div class="w-100 mob-sec">
+                    <div class="col-xs-12 col-sm-12 w-100 mob-sec">
                         <button type="submit" class="w-100 btn-raised btn" (click)="onSave()">Mark for sale</button>
                         <button type="button" class="btn btn-stroked mt-3 w-100" (click)="onCancel()">Cancel</button>
                     </div>
