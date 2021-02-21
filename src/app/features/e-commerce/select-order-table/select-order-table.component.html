@@ -1,13 +1,13 @@
 <div class="main-block">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 d-flex align-items-center">
-            <div class="back-href cursor-pointer">
+            <div class="back-href cursor-pointer" [routerLink]="['/features/new-roasted-batch']">
                 <img class="back-arrow-butn mr-2" src="assets/images/do-back-arrow.svg" />
-                Back to ticket
+                Back
             </div>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 d-none d-sm-none d-md-flex" *ngIf="selectedOrder">
-            <button class="btn btn-stroked ml-auto">
+            <button class="btn btn-stroked ml-auto" [routerLink]="['/features/new-roasted-batch']">
                 {{ globals.languageJson?.cancel }}
             </button>
             <button class="btn btn-raised ml-3" (click)="onContinue()">Continue</button>
@@ -177,4 +177,3 @@
         </div>
     </div>
 </div>
-
