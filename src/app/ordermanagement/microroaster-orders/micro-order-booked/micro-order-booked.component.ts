@@ -29,7 +29,7 @@ export class MicroOrderBookedComponent implements OnInit {
     private gradedSample: ElementRef<HTMLElement>;
     @ViewChild('myForm') myForm;
 
-    orgType: OrgType.MICRO_ROASTER;
+    orgType = OrgType.MICRO_ROASTER;
     sampleValueToShow: string = 'Order Placed';
     orderSampleTimeline: boolean = true;
     confirmShow: boolean = false;
@@ -53,7 +53,6 @@ export class MicroOrderBookedComponent implements OnInit {
     noteList: any;
     sampleMode: boolean = false;
     orderType: string = '';
-    orgType = OrgType.MICRO_ROASTER;
 
     //   shipmentLink: any;
     constructor(
