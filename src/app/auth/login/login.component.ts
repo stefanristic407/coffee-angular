@@ -283,7 +283,7 @@ export class LoginComponent implements OnInit {
                                                                                 this.router.navigate([url]);
                                                                             } else {
                                                                                 this.router.navigate([
-                                                                                    '/features/roaster-dashboard',
+                                                                                    '/roaster-dashboard',
                                                                                 ]);
                                                                                 this.loginButtonValue = 'Login';
                                                                             }

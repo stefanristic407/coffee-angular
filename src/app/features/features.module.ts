@@ -22,19 +22,6 @@ import { RoasterOnboardingComponent } from './roaster-onboarding/roaster-onboard
 import { RoasterQuickSetupComponent } from './roaster-quick-setup/roaster-quick-setup.component';
 import { SettingsComponent } from './settings/settings.component';
 import { WelcomeAboardComponent } from './welcome-aboard/welcome-aboard.component';
-import { DashboardNotifyComponent } from './roaster-dashboard/dashboard-notify/dashboard-notify.component';
-import { DashboardEstateComponent } from './roaster-dashboard/dashboard-estate/dashboard-estate.component';
-import { DashboardReviewComponent } from './roaster-dashboard/dashboard-review/dashboard-review.component';
-import { DashboardVarietyComponent } from './roaster-dashboard/dashboard-variety/dashboard-variety.component';
-import { DashboardProductComponent } from './roaster-dashboard/dashboard-product/dashboard-product.component';
-import { DashboardFriendComponent } from './roaster-dashboard/dashboard-friend/dashboard-friend.component';
-import { DashboardCoffeeComponent } from './roaster-dashboard/dashboard-coffee/dashboard-coffee.component';
-import { DashboardExperienceComponent } from './roaster-dashboard/dashboard-experience/dashboard-experience.component';
-import { DashboardSalesComponent } from './roaster-dashboard/dashboard-sales/dashboard-sales.component';
-import { DashboardSourcingComponent } from './roaster-dashboard/dashboard-sourcing/dashboard-sourcing.component';
-import { DashboardInviteComponent } from './roaster-dashboard/dashboard-invite/dashboard-invite.component';
-import { DashboardBlogComponent } from './roaster-dashboard/dashboard-blog/dashboard-blog.component';
-import { DashboardActivityComponent } from './roaster-dashboard/dashboard-activity/dashboard-activity.component';
 import { LanguageRegionComponent } from './language-region/language-region.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { DataTablesModule } from 'angular-datatables';
@@ -67,7 +54,6 @@ import { ProfileLicenseComponent } from './profile-edit/profile-license/profile-
 import { NotificationComponent } from './notification/notification.component';
 import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/roastery-license.component';
 import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
-import { RoasterDashboardComponent } from './roaster-dashboard/roaster-dashboard.component';
 import { RoastedCoffeeBatchesComponent } from './e-commerce/roasted-coffee-batches/roasted-coffee-batches.component';
 import { NewRoastedBatchComponent } from './e-commerce/new-roasted-batch/new-roasted-batch.component';
 import { AddProductComponent } from './e-commerce/add-product/add-product.component';
@@ -141,19 +127,6 @@ import { ListboxModule } from 'primeng/listbox';
         RoasterCompleteSetupComponent,
         FeaturesComponent,
         WelcomeAboardComponent,
-        DashboardNotifyComponent,
-        DashboardEstateComponent,
-        DashboardReviewComponent,
-        DashboardVarietyComponent,
-        DashboardProductComponent,
-        DashboardFriendComponent,
-        DashboardCoffeeComponent,
-        DashboardExperienceComponent,
-        DashboardSalesComponent,
-        DashboardSourcingComponent,
-        DashboardInviteComponent,
-        DashboardBlogComponent,
-        DashboardActivityComponent,
         MyprofileComponent,
         ProfileEditComponent,
         ProfilePicComponent,
@@ -187,7 +160,6 @@ import { ListboxModule } from 'primeng/listbox';
         NotificationComponent,
         RoasteryLicenseComponent,
         RoasterOnboardComponent,
-        RoasterDashboardComponent,
         RoastedCoffeeBatchesComponent,
         NewRoastedBatchComponent,
         AddProductComponent,

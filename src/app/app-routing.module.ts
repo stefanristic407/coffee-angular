@@ -14,6 +14,10 @@ export const routes: Routes = [
         component: LayoutComponent,
         children: [
             {
+                path: '',
+                loadChildren: () => import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
+            },
+            {
                 path: 'features',
                 loadChildren: () => import('./features/features.module').then((m) => m.FeaturesModule),
             },
@@ -50,7 +54,6 @@ export const routes: Routes = [
                 loadChildren: () =>
                     import('./modules/brand-profile/brand-profile.module').then((m) => m.BrandProfileModule),
             },
-            { path: '', redirectTo: 'features', pathMatch: 'full' },
         ],
     },
     {

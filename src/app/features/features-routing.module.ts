@@ -48,7 +48,6 @@ import { PrivacySettingsComponent } from './privacy-settings/privacy-settings.co
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { RoasterCompleteSetupComponent } from './roaster-complete-setup/roaster-complete-setup.component';
-import { RoasterDashboardComponent } from './roaster-dashboard/roaster-dashboard.component';
 import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
 import { RoasterOnboardingComponent } from './roaster-onboarding/roaster-onboarding.component';
 import { RoasterQuickSetupComponent } from './roaster-quick-setup/roaster-quick-setup.component';
@@ -244,11 +243,6 @@ const routes: Routes = [
             {
                 path: 'roaster-onboard',
                 component: RoasterOnboardComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'roaster-dashboard',
-                component: RoasterDashboardComponent,
                 canActivate: [AuthGuard],
             },
             {
