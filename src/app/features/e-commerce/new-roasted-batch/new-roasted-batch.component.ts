@@ -79,15 +79,11 @@ export class NewRoastedBatchComponent implements OnInit {
                 this.getOrderDetails();
             }
             this.getRoastedBatch();
-        } else {
+        } else if (this.route.snapshot.queryParams['ordId']) {
             this.ordId = decodeURIComponent(this.route.snapshot.queryParams['ordId']);
+        } else {
+            this.ordId = 'select the order';
         }
-        // if (this.globals.selected_order_id == undefined) {
-        //     this.showDetails = false;
-        // } else {
-        //     this.showDetails = true;
-        //     this.getOrderDetails();
-        // }
         this.batchForm = this.fb.group({
             roast_batch_name: ['', Validators.compose([Validators.required])],
             roasting_profile_id: ['', Validators.compose([Validators.required])],
@@ -127,41 +123,17 @@ export class NewRoastedBatchComponent implements OnInit {
         this.breadCrumbItem.push(obj2);
         this.breadCrumbItem.push(obj3);
     }
-
-    // setCupping(cuppdata: any) {
-    //     this.cupping = cuppdata;
-    // }
-    // toggleCupping() {
-    //     this.showCupping = !this.showCupping;
-    //     if (this.showCupping == false) {
-    //         document.getElementById('cupping_id').style.border = '1px solid #d6d6d6';
-    //     } else {
-    //         document.getElementById('cupping_id').style.border = '1px solid #d6d6d6';
-    //     }
-    // }
-
     addLang(value: any) {
         const id = value.id;
         const name = value.name;
-
-        // Add our fruit
         if ((name || '').trim()) {
             this.langChips.push(value);
             this.flavour_profile_array.push(id);
         }
-
-        console.log(this.flavour_profile_array);
-
-        // // Reset the input value
-        // if (input) {
-        //   input.value = '';
-        // }
     }
 
     remove(lang: any): void {
         const index = this.langChips.indexOf(lang);
-        // this.langChips.slice(lang);
-
         console.log(this.flavour_profile_array);
         if (index >= 0) {
             this.langChips.splice(index, 1);
@@ -170,30 +142,6 @@ export class NewRoastedBatchComponent implements OnInit {
     }
 
     getRoastedBatch() {
-        // this.userService.getRoastedBatchDetail(this.roaster_id, this.batchId).subscribe((data) => {
-        //     if (data['success'] == true) {
-        //         this.roast_batch_name = data['result'].roast_batch_name;
-        //         this.flavour = data['result'].flavour;
-        //         this.notes = data['result'].roaster_notes;
-        //         this.acidity = data['result'].acidity;
-        //         this.aroma = data['result'].aroma;
-        //         this.body = data['result'].body;
-        //         this.processing = data['result'].processing;
-        //         this.quantity_unit = data['result'].roasting_profile_unit;
-        //         this.quantity = data['result'].roasting_profile_quantity;
-        //         this.flavour_array = data['result'].flavour_profile;
-        //         this.flavour_array.forEach((element, index) => {
-        //             let chips = {
-        //                 id: element.flavour_profile_id,
-        //                 name: element.flavour_profile_name,
-        //             };
-        //             this.langChips.push(chips);
-        //             this.flavour_profile_array.push(element.flavour_profile_id);
-        //         });
-        //         this.cupping = data['result'].roasting_profile_id;
-        //         this.roasting_profile_name = data['result'].roasting_profile_name;
-        //     }
-        // });
         this.userService.getRoastedBatchDetail(this.roaster_id, this.batchId).subscribe((res) => {
             if (res && res.result) {
                 this.flavour_array = res.result['flavour_profile'];
@@ -276,44 +224,6 @@ export class NewRoastedBatchComponent implements OnInit {
             }
         });
     }
-
-    // addRoastedCoffeeBatch() {
-
-    //     console.log(this.orderId);
-    //     var data = {
-    //         roast_batch_name: this.roast_batch_name,
-    //         order_id: parseInt(this.orderId),
-    //         roasting_profile_id: parseInt(this.cupping),
-    //         roasting_profile_quantity: parseInt(this.quantity),
-    //         roasting_profile_unit: this.quantity_unit,
-    //         flavour_profile: this.flavour_profile_array,
-    //         aroma: parseInt(this.aroma),
-    //         body: parseInt(this.body),
-    //         flavour: parseInt(this.flavour),
-    //         acidity: parseInt(this.acidity),
-    //         processing: this.processing,
-    //         roaster_notes: this.notes,
-    //     };
-    //     if (this.editFlag == true) {
-    //         this.userService.updateRoastedBatchDetail(this.roaster_id, this.batchId, data).subscribe((res) => {
-    //             if (res['success'] == true) {
-    //                 this.toastrService.success('The Roasted Batch has been Updated.');
-    //                 this.router.navigate(['/features/roasted-coffee-batch']);
-    //             } else {
-    //                 this.toastrService.error('Error while updating the Roasted Batch');
-    //             }
-    //         });
-    //     } else {
-    //         this.userService.addRoastedBatches(this.roaster_id, data).subscribe((response) => {
-    //             if (response['success'] == true) {
-    //                 this.toastrService.success('The Roasted Batch has been added.');
-    //                 this.router.navigate(['/features/roasted-coffee-batch']);
-    //             } else {
-    //                 this.toastrService.error('Error while adding the Roasted Batch');
-    //             }
-    //         });
-    //     }
-    // }
 
     updateRoastedBatch(productObj) {
         this.userService.updateRoastedBatchDetail(this.roaster_id, this.batchId, productObj).subscribe(
