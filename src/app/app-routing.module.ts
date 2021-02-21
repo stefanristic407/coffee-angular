@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
-import { HealthCheckComponent } from './health-check/health-check.component';
+import { HealthCheckComponent } from '@components';
 import { LayoutComponent } from './layout/layout.component';
 
 export const routes: Routes = [
