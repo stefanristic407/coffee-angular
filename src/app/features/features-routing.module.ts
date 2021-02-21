@@ -61,7 +61,6 @@ import { ReviewsComponent } from './roastery-profile/reviews/reviews.component';
 
 import { SettingsComponent } from './settings/settings.component';
 import { VatManagementComponent } from './vat-management/vat-management.component';
-import { WelcomeAboardComponent } from './welcome-aboard/welcome-aboard.component';
 import { BatchSelectAnOrderComponent } from './batch-select-an-order/batch-select-an-order.component';
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
 import { DefaultSettingComponent } from './Farm Link/coffee-experience/default-setting/default-setting.component';
@@ -99,11 +98,6 @@ const routes: Routes = [
             {
                 path: 'roaster-complete-setup',
                 component: RoasterCompleteSetupComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'welcome-aboard',
-                component: WelcomeAboardComponent,
                 canActivate: [AuthGuard],
             },
             {

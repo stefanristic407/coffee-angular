@@ -127,7 +127,7 @@ export class AvailableConfirmOrderComponent implements OnInit {
 
     refreshBreadCrumb() {
         this.breadItems = [
-            { label: 'Home', routerLink: '/features/welcome-aboard' },
+            { label: 'Home', routerLink: '/' },
             { label: 'Sourcing Module', routerLink: '/sourcing' },
             this.orderType === 'preBooked'
                 ? {

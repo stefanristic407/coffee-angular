@@ -25,10 +25,6 @@ export class WelcomeAboardComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        // Auth checking
-        if (this.cookieService.get('Auth') === '') {
-            this.router.navigate(['/auth/login']);
-        }
         this.userName = this.cookieService.get('userName');
         this.roasterId = this.cookieService.get('roaster_id');
 

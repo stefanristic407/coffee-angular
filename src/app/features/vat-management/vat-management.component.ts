@@ -51,9 +51,9 @@ export class VatManagementComponent implements OnInit {
         ];
         this.route.queryParams.subscribe((params) => {
             if (params.type) {
-				this.selectedMobileTab = params.type;
-				this.selectedTab = params.type === 'VAT' ? this.options[0] : this.options[1];
-				this.settingBreadCrumb(params.type);
+                this.selectedMobileTab = params.type;
+                this.selectedTab = params.type === 'VAT' ? this.options[0] : this.options[1];
+                this.settingBreadCrumb(params.type);
             } else {
                 this.selectedMobileTab = '';
                 this.settingBreadCrumb();
@@ -63,15 +63,12 @@ export class VatManagementComponent implements OnInit {
     settingBreadCrumb(type = null) {
         if (type) {
             this.breadItems = [
-                { label: 'Home', routerLink: '/features/welcome-aboard' },
+                { label: 'Home', routerLink: '/' },
                 { label: 'Product Settings', routerLink: '/features/vat-management' },
                 { label: type === 'VAT' ? 'VAT Management' : 'Shipping Details' },
             ];
         } else {
-            this.breadItems = [
-                { label: 'Home', routerLink: '/features/welcome-aboard' },
-                { label: 'Product Settings' },
-            ];
+            this.breadItems = [{ label: 'Home', routerLink: '/' }, { label: 'Product Settings' }];
         }
     }
     getShippingInfo() {

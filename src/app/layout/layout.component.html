@@ -13,7 +13,7 @@
                     <img src="assets/images/hamberg.svg" alt="hamberg" class="d-md-none" />
                     <img src="assets/images/hamberg-tablet.svg" alt="hamberg" class="d-none d-md-block" />
                 </a>
-                <a class="company-logo d-inline-block" [routerLink]="['/features/welcome-aboard']">
+                <a class="company-logo d-inline-block" [routerLink]="['/']">
                     <img src="assets/images/Sewn-logo.svg" alt="Comany-Logo" />
                 </a>
                 <div class="d-none d-md-inline-block">
@@ -224,11 +224,7 @@
                 <div class="col-12 px-0">
                     <ul class="footer-links d-flex flex-wrap mb-0 align-items-center justify-content-between">
                         <li class="footer-links__item" [ngClass]="{ active: activeLink === 'DASHBOARD' }">
-                            <a
-                                (click)="closeMessagePanel()"
-                                [routerLink]="['/features/welcome-aboard']"
-                                class="d-inline-block"
-                            >
+                            <a (click)="closeMessagePanel()" [routerLink]="['/']" class="d-inline-block">
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/ft-icon-dashboard.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-dashboard.svg" />

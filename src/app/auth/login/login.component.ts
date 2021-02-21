@@ -179,12 +179,6 @@ export class LoginComponent implements OnInit {
                 this.loginPasswordError = '';
             }, 3000);
         } else {
-            //this.myAlertTop();
-            // if(this.userEmail =="satyanarayana.murthy@nordsud.se" && this.userPassword == "Temp@123"){
-            //   this.router.navigate(["/auth/update-password"]);
-            // }
-            // else if(this.userEmail == "satyanarayana.murthy@nordsud.se" && this.userPassword == "Live@123"){
-            //   this.router.navigate(["../../features/welcome-aboard"]);
             this.loginButtonValue = 'Logging in';
             var data = [];
             data['email'] = this.userEmail;
@@ -231,8 +225,7 @@ export class LoginComponent implements OnInit {
                                 this.loginButtonValue = 'Login';
                             },
                         );
-                        //this.toastrService.success("Logged in Successfully");
-                        //        this.router.navigate(["/features/welcome-aboard"]);
+
                         this.userService.getRoasterAccount(data['result'].roasters.id).subscribe(
                             (result) => {
                                 if (result['success'] == true) {
@@ -288,9 +281,7 @@ export class LoginComponent implements OnInit {
                                                                                 this.loginButtonValue = 'Login';
                                                                             }
                                                                         } else {
-                                                                            this.router.navigate([
-                                                                                '/features/welcome-aboard',
-                                                                            ]);
+                                                                            this.router.navigate(['/welcome-aboard']);
                                                                         }
                                                                     }
                                                                 });

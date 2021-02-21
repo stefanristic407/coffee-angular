@@ -3,7 +3,7 @@
         <div class="row pb-2">
             <ul class="bread-nav mb-md-0 col-lg-9">
                 <li class="b-cum">
-                    <a routerlink="/features/welcome-aboard" class="b-cum">{{ globals.languageJson?.home }}</a>
+                    <a routerlink="/" class="b-cum">{{ globals.languageJson?.home }}</a>
                     <span aria-hidden="true" class="padl-r"
                         ><img src="/assets/images/arrow-1.png" alt="" class="group-img"
                     /></span>
@@ -52,7 +52,12 @@
                         </div>
                         <div class="farm-input col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
                             <label class="label p-0">Is the product bought on the platform</label>
-                            <select class="form-control select-region" [(ngModel)]="product.bought_platform" name="subscription" required="">
+                            <select
+                                class="form-control select-region"
+                                [(ngModel)]="product.bought_platform"
+                                name="subscription"
+                                required=""
+                            >
                                 <option value="" selected disabled>Select</option>
                                 <option value="Yes">Yes</option>
                                 <option value="No">No</option>
@@ -294,13 +299,27 @@
             <div class="row">
                 <div class="farm-input col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <label> Roaster Recommendation</label>
-                    <textarea readonly class="form-control descr" [(ngModel)]="coffeeBatchDetails.roaster_notes" name="roaster_notes"
-                        rows="4" cols="50" placeholder=""></textarea>
+                    <textarea
+                        readonly
+                        class="form-control descr"
+                        [(ngModel)]="coffeeBatchDetails.roaster_notes"
+                        name="roaster_notes"
+                        rows="4"
+                        cols="50"
+                        placeholder=""
+                    ></textarea>
                 </div>
                 <div class="farm-input col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <label>Receipes</label>
-                    <textarea readonly class="form-control descr" [(ngModel)]="coffeeBatchDetails.roaster_notes" name="roaster_notes"
-                        rows="4" cols="50" placeholder=""></textarea>
+                    <textarea
+                        readonly
+                        class="form-control descr"
+                        [(ngModel)]="coffeeBatchDetails.roaster_notes"
+                        name="roaster_notes"
+                        rows="4"
+                        cols="50"
+                        placeholder=""
+                    ></textarea>
                 </div>
             </div>
         </div>
@@ -328,10 +347,17 @@
                 </div>
 
                 <div class="farm-input col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                    <label>Recommendation text<span class="star">*</span><span class="sub-text fnt-muli pull-right">0/10
-                            words</span></label>
-                    <input type="text" [(ngModel)]="product.roaster_recommendation" name="name" class="form-control"
-                        placeholder="" />
+                    <label
+                        >Recommendation text<span class="star">*</span
+                        ><span class="sub-text fnt-muli pull-right">0/10 words</span></label
+                    >
+                    <input
+                        type="text"
+                        [(ngModel)]="product.roaster_recommendation"
+                        name="name"
+                        class="form-control"
+                        placeholder=""
+                    />
                 </div>
             </div>
         </div>
@@ -413,8 +439,11 @@
                                 </div>
 
                                 <div class="col-6 col-sm-6 col-md-6 col-md-3 col-lg-3 col-xl-3 mt-5">
-                                    <p-checkbox [(ngModel)]="varient.is_default_product" binary="true"
-                                        label="Set as default product"></p-checkbox>
+                                    <p-checkbox
+                                        [(ngModel)]="varient.is_default_product"
+                                        binary="true"
+                                        label="Set as default product"
+                                    ></p-checkbox>
                                 </div>
                             </div>
 
@@ -461,8 +490,9 @@
                                 </div>
 
                                 <div class="form-input col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
-                                    <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Stock
-                                        available<span>*</span></label>
+                                    <label class="fnt-14 fnt-muli fnt-600 txt-clr334"
+                                        >Stock available<span>*</span></label
+                                    >
                                     <div class="input-group">
                                         <input
                                             type="number"
@@ -504,48 +534,101 @@
                                 >
                             </div>
                             <label class="view-order mt-3 cursor-pointer" (click)="addNewVariant(gIndex)">
-                                Add a grind variant</label>
+                                Add a grind variant</label
+                            >
                             <!-- image -->
                             <div *ngFor="let varient of varients; let gIndex = index" class="p-0 m-0 mt-2">
                                 <div class="row" *ngIf="currentVarientIndex == gIndex">
                                     <div class="p-0 pl-3">
                                         <p class="fnt-18 fnt-muli fnt-700 black m-0 mt-3 mb-3">Add Images</p>
                                         <div class="row m-0">
-                                            <div class="form-section__inputs roastery-upload-files mb-2 p-0 border-0
-                                                col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
-                                                <p class="fnt-14 fnt-muli fnt-600 black m-0 mb-1">Upload Feature Image</p>
-                                                <div *ngIf="!varient['featured_image']"
-                                                    class="roastery-uploads__image d-flex align-items-center mr-3 justify-content-center dragdiv">
+                                            <div
+                                                class="form-section__inputs roastery-upload-files mb-2 p-0 border-0 col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3"
+                                            >
+                                                <p class="fnt-14 fnt-muli fnt-600 black m-0 mb-1">
+                                                    Upload Feature Image
+                                                </p>
+                                                <div
+                                                    *ngIf="!varient['featured_image']"
+                                                    class="roastery-uploads__image d-flex align-items-center mr-3 justify-content-center dragdiv"
+                                                >
                                                     <label class="mb-0 addImageContainer">
-                                                        <input type="file" accept="image/png, image/jpeg" style="visibility: hidden" #featureImage
-                                                            (change)="handleRoasterFile($event,0,'featured_image')" />
-                                                        <div class="d-flex flex-wrap align-items-center justify-content-center">
-                                                            <span class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 gray-text mt-4">Drag
-                                                                and drop an image here or browse</span>
+                                                        <input
+                                                            type="file"
+                                                            accept="image/png, image/jpeg"
+                                                            style="visibility: hidden"
+                                                            #featureImage
+                                                            (change)="handleRoasterFile($event, 0, 'featured_image')"
+                                                        />
+                                                        <div
+                                                            class="d-flex flex-wrap align-items-center justify-content-center"
+                                                        >
+                                                            <span
+                                                                class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 gray-text mt-4"
+                                                                >Drag and drop an image here or browse</span
+                                                            >
                                                         </div>
                                                     </label>
                                                 </div>
                                                 <div *ngIf="varient['featured_image']" class="mr-3 firstImageDiv">
-                                                    <img *ngIf="varient['featured_image'].thumb_url" [src]="varient['featured_image'].thumb_url"
-                                                        alt="" class="uploadImg" />
-                                                    <img *ngIf="varient['featured_image'].image_url" [src]="varient['featured_image'].image_url"
-                                                        alt="" class="uploadImg" />
-                                                    <img *ngIf="varient['featured_image'].isNew" [src]="varient['featured_image'].imgURL" alt=""
-                                                        class="uploadImg" />
+                                                    <img
+                                                        *ngIf="varient['featured_image'].thumb_url"
+                                                        [src]="varient['featured_image'].thumb_url"
+                                                        alt=""
+                                                        class="uploadImg"
+                                                    />
+                                                    <img
+                                                        *ngIf="varient['featured_image'].image_url"
+                                                        [src]="varient['featured_image'].image_url"
+                                                        alt=""
+                                                        class="uploadImg"
+                                                    />
+                                                    <img
+                                                        *ngIf="varient['featured_image'].isNew"
+                                                        [src]="varient['featured_image'].imgURL"
+                                                        alt=""
+                                                        class="uploadImg"
+                                                    />
                                                     <div class="imageLabel w-100">
                                                         <label class="p-0.5">Image.png</label>
-                                                        <a class="menu-arrow float-right pointer" [popover]="documentTemplate" placement="left"
-                                                            [outsideClick]="true" #pop="bs-popover">
-                                                            <img class="img" src="assets/images/more-opns-file.png">
+                                                        <a
+                                                            class="menu-arrow float-right pointer"
+                                                            [popover]="documentTemplate"
+                                                            placement="left"
+                                                            [outsideClick]="true"
+                                                            #pop="bs-popover"
+                                                        >
+                                                            <img class="img" src="assets/images/more-opns-file.png" />
                                                         </a>
-                                                        <ng-template #documentTemplate id="{{varient['featured_image']['image_id']}}">
+                                                        <ng-template
+                                                            #documentTemplate
+                                                            id="{{ varient['featured_image']['image_id'] }}"
+                                                        >
                                                             <div id="popover-mobile-content">
                                                                 <ul class="list-group custom-popover">
-                                                                    <li *ngIf="false" class="list-group-item"> <a class="pointer-item"
-                                                                            (click)="pop.hide();triggerInputEdit('featureImage')">{{globals.languageJson?.edit}}
-                                                                        </a></li>
-                                                                    <li class="list-group-item"><a class="pointer-item"
-                                                                            (click)="pop.hide();deleteImage(varient['featured_image'],0,'feature_image')">{{globals.languageJson?.delete}}</a>
+                                                                    <li *ngIf="false" class="list-group-item">
+                                                                        <a
+                                                                            class="pointer-item"
+                                                                            (click)="
+                                                                                pop.hide();
+                                                                                triggerInputEdit('featureImage')
+                                                                            "
+                                                                            >{{ globals.languageJson?.edit }}
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <a
+                                                                            class="pointer-item"
+                                                                            (click)="
+                                                                                pop.hide();
+                                                                                deleteImage(
+                                                                                    varient['featured_image'],
+                                                                                    0,
+                                                                                    'feature_image'
+                                                                                )
+                                                                            "
+                                                                            >{{ globals.languageJson?.delete }}</a
+                                                                        >
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -553,38 +636,77 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-section__inputs roastery-upload-files mb-2 border-0
-                                            col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3"
-                                                *ngFor="let file of varient.files;let i = index">
+                                            <div
+                                                class="form-section__inputs roastery-upload-files mb-2 border-0 col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3"
+                                                *ngFor="let file of varient.files; let i = index"
+                                            >
                                                 <p class="fnt-14 fnt-muli fnt-600 black m-0 mb-1">Product images</p>
-                                                <div *ngIf="file['isEmpty']"
-                                                    class="roastery-uploads__image d-flex align-items-center mr-3 justify-content-center dragdiv">
+                                                <div
+                                                    *ngIf="file['isEmpty']"
+                                                    class="roastery-uploads__image d-flex align-items-center mr-3 justify-content-center dragdiv"
+                                                >
                                                     <label class="mb-0 addImageContainer">
-                                                        <input type="file" accept="image/png, image/jpeg" style="visibility: hidden" #productImage
-                                                            (change)="handleRoasterFile($event, i)" />
-                                                        <div class="d-flex flex-wrap align-items-center justify-content-center">
-                                                            <span class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 gray-text mt-4">Drag
-                                                                and drop an image here or browse</span>
+                                                        <input
+                                                            type="file"
+                                                            accept="image/png, image/jpeg"
+                                                            style="visibility: hidden"
+                                                            #productImage
+                                                            (change)="handleRoasterFile($event, i)"
+                                                        />
+                                                        <div
+                                                            class="d-flex flex-wrap align-items-center justify-content-center"
+                                                        >
+                                                            <span
+                                                                class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 gray-text mt-4"
+                                                                >Drag and drop an image here or browse</span
+                                                            >
                                                         </div>
                                                     </label>
                                                 </div>
                                                 <div *ngIf="!file['isEmpty']" class="mr-1 firstImageDiv">
-                                                    <img *ngIf="file.thumb_url" [src]="file.thumb_url" alt="" class="uploadImg" />
-                                                    <img *ngIf="file.image_url" [src]="file.image_url" alt="" class="uploadImg" />
-                                                    <img *ngIf="file.isNew" [src]="file.imgURL" alt="" class="uploadImg" />
+                                                    <img
+                                                        *ngIf="file.thumb_url"
+                                                        [src]="file.thumb_url"
+                                                        alt=""
+                                                        class="uploadImg"
+                                                    />
+                                                    <img
+                                                        *ngIf="file.image_url"
+                                                        [src]="file.image_url"
+                                                        alt=""
+                                                        class="uploadImg"
+                                                    />
+                                                    <img
+                                                        *ngIf="file.isNew"
+                                                        [src]="file.imgURL"
+                                                        alt=""
+                                                        class="uploadImg"
+                                                    />
                                                     <div class="imageLabel w-100">
                                                         <label class="mb-0 p-0.5">Image.png</label>
-                                                        <a class="menu-arrow float-right pointer" [popover]="documentTemplate2" placement="left"
-                                                            [outsideClick]="true" #pop="bs-popover">
-                                                            <img class="img" src="assets/images/more-opns-file.png">
+                                                        <a
+                                                            class="menu-arrow float-right pointer"
+                                                            [popover]="documentTemplate2"
+                                                            placement="left"
+                                                            [outsideClick]="true"
+                                                            #pop="bs-popover"
+                                                        >
+                                                            <img class="img" src="assets/images/more-opns-file.png" />
                                                         </a>
                                                         <ng-template #documentTemplate2>
                                                             <div id="popover-mobile-content">
                                                                 <ul class="list-group custom-popover">
-                                                                    <li *ngIf="false" class="list-group-item"> <a class="pointer-item"
-                                                                            (click)="pop.hide();">{{globals.languageJson?.edit}} </a></li>
-                                                                    <li class="list-group-item"><a class="pointer-item"
-                                                                            (click)="pop.hide();deleteImage(file, i)">{{globals.languageJson?.delete}}</a>
+                                                                    <li *ngIf="false" class="list-group-item">
+                                                                        <a class="pointer-item" (click)="pop.hide()"
+                                                                            >{{ globals.languageJson?.edit }}
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <a
+                                                                            class="pointer-item"
+                                                                            (click)="pop.hide(); deleteImage(file, i)"
+                                                                            >{{ globals.languageJson?.delete }}</a
+                                                                        >
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -608,7 +730,6 @@
             </div>
         </div>
 
-        
         <!-- Crate details-->
 
         <div class="crate-details mt-3">
@@ -617,8 +738,14 @@
             <div class="row" *ngFor="let carte of product.crates">
                 <div class="farm-input col-3 col-sm-2 col-md-2 col-md-2 col-lg-2 col-xl-2">
                     <label>Box value</label>
-                    <input readonly type="1 crate" value="" name="Finca La Pampa" class="form-control"
-                        placeholder="1 crate" />
+                    <input
+                        readonly
+                        type="1 crate"
+                        value=""
+                        name="Finca La Pampa"
+                        class="form-control"
+                        placeholder="1 crate"
+                    />
                 </div>
                 <div class="equal-operators pl-8 pr-2">=</div>
                 <div class="farm-input col-2 col-sm-2 col-md-2 col-md-2 col-lg-2 col-xl-1 p-0 pl-0 pr-0">

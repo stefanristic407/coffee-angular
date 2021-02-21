@@ -21,7 +21,6 @@ import { RoasterCompleteSetupComponent } from './roaster-complete-setup/roaster-
 import { RoasterOnboardingComponent } from './roaster-onboarding/roaster-onboarding.component';
 import { RoasterQuickSetupComponent } from './roaster-quick-setup/roaster-quick-setup.component';
 import { SettingsComponent } from './settings/settings.component';
-import { WelcomeAboardComponent } from './welcome-aboard/welcome-aboard.component';
 import { LanguageRegionComponent } from './language-region/language-region.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { DataTablesModule } from 'angular-datatables';
@@ -126,7 +125,6 @@ import { ListboxModule } from 'primeng/listbox';
         RoasterQuickSetupComponent,
         RoasterCompleteSetupComponent,
         FeaturesComponent,
-        WelcomeAboardComponent,
         MyprofileComponent,
         ProfileEditComponent,
         ProfilePicComponent,

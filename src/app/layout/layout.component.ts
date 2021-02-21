@@ -184,7 +184,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
             this.activeLink = 'PROFILES';
         } else if (this.router.url.includes('/features/notification')) {
             this.activeLink = 'NOTIFICATIONS';
-        } else if (this.router.url.includes('/features/welcome-aboard')) {
+        } else if (this.router.url.includes('/')) {
             this.activeLink = 'DASHBOARD';
         } else {
             this.activeLink = 'UNSET';
