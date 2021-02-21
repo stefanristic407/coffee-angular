@@ -8,7 +8,8 @@ import { MicroRoasterDetailsComponent } from './customer-management/micro-roaste
 import { HorecaDetailsComponent } from './customer-management/horeca-details/horeca-details.component';
 import { DiscountEditComponent } from './customer-management/discount-edit/discount-edit.component';
 import { PermissionErrorComponent } from '../people/permission-error/permission-error.component';
-import { AuthGuard } from '../guards/auth.guard';
+import { AuthGuard } from '@guards';
+
 const routes: Routes = [
     {
         path: '',

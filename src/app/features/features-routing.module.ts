@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PageNotFoundComponent } from '../error-module/page-not-found/page-not-found.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { ChatNotificationComponent } from './chat-notification/chat-notification.component';
 import { OnboardCustomersComponent } from './onboard-customers/onboard-customers.component';

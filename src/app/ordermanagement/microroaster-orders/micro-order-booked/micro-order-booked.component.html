@@ -391,7 +391,7 @@
                                         }}
                                     </li>
                                     <li class="estate-number pt-1">
-                                        <span class="cursor-pointer" routerLink="/ordermanagement/review-ratings">
+                                        <span class="cursor-pointer" [routerLink]="orgType | reviewLink: bookId">
                                             <img class="" src="assets/images/star-1.png" alt="User" />
                                             <span class="star-no pl-1" *ngIf="bookDetailService.mrProfileDetails">
                                                 {{
