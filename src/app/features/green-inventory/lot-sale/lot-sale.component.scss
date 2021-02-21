@@ -1,39 +1,5 @@
-.create-role-sec {
-    margin-left: 3rem;
-    margin-right: 3rem;
-}
-
-.confirm-padding {
-    margin-top: 1px;
-    color: #000000;
-    font-weight: bold;
-}
-
-.confirm-order {
-    padding: 1.5rem 1.5rem;
-    border-radius: 4px;
-    background-color: #faf8f4;
-    overflow: hidden;
-}
-
-.confirm-txt {
-    font-size: 28px;
-    font-weight: normal;
-    color: #020202;
-}
-.status-width{
+.status-width {
     width: 8rem;
-}
-
-.fill-txt {
-    font-family: Muli;
-    font-size: 16px;
-    font-weight: normal;
-    color: #747588;
-}
-
-.bread-nav {
-    padding-left: 3rem;
 }
 
 th {
@@ -72,7 +38,7 @@ td {
 
 .table-head {
     border-radius: 4px;
-    background-color: #f8f8f8
+    background-color: #f8f8f8;
 }
 
 .lot-table {
@@ -81,108 +47,10 @@ td {
 }
 
 .border-div {
-    margin-top: 3.2rem!important;
+    margin-top: 3.2rem !important;
 }
 
-.ord-quantity,
-.amount {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    color: #232334;
-}
-
-.quantity-border {
-    border-right: 1px solid #dddddd;
-}
-
-.search {
-    height: 50px;
-    border: none;
-    background-color: #ffffff;
-    width: 130px;
-}
-
-.search:focus {
-    box-shadow: none !important;
-}
-
-.main-bag {
-    /* position: absolute;
-    right: 10px;
-    top: 15px; */
-    font-size: 14px;
-    font-weight: 600;
-    color: #747588;
-}
-
-.price-tag {
-    padding-left: 10px;
-    margin-top: 16px;
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    color: #232334;
-}
-
-.price-total {
-    font-family: Muli;
-    font-size: 18px;
-    font-weight: bold;
-    color: #232334;
-    margin-right: 4.8rem;
-}
-
-.shipping-addr {
-    font-family: Muli;
-    font-size: 18px;
-    font-weight: bold;
-    color: #000000;
-}
-
-.edit-text {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    color: #30855c;
-    cursor: pointer;
-}
-
-.address-bar {
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    padding: 1.5rem 0.5rem;
-}
-
-.add-text,
-.details {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    color: #232334;
-}
-
-.details-header {
-    font-family: Muli;
-    font-size: 18px;
-    font-weight: bold;
-    color: #000000;
-}
-
-.remeber-left {
-    font-family: Muli !important;
-    font-size: 14px;
-    font-weight: 600;
-    color: #333333;
-}
-
-.terms-color {
-    color: #80460b;
-    text-decoration: underline;
-}
-
-.place-order,
-.save-address {
+.place-order {
     border-radius: 4px;
     background-color: #30855c;
     font-family: Muli;
@@ -193,8 +61,7 @@ td {
     /* height: 46px; */
 }
 
-.place-order:hover,
-.save-address:hover {
+.place-order:hover {
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
@@ -233,8 +100,8 @@ td {
 }
 
 .no-padding-RL {
-    padding-right: 0px!important;
-    padding-left: 0px!important;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
 }
 
 .col-lg-15 {
@@ -250,7 +117,7 @@ td {
 }
 
 .pb-24 {
-    padding-bottom: 24px!important;
+    padding-bottom: 24px !important;
 }
 
 .mt-48 {
@@ -265,7 +132,7 @@ td {
     font-size: 14px;
     line-height: 24px;
     padding: 16px;
-    height: 50px!important;
+    height: 50px !important;
     color: #232334 !important;
 }
 
@@ -280,11 +147,11 @@ td {
     padding: 0px 15px;
     height: 46px;
     text-decoration: none;
-}
 
-.ord_cancel:hover {
-    color: #ffffff;
-    background-color: #30855c;
+    &:hover {
+        color: #ffffff;
+        background-color: #30855c;
+    }
 }
 
 .bottom-border {
@@ -292,73 +159,7 @@ td {
     padding-bottom: 2rem;
 }
 
-
 /********Modal********/
-
-.modal-header {
-    border-bottom: none;
-}
-
-.are-sure {
-    font-family: PlayfairDisplay;
-    font-size: 28px;
-    font-weight: normal;
-    color: #020202;
-}
-
-.do-account {
-    font-family: Muli;
-    font-size: 16px;
-    font-weight: normal;
-    color: #5d5d5d;
-}
-
-.add-btn {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    color: #ffffff;
-    border-radius: 4px;
-    background-color: #30855c;
-    padding: 11px 18px;
-}
-
-.add-btn:hover {
-    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-}
-
-.no-btn {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    color: #30855c;
-    border-radius: 4px;
-    border: solid 1px #30855c;
-    background-color: #ffffff;
-    cursor: pointer;
-    padding: 11px 18px;
-}
-
-.no-btn:hover {
-    background-color: #30855c;
-    color: #fff;
-}
-
-::ng-deep .modal-content {
-    top: 3rem;
-}
-
-#form-address {
-    display: none;
-}
-
-.save-top {
-    margin-top: 2.8rem;
-}
-
-.ship-top {
-    margin-top: 2.2rem;
-}
 
 label,
 .text-gray {
@@ -398,52 +199,8 @@ label span {
     color: #1c1c1c;
 }
 
-.select_order {
-    border-radius: 4px;
-    border: solid 1px #d6d6d6;
-    background-color: #ffffff;
-    background: url(/assets/images/confirm-drop.png) right 15px top 16px no-repeat;
-    -webkit-appearance: none;
-    font-family: Muli;
-    font-weight: 500;
-    height: 50px !important;
-    padding-top: 7px;
-    cursor: pointer;
-    font-size: 14px !important;
-}
-
 select {
     color: #232334 !important;
-}
-
-.checkmark {
-    top: 2px !important;
-    left: 2px !important;
-    height: 17px !important;
-    width: 17px !important;
-}
-
-.customcheckbox .checkmark:after {
-    left: 5px !important;
-    top: 1px !important;
-    border-width: 0 2px 2px 0 !important;
-}
-
-span.checkmark {
-    background-color: #fff !important;
-    border: solid 1px #979797;
-    border-radius: 2px;
-}
-
-.customcheckbox input:checked~.checkmark {
-    background-color: #232334 !important;
-}
-
-.box-border {
-    border: 1px solid #d6d6d6;
-    border-radius: 4px;
-    margin-left: 15px;
-    padding: 0 10px;
 }
 
 .web-sec {
@@ -454,18 +211,12 @@ span.checkmark {
     display: none;
 }
 
-
-/* 
-.search:focus {
-    box-shadow: 0 0 0 0.035rem green !important;
-} */
-
 .confirm-ordererror,
 .countryError,
 .addressError,
 .cityError,
 .zipError {
-    color: #D50000;
+    color: #d50000;
     font-size: 14px;
 }
 
@@ -486,7 +237,7 @@ span.checkmark {
 }
 
 .select-region-local {
-    height: 38px!important;
+    height: 38px !important;
 }
 
 .input-group-right-border {
@@ -507,17 +258,15 @@ span.checkmark {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
-    color: #232334!important;
+    color: #232334 !important;
 }
-
 
 /****************************    Media Queries   ****************************/
 
-@media screen and (max-width:768px) {
+@media screen and (max-width: 768px) {
     .create-role {
         margin-left: 0.9rem;
         margin-right: 0.9rem;
-        padding-bottom: 1rem;
         padding-top: 1rem;
     }
     .mob-sec {
@@ -532,7 +281,7 @@ span.checkmark {
         margin-right: 0rem;
     }
     .border-div {
-        margin-top: 1.2rem!important;
+        margin-top: 1.2rem !important;
     }
     .back-icon {
         border-bottom: 1px solid #ebebeb;
@@ -660,4 +409,22 @@ span.checkmark {
     padding: 5px;
     color: #232334;
     background-color: #ffffff;
+}
+
+.weightDiv {
+    border-radius: 4px;
+    border: 1px solid #d6d6d6;
+}
+.weightInputGroupDiv {
+    border: 1px solid #d6d6d6;
+}
+.weightInputDiv {
+    flex: 1 1 auto;
+    width: 1%;
+    border: 0px;
+}
+.input-group-append {
+    border: 0px !important;
+    padding: 0px;
+    width: auto;
 }

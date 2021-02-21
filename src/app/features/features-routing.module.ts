@@ -323,7 +323,7 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'lot-sale/:orderId',
+                path: 'lot-sale',
                 component: LotSaleComponent,
                 canActivate: [AuthGuard],
             },

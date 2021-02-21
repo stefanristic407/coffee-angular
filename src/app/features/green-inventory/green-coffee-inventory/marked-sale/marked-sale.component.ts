@@ -6,6 +6,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { PrimeTableService } from 'src/services/prime-table.service';
 import { Table } from 'primeng/table';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-marked-sale',
@@ -53,6 +54,7 @@ export class MarkedSaleComponent implements OnInit {
         public cookieService: CookieService,
         private router: Router,
         public primeTableService: PrimeTableService,
+        private toastrService: ToastrService,
     ) {
         this.termStatus = { name: 'All', statusCode: '' };
         this.display = '10';
@@ -84,12 +86,6 @@ export class MarkedSaleComponent implements OnInit {
                     sortable: false,
                     width: 40,
                 },
-                // {
-                //     field: 'id',
-                //     header: '',
-                //     sortable: false,
-                //     width: 100,
-                // },
                 {
                     field: 'product_name',
                     header: 'Product Name',
@@ -183,26 +179,6 @@ export class MarkedSaleComponent implements OnInit {
         );
         this.appLanguage = this.globals.languageJson;
     }
-    // getCoffeeSaleList() {
-    //   let origin = this.termStatus && this.termStatus.name !== 'All' ? this.termStatus.statusCode : undefined;
-    //   let displayCount = this.display ? this.display : undefined;
-    //   this.mainData = [];
-    //   this.roasterService.getCoffeeSaleList(this.roaster_id, origin, displayCount).subscribe(
-    //     response => {
-    //       console.log(response);
-    //       if (response && response['result']) {
-    //         this.mainData = response['result'];
-    //       }
-    //     }, err => {
-    //       console.log(err);
-    //     }
-    //   );
-    // }
-
-    // setStatus(termName: any, statusCode: any) {
-    //   this.termStatus = { name: termName, statusCode: statusCode };
-    //   this.getCoffeeSaleList();
-    // }
     setStatus() {
         this.primeTableService.form?.patchValue({
             status: this.termStatus,
@@ -230,5 +206,18 @@ export class MarkedSaleComponent implements OnInit {
         let link = [];
         link = [`/features/green-coffee-for-sale-details/${item.order_id}`];
         return link;
+    }
+    deleteProductFromList(item) {
+        this.roasterService.deleteProcuredCoffee(this.roaster_id, item.order_id).subscribe(
+            (response) => {
+                if (response && response.success) {
+                    this.toastrService.success('Product deleted successfully');
+                }
+            },
+            (err) => {
+                this.toastrService.error('Error while deleting the ');
+                console.log(err);
+            },
+        );
     }
 }

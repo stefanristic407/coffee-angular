@@ -21,32 +21,34 @@
                                     </div>
                                 </div>
                                 <div class="source-knowmore-avail pull-right">
-                                    <a
+                                    <button
                                         *ngIf="!saleInformation"
-                                        class="contact-us-avail"
+                                        class="btn-raised"
                                         routerLink="/features/coffee-sale"
                                         [queryParams]="{ orderId: orderDetails?.id }"
-                                        >Mark for sale</a
                                     >
-                                    <a
+                                        Mark for sale
+                                    </button>
+                                    <button
                                         *ngIf="saleInformation && saleInformation.status !== 'SOLD'"
-                                        class="contact-us-avail"
+                                        class="btn-raised"
                                         routerLink="/features/lot-sale"
                                         [queryParams]="{ orderId: orderDetails?.id }"
-                                        >{{ globals.languageJson?.edit }}</a
                                     >
+                                        {{ globals.languageJson?.edit }}
+                                    </button>
                                     <!-- <a class="know-more-avail">Know more</a> -->
                                 </div>
                             </div>
                             <div class="row avaialble-mob m-1">
-                                <h2 class="fnt-18 fnt-bold text-clr334 pl-3">
+                                <h2 class="fnt-18 fnt-bold text-clr334 pl-3 mt-3">
                                     {{ saleInformation.name ? saleInformation.name : 'NA' }}
                                 </h2>
                                 <div class="col-sm-12">
                                     <button
                                         *ngIf="!saleInformation"
                                         class="btn-raised w-100"
-                                        routerLink="/features/lot-sale"
+                                        routerLink="/features/coffee-sale"
                                         [queryParams]="{ orderId: orderDetails?.id }"
                                     >
                                         Mark for sale

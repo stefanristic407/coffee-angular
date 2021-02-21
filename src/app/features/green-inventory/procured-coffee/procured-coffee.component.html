@@ -24,7 +24,7 @@
             </div> -->
             <div class="source-cont-available">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 mt-3">
                         <div class="sourcing-details">
                             <p-breadcrumb [model]="breadItems"></p-breadcrumb>
                             <div class="w-100 mt-3 clearfix avaialble-web">
@@ -34,17 +34,18 @@
                                     </div>
                                 </div>
                                 <div class="source-knowmore-avail pull-right">
-                                    <a
-                                        class="contact-us-avail"
+                                    <button
+                                        class="btn-raised"
                                         routerLink="/features/coffee-sale"
                                         [queryParams]="{ orderId: orderDetails?.id }"
-                                        >Mark for sale</a
                                     >
+                                        Mark for sale
+                                    </button>
                                     <!-- <a class="know-more-avail">Know more</a> -->
                                 </div>
                             </div>
                             <div class="row avaialble-mob m-1">
-                                <h2 class="fnt-18 fnt-bold text-clr334 pl-3">Order #{{ orderDetails?.id }}</h2>
+                                <h2 class="fnt-18 fnt-bold text-clr334 pl-3 mt-3">Order #{{ orderDetails?.id }}</h2>
                                 <div class="col-sm-12">
                                     <button
                                         class="btn-raised w-100"

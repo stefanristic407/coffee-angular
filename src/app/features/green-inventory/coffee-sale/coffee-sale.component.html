@@ -18,42 +18,12 @@
             </section>
         </div>
 
-        <div class="bg-fff">
-            <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4 row web-sec">
-                <span id="title-breadcrumb-1" class="sr-only"></span>
-                <div class="col-lg-8">
-                    <ul class="bread-nav">
-                        <li class="b-cum">
-                            <a class="b-cum" routerLink="/features/welcome-aboard">{{ globals.languageJson?.home }}</a
-                            ><span class="padl-r" aria-hidden="true">
-                                <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
-                            </span>
-                        </li>
+        <div class="main-block">
+            <div class="web-sec">
+                <p-breadcrumb [model]="breadItems"></p-breadcrumb>
+            </div>
 
-                        <li class="b-cum">
-                            <a class="b-cum" routerLink="/features/green-coffee-inventory">{{
-                                globals.languageJson?.green_coffee_inventory
-                            }}</a
-                            ><span class="padl-r" aria-hidden="true">
-                                <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
-                            </span>
-                        </li>
-                        <li class="b-cum">
-                            <a class="b-cum" routerLink="/features/procured-coffee">Sourced Green Coffee</a
-                            ><span class="padl-r" aria-hidden="true">
-                                <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
-                            </span>
-                        </li>
-                        <li class="b-cum c-pink">Order #{{ orderDetails?.id }}</li>
-                    </ul>
-                </div>
-                <div class="col-lg-1"></div>
-                <!-- <div class="col-lg-2 pull-right margin-right-2rem">
-            <button type="submit" class="col-12 place-order btn">Save changes</button>
-        </div> -->
-            </nav>
-
-            <section class="create-role-sec">
+            <section class="mt-4">
                 <!-- <div class="confirm-order mt-4 web-sec">
             <div class="row">
                 <div class="col-12 col-md-12 col-lg-12">
@@ -116,7 +86,7 @@
                         <div class="row">
                             <div class="col-lg-12 mt-2">
                                 <div class="estate-list">
-                                    <div class="col-12 details-header pb-2">
+                                    <div class="col-12 details-header pb-2 pl-0">
                                         {{ globals.languageJson?.green_coffee_details }}
                                     </div>
                                     <table class="recent w-100">
@@ -202,202 +172,335 @@
                     </div>
                 </div>
             </section>
-            <section class="create-role-sec mt-48">
-                <!-- <div class="web-sec">
-                <div class="green_grading_cont">
-                    <h1>Sale Information</h1>
-                </div>
-                <div class="col-12 pull-left p-0 border-bottom-gray pb-24">Manage the price, quantity &
-                    delivery charges of coffee marked for sale</div>
-        </div>
-        <div class="row web-sec">
-            <div class="col-12">
-                <div class="col-lg-8 col-md-8 float-L">
-                    <div>
-                        cdfvdfgdf
+            <section class="mt-48" [formGroup]="coffeeSaleForm" (ngSubmit)="onSave()" novalidate>
+                <div class="green_grading_cont row w-100 border-bottom-gray pb-3 mx-0">
+                    <div class="col-sm-12 col-md-9 col-lg-9 px-0">
+                        <h1>{{ globals.languageJson?.sale_information }}</h1>
+                        <div class="col-12 pull-left p-0 pb-24 min-Text">
+                            Manage the price, quantity & delivery charges of coffee marked for sale
+                        </div>
+                    </div>
+
+                    <div *ngIf="!showDropdown" class="col-sm-12 col-md-3 col-lg-3 current-s-bg">
+                        <p class="fnt-14 fnt-muli fnt-400 text-clr334 m-0">Current status</p>
+                        <span class="fnt-14 fnt-700 fnt-muli text-clr334">{{ status_label }}</span>
+                        <span class="text-brown float-right" (click)="showDropdown = true"><a>Change status</a> </span>
+                    </div>
+
+                    <!-- change status-->
+                    <!-- <div *ngIf="showDropdown" class="col-sm-12 col-md-3 col-lg-3 col-xl-3 current-s-bg d-flex">
+                        <div class="farm-input">
+                            <select
+                                class="form-control select-region status-width"
+                                [(ngModel)]="order_status"
+                                name="coffee"
+                                required=""
+                            >
+                                <option value="IN_STOCK" selected>In Stock</option>
+                                <option value="SOLD">Sold</option>
+                                <option value="HIDDEN">Hidden</option>
+                            </select>
+                        </div>
+                    </div> -->
+                    <div
+                        *ngIf="showDropdown"
+                        class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100 current-s-bg d-flex"
+                    >
+                        <!-- <label>Roast level<span class="star">*</span></label> -->
+                        <p-dropdown
+                            [options]="stockTypeArray"
+                            optionLabel="label"
+                            placeholder="In Stock"
+                            [style]="{ width: '100%' }"
+                            formControlName="status"
+                            optionValue="value"
+                        ></p-dropdown>
+                        <small *ngIf="coffeeSaleForm.controls['status'].errors?.required" class="p-error">
+                            Required
+                        </small>
+                        <!-- <span (click)="updateStatus()" class="text-brown pl-4 pt-2"><a>Save</a> </span> -->
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 float-L">
-                    <div>
-                        fdvsdvdsdg fdgsdfgdg
+
+                <div class="row mt-5">
+                    <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 sewn-form-field w-100">
+                        <label>Product name<span class="star">*</span></label>
+                        <input
+                            type="text"
+                            placeholder="Give a name to this green coffee"
+                            formControlName="name"
+                            pInputText
+                        />
+                        <small *ngIf="coffeeSaleForm.controls['name'].errors?.required" class="p-error">
+                            Required
+                        </small>
                     </div>
-                </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 sewn-form-field w-100">
+                        <label>Selling price<span class="star">*</span>(in USD)</label>
+                        <div class="input-group weightInputGroupDiv">
+                            <input
+                                type="number"
+                                class="weightInputDiv"
+                                formControlName="price"
+                                placeholder="Enter the selling price"
+                                pInputText
+                            />
 
-            </div>
-            <div>
-
-            </div>
-        </div> -->
-                <div class="row w-100 ml-0">
-                    <div class="green_grading_cont w-100 border-bottom-gray">
-                        <div class="float-left">
-                            <h1>{{ globals.languageJson?.sale_information }}</h1>
-                            <div class="col-12 pull-left p-0 pb-24 min-Text">
-                                Manage the price, quantity & delivery charges of coffee marked for sale
-                            </div>
-                        </div>
-
-                        <div *ngIf="!showDropdown" class="float-right current-s-bg">
-                            <p class="fnt-14 fnt-muli fnt-400 text-clr334 m-0">Current status</p>
-                            <span class="fnt-14 fnt-700 fnt-muli text-clr334">{{ status_label }}</span>
-                            <span class="text-brown pl-4" (click)="showDropdown = true"><a>Change status</a> </span>
-                        </div>
-
-                        <!-- change status-->
-                        <div *ngIf="showDropdown" class="float-right current-s-bg d-flex">
-                            <div class="farm-input">
-                                <select
-                                    class="form-control select-region status-width"
-                                    [(ngModel)]="order_status"
-                                    name="coffee"
-                                    required=""
+                            <div class="input-group-append">
+                                <p-dropdown
+                                    [options]="priceTypeArray"
+                                    optionLabel="label"
+                                    placeholder="per kg"
+                                    [style]="{ width: '100%', border: '0px', 'background-color': '#f8f8f8' }"
+                                    formControlName="price_per_unit"
+                                    optionValue="value"
                                 >
-                                    <option value="IN_STOCK" selected>In Stock</option>
-                                    <option value="SOLD">Sold</option>
-                                    <option value="HIDDEN">Hidden</option>
-                                </select>
+                                </p-dropdown>
                             </div>
-                            <!-- <span (click)="updateStatus()" class="text-brown pl-4 pt-2"><a>Save</a> </span> -->
                         </div>
+                        <small *ngIf="coffeeSaleForm.controls['price'].errors?.required" class="p-error">
+                            Required
+                        </small>
                     </div>
-                    <div *ngIf="saleInformation" class="col-lg-12 col-md-12 no-padding-RL">
-                        <div class="col-lg-12 col-md-12 float-L no-padding-RL">
-                            <div class="col-lg-8 col-md-8 float-L no-padding-RL">
-                                <div class="select col-lg-15 no-padding-RL">
-                                    <label>Product Name<span class="star">*</span></label>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                        <label>Quantity for sale<span class="star">*</span></label>
+                        <div class="input-group weightInputGroupDiv">
+                            <input
+                                type="number"
+                                class="weightInputDiv"
+                                formControlName="quantity_count"
+                                placeholder="Enter a number"
+                                pInputText
+                            />
+
+                            <div class="input-group-append">
+                                <p-dropdown
+                                    [options]="quantityUnitArray"
+                                    optionLabel="label"
+                                    placeholder="Bags"
+                                    [style]="{ width: '100%', border: '0px', 'background-color': '#f8f8f8' }"
+                                    formControlName="quantity_type"
+                                    optionValue="value"
+                                >
+                                </p-dropdown>
+                            </div>
+                        </div>
+                        <small *ngIf="coffeeSaleForm.controls['quantity_count'].errors?.required" class="p-error">
+                            Required
+                        </small>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                        <label>Remaining quantity<span class="star">*</span></label>
+                        <input type="text" placeholder="-" pInputText disabled />
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                        <label>Minimum order quantity<span class="star">*</span></label>
+                        <div class="input-group weightInputGroupDiv">
+                            <input
+                                type="number"
+                                class="weightInputDiv"
+                                formControlName="minimum_purchase_quantity"
+                                placeholder="Enter a number"
+                                pInputText
+                            />
+
+                            <div class="input-group-append">
+                                <p-dropdown
+                                    [options]="quantityUnitArray"
+                                    optionLabel="label"
+                                    placeholder="kg"
+                                    [style]="{ width: '100%', border: '0px', 'background-color': '#f8f8f8' }"
+                                    formControlName="quantity_unit"
+                                    optionValue="value"
+                                >
+                                </p-dropdown>
+                            </div>
+                        </div>
+                        <small
+                            *ngIf="coffeeSaleForm.controls['minimum_purchase_quantity'].errors?.required"
+                            class="p-error"
+                        >
+                            Required
+                        </small>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                        <label>Weight / bag<span class="star">*</span></label>
+                        <div class="input-group weightInputGroupDiv">
+                            <input
+                                type="number"
+                                class="weightInputDiv"
+                                formControlName="quantity"
+                                placeholder="Enter a number"
+                                pInputText
+                            />
+
+                            <div class="input-group-append">
+                                <p-dropdown
+                                    [options]="quantityUnitArray"
+                                    optionLabel="label"
+                                    placeholder="Bags"
+                                    [style]="{ width: '100%', border: '0px', 'background-color': '#f8f8f8' }"
+                                    formControlName="quantity_unit"
+                                    optionValue="value"
+                                >
+                                </p-dropdown>
+                            </div>
+                        </div>
+                        <small *ngIf="coffeeSaleForm.controls['quantity'].errors?.required" class="p-error">
+                            Required
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                        <label>VAT role<span class="star">*</span></label>
+                        <p-dropdown
+                            [options]="vatDetailsArray"
+                            optionLabel="label"
+                            placeholder="Select a transaction role"
+                            [style]="{ width: '100%' }"
+                            formControlName="vat_settings_id"
+                            optionValue="value"
+                        ></p-dropdown>
+                        <small *ngIf="coffeeSaleForm.controls['vat_settings_id'].errors?.required" class="p-error">
+                            Required
+                        </small>
+                    </div>
+                </div>
+
+                <div class="row no-padding-RL">
+                    <!-- <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-8 col-md-8 float-L no-padding-RL">
+                            <div class="select col-lg-15 no-padding-RL">
+                                <label>Product Name<span class="star">*</span></label>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    class="form-control"
+                                    [(ngModel)]="saleInformation['name']"
+                                    placeholder="Give a name to this green coffee"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 float-L no-padding-RL">
+                            <div class="form-input col-lg-15 no-padding-RL">
+                                <label>Selling price<span>*</span>(in USD)</label>
+
+                                <div class="input-group">
+                                    <input
+                                        type="number"
+                                        placeholder="Enter the selling price"
+                                        class="form-control input-group-right-border"
+                                        aria-label="Text input with dropdown button"
+                                        type="number"
+                                        [(ngModel)]="saleInformation['price']"
+                                    />
+                                    <div class="input-group-append">
+                                        <select
+                                            name="Year"
+                                            required=""
+                                            [(ngModel)]="saleInformation['price_unit']"
+                                            class="form-control select-region select-form-group-dropdown select-region-local"
+                                        >
+                                            <option value="per kg" ng-reflect-value="kg">per kg</option>
+                                            <option value="gram" ng-reflect-value="gram">gram</option>
+                                            <option value="per mkg" ng-reflect-value="mkg">per mkg</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 float-L no-padding-RL">
+                            <div class="form-input col-lg-15 no-padding-RL">
+                                <label> quantity for sale<span>*</span></label>
+                                <div class="input-group">
+                                    <input
+                                        type="number"
+                                        placeholder="Enter no. of coffee bags for sale"
+                                        [(ngModel)]="saleInformation['quantity']"
+                                        class="form-control input-group-right-border"
+                                        aria-label="Text input with dropdown button"
+                                    />
+                                    <div class="input-group-append">
+                                        <select
+                                            name="Year"
+                                            required=""
+                                            type="number"
+                                            class="form-control select-region select-form-group-dropdown select-region-local"
+                                            [(ngModel)]="saleInformation['quantity_type']"
+                                        >
+                                            <option value="per kg" ng-reflect-value="bags">bags</option>
+                                            <option value="gram" ng-reflect-value="bags">bags</option>
+                                            <option value="per mkg" ng-reflect-value="bags">bags</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 float-L no-padding-RL">
+                            <div class="select col-lg-15 no-padding-RL">
+                                <label>Remaining quantity<span class="star">*</span></label>
+                                <input type="text" name="name" disabled class="form-control" placeholder="-" />
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 float-L no-padding-RL">
+                            <div class="form-input col-lg-15 no-padding-RL">
+                                <label>Minimum order quantity<span>*</span></label>
+                                <div class="input-group">
+                                    <input
+                                        type="number"
+                                        type="number"
+                                        placeholder="Enter a no. of bags"
+                                        class="form-control input-group-right-border"
+                                        [(ngModel)]="saleInformation['minimum_purchase_quantity']"
+                                        aria-label="Text input with dropdown button"
+                                    />
+                                    <div class="input-group-append">
+                                        <select
+                                            name="Year"
+                                            required=""
+                                            class="form-control select-region select-form-group-dropdown select-region-local"
+                                        >
+                                            <option value="per kg">bags</option>
+                                            <option value="gram" ng-reflect-value="Yes">bags</option>
+                                            <option value="per mkg" ng-reflect-value="No">bags</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 float-L no-padding-RL">
+                            <div class="form-input col-lg-15 no-padding-RL">
+                                <label>Weight / bag*<span>*</span></label>
+                                <div class="input-group">
                                     <input
                                         type="text"
-                                        name="name"
-                                        class="form-control"
-                                        [(ngModel)]="saleInformation['name']"
-                                        placeholder="Give a name to this green coffee"
+                                        type="number"
+                                        placeholder="Enter a no. of Kg"
+                                        class="form-control input-group-right-border"
+                                        aria-label="Text input with dropdown button"
                                     />
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 float-L no-padding-RL">
-                                <div class="form-input col-lg-15 no-padding-RL">
-                                    <label>Selling price<span>*</span>(in USD)</label>
-                                    <!-- <input type="text" name="name" placeholder="" class="form-control" value="Enter the selling price">
-                                        <select name="Year" required="" class="form-control select-region">
-                                            <option value="bags">bags</option>
-                                            <option value="Yes" ng-reflect-value="Yes">1</option>
-                                            <option value="No" ng-reflect-value="No">2</option>
-                                        </select> -->
-                                    <div class="input-group">
-                                        <input
-                                            type="number"
-                                            placeholder="Enter the selling price"
-                                            class="form-control input-group-right-border"
-                                            aria-label="Text input with dropdown button"
-                                            type="number"
-                                            [(ngModel)]="saleInformation['price']"
-                                        />
-                                        <div class="input-group-append">
-                                            <!-- <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button> -->
-                                            <select
-                                                name="Year"
-                                                required=""
-                                                [(ngModel)]="saleInformation['price_unit']"
-                                                class="form-control select-region select-form-group-dropdown select-region-local"
-                                            >
-                                                <option value="per kg" ng-reflect-value="kg">per kg</option>
-                                                <option value="gram" ng-reflect-value="gram">gram</option>
-                                                <option value="per mkg" ng-reflect-value="mkg">per mkg</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 float-L no-padding-RL">
-                                <div class="form-input col-lg-15 no-padding-RL">
-                                    <label> quantity for sale<span>*</span></label>
-                                    <div class="input-group">
-                                        <input
-                                            type="number"
-                                            placeholder="Enter no. of coffee bags for sale"
-                                            [(ngModel)]="saleInformation['quantity']"
-                                            class="form-control input-group-right-border"
-                                            aria-label="Text input with dropdown button"
-                                        />
-                                        <div class="input-group-append">
-                                            <!-- <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button> -->
-                                            <select
-                                                name="Year"
-                                                required=""
-                                                type="number"
-                                                class="form-control select-region select-form-group-dropdown select-region-local"
-                                                [(ngModel)]="saleInformation['quantity_type']"
-                                            >
-                                                <option value="per kg" ng-reflect-value="bags">bags</option>
-                                                <option value="gram" ng-reflect-value="bags">bags</option>
-                                                <option value="per mkg" ng-reflect-value="bags">bags</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-3 float-L no-padding-RL">
-                                <div class="select col-lg-15 no-padding-RL">
-                                    <label>Remaining quantity<span class="star">*</span></label>
-                                    <input type="text" name="name" disabled class="form-control" placeholder="-" />
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-3 float-L no-padding-RL">
-                                <div class="form-input col-lg-15 no-padding-RL">
-                                    <label>Minimum order quantity<span>*</span></label>
-                                    <div class="input-group">
-                                        <input
-                                            type="number"
-                                            type="number"
-                                            placeholder="Enter a no. of bags"
-                                            class="form-control input-group-right-border"
-                                            [(ngModel)]="saleInformation['minimum_purchase_quantity']"
-                                            aria-label="Text input with dropdown button"
-                                        />
-                                        <div class="input-group-append">
-                                            <select
-                                                name="Year"
-                                                required=""
-                                                class="form-control select-region select-form-group-dropdown select-region-local"
-                                            >
-                                                <option value="per kg">bags</option>
-                                                <option value="gram" ng-reflect-value="Yes">bags</option>
-                                                <option value="per mkg" ng-reflect-value="No">bags</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-3 float-L no-padding-RL">
-                                <div class="form-input col-lg-15 no-padding-RL">
-                                    <label>Weight / bag*<span>*</span></label>
-                                    <div class="input-group">
-                                        <input
-                                            type="text"
-                                            type="number"
-                                            placeholder="Enter a no. of Kg"
-                                            class="form-control input-group-right-border"
-                                            aria-label="Text input with dropdown button"
-                                        />
-                                        <div class="input-group-append">
-                                            <select
-                                                name="Year"
-                                                required=""
-                                                class="form-control select-region select-form-group-dropdown select-region-local"
-                                            >
-                                                <option value="per kg">Kg</option>
-                                                <option value="kg" ng-reflect-value="Yes">kg</option>
-                                                <option value="3" ng-reflect-value="No">bags</option>
-                                            </select>
-                                        </div>
+                                    <div class="input-group-append">
+                                        <select
+                                            name="Year"
+                                            required=""
+                                            class="form-control select-region select-form-group-dropdown select-region-local"
+                                        >
+                                            <option value="per kg">Kg</option>
+                                            <option value="kg" ng-reflect-value="Yes">kg</option>
+                                            <option value="3" ng-reflect-value="No">bags</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-lg-8 col-md-8 float-L no-padding-RL">
+                    </div> -->
+                    <!-- <div class="col-lg-8 col-md-8 float-L no-padding-RL">
                     <div class="col-lg-6 col-md-6 float-L no-padding-RL">
                         <div class="select col-lg-15">
                             <label>Product Name<span  class="star">*</span></label>
@@ -407,51 +510,33 @@
 
                 </div> -->
 
-                        <div class="col-lg-8 col-md-8 float-L no-padding-RL">
-                            <div class="col-lg-6 col-md-6 float-L no-padding-RL">
-                                <div class="select col-lg-15 no-padding-RL">
-                                    <label>VAT Rate<span class="star">*</span></label>
-                                    <input
-                                        type="number"
-                                        placeholder="Enter VAT Rate"
-                                        name="name"
-                                        [(ngModel)]="saleInformation['vat_rate']"
-                                        class="form-control"
-                                    />
-                                </div>
+                    <!-- <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-3 col-md-3 float-L no-padding-RL">
+                            <div class="select col-lg-15 no-padding-RL">
+                                <label>VAT Rate<span class="star">*</span></label>
+                                <input
+                                    type="number"
+                                    placeholder="Enter VAT Rate"
+                                    name="name"
+                                    [(ngModel)]="saleInformation['vat_rate']"
+                                    class="form-control"
+                                />
                             </div>
                         </div>
-                        <div class="row w-100">
-                            <div class="float-left mt-48 mb-48 col-sm-8">
-                                <button class="btn ord_cancel mt-32">Delete product from listing</button>
-                            </div>
+                    </div> -->
+                    <div class="col-lg-12 col-md-12 web-sec">
+                        <!-- <div class="float-left mt-48 mb-48 col-sm-8">
+                            <button class="btn ord_cancel mt-32">Delete product from listing</button>
+                        </div> -->
 
-                            <div class="text-right no-padding-RL col-sm-4 mt-48 mb-48">
-                                <button class="btn ord_cancel mt-32" routerLink="/features/green-coffee-inventory">
-                                    {{ globals.languageJson?.cancel }}
-                                </button>
-                                <button
-                                    *ngIf="!saleDetailsPresent"
-                                    type="submit"
-                                    class="ml-3 place-order btn"
-                                    [disabled]="
-                                        !saleInformation['vat_rate'] ||
-                                        !saleInformation['name'] ||
-                                        !saleInformation['price'] ||
-                                        !saleInformation['price_unit'] ||
-                                        !saleInformation['quantity'] ||
-                                        !saleInformation['quantity_type'] ||
-                                        !saleInformation['minimum_purchase_quantity'] ||
-                                        !saleInformation['vat_rate']
-                                    "
-                                    (click)="createMarkForSale()"
-                                >
-                                    Mark for sale
-                                </button>
-                                <!-- <div class="col-sm-4 col-sx-6 mob-sec float-R"> -->
-                                <!-- </div> -->
-                            </div>
+                        <div class="float-right mt-48 mb-48">
+                            <button type="button" class="btn btn-stroked mt-32" (click)="onCancel()">Cancel</button>
+                            <button type="submit" class="ml-3 btn-raised btn" (click)="onSave()">Mark for sale</button>
                         </div>
+                    </div>
+                    <div class="w-100 mob-sec">
+                        <button type="submit" class="w-100 btn-raised btn" (click)="onSave()">Mark for sale</button>
+                        <button type="button" class="btn btn-stroked mt-3 w-100" (click)="onCancel()">Cancel</button>
                     </div>
                 </div>
             </section>

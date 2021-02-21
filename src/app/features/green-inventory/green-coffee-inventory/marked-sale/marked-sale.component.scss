@@ -184,3 +184,15 @@ tr:last-child {
         padding: 3px;
     }
 }
+.list-group-item {
+    a {
+        cursor: pointer;
+    }
+    &:hover {
+        background-color: #f8f8f8;
+        a {
+            color: #232334 !important;
+            text-decoration: none;
+        }
+    }
+}
