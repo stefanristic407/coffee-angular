@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 @Component({
     selector: 'app-create-roasting-profile',
     templateUrl: './create-roasting-profile.component.html',
-    styleUrls: ['./create-roasting-profile.component.css'],
+    styleUrls: ['./create-roasting-profile.component.scss'],
 })
 export class CreateRoastingProfileComponent implements OnInit {
     appLanguage?: any;
@@ -72,60 +72,10 @@ export class CreateRoastingProfileComponent implements OnInit {
                     const getValue = productDetails[ele];
                     this.roastingForm.controls[ele].setValue(getValue);
                 });
-
-                //     if (data['success'] == true) {
-                //         this.profile_name = data['result'].roast_profile_name;
-                //         this.roast_level = data['result'].roast_level;
-                //         this.temperature = data['result'].temperature;
-                //         this.roast_duration = data['result'].roast_duration;
-                //         this.machine_type = data['result'].machine_type;
-                //     }
-                // });
             }
         });
     }
 
-    // addRoastingProfile() {
-    //     if (
-    //         this.profile_name == '' ||
-    //         this.roast_level == '' ||
-    //         this.roast_duration == '' ||
-    //         this.machine_type == '' ||
-    //         this.temperature == ''
-    //     ) {
-    //     } else {
-    //         var data = {
-    //             roast_profile_name: this.profile_name,
-    //             roast_level: parseInt(this.roast_level),
-    //             roast_duration: parseInt(this.roast_duration),
-    //             temperature: parseInt(this.temperature),
-    //             machine_type: this.machine_type,
-    //         };
-    //         if (this.editFlag == true) {
-    //             this.userService.updateRoastingProfileDetail(this.roaster_id, this.profileId, data).subscribe((res) => {
-    //                 if (res['success'] == true) {
-    //                     this.loginButtonValue = 'Save';
-    //                     this.toastrService.success('The Roasting Profile has been Updated.');
-    //                     this.router.navigate(['/features/roasting-profile']);
-    //                 } else {
-    //                     this.loginButtonValue = 'Save';
-    //                     this.toastrService.error('Error while updating the roasting profile');
-    //                 }
-    //             });
-    //         } else {
-    //             this.userService.addRoastingProfile(this.roaster_id, data).subscribe((response) => {
-    //                 if (response['success'] == true) {
-    //                     this.loginButtonValue = 'Save';
-    //                     this.toastrService.success('The Roasting Profile has been added.');
-    //                     this.router.navigate(['/features/roasting-profile']);
-    //                 } else {
-    //                     this.loginButtonValue = 'Save';
-    //                     this.toastrService.error('Error while adding the roasting profile');
-    //                 }
-    //             });
-    //         }
-    //     }
-    // }
     createRoastingProfile(productObj) {
         this.userService.addRoastingProfile(this.roaster_id, productObj).subscribe(
             (res) => {

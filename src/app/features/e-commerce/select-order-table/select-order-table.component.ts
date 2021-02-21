@@ -161,12 +161,6 @@ export class SelectOrderTableComponent implements OnInit {
     isAllCheckedEstate() {
         return this.data.every((_) => _.state);
     }
-    // setStatus(term: any) {
-    // 	this.estatetermStatus = term;
-    // 	this.datatableElement.dtInstance.then(table => {
-    // 		table.column(9).search(this.estatetermStatus).draw();
-    // 	});
-    // }
 
     setOrigin(origindata: any) {
         this.estatetermOrigin = origindata;
@@ -174,12 +168,6 @@ export class SelectOrderTableComponent implements OnInit {
             table.column(4).search(origindata).draw();
         });
     }
-    // setType(data: any) {
-    // 	this.estatetermType = data;
-    // 	this.datatableElement.dtInstance.then(table => {
-    // 		table.column(8).search(data).draw();
-    // 	});
-    // }
     setDisplay(data: any) {
         this.displayNumbers = data;
         $('select').val(data).trigger('change');
@@ -188,42 +176,6 @@ export class SelectOrderTableComponent implements OnInit {
     openCalendar(event: any) {
         this.calendar.showOverlay(this.calendar.inputfieldViewChild.nativeElement);
         event.stopPropagation();
-    }
-
-    filterDate(event: any) {
-        if (this.rangeDates[0] != null && this.rangeDates[1] != null) {
-            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            var fDate = new Date(this.rangeDates[0]);
-            var fromDate = JSON.stringify(fDate);
-            fromDate = fromDate.slice(1, 11);
-            var fSplit = fromDate.split('-');
-
-            var fDateString = fSplit[2] + ' ' + months[parseInt(fSplit[1]) - 1] + ' ' + fSplit[0];
-            var tDate = new Date(this.rangeDates[1]);
-            var toDate = JSON.stringify(tDate);
-            toDate = toDate.slice(1, 11);
-            var tSplit = toDate.split('-');
-            var tDateString = tSplit[2] + ' ' + months[parseInt(tSplit[1]) - 1] + ' ' + tSplit[0];
-            console.log(tDate.getTime());
-            console.log(fDate.getTime());
-            this.showDateRange = fDateString + ' - ' + tDateString;
-            this.calendar.overlayVisible = false;
-
-            $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-                var min = new Date(fDateString).getTime();
-                var max = new Date(tDateString).getTime();
-                var startDate = new Date(data[3]).getTime();
-                console.log(startDate);
-                if (min == null && max == null) return true;
-                if (min == null && startDate <= max) return true;
-                if (max == null && startDate >= min) return true;
-                if (startDate <= max && startDate >= min) return true;
-                return false;
-            });
-            this.datatableElement.dtInstance.then((table) => {
-                table.draw();
-            });
-        }
     }
 
     toggleOrigin() {
@@ -277,7 +229,7 @@ export class SelectOrderTableComponent implements OnInit {
         this.selectId = this.selectedOrder.id;
         const navigationExtras: NavigationExtras = {
             queryParams: {
-                ordId: this.selectId ? this.selectId : undefined,
+                ordId: this.selectId ? this.selectId : '',
             },
         };
         this.router.navigate(['/features/new-roasted-batch'], navigationExtras);

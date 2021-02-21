@@ -83,6 +83,9 @@
 .mobileLable {
     color: #747588;
 }
+.arrow-color {
+    color: #80460b;
+}
 @media screen and (max-width: 767px) {
     :host ::ng-deep .p-datatable-tbody > tr > td {
         border-left: 1px solid #d6d6d6 !important;
