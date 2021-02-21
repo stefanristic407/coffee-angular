@@ -52,6 +52,7 @@ import { EstateBrandLinkPipe } from './pipes/link/estate-brand-link.pipe';
 import { ProfileLinkPipe } from './pipes/link/profile-link.pipe';
 import { RoasterBrandLinkPipe } from './pipes/link/roaster-brand-link.pipe';
 import { OrderRatingLinkPipe } from './pipes/link/order-rating-link.pipe';
+import { OrderLinkPipe } from './pipes/link/order-link.pipe';
 import { FileNamePipe } from './pipes/file-name.pipe';
 import { MonthPipe } from './pipes/month/month.pipe';
 import { OrgTypePipe } from './pipes/org-type.pipe';
@@ -175,6 +176,7 @@ const PIPES = [
     ProfileLinkPipe,
     RoasterBrandLinkPipe,
     OrderRatingLinkPipe,
+    OrderLinkPipe,
     OrgTypePipe,
     WordCountPipe,
 ];

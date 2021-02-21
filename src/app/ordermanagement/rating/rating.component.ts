@@ -7,7 +7,7 @@ import { FormService } from '@services';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
-import { OrgType } from '@models';
+import { OrgType, OrderType, OrderStatus } from '@models';
 
 @Component({
     selector: 'app-rating',
@@ -18,7 +18,9 @@ export class RatingComponent implements OnInit {
     roasterId: any;
     orgType: OrgType;
     orgId: number;
-    orderId: string;
+    orderId: number;
+    orderType: OrderType;
+    orderStatus: OrderStatus;
     ownerName: string;
     companyImg: string;
     rating: number;
@@ -41,7 +43,7 @@ export class RatingComponent implements OnInit {
         this.route.paramMap.subscribe((params) => {
             if (params.has('orgType') && params.has('orderId')) {
                 this.orgType = params.get('orgType') as OrgType;
-                this.orderId = params.get('orderId');
+                this.orderId = +params.get('orderId');
                 this.getData();
             }
         });
@@ -61,9 +63,13 @@ export class RatingComponent implements OnInit {
             if (res.success) {
                 if (this.orgType === OrgType.ESTATE) {
                     this.orgId = res.result.estate_id;
+                    this.orderType = res.result.order_type;
+                    this.orderStatus = res.result.status;
                     this.getEstate(res.result.estate_id);
                 } else if (this.orgType === OrgType.MICRO_ROASTER) {
                     this.orgId = res.result.micro_roaster_id;
+                    this.orderType = res.result.type;
+                    this.orderStatus = res.result.status;
                     this.getMicroRoaster(res.result.micro_roaster_id);
                 }
             } else {
@@ -73,7 +79,6 @@ export class RatingComponent implements OnInit {
     }
 
     getEstate(estateId) {
-        console.log('this.getEstate');
         this.userService.getAvailableEstateList(this.roasterId, estateId).subscribe((res: any) => {
             if (res.success) {
                 this.ownerName = res.result.owner_name;
