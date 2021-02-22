@@ -21,7 +21,6 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
 import { HealthCheckComponent } from './health-check/health-check.component';
-import { DirectMessagingComponent } from './components/direct-messaging/direct-messaging.component';
 import { SewnDirectMessageComponent } from './components/sewn-direct-message/sewn-direct-message.component';
 import { MenuComponent } from '@components';
 
@@ -41,7 +40,6 @@ import { FooterComponent } from './layout/footer/footer.component';
     declarations: [
         AppComponent,
         HealthCheckComponent,
-        DirectMessagingComponent,
         SewnDirectMessageComponent,
         MenuComponent,
         LayoutComponent,

@@ -20,8 +20,8 @@ export class SocketService implements OnDestroy {
     public chatReceive = new Subject<WSResponse<unknown>>();
     public orderChatSent = new Subject<WSRequest<unknown>>();
     public orderChatReceive = new Subject<WSResponse<unknown>>();
-    public chatSentSubscription: Subscription | null = null;
-    public orderChatSentSubscription: Subscription | null = null;
+    private chatSentSubscription: Subscription | null = null;
+    private orderChatSentSubscription: Subscription | null = null;
     public authenticationState = new BehaviorSubject<'IP' | 'FAIL' | 'SUCCESS'>('IP');
 
     public activeState = false;
@@ -30,25 +30,36 @@ export class SocketService implements OnDestroy {
         this.initSocketService();
     }
 
-    initSocketService() {
+    private initSocketService() {
         if (!this.activeState) {
             this.authenticationState.next('IP');
             this.destorySocket(); // Cleanup
             this.WSSubject = webSocket(
                 `${environment.wsEndpoint}/${this.ORGANIZATION_TYPE}/${this.ORGANIZATION_ID}/messaging`,
             );
-            this.WSSubscriptionToken = this.WSSubject.subscribe(this.handleSusbscription);
+            this.WSSubscriptionToken = this.WSSubject.subscribe((WSMessage: WSResponse<unknown>) => {
+                if (WSMessage.type === WSChatMessageType.auth) {
+                    this.handleAuthResponse(WSMessage as WSResponse<null>);
+                }
+                const arr = Object.values(WSChatMessageType);
+                if (arr.includes(WSMessage.type)) {
+                    // Created Handlers for your message type
+                    this.chatReceive.next(WSMessage);
+                    this.orderChatReceive.next(WSMessage);
+                }
+            });
             this.chatSentSubscription = this.chatSent.subscribe((payload) => {
                 this.WSSubject.next(payload);
             });
-            this.orderChatSentSubscription = this.orderChatReceive.subscribe((payload) => {
+            this.orderChatSentSubscription = this.orderChatSent.subscribe((payload) => {
                 this.WSSubject.next(payload);
             });
             this.activeState = true;
+            this.authenticate();
         }
     }
 
-    handleAuthResponse(WSmsg: WSResponse<null>) {
+    private handleAuthResponse(WSmsg: WSResponse<null>) {
         this.authenticationState.next(WSmsg.code === 200 || WSmsg.code === 409 ? 'SUCCESS' : 'FAIL');
         if (WSmsg.code === 400) {
             console.log('Websocket:Auth: Invalid Input Data Format ');
@@ -68,7 +79,7 @@ export class SocketService implements OnDestroy {
         }
     }
 
-    public destorySocket() {
+    private destorySocket() {
         // NOTE Call this function on logout
         if (this.WSSubject) {
             this.WSSubject.complete();
@@ -76,18 +87,6 @@ export class SocketService implements OnDestroy {
         this.clearSubscriptions();
         this.activeState = false;
     }
-
-    private handleSusbscription = (WSMessage: WSResponse<unknown>) => {
-        if (WSMessage.type === WSChatMessageType.auth) {
-            this.handleAuthResponse(WSMessage as WSResponse<null>);
-        }
-        const arr = Object.values(WSChatMessageType);
-        if (arr.includes(WSMessage.type)) {
-            // Created Handlers for your message types
-            this.chatReceive.next(WSMessage);
-            this.orderChatReceive.next(WSMessage);
-        }
-    };
 
     private clearSubscriptions() {
         if (this.WSSubscriptionToken && this.WSSubscriptionToken.unsubscribe) {
@@ -120,7 +119,7 @@ export class SocketService implements OnDestroy {
         return this.authenticationState.pipe(distinct());
     }
 
-    public ngOnDestroy() {
+    ngOnDestroy() {
         this.WSSubject.complete();
         this.clearSubscriptions();
     }

@@ -16,6 +16,8 @@ export class OrderChatComponent implements OnInit {
     isView = true;
     orderID: any;
     orderDisputes = [];
+    threadList = [];
+    orderThread: any;
     showResolveBtn = false;
     showEscalateBtn = false;
     currentDispute: any;
@@ -73,6 +75,7 @@ export class OrderChatComponent implements OnInit {
     }
     getOrderDisputes() {
         this.orderDisputes = [];
+        this.threadList = [];
         this.roasterService.getOrderDisputeList(this.roasterID, this.orderID, this.orderType).subscribe(
             (res: any) => {
                 console.log(res);
@@ -85,6 +88,19 @@ export class OrderChatComponent implements OnInit {
                             this.clickDispute(ele);
                         }
                     });
+                }
+            },
+            (err) => {
+                console.log(err);
+            },
+        );
+
+        this.roasterService.getOrderChatList(this.roasterID, this.orderID, this.orderType).subscribe(
+            (res: any) => {
+                console.log(res);
+                if (res.success && res.result) {
+                    this.threadList = res.result;
+                    this.orderThread = this.threadList.find((x) => x.thread_type === 'order');
                 }
             },
             (err) => {
@@ -142,6 +158,7 @@ export class OrderChatComponent implements OnInit {
             },
         );
     }
+
     navigateAssignUser() {
         const navigationExtras: NavigationExtras = {
             queryParams: {

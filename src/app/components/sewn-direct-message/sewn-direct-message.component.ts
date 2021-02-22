@@ -3,10 +3,10 @@ import { UserserviceService, SocketService, ChatHandlerService, ChatUtil } from 
 import { HttpClient } from '@angular/common/http';
 import { GlobalsService } from '@services';
 import { catchError, debounce, first, filter } from 'rxjs/operators';
-import { Subscription, Observable, BehaviorSubject, fromEvent, interval, Subject } from 'rxjs';
+import { Subscription, Observable, fromEvent, interval, Subject } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { Component, OnInit, OnDestroy, AfterViewInit, Renderer2, ElementRef } from '@angular/core';
-import * as moment from 'moment';
+
 import {
     WSOrganizationType,
     WSChatMessageType,
@@ -39,7 +39,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     SM: { [SubscriptionName: string]: Subscription } = {}; // Subscrition MAP object
     threadList: ThreadListItem[] = [];
-
+    TIMESTAMP_MAP: { [K in WSChatMessageType]: string };
     userStatusTimerRef = 0;
     unReadTimerRef = 0;
     usersList: UserListItem[] = [];
@@ -58,9 +58,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     openedThread: ThreadListItem | null = null;
 
     threadSearchKeyword = '';
-
-    incomingAudioPlayer = new Audio('assets/sounds/msg-incoming.mp3');
-    outgoingAudioPlayer = new Audio('assets/sounds/msg-outgoing.mp3');
 
     chatMessageHeadElement: HTMLElement | null = null;
     chatMessageBodyElement: HTMLElement | null = null;
@@ -100,8 +97,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         if (!this.ORGANIZATION_ID) {
             console.log('Direct Message: ORGANIZATION_ID is missing');
         }
-        this.incomingAudioPlayer.load();
-        this.outgoingAudioPlayer.load();
 
         this.initializeWebSocket();
         this.updateUserStatus();
@@ -126,24 +121,31 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 // retry(5), // REVIEW  Retry if the connection failed due to packet missing errors
             )
             .subscribe((WSmsg: WSResponse<unknown>) => {
-                if (WSmsg.type === WSChatMessageType.auth) {
-                    this.handleAuthResponse(WSmsg as WSResponse<null>);
-                } else if (WSmsg.type === WSChatMessageType.threads) {
-                    this.handleThreadsResponse(WSmsg as WSResponse<ThreadListItem[]>);
-                } else if (WSmsg.type === WSChatMessageType.unread) {
-                    this.handleUnReadResponse(WSmsg as WSResponse<null>);
-                } else if (WSmsg.type === WSChatMessageType.users) {
-                    this.handleUserDetailResponse(WSmsg as WSResponse<ResponseUserStatus[]>);
-                } else if (WSmsg.type === WSChatMessageType.history) {
-                    this.handleThreadHistory(WSmsg as WSResponse<ChatMessage[]>);
-                } else if (WSmsg.type === WSChatMessageType.message) {
-                    this.handleIncomingMessages(WSmsg as WSResponse<IncomingChatMessage>);
-                } else if (WSmsg.type === WSChatMessageType.getCreate) {
-                    this.handleFindThreadRequest(WSmsg as WSResponse<ThreadListItem[]>);
-                } else if (WSmsg.type === WSChatMessageType.thread) {
-                    this.handleRequestedThreadDetails(WSmsg as WSResponse<ThreadListItem>);
+                if (this.TIMESTAMP_MAP[WSmsg.type] === WSmsg.timestamp) {
+                    if (WSmsg.type === WSChatMessageType.threads) {
+                        this.handleThreadsResponse(WSmsg as WSResponse<ThreadListItem[]>);
+                    } else if (WSmsg.type === WSChatMessageType.unread) {
+                        this.handleUnReadResponse(WSmsg as WSResponse<null>);
+                    } else if (WSmsg.type === WSChatMessageType.users) {
+                        this.handleUserDetailResponse(WSmsg as WSResponse<ResponseUserStatus[]>);
+                    } else if (WSmsg.type === WSChatMessageType.history) {
+                        this.handleThreadHistory(WSmsg as WSResponse<ChatMessage[]>);
+                    } else if (WSmsg.type === WSChatMessageType.message) {
+                        this.handleIncomingMessages(WSmsg as WSResponse<IncomingChatMessage>);
+                    } else if (WSmsg.type === WSChatMessageType.getCreate) {
+                        this.handleFindThreadRequest(WSmsg as WSResponse<ThreadListItem[]>);
+                    } else if (WSmsg.type === WSChatMessageType.thread) {
+                        this.handleRequestedThreadDetails(WSmsg as WSResponse<ThreadListItem>);
+                    }
                 }
             });
+
+        this.SM['WSAuthentication'] = this.socket.authenticate().subscribe((res) => {
+            if (res === 'SUCCESS') {
+                console.log('WS AUTH Success');
+                this.socket.chatSent.next(this.getCurrentThreadPayload());
+            }
+        });
     }
 
     getMultipleUserDetailsPayload() {
@@ -163,8 +165,10 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 };
             });
         });
+        const timestamp = this.chatUtil.getTimeStamp();
+        this.TIMESTAMP_MAP[WSChatMessageType.users] === timestamp;
         return {
-            timestamp: this.chatUtil.getTimeStamp(),
+            timestamp: timestamp,
             type: WSChatMessageType.users,
             data: {
                 members: Object.values(userPayload),
@@ -173,8 +177,10 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     getCurrentThreadPayload() {
+        const timestamp = this.chatUtil.getTimeStamp();
+        this.TIMESTAMP_MAP[WSChatMessageType.threads] === timestamp;
         return {
-            timestamp: this.chatUtil.getTimeStamp(),
+            timestamp: timestamp,
             type: WSChatMessageType.threads,
             data: {
                 user_id: this.USER_ID,
@@ -187,13 +193,17 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     getUnReadPayload() {
+        const timestamp = this.chatUtil.getTimeStamp();
+        this.TIMESTAMP_MAP[WSChatMessageType.unread] === timestamp;
         return {
-            timestamp: this.chatUtil.getTimeStamp(),
+            timestamp: timestamp,
             type: WSChatMessageType.unread,
         };
     }
 
     getMessagePayload(message: string) {
+        const timestamp = this.chatUtil.getTimeStamp();
+        this.TIMESTAMP_MAP[WSChatMessageType.message] === timestamp;
         return {
             type: WSChatMessageType.message,
             data: {
@@ -201,13 +211,15 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 content: message,
                 meta_data: '',
             },
-            timestamp: this.chatUtil.getTimeStamp(),
+            timestamp: timestamp,
         };
     }
 
     getHistoryPayload(thread: ThreadListItem) {
+        const timestamp = this.chatUtil.getTimeStamp();
+        this.TIMESTAMP_MAP[WSChatMessageType.history] === timestamp;
         return {
-            timestamp: this.chatUtil.getTimeStamp(),
+            timestamp: timestamp,
             type: WSChatMessageType.history,
             data: {
                 thread_id: thread.id,
@@ -220,17 +232,21 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     findThread(payload: OpenChatThread) {
+        const timestamp = this.chatUtil.getTimeStamp();
+        this.TIMESTAMP_MAP[WSChatMessageType.getCreate] === timestamp;
         console.log('Open chat request payload', payload);
         this.socket.chatSent.next({
-            timestamp: this.chatUtil.getTimeStamp(),
+            timestamp: timestamp,
             type: WSChatMessageType.getCreate,
             data: payload,
         });
     }
 
     threadRequestByNewMessage(threadId: number) {
+        const timestamp = this.chatUtil.getTimeStamp();
+        this.TIMESTAMP_MAP[WSChatMessageType.thread] === timestamp;
         this.socket.chatSent.next({
-            timestamp: this.chatUtil.getTimeStamp(),
+            timestamp: timestamp,
             type: WSChatMessageType.thread,
             data: {
                 thread_id: threadId,
@@ -255,7 +271,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     processThreadUser(threadUser: ThreadMembers): ThreadMembers {
         threadUser.last_seen = threadUser.last_seen || '';
         threadUser.computed_lastseen = this.chatUtil.getReadableTime(threadUser.last_seen || '');
-        threadUser.computed_organization_name = this.getOrganization(threadUser.org_type);
+        threadUser.computed_organization_name = this.chatUtil.getOrganization(threadUser.org_type);
         threadUser.computed_fullname = threadUser.first_name + ' ' + threadUser.last_name;
         threadUser.computed_profile_dp = this.getProfileImageBgStyle(threadUser.profile_pic);
         return threadUser;
@@ -320,7 +336,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                             this.updateUnRead();
                             if (!inThread.computed_mute) {
                                 // The play sound is'nt playing for sender since his chat open
-                                this.playNotificationSound('INCOMING');
+                                this.chatUtil.playNotificationSound('INCOMING');
                             }
                         }
                         const threadIndex = this.threadList.findIndex((thread) => thread.id === inThread.id);
@@ -443,7 +459,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                     this.threadList.unshift(thread);
                 }
                 if (!thread.computed_mute) {
-                    this.playNotificationSound('INCOMING');
+                    this.chatUtil.playNotificationSound('INCOMING');
                 }
                 this.updateUserStatus();
                 this.updateUnRead();
@@ -452,20 +468,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             }
         } else {
             console.log('Websocket:Requested-thread Thread: Failure');
-        }
-    }
-
-    handleAuthResponse(WSmsg: WSResponse<null>) {
-        if (WSmsg.code === 200) {
-            this.socket.chatSent.next(this.getCurrentThreadPayload());
-        }
-    }
-
-    playNotificationSound(type: 'INCOMING' | 'OUTGOING') {
-        if (type === 'INCOMING') {
-            this.incomingAudioPlayer.play();
-        } else if (type === 'OUTGOING') {
-            this.outgoingAudioPlayer.play();
         }
     }
 
@@ -593,24 +595,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         }
     }
 
-    getOrganization(orgType: WSOrganizationType) {
-        if (orgType === WSOrganizationType.EMPTY || orgType === WSOrganizationType.SEWN_ADMIN) {
-            return 'SEWN Admin';
-        } else if (orgType === WSOrganizationType.ROASTER) {
-            return 'Roaster';
-        } else if (orgType === WSOrganizationType.MICRO_ROASTER) {
-            return 'Micro Roaster';
-        } else if (orgType === WSOrganizationType.FACILITATOR) {
-            return 'Facilitator';
-        } else if (orgType === WSOrganizationType.ESTATE) {
-            return 'Coffee Estate';
-        } else if (orgType === WSOrganizationType.HORECA) {
-            return 'HoReCa';
-        } else {
-            return 'Unknown';
-        }
-    }
-
     updateChatMessageBodyElRef() {
         if (!this.chatMessageBodyElement) {
             const refPrefix = this.chatService.isExpand.value
@@ -680,7 +664,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 msg = msg.replace(badwordsRegExp, '****');
             }
             this.socket.chatSent.next(this.getMessagePayload(msg));
-            this.playNotificationSound('OUTGOING');
+            this.chatUtil.playNotificationSound('OUTGOING');
             this.messageInput = '';
             this.chatBodyHeightAdjust();
             if (this.SM['lastRender'] && this.SM['lastRender'].unsubscribe) {
@@ -786,15 +770,19 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                     computed_profile_dp: this.getProfileImageBgStyle(x.profile_pic),
                     computed_organization_name: '',
                 };
-                processedItem.computed_organization_name = this.getOrganization(processedItem.organization_type);
+                processedItem.computed_organization_name = this.chatUtil.getOrganization(
+                    processedItem.organization_type,
+                );
                 return processedItem;
             });
         });
     };
 
     openThreadWithUser(item: UserListItem | RecentUserListItem) {
+        const timestamp = this.chatUtil.getTimeStamp();
+        this.TIMESTAMP_MAP[WSChatMessageType.getCreate] === timestamp;
         this.socket.chatSent.next({
-            timestamp: this.chatUtil.getTimeStamp(),
+            timestamp: timestamp,
             type: WSChatMessageType.getCreate,
             data: {
                 org_id: item.organization_id,
@@ -811,9 +799,11 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     sendReadToken(lastMessageId: number) {
+        const timestamp = this.chatUtil.getTimeStamp();
+        this.TIMESTAMP_MAP[WSChatMessageType.read] === timestamp;
         this.socket.chatSent.next({
             type: WSChatMessageType.read,
-            timestamp: this.chatUtil.getTimeStamp(),
+            timestamp: timestamp,
             data: {
                 thread_id: this.openedThread.id,
                 last_read_id: lastMessageId,

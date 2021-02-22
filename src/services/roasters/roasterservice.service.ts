@@ -756,8 +756,18 @@ export class RoasterserviceService {
         var data = {};
         data['method'] = 'GET';
         data['api_call'] = '/ro/' + roaster_id + '/orders/' + order_id + '/disputes';
-        if (orderType == 'MR') {
+        if (orderType === 'MR') {
             data['api_call'] = '/ro/' + roaster_id + '/mr-orders/' + order_id + '/disputes';
+        }
+        data['token'] = this.cookieService.get('Auth');
+        return this.http.post(this.url, data);
+    }
+    getOrderChatList(roaster_id: any, order_id: any, orderType?) {
+        var data = {};
+        data['method'] = 'GET';
+        data['api_call'] = '/ro/' + roaster_id + '/orders/' + order_id + '/threads';
+        if (orderType === 'MR') {
+            data['api_call'] = '/ro/' + roaster_id + '/mr-orders/' + order_id + '/threads';
         }
         data['token'] = this.cookieService.get('Auth');
         return this.http.post(this.url, data);
