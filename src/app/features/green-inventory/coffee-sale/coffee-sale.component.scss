@@ -158,6 +158,10 @@ label span {
     color: #232334 !important;
 }
 
+.text-underline {
+    text-decoration: underline;
+}
+
 /****************************    Media Queries   ****************************/
 
 @media screen and (max-width: 768px) {
@@ -171,6 +175,10 @@ label span {
     }
     .web-sec {
         display: none;
+    }
+    .lot-table {
+        border-radius: 4px;
+        border: solid 1px #d6d6d6;
     }
     .confirm-ffff {
         background-color: #ffffff;
@@ -224,6 +232,47 @@ label span {
     .col-lg-15 {
         margin-right: 0px;
     }
+    .filterLayout {
+        margin-top: 0.5rem;
+    }
+    :host ::ng-deep .productListTable .p-datatable-tbody > tr > .nameMobileHeader {
+        padding: 0px;
+        width: 100% !important;
+    }
+    .mobileValueTxt {
+        font-size: 14px !important;
+    }
+    .mobileCardBody {
+        border-bottom: 1px dashed #d6d6d6;
+        padding: 1rem 0px;
+    }
+    :host ::ng-deep .productListTable .p-datatable-tbody > tr > .cardBottom {
+        margin-bottom: 14px;
+        border-bottom: 1px solid #d6d6d6 !important;
+    }
+    :host ::ng-deep .productListTable .p-datatable .p-datatable-tbody > tr {
+        border-bottom: 0px !important;
+    }
+    .borderCard {
+        background-color: #f8f8f8;
+        border: 1px solid #d6d6d6;
+    }
+    .productHeight {
+        height: 138px !important;
+    }
+    .mobileCard {
+        border-left: 1px solid #d6d6d6;
+        border-right: 1px solid #d6d6d6;
+        border-bottom: 1px solid #d6d6d6;
+    }
+    .editDiv {
+        border: 1px solid #d6d6d6;
+        padding: 20px 15px;
+        margin-bottom: 1rem !important;
+    }
+    .bord-profile {
+        border: none;
+    }
 }
 
 .weightInputGroupDiv {
@@ -239,4 +288,15 @@ label span {
     border: 0px !important;
     padding: 0px;
     width: auto;
+}
+
+::ng-deep .productListTable .p-checkbox {
+    margin-left: 0px;
+}
+::ng-deep .productListTable .p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
+    background: #ffffff;
+}
+.bord-profile {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
 }

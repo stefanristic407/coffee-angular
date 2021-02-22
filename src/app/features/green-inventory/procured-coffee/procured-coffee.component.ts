@@ -86,7 +86,7 @@ export class ProcuredCoffeeComponent implements OnInit {
             this.orderID = params.orderId;
         });
         this.breadItems = [
-            { label: 'Home', routerLink: '/features/roaster-dashboard' },
+            { label: 'Home', routerLink: '/roaster-dashboard' },
             { label: 'Inventory' },
             { label: 'Green coffee management', routerLink: '/features/green-coffee-inventory' },
             { label: `Order #${this.orderID}` },

@@ -50,7 +50,7 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
     }
     public refreshData() {
         this.breadItems = [
-            { label: 'Home', routerLink: '/features/roaster-dashboard' },
+            { label: 'Home', routerLink: '/roaster-dashboard' },
             { label: 'Sourcing Module', routerLink: '/sourcing/estate-list' },
             { label: 'Green coffee Inventory', routerLink: '/features/green-coffee-inventory' },
             { label: 'Marked for sale' },

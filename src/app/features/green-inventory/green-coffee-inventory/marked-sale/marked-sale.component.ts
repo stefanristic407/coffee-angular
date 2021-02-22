@@ -21,6 +21,8 @@ export class MarkedSaleComponent implements OnInit {
     appLanguage?: any;
     mainData: any[] = [];
     roaster_id: string;
+    deleteId: any;
+    popupDisplay = false;
     sellerItems = [
         { label: 'All origins', value: null },
         { label: 'Sweden', value: 'SE' },
@@ -165,6 +167,10 @@ export class MarkedSaleComponent implements OnInit {
             ];
         }
     }
+    openModal(item) {
+        this.popupDisplay = true;
+        this.deleteId = item.order_id;
+    }
     ngOnInit(): void {
         this.primeTableService.url = `/ro/${this.roaster_id}/marked-sale-coffees`;
 
@@ -207,11 +213,12 @@ export class MarkedSaleComponent implements OnInit {
         link = [`/features/green-coffee-for-sale-details/${item.order_id}`];
         return link;
     }
-    deleteProductFromList(item) {
-        this.roasterService.deleteProcuredCoffee(this.roaster_id, item.order_id).subscribe(
+    deleteProductFromList(deleteId) {
+        this.roasterService.deleteProcuredCoffee(this.roaster_id, deleteId).subscribe(
             (response) => {
                 if (response && response.success) {
                     this.toastrService.success('Product deleted successfully');
+                    this.popupDisplay = true;
                 }
             },
             (err) => {

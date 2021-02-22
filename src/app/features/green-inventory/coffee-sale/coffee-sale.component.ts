@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UserserviceService } from '@services';
+import { SharedServiceService } from '@app/shared/services/shared-service.service';
 
 @Component({
     selector: 'app-coffee-sale',
@@ -27,6 +28,9 @@ export class CoffeeSaleComponent implements OnInit {
     priceTypeArray: any = [];
     stockTypeArray: any = [];
     vatDetailsArray: any = [];
+    roasterID: any = '';
+    tableColumns = [];
+    tableValue = [];
     constructor(
         public globals: GlobalsService,
         public route: ActivatedRoute,
@@ -36,11 +40,12 @@ export class CoffeeSaleComponent implements OnInit {
         private toasterService: ToastrService,
         private fb: FormBuilder,
         private userService: UserserviceService,
+        public sharedService: SharedServiceService,
     ) {
         this.roaster_id = this.cookieService.get('roaster_id');
         this.orderID = decodeURIComponent(this.route.snapshot.queryParams.orderId);
         this.breadItems = [
-            { label: 'Home', routerLink: '/features/roaster-dashboard' },
+            { label: 'Home', routerLink: '/roaster-dashboard' },
             { label: 'Inventory' },
             { label: 'Green coffee management', routerLink: '/features/green-coffee-inventory' },
             { label: 'Procured coffee', routerLink: `/features/procured-coffee/${this.orderID}` },
@@ -76,6 +81,64 @@ export class CoffeeSaleComponent implements OnInit {
         this.language();
         this.getProcuredOrderDetails();
         this.getRoasterVatDetails();
+        if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
+            this.sharedService.isMobileView = true;
+        }
+        this.tableColumns = [
+            {
+                field: 'lot_id',
+                header: this.globals.languageJson?.lot_id,
+                sortable: false,
+                width: 15,
+            },
+            {
+                field: 'estate_name',
+                header: this.globals.languageJson?.estate,
+                width: 15,
+            },
+            {
+                field: 'order_reference',
+                header: this.globals.languageJson?.roaster_ref_no,
+                sortable: false,
+                width: 15,
+            },
+            {
+                field: 'origin',
+                header: this.globals.languageJson?.origin,
+                sortable: false,
+                width: 15,
+            },
+            {
+                field: 'species',
+                header: this.globals.languageJson?.species,
+                sortable: false,
+                width: 15,
+            },
+            {
+                field: 'varieties',
+                header: this.globals.languageJson?.variety,
+                sortable: false,
+                width: 15,
+            },
+            {
+                field: 'price',
+                header: this.globals.languageJson?.buying_price,
+                sortable: false,
+                width: 15,
+            },
+            {
+                field: 'cup_score',
+                header: this.globals.languageJson?.cupping_score,
+                sortable: false,
+                width: 15,
+            },
+            {
+                field: 'quantity',
+                header: this.globals.languageJson?.stock_in_hand,
+                sortable: false,
+                width: 15,
+            },
+        ];
     }
     language() {
         this.appLanguage = this.globals.languageJson;
@@ -86,6 +149,7 @@ export class CoffeeSaleComponent implements OnInit {
             (response) => {
                 if (response.success && response.result) {
                     this.orderDetails = response.result;
+                    this.tableValue.push(this.orderDetails);
                 }
             },
             (err) => {

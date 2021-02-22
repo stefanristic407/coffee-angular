@@ -196,3 +196,6 @@ tr:last-child {
         }
     }
 }
+::ng-deep .deleteProductDiv .p-dialog .p-dialog-header {
+    display: none;
+}
