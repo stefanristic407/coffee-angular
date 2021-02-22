@@ -4,7 +4,7 @@
 
         <form [formGroup]="infoForm" novalidate>
             <div class="row gutter-16">
-                <div class="col-lg-8 col-md-12 order-2 order-lg-1">
+                <div class="col-lg-8 col-md-12 order-2 order-lg-1 left-block">
                     <div class="br-main br-2 mb-4 mb-lg-45 p-3 p-lg-4">
                         <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-3">Banner<span class="star">*</span></h4>
                         <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
@@ -412,7 +412,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-md-6 col-lg-4 order-1 order-lg-2 d-none d-md-block">
+                <div class="col-12 col-md-6 col-lg-4 order-1 order-lg-2 d-none d-md-block right-block">
                     <ng-container *ngTemplateOutlet="certificatesBlock"></ng-container>
                 </div>
             </div>
@@ -423,13 +423,12 @@
 </section>
 
 <ng-template #certificatesBlock>
-    <div class="br-main br-4 p-1 mb-4 mb-md-45">
+    <div class="br-main br-4 p-1 mb-4 mb-lg-45">
         <div class="bg-f8 br-4 d-flex align-items-center justify-content-between cert-header">
-            <h5 class="fnt-14 fnt-muli fnt-700 text-clr334 mb-0">Certificates</h5>
-            <label class="mb-0 cert-add">
-                <input type="file" class="d-none" />
-                <span class="fnt-muli fnt-700 d-inline-block">+</span>
-            </label>
+            <h5 class="fnt-14 fnt-700 text-clr334 mb-0">Certificates</h5>
+            <div routerLink="/features/license" class="cert-add d-flex align-items-center">
+                <span class="fnt-700 text-clr334">+</span>
+            </div>
         </div>
         <div class="p-3 p-lg-4">
             <div *ngFor="let item of certificates; index as i">
