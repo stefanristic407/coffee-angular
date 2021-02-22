@@ -33,7 +33,7 @@
     margin: 5px;
 }
 
-.isProductOption > .p-tabview > .p-tabview-nav {
+::ng-deep .isProductOption .p-tabview .p-tabview-nav {
     display: none;
 }
 .equal-operators {
@@ -49,8 +49,8 @@
 }
 .divSeperator {
     border: 1px dashed #d6d6d6;
-    margin-top: 2rem !important;
-    margin-bottom: 2rem !important;
+    margin-top: 1rem !important;
+    margin-bottom: 2.5rem !important;
 }
 @media screen and (max-width: 767px) {
     .weightVariantBtn {

@@ -10,6 +10,13 @@
         border-radius: 4px;
     }
 }
+@media (min-width: 768px) and (max-width: 1024px) {
+    .bg-fff {
+        padding: 1rem;
+        border-radius: 4px;
+        height: 713px;
+    }
+}
 @media (max-width: 425px) {
     table td:last-child {
         text-align: right;
