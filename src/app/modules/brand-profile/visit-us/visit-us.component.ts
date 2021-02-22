@@ -123,8 +123,10 @@ export class VisitUsComponent implements OnInit {
     }
 
     drop(event: CdkDragDrop<string[]>) {
-        moveItemInArray(this.savedFaqArray, event.previousIndex, event.currentIndex);
-        this.sortFAQ();
+        if (event.previousIndex !== event.currentIndex) {
+            moveItemInArray(this.savedFaqArray, event.previousIndex, event.currentIndex);
+            this.sortFAQ();
+        }
     }
 
     refreshQuestionForm(idx = null) {
