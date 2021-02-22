@@ -1,7 +1,3 @@
-.bg-fff {
-    padding: 2rem 3rem;
-    border-radius: 4px;
-}
 .tabView {
     display: none;
 }
@@ -9,10 +5,21 @@
     .tabView {
         display: block;
     }
+    .bg-fff {
+        padding: 1rem;
+        border-radius: 4px;
+    }
 }
 @media (max-width: 425px) {
     table td:last-child {
         text-align: right;
+    }
+    .bg-fff {
+        padding: 1rem;
+        border-radius: 4px;
+    }
+    .rm-0 {
+        margin: 0px;
     }
 }
 
@@ -27,6 +34,10 @@
 @media (min-width: 769px) {
     .select-arrow-no {
         padding: 8px 22px !important;
+    }
+    .bg-fff {
+        padding: 2rem 3rem;
+        border-radius: 4px;
     }
 }
 
