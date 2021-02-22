@@ -238,19 +238,25 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         });
     }
 
-    search(event: any) {
+    search() {
         const localArray = [];
         this.menuItems.forEach((element) => {
-            if (element.title.toLowerCase().indexOf(event.query.toLowerCase()) > -1) {
+            if (element.title.toLowerCase().indexOf(this.text.toLowerCase()) > -1) {
                 localArray.push(element);
             }
         });
         this.results = localArray;
     }
 
+    closeSearchPanel() {
+        this.text = null;
+        this.results = null;
+    }
+
     openMessagePanel() {
         this.chat.showChatPanel();
     }
+
     closeMessagePanel() {
         this.chat.closeChatPanel();
     }
