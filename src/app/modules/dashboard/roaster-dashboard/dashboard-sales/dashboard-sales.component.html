@@ -1,0 +1,172 @@
+<div animateOnScroll animationName="fadeIn" class="animation-bounce-in-up">
+    <p class="fnt-18 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2">Your sales & orders</p>
+
+    <div class="br-main br-4 p-3 p-md-0">
+        <div class="total-wrap py-lg-3 px-lg-2 h-100 d-md-none">
+            <p class="fnt-14 fnt-600 fnt-muli text-clr334 mb-2 font-bold">You've earned</p>
+            <h1 class="fnt-32 fnt-bold fnt-muli text-clr334">
+                $ {{ (sales?.total_earnings || 0) / 1000 | number: '0.0-0':'se' }}K
+            </h1>
+            <p class="fnt-18 fnt-600 fnt-muli text-clr588 mb-lg-5">All time earnings</p>
+            <div class="">
+                <h1 class="fnt-32 fnt-bold fnt-muli text-clr334">
+                    $ {{ (sales?.weekly_earnings || 0) / 1000 | number: '0.0-0':'se' }}K
+                </h1>
+                <p class="fnt-18 fnt-600 fnt-muli text-clr588">earned in last 7 days</p>
+            </div>
+        </div>
+        <div class="fnt-14 fnt-bold text-clr334 br-4 bg-f8 m-1 d-md-none d-flex justify-content-between">
+            <span class="p-2">Total sales</span>
+            <div>
+                <span class="fnt-14 fnt-600 fnt-muli text-clr334">Sort by :</span>
+                <app-select
+                    [items]="periods"
+                    [noBorder]="true"
+                    [textColor]="'primary'"
+                    [value]="periods[selPeriod].value"
+                    (valueChange)="changePeriod($event)"
+                ></app-select>
+            </div>
+        </div>
+        <div class="d-md-none m-1">
+            <ul class="nav nav-pills flex-fill">
+                <li class="nav-item">
+                    <a
+                        href="javascript:void(0)"
+                        class="nav-link"
+                        (click)="changeCustomerType('')"
+                        [class.active]="customerType === ''"
+                        >ALL</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a
+                        href="javascript:void(0)"
+                        class="nav-link"
+                        (click)="changeCustomerType('ecom')"
+                        [class.active]="customerType === 'ecom'"
+                        >E-commerce</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a
+                        href="javascript:void(0)"
+                        class="nav-link"
+                        (click)="changeCustomerType('mr')"
+                        [class.active]="customerType === 'mr'"
+                        >Micro-roster</a
+                    >
+                </li>
+            </ul>
+        </div>
+
+        <!-- <div *ngIf="sales && sales.sales_stats; else blank" class="row"> -->
+        <div class="row">
+            <div class="col-12">
+                <div class="p-3">
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-4 d-none d-md-block">
+                            <div class="total-wrap py-lg-3 px-lg-2 h-100">
+                                <p class="fnt-14 fnt-md-bold fnt-600 fnt-muli text-clr334 mb-md-2 mb-lg-5">
+                                    You've earned
+                                </p>
+                                <div class="d-md-flex d-lg-block">
+                                    <div class="d-md-block mr-md-5 mr-lg-0">
+                                        <h1 class="fnt-32 fnt-bold fnt-muli text-clr334">
+                                            $ {{ (sales?.total_earnings || 0) / 1000 | number: '0.0-0':'se' }}K
+                                        </h1>
+                                        <p class="fnt-18 fnt-600 fnt-muli text-clr588 mb-lg-5">All time earnings</p>
+                                    </div>
+                                    <div class="d-md-block">
+                                        <h1 class="fnt-32 fnt-bold fnt-muli text-clr334">
+                                            $ {{ (sales?.weekly_earnings || 0) / 1000 | number: '0.0-0':'se' }}K
+                                        </h1>
+                                        <p class="fnt-18 fnt-600 fnt-muli text-clr588">earned in last 7 days</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-12 col-lg-8">
+                            <div class="chart-wrap">
+                                <div class="d-none d-md-flex align-items-end mb-3">
+                                    <ul class="nav nav-pills flex-fill">
+                                        <li class="nav-item">
+                                            <a
+                                                href="javascript:void(0)"
+                                                class="nav-link"
+                                                (click)="changeCustomerType('')"
+                                                [class.active]="customerType === ''"
+                                                >ALL</a
+                                            >
+                                        </li>
+                                        <li class="nav-item">
+                                            <a
+                                                href="javascript:void(0)"
+                                                class="nav-link"
+                                                (click)="changeCustomerType('ecom')"
+                                                [class.active]="customerType === 'ecom'"
+                                                >E-commerce</a
+                                            >
+                                        </li>
+                                        <li class="nav-item">
+                                            <a
+                                                href="javascript:void(0)"
+                                                class="nav-link"
+                                                (click)="changeCustomerType('mr')"
+                                                [class.active]="customerType === 'mr'"
+                                                >Micro-roster</a
+                                            >
+                                        </li>
+                                    </ul>
+                                    <div class="select-wrap">
+                                        <span class="fnt-14 fnt-600 fnt-muli text-clr334">Sort by :</span>
+                                        <app-select
+                                            [items]="periods"
+                                            [noBorder]="true"
+                                            [textColor]="'primary'"
+                                            [value]="periods[selPeriod].value"
+                                            (valueChange)="changePeriod($event)"
+                                        ></app-select>
+                                    </div>
+                                </div>
+
+                                <div #ContainerRef *ngIf="sales && sales.sales_stats; else blank">
+                                    <app-bar-chart [results]="saleData" [labelShow]="showDataLabel" [unitName]="'USD'">
+                                    </app-bar-chart>
+                                </div>
+                                <ng-template #blank>
+                                    <div
+                                        class="flex-fill d-flex flex-column justify-content-center align-items-center text-center p-5"
+                                    >
+                                        <img class="mb-3" src="assets/images/leaf-active.svg" alt="" />
+                                        <p class="fnt-14 fnt-muli fnt-normal text-gray588 mb-4 col-md-6">
+                                            You'll be able to see you sales stats and customer insights once you get
+                                            orders. List your products to kick-start your sales.
+                                        </p>
+
+                                        <button class="btn-raised" routerLink="/features/roasted-coffee-batch">
+                                            Manage inventory
+                                        </button>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #blank>
+        <div class="flex-fill d-flex flex-column justify-content-center align-items-center text-center p-5">
+            <img class="mb-3" src="assets/images/leaf-active.svg" alt="" />
+            <p class="fnt-14 fnt-muli fnt-normal text-clr588 mb-4 col-md-6">
+                You'll be able to see you sales stats and customer insights once you get orders. List your products to
+                kick-start your sales.
+            </p>
+
+            <button class="btn-raised" routerLink="/features/roasted-coffee-batch">Manage inventory</button>
+        </div>
+    </ng-template>
+</div>

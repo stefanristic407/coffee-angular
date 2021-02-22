@@ -105,7 +105,7 @@ export class RaiseTicketComponent implements OnInit {
     supplyBreadCrumb(): void {
         const obj1: MenuItem = {
             label: this.globals.languageJson?.home,
-            routerLink: '/features/welcome-aboard',
+            routerLink: '/',
         };
         const obj2: MenuItem = {
             label: 'Order Management',

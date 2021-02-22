@@ -1,0 +1,114 @@
+.review-block {
+    .star-wrap {
+        margin-top: -10px;
+    }
+    .table-wrap {
+        border-bottom: dashed 2px #ebebeb;
+    }
+    table td {
+        padding: 7px 7px 7px 0px !important;
+        border-bottom: none !important;
+        @media (min-width: 992px) {
+            padding: 8px 5px 8px 0px !important;
+        }
+    }
+
+    .progress {
+        display: -ms-flexbox;
+        display: flex;
+        height: 4px;
+        overflow: hidden;
+        font-size: 0.75rem;
+        background-color: #ebebeb;
+        border-radius: 2px;
+        width: 190px;
+
+        .progress-bar {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -ms-flex-pack: center;
+            justify-content: center;
+            overflow: hidden;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            border-radius: 2.5px;
+            transition: width 0.6s ease;
+        }
+    }
+}
+
+.customProgress .ui-progressbar .ui-progressbar-label {
+    color: yellow;
+}
+
+.customProgress .ui-progressbar .ui-progressbar-value {
+    background: red;
+}
+
+::ng-deep {
+    .rating-progress {
+        .p-progressbar {
+            height: 4px !important;
+        }
+        @media screen and (min-width: 768px) and (max-width: 992px) {
+            .p-progressbar {
+                height: 2px !important;
+            }
+        }
+    }
+    .rating-high {
+        .p-progressbar {
+            .p-progressbar-value {
+                background: #649a2b;
+            }
+        }
+    }
+    .rating-middle {
+        .p-progressbar {
+            .p-progressbar-value {
+                background: #ffa001;
+            }
+        }
+    }
+    .rating-low {
+        .p-progressbar {
+            .p-progressbar-value {
+                background: #ff1e5a;
+            }
+        }
+    }
+}
+
+.common-rating-item {
+    display: flex;
+    span {
+        margin: auto;
+    }
+    p-rating {
+        margin: auto;
+    }
+}
+
+.custom-progress-bar {
+    padding: 10px 0px 10px 16px;
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+        padding: 10px 0px 10px 14px;
+    }
+}
+.core-count {
+    padding-left: 7px;
+}
+
+.rating-bar {
+    padding-bottom: 0px;
+    border-bottom: dashed 2px #ebebeb;
+    .row {
+        margin-bottom: 20px;
+        @media screen and (min-width: 768px) and (max-width: 992px) {
+            margin-bottom: 7px;
+        }
+    }
+}

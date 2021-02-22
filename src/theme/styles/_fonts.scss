@@ -71,9 +71,43 @@
     line-height: 24px;
 }
 
+.fnt-md-84 {
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+        font-size: 8.4px !important;
+        line-height: normal !important;
+    }
+}
+
+.fnt-md-12 {
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+        font-size: 12px !important;
+        line-height: normal !important;
+    }
+}
+
+.fnt-md-14 {
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+        font-size: 14px !important;
+        line-height: normal !important;
+    }
+}
+
+.fnt-md-16 {
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+        font-size: 16px !important;
+        line-height: normal !important;
+    }
+}
+
+.fnt-md-bold {
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+        font-weight: bold;
+    }
+}
+
 .fnt-16 {
-    font-size: 14px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 20px;
 }
 
 .fnt-18 {
@@ -128,13 +162,13 @@
         font-size: 14px;
         line-height: 24px;
     }
-    .fnt-md-16 {
-        font-size: 16px;
-        line-height: 26px;
-    }
+    // .fnt-md-16 {
+    //     font-size: 16px;
+    //     line-height: 18px;
+    // }
     .fnt-md-18 {
         font-size: 18px;
-        line-height: 28px;
+        line-height: 22px;
     }
 }
 

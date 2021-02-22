@@ -119,7 +119,7 @@ export class CreateRoleComponent implements OnInit {
     supplyBreadCrumb(): void {
         const obj1: MenuItem = {
             label: this.globals.languageJson?.home,
-            routerLink: '/features/welcome-aboard',
+            routerLink: '/',
             disabled: false,
         };
         const obj2: MenuItem = {
