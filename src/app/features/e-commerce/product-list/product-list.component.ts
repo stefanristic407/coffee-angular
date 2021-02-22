@@ -126,11 +126,9 @@ export class ProductListComponent implements OnInit {
         const obj1: MenuItem = {
             label: this.globals.languageJson?.home,
             routerLink: '/',
-            disabled: false,
         };
         const obj2: MenuItem = {
             label: this.globals.languageJson?.products,
-            disabled: true,
         };
         this.breadCrumbItem.push(obj1);
         this.breadCrumbItem.push(obj2);
