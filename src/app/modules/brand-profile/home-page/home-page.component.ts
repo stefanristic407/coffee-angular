@@ -26,6 +26,21 @@ export class HomePageComponent implements OnInit {
     roasterSlug: string;
     featuredProducts: any[];
     infoForm: FormGroup;
+    certIndex = null;
+    certMenuItems = [
+        {
+            label: 'View',
+            command: () => {
+                window.open(this.certificates[this.certIndex].public_url);
+            },
+        },
+        {
+            label: 'Delete',
+            command: () => {
+                this.deleteCertificate(this.certificates[this.certIndex]);
+            },
+        },
+    ];
 
     constructor(
         public dialogSrv: DialogService,
@@ -162,15 +177,21 @@ export class HomePageComponent implements OnInit {
 
     removeFeaturedProduct(idx) {
         this.featuredProducts.splice(idx, 1);
-        const productIds = _.pluck(this.featuredProducts, 'id');
-        this.roasterService.updateFeatured(this.roasterId, productIds).subscribe((res: any) => {
-            if (res.success) {
-                this.toastrService.success('Featured products updated successfully');
-                this.getFeaturedProducts();
-            } else {
-                this.toastrService.error('Error while updating featured products');
-            }
-        });
+        const sortPriorities = _.chain(this.featuredProducts)
+            .map((item, index) => {
+                return { product_id: item.id, sort_priority: index + 1 };
+            })
+            .value();
+        this.roasterService
+            .updateFeatured(this.roasterId, { featured_products: sortPriorities })
+            .subscribe((res: any) => {
+                if (res.success) {
+                    this.toastrService.success('Featured products updated successfully');
+                    this.getFeaturedProducts();
+                } else {
+                    this.toastrService.error('Error while updating featured products');
+                }
+            });
     }
 
     getCertificates() {
