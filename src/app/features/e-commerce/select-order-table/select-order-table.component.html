@@ -19,6 +19,16 @@
             <div class="secondary_txt">Please select an estate order to create a roaster coffee batch for</div>
         </div>
     </div>
+    <div class="row mt-4 d-block d-sm-block d-md-none" *ngIf="selectedOrder">
+        <div class="col-12 col-sm-12">
+            <button type="submit" class="btn btn-stroked w-100" [routerLink]="['/features/new-roasted-batch']">
+                {{ globals.languageJson?.cancel }}
+            </button>
+        </div>
+        <div class="col-12 col-sm-12 mt-3">
+            <button type="button" class="btn btn-raised w-100" (click)="onContinue()">Continue</button>
+        </div>
+    </div>
     <div class="row mt-4">
         <div class="col-12">
             <p-dropdown
@@ -104,13 +114,22 @@
                             [style.width]="col.width ? col.width + '%' : '30%'"
                             [ngClass]="{
                                 'd-none': col.field == 'created_at' || col.field == 'price' || col.field == 'type',
-                                'd-sm-none': col.field == 'created_at' || col.field == 'price' || col.field == 'type',
+                                'd-sm-none':
+                                    col.field == 'created_at' ||
+                                    col.field == 'price' ||
+                                    col.field == 'type' ||
+                                    col.field == 'quantity' ||
+                                    col.field == 'cup_score',
                                 'd-md-table-cell':
-                                    col.field == 'created_at' || col.field == 'price' || col.field == 'type',
+                                    col.field == 'created_at' ||
+                                    col.field == 'price' ||
+                                    col.field == 'type' ||
+                                    col.field == 'quantity' ||
+                                    col.field == 'cup_score',
                                 nameMobileHeader: col.field == 'id',
                                 mobileBorderClass:
                                     col.field == 'estate_name' || col.field == 'origin' || col.field == 'species',
-                                mobileBottom: col.field == 'status'
+                                mobileBottom: col.field == 'cup_score'
                             }"
                         >
                             <span *ngSwitchCase="'id'" class="d-md-block">
@@ -119,7 +138,11 @@
                                     <span class="primary_txt tableDataFont mobileHeader"
                                         >Order ID #{{ rowData[col.field] }}</span
                                     >
-                                    <p-tableCheckbox class="float-right" [value]="rowData"></p-tableCheckbox>
+                                    <p-tableRadioButton class="float-right" [value]="rowData"></p-tableRadioButton>
+                                    <div class="fnt-12 fnt-muli light-eight mt-2">
+                                        Created on :
+                                        <span class="black">{{ rowData[col.field] | date: 'dd MMM yyyy h:mma' }}</span>
+                                    </div>
                                 </div>
                             </span>
                             <span *ngSwitchCase="'estate_name'" class="d-md-block">
@@ -143,6 +166,14 @@
                                 <span class="d-none d-sm-none d-md-block tableDataFont"
                                     >{{ rowData[col.field] }} {{ rowData['quantity_type'] }}</span
                                 >
+                                <div class="d-flex d-sm-flex d-md-none">
+                                    <span class="prime-table-label w-50 mobileLable tableDataFont"> Quantity </span>
+                                    <div class="w-50 d-flex">
+                                        <span class="tableDataFont">
+                                            {{ rowData[col.field] }} {{ rowData['quantity_type'] }}
+                                        </span>
+                                    </div>
+                                </div>
                             </span>
                             <span *ngSwitchCase="'origin'" class="d-md-block">
                                 <span class="d-none d-sm-none d-md-block tableDataFont">{{ rowData[col.field] }}</span>
@@ -159,7 +190,18 @@
                             <span *ngSwitchCase="'species'" class="d-md-block">
                                 <span class="d-none d-sm-none d-md-block tableDataFont">{{ rowData[col.field] }}</span>
                                 <div class="d-flex d-sm-flex d-md-none">
-                                    <span class="prime-table-label w-50 mobileLable tableDataFont"> Species </span>
+                                    <span class="prime-table-label w-50 mobileLable tableDataFont"> Variety </span>
+                                    <div class="w-50 d-flex">
+                                        <span class="tableDataFont">
+                                            {{ rowData[col.field] }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </span>
+                            <span *ngSwitchCase="'cup_score'" class="d-md-block">
+                                <span class="d-none d-sm-none d-md-block tableDataFont">{{ rowData[col.field] }}</span>
+                                <div class="d-flex d-sm-flex d-md-none">
+                                    <span class="prime-table-label w-50 mobileLable tableDataFont"> Cup Score </span>
                                     <div class="w-50 d-flex">
                                         <span class="tableDataFont">
                                             {{ rowData[col.field] }}

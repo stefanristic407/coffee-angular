@@ -44,8 +44,6 @@
                                 >
                                     <div class="pull-left secondary_txt" *ngIf="ordId == ''">Select the order</div>
                                     <div class="pull-left secondary_txt" *ngIf="ordId != ''">{{ ordId }}</div>
-                                    <!-- <div class="pull-left secondary_txt" *ngIf="ordId && batchId" >{{ ordId }}</div> -->
-
                                     <div class="ml-auto pull-right">
                                         <img class="pl-1" src="assets/images/arrow-1.png" alt="" />
                                     </div>
@@ -53,7 +51,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-block d-sm-block d-md-none">
+                    <div class="d-block d-sm-block d-md-none" *ngIf="ordId && batchId">
                         <div class="mt-4 order_details_card">
                             <div class="fnt-16 fnt-muli fnt-700 black mb-3">Order details</div>
                             <div class="d-flex justify-content-between">
