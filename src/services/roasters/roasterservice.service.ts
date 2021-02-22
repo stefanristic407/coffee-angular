@@ -251,10 +251,12 @@ export class RoasterserviceService {
         return this.http.post(this.uploadBrandsUrl, data);
     }
 
-    getRoasterReviews(roaster_id: any): Observable<any> {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/your-reviews';
-        data['token'] = this.cookieService.get('Auth');
+    // Get all reviews posted by organization
+    getRoasterReviews(roasterId: any, queryParams = {}): Observable<any> {
+        const data = {
+            api_call: `/ro/${roasterId}/your-reviews?${this.serlialise(queryParams)}`,
+            token: this.cookieService.get('Auth'),
+        };
         return this.http.post(this.url, data);
     }
 

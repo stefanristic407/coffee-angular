@@ -172,7 +172,10 @@ export class HomePageComponent implements OnInit {
     }
 
     drop(event: CdkDragDrop<string[]>) {
-        moveItemInArray(this.featuredProducts, event.previousIndex, event.currentIndex);
+        if (event.previousIndex !== event.currentIndex) {
+            moveItemInArray(this.featuredProducts, event.previousIndex, event.currentIndex);
+            this.sortCertificates();
+        }
     }
 
     removeFeaturedProduct(idx) {
@@ -222,6 +225,24 @@ export class HomePageComponent implements OnInit {
                             this.toastrService.error('Error while deleting certificate');
                         }
                     });
+                }
+            });
+    }
+
+    sortCertificates() {
+        const sortPriorities = _.chain(this.featuredProducts)
+            .map((item, index) => {
+                return { product_id: item.id, sort_priority: index + 1 };
+            })
+            .value();
+        this.roasterService
+            .updateFeatured(this.roasterId, { featured_products: sortPriorities })
+            .subscribe((res: any) => {
+                if (res.success) {
+                    this.toastrService.success('Featured products order has been updated successfully');
+                    this.getFeaturedProducts();
+                } else {
+                    this.toastrService.error('Something went wrong while update the featured products order');
                 }
             });
     }
