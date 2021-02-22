@@ -8,7 +8,7 @@
 
 <div *ngIf="lotSaleActive == 1">
     <section>
-        <div class="confirm-ffff mob-sec">
+        <div class="mx-0 text-white mob-sec">
             <section class="create-role">
                 <div class="back-icon w-100">
                     <a routerLink="/features/sourcing"
@@ -24,11 +24,11 @@
             </div>
             <section class="mt-4">
                 <div class="row w-100 ml-0">
-                    <div class="green_grading_cont">
-                        <h1>Order #{{ orderDetails?.id }}</h1>
+                    <div>
+                        <h1 class="text-clr334 fnt-18 fnt-bold">Order #{{ orderDetails?.id }}</h1>
                     </div>
                 </div>
-                <div class="pull-left mr-auto col-md-7 p-0 min-Text">
+                <div class="pull-left mr-auto col-md-7 p-0 mb-3 text-clr334 fnt-14 fnt-normal">
                     Manage the price, quantity & delivery charges of coffee marked for sale
                 </div>
                 <div *ngIf="orderDetails" class="border-div">
@@ -240,10 +240,10 @@
                 </div>
             </section>
             <section class="mt-48" [formGroup]="lotSaleForm" (ngSubmit)="onSave()" novalidate>
-                <div class="green_grading_cont row w-100 border-bottom-gray pb-3 mx-0">
+                <div class="row w-100 border-bottom-gray pb-3 mx-0">
                     <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9 px-0">
-                        <h1>{{ globals.languageJson?.sale_information }}</h1>
-                        <div class="col-12 pull-left p-0 pb-24 min-Text">
+                        <h1 class="text-clr334 fnt-18 fnt-bold">{{ globals.languageJson?.sale_information }}</h1>
+                        <div class="col-12 pull-left p-0 pb-24 mb-3 text-clr334 fnt-14 fnt-normal">
                             Manage the price, quantity & delivery charges of coffee marked for sale
                         </div>
                     </div>
@@ -441,7 +441,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-12 col-md-12 no-padding-RL">
+                <div class="col-lg-12 col-md-12 px-0">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 web-sec">
                             <div class="float-left mt-48 mb-48">

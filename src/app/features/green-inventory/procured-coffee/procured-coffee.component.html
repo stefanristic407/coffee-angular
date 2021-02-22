@@ -240,7 +240,9 @@
                                             <div *ngIf="orderDetails" class="row">
                                                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                                     <div class="real-estate p-date">
-                                                        <h6>12 Feb, 2020</h6>
+                                                        <h6 class="mt-0" *ngIf="orderDetails['cupping_at']">
+                                                            {{ orderDetails['cupping_at'] | date: 'h:mm' }}
+                                                        </h6>
                                                         <p class="text-clr334 fnt-600 fnt-14">
                                                             <span class="text-clr588 fnt-600 fnt-14">Cup Score :</span>
                                                             {{ orderDetails.cup_score ? orderDetails.cup_score : 'NA' }}
@@ -263,7 +265,7 @@
                                                                     : 'NA'
                                                             }}
                                                         </h3>
-                                                        <h6>Facilitator</h6>
+                                                        <h6 class="mt-0">Facilitator</h6>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4 col-md-4 col-sm-6 v-report">

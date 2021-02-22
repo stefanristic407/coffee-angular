@@ -19,8 +19,6 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
     orderDetails: any;
     orderID: any = '';
     saleInformation: any;
-    public data = [];
-    imageData: any = [];
     breadItems: any = [];
     selectedTab = 0;
     roasterNotes: any = [];
