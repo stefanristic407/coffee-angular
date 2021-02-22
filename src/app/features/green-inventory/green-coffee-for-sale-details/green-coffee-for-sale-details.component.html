@@ -1,5 +1,4 @@
 <div class="total-loader" *ngIf="procuredActive != 1">
-    <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
     <div>
         <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
         <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
@@ -17,10 +16,9 @@
                                 <div *ngIf="saleInformation" class="source-det-tit pull-left">
                                     <div class="det-tit d-inline-block">
                                         <h2>{{ saleInformation.name ? saleInformation.name : 'NA' }}</h2>
-                                        <!-- <h2 class="p-h2 mb-2">Manage your green coffee</h2> -->
                                     </div>
                                 </div>
-                                <div class="source-knowmore-avail pull-right">
+                                <div class="text-white pull-right">
                                     <button
                                         *ngIf="!saleInformation"
                                         class="btn-raised"
@@ -37,7 +35,6 @@
                                     >
                                         {{ globals.languageJson?.edit }}
                                     </button>
-                                    <!-- <a class="know-more-avail">Know more</a> -->
                                 </div>
                             </div>
                             <div class="row avaialble-mob m-1">
@@ -169,7 +166,7 @@
                                     <div *ngIf="orderDetails" class="col-12 border-class">
                                         <p-tabView styleClass=" mt-3 pb-3 pb-md-4" [(activeIndex)]="selectedTab">
                                             <p-tabPanel header="{{ globals.languageJson?.green_coffee_details }}">
-                                                <div class="col-lg-12">
+                                                <div class="col-lg-12 px-1">
                                                     <div class="estate-focus">
                                                         <ul class="clearfix">
                                                             <li>
@@ -288,14 +285,14 @@
                                                                 </p>
                                                             </li>
                                                         </ul>
-                                                        <div class="mt-2">
+                                                        <div class="mt-3 pl-2">
                                                             <p class="view-report m-0">View more details</p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </p-tabPanel>
                                             <p-tabPanel header="{{ globals.languageJson?.roaster_notes }}">
-                                                <div class="col-lg-12">
+                                                <div class="col-lg-12 px-1">
                                                     <div class="roaster-notes">
                                                         <ul class="clearfix">
                                                             <li *ngFor="let notes of roasterNotes">
