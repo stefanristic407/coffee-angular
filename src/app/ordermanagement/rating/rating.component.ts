@@ -27,6 +27,7 @@ export class RatingComponent implements OnInit {
     country: string;
     submitted = false;
     infoForm: FormGroup;
+    review: any;
 
     constructor(
         private fb: FormBuilder,
@@ -35,7 +36,7 @@ export class RatingComponent implements OnInit {
         private router: Router,
         public globals: GlobalsService,
         public roasterSrv: RoasterserviceService,
-        public userService: UserserviceService,
+        public userSrv: UserserviceService,
         public cookieService: CookieService,
         private toastrService: ToastrService,
     ) {
@@ -45,6 +46,7 @@ export class RatingComponent implements OnInit {
                 this.orgType = params.get('orgType') as OrgType;
                 this.orderId = +params.get('orderId');
                 this.getData();
+                this.getReview();
             }
         });
     }
@@ -79,7 +81,7 @@ export class RatingComponent implements OnInit {
     }
 
     getEstate(estateId) {
-        this.userService.getAvailableEstateList(this.roasterId, estateId).subscribe((res: any) => {
+        this.userSrv.getAvailableEstateList(this.roasterId, estateId).subscribe((res: any) => {
             if (res.success) {
                 this.ownerName = res.result.owner_name;
                 this.companyImg = res.result.company_image_thumbnail_url;
@@ -90,7 +92,7 @@ export class RatingComponent implements OnInit {
     }
 
     getMicroRoaster(estateId) {
-        this.userService.getMicroDetails(this.roasterId, estateId).subscribe((res: any) => {
+        this.userSrv.getMicroDetails(this.roasterId, estateId).subscribe((res: any) => {
             if (res.success) {
                 this.ownerName = res.result.owner_name;
                 this.companyImg = res.result.company_image_thumbnail_url;
@@ -100,10 +102,28 @@ export class RatingComponent implements OnInit {
         });
     }
 
+    getReview() {
+        let queryIdStr = '';
+        if (this.orgType === OrgType.ESTATE) {
+            queryIdStr = 'gc_order_id';
+        } else if (this.orgType === OrgType.MICRO_ROASTER) {
+            queryIdStr = 'mr_gc_order_id';
+        }
+        this.roasterSrv.getRoasterReviews(this.roasterId, { [queryIdStr]: this.orderId }).subscribe((res: any) => {
+            if (res.success) {
+                console.log('Reviews:', res.result);
+                this.review = res.result[0] || null;
+                if (this.review) {
+                    this.infoForm.get('review').setValue(this.review.comment);
+                }
+            }
+        });
+    }
+
     submitRating() {
         if (this.infoForm.valid) {
             this.submitted = true;
-            this.userService
+            this.userSrv
                 .addReviewOrder(this.roasterId, this.orderId, this.infoForm.value, this.orgType)
                 .subscribe((res: any) => {
                     this.submitted = false;
