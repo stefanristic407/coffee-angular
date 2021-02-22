@@ -29,7 +29,7 @@
                                     {{ infoForm.get('banner_title').value | wordCount }}/10 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="banner_title" pInputText />
+                            <input type="text" formControlName="banner_title" appWordLimit [limit]="10" pInputText />
                             <small *ngIf="infoForm.controls.banner_title.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -50,7 +50,7 @@
                                     {{ infoForm.get('intro_title').value | wordCount }}/15 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="intro_title" pInputText />
+                            <input type="text" formControlName="intro_title" appWordLimit [limit]="15" pInputText />
                             <small *ngIf="infoForm.controls.intro_title.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -67,7 +67,14 @@
                                     {{ infoForm.get('short_description').value | wordCount }}/50 words
                                 </span>
                             </label>
-                            <textarea formControlName="short_description" rows="5" cols="50" pInputTextarea></textarea>
+                            <textarea
+                                formControlName="short_description"
+                                rows="5"
+                                cols="50"
+                                appWordLimit
+                                [limit]="50"
+                                pInputTextarea
+                            ></textarea>
                             <small *ngIf="infoForm.controls.short_description.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -90,7 +97,7 @@
                                     {{ infoForm.get('wizard_title').value | wordCount }}/10 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="wizard_title" pInputText />
+                            <input type="text" formControlName="wizard_title" appWordLimit [limit]="10" pInputText />
                             <small *ngIf="infoForm.controls.wizard_title.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -106,7 +113,14 @@
                                     {{ infoForm.get('wizard_sub_heading').value | wordCount }}/15 words
                                 </span>
                             </label>
-                            <textarea formControlName="wizard_sub_heading" rows="3" cols="50" pInputTextarea></textarea>
+                            <textarea
+                                formControlName="wizard_sub_heading"
+                                rows="3"
+                                cols="50"
+                                appWordLimit
+                                [limit]="15"
+                                pInputTextarea
+                            ></textarea>
                             <small *ngIf="infoForm.controls.wizard_sub_heading.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -144,7 +158,13 @@
                                     {{ infoForm.get('featured_products_title').value | wordCount }}/15 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="featured_products_title" pInputText />
+                            <input
+                                type="text"
+                                formControlName="featured_products_title"
+                                appWordLimit
+                                [limit]="15"
+                                pInputText
+                            />
                             <small *ngIf="infoForm.controls.featured_products_title.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -215,7 +235,13 @@
                                     {{ infoForm.get('traceability_story_title').value | wordCount }}/15 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="traceability_story_title" pInputText />
+                            <input
+                                type="text"
+                                formControlName="traceability_story_title"
+                                appWordLimit
+                                [limit]="15"
+                                pInputText
+                            />
                             <small *ngIf="infoForm.controls.traceability_story_title.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -238,6 +264,8 @@
                                 formControlName="traceability_story_sub_heading"
                                 rows="3"
                                 cols="50"
+                                appWordLimit
+                                [limit]="30"
                                 pInputTextarea
                             ></textarea>
                             <small
@@ -281,7 +309,13 @@
                                     {{ infoForm.get('sustainability_title').value | wordCount }}/15 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="sustainability_title" pInputText />
+                            <input
+                                type="text"
+                                formControlName="sustainability_title"
+                                appWordLimit
+                                [limit]="15"
+                                pInputText
+                            />
                             <small *ngIf="infoForm.controls.sustainability_title.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -301,6 +335,8 @@
                                 formControlName="sustainability_sub_heading"
                                 rows="3"
                                 cols="50"
+                                appWordLimit
+                                [limit]="25"
                                 pInputTextarea
                             ></textarea>
                             <small
@@ -338,7 +374,13 @@
                                     {{ infoForm.get('roastery_images_title').value | wordCount }}/15 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="roastery_images_title" pInputText />
+                            <input
+                                type="text"
+                                formControlName="roastery_images_title"
+                                appWordLimit
+                                [limit]="15"
+                                pInputText
+                            />
                             <small *ngIf="infoForm.controls.roastery_images_title.errors?.required" class="p-error">
                                 Required
                             </small>

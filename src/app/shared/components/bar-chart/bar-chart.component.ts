@@ -1,18 +1,33 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    Input,
+    OnChanges,
+    OnInit,
+    SimpleChanges,
+    ViewChild,
+} from '@angular/core';
+
+import * as echarts from 'echarts';
+import ECharts = echarts.ECharts;
 
 @Component({
     selector: 'app-bar-chart',
     templateUrl: './bar-chart.component.html',
     styleUrls: ['./bar-chart.component.scss'],
 })
-export class BarChartComponent implements OnInit {
+export class BarChartComponent implements OnInit, OnChanges {
     @Input() results = [];
     @Input() showDataLabel = false;
     @Input() color = '#2DAEA8';
     @Input() labelShow = true;
     @Input() unitName = '';
+    @ViewChild('verticalChart', { static: true }) verticalChart: ElementRef;
     category = [];
     data = [];
+    barEchart: ECharts;
+
     verticalChartOption = {
         color: '#2DAEA8',
         tooltip: {
@@ -38,6 +53,7 @@ export class BarChartComponent implements OnInit {
             type: 'category',
             axisLabel: {
                 color: '#747588',
+                fontFamily: 'Muli',
             },
             axisTick: {
                 show: false,
@@ -53,9 +69,11 @@ export class BarChartComponent implements OnInit {
             nameTextStyle: {
                 fontWeight: 'bold',
                 align: 'right',
+                fontFamily: 'Muli',
             },
             axisLabel: {
                 color: '#747588',
+                fontFamily: 'Muli',
                 formatter: (value) => {
                     const suffixes = ['', 'K', 'M', 'B', 'T'];
                     const suffixNum = Math.floor(('' + value).length / 3);
@@ -86,6 +104,7 @@ export class BarChartComponent implements OnInit {
                     show: true,
                     position: 'top',
                     distance: 10,
+                    fontFamily: 'Muli',
                     formatter: (label) => {
                         // const convertedValue = label.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                         // if (this.unitName === 'USD') {
@@ -104,9 +123,14 @@ export class BarChartComponent implements OnInit {
 
     horizontalData = [];
 
-    constructor() {}
+    constructor(private ref: ChangeDetectorRef) {}
 
-    ngOnInit(): void {
+    ngOnInit(): void {}
+
+    ngOnChanges(changes: SimpleChanges) {
+        this.barEchart = echarts.init(this.verticalChart.nativeElement);
+        this.data = [];
+        this.category = [];
         this.results.map((item: any) => {
             this.category.push(item.name);
             this.data.push(item.value);
@@ -127,9 +151,12 @@ export class BarChartComponent implements OnInit {
                 return convertedValue;
             }
         };
+        this.barEchart.setOption(this.verticalChartOption);
+        this.ref.detectChanges();
     }
 
     generateHorizontalData() {
+        this.horizontalData = [];
         const highest = Math.max(...this.data);
         this.results.map((item: any) => {
             const tempValue = this.convertValue(item.value);

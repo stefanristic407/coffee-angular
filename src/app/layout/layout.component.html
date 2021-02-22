@@ -16,18 +16,15 @@
                 <a class="company-logo d-inline-block" [routerLink]="['/']">
                     <img src="assets/images/Sewn-logo.svg" alt="Comany-Logo" />
                 </a>
-                <div class="d-none d-md-inline-block">
-                    <p-autoComplete
+                <div class="d-none d-md-inline-block header-search">
+                    <input
+                        type="text"
                         [(ngModel)]="text"
-                        [suggestions]="results"
-                        field="title"
-                        (onSelect)="redirect($event)"
-                        (completeMethod)="search($event)"
+                        styleClass=""
                         placeholder="Search.."
-                        styleClass="header-search"
-                        scrollHeight="225px"
-                    >
-                    </p-autoComplete>
+                        (keyup)="search()"
+                        pInputText
+                    />
                 </div>
                 <ul class="header-profile-links ml-md-auto d-flex align-items-center p-15">
                     <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
@@ -316,9 +313,15 @@
 <div class="layout-wrap">
     <div class="container" *ngIf="loaded">
         <div class="router-design">
-            <!-- <app-direct-messaging></app-direct-messaging> -->
             <app-sewn-direct-message></app-sewn-direct-message>
-            <router-outlet></router-outlet>
+            <app-search-panel
+                [searchStr]="text"
+                [searchResults]="results"
+                (closeEmitter)="closeSearchPanel()"
+            ></app-search-panel>
+            <div [class.d-none]="text">
+                <router-outlet></router-outlet>
+            </div>
         </div>
     </div>
     <app-footer></app-footer>

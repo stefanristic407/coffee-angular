@@ -36,6 +36,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from '@services';
 import { SearchFilterPipe } from './components/sewn-direct-message/search-filter.pipe';
 import { LifecyclehookDirective } from './components/sewn-direct-message/lifecyclehook.directive';
+import { SearchPanelComponent } from './layout/search-panel/search-panel.component';
 
 @NgModule({
     declarations: [
@@ -48,6 +49,7 @@ import { LifecyclehookDirective } from './components/sewn-direct-message/lifecyc
         SearchFilterPipe,
         LifecyclehookDirective,
         FooterComponent,
+        SearchPanelComponent,
     ],
     imports: [
         BrowserModule,
