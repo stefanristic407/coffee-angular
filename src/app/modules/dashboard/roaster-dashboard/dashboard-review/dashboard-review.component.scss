@@ -39,3 +39,76 @@
         }
     }
 }
+
+.customProgress .ui-progressbar .ui-progressbar-label {
+    color: yellow;
+}
+
+.customProgress .ui-progressbar .ui-progressbar-value {
+    background: red;
+}
+
+::ng-deep {
+    .rating-progress {
+        .p-progressbar {
+            height: 4px !important;
+        }
+        @media screen and (min-width: 768px) and (max-width: 992px) {
+            .p-progressbar {
+                height: 2px !important;
+            }
+        }
+    }
+    .rating-high {
+        .p-progressbar {
+            .p-progressbar-value {
+                background: #649a2b;
+            }
+        }
+    }
+    .rating-middle {
+        .p-progressbar {
+            .p-progressbar-value {
+                background: #ffa001;
+            }
+        }
+    }
+    .rating-low {
+        .p-progressbar {
+            .p-progressbar-value {
+                background: #ff1e5a;
+            }
+        }
+    }
+}
+
+.common-rating-item {
+    display: flex;
+    span {
+        margin: auto;
+    }
+    p-rating {
+        margin: auto;
+    }
+}
+
+.custom-progress-bar {
+    padding: 10px 0px 10px 16px;
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+        padding: 10px 0px 10px 14px;
+    }
+}
+.core-count {
+    padding-left: 7px;
+}
+
+.rating-bar {
+    padding-bottom: 0px;
+    border-bottom: dashed 2px #ebebeb;
+    .row {
+        margin-bottom: 20px;
+        @media screen and (min-width: 768px) and (max-width: 992px) {
+            margin-bottom: 7px;
+        }
+    }
+}

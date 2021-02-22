@@ -2,8 +2,11 @@
 
 // Layout style
 .container {
-    @media (min-width: 768px) {
+    @media (min-width: 768px) and (max-width: 992px) {
         max-width: 734px;
+    }
+    @media (min-width: 992px) and (max-width: 1280px) {
+        max-width: 990px;
     }
     @media (min-width: 1280px) {
         max-width: 1270px !important;
@@ -721,6 +724,12 @@ input[type='number'] {
     }
 }
 
+.h-sm-100 {
+    @media (min-width: 768px) {
+        height: 100%;
+    }
+}
+
 .ellipsis {
     white-space: nowrap;
     overflow: hidden;
@@ -772,4 +781,21 @@ input[type='number'] {
 // Cursor
 .cursor-move {
     cursor: move;
+}
+.md-only-show {
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+        display: initial !important;
+    }
+}
+
+.md-only-show-flex {
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+        display: flex !important;
+    }
+}
+
+.md-only-hide {
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+        display: none !important;
+    }
 }
