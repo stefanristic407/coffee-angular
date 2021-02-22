@@ -66,6 +66,7 @@
     .ng-touched + .p-error {
         display: block !important;
     }
+    .p-inputtext.ng-invalid.ng-touched,
     input.ng-invalid.ng-touched,
     input.ng-invalid.ng-touched + .input-group-append {
         border-color: $error-border-color !important;
