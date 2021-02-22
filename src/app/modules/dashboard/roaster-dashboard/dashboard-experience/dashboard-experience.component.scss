@@ -1,28 +1,32 @@
 .experience-block {
-  position: relative;
-  padding: 12px;
-
-  @media (min-width: 768px) {
-    padding: 30px 50px;
-  }
-
-  .content-wrap {
     position: relative;
     padding: 12px;
 
     @media (min-width: 768px) {
-      position: absolute;
-      padding: 5% 24%;
+        padding: 30px 50px;
     }
-  }
 
-  .img-wrap {
-    @media (max-width: 767px) {
-      margin-top: -49px;
+    .content-wrap {
+        position: relative;
+        padding: 12px;
+
+        @media (min-width: 992px) {
+            position: absolute;
+            padding: 5% 24%;
+        }
+        @media (min-width: 767px) and (max-width: 992px) {
+            position: absolute;
+            padding: 0% 24%;
+        }
     }
-    img {
-      width: 100%;
-      height: auto;
+
+    .img-wrap {
+        @media (max-width: 767px) {
+            margin-top: -49px;
+        }
+        img {
+            width: 100%;
+            height: auto;
+        }
     }
-  }
 }

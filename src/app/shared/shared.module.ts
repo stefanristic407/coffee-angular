@@ -89,6 +89,7 @@ import { DayPickerComponent } from './components/day-picker/day-picker.component
 import { PhoneNumberComponent } from './components/phone-number/phone-number.component';
 import { ReviewSummaryComponent } from './components/review-summary/review-summary.component';
 import { ReviewsComponent } from './components/reviews/reviews.component';
+import { ProgressBarModule } from 'primeng/progressbar';
 // #region material
 const MATMODULES = [];
 // #endregion
@@ -137,6 +138,7 @@ const THIRDMODULES = [
     LightboxModule,
     MatVideoModule,
     Ng2TelInputModule,
+    ProgressBarModule,
 ];
 // #endregion
 
