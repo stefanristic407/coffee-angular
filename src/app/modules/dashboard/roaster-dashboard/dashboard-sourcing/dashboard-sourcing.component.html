@@ -2,7 +2,7 @@
     <div class="fnt-18 fnt-bold text-clr334 br-4 bg-f8 p-2 m-1">Top sourcing countries on SEWN</div>
     <div class="m-3">
         <div *ngIf="sourcing && sourcing.sourcing_stats; else blank">
-            <app-bar-chart [results]="chartData" [unitName]="'Ton'" [unitName]="'USD'"> </app-bar-chart>
+            <app-bar-chart [results]="chartData" [unitName]="'Ton'"> </app-bar-chart>
         </div>
         <ng-template #blank>
             <div class="flex-fill d-flex flex-column justify-content-center align-items-center text-center p-5">
