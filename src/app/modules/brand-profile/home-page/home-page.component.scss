@@ -1,3 +1,5 @@
+@import '_variables.scss';
+
 .select-product {
     position: relative;
     display: flex;
@@ -13,8 +15,8 @@
     margin-right: 8px;
 
     @media (min-width: 768px) {
-        min-width: 171px;
-        width: 171px;
+        min-width: 170px;
+        width: 170px;
         height: 152px;
     }
     &:last-child {
@@ -76,15 +78,29 @@
     }
 }
 .cert-add {
+    position: relative;
     height: 24px;
     width: 24px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 2px;
-    border: solid 1px #747588;
+    border: solid 1px $muted-text-color;
+    cursor: pointer;
     span {
         font-size: 20px;
-        line-height: 1;
+        line-height: 24px;
+        position: absolute;
+        top: -2px;
+    }
+}
+
+// Custom style for featured product dard
+@media (min-width: 1280px) {
+    .left-block {
+        padding-right: 11px !important;
+    }
+    .right-block {
+        padding-left: 5px !important;
     }
 }
