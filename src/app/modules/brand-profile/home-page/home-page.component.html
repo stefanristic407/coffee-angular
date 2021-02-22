@@ -3,9 +3,9 @@
         <app-brand-profile-header pageSlug="home-page" (saveClick)="savePageData()"></app-brand-profile-header>
 
         <form [formGroup]="infoForm" novalidate>
-            <div class="row">
-                <div class="col-lg-8 col-md-12">
-                    <div class="br-main br-2 p-3 p-md-4">
+            <div class="row gutter-16">
+                <div class="col-lg-8 col-md-12 order-2 order-lg-1">
+                    <div class="br-main br-2 mb-4 mb-lg-45 p-3 p-lg-4">
                         <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-3">Banner<span class="star">*</span></h4>
                         <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
                             Image/Video banner<span class="star">*</span>
@@ -15,7 +15,7 @@
                         </p>
                         <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 1440 x 465 px</p>
 
-                        <div class="w-100 sewn-form-field mb-4 mb-md-45">
+                        <div class="w-100 sewn-form-field">
                             <app-uploader formControlName="banner_file" [width]="1440" [height]="465"></app-uploader>
                             <small *ngIf="infoForm.controls.banner_file.errors?.required" class="p-error">
                                 Please upload
@@ -29,7 +29,7 @@
                                     {{ infoForm.get('banner_title').value | wordCount }}/10 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="banner_title" pInputText />
+                            <input type="text" formControlName="banner_title" appWordLimit [limit]="10" pInputText />
                             <small *ngIf="infoForm.controls.banner_title.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -39,18 +39,22 @@
                         </div>
                     </div>
 
-                    <div class="br-main br-2 mt-4 mt-md-45 p-3 p-md-4">
+                    <div class="d-md-none">
+                        <ng-container *ngTemplateOutlet="certificatesBlock"></ng-container>
+                    </div>
+
+                    <div class="br-main br-2 mb-4 mb-lg-45 p-3 p-lg-4">
                         <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">Who you are</h4>
                         <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">give yourself a small intro!</p>
 
-                        <div class="w-100 sewn-form-field mb-4">
+                        <div class="w-100 sewn-form-field">
                             <label>
                                 Title<span class="star">*</span>
                                 <span class="pull-right text-clr588">
                                     {{ infoForm.get('intro_title').value | wordCount }}/15 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="intro_title" pInputText />
+                            <input type="text" formControlName="intro_title" appWordLimit [limit]="15" pInputText />
                             <small *ngIf="infoForm.controls.intro_title.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -67,7 +71,14 @@
                                     {{ infoForm.get('short_description').value | wordCount }}/50 words
                                 </span>
                             </label>
-                            <textarea formControlName="short_description" rows="5" cols="50" pInputTextarea></textarea>
+                            <textarea
+                                formControlName="short_description"
+                                rows="5"
+                                cols="50"
+                                appWordLimit
+                                [limit]="50"
+                                pInputTextarea
+                            ></textarea>
                             <small *ngIf="infoForm.controls.short_description.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -77,20 +88,20 @@
                         </div>
                     </div>
 
-                    <div class="br-main br-2 mt-4 mt-md-45 p-3 p-md-4">
+                    <div class="br-main br-2 mb-4 mb-lg-45 p-3 p-lg-4">
                         <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">Wizard</h4>
                         <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">
                             Your customers can personalise their coffee from this section.
                         </p>
 
-                        <div class="w-100 sewn-form-field mb-4">
+                        <div class="w-100 sewn-form-field">
                             <label>
                                 Title<span class="star">*</span>
                                 <span class="pull-right text-clr588">
                                     {{ infoForm.get('wizard_title').value | wordCount }}/10 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="wizard_title" pInputText />
+                            <input type="text" formControlName="wizard_title" appWordLimit [limit]="10" pInputText />
                             <small *ngIf="infoForm.controls.wizard_title.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -99,14 +110,21 @@
                             </small>
                         </div>
 
-                        <div class="w-100 sewn-form-field mb-4">
+                        <div class="w-100 sewn-form-field">
                             <label>
                                 Sub heading
                                 <span class="pull-right text-clr588">
                                     {{ infoForm.get('wizard_sub_heading').value | wordCount }}/15 words
                                 </span>
                             </label>
-                            <textarea formControlName="wizard_sub_heading" rows="3" cols="50" pInputTextarea></textarea>
+                            <textarea
+                                formControlName="wizard_sub_heading"
+                                rows="3"
+                                cols="50"
+                                appWordLimit
+                                [limit]="15"
+                                pInputTextarea
+                            ></textarea>
                             <small *ngIf="infoForm.controls.wizard_sub_heading.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -115,7 +133,7 @@
                             </small>
                         </div>
 
-                        <div class="w-100 sewn-form-field mb-2">
+                        <div class="w-100 sewn-form-field mb-0">
                             <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
                                 Upload an Image<span class="star">*</span>
                             </p>
@@ -132,19 +150,25 @@
                         </div>
                     </div>
 
-                    <div class="br-main br-2 mt-4 mt-md-45 p-3 p-md-4">
+                    <div class="br-main br-2 mb-4 mb-lg-45 p-3 p-lg-4">
                         <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">Feature your products</h4>
                         <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">
                             Select 4 products from your shop to display them here
                         </p>
-                        <div class="w-100 sewn-form-field mb-4">
+                        <div class="w-100 sewn-form-field">
                             <label>
                                 Title<span class="star">*</span>
                                 <span class="pull-right text-clr588">
                                     {{ infoForm.get('featured_products_title').value | wordCount }}/15 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="featured_products_title" pInputText />
+                            <input
+                                type="text"
+                                formControlName="featured_products_title"
+                                appWordLimit
+                                [limit]="15"
+                                pInputText
+                            />
                             <small *ngIf="infoForm.controls.featured_products_title.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -202,20 +226,26 @@
                         </div>
                     </div>
 
-                    <div class="br-main br-2 mt-4 mt-md-45 p-3 p-md-4">
+                    <div class="br-main br-2 mb-4 mb-lg-45 p-3 p-lg-4">
                         <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">Traceability stories</h4>
                         <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">
                             Users will be redirected to your completed coffee experience stories. Give them insights!
                         </p>
 
-                        <div class="w-100 sewn-form-field mb-4">
+                        <div class="w-100 sewn-form-field">
                             <label>
                                 Title<span class="star">*</span>
                                 <span class="pull-right text-clr588">
                                     {{ infoForm.get('traceability_story_title').value | wordCount }}/15 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="traceability_story_title" pInputText />
+                            <input
+                                type="text"
+                                formControlName="traceability_story_title"
+                                appWordLimit
+                                [limit]="15"
+                                pInputText
+                            />
                             <small *ngIf="infoForm.controls.traceability_story_title.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -227,7 +257,7 @@
                             </small>
                         </div>
 
-                        <div class="w-100 sewn-form-field mb-4">
+                        <div class="w-100 sewn-form-field">
                             <label>
                                 Sub heading
                                 <span class="pull-right text-clr588">
@@ -238,6 +268,8 @@
                                 formControlName="traceability_story_sub_heading"
                                 rows="3"
                                 cols="50"
+                                appWordLimit
+                                [limit]="30"
                                 pInputTextarea
                             ></textarea>
                             <small
@@ -254,7 +286,7 @@
                             </small>
                         </div>
 
-                        <div class="w-100 sewn-form-field mb-2">
+                        <div class="w-100 sewn-form-field mb-0">
                             <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
                                 Upload an Image/Video<span class="star">*</span>
                             </p>
@@ -270,18 +302,24 @@
                         </div>
                     </div>
 
-                    <div class="br-main br-2 mt-4 mt-md-45 p-3 p-md-4">
+                    <div class="br-main br-2 mb-4 mb-lg-45 p-3 p-lg-4">
                         <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">Sustainability</h4>
                         <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">Give an intro to your practices</p>
 
-                        <div class="w-100 sewn-form-field mb-4">
+                        <div class="w-100 sewn-form-field">
                             <label>
                                 Title<span class="star">*</span>
                                 <span class="pull-right text-clr588">
                                     {{ infoForm.get('sustainability_title').value | wordCount }}/15 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="sustainability_title" pInputText />
+                            <input
+                                type="text"
+                                formControlName="sustainability_title"
+                                appWordLimit
+                                [limit]="15"
+                                pInputText
+                            />
                             <small *ngIf="infoForm.controls.sustainability_title.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -290,7 +328,7 @@
                             </small>
                         </div>
 
-                        <div class="w-100 sewn-form-field mb-4">
+                        <div class="w-100 sewn-form-field">
                             <label>
                                 Sub heading
                                 <span class="pull-right text-clr588">
@@ -301,6 +339,8 @@
                                 formControlName="sustainability_sub_heading"
                                 rows="3"
                                 cols="50"
+                                appWordLimit
+                                [limit]="25"
                                 pInputTextarea
                             ></textarea>
                             <small
@@ -311,7 +351,7 @@
                             </small>
                         </div>
 
-                        <div class="w-100 sewn-form-field mb-2">
+                        <div class="w-100 sewn-form-field mb-0">
                             <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
                                 Upload an Image/Video<span class="star">*</span>
                             </p>
@@ -327,18 +367,24 @@
                         </div>
                     </div>
 
-                    <div class="br-main br-2 mt-4 mt-md-45 p-3 p-md-4 mb-3 mb-md-0">
+                    <div class="br-main br-2 p-3 p-lg-4">
                         <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">Roastery Images</h4>
                         <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">Add images of your roastery</p>
 
-                        <div class="w-100 sewn-form-field mb-4">
+                        <div class="w-100 sewn-form-field">
                             <label>
                                 Title for your shop purchases<span class="star">*</span>
                                 <span class="pull-right text-clr588">
                                     {{ infoForm.get('roastery_images_title').value | wordCount }}/15 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="roastery_images_title" pInputText />
+                            <input
+                                type="text"
+                                formControlName="roastery_images_title"
+                                appWordLimit
+                                [limit]="15"
+                                pInputText
+                            />
                             <small *ngIf="infoForm.controls.roastery_images_title.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -347,7 +393,7 @@
                             </small>
                         </div>
 
-                        <div class="w-100 sewn-form-field mb-2">
+                        <div class="w-100 sewn-form-field mb-0">
                             <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
                                 Upload 2 Images<span class="star">*</span>
                             </p>
@@ -366,34 +412,8 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-md-4">
-                    <div class="br-main br-4 p-1">
-                        <div class="bg-f8 br-4 d-flex align-items-center justify-content-between cert-header">
-                            <h5 class="fnt-14 fnt-muli fnt-700 text-clr334 mb-0">Certificates</h5>
-                            <label class="mb-0 cert-add">
-                                <input type="file" class="d-none" />
-                                <span class="fnt-muli fnt-700 d-inline-block">+</span>
-                            </label>
-                        </div>
-                        <div class="p-3 p-md-4">
-                            <div *ngFor="let item of certificates; index as i">
-                                <div *ngIf="i" class="w-100 solid-divider my-3"></div>
-                                <div
-                                    class="d-flex flex-md-column flex-lg-row justify-content-between align-items-lg-center"
-                                >
-                                    <div class="pr-3">
-                                        <h4 class="fnt-14 fnt-700 text-clr334 mb-0">{{ item.name }}</h4>
-                                        <span class="d-block fnt-12 fnt-600 text-clr588">{{ item.year }} </span>
-                                    </div>
-                                    <div>
-                                        <a class="brown-cta" [href]="item.public_url" target="_blank"> View </a>
-                                        <span class="v-divider mx-2"></span>
-                                        <a class="brown-cta" (click)="deleteCertificate(item.id)">Delete</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-12 col-md-6 col-lg-4 order-1 order-lg-2 d-none d-md-block">
+                    <ng-container *ngTemplateOutlet="certificatesBlock"></ng-container>
                 </div>
             </div>
         </form>
@@ -401,3 +421,38 @@
         <app-brand-profile-footer pageSlug="home-page" (saveClick)="savePageData()"></app-brand-profile-footer>
     </div>
 </section>
+
+<ng-template #certificatesBlock>
+    <div class="br-main br-4 p-1 mb-4 mb-md-45">
+        <div class="bg-f8 br-4 d-flex align-items-center justify-content-between cert-header">
+            <h5 class="fnt-14 fnt-muli fnt-700 text-clr334 mb-0">Certificates</h5>
+            <label class="mb-0 cert-add">
+                <input type="file" class="d-none" />
+                <span class="fnt-muli fnt-700 d-inline-block">+</span>
+            </label>
+        </div>
+        <div class="p-3 p-lg-4">
+            <div *ngFor="let item of certificates; index as i">
+                <div *ngIf="i" class="w-100 solid-divider my-3"></div>
+                <div class="d-flex flex-md-column flex-lg-row justify-content-between align-items-lg-center">
+                    <div class="pr-3">
+                        <h4 class="fnt-14 lh-normal fnt-700 text-clr334 mb-1">{{ item.name }}</h4>
+                        <div class="fnt-12 lh-normal fnt-600 text-clr588">{{ item.year }}</div>
+                    </div>
+                    <div class="d-none d-md-block">
+                        <a class="brown-cta" [href]="item.public_url" target="_blank"> View </a>
+                        <span class="v-divider mx-2"></span>
+                        <a class="brown-cta" (click)="deleteCertificate(item.id)">Delete</a>
+                    </div>
+                    <div class="d-md-none">
+                        <a (click)="certIndex = i; menu.toggle($event)">
+                            <img src="assets/images/menu-gray.svg" alt="menu" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<p-menu #menu [popup]="true" [model]="certMenuItems"></p-menu>

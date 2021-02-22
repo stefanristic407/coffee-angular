@@ -16,7 +16,7 @@
         <div *ngIf="mobile">
             <div class="row">
                 <!--Mobile View-->
-                <div class="col-12 p-2 d-md-none d-sm-none d-xs-block" *ngFor="let item of mrList; let i = index">
+                <div class="col-12 py-2 d-md-none d-sm-none d-xs-block" *ngFor="let item of mrList; let i = index">
                     <div class="featureSectionCard" *ngIf="editIndex != i && item.id">
                         <label for="" class="header header-bg mb-0">
                             <span class="text-clr334 fnt-14 fnt-bold">Transaction {{ i + 1 }}</span>

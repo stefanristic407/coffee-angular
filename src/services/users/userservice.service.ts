@@ -876,6 +876,16 @@ export class UserserviceService {
         };
         return this.http.put(this.putUrl, data);
     }
+    // Update FAQ sort priorities.
+    sortFAQ(roaster_id: any, body: any) {
+        const data = {
+            api_call: `/ro/${roaster_id}/faq`,
+            token: this.cookieService.get('Auth'),
+            method: 'PUT',
+            data: body,
+        };
+        return this.http.post(this.roasterUrl, data);
+    }
 
     getTeamMembers(roaster_id: any, group) {
         const data = {

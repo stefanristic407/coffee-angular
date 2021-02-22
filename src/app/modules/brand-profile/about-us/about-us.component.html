@@ -15,7 +15,7 @@
                         </p>
                         <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 1440 x 465 px</p>
 
-                        <div class="w-100 sewn-form-field mb-4 mb-md-45">
+                        <div class="w-100 sewn-form-field">
                             <app-uploader formControlName="banner_file" [width]="1440" [height]="465"></app-uploader>
                             <small *ngIf="infoForm.controls.banner_file.errors?.required" class="p-error">
                                 Please upload
@@ -29,7 +29,7 @@
                                     {{ infoForm.get('banner_title').value | wordCount }}/10 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="banner_title" pInputText />
+                            <input type="text" formControlName="banner_title" appWordLimit [limit]="10" pInputText />
                             <small *ngIf="infoForm.controls.banner_title.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -39,18 +39,18 @@
                         </div>
                     </div>
 
-                    <div class="br-main br-2 mt-4 mt-md-45 p-3 p-md-4">
+                    <div class="br-main br-2 mt-4 mt-lg-45 p-3 p-md-4">
                         <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">Intro</h4>
                         <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">Give yourself a small intro!</p>
 
-                        <div class="w-100 sewn-form-field mb-4 mb-md-45">
+                        <div class="w-100 sewn-form-field">
                             <label>
                                 Title<span class="star">*</span>
                                 <span class="pull-right text-clr588">
                                     {{ infoForm.get('intro_title').value | wordCount }}/15 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="intro_title" pInputText />
+                            <input type="text" formControlName="intro_title" appWordLimit [limit]="15" pInputText />
                             <small *ngIf="infoForm.controls.intro_title.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -59,7 +59,7 @@
                             </small>
                         </div>
 
-                        <div class="w-100 sewn-form-field mb-4 mb-md-45">
+                        <div class="w-100 sewn-form-field">
                             <label>
                                 A short description<span class="star">*</span>
                                 <span class="pull-right text-clr588">
@@ -70,6 +70,8 @@
                                 formControlName="intro_short_description"
                                 rows="5"
                                 cols="50"
+                                appWordLimit
+                                [limit]="50"
                                 pInputTextarea
                             ></textarea>
                             <small *ngIf="infoForm.controls.intro_short_description.errors?.required" class="p-error">
@@ -83,7 +85,7 @@
                             </small>
                         </div>
 
-                        <div class="w-100 sewn-form-field mb-2">
+                        <div class="w-100 sewn-form-field mb-0">
                             <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
                                 Upload an Image / Video<span class="star">*</span>
                             </p>
@@ -95,34 +97,41 @@
                         </div>
                     </div>
 
-                    <div class="br-main br-2 mt-4 mt-md-45 p-3 p-md-4">
+                    <div class="br-main br-2 mt-4 mt-lg-45 p-3 p-md-4">
                         <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">Who we are</h4>
                         <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">
                             Your customers can personalise their coffee from this section.
                         </p>
 
-                        <div class="w-100 sewn-form-field mb-4 mb-md-45">
+                        <div class="w-100 sewn-form-field">
                             <label>
                                 Title<span class="star">*</span>
                                 <span class="pull-right text-clr588">
                                     {{ infoForm.get('title').value | wordCount }}/10 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="title" pInputText />
+                            <input type="text" formControlName="title" appWordLimit [limit]="10" pInputText />
                             <small *ngIf="infoForm.controls.title.errors?.required" class="p-error"> Required </small>
                             <small *ngIf="infoForm.controls.title.errors?.maxWordCount" class="p-error">
                                 Please input 10 words
                             </small>
                         </div>
 
-                        <div class="w-100 sewn-form-field mb-4 mb-md-45">
+                        <div class="w-100 sewn-form-field">
                             <label>
                                 A short description<span class="star">*</span>
                                 <span class="pull-right text-clr588">
                                     {{ infoForm.get('short_description').value | wordCount }}/100 words
                                 </span>
                             </label>
-                            <textarea formControlName="short_description" rows="5" cols="100" pInputTextarea></textarea>
+                            <textarea
+                                formControlName="short_description"
+                                rows="5"
+                                cols="100"
+                                appWordLimit
+                                [limit]="100"
+                                pInputTextarea
+                            ></textarea>
                             <small *ngIf="infoForm.controls.short_description.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -131,7 +140,7 @@
                             </small>
                         </div>
 
-                        <div class="w-100 sewn-form-field mb-2">
+                        <div class="w-100 sewn-form-field mb-0">
                             <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
                                 Upload an Image/Video<span class="star">*</span>
                             </p>
@@ -143,20 +152,20 @@
                         </div>
                     </div>
 
-                    <div class="br-main br-2 mt-4 mt-md-45 p-3 p-md-4">
+                    <div class="br-main br-2 mt-4 mt-lg-45 p-3 p-md-4">
                         <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">Your team members</h4>
                         <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">
                             Select your emplyees to display on your website page
                         </p>
 
-                        <div class="w-100 sewn-form-field mb-4 mb-md-45">
+                        <div class="w-100 sewn-form-field">
                             <label>
                                 Title<span class="star">*</span>
                                 <span class="pull-right text-clr588">
                                     {{ infoForm.get('team_title').value | wordCount }}/10 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="team_title" pInputText />
+                            <input type="text" formControlName="team_title" appWordLimit [limit]="10" pInputText />
                             <small *ngIf="infoForm.controls.team_title.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -165,14 +174,21 @@
                             </small>
                         </div>
 
-                        <div class="w-100 sewn-form-field mb-4 mb-md-45">
+                        <div class="w-100 sewn-form-field">
                             <label>
                                 A short description<span class="star">*</span>
                                 <span class="pull-right text-clr588">
                                     {{ infoForm.get('team_description').value | wordCount }}/30 words
                                 </span>
                             </label>
-                            <textarea formControlName="team_description" rows="5" cols="100" pInputTextarea></textarea>
+                            <textarea
+                                formControlName="team_description"
+                                rows="5"
+                                cols="100"
+                                appWordLimit
+                                [limit]="30"
+                                pInputTextarea
+                            ></textarea>
                             <small *ngIf="infoForm.controls.team_description.errors?.required" class="p-error">
                                 Required
                             </small>
