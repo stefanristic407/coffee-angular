@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { ToastrService } from 'ngx-toastr';
@@ -20,12 +20,6 @@ export class SelectOrderTableComponent implements OnInit {
     estatetermOrigin: any;
     displayNumbers: any;
     selected: Date[];
-    showOrigin: boolean = true;
-    showType: boolean = true;
-    showStatus: boolean = true;
-    showDisplay: boolean = true;
-    odd: boolean = false;
-
     originArray = [];
     originFilter: any;
     rangeDates: any;
@@ -45,18 +39,14 @@ export class SelectOrderTableComponent implements OnInit {
     roasterId: any;
     @ViewChild('calendar')
     calendar: any;
-    //dtInstance:DataTables.Api;
 
     // Static Estate Orders Data List
     public data: any;
-    public mainData: any[];
-    title = 'angulardatatables';
-    dtOptions: DataTables.Settings = {
-        language: { search: '' },
-    };
     appLanguage?: any;
     selectedEntry: any;
     selectId: any;
+    batchId: any;
+    ordId: any;
 
     constructor(
         public router: Router,
@@ -64,26 +54,25 @@ export class SelectOrderTableComponent implements OnInit {
         private roasterService: RoasterserviceService,
         private toastrService: ToastrService,
         public globals: GlobalsService,
+        public route: ActivatedRoute,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.data = {};
     }
 
     ngOnInit(): void {
-        //Auth checking
-        if (this.cookieService.get('Auth') == '') {
-            this.router.navigate(['/auth/login']);
-        }
         this.appLanguage = this.globals.languageJson;
-
         this.estatetermStatus = '';
         this.estatetermOrigin = '';
         this.estatetermType = '';
         this.displayNumbers = '10';
-        this.getTableData(); //calling estate table data onload
-
+        this.getTableData();
         this.loadFilterValues();
         this.createRoasterTable();
+        if (this.route.snapshot.queryParams.batchId && this.route.snapshot.queryParams.ordId) {
+            this.batchId = decodeURIComponent(this.route.snapshot.queryParams.batchId);
+            this.ordId = decodeURIComponent(this.route.snapshot.queryParams.ordId);
+        }
     }
 
     createRoasterTable() {
@@ -149,19 +138,6 @@ export class SelectOrderTableComponent implements OnInit {
     onSelect(orderData) {
         console.log(orderData);
     }
-
-    //  Function Name : Check box function.
-    //  Description   : This function helps to Check all the rows of the Users list.
-    checkAllEstate(ev) {
-        this.data.forEach((x) => (x.state = ev.target.checked));
-    }
-
-    //  Function Name : Single Check box function.
-    //  Description   : This function helps to Check that single row isChecked.
-    isAllCheckedEstate() {
-        return this.data.every((_) => _.state);
-    }
-
     setOrigin(origindata: any) {
         this.estatetermOrigin = origindata;
         this.datatableElement.dtInstance.then((table) => {
@@ -176,24 +152,6 @@ export class SelectOrderTableComponent implements OnInit {
     openCalendar(event: any) {
         this.calendar.showOverlay(this.calendar.inputfieldViewChild.nativeElement);
         event.stopPropagation();
-    }
-
-    toggleOrigin() {
-        this.showOrigin = !this.showOrigin;
-        if (this.showOrigin == false) {
-            document.getElementById('origin_id').style.border = '1px solid #30855c';
-        } else {
-            document.getElementById('origin_id').style.border = '1px solid #d6d6d6';
-        }
-    }
-
-    toggleDisplay() {
-        this.showDisplay = !this.showDisplay;
-        if (this.showDisplay == false) {
-            document.getElementById('display_id').style.border = '1px solid #30855c';
-        } else {
-            document.getElementById('display_id').style.border = '1px solid #d6d6d6';
-        }
     }
     onSelectionChange(value: any) {
         this.selectedEntry = value;
@@ -227,12 +185,37 @@ export class SelectOrderTableComponent implements OnInit {
         });
     }
     onContinue() {
-        this.selectId = this.selectedOrder.id;
-        const navigationExtras: NavigationExtras = {
-            queryParams: {
-                ordId: this.selectId ? this.selectId : '',
-            },
-        };
-        this.router.navigate(['/features/new-roasted-batch'], navigationExtras);
+        if (this.batchId) {
+            this.selectId = this.selectedOrder.id;
+            const navigationExtras: NavigationExtras = {
+                queryParams: {
+                    ordId: this.selectId ? this.selectId : '',
+                    batchId: this.batchId ? this.batchId : '',
+                },
+            };
+            this.router.navigate(['/features/new-roasted-batch'], navigationExtras);
+        } else {
+            this.selectId = this.selectedOrder.id;
+            const navigationExtras: NavigationExtras = {
+                queryParams: {
+                    ordId: this.selectId ? this.selectId : '',
+                },
+            };
+            this.router.navigate(['/features/new-roasted-batch'], navigationExtras);
+        }
+    }
+
+    backRoastedBatch() {
+        if (this.batchId && this.ordId) {
+            const navigationExtras: NavigationExtras = {
+                queryParams: {
+                    batchId: this.batchId ? this.batchId : '',
+                    ordId: this.ordId ? this.ordId : '',
+                },
+            };
+            this.router.navigate(['/features/new-roasted-batch'], navigationExtras);
+        } else {
+            this.router.navigate(['/features/new-roasted-batch']);
+        }
     }
 }

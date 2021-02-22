@@ -13,11 +13,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class CreateRoastingProfileComponent implements OnInit {
     appLanguage?: any;
-
-    roaster_id: string;
-    loginButtonValue: string = 'Save';
+    roasterId: string;
     profileId: string;
-
     roastingForm: FormGroup;
     roastLevelArray: any = [];
 
@@ -30,14 +27,14 @@ export class CreateRoastingProfileComponent implements OnInit {
         public toastrService: ToastrService,
         private fb: FormBuilder,
     ) {
-        this.roaster_id = this.cookieService.get('roaster_id');
+        this.roasterId = this.cookieService.get('roaster_id');
     }
 
     ngOnInit(): void {
         this.appLanguage = this.globals.languageJson;
 
-        if (this.route.snapshot.queryParams['profileID']) {
-            this.profileId = decodeURIComponent(this.route.snapshot.queryParams['profileID']);
+        if (this.route.snapshot.queryParams.profileID) {
+            this.profileId = decodeURIComponent(this.route.snapshot.queryParams.profileID);
             this.getRoastingProfile();
         }
 
@@ -58,7 +55,7 @@ export class CreateRoastingProfileComponent implements OnInit {
     }
 
     getRoastingProfile() {
-        this.userService.getRoastingProfileDetail(this.roaster_id, this.profileId).subscribe((res) => {
+        this.userService.getRoastingProfileDetail(this.roasterId, this.profileId).subscribe((res) => {
             if (res && res.result) {
                 const productDetails = res.result;
                 const productFields = [
@@ -77,7 +74,7 @@ export class CreateRoastingProfileComponent implements OnInit {
     }
 
     createRoastingProfile(productObj) {
-        this.userService.addRoastingProfile(this.roaster_id, productObj).subscribe(
+        this.userService.addRoastingProfile(this.roasterId, productObj).subscribe(
             (res) => {
                 if (res && res.success) {
                     this.toastrService.success('The Roasting Profile has been added.');
@@ -92,7 +89,7 @@ export class CreateRoastingProfileComponent implements OnInit {
         );
     }
     updateRoastingProfile(productObj) {
-        this.userService.updateRoastingProfileDetail(this.roaster_id, this.profileId, productObj).subscribe(
+        this.userService.updateRoastingProfileDetail(this.roasterId, this.profileId, productObj).subscribe(
             (res) => {
                 if (res && res.success) {
                     this.toastrService.success('The Roasting Profile has been updated.');

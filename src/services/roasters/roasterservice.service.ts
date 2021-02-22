@@ -592,7 +592,7 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
 
-    getRoastingProfile(roaster_id: any, postData?) {
+    getRoastingProfile(roaster_id: any, postData?): Observable<any> {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/roasting-profile?' + this.serlialise(postData);
         // data['params'] = params;
@@ -742,7 +742,7 @@ export class RoasterserviceService {
         data['token'] = this.cookieService.get('Auth');
         return this.http.post(this.url, data);
     }
-    getViewOrderDetails(roaster_id: any, order_id: any, orderType = null) {
+    getViewOrderDetails(roaster_id: any, order_id: any, orderType = null): Observable<any> {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/orders/' + order_id;
         if (orderType && (orderType == 'MR' || orderType == 'mr')) {

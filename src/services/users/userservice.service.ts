@@ -512,7 +512,7 @@ export class UserserviceService {
         return this.http.post(this.roasterUrl, data);
     }
 
-    getAvailableEstateList(roasterId: any, estateId: any) {
+    getAvailableEstateList(roasterId: any, estateId: any): Observable<any> {
         const data = {
             api_call: '/ro/' + roasterId + '/estates/' + estateId,
             method: 'GET',
@@ -662,7 +662,7 @@ export class UserserviceService {
         };
         return this.http.put(this.putUrl, data);
     }
-    deleteRoastingProfile(roaster_id: any, id: any) {
+    deleteRoastingProfile(roaster_id: any, id: any): Observable<any> {
         const data = {
             api_call: `/ro/${roaster_id}/roasting-profile/${id}`,
             method: 'DELETE',
@@ -722,7 +722,7 @@ export class UserserviceService {
         };
         return this.http.post(this.roasterUrl, data);
     }
-    getRoasterFlavourProfile(roaster_id: any) {
+    getRoasterFlavourProfile(roaster_id: any): Observable<any> {
         const data = {
             api_call: `/ro/${roaster_id}/flavour-profile`,
             method: 'GET',
