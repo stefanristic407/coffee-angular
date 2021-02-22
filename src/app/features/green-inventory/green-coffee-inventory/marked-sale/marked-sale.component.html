@@ -138,9 +138,7 @@
                             <ng-template #mobile_name>
                                 <span class="ml-auto">
                                     <ng-container *ngIf="primeTableService.isMobileView">
-                                        <span class="pull-right custom-link" [routerLink]="onEdit(rowData)"
-                                            >View Order
-                                        </span>
+                                        <span class="pull-right custom-link" [routerLink]="onEdit(rowData)">View </span>
                                     </ng-container>
                                 </span>
                             </ng-template>
@@ -149,7 +147,7 @@
 
                     <span *ngSwitchCase="'actions'" class="text-center">
                         <ng-container *ngIf="!primeTableService.isMobileView">
-                            <span class="custom-link" [routerLink]="onEdit(rowData)">View Order</span>
+                            <span class="custom-link" [routerLink]="onEdit(rowData)">View</span>
                         </ng-container>
                     </span>
 
@@ -168,10 +166,15 @@
                                 <div id="popover-mobile-content">
                                     <ul class="list-group custom-popover">
                                         <li class="list-group-item">
-                                            <a class="pointer-item" (click)="pop.hide()">Edit</a>
+                                            <a class="text-clr588 fnt-600 fnt-14" (click)="pop.hide()">Edit</a>
                                         </li>
                                         <li class="list-group-item">
-                                            <a class="pointer-item" (click)="pop.hide()"> Delete</a>
+                                            <a
+                                                class="text-clr588 fnt-600 fnt-14"
+                                                (click)="deleteProductFromList(rowData); pop.hide()"
+                                            >
+                                                Delete</a
+                                            >
                                         </li>
                                     </ul>
                                 </div>

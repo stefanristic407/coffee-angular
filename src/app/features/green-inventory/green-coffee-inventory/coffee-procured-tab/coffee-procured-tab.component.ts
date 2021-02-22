@@ -238,10 +238,10 @@ export class CoffeeProcuredTabComponent implements OnInit {
         this.table.reset();
     }
 
-    onEdit(item) {
-        return `/features/lot-sale/${item.id}`;
-    }
     availabilityPage(item) {
         return `/features/procured-coffee/${item.id}`;
+    }
+    sourcingRedirect() {
+        return '/sourcing/coffee-list';
     }
 }

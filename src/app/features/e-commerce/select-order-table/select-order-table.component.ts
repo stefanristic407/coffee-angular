@@ -186,7 +186,6 @@ export class SelectOrderTableComponent implements OnInit {
             document.getElementById('origin_id').style.border = '1px solid #d6d6d6';
         }
     }
-
     toggleDisplay() {
         this.showDisplay = !this.showDisplay;
         if (this.showDisplay == false) {

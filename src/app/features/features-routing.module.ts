@@ -300,7 +300,7 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'green-coffee-for-sale-details',
+                path: 'green-coffee-for-sale-details/:orderId',
                 component: GreenCoffeeForSaleDetailsComponent,
                 canActivate: [AuthGuard],
             },
@@ -310,7 +310,7 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'lot-sale/:orderId',
+                path: 'lot-sale',
                 component: LotSaleComponent,
                 canActivate: [AuthGuard],
             },
