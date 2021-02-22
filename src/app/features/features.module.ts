@@ -133,8 +133,8 @@ import { ProductDetailsComponent } from './e-commerce/product-details/product-de
 import { VarientDetailsComponent } from './e-commerce/varient-details/varient-details.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { RatingModule } from 'primeng/rating';
-import {ListboxModule} from 'primeng/listbox';
-
+import { ListboxModule } from 'primeng/listbox';
+import { ProgressBarModule } from 'primeng/progressbar';
 @NgModule({
     declarations: [
         OnboardCustomersComponent,
@@ -267,7 +267,8 @@ import {ListboxModule} from 'primeng/listbox';
         MatProgressBarModule,
         SharedModule,
         NgxChartsModule,
-        ListboxModule
+        ListboxModule,
+        ProgressBarModule,
     ],
 })
 export class FeaturesModule {}
