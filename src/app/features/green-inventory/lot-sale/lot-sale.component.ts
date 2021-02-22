@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserserviceService } from '@services';
+import { SharedServiceService } from '@app/shared/services/shared-service.service';
 
 @Component({
     selector: 'app-lot-sale',
@@ -13,15 +14,14 @@ import { UserserviceService } from '@services';
     styleUrls: ['./lot-sale.component.scss'],
 })
 export class LotSaleComponent implements OnInit {
-    // tslint:disable: variable-name
     appLanguage?: any;
     lotSaleActive: any = 0;
-    roaster_id: any = '';
+    roasterID: any = '';
     orderDetails: any;
     orderID: any = '';
     showDropdown = false;
-    order_status = 'IN_STOCK';
-    status_label = '';
+    orderStatus = 'IN_STOCK';
+    statusLabel = '';
     saleDetailsPresent = false;
     readOnlyMode = false;
     breadItems: any = [];
@@ -31,6 +31,9 @@ export class LotSaleComponent implements OnInit {
     vatDetailsArray: any = [];
     stockTypeArray: any = [];
     availablityName: any;
+    tableColumns = [];
+    tableValue = [];
+    popupDisplay = false;
     constructor(
         public globals: GlobalsService,
         public route: ActivatedRoute,
@@ -40,8 +43,9 @@ export class LotSaleComponent implements OnInit {
         private toasterService: ToastrService,
         private fb: FormBuilder,
         private userService: UserserviceService,
+        public sharedService: SharedServiceService,
     ) {
-        this.roaster_id = this.cookieService.get('roaster_id');
+        this.roasterID = this.cookieService.get('roaster_id');
         this.orderID = decodeURIComponent(this.route.snapshot.queryParams.orderId);
         this.lotSaleForm = this.fb.group({
             name: ['', Validators.compose([Validators.required])],
@@ -72,7 +76,7 @@ export class LotSaleComponent implements OnInit {
 
     public refreshData() {
         this.breadItems = [
-            { label: 'Home', routerLink: '/features/roaster-dashboard' },
+            { label: 'Home', routerLink: '/roaster-dashboard' },
             { label: 'Inventory' },
             { label: 'Green coffee management', routerLink: '/features/green-coffee-inventory' },
             { label: 'Marked for sale' },
@@ -85,16 +89,73 @@ export class LotSaleComponent implements OnInit {
         this.getProcuredOrderDetails();
         this.getSaleOrderDetails();
         this.getRoasterVatDetails();
+        if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
+            this.sharedService.isMobileView = true;
+        }
+        this.tableColumns = [
+            {
+                field: 'lot_id',
+                header: this.globals.languageJson?.lot_id,
+                sortable: false,
+                width: 15,
+            },
+            {
+                field: 'estate_name',
+                header: this.globals.languageJson?.estate,
+                width: 15,
+            },
+            {
+                field: 'order_reference',
+                header: this.globals.languageJson?.roaster_ref_no,
+                sortable: false,
+                width: 15,
+            },
+            {
+                field: 'origin',
+                header: this.globals.languageJson?.origin,
+                sortable: false,
+                width: 15,
+            },
+            {
+                field: 'species',
+                header: this.globals.languageJson?.species,
+                sortable: false,
+                width: 15,
+            },
+            {
+                field: 'varieties',
+                header: this.globals.languageJson?.variety,
+                sortable: false,
+                width: 15,
+            },
+            {
+                field: 'price',
+                header: this.globals.languageJson?.buying_price,
+                sortable: false,
+                width: 15,
+            },
+            {
+                field: 'cup_score',
+                header: this.globals.languageJson?.cupping_score,
+                sortable: false,
+                width: 15,
+            },
+            {
+                field: 'quantity',
+                header: this.globals.languageJson?.stock_in_hand,
+                sortable: false,
+                width: 15,
+            },
+        ];
     }
     language() {
         this.appLanguage = this.globals.languageJson;
         this.lotSaleActive++;
     }
     getSaleOrderDetails() {
-        this.roasterService.getMarkForSaleDetails(this.roaster_id, this.orderID).subscribe(
+        this.roasterService.getMarkForSaleDetails(this.roasterID, this.orderID).subscribe(
             (response) => {
                 if (response.success && response.result) {
-                    // this.saleDetailsPresent = true;
                     const lotDetails = response.result;
                     const lotFields = [
                         'name',
@@ -113,9 +174,9 @@ export class LotSaleComponent implements OnInit {
                         this.lotSaleForm.controls[ele].setValue(getValue);
                     });
                     this.readOnlyMode = lotDetails && lotDetails.status === 'SOLD' ? true : false;
-                    this.order_status = response.result.status;
+                    this.orderStatus = response.result.status;
                     this.availablityName = lotDetails.name;
-                    this.status_label = this.formatStatus(this.order_status);
+                    this.statusLabel = this.formatStatus(this.orderStatus);
                     this.refreshData();
                 }
             },
@@ -133,10 +194,11 @@ export class LotSaleComponent implements OnInit {
         return formatVal.replace('-', '');
     }
     getProcuredOrderDetails() {
-        this.roasterService.getProcuredCoffeeDetails(this.roaster_id, this.orderID).subscribe(
+        this.roasterService.getProcuredCoffeeDetails(this.roasterID, this.orderID).subscribe(
             (response) => {
                 if (response.success && response.result) {
                     this.orderDetails = response.result;
+                    this.tableValue.push(this.orderDetails);
                 }
             },
             (err) => {
@@ -145,7 +207,7 @@ export class LotSaleComponent implements OnInit {
         );
     }
     updateMarkForSale(productObj) {
-        this.roasterService.updateMarkForSale(this.roaster_id, this.orderID, productObj).subscribe(
+        this.roasterService.updateMarkForSale(this.roasterID, this.orderID, productObj).subscribe(
             (response) => {
                 if (response && response.success) {
                     this.toasterService.success('Details updated successfully');
@@ -158,13 +220,13 @@ export class LotSaleComponent implements OnInit {
         );
     }
     updateStatus() {
-        const status = { status: this.order_status };
-        this.roasterService.updateMarkForSaleStatus(this.roaster_id, this.orderID, status).subscribe(
+        const status = { status: this.orderStatus };
+        this.roasterService.updateMarkForSaleStatus(this.roasterID, this.orderID, status).subscribe(
             (response) => {
                 if (response && response.success) {
                     this.toasterService.success('Status updated successfully');
                     this.showDropdown = false;
-                    this.status_label = this.formatStatus(this.order_status);
+                    this.statusLabel = this.formatStatus(this.orderStatus);
                 }
             },
             (err) => {
@@ -194,7 +256,7 @@ export class LotSaleComponent implements OnInit {
         this.router.navigate([`/features/green-coffee-for-sale-details/${this.orderID}`]);
     }
     deleteProductFromList() {
-        this.roasterService.deleteProcuredCoffee(this.roaster_id, this.orderID).subscribe(
+        this.roasterService.deleteProcuredCoffee(this.roasterID, this.orderID).subscribe(
             (response) => {
                 if (response && response.success) {
                     this.toasterService.success('Product deleted successfully');
@@ -208,7 +270,7 @@ export class LotSaleComponent implements OnInit {
         );
     }
     getRoasterVatDetails() {
-        this.userService.getRoasterVatDetails(this.roaster_id, 'mr').subscribe((response) => {
+        this.userService.getRoasterVatDetails(this.roasterID, 'mr').subscribe((response) => {
             if (response.success && response.result) {
                 const vatArray = response.result;
                 vatArray.forEach((element) => {

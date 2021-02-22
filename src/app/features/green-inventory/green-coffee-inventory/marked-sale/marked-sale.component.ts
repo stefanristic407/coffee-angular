@@ -14,13 +14,14 @@ import { ToastrService } from 'ngx-toastr';
     styleUrls: ['./marked-sale.component.scss'],
 })
 export class MarkedSaleComponent implements OnInit {
-    // tslint:disable: variable-name
     termStatus: any;
     display: any;
     termOrigin: any;
     appLanguage?: any;
     mainData: any[] = [];
-    roaster_id: string;
+    roasterID: string;
+    deleteId: any;
+    popupDisplay = false;
     sellerItems = [
         { label: 'All origins', value: null },
         { label: 'Sweden', value: 'SE' },
@@ -58,7 +59,7 @@ export class MarkedSaleComponent implements OnInit {
     ) {
         this.termStatus = { name: 'All', statusCode: '' };
         this.display = '10';
-        this.roaster_id = this.cookieService.get('roaster_id');
+        this.roasterID = this.cookieService.get('roaster_id');
         this.primeTableService.rows = 10;
         this.primeTableService.sortBy = 'created_at';
     }
@@ -165,8 +166,12 @@ export class MarkedSaleComponent implements OnInit {
             ];
         }
     }
+    openModal(item) {
+        this.popupDisplay = true;
+        this.deleteId = item.order_id;
+    }
     ngOnInit(): void {
-        this.primeTableService.url = `/ro/${this.roaster_id}/marked-sale-coffees`;
+        this.primeTableService.url = `/ro/${this.roasterID}/marked-sale-coffees`;
 
         this.initializeTable();
 
@@ -207,11 +212,12 @@ export class MarkedSaleComponent implements OnInit {
         link = [`/features/green-coffee-for-sale-details/${item.order_id}`];
         return link;
     }
-    deleteProductFromList(item) {
-        this.roasterService.deleteProcuredCoffee(this.roaster_id, item.order_id).subscribe(
+    deleteProductFromList(deleteId) {
+        this.roasterService.deleteProcuredCoffee(this.roasterID, deleteId).subscribe(
             (response) => {
                 if (response && response.success) {
                     this.toastrService.success('Product deleted successfully');
+                    this.popupDisplay = true;
                 }
             },
             (err) => {

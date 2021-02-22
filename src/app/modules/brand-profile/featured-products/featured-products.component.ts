@@ -75,13 +75,20 @@ export class FeaturedProductsComponent implements OnInit {
     }
 
     save() {
-        this.roasterService.updateFeatured(this.roasterId, this.productIds).subscribe((res: any) => {
-            if (res.success) {
-                this.toastrService.success('Featured products updated successfully');
-                this.router.navigateByUrl('/brand-profile/home-page');
-            } else {
-                this.toastrService.error('Error while updating featured products');
-            }
-        });
+        const sortPriorities = _.chain(this.productIds)
+            .map((item, index) => {
+                return { product_id: item, sort_priority: index + 1 };
+            })
+            .value();
+        this.roasterService
+            .updateFeatured(this.roasterId, { featured_products: sortPriorities })
+            .subscribe((res: any) => {
+                if (res.success) {
+                    this.toastrService.success('Featured products updated successfully');
+                    this.router.navigateByUrl('/brand-profile/home-page');
+                } else {
+                    this.toastrService.error('Error while updating featured products');
+                }
+            });
     }
 }

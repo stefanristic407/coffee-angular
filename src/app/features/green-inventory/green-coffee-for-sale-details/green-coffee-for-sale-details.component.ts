@@ -11,16 +11,13 @@ import { ActivatedRoute, Router } from '@angular/router';
     styleUrls: ['./green-coffee-for-sale-details.component.scss'],
 })
 export class GreenCoffeeForSaleDetailsComponent implements OnInit {
-    // tslint:disable: variable-name
     items: GalleryItem[];
     appLanguage?: any;
     procuredActive: any = 0;
-    roaster_id: any = '';
+    roasterID: any = '';
     orderDetails: any;
     orderID: any = '';
     saleInformation: any;
-    public data = [];
-    imageData: any = [];
     breadItems: any = [];
     selectedTab = 0;
     roasterNotes: any = [];
@@ -33,7 +30,7 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
         public cookieService: CookieService,
         private router: Router,
     ) {
-        this.roaster_id = this.cookieService.get('roaster_id');
+        this.roasterID = this.cookieService.get('roaster_id');
         this.route.params.subscribe((params) => {
             this.orderID = params.orderId;
         });
@@ -50,7 +47,7 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
     }
     public refreshData() {
         this.breadItems = [
-            { label: 'Home', routerLink: '/features/roaster-dashboard' },
+            { label: 'Home', routerLink: '/roaster-dashboard' },
             { label: 'Sourcing Module', routerLink: '/sourcing/estate-list' },
             { label: 'Green coffee Inventory', routerLink: '/features/green-coffee-inventory' },
             { label: 'Marked for sale' },
@@ -65,7 +62,7 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
         this.getRoasterNotes();
     }
     getSaleOrderDetails() {
-        this.roasterService.getMarkForSaleDetails(this.roaster_id, this.orderID).subscribe(
+        this.roasterService.getMarkForSaleDetails(this.roasterID, this.orderID).subscribe(
             (response) => {
                 console.log(response);
                 if (response.success && response.result) {
@@ -79,7 +76,7 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
         );
     }
     getProcuredOrderDetails() {
-        this.roasterService.getProcuredCoffeeDetails(this.roaster_id, this.orderID).subscribe(
+        this.roasterService.getProcuredCoffeeDetails(this.roasterID, this.orderID).subscribe(
             (response) => {
                 console.log(response);
                 if (response.success && response.result) {
@@ -94,8 +91,8 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
             },
         );
     }
-    getGCAvailableDetails(harvest_id) {
-        this.roasterService.getGCAvailableDetails(harvest_id).subscribe(
+    getGCAvailableDetails(harvestID) {
+        this.roasterService.getGCAvailableDetails(harvestID).subscribe(
             (response) => {
                 if (response && response.success && response.result) {
                     const result = response.result;
@@ -119,7 +116,7 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
         );
     }
     getRoasterNotes() {
-        this.roasterService.getRoasterNotes(this.roaster_id, this.orderID).subscribe(
+        this.roasterService.getRoasterNotes(this.roasterID, this.orderID).subscribe(
             (response) => {
                 if (response && response.success && response.result) {
                     this.roasterNotes = response.result;

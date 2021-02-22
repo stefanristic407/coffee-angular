@@ -14,11 +14,10 @@ import { Table } from 'primeng/table';
     styleUrls: ['./coffee-procured-tab.component.scss'],
 })
 export class CoffeeProcuredTabComponent implements OnInit {
-    // tslint:disable: variable-name
     termStatus: any;
     display: any;
     appLanguage?: any;
-    roaster_id: string;
+    roasterID: string;
     mainData: any[] = [];
     originArray: any[] = [];
     searchString = '';
@@ -55,7 +54,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
     ) {
         this.termStatus = { name: 'All origins', isoCode: '' };
         this.display = '10';
-        this.roaster_id = this.cookieService.get('roaster_id');
+        this.roasterID = this.cookieService.get('roaster_id');
         this.primeTableService.rows = 10;
         this.primeTableService.sortBy = 'created_at';
     }
@@ -182,7 +181,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.primeTableService.url = `/ro/${this.roaster_id}/procured-coffees`;
+        this.primeTableService.url = `/ro/${this.roasterID}/procured-coffees`;
 
         this.initializeTableProcuredCoffee();
 
@@ -195,32 +194,8 @@ export class CoffeeProcuredTabComponent implements OnInit {
         );
 
         this.appLanguage = this.globals.languageJson;
-        // this.getProcuredCoffeeList();
-        // this.originArray.push({ name: 'All origins', isoCode: '' });
-        // this.originArray = this.originArray.concat(this.roasteryProfileService.countryList);
     }
-    // getProcuredCoffeeList() {
-    //     const origin = this.termStatus && this.termStatus.name !== 'All' ? this.termStatus.isoCode : undefined;
-    //     const displayCount = this.display ? this.display : undefined;
-    //     const searchString = this.searchString ? this.searchString : undefined;
-    //     this.mainData = [];
-    //     this.roasterService.getProcuredCoffeeList(this.roaster_id, origin, displayCount, searchString).subscribe(
-    //         (response) => {
-    //             console.log(response);
-    //             if (response && response.result) {
-    //                 this.mainData = response.result;
-    //             }
-    //         },
-    //         (err) => {
-    //             console.log(err);
-    //         },
-    //     );
-    // }
 
-    // setStatus(term: any, term1?) {
-    //     this.termStatus = term;
-    //     this.getProcuredCoffeeList();
-    // }
     setStatus() {
         this.primeTableService.form?.patchValue({
             status: this.termStatus,

@@ -81,18 +81,16 @@
                                     <div class="col-md-12 p-0">
                                         <div class="pt-4">
                                             <div class="row">
-                                                <div class="col-12 col-md-4 form-group sewn-form-field">
-                                                    <label class="fnt-14 fnt-muli fnt-600 text-clr334"
-                                                        >Shipping type *</label
-                                                    >
+                                                <div class="col-12 col-md-6 sewn-form-field">
+                                                    <label>Shipping type<span class="star">*</span></label>
                                                     <input
-                                                        class="form-control"
                                                         type="text"
                                                         placeholder="Please enter shipping name"
                                                         name="transcation_type"
                                                         formControlName="name"
+                                                        pInputText
                                                     />
-                                                    <span
+                                                    <small
                                                         class="text-clrb1f fnt-14 fnt-muli"
                                                         *ngIf="
                                                             detailsFormControl.name.touched &&
@@ -100,10 +98,9 @@
                                                         "
                                                     >
                                                         Shipment type is required
-                                                    </span>
+                                                    </small>
                                                 </div>
                                             </div>
-
                                             <div class="row">
                                                 <div class="col-12 col-md-4">
                                                     <div class="form-input sewn-form-field">
@@ -128,7 +125,7 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        <span
+                                                        <small
                                                             class="text-clrb1f fnt-14 fnt-muli"
                                                             *ngIf="
                                                                 detailsFormControl.price.touched &&
@@ -136,79 +133,71 @@
                                                             "
                                                         >
                                                             Shipment price is required
-                                                        </span>
+                                                        </small>
+                                                        <div>
+                                                            <p-dropdown
+                                                                [options]="shippingPriceUnitArray"
+                                                                optionLabel="label"
+                                                                [style]="{ width: '100%', border: '0px' }"
+                                                                optionValue="value"
+                                                            ></p-dropdown>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-md-4">
-                                                    <div class="form-input sewn-form-field">
-                                                        <label class="fnt-14 fnt-muli fnt-600 text-clr334"
-                                                            >Estimated delivery time<span>*</span></label
+                                                <div class="col-12 col-md-3 sewn-form-field">
+                                                    <label>Estimated delivery time<span class="star">*</span></label>
+                                                    <div class="weightInputGroupDiv d-flex">
+                                                        <input
+                                                            type="number"
+                                                            placeholder=""
+                                                            class="weightInputDiv"
+                                                            formControlName="day_min"
+                                                            pInputText
+                                                        />
+                                                        <small
+                                                            *ngIf="details['controls']['day_min'].errors?.required"
+                                                            class="p-error"
                                                         >
-                                                        <div class="input-group">
-                                                            <input
-                                                                type="number"
-                                                                placeholder=""
-                                                                class="form-control input-group-right-border"
-                                                                aria-label="Text input with dropdown button"
-                                                                formControlName="day_min"
-                                                            />
-                                                            <div class="input-group-append">
-                                                                <span
-                                                                    name="Year"
-                                                                    required=""
-                                                                    class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no"
-                                                                >
-                                                                    <option value="USD">Days</option>
-                                                                </span>
-                                                            </div>
+                                                            Shipment price is required
+                                                        </small>
+                                                        <div>
+                                                            <p-dropdown
+                                                                [options]="dayMinListArray"
+                                                                optionLabel="label"
+                                                                [style]="{ width: '100%', border: '0px' }"
+                                                                optionValue="value"
+                                                            ></p-dropdown>
                                                         </div>
-                                                        <span
-                                                            class="text-clrb1f fnt-14 fnt-muli"
-                                                            *ngIf="
-                                                                detailsFormControl.day_min.touched &&
-                                                                detailsFormControl.day_min.errors?.required
-                                                            "
-                                                        >
-                                                            Required
-                                                        </span>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-md-4">
-                                                    <div class="form-input sewn-form-field">
-                                                        <label class="fnt-14 fnt-muli fnt-600 text-clr334"
-                                                            >Estimated delivery time<span>*</span></label
+                                                <div class="col-12 col-md-3 sewn-form-field mt-3">
+                                                    <label></label>
+                                                    <div class="weightInputGroupDiv d-flex">
+                                                        <input
+                                                            type="number"
+                                                            placeholder=""
+                                                            class="weightInputDiv"
+                                                            formControlName="day_max"
+                                                            pInputText
+                                                        />
+                                                        <small
+                                                            *ngIf="details['controls']['day_max'].errors?.required"
+                                                            class="p-error"
                                                         >
-                                                        <div class="input-group">
-                                                            <input
-                                                                type="number"
-                                                                placeholder=""
-                                                                class="form-control input-group-right-border"
-                                                                aria-label="Text input with dropdown button"
-                                                                formControlName="day_max"
-                                                            />
-                                                            <div class="input-group-append">
-                                                                <span
-                                                                    name="Year"
-                                                                    required=""
-                                                                    class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no"
-                                                                >
-                                                                    <option value="USD">Days</option>
-                                                                </span>
-                                                            </div>
+                                                            Shipment price is required
+                                                        </small>
+                                                        <div>
+                                                            <p-dropdown
+                                                                [options]="dayMinListArray"
+                                                                optionLabel="label"
+                                                                [style]="{ width: '100%', border: '0px' }"
+                                                                optionValue="value"
+                                                            ></p-dropdown>
                                                         </div>
-                                                        <span
-                                                            class="text-clrb1f fnt-14 fnt-muli"
-                                                            *ngIf="
-                                                                detailsFormControl.day_max.touched &&
-                                                                detailsFormControl.day_max.errors?.required
-                                                            "
-                                                        >
-                                                            Required
-                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-12">
+                                            <div class="col-12 p-0">
                                                 <button
                                                     type="submit"
                                                     class="fnt-14 fnt-muli fnt-700 btn btn-raised pull-right"
@@ -262,7 +251,7 @@
                                     </table>
                                 </div>
 
-                                <div class="col-12 mt-3">
+                                <div class="col-12 mt-3 p-0">
                                     <button
                                         type="button"
                                         class="fnt-14 fnt-muli fnt-700 btn btn-raised pull-right"
@@ -280,7 +269,7 @@
         <!--Mobile View-->
         <div class="d-sm-block d-lg-none">
             <div class="row pt-4" *ngIf="selectedMobileTab == ''">
-                <div class="col-sm-12 col-md-6 px-0 pr-md-2">
+                <div class="col-sm-12 col-md-6 pr-md-2">
                     <div class="feature-card">
                         <label class="fnt-16 fnt-multi fnt-bold txt-clr334" for="">VAT management</label>
                         <span class="fnt-16 fnt-multi fnt-500txt-clr334"
@@ -289,7 +278,7 @@
                         <button class="btn btn-raised mt-4" (click)="selectMobileTab('VAT')">Manage VAT Rate</button>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-6 px-0 pl-md-2">
+                <div class="col-sm-12 col-md-6 pl-md-2">
                     <div class="feature-card">
                         <label class="fnt-16 fnt-multi fnt-bold txt-clr334" for="">Shipping Details</label>
                         <span class="fnt-16 fnt-multi fnt-500 txt-clr334"
@@ -302,7 +291,7 @@
                 </div>
             </div>
             <div class="row pt-4" *ngIf="selectedMobileTab == 'VAT'">
-                <div class="col-12 p-0">
+                <div class="col-12">
                     <p-tabView styleClass="pb-4" [(activeIndex)]="selectedIndex">
                         <p-tabPanel header="Micro roaster">
                             <div class="pt-3">
@@ -329,14 +318,14 @@
                         <div class="col-md-12 Onboard-rows">
                             <div class="Onboard-rows__inputs pt-3">
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-6 form-group sewn-form-field p-0 pr-md-3">
+                                    <div class="col-sm-12 col-md-6 form-group sewn-form-field pr-md-3">
                                         <label class="fnt-14 fnt-muli fnt-600 text-clr334">Shipping type *</label>
                                         <input
-                                            class="form-control"
                                             type="text"
                                             placeholder="Please enter shipping name"
                                             name="transcation_type"
                                             formControlName="name"
+                                            pInputText
                                         />
                                         <span
                                             class="text-clrb1f fnt-14 fnt-muli"
@@ -348,105 +337,86 @@
                                             Shipment type is required
                                         </span>
                                     </div>
-                                    <div class="col-sm-12 col-md-6 form-group sewn-form-field p-0">
-                                        <label class="fnt-14 fnt-muli fnt-600 text-clr334"
-                                            >Shipping Price<span>*</span></label
-                                        >
-                                        <div class="input-group">
+                                    <div class="col-sm-12 col-md-6 form-group sewn-form-field">
+                                        <label>Shipping Price<span class="star">*</span></label>
+                                        <div class="weightInputGroupDiv d-flex">
                                             <input
                                                 type="number"
                                                 placeholder="Please enter shipping amount"
-                                                class="form-control input-group-right-border"
-                                                aria-label="Text input with dropdown button"
+                                                class="weightInputDiv"
                                                 formControlName="price"
+                                                pInputText
                                             />
-                                            <div class="input-group-append">
-                                                <select
-                                                    name="Year"
-                                                    required=""
-                                                    class="form-control select-region select-form-group-dropdown select-region-local"
-                                                >
-                                                    <option value="USD">USD</option>
-                                                </select>
+                                            <small
+                                                *ngIf="details['controls']['price'].errors?.required"
+                                                class="p-error"
+                                            >
+                                                Shipment price is required
+                                            </small>
+                                            <div>
+                                                <p-dropdown
+                                                    [options]="shippingPriceUnitArray"
+                                                    optionLabel="label"
+                                                    [style]="{ width: '100%', border: '0px' }"
+                                                    optionValue="value"
+                                                ></p-dropdown>
                                             </div>
                                         </div>
-                                        <span
-                                            class="text-clrb1f fnt-14 fnt-muli"
-                                            *ngIf="
-                                                detailsFormControl.price.touched &&
-                                                detailsFormControl.price.errors?.required
-                                            "
-                                        >
-                                            Shipment price is required
-                                        </span>
                                     </div>
-                                    <div class="col-12 p-0">
-                                        <label class="fnt-14 fnt-muli fnt-600 text-clr334"
-                                            >Estimated delivery time<span>*</span></label
-                                        >
-                                    </div>
-                                    <div class="d-flex justify-content-between">
-                                        <div class="form-group sewn-form-field mr-2 tabWidth">
-                                            <div class="input-group">
-                                                <input
-                                                    type="number"
-                                                    placeholder=""
-                                                    class="form-control input-group-right-border"
-                                                    aria-label="Text input with dropdown button"
-                                                    formControlName="day_min"
-                                                />
-                                                <div class="input-group-append">
-                                                    <span
-                                                        name="Year"
-                                                        required=""
-                                                        class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no"
-                                                    >
-                                                        <option value="USD">Days</option>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <span
-                                                class="text-clrb1f fnt-14 fnt-muli"
-                                                *ngIf="
-                                                    detailsFormControl.day_min.touched &&
-                                                    detailsFormControl.day_min.errors?.required
-                                                "
+                                    <div class="col-6 sewn-form-field">
+                                        <label>Estimated delivery time<span class="star">*</span></label>
+                                        <div class="weightInputGroupDiv d-flex">
+                                            <input
+                                                type="number"
+                                                placeholder=""
+                                                class="weightInputDiv"
+                                                formControlName="day_min"
+                                                pInputText
+                                            />
+                                            <small
+                                                *ngIf="details['controls']['day_min'].errors?.required"
+                                                class="p-error"
                                             >
-                                                Required
-                                            </span>
+                                                Shipment price is required
+                                            </small>
+                                            <div>
+                                                <p-dropdown
+                                                    [options]="dayMinListArray"
+                                                    optionLabel="label"
+                                                    [style]="{ width: '100%', border: '0px' }"
+                                                    optionValue="value"
+                                                ></p-dropdown>
+                                            </div>
                                         </div>
-                                        <div class="form-group sewn-form-field tabWidth">
-                                            <div class="input-group">
-                                                <input
-                                                    type="number"
-                                                    placeholder=""
-                                                    class="form-control input-group-right-border"
-                                                    aria-label="Text input with dropdown button"
-                                                    formControlName="day_max"
-                                                />
-                                                <div class="input-group-append">
-                                                    <span
-                                                        name="Year"
-                                                        required=""
-                                                        class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no"
-                                                    >
-                                                        <option value="USD">Days</option>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <span
-                                                class="text-clrb1f fnt-14 fnt-muli"
-                                                *ngIf="
-                                                    detailsFormControl.day_max.touched &&
-                                                    detailsFormControl.day_max.errors?.required
-                                                "
+                                    </div>
+                                    <div class="col-6 sewn-form-field mt-3">
+                                        <label></label>
+                                        <div class="weightInputGroupDiv d-flex">
+                                            <input
+                                                type="number"
+                                                placeholder=""
+                                                class="weightInputDiv"
+                                                formControlName="day_max"
+                                                pInputText
+                                            />
+                                            <small
+                                                *ngIf="details['controls']['day_max'].errors?.required"
+                                                class="p-error"
                                             >
-                                                Required
-                                            </span>
+                                                Shipment price is required
+                                            </small>
+                                            <div>
+                                                <p-dropdown
+                                                    [options]="dayMinListArray"
+                                                    optionLabel="label"
+                                                    [style]="{ width: '100%', border: '0px' }"
+                                                    optionValue="value"
+                                                ></p-dropdown>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row d-sm-block d-md-none">
+                                <div class="row no-gutters d-sm-block d-md-none">
                                     <button
                                         type="submit"
                                         class="col-12 fnt-14 fnt-muli fnt-700 btn btn-raised"

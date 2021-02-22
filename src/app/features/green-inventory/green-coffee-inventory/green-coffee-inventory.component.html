@@ -8,7 +8,7 @@
 
 <div *ngIf="greenActive == 1">
     <section class="mobile-card-view">
-        <div class="bg-fff coffee-exp p-5">
+        <div class="main-block">
             <div class="row m-1">
                 <div class="col-lg-9 col-md-6 p-0">
                     <p-breadcrumb [model]="breadItems"></p-breadcrumb>
@@ -28,8 +28,10 @@
                 </div>
             </div>
             <section class="">
-                <h5 class="estate-order-title pt-3">{{ globals.languageJson?.green_coffee_inventory }}</h5>
-                <p class="Give-your-end-users mobile-lead">Manage your procured coffee and mark coffee for sale</p>
+                <h5 class="fnt-18 text-clr334 fnt-bold pt-3">{{ globals.languageJson?.green_coffee_inventory }}</h5>
+                <p class="fnt-14 text-clr334 fnt-normal mobile-lead">
+                    Manage your procured coffee and mark coffee for sale
+                </p>
                 <div class="file-share-search web-lead w-100">
                     <img class="mr-1 mr-md-2" src="assets/images/search.svg" />
                     <input
