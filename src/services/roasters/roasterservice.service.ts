@@ -630,10 +630,10 @@ export class RoasterserviceService {
     }
 
     // Update featured products list by RO
-    updateFeatured(roasterId: any, product_ids: number[] = []): Observable<any> {
+    updateFeatured(roasterId: any, body: any): Observable<any> {
         const data = {
             api_call: `/ro/${roasterId}/products/update-featured`,
-            data: { product_ids },
+            data: body,
             method: 'PUT',
             token: this.cookieService.get('Auth'),
         };

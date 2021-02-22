@@ -13,7 +13,8 @@
     margin-right: 8px;
 
     @media (min-width: 768px) {
-        width: 169px;
+        min-width: 171px;
+        width: 171px;
         height: 152px;
     }
     &:last-child {
@@ -70,7 +71,7 @@
 
 .cert-header {
     padding: 13px 16px;
-    @media (min-width: 768px) {
+    @media (min-width: 992px) {
         padding: 13px 24px;
     }
 }
