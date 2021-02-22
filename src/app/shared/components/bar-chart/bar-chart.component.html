@@ -1,6 +1,6 @@
 <div>
     <div class="vertical-bar">
-        <div echarts [options]="verticalChartOption" style="width: 100%"></div>
+        <div #verticalChart echarts [options]="verticalChartOption" style="width: 100%"></div>
     </div>
     <div class="horizontal-bar">
         <div *ngFor="let item of horizontalData">
