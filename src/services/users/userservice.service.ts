@@ -8,6 +8,7 @@ import { SocketService } from '../socket.service';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from 'src/environments/environment';
 import { map, tap } from 'rxjs/operators';
+import { OrgType } from '@models';
 
 @Injectable({
     providedIn: 'root',
@@ -1009,18 +1010,19 @@ export class UserserviceService {
         };
         return this.http.put(this.putUrl, data).pipe(map((res) => res));
     }
-    getEachEsateReviews(estate_id: any, params = '') {
+    // List reviews received for an organization
+    getReviews(orgId: any, orgType: OrgType, params = '') {
         const data = {
-            // data['api_call'] = "/general/es/" + estate_id + "/reviews";
-            api_call: `/general/es/${estate_id}/reviews/?${params}`,
+            api_call: `/general/${orgType}/${orgId}/reviews/?${params}`,
             method: 'GET',
             token: this.cookieService.get('Auth'),
         };
         return this.http.post(this.roasterUrl, data);
     }
-    getEachEsateReviewsSummary(estate_id: any) {
+    // Get review summary received for an organization
+    getReviewsSummary(orgId: any, orgType = OrgType.ROASTER) {
         const data = {
-            api_call: '/general/es/' + estate_id + '/reviews-summary',
+            api_call: `/general/${orgType}/${orgId}/reviews-summary`,
             method: 'GET',
             token: this.cookieService.get('Auth'),
         };
@@ -1330,15 +1332,6 @@ export class UserserviceService {
             api_call: `/ro/${roaster_id}/stats?sections=${query.sections || ''}&customer_type=${
                 query.customer_type || ''
             }&chart_type=${query.chart_type || ''}&date_from=${query.date_from || ''}&date_to=${query.date_to || ''}`,
-            method: 'GET',
-            token: this.cookieService.get('Auth'),
-        };
-        return this.http.post(this.roasterUrl, data);
-    }
-
-    getReviewsSummary(roaster_id: any) {
-        const data = {
-            api_call: '/general/ro/' + roaster_id + '/reviews-summary',
             method: 'GET',
             token: this.cookieService.get('Auth'),
         };

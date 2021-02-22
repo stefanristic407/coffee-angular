@@ -1,0 +1,19 @@
+<div animateOnScroll animationName="fadeIn" class="animation-bounce-in-up br-main br-4 h-100">
+    <div class="fnt-18 fnt-bold text-clr334 br-4 bg-f8 p-2 m-1">Top sourcing countries on SEWN</div>
+    <div class="m-3">
+        <div *ngIf="sourcing && sourcing.sourcing_stats; else blank">
+            <app-bar-chart [results]="chartData" [unitName]="'Ton'"> </app-bar-chart>
+        </div>
+        <ng-template #blank>
+            <div class="flex-fill d-flex flex-column justify-content-center align-items-center text-center p-5">
+                <img class="mb-3" src="assets/images/leaf-active.svg" alt="" />
+                <p class="fnt-14 fnt-muli fnt-normal text-gray588 mb-4 col-md-6">
+                    You'll be able to see you sales stats and customer insights once you get orders. List your products
+                    to kick-start your sales.
+                </p>
+
+                <button class="btn-raised" routerLink="/features/roasted-coffee-batch">Manage inventory</button>
+            </div>
+        </ng-template>
+    </div>
+</div>

@@ -8,9 +8,7 @@
                             <span id="title-breadcrumb-1" class="sr-only"></span>
                             <ul class="bread-nav">
                                 <li class="b-cum">
-                                    <a class="b-cum" routerLink="/features/welcome-aboard">{{
-                                        globals.languageJson?.home
-                                    }}</a
+                                    <a class="b-cum" routerLink="/">{{ globals.languageJson?.home }}</a
                                     ><span class="padl-r" aria-hidden="true"
                                         ><img class="group-img" src="/assets/images/arrow-1.png" alt=""
                                     /></span>
@@ -524,7 +522,7 @@
                             <ul class="details-list p-0 ml-2 ml-md-3">
                                 <li class="estate-name">{{ bookedService.owner_name }}</li>
                                 <li class="estate-number pt-1">
-                                    <span class="cursor-pointer" routerLink="/ordermanagement/review-ratings">
+                                    <span class="cursor-pointer" [routerLink]="orgType | reviewLink: orderBookId">
                                         <img class="" src="assets/images/star-1.png" alt="User" />
                                         <span class="star-no pl-1">{{ bookedService.rating }}</span>
                                     </span>

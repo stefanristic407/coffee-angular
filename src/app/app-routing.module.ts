@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
-import { HealthCheckComponent } from './health-check/health-check.component';
+import { HealthCheckComponent } from '@components';
 import { LayoutComponent } from './layout/layout.component';
 
 export const routes: Routes = [
@@ -13,6 +13,10 @@ export const routes: Routes = [
         path: '',
         component: LayoutComponent,
         children: [
+            {
+                path: '',
+                loadChildren: () => import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
+            },
             {
                 path: 'features',
                 loadChildren: () => import('./features/features.module').then((m) => m.FeaturesModule),
@@ -32,7 +36,10 @@ export const routes: Routes = [
                 loadChildren: () =>
                     import('./modules/team-management/team-management.module').then((m) => m.TeamManagementModule),
             },
-            { path: 'people', loadChildren: () => import('./people/people.module').then((m) => m.PeopleModule) },
+            {
+                path: 'people',
+                loadChildren: () => import('./modules/people/people.module').then((m) => m.PeopleModule),
+            },
             {
                 path: 'invite-friends',
                 loadChildren: () =>
@@ -47,12 +54,11 @@ export const routes: Routes = [
                 loadChildren: () =>
                     import('./modules/brand-profile/brand-profile.module').then((m) => m.BrandProfileModule),
             },
-            { path: '', redirectTo: 'features', pathMatch: 'full' },
         ],
     },
     {
         path: 'error',
-        loadChildren: () => import('./error-module/error-module.module').then((m) => m.ErrorModuleModule),
+        loadChildren: () => import('./modules/error-module/error-module.module').then((m) => m.ErrorModuleModule),
     },
     { path: '**', redirectTo: 'auth' },
 ];

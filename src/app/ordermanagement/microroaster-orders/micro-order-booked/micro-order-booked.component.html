@@ -8,7 +8,7 @@
                             <span id="title-breadcrumb-1" class="sr-only"></span>
                             <ul class="bread-nav">
                                 <li class="b-cum">
-                                    <a class="b-cum" routerLink="/features/welcome-aboard">Home</a
+                                    <a class="b-cum" routerLink="/">Home</a
                                     ><span class="padl-r" aria-hidden="true"
                                         ><img class="group-img" src="/assets/images/arrow-1.png" alt=""
                                     /></span>
@@ -391,7 +391,7 @@
                                         }}
                                     </li>
                                     <li class="estate-number pt-1">
-                                        <span class="cursor-pointer" routerLink="/ordermanagement/review-ratings">
+                                        <span class="cursor-pointer" [routerLink]="orgType | reviewLink: bookId">
                                             <img class="" src="assets/images/star-1.png" alt="User" />
                                             <span class="star-no pl-1" *ngIf="bookDetailService.mrProfileDetails">
                                                 {{

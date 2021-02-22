@@ -161,12 +161,6 @@ export class SelectOrderTableComponent implements OnInit {
     isAllCheckedEstate() {
         return this.data.every((_) => _.state);
     }
-    // setStatus(term: any) {
-    // 	this.estatetermStatus = term;
-    // 	this.datatableElement.dtInstance.then(table => {
-    // 		table.column(9).search(this.estatetermStatus).draw();
-    // 	});
-    // }
 
     setOrigin(origindata: any) {
         this.estatetermOrigin = origindata;
@@ -174,12 +168,6 @@ export class SelectOrderTableComponent implements OnInit {
             table.column(4).search(origindata).draw();
         });
     }
-    // setType(data: any) {
-    // 	this.estatetermType = data;
-    // 	this.datatableElement.dtInstance.then(table => {
-    // 		table.column(8).search(data).draw();
-    // 	});
-    // }
     setDisplay(data: any) {
         this.displayNumbers = data;
         $('select').val(data).trigger('change');
@@ -242,7 +230,7 @@ export class SelectOrderTableComponent implements OnInit {
         this.selectId = this.selectedOrder.id;
         const navigationExtras: NavigationExtras = {
             queryParams: {
-                ordId: this.selectId ? this.selectId : undefined,
+                ordId: this.selectId ? this.selectId : '',
             },
         };
         this.router.navigate(['/features/new-roasted-batch'], navigationExtras);

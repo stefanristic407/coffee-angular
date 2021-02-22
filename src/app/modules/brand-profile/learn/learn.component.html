@@ -29,7 +29,7 @@
                                     {{ infoForm.get('banner_title').value | wordCount }}/10 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="banner_title" pInputText />
+                            <input type="text" formControlName="banner_title" appWordLimit [limit]="10" pInputText />
                             <small *ngIf="infoForm.controls.banner_title.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -50,7 +50,7 @@
                                     {{ infoForm.get('intro_title').value | wordCount }}/15 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="intro_title" pInputText />
+                            <input type="text" formControlName="intro_title" appWordLimit [limit]="15" pInputText />
                             <small *ngIf="infoForm.controls.intro_title.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -84,7 +84,7 @@
                                     {{ infoForm.get('title').value | wordCount }}/10 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="title" pInputText />
+                            <input type="text" formControlName="title" appWordLimit [limit]="10" pInputText />
                             <small *ngIf="infoForm.controls.title.errors?.required" class="p-error"> Required </small>
                             <small *ngIf="infoForm.controls.title.errors?.maxWordCount" class="p-error">
                                 Please input 10 words
@@ -102,7 +102,13 @@
                                         {{ infoForm.get('step' + i + '_title').value | wordCount }}/10 words
                                     </span>
                                 </label>
-                                <input type="text" formControlName="step{{ i }}_title" pInputText />
+                                <input
+                                    type="text"
+                                    formControlName="step{{ i }}_title"
+                                    appWordLimit
+                                    [limit]="10"
+                                    pInputText
+                                />
                                 <small
                                     *ngIf="infoForm.controls['step' + i + '_title'].errors?.required"
                                     class="p-error"
@@ -124,7 +130,13 @@
                                         {{ infoForm.get('step' + i + '_short_description').value | wordCount }}/50 words
                                     </span>
                                 </label>
-                                <input type="text" formControlName="step{{ i }}_short_description" pInputText />
+                                <input
+                                    type="text"
+                                    formControlName="step{{ i }}_short_description"
+                                    appWordLimit
+                                    [limit]="50"
+                                    pInputText
+                                />
                                 <small
                                     *ngIf="infoForm.controls['step' + i + '_short_description'].errors?.required"
                                     class="p-error"
