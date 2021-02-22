@@ -32,6 +32,8 @@ export class VatManagementComponent implements OnInit {
         day_max: '',
     };
     selectedMobileTab = '';
+    shippingPriceUnitArray = [];
+    dayMinListArray = [];
     constructor(
         private router: Router,
         private toastrService: ToastrService,
@@ -48,6 +50,18 @@ export class VatManagementComponent implements OnInit {
         this.options = [
             { name: 'Vat Management', code: '', index: 0 },
             { name: 'Shipping Details', code: '', index: 1 },
+        ];
+        this.shippingPriceUnitArray = [
+            {
+                label: 'USD',
+                value: 'USD',
+            },
+        ];
+        this.dayMinListArray = [
+            {
+                label: 'Days',
+                value: 'Days',
+            },
         ];
         this.route.queryParams.subscribe((params) => {
             if (params.type) {
