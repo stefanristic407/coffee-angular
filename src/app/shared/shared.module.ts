@@ -60,6 +60,7 @@ import { MonthPipe } from './pipes/month/month.pipe';
 import { OrgTypePipe } from './pipes/org-type.pipe';
 import { WordCountPipe } from './pipes/word-count/word-count.pipe';
 
+import { RatingDirective } from './directives/rating.directive';
 import { WordLimitDirective } from './directives/word-limit.directive';
 import { LifecyclehookDirective } from './directives/lifecyclehook.directive';
 
@@ -179,7 +180,7 @@ const COMPONENTS = [
     ReviewsComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
-const DIRECTIVES = [WordLimitDirective, LifecyclehookDirective];
+const DIRECTIVES = [WordLimitDirective, RatingDirective, LifecyclehookDirective];
 const PIPES = [
     CountryPipe,
     EstateBrandLinkPipe,

@@ -111,9 +111,8 @@ export class RatingComponent implements OnInit {
         }
         this.roasterSrv.getRoasterReviews(this.roasterId, { [queryIdStr]: this.orderId }).subscribe((res: any) => {
             if (res.success) {
-                console.log('Reviews:', res.result);
-                this.review = res.result[0] || null;
-                if (this.review) {
+                if (res.result && res.result[0]) {
+                    this.review = res.result[0];
                     this.infoForm.get('review').setValue(this.review.comment);
                 }
             }

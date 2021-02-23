@@ -1,7 +1,7 @@
 <section>
-    <div class="bg-fff">
-        <div class="row">
-            <div class="col-12 d-flex no-block align-items-center">
+    <div class="main-block">
+        <div class="row no-gutters">
+            <div class="col-12 d-flex no-block align-items-center mp-0">
                 <p-breadcrumb [model]="breadItems" styleClass="mb-3 mb-md-4"></p-breadcrumb>
             </div>
         </div>
@@ -102,19 +102,35 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-12 col-md-6 sewn-form-field w-100">
-                                                    <label>Shipping Price<span class="star">*</span></label>
-                                                    <div class="weightInputGroupDiv d-flex">
-                                                        <input
-                                                            type="number"
-                                                            placeholder="Please enter shipping amount"
-                                                            class="weightInputDiv"
-                                                            formControlName="price"
-                                                            pInputText
-                                                        />
+                                                <div class="col-12 col-md-4">
+                                                    <div class="form-input sewn-form-field">
+                                                        <label class="fnt-14 fnt-muli fnt-600 text-clr334"
+                                                            >Shipping Price<span>*</span></label
+                                                        >
+                                                        <div class="input-group">
+                                                            <input
+                                                                type="number"
+                                                                placeholder="Please enter shipping amount"
+                                                                class="form-control input-group-right-border"
+                                                                aria-label="Text input with dropdown button"
+                                                                formControlName="price"
+                                                            />
+                                                            <div class="input-group-append">
+                                                                <select
+                                                                    name="Year"
+                                                                    required=""
+                                                                    class="form-control select-region select-form-group-dropdown select-region-local"
+                                                                >
+                                                                    <option value="USD">USD</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
                                                         <small
-                                                            *ngIf="details['controls']['price'].errors?.required"
-                                                            class="p-error"
+                                                            class="text-clrb1f fnt-14 fnt-muli"
+                                                            *ngIf="
+                                                                detailsFormControl.price.touched &&
+                                                                detailsFormControl.price.errors?.required
+                                                            "
                                                         >
                                                             Shipment price is required
                                                         </small>
