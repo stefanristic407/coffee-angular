@@ -16,6 +16,7 @@ export class ReviewRatingsComponent implements OnInit {
     roasterId: any;
     orgType: OrgType;
     orgId: number;
+    ownerName: string;
     orderId: number;
     orderType: OrderType;
     orderStatus: OrderStatus;
@@ -49,10 +50,12 @@ export class ReviewRatingsComponent implements OnInit {
             if (res.success) {
                 if (this.orgType === OrgType.ESTATE) {
                     this.orgId = res.result.estate_id;
+                    this.ownerName = res.result.estate_owner;
                     this.orderType = res.result.order_type;
                     this.orderStatus = res.result.status;
                 } else if (this.orgType === OrgType.MICRO_ROASTER) {
                     this.orgId = res.result.micro_roaster_id;
+                    this.ownerName = res.result.micro_roaster_name;
                     this.orderType = res.result.type;
                     this.orderStatus = res.result.status;
                 }

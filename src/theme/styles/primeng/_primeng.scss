@@ -127,10 +127,14 @@ p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
 
 // Search auto complete
 .header-search {
+    @media (max-width: 767px) {
+        width: 100%;
+    }
     & > .p-inputtext {
         color: $general-text-color;
         font-size: 16px;
         font-weight: normal;
+        width: 100%;
         @media (min-width: 768px) {
             width: 180px;
         }
