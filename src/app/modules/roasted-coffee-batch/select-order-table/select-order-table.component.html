@@ -1,39 +1,20 @@
 <div class="main-block">
-    <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 d-flex align-items-center">
-            <div class="back-href arrow-color fnt-bold cursor-pointer" (click)="backRoastedBatch()">
-                <img class="back-arrow-butn mr-2" src="assets/images/do-back-arrow.svg" />
-                Back
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 d-none d-sm-none d-md-flex" *ngIf="selectedOrder">
-            <button class="btn btn-stroked ml-auto" (click)="backRoastedBatch()">
-                {{ globals.languageJson?.cancel }}
-            </button>
-            <button class="btn btn-raised ml-3" (click)="onContinue()">Continue</button>
-        </div>
-    </div>
-    <div class="row mt-4">
-        <div class="col-12">
-            <div class="primary_txt mb-2">Select an order</div>
+    <div class="d-md-flex justify-content-between align-items-start">
+        <div class="mb-4">
+            <div class="back-page" (click)="backRoastedBatch()">{{ 'back' | translate }}</div>
+            <div class="primary_txt mt-4 mt-md-45 mb-2">Select an order</div>
             <div class="secondary_txt">Please select an estate order to create a roaster coffee batch for</div>
         </div>
-    </div>
-    <div class="row mt-4 d-block d-sm-block d-md-none" *ngIf="selectedOrder">
-        <div class="col-12 col-sm-12">
-            <div class="col-12 col-sm-12 mt-3">
-                <button type="button" class="btn btn-raised w-100" (click)="onContinue()">Continue</button>
-            </div>
-            <button
-                type="submit"
-                class="btn btn-stroked w-100"
-                [routerLink]="['/roasted-coffee-batch/new-roasted-batch']"
-            >
-                {{ globals.languageJson?.cancel }}
+        <div class="d-flex flex-wrap mb-4" *ngIf="selectedOrder">
+            <button class="btn-stroked w-mob-100 mr-md-3 order-2 order-md-1" (click)="backRoastedBatch()">
+                {{ 'cancel' | translate }}
+            </button>
+            <button class="btn-raised w-mob-100 mb-3 mb-md-0 order-1 order-md-2" (click)="onContinue()">
+                {{ 'continue' | translate }}
             </button>
         </div>
     </div>
-    <div class="row mt-4">
+    <div class="row">
         <div class="col-12">
             <p-dropdown
                 [options]="originArray"
@@ -56,8 +37,8 @@
                 (onClose)="filterCall()"
                 [readonlyInput]="true"
                 [showButtonBar]="true"
-                placeholder="{{ globals.languageJson?.date_range }}"
-                styleClass="round-border"
+                placeholder="{{ 'date_range' | translate }}"
+                styleClass="round-border mb-3 mb-md-4"
             ></p-calendar>
             <p-dropdown
                 [options]="displayArray"
@@ -73,149 +54,88 @@
             </p-dropdown>
         </div>
     </div>
-    <div class="row">
-        <div class="col-12 orderTable">
-            <p-table
-                #myTable
-                [class.table-mobile]="true"
-                [value]="tableValue"
-                [columns]="tableColumns"
-                dataKey="id"
-                [resizableColumns]="true"
-                [paginator]="false"
-                [rows]="displayFilter"
-                styleClass="ui-table-disputes"
-                selectionMode="single"
-                [(selection)]="selectedOrder"
-                [showCurrentPageReport]="false"
-                [paginator]="false"
-                [lazy]="true"
-                (onLazyLoad)="getTableData()"
-                [totalRecords]="totalCount"
-                [responsive]="true"
-            >
-                <ng-template pTemplate="header" let-columns>
-                    <tr class="d-none d-sm-none d-md-table-row">
-                        <th style="width: 5%"></th>
-                        <th
-                            *ngFor="let col of columns"
-                            [style.width]="col.width ? col.width + '%' : '30%'"
-                            [ngClass]="{ 'd-md-none': col.field == 'add_user' }"
-                        >
-                            <span class="primeng-table-header">{{ col.header }}</span>
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-rowData let-columns="columns">
-                    <tr class="rowClass">
-                        <td class="d-none d-sm-none d-md-table-cell">
-                            <p-tableRadioButton class="ml-2" [value]="rowData" (onChange)="onSelect(rowData)">
-                            </p-tableRadioButton>
-                        </td>
-                        <td
-                            *ngFor="let col of columns"
-                            [ngSwitch]="col.field"
-                            [style.width]="col.width ? col.width + '%' : '30%'"
-                            [ngClass]="{
-                                'd-none': col.field == 'created_at' || col.field == 'price' || col.field == 'type',
-                                'd-sm-none':
-                                    col.field == 'created_at' ||
-                                    col.field == 'price' ||
-                                    col.field == 'type' ||
-                                    col.field == 'quantity' ||
-                                    col.field == 'cup_score',
-                                'd-md-table-cell':
-                                    col.field == 'created_at' ||
-                                    col.field == 'price' ||
-                                    col.field == 'type' ||
-                                    col.field == 'quantity' ||
-                                    col.field == 'cup_score',
-                                nameMobileHeader: col.field == 'id',
-                                mobileBorderClass:
-                                    col.field == 'estate_name' || col.field == 'origin' || col.field == 'species',
-                                mobileBottom: col.field == 'cup_score'
-                            }"
-                        >
-                            <span *ngSwitchCase="'id'" class="d-md-block">
-                                <span class="d-none d-sm-none d-md-block">{{ rowData[col.field] }}</span>
-                                <div class="d-block d-sm-block d-md-none mobileNameDiv">
-                                    <span class="primary_txt mobileHeader">Order ID #{{ rowData[col.field] }}</span>
-                                    <p-tableRadioButton class="float-right" [value]="rowData"></p-tableRadioButton>
-                                    <div class="fnt-12 fnt-muli light-eight mt-2">
-                                        Created on :
-                                        <span class="black">{{ rowData[col.field] | date: 'dd MMM yyyy h:mma' }}</span>
-                                    </div>
-                                </div>
-                            </span>
-                            <span *ngSwitchCase="'estate_name'" class="d-md-block">
-                                <span class="d-none d-sm-none d-md-block">{{ rowData[col.field] }}</span>
-                                <div class="d-flex d-sm-flex d-md-none">
-                                    <span class="prime-table-label w-50 mobileLable"> Estate name </span>
-                                    <div class="w-50 d-flex">
-                                        <span>
-                                            {{ rowData[col.field] }}
-                                        </span>
-                                    </div>
-                                </div>
-                            </span>
-                            <span *ngSwitchCase="'created_at'" class="d-md-block">
-                                <span class="d-none d-sm-none d-md-block">{{
-                                    rowData[col.field] | date: 'dd MMM yyyy'
-                                }}</span>
-                            </span>
+    <p-table
+        [value]="tableValue"
+        [columns]="tableColumns"
+        dataKey="id"
+        [resizableColumns]="true"
+        [paginator]="false"
+        [rows]="displayFilter"
+        selectionMode="single"
+        [(selection)]="selectedOrder"
+        [showCurrentPageReport]="false"
+        [paginator]="false"
+        [lazy]="true"
+        (onLazyLoad)="getTableData()"
+        [totalRecords]="totalCount"
+        [responsive]="true"
+    >
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th style="width: 5%"></th>
+                <th
+                    *ngFor="let col of columns"
+                    [style.width]="col.width ? col.width + '%' : '30%'"
+                    [ngClass]="{ 'd-md-none': col.field == 'add_user' }"
+                >
+                    <span class="primeng-table-header">{{ col.header }}</span>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr class="">
+                <td class="d-none d-md-table-cell">
+                    <p-tableRadioButton [value]="rowData" (onChange)="onSelect(rowData)"> </p-tableRadioButton>
+                </td>
+                <td
+                    *ngFor="let col of columns"
+                    [ngSwitch]="col.field"
+                    [style.width]="col.width ? col.width + '%' : '30%'"
+                    [ngClass]="{
+                        'd-none':
+                            col.field == 'id' ||
+                            col.field == 'created_at' ||
+                            col.field == 'price' ||
+                            col.field == 'type',
+                        'd-md-table-cell':
+                            col.field == 'id' ||
+                            col.field == 'created_at' ||
+                            col.field == 'price' ||
+                            col.field == 'type'
+                    }"
+                >
+                    <ng-container *ngSwitchCase="'estate_name'">
+                        <div class="d-md-none mb-4">
+                            <span class="fnt-18 fnt-bold mb-2">Order ID #{{ rowData.id }}</span>
+                            <p-tableRadioButton
+                                class="float-right"
+                                [value]="rowData"
+                                (onChange)="onSelect(rowData)"
+                            ></p-tableRadioButton>
+                            <div class="fnt-12 mt-2">
+                                <span class="text-clr588">Created on : </span>
+                                <span>{{ rowData.created_at | date: 'dd MMM yyyy h:mma' }}</span>
+                            </div>
+                        </div>
+                        <span class="p-column-title"> {{ col.header }} </span>
+                        <span>{{ rowData[col.field] }}</span>
+                    </ng-container>
 
-                            <span *ngSwitchCase="'quantity'" class="d-md-block">
-                                <span class="d-none d-sm-none d-md-block"
-                                    >{{ rowData[col.field] }} {{ rowData['quantity_type'] }}</span
-                                >
-                                <div class="d-flex d-sm-flex d-md-none">
-                                    <span class="prime-table-label w-50 mobileLable"> Quantity </span>
-                                    <div class="w-50 d-flex">
-                                        <span> {{ rowData[col.field] }} {{ rowData['quantity_type'] }} </span>
-                                    </div>
-                                </div>
-                            </span>
-                            <span *ngSwitchCase="'origin'" class="d-md-block">
-                                <span class="d-none d-sm-none d-md-block">{{ rowData[col.field] }}</span>
-                                <div class="d-flex d-sm-flex d-md-none">
-                                    <span class="prime-table-label w-50 mobileLable"> Origin </span>
-                                    <div class="w-50 d-flex">
-                                        <span>
-                                            {{ rowData[col.field] }}
-                                        </span>
-                                    </div>
-                                </div>
-                            </span>
+                    <ng-container *ngSwitchCase="'created_at'">
+                        <span>{{ rowData[col.field] | date: 'dd MMM yyyy' }}</span>
+                    </ng-container>
 
-                            <span *ngSwitchCase="'species'" class="d-md-block">
-                                <span class="d-none d-sm-none d-md-block">{{ rowData[col.field] }}</span>
-                                <div class="d-flex d-sm-flex d-md-none">
-                                    <span class="prime-table-label w-50 mobileLable"> Variety </span>
-                                    <div class="w-50 d-flex">
-                                        <span>
-                                            {{ rowData[col.field] }}
-                                        </span>
-                                    </div>
-                                </div>
-                            </span>
-                            <span *ngSwitchCase="'cup_score'" class="d-md-block">
-                                <span class="d-none d-sm-none d-md-block">{{ rowData[col.field] }}</span>
-                                <div class="d-flex d-sm-flex d-md-none">
-                                    <span class="prime-table-label w-50 mobileLable"> Cup Score </span>
-                                    <div class="w-50 d-flex">
-                                        <span>
-                                            {{ rowData[col.field] }}
-                                        </span>
-                                    </div>
-                                </div>
-                            </span>
-                            <span *ngSwitchDefault>
-                                {{ rowData[col.field] }}
-                            </span>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-    </div>
+                    <ng-container *ngSwitchCase="'quantity'">
+                        <span class="p-column-title"> {{ col.header }} </span>
+                        <span>{{ rowData[col.field] }} {{ rowData['quantity_type'] }}</span>
+                    </ng-container>
+
+                    <ng-container *ngSwitchDefault>
+                        <span class="p-column-title"> {{ col.header }} </span>
+                        <span>{{ rowData[col.field] }}</span>
+                    </ng-container>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
 </div>
