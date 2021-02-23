@@ -148,7 +148,6 @@ import { ListboxModule } from 'primeng/listbox';
         RoasteryLicenseComponent,
         RoasterOnboardComponent,
         AddProductComponent,
-        ,
         ProductsTableComponent,
         CuppingReportComponent,
         CuppingServiceComponent,

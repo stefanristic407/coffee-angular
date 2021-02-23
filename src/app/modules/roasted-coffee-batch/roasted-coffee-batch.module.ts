@@ -9,6 +9,7 @@ import { RoastingProfilesComponent } from './roasted-coffee-batch/roasting-profi
 import { RoastedCoffeeBatchesComponent } from './roasted-coffee-batch/roasted-coffee-batches/roasted-coffee-batches.component';
 import { NewRoastedBatchComponent } from './roasted-coffee-batch/new-roasted-batch/new-roasted-batch.component';
 import { SharedModule } from './../../shared/shared.module';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
     declarations: [
@@ -19,6 +20,6 @@ import { SharedModule } from './../../shared/shared.module';
         RoastedCoffeeBatchesComponent,
         NewRoastedBatchComponent,
     ],
-    imports: [CommonModule, SharedModule, RoastedCoffeeBatchRoutingModule],
+    imports: [CommonModule, SharedModule, RoastedCoffeeBatchRoutingModule, MatChipsModule],
 })
 export class RoastedCoffeeBatchModule {}
