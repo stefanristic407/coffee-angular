@@ -6,10 +6,7 @@
         <span class="horizental-line__span"></span>
     </div>
     <ul class="row quicker-files">
-        <li
-            class="col-md-4 col-lg-3 quicker-files__list"
-            *ngFor="let item of filedetailsService.mainVideoData | filter: fileService.filterTerm"
-        >
+        <li class="col-md-4 col-lg-3 quicker-files__list" *ngFor="let item of filedetailsService.mainVideoData">
             <div class="quick-pinned-files">
                 <div class="quick-pinned-files__Image social-post-farmlink__item position-relative">
                     <a class="open-popup d-block cursor-pointer" (click)="openModal(popTemplate, item)">

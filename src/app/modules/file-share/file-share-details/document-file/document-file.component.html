@@ -1,9 +1,6 @@
 <div class="col-12">
     <ul class="row">
-        <li
-            class="col-md-4 col-lg-3 my-3 quicker-files__list img-div"
-            *ngFor="let item of filedetailsService.mainData | filter: fileService.filterTerm"
-        >
+        <li class="col-md-4 col-lg-3 my-3 quicker-files__list img-div" *ngFor="let item of filedetailsService.mainData">
             <div class="quick-pinned-files filegridview">
                 <div class="quick-pinned-files__Image">
                     <input type="file" />

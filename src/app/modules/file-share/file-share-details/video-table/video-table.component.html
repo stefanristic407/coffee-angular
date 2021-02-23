@@ -24,10 +24,7 @@
                 </tr>
             </thead>
             <tbody class="customtable">
-                <tr
-                    class="ticket-boby-txt"
-                    *ngFor="let item of filedetailsService.mainVideoData | filter: fileService.filterTerm"
-                >
+                <tr class="ticket-boby-txt" *ngFor="let item of filedetailsService.mainVideoData">
                     <td>
                         <label class="customcheckbox">
                             <input
