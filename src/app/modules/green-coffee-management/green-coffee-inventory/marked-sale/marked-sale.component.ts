@@ -2,30 +2,37 @@ import { Component, OnInit, Input, ViewChild, HostListener } from '@angular/core
 import { GlobalsService } from 'src/services/globals.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { CookieService } from 'ngx-cookie-service';
-import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 import { NavigationExtras, Router } from '@angular/router';
+import { FormGroup } from '@angular/forms';
 import { PrimeTableService } from 'src/services/prime-table.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
 import { Table } from 'primeng/table';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
-    selector: 'app-coffee-procured-tab',
-    templateUrl: './coffee-procured-tab.component.html',
-    styleUrls: ['./coffee-procured-tab.component.scss'],
+    selector: 'app-marked-sale',
+    templateUrl: './marked-sale.component.html',
+    styleUrls: ['./marked-sale.component.scss'],
 })
-export class CoffeeProcuredTabComponent implements OnInit {
+export class MarkedSaleComponent implements OnInit {
     termStatus: any;
     display: any;
+    termOrigin: any;
     appLanguage?: any;
-    roasterID: string;
     mainData: any[] = [];
-    originArray: any[] = [];
-    searchString = '';
+    roasterID: string;
+    deleteId: any;
+    popupDisplay = false;
     sellerItems = [
         { label: 'All origins', value: null },
         { label: 'Sweden', value: 'SE' },
         { label: 'UK', value: 'UK' },
         { label: 'India', value: 'IN' },
+    ];
+    statusItems = [
+        { label: 'All', value: null },
+        { label: 'In stock', value: 'IN_STOCK' },
+        { label: 'Hidden', value: 'HIDDEN' },
+        { label: 'Sold', value: 'SOLD' },
     ];
     displayItems = [
         { label: 'All', value: '' },
@@ -42,17 +49,15 @@ export class CoffeeProcuredTabComponent implements OnInit {
     get form() {
         return this._form;
     }
-
     constructor(
         public globals: GlobalsService,
         public roasterService: RoasterserviceService,
-        public router: Router,
         public cookieService: CookieService,
-        public roasteryProfileService: RoasteryProfileService,
+        private router: Router,
         public primeTableService: PrimeTableService,
-        public fb: FormBuilder,
+        private toastrService: ToastrService,
     ) {
-        this.termStatus = { name: 'All origins', isoCode: '' };
+        this.termStatus = { name: 'All', statusCode: '' };
         this.display = '10';
         this.roasterID = this.cookieService.get('roaster_id');
         this.primeTableService.rows = 10;
@@ -62,35 +67,29 @@ export class CoffeeProcuredTabComponent implements OnInit {
     // tslint:disable: variable-name
     public _form: FormGroup;
 
-    @ViewChild('procuredCoffeeTable', { static: true }) table: Table;
+    @ViewChild('markedTable', { static: true }) table: Table;
     public isMobile = false;
 
     @HostListener('window:resize', ['$event'])
     onResize(event?) {
-        this.initializeTableProcuredCoffee();
+        this.initializeTable();
     }
 
-    initializeTableProcuredCoffee() {
+    initializeTable() {
         this.primeTableService.windowWidth = window.innerWidth;
 
         if (this.primeTableService.windowWidth <= this.primeTableService.responsiveStartsAt) {
             this.primeTableService.isMobileView = true;
             this.primeTableService.allColumns = [
                 {
-                    field: 'id',
-                    header: 'Order ID',
+                    field: 'status',
+                    header: 'Status',
                     sortable: false,
                     width: 40,
                 },
                 {
-                    field: 'order_reference',
-                    header: 'Roaster order ref.',
-                    sortable: false,
-                    width: 50,
-                },
-                {
-                    field: 'availability_name',
-                    header: 'Availability Name',
+                    field: 'product_name',
+                    header: 'Product Name',
                     sortable: false,
                     width: 50,
                 },
@@ -101,8 +100,8 @@ export class CoffeeProcuredTabComponent implements OnInit {
                     width: 50,
                 },
                 {
-                    field: 'quantity',
-                    header: 'Quantity',
+                    field: 'origin',
+                    header: 'Origin',
                     sortable: false,
                     width: 50,
                 },
@@ -111,34 +110,22 @@ export class CoffeeProcuredTabComponent implements OnInit {
             this.primeTableService.isMobileView = false;
             this.primeTableService.allColumns = [
                 {
-                    field: 'id',
-                    header: 'Order ID',
+                    field: 'product_name',
+                    header: 'Product Name',
                     sortable: false,
                     width: 50,
-                },
-                {
-                    field: 'availability_name',
-                    header: 'Availibility Name',
-                    sortable: false,
-                    width: 70,
                 },
                 {
                     field: 'estate_name',
                     header: 'Estate Name',
                     sortable: false,
-                    width: 70,
+                    width: 50,
                 },
                 {
                     field: 'origin',
                     header: 'Origin',
                     sortable: false,
                     width: 50,
-                },
-                {
-                    field: 'order_reference',
-                    header: 'Roaster Ref. No.',
-                    sortable: false,
-                    width: 70,
                 },
                 {
                     field: 'varieties',
@@ -148,7 +135,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
                 },
                 {
                     field: 'quantity',
-                    header: 'Quantity',
+                    header: 'Availability',
                     sortable: false,
                     width: 50,
                 },
@@ -179,11 +166,14 @@ export class CoffeeProcuredTabComponent implements OnInit {
             ];
         }
     }
-
+    openModal(item) {
+        this.popupDisplay = true;
+        this.deleteId = item.order_id;
+    }
     ngOnInit(): void {
-        this.primeTableService.url = `/ro/${this.roasterID}/procured-coffees`;
+        this.primeTableService.url = `/ro/${this.roasterID}/marked-sale-coffees`;
 
-        this.initializeTableProcuredCoffee();
+        this.initializeTable();
 
         this.primeTableService.form = this.form;
 
@@ -192,13 +182,17 @@ export class CoffeeProcuredTabComponent implements OnInit {
                 this.table.reset();
             }, 100),
         );
-
         this.appLanguage = this.globals.languageJson;
     }
-
     setStatus() {
         this.primeTableService.form?.patchValue({
             status: this.termStatus,
+        });
+        this.table.reset();
+    }
+    setOrigin() {
+        this.primeTableService.form?.patchValue({
+            origin: this.termOrigin,
         });
         this.table.reset();
     }
@@ -213,10 +207,23 @@ export class CoffeeProcuredTabComponent implements OnInit {
         this.table.reset();
     }
 
-    availabilityPage(item) {
-        return `/features/procured-coffee/${item.id}`;
+    onEdit(item) {
+        let link = [];
+        link = [`/green-coffee-management/green-coffee-for-sale-details/${item.order_id}`];
+        return link;
     }
-    sourcingRedirect() {
-        return '/sourcing/coffee-list';
+    deleteProductFromList(deleteId) {
+        this.roasterService.deleteProcuredCoffee(this.roasterID, deleteId).subscribe(
+            (response) => {
+                if (response && response.success) {
+                    this.toastrService.success('Product deleted successfully');
+                    this.popupDisplay = true;
+                }
+            },
+            (err) => {
+                this.toastrService.error('Error while deleting the ');
+                console.log(err);
+            },
+        );
     }
 }

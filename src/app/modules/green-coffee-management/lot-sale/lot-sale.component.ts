@@ -78,7 +78,7 @@ export class LotSaleComponent implements OnInit {
         this.breadItems = [
             { label: 'Home', routerLink: '/roaster-dashboard' },
             { label: 'Inventory' },
-            { label: 'Green coffee management', routerLink: '/features/green-coffee-inventory' },
+            { label: 'Green coffee management', routerLink: '/green-coffee-management/green-coffee-inventory' },
             { label: 'Marked for sale' },
             { label: this.availablityName ? this.availablityName : '' },
         ];
@@ -211,7 +211,7 @@ export class LotSaleComponent implements OnInit {
             (response) => {
                 if (response && response.success) {
                     this.toasterService.success('Details updated successfully');
-                    this.router.navigate(['/features/green-coffee-inventory']);
+                    this.router.navigate(['/green-coffee-management/green-coffee-inventory']);
                 }
             },
             (err) => {
@@ -253,14 +253,14 @@ export class LotSaleComponent implements OnInit {
         }
     }
     onCancel() {
-        this.router.navigate([`/features/green-coffee-for-sale-details/${this.orderID}`]);
+        this.router.navigate([`/green-coffee-management/green-coffee-for-sale-details/${this.orderID}`]);
     }
     deleteProductFromList() {
         this.roasterService.deleteProcuredCoffee(this.roasterID, this.orderID).subscribe(
             (response) => {
                 if (response && response.success) {
                     this.toasterService.success('Product deleted successfully');
-                    this.router.navigate(['/features/green-coffee-inventory']);
+                    this.router.navigate(['/green-coffee-management/green-coffee-inventory']);
                 }
             },
             (err) => {

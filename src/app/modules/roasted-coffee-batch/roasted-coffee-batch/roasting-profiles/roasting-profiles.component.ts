@@ -34,7 +34,7 @@ export class RoastingProfilesComponent implements OnInit {
     breadItems = [
         { label: 'Home', routerLink: '/roaster-dashboard' },
         { label: 'Inventory' },
-        { label: 'Roasted coffee', routerLink: '/features/roasted-coffee-batch' },
+        { label: 'Roasted coffee', routerLink: '/roasted-coffee-batch/roasted-coffee-batchs' },
         { label: 'Roasting profiles' },
     ];
     searchForm: FormGroup;
@@ -161,7 +161,7 @@ export class RoastingProfilesComponent implements OnInit {
             },
         };
 
-        this.router.navigate(['/features/create-roasting-profile'], navigationExtras);
+        this.router.navigate(['/roasted-coffee-batch/create-roasting-profile'], navigationExtras);
     }
 
     deleteRoastingProfile() {

@@ -78,7 +78,7 @@ export class CreateRoastingProfileComponent implements OnInit {
             (res) => {
                 if (res && res.success) {
                     this.toastrService.success('The Roasting Profile has been added.');
-                    this.router.navigate(['/features/roasting-profile']);
+                    this.router.navigate(['/roasted-coffee-batch/roasting-profile']);
                 } else {
                     this.toastrService.error('Error while adding the roasting profile');
                 }
@@ -93,7 +93,7 @@ export class CreateRoastingProfileComponent implements OnInit {
             (res) => {
                 if (res && res.success) {
                     this.toastrService.success('The Roasting Profile has been updated.');
-                    this.router.navigate(['/features/roasting-profile']);
+                    this.router.navigate(['/roasted-coffee-batch/roasting-profile']);
                 } else {
                     this.toastrService.error('Error while updating the roasting profile');
                 }
@@ -126,6 +126,6 @@ export class CreateRoastingProfileComponent implements OnInit {
         }
     }
     onCancel() {
-        this.router.navigate(['/features/roasting-profile']);
+        this.router.navigate(['/roasted-coffee-batch/roasting-profile']);
     }
 }

@@ -170,7 +170,7 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
                 ordId: this.ordId ? this.ordId : undefined,
             },
         };
-        this.router.navigate(['/features/new-roasted-batch'], navigationExtras);
+        this.router.navigate(['/roasted-coffee-batch/new-roasted-batch'], navigationExtras);
     }
 
     deleteRoastedBatch() {

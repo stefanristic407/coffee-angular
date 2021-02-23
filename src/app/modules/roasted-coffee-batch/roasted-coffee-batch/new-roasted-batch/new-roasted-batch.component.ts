@@ -98,7 +98,7 @@ export class NewRoastedBatchComponent implements OnInit {
         };
         const obj2: MenuItem = {
             label: this.globals.languageJson?.roasted_coffee,
-            routerLink: '/features/roasted-coffee-batch',
+            routerLink: '/roasted-coffee-batch/roasted-coffee-batchs',
             disabled: false,
         };
         const obj3: MenuItem = {
@@ -219,7 +219,7 @@ export class NewRoastedBatchComponent implements OnInit {
             (res) => {
                 if (res && res.success) {
                     this.toastrService.success('The Roasted Batch has been updated.');
-                    this.router.navigate(['/features/roasted-coffee-batch']);
+                    this.router.navigate(['/roasted-coffee-batch/roasted-coffee-batchs']);
                 } else {
                     this.toastrService.error('Error while updating the roasted batch');
                 }
@@ -234,7 +234,7 @@ export class NewRoastedBatchComponent implements OnInit {
             (res) => {
                 if (res && res.success) {
                     this.toastrService.success('The Roasted Batch  has been added.');
-                    this.router.navigate(['/features/roasted-coffee-batch']);
+                    this.router.navigate(['/roasted-coffee-batch/roasted-coffee-batchs']);
                 } else if (res.messages) {
                     this.toastrService.error('Order Id ' + res.messages.order_id[0].replace('_', ' ') + '.');
                 }
@@ -278,9 +278,9 @@ export class NewRoastedBatchComponent implements OnInit {
                     ordId: this.ordId ? this.ordId : '',
                 },
             };
-            this.router.navigate(['/features/select-order-list'], navigationExtras);
+            this.router.navigate(['/roasted-coffee-batch/select-order-list'], navigationExtras);
         } else {
-            this.router.navigate(['/features/select-order-list']);
+            this.router.navigate(['/roasted-coffee-batch/select-order-list']);
         }
     }
 }

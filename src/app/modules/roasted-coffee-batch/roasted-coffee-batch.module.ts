@@ -8,6 +8,7 @@ import { SelectOrderTableComponent } from './roasted-coffee-batch/select-order-t
 import { RoastingProfilesComponent } from './roasted-coffee-batch/roasting-profiles/roasting-profiles.component';
 import { RoastedCoffeeBatchesComponent } from './roasted-coffee-batch/roasted-coffee-batches/roasted-coffee-batches.component';
 import { NewRoastedBatchComponent } from './roasted-coffee-batch/new-roasted-batch/new-roasted-batch.component';
+import { SharedModule } from './../../shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -18,6 +19,6 @@ import { NewRoastedBatchComponent } from './roasted-coffee-batch/new-roasted-bat
         RoastedCoffeeBatchesComponent,
         NewRoastedBatchComponent,
     ],
-    imports: [CommonModule, RoastedCoffeeBatchRoutingModule],
+    imports: [CommonModule, SharedModule, RoastedCoffeeBatchRoutingModule],
 })
 export class RoastedCoffeeBatchModule {}

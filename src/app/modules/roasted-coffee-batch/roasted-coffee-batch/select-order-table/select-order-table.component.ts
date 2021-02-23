@@ -160,7 +160,7 @@ export class SelectOrderTableComponent implements OnInit {
     continue() {
         this.globals.selected_order_id = this.selectedEntry.id;
         console.log(this.globals.selected_order_id);
-        this.router.navigate(['/features/new-roasted-batch']);
+        this.router.navigate(['/roasted-coffee-batch/new-roasted-batch']);
     }
 
     // select order table data
@@ -193,7 +193,7 @@ export class SelectOrderTableComponent implements OnInit {
                     batchId: this.batchId ? this.batchId : '',
                 },
             };
-            this.router.navigate(['/features/new-roasted-batch'], navigationExtras);
+            this.router.navigate(['/roasted-coffee-batch/new-roasted-batch'], navigationExtras);
         } else {
             this.selectId = this.selectedOrder.id;
             const navigationExtras: NavigationExtras = {
@@ -201,7 +201,7 @@ export class SelectOrderTableComponent implements OnInit {
                     ordId: this.selectId ? this.selectId : '',
                 },
             };
-            this.router.navigate(['/features/new-roasted-batch'], navigationExtras);
+            this.router.navigate(['/roasted-coffee-batch/new-roasted-batch'], navigationExtras);
         }
     }
 
@@ -213,9 +213,9 @@ export class SelectOrderTableComponent implements OnInit {
                     ordId: this.ordId ? this.ordId : '',
                 },
             };
-            this.router.navigate(['/features/new-roasted-batch'], navigationExtras);
+            this.router.navigate(['/roasted-coffee-batch/new-roasted-batch'], navigationExtras);
         } else {
-            this.router.navigate(['/features/new-roasted-batch']);
+            this.router.navigate(['/roasted-coffee-batch/new-roasted-batch']);
         }
     }
 }

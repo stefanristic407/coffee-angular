@@ -45,8 +45,8 @@ export class CoffeeSaleComponent implements OnInit {
         this.breadItems = [
             { label: 'Home', routerLink: '/roaster-dashboard' },
             { label: 'Inventory' },
-            { label: 'Green coffee management', routerLink: '/features/green-coffee-inventory' },
-            { label: 'Procured coffee', routerLink: `/features/procured-coffee/${this.orderID}` },
+            { label: 'Green coffee management', routerLink: '/green-coffee-management/green-coffee-inventory' },
+            { label: 'Procured coffee', routerLink: `/green-coffee-management/procured-coffee/${this.orderID}` },
             { label: `Order #${this.orderID}` },
         ];
         this.quantityUnitArray = [
@@ -176,7 +176,7 @@ export class CoffeeSaleComponent implements OnInit {
                 console.log(response);
                 if (response && response.success) {
                     this.toasterService.success('Successfully marked the sale');
-                    this.router.navigate(['/features/green-coffee-inventory']);
+                    this.router.navigate(['/green-coffee-management/green-coffee-inventory']);
                 }
                 if (
                     response &&
@@ -214,6 +214,6 @@ export class CoffeeSaleComponent implements OnInit {
         }
     }
     onCancel() {
-        this.router.navigate([`/features/procured-coffee/${this.orderID}`]);
+        this.router.navigate([`/green-coffee-management/procured-coffee/${this.orderID}`]);
     }
 }
