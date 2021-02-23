@@ -3,6 +3,9 @@
 @import '../variables';
 
 // Rating
+p-rating {
+    line-height: 1;
+}
 .p-rating .p-rating-icon {
     font-size: inherit;
     color: $primary-border-color;
