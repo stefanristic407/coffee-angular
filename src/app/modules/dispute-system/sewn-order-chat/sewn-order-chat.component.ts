@@ -1,15 +1,20 @@
-import {
-    WSResponse,
-    ResponseUserStatus,
-    ThreadActivityType,
-    ThreadType,
-    WSOrganizationType,
-} from './../../../../models/message';
-import { catchError } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 /* tslint:disable no-string-literal */
-import { Subscription, Observable } from 'rxjs';
+import { Subscription, Observable, Subject } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
-import { Component, OnInit, OnDestroy, Input, SimpleChanges, OnChanges } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    OnDestroy,
+    Input,
+    Output,
+    SimpleChanges,
+    OnChanges,
+    ElementRef,
+    Renderer2,
+    EventEmitter,
+} from '@angular/core';
 import {
     ThreadListItem,
     ThreadMembers,
@@ -18,8 +23,14 @@ import {
     DisputeChatThreadListItem,
     OrderChatThreadListItem,
     WSChatMessageType,
+    WSResponse,
+    ResponseUserStatus,
+    ThreadActivityType,
+    ThreadType,
+    WSOrganizationType,
 } from '@models';
 import { ChatHandlerService, GlobalsService, SocketService, ChatUtil } from '@services';
+const badwordsRegExp = require('badwords/regexp') as RegExp;
 @Component({
     selector: 'app-sewn-order-chat',
     templateUrl: './sewn-order-chat.component.html',
@@ -28,27 +39,37 @@ import { ChatHandlerService, GlobalsService, SocketService, ChatUtil } from '@se
 export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     @Input() orderThread: OrderChatThreadListItem;
     @Input() orderDisputes: DisputeChatThreadListItem;
+    @Output() threadUsers: EventEmitter<ThreadMembers[]> = new EventEmitter<ThreadMembers[]>();
 
     ORGANIZATION_ID: number | null = null;
     ORGANIZATION_TYPE = WSOrganizationType.ROASTER;
     USER_ID: number | null = null;
     messageList: ChatMessage[] = [];
-    threadDetails: ThreadListItem;
+    organizedMessages: any[] = [];
+    threadDetails: ThreadListItem = null;
     SM: { [SubscriptionName: string]: Subscription } = {}; // Subscrition MAP object
     messageInput = '';
-    TIMESTAMP_MAP: { [K in WSChatMessageType]: string };
+    TIMESTAMP_MAP: { [K in WSChatMessageType]: string } = {} as { [K in WSChatMessageType]: string };
     activeThreadId: number = null;
     activeThreadType: 'ORDER' | 'DISPUTE' | 'UNSET' = 'UNSET';
+    showOffensiveMessageError = false;
+    offensiveTimeout = 0;
     messageListConfig = {
         perPage: 300,
         activePage: 1,
     };
+    messageInputElement: HTMLTextAreaElement;
+    chatMessageBodyElement: HTMLElement;
+    lastMessageRendered = new Subject();
+
     constructor(
         private cookieService: CookieService,
         public globals: GlobalsService,
         public chatService: ChatHandlerService,
         private socket: SocketService,
+        private elRef: ElementRef,
         private chatUtil: ChatUtil,
+        private render: Renderer2,
     ) {}
 
     ngOnInit(): void {
@@ -66,6 +87,9 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     initializeWebSocket() {
+        if (this.SM['WSSubscription'] && this.SM['WSSubscription'].unsubscribe) {
+            this.SM['WSSubscription'].unsubscribe();
+        }
         this.SM['WSSubscription'] = this.socket.orderChatReceive
             .pipe(
                 catchError((err: any, caught: Observable<any>) => {
@@ -93,18 +117,13 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                     }
                 }
             });
-
-        this.SM['WSAuthentication'] = this.socket.authenticate().subscribe((res) => {
-            if (res === 'SUCCESS') {
-                console.log('order chat AUTH Success');
-                this.checkInputs();
-            }
-        });
     }
 
     ngOnChanges(changes: SimpleChanges) {
         setTimeout(() => {
-            this.checkInputs();
+            if (this.socket.authenticationState.value === 'SUCCESS') {
+                this.checkInputs();
+            }
         });
     }
 
@@ -122,6 +141,10 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
         } else {
             this.activeThreadId = null;
             this.activeThreadType = 'UNSET';
+            this.messageList = [];
+            this.organizedMessages = [];
+            this.threadDetails = null;
+            this.threadUsers.emit([]);
         }
     }
 
@@ -133,9 +156,9 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
 
     getThreadHistory(threadId: number) {
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[WSChatMessageType.history] === timestamp;
-        this.socket.chatSent.next({
-            timestamp: timestamp,
+        this.TIMESTAMP_MAP[WSChatMessageType.history] = timestamp;
+        this.socket.orderChatSent.next({
+            timestamp,
             type: WSChatMessageType.history,
             data: {
                 thread_id: threadId,
@@ -147,9 +170,9 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
 
     getThreadDetails(threadId: number) {
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[WSChatMessageType.thread] === timestamp;
-        this.socket.chatSent.next({
-            timestamp: timestamp,
+        this.TIMESTAMP_MAP[WSChatMessageType.thread] = timestamp;
+        this.socket.orderChatSent.next({
+            timestamp,
             type: WSChatMessageType.thread,
             data: {
                 thread_id: threadId,
@@ -160,8 +183,9 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     processThreads(thread: ThreadListItem): ThreadListItem {
         const activeUser: ThreadMembers[] = [];
         const targtedUserList: ThreadMembers[] = [];
-        thread.members.forEach((mem) => {
-            this.processThreadUser(mem);
+        thread.members = thread.members.map((mem: any) => {
+            mem = { ...mem, ...mem.user } as ThreadListItem;
+            mem = this.processThreadUser(mem);
             if (!mem.is_removed) {
                 if (
                     mem.org_type === this.ORGANIZATION_TYPE &&
@@ -173,7 +197,9 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                     targtedUserList.push(mem);
                 }
             }
+            return mem;
         });
+        thread.content = thread.content || '';
         thread.computed_mute = false;
         thread.computed_activeUser = activeUser[0];
         thread.computed_targetedUser = targtedUserList[0];
@@ -187,11 +213,12 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
 
     handleRequestedThreadDetails(WSmsg: WSResponse<ThreadListItem>) {
         if (WSmsg.code === 200) {
-            let thread = WSmsg.data;
+            const thread = WSmsg.data;
             if (thread.type !== ThreadType.normal && thread.type !== ThreadType.service_request) {
                 this.threadDetails = this.processThreads(thread);
                 if (this.activeThreadId && this.activeThreadType !== 'UNSET') {
                     this.getThreadHistory(this.activeThreadId);
+                    this.threadUsers.emit(this.threadDetails.members);
                 }
             } else {
                 console.error('Websocket:Requested-thread: Received non direct message thread ');
@@ -203,6 +230,13 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
 
     handleThreadHistory(WSmsg: WSResponse<ChatMessage[]>) {
         if (WSmsg.code === 200) {
+            if (this.SM['lastRender'] && this.SM['lastRender'].unsubscribe) {
+                this.SM['lastRender'].unsubscribe();
+            }
+            this.SM['lastRender'] = this.lastMessageRendered.pipe(first()).subscribe((x) => {
+                this.scrollbottom();
+            });
+
             this.messageList = WSmsg.data
                 .filter((x) => x.activity_type === ThreadActivityType.message && x.content.trim() !== '')
                 .reverse();
@@ -231,14 +265,12 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                 if (user) {
                     this.processThreadUser(user);
                 }
-                // this.updateChatMessageBodyElRef();
-
                 if (this.SM['lastRender'] && this.SM['lastRender'].unsubscribe) {
                     this.SM['lastRender'].unsubscribe();
                 }
-                // this.SM['lastRender'] = this.lastMessageRendered.pipe(first()).subscribe((x) => {
-                //     this.scrollbottom();
-                // });
+                this.SM['lastRender'] = this.lastMessageRendered.pipe(first()).subscribe((x) => {
+                    this.scrollbottom();
+                });
                 this.messageList.push(message);
                 this.sendReadToken(message.id);
             } else {
@@ -249,37 +281,122 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
 
     processChatMessages(message: ChatMessage | IncomingChatMessage, thread: ThreadListItem) {
         message.computed_date = this.chatUtil.getReadableTime(message.updated_at || message.created_at);
-        if (thread.computed_targetedUser.id === message.member.id) {
+        if (thread.computed_targetedUserList.find((tuser) => tuser.id === message.member.id)) {
             message.computed_author = thread.computed_targetedUser;
             message.isActiveUser = false;
         } else if (thread.computed_activeUser.id === message.member.id) {
             message.computed_author = thread.computed_activeUser;
             message.isActiveUser = true;
+        } else {
+            console.log('Error: nable to find message owner');
         }
     }
     processThreadUser(threadUser: ThreadMembers) {
         threadUser.last_seen = threadUser.last_seen || '';
-        threadUser.computed_lastseen = this.chatUtil.getReadableTime(threadUser.last_seen || '');
+        threadUser.computed_lastseen = this.chatUtil.getReadableTime(threadUser.last_seen);
         threadUser.computed_organization_name = this.chatUtil.getOrganization(threadUser.org_type);
         threadUser.computed_fullname = threadUser.first_name + ' ' + threadUser.last_name;
         threadUser.computed_profile_dp = this.chatUtil.getProfileImageBgStyle(threadUser.profile_pic);
+        return threadUser;
     }
     sendReadToken(lastMessageId: number) {
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[WSChatMessageType.read] === timestamp;
-        this.socket.chatSent.next({
+        this.TIMESTAMP_MAP[WSChatMessageType.read] = timestamp;
+        this.socket.orderChatSent.next({
             type: WSChatMessageType.read,
-            timestamp: timestamp,
+            timestamp,
             data: {
-                thread_id: this.threadDetails,
+                thread_id: this.threadDetails.id,
                 last_read_id: lastMessageId,
             },
         });
     }
 
-    inputkeyPress(eve: any) {}
-    inputChanges(eve: any) {}
-    sendMessage() {}
+    chatBodyHeightAdjust(resetFlag = false) {
+        this.updateMessageInputElRef();
+        if (resetFlag) {
+            this.messageInputElement.value = '';
+        }
+        if (this.messageInputElement) {
+            this.render.removeStyle(this.messageInputElement, 'height');
+            const inputHeight = this.messageInputElement.offsetHeight;
+            const scrollHeight = this.messageInputElement.scrollHeight;
+            if (inputHeight < scrollHeight) {
+                this.render.setStyle(this.messageInputElement, 'height', Math.min(scrollHeight, 80) + 'px');
+            }
+        }
+    }
+
+    updateMessageInputElRef() {
+        if (!this.messageInputElement) {
+            const query = `[data-element="messag-text-area"]`;
+            this.messageInputElement = (this.elRef?.nativeElement?.querySelector(query) as HTMLTextAreaElement) || null;
+        }
+    }
+    updateChatMessageBodyElRef() {
+        if (!this.chatMessageBodyElement) {
+            const query = `[data-element="live-chat-message-body"]`;
+            this.chatMessageBodyElement = (this.elRef?.nativeElement?.querySelector(query) as HTMLElement) || null;
+        }
+    }
+    scrollbottom() {
+        this.updateChatMessageBodyElRef();
+        this.chatMessageBodyElement.scrollTop = this.chatMessageBodyElement.scrollHeight;
+    }
+
+    inputkeyPress(event: KeyboardEvent) {
+        if (event.key === 'Enter' && !event.shiftKey && !event.ctrlKey) {
+            event.preventDefault();
+            this.sendMessage();
+        }
+    }
+
+    inputChanges(event: InputEvent) {
+        this.chatBodyHeightAdjust();
+    }
+
+    sendMessage() {
+        clearTimeout(this.offensiveTimeout);
+        this.showOffensiveMessageError = false;
+        let msg = this.messageInput.trim();
+        if (msg !== '') {
+            badwordsRegExp.lastIndex = 0;
+            if (badwordsRegExp.test(msg)) {
+                this.showOffensiveMessageError = true;
+                this.offensiveTimeout = window.setTimeout(this.offensiveTimeoutHandler, 5000);
+                msg = msg.replace(badwordsRegExp, '****');
+            }
+            this.socket.chatSent.next(this.getMessagePayload(msg));
+            this.chatUtil.playNotificationSound('OUTGOING');
+            this.messageInput = '';
+            this.chatBodyHeightAdjust();
+            if (this.SM['lastRender2'] && this.SM['lastRender2'].unsubscribe) {
+                this.SM['lastRender2'].unsubscribe();
+            }
+            this.SM['lastRender2'] = this.lastMessageRendered.pipe(first()).subscribe((x) => {
+                console.log('Last render chatBodyHeightAdjust');
+                this.chatBodyHeightAdjust(true);
+            });
+        }
+    }
+
+    offensiveTimeoutHandler = () => {
+        this.showOffensiveMessageError = false;
+    };
+
+    getMessagePayload(message: string) {
+        const timestamp = this.chatUtil.getTimeStamp();
+        this.TIMESTAMP_MAP[WSChatMessageType.message] = timestamp;
+        return {
+            type: WSChatMessageType.message,
+            timestamp,
+            data: {
+                thread_id: this.threadDetails.id,
+                content: message,
+                meta_data: '',
+            },
+        };
+    }
 
     ngOnDestroy() {
         for (const name in this.SM) {

@@ -281,16 +281,6 @@ export class OrderBookedComponent implements OnInit {
 
         // Form input using method createChatBubble
         // To append any user message to display
-        chatboxForm.addEventListener('submit', (e) => {
-            //   const chatInput = document.querySelector(".js-chatbox-input");
-            const chatInput = (document.getElementById('js-chatbox-input') as HTMLInputElement).value;
-            //   console.log("chat text coming"+chatInput);
-
-            createChatBubble(chatInput);
-
-            e.preventDefault();
-            this.myForm.nativeElement.reset();
-        });
     }
     GetCountry(data: any) {
         // console.log(data.toUpperCase());

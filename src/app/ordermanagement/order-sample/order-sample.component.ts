@@ -292,16 +292,6 @@ export class OrderSampleComponent implements OnInit {
 
         // Form input using method createChatBubble
         // To append any user message to display
-        chatboxForm.addEventListener('submit', (e) => {
-            //   const chatInput = document.querySelector(".js-chatbox-input");
-            const chatInput = (document.getElementById('js-chatbox-input') as HTMLInputElement).value;
-            //   console.log("chat text coming"+chatInput);
-
-            createChatBubble(chatInput);
-
-            e.preventDefault();
-            this.myForm.nativeElement.reset();
-        });
     }
     // onRate($event:{ newValue:number}) {
 

@@ -52,11 +52,17 @@
                 <span *ngIf="currentDisputeID" class="primary_txt">Ticket #{{ currentDisputeID }}</span>
                 <span class="statusLable font-12">Order Status - {{ orderDetails?.status }}</span>
             </div>
-            <div *ngIf="orderDetails && orderDetails['images']" class="pr-3 imgDiv">
+            <!-- <div *ngIf="orderDetails && orderDetails['images']" class="pr-3 imgDiv">
                 <span *ngFor="let user of orderDetails['images']">
                     <img class="profileImg" [src]="user" />
                 </span>
+            </div> -->
+            <div *ngIf="threadUserList.length" class="pr-3 imgDiv">
+                <span *ngFor="let user of threadUserList">
+                    <img class="profileImg" [src]="user.profile_pic || 'assets/images/profile.svg'" />
+                </span>
             </div>
+
             <div class="orderDiv pl-3">
                 <span class="secondary_txt">{{ globals.languageJson?.order_type }}</span>
                 <span class="orderLable">{{ orderDetails?.order_type }}</span>
@@ -122,5 +128,9 @@
             </button>
         </div>
     </div>
-    <app-sewn-order-chat [orderThread]="orderThread" [currentDispute]="currentDispute"></app-sewn-order-chat>
+    <app-sewn-order-chat
+        [orderThread]="orderThread"
+        [orderDisputes]="currentDispute"
+        (threadUsers)="threadUserList = $event"
+    ></app-sewn-order-chat>
 </div>

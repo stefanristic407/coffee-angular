@@ -23,6 +23,7 @@ export class OrderChatComponent implements OnInit {
     currentDispute: any;
     roasterName: any;
     orderType: any;
+    threadUserList = [];
     constructor(
         public globals: GlobalsService,
         private route: ActivatedRoute,
@@ -110,7 +111,7 @@ export class OrderChatComponent implements OnInit {
     }
     clickOrder() {
         this.currentDisputeID = '';
-        this.currentDispute = undefined;
+        this.currentDispute = null;
     }
     formatStatus(stringVal) {
         let formatVal = '';

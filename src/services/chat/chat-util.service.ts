@@ -19,7 +19,7 @@ export class ChatUtil {
     public getReadableTime(tTime: string = '') {
         const todayDate = moment();
         const messageDate = moment(tTime);
-        if (messageDate.isValid || tTime) {
+        if (messageDate.isValid() && tTime) {
             const isSameYear = todayDate.year() === messageDate.year();
             const isSameMonth = isSameYear && todayDate.month() === messageDate.month();
             const isSameDay = isSameMonth && todayDate.date() === messageDate.date();

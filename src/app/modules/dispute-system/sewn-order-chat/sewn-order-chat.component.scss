@@ -400,11 +400,18 @@
         background-color: #eeeeee;
     }
     .live-time {
-        transform: translate(-100%, -30px);
+        transform: translate(-100%, -10px);
     }
+}
+.message-text {
+    white-space: pre-wrap;
 }
 .message-to {
     .live-time {
-        transform: translate(0px, -30px);
+        transform: translate(0px, -20px);
     }
+}
+.conversatio-body__messages {
+    height: calc(100vh - 276px);
+    padding: 25px 25px 10px 25px;
 }

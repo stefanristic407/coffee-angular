@@ -39,7 +39,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     SM: { [SubscriptionName: string]: Subscription } = {}; // Subscrition MAP object
     threadList: ThreadListItem[] = [];
-    TIMESTAMP_MAP: { [K in WSChatMessageType]: string };
+    TIMESTAMP_MAP: { [K in WSChatMessageType]: string } = {} as { [K in WSChatMessageType]: string };
     userStatusTimerRef = 0;
     unReadTimerRef = 0;
     usersList: UserListItem[] = [];
@@ -112,6 +112,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     initializeWebSocket() {
+        if (this.SM['WSSubscription'] && this.SM['WSSubscription'].unsubscribe) {
+            this.SM['WSSubscription'].unsubscribe();
+        }
         this.SM['WSSubscription'] = this.socket.chatReceive
             .pipe(
                 catchError((err: any, caught: Observable<any>) => {
@@ -166,9 +169,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             });
         });
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[WSChatMessageType.users] === timestamp;
+        this.TIMESTAMP_MAP[WSChatMessageType.users] = timestamp;
         return {
-            timestamp: timestamp,
+            timestamp,
             type: WSChatMessageType.users,
             data: {
                 members: Object.values(userPayload),
@@ -178,9 +181,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     getCurrentThreadPayload() {
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[WSChatMessageType.threads] === timestamp;
+        this.TIMESTAMP_MAP[WSChatMessageType.threads] = timestamp;
         return {
-            timestamp: timestamp,
+            timestamp,
             type: WSChatMessageType.threads,
             data: {
                 user_id: this.USER_ID,
@@ -194,32 +197,32 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     getUnReadPayload() {
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[WSChatMessageType.unread] === timestamp;
+        this.TIMESTAMP_MAP[WSChatMessageType.unread] = timestamp;
         return {
-            timestamp: timestamp,
+            timestamp,
             type: WSChatMessageType.unread,
         };
     }
 
     getMessagePayload(message: string) {
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[WSChatMessageType.message] === timestamp;
+        this.TIMESTAMP_MAP[WSChatMessageType.message] = timestamp;
         return {
             type: WSChatMessageType.message,
+            timestamp,
             data: {
                 thread_id: this.openedThread.id,
                 content: message,
                 meta_data: '',
             },
-            timestamp: timestamp,
         };
     }
 
     getHistoryPayload(thread: ThreadListItem) {
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[WSChatMessageType.history] === timestamp;
+        this.TIMESTAMP_MAP[WSChatMessageType.history] = timestamp;
         return {
-            timestamp: timestamp,
+            timestamp,
             type: WSChatMessageType.history,
             data: {
                 thread_id: thread.id,
@@ -233,10 +236,10 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     findThread(payload: OpenChatThread) {
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[WSChatMessageType.getCreate] === timestamp;
+        this.TIMESTAMP_MAP[WSChatMessageType.getCreate] = timestamp;
         console.log('Open chat request payload', payload);
         this.socket.chatSent.next({
-            timestamp: timestamp,
+            timestamp,
             type: WSChatMessageType.getCreate,
             data: payload,
         });
@@ -244,9 +247,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     threadRequestByNewMessage(threadId: number) {
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[WSChatMessageType.thread] === timestamp;
+        this.TIMESTAMP_MAP[WSChatMessageType.thread] = timestamp;
         this.socket.chatSent.next({
-            timestamp: timestamp,
+            timestamp,
             type: WSChatMessageType.thread,
             data: {
                 thread_id: threadId,
@@ -341,7 +344,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                         }
                         const threadIndex = this.threadList.findIndex((thread) => thread.id === inThread.id);
                         this.threadList.splice(threadIndex, 1);
-                        this.threadList.unshift(inThread); //Pushing into top
+                        this.threadList.unshift(inThread); // Pushing into top
                     } else {
                         this.threadRequestByNewMessage(message.thread_id);
                     }
@@ -780,9 +783,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     openThreadWithUser(item: UserListItem | RecentUserListItem) {
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[WSChatMessageType.getCreate] === timestamp;
+        this.TIMESTAMP_MAP[WSChatMessageType.getCreate] = timestamp;
         this.socket.chatSent.next({
-            timestamp: timestamp,
+            timestamp,
             type: WSChatMessageType.getCreate,
             data: {
                 org_id: item.organization_id,
@@ -800,10 +803,10 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     sendReadToken(lastMessageId: number) {
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[WSChatMessageType.read] === timestamp;
+        this.TIMESTAMP_MAP[WSChatMessageType.read] = timestamp;
         this.socket.chatSent.next({
             type: WSChatMessageType.read,
-            timestamp: timestamp,
+            timestamp,
             data: {
                 thread_id: this.openedThread.id,
                 last_read_id: lastMessageId,

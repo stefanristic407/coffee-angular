@@ -5,7 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Subscription, Subject, BehaviorSubject } from 'rxjs';
 import { ChatUtil } from './chat/chat-util.service';
-import { distinct } from 'rxjs/operators';
+import { delay, distinct, retryWhen, tap } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
@@ -13,7 +13,7 @@ import { distinct } from 'rxjs/operators';
 export class SocketService implements OnDestroy {
     private ORGANIZATION_TYPE = WSOrganizationType.ROASTER; // Change on each portal
     private ORGANIZATION_ID: number | null = parseInt(this.cookieService.get('roaster_id'), 10) || null;
-    public WSSubject: WebSocketSubject<any> | null = null;
+    private WSSubject: WebSocketSubject<any> | null = null;
     private WSSubscriptionToken: Subscription | null = null;
 
     public chatSent = new Subject<WSRequest<unknown>>();
@@ -30,13 +30,30 @@ export class SocketService implements OnDestroy {
         this.initSocketService();
     }
 
-    private initSocketService() {
+    public initSocketService() {
         if (!this.activeState) {
             this.authenticationState.next('IP');
             this.destorySocket(); // Cleanup
-            this.WSSubject = webSocket(
-                `${environment.wsEndpoint}/${this.ORGANIZATION_TYPE}/${this.ORGANIZATION_ID}/messaging`,
-            );
+            this.WSSubject = webSocket<WSResponse<unknown>>({
+                url: `${environment.wsEndpoint}/${this.ORGANIZATION_TYPE}/${this.ORGANIZATION_ID}/messaging`,
+                openObserver: {
+                    next: () => {
+                        console.log('SOCKET OPENED');
+                    },
+                },
+                closeObserver: {
+                    next: () => {
+                        console.log('SOCKET CLOSED');
+                    },
+                },
+                closingObserver: {
+                    next: () => {
+                        console.log('SOCKET closingObserver');
+                    },
+                },
+                binaryType: 'arraybuffer',
+            });
+
             this.WSSubscriptionToken = this.WSSubject.subscribe((WSMessage: WSResponse<unknown>) => {
                 if (WSMessage.type === WSChatMessageType.auth) {
                     this.handleAuthResponse(WSMessage as WSResponse<null>);
@@ -47,15 +64,16 @@ export class SocketService implements OnDestroy {
                     this.chatReceive.next(WSMessage);
                     this.orderChatReceive.next(WSMessage);
                 }
+                // console.log('WEBSOCKET::Receiving ...', WSMessage);
             });
             this.chatSentSubscription = this.chatSent.subscribe((payload) => {
                 this.WSSubject.next(payload);
             });
             this.orderChatSentSubscription = this.orderChatSent.subscribe((payload) => {
+                // console.log('WEBSOCKET::Sending ...', payload);
                 this.WSSubject.next(payload);
             });
             this.activeState = true;
-            this.authenticate();
         }
     }
 
@@ -79,10 +97,12 @@ export class SocketService implements OnDestroy {
         }
     }
 
-    private destorySocket() {
+    public destorySocket() {
         // NOTE Call this function on logout
+        console.log('Error: Destory called');
         if (this.WSSubject) {
             this.WSSubject.complete();
+            this.WSSubject = null;
         }
         this.clearSubscriptions();
         this.activeState = false;
@@ -120,7 +140,6 @@ export class SocketService implements OnDestroy {
     }
 
     ngOnDestroy() {
-        this.WSSubject.complete();
-        this.clearSubscriptions();
+        this.destorySocket();
     }
 }
