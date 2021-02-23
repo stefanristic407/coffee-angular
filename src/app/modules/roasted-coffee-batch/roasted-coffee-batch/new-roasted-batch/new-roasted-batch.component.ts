@@ -5,7 +5,6 @@ import { RoasterserviceService } from 'src/services/roasters/roasterservice.serv
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { RoasteryProfileService } from '../../roastery-profile/roastery-profile.service';
 import { MenuItem } from 'primeng/api';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -45,7 +44,6 @@ export class NewRoastedBatchComponent implements OnInit {
         public toastrService: ToastrService,
         public router: Router,
         public route: ActivatedRoute,
-        public roasteryProfileService: RoasteryProfileService,
         public cookieService: CookieService,
         private fb: FormBuilder,
     ) {
