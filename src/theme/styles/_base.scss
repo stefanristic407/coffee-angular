@@ -709,3 +709,9 @@ input[type='number'] {
         display: none !important;
     }
 }
+
+.sm-hide {
+    @media screen and (max-width: 576px) {
+        display: none !important;
+    }
+}

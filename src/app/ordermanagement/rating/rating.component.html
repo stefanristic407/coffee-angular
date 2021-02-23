@@ -43,10 +43,13 @@
                             <li class="fnt-mb-14 lh-normal fnt-bold text-clr588 mb-2">
                                 {{ orgType | orgType }}
                             </li>
-                            <li class="d-flex mb-3">
-                                <span class="fnt-12">
-                                    <p-rating [ngModel]="rating" [cancel]="false" [readonly]="true"></p-rating
-                                ></span>
+                            <li class="d-flex align-items-center mb-3">
+                                <p-rating
+                                    [ngModel]="rating"
+                                    [cancel]="false"
+                                    [readonly]="true"
+                                    class="fnt-12"
+                                ></p-rating>
                                 <span class="fnt-14 lh-normal fnt-bold text-clr334 ml-1">
                                     {{ rating }}
                                 </span>
