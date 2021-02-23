@@ -5,9 +5,9 @@
                 <span id="title-breadcrumb-1" class="sr-only"></span>
                 <ul class="bread-nav">
                     <li class="b-cum">
-                        <a class="b-cum" [routerLink]="['/features/welcome-aboard']">{{ globals.languageJson?.home }}</a
-                        ><span class="padl-r" aria-hidden="true"
-                            ><img class="group-img" src="/assets/images/arrow-1.png" alt="" />
+                        <a class="b-cum" [routerLink]="['/features/welcome-aboard']">{{ globals.languageJson?.home
+                            }}</a><span class="padl-r" aria-hidden="true"><img class="group-img"
+                                src="/assets/images/arrow-1.png" alt="" />
                         </span>
                     </li>
                     <!-- <li class="b-cum">
@@ -18,13 +18,8 @@
             </nav>
             <div class="file-share-search col-12 col-md-3 ml-md-auto mb-3 mr-5 d-none d-md-flex align-items-center">
                 <img class="mr-1 mr-md-2" src="assets/images/search.svg" />
-                <input
-                    class="fadout-search"
-                    type="search"
-                    placeholder="{{ globals.languageJson?.search_files }}"
-                    [(ngModel)]="searchTerm"
-                    name="filesTerm"
-                />
+                <input class="fadout-search" type="search" placeholder="{{ globals.languageJson?.search_files }}"
+                    [(ngModel)]="searchTerm" name="filesTerm" />
             </div>
         </div>
 
@@ -32,57 +27,55 @@
             <h5 class="estate-order-title">{{ globals.languageJson?.agreements }}</h5>
         </section>
 
-        <div class="row">
+        <div class="row" style="border-bottom: 1px solid #dddddd;">
             <div class="col-12">
                 <div class="mixups-tabs mt-3 col-lg-12 col-md-12">
-                    <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
-                        <li class="nav-item">
-                            <a
-                                class="nav-link active"
-                                id="pills-land-lots-tab"
-                                data-toggle="pill"
-                                href="#pills-land-lots"
-                                role="tab"
-                                aria-controls="pills-home"
-                                aria-selected="true"
-                                (click)="searchTerm = ''"
-                            >
-                                {{ globals.languageJson?.horeca }}</a
-                            >
-                        </li>
+                    <div class="row" style="border-bottom: 1px solid #dddddd;">
+                        <div class="col-lg-10 col-md-10">
+                            <ul class="nav nav-pills w-100" id="pills-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="pills-land-lots-tab" data-toggle="pill"
+                                        href="#pills-land-lots" role="tab" aria-controls="pills-home"
+                                        aria-selected="true" (click)="onNavChange('hrc')"
+                                        style="padding-bottom: 0.875rem;">
+                                        {{ globals.languageJson?.horeca }}</a>
+                                </li>
 
-                        <li class="nav-item">
-                            <a
-                                class="nav-link"
-                                id="pills-batch-status-tab"
-                                data-toggle="pill"
-                                href="#pills-batch-status"
-                                role="tab"
-                                aria-controls="pills-profile"
-                                aria-selected="false"
-                                (click)="searchTerm = ''"
-                                >{{ globals.languageJson?.micro_roasters }}</a
-                            >
-                        </li>
-                    </ul>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="pills-batch-status-tab" data-toggle="pill"
+                                        href="#pills-batch-status" role="tab" aria-controls="pills-profile"
+                                        aria-selected="false" (click)="onNavChange('micro-roasters')"
+                                        style="padding-bottom: 0.875rem;">
+                                        {{ globals.languageJson?.micro_roasters}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-2 col-md-2">
+                            <div class="d-inline display_div">
+                                <div class="float-right upload-order top-space" data-toggle="modal"
+                                    data-target="#uploadfolder">
+                                    <label class="share-bor">
+                                        <img class="dwnd-img" src="assets/images/upload-icon.png" alt="upload-icon" />
+                                        <span class="share-txt">&nbsp; Upload </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="tab-content mt-md-4" id="pills-tabContent">
-                        <div
-                            class="tab-pane fade show active"
-                            id="pills-land-lots"
-                            role="tabpanel"
-                            aria-labelledby="pills-land-lots-tab"
-                        >
-                            <app-horeca-agreements [searchTerm]="searchTerm"></app-horeca-agreements>
+                        <div class="tab-pane fade show active" id="pills-land-lots" role="tabpanel"
+                            aria-labelledby="pills-land-lots-tab">
+                            <app-roaster-agreements *ngIf="customerType === 'hrc'" [searchTerm]="searchTerm"
+                                [customerType]="'hrc'">
+                            </app-roaster-agreements>
                         </div>
 
-                        <div
-                            class="tab-pane fade"
-                            id="pills-batch-status"
-                            role="tabpanel"
-                            aria-labelledby="pills-batch-status-tab"
-                        >
-                            <app-micro-roaster-agreements [searchTerm]="searchTerm"></app-micro-roaster-agreements>
+                        <div class="tab-pane fade" id="pills-batch-status" role="tabpanel"
+                            aria-labelledby="pills-batch-status-tab">
+                            <app-roaster-agreements *ngIf="customerType === 'micro-roasters'" [searchTerm]="searchTerm"
+                                [customerType]="'micro-roasters'">
+                            </app-roaster-agreements>
                         </div>
                     </div>
                 </div>

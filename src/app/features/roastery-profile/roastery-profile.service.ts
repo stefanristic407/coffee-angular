@@ -5549,10 +5549,10 @@ export class RoasteryProfileService {
   ];
   cities: Array<any>;
 
-  contactInfo : boolean = true;
-  addMediaDiv : boolean = false;
-  savemode : boolean = false;
-  editmode : boolean = true;
+  contactInfo: boolean = true;
+  addMediaDiv: boolean = false;
+  savemode: boolean = false;
+  editmode: boolean = true;
   userId: string;
   roasterId: string;
   summary: any;
@@ -5571,111 +5571,115 @@ export class RoasteryProfileService {
   address1: any;
   address2: any;
   countryName: any;
-  kgs:any = '';
-  capacity:any;
-  capabilities : string;
-  male_num : any;
-  female_num : any;
-  employee_avg : any;
-  employee_nos : any;
+  kgs: any = '';
+  capacity: any;
+  capabilities: string;
+  male_num: any;
+  female_num: any;
+  employee_avg: any;
+  employee_nos: any;
   roasterUsers: any = [];
-  emp_name : any = '';
+  emp_name: any = '';
   roasterContacts: any = [];
   single: { "name": string; "value": any; }[];
   vat_nos: any;
   cmpy_rid: any;
-  company_details_public: any=false;
-  showDelete : boolean = false;
+  company_details_public: any = false;
+  showDelete: boolean = false;
 
-  constructor(public userService : UserserviceService,
-              public cookieService : CookieService,
-              public roasterService : RoasterserviceService,
-              public toastrService : ToastrService,
-              public profilePhotoService : ProfilePhotoService,
-              public router: Router
-              ) {
+  constructor(public userService: UserserviceService,
+    public cookieService: CookieService,
+    public roasterService: RoasterserviceService,
+    public toastrService: ToastrService,
+    public profilePhotoService: ProfilePhotoService,
+    public router: Router
+  ) {
     this.userId = this.cookieService.get('user_id');
     this.roasterId = this.cookieService.get('roaster_id');
 
 
 
-this.roasterProfile();
+    this.roasterProfile();
 
   }
 
-  roasterProfile(){
-    
-this.userService.getRoasterAccount(this.roasterId).subscribe(result => {
-  if(result['success']== true){
-    console.log(result)
-    this.summary = result['result']['description'];
-    this.founded_in = result['result']['founded_on'];
-    this.website = result['result']['website'];
-    this.name = result['result']['name'];
-    this.phoneno = result['result']['phone'];
-    this.country = result['result']['country'];
-     const country = this.countryList.find(con => con.isoCode == this.country);
-     this.countryName = country? country.name : '';
-    this.state = result['result']['state'];
-    this.city = result['result']['city'];
-    this.zipcode = result['result']['zipcode'];
-    this.email = result['result']['email'];
-    this.profilePhotoService.croppedImage = result['result']['company_image_url'];
-    this.facebook = result['result']['fb_profile'];
-    this.instagram = result['result']['ig_profile'];
-    this.address1 = result['result']['address_line1'];
-    this.address2 = result['result']['address_line2'];
-    this.kgs = result['result']['capacity_unit'];
-    this.male_num = result['result']['male_employee_count'];
-    this.female_num =  result['result']['female_employee_count'];
-    this.capacity = result['result']['capacity'];
-    this.capabilities = result['result']['capabilities'];
-    this.employee_nos = result['result']['total_employees'];
-    this.employee_avg = result['result']['avg_employee_age'];
-    this.vat_nos = result['result']['vat_number'];
-    this.cmpy_rid = result['result']['registration_id'];
-    this.company_details_public = result['result']['is_company_details_public'];
-    this.changeCountry(this.country);
-  }
-  })
+  roasterProfile() {
 
-  setTimeout(()=>{
-    this.single =  [
-      {
-     "name": "Female",
-     "value": this.female_num ? this.female_num:0
-    },
-    {
-     "name": "Male",
-     "value": this.male_num ? this.male_num:0
-    }
-    ];
-  },5000);
-  
-  this.roasterService.getRoasterUsers(this.roasterId).subscribe(data =>{
-    if(data['success']==true){
-      this.roasterUsers = data['result'];
-      console.log(this.roasterUsers)
-    }
-  });
-  
-  this.getcontactList();
+    this.userService.getRoasterAccount(this.roasterId).subscribe(result => {
+      if (result['success'] == true) {
+        console.log(result)
+        this.summary = result['result']['description'];
+        this.founded_in = result['result']['founded_on'];
+        this.website = result['result']['website'];
+        this.name = result['result']['name'];
+        this.phoneno = result['result']['phone'];
+        this.country = result['result']['country'];
+        const country = this.countryList.find(con => con.isoCode == this.country);
+        this.countryName = country ? country.name : '';
+        this.state = result['result']['state'];
+        this.city = result['result']['city'];
+        this.zipcode = result['result']['zipcode'];
+        this.email = result['result']['email'];
+        this.profilePhotoService.croppedImage = result['result']['company_image_url'];
+        this.facebook = result['result']['fb_profile'];
+        this.instagram = result['result']['ig_profile'];
+        this.address1 = result['result']['address_line1'];
+        this.address2 = result['result']['address_line2'];
+        this.kgs = result['result']['capacity_unit'];
+        this.male_num = result['result']['male_employee_count'];
+        this.female_num = result['result']['female_employee_count'];
+        this.capacity = result['result']['capacity'];
+        this.capabilities = result['result']['capabilities'];
+        this.employee_nos = result['result']['total_employees'];
+        this.employee_avg = result['result']['avg_employee_age'];
+        this.vat_nos = result['result']['vat_number'];
+        this.cmpy_rid = result['result']['registration_id'];
+        this.company_details_public = result['result']['is_company_details_public'];
+        this.changeCountry(this.country);
+      }
+    })
+
+    setTimeout(() => {
+      this.single = [
+        {
+          "name": "Female",
+          "value": this.female_num ? this.female_num : 0
+        },
+        {
+          "name": "Male",
+          "value": this.male_num ? this.male_num : 0
+        }
+      ];
+    }, 5000);
+
+    this.roasterService.getRoasterUsers(this.roasterId).subscribe(data => {
+      if (data['success'] == true) {
+        this.roasterUsers = data['result'];
+        console.log(this.roasterUsers)
+      }
+    });
+
+    this.getcontactList();
   }
 
-  getcontactList(){
-    this.roasterService.getRoasterContacts(this.roasterId).subscribe(res =>{
-      if(res['success']==true){
-      this.roasterContacts = res['result'];
-      console.log(this.roasterContacts)
+  getcontactList() {
+    this.roasterService.getRoasterContacts(this.roasterId).subscribe(res => {
+      if (res['success'] == true) {
+        this.roasterContacts = res['result'];
+        console.log(this.roasterContacts)
       }
     })
   }
-    
 
-  //  Function Name :Change Country.
-  //Description: This function helps to get the values of cities according to selcted country.
+
+  // Function Name :Change Country.
+  // Description: This function helps to get the values of cities according to selcted country.
   changeCountry(count) {
-    this.cities = this.countryList.find(con => con.isoCode == count).cities;
+    this.cities = this.countryList.find((con) => {
+      if (con.isoCode === count) {
+        return con.cities;
+      }
+    });
   }
 
   b64toBlob(b64Data, contentType, sliceSize) {
@@ -5686,53 +5690,53 @@ this.userService.getRoasterAccount(this.roasterId).subscribe(result => {
     var byteArrays = [];
 
     for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-        var slice = byteCharacters.slice(offset, offset + sliceSize);
+      var slice = byteCharacters.slice(offset, offset + sliceSize);
 
-        var byteNumbers = new Array(slice.length);
-        for (var i = 0; i < slice.length; i++) {
-            byteNumbers[i] = slice.charCodeAt(i);
-        }
+      var byteNumbers = new Array(slice.length);
+      for (var i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
 
-        var byteArray = new Uint8Array(byteNumbers);
+      var byteArray = new Uint8Array(byteNumbers);
 
-        byteArrays.push(byteArray);
+      byteArrays.push(byteArray);
     }
 
-  var blob = new Blob(byteArrays, {type: contentType});
-  return blob;
-}
-  saveRoasterProfile(){
-    
+    var blob = new Blob(byteArrays, { type: contentType });
+    return blob;
+  }
+  saveRoasterProfile() {
 
-    var data ={
-      'description' : this.summary,
-      'state' : this.state,
-      'country' : this.country,
-      'city' : this.city,
-      'name' : this.name,
-      'website'  : this.website,
-      'phone' : this.phoneno,
-      'email' : this.email,
-      'founded_on' : this.founded_in,
-      'zipcode' : this.zipcode,
-      'address_line1' : this.address1,
-      'adderss_line2' : this.address2,
-      'fb_profile' : this.facebook,
-      'ig_profile' : this.instagram,
-      'capacity' : this.capacity,
-      'capabilities' : this.capabilities,
-      'total_employees' : this.employee_nos,
-      'avg_employee_age' : this.employee_avg,
-      'female_employee_count' : this.female_num,
-      'male_employee_count' : this.male_num,
-      'vat_number' : this.vat_nos,
+
+    var data = {
+      'description': this.summary,
+      'state': this.state,
+      'country': this.country,
+      'city': this.city,
+      'name': this.name,
+      'website': this.website,
+      'phone': this.phoneno,
+      'email': this.email,
+      'founded_on': this.founded_in,
+      'zipcode': this.zipcode,
+      'address_line1': this.address1,
+      'adderss_line2': this.address2,
+      'fb_profile': this.facebook,
+      'ig_profile': this.instagram,
+      'capacity': this.capacity,
+      'capabilities': this.capabilities,
+      'total_employees': this.employee_nos,
+      'avg_employee_age': this.employee_avg,
+      'female_employee_count': this.female_num,
+      'male_employee_count': this.male_num,
+      'vat_number': this.vat_nos,
       'registration_id': this.cmpy_rid,
-      'capacity_unit':this.kgs,
+      'capacity_unit': this.kgs,
       'is_company_details_public': this.company_details_public
     }
-    this.userService.updateRoasterAccount(this.roasterId,data).subscribe(
-      response =>{
-        if(response['success']==true){
+    this.userService.updateRoasterAccount(this.roasterId, data).subscribe(
+      response => {
+        if (response['success'] == true) {
           console.log(response);
           // var  contactData = {
           //   user_id : parseInt(this.emp_name)
@@ -5745,118 +5749,118 @@ this.userService.getRoasterAccount(this.roasterId).subscribe(result => {
           var base64Rejex = /^data:image\/(?:gif|png|jpeg|bmp|webp)(?:;charset=utf-8)?;base64,(?:[A-Za-z0-9]|[+/])+={0,2}/;
           var isBase64Valid = base64Rejex.test(this.profilePhotoService.croppedImage); // base64Data is the base64 string
 
-          if(isBase64Valid == false){
-            if(this.emp_name == ""){
+          if (isBase64Valid == false) {
+            if (this.emp_name == "") {
               this.toastrService.success("Roaster profile details updated successfully");
-            this.contactInfo = true;
-            this.addMediaDiv = false;
-            this.savemode = false;
-            this.editmode = true;
-            this.emp_name = "";
-            this.roasterProfile();
-            }else{
-          var  contactData = {
-            user_id : parseInt(this.emp_name)
-          }
-          // this.roasterService.addRoasterContacts(this.roasterId,contactData).subscribe(
-          //   res =>{
-          //     console.log(res);
-          //     if(res['success']== true){
-          //   this.toastrService.success("Roaster profile details updated successfully");
-          //   this.contactInfo = true;
-          //   this.addMediaDiv = false;
-          //   this.savemode = false;
-          //   this.editmode = true;
-          //   this.emp_name = "";
-          //   this.roasterProfile();
-          //   }else{
-          //     this.toastrService.error("Error while updating contacts")
-          //   }
-          // })
-            }
-          }else{
-            console.log("entering here")
-          var ImageURL = this.profilePhotoService.croppedImage;
-           // Split the base64 string in data and contentType
-          var block = ImageURL.split(";");
-          // Get the content type of the image
-          var contentType = block[0].split(":")[1];// In this case "image/gif"
-          // get the real base64 content of the file
-          var realData = block[1].split(",")[1];// In this case "R0lGODlhPQBEAPeoAJosM...."
-          
-          // Convert it to a blob to upload
-          var blob = this.b64toBlob(realData, contentType,0);
-          
-          let formData: FormData = new FormData();
-          formData.append("file", blob);
-          formData.append(
-            "api_call",
-            "/ro/" + this.roasterId +  "/company-image"
-          );
-          formData.append("token", this.cookieService.get("Auth"));
-          this.userService.uploadProfileImage(formData).subscribe(
-            result => {
-              console.log(result)
-              if(result['success']== true){
-                if(this.emp_name == ""){
-                  this.toastrService.success("Roaster profile details updated successfully");
               this.contactInfo = true;
               this.addMediaDiv = false;
               this.savemode = false;
               this.editmode = true;
               this.emp_name = "";
               this.roasterProfile();
-                }
-                else{
-                  // var  contactData = {
-                  //   user_id : parseInt(this.emp_name)
-                  // }
-                  // this.roasterService.updateRoasterContacts(this.roasterId,contactData).subscribe(
-                  //   res =>{
-                  //     console.log(res);
-                  //     if(res['success']== true){
-                  //   this.toastrService.success("Roaster profile details updated successfully");
-                  //   this.contactInfo = true;
-                  //   this.addMediaDiv = false;
-                  //   this.savemode = false;
-                  //   this.editmode = true;
-                  //   this.emp_name = "";
-                  //   this.roasterProfile();
-                  //   }else{
-                  //     this.toastrService.error("Error while updating contacts")
-                  //   }
-                  // })
-                }
-              
+            } else {
+              var contactData = {
+                user_id: parseInt(this.emp_name)
               }
-              else{
-                console.log(result);
-                this.toastrService.error("Error while uploading company image, please try again.")
-              }
+              // this.roasterService.addRoasterContacts(this.roasterId,contactData).subscribe(
+              //   res =>{
+              //     console.log(res);
+              //     if(res['success']== true){
+              //   this.toastrService.success("Roaster profile details updated successfully");
+              //   this.contactInfo = true;
+              //   this.addMediaDiv = false;
+              //   this.savemode = false;
+              //   this.editmode = true;
+              //   this.emp_name = "";
+              //   this.roasterProfile();
+              //   }else{
+              //     this.toastrService.error("Error while updating contacts")
+              //   }
+              // })
             }
-          )
+          } else {
+            console.log("entering here")
+            var ImageURL = this.profilePhotoService.croppedImage;
+            // Split the base64 string in data and contentType
+            var block = ImageURL.split(";");
+            // Get the content type of the image
+            var contentType = block[0].split(":")[1];// In this case "image/gif"
+            // get the real base64 content of the file
+            var realData = block[1].split(",")[1];// In this case "R0lGODlhPQBEAPeoAJosM...."
+
+            // Convert it to a blob to upload
+            var blob = this.b64toBlob(realData, contentType, 0);
+
+            let formData: FormData = new FormData();
+            formData.append("file", blob);
+            formData.append(
+              "api_call",
+              "/ro/" + this.roasterId + "/company-image"
+            );
+            formData.append("token", this.cookieService.get("Auth"));
+            this.userService.uploadProfileImage(formData).subscribe(
+              result => {
+                console.log(result)
+                if (result['success'] == true) {
+                  if (this.emp_name == "") {
+                    this.toastrService.success("Roaster profile details updated successfully");
+                    this.contactInfo = true;
+                    this.addMediaDiv = false;
+                    this.savemode = false;
+                    this.editmode = true;
+                    this.emp_name = "";
+                    this.roasterProfile();
+                  }
+                  else {
+                    // var  contactData = {
+                    //   user_id : parseInt(this.emp_name)
+                    // }
+                    // this.roasterService.updateRoasterContacts(this.roasterId,contactData).subscribe(
+                    //   res =>{
+                    //     console.log(res);
+                    //     if(res['success']== true){
+                    //   this.toastrService.success("Roaster profile details updated successfully");
+                    //   this.contactInfo = true;
+                    //   this.addMediaDiv = false;
+                    //   this.savemode = false;
+                    //   this.editmode = true;
+                    //   this.emp_name = "";
+                    //   this.roasterProfile();
+                    //   }else{
+                    //     this.toastrService.error("Error while updating contacts")
+                    //   }
+                    // })
+                  }
+
+                }
+                else {
+                  console.log(result);
+                  this.toastrService.error("Error while uploading company image, please try again.")
+                }
+              }
+            )
+          }
+          //     }else{
+          //       console.log(res);
+          //       this.toastrService.error("Error while updating details, please try again.")   
+          //     }
+          //   }
+          // )
         }
-  //     }else{
-  //       console.log(res);
-  //       this.toastrService.error("Error while updating details, please try again.")   
-  //     }
-  //   }
-  // )
-        }
-        else{
+        else {
           this.toastrService.error("Error while updating details, please try again.")
         }
       }
     )
   }
-  editRoasterProfile(){
+  editRoasterProfile() {
     this.contactInfo = false;
     this.addMediaDiv = true;
     this.savemode = true;
     this.showDelete = true;
     this.editmode = false;
   }
-  preview(){
+  preview() {
     this.contactInfo = true;
     this.addMediaDiv = false;
     this.savemode = false;

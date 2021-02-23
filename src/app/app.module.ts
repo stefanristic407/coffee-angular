@@ -36,6 +36,7 @@ import { UserserviceService } from 'src/services/users/userservice.service';
 import { SearchFilterPipe } from './components/sewn-direct-message/search-filter.pipe';
 import { LifecyclehookDirective } from './components/sewn-direct-message/lifecyclehook.directive';
 import { FooterComponent } from './layout/footer/footer.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -54,6 +55,8 @@ import { FooterComponent } from './layout/footer/footer.component';
         BrowserAnimationsModule,
         AppRoutingModule,
         HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
         AnimateOnScrollModule.forRoot(),
         CarouselModule.forRoot(),
         ModalModule.forRoot(),
@@ -88,7 +91,7 @@ import { FooterComponent } from './layout/footer/footer.component';
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
 
 // Sweden
 registerLocaleData(localeSe);
