@@ -11,6 +11,7 @@ import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
 import { ConfirmComponent } from '@shared';
+import * as _ from 'underscore';
 @Component({
     selector: 'app-visit-us',
     templateUrl: './visit-us.component.html',
@@ -45,7 +46,7 @@ export class VisitUsComponent implements OnInit {
     }
     ngOnInit(): void {
         this.breadItems = [
-            { label: this.globals.languageJson?.home, routerLink: '/features/welcome-aboard' },
+            { label: this.globals.languageJson?.home, routerLink: '/' },
             { label: this.globals.languageJson?.brand_profile, routerLink: '/brand-profile' },
             { label: 'Visit us' },
         ];
@@ -122,7 +123,10 @@ export class VisitUsComponent implements OnInit {
     }
 
     drop(event: CdkDragDrop<string[]>) {
-        moveItemInArray(this.savedFaqArray, event.previousIndex, event.currentIndex);
+        if (event.previousIndex !== event.currentIndex) {
+            moveItemInArray(this.savedFaqArray, event.previousIndex, event.currentIndex);
+            this.sortFAQ();
+        }
     }
 
     refreshQuestionForm(idx = null) {
@@ -201,5 +205,21 @@ export class VisitUsComponent implements OnInit {
                     });
                 }
             });
+    }
+
+    sortFAQ() {
+        const sortPriorities = _.chain(this.savedFaqArray)
+            .map((item, index) => {
+                return { faq_id: item.id, sort_priority: index + 1 };
+            })
+            .value();
+        this.userService.sortFAQ(this.roasterId, { sort_priorities: sortPriorities }).subscribe((res: any) => {
+            if (res.success) {
+                this.toastrService.success('The FAQ order has been updated successfully');
+                this.getFAQList();
+            } else {
+                this.toastrService.error('Something went wrong while update the FAQ order');
+            }
+        });
     }
 }

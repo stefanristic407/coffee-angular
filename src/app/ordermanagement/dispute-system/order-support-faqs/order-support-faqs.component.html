@@ -1,58 +1,88 @@
 <div class="bg-fff">
-
     <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
         <span id="title-breadcrumb-1" class="sr-only"></span>
         <ul class="bread-nav">
             <li class="b-cum">
-                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true">
-                    <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                <a class="b-cum" routerLink="/">Home</a
+                ><span class="padl-r" aria-hidden="true">
+                    <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
+                </span>
             </li>
             <li class="b-cum">
-                <a class="b-cum" routerLink="/ordermanagement/myorders">Order Management</a><span class="padl-r"
-                    aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                <a class="b-cum" routerLink="/ordermanagement/myorders">Order Management</a
+                ><span class="padl-r" aria-hidden="true">
+                    <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
+                </span>
             </li>
             <li class="b-cum">
-                <a class="b-cum" routerLink="/ordermanagement/estate-orders">Estate Orders</a><span class="padl-r"
-                    aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                <a class="b-cum" routerLink="/ordermanagement/estate-orders">Estate Orders</a
+                ><span class="padl-r" aria-hidden="true">
+                    <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
+                </span>
             </li>
             <li class="b-cum">
-                <a class="b-cum" routerLink="/ordermanagement/order-booked">Order {{orderID}}</a><span class="padl-r"
-                    aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                <a class="b-cum" routerLink="/ordermanagement/order-booked">Order {{ orderID }}</a
+                ><span class="padl-r" aria-hidden="true">
+                    <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
+                </span>
             </li>
             <li class="b-cum c-pink">Order Support</li>
             <div class="ml-auto text-right raise-ticket">
-                <button type="submit" class="btn btn-succes create-role-btn web-btn"
+                <button
+                    type="submit"
+                    class="btn btn-succes create-role-btn web-btn"
                     routerLink="/ordermanagement/raise-ticket-form"
-                    [queryParams]="{id: orderID, orderType:orderType}">Raise a
-                    ticket</button>
+                    [queryParams]="{ id: orderID, orderType: orderType }"
+                >
+                    Raise a ticket
+                </button>
             </div>
         </ul>
     </nav>
     <section class="col-sm-12 col-md-12 col-lg-12">
-        <p *ngIf="headerValue" class="header-value mr-auto text-left mb-3">{{headerValue}}</p>
+        <p *ngIf="headerValue" class="header-value mr-auto text-left mb-3">{{ headerValue }}</p>
         <div class="border-clr">
             <div class="row">
-                <div *ngFor="let item of questionDetails;let i = index" [attr.data-index]="i"
-                    class="accordion col-lg-12 col-md-12 col-sm-12 mb-3" id="accordionExample">
+                <div
+                    *ngFor="let item of questionDetails; let i = index"
+                    [attr.data-index]="i"
+                    class="accordion col-lg-12 col-md-12 col-sm-12 mb-3"
+                    id="accordionExample"
+                >
                     <div class="card">
                         <div class="card-head" id="headingOne">
-                            <h2 class="mb-0 question" data-toggle="collapse" [attr.data-target]="'#' + item.element_id"
-                                aria-expanded="true" [attr.aria-controls]="item.element_id">
-                                {{item.question}}
+                            <h2
+                                class="mb-0 question"
+                                data-toggle="collapse"
+                                [attr.data-target]="'#' + item.element_id"
+                                aria-expanded="true"
+                                [attr.aria-controls]="item.element_id"
+                            >
+                                {{ item.question }}
                             </h2>
                         </div>
 
-                        <div [attr.id]="item.element_id" class="collapse sourcing-collapse show"
-                            aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div
+                            [attr.id]="item.element_id"
+                            class="collapse sourcing-collapse show"
+                            aria-labelledby="headingOne"
+                            data-parent="#accordionExample"
+                        >
                             <div class="card-body">
                                 <div [innerHtml]="item.answer"></div>
                                 <!-- <p class="content">
                                     {{item.answer}}
                                 </p> -->
-                                <p class="content mb-0">Still need help? <a class="click-here"
+                                <p class="content mb-0">
+                                    Still need help?
+                                    <a
+                                        class="click-here"
                                         routerLink="/ordermanagement/raise-ticket-form"
-                                        [queryParams]="{id: orderID, orderType:orderType}">Click here</a> to raise a
-                                    ticket</p>
+                                        [queryParams]="{ id: orderID, orderType: orderType }"
+                                        >Click here</a
+                                    >
+                                    to raise a ticket
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -169,34 +199,61 @@
                 </div>
             </div>
             <div class="row desk-view">
-                <div class=" col-lg-12 col-md-12 col-sm-12 help-div">
+                <div class="col-lg-12 col-md-12 col-sm-12 help-div">
                     <p class="help-text mr-auto float-left">Did you get the help you need?</p>
                     <div class="float-right ml-auto help-btn-div">
-                        <button type="button" class="btn btn-succes yes-btn" routerLink="/ordermanagement/order-chat"
-                            [queryParams]="{id: orderID, orderType:orderType}">Yes</button>
-                        <button type="button" class="btn raise-btn" routerLink="/ordermanagement/raise-ticket-form"
-                            [queryParams]="{id: orderID, orderType:orderType}">No,Raise a
-                            ticket</button>
+                        <button
+                            type="button"
+                            class="btn btn-succes yes-btn"
+                            routerLink="/ordermanagement/order-chat"
+                            [queryParams]="{ id: orderID, orderType: orderType }"
+                        >
+                            Yes
+                        </button>
+                        <button
+                            type="button"
+                            class="btn raise-btn"
+                            routerLink="/ordermanagement/raise-ticket-form"
+                            [queryParams]="{ id: orderID, orderType: orderType }"
+                        >
+                            No,Raise a ticket
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row mobile-view">
-            <div class=" col-lg-12 col-md-12 col-sm-12 help-div">
+            <div class="col-lg-12 col-md-12 col-sm-12 help-div">
                 <p class="help-text mr-auto float-left">Did you get the help you need?</p>
-                <div class=" ml-auto help-btn-div">
-                    <button type="button" class="btn btn-succes yes-btn" routerLink="/ordermanagement/order-chat"
-                        [queryParams]="{id: orderID, orderType:orderType}">Yes</button>
-                    <button type="button" class="btn raise-btn" routerLink="/ordermanagement/raise-ticket-form"
-                        [queryParams]="{id: orderID, orderType:orderType}">No,Raise a ticket</button>
+                <div class="ml-auto help-btn-div">
+                    <button
+                        type="button"
+                        class="btn btn-succes yes-btn"
+                        routerLink="/ordermanagement/order-chat"
+                        [queryParams]="{ id: orderID, orderType: orderType }"
+                    >
+                        Yes
+                    </button>
+                    <button
+                        type="button"
+                        class="btn raise-btn"
+                        routerLink="/ordermanagement/raise-ticket-form"
+                        [queryParams]="{ id: orderID, orderType: orderType }"
+                    >
+                        No,Raise a ticket
+                    </button>
                 </div>
             </div>
         </div>
-        <div class="mobile-farm  col-12">
-            <button type="button" class="btn btn-succes create-role-btn" routerLink="/ordermanagement/raise-ticket-form"
-                [queryParams]="{id: orderID, orderType:orderType}"> Raise a ticket </button>
+        <div class="mobile-farm col-12">
+            <button
+                type="button"
+                class="btn btn-succes create-role-btn"
+                routerLink="/ordermanagement/raise-ticket-form"
+                [queryParams]="{ id: orderID, orderType: orderType }"
+            >
+                Raise a ticket
+            </button>
         </div>
     </section>
-
-
 </div>

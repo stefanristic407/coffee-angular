@@ -38,6 +38,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
 
+import { TranslateModule } from '@ngx-translate/core';
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ImageCropperModule } from 'ngx-image-cropper';
@@ -58,6 +59,8 @@ import { FileNamePipe } from './pipes/file-name.pipe';
 import { MonthPipe } from './pipes/month/month.pipe';
 import { OrgTypePipe } from './pipes/org-type.pipe';
 import { WordCountPipe } from './pipes/word-count/word-count.pipe';
+
+import { WordLimitDirective } from './directives/word-limit.directive';
 
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { BlankComponent } from './components/blank/blank.component';
@@ -89,6 +92,7 @@ import { DayPickerComponent } from './components/day-picker/day-picker.component
 import { PhoneNumberComponent } from './components/phone-number/phone-number.component';
 import { ReviewSummaryComponent } from './components/review-summary/review-summary.component';
 import { ReviewsComponent } from './components/reviews/reviews.component';
+import { ProgressBarModule } from 'primeng/progressbar';
 // #region material
 const MATMODULES = [];
 // #endregion
@@ -127,6 +131,7 @@ const THIRDMODULES = [
     TabViewModule,
     TooltipModule,
     TreeModule,
+    TranslateModule,
     ChartAllModule,
     AccumulationChartAllModule,
     RangeNavigatorAllModule,
@@ -137,6 +142,7 @@ const THIRDMODULES = [
     LightboxModule,
     MatVideoModule,
     Ng2TelInputModule,
+    ProgressBarModule,
 ];
 // #endregion
 
@@ -172,7 +178,7 @@ const COMPONENTS = [
     ReviewsComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
-const DIRECTIVES = [];
+const DIRECTIVES = [WordLimitDirective];
 const PIPES = [
     CountryPipe,
     EstateBrandLinkPipe,

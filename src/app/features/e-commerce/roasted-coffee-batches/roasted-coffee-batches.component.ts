@@ -144,12 +144,12 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
     supplyBreadCrumb(): void {
         const obj1: MenuItem = {
             label: 'Home',
-            routerLink: '/features/welcome-aboard',
+            routerLink: '/',
             disabled: false,
         };
         const obj2: MenuItem = {
             label: 'Inventory',
-            routerLink: '/features/welcome-aboard',
+            routerLink: '/',
             disabled: false,
         };
         const obj3: MenuItem = {

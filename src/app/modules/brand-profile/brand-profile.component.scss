@@ -1,3 +1,5 @@
+@import '_variables.scss';
+
 .page-wrap {
     border: solid 1px #ebebeb;
     border-radius: 2px;
@@ -5,7 +7,11 @@
     min-height: 200px;
     &:hover {
         box-shadow: 0 22px 54px -10px rgba(223, 223, 223, 0.5);
-        border: solid 1px #30855c;
+        border: solid 1px $primary-color;
+        button {
+            background-color: $primary-color;
+            color: #fff !important;
+        }
     }
     @media (min-width: 768px) {
         min-height: 280px;

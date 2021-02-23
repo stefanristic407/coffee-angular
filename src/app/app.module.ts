@@ -17,24 +17,25 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { AnimateOnScrollModule } from 'ng2-animate-on-scroll';
 import { ToastrModule } from 'ngx-toastr';
 
-import { environment } from '../environments/environment';
+import { environment } from '@env/environment';
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
 import { HealthCheckComponent } from './health-check/health-check.component';
 import { SewnDirectMessageComponent } from './components/sewn-direct-message/sewn-direct-message.component';
 import { MenuComponent } from '@components';
+import { FooterComponent } from './layout/footer/footer.component';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ErrorIntercept } from './modules/error-module/error.interceptor';
 
 import 'hammerjs';
-import { AuthGuard } from './guards/auth.guard';
+import { AuthGuard } from '@guards';
 import { CookieService } from 'ngx-cookie-service';
-import { UserserviceService } from 'src/services/users/userservice.service';
+import { UserserviceService } from '@services';
 import { SearchFilterPipe } from './components/sewn-direct-message/search-filter.pipe';
 import { LifecyclehookDirective } from './components/sewn-direct-message/lifecyclehook.directive';
-import { FooterComponent } from './layout/footer/footer.component';
+import { SearchPanelComponent } from './layout/search-panel/search-panel.component';
 
 @NgModule({
     declarations: [
@@ -46,6 +47,7 @@ import { FooterComponent } from './layout/footer/footer.component';
         SearchFilterPipe,
         LifecyclehookDirective,
         FooterComponent,
+        SearchPanelComponent,
     ],
     imports: [
         BrowserModule,
@@ -62,7 +64,7 @@ import { FooterComponent } from './layout/footer/footer.component';
             loader: {
                 provide: TranslateLoader,
                 useFactory: (http: HttpClient) => {
-                    return new TranslateHttpLoader(http, './assets/multi-lang/', '.json');
+                    return new TranslateHttpLoader(http, 'https://fed-api.sewnstaging.com/language/', '');
                 },
                 deps: [HttpClient],
             },

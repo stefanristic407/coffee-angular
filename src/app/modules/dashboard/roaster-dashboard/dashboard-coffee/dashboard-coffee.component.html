@@ -1,0 +1,143 @@
+<div animateOnScroll animationName="fadeIn" class="animation-bounce-in-up h-100">
+    <div class="d-flex justify-content-between align-items-center mb-1 mb-md-3">
+        <p class="fnt-16 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2">Sourced green coffee</p>
+        <a class="arrow-link" routerLink="/ordermanagement/myorders">See all orders</a>
+    </div>
+
+    <div *ngIf="stock && stock.stock_stats; else blank" class="pt-md-3 pb-md-3 pl-md-4 pr-md-4 p-lg-4 br-md-main br-4">
+        <div class="row">
+            <div
+                animateOnScroll
+                animationName="fadeIn"
+                class="animation-bounce-in-up col-12 col-md-6 col-lg-4 mb-sm-4 mb-4 mb-md-0"
+            >
+                <div class="chart-block br-4 h-100 mb-3">
+                    <div class="fnt-14 fnt-bold text-clr334 br-4 bg-f8 p-2 m-1 d-md-none">Total sourced coffee</div>
+
+                    <div class="h-sm-100 d-flex flex-column justify-content-center align-items-center">
+                        <app-pie-chart
+                            [data]="chartData"
+                            [total]="((stock?.total_coffee || 0) / 1000).toFixed(1) + ' ton'"
+                            [description]="'Total Coffee sourced'"
+                            [tooltipDisabled]="false"
+                        ></app-pie-chart>
+                    </div>
+                </div>
+            </div>
+            <div animateOnScroll animationName="fadeIn" class="animation-bounce-in-up col-12 col-md-6 col-lg-8 pl-md-0">
+                <div class="mb-3 mb-md-0">
+                    <div class="d-none d-lg-block">
+                        <table *ngIf="orders" class="table w-100">
+                            <thead class="table-header">
+                                <tr class="header-row">
+                                    <th>Order ID</th>
+                                    <th scope="col">Estate name</th>
+                                    <th scope="col">Order type</th>
+                                    <th scope="col">Placed on</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="customtable">
+                                <tr
+                                    class="ticket-boby-txt"
+                                    *ngFor="let item of orders.slice(0, 5)"
+                                    (click)="goToOrderDetails(item)"
+                                >
+                                    <td>#{{ item.id }}</td>
+                                    <td>{{ item.estate_name }}</td>
+                                    <td>
+                                        <div class="custom-badge" [style.color]="orderTypes[item.type].color">
+                                            <div [style.background-color]="orderTypes[item.type].color"></div>
+                                            <span class="fnt-14 fnt-600">{{ orderTypes[item.type].name }}</span>
+                                        </div>
+                                    </td>
+                                    <td>{{ item.created_at | date: 'dd MMM' }} '{{ item.created_at | date: 'yy' }}</td>
+                                    <td class="ticket-status">{{ item.status }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="d-lg-none">
+                        <div
+                            *ngFor="let item of orders.slice(0, 2); let i = index"
+                            class="order-wrap"
+                            [ngClass]="{ 'mt-4': i !== 0 }"
+                        >
+                            <div class="main-content br-4 br-main" (click)="goToOrderDetails(item)">
+                                <div class="row m-0 order-card-item order-card-header bg-f8">
+                                    <div class="col-6 p-0">
+                                        <p class="fnt-14 fnt-bold m-0 text-black334 d-inline-block">
+                                            Order #{{ item.id }}
+                                        </p>
+                                    </div>
+                                    <div class="col-6 p-0 text-right">
+                                        <div class="custom-badge" [style.color]="orderTypes[item.type].color">
+                                            <div [style.background-color]="orderTypes[item.type].color"></div>
+                                            <span class="fnt-12 fnt-600">{{
+                                                orderTypes[item.type].name || item.type
+                                            }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row m-0 order-card-item order-card-date">
+                                    <div class="col-6 p-0">
+                                        <p class="fnt-12 m-0 text-left text-black334">In transit</p>
+                                    </div>
+                                    <div class="col-6 p-0 text-right">
+                                        <span class="fnt-12 text-gray588 text-right text-clr588">
+                                            {{ item.created_at | date: 'dd/MM/yyyy' }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row order-card-item2 dashed-br">
+                                    <div class="col-5 p-0">
+                                        <span class="fnt-12 fnt-600 text-clr588"> Estate name </span>
+                                    </div>
+                                    <div class="col-7 p-0">
+                                        <span class="fnt-12 fnt-600 text-black334">
+                                            {{ item.estate_name }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row order-card-item2 dashed-br">
+                                    <div class="col-5 p-0">
+                                        <span class="fnt-12 fnt-600 text-clr588"> Origin </span>
+                                    </div>
+                                    <div class="col-7 p-0 text-left">
+                                        <span class="fnt-12 fnt-600 text-black334">
+                                            {{ item.origin }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row order-card-item2">
+                                    <div class="col-5 p-0">
+                                        <span class="fnt-12 fnt-600 text-clr588"> Variety </span>
+                                    </div>
+                                    <div class="col-7 p-0 text-left">
+                                        <span class="fnt-12 fnt-600 text-black334">
+                                            {{ item.varieties }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #blank>
+        <div class="p-md-3 br-main br-4">
+            <div class="flex-fill d-flex flex-column justify-content-center align-items-center text-center px-4 py-5">
+                <img class="mb-3" src="assets/images/leaf-active.svg" alt="" />
+                <p class="fnt-14 fnt-muli fnt-normal text-clr588 mb-4">
+                    You haven't sourced any coffee yet. Start buying coffee from estates to get insights.
+                </p>
+
+                <button class="btn-raised">View available green coffee</button>
+            </div>
+        </div>
+    </ng-template>
+</div>
