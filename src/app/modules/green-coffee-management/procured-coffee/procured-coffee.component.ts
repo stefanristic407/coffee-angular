@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
 import { GlobalsService } from 'src/services/globals.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { CookieService } from 'ngx-cookie-service';
-import { ActivatedRoute, Router } from '@angular/router';
+
 @Component({
-    selector: 'app-green-coffee-for-sale-details',
-    templateUrl: './green-coffee-for-sale-details.component.html',
-    styleUrls: ['./green-coffee-for-sale-details.component.scss'],
+    selector: 'app-procured-coffee',
+    templateUrl: './procured-coffee.component.html',
+    styleUrls: ['./procured-coffee.component.scss'],
 })
-export class GreenCoffeeForSaleDetailsComponent implements OnInit {
+export class ProcuredCoffeeComponent implements OnInit {
     items: GalleryItem[];
     appLanguage?: any;
     procuredActive: any = 0;
+    orderID: any = '';
     roasterID: any = '';
     orderDetails: any;
-    orderID: any = '';
-    saleInformation: any;
     breadItems: any = [];
     selectedTab = 0;
     roasterNotes: any = [];
@@ -28,14 +28,18 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
         public route: ActivatedRoute,
         public roasterService: RoasterserviceService,
         public cookieService: CookieService,
-        private router: Router,
     ) {
         this.roasterID = this.cookieService.get('roaster_id');
         this.route.params.subscribe((params) => {
             this.orderID = params.orderId;
         });
+        this.breadItems = [
+            { label: 'Home', routerLink: '/roaster-dashboard' },
+            { label: 'Inventory' },
+            { label: 'Green coffee management', routerLink: '/green-coffee-management/green-coffee-inventory' },
+            { label: `Order #${this.orderID}` },
+        ];
     }
-
     ngOnInit(): void {
         const lightboxRef = this.gallery.ref('lightbox');
         lightboxRef.setConfig({
@@ -44,38 +48,10 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
         });
         lightboxRef.load(this.items);
         this.language();
-    }
-    public refreshData() {
-        this.breadItems = [
-            { label: 'Home', routerLink: '/roaster-dashboard' },
-            { label: 'Sourcing Module', routerLink: '/sourcing/estate-list' },
-            { label: 'Green coffee Inventory', routerLink: '/features/green-coffee-inventory' },
-            { label: 'Marked for sale' },
-            { label: this.saleInformation.name ? this.saleInformation.name : '' },
-        ];
-    }
-    language() {
-        this.appLanguage = this.globals.languageJson;
-        this.procuredActive++;
-        this.getSaleOrderDetails();
-        this.getProcuredOrderDetails();
+        this.getOrderDetails();
         this.getRoasterNotes();
     }
-    getSaleOrderDetails() {
-        this.roasterService.getMarkForSaleDetails(this.roasterID, this.orderID).subscribe(
-            (response) => {
-                console.log(response);
-                if (response.success && response.result) {
-                    this.saleInformation = response.result;
-                    this.refreshData();
-                }
-            },
-            (err) => {
-                console.log(err);
-            },
-        );
-    }
-    getProcuredOrderDetails() {
+    getOrderDetails() {
         this.roasterService.getProcuredCoffeeDetails(this.roasterID, this.orderID).subscribe(
             (response) => {
                 console.log(response);
@@ -108,7 +84,6 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
                     this.orderDetails.images = result.images;
                     this.items = result.images.map((item) => new ImageItem({ src: item.url, thumb: item.thumb_url }));
                 }
-                console.log(this.orderDetails);
             },
             (err) => {
                 console.log(err);
@@ -127,19 +102,8 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
             },
         );
     }
-    viewReport() {
-        this.roasterService.getCuppingReportDetails(this.orderDetails.harvest_id).subscribe(
-            (res) => {
-                if (res.success && res.result && res.result.url) {
-                    const hiddenElement = document.createElement('a');
-                    hiddenElement.href = res.result.url;
-                    hiddenElement.target = '_blank';
-                    hiddenElement.click();
-                }
-            },
-            (err) => {
-                console.log(err);
-            },
-        );
+    language() {
+        this.appLanguage = this.globals.languageJson;
+        this.procuredActive++;
     }
 }

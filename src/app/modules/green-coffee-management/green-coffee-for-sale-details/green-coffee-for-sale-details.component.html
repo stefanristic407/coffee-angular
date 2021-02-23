@@ -21,7 +21,7 @@
                                 <button
                                     *ngIf="!saleInformation"
                                     class="btn-raised"
-                                    routerLink="/features/coffee-sale"
+                                    routerLink="/green-coffee-management/coffee-sale"
                                     [queryParams]="{ orderId: orderDetails?.id }"
                                 >
                                     Mark for sale
@@ -29,7 +29,7 @@
                                 <button
                                     *ngIf="saleInformation && saleInformation.status !== 'SOLD'"
                                     class="btn-raised"
-                                    routerLink="/features/lot-sale"
+                                    routerLink="/green-coffee-management/lot-sale"
                                     [queryParams]="{ orderId: orderDetails?.id }"
                                 >
                                     {{ globals.languageJson?.edit }}
@@ -44,7 +44,7 @@
                                 <button
                                     *ngIf="!saleInformation"
                                     class="btn-raised w-100"
-                                    routerLink="/features/coffee-sale"
+                                    routerLink="/green-coffee-management/coffee-sale"
                                     [queryParams]="{ orderId: orderDetails?.id }"
                                 >
                                     Mark for sale
@@ -52,7 +52,7 @@
                                 <button
                                     *ngIf="saleInformation && saleInformation.status !== 'SOLD'"
                                     class="btn-raised w-100"
-                                    routerLink="/features/lot-sale"
+                                    routerLink="/green-coffee-management/lot-sale"
                                     [queryParams]="{ orderId: orderDetails?.id }"
                                 >
                                     Edit

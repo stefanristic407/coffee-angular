@@ -35,10 +35,6 @@ import { ProcessDetailsComponent } from './green-grading/process-details/process
 import { ServiceRequestedComponent } from './green-grading/service-requested/service-requested.component';
 import { ServiceRequestsComponent } from './green-grading/service-requests/service-requests.component';
 import { SourceGradingComponent } from './green-grading/source-grading/source-grading.component';
-import { CoffeeSaleComponent } from './green-inventory/coffee-sale/coffee-sale.component';
-import { GreenCoffeeInventoryComponent } from './green-inventory/green-coffee-inventory/green-coffee-inventory.component';
-import { LotSaleComponent } from './green-inventory/lot-sale/lot-sale.component';
-import { ProcuredCoffeeComponent } from './green-inventory/procured-coffee/procured-coffee.component';
 import { HelpComponent } from './help/help.component';
 import { LanguageRegionComponent } from './language-region/language-region.component';
 import { LoginSecurityComponent } from './login-security/login-security.component';
@@ -65,7 +61,6 @@ import { BatchSelectAnOrderComponent } from './batch-select-an-order/batch-selec
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
 import { DefaultSettingComponent } from './Farm Link/coffee-experience/default-setting/default-setting.component';
 // tslint:disable-next-line: max-line-length
-import { GreenCoffeeForSaleDetailsComponent } from './green-inventory/green-coffee-for-sale-details/green-coffee-for-sale-details.component';
 import { ApiRequestsTableComponent } from './api-requests/api-requests-table/api-requests-table.component';
 import { ApiRequestDetailsComponent } from './api-requests/api-requests-table/api-request-details/api-request-details.component';
 import { GenerateKeyDetailsComponent } from './api-requests/api-requests-table/generate-key-details/generate-key-details.component';
@@ -287,31 +282,6 @@ const routes: Routes = [
             {
                 path: 'roasting-profile',
                 component: RoastingProfilesComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'green-coffee-inventory',
-                component: GreenCoffeeInventoryComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'procured-coffee/:orderId',
-                component: ProcuredCoffeeComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'green-coffee-for-sale-details/:orderId',
-                component: GreenCoffeeForSaleDetailsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'coffee-sale',
-                component: CoffeeSaleComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'lot-sale',
-                component: LotSaleComponent,
                 canActivate: [AuthGuard],
             },
             {

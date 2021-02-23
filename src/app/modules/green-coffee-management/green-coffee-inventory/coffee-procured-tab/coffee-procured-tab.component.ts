@@ -2,37 +2,30 @@ import { Component, OnInit, Input, ViewChild, HostListener } from '@angular/core
 import { GlobalsService } from 'src/services/globals.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { CookieService } from 'ngx-cookie-service';
+import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 import { NavigationExtras, Router } from '@angular/router';
-import { FormGroup } from '@angular/forms';
 import { PrimeTableService } from 'src/services/prime-table.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Table } from 'primeng/table';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
-    selector: 'app-marked-sale',
-    templateUrl: './marked-sale.component.html',
-    styleUrls: ['./marked-sale.component.scss'],
+    selector: 'app-coffee-procured-tab',
+    templateUrl: './coffee-procured-tab.component.html',
+    styleUrls: ['./coffee-procured-tab.component.scss'],
 })
-export class MarkedSaleComponent implements OnInit {
+export class CoffeeProcuredTabComponent implements OnInit {
     termStatus: any;
     display: any;
-    termOrigin: any;
     appLanguage?: any;
-    mainData: any[] = [];
     roasterID: string;
-    deleteId: any;
-    popupDisplay = false;
+    mainData: any[] = [];
+    originArray: any[] = [];
+    searchString = '';
     sellerItems = [
         { label: 'All origins', value: null },
         { label: 'Sweden', value: 'SE' },
         { label: 'UK', value: 'UK' },
         { label: 'India', value: 'IN' },
-    ];
-    statusItems = [
-        { label: 'All', value: null },
-        { label: 'In stock', value: 'IN_STOCK' },
-        { label: 'Hidden', value: 'HIDDEN' },
-        { label: 'Sold', value: 'SOLD' },
     ];
     displayItems = [
         { label: 'All', value: '' },
@@ -49,15 +42,17 @@ export class MarkedSaleComponent implements OnInit {
     get form() {
         return this._form;
     }
+
     constructor(
         public globals: GlobalsService,
         public roasterService: RoasterserviceService,
+        public router: Router,
         public cookieService: CookieService,
-        private router: Router,
+        public roasteryProfileService: RoasteryProfileService,
         public primeTableService: PrimeTableService,
-        private toastrService: ToastrService,
+        public fb: FormBuilder,
     ) {
-        this.termStatus = { name: 'All', statusCode: '' };
+        this.termStatus = { name: 'All origins', isoCode: '' };
         this.display = '10';
         this.roasterID = this.cookieService.get('roaster_id');
         this.primeTableService.rows = 10;
@@ -67,29 +62,35 @@ export class MarkedSaleComponent implements OnInit {
     // tslint:disable: variable-name
     public _form: FormGroup;
 
-    @ViewChild('markedTable', { static: true }) table: Table;
+    @ViewChild('procuredCoffeeTable', { static: true }) table: Table;
     public isMobile = false;
 
     @HostListener('window:resize', ['$event'])
     onResize(event?) {
-        this.initializeTable();
+        this.initializeTableProcuredCoffee();
     }
 
-    initializeTable() {
+    initializeTableProcuredCoffee() {
         this.primeTableService.windowWidth = window.innerWidth;
 
         if (this.primeTableService.windowWidth <= this.primeTableService.responsiveStartsAt) {
             this.primeTableService.isMobileView = true;
             this.primeTableService.allColumns = [
                 {
-                    field: 'status',
-                    header: 'Status',
+                    field: 'id',
+                    header: 'Order ID',
                     sortable: false,
                     width: 40,
                 },
                 {
-                    field: 'product_name',
-                    header: 'Product Name',
+                    field: 'order_reference',
+                    header: 'Roaster order ref.',
+                    sortable: false,
+                    width: 50,
+                },
+                {
+                    field: 'availability_name',
+                    header: 'Availability Name',
                     sortable: false,
                     width: 50,
                 },
@@ -100,8 +101,8 @@ export class MarkedSaleComponent implements OnInit {
                     width: 50,
                 },
                 {
-                    field: 'origin',
-                    header: 'Origin',
+                    field: 'quantity',
+                    header: 'Quantity',
                     sortable: false,
                     width: 50,
                 },
@@ -110,22 +111,34 @@ export class MarkedSaleComponent implements OnInit {
             this.primeTableService.isMobileView = false;
             this.primeTableService.allColumns = [
                 {
-                    field: 'product_name',
-                    header: 'Product Name',
+                    field: 'id',
+                    header: 'Order ID',
                     sortable: false,
                     width: 50,
+                },
+                {
+                    field: 'availability_name',
+                    header: 'Availibility Name',
+                    sortable: false,
+                    width: 70,
                 },
                 {
                     field: 'estate_name',
                     header: 'Estate Name',
                     sortable: false,
-                    width: 50,
+                    width: 70,
                 },
                 {
                     field: 'origin',
                     header: 'Origin',
                     sortable: false,
                     width: 50,
+                },
+                {
+                    field: 'order_reference',
+                    header: 'Roaster Ref. No.',
+                    sortable: false,
+                    width: 70,
                 },
                 {
                     field: 'varieties',
@@ -135,7 +148,7 @@ export class MarkedSaleComponent implements OnInit {
                 },
                 {
                     field: 'quantity',
-                    header: 'Availability',
+                    header: 'Quantity',
                     sortable: false,
                     width: 50,
                 },
@@ -166,14 +179,11 @@ export class MarkedSaleComponent implements OnInit {
             ];
         }
     }
-    openModal(item) {
-        this.popupDisplay = true;
-        this.deleteId = item.order_id;
-    }
-    ngOnInit(): void {
-        this.primeTableService.url = `/ro/${this.roasterID}/marked-sale-coffees`;
 
-        this.initializeTable();
+    ngOnInit(): void {
+        this.primeTableService.url = `/ro/${this.roasterID}/procured-coffees`;
+
+        this.initializeTableProcuredCoffee();
 
         this.primeTableService.form = this.form;
 
@@ -182,17 +192,13 @@ export class MarkedSaleComponent implements OnInit {
                 this.table.reset();
             }, 100),
         );
+
         this.appLanguage = this.globals.languageJson;
     }
+
     setStatus() {
         this.primeTableService.form?.patchValue({
             status: this.termStatus,
-        });
-        this.table.reset();
-    }
-    setOrigin() {
-        this.primeTableService.form?.patchValue({
-            origin: this.termOrigin,
         });
         this.table.reset();
     }
@@ -207,23 +213,10 @@ export class MarkedSaleComponent implements OnInit {
         this.table.reset();
     }
 
-    onEdit(item) {
-        let link = [];
-        link = [`/features/green-coffee-for-sale-details/${item.order_id}`];
-        return link;
+    availabilityPage(item) {
+        return `/green-coffee-management/procured-coffee/${item.id}`;
     }
-    deleteProductFromList(deleteId) {
-        this.roasterService.deleteProcuredCoffee(this.roasterID, deleteId).subscribe(
-            (response) => {
-                if (response && response.success) {
-                    this.toastrService.success('Product deleted successfully');
-                    this.popupDisplay = true;
-                }
-            },
-            (err) => {
-                this.toastrService.error('Error while deleting the ');
-                console.log(err);
-            },
-        );
+    sourcingRedirect() {
+        return '/sourcing/coffee-list';
     }
 }
