@@ -8,9 +8,7 @@
                             <span id="title-breadcrumb-1" class="sr-only"></span>
                             <ul class="bread-nav">
                                 <li class="b-cum">
-                                    <a class="b-cum" routerLink="/features/welcome-aboard">{{
-                                        globals.languageJson?.home
-                                    }}</a
+                                    <a class="b-cum" routerLink="/">{{ globals.languageJson?.home }}</a
                                     ><span class="padl-r" aria-hidden="true"
                                         ><img class="group-img" src="/assets/images/arrow-1.png" alt=""
                                     /></span>
@@ -329,8 +327,7 @@
                                     *ngIf="bookedService.order_status !== 'RECEIVED'"
                                     type="submit"
                                     class="cancel-order btn mt-3"
-                                    routerLink="/ordermanagement/order-support"
-                                    [queryParams]="{ id: orderBookId }"
+                                    [routerLink]="['/dispute-system/order-support', orderBookId]"
                                 >
                                     {{ globals.languageJson?.have_a_problem }}
                                 </button>
@@ -404,8 +401,7 @@
                                 *ngIf="bookedService.order_status !== 'RECEIVED'"
                                 type="button"
                                 class="btn problem-btn"
-                                routerLink="/ordermanagement/order-support"
-                                [queryParams]="{ id: orderBookId }"
+                                [routerLink]="['/dispute-system/order-support', orderBookId]"
                             >
                                 {{ globals.languageJson?.have_a_problem }}
                             </button>
@@ -416,8 +412,7 @@
                             *ngIf="bookedService.order_status !== 'RECEIVED'"
                             type="button"
                             class="btn problem-btn"
-                            routerLink="/ordermanagement/order-support"
-                            [queryParams]="{ id: orderBookId }"
+                            [routerLink]="['/dispute-system/order-support', orderBookId]"
                         >
                             {{ globals.languageJson?.have_a_problem }}
                         </button>
@@ -527,7 +522,7 @@
                             <ul class="details-list p-0 ml-2 ml-md-3">
                                 <li class="estate-name">{{ bookedService.owner_name }}</li>
                                 <li class="estate-number pt-1">
-                                    <span class="cursor-pointer" routerLink="/ordermanagement/review-ratings">
+                                    <span class="cursor-pointer" [routerLink]="orgType | reviewLink: orderBookId">
                                         <img class="" src="assets/images/star-1.png" alt="User" />
                                         <span class="star-no pl-1">{{ bookedService.rating }}</span>
                                     </span>
@@ -718,7 +713,7 @@
                 <button
                     type="button"
                     class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
-                    [routerLink]="['/ordermanagement/order-chat/', SERVICE_TYPE, orderBookId]"
+                    [routerLink]="['/dispute-system/order-chat/', orderBookId]"
                 >
                     {{ globals.languageJson?.order }} #{{ orderBookId }} {{ globals.languageJson?.chat }}
                     <span class="chat-indicator"> &#x25CF;</span

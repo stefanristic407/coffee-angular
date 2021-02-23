@@ -1,0 +1,231 @@
+<div class="mt-2 pt-2">
+    <p-dropdown
+        [options]="sellerItems"
+        [(ngModel)]="termStatus"
+        (onChange)="setStatus()"
+        scrollHeight="225px"
+        placeholder="{{ globals.languageJson?.all_origins }}"
+        [autoDisplayFirst]="false"
+        styleClass="round-border mr-2 mb-3 mb-md-4 {{ termStatus ? 'highlight' : '' }}"
+    ></p-dropdown>
+    <div class="float-right mobile-lead">
+        <p-dropdown
+            [options]="displayItems"
+            [(ngModel)]="display"
+            (onChange)="setDisplay()"
+            scrollHeight="225px"
+            placeholder="Display"
+            [autoDisplayFirst]="false"
+            styleClass="round-border mb-3 mb-md-4 {{ display ? 'highlight' : '' }}"
+        ></p-dropdown>
+    </div>
+</div>
+
+<!-- Primeng table for Procured Coffee -->
+<div class="mt-4">
+    <p-table
+        #procuredCoffeeTable
+        [class.table-mobile]="primeTableService.isMobileView"
+        [value]="primeTableService.records"
+        [columns]="primeTableService._allColumns"
+        [(selection)]="primeTableService.selectedRecords"
+        dataKey="id"
+        styleClass="ui-table-customers"
+        [rows]="primeTableService.rows"
+        [showCurrentPageReport]="false"
+        [loading]="primeTableService.loading"
+        [paginator]="true"
+        [lazy]="true"
+        (onLazyLoad)="primeTableService.getData($event)"
+        [totalRecords]="primeTableService.totalRecords"
+        [sortField]="'created_at'"
+        [responsive]="primeTableService.isMobileView"
+    >
+        <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <col *ngFor="let col of columns" [style.width]="col.width ? col.width + 'px' : '50px'" />
+            </colgroup>
+        </ng-template>
+
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.sortable === true ? col.field : null">
+                    <span class="primeng-table-header">{{ col.header }}</span>
+                    <p-sortIcon
+                        *ngIf="col.sortable === true"
+                        [field]="col.field"
+                        ariaLabel="Activate to sort"
+                        ariaLabelDesc="Activate to sort in descending order"
+                        ariaLabelAsc="Activate to sort in ascending order"
+                    >
+                    </p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns" [ngSwitch]="col.field">
+                    <span *ngSwitchCase="'availability_name'">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                Availability Name
+                            </span>
+
+                            <span [class.w-50]="primeTableService.isMobileView">
+                                {{ rowData['availability_name'] }}
+                            </span>
+                        </div>
+                    </span>
+
+                    <span *ngSwitchCase="'estate_name'">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                Estate Name
+                            </span>
+
+                            <span [class.w-50]="primeTableService.isMobileView">
+                                {{ rowData['estate_name'] }}
+                            </span>
+                        </div>
+                    </span>
+
+                    <span *ngSwitchCase="'varieties'">
+                        <div class="d-flex">
+                            <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
+                                {{ rowData['varieties'] }}
+                            </span>
+                        </div>
+                    </span>
+
+                    <span *ngSwitchCase="'quantity'">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                Quantity
+                            </span>
+
+                            <span *ngIf="primeTableService.isMobileView" class="w-50 pl-2">
+                                {{ rowData['quantity'] }}&nbsp; {{ rowData['quantity_type'] }}
+                            </span>
+                            <span *ngIf="!primeTableService.isMobileView" class="">
+                                {{ rowData['quantity'] }}&nbsp; {{ rowData['quantity_type'] }}
+                            </span>
+                        </div>
+                    </span>
+
+                    <span *ngSwitchCase="'order_reference'">
+                        <div class="d-flex">
+                            <span>
+                                <p *ngIf="primeTableService.isMobileView" class="fnt-18 txt-clr334 fnt-bold mb-0">
+                                    Roaster Ref. No: {{ rowData['order_reference'] }}
+                                </p>
+                            </span>
+                            <span class="ml-auto">
+                                <ng-container *ngIf="primeTableService.isMobileView">
+                                    <a
+                                        class="menu-arrow"
+                                        [popover]="poplistTemplate"
+                                        placement="left"
+                                        [outsideClick]="true"
+                                        #pop="bs-popover"
+                                    >
+                                        <p><img class="ellipse-image" src="assets/images/ellipses.png" alt="" /></p>
+                                    </a>
+                                    <ng-template #poplistTemplate>
+                                        <div id="popover-mobile-content">
+                                            <ul class="list-group custom-popover">
+                                                <li class="list-group-item">
+                                                    <a
+                                                        class="text-clr588 fnt-600 fnt-14"
+                                                        [routerLink]="availabilityPage(rowData)"
+                                                        >View order page</a
+                                                    >
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <a
+                                                        class="text-clr588 fnt-600 fnt-14"
+                                                        [routerLink]="sourcingRedirect()"
+                                                    >
+                                                        Go to Availability page</a
+                                                    >
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </ng-template>
+                                </ng-container>
+                            </span>
+                        </div>
+                    </span>
+
+                    <span *ngSwitchCase="'id'">
+                        <span *ngIf="!primeTableService.isMobileView">
+                            {{ rowData[col.field] }}
+                        </span>
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="mobile-heading w-50">
+                                Order ID #{{ rowData[col.field] }}
+                            </span>
+                            <span
+                                *ngIf="!primeTableService.isMobileView; else mobile_name"
+                                [class.prime-table-heading]="primeTableService.isMobileView"
+                                class="w-50"
+                            >
+                            </span>
+                            <ng-template #mobile_name>
+                                <span class="ml-auto">
+                                    <ng-container *ngIf="primeTableService.isMobileView">
+                                        <span class="pull-right custom-link" [routerLink]="availabilityPage(rowData)"
+                                            >View
+                                        </span>
+                                    </ng-container>
+                                </span>
+                            </ng-template>
+                        </div>
+                    </span>
+
+                    <span *ngSwitchCase="'actions'" class="text-center">
+                        <ng-container *ngIf="!primeTableService.isMobileView">
+                            <span class="custom-link" [routerLink]="availabilityPage(rowData)">View</span>
+                        </ng-container>
+                    </span>
+
+                    <span *ngSwitchCase="'options'" class="text-center">
+                        <ng-container *ngIf="!primeTableService.isMobileView">
+                            <a
+                                class="menu-arrow"
+                                [popover]="poplistTemplate"
+                                placement="left"
+                                [outsideClick]="true"
+                                #pop="bs-popover"
+                            >
+                                <p><img class="ellipse-image" src="assets/images/ellipses.png" alt="" /></p>
+                            </a>
+                            <ng-template #poplistTemplate>
+                                <div id="popover-mobile-content">
+                                    <ul class="list-group custom-popover">
+                                        <li class="list-group-item">
+                                            <a
+                                                class="text-clr588 fnt-600 fnt-14"
+                                                [routerLink]="availabilityPage(rowData)"
+                                                >View order page</a
+                                            >
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a class="text-clr588 fnt-600 fnt-14" [routerLink]="sourcingRedirect()">
+                                                Go to Availability page</a
+                                            >
+                                        </li>
+                                    </ul>
+                                </div>
+                            </ng-template>
+                        </ng-container>
+                    </span>
+
+                    <span *ngSwitchDefault>
+                        {{ rowData[col.field] }}
+                    </span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

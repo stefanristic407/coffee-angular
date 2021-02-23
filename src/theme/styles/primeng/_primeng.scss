@@ -11,6 +11,7 @@
 @import 'primeng_menu';
 @import 'primeng_multiselect';
 @import 'primeng_progressbar';
+@import 'primeng_radio';
 @import 'primeng_rating';
 @import 'primeng_selectbutton';
 @import 'primeng_table';
@@ -65,6 +66,11 @@
     }
     .ng-touched + .p-error {
         display: block !important;
+    }
+    .p-inputtext.ng-invalid.ng-touched,
+    input.ng-invalid.ng-touched,
+    input.ng-invalid.ng-touched + .input-group-append {
+        border-color: $error-border-color !important;
     }
 
     // Styles for inputgroup with custom addon
@@ -122,10 +128,14 @@ p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
 
 // Search auto complete
 .header-search {
+    @media (max-width: 767px) {
+        width: 100%;
+    }
     & > .p-inputtext {
         color: $general-text-color;
         font-size: 16px;
         font-weight: normal;
+        width: 100%;
         @media (min-width: 768px) {
             width: 180px;
         }

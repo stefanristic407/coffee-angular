@@ -1,7 +1,7 @@
-import { OrderChatThreadResolver } from '@services';
+import { CommonModule } from '@angular/common';
+import { OrderChatThreadResolver, OrderDetailsRsolver } from '@services';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-// import { PagenotfoundComponent } from '../people/pagenotfound/pagenotfound.component';
 import { EstateOrdersComponent } from './estate-orders/estate-orders.component';
 import { MyordersComponent } from './myorders/myorders.component';
 import { OrderBookedComponent } from './order-booked/order-booked.component';
@@ -36,12 +36,10 @@ import { MicroOrderBookedComponent } from './microroaster-orders/micro-order-boo
 import { MicroOrderSampleComponent } from './microroaster-orders/micro-order-sample/micro-order-sample.component';
 import { SampleOrderConfirmationComponent } from './microroaster-orders/micro-order-sample/sample-order-confirmation/sample-order-confirmation.component';
 import { BookedOrderConfirmationComponent } from './microroaster-orders/micro-order-booked/booked-order-confirmation/booked-order-confirmation.component';
-import { PageNotFoundComponent } from '../error-module/page-not-found/page-not-found.component';
 import { MrOrdersComponent } from './microroaster-orders/mr-orders/mr-orders.component';
 import { MrRequestDetailsComponent } from './microroaster-orders/mr-request-details/mr-request-details.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { AssignUserComponent } from './assign-user/assign-user.component';
-import { SewnOrderChatComponent } from './sewn-order-chat/sewn-order-chat.component';
 
 const routes: Routes = [
     {
@@ -119,7 +117,7 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'review-ratings',
+                path: 'review-ratings/:orgType/:orderId',
                 component: ReviewRatingsComponent,
                 canActivate: [AuthGuard],
             },
@@ -129,23 +127,24 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
 
-            {
-                path: 'order-chat/:chatType/:orderId',
-                component: SewnOrderChatComponent,
-                canActivate: [AuthGuard],
-                resolve: {
-                    threadList: OrderChatThreadResolver,
-                },
-            },
+            // {
+            //     path: 'order-chat/:chatType/:orderId',
+            //     component: SewnOrderChatComponent,
+            //     canActivate: [AuthGuard],
+            //     resolve: {
+            //         threadList: OrderChatThreadResolver,
+            //         orderDetails: OrderDetailsRsolver,
+            //     },
+            // },
 
             /**
              * These entries are kept for debugging purposes will be remove it later
              */
-            {
-                path: 'dep-order-chat',
-                component: OrderChatComponent,
-                canActivate: [AuthGuard],
-            },
+            // {
+            //     path: 'dep-order-chat',
+            //     component: OrderChatComponent,
+            //     canActivate: [AuthGuard],
+            // },
             // {
             //     path: 'dep-pre-order-chat',
             //     component: PreOrderChatComponent,
@@ -237,16 +236,12 @@ const routes: Routes = [
                 redirectTo: 'myorders',
                 pathMatch: 'full',
             },
-            {
-                path: '**',
-                component: PageNotFoundComponent,
-            },
         ],
     },
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
+    imports: [CommonModule, RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
 export class OrdermanagementRoutingModule {}

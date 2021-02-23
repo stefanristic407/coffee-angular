@@ -1,0 +1,18 @@
+.break-word {
+    word-break: break-all;
+}
+.list-group-item {
+    a {
+        cursor: pointer;
+    }
+    &:hover {
+        background-color: #f8f8f8;
+        a {
+            color: #232334 !important;
+            text-decoration: none;
+        }
+    }
+}
+::ng-deep .deleteProductDiv .p-dialog .p-dialog-header {
+    display: none;
+}

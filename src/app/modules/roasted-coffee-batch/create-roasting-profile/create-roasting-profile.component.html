@@ -1,0 +1,81 @@
+<div class="main-block">
+    <div class="row">
+        <div class="col-10">
+            <a class="back-page" routerLink="/roasted-coffee-batch/roasting-profile"> {{ globals.languageJson?.back }}</a>
+        </div>
+        <div class="col-2">
+            <button type="submit" class="btn pull-right btn-raised d-md-block d-none" (click)="onSave()">Save</button>
+        </div>
+    </div>
+    <div class="row mt-3 pb-2">
+        <div class="col-12">
+            <span class="primary_txt mb-1">{{ globals.languageJson?.create_roasting_profile }}</span>
+        </div>
+    </div>
+    <div class="mt-md-4 mt-3 pb-2" [formGroup]="roastingForm" (ngSubmit)="onSave()" novalidate>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                <label>Roast profile name<span class="star">*</span></label>
+                <input type="text" placeholder="" formControlName="roast_profile_name" pInputText />
+                <small *ngIf="roastingForm.controls['roast_profile_name'].errors?.required" class="p-error">
+                    Required
+                </small>
+            </div>
+        </div>
+        <div class="row mt-md-4 mt-2 pb-3">
+            <div class="col-12">
+                <span class="fnt-16 fnt-muli black fnt-700 mb-1">{{ globals.languageJson?.roast_attributes }}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                <label>Roast level<span class="star">*</span></label>
+                <p-dropdown
+                    [options]="roastLevelArray"
+                    optionLabel="label"
+                    placeholder="Select roast level"
+                    [style]="{ width: '100%' }"
+                    formControlName="roast_level"
+                    optionValue="value"
+                ></p-dropdown>
+                <small *ngIf="roastingForm.controls['roast_level'].errors?.required" class="p-error"> Required </small>
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                <label>Roast duration<span class="star">*</span></label>
+                <input type="number" placeholder="Enter a number" formControlName="roast_duration" pInputText />
+                <small *ngIf="roastingForm.controls['roast_duration'].errors?.required" class="p-error">
+                    Required
+                </small>
+            </div>
+            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                <label>Temperature<span class="star">*</span></label>
+                <input type="number" placeholder="Enter a number" formControlName="temperature" pInputText />
+                <small *ngIf="roastingForm.controls['temperature'].errors?.required" class="p-error"> Required </small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                <label>Machine type<span class="star">*</span></label>
+                <input
+                    type="text"
+                    placeholder="Enter machine name or model"
+                    formControlName="machine_type"
+                    pInputText
+                />
+                <small *ngIf="roastingForm.controls['machine_type'].errors?.required" class="p-error"> Required </small>
+            </div>
+        </div>
+        <div class="mt-3 mb-5 d-none d-sm-none d-md-block">
+            <button type="button" class="btn btn-stroked" (click)="onCancel()">Cancel</button>
+        </div>
+        <div class="row mt-2 d-block d-sm-block d-md-none">
+            <div class="col-12 col-sm-12">
+                <button type="submit" class="btn btn-raised w-100" (click)="onSave()">Save</button>
+            </div>
+            <div class="col-12 col-sm-12 mt-3">
+                <button type="button" class="btn btn-stroked w-100" (click)="onCancel()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

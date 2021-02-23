@@ -1,25 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PageNotFoundComponent } from '../error-module/page-not-found/page-not-found.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { ChatNotificationComponent } from './chat-notification/chat-notification.component';
 import { OnboardCustomersComponent } from './onboard-customers/onboard-customers.component';
 import { AddProductComponent } from './e-commerce/add-product/add-product.component';
-import { CreateRoastingProfileComponent } from './e-commerce/create-roasting-profile/create-roasting-profile.component';
-import { NewRoastedBatchComponent } from './e-commerce/new-roasted-batch/new-roasted-batch.component';
 import { ProductsTableComponent } from './e-commerce/products-table/products-table.component';
-import { RoastedCoffeeBatchesComponent } from './e-commerce/roasted-coffee-batches/roasted-coffee-batches.component';
-import { RoastingProfilesComponent } from './e-commerce/roasting-profiles/roasting-profiles.component';
-import { SelectOrderTableComponent } from './e-commerce/select-order-table/select-order-table.component';
 import { FDirectMessagingComponent } from './f-direct-messaging/f-direct-messaging.component';
 import { AgreementComponent } from './Farm Link/agreement/agreement.component';
 import { BlogDetailsComponent } from './Farm Link/blog-details/blog-details.component';
 import { CofeeExpeienceDetailsComponent } from './Farm Link/cofee-expeience-details/cofee-expeience-details.component';
 import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-experience.component';
-import { FileShareDetailsComponent } from './Farm Link/file-share/file-share-details/file-share-details.component';
-import { FileShareComponent } from './Farm Link/file-share/file-share.component';
-import { MyfilesComponent } from './Farm Link/file-share/myfiles/myfiles.component';
-import { SharewithmeComponent } from './Farm Link/file-share/sharewithme/sharewithme.component';
 import { QAForumComponent } from './Farm Link/q-a-forum/q-a-forum.component';
 import { SocialMediaPostsComponent } from './Farm Link/social-media-posts/social-media-posts.component';
 import { FeaturesComponent } from './features.component';
@@ -36,10 +26,6 @@ import { ProcessDetailsComponent } from './green-grading/process-details/process
 import { ServiceRequestedComponent } from './green-grading/service-requested/service-requested.component';
 import { ServiceRequestsComponent } from './green-grading/service-requests/service-requests.component';
 import { SourceGradingComponent } from './green-grading/source-grading/source-grading.component';
-import { CoffeeSaleComponent } from './green-inventory/coffee-sale/coffee-sale.component';
-import { GreenCoffeeInventoryComponent } from './green-inventory/green-coffee-inventory/green-coffee-inventory.component';
-import { LotSaleComponent } from './green-inventory/lot-sale/lot-sale.component';
-import { ProcuredCoffeeComponent } from './green-inventory/procured-coffee/procured-coffee.component';
 import { HelpComponent } from './help/help.component';
 import { LanguageRegionComponent } from './language-region/language-region.component';
 import { LoginSecurityComponent } from './login-security/login-security.component';
@@ -49,7 +35,6 @@ import { PrivacySettingsComponent } from './privacy-settings/privacy-settings.co
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { RoasterCompleteSetupComponent } from './roaster-complete-setup/roaster-complete-setup.component';
-import { RoasterDashboardComponent } from './roaster-dashboard/roaster-dashboard.component';
 import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
 import { RoasterOnboardingComponent } from './roaster-onboarding/roaster-onboarding.component';
 import { RoasterQuickSetupComponent } from './roaster-quick-setup/roaster-quick-setup.component';
@@ -63,12 +48,10 @@ import { ReviewsComponent } from './roastery-profile/reviews/reviews.component';
 
 import { SettingsComponent } from './settings/settings.component';
 import { VatManagementComponent } from './vat-management/vat-management.component';
-import { WelcomeAboardComponent } from './welcome-aboard/welcome-aboard.component';
 import { BatchSelectAnOrderComponent } from './batch-select-an-order/batch-select-an-order.component';
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
 import { DefaultSettingComponent } from './Farm Link/coffee-experience/default-setting/default-setting.component';
 // tslint:disable-next-line: max-line-length
-import { GreenCoffeeForSaleDetailsComponent } from './green-inventory/green-coffee-for-sale-details/green-coffee-for-sale-details.component';
 import { ApiRequestsTableComponent } from './api-requests/api-requests-table/api-requests-table.component';
 import { ApiRequestDetailsComponent } from './api-requests/api-requests-table/api-request-details/api-request-details.component';
 import { GenerateKeyDetailsComponent } from './api-requests/api-requests-table/generate-key-details/generate-key-details.component';
@@ -101,11 +84,6 @@ const routes: Routes = [
             {
                 path: 'roaster-complete-setup',
                 component: RoasterCompleteSetupComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'welcome-aboard',
-                component: WelcomeAboardComponent,
                 canActivate: [AuthGuard],
             },
             {
@@ -164,11 +142,6 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'file-share',
-                component: FileShareComponent,
-                canActivate: [AuthGuard],
-            },
-            {
                 path: 'social-media',
                 component: SocialMediaPostsComponent,
                 canActivate: [AuthGuard],
@@ -213,26 +186,6 @@ const routes: Routes = [
                 ],
             },
             {
-                path: 'my-files',
-                component: MyfilesComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'share',
-                component: SharewithmeComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'file-share-details',
-                component: FileShareDetailsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'file-share-details/:folderId',
-                component: FileShareDetailsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
                 path: 'notification',
                 component: NotificationComponent,
                 canActivate: [AuthGuard],
@@ -247,21 +200,7 @@ const routes: Routes = [
                 component: RoasterOnboardComponent,
                 canActivate: [AuthGuard],
             },
-            {
-                path: 'roaster-dashboard',
-                component: RoasterDashboardComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'roasted-coffee-batch',
-                component: RoastedCoffeeBatchesComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'new-roasted-batch',
-                component: NewRoastedBatchComponent,
-                canActivate: [AuthGuard],
-            },
+
             {
                 path: 'add-product',
                 component: AddProductComponent,
@@ -272,11 +211,7 @@ const routes: Routes = [
                 component: AddProductComponent,
                 canActivate: [AuthGuard],
             },
-            {
-                path: 'create-roasting-profile',
-                component: CreateRoastingProfileComponent,
-                canActivate: [AuthGuard],
-            },
+
             {
                 path: 'products-list',
                 component: ProductListComponent,
@@ -290,41 +225,6 @@ const routes: Routes = [
             {
                 path: 'new-product/:id',
                 component: ProductDetailsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'select-order-list',
-                component: SelectOrderTableComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'roasting-profile',
-                component: RoastingProfilesComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'green-coffee-inventory',
-                component: GreenCoffeeInventoryComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'procured-coffee',
-                component: ProcuredCoffeeComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'green-coffee-for-sale-details',
-                component: GreenCoffeeForSaleDetailsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'coffee-sale',
-                component: CoffeeSaleComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'lot-sale',
-                component: LotSaleComponent,
                 canActivate: [AuthGuard],
             },
             {
@@ -447,15 +347,10 @@ const routes: Routes = [
                 component: OtherGenerateReportComponent,
                 canActivate: [AuthGuard],
             },
-
             {
                 path: '',
                 redirectTo: 'roaster-dashboard',
                 pathMatch: 'full',
-            },
-            {
-                path: '**',
-                component: PageNotFoundComponent,
             },
         ],
     },

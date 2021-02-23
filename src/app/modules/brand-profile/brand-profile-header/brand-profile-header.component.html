@@ -1,25 +1,27 @@
 <div class="d-md-flex justify-content-between mb-4 mb-md-25">
     <p-breadcrumb [model]="breadItems" styleClass="d-none d-md-block"></p-breadcrumb>
-    <a class="back-page d-md-none" routerLink="/brand-profile"> Back </a>
+    <a class="back-page d-md-none" routerLink="/brand-profile"> {{ 'back' | translate }} </a>
     <a class="btn-raised d-none d-md-block" [href]="roasterSlug | roasterBrandLink: pageSlug" target="_blank">
-        Edit on webpage
+        {{ 'edit_on_webpage' | translate }}
     </a>
 </div>
 
 <div class="d-flex justify-content-between align-items-md-end align-items-lg-start mb-4 mb-md-45">
     <div class="col-md-7 px-0">
         <h4 class="fnt-18 lh-normal fnt-700 text-clr334 mb-2 mb-md-25">
-            {{ globals.languageJson[pageSlug.replace('-', '_')] || pageSlug }}
+            {{ pageSlug.replace('-', '_') | translate }}
         </h4>
         <div class="fnt-mb-14 lh-15 lh-md-normal fnt-normal text-clr588">
             {{ desp[pageSlug] }}
         </div>
     </div>
     <div class="d-none d-md-block">
-        <a class="btn-stroked mr-25" [href]="roasterSlug | roasterBrandLink: pageSlug" target="_blank"> Preview </a>
-        <button type="button" class="btn-raised" (click)="savePageData()">Save</button>
+        <a class="btn-stroked mr-25" [href]="roasterSlug | roasterBrandLink: pageSlug" target="_blank">
+            {{ 'preview' | translate }}
+        </a>
+        <button type="button" class="btn-raised" (click)="savePageData()">{{ 'save' | translate }}</button>
     </div>
 </div>
 <a class="btn-raised w-100 mb-3 d-md-none" [href]="roasterSlug | roasterBrandLink: pageSlug" target="_blank">
-    Edit on webpage
+    {{ 'edit_on_webpage' | translate }}
 </a>

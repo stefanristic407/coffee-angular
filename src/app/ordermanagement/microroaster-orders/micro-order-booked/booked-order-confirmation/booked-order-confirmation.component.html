@@ -8,45 +8,49 @@
                             <span id="title-breadcrumb-1" class="sr-only"></span>
                             <ul class="bread-nav">
                                 <li class="b-cum">
-                                    <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r"
-                                        aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png"
-                                            alt=""></span>
+                                    <a class="b-cum" routerLink="/">Home</a
+                                    ><span class="padl-r" aria-hidden="true"
+                                        ><img class="group-img" src="/assets/images/arrow-1.png" alt=""
+                                    /></span>
                                 </li>
                                 <!-- <li class="b-cum">
                                     <a class="b-cum" routerLink="/ordermanagement/">Order management</a><span class="padl-r" aria-hidden="true"><img class="group-img"
                                             src="/assets/images/arrow-1.png" alt=""></span>
                                 </li> -->
                                 <li class="b-cum">
-                                    <a class="b-cum" routerLink="/ordermanagement/microroaster-orders">Order
-                                        management</a><span class="padl-r" aria-hidden="true"> <img class="group-img"
-                                            src="/assets/images/arrow-1.png" alt=""> </span>
+                                    <a class="b-cum" routerLink="/ordermanagement/microroaster-orders"
+                                        >Order management</a
+                                    ><span class="padl-r" aria-hidden="true">
+                                        <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
+                                    </span>
                                 </li>
-                                <li class="b-cum c-pink">Order {{bookId}}
-                                </li>
+                                <li class="b-cum c-pink">Order {{ bookId }}</li>
                             </ul>
                         </nav>
                     </div>
 
                     <div class="col-lg-6 col-md-12 pull-right ml-auto d-none d-md-block pl-0 pr-0">
                         <span class="pull-right ml-auto order-placed-text">
-                            Order placed : <span class="date-text"
-                                *ngIf="bookDetailService.created_date !='' ">{{bookDetailService.created_date | date:"d
-                                MMM, y" }}</span>
+                            Order placed :
+                            <span class="date-text" *ngIf="bookDetailService.created_date != ''">{{
+                                bookDetailService.created_date | date: 'd
+                                MMM, y'
+                            }}</span>
                         </span>
                     </div>
                 </div>
                 <section class="container create-role-sec mt-2 px-md-0 mb-15">
-                    <div class=" col-lg-12 col-md-12 col-sm-12 pr-0">
-                        <div class="row ">
+                    <div class="col-lg-12 col-md-12 col-sm-12 pr-0">
+                        <div class="row">
                             <div class="col-md-6 pl-0 pr-0">
-                                <div class="order__id d-flex align-items-center">Order #{{bookId}}
+                                <div class="order__id d-flex align-items-center">
+                                    Order #{{ bookId }}
                                     <span *ngIf="!sampleMode" class="booked booked--green ml-3">Booked</span>
                                     <span *ngIf="sampleMode" class="booked booked--green ml-3">Sample</span>
                                 </div>
                             </div>
                             <div class="btn-div col-md-6 pl-0 pr-3 d-md-block d-none">
-                                <button type="submit" class="btn pull-right ord-invoice-butn"> Order
-                                    Invoice </button>
+                                <button type="submit" class="btn pull-right ord-invoice-butn">Order Invoice</button>
                             </div>
                         </div>
                     </div>
@@ -56,8 +60,8 @@
                             <div class="col-lg-8 col-md-8 col-12">
                                 <div class="express__delivery">
                                     <div class="delivery__head">
-                                        <span><img src="" alt=""></span><span class="express_text">Standard
-                                            Delivery</span>
+                                        <span><img src="" alt="" /></span
+                                        ><span class="express_text">Standard Delivery</span>
                                     </div>
                                     <div class="delivery__body">
                                         <!-- <ul class="list_delivery d-flex w-100 mb-0">
@@ -78,16 +82,22 @@
                                                         <tr>
                                                             <th>Product name</th>
                                                             <td *ngIf="bookDetailService.mrDetails">
-                                                                {{bookDetailService.mrDetails.product_name ?
-                                                                bookDetailService.mrDetails.product_name :
-                                                                '-'}}</td>
+                                                                {{
+                                                                    bookDetailService.mrDetails.product_name
+                                                                        ? bookDetailService.mrDetails.product_name
+                                                                        : '-'
+                                                                }}
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <th>Lot ID</th>
                                                             <td>
                                                                 <div *ngIf="bookDetailService.mrDetails">
-                                                                    {{bookDetailService.mrDetails.lot_id ?
-                                                                    bookDetailService.mrDetails.lot_id : '-'}}
+                                                                    {{
+                                                                        bookDetailService.mrDetails.lot_id
+                                                                            ? bookDetailService.mrDetails.lot_id
+                                                                            : '-'
+                                                                    }}
                                                                 </div>
                                                                 <div class="view_text">View lot details</div>
                                                             </td>
@@ -95,32 +105,47 @@
                                                         <tr>
                                                             <th>Variety</th>
                                                             <td *ngIf="bookDetailService.mrDetails">
-                                                                {{bookDetailService.mrDetails.varieties ?
-                                                                bookDetailService.mrDetails.varieties: '-'}}
+                                                                {{
+                                                                    bookDetailService.mrDetails.varieties
+                                                                        ? bookDetailService.mrDetails.varieties
+                                                                        : '-'
+                                                                }}
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <th>Bulk Ordered</th>
                                                             <td>
                                                                 <span *ngIf="bookDetailService.quantity_count">
-                                                                    <span
-                                                                        *ngIf="bookDetailService.quantity_count > 1">{{bookDetailService.quantity_count}}
-                                                                        bags</span>
-                                                                    <span
-                                                                        *ngIf="bookDetailService.quantity_count == 1">{{bookDetailService.quantity_count}}
-                                                                        bag</span>
+                                                                    <span *ngIf="bookDetailService.quantity_count > 1"
+                                                                        >{{
+                                                                            bookDetailService.quantity_count
+                                                                        }}
+                                                                        bags</span
+                                                                    >
+                                                                    <span *ngIf="bookDetailService.quantity_count == 1"
+                                                                        >{{
+                                                                            bookDetailService.quantity_count
+                                                                        }}
+                                                                        bag</span
+                                                                    >
                                                                 </span>
-                                                                <span
-                                                                    *ngIf="bookDetailService.quantity_count == ''">-</span>
+                                                                <span *ngIf="bookDetailService.quantity_count == ''"
+                                                                    >-</span
+                                                                >
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <th>Rate per bag</th>
                                                             <td>
-                                                                <span
-                                                                    *ngIf="bookDetailService.total_price">${{bookDetailService.total_price/bookDetailService.quantity_count}}/bag</span>
-                                                                <span
-                                                                    *ngIf="bookDetailService.total_price == ''">-</span>
+                                                                <span *ngIf="bookDetailService.total_price"
+                                                                    >${{
+                                                                        bookDetailService.total_price /
+                                                                            bookDetailService.quantity_count
+                                                                    }}/bag</span
+                                                                >
+                                                                <span *ngIf="bookDetailService.total_price == ''"
+                                                                    >-</span
+                                                                >
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -128,8 +153,9 @@
                                             </div>
                                         </div>
                                         <div class="pt-3 pb-2">
-                                            <span class="pull-right total_amount">Total :<span
-                                                    class="order__id">$100</span></span>
+                                            <span class="pull-right total_amount"
+                                                >Total :<span class="order__id">$100</span></span
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -137,13 +163,16 @@
                             <div class="col-lg-4 col-md-4 col-12 mt-3 mt-md-0">
                                 <div class="confirm__order__total">
                                     <h1>Confirm Order</h1>
-                                    <p>Confirm the order within 72 hrs, else the request will be cancel automatically.
+                                    <p>
+                                        Confirm the order within 72 hrs, else the request will be cancel automatically.
                                     </p>
                                     <div class="d-flex pt-4">
-                                        <button class="btn accept__order w-100" (click)="acceptOrder()">Accept
-                                            Order</button>
-                                        <button class="btn reject__order w-100" (click)="rejectOrder()">Reject
-                                            Order</button>
+                                        <button class="btn accept__order w-100" (click)="acceptOrder()">
+                                            Accept Order
+                                        </button>
+                                        <button class="btn reject__order w-100" (click)="rejectOrder()">
+                                            Reject Order
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -153,33 +182,51 @@
                                 <div class="express__delivery">
                                     <div class="delivery__head d-flex">
                                         <div class="delivery_text pull-left fnt-muli">Delivery Details</div>
-                                        <div class="view_text pull-right ml-auto fnt-muli">view micro-roastery details
+                                        <div class="view_text pull-right ml-auto fnt-muli">
+                                            view micro-roastery details
                                         </div>
                                     </div>
                                     <div class="delivery__body">
                                         <ul class="details_delivery d-flex w-100 mb-0">
                                             <li>
                                                 <span *ngIf="bookDetailService.mrProfileDetails">
-                                                    <img class="ft_image"
-                                                        [src]="bookDetailService.mrProfileDetails.company_image_thumbnail_url"
-                                                        alt="">
+                                                    <img
+                                                        class="ft_image"
+                                                        [src]="
+                                                            bookDetailService.mrProfileDetails
+                                                                .company_image_thumbnail_url
+                                                        "
+                                                        alt=""
+                                                    />
                                                 </span>
                                                 <span *ngIf="bookDetailService.mrProfileDetails == ''">
-                                                    <img class="ft_image" src="assets/images/ft-roastry-profile.png"
-                                                        alt="">
+                                                    <img
+                                                        class="ft_image"
+                                                        src="assets/images/ft-roastry-profile.png"
+                                                        alt=""
+                                                    />
                                                 </span>
                                             </li>
                                             <li>
-                                                <div class="delivery__name fnt-muli"
-                                                    *ngIf="bookDetailService.mrProfileDetails">
-                                                    {{bookDetailService.mrProfileDetails.name ?
-                                                    bookDetailService.mrProfileDetails.name : ''}}
-
+                                                <div
+                                                    class="delivery__name fnt-muli"
+                                                    *ngIf="bookDetailService.mrProfileDetails"
+                                                >
+                                                    {{
+                                                        bookDetailService.mrProfileDetails.name
+                                                            ? bookDetailService.mrProfileDetails.name
+                                                            : ''
+                                                    }}
                                                 </div>
-                                                <div class="star__total fnt-muli"><img src="assets/images/star-1.png"
-                                                        alt=""><span class="pl-2"
-                                                        *ngIf="bookDetailService.mrProfileDetails">{{bookDetailService.mrProfileDetails.rating
-                                                        ? bookDetailService.mrProfileDetails.rating : '0'}}
+                                                <div class="star__total fnt-muli">
+                                                    <img src="assets/images/star-1.png" alt="" /><span
+                                                        class="pl-2"
+                                                        *ngIf="bookDetailService.mrProfileDetails"
+                                                        >{{
+                                                            bookDetailService.mrProfileDetails.rating
+                                                                ? bookDetailService.mrProfileDetails.rating
+                                                                : '0'
+                                                        }}
                                                     </span>
                                                 </div>
                                                 <!-- <div class="delivery__receiver fnt-muli">Receiver : <span>Benson</span></div> -->
@@ -189,8 +236,11 @@
                                                         src="assets/images/star-1.png" alt=""><span
                                                         class="pl-2">4.95</span> </div> -->
                                                 <div class="message__total mt-2">
-                                                    <img src="assets/images/message-icon.svg" alt=""
-                                                        class="message-icon">
+                                                    <img
+                                                        src="assets/images/message-icon.svg"
+                                                        alt=""
+                                                        class="message-icon"
+                                                    />
                                                     <span class="pl-2">Message</span>
                                                 </div>
                                             </li>
@@ -198,14 +248,18 @@
                                         <div class="address_text mt-3">
                                             <h1>Delivery address</h1>
                                             <p *ngIf="bookDetailService.delivery_address">
-                                                {{bookDetailService.delivery_address.address_line1}},
-                                                {{bookDetailService.delivery_address.address_line2}},
-                                                {{bookDetailService.delivery_address.zipcode}} -
-                                                {{bookDetailService.delivery_address.state}},
-                                                {{bookDetailService.getCountry(bookDetailService.delivery_address.country)}}
+                                                {{ bookDetailService.delivery_address.address_line1 }},
+                                                {{ bookDetailService.delivery_address.address_line2 }},
+                                                {{ bookDetailService.delivery_address.zipcode }} -
+                                                {{ bookDetailService.delivery_address.state }},
+                                                {{
+                                                    bookDetailService.getCountry(
+                                                        bookDetailService.delivery_address.country
+                                                    )
+                                                }}
                                             </p>
                                             <div>
-                                                <img class="w-100" src="assets/images/order_map.JPG" alt="">
+                                                <img class="w-100" src="assets/images/order_map.JPG" alt="" />
                                             </div>
                                         </div>
                                     </div>

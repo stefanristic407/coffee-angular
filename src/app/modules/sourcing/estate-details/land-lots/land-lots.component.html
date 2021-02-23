@@ -1,6 +1,6 @@
 <div class="pt-3 pt-md-45">
     <ng-container *ngIf="sourcing.estateLots?.length; else empty">
-        <div *ngIf="globals.device !== 'mobile'" class="br-main br-4 p-1">
+        <div *ngIf="globals.device !== 'mobile'">
             <p-table [value]="sourcing.estateLots" [autoLayout]="true">
                 <ng-template pTemplate="header">
                     <tr>

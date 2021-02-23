@@ -1,0 +1,700 @@
+<div class="total-loader" *ngIf="shareMainActive != 1">
+    <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
+    <div>
+        <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
+        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
+    </div>
+</div>
+<div *ngIf="shareMainActive == 1">
+    <section>
+        <div class="file-share-container">
+            <div class="row">
+                <div class="col-12 d-flex no-block align-items-center">
+                    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
+                        <span id="title-breadcrumb-1" class="sr-only"></span>
+                        <ul class="bread-nav">
+                            <li class="b-cum">
+                                <a class="b-cum" routerLink="/">{{ globals.languageJson?.home }}</a
+                                ><span class="padl-r" aria-hidden="true">
+                                    <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
+                                </span>
+                            </li>
+                            <!-- <li class="b-cum">
+                                        <a class="b-cum">{{globals.languageJson?.farm_link}}</a><span class="padl-r" aria-hidden="true"> <img
+                                    class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                    </li> -->
+
+                            <li class="b-cum c-pink">{{ globals.languageJson?.file_share }}</li>
+                        </ul>
+                    </nav>
+
+                    <div class="file-share-search col-12 col-md-4 ml-md-auto mb-3 d-none d-md-flex align-items-center">
+                        <img class="mr-1 mr-md-2" src="assets/images/search.svg" />
+                        <input
+                            class="fadout-search"
+                            type="search"
+                            placeholder="{{ globals.languageJson?.share_files }}"
+                            [(ngModel)]="fileService.filesTerm"
+                            name="filesTerm"
+                        />
+                    </div>
+                </div>
+                <div class="col-12">
+                    <h1 class="fnt-18 fnt-700 fnt-muli text-clr334 mb-0 mb-lg-3">
+                        {{ globals.languageJson?.file_share }}
+                    </h1>
+                    <span class="d-block mb-3 mb-lg-4 fnt-16 fnt-text fnt-muli text-clr588">{{
+                        globals.languageJson?.pinned_items
+                    }}</span>
+
+                    <!--Quick pin files-->
+                    <ul class="row mb-md-3 mb-lg-4">
+                        <li class="col-12 col-md-4 col-lg-3 mb-3 mb-md-0" id="closeId">
+                            <div class="pin-quiker-files text-center position-relative">
+                                <label class="mb-0">
+                                    <!-- <input type="file"> -->
+                                    <div class="pin-quiker-file__upload">
+                                        <img class="mb-0 mb-md-3" src="assets/images/pin.PNG" />
+                                        <p class="mb-0 fnt-16 fnt-500 pl-3 pl-md-0 fnt-muli text-clr334">
+                                            {{ globals.languageJson?.pin_your_files }}
+                                        </p>
+                                        <span class="remove-quiker-file d-inline-block" (click)="closeCard()">
+                                            <img class="close-file" src="assets/images/close.svg"
+                                        /></span>
+                                    </div>
+                                </label>
+                            </div>
+                        </li>
+
+                        <li class="col-12 col-md-8 col-lg-9">
+                            <ul class="row quicker-files">
+                                <li
+                                    class="col-12 col-md-6 col-lg-4 quicker-files__list"
+                                    *ngFor="let data of fileService.pinnedData"
+                                >
+                                    <div class="quick-pinned-files">
+                                        <div class="quick-pinned-files__Image">
+                                            <input type="file" />
+                                            <img
+                                                class="img"
+                                                *ngIf="data.type == 'IMAGE'"
+                                                src="{{ data.url }}"
+                                                (click)="popupPrivew($event)"
+                                            />
+                                            <img
+                                                class="folder-img cursor-pointer"
+                                                *ngIf="data.type == 'FOLDER'"
+                                                src="../../../../assets/images/folder-icon.png"
+                                                (click)="shareDetails(data)"
+                                            />
+                                            <img
+                                                class="folder-img video-img cursor-pointer"
+                                                *ngIf="data.type == 'VIDEO'"
+                                                src="../../../../assets/images/videocamera-icon.png"
+                                                (click)="openVideoModal(popTemplate, data)"
+                                            />
+                                            <img
+                                                class="folder-img cursor-pointer"
+                                                *ngIf="data.type == 'DOCUMENT'"
+                                                src="../../../../assets/images/document.png"
+                                                (click)="downloadFile(data)"
+                                            />
+
+                                            <div class="priview-popup-fileshare">
+                                                <div
+                                                    class="priview-popup-fileshare__back d-flex justify-content-betwen clearfix"
+                                                >
+                                                    <div class="float-left">
+                                                        <img
+                                                            src="assets/images/popup-back-arrow.svg"
+                                                            (click)="popupClose()"
+                                                        />
+                                                        <span class="ml-2 fnt-16 fnt-600 fnt-muli text-white"></span>
+                                                    </div>
+                                                    <div class="img-side-dots ml-auto">
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span class="mb-0"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="priview-popup-fileshare__img">
+                                                    <img class="img" src="assets/images/quick-f2.png" />
+                                                </div>
+                                            </div>
+                                            <div class="quick-pinned-files__pinIcon">
+                                                <div class="w-100 h-100 position-relative">
+                                                    <a (click)="openUnpinModal(UnpinTemplate, data.id)"
+                                                        ><img
+                                                            src="assets/images/pin.svg"
+                                                            pTooltip="Unpin"
+                                                            tooltipPosition="top"
+                                                    /></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="quick-pinned-files__info d-flex align-items-center flex-wrap clearfix"
+                                        >
+                                            <div
+                                                class="file-name float-left cursor-pointer"
+                                                (click)="shareDetails(data)"
+                                                *ngIf="data.type == 'FOLDER'"
+                                            >
+                                                <h4 class="fnt-12 fnt-muli fnt-700 text-clr334 mb-0 folderName">
+                                                    {{ data.name }}
+                                                </h4>
+                                                <span class="fnt-12 fnt-muli fnt-700 text-clr588 mb-0 ownerName"
+                                                    >Added by {{ data.owner_name }}</span
+                                                >
+                                            </div>
+                                            <div
+                                                class="file-name float-left cursor-pointer"
+                                                *ngIf="data.type != 'FOLDER'"
+                                            >
+                                                <h4 class="fnt-12 fnt-muli fnt-700 text-clr334 mb-0 folderName">
+                                                    {{ data.name }}
+                                                </h4>
+                                                <span class="fnt-12 fnt-muli fnt-700 text-clr588 mb-0 ownerName"
+                                                    >Added by {{ data.owner_name }}</span
+                                                >
+                                            </div>
+                                            <div class="file-dropdown ml-auto">
+                                                <img class="img" src="assets/images/more-opns-file.png" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!-- <li class="col-12 col-md-6 col-lg-4 quicker-files__list">
+                                <div class="quick-pinned-files">
+                                    <div class="quick-pinned-files__Image">
+                                        <input type="file">
+                                        <img class="img" src="assets/images/quick-f3.png" (click)="popupPrivew($event)">
+                                        <div class="quick-pinned-files__pinIcon">
+                                            <div class="w-100 h-100 position-relative">
+                                                <img src="assets/images/pin.svg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="quick-pinned-files__info d-flex align-items-center flex-wrap clearfix">
+                                        <div class="file-name float-left">
+                                            <h4 class="fnt-12 fnt-muli fnt-700 text-clr334 mb-0">SEWN Sales & Concept
+                                                pr…</h4>
+                                            <span class="fnt-12 fnt-muli fnt-700 text-clr588 mb-0">Added by
+                                                SEWN</span>
+                                        </div>
+                                        <div class="file-dropdown ml-auto">
+                                            <img class="img" src="assets/images/more-opns-file.png">
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-12 col-md-6 col-lg-4 quicker-files__list">
+                                <div class="quick-pinned-files">
+                                    <div class="quick-pinned-files__Image">
+                                        <input type="file">
+                                        <img class="img" src="assets/images/quick-f1.png" (click)="popupPrivew($event)">
+                                        <div class="quick-pinned-files__pinIcon">
+                                            <div class="w-100 h-100 position-relative">
+                                                <img src="assets/images/pin.svg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="quick-pinned-files__info d-flex align-items-center flex-wrap clearfix">
+                                        <div class="file-name float-left">
+                                            <h4 class="fnt-12 fnt-muli fnt-700 text-clr334 mb-0">SEWN Sales & Concept
+                                                pr…</h4>
+                                            <span class="fnt-12 fnt-muli fnt-700 text-clr588 mb-0">Added by
+                                                SEWN</span>
+                                        </div>
+                                        <div class="file-dropdown ml-auto">
+                                            <img class="img" src="assets/images/more-opns-file.png">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </li> -->
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-12 col-md-12 col-12">
+                    <div class="row">
+                        <div class="mixups-tabs mt-3 pr-3 col-lg-12 col-md-12">
+                            <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a
+                                        class="nav-link active"
+                                        id="pills-myfiles-tab"
+                                        data-toggle="pill"
+                                        href="#pills-myfiles"
+                                        role="tab"
+                                        aria-controls="pills-home"
+                                        aria-selected="true"
+                                        >{{ globals.languageJson?.my_files }}</a
+                                    >
+                                </li>
+
+                                <li class="nav-item">
+                                    <a
+                                        class="nav-link"
+                                        id="pills-sharedwithme-tab"
+                                        data-toggle="pill"
+                                        href="#pills-sharedwithme"
+                                        role="tab"
+                                        aria-controls="pills-profile"
+                                        aria-selected="false"
+                                        >{{ globals.languageJson?.shared_with_me }}</a
+                                    >
+                                </li>
+                                <!-- <div class="pull-right ml-auto d-none d-md-inline-block">
+                                        <button type="button" class="btn preview preview--activity-history">{{globals.languageJson?.view_activity_history}}</button>
+                                    </div> -->
+                            </ul>
+
+                            <div class="tab-content mt-md-4" id="pills-tabContent">
+                                <div
+                                    class="tab-pane fade show active"
+                                    id="pills-myfiles"
+                                    role="tabpanel"
+                                    aria-labelledby="pills-myfiles-tab"
+                                >
+                                    <div class="share-dwn">
+                                        <label class="share-bor mr-3"
+                                            ><input class="file-inpt" type="file" (change)="myFileUpload($event)" />
+                                            <img class="share-img" src="assets/images/upload-icon.png" alt="farm" />
+                                            <span class="share-txt ml-2"> {{ globals.languageJson?.upload }} </span>
+                                        </label>
+                                        <span class="share-bor" data-toggle="modal" data-target="#createfolder">
+                                            <img class="dwnd-img" src="assets/images/region-plus.svg" alt="farm" />
+                                            <span class="share-txt ml-1">
+                                                {{ globals.languageJson?.create_new_folder }}
+                                            </span>
+                                        </span>
+                                    </div>
+
+                                    <app-myfiles></app-myfiles>
+                                </div>
+
+                                <div
+                                    class="tab-pane fade"
+                                    id="pills-sharedwithme"
+                                    role="tabpanel"
+                                    aria-labelledby="pills-sharedwithme-tab"
+                                >
+                                    <div class="share-dwn">
+                                        <label class="share-bor mr-3">
+                                            <input class="file-inpt" type="file" />
+                                            <img class="share-img" src="assets/images/upload-icon.png" alt="farm" />
+                                            <span class="share-txt ml-2"> {{ globals.languageJson?.upload }} </span>
+                                        </label>
+                                        <span class="share-bor" data-toggle="modal" data-target="#createfolder">
+                                            <img class="dwnd-img" src="assets/images/region-plus.svg" alt="farm" />
+                                            <span class="share-txt ml-1">
+                                                {{ globals.languageJson?.create_new_folder }}
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <app-sharewithme></app-sharewithme>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <!--Create folder-->
+    <div
+        class="modal fade"
+        id="createfolder"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+    >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">
+                        {{ globals.languageJson?.create_folder }}
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="">
+                        <form>
+                            <div class="roastery-fields mb-4">
+                                <div class="farm-input col-12 col-md-5 px-0">
+                                    <label class="mb-0">{{ globals.languageJson?.name }}</label>
+                                    <input
+                                        type="text"
+                                        placeholder="Enter folder name"
+                                        name="folder_name"
+                                        id="folder_name"
+                                        [(ngModel)]="folder_name"
+                                        required
+                                    />
+                                    <div class="folderNameError" *ngIf="folderNameError != ''">
+                                        {{ folderNameError }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="roastery-fields mb-4">
+                                <div class="farm-input col-12 px-0">
+                                    <label class="mb-0">{{ globals.languageJson?.give_short_description }} *</label>
+                                    <textarea
+                                        class="mb-0"
+                                        type="text"
+                                        rows="5"
+                                        placeholder="Give a short description to your folder (optional) "
+                                        id="folder_descr"
+                                        name="folder_descr"
+                                        [(ngModel)]="folder_descr"
+                                        required
+                                    ></textarea>
+                                    <div class="descriptionError" *ngIf="descriptionError != ''">
+                                        {{ descriptionError }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="roastery-fields mb-4">
+                                <h4 class="fnt-16 fnt-700 fnt-muli text-clr334 mb-0">
+                                    {{ globals.languageJson?.sharing_access }}
+                                </h4>
+                                <span class="fnt-14 fnt-500 text-clr588 fnt-muli text-clr334 mb-1">
+                                    {{ globals.languageJson?.invite_to_access }}</span
+                                >
+                                <div
+                                    class="invite-radios mt-2 custom-radio-container clearfix d-flex align-items-center flex-wrap"
+                                >
+                                    <div class="float-left invite-radios__input">
+                                        <label class="custom-radio fnt-14 fnt-600 fnt-muli"
+                                            >{{ globals.languageJson?.invite_people }}
+                                            <input
+                                                type="radio"
+                                                checked="checked"
+                                                name="invite"
+                                                [(ngModel)]="invite"
+                                                value="Invite people"
+                                            />
+                                            <span class="checkmark-custom"></span>
+                                        </label>
+                                    </div>
+                                    <div class="float-left invite-radios__input">
+                                        <label class="custom-radio fnt-14 fnt-600 fnt-muli"
+                                            >{{ globals.languageJson?.only_me }}
+                                            <input type="radio" name="invite" [(ngModel)]="invite" value="Only me" />
+                                            <span class="checkmark-custom"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="invite-to">
+                                <div class="roastery-fields mb-4">
+                                    <h4 class="fnt-16 fnt-700 fnt-muli text-clr334 mb-0">
+                                        {{ globals.languageJson?.select_an_order }}*
+                                    </h4>
+                                    <span class="d-block fnt-14 fnt-500 text-clr588 fnt-muli text-clr334 mb-1">{{
+                                        globals.languageJson?.link_your_files
+                                    }}</span>
+
+                                    <a
+                                        href="javascript:void(0)"
+                                        class="d-inline-flex mt-2 view-order-file-share align-items-center"
+                                    >
+                                        <img src="assets/images/view.png" />
+                                        <span class="d-inline-block ml-2 fnt-14 fnt-500 fnt-muli text-clr334">{{
+                                            globals.languageJson?.view_orders
+                                        }}</span>
+                                    </a>
+                                </div>
+
+                                <div class="roastery-fields mb-0">
+                                    <div class="farm-input col-12 col-lg-8 px-0">
+                                        <label>{{ globals.languageJson?.enter_name_email }}*</label>
+                                        <div
+                                            class="file-share-addMail pl-md-2 clearfix d-flex flex-column flex-md-row align-items-center justify-content-between"
+                                        >
+                                            <input
+                                                class="float-left px-0 form-control auto-complete-box"
+                                                type="email"
+                                                [(ngModel)]="selectedValue"
+                                                name="name"
+                                                [typeahead]="usersList"
+                                                typeaheadOptionField="firstname"
+                                                typeaheadWaitMs="1000"
+                                                [typeaheadItemTemplate]="customItemTemplate"
+                                                (typeaheadOnSelect)="onSelect($event)"
+                                                (keyup)="getUsersList($event)"
+                                                placeholder="Enter name or email"
+                                                autocomplete="off"
+                                            />
+                                            <!-- <p-autoComplete [(ngModel)]="selectedCountry" name="selectedCountry" class="float-left px-0" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [minLength]="1"></p-autoComplete> -->
+                                            <ng-template #customItemTemplate let-model="item">
+                                                <span *ngIf="model.organization_type == 'RO'"
+                                                    ><strong>{{ model.firstname }} {{ model.lastname }}</strong>
+                                                    (Roaster)</span
+                                                >
+                                                <span *ngIf="model.organization_type == 'FC'"
+                                                    ><strong>{{ model.firstname }} {{ model.lastname }}</strong>
+                                                    (Facilitator)</span
+                                                >
+                                                <span *ngIf="model.organization_type == 'ES'"
+                                                    ><strong>{{ model.firstname }} {{ model.lastname }}</strong>
+                                                    (Estate)</span
+                                                >
+                                                <span *ngIf="model.organization_type == 'MR'"
+                                                    ><strong>{{ model.firstname }} {{ model.lastname }}</strong> (Micro
+                                                    Roaster)</span
+                                                >
+                                                <span *ngIf="model.organization_type == 'HRC'"
+                                                    ><strong>{{ model.firstname }} {{ model.lastname }}</strong>
+                                                    (HoReCa)</span
+                                                >
+                                            </ng-template>
+                                            <div class="ml-auto">
+                                                <div class="Custom-select w-100 border-left66">
+                                                    <div class="Custom-select-input w-100 pr-3">
+                                                        <input
+                                                            type="text"
+                                                            value="{{ globals.languageJson?.can_view }}"
+                                                            readonly
+                                                        />
+                                                        <span
+                                                            class="Custom-select-input__selctedText fnt-600 fnt-muli text-clr334"
+                                                            id="permission"
+                                                        >
+                                                            {{ globals.languageJson?.can_view }}</span
+                                                        >
+                                                        <ul
+                                                            class="Custom-select-input-list fnt-600 fnt-muli text-clr334"
+                                                        >
+                                                            <li class="Custom-select-input-list__item">
+                                                                {{ globals.languageJson?.can_view }}
+                                                            </li>
+                                                            <li class="Custom-select-input-list__item">
+                                                                {{ globals.languageJson?.can_edit }}
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        *ngIf="invite != 'Only me'"
+                        class="btn-raised create-share fnt-14 fnt-700 fnt-muli"
+                        (click)="createFolder()"
+                        data-dismiss="modal"
+                    >
+                        {{ globals.languageJson?.create_share }}
+                    </button>
+                    <button
+                        type="button"
+                        *ngIf="invite == 'Only me'"
+                        class="btn-raised create-share fnt-14 fnt-700 fnt-muli"
+                        (click)="createFolder()"
+                        data-dismiss="modal"
+                    >
+                        {{ globals.languageJson?.create }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!---Modal Share-->
+    <!-- Modal share folder-->
+    <div
+        class="modal fade"
+        id="sharefolder"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+    >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">
+                        {{ globals.languageJson?.share }}
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="">
+                        <form>
+                            <div class="roastery-fields mb-0">
+                                <div class="farm-input col-12 px-0">
+                                    <label>{{ globals.languageJson?.enter_name_email }}*</label>
+                                    <div
+                                        class="file-share-addMail pl-md-2 clearfix d-flex flex-column flex-md-row align-items-center justify-content-between"
+                                    >
+                                        <input class="float-left px-0" type="email" placeholder="Enter name or email" />
+                                        <div class="ml-auto">
+                                            <div class="Custom-select w-100 border-left66">
+                                                <div class="Custom-select-input w-100 pr-3">
+                                                    <input
+                                                        type="text"
+                                                        value="{{ globals.languageJson?.can_view }}"
+                                                        readonly
+                                                    />
+                                                    <span
+                                                        class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-clr334"
+                                                        >{{ globals.languageJson?.can_view }}</span
+                                                    >
+                                                    <ul
+                                                        class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-clr334"
+                                                    >
+                                                        <li class="Custom-select-input-list__item">
+                                                            {{ globals.languageJson?.can_view }}
+                                                        </li>
+                                                        <li class="Custom-select-input-list__item">
+                                                            {{ globals.languageJson?.can_edit }}
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 mt-lg-4">
+                                <h4 class="fnt-16 mb-4 mt-lg-2 mb-3 mb-lg-4 fnt-700 fnt-muli text-clr334">
+                                    {{ globals.languageJson?.existing_members }}
+                                </h4>
+                                <!--Existing Memebr-->
+                                <ul class="existing-members-list">
+                                    <li class="existing-members-list__item">
+                                        <div class="member d-flex align-items-center justify-content-between clearfix">
+                                            <div class="member__info d-flex align-items-center float-left">
+                                                <div class="member-profile">
+                                                    <img class="img" src="assets/images/activity3.png" />
+                                                </div>
+                                                <span class="ml-2 fnt-16 fnt-600 fnt-muli text-clr334"
+                                                    >Finca La Pampa</span
+                                                >
+                                            </div>
+
+                                            <div class="member__type float-right ml-auto">
+                                                <span class="text-capitalize fnt-14 fnt-600 fnt-muli text-clr334 owner"
+                                                    >owner</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li class="existing-members-list__item">
+                                        <div class="member d-flex align-items-center justify-content-between clearfix">
+                                            <div class="member__info d-flex align-items-center float-left">
+                                                <div class="member-profile">
+                                                    <img class="img" src="assets/images/activity1.png" />
+                                                </div>
+
+                                                <span class="ml-2 fnt-16 fnt-600 fnt-muli text-clr334"
+                                                    >Finca La Pampa</span
+                                                >
+
+                                                <!-- <div class="Custom-select w-100">
+                                                <div class="Custom-select-input w-100  pr-3">
+                                                    <input type="text" value="Can view" readonly>
+                                                    <span class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-clr334">Can view</span>
+                                                    <ul class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-clr334">
+                                                        <li class="Custom-select-input-list__item">Can view</li>
+                                                        <li class="Custom-select-input-list__item">Can edit</li>
+
+                                                    </ul>
+                                                </div>
+                                            </div> -->
+                                            </div>
+
+                                            <div class="member__type float-right ml-auto">
+                                                <div class="Custom-select w-100">
+                                                    <div class="Custom-select-input w-100">
+                                                        <input
+                                                            type="text"
+                                                            value="{{ globals.languageJson?.can_view }}"
+                                                            readonly
+                                                        />
+                                                        <span
+                                                            class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-clr334"
+                                                            >{{ globals.languageJson?.can_view }}</span
+                                                        >
+                                                        <ul
+                                                            class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-clr334"
+                                                        >
+                                                            <li class="Custom-select-input-list__item">
+                                                                {{ globals.languageJson?.can_view }}
+                                                            </li>
+                                                            <li class="Custom-select-input-list__item">
+                                                                {{ globals.languageJson?.can_edit }}
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <p
+                        class="fnt-14 fnt-600 fnt-muli text-clr588 col-sm-12 col-md-10 col-lg-9 px-0 m-0 text-center text-md-left pb-3 pb-md-0"
+                    >
+                        {{ globals.languageJson?.admin_notice_text }}
+                    </p>
+                    <button type="button" class="btn-raised create-share fnt-14 fnt-700 fnt-muli">
+                        {{ globals.languageJson?.share }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #popTemplate>
+        <div class="popup-video">
+            <div class="video-close" (click)="closePopup()">
+                <span>&#x2715;</span>
+            </div>
+            <div class="modal-body video-section-modal p-0">
+                <div>
+                    <!-- <mat-video src="{{url}}"></mat-video> -->
+
+                    <video id="player" playsinline controls data-poster="/path/to/poster.jpg">
+                        <source src="{{ url }}" type="video/mp4" />
+                    </video>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #UnpinTemplate>
+        <div class="modal-body mt-5 mb-5 text-center fnt-muli">
+            <!-- <div><img src="assets/images/delete-role.svg" alt=""></div> -->
+            <!-- <div class="fnt-play fnt-24 fnt-bold oh__text mt-2">Oh noh :(</div> -->
+            <div class="fnt-muli fnt-18 fnt-normal delete__text mt-2 pb-3">You sure you really want to Unpin this?</div>
+            <div class="mt-4">
+                <button class="cancel-btn" (click)="modalRef.hide()">{{ globals.languageJson?.cancel }}</button>
+                <button class="btn delete-btn ml-3" (click)="modalRef.hide(); unpinFileorFolder(this.unPinId)">
+                    {{ globals.languageJson?.unpin }}
+                </button>
+            </div>
+        </div>
+    </ng-template>
+</div>

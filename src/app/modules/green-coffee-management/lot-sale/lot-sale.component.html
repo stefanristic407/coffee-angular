@@ -1,0 +1,500 @@
+<div class="total-loader" *ngIf="lotSaleActive != 1">
+    <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
+    <div>
+        <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
+        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
+    </div>
+</div>
+
+<div *ngIf="lotSaleActive == 1">
+    <section>
+        <div class="mx-0 text-white mob-sec">
+            <section class="create-role">
+                <div class="back-icon w-100">
+                    <a (click)="onCancel()"
+                        ><img src="assets/images/back-arrow-confirm.svg" /> {{ globals.languageJson?.back }}</a
+                    >
+                </div>
+            </section>
+        </div>
+
+        <div class="main-block">
+            <div class="web-sec">
+                <p-breadcrumb [model]="breadItems"></p-breadcrumb>
+            </div>
+            <section class="mt-4">
+                <div class="row w-100 ml-0">
+                    <div>
+                        <h1 class="text-clr334 fnt-18 fnt-bold">Order #{{ orderDetails?.id }}</h1>
+                    </div>
+                </div>
+                <div class="pull-left mr-auto col-md-7 p-0 mb-3 text-clr334 fnt-14 fnt-normal">
+                    Manage the price, quantity & delivery charges of coffee marked for sale
+                </div>
+                <div *ngIf="orderDetails" class="border-div">
+                    <div class="row">
+                        <div class="col-12 web-sec fnt-18 text-clr334 fnt-bold pb-2">
+                            {{ globals.languageJson?.green_coffee_details }}
+                        </div>
+                        <div class="table-container userTable mx-3 mt-2 mb-2 p-1 pt-0 productListTable">
+                            <p-table
+                                #myTable
+                                [class.table-mobile]="sharedService.isMobileView"
+                                [value]="tableValue"
+                                [columns]="tableColumns"
+                                dataKey="id"
+                                [resizableColumns]="true"
+                                styleClass="ui-table-customers"
+                                [showCurrentPageReport]="false"
+                                [paginator]="false"
+                                [lazy]="true"
+                                selectionMode="multiple"
+                                [responsive]="sharedService.isMobileView"
+                            >
+                                <ng-template pTemplate="header" let-columns>
+                                    <tr class="d-none d-sm-none d-md-table-row">
+                                        <th
+                                            *ngFor="let col of columns"
+                                            [style.width]="col.width ? col.width + '%' : '30%'"
+                                        >
+                                            <span class="primeng-table-header">{{ col.header }}</span>
+                                            <p-sortIcon
+                                                *ngIf="col.sortable === true"
+                                                [field]="col.field"
+                                                ariaLabel="Activate to sort"
+                                                ariaLabelDesc="Activate to sort in descending order"
+                                                ariaLabelAsc="Activate to sort in ascending order"
+                                            >
+                                            </p-sortIcon>
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                    <tr>
+                                        <td
+                                            *ngFor="let col of columns"
+                                            [ngSwitch]="col.field"
+                                            [style.width]="col.width ? col.width + '%' : '30%'"
+                                            [ngClass]="{
+                                                'd-none':
+                                                    col.field == 'estate_name' ||
+                                                    col.field == 'order_reference' ||
+                                                    col.field == 'origin' ||
+                                                    col.field == 'species' ||
+                                                    col.field == 'varieties' ||
+                                                    col.field == 'price' ||
+                                                    col.field == 'cup_score' ||
+                                                    col.field == 'quantity',
+                                                'd-sm-none':
+                                                    col.field == 'estate_name' ||
+                                                    col.field == 'order_reference' ||
+                                                    col.field == 'origin' ||
+                                                    col.field == 'species' ||
+                                                    col.field == 'varieties' ||
+                                                    col.field == 'price' ||
+                                                    col.field == 'cup_score' ||
+                                                    col.field == 'quantity',
+                                                'd-md-table-cell':
+                                                    col.field == 'estate_name' ||
+                                                    col.field == 'order_reference' ||
+                                                    col.field == 'origin' ||
+                                                    col.field == 'species' ||
+                                                    col.field == 'varieties' ||
+                                                    col.field == 'price' ||
+                                                    col.field == 'cup_score' ||
+                                                    col.field == 'quantity',
+                                                nameMobileHeader: col.field == 'lot_id'
+                                            }"
+                                        >
+                                            <span *ngSwitchCase="'lot_id'" class="">
+                                                <span
+                                                    class="d-none d-sm-none d-md-inline-block text-clr588 fnt-600 text-underline"
+                                                >
+                                                    {{ rowData['lot_id'] }}
+                                                </span>
+
+                                                <div class="d-block d-sm-block d-md-none row m-0 pb-4">
+                                                    <div class="col-12 row p-3 m-0">
+                                                        <div class="cardBottom p-0 w-100">
+                                                            <p class="fnt-16 text-clr334 fnt-bold">
+                                                                {{ globals.languageJson?.green_coffee_details }}
+                                                            </p>
+                                                            <div class="mobileCardBody pt-0">
+                                                                <div>
+                                                                    <span class="secondary_txt">{{
+                                                                        globals.languageJson?.lot_id
+                                                                    }}</span>
+                                                                    <span
+                                                                        class="float-right primary_txt mobileValueTxt text-underline"
+                                                                        >{{ rowData['lot_id'] }}</span
+                                                                    >
+                                                                </div>
+                                                            </div>
+                                                            <div class="mobileCardBody">
+                                                                <span class="secondary_txt">{{
+                                                                    globals.languageJson?.estate
+                                                                }}</span>
+                                                                <span class="float-right primary_txt mobileValueTxt">{{
+                                                                    rowData['estate_name'] | titlecase
+                                                                }}</span>
+                                                            </div>
+
+                                                            <div class="mobileCardBody">
+                                                                <span class="secondary_txt">{{
+                                                                    globals.languageJson?.roaster_ref_no
+                                                                }}</span>
+                                                                <span class="float-right primary_txt mobileValueTxt">{{
+                                                                    rowData['order_reference']
+                                                                }}</span>
+                                                            </div>
+                                                            <div class="mobileCardBody">
+                                                                <span class="secondary_txt">{{
+                                                                    globals.languageJson?.origin
+                                                                }}</span>
+                                                                <span class="float-right primary_txt mobileValueTxt">{{
+                                                                    rowData['origin'] | titlecase
+                                                                }}</span>
+                                                            </div>
+                                                            <div class="mobileCardBody">
+                                                                <span class="secondary_txt">{{
+                                                                    globals.languageJson?.species
+                                                                }}</span>
+                                                                <span class="float-right primary_txt mobileValueTxt">{{
+                                                                    rowData['species'] | titlecase
+                                                                }}</span>
+                                                            </div>
+                                                            <div class="mobileCardBody">
+                                                                <span class="secondary_txt">{{
+                                                                    globals.languageJson?.variety
+                                                                }}</span>
+                                                                <span class="float-right primary_txt mobileValueTxt">{{
+                                                                    rowData['varieties']
+                                                                }}</span>
+                                                            </div>
+                                                            <div class="mobileCardBody">
+                                                                <span class="secondary_txt">{{
+                                                                    globals.languageJson?.buying_price
+                                                                }}</span>
+                                                                <span class="float-right primary_txt mobileValueTxt"
+                                                                    >{{ rowData['price'] }}/kg</span
+                                                                >
+                                                            </div>
+                                                            <div class="mobileCardBody">
+                                                                <span class="secondary_txt">{{
+                                                                    globals.languageJson?.cupping_score
+                                                                }}</span>
+                                                                <span class="float-right primary_txt mobileValueTxt">{{
+                                                                    rowData['cup_score']
+                                                                }}</span>
+                                                            </div>
+                                                            <div class="pt-3">
+                                                                <span class="secondary_txt">{{
+                                                                    globals.languageJson?.stock_in_hand
+                                                                }}</span>
+                                                                <span class="float-right primary_txt mobileValueTxt"
+                                                                    >{{ rowData['quantity'] }}
+                                                                    {{ rowData['quantity_type'] }}/
+                                                                    {{ rowData['quantity_count'] }} kg
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </span>
+                                            <span *ngSwitchCase="'estate_name'" class="text-clr588 fnt-600">
+                                                <span>{{ rowData[col.field] | titlecase }}</span>
+                                            </span>
+                                            <span *ngSwitchCase="'order_reference'" class="text-clr588 fnt-600">
+                                                <span>{{ rowData[col.field] }}</span>
+                                            </span>
+                                            <span *ngSwitchCase="'origin'" class="text-clr588 fnt-600">
+                                                <span>{{ rowData[col.field] }}</span>
+                                            </span>
+                                            <span *ngSwitchCase="'species'" class="text-clr588 fnt-600">
+                                                <span>{{ rowData[col.field] }}</span>
+                                            </span>
+                                            <span *ngSwitchCase="'varieties'" class="text-clr588 fnt-600">
+                                                <span>{{ rowData[col.field] }}</span>
+                                            </span>
+                                            <span *ngSwitchCase="'price'" class="text-clr588 fnt-600">
+                                                <span>{{ rowData[col.field] }}</span>
+                                            </span>
+                                            <span *ngSwitchCase="'cup_score'" class="text-clr588 fnt-600">
+                                                <span>{{ rowData[col.field] }} </span>
+                                            </span>
+                                            <span *ngSwitchCase="'quantity'" class="text-clr588 fnt-600">
+                                                <span
+                                                    >{{ rowData['quantity'] }} {{ rowData['quantity_type'] }}/
+                                                    {{ rowData['quantity_count'] }} kg
+                                                </span>
+                                            </span>
+                                            <span *ngSwitchDefault>
+                                                <span>{{ rowData[col.field] }}</span>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="mt-48" [formGroup]="lotSaleForm" (ngSubmit)="onSave()" novalidate>
+                <div class="row w-100 border-bottom-gray pb-3 mx-0">
+                    <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9 px-0">
+                        <h1 class="text-clr334 fnt-18 fnt-bold">{{ globals.languageJson?.sale_information }}</h1>
+                        <div class="col-12 pull-left p-0 pb-24 mb-3 text-clr334 fnt-14 fnt-normal">
+                            Manage the price, quantity & delivery charges of coffee marked for sale
+                        </div>
+                    </div>
+
+                    <div *ngIf="!showDropdown" class="col-sm-12 col-md-3 col-lg-3 col-xl-3 current-s-bg">
+                        <p class="fnt-14 fnt-muli fnt-400 text-clr334 m-0">Current status</p>
+                        <span class="fnt-14 fnt-700 fnt-muli text-clr334">{{ statusLabel }}</span>
+                        <span *ngIf="!readOnlyMode" class="text-brown float-right" (click)="showDropdown = true"
+                            ><a>Change status</a>
+                        </span>
+                    </div>
+
+                    <div
+                        *ngIf="showDropdown"
+                        class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100 current-s-bg d-flex"
+                    >
+                        <p-dropdown
+                            [options]="stockTypeArray"
+                            optionLabel="label"
+                            placeholder="In Stock"
+                            [style]="{ width: '100%' }"
+                            formControlName="status"
+                            optionValue="value"
+                        ></p-dropdown>
+                        <small *ngIf="lotSaleForm.controls['status'].errors?.required" class="p-error">
+                            Required
+                        </small>
+                        <span (click)="updateStatus()" class="text-brown pl-4 pt-2"><a>Save</a> </span>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 sewn-form-field w-100">
+                        <label>Product name<span class="star">*</span></label>
+                        <input
+                            type="text"
+                            placeholder="Give a name to this green coffee"
+                            formControlName="name"
+                            pInputText
+                        />
+                        <small *ngIf="lotSaleForm.controls['name'].errors?.required" class="p-error"> Required </small>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 sewn-form-field w-100">
+                        <label>Selling price<span class="star">*</span>(in USD)</label>
+                        <div class="input-group weightInputGroupDiv">
+                            <input
+                                type="number"
+                                class="weightInputDiv"
+                                formControlName="price"
+                                placeholder="Enter the selling price"
+                                pInputText
+                            />
+
+                            <div class="input-group-append">
+                                <p-dropdown
+                                    [options]="priceTypeArray"
+                                    optionLabel="label"
+                                    placeholder=""
+                                    [style]="{ width: '100%', border: '0px', 'background-color': '#f8f8f8' }"
+                                    formControlName="price_per_unit"
+                                    optionValue="value"
+                                >
+                                </p-dropdown>
+                            </div>
+                        </div>
+                        <small
+                            *ngIf="
+                                lotSaleForm.controls['price'].errors?.required &&
+                                lotSaleForm.controls['price_per_unit'].errors?.required
+                            "
+                            class="p-error"
+                        >
+                            Required
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                        <label>Quantity for sale<span class="star">*</span></label>
+                        <div class="input-group weightInputGroupDiv">
+                            <input
+                                type="number"
+                                class="weightInputDiv"
+                                formControlName="quantity_count"
+                                placeholder="Enter a number"
+                                pInputText
+                            />
+
+                            <div class="input-group-append">
+                                <p-dropdown
+                                    [options]="quantityUnitArray"
+                                    optionLabel="label"
+                                    placeholder="Bags"
+                                    [style]="{ width: '100%', border: '0px', 'background-color': '#f8f8f8' }"
+                                    formControlName="quantity_type"
+                                    optionValue="value"
+                                >
+                                </p-dropdown>
+                            </div>
+                        </div>
+                        <small
+                            *ngIf="
+                                lotSaleForm.controls['quantity_count'].errors?.required &&
+                                lotSaleForm.controls['quantity_type'].errors?.required
+                            "
+                            class="p-error"
+                        >
+                            Required
+                        </small>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                        <label>Remaining quantity<span class="star">*</span></label>
+                        <input type="text" placeholder="-" pInputText disabled />
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                        <label>Minimum order quantity<span class="star">*</span></label>
+                        <div class="input-group weightInputGroupDiv">
+                            <input
+                                type="number"
+                                class="weightInputDiv"
+                                formControlName="minimum_order_quantity_count"
+                                placeholder="Enter a number"
+                                pInputText
+                            />
+
+                            <div class="input-group-append">
+                                <p-dropdown
+                                    [options]="quantityUnitArray"
+                                    optionLabel="label"
+                                    placeholder="kg"
+                                    [style]="{ width: '100%', border: '0px', 'background-color': '#f8f8f8' }"
+                                    formControlName="quantity_unit"
+                                    optionValue="value"
+                                >
+                                </p-dropdown>
+                            </div>
+                        </div>
+                        <small
+                            *ngIf="
+                                lotSaleForm.controls['minimum_order_quantity_count'].errors?.required &&
+                                lotSaleForm.controls['quantity_unit'].errors?.required
+                            "
+                            class="p-error"
+                        >
+                            Required
+                        </small>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                        <label>Weight / bag<span class="star">*</span></label>
+                        <div class="input-group weightInputGroupDiv">
+                            <input
+                                type="number"
+                                class="weightInputDiv"
+                                formControlName="quantity"
+                                placeholder="Enter a number"
+                                pInputText
+                            />
+
+                            <div class="input-group-append">
+                                <p-dropdown
+                                    [options]="quantityUnitArray"
+                                    optionLabel="label"
+                                    placeholder="Bags"
+                                    [style]="{ width: '100%', border: '0px', 'background-color': '#f8f8f8' }"
+                                    formControlName="quantity_unit"
+                                    optionValue="value"
+                                >
+                                </p-dropdown>
+                            </div>
+                        </div>
+                        <small
+                            *ngIf="
+                                lotSaleForm.controls['quantity'].errors?.required &&
+                                lotSaleForm.controls['quantity_unit'].errors?.required
+                            "
+                            class="p-error"
+                        >
+                            Required
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                        <label>VAT role<span class="star">*</span></label>
+                        <p-dropdown
+                            [options]="vatDetailsArray"
+                            optionLabel="label"
+                            placeholder="Select a transaction role"
+                            [style]="{ width: '100%' }"
+                            formControlName="vat_settings_id"
+                            optionValue="value"
+                        ></p-dropdown>
+                        <small *ngIf="lotSaleForm.controls['vat_settings_id'].errors?.required" class="p-error">
+                            Required
+                        </small>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 px-0">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 web-sec">
+                            <div class="float-left mt-48 mb-48">
+                                <button class="btn btn-stroked mt-32" (click)="popupDisplay = true">
+                                    Delete product from listing
+                                </button>
+                            </div>
+
+                            <div class="float-right mt-48 mb-48">
+                                <button type="button" class="btn btn-stroked mt-32" (click)="onCancel()">Cancel</button>
+                                <button type="submit" class="ml-3 btn-raised btn" (click)="onSave()">
+                                    Save changes
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 w-100 mob-sec">
+                            <button class="btn btn-stroked w-100 mt-3" (click)="popupDisplay = true">
+                                Delete product from listing
+                            </button>
+                            <button type="submit" class="w-100 btn-raised btn mt-3" (click)="onSave()">
+                                Save changes
+                            </button>
+                            <button type="button" class="btn btn-stroked mt-3 w-100" (click)="onCancel()">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+</div>
+<div class="deleteProductDiv">
+    <p-dialog
+        *ngIf="popupDisplay"
+        header=""
+        position="center"
+        [style]="{ width: '28.12rem' }"
+        styleClass="userDialog"
+        [(visible)]="popupDisplay"
+    >
+        <div class="mt-5 mb-5 text-center fnt-muli">
+            <div><img src="assets/images/delete-role.svg" alt="" /></div>
+            <div class="fnt-play fnt-24 fnt-bold mt-2">Oh noh :(</div>
+            <div class="fnt-muli fnt-18 fnt-normal mt-2 pb-3">Are you sure you want to delete this product?</div>
+            <div class="mt-4">
+                <button class="btn btn-stroked" (click)="popupDisplay = false">
+                    {{ globals.languageJson?.cancel }}
+                </button>
+                <button class="btn btn-raised ml-3" (click)="deleteProductFromList()">
+                    {{ globals.languageJson?.delete }}
+                </button>
+            </div>
+        </div>
+    </p-dialog>
+</div>

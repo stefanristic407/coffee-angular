@@ -14,6 +14,7 @@ import { UserserviceService } from 'src/services/users/userservice.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 import { ToastrService } from 'ngx-toastr';
+import { OrgType } from '@models';
 
 @Component({
     selector: 'app-order-booked',
@@ -31,6 +32,7 @@ export class OrderBookedComponent implements OnInit {
     @ViewChild(BookedGradeInfoComponent, { static: false }) public gradeInfoTab: BookedGradeInfoComponent;
     @ViewChild('myForm') myForm;
 
+    orgType = OrgType.ESTATE;
     bookedValueToShow: string = 'Order Placed';
     orderBookedTimeline: boolean = true;
     shippmentShow: boolean = false;
@@ -279,16 +281,6 @@ export class OrderBookedComponent implements OnInit {
 
         // Form input using method createChatBubble
         // To append any user message to display
-        chatboxForm.addEventListener('submit', (e) => {
-            //   const chatInput = document.querySelector(".js-chatbox-input");
-            const chatInput = (document.getElementById('js-chatbox-input') as HTMLInputElement).value;
-            //   console.log("chat text coming"+chatInput);
-
-            createChatBubble(chatInput);
-
-            e.preventDefault();
-            this.myForm.nativeElement.reset();
-        });
     }
     GetCountry(data: any) {
         // console.log(data.toUpperCase());

@@ -1,0 +1,120 @@
+.border-div {
+    margin-top: 3.2rem !important;
+}
+.text-brown {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.57;
+    letter-spacing: normal;
+    text-align: right;
+    color: #80460b;
+    text-decoration: underline;
+    a {
+        cursor: pointer;
+    }
+}
+.border-bottom-gray {
+    border-bottom: 1px solid #d6d6d6;
+}
+.pb-24 {
+    padding-bottom: 24px !important;
+}
+.mt-48 {
+    margin-top: 2rem;
+}
+.mb-48 {
+    margin-bottom: 2rem;
+}
+.web-sec {
+    display: block;
+}
+.mob-sec {
+    display: none;
+}
+.text-underline {
+    text-decoration: underline;
+}
+
+/****************************    Media Queries   ****************************/
+
+@media screen and (max-width: 768px) {
+    .create-role {
+        margin-left: 0.9rem;
+        margin-right: 0.9rem;
+        padding-top: 1rem;
+    }
+    .mob-sec {
+        display: block;
+    }
+    .web-sec {
+        display: none;
+    }
+    .border-div {
+        margin-top: 1.2rem !important;
+    }
+    .back-icon {
+        border-bottom: 1px solid #ebebeb;
+        padding-bottom: 13px;
+        a {
+            font-size: 14px;
+            color: #80460b;
+            font-weight: 600;
+        }
+        img {
+            margin-right: 5px;
+        }
+    }
+    :host ::ng-deep .productListTable .p-datatable-tbody > tr > .nameMobileHeader {
+        padding: 0px;
+        width: 100% !important;
+    }
+    .mobileValueTxt {
+        font-size: 14px !important;
+    }
+    .mobileCardBody {
+        border-bottom: 1px dashed #d6d6d6;
+        padding: 1rem 0px;
+    }
+    :host ::ng-deep .productListTable .p-datatable-tbody > tr > .cardBottom {
+        margin-bottom: 14px;
+        border-bottom: 1px solid #d6d6d6 !important;
+    }
+    :host ::ng-deep .productListTable .p-datatable .p-datatable-tbody > tr {
+        border-bottom: 0px !important;
+    }
+    .borderCard {
+        background-color: #f8f8f8;
+        border: 1px solid #d6d6d6;
+    }
+    .productHeight {
+        height: 138px !important;
+    }
+    .mobileCard {
+        border-left: 1px solid #d6d6d6;
+        border-right: 1px solid #d6d6d6;
+        border-bottom: 1px solid #d6d6d6;
+    }
+}
+
+::ng-deep .deleteProductDiv .p-dialog .p-dialog-header {
+    display: none;
+}
+::ng-deep .productListTable .p-checkbox {
+    margin-left: 0px;
+}
+::ng-deep .productListTable .p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
+    background: #ffffff;
+}
+.weightInputGroupDiv {
+    border: 1px solid #d6d6d6;
+}
+.weightInputDiv {
+    flex: 1 1 auto;
+    width: 1%;
+    border: 0px;
+}
+.input-group-append {
+    border: 0px !important;
+    padding: 0px;
+    width: auto;
+}

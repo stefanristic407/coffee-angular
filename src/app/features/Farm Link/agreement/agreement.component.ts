@@ -1,18 +1,13 @@
 // AUTHOR : Vijaysimhareddy
 // PAGE DESCRIPTION : This page contains functions of  Orders List,Search and Filters.
 
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { DashboardserviceService } from 'src/services/dashboard/dashboardservice.service';
-import { DataTableDirective, DataTablesModule } from 'angular-datatables';
-import { data } from 'jquery';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from 'src/services/globals.service';
 import { RoasteryProfileService } from '../../roastery-profile/roastery-profile.service';
-
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 @Component({
 	selector: 'app-agreement',
 	templateUrl: './agreement.component.html',
@@ -30,11 +25,9 @@ export class AgreementComponent implements OnInit {
 
 	constructor(public router: Router,
 		public cookieService: CookieService,
-		public dashboard: DashboardserviceService,
 		public roasterService: RoasterserviceService,
 		public toastrService: ToastrService,
 		public roasteryProfileService: RoasteryProfileService,
-		private modalService: BsModalService,
 		public globals: GlobalsService) {
 		this.roasterId = this.cookieService.get('roaster_id');
 	}

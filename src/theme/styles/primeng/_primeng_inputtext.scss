@@ -20,6 +20,10 @@
 .p-inputtext:enabled:focus {
     border-color: $primary-color;
 }
+.p-inputtext:enabled:read-only:hover,
+.p-inputtext:enabled:read-only:focus {
+    border-color: $primary-border-color;
+}
 .p-inputtext.p-error,
 .p-inputtext.p-invalid,
 .p-inputtext.ng-dirty.ng-invalid {

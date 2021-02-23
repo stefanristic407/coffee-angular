@@ -9,29 +9,31 @@
     <nav class="bg-white nav-top1">
         <div class="container">
             <div class="d-flex align-items-center">
-                <a class="sidenav-hamberg d-lg-none" (click)="openSideNav()">
-                    <img src="assets/images/hamberg.svg" alt="hamberg" class="d-md-none" />
-                    <img src="assets/images/hamberg-tablet.svg" alt="hamberg" class="d-none d-md-block" />
-                </a>
-                <a class="company-logo d-inline-block" [routerLink]="['/features/welcome-aboard']">
-                    <img src="assets/images/Sewn-logo.svg" alt="Comany-Logo" />
-                </a>
-                <div class="d-none d-md-inline-block">
-                    <p-autoComplete
-                        [(ngModel)]="text"
-                        [suggestions]="results"
-                        field="title"
-                        (onSelect)="redirect($event)"
-                        (completeMethod)="search($event)"
+                <div class="d-md-block" [class.d-none]="showSearch">
+                    <a class="sidenav-hamberg d-lg-none" (click)="openSideNav()">
+                        <img src="assets/images/hamberg.svg" alt="hamberg" class="d-md-none" />
+                        <img src="assets/images/hamberg-tablet.svg" alt="hamberg" class="d-none d-md-inline-block" />
+                    </a>
+                    <a class="company-logo d-inline-block" [routerLink]="['/']">
+                        <img src="assets/images/Sewn-logo.svg" alt="Comany-Logo" />
+                    </a>
+                </div>
+                <div class="d-md-inline-block header-search" [class.d-none]="!showSearch">
+                    <input
+                        type="text"
+                        [(ngModel)]="searchString"
+                        styleClass=""
                         placeholder="Search.."
-                        styleClass="header-search"
-                        scrollHeight="225px"
-                    >
-                    </p-autoComplete>
+                        (keyup)="search()"
+                        pInputText
+                    />
+                </div>
+                <div *ngIf="!showSearch" class="d-md-none ml-auto">
+                    <img src="assets/images/search.svg" class="img d-inline-block" (click)="openSearchPanel()" />
                 </div>
                 <ul class="header-profile-links ml-md-auto d-flex align-items-center p-15">
                     <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
-                        <a [routerLink]="['/people/team-members']" class="d-inline-block image-card">
+                        <a [routerLink]="['/team-management/team-members']" class="d-inline-block image-card">
                             <img class="img" src="assets/images/add.svg" />
                         </a>
                     </li>
@@ -147,7 +149,7 @@
                                                         class="cursor-dots"
                                                         [routerLink]="['/features/roastery-profile']"
                                                         (click)="pop2.hide()"
-                                                        >{{ globals.languageJson?.roastery_profile }}</a
+                                                        >{{ 'roastery_profile' | translate }}</a
                                                     >
                                                 </li>
                                                 <li class="list-group-item">
@@ -155,7 +157,7 @@
                                                         class="cursor-dots"
                                                         [routerLink]="['/features/myprofile']"
                                                         (click)="pop2.hide()"
-                                                        >{{ globals.languageJson?.my_profile }}
+                                                        >{{ 'my_profile' | translate }}
                                                     </a>
                                                 </li>
                                                 <li class="list-group-item">
@@ -163,12 +165,12 @@
                                                         class="cursor-dots"
                                                         [routerLink]="['/features/account-settings']"
                                                         (click)="pop2.hide()"
-                                                        >{{ globals.languageJson?.account_settings }}</a
+                                                        >{{ 'account_settings' | translate }}</a
                                                     >
                                                 </li>
                                                 <li class="list-group-item">
                                                     <a class="cursor-dots" (click)="userLogout()"
-                                                        >{{ globals.languageJson?.logout }}
+                                                        >{{ 'logout' | translate }}
                                                     </a>
                                                 </li>
                                             </ul>
@@ -199,16 +201,14 @@
                             class="nav-links__item d-md-inline-block position-relative mobile-farm settings-list mt-md-0 mt-5"
                         >
                             <a class="d-inline-block fnt-600" [routerLink]="['/features/account-settings']"
-                                >{{ globals.languageJson?.account_settings }}
+                                >{{ 'account_settings' | translate }}
                             </a>
                         </li>
                         <li class="nav-links__item d-md-inline-block position-relative mobile-farm help-list">
-                            <a class="d-inline-block fnt-600">{{ globals.languageJson?.help_support }} </a>
+                            <a class="d-inline-block fnt-600">{{ 'help_support' | translate }} </a>
                         </li>
                         <li class="nav-links__item d-md-inline-block position-relative mobile-farm logout-list">
-                            <a class="d-inline-block fnt-600" (click)="userLogout()"
-                                >{{ globals.languageJson?.logout }}
-                            </a>
+                            <a class="d-inline-block fnt-600" (click)="userLogout()">{{ 'logout' | translate }} </a>
                         </li>
                     </ul>
                 </div>
@@ -224,16 +224,12 @@
                 <div class="col-12 px-0">
                     <ul class="footer-links d-flex flex-wrap mb-0 align-items-center justify-content-between">
                         <li class="footer-links__item" [ngClass]="{ active: activeLink === 'DASHBOARD' }">
-                            <a
-                                (click)="closeMessagePanel()"
-                                [routerLink]="['/features/welcome-aboard']"
-                                class="d-inline-block"
-                            >
+                            <a (click)="closeMessagePanel()" [routerLink]="['/']" class="d-inline-block">
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/ft-icon-dashboard.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-dashboard.svg" />
                                     <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">
-                                        {{ globals.languageJson?.dashboard }}
+                                        {{ 'dashboard' | translate }}
                                     </p>
                                 </div>
                             </a>
@@ -244,7 +240,7 @@
                                     <img class="in-active" src="assets/images/mess.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-message.svg" />
                                     <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">
-                                        {{ globals.languageJson?.messages }}
+                                        {{ 'messages' | translate }}
                                     </p>
                                 </div>
                             </a>
@@ -259,7 +255,7 @@
                                     <img class="in-active" src="assets/images/notification.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-notification.svg" />
                                     <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">
-                                        {{ globals.languageJson?.notifications }}
+                                        {{ 'notifications' | translate }}
                                     </p>
                                 </div>
                             </a>
@@ -275,7 +271,7 @@
                                     <img class="in-active" src="assets/images/ft-icon-profile.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-profile.svg" />
                                     <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">
-                                        {{ globals.languageJson?.profile }}
+                                        {{ 'profile' | translate }}
                                     </p>
                                 </div>
                             </a>
@@ -294,7 +290,7 @@
                                                 src="assets/images/profile.svg"
                                             />
                                         </div>
-                                        <span class="text-capitalize">{{ globals.languageJson?.my_profile }}</span>
+                                        <span class="text-capitalize">{{ 'my_profile' | translate }}</span>
                                     </a>
                                     <a
                                         [routerLink]="['/features/roastery-profile']"
@@ -303,9 +299,7 @@
                                         <div class="img float-left mr-2">
                                             <img class="profile-pic" src="{{ roasterProfilePic }}" />
                                         </div>
-                                        <span class="text-capitalize">{{
-                                            globals.languageJson?.roastery_profile
-                                        }}</span>
+                                        <span class="text-capitalize">{{ 'roastery_profile' | translate }}</span>
                                     </a>
                                 </div>
                             </div>
@@ -320,9 +314,16 @@
 <div class="layout-wrap">
     <div class="container" *ngIf="loaded">
         <div class="router-design">
-            <!-- <app-direct-messaging></app-direct-messaging> -->
             <app-sewn-direct-message></app-sewn-direct-message>
-            <router-outlet></router-outlet>
+            <app-search-panel
+                [show]="showSearch"
+                [searchStr]="searchString"
+                [searchResults]="searchResults"
+                (closeEmitter)="closeSearchPanel()"
+            ></app-search-panel>
+            <div [class.d-none]="showSearch">
+                <router-outlet></router-outlet>
+            </div>
         </div>
     </div>
     <app-footer></app-footer>

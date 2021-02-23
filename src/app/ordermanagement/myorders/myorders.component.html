@@ -3,10 +3,10 @@
         <span id="title-breadcrumb-1" class="sr-only"></span>
         <ul class="bread-nav">
             <li class="b-cum">
-                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                <a class="b-cum" routerLink="/">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
             </li>
             <li class="b-cum">
-                <a class="b-cum" routerLink="/people/manage-role">Order management</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                <a class="b-cum" routerLink="//team-management/manage-role">Order management</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
             </li>
 
             <li class="b-cum c-pink">My orders</li>
@@ -28,65 +28,93 @@
         </div>
     </section>
 </div> -->
-<div class="total-loader" *ngIf="myOrdersActive !=1">
-        <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
-        <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
-            <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
-        </div>
+<div class="total-loader" *ngIf="myOrdersActive != 1">
+    <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
+    <div>
+        <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
+        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
     </div>
-    <div *ngIf="myOrdersActive == 1">
-<div class="bg-fff">
+</div>
+<div *ngIf="myOrdersActive == 1">
+    <div class="bg-fff">
+        <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4">
+            <span id="title-breadcrumb-1" class="sr-only"></span>
+            <ul class="bread-nav">
+                <li class="b-cum">
+                    <a class="b-cum" routerLink="/">{{ globals.languageJson?.home }}</a
+                    ><span class="padl-r" aria-hidden="true"
+                        ><img class="group-img" src="/assets/images/arrow-1.png" alt="" />
+                    </span>
+                </li>
+                <li class="b-cum">
+                    <a class="b-cum" routerLink="/ordermanagement/myorders">{{
+                        globals.languageJson?.order_management
+                    }}</a
+                    ><span class="padl-r" aria-hidden="true">
+                        <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
+                    </span>
+                </li>
 
-    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4">
-        <span id="title-breadcrumb-1" class="sr-only"></span>
-        <ul class="bread-nav">
-            <li class="b-cum">
-                <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-            </li>
-            <li class="b-cum">
-                <a class="b-cum" routerLink="/ordermanagement/myorders">{{globals.languageJson?.order_management}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-            </li>
+                <li class="b-cum c-pink">{{ globals.languageJson?.my_orders }}</li>
+                <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">
+                    Export
+                </button>
+            </ul>
+        </nav>
 
-            <li class="b-cum c-pink">{{globals.languageJson?.my_orders}}</li>
-            <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">Export</button>
+        <section class="select-order estate-orders">
+            <h5 class="estate-order-title fnt-700">{{ globals.languageJson?.my_orders }}</h5>
 
-        </ul>
-    </nav>
+            <div class="row">
+                <div class="mixups-tabs mt-md-3 col-lg-12 col-md-12">
+                    <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a
+                                class="nav-link active"
+                                id="pills-home-tab"
+                                data-toggle="pill"
+                                href="#pills-home"
+                                role="tab"
+                                aria-controls="pills-home"
+                                aria-selected="true"
+                                >{{ globals.languageJson?.orders }}</a
+                            >
+                        </li>
 
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                id="pills-contact-tab"
+                                data-toggle="pill"
+                                href="#pills-contact"
+                                role="tab"
+                                aria-controls="pills-contact"
+                                aria-selected="false"
+                                >{{ globals.languageJson?.requests }}</a
+                            >
+                        </li>
+                    </ul>
 
-    <section class="select-order estate-orders">
-
-
-        <h5 class="estate-order-title fnt-700"> {{globals.languageJson?.my_orders}} </h5>
-
-
-        <div class="row">
-            <div class="mixups-tabs mt-md-3 col-lg-12 col-md-12">
-                <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">{{globals.languageJson?.orders}}</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">{{globals.languageJson?.requests}}</a>
-                    </li>
-
-                </ul>
-
-                <div class="tab-content mt-md-4" id="pills-tabContent">
-                    <div class="tab-pane fade show active spacing-order" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                        <app-orders></app-orders>
+                    <div class="tab-content mt-md-4" id="pills-tabContent">
+                        <div
+                            class="tab-pane fade show active spacing-order"
+                            id="pills-home"
+                            role="tabpanel"
+                            aria-labelledby="pills-home-tab"
+                        >
+                            <app-orders></app-orders>
+                        </div>
+                        <div
+                            class="tab-pane fade spacing-order"
+                            id="pills-contact"
+                            role="tabpanel"
+                            aria-labelledby="pills-profile-tab"
+                        >
+                            <app-requests></app-requests>
+                        </div>
                     </div>
-                    <div class="tab-pane fade spacing-order" id="pills-contact" role="tabpanel" aria-labelledby="pills-profile-tab">
-                        <app-requests></app-requests>
-                    </div>
-
                 </div>
             </div>
-        </div>
-
-
-
-    </section>
-</div>
+        </section>
+    </div>
 </div>

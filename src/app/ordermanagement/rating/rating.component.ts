@@ -7,7 +7,7 @@ import { FormService } from '@services';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
-import { OrgType } from '@models';
+import { OrgType, OrderType, OrderStatus } from '@models';
 
 @Component({
     selector: 'app-rating',
@@ -17,13 +17,17 @@ import { OrgType } from '@models';
 export class RatingComponent implements OnInit {
     roasterId: any;
     orgType: OrgType;
-    orderId: string;
+    orgId: number;
+    orderId: number;
+    orderType: OrderType;
+    orderStatus: OrderStatus;
     ownerName: string;
     companyImg: string;
     rating: number;
     country: string;
     submitted = false;
     infoForm: FormGroup;
+    review: any;
 
     constructor(
         private fb: FormBuilder,
@@ -32,7 +36,7 @@ export class RatingComponent implements OnInit {
         private router: Router,
         public globals: GlobalsService,
         public roasterSrv: RoasterserviceService,
-        public userService: UserserviceService,
+        public userSrv: UserserviceService,
         public cookieService: CookieService,
         private toastrService: ToastrService,
     ) {
@@ -40,9 +44,9 @@ export class RatingComponent implements OnInit {
         this.route.paramMap.subscribe((params) => {
             if (params.has('orgType') && params.has('orderId')) {
                 this.orgType = params.get('orgType') as OrgType;
-                this.orderId = params.get('orderId');
-                console.log(this.orgType, this.orderId);
+                this.orderId = +params.get('orderId');
                 this.getData();
+                this.getReview();
             }
         });
     }
@@ -60,8 +64,14 @@ export class RatingComponent implements OnInit {
         this.roasterSrv.getViewOrderDetails(this.roasterId, this.orderId, this.orgType).subscribe((res: any) => {
             if (res.success) {
                 if (this.orgType === OrgType.ESTATE) {
+                    this.orgId = res.result.estate_id;
+                    this.orderType = res.result.order_type;
+                    this.orderStatus = res.result.status;
                     this.getEstate(res.result.estate_id);
                 } else if (this.orgType === OrgType.MICRO_ROASTER) {
+                    this.orgId = res.result.micro_roaster_id;
+                    this.orderType = res.result.type;
+                    this.orderStatus = res.result.status;
                     this.getMicroRoaster(res.result.micro_roaster_id);
                 }
             } else {
@@ -71,8 +81,7 @@ export class RatingComponent implements OnInit {
     }
 
     getEstate(estateId) {
-        console.log('this.getEstate');
-        this.userService.getAvailableEstateList(this.roasterId, estateId).subscribe((res: any) => {
+        this.userSrv.getAvailableEstateList(this.roasterId, estateId).subscribe((res: any) => {
             if (res.success) {
                 this.ownerName = res.result.owner_name;
                 this.companyImg = res.result.company_image_thumbnail_url;
@@ -83,7 +92,7 @@ export class RatingComponent implements OnInit {
     }
 
     getMicroRoaster(estateId) {
-        this.userService.getMicroDetails(this.roasterId, estateId).subscribe((res: any) => {
+        this.userSrv.getMicroDetails(this.roasterId, estateId).subscribe((res: any) => {
             if (res.success) {
                 this.ownerName = res.result.owner_name;
                 this.companyImg = res.result.company_image_thumbnail_url;
@@ -93,10 +102,27 @@ export class RatingComponent implements OnInit {
         });
     }
 
+    getReview() {
+        let queryIdStr = '';
+        if (this.orgType === OrgType.ESTATE) {
+            queryIdStr = 'gc_order_id';
+        } else if (this.orgType === OrgType.MICRO_ROASTER) {
+            queryIdStr = 'mr_gc_order_id';
+        }
+        this.roasterSrv.getRoasterReviews(this.roasterId, { [queryIdStr]: this.orderId }).subscribe((res: any) => {
+            if (res.success) {
+                if (res.result && res.result[0]) {
+                    this.review = res.result[0];
+                    this.infoForm.get('review').setValue(this.review.comment);
+                }
+            }
+        });
+    }
+
     submitRating() {
         if (this.infoForm.valid) {
             this.submitted = true;
-            this.userService
+            this.userSrv
                 .addReviewOrder(this.roasterId, this.orderId, this.infoForm.value, this.orgType)
                 .subscribe((res: any) => {
                     this.submitted = false;

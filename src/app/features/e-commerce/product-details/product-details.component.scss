@@ -7,12 +7,15 @@
 }
 .enableBtn {
     background-color: $primary-color;
-    padding: 0px 16px;
+    padding: 4px 16px;
     color: #fff !important;
+    font-size: 12px;
     border-radius: 4px !important;
 }
 .disbableBtn {
-    padding: 0px 16px;
+    padding: 4px 16px;
+    color: #979797;
+    font-size: 12px;
 }
 .addWeightDiv {
     border: 1px solid #747588;
@@ -33,7 +36,7 @@
     margin: 5px;
 }
 
-.isProductOption > .p-tabview > .p-tabview-nav {
+::ng-deep .isProductOption .p-tabview .p-tabview-nav {
     display: none;
 }
 .equal-operators {
@@ -49,8 +52,8 @@
 }
 .divSeperator {
     border: 1px dashed #d6d6d6;
-    margin-top: 2rem !important;
-    margin-bottom: 2rem !important;
+    margin-top: 1rem !important;
+    margin-bottom: 2.5rem !important;
 }
 @media screen and (max-width: 767px) {
     .weightVariantBtn {

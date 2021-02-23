@@ -3,13 +3,16 @@
 @import '../variables';
 
 // Rating
+p-rating {
+    line-height: 1;
+}
 .p-rating .p-rating-icon {
     font-size: inherit;
     color: $primary-border-color;
     transition: none;
 }
 .p-rating .p-rating-icon.pi-star {
-    color: $star-color;
+    color: transparent;
 }
 .p-rating .p-rating-icon:focus {
     box-shadow: none;
@@ -49,8 +52,9 @@
         background-repeat: no-repeat;
         margin-right: 4px;
     }
-    .p-rating-icon.pi-star,
-    .p-rating-icon:hover {
+    .p-rating-icon.pi-star:not(.sibling-leave),
+    .p-rating-icon:hover,
+    .p-rating-icon.sibling-enter {
         color: transparent;
         background-image: url(/assets/images/star-orange.svg);
     }

@@ -38,6 +38,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
 
+import { TranslateModule } from '@ngx-translate/core';
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ImageCropperModule } from 'ngx-image-cropper';
@@ -49,12 +50,19 @@ import { Ng2TelInputModule } from 'ng2-tel-input';
 
 import { CountryPipe } from './pipes/country/country.pipe';
 import { EstateBrandLinkPipe } from './pipes/link/estate-brand-link.pipe';
+import { ProfileLinkPipe } from './pipes/link/profile-link.pipe';
+import { ReviewLinkPipe } from './pipes/link/review-link.pipe';
 import { RoasterBrandLinkPipe } from './pipes/link/roaster-brand-link.pipe';
 import { OrderRatingLinkPipe } from './pipes/link/order-rating-link.pipe';
+import { OrderLinkPipe } from './pipes/link/order-link.pipe';
 import { FileNamePipe } from './pipes/file-name.pipe';
 import { MonthPipe } from './pipes/month/month.pipe';
 import { OrgTypePipe } from './pipes/org-type.pipe';
 import { WordCountPipe } from './pipes/word-count/word-count.pipe';
+
+import { RatingDirective } from './directives/rating.directive';
+import { WordLimitDirective } from './directives/word-limit.directive';
+import { LifecyclehookDirective } from './directives/lifecyclehook.directive';
 
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { BlankComponent } from './components/blank/blank.component';
@@ -84,6 +92,9 @@ import { LineChartComponent } from './components/line-chart/line-chart.component
 import { TimeRangeComponent } from './components/time-range/time-range.component';
 import { DayPickerComponent } from './components/day-picker/day-picker.component';
 import { PhoneNumberComponent } from './components/phone-number/phone-number.component';
+import { ReviewSummaryComponent } from './components/review-summary/review-summary.component';
+import { ReviewsComponent } from './components/reviews/reviews.component';
+import { ProgressBarModule } from 'primeng/progressbar';
 // #region material
 const MATMODULES = [];
 // #endregion
@@ -122,6 +133,7 @@ const THIRDMODULES = [
     TabViewModule,
     TooltipModule,
     TreeModule,
+    TranslateModule,
     ChartAllModule,
     AccumulationChartAllModule,
     RangeNavigatorAllModule,
@@ -132,6 +144,7 @@ const THIRDMODULES = [
     LightboxModule,
     MatVideoModule,
     Ng2TelInputModule,
+    ProgressBarModule,
 ];
 // #endregion
 
@@ -163,16 +176,21 @@ const COMPONENTS = [
     BreadcrumbComponent,
     HorizontalBarComponent,
     PhoneNumberComponent,
+    ReviewSummaryComponent,
+    ReviewsComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
-const DIRECTIVES = [];
+const DIRECTIVES = [WordLimitDirective, RatingDirective, LifecyclehookDirective];
 const PIPES = [
     CountryPipe,
     EstateBrandLinkPipe,
     FileNamePipe,
     MonthPipe,
+    ProfileLinkPipe,
+    ReviewLinkPipe,
     RoasterBrandLinkPipe,
     OrderRatingLinkPipe,
+    OrderLinkPipe,
     OrgTypePipe,
     WordCountPipe,
 ];

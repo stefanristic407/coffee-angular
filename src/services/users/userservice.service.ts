@@ -8,6 +8,7 @@ import { SocketService } from '../socket.service';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from 'src/environments/environment';
 import { map, tap } from 'rxjs/operators';
+import { OrgType } from '@models';
 
 @Injectable({
     providedIn: 'root',
@@ -511,7 +512,7 @@ export class UserserviceService {
         return this.http.post(this.roasterUrl, data);
     }
 
-    getAvailableEstateList(roasterId: any, estateId: any) {
+    getAvailableEstateList(roasterId: any, estateId: any): Observable<any> {
         const data = {
             api_call: '/ro/' + roasterId + '/estates/' + estateId,
             method: 'GET',
@@ -635,7 +636,7 @@ export class UserserviceService {
         };
         return this.http.put(this.putUrl, data);
     }
-    addRoastingProfile(roaster_id: any, body: any) {
+    addRoastingProfile(roaster_id: any, body: any): Observable<any> {
         const data = {
             api_call: `/ro/${roaster_id}/roasting-profile`,
             token: this.cookieService.get('Auth'),
@@ -644,7 +645,7 @@ export class UserserviceService {
         };
         return this.http.post(this.roasterUrl, data);
     }
-    getRoastingProfileDetail(roaster_id: any, id: any) {
+    getRoastingProfileDetail(roaster_id: any, id: any): Observable<any> {
         const data = {
             api_call: `/ro/${roaster_id}/roasting-profile/${id}`,
             token: this.cookieService.get('Auth'),
@@ -652,7 +653,7 @@ export class UserserviceService {
         };
         return this.http.post(this.roasterUrl, data);
     }
-    updateRoastingProfileDetail(roaster_id: any, id: any, body: any) {
+    updateRoastingProfileDetail(roaster_id: any, id: any, body: any): Observable<any> {
         const data = {
             api_call: `/ro/${roaster_id}/roasting-profile/${id}`,
             token: this.cookieService.get('Auth'),
@@ -661,7 +662,7 @@ export class UserserviceService {
         };
         return this.http.put(this.putUrl, data);
     }
-    deleteRoastingProfile(roaster_id: any, id: any) {
+    deleteRoastingProfile(roaster_id: any, id: any): Observable<any> {
         const data = {
             api_call: `/ro/${roaster_id}/roasting-profile/${id}`,
             method: 'DELETE',
@@ -694,7 +695,7 @@ export class UserserviceService {
         };
         return this.http.post(this.roasterUrl, data);
     }
-    updateRoastedBatchDetail(roaster_id: any, id: any, body: any) {
+    updateRoastedBatchDetail(roaster_id: any, id: any, body: any): Observable<any> {
         const data = {
             api_call: `/ro/${roaster_id}/roasted-batches/${id}`,
             token: this.cookieService.get('Auth'),
@@ -703,7 +704,7 @@ export class UserserviceService {
         };
         return this.http.put(this.putUrl, data);
     }
-    getRoastedBatchDetail(roaster_id: any, id: any) {
+    getRoastedBatchDetail(roaster_id: any, id: any): Observable<any> {
         const data = {
             api_call: `/ro/${roaster_id}/roasted-batches/${id}`,
             token: this.cookieService.get('Auth'),
@@ -712,7 +713,7 @@ export class UserserviceService {
         return this.http.post(this.roasterUrl, data);
     }
 
-    addRoastedBatches(roaster_id: any, body: any) {
+    addRoastedBatches(roaster_id: any, body: any): Observable<any> {
         const data = {
             api_call: `/ro/${roaster_id}/roasted-batches`,
             token: this.cookieService.get('Auth'),
@@ -721,7 +722,7 @@ export class UserserviceService {
         };
         return this.http.post(this.roasterUrl, data);
     }
-    getRoasterFlavourProfile(roaster_id: any) {
+    getRoasterFlavourProfile(roaster_id: any): Observable<any> {
         const data = {
             api_call: `/ro/${roaster_id}/flavour-profile`,
             method: 'GET',
@@ -875,6 +876,16 @@ export class UserserviceService {
         };
         return this.http.put(this.putUrl, data);
     }
+    // Update FAQ sort priorities.
+    sortFAQ(roaster_id: any, body: any) {
+        const data = {
+            api_call: `/ro/${roaster_id}/faq`,
+            token: this.cookieService.get('Auth'),
+            method: 'PUT',
+            data: body,
+        };
+        return this.http.post(this.roasterUrl, data);
+    }
 
     getTeamMembers(roaster_id: any, group) {
         const data = {
@@ -1009,18 +1020,19 @@ export class UserserviceService {
         };
         return this.http.put(this.putUrl, data).pipe(map((res) => res));
     }
-    getEachEsateReviews(estate_id: any, params = '') {
+    // List reviews received for an organization
+    getReviews(orgId: any, orgType: OrgType, params = '') {
         const data = {
-            // data['api_call'] = "/general/es/" + estate_id + "/reviews";
-            api_call: `/general/es/${estate_id}/reviews/?${params}`,
+            api_call: `/general/${orgType}/${orgId}/reviews/?${params}`,
             method: 'GET',
             token: this.cookieService.get('Auth'),
         };
         return this.http.post(this.roasterUrl, data);
     }
-    getEachEsateReviewsSummary(estate_id: any) {
+    // Get review summary received for an organization
+    getReviewsSummary(orgId: any, orgType = OrgType.ROASTER) {
         const data = {
-            api_call: '/general/es/' + estate_id + '/reviews-summary',
+            api_call: `/general/${orgType}/${orgId}/reviews-summary`,
             method: 'GET',
             token: this.cookieService.get('Auth'),
         };
@@ -1330,15 +1342,6 @@ export class UserserviceService {
             api_call: `/ro/${roaster_id}/stats?sections=${query.sections || ''}&customer_type=${
                 query.customer_type || ''
             }&chart_type=${query.chart_type || ''}&date_from=${query.date_from || ''}&date_to=${query.date_to || ''}`,
-            method: 'GET',
-            token: this.cookieService.get('Auth'),
-        };
-        return this.http.post(this.roasterUrl, data);
-    }
-
-    getReviewsSummary(roaster_id: any) {
-        const data = {
-            api_call: '/general/ro/' + roaster_id + '/reviews-summary',
             method: 'GET',
             token: this.cookieService.get('Auth'),
         };

@@ -1,149 +1,82 @@
-import { Component, OnInit,ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { GlobalsService } from 'src/services/globals.service';
+import { RoasterserviceService } from '@services';
+import { UserserviceService } from '@services';
 import { OrderBookedService } from '../order-booked/order-booked.service';
+import { OrgType, OrderType, OrderStatus } from '@models';
+
 @Component({
-  selector: 'app-review-ratings',
-  templateUrl: './review-ratings.component.html',
-  styleUrls: ['./review-ratings.component.css']
+    selector: 'app-review-ratings',
+    templateUrl: './review-ratings.component.html',
+    styleUrls: ['./review-ratings.component.scss'],
 })
 export class ReviewRatingsComponent implements OnInit {
-  totalstar = 5;
-  newvalue: any = 2;
-  reviewvalue: any = 4;
-  termStatus: any;
-  showRelavant:boolean=true;
-	appLanguage?: any;
+    roasterId: any;
+    orgType: OrgType;
+    orgId: number;
+    ownerName: string;
+    orderId: number;
+    orderType: OrderType;
+    orderStatus: OrderStatus;
+    summary: any;
+    average: any;
+    reviews: any[];
 
-  constructor(public globals: GlobalsService,public bookedService: OrderBookedService) { 
-
-    this.termStatus = "Most relevant";
-    
-  }
-
-  ngOnInit(): void {
-		this.appLanguage = this.globals.languageJson;
-  }
-
-  
-  setStatus(term: any) {
-    this.termStatus = term;
-  }
-  moreMethod(){
-    let dots = document.getElementById("dots");
-    let moreText = document.getElementById("more");
-    let btnText = document.getElementById("read_id");
-
-    if (dots.style.display === "none") {
-      dots.style.display = "inline";
-      btnText.innerHTML = "Read more"+'<img class="pl-1" src="/assets/images/active-review.svg" />'; 
-      moreText.style.display = "none";
-     
-
-    } else {
-      dots.style.display = "none";
-      btnText.innerHTML = "Read less"+'<img class="pl-1" src="/assets/images/user-down.svg" />'; 
-      moreText.style.display = "inline";
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router,
+        public cookieService: CookieService,
+        public globals: GlobalsService,
+        public bookedService: OrderBookedService,
+        public roasterSrv: RoasterserviceService,
+        public userSrv: UserserviceService,
+    ) {
+        this.roasterId = this.cookieService.get('roaster_id');
+        this.route.paramMap.subscribe((params) => {
+            if (params.has('orgType') && params.has('orderId')) {
+                this.orgType = params.get('orgType') as OrgType;
+                this.orderId = +params.get('orderId');
+                this.getData();
+            }
+        });
     }
-  }
 
-  moreLess(){
-    let dots = document.getElementById("dots_two");
-    let moreText = document.getElementById("more_two");
-    let btnText = document.getElementById("read_id_two");
+    ngOnInit(): void {}
 
-    if (dots.style.display === "none") {
-      dots.style.display = "inline";
-      btnText.innerHTML = "Read more"+'<img class="pl-1" src="/assets/images/active-review.svg" />'; 
-      moreText.style.display = "none";
-     
-
-    } else {
-      dots.style.display = "none";
-      btnText.innerHTML = "Read less"+'<img class="pl-1" src="/assets/images/user-down.svg" />'; 
-      moreText.style.display = "inline";
+    getData() {
+        this.roasterSrv.getViewOrderDetails(this.roasterId, this.orderId, this.orgType).subscribe((res: any) => {
+            if (res.success) {
+                if (this.orgType === OrgType.ESTATE) {
+                    this.orgId = res.result.estate_id;
+                    this.ownerName = res.result.estate_owner;
+                    this.orderType = res.result.order_type;
+                    this.orderStatus = res.result.status;
+                } else if (this.orgType === OrgType.MICRO_ROASTER) {
+                    this.orgId = res.result.micro_roaster_id;
+                    this.ownerName = res.result.micro_roaster_name;
+                    this.orderType = res.result.type;
+                    this.orderStatus = res.result.status;
+                }
+                this.getReviews();
+            } else {
+                this.router.navigateByUrl('/');
+            }
+        });
     }
-  }
-  lessMethod(){
-    let dots = document.getElementById("dots_three");
-    let moreText = document.getElementById("more_three");
-    let btnText = document.getElementById("read_id_three");
 
-    if (dots.style.display === "none") {
-      dots.style.display = "inline";
-      btnText.innerHTML = "Read more"+'<img class="pl-1" src="/assets/images/active-review.svg" />'; 
-      moreText.style.display = "none";
-     
-
-    } else {
-      dots.style.display = "none";
-      btnText.innerHTML = "Read less"+'<img class="pl-1" src="/assets/images/user-down.svg" />'; 
-      moreText.style.display = "inline";
+    getReviews() {
+        this.userSrv.getReviewsSummary(this.orgId, this.orgType).subscribe((res: any) => {
+            if (res.success) {
+                this.summary = res.result.summary;
+                this.average = res.result.average;
+            }
+        });
+        this.userSrv.getReviews(this.orgId, this.orgType).subscribe((res: any) => {
+            if (res.success) {
+                this.reviews = res.result;
+            }
+        });
     }
-  }
-  communicationMore_one(){
-    let dots = document.getElementById("dots_contact1");
-    let moreText = document.getElementById("more_contact1");
-    let btnText = document.getElementById("read_contact1");
-
-    if (dots.style.display === "none") {
-      dots.style.display = "inline";
-      btnText.innerHTML = "Read more"+'<img class="pl-1" src="/assets/images/active-review.svg" />'; 
-      moreText.style.display = "none";
-     
-
-    } else {
-      dots.style.display = "none";
-      btnText.innerHTML = "Read less"+'<img class="pl-1" src="/assets/images/user-down.svg" />'; 
-      moreText.style.display = "inline";
-    }
-  }
-  communicationMore_two(){
-    let dots = document.getElementById("dots_contact2");
-    let moreText = document.getElementById("more_contact2");
-    let btnText = document.getElementById("read_contact2");
-
-    if (dots.style.display === "none") {
-      dots.style.display = "inline";
-      btnText.innerHTML = "Read more"+'<img class="pl-1" src="/assets/images/active-review.svg" />'; 
-      moreText.style.display = "none";
-     
-
-    } else {
-      dots.style.display = "none";
-      btnText.innerHTML = "Read less"+'<img class="pl-1" src="/assets/images/user-down.svg" />'; 
-      moreText.style.display = "inline";
-    }
-  }
-  communicationMore_three(){
-    let dots = document.getElementById("dots_contact3");
-    let moreText = document.getElementById("more_contact3");
-    let btnText = document.getElementById("read_contact3");
-
-    if (dots.style.display === "none") {
-      dots.style.display = "inline";
-      btnText.innerHTML = "Read more"+'<img class="pl-1" src="/assets/images/active-review.svg" />'; 
-      moreText.style.display = "none";
-     
-
-    } else {
-      dots.style.display = "none";
-      btnText.innerHTML = "Read less"+'<img class="pl-1" src="/assets/images/user-down.svg" />'; 
-      moreText.style.display = "inline";
-    }
-  }
-  toggleRelavant(){
-    this.showRelavant = !this.showRelavant;
-
-  }
-
-  changeDecimal(val:any){
-		if(val){
-			return parseFloat(val).toFixed(1);
-		}
-	}
-	changeDecimalStar(data:any){
-		if(data){
-			return data.toFixed(2);
-    }
-  }  
 }
