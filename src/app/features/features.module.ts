@@ -60,10 +60,6 @@ import { CreateRoastingProfileComponent } from './e-commerce/create-roasting-pro
 import { ProductsTableComponent } from './e-commerce/products-table/products-table.component';
 import { RoastingProfilesComponent } from './e-commerce/roasting-profiles/roasting-profiles.component';
 import { SelectOrderTableComponent } from './e-commerce/select-order-table/select-order-table.component';
-import { GreenCoffeeInventoryComponent } from './green-inventory/green-coffee-inventory/green-coffee-inventory.component';
-import { ProcuredCoffeeComponent } from './green-inventory/procured-coffee/procured-coffee.component';
-import { CoffeeSaleComponent } from './green-inventory/coffee-sale/coffee-sale.component';
-import { LotSaleComponent } from './green-inventory/lot-sale/lot-sale.component';
 import { CuppingReportComponent } from './green-grading/cupping-report/cupping-report.component';
 import { CuppingServiceComponent } from './green-grading/cupping-report/cupping-service/cupping-service.component';
 import { GenerateNewReportComponent } from './green-grading/cupping-report/generate-new-report/generate-new-report.component';
@@ -85,8 +81,6 @@ import { ServiceRequestsComponent } from './green-grading/service-requests/servi
 import { SourceGradingComponent } from './green-grading/source-grading/source-grading.component';
 import { ServiceRequestedComponent } from './green-grading/service-requested/service-requested.component';
 import { ProcessDetailsComponent } from './green-grading/process-details/process-details.component';
-import { MarkedSaleComponent } from './green-inventory/green-coffee-inventory/marked-sale/marked-sale.component';
-import { CoffeeProcuredTabComponent } from './green-inventory/green-coffee-inventory/coffee-procured-tab/coffee-procured-tab.component';
 import { VatManagementComponent } from './vat-management/vat-management.component';
 import { VatDetailsComponent } from './vat-management/vat-details/vat-details.component';
 import { QAForumComponent } from './Farm Link/q-a-forum/q-a-forum.component';
@@ -102,7 +96,6 @@ import { MicroRoasterOrdersComponent } from './Farm Link/coffee-experience/micro
 import { HorecaOrdersComponent } from './Farm Link/coffee-experience/horeca-orders/horeca-orders.component';
 import { DefaultSettingComponent } from './Farm Link/coffee-experience/default-setting/default-setting.component';
 // tslint:disable-next-line: max-line-length
-import { GreenCoffeeForSaleDetailsComponent } from './green-inventory/green-coffee-for-sale-details/green-coffee-for-sale-details.component';
 import { ApiRequestsTableComponent } from './api-requests/api-requests-table/api-requests-table.component';
 import { ApiKeyRequestsComponent } from './api-requests/api-requests-table/api-key-requests/api-key-requests.component';
 import { GeneratedKeysComponent } from './api-requests/api-requests-table/generated-keys/generated-keys.component';
@@ -165,10 +158,6 @@ import { ListboxModule } from 'primeng/listbox';
         ProductsTableComponent,
         RoastingProfilesComponent,
         SelectOrderTableComponent,
-        GreenCoffeeInventoryComponent,
-        ProcuredCoffeeComponent,
-        CoffeeSaleComponent,
-        LotSaleComponent,
         CuppingReportComponent,
         CuppingServiceComponent,
         GenerateNewReportComponent,
@@ -190,8 +179,6 @@ import { ListboxModule } from 'primeng/listbox';
         SourceGradingComponent,
         ServiceRequestedComponent,
         ProcessDetailsComponent,
-        MarkedSaleComponent,
-        CoffeeProcuredTabComponent,
         VatManagementComponent,
         VatDetailsComponent,
         QAForumComponent,
@@ -206,7 +193,6 @@ import { ListboxModule } from 'primeng/listbox';
         MicroRoasterOrdersComponent,
         HorecaOrdersComponent,
         DefaultSettingComponent,
-        GreenCoffeeForSaleDetailsComponent,
         ApiRequestsTableComponent,
         ApiKeyRequestsComponent,
         GeneratedKeysComponent,

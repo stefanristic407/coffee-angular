@@ -251,10 +251,12 @@ export class RoasterserviceService {
         return this.http.post(this.uploadBrandsUrl, data);
     }
 
-    getRoasterReviews(roaster_id: any): Observable<any> {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/your-reviews';
-        data['token'] = this.cookieService.get('Auth');
+    // Get all reviews posted by organization
+    getRoasterReviews(roasterId: any, queryParams = {}): Observable<any> {
+        const data = {
+            api_call: `/ro/${roasterId}/your-reviews?${this.serlialise(queryParams)}`,
+            token: this.cookieService.get('Auth'),
+        };
         return this.http.post(this.url, data);
     }
 
@@ -630,10 +632,10 @@ export class RoasterserviceService {
     }
 
     // Update featured products list by RO
-    updateFeatured(roasterId: any, product_ids: number[] = []): Observable<any> {
+    updateFeatured(roasterId: any, body: any): Observable<any> {
         const data = {
             api_call: `/ro/${roasterId}/products/update-featured`,
-            data: { product_ids },
+            data: body,
             method: 'PUT',
             token: this.cookieService.get('Auth'),
         };
@@ -895,7 +897,7 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
     //Create Mark for Sale from Procured Coffee
-    CreateMarkForSale(roaster_id: any, orderID, data) {
+    CreateMarkForSale(roaster_id: any, orderID, data): Observable<any> {
         let obj = {};
         obj['method'] = 'POST';
         obj['api_call'] = '/ro/' + roaster_id + '/procured-coffees/' + orderID + '/sale';
@@ -904,7 +906,7 @@ export class RoasterserviceService {
         return this.http.post(this.url, obj);
     }
     //Get MarkFor Sale order details
-    getMarkForSaleDetails(roaster_id: any, orderID) {
+    getMarkForSaleDetails(roaster_id: any, orderID): Observable<any> {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/procured-coffees/' + orderID + '/sale';
         data['token'] = this.cookieService.get('Auth');
@@ -913,7 +915,7 @@ export class RoasterserviceService {
     }
 
     //upate Mark for Sale from Procured Coffee
-    updateMarkForSale(roaster_id: any, orderID, data) {
+    updateMarkForSale(roaster_id: any, orderID, data): Observable<any> {
         let obj = {};
         obj['method'] = 'PUT';
         obj['api_call'] = '/ro/' + roaster_id + '/procured-coffees/' + orderID + '/sale';
@@ -922,7 +924,7 @@ export class RoasterserviceService {
         return this.http.post(this.url, obj);
     }
     //upate Mark for Sale status
-    updateMarkForSaleStatus(roaster_id: any, orderID, data) {
+    updateMarkForSaleStatus(roaster_id: any, orderID, data): Observable<any> {
         let obj = {};
         obj['method'] = 'PUT';
         obj['api_call'] = '/ro/' + roaster_id + '/procured-coffees/' + orderID + '/sale/status';
@@ -1042,7 +1044,7 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
     //Get cupping report details
-    getCuppingReportDetails(harvest_id: any) {
+    getCuppingReportDetails(harvest_id: any): Observable<any> {
         var data = {};
         data['api_call'] = '/general/harvests/' + harvest_id + '/cupping-report';
         data['method'] = 'GET';
@@ -1172,6 +1174,16 @@ export class RoasterserviceService {
             api_call: `/ro/${roasterId}/orders/${orderId}/notes`,
             token: this.cookieService.get('Auth'),
             method: 'GET',
+        };
+        return this.http.post(this.url, data);
+    }
+
+    // Delete Procured Coffee.
+    deleteProcuredCoffee(roaster_id: any, orderId: any): Observable<any> {
+        const data = {
+            api_call: `/ro/${roaster_id}/procured-coffees/${orderId}/sale`,
+            method: 'DELETE',
+            token: this.cookieService.get('Auth'),
         };
         return this.http.post(this.url, data);
     }

@@ -74,7 +74,7 @@
                 <small *ngIf="productForm.controls['purchase_type'].errors?.required" class="p-error"> Required </small>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-2">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
                 <label>Product Description<span class="star">*</span></label>
                 <textarea
@@ -88,11 +88,11 @@
             </div>
         </div>
         <div class="divSeperator"></div>
-        <div class="row mb-4">
+        <div class="row mb-5">
             <div class="col-12">
                 <span class="primary_txt">Variants</span>
             </div>
-            <div class="col-12 col-sm-12 col-md-8 mt-2">
+            <div class="col-12 col-sm-12 col-md-8 mt-2 p-0">
                 <p-checkbox
                     formControlName="is_variants_included"
                     binary="true"
@@ -172,7 +172,7 @@
                                 <input type="text" readonly formControlName="batch_ref_no" pInputText />
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-2">
                             <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
                                 <label>Roaster Profile<span class="star">*</span></label>
                                 <input type="text" readonly formControlName="roasting_profile_name" pInputText />
@@ -186,7 +186,7 @@
                                 <input type="text" readonly formControlName="roast_time" pInputText />
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-2">
                             <div class="col-12 mb-3">
                                 <span class="primary_txt">Estate Details</span>
                             </div>
@@ -207,7 +207,7 @@
                                 <input type="text" readonly formControlName="harvest_year" pInputText />
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-2">
                             <div class="col-12 mb-3">
                                 <span class="primary_txt">Tasting notes</span>
                             </div>
@@ -232,7 +232,7 @@
                                 <input type="text" readonly formControlName="processing" pInputText />
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-2">
                             <div class="col-12 col-sm-12 col-md-12 sewn-form-field w-100">
                                 <label>Flavour profile</label>
                                 <div>
@@ -245,13 +245,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-2">
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
                                 <label>Roaster notes</label>
                                 <textarea
                                     type="text"
                                     class="roasterDivText-area"
                                     placeholder=""
+                                    readonly
                                     formControlName="roaster_notes"
                                     pInputText
                                 ></textarea>
@@ -262,12 +263,13 @@
                                     type="text"
                                     class="roasterDivText-area"
                                     placeholder=""
+                                    readonly
                                     formControlName="recipes"
                                     pInputText
                                 ></textarea>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-2">
                             <div class="col-12 mb-3">
                                 <span class="primary_txt">Recommended brewing method</span>
                             </div>
@@ -327,7 +329,7 @@
             *ngFor="let box of productForm.controls['crates']['controls']; let i = index; last as isLast"
             class="mt-4"
         >
-            <div [formGroupName]="i" class="row">
+            <div [formGroupName]="i" class="row mt-2">
                 <div class="col-3 col-sm-2 col-md-2 col-md-2 col-lg-2 col-xl-2 sewn-form-field w-100 pr-0">
                     <label>Box value<span class="star">*</span></label>
                     <input type="text" placeholder="" readonly formControlName="crate_unit" pInputText />

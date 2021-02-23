@@ -26,6 +26,14 @@ div[class^='col-'] {
         padding-left: 4px;
     }
 }
+.gutter-16.row {
+    margin-right: -8px;
+    margin-left: -8px;
+    & > div[class^='col-'] {
+        padding-right: 8px;
+        padding-left: 8px;
+    }
+}
 .gutter-20.row {
     margin-right: -10px;
     margin-left: -10px;
@@ -76,104 +84,6 @@ div[class^='col-'] {
             padding-right: 8px;
             padding-left: 8px;
         }
-    }
-}
-
-.mx-n3 {
-    margin-left: -1rem;
-    margin-right: -1rem;
-}
-
-.mx-n2 {
-    margin-left: -0.5rem;
-    margin-right: -0.5rem;
-}
-
-.mt-45 {
-    margin-top: 2rem !important;
-}
-.mb-45 {
-    margin-bottom: 2rem !important;
-}
-.mb-25 {
-    margin-bottom: 0.75rem !important;
-}
-
-.mt-25 {
-    margin-top: 0.75rem !important;
-}
-.mt-md-25 {
-    @media (min-width: 768px) {
-        margin-top: 0.75rem !important;
-    }
-}
-.mr-25 {
-    margin-right: 0.75rem !important;
-}
-.mr-md-25 {
-    @media (min-width: 768px) {
-        margin-right: 0.75rem !important;
-    }
-}
-
-.mr-45 {
-    margin-right: 2rem !important;
-}
-.ml-25 {
-    margin-left: 0.75rem !important;
-}
-.ml-45 {
-    margin-left: 2rem !important;
-}
-
-.p-45 {
-    padding: 2rem !important;
-}
-.pt-45 {
-    padding-top: 2rem !important;
-}
-.pb-45 {
-    padding-bottom: 2rem !important;
-}
-
-@media (min-width: 768px) {
-    .mt-md-45 {
-        margin-top: 2rem !important;
-    }
-    .mb-md-45 {
-        margin-bottom: 2rem !important;
-    }
-    .mb-md-25 {
-        margin-bottom: 0.75rem !important;
-    }
-    .p-md-45 {
-        padding: 2rem !important;
-    }
-    .pt-md-45 {
-        padding-top: 2rem !important;
-    }
-    .pb-md-45 {
-        padding-bottom: 2rem !important;
-    }
-}
-@media (min-width: 992px) {
-    .mt-lg-45 {
-        margin-top: 2rem !important;
-    }
-    .mb-lg-45 {
-        margin-bottom: 2rem !important;
-    }
-    .mb-lg-25 {
-        margin-bottom: 0.75rem !important;
-    }
-    .p-lg-45 {
-        padding: 2rem !important;
-    }
-    .pt-lg-45 {
-        padding-top: 2rem !important;
-    }
-    .pb-lg-45 {
-        padding-bottom: 2rem !important;
     }
 }
 

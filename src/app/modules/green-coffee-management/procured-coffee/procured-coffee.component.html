@@ -1,0 +1,285 @@
+<div class="total-loader" *ngIf="procuredActive != 1">
+    <div>
+        <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
+        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
+    </div>
+</div>
+<div *ngIf="procuredActive == 1">
+    <section>
+        <div class="bg-fff">
+            <div class="source-cont-available">
+                <div class="row">
+                    <div class="col-lg-12 mt-3">
+                        <div class="sourcing-details">
+                            <p-breadcrumb [model]="breadItems"></p-breadcrumb>
+                            <div class="w-100 mt-3 clearfix avaialble-web">
+                                <div class="source-det-tit pull-left">
+                                    <div class="det-tit d-inline-block">
+                                        <h2>Order #{{ orderDetails?.id }}</h2>
+                                    </div>
+                                </div>
+                                <div class="text-white pull-right">
+                                    <button
+                                        class="btn-raised"
+                                        routerLink="/green-coffee-management/coffee-sale"
+                                        [queryParams]="{ orderId: orderDetails?.id }"
+                                    >
+                                        Mark for sale
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row avaialble-mob m-1">
+                                <h2 class="fnt-18 fnt-bold text-clr334 pl-3 mt-3">Order #{{ orderDetails?.id }}</h2>
+                                <div class="col-sm-12">
+                                    <button
+                                        class="btn-raised w-100"
+                                        routerLink="/green-coffee-management/coffee-sale"
+                                        [queryParams]="{ orderId: orderDetails?.id }"
+                                    >
+                                        Mark for sale
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="prodect-details mt-md-4">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-6 col-sm-12 mb-3">
+                            <div class="prodect-gal">
+                                <gallery id="basic-test" [items]="items" gallerize></gallery>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12">
+                            <div class="product-description">
+                                <div class="row">
+                                    <div class="col-lg-12 border-class">
+                                        <div class="estate-focus">
+                                            <ul class="clearfix">
+                                                <li>
+                                                    <label>Quantity marked for sale</label>
+                                                    <p>
+                                                        {{ orderDetails?.quantity_count }}
+                                                        {{ orderDetails?.quantity_type }},
+                                                        {{ orderDetails?.quantity }} kg each
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <label>Buying price</label>
+                                                    <p>$ {{ orderDetails?.price }}/kg USD</p>
+                                                </li>
+                                                <li>
+                                                    <label>Roaster Reference No</label>
+                                                    <p>{{ orderDetails?.order_reference }}</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div *ngIf="orderDetails" class="col-12 border-class">
+                                        <p-tabView styleClass=" mt-3 pb-3 pb-md-4" [(activeIndex)]="selectedTab">
+                                            <p-tabPanel header="{{ globals.languageJson?.green_coffee_details }}">
+                                                <div class="col-lg-12 px-1">
+                                                    <div class="estate-focus">
+                                                        <ul class="clearfix">
+                                                            <li>
+                                                                <label>Estate</label>
+                                                                <p>
+                                                                    {{
+                                                                        orderDetails.estate_name
+                                                                            ? orderDetails.estate_name
+                                                                            : 'NA'
+                                                                    }}
+                                                                </p>
+                                                            </li>
+                                                            <li>
+                                                                <label>Origin</label>
+                                                                <p>
+                                                                    {{
+                                                                        orderDetails.origin ? orderDetails.origin : 'NA'
+                                                                    }}
+                                                                </p>
+                                                            </li>
+                                                            <li>
+                                                                <label>Lot ID</label>
+                                                                <p>
+                                                                    {{
+                                                                        orderDetails.lot_id ? orderDetails.lot_id : 'NA'
+                                                                    }}
+                                                                </p>
+                                                            </li>
+                                                            <li>
+                                                                <label>Availability Name</label>
+                                                                <p>
+                                                                    {{
+                                                                        orderDetails.availability_name
+                                                                            ? orderDetails.availability_name
+                                                                            : 'NA'
+                                                                    }}
+                                                                </p>
+                                                            </li>
+                                                            <li>
+                                                                <label>Species</label>
+                                                                <p>
+                                                                    {{
+                                                                        orderDetails.species
+                                                                            ? orderDetails.species
+                                                                            : 'NA'
+                                                                    }}
+                                                                </p>
+                                                            </li>
+                                                            <li>
+                                                                <label>Variety</label>
+                                                                <p>
+                                                                    {{
+                                                                        orderDetails.variety
+                                                                            ? orderDetails.variety
+                                                                            : 'NA'
+                                                                    }}
+                                                                </p>
+                                                            </li>
+                                                            <li>
+                                                                <label>Crop year</label>
+                                                                <p>
+                                                                    {{ orderDetails.harvest_date | date: 'MMM, y' }}
+                                                                </p>
+                                                            </li>
+                                                            <li>
+                                                                <label>Altitude</label>
+                                                                <p>
+                                                                    {{
+                                                                        orderDetails.altitude
+                                                                            ? orderDetails.altitude
+                                                                            : 'NA'
+                                                                    }}
+                                                                </p>
+                                                            </li>
+                                                            <li>
+                                                                <label>Flavour Profile</label>
+                                                                <p>
+                                                                    {{
+                                                                        orderDetails.flavour_profile
+                                                                            ? orderDetails.flavour_profile
+                                                                            : 'NA'
+                                                                    }}
+                                                                </p>
+                                                            </li>
+                                                            <li>
+                                                                <label>Wet Mill</label>
+                                                                <p>
+                                                                    {{
+                                                                        orderDetails.wet_mill
+                                                                            ? orderDetails.wet_mill
+                                                                            : 'NA'
+                                                                    }}
+                                                                </p>
+                                                            </li>
+                                                            <li>
+                                                                <label>Processing</label>
+                                                                <p>
+                                                                    {{
+                                                                        orderDetails.processing
+                                                                            ? orderDetails.processing
+                                                                            : 'NA'
+                                                                    }}
+                                                                </p>
+                                                            </li>
+                                                            <li>
+                                                                <label>Moisture content</label>
+                                                                <p>
+                                                                    {{
+                                                                        orderDetails.moisture_content
+                                                                            ? orderDetails.moisture_content
+                                                                            : 'NA'
+                                                                    }}
+                                                                </p>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="mt-3 pl-2">
+                                                            <p class="view-report m-0">View more details</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </p-tabPanel>
+                                            <p-tabPanel header="{{ globals.languageJson?.roaster_notes }}">
+                                                <div class="col-lg-12 px-1">
+                                                    <div class="estate-focus">
+                                                        <ul class="clearfix">
+                                                            <li *ngFor="let notes of roasterNotes">
+                                                                <div class="real-estate d-flex">
+                                                                    <div class="p-photo col-1">
+                                                                        <img
+                                                                            class="img-procured"
+                                                                            [src]="notes?.dp_thumb"
+                                                                        />
+                                                                    </div>
+                                                                    <div class="col-11">
+                                                                        <p class="fnt-14 fnt-muli fnt-700 text-clr334">
+                                                                            {{ notes?.first_name }}&nbsp;{{
+                                                                                notes?.last_name
+                                                                            }}&nbsp;&#8226;&nbsp;
+                                                                            {{ notes?.created_at | date: 'd MMMM y' }}
+                                                                        </p>
+                                                                        <p class="fnt-14 fnt-muli fnt-400 text-clr588">
+                                                                            {{ notes?.comment }}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </p-tabPanel>
+                                        </p-tabView>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-lg-12 border-class">
+                                        <div class="produect-pro">
+                                            <div *ngIf="orderDetails" class="row">
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                    <div class="real-estate p-date">
+                                                        <h6 class="mt-0" *ngIf="orderDetails['cupping_at']">
+                                                            {{ orderDetails['cupping_at'] | date: 'h:mm' }}
+                                                        </h6>
+                                                        <p class="text-clr334 fnt-600 fnt-14">
+                                                            <span class="text-clr588 fnt-600 fnt-14">Cup Score :</span>
+                                                            {{ orderDetails.cup_score ? orderDetails.cup_score : 'NA' }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6">
+                                                    <div class="real-estate">
+                                                        <div class="p-photo">
+                                                            <img
+                                                                class="img-procured"
+                                                                [src]="orderDetails?.evaluator_dp_thumb"
+                                                            />
+                                                        </div>
+
+                                                        <h3>
+                                                            {{
+                                                                orderDetails.evaluator_name
+                                                                    ? orderDetails.evaluator_name
+                                                                    : 'NA'
+                                                            }}
+                                                        </h3>
+                                                        <h6 class="mt-0">Facilitator</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6 v-report">
+                                                    <a class="view-report">View report </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
