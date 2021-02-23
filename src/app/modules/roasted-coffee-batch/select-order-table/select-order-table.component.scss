@@ -55,21 +55,8 @@
     font-size: 14px;
     font-weight: 600;
 }
-.tableDataFont {
-    font-family: Muli;
-    font-size: 12px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #232334;
-}
 ::ng-deep .ui-table-disputes {
     border: 1px solid #d6d6d6;
-}
-::ng-deep .orderTable .p-datatable-tbody > tr > td:first-child {
-    padding-left: 0px;
 }
 :host ::ng-deep .orderTable .p-radiobutton .p-radiobutton-box.p-highlight {
     border-color: $primary-color;
