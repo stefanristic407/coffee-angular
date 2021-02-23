@@ -2,7 +2,6 @@
     border: none;
     padding: 0;
 }
-
 .p-breadcrumb ul li .p-menuitem-link:hover {
     text-decoration: underline;
     color: $general-text-color;
@@ -10,7 +9,6 @@
         color: $general-text-color;
     }
 }
-
 .p-breadcrumb ul li:last-child .p-menuitem-link:hover {
     text-decoration: none;
 }
@@ -22,20 +20,15 @@
     font-weight: 600;
     color: $muted-text-color;
 }
-
 .p-breadcrumb ul li.p-breadcrumb-chevron {
     margin-right: 16px;
-    margin-top: -1px;
+    margin-left: 8px;
+    margin-top: -4px;
 }
-
 .p-breadcrumb ul li:last-child .p-menuitem-link .p-menuitem-text {
     color: $general-text-color;
 }
-.p-breadcrumb ul li.p-breadcrumb-chevron {
-    margin-left: 0px;
-}
 .p-breadcrumb .pi-chevron-right::before {
-    font-size: 16px;
+    font-size: 14px;
     color: $button-icon-color;
-    margin-left: 5px;
 }
