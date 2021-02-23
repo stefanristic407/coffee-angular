@@ -66,6 +66,7 @@ export class NewRoastedBatchComponent implements OnInit {
             this.getRoastedBatch();
         } else if (this.route.snapshot.queryParams.ordId) {
             this.ordId = decodeURIComponent(this.route.snapshot.queryParams.ordId);
+            this.getOrderDetails();
         } else {
             this.ordId = 'select the order';
         }
@@ -78,7 +79,7 @@ export class NewRoastedBatchComponent implements OnInit {
             body: ['', Validators.compose([Validators.required])],
             flavour: ['', Validators.compose([Validators.required])],
             roaster_notes: ['', Validators.compose([Validators.required])],
-            roasting_profile_unit: [''],
+            roasting_profile_unit: ['lb'],
             roaster_ref_no: [{ value: '', disabled: true }, false],
             batch_ref_no: [''],
             processing: ['', Validators.compose([Validators.required])],
@@ -152,7 +153,7 @@ export class NewRoastedBatchComponent implements OnInit {
                     'roasting_profile_quantity',
                     'roasting_profile_unit',
                     'roasting_profile_id',
-                    'roaster_ref_no',
+                    // 'roaster_ref_no',
                     'batch_ref_no',
                     'processing',
                 ];
@@ -195,7 +196,7 @@ export class NewRoastedBatchComponent implements OnInit {
 
     getOrderDetails() {
         this.orderId = this.globals.selected_order_id;
-        this.roasterService.getViewOrderDetails(this.roasterId, this.orderId).subscribe((response) => {
+        this.roasterService.getViewOrderDetails(this.roasterId, this.ordId).subscribe((response) => {
             if (response.success) {
                 this.orderDetails = response.result;
                 console.log(this.orderDetails);
@@ -220,7 +221,7 @@ export class NewRoastedBatchComponent implements OnInit {
             (res) => {
                 if (res && res.success) {
                     this.toastrService.success('The Roasted Batch has been updated.');
-                    this.router.navigate(['/features/roasting-profile']);
+                    this.router.navigate(['/features/roasted-coffee-batch']);
                 } else {
                     this.toastrService.error('Error while updating the roasted batch');
                 }
@@ -257,11 +258,12 @@ export class NewRoastedBatchComponent implements OnInit {
         if (this.validateForms()) {
             const productObj = this.batchForm.value;
             productObj.flavour_profile = this.flavourProfileArray;
-            // productObj.processing = 'Test';
+            delete productObj.batch_ref_no;
             productObj.order_id = Number(this.ordId);
             if (this.batchId) {
                 this.updateRoastedBatch(productObj);
             } else {
+                delete productObj.batch_ref_no;
                 this.createRoastedBatch(productObj);
             }
         } else {
