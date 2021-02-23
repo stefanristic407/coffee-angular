@@ -1,165 +1,156 @@
 <div class="main-block">
-    <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex justify-content-between align-items-center mb-3 mb-md-45">
         <a class="back-page" [routerLink]="orgType | orderLink: orderId:orderType:orderStatus">
-            {{ globals.languageJson?.return_to_order }}
+            {{ 'return_to_order' | translate }}
         </a>
         <button
             *ngIf="!review"
             type="button"
-            class="btn-raised d-none d-md-block"
+            class="btn-raised d-none d-lg-block"
             [class.loading]="submitted"
             (click)="submitRating()"
             [disabled]="submitted"
         >
-            <span>{{ submitted ? 'Submitting' : globals.languageJson?.submit }}</span>
+            <span>{{ submitted ? ('submitting' | translate) : ('submit' | translate) }}</span>
         </button>
     </div>
 
-    <div class="mx-n2 mx-md-0">
-        <div class="feedback-total br-main br-8 mt-3 mt-md-45">
-            <h1 class="fnt-18 fnt-md-16 lh-normal fnt-bold text-clr334">
-                {{ globals.languageJson?.leave_a_feedback }}
-            </h1>
-            <div class="fnt-600 text-clr588">
-                {{ globals.languageJson?.give_us_experience }}. <br class="d-none d-md-block" />
-                {{ globals.languageJson?.by_giving_feedback }}
-            </div>
+    <div class="feedback-total br-main br-8">
+        <h1 class="fnt-18 fnt-md-16 lh-normal fnt-bold text-clr334">
+            {{ 'leave_a_feedback' | translate }}
+        </h1>
+        <div class="fnt-600 text-clr588">
+            {{ 'give_us_experience' | translate }}. <br class="d-none d-md-block" />
+            {{ 'by_giving_feedback' | translate }}
         </div>
+    </div>
 
-        <div class="rating-total br-main br-4 mt-3">
-            <div class="row">
-                <div class="col-lg-5 col-md-12 col-12 pr-md-5">
-                    <div class="px-1 px-md-0">
-                        <div class="d-flex m-0">
-                            <app-avatar
-                                [size]="globals.device === 'mobile' ? 39 : 70"
-                                [src]="companyImg"
-                                [name]="ownerName"
-                            ></app-avatar>
+    <div class="rating-total br-main br-4 mt-3 mt-md-4 mt-lg-3">
+        <div class="row">
+            <div class="col-lg-5 mb-4 mb-lg-0">
+                <div class="d-flex m-0">
+                    <app-avatar
+                        [size]="globals.device === 'mobile' ? 39 : 70"
+                        [src]="companyImg"
+                        [name]="ownerName"
+                    ></app-avatar>
 
-                            <div class="pl-2 pl-md-3">
-                                <ul class="p-0 mb-4">
-                                    <li class="fnt-16 lh-normal fnt-bold text-clr334 mb-1 mb-md-2">
-                                        {{ ownerName }}
-                                    </li>
-                                    <li class="fnt-mb-14 lh-normal fnt-bold text-clr588 mb-2">
-                                        {{ orgType | orgType }}
-                                    </li>
-                                    <li class="d-flex mb-3">
-                                        <span class="fnt-12">
-                                            <p-rating [ngModel]="rating" [cancel]="false" [readonly]="true"></p-rating
-                                        ></span>
-                                        <span class="fnt-14 lh-normal fnt-bold text-clr334 ml-1">
-                                            {{ rating }}
-                                        </span>
-                                    </li>
-                                    <li class="d-flex">
-                                        <span class="d-flex align-items-center">
-                                            <img class="pr-2" src="/assets/images/location-rating.png" alt="" />
-                                            <span class="fnt-14 lh-normal fnt-bold text-clr588">
-                                                {{ country | country }}
-                                            </span>
-                                        </span>
-                                        <div class="v-divider mx-3"></div>
-                                        <a
-                                            class="arrow-link green"
-                                            [href]="orgType | profileLink: orgId"
-                                            target="_blank"
-                                            >{{ globals.languageJson?.contact_details }}</a
-                                        >
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="fnt-14 fnt-600 text-clr588 mb-45">
-                            {{ globals.languageJson?.rate_your_experience }}
-                        </div>
+                    <div class="pl-2 pl-md-3">
+                        <ul class="p-0 mb-4">
+                            <li class="fnt-16 lh-normal fnt-bold text-clr334 mb-1 mb-md-2">
+                                {{ ownerName }}
+                            </li>
+                            <li class="fnt-mb-14 lh-normal fnt-bold text-clr588 mb-2">
+                                {{ orgType | orgType }}
+                            </li>
+                            <li class="d-flex mb-3">
+                                <span class="fnt-12">
+                                    <p-rating [ngModel]="rating" [cancel]="false" [readonly]="true"></p-rating
+                                ></span>
+                                <span class="fnt-14 lh-normal fnt-bold text-clr334 ml-1">
+                                    {{ rating }}
+                                </span>
+                            </li>
+                            <li class="d-flex">
+                                <span class="d-flex align-items-center">
+                                    <img class="pr-2" src="/assets/images/location-rating.png" alt="" />
+                                    <span class="fnt-14 lh-normal fnt-bold text-clr588">
+                                        {{ country | country }}
+                                    </span>
+                                </span>
+                                <div class="v-divider mx-3"></div>
+                                <a class="arrow-link green" [href]="orgType | profileLink: orgId" target="_blank">{{
+                                    'contact_details' | translate
+                                }}</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <div class="col-lg-7 col-md-12 col-12">
-                    <form [formGroup]="infoForm" novalidate>
-                        <div class="row">
-                            <div class="sewn-form-field col-lg-4 col-md-12 col-12">
-                                <label class="fnt-16 fnt-bold text-clr334">
-                                    {{ globals.languageJson?.overall_experience }}
-                                </label>
-                                <p-rating
-                                    formControlName="overall_experience"
-                                    [readonly]="review"
-                                    [cancel]="false"
-                                    class="star-input-wrap"
-                                ></p-rating>
-                                <small
-                                    *ngIf="infoForm.controls.overall_experience.errors?.required"
-                                    class="p-error fnt-14 fnt-600"
-                                >
-                                    Tap the stars to rate
-                                </small>
-                            </div>
-                            <div class="sewn-form-field col-lg-4 col-md-12 col-12">
-                                <label class="fnt-16 fnt-bold text-clr334">{{
-                                    globals.languageJson?.communication
-                                }}</label>
-                                <p-rating
-                                    formControlName="communication"
-                                    [readonly]="review"
-                                    [cancel]="false"
-                                    class="star-input-wrap"
-                                ></p-rating>
-                                <small
-                                    *ngIf="infoForm.controls.communication.errors?.required"
-                                    class="p-error fnt-14 fnt-600"
-                                >
-                                    Tap the stars to rate
-                                </small>
-                            </div>
-                            <div class="sewn-form-field col-lg-4 col-md-12 col-12">
-                                <label class="fnt-16 fnt-bold text-clr334">Green coffee</label>
-                                <p-rating
-                                    formControlName="green_coffee"
-                                    [readonly]="review"
-                                    [cancel]="false"
-                                    class="star-input-wrap"
-                                ></p-rating>
-                                <small
-                                    *ngIf="infoForm.controls.green_coffee.errors?.required"
-                                    class="p-error fnt-14 fnt-600"
-                                >
-                                    Tap the stars to rate
-                                </small>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="sewn-form-field col-lg-11 col-md-12 mt-4 mb-0">
-                                <label class="text-clr588">{{ globals.languageJson?.write_a_review }}</label>
-                                <textarea
-                                    formControlName="review"
-                                    rows="4"
-                                    cols="50"
-                                    [readonly]="review"
-                                    placeholder="{{ globals.languageJson?.short_description }}"
-                                    pInputTextarea
-                                ></textarea>
-                                <small *ngIf="infoForm.controls.review.errors?.required" class="p-error fnt-14 fnt-600">
-                                    Please write your review
-                                </small>
-                            </div>
-                        </div>
-                    </form>
+                <div class="fnt-14 fnt-600 text-clr588">
+                    {{ 'rate_your_experience' | translate }}
                 </div>
+            </div>
+            <div class="col-lg-7 pl-lg-5">
+                <form [formGroup]="infoForm" novalidate>
+                    <div class="row mb-lg-3">
+                        <div class="sewn-form-field col-md-4">
+                            <label class="fnt-16 fnt-bold text-clr334">
+                                {{ 'overall_experience' | translate }}
+                            </label>
+                            <p-rating
+                                formControlName="overall_experience"
+                                [readonly]="review"
+                                [cancel]="false"
+                                class="star-input-wrap"
+                            ></p-rating>
+                            <small
+                                *ngIf="infoForm.controls.overall_experience.errors?.required"
+                                class="p-error fnt-14 fnt-600"
+                            >
+                                Tap the stars to rate
+                            </small>
+                        </div>
+                        <div class="sewn-form-field col-md-4">
+                            <label class="fnt-16 fnt-bold text-clr334">{{ 'communication' | translate }}</label>
+                            <p-rating
+                                formControlName="communication"
+                                [readonly]="review"
+                                [cancel]="false"
+                                class="star-input-wrap"
+                            ></p-rating>
+                            <small
+                                *ngIf="infoForm.controls.communication.errors?.required"
+                                class="p-error fnt-14 fnt-600"
+                            >
+                                Tap the stars to rate
+                            </small>
+                        </div>
+                        <div class="sewn-form-field col-md-4">
+                            <label class="fnt-16 fnt-bold text-clr334">Green coffee</label>
+                            <p-rating
+                                formControlName="green_coffee"
+                                [readonly]="review"
+                                [cancel]="false"
+                                class="star-input-wrap"
+                            ></p-rating>
+                            <small
+                                *ngIf="infoForm.controls.green_coffee.errors?.required"
+                                class="p-error fnt-14 fnt-600"
+                            >
+                                Tap the stars to rate
+                            </small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="sewn-form-field col-lg-11 mb-0">
+                            <label>{{ 'write_a_review' | translate }}</label>
+                            <textarea
+                                formControlName="review"
+                                rows="4"
+                                cols="50"
+                                [readonly]="review"
+                                placeholder="{{ 'short_description' | translate }}"
+                                pInputTextarea
+                            ></textarea>
+                            <small *ngIf="infoForm.controls.review.errors?.required" class="p-error fnt-14 fnt-600">
+                                Please write your review
+                            </small>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
 
-<div class="d-md-none mobile-btn-wrap bg-white">
-    <button
-        type="button"
-        class="btn-raised w-100"
-        [class.loading]="submitted"
-        (click)="submitRating()"
-        [disabled]="submitted"
-    >
-        <span>{{ submitted ? 'Submitting' : globals.languageJson?.submit }}</span>
-    </button>
+    <div class="d-flex justify-content-end d-lg-none mt-35 mt-md-4">
+        <button
+            type="button"
+            class="btn-raised w-mob-100"
+            [class.loading]="submitted"
+            (click)="submitRating()"
+            [disabled]="submitted"
+        >
+            <span>{{ submitted ? 'Submitting' : ('submit' | translate) }}</span>
+        </button>
+    </div>
 </div>
