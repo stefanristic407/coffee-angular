@@ -256,7 +256,6 @@ const routes: Routes = [
                 component: ProductDetailsComponent,
                 canActivate: [AuthGuard],
             },
-
             {
                 path: 'cupping-reports',
                 component: CuppingReportComponent,

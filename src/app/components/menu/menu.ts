@@ -40,7 +40,7 @@ export const menuItems = [
     new Menu(
         42,
         'Roasted Coffee Inventory',
-        '/roasted-coffee-batch/roasted-coffee-batch',
+        '/roasted-coffee-batch/roasted-coffee-batchs',
         null,
         null,
         null,
