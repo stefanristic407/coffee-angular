@@ -79,8 +79,10 @@
                             </label>
                             <p-rating
                                 formControlName="overall_experience"
+                                appRating
                                 [readonly]="review"
                                 [cancel]="false"
+                                appRating
                                 class="star-input-wrap"
                             ></p-rating>
                             <small
@@ -94,6 +96,7 @@
                             <label class="fnt-16 fnt-bold text-clr334">{{ 'communication' | translate }}</label>
                             <p-rating
                                 formControlName="communication"
+                                appRating
                                 [readonly]="review"
                                 [cancel]="false"
                                 class="star-input-wrap"
@@ -109,6 +112,7 @@
                             <label class="fnt-16 fnt-bold text-clr334">Green coffee</label>
                             <p-rating
                                 formControlName="green_coffee"
+                                appRating
                                 [readonly]="review"
                                 [cancel]="false"
                                 class="star-input-wrap"
