@@ -38,6 +38,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
 
+import { TranslateModule } from '@ngx-translate/core';
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ImageCropperModule } from 'ngx-image-cropper';
@@ -130,6 +131,7 @@ const THIRDMODULES = [
     TabViewModule,
     TooltipModule,
     TreeModule,
+    TranslateModule,
     ChartAllModule,
     AccumulationChartAllModule,
     RangeNavigatorAllModule,

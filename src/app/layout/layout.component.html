@@ -149,7 +149,7 @@
                                                         class="cursor-dots"
                                                         [routerLink]="['/features/roastery-profile']"
                                                         (click)="pop2.hide()"
-                                                        >{{ globals.languageJson?.roastery_profile }}</a
+                                                        >{{ 'roastery_profile' | translate }}</a
                                                     >
                                                 </li>
                                                 <li class="list-group-item">
@@ -157,7 +157,7 @@
                                                         class="cursor-dots"
                                                         [routerLink]="['/features/myprofile']"
                                                         (click)="pop2.hide()"
-                                                        >{{ globals.languageJson?.my_profile }}
+                                                        >{{ 'my_profile' | translate }}
                                                     </a>
                                                 </li>
                                                 <li class="list-group-item">
@@ -165,12 +165,12 @@
                                                         class="cursor-dots"
                                                         [routerLink]="['/features/account-settings']"
                                                         (click)="pop2.hide()"
-                                                        >{{ globals.languageJson?.account_settings }}</a
+                                                        >{{ 'account_settings' | translate }}</a
                                                     >
                                                 </li>
                                                 <li class="list-group-item">
                                                     <a class="cursor-dots" (click)="userLogout()"
-                                                        >{{ globals.languageJson?.logout }}
+                                                        >{{ 'logout' | translate }}
                                                     </a>
                                                 </li>
                                             </ul>
@@ -201,16 +201,14 @@
                             class="nav-links__item d-md-inline-block position-relative mobile-farm settings-list mt-md-0 mt-5"
                         >
                             <a class="d-inline-block fnt-600" [routerLink]="['/features/account-settings']"
-                                >{{ globals.languageJson?.account_settings }}
+                                >{{ 'account_settings' | translate }}
                             </a>
                         </li>
                         <li class="nav-links__item d-md-inline-block position-relative mobile-farm help-list">
-                            <a class="d-inline-block fnt-600">{{ globals.languageJson?.help_support }} </a>
+                            <a class="d-inline-block fnt-600">{{ 'help_support' | translate }} </a>
                         </li>
                         <li class="nav-links__item d-md-inline-block position-relative mobile-farm logout-list">
-                            <a class="d-inline-block fnt-600" (click)="userLogout()"
-                                >{{ globals.languageJson?.logout }}
-                            </a>
+                            <a class="d-inline-block fnt-600" (click)="userLogout()">{{ 'logout' | translate }} </a>
                         </li>
                     </ul>
                 </div>
@@ -231,7 +229,7 @@
                                     <img class="in-active" src="assets/images/ft-icon-dashboard.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-dashboard.svg" />
                                     <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">
-                                        {{ globals.languageJson?.dashboard }}
+                                        {{ 'dashboard' | translate }}
                                     </p>
                                 </div>
                             </a>
@@ -242,7 +240,7 @@
                                     <img class="in-active" src="assets/images/mess.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-message.svg" />
                                     <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">
-                                        {{ globals.languageJson?.messages }}
+                                        {{ 'messages' | translate }}
                                     </p>
                                 </div>
                             </a>
@@ -257,7 +255,7 @@
                                     <img class="in-active" src="assets/images/notification.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-notification.svg" />
                                     <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">
-                                        {{ globals.languageJson?.notifications }}
+                                        {{ 'notifications' | translate }}
                                     </p>
                                 </div>
                             </a>
@@ -273,7 +271,7 @@
                                     <img class="in-active" src="assets/images/ft-icon-profile.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-profile.svg" />
                                     <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">
-                                        {{ globals.languageJson?.profile }}
+                                        {{ 'profile' | translate }}
                                     </p>
                                 </div>
                             </a>
@@ -292,7 +290,7 @@
                                                 src="assets/images/profile.svg"
                                             />
                                         </div>
-                                        <span class="text-capitalize">{{ globals.languageJson?.my_profile }}</span>
+                                        <span class="text-capitalize">{{ 'my_profile' | translate }}</span>
                                     </a>
                                     <a
                                         [routerLink]="['/features/roastery-profile']"
@@ -301,9 +299,7 @@
                                         <div class="img float-left mr-2">
                                             <img class="profile-pic" src="{{ roasterProfilePic }}" />
                                         </div>
-                                        <span class="text-capitalize">{{
-                                            globals.languageJson?.roastery_profile
-                                        }}</span>
+                                        <span class="text-capitalize">{{ 'roastery_profile' | translate }}</span>
                                     </a>
                                 </div>
                             </div>
