@@ -78,7 +78,7 @@ export class NewRoastedBatchComponent implements OnInit {
             flavour: ['', Validators.compose([Validators.required])],
             roaster_notes: ['', Validators.compose([Validators.required])],
             roasting_profile_unit: ['lb'],
-            roaster_ref_no: [{ value: '', disabled: true }, false],
+            roaster_ref_no: [{ value: '', disabled: true }],
             batch_ref_no: [''],
             processing: ['', Validators.compose([Validators.required])],
         });
@@ -199,6 +199,7 @@ export class NewRoastedBatchComponent implements OnInit {
                 this.orderDetails = response.result;
                 console.log(this.orderDetails);
                 this.getRatingData(this.orderDetails.estate_id);
+                this.batchForm.controls['roaster_ref_no'].setValue(this.orderDetails.order_reference);
             } else {
                 this.toastrService.error('Error while getting the order list');
             }
@@ -220,6 +221,8 @@ export class NewRoastedBatchComponent implements OnInit {
                 if (res && res.success) {
                     this.toastrService.success('The Roasted Batch has been updated.');
                     this.router.navigate(['/roasted-coffee-batch/roasted-coffee-batchs']);
+                } else if (res.messages) {
+                    this.toastrService.error('Order Id ' + res.messages.order_id[0].replace('_', ' ') + '.');
                 } else {
                     this.toastrService.error('Error while updating the roasted batch');
                 }
