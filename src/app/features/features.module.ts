@@ -28,7 +28,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-experience.component';
 import { SocialMediaPostsComponent } from './Farm Link/social-media-posts/social-media-posts.component';
-import { FileShareComponent } from './Farm Link/file-share/file-share.component';
 import { AgreementComponent } from './Farm Link/agreement/agreement.component';
 
 import { MatChipsModule } from '@angular/material/chips';
@@ -42,13 +41,6 @@ import { AboutRoasteryComponent } from './roastery-profile/about-roastery/about-
 import { RoasteryProfileComponent } from './roastery-profile/roastery-profile.component';
 import { ProfilePhotoComponent } from './roastery-profile/profile-photo/profile-photo.component';
 import { ReviewsComponent } from './roastery-profile/reviews/reviews.component';
-import { FileShareDetailsComponent } from './Farm Link/file-share/file-share-details/file-share-details.component';
-import { MyfilesComponent } from './Farm Link/file-share/myfiles/myfiles.component';
-import { SharewithmeComponent } from './Farm Link/file-share/sharewithme/sharewithme.component';
-import { DocumentFileComponent } from './Farm Link/file-share/file-share-details/document-file/document-file.component';
-import { VideoFileComponent } from './Farm Link/file-share/file-share-details/video-file/video-file.component';
-import { DocumentTableComponent } from './Farm Link/file-share/file-share-details/document-table/document-table.component';
-import { VideoTableComponent } from './Farm Link/file-share/file-share-details/video-table/video-table.component';
 import { ProfileLicenseComponent } from './profile-edit/profile-license/profile-license.component';
 import { NotificationComponent } from './notification/notification.component';
 import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/roastery-license.component';
@@ -125,7 +117,6 @@ import { ListboxModule } from 'primeng/listbox';
         LanguageRegionComponent,
         CoffeeExperienceComponent,
         SocialMediaPostsComponent,
-        FileShareComponent,
         AgreementComponent,
         ResetPasswordComponent,
         CofeeExpeienceDetailsComponent,
@@ -136,13 +127,6 @@ import { ListboxModule } from 'primeng/listbox';
         AboutRoasteryComponent,
         ProfilePhotoComponent,
         ReviewsComponent,
-        FileShareDetailsComponent,
-        MyfilesComponent,
-        SharewithmeComponent,
-        DocumentFileComponent,
-        VideoFileComponent,
-        DocumentTableComponent,
-        VideoTableComponent,
         ProfileLicenseComponent,
         NotificationComponent,
         RoasteryLicenseComponent,

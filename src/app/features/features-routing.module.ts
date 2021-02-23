@@ -10,10 +10,6 @@ import { AgreementComponent } from './Farm Link/agreement/agreement.component';
 import { BlogDetailsComponent } from './Farm Link/blog-details/blog-details.component';
 import { CofeeExpeienceDetailsComponent } from './Farm Link/cofee-expeience-details/cofee-expeience-details.component';
 import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-experience.component';
-import { FileShareDetailsComponent } from './Farm Link/file-share/file-share-details/file-share-details.component';
-import { FileShareComponent } from './Farm Link/file-share/file-share.component';
-import { MyfilesComponent } from './Farm Link/file-share/myfiles/myfiles.component';
-import { SharewithmeComponent } from './Farm Link/file-share/sharewithme/sharewithme.component';
 import { QAForumComponent } from './Farm Link/q-a-forum/q-a-forum.component';
 import { SocialMediaPostsComponent } from './Farm Link/social-media-posts/social-media-posts.component';
 import { FeaturesComponent } from './features.component';
@@ -146,11 +142,6 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'file-share',
-                component: FileShareComponent,
-                canActivate: [AuthGuard],
-            },
-            {
                 path: 'social-media',
                 component: SocialMediaPostsComponent,
                 canActivate: [AuthGuard],
@@ -193,26 +184,6 @@ const routes: Routes = [
                     },
                     { path: '', redirectTo: 'about_roastery', pathMatch: 'full' },
                 ],
-            },
-            {
-                path: 'my-files',
-                component: MyfilesComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'share',
-                component: SharewithmeComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'file-share-details',
-                component: FileShareDetailsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'file-share-details/:folderId',
-                component: FileShareDetailsComponent,
-                canActivate: [AuthGuard],
             },
             {
                 path: 'notification',

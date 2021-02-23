@@ -1,40 +1,46 @@
-import { Component, OnInit, ɵɵresolveBody, TemplateRef } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
-import { FileShareService } from './file-share.service';
-import { MyfilesComponent } from './myfiles/myfiles.component';
-import { Router, NavigationExtras } from '@angular/router';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { PlyrModule } from 'ngx-plyr';
-import * as Plyr from 'plyr';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DocumentTableComponent } from './document-table/document-table.component';
+import { BsModalService } from 'ngx-bootstrap/modal/public_api';
+import { FileShareService } from '../file-share.service';
+import { VideoTableComponent } from './video-table/video-table.component';
+import { FileShareDetailsService } from './file-share-details.service';
 
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
 import { GlobalsService } from 'src/services/globals.service';
 @Component({
-    selector: 'app-file-share',
-    templateUrl: './file-share.component.html',
-    styleUrls: ['./file-share.component.css'],
+    selector: 'app-file-share-details',
+    templateUrl: './file-share-details.component.html',
+    styleUrls: ['./file-share-details.component.scss'],
 })
-export class FileShareComponent implements OnInit {
+export class FileShareDetailsComponent implements OnInit {
+    sort: any;
+    showSort: boolean = true;
+    folderId: string;
+    roasterId: string;
+    folderName: any;
+    description: any;
     folder_name: string;
     folder_descr: string;
     invite: any = 'Invite people';
     folderNameError: string;
     descriptionError: string;
-    roasterId: string;
-    pinnedData: any = [];
+    router: Router;
+    modalService: BsModalService;
     files: any;
     fileEvent: any;
     fileName: any;
-    folderId: any;
-    url: any;
-    modalRef: BsModalRef;
+
     file_id: any;
     company_id: any;
     company_type: any;
     permission: any;
     user_id_value: any;
+    fileshareActive: any = 0;
+    greenIconShow: boolean = false;
 
     country: any;
 
@@ -47,62 +53,58 @@ export class FileShareComponent implements OnInit {
 
     typedValue: any;
     usersList: any[] = [];
+    share_permission: any;
+    sharedUserslists: any = [];
+    sharedUsers: any;
     appLanguage?: any;
-    shareMainActive: any = 0;
-    unPinId: any;
-    loadId: any;
+    resetButtonValue: string = 'Share';
 
     constructor(
-        public router: Router,
+        public cookieService: CookieService,
         public toastrService: ToastrService,
-        private cookieService: CookieService,
-        private roasterService: RoasterserviceService,
+        public roasterService: RoasterserviceService,
         public fileService: FileShareService,
-        public modalService: BsModalService,
+        private route: ActivatedRoute,
+        public filedetailsService: FileShareDetailsService,
         public globals: GlobalsService,
     ) {
+        this.roasterId = this.cookieService.get('roaster_id');
+        // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        // if(this.route.snapshot.queryParams['folderId']){
+        //   this.folderId = decodeURIComponent(this.route.snapshot.queryParams['folderId']);
+        //   console.log(this.folderId)
+        //   }
+        this.route.queryParams.subscribe((params) => {
+            this.filedetailsService.folderId = params['folderId'];
+            console.log(this.filedetailsService.folderId);
+            this.getFolderDetails();
+        });
+
         this.folderNameError = '';
         this.descriptionError = '';
-        this.roasterId = this.cookieService.get('roaster_id');
     }
 
     ngOnInit(): void {
-        // this.appLanguage = this.globals.languageJson;
-        this.language();
+        this.appLanguage = this.globals.languageJson;
+        // this.language();
+        this.sort = '';
 
-        $('.remove-quiker-file').on('click', function (e) {
-            e.preventDefault();
+        //Toggle Esstate active
+        $('.btn-switch').click(function () {
+            var $group = $(this).closest('.cardpanel-detail');
+            $('.btn-switch', $group).removeClass('active');
+            $(this).addClass('active');
         });
-
-        $('.custom-radio input[type="radio"]').on('change', function () {
-            var $this = $(this);
-            var $value = $(this).val();
-
-            if ($this.is(':checked')) {
-                $(this).parents('.custom-radio-container').find('.custom-radio').removeClass('active');
-                $(this).parents('.custom-radio').addClass('active');
-
-                if ($value == 'Only me') {
-                    $(this).parents('#createfolder').find('.invite-to').slideUp();
-                } else {
-                    $(this).parents('#createfolder').find('.invite-to').slideDown();
-                }
-            }
+        $('.activate-toggle').click(function () {
+            $('.cardpanel-detail').fadeIn();
+            $('.table-details').fadeOut();
+            $('.remove-toggle').removeClass('active');
+            // $(".cardpanel-detail").addClass('active')
         });
-
-        //Custom select box
-        $('body').on('click', '.Custom-select-input__selctedText', function () {
-            var selctbox = $(this).parents('.Custom-select-input').find('.Custom-select-input-list').slideToggle();
-            $(this).parents('.Custom-select-input').find('.Custom-select-input__selctedText').toggleClass('active');
-        });
-
-        $('body').on('click', ' .Custom-select-input-list__item', function () {
-            var $val = $(this).text();
-            var $setVal = $(this).parents('.Custom-select-input').find('input');
-            $setVal.val($val);
-            $(this).parents('.Custom-select-input').find('.Custom-select-input__selctedText').text($val);
-            $(this).parents('.Custom-select-input').find('.Custom-select-input-list').slideToggle();
-            $(this).parents('.Custom-select-input').find('.Custom-select-input__selctedText').toggleClass('active');
+        $('.remove-toggle').click(function () {
+            $('.table-details').fadeIn();
+            $('.cardpanel-detail').fadeOut();
+            $('.activate-toggle').removeClass('active');
         });
 
         /* pagination start */
@@ -386,87 +388,77 @@ export class FileShareComponent implements OnInit {
                 $(this).parents('.pagination-content').find('.responsive-pagination__next').addClass('disable');
             }
         });
+
         /* pagination ends */
 
-        // Footer links
-
-        $('body').on('click', '.footer-links__item', function () {
-            $(this).parents('.footer-links').find('.footer-links__item').not(this).removeClass('active');
-            $(this).addClass('active');
-            $('.footer-links__item').find('.ft-dropdown').not(this).removeClass('active');
-
-            $(this).find('.ft-dropdown').addClass('active');
-
-            setTimeout(function () {
-                $('.ft-dropdown').removeClass('active');
-            }, 3500);
+        $('.remove-quiker-file').on('click', function (e) {
+            e.preventDefault();
         });
 
-        this.fileService.getPinnedFilesorFolders();
-    }
-    openVideoModal(template: TemplateRef<any>, item: any) {
-        this.modalRef = this.modalService.show(template);
-        this.url = item.url;
-        const player = new Plyr('#player');
-        $('.popup-video').parents('.modal-content').addClass('video-content');
+        $('.custom-radio input[type="radio"]').on('change', function () {
+            var $this = $(this);
+            var $value = $(this).val();
 
-        // $('.popup-video').parents('.modal-content').css({
-        //   "padding":"0px !important"
-        // })
-        // $('.popup-video').parents('.modal-body').css({
-        //   "margin-top":"0 !important"
-        // })
-    }
-    openUnpinModal(template1: TemplateRef<any>, unpinId: any) {
-        this.modalRef = this.modalService.show(template1);
-        this.unPinId = unpinId;
-    }
-    openDownloadModal(template2: TemplateRef<any>, downloadId: any) {
-        this.modalRef = this.modalService.show(template2);
-        this.loadId = downloadId;
+            if ($this.is(':checked')) {
+                $(this).parents('.custom-radio-container').find('.custom-radio').removeClass('active');
+                $(this).parents('.custom-radio').addClass('active');
+
+                if ($value == 'Only me') {
+                    $(this).parents('#createfolder').find('.invite-to').slideUp();
+                } else {
+                    $(this).parents('#createfolder').find('.invite-to').slideDown();
+                }
+            }
+        });
+
+        //Custom select box
+        $('body').on('click', '.Custom-select-input__selctedText', function () {
+            var selctbox = $(this).parents('.Custom-select-input').find('.Custom-select-input-list').slideToggle();
+            $(this).parents('.Custom-select-input').find('.Custom-select-input__selctedText').toggleClass('active');
+        });
+
+        $('body').on('click', ' .Custom-select-input-list__item', function () {
+            var $val = $(this).text();
+            var $setVal = $(this).parents('.Custom-select-input').find('input');
+            $setVal.val($val);
+            $(this).parents('.Custom-select-input').find('.Custom-select-input__selctedText').text($val);
+            $(this).parents('.Custom-select-input').find('.Custom-select-input-list').slideToggle();
+            $(this).parents('.Custom-select-input').find('.Custom-select-input__selctedText').toggleClass('active');
+        });
+
+        this.sharedUsersLists();
     }
 
-    closePopup() {
-        this.modalRef.hide();
+    sharedUsersLists() {
+        this.roasterService
+            .getSharedUserList(this.roasterId, this.filedetailsService.folderId)
+            .subscribe((response) => {
+                if (response['success'] == true) {
+                    this.sharedUserslists = response['result'];
+                    this.sharedUsers = this.sharedUserslists.length;
+                } else {
+                    this.toastrService.error('Error while getting the shared users');
+                }
+            });
     }
-    toggleVideo(event: any) {
-        // this.videoplayer.nativeElement.play();
-        event.toElement.play();
+
+    // language(){
+    //   this.appLanguage = this.globals.languageJson;
+    //      this.fileshareActive++;
+    //   }
+
+    setSort(sortdata: any) {
+        this.sort = sortdata;
     }
-    language() {
-        this.appLanguage = this.globals.languageJson;
-        this.shareMainActive++;
-    }
-    downloadFile(item: any) {
-        if (confirm('Please confirm! you want to download?') == true) {
-            const a = document.createElement('a');
-            a.href = item.url;
-            a.download = item.name;
-            a.target = '_blank';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+
+    toggleSort() {
+        this.showSort = !this.showSort;
+        if (this.showSort == false) {
+            document.getElementById('sort_id').style.border = '1px solid #30855c';
+        } else {
+            document.getElementById('sort_id').style.border = '1px solid #d6d6d6';
         }
     }
-
-    // filterCountrySingle(event) {
-    //   let query = event.query;
-    //   this.fileService.getCountries().then(countries => {
-    //       this.filteredCountriesSingle = this.filterCountry(query, countries);
-    //   });
-    // }
-
-    // filterCountry(query, countries: any[]):any[] {
-    //   //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    //   let filtered : any[] = [];
-    //   for(let i = 0; i < countries.length; i++) {
-    //       let country = countries[i];
-    //       if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-    //           filtered.push(country);
-    //       }
-    //   }
-    //   return filtered;
-    // }
 
     onSelect(event: TypeaheadMatch): void {
         this.selectedOption = event.item;
@@ -489,51 +481,32 @@ export class FileShareComponent implements OnInit {
         }
     }
 
-    unpinFileorFolder(id: any) {
-        // if (confirm("Please confirm! you want to unpin?") == true) {
-        this.roasterService.unpinFileorFolder(this.roasterId, id).subscribe((data) => {
+    getFolderDetails() {
+        console.log('calling from document file');
+        this.roasterService.getFolderDetails(this.roasterId, this.filedetailsService.folderId).subscribe((data) => {
             if (data['success'] == true) {
-                this.toastrService.success('The Selected file is unpinned successfully');
-                setTimeout(() => {
-                    this.fileService.getPinnedFilesorFolders();
-                }, 2500);
+                this.folderName = data['result']['name'];
+                this.description = data['result']['description'];
             } else {
-                this.toastrService.error('Error while unpinning the File');
+                this.toastrService.error('Error while getting the folder details');
             }
         });
-        // }
     }
 
-    shareDetails(size: any) {
-        this.folderId = size.id;
-        let navigationExtras: NavigationExtras = {
-            queryParams: {
-                folderId: encodeURIComponent(this.folderId),
-            },
-        };
-
-        this.router.navigate(['/features/file-share-details'], navigationExtras);
-    }
-
-    closeCard() {
-        var closeCard = document.getElementById('closeId');
-        closeCard.classList.add('closeCard');
-    }
-
-    myFileUpload(event: any) {
+    documentUpload(event: any) {
         this.files = event.target.files;
         this.fileEvent = this.files;
         console.log(this.fileEvent);
         this.fileName = this.files[0].name;
         let fileList: FileList = this.fileEvent;
-        // var parent_id = 0;
+        var parent_id = this.filedetailsService.folderId;
         if (fileList.length > 0) {
             let file: File = fileList[0];
             let formData: FormData = new FormData();
             formData.append('file', file, file.name);
             formData.append('name', this.fileName);
             formData.append('file_module', 'File-Share');
-            formData.append('parent_id', '0');
+            formData.append('parent_id', parent_id);
             this.roasterId = this.cookieService.get('roaster_id');
             formData.append('api_call', '/ro/' + this.roasterId + '/file-manager/files');
             formData.append('token', this.cookieService.get('Auth'));
@@ -542,38 +515,17 @@ export class FileShareComponent implements OnInit {
                     this.toastrService.success('The file ' + this.fileName + ' uploaded successfully');
                     // Calling the Grade info component by creating object of the component and accessing its methods
                     //  setTimeout(()=>{
-                    //   let callFileandFolders = new MyfilesComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.fileService,this.modalService);
+                    //   let callFileandFolders = new DocumentTableComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.route,this.modalService,this.fileService);
                     // callFileandFolders.getFilesandFolders();
-                    // },2000);
-                    // location.reload();
-                    this.fileService.getFilesandFolders();
+                    // let callVideos=new VideoTableComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.route,this.fileService,this.modalService)
+                    // },7000);
+                    // location.reload()
+                    this.filedetailsService.getFilesandFolders();
                 } else {
                     this.toastrService.error('Error while uploading the file');
                 }
             });
         }
-    }
-
-    // Open Popup
-    popupPrivew(e) {
-        var PrivewPopup = document.querySelector('.priview-popup-fileshare');
-        var SetImg = PrivewPopup.querySelector('.img');
-        var url = e.target.getAttribute('src');
-        SetImg.setAttribute('src', url);
-        PrivewPopup.classList.add('active');
-        document.body.classList.add('popup-open');
-
-        setTimeout(function () {
-            PrivewPopup.querySelector('.priview-popup-fileshare__img').classList.add('active');
-        }, 50);
-    }
-
-    // Close Popup
-    popupClose() {
-        var PrivewPopup = document.querySelector('.priview-popup-fileshare');
-        PrivewPopup.classList.remove('active');
-        document.body.classList.remove('popup-open');
-        PrivewPopup.querySelector('.priview-popup-fileshare__img').classList.remove('active');
     }
 
     createFolder() {
@@ -594,6 +546,7 @@ export class FileShareComponent implements OnInit {
                 name: this.folder_name,
                 description: this.folder_descr,
                 file_module: 'File-Share',
+                parent_id: parseInt(this.filedetailsService.folderId),
             };
 
             this.roasterService.createFolder(this.roasterId, data).subscribe((data) => {
@@ -632,18 +585,16 @@ export class FileShareComponent implements OnInit {
                     } else {
                         console.log(data);
                         // Calling the Grade info component by creating object of the component and accessing its methods
-
-                        // let callFileandFolders = new MyfilesComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.fileService,this.modalService);
+                        // setTimeout(()=>{
+                        //   let callFileandFolders = new DocumentTableComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.route,this.modalService,this.fileService);
                         // callFileandFolders.getFilesandFolders();
-                        // location.reload();
-
-                        this.fileService.getFilesandFolders();
-
+                        // },5000);
+                        // location.reload()
+                        this.filedetailsService.getFilesandFolders();
                         this.toastrService.success('New folder ' + this.folder_name + ' has been created.');
 
                         this.folder_name = '';
                         this.folder_descr = '';
-                        this.selectedOption = '';
                         this.invite = 'Invite people';
                         $('.custom-radio input[type="radio"]').on('change', function () {
                             var $this = $(this);
@@ -666,5 +617,72 @@ export class FileShareComponent implements OnInit {
                 }
             });
         }
+    }
+
+    shareFileAndFolder() {
+        this.resetButtonValue = 'Sharing';
+        var file_id = this.filedetailsService.folderId;
+        var share_permission = document.getElementById('share_permission').innerHTML;
+        if (share_permission == 'Can view') {
+            this.share_permission = 'VIEW';
+        } else if (share_permission == 'Can edit') {
+            this.share_permission = 'EDIT';
+        }
+        var shareData = {
+            user_id: this.user_id_value,
+            permission: this.share_permission,
+            company_type: this.company_type,
+            company_id: this.company_id,
+        };
+        console.log(shareData);
+        this.roasterService.shareFolder(this.roasterId, file_id, shareData).subscribe((res) => {
+            if (res['success'] == true) {
+                this.resetButtonValue = 'Share';
+                this.sharedUsersLists();
+                this.toastrService.success('The folder has been shared to the User sucessfully!');
+            } else {
+                this.resetButtonValue = 'Share';
+                this.toastrService.error('Error while sharing the folder to the user!');
+            }
+        });
+    }
+
+    removeAccess(item: any) {
+        if (confirm('Please confirm! you want to remove access?') == true) {
+            var fileId = this.filedetailsService.folderId;
+            var unShareData = {
+                user_id: item.user_id,
+                company_type: item.company_type,
+                company_id: item.company_id,
+            };
+            this.roasterService.unShareFolder(this.roasterId, fileId, unShareData).subscribe((data) => {
+                if (data['success'] == true) {
+                    this.sharedUsersLists();
+                    this.toastrService.success('Share access has been removed successfully.');
+                } else {
+                    this.toastrService.error('Error while removing the access to the user');
+                }
+            });
+        }
+    }
+
+    changePermissions(term: any, item: any) {
+        var permission = term;
+        var fileId = this.filedetailsService.folderId;
+        var shareData = {
+            user_id: item.user_id,
+            permission: permission,
+            company_type: item.company_type,
+            company_id: item.company_id,
+        };
+        this.roasterService.updatePermissions(this.roasterId, fileId, shareData).subscribe((data) => {
+            console.log(data);
+            if (data['success'] == true) {
+                // this.sharedUsersLists();
+                this.toastrService.success('Permission has been updated successfully.');
+            } else {
+                this.toastrService.error('Error while changing the Share permissions');
+            }
+        });
     }
 }

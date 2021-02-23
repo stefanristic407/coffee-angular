@@ -1,53 +1,41 @@
-// AUTHOR : Vijaysimhareddy
-// PAGE DESCRIPTION : This page contains functions of  Documents files.
-
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import { Component, OnInit, ElementRef, ViewChild, TemplateRef } from '@angular/core';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { ToastrService } from 'ngx-toastr';
-
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FileShareService } from '../../file-share.service';
-import { FileShareDetailsService } from '../file-share-details.service';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { PlyrModule } from 'ngx-plyr';
 import * as Plyr from 'plyr';
-declare var $: any;
+import { FileShareDetailsService } from '../file-share-details.service';
 
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
 import { GlobalsService } from 'src/services/globals.service';
-
 @Component({
-    selector: 'app-document-table',
-    templateUrl: './document-table.component.html',
-    styleUrls: ['./document-table.component.css'],
+    selector: 'app-video-file',
+    templateUrl: './video-file.component.html',
+    styleUrls: ['./video-file.component.scss'],
 })
-export class DocumentTableComponent implements OnInit {
-    showDateRange: any;
-
-    public mainData: any[];
+export class VideoFileComponent implements OnInit {
     roasterId: string;
-    folderId: string;
     parentId: string;
-    rangeDates: any;
+    mainVideoData: any;
+    parentName: any;
+    @ViewChild('videoPlayer') videoplayer: ElementRef;
     modalRef: BsModalRef;
-    folderItemId: any;
-    folderName: any;
-    folderDescription: any;
-    folderNameError: string;
-    descriptionError: string;
     file_name: any;
     file_id: any;
     file_description: any;
     file_url: any;
     fileName: string;
+    fileNameValue: any;
+    fileEvent: FileList;
+    files: any;
     fileNameError: string;
     fileDescription: string;
     filedescriptionError: string;
-    fileNameValue: any;
-    files: any;
-    fileEvent: any;
     url: any;
+
     typedValue: any;
     usersList: any;
     selectedOption: any;
@@ -58,109 +46,42 @@ export class DocumentTableComponent implements OnInit {
     sharedUsers: any;
     shareFileId: any;
     share_permission: any;
-    documentTable: any = 0;
-
-    resetButtonValue: any = 'Share';
 
     selectedValue: string;
     appLanguage?: any;
+    resetButtonValue: string = 'Share';
     constructor(
         public router: Router,
-        public cookieService: CookieService,
         public roasterService: RoasterserviceService,
         public toastrService: ToastrService,
+        public cookieService: CookieService,
+        public fileService: FileShareService,
         public route: ActivatedRoute,
         private modalService: BsModalService,
-        public fileService: FileShareService,
         public filedetailsService: FileShareDetailsService,
         public globals: GlobalsService,
     ) {
-        this.folderNameError = '';
-        this.descriptionError = '';
         this.roasterId = this.cookieService.get('roaster_id');
+        // this.filedetailsService.parentId = decodeURIComponent(this.route.snapshot.queryParams['folderId']);
+        // this.filedetailsService.parentId = this.filedetailsService.folderId;
 
-        // this.mainData =
-        // 	[{
-        // 		name: "SEWN Guidelines",
-        // 		lastopened: "24/09/2019  3:06 pm",
-        // 		type: "FOLDER"
-        // 	},
-        // 	{ name: 'SEWN Sales & Concept prese..',  lastopened: '01/03/2020  1:00pm', type: 'FOLDER'},
-        // 	{ name: 'SEWN service offerings', lastopened: '01/05/2020  4:00pm',  type: 'DOCUMENT'},
-        // 	{ name: 'Löfbergs - Brand assets', lastopened: '24/01/2020  11:05pm', type: 'CSV'},
-        // 	{ name: 'What is coffee?',  lastopened: '17/03/2020  7:17am', type: 'MP4'}
-
-        // ];
         this.route.queryParams.subscribe((params) => {
             this.filedetailsService.parentId = params['folderId'];
             console.log(this.filedetailsService.parentId);
-            this.filedetailsService.getFilesandFolders();
+            this.filedetailsService.getTableVideos();
         });
     }
-    // Function Name : Open Modal
-    // Description: This function helps to get the Id
 
     ngOnInit(): void {
+        this.appLanguage = this.globals.languageJson;
         //Auth checking
         if (this.cookieService.get('Auth') == '') {
             this.router.navigate(['/auth/login']);
         }
-        // this.filedetailsService.parentId = decodeURIComponent(this.route.snapshot.queryParams['folderId']);
-        //   this.filedetailsService.parentId = this.filedetailsService.folderId;
-        //  console.log(this.filedetailsService.parentId)
-
-        this.appLanguage = this.globals.languageJson;
+        // this.filedetailsService.getTableVideos();
     }
 
-    openModal(template: TemplateRef<any>, id: any) {
-        this.modalRef = this.modalService.show(template);
-        this.roasterService.getFolderDetails(this.roasterId, id).subscribe((data) => {
-            if (data['success'] == true) {
-                console.log(data);
-                this.folderItemId = data['result'].id;
-                this.folderName = data['result'].name;
-                this.folderDescription = data['result'].description;
-                console.log(this.folderName);
-            }
-        });
-    }
-    openFileModal(template: TemplateRef<any>, itemId: any) {
-        this.modalRef = this.modalService.show(template);
-        this.roasterService.getFileDetails(this.roasterId, itemId).subscribe((data) => {
-            if (data['success'] == true) {
-                this.file_name = data['result'].name;
-                this.file_id = data['result'].id;
-                this.file_description = data['result'].description;
-                this.file_url = data['result'].url;
-                this.fileNameValue = data['result'].name;
-            }
-        });
-    }
-
-    // Open Popup
-    popupPrivew(item) {
-        var PrivewPopup = $('.priview-popup-fileshare');
-        var SetImg = PrivewPopup.find('.img');
-        var url = item.url;
-        console.log(url);
-        SetImg.attr('src', url);
-        PrivewPopup.addClass('active');
-        document.body.classList.add('popup-open');
-
-        setTimeout(function () {
-            PrivewPopup.find('.priview-popup-fileshare__img').addClass('active');
-        }, 50);
-    }
-
-    // Close Popup
-    popupClose() {
-        var PrivewPopup = $('.priview-popup-fileshare');
-        PrivewPopup.removeClass('active');
-        document.body.classList.remove('popup-open');
-        PrivewPopup.find('.priview-popup-fileshare__img').removeClass('active');
-    }
-
-    openVideoModal(template: TemplateRef<any>, item: any) {
+    openModal(template: TemplateRef<any>, item: any) {
         this.modalRef = this.modalService.show(template);
         this.url = item.url;
         const player = new Plyr('#player');
@@ -180,7 +101,6 @@ export class DocumentTableComponent implements OnInit {
         // this.videoplayer.nativeElement.play();
         event.toElement.play();
     }
-
     downloadFile(item: any) {
         if (confirm('Please confirm! you want to download?') == true) {
             const a = document.createElement('a');
@@ -233,59 +153,45 @@ export class DocumentTableComponent implements OnInit {
         }
     }
 
-    // Function Name : CheckAll
-    // Description: This function helps to check all roles of the role list.
-    checkAll(ev: any) {
-        this.filedetailsService.mainData.forEach((x) => (x.state = ev.target.checked));
-    }
-
-    // Function Name : IsAllchecked
-    // Description: This function helps to check single role.
-    isAllChecked() {
-        // return this.mainData.every(_ => _.state);
-    }
-
-    // getFilesandFolders(){
-    //   console.log(this.parentId)
-    //   this.roasterService.getFilesandFolders(this.roasterId,this.parentId).subscribe(
-    //     result => {
-    //       console.log(result);
+    // getTableVideos(){
+    //   this.roasterService.getVideos(this.roasterId,this.parentId).subscribe(
+    //     result=>{
+    //       //console.log(result);
     //       if(result['success']==true){
-    //         this.mainData = result['result'];
+    //         this.mainVideoData = result['result'];
+    //         console.log(this.mainVideoData);
+    //         this.parentName=this.mainVideoData[0].parent_name;
     //       }else{
-    //         this.toastrService.error("Error while getting the Files and Folders");
+    //         this.toastrService.error("Error while getting the Videos");
     //       }
     //     }
     //   )
     // }
-
-    deleteFolder(id: any) {
-        if (confirm('Please confirm! you want to delete?') == true) {
-            this.roasterService.deleteFolder(this.roasterId, id).subscribe((data) => {
-                if (data['success'] == true) {
-                    this.toastrService.success('The Selected folder is deleted successfully');
-                    setTimeout(() => {
-                        this.filedetailsService.getFilesandFolders();
-                    }, 2000);
-                } else {
-                    this.toastrService.error('Error while deleting the Folder');
-                }
-            });
-        }
-    }
     deleteFile(id: any) {
         if (confirm('Please confirm! you want to delete?') == true) {
             this.roasterService.deleteFile(this.roasterId, id).subscribe((data) => {
                 if (data['success'] == true) {
                     this.toastrService.success('The Selected file is deleted successfully');
                     setTimeout(() => {
-                        this.filedetailsService.getFilesandFolders();
+                        this.filedetailsService.getTableVideos();
                     }, 2000);
                 } else {
                     this.toastrService.error('Error while deleting the File');
                 }
             });
         }
+    }
+    openFileModal(template: TemplateRef<any>, itemId: any) {
+        this.modalRef = this.modalService.show(template);
+        this.roasterService.getFileDetails(this.roasterId, itemId).subscribe((data) => {
+            if (data['success'] == true) {
+                this.file_name = data['result'].name;
+                this.file_id = data['result'].id;
+                this.file_description = data['result'].description;
+                this.file_url = data['result'].url;
+                this.fileNameValue = data['result'].name;
+            }
+        });
     }
 
     reUploadFile(event: any) {
@@ -294,59 +200,6 @@ export class DocumentTableComponent implements OnInit {
         console.log(this.fileEvent);
         this.fileNameValue = this.files[0].name;
     }
-
-    UpdateFolder() {
-        console.log(this.folderItemId);
-        if (this.folderName == '' || this.folderName == null || this.folderName == undefined) {
-            this.folderNameError = 'Please enter your Folder name';
-            document.getElementById('updatefolder_name').style.border = '1px solid #D50000 ';
-            setTimeout(() => {
-                this.folderNameError = '';
-            }, 3000);
-        } else if (
-            this.folderDescription == '' ||
-            this.folderDescription == null ||
-            this.folderDescription == undefined
-        ) {
-            this.descriptionError = 'Please enter your Description';
-            document.getElementById('updatefolder_descr').style.border = '1px solid #D50000 ';
-            setTimeout(() => {
-                this.descriptionError = '';
-            }, 3000);
-        } else {
-            var data = {
-                name: this.folderName,
-                description: this.folderDescription,
-            };
-
-            this.roasterService.updateFolderDetails(this.roasterId, this.folderItemId, data).subscribe((result) => {
-                if (result['success'] == true) {
-                    this.modalRef.hide();
-                    this.toastrService.success('Folder details updated sucessfully');
-                    setTimeout(() => {
-                        this.filedetailsService.getFilesandFolders();
-                    }, 2000);
-                } else {
-                    this.toastrService.error('Error while updating details');
-                }
-            });
-        }
-    }
-
-    // shareDetails(size: any){
-    //   this.folderId = size.id;
-    //   console.log(this.folderId)
-    //   let navigationExtras: NavigationExtras = {
-    //     queryParams: {
-    //       "folderId": encodeURIComponent(this.folderId),
-    //     }
-
-    //   }
-
-    //   this.router.navigate(['/features/file-share-details'], navigationExtras);
-    //   location.reload()
-    // }
-
     updateFile() {
         // if (
         //   this.fileName == "" ||
@@ -411,7 +264,7 @@ export class DocumentTableComponent implements OnInit {
             this.roasterService.updateFiles(formData).subscribe((result) => {
                 if (result['success'] == true) {
                     this.toastrService.success('The File has been updated successfully');
-                    this.filedetailsService.getFilesandFolders();
+                    this.filedetailsService.getTableVideos();
                     this.modalRef.hide();
                 } else {
                     this.toastrService.error('Error while updating the file details');
@@ -420,7 +273,6 @@ export class DocumentTableComponent implements OnInit {
             });
         }
     }
-    // }
 
     shareFileAndFolder() {
         this.resetButtonValue = 'Sharing';

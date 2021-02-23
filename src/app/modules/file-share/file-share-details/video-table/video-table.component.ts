@@ -17,7 +17,7 @@ import { GlobalsService } from 'src/services/globals.service';
 @Component({
     selector: 'app-video-table',
     templateUrl: './video-table.component.html',
-    styleUrls: ['./video-table.component.css'],
+    styleUrls: ['./video-table.component.scss'],
 })
 export class VideoTableComponent implements OnInit {
     selectedValue: string;

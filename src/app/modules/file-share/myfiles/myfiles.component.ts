@@ -1,5 +1,5 @@
 // AUTHOR : Vijaysimhareddy
-// PAGE DESCRIPTION : This page contains functions of  share with me.
+// PAGE DESCRIPTION : This page contains functions of  My files.
 
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
@@ -8,60 +8,88 @@ import { DataTableDirective, DataTablesModule } from 'angular-datatables';
 import { data } from 'jquery';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { ToastrService } from 'ngx-toastr';
-import { FileShareComponent } from '../file-share.component';
 import { FileShareService } from '../file-share.service';
+import { FileShareComponent } from '../file-share.component';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { PlyrModule } from 'ngx-plyr';
 import * as Plyr from 'plyr';
-import { GlobalsService } from 'src/services/globals.service';
 declare var $: any;
 
-@Component({
-    selector: 'app-sharewithme',
-    templateUrl: './sharewithme.component.html',
-    styleUrls: ['./sharewithme.component.css'],
-})
-export class SharewithmeComponent implements OnInit {
-    public mainData: any[];
-    folderId: any;
-    roasterId: any;
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
+import { GlobalsService } from 'src/services/globals.service';
 
+@Component({
+    selector: 'app-myfiles',
+    templateUrl: './myfiles.component.html',
+    styleUrls: ['./myfiles.component.scss'],
+})
+export class MyfilesComponent implements OnInit {
     rangeDates: any;
     modalRef: BsModalRef;
-    url: any;
+
+    //dtInstance:DataTables.Api;
+
+    // Static Estate Orders Data List
+    public data: any;
+    public mainData: any[];
+    roasterId: string;
+    folderId: any;
+    parentId: any = 0;
     folderItemId: any;
     folderName: any;
     folderDescription: any;
-    file_name: any;
-    file_url: any;
-    file_description: any;
-    file_id: any;
-    fileNameValue: any;
-    fileEvent: FileList;
-    descriptionError: string;
     folderNameError: string;
+    descriptionError: string;
+    file_name: any;
+    file_id: any;
+    file_description: any;
+    file_url: any;
+    fileName: string;
     fileNameError: string;
+    fileDescription: string;
     filedescriptionError: string;
+    fileNameValue: any;
     files: any;
+    fileEvent: any;
+    url: any;
+    share_permission: string;
+    user_id_value: any;
+    company_type: any;
+    company_id: any;
+    typedValue: any;
+    usersList: any;
+    selectedOption: any;
+    sharedUserslists: any = [];
+    sharedUsers: any;
+    shareFileId: any;
+    myFiles: any = 0;
+    selectedValue: string;
     appLanguage?: any;
-    shareMe: any = 0;
-
+    deleteFolderId: any;
+    deleteFileId: any;
+    resetButtonValue: string = 'Share';
     constructor(
         public router: Router,
         public cookieService: CookieService,
-        private roasterService: RoasterserviceService,
-        private toastrService: ToastrService,
+        public roasterService: RoasterserviceService,
+        public toastrService: ToastrService,
         public fileService: FileShareService,
-        public modalService: BsModalService,
+        private modalService: BsModalService,
         public globals: GlobalsService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
+
+        this.folderNameError = '';
+        this.descriptionError = '';
+
         // this.mainData =
         // 	[
-        // 	{ files:  'Finca La Pampa - Brand asse..', orderid: '#221669', modified: '-', owner:'Finca La Pampa', type: 'Folder'},
-        // 	{ files: 'Roastery Machine Manuals', orderid: '-', modified: '-', owner:'Löfbergs', type: 'Document'},
-        // 	{ files:  'Viay - Brand assets', orderid: '#127908', modified: '24/01/2020  11:05pm',owner:'Viay', type: 'CSV'},
-        // 	{ files: 'coffee?', orderid: '#727520', modified: '17/03/2020  7:17am', owner:'Simha', type: 'mp4'}
+        // 	{ files:  'SEWN Sales & Concept prese..', orderid: '#221669', modified: '-', type: 'Folder'},
+        // 	{ files:  'SEWN service offerings', orderid: '-', modified: '-',  type: 'Document'},
+        // 	{ files: 'Löfbergs - Brand assets', orderid: '#127908', modified: '24/01/2020  11:05pm', type: 'CSV'},
+        // 	{ files: 'Löfbergs - Machineries', orderid: '-', modified: '27/02/2020  4:17pm', type: 'CSV'},
+        // 	{ files: 'What is coffee?', orderid: '#727520', modified: '17/03/2020  7:17am', type: 'mp4'}
+
         // ];
     }
 
@@ -87,31 +115,86 @@ export class SharewithmeComponent implements OnInit {
             }
         });
     }
-
     ngOnInit(): void {
-        this.appLanguage = this.globals.languageJson;
+        // var fileModule = "File-Share";
+        //Toggle Esstate active
+        $('.btn-switch').click(function () {
+            var $group = $(this).closest('.cardpanel-detail');
+            $('.btn-switch', $group).removeClass('active');
+            $(this).addClass('active');
+        });
+        $('.activate-toggle').click(function () {
+            $('.cardpanel-detail').fadeIn();
+            $('.table-details').fadeOut();
+            $('.remove-toggle').removeClass('active');
+            // $(".cardpanel-detail").addClass('active')
+        });
+        $('.remove-toggle').click(function () {
+            $('.table-details').fadeIn();
+            $('.cardpanel-detail').fadeOut();
+            $('.activate-toggle').removeClass('active');
+        });
+
         //Auth checking
         if (this.cookieService.get('Auth') == '') {
             this.router.navigate(['/auth/login']);
         }
-        this.getSharedFilesandFolders();
+        this.fileService.getFilesandFolders();
         this.language();
+        // this.sharedUsersLists()
     }
+
     language() {
         this.appLanguage = this.globals.languageJson;
-        this.shareMe++;
+        this.myFiles++;
     }
 
-    // Function Name : CheckAll
-    // Description: This function helps to check all roles of the role list.
-    checkAll(ev: any) {
-        this.mainData.forEach((x) => (x.state = ev.target.checked));
+    openShareModal(shareTemplate: TemplateRef<any>, item: any) {
+        this.shareFileId = item.id;
+        this.modalRef = this.modalService.show(shareTemplate);
+        this.sharedUsersLists();
+    }
+    openDeleteModal(deleteTemplate: TemplateRef<any>, deleteId: any) {
+        this.modalRef = this.modalService.show(deleteTemplate);
+        this.deleteFolderId = deleteId;
+    }
+    openFileDeleteModal(deleteFileTemplate: TemplateRef<any>, deleteFileId: any) {
+        this.modalRef = this.modalService.show(deleteFileTemplate);
+        this.deleteFileId = deleteFileId;
     }
 
-    // Function Name : IsAllchecked
-    // Description: This function helps to check single role.
-    isAllChecked() {
-        // return this.mainData.every(_ => _.state);
+    sharedUsersLists() {
+        console.info(this.shareFileId);
+        this.roasterService.getSharedUserList(this.roasterId, this.shareFileId).subscribe((response) => {
+            if (response['success'] == true) {
+                console.log(response);
+                this.sharedUserslists = response['result'];
+                this.sharedUsers = this.sharedUserslists.length;
+            } else {
+                this.toastrService.error('Error while getting the shared users');
+            }
+        });
+    }
+
+    onSelect(event: TypeaheadMatch): void {
+        this.selectedOption = event.item;
+        console.log(this.selectedOption.id);
+        this.user_id_value = this.selectedOption.id;
+        this.company_id = this.selectedOption.organization_id;
+        this.company_type = this.selectedOption.organization_type;
+    }
+
+    getUsersList(e: any) {
+        this.typedValue = e.target.value;
+        if (this.typedValue.length > 4) {
+            this.roasterService.getUsersList(this.typedValue).subscribe((data) => {
+                if (data['success'] == true) {
+                    this.usersList = data['result'];
+                } else {
+                    this.toastrService.error('Error while fetching users list');
+                }
+            });
+        }
     }
 
     // Open Popup
@@ -170,47 +253,56 @@ export class SharewithmeComponent implements OnInit {
         }
     }
 
+    // Function Name : CheckAll
+    // Description: This function helps to check all roles of the role list.
+    checkAll(ev: any) {
+        this.fileService.mainData.forEach((x) => (x.state = ev.target.checked));
+    }
+
+    // Function Name : IsAllchecked
+    // Description: This function helps to check single role.
+    isAllChecked() {
+        // return this.mainData.every(_ => _.state);
+    }
+
     shareDetails(size: any) {
         this.folderId = size.id;
         let navigationExtras: NavigationExtras = {
             queryParams: {
-                folderId: encodeURIComponent(this.folderId),
+                folderId: this.folderId,
             },
         };
 
         this.router.navigate(['/features/file-share-details'], navigationExtras);
     }
 
-    getSharedFilesandFolders() {
-        this.roasterService.getSharedFilesandFolders(this.roasterId).subscribe((result) => {
-            console.log(result);
-            if (result['success'] == true) {
-                this.mainData = result['result'];
-            } else {
-                this.toastrService.error('Error while getting the Shared Files and Folders');
-            }
-        });
-    }
-
     deleteFolder(id: any) {
+        // if (confirm("Please confirm! you want to delete?") == true) {
         this.roasterService.deleteFolder(this.roasterId, id).subscribe((data) => {
             if (data['success'] == true) {
                 this.toastrService.success('The Selected folder is deleted successfully');
-                this.getSharedFilesandFolders();
+                setTimeout(() => {
+                    this.fileService.getFilesandFolders();
+                }, 2000);
             } else {
                 this.toastrService.error('Error while deleting the Folder');
             }
         });
+        // }
     }
     deleteFile(id: any) {
+        // if (confirm("Please confirm! you want to delete?") == true) {
         this.roasterService.deleteFile(this.roasterId, id).subscribe((data) => {
             if (data['success'] == true) {
                 this.toastrService.success('The Selected file is deleted successfully');
-                this.getSharedFilesandFolders();
+                setTimeout(() => {
+                    this.fileService.getFilesandFolders();
+                }, 2500);
             } else {
                 this.toastrService.error('Error while deleting the File');
             }
         });
+        // }
     }
 
     pinFileorFolder(id: any) {
@@ -221,6 +313,7 @@ export class SharewithmeComponent implements OnInit {
 
                 //  let callPinnedDetails = new FileShareComponent(this.router,this.dashboard,this.toastrService,this.cookieService,this.roasterService,this.fileService,this.modalService);
                 //  callPinnedDetails.getPinnedFilesorFolders();
+
                 this.fileService.getPinnedFilesorFolders();
             } else {
                 this.toastrService.error('Error while pinning the File/Folder');
@@ -279,7 +372,7 @@ export class SharewithmeComponent implements OnInit {
         //   this.fileName == null ||
         //   this.fileName == undefined
         // ) {
-        // this.fileNameError = "Please enter your password";
+        //   this.fileNameError = "Please enter your password";
         //   document.getElementById("updatefile_name").style.border =
         //     "1px solid #D50000 ";
         //   setTimeout(() => {
@@ -291,7 +384,7 @@ export class SharewithmeComponent implements OnInit {
         //   this.fileDescription == null ||
         //   this.fileDescription == undefined
         // ) {
-        // this.filedescriptionError = "Please enter your password";
+        //   this.filedescriptionError = "Please enter your password";
         //   document.getElementById("updatefile_descr").style.border = "1px solid #D50000 ";
         //   setTimeout(() => {
         //     this.filedescriptionError = "";
@@ -348,4 +441,73 @@ export class SharewithmeComponent implements OnInit {
         }
     }
     // }
+
+    shareFileAndFolder() {
+        this.resetButtonValue = 'Sharing';
+        var file_id = this.shareFileId;
+        var share_permission = document.getElementById('share_permission').innerHTML;
+        if (share_permission == 'Can view') {
+            this.share_permission = 'VIEW';
+        } else if (share_permission == 'Can edit') {
+            this.share_permission = 'EDIT';
+        }
+        var shareData = {
+            user_id: this.user_id_value,
+            permission: this.share_permission,
+            company_type: this.company_type,
+            company_id: this.company_id,
+        };
+        console.log(shareData);
+        this.roasterService.shareFolder(this.roasterId, file_id, shareData).subscribe((res) => {
+            if (res['success'] == true) {
+                this.resetButtonValue = 'Share';
+                this.sharedUsersLists();
+                this.toastrService.success('The folder has been shared to the User sucessfully!');
+            } else {
+                this.resetButtonValue = 'Share';
+                this.toastrService.error('Error while sharing the folder to the user!');
+            }
+        });
+    }
+
+    removeAccess(item: any) {
+        if (confirm('Please confirm! you want to remove access?') == true) {
+            var fileId = this.shareFileId;
+            var unShareData = {
+                user_id: item.user_id,
+                company_type: item.company_type,
+                company_id: item.company_id,
+            };
+            this.roasterService.unShareFolder(this.roasterId, fileId, unShareData).subscribe((data) => {
+                if (data['success'] == true) {
+                    this.sharedUsersLists();
+                    this.toastrService.success('Share access has been removed successfully.');
+                } else {
+                    this.toastrService.error('Error while removing the access to the user');
+                }
+            });
+        }
+    }
+
+    changePermissions(term: any, item: any) {
+        var permission = term;
+        var fileId = this.shareFileId;
+        var shareData = {
+            user_id: item.user_id,
+            permission: permission,
+            company_type: item.company_type,
+            company_id: item.company_id,
+        };
+        this.roasterService.updatePermissions(this.roasterId, fileId, shareData).subscribe((data) => {
+            console.log(data);
+            if (data['success'] == true) {
+                // setTimeout(() => {
+                //   this.sharedUsersLists();
+                // }, 1000);
+                this.toastrService.success('Permission has been updated successfully.');
+            } else {
+                this.toastrService.error('Error while changing the Share permissions');
+            }
+        });
+    }
 }
