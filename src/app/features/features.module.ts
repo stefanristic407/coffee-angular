@@ -53,13 +53,9 @@ import { ProfileLicenseComponent } from './profile-edit/profile-license/profile-
 import { NotificationComponent } from './notification/notification.component';
 import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/roastery-license.component';
 import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
-import { RoastedCoffeeBatchesComponent } from './e-commerce/roasted-coffee-batches/roasted-coffee-batches.component';
-import { NewRoastedBatchComponent } from './e-commerce/new-roasted-batch/new-roasted-batch.component';
+
 import { AddProductComponent } from './e-commerce/add-product/add-product.component';
-import { CreateRoastingProfileComponent } from './e-commerce/create-roasting-profile/create-roasting-profile.component';
 import { ProductsTableComponent } from './e-commerce/products-table/products-table.component';
-import { RoastingProfilesComponent } from './e-commerce/roasting-profiles/roasting-profiles.component';
-import { SelectOrderTableComponent } from './e-commerce/select-order-table/select-order-table.component';
 import { CuppingReportComponent } from './green-grading/cupping-report/cupping-report.component';
 import { CuppingServiceComponent } from './green-grading/cupping-report/cupping-service/cupping-service.component';
 import { GenerateNewReportComponent } from './green-grading/cupping-report/generate-new-report/generate-new-report.component';
@@ -151,13 +147,9 @@ import { ListboxModule } from 'primeng/listbox';
         NotificationComponent,
         RoasteryLicenseComponent,
         RoasterOnboardComponent,
-        RoastedCoffeeBatchesComponent,
-        NewRoastedBatchComponent,
         AddProductComponent,
-        CreateRoastingProfileComponent,
+        ,
         ProductsTableComponent,
-        RoastingProfilesComponent,
-        SelectOrderTableComponent,
         CuppingReportComponent,
         CuppingServiceComponent,
         GenerateNewReportComponent,
