@@ -4,13 +4,6 @@
 .break-word {
     word-break: break-all;
 }
-@media screen and (min-width: 992px) {
-    .border-class {
-        border: 1px solid #ebebeb;
-        border-radius: 2px;
-        padding: 3px;
-    }
-}
 .list-group-item {
     a {
         cursor: pointer;
