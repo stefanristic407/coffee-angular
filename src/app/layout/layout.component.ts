@@ -27,14 +27,11 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     loaded = false;
     screenwidth: any = true;
     searchString: string;
-    text: string;
-    results: string[];
+    showSearch = false;
+    searchResults: string[];
     profilePic: any;
     roasterProfilePic: any;
     supportLanguages = ['en', 'es'];
-    lag: any;
-    languages: any;
-    appLanguage?: any;
     rolename: any;
     slugList: any;
     chatStateSubcription: Subscription;
@@ -130,9 +127,6 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
             }
         });
 
-        const pt = $('header').outerHeight() + 'px';
-        $('.router-design').css({ 'padding-top': pt });
-
         $('body').on('click', '.sidenav-mb__close', (event) => {
             $('.sidenav-mb__content').removeClass('open');
             setTimeout(() => {
@@ -201,7 +195,6 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
             const language = res.result.language === '' ? 'en' : res.result.language;
             this.userService.getUserLanguageStrings(language).subscribe((resultLanguage) => {
                 this.globals.languageJson = resultLanguage;
-                this.appLanguage = this.globals.languageJson;
                 resolve();
             });
         });
@@ -239,18 +232,30 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     search() {
+        if (this.searchString) {
+            this.openSearchPanel();
+        }
         const localArray = [];
         this.menuItems.forEach((element) => {
-            if (element.title.toLowerCase().indexOf(this.text.toLowerCase()) > -1) {
+            if (element.title.toLowerCase().indexOf(this.searchString.toLowerCase()) > -1) {
                 localArray.push(element);
             }
         });
-        this.results = localArray;
+        this.searchResults = localArray;
+    }
+
+    openSearchPanel() {
+        if (!this.showSearch) {
+            this.showSearch = true;
+            window.scrollTo(0, 0);
+        }
     }
 
     closeSearchPanel() {
-        this.text = null;
-        this.results = null;
+        this.searchString = null;
+        this.searchResults = null;
+        this.showSearch = false;
+        window.scrollTo(0, 0);
     }
 
     openMessagePanel() {

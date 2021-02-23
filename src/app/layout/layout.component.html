@@ -9,22 +9,27 @@
     <nav class="bg-white nav-top1">
         <div class="container">
             <div class="d-flex align-items-center">
-                <a class="sidenav-hamberg d-lg-none" (click)="openSideNav()">
-                    <img src="assets/images/hamberg.svg" alt="hamberg" class="d-md-none" />
-                    <img src="assets/images/hamberg-tablet.svg" alt="hamberg" class="d-none d-md-block" />
-                </a>
-                <a class="company-logo d-inline-block" [routerLink]="['/']">
-                    <img src="assets/images/Sewn-logo.svg" alt="Comany-Logo" />
-                </a>
-                <div class="d-none d-md-inline-block header-search">
+                <div class="d-md-block" [class.d-none]="showSearch">
+                    <a class="sidenav-hamberg d-lg-none" (click)="openSideNav()">
+                        <img src="assets/images/hamberg.svg" alt="hamberg" class="d-md-none" />
+                        <img src="assets/images/hamberg-tablet.svg" alt="hamberg" class="d-none d-md-inline-block" />
+                    </a>
+                    <a class="company-logo d-inline-block" [routerLink]="['/']">
+                        <img src="assets/images/Sewn-logo.svg" alt="Comany-Logo" />
+                    </a>
+                </div>
+                <div class="d-md-inline-block header-search" [class.d-none]="!showSearch">
                     <input
                         type="text"
-                        [(ngModel)]="text"
+                        [(ngModel)]="searchString"
                         styleClass=""
                         placeholder="Search.."
                         (keyup)="search()"
                         pInputText
                     />
+                </div>
+                <div *ngIf="!showSearch" class="d-md-none ml-auto">
+                    <img src="assets/images/search.svg" class="img d-inline-block" (click)="openSearchPanel()" />
                 </div>
                 <ul class="header-profile-links ml-md-auto d-flex align-items-center p-15">
                     <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
@@ -315,11 +320,12 @@
         <div class="router-design">
             <app-sewn-direct-message></app-sewn-direct-message>
             <app-search-panel
-                [searchStr]="text"
-                [searchResults]="results"
+                [show]="showSearch"
+                [searchStr]="searchString"
+                [searchResults]="searchResults"
                 (closeEmitter)="closeSearchPanel()"
             ></app-search-panel>
-            <div [class.d-none]="text">
+            <div [class.d-none]="showSearch">
                 <router-outlet></router-outlet>
             </div>
         </div>
