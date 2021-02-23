@@ -8,11 +8,11 @@ import { Router } from '@angular/router';
 })
 export class SearchPanelComponent implements OnInit {
     @Output() closeEmitter = new EventEmitter();
+    @Input() show = true;
     @Input() searchStr = '';
     results: any[];
     @Input()
     set searchResults(value: any[]) {
-        console.log(value);
         this.results = value;
     }
 

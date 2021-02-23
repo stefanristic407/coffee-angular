@@ -66,7 +66,7 @@ import { SearchPanelComponent } from './layout/search-panel/search-panel.compone
             loader: {
                 provide: TranslateLoader,
                 useFactory: (http: HttpClient) => {
-                    return new TranslateHttpLoader(http, './assets/multi-lang/', '.json');
+                    return new TranslateHttpLoader(http, 'https://fed-api.sewnstaging.com/language/', '');
                 },
                 deps: [HttpClient],
             },

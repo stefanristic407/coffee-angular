@@ -1,178 +1,4 @@
 @import 'primeng-table';
-.border-total {
-    border-radius: 20px;
-    border: solid 1px #d6d6d6;
-    background-color: #ffffff;
-    padding: 10px 12px;
-    margin-right: 12px;
-}
-
-.filter {
-    font-family: 'Muli';
-    font-weight: 600;
-    color: #232334;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-.title-header {
-    margin: 0.8rem 1rem;
-}
-
-.item-color {
-    cursor: pointer;
-}
-
-.table-header {
-    border-radius: 4px;
-    background-color: #f8f8f8;
-}
-
-.header-row {
-    border: none !important;
-}
-
-table th,
-table td {
-    border: none !important;
-    cursor: pointer;
-}
-
-tr {
-    border-bottom: 1px dashed #d6d6d6;
-}
-
-tr:last-child {
-    border-bottom-style: none;
-    border-bottom-color: none;
-}
-
-.table thead th {
-    color: #232334;
-    font-size: 12px;
-    font-weight: bold;
-    font-family: 'Muli';
-}
-
-.table tbody tr {
-    color: #232334;
-    font-size: 12px;
-    font-weight: 600;
-    font-family: 'Muli';
-}
-
-.b-check {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-.b-check input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 17px;
-    width: 17px;
-    background-color: #fff;
-    border: 1px solid #d6d6d6;
-    border-radius: 2px;
-}
-
-.first-t {
-    top: -9px !important;
-}
-
-.b-check:hover input ~ .checkmark {
-    background-color: #fff;
-}
-
-.b-check input:checked ~ .checkmark {
-    background-color: #30855c;
-}
-
-.checkmark:after {
-    content: '';
-    position: absolute;
-    display: none;
-}
-
-.b-check input:checked ~ .checkmark:after {
-    display: block;
-}
-
-.b-check .checkmark:after {
-    left: 5px;
-    top: 2px;
-    width: 5px;
-    height: 10px;
-    border: 1px solid #fff;
-    border-width: 0 2px 2px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-
-.typeoforder-Sample {
-    font-family: Muli;
-    font-size: 13px;
-    font-weight: 600;
-    color: #f19634;
-}
-
-.typeoforder-Booked {
-    font-family: Muli;
-    font-size: 13px;
-    font-weight: 600;
-    color: #649a2b;
-}
-
-.typeoforder-Pre-Booked {
-    font-family: Muli !important;
-    font-size: 13px !important;
-    font-weight: 600 !important;
-    color: #7c6be8 !important;
-}
-
-.table-container {
-    border-radius: 4px;
-    border: 1px solid #d6d6d6;
-}
-
-.display_div {
-    position: absolute;
-    right: 0.9rem;
-    top: 3.9rem;
-}
-
-.border-order {
-    border-radius: 20px;
-    border: 1px solid #d6d6d6;
-    background-color: #fff;
-    padding: 10px 12px;
-}
-
-.check-top-header .checkmark {
-    top: 6px !important;
-}
-
-.check-middle-header .checkmark {
-    top: -3px !important;
-}
 
 .break-word {
     word-break: break-all;
@@ -183,4 +9,19 @@ tr:last-child {
         border-radius: 2px;
         padding: 3px;
     }
+}
+.list-group-item {
+    a {
+        cursor: pointer;
+    }
+    &:hover {
+        background-color: #f8f8f8;
+        a {
+            color: #232334 !important;
+            text-decoration: none;
+        }
+    }
+}
+::ng-deep .deleteProductDiv .p-dialog .p-dialog-header {
+    display: none;
 }

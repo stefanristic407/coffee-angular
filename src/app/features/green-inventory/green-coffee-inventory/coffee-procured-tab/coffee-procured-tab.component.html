@@ -107,6 +107,9 @@
                             <span *ngIf="primeTableService.isMobileView" class="w-50 pl-2">
                                 {{ rowData['quantity'] }}&nbsp; {{ rowData['quantity_type'] }}
                             </span>
+                            <span *ngIf="!primeTableService.isMobileView" class="">
+                                {{ rowData['quantity'] }}&nbsp; {{ rowData['quantity_type'] }}
+                            </span>
                         </div>
                     </span>
 
@@ -132,13 +135,16 @@
                                         <div id="popover-mobile-content">
                                             <ul class="list-group custom-popover">
                                                 <li class="list-group-item">
-                                                    <a class="pointer-item" (click)="pop.hide()">View order page</a>
+                                                    <a
+                                                        class="text-clr588 fnt-600 fnt-14"
+                                                        [routerLink]="availabilityPage(rowData)"
+                                                        >View order page</a
+                                                    >
                                                 </li>
                                                 <li class="list-group-item">
                                                     <a
-                                                        class="pointer-item"
-                                                        (click)="pop.hide()"
-                                                        [routerLink]="availabilityPage(rowData)"
+                                                        class="text-clr588 fnt-600 fnt-14"
+                                                        [routerLink]="sourcingRedirect()"
                                                     >
                                                         Go to Availability page</a
                                                     >
@@ -168,8 +174,8 @@
                             <ng-template #mobile_name>
                                 <span class="ml-auto">
                                     <ng-container *ngIf="primeTableService.isMobileView">
-                                        <span class="pull-right custom-link" [routerLink]="onEdit(rowData)"
-                                            >View Order
+                                        <span class="pull-right custom-link" [routerLink]="availabilityPage(rowData)"
+                                            >View
                                         </span>
                                     </ng-container>
                                 </span>
@@ -179,7 +185,7 @@
 
                     <span *ngSwitchCase="'actions'" class="text-center">
                         <ng-container *ngIf="!primeTableService.isMobileView">
-                            <span class="custom-link" [routerLink]="onEdit(rowData)">View Order</span>
+                            <span class="custom-link" [routerLink]="availabilityPage(rowData)">View</span>
                         </ng-container>
                     </span>
 
@@ -198,14 +204,14 @@
                                 <div id="popover-mobile-content">
                                     <ul class="list-group custom-popover">
                                         <li class="list-group-item">
-                                            <a class="pointer-item" (click)="pop.hide()">View order page</a>
+                                            <a
+                                                class="text-clr588 fnt-600 fnt-14"
+                                                [routerLink]="availabilityPage(rowData)"
+                                                >View order page</a
+                                            >
                                         </li>
                                         <li class="list-group-item">
-                                            <a
-                                                class="pointer-item"
-                                                (click)="pop.hide()"
-                                                [routerLink]="availabilityPage(rowData)"
-                                            >
+                                            <a class="text-clr588 fnt-600 fnt-14" [routerLink]="sourcingRedirect()">
                                                 Go to Availability page</a
                                             >
                                         </li>

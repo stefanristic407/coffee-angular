@@ -6,6 +6,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { PrimeTableService } from 'src/services/prime-table.service';
 import { Table } from 'primeng/table';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-marked-sale',
@@ -13,13 +14,14 @@ import { Table } from 'primeng/table';
     styleUrls: ['./marked-sale.component.scss'],
 })
 export class MarkedSaleComponent implements OnInit {
-    // tslint:disable: variable-name
     termStatus: any;
     display: any;
     termOrigin: any;
     appLanguage?: any;
     mainData: any[] = [];
-    roaster_id: string;
+    roasterID: string;
+    deleteId: any;
+    popupDisplay = false;
     sellerItems = [
         { label: 'All origins', value: null },
         { label: 'Sweden', value: 'SE' },
@@ -53,10 +55,11 @@ export class MarkedSaleComponent implements OnInit {
         public cookieService: CookieService,
         private router: Router,
         public primeTableService: PrimeTableService,
+        private toastrService: ToastrService,
     ) {
         this.termStatus = { name: 'All', statusCode: '' };
         this.display = '10';
-        this.roaster_id = this.cookieService.get('roaster_id');
+        this.roasterID = this.cookieService.get('roaster_id');
         this.primeTableService.rows = 10;
         this.primeTableService.sortBy = 'created_at';
     }
@@ -84,12 +87,6 @@ export class MarkedSaleComponent implements OnInit {
                     sortable: false,
                     width: 40,
                 },
-                // {
-                //     field: 'id',
-                //     header: '',
-                //     sortable: false,
-                //     width: 100,
-                // },
                 {
                     field: 'product_name',
                     header: 'Product Name',
@@ -169,8 +166,12 @@ export class MarkedSaleComponent implements OnInit {
             ];
         }
     }
+    openModal(item) {
+        this.popupDisplay = true;
+        this.deleteId = item.order_id;
+    }
     ngOnInit(): void {
-        this.primeTableService.url = `/ro/${this.roaster_id}/marked-sale-coffees`;
+        this.primeTableService.url = `/ro/${this.roasterID}/marked-sale-coffees`;
 
         this.initializeTable();
 
@@ -183,26 +184,6 @@ export class MarkedSaleComponent implements OnInit {
         );
         this.appLanguage = this.globals.languageJson;
     }
-    // getCoffeeSaleList() {
-    //   let origin = this.termStatus && this.termStatus.name !== 'All' ? this.termStatus.statusCode : undefined;
-    //   let displayCount = this.display ? this.display : undefined;
-    //   this.mainData = [];
-    //   this.roasterService.getCoffeeSaleList(this.roaster_id, origin, displayCount).subscribe(
-    //     response => {
-    //       console.log(response);
-    //       if (response && response['result']) {
-    //         this.mainData = response['result'];
-    //       }
-    //     }, err => {
-    //       console.log(err);
-    //     }
-    //   );
-    // }
-
-    // setStatus(termName: any, statusCode: any) {
-    //   this.termStatus = { name: termName, statusCode: statusCode };
-    //   this.getCoffeeSaleList();
-    // }
     setStatus() {
         this.primeTableService.form?.patchValue({
             status: this.termStatus,
@@ -228,7 +209,21 @@ export class MarkedSaleComponent implements OnInit {
 
     onEdit(item) {
         let link = [];
-        link = [`/features/lot-sale/${item.order_id}`];
+        link = [`/features/green-coffee-for-sale-details/${item.order_id}`];
         return link;
+    }
+    deleteProductFromList(deleteId) {
+        this.roasterService.deleteProcuredCoffee(this.roasterID, deleteId).subscribe(
+            (response) => {
+                if (response && response.success) {
+                    this.toastrService.success('Product deleted successfully');
+                    this.popupDisplay = true;
+                }
+            },
+            (err) => {
+                this.toastrService.error('Error while deleting the ');
+                console.log(err);
+            },
+        );
     }
 }

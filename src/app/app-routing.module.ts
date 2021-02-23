@@ -54,6 +54,13 @@ export const routes: Routes = [
                 loadChildren: () =>
                     import('./modules/brand-profile/brand-profile.module').then((m) => m.BrandProfileModule),
             },
+            {
+                path: 'green-coffee-management',
+                loadChildren: () =>
+                    import('./modules/green-coffee-management/green-coffee-management.module').then(
+                        (m) => m.GreenCoffeeManagementModule,
+                    ),
+            },
         ],
     },
     {

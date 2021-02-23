@@ -2,7 +2,7 @@
 .company-logo {
     display: inline-block;
     margin-left: 16px;
-    margin-right: 20px;
+    margin-right: 16px;
     height: 32px;
     & > img {
         width: auto;
@@ -222,7 +222,7 @@
 
 @media (min-width: 768px) {
     .company-logo {
-        margin-right: 30px;
+        margin-right: 24px;
         height: 36px;
     }
     .search-on-site {

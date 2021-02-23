@@ -1,30 +1,3 @@
-.coffee-exp {
-    padding: 2rem 0rem;
-}
-
-.estate-order-title {
-    font-family: Muli;
-    font-size: 18px;
-    font-weight: bold;
-    color: #232334;
-}
-/*  media query Fram Link */
-
-@media (max-width: 767px) {
-    .bg-fff {
-        padding: 1rem 0.7rem !important;
-    }
-    .Give-your-end-users {
-        width: 98%;
-        padding-bottom: 0rem;
-        margin-bottom: 0;
-    }
-    .row {
-        margin-right: -10px;
-        margin-left: -10px;
-    }
-}
-
 .file-share-search input[type='search'] {
     outline: 0;
     border: 0;
