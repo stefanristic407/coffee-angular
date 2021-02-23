@@ -4,9 +4,7 @@
             {{ globals.languageJson?.return_to_order }}
         </a>
 
-        <h4 class="fnt-18 lh-normal fnt-bold text-clr334 pt-3 mb-0 d-md-block d-none">
-            {{ globals.languageJson?.your_reviews }}
-        </h4>
+        <h4 class="fnt-18 lh-normal fnt-bold text-clr334 pt-3 mb-0 d-md-block d-none">{{ ownerName }} reviews</h4>
     </div>
 
     <ng-container *ngIf="reviews; else empty">
