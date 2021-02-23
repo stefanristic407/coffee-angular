@@ -7,7 +7,7 @@
         </div>
         <div class="row">
             <div class="col-md-9 col-12">
-                <p class="primary_txt m-0">{{ getHeading() }}</p>
+                <p class="primary_txt mb-2">{{ getHeading() }}</p>
                 <p class="secondary_txt font-14 mb-0">
                     {{ getDescription() }}
                 </p>
@@ -78,8 +78,8 @@
                                     </p>
                                 </div>
                                 <form [formGroup]="details" novalidate>
-                                    <div class="col-md-12 p-0">
-                                        <div class="pt-4">
+                                    <div class="col-md-12 p-0 mt-43">
+                                        <div>
                                             <div class="row">
                                                 <div class="col-12 col-md-6 sewn-form-field">
                                                     <label>Shipping type<span class="star">*</span></label>
@@ -128,55 +128,45 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-md-3 sewn-form-field">
+                                                <div class="col-12 col-md-6 sewn-form-field">
                                                     <label>Estimated delivery time<span class="star">*</span></label>
-                                                    <div class="weightInputGroupDiv d-flex">
-                                                        <input
-                                                            type="number"
-                                                            placeholder=""
-                                                            class="weightInputDiv"
-                                                            formControlName="day_min"
-                                                            pInputText
-                                                        />
-                                                        <small
-                                                            *ngIf="details['controls']['day_min'].errors?.required"
-                                                            class="p-error"
-                                                        >
-                                                            Shipment price is required
-                                                        </small>
-                                                        <div>
-                                                            <p-dropdown
-                                                                [options]="dayMinListArray"
-                                                                optionLabel="label"
-                                                                [style]="{ width: '100%', border: '0px' }"
-                                                                optionValue="value"
-                                                            ></p-dropdown>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="weightInputGroupDiv d-flex">
+                                                            <input
+                                                                type="number"
+                                                                placeholder=""
+                                                                class="weightInputDiv"
+                                                                formControlName="day_min"
+                                                                pInputText
+                                                            />
+                                                            <small
+                                                                *ngIf="details['controls']['day_min'].errors?.required"
+                                                                class="p-error"
+                                                            >
+                                                                Estimated delivery time is required
+                                                            </small>
+                                                            <div class="daysInputDiv">
+                                                                <span>Days</span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-md-3 sewn-form-field mt-3">
-                                                    <label></label>
-                                                    <div class="weightInputGroupDiv d-flex">
-                                                        <input
-                                                            type="number"
-                                                            placeholder=""
-                                                            class="weightInputDiv"
-                                                            formControlName="day_max"
-                                                            pInputText
-                                                        />
-                                                        <small
-                                                            *ngIf="details['controls']['day_max'].errors?.required"
-                                                            class="p-error"
-                                                        >
-                                                            Shipment price is required
-                                                        </small>
-                                                        <div>
-                                                            <p-dropdown
-                                                                [options]="dayMinListArray"
-                                                                optionLabel="label"
-                                                                [style]="{ width: '100%', border: '0px' }"
-                                                                optionValue="value"
-                                                            ></p-dropdown>
+                                                        <div class="pl-2 pr-2">-</div>
+                                                        <div class="weightInputGroupDiv d-flex">
+                                                            <input
+                                                                type="number"
+                                                                placeholder=""
+                                                                class="weightInputDiv"
+                                                                formControlName="day_max"
+                                                                pInputText
+                                                            />
+                                                            <small
+                                                                *ngIf="details['controls']['day_max'].errors?.required"
+                                                                class="p-error"
+                                                            >
+                                                                Estimated delivery time is required
+                                                            </small>
+                                                            <div class="daysInputDiv">
+                                                                <span>Days</span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -210,7 +200,7 @@
                                         green coffee and roasted coffee you sell on the platform.
                                     </p>
                                 </div>
-                                <div class="shipping-border col-12 mt-4">
+                                <div class="shipping-border col-12 mt-43">
                                     <table class="shipping-time col-12">
                                         <tr>
                                             <td><span class="list-que"> Shipping name : </span></td>
@@ -295,8 +285,8 @@
                         </p>
                     </div>
                     <form [formGroup]="details" novalidate>
-                        <div class="col-md-12 Onboard-rows">
-                            <div class="Onboard-rows__inputs pt-3">
+                        <div class="col-md-12 p-0 Onboard-rows mt-43">
+                            <div class="Onboard-rows__inputs">
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6 form-group sewn-form-field pr-md-3">
                                         <label class="fnt-14 fnt-muli fnt-600 text-clr334">Shipping type *</label>
@@ -343,55 +333,45 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-6 sewn-form-field">
+                                    <div class="col-12 sewn-form-field">
                                         <label>Estimated delivery time<span class="star">*</span></label>
-                                        <div class="weightInputGroupDiv d-flex">
-                                            <input
-                                                type="number"
-                                                placeholder=""
-                                                class="weightInputDiv"
-                                                formControlName="day_min"
-                                                pInputText
-                                            />
-                                            <small
-                                                *ngIf="details['controls']['day_min'].errors?.required"
-                                                class="p-error"
-                                            >
-                                                Shipment price is required
-                                            </small>
-                                            <div>
-                                                <p-dropdown
-                                                    [options]="dayMinListArray"
-                                                    optionLabel="label"
-                                                    [style]="{ width: '100%', border: '0px' }"
-                                                    optionValue="value"
-                                                ></p-dropdown>
+                                        <div class="d-flex align-items-center">
+                                            <div class="weightInputGroupDiv d-flex">
+                                                <input
+                                                    type="number"
+                                                    placeholder=""
+                                                    class="weightInputDiv"
+                                                    formControlName="day_min"
+                                                    pInputText
+                                                />
+                                                <small
+                                                    *ngIf="details['controls']['day_min'].errors?.required"
+                                                    class="p-error"
+                                                >
+                                                    Estimated delivery time is required
+                                                </small>
+                                                <div class="daysInputDiv">
+                                                    <span>Days</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 sewn-form-field mt-3">
-                                        <label></label>
-                                        <div class="weightInputGroupDiv d-flex">
-                                            <input
-                                                type="number"
-                                                placeholder=""
-                                                class="weightInputDiv"
-                                                formControlName="day_max"
-                                                pInputText
-                                            />
-                                            <small
-                                                *ngIf="details['controls']['day_max'].errors?.required"
-                                                class="p-error"
-                                            >
-                                                Shipment price is required
-                                            </small>
-                                            <div>
-                                                <p-dropdown
-                                                    [options]="dayMinListArray"
-                                                    optionLabel="label"
-                                                    [style]="{ width: '100%', border: '0px' }"
-                                                    optionValue="value"
-                                                ></p-dropdown>
+                                            <div class="pl-2 pr-2">-</div>
+                                            <div class="weightInputGroupDiv d-flex">
+                                                <input
+                                                    type="number"
+                                                    placeholder=""
+                                                    class="weightInputDiv"
+                                                    formControlName="day_max"
+                                                    pInputText
+                                                />
+                                                <small
+                                                    *ngIf="details['controls']['day_max'].errors?.required"
+                                                    class="p-error"
+                                                >
+                                                    Estimated delivery time is required
+                                                </small>
+                                                <div class="daysInputDiv">
+                                                    <span>Days</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -422,7 +402,7 @@
                             green coffee and roasted coffee you sell on the platform.
                         </p>
                     </div>
-                    <div class="shipping-border col-12 mt-4">
+                    <div class="shipping-border col-12 mt-43">
                         <table class="shipping-time col-12">
                             <tr>
                                 <td><span class="list-que"> Shipping name : </span></td>

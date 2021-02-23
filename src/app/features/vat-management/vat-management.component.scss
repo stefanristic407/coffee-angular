@@ -28,6 +28,10 @@
     .rm-0 {
         margin: 0px;
     }
+    ::ng-deep .p-dropdown .p-dropdown-trigger {
+        padding: 0px;
+        padding-right: 4px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -51,6 +55,24 @@
 .form-group input {
     height: 46px;
 }
+.mt-43 {
+    margin-top: 43px;
+}
+.daysInputDiv {
+    display: flex;
+    align-items: center;
+    padding: 12px 9px;
+    background-color: #fafafa;
+    margin: 2px;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+}
 .pls-note {
     border-radius: 4px;
     background-color: #f8f8f8;
@@ -68,6 +90,8 @@
 }
 .weightInputGroupDiv {
     border: 1px solid #d6d6d6;
+    border-radius: 4px;
+    flex: 1;
 }
 .weightInputDiv {
     flex: 1 1 auto;
