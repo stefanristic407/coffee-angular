@@ -10,13 +10,18 @@
     font-weight: 700;
     line-height: 18px;
     color: $general-text-color;
-    background-color: $primary-bg-color;
+    background-color: transparent;
     &:first-child {
         padding-left: 1.625rem;
     }
     &:last-child {
         padding-right: 1.625rem;
     }
+}
+
+.p-datatable .p-datatable-thead > tr {
+    background-color: $primary-bg-color;
+    border-radius: 4px;
 }
 
 .p-datatable .p-datatable-tbody > tr > td {

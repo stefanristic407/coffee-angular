@@ -121,6 +121,11 @@
                         <span>{{ rowData[col.field] }}</span>
                     </ng-container>
 
+                    <ng-container *ngSwitchCase="'origin'">
+                        <span class="p-column-title"> {{ col.header }} </span>
+                        <span>{{ rowData[col.field] | country }}</span>
+                    </ng-container>
+
                     <ng-container *ngSwitchCase="'created_at'">
                         <span>{{ rowData[col.field] | date: 'dd MMM yyyy' }}</span>
                     </ng-container>
