@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { GlobalsService } from '@services';
 
 @Component({
     selector: 'app-brand-profile-footer',
@@ -12,7 +11,7 @@ export class BrandProfileFooterComponent implements OnInit {
     @Output() saveClick = new EventEmitter();
     roasterSlug: string;
 
-    constructor(private cookieService: CookieService, public globals: GlobalsService) {
+    constructor(private cookieService: CookieService) {
         this.roasterSlug = this.cookieService.get('roasterSlug');
     }
 
