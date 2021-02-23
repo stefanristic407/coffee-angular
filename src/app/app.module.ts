@@ -20,9 +20,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { environment } from '@env/environment';
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
-import { HealthCheckComponent } from '@components';
-import { DirectMessagingComponent } from '@components';
-import { SewnDirectMessageComponent } from '@components';
+import { HealthCheckComponent } from './components/health-check/health-check.component';
+import { SewnDirectMessageComponent } from './components/sewn-direct-message/sewn-direct-message.component';
 import { MenuComponent } from '@components';
 import { FooterComponent } from './layout/footer/footer.component';
 
@@ -35,19 +34,16 @@ import { AuthGuard } from '@guards';
 import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from '@services';
 import { SearchFilterPipe } from './components/sewn-direct-message/search-filter.pipe';
-import { LifecyclehookDirective } from './components/sewn-direct-message/lifecyclehook.directive';
 import { SearchPanelComponent } from './layout/search-panel/search-panel.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HealthCheckComponent,
-        DirectMessagingComponent,
         SewnDirectMessageComponent,
         MenuComponent,
         LayoutComponent,
         SearchFilterPipe,
-        LifecyclehookDirective,
         FooterComponent,
         SearchPanelComponent,
     ],

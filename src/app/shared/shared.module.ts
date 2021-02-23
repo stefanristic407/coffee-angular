@@ -62,6 +62,7 @@ import { WordCountPipe } from './pipes/word-count/word-count.pipe';
 
 import { RatingDirective } from './directives/rating.directive';
 import { WordLimitDirective } from './directives/word-limit.directive';
+import { LifecyclehookDirective } from './directives/lifecyclehook.directive';
 
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { BlankComponent } from './components/blank/blank.component';
@@ -179,7 +180,7 @@ const COMPONENTS = [
     ReviewsComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
-const DIRECTIVES = [RatingDirective, WordLimitDirective];
+const DIRECTIVES = [WordLimitDirective, RatingDirective, LifecyclehookDirective];
 const PIPES = [
     CountryPipe,
     EstateBrandLinkPipe,

@@ -16,11 +16,14 @@ export class OrderChatComponent implements OnInit {
     isView = true;
     orderID: any;
     orderDisputes = [];
+    threadList = [];
+    orderThread: any;
     showResolveBtn = false;
     showEscalateBtn = false;
     currentDispute: any;
     roasterName: any;
     orderType: any;
+    threadUserList = [];
     constructor(
         public globals: GlobalsService,
         private route: ActivatedRoute,
@@ -73,6 +76,7 @@ export class OrderChatComponent implements OnInit {
     }
     getOrderDisputes() {
         this.orderDisputes = [];
+        this.threadList = [];
         this.roasterService.getOrderDisputeList(this.roasterID, this.orderID, this.orderType).subscribe(
             (res: any) => {
                 console.log(res);
@@ -91,10 +95,23 @@ export class OrderChatComponent implements OnInit {
                 console.log(err);
             },
         );
+
+        this.roasterService.getOrderChatList(this.roasterID, this.orderID, this.orderType).subscribe(
+            (res: any) => {
+                console.log(res);
+                if (res.success && res.result) {
+                    this.threadList = res.result;
+                    this.orderThread = this.threadList.find((x) => x.thread_type === 'order');
+                }
+            },
+            (err) => {
+                console.log(err);
+            },
+        );
     }
     clickOrder() {
         this.currentDisputeID = '';
-        this.currentDispute = undefined;
+        this.currentDispute = null;
     }
     formatStatus(stringVal) {
         let formatVal = '';
@@ -142,6 +159,7 @@ export class OrderChatComponent implements OnInit {
             },
         );
     }
+
     navigateAssignUser() {
         const navigationExtras: NavigationExtras = {
             queryParams: {

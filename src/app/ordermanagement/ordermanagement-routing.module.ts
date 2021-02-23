@@ -40,7 +40,6 @@ import { MrOrdersComponent } from './microroaster-orders/mr-orders/mr-orders.com
 import { MrRequestDetailsComponent } from './microroaster-orders/mr-request-details/mr-request-details.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { AssignUserComponent } from './assign-user/assign-user.component';
-import { SewnOrderChatComponent } from './sewn-order-chat/sewn-order-chat.component';
 
 const routes: Routes = [
     {
@@ -128,24 +127,24 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
 
-            {
-                path: 'order-chat/:chatType/:orderId',
-                component: SewnOrderChatComponent,
-                canActivate: [AuthGuard],
-                resolve: {
-                    threadList: OrderChatThreadResolver,
-                    orderDetails: OrderDetailsRsolver,
-                },
-            },
+            // {
+            //     path: 'order-chat/:chatType/:orderId',
+            //     component: SewnOrderChatComponent,
+            //     canActivate: [AuthGuard],
+            //     resolve: {
+            //         threadList: OrderChatThreadResolver,
+            //         orderDetails: OrderDetailsRsolver,
+            //     },
+            // },
 
             /**
              * These entries are kept for debugging purposes will be remove it later
              */
-            {
-                path: 'dep-order-chat',
-                component: OrderChatComponent,
-                canActivate: [AuthGuard],
-            },
+            // {
+            //     path: 'dep-order-chat',
+            //     component: OrderChatComponent,
+            //     canActivate: [AuthGuard],
+            // },
             // {
             //     path: 'dep-pre-order-chat',
             //     component: PreOrderChatComponent,
