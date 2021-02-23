@@ -20,9 +20,7 @@
                     <div class="featureSectionCard" *ngIf="editIndex != i && item.id">
                         <label for="" class="header header-bg mb-0">
                             <span class="text-clr334 fnt-14 fnt-bold">Transaction {{ i + 1 }}</span>
-                            <span class="view-order delete-cta cursor-pointer pull-right" (click)="editVAT(item, i)">
-                                Edit
-                            </span>
+                            <span class="text-highlited pull-right" (click)="editVAT(item, i)"> Edit </span>
                         </label>
                         <table class="mtable">
                             <tr>
@@ -42,18 +40,10 @@
                     <div class="featureSectionCard" *ngIf="editIndex == i">
                         <label for="" class="header mb-0 px-2">
                             <span class="text-clr334 fnt-16 fnt-multi fnt-bold">Transaction {{ i + 1 }}</span>
-                            <span
-                                *ngIf="item.id"
-                                class="view-order delete-cta fnt-14 cursor-pointer pull-right"
-                                (click)="deleteEachVat(eachId)"
-                            >
+                            <span *ngIf="item.id" class="text-highlited pull-right" (click)="deleteEachVat(eachId)">
                                 Delete
                             </span>
-                            <span
-                                *ngIf="!item.id"
-                                class="view-order delete-cta fnt-14 cursor-pointer pull-right"
-                                (click)="deleteRow(i)"
-                            >
+                            <span *ngIf="!item.id" class="text-highlited pull-right" (click)="deleteRow(i)">
                                 Delete
                             </span>
                         </label>
@@ -133,7 +123,7 @@
         </div>
         <div class="row">
             <div class="col-12 mt-2">
-                <span class="view-order cursor-pointer" (click)="addNewTranscation()">Add new transaction </span>
+                <span class="text-highlited" (click)="addNewTranscation()">Add new transaction </span>
             </div>
         </div>
     </div>
@@ -144,10 +134,10 @@
         <p-table [value]="mrList" [lazy]="true" [lazyLoadOnInit]="false" [resizableColumns]="true" [autoLayout]="true">
             <ng-template pTemplate="header">
                 <tr>
-                    <th>Country</th>
-                    <th>Transaction</th>
-                    <th>VAT Rate</th>
-                    <th>Action</th>
+                    <th style="width: 25%">Country</th>
+                    <th style="width: 25%">Transaction</th>
+                    <th style="width: 25%">VAT Rate</th>
+                    <th style="width: 25%">Action</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -209,12 +199,7 @@
                         </div>
                     </td>
                     <td>
-                        <span
-                            *ngIf="editIndex != i"
-                            class="view-order delete-cta fnt-14 cursor-pointer"
-                            (click)="editVAT(item, i)"
-                            >Edit</span
-                        >
+                        <span *ngIf="editIndex != i" class="text-highlited" (click)="editVAT(item, i)">Edit</span>
                         <span *ngIf="editIndex == i">
                             <button
                                 type="submit"
@@ -224,20 +209,8 @@
                             >
                                 Save
                             </button>
-                            <span
-                                *ngIf="item.id"
-                                class="view-order delete-cta fnt-14 cursor-pointer"
-                                (click)="deleteEachVat(eachId)"
-                            >
-                                Delete
-                            </span>
-                            <span
-                                *ngIf="!item.id"
-                                class="view-order delete-cta fnt-14 cursor-pointer"
-                                (click)="deleteRow(i)"
-                            >
-                                Delete
-                            </span>
+                            <span *ngIf="item.id" class="text-highlited" (click)="deleteEachVat(eachId)"> Delete </span>
+                            <span *ngIf="!item.id" class="text-highlited" (click)="deleteRow(i)"> Delete </span>
                         </span>
                     </td>
                 </tr>
