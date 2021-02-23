@@ -1,13 +1,9 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { DataTableDirective, DataTablesModule } from 'angular-datatables';
-import { data } from 'jquery';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { ToastrService } from 'ngx-toastr';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { GlobalsService } from 'src/services/globals.service';
-import { UserserviceService } from 'src/services/users/userservice.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
 import { MenuItem } from 'primeng/api';
@@ -18,28 +14,13 @@ import { MenuItem } from 'primeng/api';
     styleUrls: ['./roasted-coffee-batches.component.scss'],
 })
 export class RoastedCoffeeBatchesComponent implements OnInit {
-    termRole: any;
-    roles: any;
-    role_id: any;
-    termStatus: any;
-    teamRole: any;
-    showVar: boolean = true;
-    showRole: boolean = true;
-    term: any;
-    odd: boolean = false;
     appLanguage?: any;
-
-    mainData: any[] = [];
-    roleData: string;
-    roleID: string;
-    roasterId: any;
+    roasterId: string;
     batchId: string | number | boolean;
-    modalRef: BsModalRef;
     deleteBatchId: '';
     searchForm: FormGroup;
     profileArray: any = [];
     profileFilter;
-    roasterID: any = '';
     tableColumns = [];
     tableValue = [];
     totalCount = 0;
@@ -54,14 +35,10 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
         public cookieService: CookieService,
         private roasterService: RoasterserviceService,
         private toastrService: ToastrService,
-        private userService: UserserviceService,
-        private modalService: BsModalService,
         public globals: GlobalsService,
         private fb: FormBuilder,
         public sharedService: SharedServiceService,
     ) {
-        this.termStatus = '';
-        this.termRole = '';
         this.roasterId = this.cookieService.get('roaster_id');
     }
 
@@ -76,7 +53,7 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
         });
         this.searchForm.setValue({ searchField: '' });
         this.searchForm.controls.searchField.valueChanges.subscribe((value) => {
-            //   this.termSearch = value;
+            this.termSearch = value;
             this.roasterCoffeeBatchsData();
         });
         this.loadFilterValues();
@@ -160,41 +137,6 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
         this.breadCrumbItem.push(obj2);
         this.breadCrumbItem.push(obj3);
     }
-    setTeamRole(term: any, roleId: any) {
-        this.teamRole = term;
-        this.role_id = roleId;
-    }
-    // Function Name : Status Filiter
-    // Description: This function helps to filiter the users based on the selected status fiiter.
-
-    setStatus(term: any) {
-        this.termStatus = term;
-        console.log(this.termStatus);
-    }
-    // Function Name : Roles Filiter
-    // Description: This function helps to filiter the users based on the selected roles fiiter.
-
-    setRole(term: any) {
-        this.termRole = term;
-    }
-    toggleRole() {
-        this.showRole = !this.showRole;
-        if (this.showRole == false) {
-            document.getElementById('role_id').style.border = '1px solid #30855c';
-        } else {
-            document.getElementById('role_id').style.border = '1px solid #d6d6d6';
-        }
-    }
-
-    toggleStatus() {
-        this.showVar = !this.showVar;
-        if (this.showVar == false) {
-            document.getElementById('status_id').style.border = '1px solid #30855c';
-        } else {
-            document.getElementById('status_id').style.border = '1px solid #d6d6d6';
-        }
-    }
-
     // Table data
     roasterCoffeeBatchsData() {
         const postData: any = {};
@@ -222,13 +164,13 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
         this.globals.selected_order_id = item.order_id;
         this.ordId = item.order_id;
 
-        let navigationExtras: NavigationExtras = {
+        const navigationExtras: NavigationExtras = {
             queryParams: {
                 batchId: this.batchId ? this.batchId : undefined,
                 ordId: this.ordId ? this.ordId : undefined,
             },
         };
-        this.router.navigate(['/features/new-roasted-batch'], navigationExtras);
+        this.router.navigate(['/roasted-coffee-batch/new-roasted-batch'], navigationExtras);
     }
 
     deleteRoastedBatch() {

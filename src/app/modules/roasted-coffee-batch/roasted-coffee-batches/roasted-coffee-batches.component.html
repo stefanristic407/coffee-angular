@@ -8,14 +8,14 @@
                 <button
                     type="submit"
                     class="btn pull-right btn-raised d-md-block d-none"
-                    routerLink="/features/roasting-profile"
+                    routerLink="/roasted-coffee-batch/roasting-profile"
                 >
                     {{ globals.languageJson?.manage_roasting_profiles }}
                 </button>
                 <button
                     type="submit"
                     class="btn pull-right btn-stroked d-md-block d-none mr-2"
-                    routerLink="/features/new-roasted-batch"
+                    routerLink="/roasted-coffee-batch/new-roasted-batch"
                 >
                     {{ globals.languageJson?.create_new_batch }}
                 </button>
@@ -45,12 +45,20 @@
         </div>
         <div class="row mt-4 mb-4 d-block d-sm-block d-md-none">
             <div class="col-12 col-sm-12">
-                <button type="submit" class="btn btn-raised w-100" [routerLink]="['/features/roasting-profile']">
+                <button
+                    type="submit"
+                    class="btn btn-raised w-100"
+                    [routerLink]="['/roasted-coffee-batch/roasting-profile']"
+                >
                     Manage roasting profiles
                 </button>
             </div>
             <div class="col-12 col-sm-12 mt-3">
-                <button type="button" class="btn btn-stroked w-100" [routerLink]="['/features/new-roasted-batch']">
+                <button
+                    type="button"
+                    class="btn btn-stroked w-100"
+                    [routerLink]="['/roasted-coffee-batch/new-roasted-batch']"
+                >
                     Create a new batch
                 </button>
             </div>

@@ -15,20 +15,11 @@ import { SharedServiceService } from '@app/shared/services/shared-service.servic
     styleUrls: ['./roasting-profiles.component.scss'],
 })
 export class RoastingProfilesComponent implements OnInit {
-    termRole: any;
-    roles: any;
-    role_id: any;
+    roleId: any;
     termStatus: any;
     teamRole: any;
-    showVar: boolean = true;
-    showRole: boolean = true;
-    term: any;
-
-    mainData: any[] = [];
-    roleData: string;
     roleID: string;
     roasterId: any;
-    odd: boolean = false;
     appLanguage?: any;
     profileID: any;
     modalRef: BsModalRef;
@@ -43,7 +34,7 @@ export class RoastingProfilesComponent implements OnInit {
     breadItems = [
         { label: 'Home', routerLink: '/roaster-dashboard' },
         { label: 'Inventory' },
-        { label: 'Roasted coffee', routerLink: '/features/roasted-coffee-batch' },
+        { label: 'Roasted coffee', routerLink: '/roasted-coffee-batch/roasted-coffee-batchs' },
         { label: 'Roasting profiles' },
     ];
     searchForm: FormGroup;
@@ -67,8 +58,6 @@ export class RoastingProfilesComponent implements OnInit {
         private fb: FormBuilder,
         public sharedService: SharedServiceService,
     ) {
-        this.termStatus = '';
-        this.termRole = '';
         this.roasterId = this.cookieService.get('roaster_id');
     }
 
@@ -136,7 +125,7 @@ export class RoastingProfilesComponent implements OnInit {
 
     setTeamRole(term: any, roleId: any) {
         this.teamRole = term;
-        this.role_id = roleId;
+        this.roleId = roleId;
     }
     getRoastingProfile() {
         const postData: any = {};
@@ -166,18 +155,18 @@ export class RoastingProfilesComponent implements OnInit {
 
     redirectToEdit(item) {
         this.profileID = item;
-        let navigationExtras: NavigationExtras = {
+        const navigationExtras: NavigationExtras = {
             queryParams: {
                 profileID: encodeURIComponent(this.profileID),
             },
         };
 
-        this.router.navigate(['/features/create-roasting-profile'], navigationExtras);
+        this.router.navigate(['/roasted-coffee-batch/create-roasting-profile'], navigationExtras);
     }
 
     deleteRoastingProfile() {
         this.userService.deleteRoastingProfile(this.roasterId, this.deleteProfileId).subscribe((data) => {
-            if ((data['success'] = true)) {
+            if (data.success) {
                 this.toastrService.success('Roasting profile deleted successfully');
                 this.getRoastingProfile();
             } else {

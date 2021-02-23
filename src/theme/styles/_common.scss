@@ -30,7 +30,7 @@ span.star {
     position: relative;
     padding-left: 32px;
     font-size: 16px;
-    color: $brown-color;
+    color: $brown-color !important;
     font-weight: 600;
     cursor: pointer;
     line-height: 20px;
@@ -60,18 +60,8 @@ span.star {
         }
     }
     &:hover {
-        color: $brown-color;
+        color: $brown-color !important;
         text-decoration: underline !important;
-    }
-}
-
-.back-page.green {
-    color: $primary-color;
-    &::before {
-        background-image: url('/assets/images/backarrow.svg');
-    }
-    &:hover {
-        color: $primary-color;
     }
 }
 

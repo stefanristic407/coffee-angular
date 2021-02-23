@@ -61,6 +61,13 @@ export const routes: Routes = [
                         (m) => m.GreenCoffeeManagementModule,
                     ),
             },
+            {
+                path: 'roasted-coffee-batch',
+                loadChildren: () =>
+                    import('./modules/roasted-coffee-batch/roasted-coffee-batch.module').then(
+                        (m) => m.RoastedCoffeeBatchModule,
+                    ),
+            },
         ],
     },
     {
