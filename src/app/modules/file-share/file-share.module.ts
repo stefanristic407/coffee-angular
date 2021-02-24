@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FileShareRoutingModule } from './file-share-routing.module';
 import { SharedModule } from '@shared';
 
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 import { FileShareComponent } from './file-share.component';
 import { FileShareDetailsComponent } from './file-share-details/file-share-details.component';
 import { MyfilesComponent } from './myfiles/myfiles.component';
@@ -24,6 +26,6 @@ import { VideoTableComponent } from './file-share-details/video-table/video-tabl
         DocumentTableComponent,
         VideoTableComponent,
     ],
-    imports: [CommonModule, FileShareRoutingModule, SharedModule],
+    imports: [CommonModule, FileShareRoutingModule, SharedModule, Ng2SearchPipeModule],
 })
 export class FileShareModule {}

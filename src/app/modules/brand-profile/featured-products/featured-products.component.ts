@@ -46,8 +46,7 @@ export class FeaturedProductsComponent implements OnInit {
                 query.push(`${key}=${value}`);
             }
         });
-        const queryStr = '?' + query.join('&');
-        this.roasterService.getSelectProductDetails(this.roasterId, queryStr).subscribe((res: any) => {
+        this.roasterService.getDefaultProducts(this.roasterId, query).subscribe((res: any) => {
             if (res.success) {
                 this.products = res.result;
                 this.productIds = _.pluck(

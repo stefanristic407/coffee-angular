@@ -631,6 +631,14 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
 
+    // Get the list of all default products
+    getDefaultProducts(roaster_id: any, postData?) {
+        const data = {
+            api_call: `/ro/${roaster_id}/products/default?${this.serlialise(postData)}`,
+            token: this.cookieService.get('Auth'),
+        };
+        return this.http.post(this.url, data);
+    }
     // Update featured products list by RO
     updateFeatured(roasterId: any, body: any): Observable<any> {
         const data = {

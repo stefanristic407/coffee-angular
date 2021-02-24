@@ -1,10 +1,9 @@
 // AUTHOR : Gaurav Kunal
 // PAGE DESCRIPTION : This page contains functions of  Orders List,Search and Filters.
 
-import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild, } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { DashboardserviceService } from 'src/services/dashboard/dashboardservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from 'src/services/globals.service';
 import { RoasteryProfileService } from '../../../roastery-profile/roastery-profile.service';
@@ -14,10 +13,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
     selector: 'app-roaster-agreements',
     templateUrl: './roaster-agreements.component.html',
-    styleUrls: ['./roaster-agreements.component.css']
+    styleUrls: ['./roaster-agreements.component.css'],
 })
 export class RoasterAgreementsComponent implements OnInit, OnChanges {
-
     appLanguage?: any;
     agreementsActive = 0;
     estatetermOrigin: any;
@@ -44,10 +42,15 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
     isUpdate: boolean;
     itemId: any;
 
-    constructor(public router: Router, public cookieService: CookieService, public dashboard: DashboardserviceService,
-        public roasterService: RoasterserviceService, public toastrService: ToastrService,
-        public roasteryProfileService: RoasteryProfileService, private formBuilder: FormBuilder,
-        public globals: GlobalsService) {
+    constructor(
+        public router: Router,
+        public cookieService: CookieService,
+        public roasterService: RoasterserviceService,
+        public toastrService: ToastrService,
+        public roasteryProfileService: RoasteryProfileService,
+        private formBuilder: FormBuilder,
+        public globals: GlobalsService,
+    ) {
         this.roasterId = this.cookieService.get('roaster_id');
     }
 
@@ -79,7 +82,7 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
         this.horecaFormGroup = this.formBuilder.group({
             customerType: ['', [Validators.required]],
             customerId: ['', [Validators.required]],
-            customerIdValue: ['', Validators.required]
+            customerIdValue: ['', Validators.required],
         });
     }
 
@@ -89,59 +92,51 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
     }
 
     getCountryName(code: any) {
-        const country = this.roasteryProfileService.countryList.find(con => con.isoCode === code);
+        const country = this.roasteryProfileService.countryList.find((con) => con.isoCode === code);
         return country ? country.name : '';
     }
 
     getAgreements() {
         this.mainData = [];
-        this.roasterService.getAgreements(this.roasterId, this.customerType).subscribe(
-            (resp: any) => {
-                if (resp.success) {
-                    this.mainData = resp.result;
-                }
-                else {
-                    this.toastrService.error('Error while getting the agreement list!');
-                }
+        this.roasterService.getAgreements(this.roasterId, this.customerType).subscribe((resp: any) => {
+            if (resp.success) {
+                this.mainData = resp.result;
+            } else {
+                this.toastrService.error('Error while getting the agreement list!');
             }
-        );
-
+        });
     }
 
     getMicroRoastersList() {
         this.newList = [];
-        this.roasterService.getMicroRoastersList(this.roasterId).subscribe(
-            (res: any) => {
-                if (res.success) {
-                    this.horecaList = res.result;
-                    this.horecaList.forEach(element => {
-                        if (element.id > 0) {
-                            this.newList.push(element);
-                        }
-                    });
-                }
-                else {
-                    this.toastrService.error('Error while getting HoReCa list');
-                }
-            });
+        this.roasterService.getMicroRoastersList(this.roasterId).subscribe((res: any) => {
+            if (res.success) {
+                this.horecaList = res.result;
+                this.horecaList.forEach((element) => {
+                    if (element.id > 0) {
+                        this.newList.push(element);
+                    }
+                });
+            } else {
+                this.toastrService.error('Error while getting HoReCa list');
+            }
+        });
     }
 
     getHorecaList() {
         this.newList = [];
-        this.roasterService.getMicroRoastersHoreca(this.roasterId).subscribe(
-            (res: any) => {
-                if (res.success) {
-                    this.horecaList = res.result;
-                    this.horecaList.forEach(element => {
-                        if (element.id > 0) {
-                            this.newList.push(element);
-                        }
-                    });
-                }
-                else {
-                    this.toastrService.error('Error while getting HoReCa list');
-                }
-            });
+        this.roasterService.getMicroRoastersHoreca(this.roasterId).subscribe((res: any) => {
+            if (res.success) {
+                this.horecaList = res.result;
+                this.horecaList.forEach((element) => {
+                    if (element.id > 0) {
+                        this.newList.push(element);
+                    }
+                });
+            } else {
+                this.toastrService.error('Error while getting HoReCa list');
+            }
+        });
     }
 
     onUpdateModal(itemId: any) {
@@ -150,17 +145,16 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
         this.horecaFormGroup.get('customerType').setValue('');
         this.horecaFormGroup.get('customerId').setValue('');
         this.isUpdate = true;
-        this.roasterService.getAgreementValue(this.roasterId, this.customerType, itemId).subscribe(
-            (resp: any) => {
-                if (resp.success) {
-                    this.horecaFormGroup.get('customerType').setValue(resp.result.customer_type);
-                    this.horecaFormGroup.get('customerId').setValue(resp.result.customer_id);
-                    // this.fileUrl = resp.result.fileUrl;
-                    this.agreementfileId = resp.result.file_id;
-                    this.fileNameValue = resp.result.file_name;
-                    this.itemId = resp.result.id;
-                }
-            });
+        this.roasterService.getAgreementValue(this.roasterId, this.customerType, itemId).subscribe((resp: any) => {
+            if (resp.success) {
+                this.horecaFormGroup.get('customerType').setValue(resp.result.customer_type);
+                this.horecaFormGroup.get('customerId').setValue(resp.result.customer_id);
+                // this.fileUrl = resp.result.fileUrl;
+                this.agreementfileId = resp.result.file_id;
+                this.fileNameValue = resp.result.file_name;
+                this.itemId = resp.result.id;
+            }
+        });
     }
 
     setUser(value: any) {
@@ -171,10 +165,8 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
         this.showOrigin = !this.showOrigin;
         if (!this.showOrigin) {
             document.getElementById('origin_id').style.border = '1px solid #30855c';
-        }
-        else {
+        } else {
             document.getElementById('origin_id').style.border = '1px solid #d6d6d6';
-
         }
     }
 
@@ -182,10 +174,8 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
         this.showCustomerMob = !this.showCustomerMob;
         if (!this.showCustomerMob) {
             document.getElementById('orgin-mob-id').style.border = '1px solid #30855c';
-        }
-        else {
+        } else {
             document.getElementById('orgin-mob-id').style.border = '1px solid #d6d6d6';
-
         }
     }
 
@@ -211,63 +201,58 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
                 formData.append('name', this.fileNameValue);
                 formData.append('file_module', 'Agreements');
                 this.roasterId = this.cookieService.get('roaster_id');
-                formData.append(
-                    'api_call',
-                    '/ro/' + this.roasterId + '/file-manager/files'
-                );
+                formData.append('api_call', '/ro/' + this.roasterId + '/file-manager/files');
                 formData.append('token', this.cookieService.get('Auth'));
-                this.roasterService.uploadFiles(formData).subscribe(
-                    (result: any) => {
-                        if (result.success) {
-                            this.toastrService.success('The file ' + this.fileNameValue + ' uploaded successfully');
-                            if (!this.isUpdate) {
-                                const requestBody = {
-                                    customer_id: parseInt(this.horecaFormGroup.get('customerId').value, 10),
-                                    notify_customer: true,
-                                    file_id: result.result.id
-                                };
-                                this.roasterService.uploadAgreements(this.roasterId, this.customerType, requestBody).subscribe(
-                                    (res: any) => {
-                                        if (res.success) {
-                                            this.resetButtonValue = 'Upload Agreement';
-                                            this.toastrService.success('The Agreement has been uploaded successfully');
-                                            this.getAgreements();
-                                            this.horecaFormGroup.get('customerId').setValue('');
-                                            this.fileNameValue = '';
-                                            document.getElementById('dismissAddModal').click();
-                                        }
-                                        else {
-                                            this.resetButtonValue = 'Upload Agreement';
-                                            this.toastrService.error('Error while uploading Agreegement');
-                                        }
-                                    });
-                            } else {
-                                const dataBody = {
-                                    file_id: this.agreementfileId
-                                };
-                                this.roasterService.updateAgreements(this.roasterId, this.customerType, this.itemId, dataBody).subscribe(
-                                    (res: any) => {
-                                        if (res.success) {
-                                            this.resetButtonValue = 'Update Agreement';
-                                            this.toastrService.success('The Agreement updated successfully');
-                                            this.getAgreements();
-                                            this.horecaFormGroup.get('customerId').setValue('');
-                                            this.fileNameValue = '';
-                                            document.getElementById('dismissAddModal').click();
-                                        }
-                                        else {
-                                            this.resetButtonValue = 'Upload Agreement';
-                                            this.toastrService.error('Error while updating the agreement details');
-                                        }
-                                    });
-                                this.toastrService.success('The file ' + this.fileNameValue + ' uploaded successfully');
-                            }
+                this.roasterService.uploadFiles(formData).subscribe((result: any) => {
+                    if (result.success) {
+                        this.toastrService.success('The file ' + this.fileNameValue + ' uploaded successfully');
+                        if (!this.isUpdate) {
+                            const requestBody = {
+                                customer_id: parseInt(this.horecaFormGroup.get('customerId').value, 10),
+                                notify_customer: true,
+                                file_id: result.result.id,
+                            };
+                            this.roasterService
+                                .uploadAgreements(this.roasterId, this.customerType, requestBody)
+                                .subscribe((res: any) => {
+                                    if (res.success) {
+                                        this.resetButtonValue = 'Upload Agreement';
+                                        this.toastrService.success('The Agreement has been uploaded successfully');
+                                        this.getAgreements();
+                                        this.horecaFormGroup.get('customerId').setValue('');
+                                        this.fileNameValue = '';
+                                        document.getElementById('dismissAddModal').click();
+                                    } else {
+                                        this.resetButtonValue = 'Upload Agreement';
+                                        this.toastrService.error('Error while uploading Agreegement');
+                                    }
+                                });
                         } else {
-                            this.resetButtonValue = 'Upload Agreement';
-                            this.toastrService.error('Error while uploading the file');
+                            const dataBody = {
+                                file_id: this.agreementfileId,
+                            };
+                            this.roasterService
+                                .updateAgreements(this.roasterId, this.customerType, this.itemId, dataBody)
+                                .subscribe((res: any) => {
+                                    if (res.success) {
+                                        this.resetButtonValue = 'Update Agreement';
+                                        this.toastrService.success('The Agreement updated successfully');
+                                        this.getAgreements();
+                                        this.horecaFormGroup.get('customerId').setValue('');
+                                        this.fileNameValue = '';
+                                        document.getElementById('dismissAddModal').click();
+                                    } else {
+                                        this.resetButtonValue = 'Upload Agreement';
+                                        this.toastrService.error('Error while updating the agreement details');
+                                    }
+                                });
+                            this.toastrService.success('The file ' + this.fileNameValue + ' uploaded successfully');
                         }
+                    } else {
+                        this.resetButtonValue = 'Upload Agreement';
+                        this.toastrService.error('Error while uploading the file');
                     }
-                );
+                });
             }
         }
     }
@@ -277,17 +262,14 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
     }
 
     deleteAgreement(item: any) {
-        this.roasterService.deleteAgreement(this.roasterId, this.customerType, item).subscribe(
-            (res: any) => {
-                if (res.success) {
-                    document.getElementById('dismissDeleteModal').click();
-                    this.toastrService.success('The Selected agreement deleted successfully!');
-                    this.getAgreements();
-                }
-                else {
-                    this.toastrService.error('Error while deleting the agreement');
-                }
-            });
+        this.roasterService.deleteAgreement(this.roasterId, this.customerType, item).subscribe((res: any) => {
+            if (res.success) {
+                document.getElementById('dismissDeleteModal').click();
+                this.toastrService.success('The Selected agreement deleted successfully!');
+                this.getAgreements();
+            } else {
+                this.toastrService.error('Error while deleting the agreement');
+            }
+        });
     }
-
 }
