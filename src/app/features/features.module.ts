@@ -77,8 +77,7 @@ import { ForumComponent } from './Farm Link/q-a-forum/forum/forum.component';
 import { MyAnswersComponent } from './Farm Link/q-a-forum/my-answers/my-answers.component';
 import { BatchSelectAnOrderComponent } from './batch-select-an-order/batch-select-an-order.component';
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
-import { HorecaAgreementsComponent } from './Farm Link/agreement/horeca-agreements/horeca-agreements.component';
-import { MicroRoasterAgreementsComponent } from './Farm Link/agreement/micro-roaster-agreements/micro-roaster-agreements.component';
+import { RoasterAgreementsComponent } from './Farm Link/agreement/roaster-agreements/roaster-agreements.component';
 import { EstateOrdersComponent } from './Farm Link/coffee-experience/estate-orders/estate-orders.component';
 import { MicroRoasterOrdersComponent } from './Farm Link/coffee-experience/micro-roaster-orders/micro-roaster-orders.component';
 import { HorecaOrdersComponent } from './Farm Link/coffee-experience/horeca-orders/horeca-orders.component';
@@ -162,8 +161,7 @@ import { ListboxModule } from 'primeng/listbox';
         MyAnswersComponent,
         BatchSelectAnOrderComponent,
         SuccessfulPageComponent,
-        HorecaAgreementsComponent,
-        MicroRoasterAgreementsComponent,
+        RoasterAgreementsComponent,
         EstateOrdersComponent,
         MicroRoasterOrdersComponent,
         HorecaOrdersComponent,
@@ -197,4 +195,4 @@ import { ListboxModule } from 'primeng/listbox';
         ListboxModule,
     ],
 })
-export class FeaturesModule {}
+export class FeaturesModule { }

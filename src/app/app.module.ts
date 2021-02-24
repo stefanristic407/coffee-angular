@@ -35,7 +35,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from '@services';
 import { SearchFilterPipe } from './components/sewn-direct-message/search-filter.pipe';
 import { SearchPanelComponent } from './layout/search-panel/search-panel.component';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
     declarations: [
         AppComponent,
@@ -52,6 +52,8 @@ import { SearchPanelComponent } from './layout/search-panel/search-panel.compone
         BrowserAnimationsModule,
         AppRoutingModule,
         HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
         AnimateOnScrollModule.forRoot(),
         CarouselModule.forRoot(),
         ModalModule.forRoot(),
@@ -86,7 +88,7 @@ import { SearchPanelComponent } from './layout/search-panel/search-panel.compone
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
 
 // Sweden
 registerLocaleData(localeSe);
