@@ -10,7 +10,7 @@ import { WelcomeService } from './welcome.service';
 @Component({
     selector: 'app-roaster-dashboard',
     templateUrl: './roaster-dashboard.component.html',
-    styleUrls: ['./roaster-dashboard.component.css'],
+    styleUrls: ['./roaster-dashboard.component.scss'],
 })
 export class RoasterDashboardComponent implements OnInit {
     appLanguage?: any;
