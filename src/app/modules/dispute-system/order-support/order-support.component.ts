@@ -38,12 +38,12 @@ export class OrderSupportComponent implements OnInit {
     }
     loadButtons() {
         this.buttonArray = [
-            { label: 'Buying Coffee', logo: 'assets/images/coffee-bean.png', field: 'buyingCoffee' },
-            { label: 'Requesting Samples', logo: 'assets/images/request.png', field: 'requestSample' },
-            { label: 'Payment', logo: 'assets/images/payment.png', field: 'payment' },
-            { label: 'Coffee Bulks', logo: 'assets/images/coffee-plant.png', field: 'coffeeBulks' },
-            { label: 'Shipping', logo: 'assets/images/shipping.png', field: 'shipping' },
-            { label: 'Others', logo: 'assets/images/others.png', field: 'others' },
+            { label: 'Buying Coffee', logo: 'assets/images/coffee-buy.svg', field: 'buyingCoffee' },
+            { label: 'Requesting Samples', logo: 'assets/images/request-sample.svg', field: 'requestSample' },
+            { label: 'Payment', logo: 'assets/images/payment.svg', field: 'payment' },
+            { label: 'Coffee Bulks', logo: 'assets/images/coffee-bulk.svg', field: 'coffeeBulks' },
+            { label: 'Shipping', logo: 'assets/images/shipping.svg', field: 'shipping' },
+            { label: 'Others', logo: 'assets/images/others.svg', field: 'others' },
         ];
     }
     supplyBreadCrumb(): void {

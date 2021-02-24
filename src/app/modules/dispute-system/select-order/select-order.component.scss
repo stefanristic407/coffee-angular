@@ -30,13 +30,6 @@
 ::ng-deep .ui-table-disputes {
     border: 1px solid #d6d6d6;
 }
-::ng-deep .orderTable .p-datatable-tbody > tr > td:first-child {
-    padding-left: 0px;
-}
-:host ::ng-deep .orderTable .p-radiobutton .p-radiobutton-box.p-highlight {
-    border-color: $primary-color;
-    background: $primary-color;
-}
 .typeofStatus-booked {
     color: #649a2b;
 }
@@ -55,19 +48,8 @@
     color: #747588;
 }
 @media screen and (max-width: 767px) {
-    :host ::ng-deep .p-datatable-tbody > tr > td {
-        border-left: 1px solid #d6d6d6 !important;
-        border-right: 1px solid #d6d6d6 !important;
-        padding: 14px 14px;
-        width: 100% !important;
-        display: block;
-        border-bottom: 0px !important;
-    }
     ::ng-deep .ui-table-disputes {
         border: 0px;
-    }
-    :host ::ng-deep .orderTable .p-datatable-tbody > tr > td:first-child {
-        padding: 0px;
     }
     .mobileNameDiv {
         background-color: #f8f8f8;
@@ -80,24 +62,20 @@
     .mobileLable {
         color: #747588;
     }
-    :host ::ng-deep .p-datatable .p-datatable-tbody > tr {
-        border-bottom: 0px !important;
+    .nameMobileHeader {
+        padding: 0px !important;
     }
-    :host ::ng-deep .p-datatable-tbody > tr > .nameMobileHeader {
-        border-top: 1px solid #d6d6d6 !important;
-        border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
+    ::ng-deep .orderTable .p-datatable.p-datatable-responsive .p-datatable-tbody > tr {
         padding: 0px;
     }
-    :host ::ng-deep .p-datatable-tbody > tr > .mobileBorderClass {
+    ::ng-deep .orderTable .p-datatable.p-datatable-responsive .p-datatable-tbody > tr > td {
+        border-bottom: 0px !important;
+    }
+    ::ng-deep .orderTable .p-datatable.p-datatable-responsive .p-datatable-tbody > tr > .mobileBorderClass {
         border-bottom: 1px dashed #d6d6d6 !important;
+        padding: 1rem 1rem;
     }
     :host ::ng-deep .p-datatable-tbody > tr > .mobileBottom {
-        margin-bottom: 14px;
-        border-bottom: 1px solid #d6d6d6 !important;
-        border-bottom-left-radius: 4px;
-        border-bottom-right-radius: 4px;
-        padding-top: 1rem;
-        border-top: 1px dashed #d6d6d6 !important;
+        padding: 1rem 1rem !important;
     }
 }
