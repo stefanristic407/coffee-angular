@@ -208,7 +208,8 @@
                             rolesColumn: col.field == 'roles',
                             nameMobileHeader: col.field == 'name',
                             roleMobileBottom: col.field == 'roles',
-                            emailMobileClass: col.field == 'email'
+                            emailMobileClass: col.field == 'email',
+                            mobileData: col.field !== 'name'
                         }"
                     >
                         <span *ngSwitchCase="'name'" class="">
