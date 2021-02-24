@@ -18,7 +18,7 @@ export class MenuService {
         const activeMenuItem = menuItems.filter((item) => routerLink.startsWith(item.routerLink));
         if (activeMenuItem[0]) {
             let menuItem = activeMenuItem[0];
-            if (menuItem.parentId !== 0) {
+            if (menuItem.parentId !== 0 && menuItem.parentId !== 1000) {
                 while (menuItem.parentId !== 0) {
                     const parentMenuItem = menuItems.filter((item) => item.id === menuItem.parentId)[0];
                     menuItem = parentMenuItem;

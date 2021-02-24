@@ -76,4 +76,9 @@ export const menuItems = [
         'user-reports',
     ]),
     new Menu(83, 'customer_management', '/people/customer-management', null, null, null, false, 8, []),
+
+    // Dropdown Menu
+    new Menu(10001, 'roastery_profile', '/features/roastery-profile', null, null, null, false, 1000, []),
+    new Menu(10002, 'my_profile', '/features/myprofile', null, null, null, false, 1000, []),
+    new Menu(10003, 'account_settings', '/features/account-settings', null, null, null, false, 1000, []),
 ];
