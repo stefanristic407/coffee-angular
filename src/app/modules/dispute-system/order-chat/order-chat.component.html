@@ -71,9 +71,8 @@
         <div
             class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 no-gutters d-flex align-items-center justify-content-end"
         >
-            <span *ngIf="currentDisputeID" class="text-highlited pr-3" (click)="navigateAssignUser()">
-                Change assigned user</span
-            >
+            <span class="text-highlited pr-3" (click)="navigateAssignUser()"> Change assigned user</span>
+            <div class="seperatorClass"></div>
             <span *ngIf="isView" class="text-highlited" (click)="isView = false">Close tickets</span>
             <span *ngIf="!isView" class="text-highlited" (click)="isView = true">View tickets</span>
         </div>
@@ -81,8 +80,12 @@
     <div class="row m-0 containerDiv">
         <div *ngIf="isView" class="order-ticket">
             <div class="card-width" (click)="clickOrder()" [ngClass]="!currentDisputeID ? 'cardSelect' : ''">
-                <div class="orderLable font-14 m-0">Order</div>
-                <div class="primary_label font-14">#{{ orderDetails?.id }}</div>
+                <div class="font-14 m-0" [ngClass]="!currentDisputeID ? 'selectedDataFont' : 'primary_label'">
+                    Order
+                </div>
+                <div class="font-14" [ngClass]="!currentDisputeID ? 'selectedDataFont' : 'primary_label'">
+                    #{{ orderDetails?.id }}
+                </div>
                 <div class="primary_label font-12 m-0 mb-3">
                     {{ orderDetails?.created_at | date: 'h:mm a' }}
                 </div>
@@ -93,13 +96,28 @@
                 (click)="clickDispute(item)"
                 [ngClass]="currentDisputeID == item.id ? 'cardSelect' : ''"
             >
-                <div class="primary_label font-14 m-0">Ticket #{{ item.id }}</div>
-                <div class="primary_label font-12 mb-3">{{ item.dispute_type }}</div>
-                <div class="ticket-num__status float-left">{{ item.dispute_status }}</div>
+                <div class="font-14 m-0" [ngClass]="currentDisputeID == item.id ? 'selectedDataFont' : 'primary_label'">
+                    Ticket #{{ item.id }}
+                </div>
+                <div
+                    class="font-12 mb-3"
+                    [ngClass]="currentDisputeID == item.id ? 'selectedDataFont' : 'primary_label'"
+                >
+                    {{ item.dispute_type }}
+                </div>
+                <div
+                    class="ticket-num__status float-left"
+                    [ngClass]="currentDisputeID == item.id ? 'selectedFont' : ''"
+                >
+                    {{ item.dispute_status }}
+                </div>
             </div>
         </div>
     </div>
-    <div *ngIf="currentDispute" class="d-flex disputeDiv containerDiv row p-3">
+    <div
+        *ngIf="currentDispute && currentDispute['dispute_status'] !== 'Resolved'"
+        class="d-flex disputeDiv containerDiv row p-3"
+    >
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 float-left">
             <span><b>Dispute raised: </b></span>
             <p *ngIf="roasterName">
@@ -113,7 +131,6 @@
             <button
                 *ngIf="currentDisputeID && !showEscalateBtn"
                 class="btn btn-stroked float-right"
-                [disabled]="showEscalateBtn"
                 (click)="escalateTicket()"
             >
                 <span class="track">Escalate</span>
@@ -121,7 +138,6 @@
             <button
                 *ngIf="currentDisputeID && showEscalateBtn"
                 class="btn btn-stroked float-right"
-                [disabled]="showEscalateBtn"
                 title="Already dispute has been escalated"
             >
                 <span class="track">Escalate</span>

@@ -26,20 +26,23 @@
     display: grid;
 }
 .primary_label {
-    font-family: Muli;
-    font-weight: 600;
+    font-family: Muli-Regular_;
+    font-size: 14px;
+    font-weight: bold;
     font-stretch: normal;
     font-style: normal;
-    line-height: normal;
+    line-height: 1.57;
     letter-spacing: normal;
-    color: #747588;
+    opacity: 0.7;
+    color: #232334;
 }
-.orderLable {
-    font-family: Muli;
-    font-weight: 600;
+.selectedDataFont {
+    font-family: Muli-Regular_;
+    font-size: 14px;
+    font-weight: bold;
     font-stretch: normal;
     font-style: normal;
-    line-height: normal;
+    line-height: 1.57;
     letter-spacing: normal;
     color: #232334;
 }
@@ -48,6 +51,12 @@
     color: #80460b !important;
     cursor: pointer;
     text-decoration: underline;
+}
+.seperatorClass {
+    width: 1px;
+    height: 12px;
+    margin: 0px 22px 1px 23px;
+    background-color: #2c2b46;
 }
 .order-ticket {
     box-shadow: 0 12px 44px -10px rgba(143, 51, 11, 0.1);
@@ -68,7 +77,7 @@
     border-radius: 4px;
     border: solid 1px #ebebeb;
     background-color: #ffffff;
-    margin: 12px;
+    margin: 6px;
     width: 117px;
     cursor: pointer;
 }

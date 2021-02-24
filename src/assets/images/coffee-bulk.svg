@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33">
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <g>
+                    <path d="M0 0H32V32H0z" transform="translate(-1141 -371) translate(1021 329) translate(120 43)"/>
+                    <g transform="translate(-1141 -371) translate(1021 329) translate(120 43) translate(1)">
+                        <ellipse cx="14.793" cy="5.54" stroke="#A88057" stroke-linecap="round" stroke-linejoin="round" rx="3.852" ry="5.54"/>
+                        <path stroke="#A88057" stroke-linecap="round" stroke-linejoin="round" d="M14.793 2.612L14.793 2.612"/>
+                        <ellipse cx="23.776" cy="10.629" stroke="#A88057" stroke-linecap="round" stroke-linejoin="round" rx="5.54" ry="3.852" transform="rotate(-65.94 23.776 10.63)"/>
+                        <ellipse cx="6.776" cy="10.629" stroke="#A88057" stroke-linecap="round" stroke-linejoin="round" rx="3.852" ry="5.54" transform="rotate(-24.06 6.776 10.63)"/>
+                        <path stroke="#A88057" stroke-linecap="round" stroke-linejoin="round" d="M6.409 7.631L6.409 7.631M14.775 11.497L14.775 30.671M20.583 15.273L14.775 22.587 9.437 15.742"/>
+                        <path stroke="#A88057" stroke-linecap="round" stroke-linejoin="round" d="M23.217 19.684h5.249c0 2.024-.806 3.966-2.239 5.395-1.433 1.43-3.376 2.231-5.4 2.227h-5.249 0c0-2.025.806-3.966 2.239-5.396 1.433-1.43 3.376-2.23 5.4-2.226h0z" transform="rotate(9.841 22.022 23.495)"/>
+                        <path stroke="#A88057" stroke-linecap="round" stroke-linejoin="round" d="M25.545 22.3s-4.802 1.612-10.553 4.04"/>
+                        <path stroke="#A88057" stroke-linecap="round" stroke-linejoin="round" d="M1.071 19.709h5.277c4.225.01 7.645 3.437 7.645 7.663h0-5.276c-4.226-.01-7.646-3.438-7.646-7.663h0z" transform="rotate(169.97 7.532 23.54)"/>
+                        <path stroke="#A88057" stroke-linecap="round" stroke-linejoin="round" d="M4.01 22.147s4.803 1.618 10.554 4.046"/>
+                        <circle cx="25.004" cy="8.328" r="1.071" fill="#A88057"/>
+                        <circle cx="5.42" cy="8.328" r="1.071" fill="#A88057"/>
+                        <circle cx="14.863" cy="3.214" r="1.071" fill="#A88057"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
