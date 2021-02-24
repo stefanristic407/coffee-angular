@@ -113,6 +113,7 @@ export class RatingComponent implements OnInit {
             if (res.success) {
                 if (res.result && res.result[0]) {
                     this.review = res.result[0];
+                    this.infoForm.patchValue(this.review);
                     this.infoForm.get('review').setValue(this.review.comment);
                 }
             }
