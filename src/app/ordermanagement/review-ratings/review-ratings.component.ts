@@ -5,8 +5,8 @@ import { GlobalsService } from 'src/services/globals.service';
 import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
 import { OrderBookedService } from '../order-booked/order-booked.service';
-import { OrgType, OrderType, OrderStatus } from '@models';
-
+import { OrderType, OrderStatus } from '@models/order';
+import { OrgType } from '@models/organization';
 @Component({
     selector: 'app-review-ratings',
     templateUrl: './review-ratings.component.html',

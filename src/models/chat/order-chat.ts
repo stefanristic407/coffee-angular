@@ -1,4 +1,4 @@
-export enum ServiceChatTypes {
+export enum OrderChatTypes {
     RO_ES = 'RO_ES',
     RO_MR = 'RO_MR',
     ES_RO = 'ES_RO',

@@ -8,7 +8,7 @@ import { RoasterserviceService } from 'src/services/roasters/roasterservice.serv
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { stringify } from 'querystring';
-import { OrgType } from '@models';
+import { OrgType } from '@models/organization';
 @Component({
     selector: 'app-micro-order-booked',
     templateUrl: './micro-order-booked.component.html',

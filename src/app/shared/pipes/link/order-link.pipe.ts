@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { OrgType, OrderType, OrderStatus } from '@models';
+import { OrderType, OrderStatus } from '@models/order';
+import { OrgType } from '@models/organization';
 
 @Pipe({
     name: 'orderLink',

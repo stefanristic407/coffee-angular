@@ -22,7 +22,7 @@ import {
     ThreadType,
     OpenChatThread,
     RecentUserListItem,
-} from '@models';
+} from '@models/chat/message';
 
 const badwordsRegExp = require('badwords/regexp') as RegExp;
 @Component({

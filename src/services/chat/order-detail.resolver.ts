@@ -1,5 +1,5 @@
 import { CookieService } from 'ngx-cookie-service';
-import { ServiceChatTypes } from '@models';
+import { OrderChatTypes } from '@models/chat/order-chat';
 import { RoasterserviceService } from './../roasters/roasterservice.service';
 import { OrderChatService } from './order-chat.service';
 import { Observable } from 'rxjs';
@@ -12,10 +12,10 @@ export class OrderDetailsRsolver implements Resolve<any> {
     constructor(private roasterService: RoasterserviceService, private cookieService: CookieService) {}
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
         const orderId = route?.params?.orderId;
-        const chatType = route?.params?.chatType as ServiceChatTypes;
+        const chatType = route?.params?.chatType as OrderChatTypes;
         const roasterId = this.cookieService.get('roaster_id');
         return this.roasterService
-            .getViewOrderDetails(roasterId, orderId, chatType === ServiceChatTypes.RO_MR ? 'MR' : 'RO')
+            .getViewOrderDetails(roasterId, orderId, chatType === OrderChatTypes.RO_MR ? 'MR' : 'RO')
             .pipe(
                 map((res: any) => {
                     if (res.success && res.result) {

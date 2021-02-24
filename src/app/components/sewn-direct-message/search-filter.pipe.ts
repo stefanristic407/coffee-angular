@@ -1,4 +1,4 @@
-import { ThreadListItem } from '@models';
+import { ThreadListItem } from '@models/chat/message';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({

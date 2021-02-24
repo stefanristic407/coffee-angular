@@ -1,4 +1,4 @@
-export * from './message';
+export * from './chat/message';
 export * from './organization';
-export * from './order-chat';
+export * from './chat/order-chat';
 export * from './order';

@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { GlobalsService } from '@services';
 import * as _ from 'underscore';
-import { OrgType } from '@models';
+import { OrgType } from '@models/organization';
 
 @Injectable({
     providedIn: 'root',

@@ -8,7 +8,7 @@ import { SocketService } from '../socket.service';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from 'src/environments/environment';
 import { map, tap } from 'rxjs/operators';
-import { OrgType } from '@models';
+import { OrgType } from '@models/organization';
 
 @Injectable({
     providedIn: 'root',

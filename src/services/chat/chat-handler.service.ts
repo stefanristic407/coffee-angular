@@ -1,4 +1,4 @@
-import { OpenChatThread, ServiceCommunicationType, WSOrganizationType } from '@models';
+import { OpenChatThread, ServiceCommunicationType, WSOrganizationType } from '@models/chat/message';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 

@@ -7,7 +7,8 @@ import { FormService } from '@services';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
-import { OrgType, OrderType, OrderStatus } from '@models';
+import { OrderType, OrderStatus } from '@models/order';
+import { OrgType } from '@models/organization';
 
 @Component({
     selector: 'app-rating',

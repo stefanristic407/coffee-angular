@@ -1,4 +1,4 @@
-import { ServiceChatTypes } from '../../../models/order-chat';
+import { OrderChatTypes } from '../../../models/chat/order-chat';
 // AUTHOR : Sindhuja
 // PAGE DESCRIPTION : This page contains functions of Order Sample.
 import { Component, OnInit, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
@@ -54,7 +54,7 @@ export class OrderSampleComponent implements OnInit {
     countryValue: any;
     roasterId: string;
 
-    SERVICE_TYPE = ServiceChatTypes.RO_ES;
+    SERVICE_TYPE = OrderChatTypes.RO_ES;
 
     constructor(
         public sampleService: OrderSampleService,

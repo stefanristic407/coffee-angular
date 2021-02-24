@@ -20,15 +20,14 @@ import {
     ThreadMembers,
     ChatMessage,
     IncomingChatMessage,
-    DisputeChatThreadListItem,
-    OrderChatThreadListItem,
     WSChatMessageType,
     WSResponse,
     ResponseUserStatus,
     ThreadActivityType,
     ThreadType,
     WSOrganizationType,
-} from '@models';
+} from '@models/chat/message';
+import { DisputeChatThreadListItem, OrderChatThreadListItem } from '@models/chat/order-chat';
 import { ChatHandlerService, GlobalsService, SocketService, ChatUtil } from '@services';
 const badwordsRegExp = require('badwords/regexp') as RegExp;
 @Component({

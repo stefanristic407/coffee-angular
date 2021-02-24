@@ -6,7 +6,7 @@ import { RoasterserviceService } from 'src/services/roasters/roasterservice.serv
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from 'src/services/users/userservice.service';
-import { OrgType } from '@models';
+import { OrgType } from '@models/organization';
 
 @Injectable({
     providedIn: 'root',

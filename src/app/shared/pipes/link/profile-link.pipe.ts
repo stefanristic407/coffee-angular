@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { OrgType } from '@models';
+import { OrgType } from '@models/organization';
 import { environment } from '@env/environment';
 
 @Pipe({

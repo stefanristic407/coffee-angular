@@ -1,4 +1,4 @@
-import { ServiceChatTypes } from '@models';
+import { OrderChatTypes } from '@models/chat/order-chat';
 // AUTHOR : Sindhuja
 // PAGE DESCRIPTION : This page contains functions of Order Booked.
 import { Component, OnInit, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
@@ -14,7 +14,7 @@ import { UserserviceService } from 'src/services/users/userservice.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 import { ToastrService } from 'ngx-toastr';
-import { OrgType } from '@models';
+import { OrgType } from '@models/organization';
 
 @Component({
     selector: 'app-order-booked',
@@ -54,7 +54,7 @@ export class OrderBookedComponent implements OnInit {
     orderBookId: any;
     countryValue: any;
 
-    SERVICE_TYPE = ServiceChatTypes.RO_ES;
+    SERVICE_TYPE = OrderChatTypes.RO_ES;
     constructor(
         public bookedService: OrderBookedService,
         private route: ActivatedRoute,

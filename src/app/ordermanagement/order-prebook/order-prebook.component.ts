@@ -1,4 +1,4 @@
-import { ServiceChatTypes } from '../../../models/order-chat';
+import { OrderChatTypes } from '../../../models/chat/order-chat';
 // AUTHOR : Sindhuja
 // PAGE DESCRIPTION : This page contains functions of Order Pre-Book.
 import { Component, OnInit, ViewChild, ElementRef, AfterContentInit, AfterViewInit } from '@angular/core';
@@ -42,7 +42,7 @@ export class OrderPrebookComponent implements OnInit, AfterContentInit, AfterVie
     appLanguage?: any;
     orderPreBookId: any;
     countryValue: any;
-    SERVICE_TYPE = ServiceChatTypes.RO_ES;
+    SERVICE_TYPE = OrderChatTypes.RO_ES;
 
     constructor(
         public prebookService: OrderPrebookService,

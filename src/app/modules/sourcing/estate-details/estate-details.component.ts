@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from 'src/services/globals.service';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { WSOrganizationType } from '@models';
+import { WSOrganizationType } from '@models/chat/message';
 import { ChatHandlerService } from '@services';
 import { SourcingService } from '../sourcing.service';
 

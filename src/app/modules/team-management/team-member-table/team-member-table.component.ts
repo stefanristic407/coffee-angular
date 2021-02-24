@@ -9,7 +9,7 @@ import { MenuItem } from 'primeng/api';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators';
 import { ChatHandlerService } from './../../../../services/chat/chat-handler.service';
-import { WSOrganizationType } from '@models';
+import { WSOrganizationType } from '@models/chat/message';
 
 @Component({
     selector: 'app-team-member-table',

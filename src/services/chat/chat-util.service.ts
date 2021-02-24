@@ -1,4 +1,4 @@
-import { WSOrganizationType } from './../../models/message';
+import { WSOrganizationType } from '../../models/chat/message';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 

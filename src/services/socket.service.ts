@@ -1,11 +1,11 @@
-import { WSResponse, WSRequest, WSOrganizationType, WSChatMessageType } from '@models';
-import { environment } from '../environments/environment';
-import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
+import { WSResponse, WSRequest, WSOrganizationType, WSChatMessageType } from '@models/chat/message';
 import { CookieService } from 'ngx-cookie-service';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Subscription, Subject, BehaviorSubject } from 'rxjs';
 import { ChatUtil } from './chat/chat-util.service';
 import { delay, distinct, retryWhen, tap } from 'rxjs/operators';
+import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
+import { environment } from '@env/environment';
 
 @Injectable({
     providedIn: 'root',
