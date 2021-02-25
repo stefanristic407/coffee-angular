@@ -33,6 +33,10 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
     agreementfileId: any;
     newList: any = [];
     mainData: any = [];
+    sortedMainData: any = [];
+    isAscending = false;
+    isDescending = false;
+    selectedCustomers: any;
 
     @ViewChild('dismissAddModal') dismissAddModal: ElementRef;
     @ViewChild('dismissDeleteModal') dismissDeleteModal: ElementRef;
@@ -41,6 +45,7 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
     deleteAgreementId: any;
     isUpdate: boolean;
     itemId: any;
+    sortColumnName: string;
 
     constructor(
         public router: Router,
@@ -101,6 +106,7 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
         this.roasterService.getAgreements(this.roasterId, this.customerType).subscribe((resp: any) => {
             if (resp.success) {
                 this.mainData = resp.result;
+                this.sortedMainData = this.mainData.sort((a, b) => b.created_at.localeCompare(a.created_at));
             } else {
                 this.toastrService.error('Error while getting the agreement list!');
             }
@@ -117,6 +123,15 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
                         this.newList.push(element);
                     }
                 });
+                this.newList = this.newList.map((item) => {
+                    const transformItem = { label: '', value: '' };
+                    transformItem.label = item.name;
+                    transformItem.value = item.name;
+                    return transformItem;
+                });
+                const allOption = { label: 'All', value: 'All' };
+                this.newList.push(allOption);
+                this.newList = this.newList.sort((a, b) => a.label.localeCompare(b.label));
             } else {
                 this.toastrService.error('Error while getting HoReCa list');
             }
@@ -133,6 +148,15 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
                         this.newList.push(element);
                     }
                 });
+                this.newList = this.newList.map((item) => {
+                    const transformItem = { label: '', value: '' };
+                    transformItem.label = item.name;
+                    transformItem.value = item.name;
+                    return transformItem;
+                });
+                const allOption = { label: 'All', value: 'All' };
+                this.newList.push(allOption);
+                this.newList = this.newList.sort((a, b) => a.label.localeCompare(b.label));
             } else {
                 this.toastrService.error('Error while getting HoReCa list');
             }
@@ -181,6 +205,14 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
 
     setOrigin(origindata: any) {
         this.estatetermOrigin = origindata;
+    }
+
+    filterAgrements() {
+        if (!this.selectedCustomers || this.selectedCustomers === 'All') {
+            this.sortedMainData = this.mainData;
+        } else {
+            this.sortedMainData = this.mainData.filter(item => item.customer_name === this.selectedCustomers);
+        }
     }
 
     uploadFile(event: any) {
@@ -271,5 +303,25 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
                 this.toastrService.error('Error while deleting the agreement');
             }
         });
+    }
+
+    onAscendingSort(columnName: string) {
+        this.sortColumnName = columnName;
+        this.sortedMainData = this.sortedMainData.sort((a, b) => a[columnName].localeCompare(b[columnName]));
+        this.isAscending = true;
+        this.isDescending = false;
+    }
+
+    onDescendingSort(columnName: string) {
+        this.sortColumnName = columnName;
+        this.sortedMainData = this.sortedMainData.sort((a, b) => b[columnName].localeCompare(a[columnName]));
+        this.isAscending = false;
+        this.isDescending = true;
+    }
+
+    onDefaultSort() {
+        this.sortedMainData = this.sortedMainData.sort((a, b) => b.created_at.localeCompare(a.created_at));
+        this.isAscending = false;
+        this.isDescending = false;
     }
 }
