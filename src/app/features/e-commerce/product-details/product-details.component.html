@@ -31,12 +31,12 @@
             </div>
             <div class="col-12 col-sm-12 col-md-12 row d-flex d-sm-flex d-md-none pr-0">
                 <div class="col-6 d-flex align-items-center">
-                    <span class="primary_txt">Product Visibility : </span>
+                    <span class="primary_txt font-14">Product Visibility : </span>
                 </div>
                 <div class="col-6 p-0">
                     <div class="btn-group toggleDiv float-right">
                         <div
-                            class="btn"
+                            class="btn disbableBtn"
                             [ngClass]="productForm['controls']['is_public']['value'] ? 'enableBtn' : ''"
                             id="activeStatus"
                             (click)="togglePublic(true)"
@@ -44,7 +44,7 @@
                             Active
                         </div>
                         <div
-                            class="btn"
+                            class="btn disbableBtn"
                             (click)="togglePublic(false)"
                             [ngClass]="!productForm['controls']['is_public']['value'] ? 'enableBtn' : ''"
                             id="disableStatus"
@@ -88,7 +88,7 @@
             </div>
         </div>
         <div class="divSeperator"></div>
-        <div class="row mb-5">
+        <div class="row no-gutters mb-5">
             <div class="col-12">
                 <span class="primary_txt">Variants</span>
             </div>
@@ -211,15 +211,15 @@
                             <div class="col-12 mb-3">
                                 <span class="primary_txt">Tasting notes</span>
                             </div>
-                            <div class="col-6 col-sm-6 col-md-2 sewn-form-field w-100">
+                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
                                 <label>Body<span class="star">*</span></label>
                                 <input type="text" readonly formControlName="body" pInputText />
                             </div>
-                            <div class="col-6 col-sm-6 col-md-2 sewn-form-field w-100">
+                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
                                 <label>Acidity<span class="star">*</span></label>
                                 <input type="text" readonly formControlName="acidity" pInputText />
                             </div>
-                            <div class="col-6 col-sm-6 col-md-2 sewn-form-field w-100">
+                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
                                 <label>Aroma<span class="star">*</span></label>
                                 <input type="text" readonly formControlName="aroma" pInputText />
                             </div>
@@ -273,7 +273,7 @@
                             <div class="col-12 mb-3">
                                 <span class="primary_txt">Recommended brewing method</span>
                             </div>
-                            <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
                                 <label>Select a brewing method<span class="star">*</span></label>
                                 <p-dropdown
                                     [options]="brewingMethodArray"
@@ -288,7 +288,7 @@
                                     Required
                                 </small>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 sewn-form-field w-100">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
                                 <div>
                                     <label>Recommendation text<span class="star">*</span></label>
                                     <label class="float-right">0/10 words</label>

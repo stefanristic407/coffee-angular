@@ -146,6 +146,10 @@ export class VisitUsComponent implements OnInit {
             const postData = {
                 ...this.questionForm.value,
                 status: 'ENABLED',
+                sort_priority:
+                    this.selQuestion == null
+                        ? this.savedFaqArray.length + 1
+                        : this.savedFaqArray[this.selQuestion].sort_priority,
             };
             if (this.selQuestion == null) {
                 this.userService.addFAQ(this.roasterId, postData).subscribe(

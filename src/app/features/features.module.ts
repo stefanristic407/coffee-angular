@@ -28,7 +28,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-experience.component';
 import { SocialMediaPostsComponent } from './Farm Link/social-media-posts/social-media-posts.component';
-import { FileShareComponent } from './Farm Link/file-share/file-share.component';
 import { AgreementComponent } from './Farm Link/agreement/agreement.component';
 
 import { MatChipsModule } from '@angular/material/chips';
@@ -42,24 +41,13 @@ import { AboutRoasteryComponent } from './roastery-profile/about-roastery/about-
 import { RoasteryProfileComponent } from './roastery-profile/roastery-profile.component';
 import { ProfilePhotoComponent } from './roastery-profile/profile-photo/profile-photo.component';
 import { ReviewsComponent } from './roastery-profile/reviews/reviews.component';
-import { FileShareDetailsComponent } from './Farm Link/file-share/file-share-details/file-share-details.component';
-import { MyfilesComponent } from './Farm Link/file-share/myfiles/myfiles.component';
-import { SharewithmeComponent } from './Farm Link/file-share/sharewithme/sharewithme.component';
-import { DocumentFileComponent } from './Farm Link/file-share/file-share-details/document-file/document-file.component';
-import { VideoFileComponent } from './Farm Link/file-share/file-share-details/video-file/video-file.component';
-import { DocumentTableComponent } from './Farm Link/file-share/file-share-details/document-table/document-table.component';
-import { VideoTableComponent } from './Farm Link/file-share/file-share-details/video-table/video-table.component';
 import { ProfileLicenseComponent } from './profile-edit/profile-license/profile-license.component';
 import { NotificationComponent } from './notification/notification.component';
 import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/roastery-license.component';
 import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
-import { RoastedCoffeeBatchesComponent } from './e-commerce/roasted-coffee-batches/roasted-coffee-batches.component';
-import { NewRoastedBatchComponent } from './e-commerce/new-roasted-batch/new-roasted-batch.component';
+
 import { AddProductComponent } from './e-commerce/add-product/add-product.component';
-import { CreateRoastingProfileComponent } from './e-commerce/create-roasting-profile/create-roasting-profile.component';
 import { ProductsTableComponent } from './e-commerce/products-table/products-table.component';
-import { RoastingProfilesComponent } from './e-commerce/roasting-profiles/roasting-profiles.component';
-import { SelectOrderTableComponent } from './e-commerce/select-order-table/select-order-table.component';
 import { CuppingReportComponent } from './green-grading/cupping-report/cupping-report.component';
 import { CuppingServiceComponent } from './green-grading/cupping-report/cupping-service/cupping-service.component';
 import { GenerateNewReportComponent } from './green-grading/cupping-report/generate-new-report/generate-new-report.component';
@@ -89,8 +77,7 @@ import { ForumComponent } from './Farm Link/q-a-forum/forum/forum.component';
 import { MyAnswersComponent } from './Farm Link/q-a-forum/my-answers/my-answers.component';
 import { BatchSelectAnOrderComponent } from './batch-select-an-order/batch-select-an-order.component';
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
-import { HorecaAgreementsComponent } from './Farm Link/agreement/horeca-agreements/horeca-agreements.component';
-import { MicroRoasterAgreementsComponent } from './Farm Link/agreement/micro-roaster-agreements/micro-roaster-agreements.component';
+import { RoasterAgreementsComponent } from './Farm Link/agreement/roaster-agreements/roaster-agreements.component';
 import { EstateOrdersComponent } from './Farm Link/coffee-experience/estate-orders/estate-orders.component';
 import { MicroRoasterOrdersComponent } from './Farm Link/coffee-experience/micro-roaster-orders/micro-roaster-orders.component';
 import { HorecaOrdersComponent } from './Farm Link/coffee-experience/horeca-orders/horeca-orders.component';
@@ -129,7 +116,6 @@ import { ListboxModule } from 'primeng/listbox';
         LanguageRegionComponent,
         CoffeeExperienceComponent,
         SocialMediaPostsComponent,
-        FileShareComponent,
         AgreementComponent,
         ResetPasswordComponent,
         CofeeExpeienceDetailsComponent,
@@ -140,24 +126,12 @@ import { ListboxModule } from 'primeng/listbox';
         AboutRoasteryComponent,
         ProfilePhotoComponent,
         ReviewsComponent,
-        FileShareDetailsComponent,
-        MyfilesComponent,
-        SharewithmeComponent,
-        DocumentFileComponent,
-        VideoFileComponent,
-        DocumentTableComponent,
-        VideoTableComponent,
         ProfileLicenseComponent,
         NotificationComponent,
         RoasteryLicenseComponent,
         RoasterOnboardComponent,
-        RoastedCoffeeBatchesComponent,
-        NewRoastedBatchComponent,
         AddProductComponent,
-        CreateRoastingProfileComponent,
         ProductsTableComponent,
-        RoastingProfilesComponent,
-        SelectOrderTableComponent,
         CuppingReportComponent,
         CuppingServiceComponent,
         GenerateNewReportComponent,
@@ -187,8 +161,7 @@ import { ListboxModule } from 'primeng/listbox';
         MyAnswersComponent,
         BatchSelectAnOrderComponent,
         SuccessfulPageComponent,
-        HorecaAgreementsComponent,
-        MicroRoasterAgreementsComponent,
+        RoasterAgreementsComponent,
         EstateOrdersComponent,
         MicroRoasterOrdersComponent,
         HorecaOrdersComponent,
@@ -222,4 +195,4 @@ import { ListboxModule } from 'primeng/listbox';
         ListboxModule,
     ],
 })
-export class FeaturesModule {}
+export class FeaturesModule { }

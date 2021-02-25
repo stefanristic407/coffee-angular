@@ -1,0 +1,407 @@
+<section>
+    <div class="main-block">
+        <div class="row pb-3">
+            <div class="col-10">
+                <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-8 col-lg-8">
+                <div class="row mt-4 pb-2">
+                    <div class="col-12">
+                        <span class="primary_txt mb-1">{{ globals.languageJson?.create_roasted_batch }}</span>
+                    </div>
+                </div>
+                <div class="mt-4 pb-2" [formGroup]="batchForm" (ngSubmit)="onSave()" novalidate>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-10 col-xl-10 sewn-form-field w-100">
+                            <label>Roast batch name<span class="star">*</span></label>
+                            <input
+                                type="text"
+                                placeholder="Enter a roast batch name"
+                                formControlName="roast_batch_name"
+                                pInputText
+                            />
+                            <small *ngIf="batchForm.controls['roast_batch_name'].errors?.required" class="p-error">
+                                Required
+                            </small>
+                        </div>
+                    </div>
+                    <div class="row mt-md-4 mt-2">
+                        <div class="col-12 mb-1">
+                            <span class="primary_txt mb-1">{{ globals.languageJson?.order_id }}*</span>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <span class="fnt-14 fnt-muli black fnt-normal mb-3"
+                                >Select the order through which the green coffee was procured</span
+                            >
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+                            <div class="sample_info">
+                                <div class="info_heading d-flex cursor-pointer" (click)="selectOrder()">
+                                    <div class="pull-left secondary_txt" *ngIf="ordId == ''">Select the order</div>
+                                    <div class="pull-left secondary_txt" *ngIf="ordId != ''">{{ ordId }}</div>
+                                    <div class="ml-auto pull-right">
+                                        <img class="pl-1" src="assets/images/arrow-1.png" alt="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div
+                            class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 sewn-form-field w-100"
+                            *ngIf="ordId != 'select the order'"
+                        >
+                            <label>Roaster ref no</label>
+                            <input type="number" placeholder="" formControlName="roaster_ref_no" pInputText />
+                            <small *ngIf="batchForm.controls['roaster_ref_no'].errors?.required" class="p-error">
+                                Required
+                            </small>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 sewn-form-field w-100">
+                            <label>Batch Ref no.</label>
+                            <input
+                                type="number"
+                                placeholder="Enter a new batch number"
+                                formControlName="batch_ref_no"
+                                pInputText
+                            />
+                            <small *ngIf="batchForm.controls['batch_ref_no'].errors?.required" class="p-error">
+                                Required
+                            </small>
+                        </div>
+                    </div>
+                    <div class="d-block d-sm-block d-md-none" *ngIf="ordId && batchId">
+                        <div class="mt-4 order_details_card">
+                            <div class="fnt-16 fnt-muli fnt-700 black mb-3">Order details</div>
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex">
+                                    <div class="p-0">
+                                        <img
+                                            *ngIf="orderDetails.estate_profile_image_thumbnail_url == ''"
+                                            src="assets/images/profile.svg"
+                                            alt="User"
+                                            class="img-estate profile-pic"
+                                        />
+                                        <img
+                                            *ngIf="orderDetails.estate_profile_image_thumbnail_url != ''"
+                                            src="{{ orderDetails.estate_profile_image_thumbnail_url }}"
+                                            alt="User"
+                                            class="img-estate profile-pic"
+                                        />
+                                    </div>
+                                    <div>
+                                        <ul class="details-list p-0 ml-2 ml-md-3">
+                                            <li class="estate-name fnt-muli black fnt-600 fnt-14">
+                                                {{ orderDetails.estate_owner }}
+                                            </li>
+                                            <li class="estate-number fnt-muli fnt-600 fnt-12 pt-1">Coffee Estate</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p>
+                                        <span class="cursor-pointer">
+                                            <img src="assets/images/star-1.png" alt="User" />
+                                            <span class="star-no pl-1"> {{ rating }}</span>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <table class="mtable">
+                                    <tr>
+                                        <td class="fnt-14 fnt-multi fnt-bold text-clr588">Origin</td>
+                                        <td class="fnt-14 fnt-multi fnt-bold text-clr334">
+                                            {{ orderDetails.origin | country }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fnt-14 fnt-multi fnt-bold text-clr588">Variety</td>
+                                        <td class="fnt-14 fnt-multi fnt-bold text-clr334">
+                                            {{ orderDetails.variety | titlecase }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fnt-14 fnt-multi fnt-bold text-clr588">Price</td>
+                                        <td class="fnt-14 fnt-multi fnt-bold text-clr334">
+                                            ${{ orderDetails.price }} USD/kg
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fnt-14 fnt-multi fnt-bold text-clr588">Quantity</td>
+                                        <td class="fnt-14 fnt-multi fnt-bold text-clr334">
+                                            {{ orderDetails.quantity }} Kg
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fnt-14 fnt-multi fnt-bold text-clr588">Date recieved</td>
+                                        <td class="fnt-14 fnt-multi fnt-bold text-clr334">
+                                            {{ orderDetails.created_at | date: 'd MMM y' }}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 sewn-form-field w-100">
+                            <label>Select roasting profile<span class="star">*</span></label>
+                            <p-dropdown
+                                [options]="roastProfileArray"
+                                optionLabel="label"
+                                placeholder="Select the roasting profile"
+                                [style]="{ width: '100%' }"
+                                formControlName="roasting_profile_id"
+                                optionValue="value"
+                            ></p-dropdown>
+                            <small *ngIf="batchForm.controls['roasting_profile_id'].errors?.required" class="p-error">
+                                Required
+                            </small>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-5 col-lg-5 col-xl-5 sewn-form-field w-100">
+                            <label>Quantity after roasted<span class="star">*</span></label>
+                            <div class="input-group weightInputGroupDiv">
+                                <input
+                                    type="number"
+                                    class="weightInputDiv"
+                                    formControlName="roasting_profile_quantity"
+                                    pInputText
+                                />
+
+                                <div class="input-group-append">
+                                    <p-dropdown
+                                        [options]="weightTypeArray"
+                                        optionLabel="label"
+                                        placeholder=""
+                                        [style]="{ width: '100%', border: '0px' }"
+                                        formControlName="roasting_profile_unit"
+                                        optionValue="value"
+                                    >
+                                    </p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 pt-md-1 pb-3">
+                            <span class="fnt-18 fnt-muli fnt-700 black pt-2">{{
+                                globals.languageJson?.tasting_notes
+                            }}</span>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 sewn-form-field w-100">
+                            <label>Aroma<span class="star">*</span></label>
+                            <input type="number" placeholder="Enter a number" formControlName="aroma" pInputText />
+                            <small *ngIf="batchForm.controls['aroma'].errors?.required" class="p-error">
+                                Required
+                            </small>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 sewn-form-field w-100">
+                            <label>Acidity<span class="star">*</span></label>
+                            <input type="number" placeholder="Enter a number" formControlName="acidity" pInputText />
+                            <small *ngIf="batchForm.controls['acidity'].errors?.required" class="p-error">
+                                Required
+                            </small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 sewn-form-field w-100">
+                            <label>Body<span class="star">*</span></label>
+                            <input type="number" placeholder="Enter a number" formControlName="body" pInputText />
+                            <small *ngIf="batchForm.controls['body'].errors?.required" class="p-error">
+                                Required
+                            </small>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 sewn-form-field w-100">
+                            <label>Flavour<span class="star">*</span></label>
+                            <input type="number" placeholder="Enter a number" formControlName="flavour" pInputText />
+                            <small *ngIf="batchForm.controls['flavour'].errors?.required" class="p-error">
+                                Required
+                            </small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 sewn-form-field w-100">
+                            <label>Processing<span class="star">*</span></label>
+                            <input type="text" placeholder="" formControlName="processing" pInputText />
+                            <small *ngIf="batchForm.controls['processing'].errors?.required" class="p-error">
+                                Required
+                            </small>
+                        </div>
+                    </div>
+                    <div class="row pt-md-3 pb-4">
+                        <div class="col-12 pb-2">
+                            <span class="fnt-14 fnt-muli fnt-600 black"
+                                >Flavour profile<span class="star">*</span></span
+                            >
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <a
+                                class="pointer-item"
+                                [popover]="allTemplate"
+                                placement="right"
+                                [outsideClick]="true"
+                                container="body"
+                                #pop2="bs-popover"
+                            >
+                                <span class="share-bor"
+                                    ><img src="assets/images/region-plus.svg" alt="farm" class="dwnd-img" /><span
+                                        class="share-txt ml-1"
+                                    >
+                                        Add Descriptors
+                                    </span></span
+                                >
+                            </a>
+                            <div class="chips">
+                                <mat-chip-list #chipList aria-label="language" class="desk-chips">
+                                    <mat-chip
+                                        *ngFor="let language of langChips"
+                                        [selectable]="selectable"
+                                        [removable]="removable"
+                                        (removed)="remove(language)"
+                                        >{{ language.name }}
+                                        <img
+                                            *ngIf="removable"
+                                            class="cross-icon"
+                                            src="assets/images/cross-white.svg"
+                                            (click)="remove(language)"
+                                        />
+                                    </mat-chip>
+                                </mat-chip-list>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 sewn-form-field w-100">
+                            <label>Roaster Notes<span class="star">*</span></label>
+                            <textarea
+                                type="text"
+                                class="descriptionText-area"
+                                placeholder="Please give a small comment/ description"
+                                formControlName="roaster_notes"
+                                pInputText
+                            ></textarea>
+                            <small *ngIf="batchForm.controls['roaster_notes'].errors?.required" class="p-error">
+                                Required
+                            </small>
+                        </div>
+                    </div>
+                    <div class="row mt-4 d-none d-sm-none d-md-flex">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                            <button
+                                type="button"
+                                class="btn btn-stroked"
+                                [routerLink]="['/roasted-coffee-batch/roasted-coffee-batchs']"
+                            >
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn btn-raised ml-4" (click)="onSave()">Save</button>
+                        </div>
+                    </div>
+                    <div class="row mt-2 d-block d-sm-block d-md-none">
+                        <div class="col-12 col-sm-12">
+                            <button type="submit" class="btn btn-raised w-100" (click)="onSave()">Save</button>
+                        </div>
+                        <div class="col-12 col-sm-12 mt-3">
+                            <button
+                                type="button"
+                                class="btn btn-stroked w-100"
+                                [routerLink]="['/roasted-coffee-batch/roasted-coffee-batchs']"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4 col-lg-4 d-none d-sm-none d-md-block" *ngIf="ordId && batchId">
+                <p class="primary_txt pt-2 pt-md-4">{{ globals.languageJson?.order_details }}</p>
+                <div class="order-details-clr">
+                    <div class="row mt-3">
+                        <div class="p-0">
+                            <img
+                                *ngIf="orderDetails.estate_profile_image_thumbnail_url == ''"
+                                src="assets/images/profile.svg"
+                                alt="User"
+                                class="img-estate profile-pic"
+                            />
+                            <img
+                                *ngIf="orderDetails.estate_profile_image_thumbnail_url != ''"
+                                src="{{ orderDetails.estate_profile_image_thumbnail_url }}"
+                                alt="User"
+                                class="img-estate profile-pic"
+                            />
+                        </div>
+                        <div class="pull-left">
+                            <ul class="details-list p-0 ml-2 ml-md-3">
+                                <li class="estate-name fnt-muli black fnt-600 fnt-14">
+                                    {{ orderDetails.estate_owner }}
+                                </li>
+                                <li class="estate-number fnt-muli fnt-600 fnt-12 pt-1">Coffee Estate</li>
+                            </ul>
+                        </div>
+                        <div class="pull-right ml-auto">
+                            <p>
+                                <span class="cursor-pointer">
+                                    <img src="assets/images/star-1.png" alt="User" />
+                                    <span class="star-no pl-1"> {{ rating }}</span>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row pt-3">
+                        <table class="recent-time">
+                            <tr>
+                                <td><span class="list-que"> Origin : </span></td>
+                                <td class="recent-data-ans">
+                                    <span class="list-ans">
+                                        {{ orderDetails.origin | country }}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="list-que"> Variety : </span></td>
+                                <td class="recent-data-ans">
+                                    <span class="list-ans"> {{ orderDetails.variety | titlecase }} </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="list-que"> Price : </span></td>
+                                <td class="recent-data-ans">
+                                    <span class="list-ans"> ${{ orderDetails.price }} USD/kg </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="list-que"> Quantity : </span></td>
+                                <td class="recent-data-ans">
+                                    <span class="list-ans"> {{ orderDetails.quantity }} Kg </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="list-que"> Date recieved: </span></td>
+                                <td class="recent-data-ans">
+                                    <span class="list-ans"> {{ orderDetails.created_at | date: 'd MMM y' }} </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-template #allTemplate>
+            <div id="status-content">
+                <ul class="list-group custom-popover">
+                    <li *ngFor="let flavours of roasterFlavourProfile" class="list-group-item item-color">
+                        <a class="pointer-item" (click)="addLang(flavours); pop2.hide()">{{ flavours.name }}</a>
+                    </li>
+                </ul>
+            </div>
+        </ng-template>
+    </div>
+</section>

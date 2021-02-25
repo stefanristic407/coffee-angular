@@ -4,21 +4,12 @@ import { AuthGuard } from '../guards/auth.guard';
 import { ChatNotificationComponent } from './chat-notification/chat-notification.component';
 import { OnboardCustomersComponent } from './onboard-customers/onboard-customers.component';
 import { AddProductComponent } from './e-commerce/add-product/add-product.component';
-import { CreateRoastingProfileComponent } from './e-commerce/create-roasting-profile/create-roasting-profile.component';
-import { NewRoastedBatchComponent } from './e-commerce/new-roasted-batch/new-roasted-batch.component';
 import { ProductsTableComponent } from './e-commerce/products-table/products-table.component';
-import { RoastedCoffeeBatchesComponent } from './e-commerce/roasted-coffee-batches/roasted-coffee-batches.component';
-import { RoastingProfilesComponent } from './e-commerce/roasting-profiles/roasting-profiles.component';
-import { SelectOrderTableComponent } from './e-commerce/select-order-table/select-order-table.component';
 import { FDirectMessagingComponent } from './f-direct-messaging/f-direct-messaging.component';
 import { AgreementComponent } from './Farm Link/agreement/agreement.component';
 import { BlogDetailsComponent } from './Farm Link/blog-details/blog-details.component';
 import { CofeeExpeienceDetailsComponent } from './Farm Link/cofee-expeience-details/cofee-expeience-details.component';
 import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-experience.component';
-import { FileShareDetailsComponent } from './Farm Link/file-share/file-share-details/file-share-details.component';
-import { FileShareComponent } from './Farm Link/file-share/file-share.component';
-import { MyfilesComponent } from './Farm Link/file-share/myfiles/myfiles.component';
-import { SharewithmeComponent } from './Farm Link/file-share/sharewithme/sharewithme.component';
 import { QAForumComponent } from './Farm Link/q-a-forum/q-a-forum.component';
 import { SocialMediaPostsComponent } from './Farm Link/social-media-posts/social-media-posts.component';
 import { FeaturesComponent } from './features.component';
@@ -151,11 +142,6 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'file-share',
-                component: FileShareComponent,
-                canActivate: [AuthGuard],
-            },
-            {
                 path: 'social-media',
                 component: SocialMediaPostsComponent,
                 canActivate: [AuthGuard],
@@ -200,26 +186,6 @@ const routes: Routes = [
                 ],
             },
             {
-                path: 'my-files',
-                component: MyfilesComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'share',
-                component: SharewithmeComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'file-share-details',
-                component: FileShareDetailsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'file-share-details/:folderId',
-                component: FileShareDetailsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
                 path: 'notification',
                 component: NotificationComponent,
                 canActivate: [AuthGuard],
@@ -234,16 +200,7 @@ const routes: Routes = [
                 component: RoasterOnboardComponent,
                 canActivate: [AuthGuard],
             },
-            {
-                path: 'roasted-coffee-batch',
-                component: RoastedCoffeeBatchesComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'new-roasted-batch',
-                component: NewRoastedBatchComponent,
-                canActivate: [AuthGuard],
-            },
+
             {
                 path: 'add-product',
                 component: AddProductComponent,
@@ -254,11 +211,7 @@ const routes: Routes = [
                 component: AddProductComponent,
                 canActivate: [AuthGuard],
             },
-            {
-                path: 'create-roasting-profile',
-                component: CreateRoastingProfileComponent,
-                canActivate: [AuthGuard],
-            },
+
             {
                 path: 'products-list',
                 component: ProductListComponent,
@@ -272,16 +225,6 @@ const routes: Routes = [
             {
                 path: 'new-product/:id',
                 component: ProductDetailsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'select-order-list',
-                component: SelectOrderTableComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'roasting-profile',
-                component: RoastingProfilesComponent,
                 canActivate: [AuthGuard],
             },
             {

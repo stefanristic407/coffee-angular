@@ -55,10 +55,21 @@ export const routes: Routes = [
                     import('./modules/brand-profile/brand-profile.module').then((m) => m.BrandProfileModule),
             },
             {
+                path: 'file-share',
+                loadChildren: () => import('./modules/file-share/file-share.module').then((m) => m.FileShareModule),
+            },
+            {
                 path: 'green-coffee-management',
                 loadChildren: () =>
                     import('./modules/green-coffee-management/green-coffee-management.module').then(
                         (m) => m.GreenCoffeeManagementModule,
+                    ),
+            },
+            {
+                path: 'roasted-coffee-batch',
+                loadChildren: () =>
+                    import('./modules/roasted-coffee-batch/roasted-coffee-batch.module').then(
+                        (m) => m.RoastedCoffeeBatchModule,
                     ),
             },
         ],
