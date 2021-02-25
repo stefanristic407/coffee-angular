@@ -8,18 +8,17 @@ import { RoasterserviceService } from 'src/services/roasters/roasterservice.serv
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from 'src/services/globals.service';
 import { RoasteryProfileService } from '../../roastery-profile/roastery-profile.service';
+
 @Component({
 	selector: 'app-agreement',
 	templateUrl: './agreement.component.html',
 	styleUrls: ['./agreement.component.css']
 })
 export class AgreementComponent implements OnInit {
+
 	appLanguage: any;
-	// agreementsActive: any;
 	searchTerm: any;
 	customerType: string;
-	// isHoreca = false;
-	// isMicroRoaster = false;
 	roasterId: string;
 	mainData: any;
 

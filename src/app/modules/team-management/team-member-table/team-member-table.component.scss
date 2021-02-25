@@ -278,13 +278,16 @@
         padding: 0px !important;
     }
     .mobileData {
-        padding: 1rem 1rem;
+        padding: 1rem 1rem !important;
     }
     ::ng-deep .userTable .p-datatable.p-datatable-responsive .p-datatable-tbody > tr {
         padding: 0px;
     }
     ::ng-deep .userTable .p-datatable.p-datatable-responsive .p-datatable-tbody > tr > td {
         border-bottom: 0px !important;
+    }
+    ::ng-deep .userTable .p-datatable.p-datatable-responsive .p-datatable-tbody > tr > .emailMobileClass {
+        border-bottom: 1px dashed #d6d6d6 !important;
     }
 
     .mobileLable {
