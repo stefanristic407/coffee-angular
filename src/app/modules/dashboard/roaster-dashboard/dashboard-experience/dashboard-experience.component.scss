@@ -16,7 +16,7 @@
         }
         @media (min-width: 767px) and (max-width: 992px) {
             position: absolute;
-            padding: 0% 24%;
+            padding: 0 22% 0 30%;
         }
     }
 
@@ -73,4 +73,12 @@
 .fnt-md-18 {
     font-size: 18px;
     line-height: 22px;
+}
+
+.fnt-12-md-only {
+    @media (min-width: 767px) and (max-width: 992px) {
+        font-size: 12px !important;
+        line-height: normal;
+        max-width: 225px;
+    }
 }

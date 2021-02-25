@@ -7,7 +7,7 @@
             <p-table
                 *ngIf="recentActivities"
                 #activeDT
-                styleClass="table w-100"
+                styleClass="w-100"
                 [value]="recentActivities.slice(0, 5)"
                 [(selection)]="selectedMetaData"
                 dataKey="name"
