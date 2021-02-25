@@ -1,8 +1,6 @@
-import { first, map } from 'rxjs/operators';
 /* tslint:disable no-string-literal */
-import { Subscription, Observable, Subject } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { CookieService } from 'ngx-cookie-service';
+import { first } from 'rxjs/operators';
+import { Subscription, Subject } from 'rxjs';
 import {
     Component,
     OnInit,
@@ -22,10 +20,8 @@ import {
     IncomingChatMessage,
     WSChatMessageType,
     WSResponse,
-    ResponseUserStatus,
     ThreadActivityType,
     ThreadType,
-    WSOrganizationType,
 } from '@models/chat/message';
 import { DisputeChatThreadListItem, OrderChatThreadListItem } from '@models/chat/order-chat';
 import { ChatHandlerService, GlobalsService, SocketService, ChatUtil } from '@services';
@@ -40,9 +36,6 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     @Input() orderDisputes: DisputeChatThreadListItem;
     @Output() threadUsers: EventEmitter<ThreadMembers[]> = new EventEmitter<ThreadMembers[]>();
 
-    ORGANIZATION_ID: number | null = null;
-    ORGANIZATION_TYPE = WSOrganizationType.ROASTER;
-    USER_ID: number | null = null;
     messageList: ChatMessage[] = [];
     organizedMessages: any[] = [];
     threadDetails: ThreadListItem = null;
@@ -62,7 +55,6 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     lastMessageRendered = new Subject();
 
     constructor(
-        private cookieService: CookieService,
         public globals: GlobalsService,
         public chatService: ChatHandlerService,
         private socket: SocketService,
@@ -72,50 +64,36 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     ) {}
 
     ngOnInit(): void {
-        this.ORGANIZATION_ID = parseInt(this.cookieService.get('roaster_id'), 10) || null; // NOTE : Please check this on each portal;
-        this.USER_ID = parseInt(this.cookieService.get('user_id'), 10) || null; // NOTE : Please check this on each portal;
-
-        if (!this.USER_ID) {
-            console.log('Order chat Message: USER_ID is missing');
-        }
-
-        if (!this.ORGANIZATION_ID) {
-            console.log('Order chat Message: ORGANIZATION_ID is missing');
-        }
-        this.initializeWebSocket();
+        this.SM['WSState'] = this.socket.socketState.subscribe((value) => {
+            if (value === 'CONNECTED') {
+                this.initializeWebSocket();
+            }
+        });
     }
 
     initializeWebSocket() {
         if (this.SM['WSSubscription'] && this.SM['WSSubscription'].unsubscribe) {
             this.SM['WSSubscription'].unsubscribe();
         }
-        this.SM['WSSubscription'] = this.socket.orderChatReceive
-            .pipe(
-                catchError((err: any, caught: Observable<any>) => {
-                    console.log('Error in WebScoket ', err);
-                    return caught;
-                }),
-                // retry(5), // REVIEW  Retry if the connection failed due to packet missing errors
-            )
-            .subscribe((WSmsg: WSResponse<unknown>) => {
-                if (this.TIMESTAMP_MAP[WSmsg.type] === WSmsg.timestamp) {
-                    if (WSmsg.type === WSChatMessageType.threads) {
-                        // this.handleThreadsResponse(WSmsg as WSResponse<ThreadListItem[]>);
-                    } else if (WSmsg.type === WSChatMessageType.unread) {
-                        // this.handleUnReadResponse(WSmsg as WSResponse<null>);
-                    } else if (WSmsg.type === WSChatMessageType.users) {
-                        // this.handleUserDetailResponse(WSmsg as WSResponse<ResponseUserStatus[]>);
-                    } else if (WSmsg.type === WSChatMessageType.history) {
-                        this.handleThreadHistory(WSmsg as WSResponse<ChatMessage[]>);
-                    } else if (WSmsg.type === WSChatMessageType.message) {
-                        this.handleIncomingMessages(WSmsg as WSResponse<IncomingChatMessage>);
-                    } else if (WSmsg.type === WSChatMessageType.getCreate) {
-                        // this.handleFindThreadRequest(WSmsg as WSResponse<ThreadListItem[]>);
-                    } else if (WSmsg.type === WSChatMessageType.thread) {
-                        this.handleRequestedThreadDetails(WSmsg as WSResponse<ThreadListItem>);
-                    }
+        this.SM['WSSubscription'] = this.socket.orderChatReceive.subscribe((WSmsg: WSResponse<unknown>) => {
+            if (this.TIMESTAMP_MAP[WSmsg.type] === WSmsg.timestamp) {
+                if (WSmsg.type === WSChatMessageType.threads) {
+                    // this.handleThreadsResponse(WSmsg as WSResponse<ThreadListItem[]>);
+                } else if (WSmsg.type === WSChatMessageType.unread) {
+                    // this.handleUnReadResponse(WSmsg as WSResponse<null>);
+                } else if (WSmsg.type === WSChatMessageType.users) {
+                    // this.handleUserDetailResponse(WSmsg as WSResponse<ResponseUserStatus[]>);
+                } else if (WSmsg.type === WSChatMessageType.history) {
+                    this.handleThreadHistory(WSmsg as WSResponse<ChatMessage[]>);
+                } else if (WSmsg.type === WSChatMessageType.message) {
+                    this.handleIncomingMessages(WSmsg as WSResponse<IncomingChatMessage>);
+                } else if (WSmsg.type === WSChatMessageType.getCreate) {
+                    // this.handleFindThreadRequest(WSmsg as WSResponse<ThreadListItem[]>);
+                } else if (WSmsg.type === WSChatMessageType.thread) {
+                    this.handleRequestedThreadDetails(WSmsg as WSResponse<ThreadListItem>);
                 }
-            });
+            }
+        });
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -187,9 +165,9 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
             mem = this.processThreadUser(mem);
             if (!mem.is_removed) {
                 if (
-                    mem.org_type === this.ORGANIZATION_TYPE &&
-                    mem.org_id === this.ORGANIZATION_ID &&
-                    mem.user_id === this.USER_ID
+                    mem.org_type === this.chatUtil.ORGANIZATION_TYPE &&
+                    mem.org_id === this.chatUtil.ORGANIZATION_ID &&
+                    mem.user_id === this.chatUtil.USER_ID
                 ) {
                     activeUser.push(mem);
                 } else {

@@ -14,6 +14,7 @@ export class ChatHandlerService {
     public isOpen = new BehaviorSubject<boolean>(false);
     public userSearch = new BehaviorSubject<boolean>(false);
     public isExpand = new BehaviorSubject<boolean>(false);
+    public unReadCount = new BehaviorSubject<number>(0);
 
     constructor() {}
 
