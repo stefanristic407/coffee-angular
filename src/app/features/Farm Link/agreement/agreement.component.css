@@ -111,6 +111,13 @@ li.nav-item {
     margin: 1rem 0rem;
 }
 
+.estate-order-title {
+    font-family: 'Muli';
+    font-size: 18px;
+    font-weight: bold;
+    color: #232334;
+}
+
 .share-bor:hover {
     border: solid 2px #30855c !important;
 }
