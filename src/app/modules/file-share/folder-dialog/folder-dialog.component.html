@@ -1,0 +1,30 @@
+<form [formGroup]="infoForm" class="form-container">
+    <div class="w-100 sewn-form-field">
+        <label> {{ 'name' | translate }}<span class="star">*</span> </label>
+        <input type="text" formControlName="name" appWordLimit [limit]="15" pInputText />
+        <small *ngIf="infoForm.controls.name.errors?.required" class="p-error"> Required </small>
+    </div>
+
+    <div class="w-100 sewn-form-field">
+        <label>
+            {{ 'give_short_description' | translate }}
+        </label>
+        <textarea formControlName="description" rows="5" cols="50" appWordLimit [limit]="100" pInputTextarea></textarea>
+        <small *ngIf="infoForm.controls.description.errors?.required" class="p-error"> Required </small>
+    </div>
+    <div class="w-100 sewn-form-field">
+        <h4 class="fnt-16 fnt-700 text-clr334 mb-0">
+            {{ 'sharing_access' | translate }}
+        </h4>
+        <span class="fnt-14 fnt-500 text-clr588 text-clr334 mb-1"> {{ 'invite_to_access' | translate }}</span>
+        <div>
+            <p-radioButton name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+        </div>
+    </div>
+    <div class="d-flex justify-content-end mt-3">
+        <button type="button" class="btn-stroked mr-25" (click)="close()">{{ 'cancel' | translate }}</button>
+        <button type="button" class="btn-raised" (click)="save()">
+            {{ 'update' | translate }}
+        </button>
+    </div>
+</form>

@@ -55,7 +55,7 @@
 
                 <div class="col-12 col-md-4 d-flex flex-column align-items-end px-0 web-farm">
                     <span
-                        class="share-bor"
+                        class="btn-trans-icon"
                         data-toggle="modal"
                         data-target="#sharefolder"
                         (mouseenter)="greenIconShow = true"
@@ -80,16 +80,16 @@
             </div>
 
             <div class="share-dwn pt-2 pb-3">
-                <label class="share-bor mr-3"
+                <label class="btn-trans-icon mr-3"
                     ><input class="file-inpt" type="file" (change)="documentUpload($event)" />
                     <img class="share-img" src="assets/images/upload-icon.png" alt="farm" />
                     <span class="share-txt ml-1"> {{ globals.languageJson?.upload }} </span>
                 </label>
-                <span class="share-bor" data-toggle="modal" data-target="#createfolder">
+                <span class="btn-trans-icon" data-toggle="modal" data-target="#createfolder">
                     <img class="dwnd-img" src="assets/images/region-plus.svg" alt="farm" />
                     <span class="share-txt ml-1"> {{ globals.languageJson?.create_new_folder }} </span>
                 </span>
-                <span class="share-bor mobile-farm w-28">
+                <span class="btn-trans-icon mobile-farm w-28">
                     <img class="share-img" src="assets/images/share-img.png" alt="farm" />
                     <span class="share-txt ml-1"> {{ globals.languageJson?.share }}</span>
                 </span>

@@ -18,6 +18,9 @@ import { GlobalsService } from 'src/services/globals.service';
     styleUrls: ['./file-share.component.scss'],
 })
 export class FileShareComponent implements OnInit {
+    breadItems: any[];
+    rangeDates: Date[];
+
     folder_name: string;
     folder_descr: string;
     invite: any = 'Invite people';
@@ -68,6 +71,10 @@ export class FileShareComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.breadItems = [
+            { label: this.globals.languageJson?.home, routerLink: '/' },
+            { label: this.globals.languageJson?.file_share },
+        ];
         // this.appLanguage = this.globals.languageJson;
         this.language();
 
@@ -405,6 +412,9 @@ export class FileShareComponent implements OnInit {
 
         this.fileService.getPinnedFilesorFolders();
     }
+
+    filterCall() {}
+
     openVideoModal(template: TemplateRef<any>, item: any) {
         this.modalRef = this.modalService.show(template);
         this.url = item.url;
@@ -449,25 +459,6 @@ export class FileShareComponent implements OnInit {
             document.body.removeChild(a);
         }
     }
-
-    // filterCountrySingle(event) {
-    //   let query = event.query;
-    //   this.fileService.getCountries().then(countries => {
-    //       this.filteredCountriesSingle = this.filterCountry(query, countries);
-    //   });
-    // }
-
-    // filterCountry(query, countries: any[]):any[] {
-    //   //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    //   let filtered : any[] = [];
-    //   for(let i = 0; i < countries.length; i++) {
-    //       let country = countries[i];
-    //       if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-    //           filtered.push(country);
-    //       }
-    //   }
-    //   return filtered;
-    // }
 
     onSelect(event: TypeaheadMatch): void {
         this.selectedOption = event.item;
@@ -541,12 +532,6 @@ export class FileShareComponent implements OnInit {
             this.roasterService.uploadFiles(formData).subscribe((result) => {
                 if (result['success'] == true) {
                     this.toastrService.success('The file ' + this.fileName + ' uploaded successfully');
-                    // Calling the Grade info component by creating object of the component and accessing its methods
-                    //  setTimeout(()=>{
-                    //   let callFileandFolders = new MyfilesComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.fileService,this.modalService);
-                    // callFileandFolders.getFilesandFolders();
-                    // },2000);
-                    // location.reload();
                     this.fileService.getFilesandFolders();
                 } else {
                     this.toastrService.error('Error while uploading the file');

@@ -163,7 +163,7 @@ span.checkmark {
     border-radius: 4px;
 }
 
-.customcheckbox input:checked~.checkmark {
+.customcheckbox input:checked ~ .checkmark {
     background-color: #000;
 }
 
@@ -189,40 +189,41 @@ span.checkmark {
 }
 
 .share_icon {
-	position: relative;
-	display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 .share_icon:hover .edit {
-	display: block;
+    display: block;
 }
 .share_icon {
-	position: relative;
+    position: relative;
     display: table-cell;
-    width: 10%!important;
+    width: 10% !important;
 }
 
-.share_icon:hover .edit , tr:hover .edit {
-	display: block;
+.share_icon:hover .edit,
+tr:hover .edit {
+    display: block;
 }
 
 .edit {
-	padding-top: 17px;	
+    padding-top: 17px;
     padding-right: 0px;
     padding-left: 10px;
-	position: absolute;
-	right: 0;
-	top: 0;
-	display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: none;
 }
 
 .edit {
-	padding-top: 17px;	
-	padding-right: 0px;
-	position: absolute;
-	right: 0;
-	top: 0;
-	display: none;
+    padding-top: 17px;
+    padding-right: 0px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: none;
 }
 /**********popover*******/
 
@@ -249,7 +250,7 @@ span.checkmark {
 }
 
 ::ng-deep .popover-body {
-    padding: .25rem .25rem !important;
+    padding: 0.25rem 0.25rem !important;
 }
 
 ::ng-deep .popover {
@@ -268,7 +269,7 @@ span.checkmark {
     cursor: pointer;
 }
 
-@media (max-width:1024px) {
+@media (max-width: 1024px) {
     .estate-table {
         /* width: 100%; */
         overflow: scroll;
@@ -278,7 +279,7 @@ span.checkmark {
     }
 }
 
-@media (max-width:480px) {
+@media (max-width: 480px) {
     .estate-orders {
         margin: 1rem 0px;
     }
@@ -326,7 +327,7 @@ span.checkmark {
     object-fit: contain;
 }
 
-.share-bor {
+.btn-trans-icon {
     border-radius: 2px;
     border: solid 1px #747588;
     padding: 6px 12px;
@@ -363,14 +364,13 @@ span.checkmark {
     border-radius: 2px;
 }
 
-.customcheckbox input:checked~.checkmark {
+.customcheckbox input:checked ~ .checkmark {
     background-color: #30855c !important;
 }
 
-
 /*********************Tab Css **********************/
 
-@media (min-width:1400px) {
+@media (min-width: 1400px) {
     .container {
         max-width: 1240px !important;
     }
@@ -455,12 +455,11 @@ ul li {
     display: none !important;
 }
 
-
 /*  media query Fram Link */
 
-@media (max-width:767px) {
+@media (max-width: 767px) {
     .bg-fff {
-        padding: 1rem .7rem;
+        padding: 1rem 0.7rem;
     }
     .bread-nav {
         padding-left: 0rem;
@@ -494,12 +493,12 @@ ul li {
     .bor-coffe {
         border: 1px solid #ebebeb;
         border-radius: 4px;
-        padding: .5rem .5rem 0rem .5rem;
+        padding: 0.5rem 0.5rem 0rem 0.5rem;
         max-width: 48% !important;
         margin: 1% !important;
     }
     .mobile-ce p {
-        margin-bottom: .5rem !important;
+        margin-bottom: 0.5rem !important;
     }
     .bor-d6d6 {
         border-top: 2px dashed #d6d6d6;
@@ -513,7 +512,6 @@ ul li {
 .customcheckbox {
     bottom: 8px;
 }
-
 
 /* =====Video popup css==== */
 
@@ -546,7 +544,6 @@ ul li {
     top: 0;
     pointer-events: all;
 }
-
 
 /* ===============Image Popup CSS================== */
 
@@ -704,10 +701,10 @@ ul li {
         width: 35px;
         height: 35px;
     }
-    .file-share-search input[type="search"]::placeholder {
+    .file-share-search input[type='search']::placeholder {
         font-size: 14px;
     }
-    .file-share-search input[type="search"] {
+    .file-share-search input[type='search'] {
         font-size: 14px;
     }
     /* .modal-header {
