@@ -163,27 +163,8 @@ const routes: Routes = [
             },
             {
                 path: 'roastery-profile',
-                component: RoasteryProfileComponent,
+                loadChildren: () => import('./roastery-profile/roastery-profile.module').then(m => m.RoasteryProfileModule),
                 canActivate: [AuthGuard],
-                children: [
-                    {
-                        path: 'about_roastery',
-                        component: AboutRoasteryComponent,
-                    },
-                    {
-                        path: 'virtual_tour',
-                        component: VirtualTourComponent,
-                    },
-                    {
-                        path: 'contact',
-                        component: ContactComponent,
-                    },
-                    {
-                        path: 'reviews',
-                        component: ReviewsComponent,
-                    },
-                    { path: '', redirectTo: 'about_roastery', pathMatch: 'full' },
-                ],
             },
             {
                 path: 'notification',
@@ -353,7 +334,7 @@ const routes: Routes = [
                 pathMatch: 'full',
             },
         ],
-    },
+    }
 ];
 
 @NgModule({
