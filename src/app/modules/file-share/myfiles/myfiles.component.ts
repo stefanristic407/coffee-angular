@@ -23,7 +23,6 @@ import { GlobalsService } from 'src/services/globals.service';
     selector: 'app-myfiles',
     templateUrl: './myfiles.component.html',
     styleUrls: ['./myfiles.component.scss'],
-    providers: [DialogService],
 })
 export class MyfilesComponent implements OnInit {
     tableValue = [];

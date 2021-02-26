@@ -8,7 +8,6 @@ import { FilterComponent } from '../filter/filter.component';
     selector: 'app-sourcing',
     templateUrl: './sourcing.component.html',
     styleUrls: ['./sourcing.component.scss'],
-    providers: [DialogService],
 })
 export class SourcingComponent implements OnInit {
     menuItems: any[];
