@@ -15,64 +15,97 @@
                     </div>
                     <div class="d-none d-md-block">
                         <button
-                                pButton
-                                type="button"
-                                class="btn-stroked mr-2"
-                                [label]="globals.languageJson?.cancel"
-                                *ngIf="roasteryProfileService.savemode"
-                                (click)="roasteryProfileService.preview()"
+                            pButton
+                            type="button"
+                            class="btn-stroked mr-2"
+                            [label]="globals.languageJson?.cancel"
+                            *ngIf="roasteryProfileService.savemode"
+                            (click)="roasteryProfileService.preview()"
                         ></button>
                         <button
-                                pButton
-                                type="button"
-                                class="btn-raised"
-                                [disabled]="roasteryProfileService.isSaving"
-                                [label]="globals.languageJson?.save"
-                                *ngIf="roasteryProfileService.savemode"
-                                (click)="roasteryProfileService.saveRoasterProfile()"
+                            pButton
+                            type="button"
+                            class="btn-raised"
+                            [disabled]="roasteryProfileService.isSaving"
+                            [label]="globals.languageJson?.save"
+                            *ngIf="roasteryProfileService.savemode"
+                            (click)="roasteryProfileService.saveRoasterProfile()"
                         ></button>
                         <button
-                                pButton
-                                type="button"
-                                class="btn-raised"
-                                [label]="globals.languageJson?.edit"
-                                *ngIf="roasteryProfileService.editmode"
-                                (click)="roasteryProfileService.editRoasterProfile()"
+                            pButton
+                            type="button"
+                            class="btn-raised"
+                            [label]="globals.languageJson?.edit"
+                            *ngIf="roasteryProfileService.editmode"
+                            (click)="roasteryProfileService.editRoasterProfile()"
                         ></button>
                     </div>
                 </div>
-
             </section>
             <section class="my-profile pb-md-5">
                 <div class="col-lg-12 col-sm-12 no-padding">
                     <h1 class="fnt-muli mb-0 mb-md-3">{{ globals.languageJson?.roastery_profile }}</h1>
 
-<!--                    <div class="m-3">-->
-<!--                        new content-->
-<!--                    </div>-->
+                    <!--                    <div class="m-3">-->
+                    <!--                        new content-->
+                    <!--                    </div>-->
 
                     <div class="mt-lg-2 cover-div position-relative cursor-pointer">
-                        <div class="cover-pic text-center" (click)="bannerFileInput.click()" *ngIf="roasteryProfileService.savemode && !roasteryProfileService.bannerUrl">
+                        <div
+                            class="cover-pic text-center"
+                            (click)="bannerFileInput.click()"
+                            *ngIf="roasteryProfileService.savemode && !roasteryProfileService.bannerUrl"
+                        >
                             <img class="plus-circle" src="assets/images/plus-circle.svg" />
                             <img class="camera desk-view" src="assets/images/camera.svg" />
                             <p class="text-data pt-2">{{ globals.languageJson?.add_cover_image }}</p>
                             <p class="text-data">{{ globals.languageJson?.dimension }} 1144 x 160</p>
                         </div>
-                        <img class="cover-image-profile-banner w-100" *ngIf="roasteryProfileService.savemode && roasteryProfileService.bannerUrl" [src]="roasteryProfileService.bannerUrl" height="160"/>
+                        <img
+                            class="cover-image-profile-banner w-100"
+                            *ngIf="roasteryProfileService.savemode && roasteryProfileService.bannerUrl"
+                            [src]="roasteryProfileService.bannerUrl"
+                            height="160"
+                        />
 
-                        <input type="file" hidden #bannerFileInput (change)="roasteryProfileService.handleBannerImageFile($event.target)">
+                        <input
+                            type="file"
+                            hidden
+                            #bannerFileInput
+                            (change)="roasteryProfileService.handleBannerImageFile($event.target)"
+                        />
 
-                        <img class="cover-image-profile-banner w-100" *ngIf="roasteryProfileService.editmode && !roasteryProfileService.bannerUrl" src="assets/images/blank.png" height="160"/>
-                        <img class="cover-image-profile-banner w-100" *ngIf="roasteryProfileService.editmode && roasteryProfileService.bannerUrl" [src]="roasteryProfileService.bannerUrl" height="160"/>
+                        <img
+                            class="cover-image-profile-banner w-100"
+                            *ngIf="roasteryProfileService.editmode && !roasteryProfileService.bannerUrl"
+                            src="assets/images/blank.png"
+                            height="160"
+                        />
+                        <img
+                            class="cover-image-profile-banner w-100"
+                            *ngIf="roasteryProfileService.editmode && roasteryProfileService.bannerUrl"
+                            [src]="roasteryProfileService.bannerUrl"
+                            height="160"
+                        />
 
-<!--                        <span-->
-<!--                            class="add-a-service replace-img fnt-14 fnt-muli fnt-700"-->
-<!--                            *ngIf="roasteryProfileService.editmode"-->
-<!--                        >-->
-<!--                            Replace image-->
-<!--                        </span>-->
-                        <button *ngIf="roasteryProfileService.savemode && roasteryProfileService.bannerUrl" (click)="bannerFileInput.click()" pButton label="Replace image" class="btn-raised position-absolute replace-img d-none d-lg-inline"></button>
-                        <span *ngIf="roasteryProfileService.savemode && roasteryProfileService.bannerUrl" (click)="roasteryProfileService.handleDeleteBannerImage()" class="delete-img text-clrfff fnt-14 fnt-muli fnt-700  d-none d-lg-inline">
+                        <!--                        <span-->
+                        <!--                            class="add-a-service replace-img fnt-14 fnt-muli fnt-700"-->
+                        <!--                            *ngIf="roasteryProfileService.editmode"-->
+                        <!--                        >-->
+                        <!--                            Replace image-->
+                        <!--                        </span>-->
+                        <button
+                            *ngIf="roasteryProfileService.savemode && roasteryProfileService.bannerUrl"
+                            (click)="bannerFileInput.click()"
+                            pButton
+                            label="Replace image"
+                            class="btn-raised position-absolute replace-img d-none d-lg-inline"
+                        ></button>
+                        <span
+                            *ngIf="roasteryProfileService.savemode && roasteryProfileService.bannerUrl"
+                            (click)="roasteryProfileService.handleDeleteBannerImage()"
+                            class="delete-img text-clrfff fnt-14 fnt-muli fnt-700 d-none d-lg-inline"
+                        >
                             <img class="del-prf-cover" src="assets/images/delete.svg " /> Delete
                         </span>
                         <div class="profile-div">
@@ -113,13 +146,7 @@
                                 </a>
                             </div>
                             <div>
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    hidden
-                                    #image
-                                    (change)="handleFile($event)"
-                                />
+                                <input type="file" accept="image/*" hidden #image (change)="handleFile($event)" />
                             </div>
                         </div>
                     </div>
@@ -139,10 +166,22 @@
             <div class="mobile-farm farm-stricky col-12">
                 <div class="row" *ngIf="roasteryProfileService.savemode">
                     <div class="col-6">
-                        <button type="button" pButton class="btn-stroked w-100" [label]="globals.languageJson?.preview" (click)="roasteryProfileService.preview()"></button>
+                        <button
+                            type="button"
+                            pButton
+                            class="btn-stroked w-100"
+                            [label]="globals.languageJson?.preview"
+                            (click)="roasteryProfileService.preview()"
+                        ></button>
                     </div>
                     <div class="col-6">
-                        <button type="button" pButton class="btn-stroked w-100" [label]="globals.languageJson?.save" (click)="roasteryProfileService.saveRoasterProfile()"></button>
+                        <button
+                            type="button"
+                            pButton
+                            class="btn-stroked w-100"
+                            [label]="globals.languageJson?.save"
+                            (click)="roasteryProfileService.saveRoasterProfile()"
+                        ></button>
                     </div>
                 </div>
                 <button
@@ -165,6 +204,7 @@
         [baseZIndex]="10000"
         [draggable]="false"
         [resizable]="false"
+        styleClass="no-padding"
     >
         <p-header>
             <span class="close-img-div">

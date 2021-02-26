@@ -4,8 +4,8 @@
             <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
         </div>
         <div class="col-2">
-            <button type="submit" class="btn  pull-right btn-raised d-md-block d-none" (click)="roleAdd()">
-                {{btnValue}}
+            <button type="submit" class="btn pull-right btn-raised d-md-block d-none" (click)="roleAdd()">
+                {{ btnValue }}
             </button>
         </div>
     </div>
@@ -13,15 +13,22 @@
         <div class="row">
             <div class="col-sm-12 col-md-6 col-lg-6 p-0">
                 <div class="create-role">
-                    <span class="primary_txt">{{globals.languageJson?.create_role}}</span>
-                    <form [formGroup]="roleForm" (onSubmit)="roleAdd()"class="form-container">
+                    <span class="primary_txt">{{ globals.languageJson?.create_role }}</span>
+                    <form [formGroup]="roleForm" (onSubmit)="roleAdd()" class="form-container">
                         <div class="row rolePadding">
                             <div class="col-md-10 sewn-form-field w-100">
-                                <label class="secondary_txt">{{globals.languageJson?.give_your_role_a_name}}</label>
-                                <input type="text" id="roleName"
-                                    placeholder="Please enter your role" formControlName="roleName"
-                                    name="role" pInputText>
-                                <small *ngIf="roleForm['controls']['roleName']['errors']?.required" class="p-error"> Required </small>
+                                <label class="secondary_txt">{{ globals.languageJson?.give_your_role_a_name }}</label>
+                                <input
+                                    type="text"
+                                    id="roleName"
+                                    placeholder="Please enter your role"
+                                    formControlName="roleName"
+                                    name="role"
+                                    pInputText
+                                />
+                                <small *ngIf="roleForm['controls']['roleName']['errors']?.required" class="p-error">
+                                    Required
+                                </small>
                             </div>
                         </div>
                     </form>
@@ -34,14 +41,23 @@
         </div>
     </div>
     <div class="col-12 d-block d-md-none mb-5">
-        <button type="submit" class="btn-raised  mt-3 w-100" [disabled]="!roleForm.valid">
-            {{btnValue}}</button>
+        <button type="submit" class="btn-raised mt-3 w-100" [disabled]="!roleForm.valid">
+            {{ btnValue }}
+        </button>
     </div>
-    <p-dialog [(visible)]="displayModal" [modal]="true" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <p-dialog
+        [(visible)]="displayModal"
+        [modal]="true"
+        [baseZIndex]="10000"
+        [draggable]="false"
+        [resizable]="false"
+        styleClass="no-padding"
+    >
         <div class="text-center">
-            <p class="fnt-muli black-semibold p-4"> {{globals.languageJson?.please_login_text}}! </p>
-            <button class="btn logout-btn create-role-btn mb-3" type="button"
-                (click)="userLogout()">{{globals.languageJson?.logout}}</button>
+            <p class="fnt-muli black-semibold p-4">{{ globals.languageJson?.please_login_text }}!</p>
+            <button class="btn logout-btn create-role-btn mb-3" type="button" (click)="userLogout()">
+                {{ globals.languageJson?.logout }}
+            </button>
         </div>
     </p-dialog>
 </div>
