@@ -5,8 +5,9 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CookieService } from 'ngx-cookie-service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { ToastrService } from 'ngx-toastr';
+import { RoasterserviceService } from '@services';
+import { FileService } from '@services';
 import { FileShareService } from '../file-share.service';
 import { FileShareComponent } from '../file-share.component';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -76,6 +77,7 @@ export class MyfilesComponent implements OnInit {
         public router: Router,
         public cookieService: CookieService,
         public roasterService: RoasterserviceService,
+        public fileSrv: FileService,
         public toastrService: ToastrService,
         public fileService: FileShareService,
         private modalService: BsModalService,
@@ -258,7 +260,7 @@ export class MyfilesComponent implements OnInit {
     }
 
     deleteFolder(id: any) {
-        this.roasterService.deleteFolder(this.roasterId, id).subscribe((res: any) => {
+        this.fileSrv.deleteFolder(id).subscribe((res: any) => {
             if (res.success) {
                 this.toastrService.success('The Selected folder is deleted successfully');
                 setTimeout(() => {
@@ -271,7 +273,7 @@ export class MyfilesComponent implements OnInit {
     }
 
     deleteFile(id: any) {
-        this.roasterService.deleteFile(this.roasterId, id).subscribe((res: any) => {
+        this.fileSrv.deleteFile(id).subscribe((res: any) => {
             if (res.success) {
                 this.toastrService.success('The Selected file is deleted successfully');
                 setTimeout(() => {
