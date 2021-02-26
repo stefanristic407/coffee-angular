@@ -44,14 +44,10 @@ export class EditFileComponent implements OnInit {
     save() {
         console.log(this.infoForm.value);
         if (this.infoForm.valid) {
-            // const formData: FormData = new FormData();
+            const formData: FormData = new FormData();
             // formData.append('file', file, file.name);
-            // formData.append('name', this.infoForm.value.name);
-            // formData.append('description', this.infoForm.value.description);
-            const formData = {
-                name: this.infoForm.value.name,
-                description: this.infoForm.value.description,
-            };
+            formData.append('name', this.infoForm.value.name);
+            formData.append('description', this.infoForm.value.description);
 
             this.submitted = true;
             if (this.isCreate) {
@@ -68,14 +64,14 @@ export class EditFileComponent implements OnInit {
                 //     }
                 // });
             } else {
-                this.fileSrv.updateFiles(this.record.id, formData).subscribe((res: any) => {
+                this.fileSrv.updateFile(this.record.id, formData).subscribe((res: any) => {
                     if (res.success) {
                         this.submitted = false;
-                        this.toastrService.success('Folder details updated sucessfully');
+                        this.toastrService.success('File updated sucessfully');
                         this.close(res.result);
                     } else {
                         this.submitted = false;
-                        this.toastrService.error('Error while updating details');
+                        this.toastrService.error('Error while updating file');
                     }
                 });
             }

@@ -54,17 +54,6 @@ export class FileService {
         return this.http.post(this.putfileuploadUrl, formData, httpOptions);
     }
 
-    // Update the file details
-    updateFileDetail(fileId, formData: any) {
-        const data = {
-            api_call: `/${this.orgType}/${this.orgId}/file-manager/files/${fileId}`,
-            method: 'PUT',
-            token: this.cookieSrv.get('Auth'),
-            data: formData,
-        };
-        return this.http.post(this.url, data);
-    }
-
     // Delete the file details
     deleteFile(id: any) {
         const data = {
