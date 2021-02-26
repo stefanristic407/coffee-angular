@@ -1,10 +1,10 @@
 <section>
     <div class="main-block">
         <div class="row mb-1">
-            <div class="col-6">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
                 <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
             </div>
-            <div class="col-6">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 spacing-batch">
                 <button
                     type="submit"
                     class="btn pull-right btn-raised d-md-block d-none"
@@ -91,7 +91,7 @@
             </div>
         </div>
 
-        <div class="table-container userTable mt-2 mb-2 pt-0 productListTable">
+        <div class="table-container userTable mt-2 mb-2 pt-0 roastedCoffeeTable">
             <p-table
                 #myTable
                 [class.table-mobile]="sharedService.isMobileView"
@@ -176,7 +176,7 @@
                                             >
                                                 <img
                                                     class="ellipse-image pl-3"
-                                                    src="assets/images/more-opns-file.png"
+                                                    src="assets/images/kebab-menu.svg"
                                                     alt=""
                                                 />
                                             </a>
@@ -244,7 +244,7 @@
                             </span>
                             <span *ngSwitchCase="'actions'" class="">
                                 <span>
-                                    <a class="fnt-muli editBtn" (click)="redirectToEdit(rowData)">View details</a>
+                                    <a class="fnt-muli fnt-14 fnt-700 view-det" (click)="redirectToEdit(rowData)">View details</a>
                                     <span class="float-right">
                                         <a
                                             class="menu-arrow"
@@ -255,7 +255,7 @@
                                         >
                                             <img
                                                 class="ellipse-image pl-3"
-                                                src="assets/images/more-opns-file.png"
+                                                src="assets/images/kebab-menu.svg"
                                                 alt=""
                                             />
                                         </a>

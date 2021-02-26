@@ -1,7 +1,9 @@
 <div class="main-block">
     <div class="row">
         <div class="col-10">
-            <a class="back-page" routerLink="/roasted-coffee-batch/roasting-profile"> {{ globals.languageJson?.back }}</a>
+            <a class="back-page" routerLink="/roasted-coffee-batch/roasting-profile">
+                {{ globals.languageJson?.back }}</a
+            >
         </div>
         <div class="col-2">
             <button type="submit" class="btn pull-right btn-raised d-md-block d-none" (click)="onSave()">Save</button>
@@ -14,7 +16,7 @@
     </div>
     <div class="mt-md-4 mt-3 pb-2" [formGroup]="roastingForm" (ngSubmit)="onSave()" novalidate>
         <div class="row">
-            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 sewn-form-field w-100">
                 <label>Roast profile name<span class="star">*</span></label>
                 <input type="text" placeholder="" formControlName="roast_profile_name" pInputText />
                 <small *ngIf="roastingForm.controls['roast_profile_name'].errors?.required" class="p-error">
@@ -28,7 +30,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 sewn-form-field w-100">
                 <label>Roast level<span class="star">*</span></label>
                 <p-dropdown
                     [options]="roastLevelArray"
@@ -41,21 +43,21 @@
                 <small *ngIf="roastingForm.controls['roast_level'].errors?.required" class="p-error"> Required </small>
             </div>
 
-            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 sewn-form-field w-100">
                 <label>Roast duration<span class="star">*</span></label>
                 <input type="number" placeholder="Enter a number" formControlName="roast_duration" pInputText />
                 <small *ngIf="roastingForm.controls['roast_duration'].errors?.required" class="p-error">
                     Required
                 </small>
             </div>
-            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 sewn-form-field w-100">
                 <label>Temperature<span class="star">*</span></label>
                 <input type="number" placeholder="Enter a number" formControlName="temperature" pInputText />
                 <small *ngIf="roastingForm.controls['temperature'].errors?.required" class="p-error"> Required </small>
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 sewn-form-field w-100">
                 <label>Machine type<span class="star">*</span></label>
                 <input
                     type="text"
