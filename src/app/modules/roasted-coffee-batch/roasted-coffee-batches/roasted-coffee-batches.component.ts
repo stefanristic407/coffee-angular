@@ -111,11 +111,11 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
 
     loadFilterValues() {
         this.profileArray = [
-            { label: 'Light', value: 'Light' },
-            { label: 'Light Medium', value: 'Light Medium' },
-            { label: 'Medium', value: 'Medium' },
-            { label: 'Medium Dark', value: 'Medium Dark' },
-            { label: 'Dark', value: 'Dark' },
+            { label: 'Light', value: 1 },
+            { label: 'Light Medium', value: 2 },
+            { label: 'Medium', value: 3 },
+            { label: 'Medium Dark', value: 4 },
+            { label: 'Dark', value: 5 },
         ];
     }
     supplyBreadCrumb(): void {
@@ -141,8 +141,8 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
     roasterCoffeeBatchsData() {
         const postData: any = {};
 
-        postData.status = this.profileFilter ? this.profileFilter : '';
-        postData.name = this.termSearch ? this.termSearch : '';
+        postData.roast_level = this.profileFilter ? this.profileFilter : '';
+        postData.batch = this.termSearch ? this.termSearch : '';
         postData.per_page = 100;
         this.tableValue = [];
         this.roasterService.getRoasterCoffeeBatchs(this.roasterId, postData).subscribe(
