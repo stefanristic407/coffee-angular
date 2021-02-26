@@ -15,6 +15,7 @@ import * as Plyr from 'plyr';
 declare var $: any;
 import { ConfirmComponent } from '@shared';
 import { FolderDialogComponent } from '../folder-dialog/folder-dialog.component';
+import { EditFileComponent } from '../edit-file/edit-file.component';
 
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
 import { GlobalsService } from 'src/services/globals.service';
@@ -222,12 +223,12 @@ export class MyfilesComponent implements OnInit {
 
     updateFile(item: any = null) {
         this.dialogSrv
-            .open(FolderDialogComponent, {
+            .open(EditFileComponent, {
                 data: {
                     record: item,
                 },
                 header: (item ? this.globals.languageJson.create : this.globals.languageJson.create) + ' file',
-                styleClass: 'folder-dialog',
+                styleClass: 'file-dialog',
             })
             .onClose.subscribe((result: any) => {
                 if (result) {
