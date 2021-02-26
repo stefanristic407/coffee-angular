@@ -4,6 +4,7 @@
 
 export const environment = {
     // apiURL: 'http://3.7.110.122:8000',
+    orgType: 'ro',
     apiURL: 'https://fed-api.sewnstaging.com',
     wsEndpoint: 'wss://messaging.sewnstaging.com/v1',
     encryptionKey: 'sewen_secrete_key',

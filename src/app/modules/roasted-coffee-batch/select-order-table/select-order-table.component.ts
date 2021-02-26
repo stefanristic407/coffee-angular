@@ -172,6 +172,7 @@ export class SelectOrderTableComponent implements OnInit {
         postData.per_page = this.displayFilter ? this.displayFilter : 1000;
         postData.start_date = '';
         postData.end_date = '';
+        postData.status = 'RECEIVED';
         if (this.rangeDates && this.rangeDates.length === 2) {
             postData.start_date = moment(this.rangeDates[0], 'DD/MM/YYYY').format('YYYY-MM-DD');
             postData.end_date = moment(this.rangeDates[1], 'DD/MM/YYYY').format('YYYY-MM-DD');
