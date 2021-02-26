@@ -27,6 +27,7 @@ export class CoffeeSaleComponent implements OnInit {
     priceTypeArray: any = [];
     stockTypeArray: any = [];
     vatDetailsArray: any = [];
+    weightTypeArray: any = [];
     tableColumns = [];
     tableValue = [];
     constructor(
@@ -61,6 +62,11 @@ export class CoffeeSaleComponent implements OnInit {
             { label: 'In stock', value: 'IN_STOCK' },
             { label: 'Sold', value: 'SOLD' },
             { label: 'Hidden', value: 'HIDDEN' },
+        ];
+        this.weightTypeArray = [
+            { label: 'kg', value: 'kg' },
+            { label: 'lb', value: 'lb' },
+            { label: 'tonnes', value: 'tonnes' },
         ];
         this.coffeeSaleForm = this.fb.group({
             name: ['', Validators.compose([Validators.required])],

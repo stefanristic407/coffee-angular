@@ -22,7 +22,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
     originArray: any[] = [];
     searchString = '';
     sellerItems = [
-        { label: 'All origins', value: null },
+        { label: 'All', value: null },
         { label: 'Sweden', value: 'SE' },
         { label: 'UK', value: 'UK' },
         { label: 'India', value: 'IN' },

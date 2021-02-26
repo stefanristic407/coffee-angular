@@ -403,11 +403,11 @@
 
                             <div class="input-group-append">
                                 <p-dropdown
-                                    [options]="quantityUnitArray"
+                                    [options]="weightTypeArray"
                                     optionLabel="label"
-                                    placeholder="Bags"
+                                    placeholder="kg"
                                     [style]="{ width: '100%', border: '0px', 'background-color': '#f8f8f8' }"
-                                    formControlName="quantity_unit"
+                                    formControlName="quantity_type"
                                     optionValue="value"
                                 >
                                 </p-dropdown>
@@ -416,7 +416,7 @@
                         <small
                             *ngIf="
                                 lotSaleForm.controls['quantity'].errors?.required &&
-                                lotSaleForm.controls['quantity_unit'].errors?.required
+                                lotSaleForm.controls['quantity_type'].errors?.required
                             "
                             class="p-error"
                         >
