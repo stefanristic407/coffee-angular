@@ -241,8 +241,6 @@ export class MyfilesComponent implements OnInit {
         this.dialogSrv
             .open(ConfirmComponent, {
                 data: {
-                    title: 'Oh noh :(',
-                    desp: 'You sure you really want to delete this?',
                     type: 'delete',
                 },
                 showHeader: false,
