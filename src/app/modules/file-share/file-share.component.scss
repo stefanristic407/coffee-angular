@@ -1,4 +1,9 @@
-.pin-quiker-files input[type="file"] {
+.custom-search {
+    @media (min-width: 768px) {
+        width: 300px;
+    }
+}
+.pin-quiker-files input[type='file'] {
     opacity: 0;
     visibility: hidden;
     display: none;
@@ -81,7 +86,7 @@
     cursor: pointer;
 }
 
-.file-share-search input[type="search"] {
+.file-share-search input[type='search'] {
     outline: 0;
     border: 0;
     background: none;
@@ -91,7 +96,7 @@
     font-family: 'Muli', sans-serif;
 }
 
-.file-share-search input[type="search"]::placeholder {
+.file-share-search input[type='search']::placeholder {
     font-size: 12px;
     font-weight: 600;
     color: #747588;
@@ -149,29 +154,30 @@
 .file-share-addMail {
     background-color: #ffffff;
 }
-.oh__text{  
+.oh__text {
     color: #020202;
 }
-.delete__text{
+.delete__text {
     color: #5d5d5d;
 }
-.cancel-btn{
+.cancel-btn {
     color: #30855c;
     border-radius: 4px;
     border: 1px solid #30855c;
-    background-color:#fff;
+    background-color: #fff;
     cursor: pointer;
 }
-.cancel-btn:hover{
-    background-color:#30855c;
+.cancel-btn:hover {
+    background-color: #30855c;
     color: #fff;
 }
-.delete-btn{
+.delete-btn {
     color: #fff;
     border-radius: 4px;
     background-color: #30855c;
 }
-.cancel-btn,.delete-btn{
+.cancel-btn,
+.delete-btn {
     font-family: Muli;
     font-size: 14px;
     font-weight: 700;
@@ -189,16 +195,13 @@
     }
 }
 
-
-
-
 .file-share-addMail input {
     outline: 0;
     border: 0;
     background: none;
 }
 
-.quick-pinned-files__Image input[type="file"] {
+.quick-pinned-files__Image input[type='file'] {
     opacity: 0;
     visibility: hidden;
     display: none;
@@ -231,7 +234,6 @@
     padding: 0rem 2.5rem 1rem 2.5rem;
 }
 
-
 /* =====Video popup css==== */
 
 .video-section-modal {
@@ -263,7 +265,6 @@
     top: 0;
     pointer-events: all;
 }
-
 
 /* MOdal popup css */
 
@@ -447,9 +448,6 @@
     .pin-quiker-files label {
         padding: 20px;
     }
-    .file-share-container {
-        padding: 25px 35px;
-    }
     .quick-pinned-files__Image {
         width: 100%;
         height: 130px;
@@ -495,9 +493,6 @@
         min-height: 180px;
         margin-bottom: 25px;
     }
-    .file-share-container {
-        padding: 30px 45px;
-    }
     .quick-pinned-files__Image {
         height: 150px;
     }
@@ -505,10 +500,10 @@
         width: 35px;
         height: 35px;
     }
-    .file-share-search input[type="search"]::placeholder {
+    .file-share-search input[type='search']::placeholder {
         font-size: 14px;
     }
-    .file-share-search input[type="search"] {
+    .file-share-search input[type='search'] {
         font-size: 14px;
     }
     .modal-header {
@@ -559,9 +554,7 @@
     }
 }
 
-
 /* Radio */
-
 
 /* The container */
 
@@ -581,7 +574,6 @@
     color: #232334;
 }
 
-
 /* Hide the browser's default radio button */
 
 .custom-radio input {
@@ -589,7 +581,6 @@
     opacity: 0;
     cursor: pointer;
 }
-
 
 /* Create a custom radio button */
 
@@ -604,39 +595,33 @@
     border: solid 1px #747588;
 }
 
-
 /* On mouse-over, add a grey background color */
-
 
 /* .custom-radio:hover input ~ .checkmark-custom {
     background-color: #ccc;
   }
    */
 
-
 /* When the radio button is checked, add a blue background */
 
-.custom-radio input:checked~.checkmark-custom {
+.custom-radio input:checked ~ .checkmark-custom {
     background-color: none;
     border: 1px solid #30855c;
 }
 
-
 /* Create the indicator (the dot/circle - hidden when not checked) */
 
 .checkmark-custom:after {
-    content: "";
+    content: '';
     position: absolute;
     display: none;
 }
 
-
 /* Show the indicator (dot/circle) when checked */
 
-.custom-radio input:checked~.checkmark-custom:after {
+.custom-radio input:checked ~ .checkmark-custom:after {
     display: block;
 }
-
 
 /* Style the indicator (dot/circle) */
 
@@ -650,7 +635,6 @@
     background-color: #30855c;
 }
 
-
 /*=======   Tabs  =======*/
 
 .mixups-tabs {
@@ -659,7 +643,7 @@
 }
 
 .nav-pills .nav-link.active,
-.nav-pills .show>.nav-link {
+.nav-pills .show > .nav-link {
     color: #232334;
     font-size: 14px;
     font-weight: 600;
@@ -715,7 +699,7 @@
 li.nav-item {
     margin-right: 25px;
     position: relative;
-    top: .25rem;
+    top: 0.25rem;
 }
 
 .nav-pills .nav-link {

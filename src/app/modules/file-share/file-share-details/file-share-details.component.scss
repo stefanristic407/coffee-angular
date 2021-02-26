@@ -17,7 +17,7 @@
     padding: 0px 30% 0px 0px;
 }
 
-.share-bor:hover {
+.btn-trans-icon:hover {
     border-radius: 4px;
     border: solid 2px #30855c;
     padding: 5px 10px;
@@ -26,13 +26,11 @@
     align-items: center;
 }
 
-
 /*=======   Tabs  =======*/
-
 
 /*********************Tab Css **********************/
 
-@media (min-width:1400px) {
+@media (min-width: 1400px) {
     .container {
         max-width: 1240px !important;
     }
@@ -125,7 +123,7 @@ ul li {
     height: 15px;
 }
 
-.share-bor {
+.btn-trans-icon {
     border-radius: 4px;
     border: solid 2px rgba(116, 117, 136, 0.6);
     padding: 5px 10px;
@@ -147,7 +145,6 @@ ul li {
     visibility: hidden;
     display: none;
 }
-
 
 /**********popover*******/
 
@@ -201,13 +198,13 @@ ul li {
 }
 
 ::ng-deep #DataTables_Table_0_filter,
- ::ng-deep #DataTables_Table_1_filter {
+::ng-deep #DataTables_Table_1_filter {
     display: none;
 }
 
-@media (max-width:767px) {
+@media (max-width: 767px) {
     .bg-fff {
-        padding: 1rem .7rem !important;
+        padding: 1rem 0.7rem !important;
     }
     .web-farm {
         display: none !important;
@@ -217,12 +214,11 @@ ul li {
     }
 }
 
-@media (max-width:360px) {
+@media (max-width: 360px) {
     .w-28 {
         width: 32%;
     }
 }
-
 
 /* MOdal popup css */
 
@@ -460,10 +456,10 @@ ul li {
         width: 35px;
         height: 35px;
     }
-    .file-share-search input[type="search"]::placeholder {
+    .file-share-search input[type='search']::placeholder {
         font-size: 14px;
     }
-    .file-share-search input[type="search"] {
+    .file-share-search input[type='search'] {
         font-size: 14px;
     }
     .modal-header {
@@ -514,9 +510,7 @@ ul li {
     }
 }
 
-
 /* Radio */
-
 
 /* The container */
 
@@ -536,7 +530,6 @@ ul li {
     color: #232334;
 }
 
-
 /* Hide the browser's default radio button */
 
 .custom-radio input {
@@ -544,7 +537,6 @@ ul li {
     opacity: 0;
     cursor: pointer;
 }
-
 
 /* Create a custom radio button */
 
@@ -559,39 +551,33 @@ ul li {
     border: solid 1px #747588;
 }
 
-
 /* On mouse-over, add a grey background color */
-
 
 /* .custom-radio:hover input ~ .checkmark-custom {
     background-color: #ccc;
   }
    */
 
-
 /* When the radio button is checked, add a blue background */
 
-.custom-radio input:checked~.checkmark-custom {
+.custom-radio input:checked ~ .checkmark-custom {
     background-color: none;
     border: 1px solid #30855c;
 }
 
-
 /* Create the indicator (the dot/circle - hidden when not checked) */
 
 .checkmark-custom:after {
-    content: "";
+    content: '';
     position: absolute;
     display: none;
 }
 
-
 /* Show the indicator (dot/circle) when checked */
 
-.custom-radio input:checked~.checkmark-custom:after {
+.custom-radio input:checked ~ .checkmark-custom:after {
     display: block;
 }
-
 
 /* Style the indicator (dot/circle) */
 
@@ -655,7 +641,7 @@ ul li {
     background: none;
 }
 
-.quick-pinned-files__Image input[type="file"] {
+.quick-pinned-files__Image input[type='file'] {
     opacity: 0;
     visibility: hidden;
     display: none;

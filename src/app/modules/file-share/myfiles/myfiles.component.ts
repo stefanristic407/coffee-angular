@@ -3,9 +3,8 @@
 
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
+import { DialogService } from 'primeng/dynamicdialog';
 import { CookieService } from 'ngx-cookie-service';
-import { DataTableDirective, DataTablesModule } from 'angular-datatables';
-import { data } from 'jquery';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { FileShareService } from '../file-share.service';
@@ -14,6 +13,8 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { PlyrModule } from 'ngx-plyr';
 import * as Plyr from 'plyr';
 declare var $: any;
+import { ConfirmComponent } from '@shared';
+import { FolderDialogComponent } from '../folder-dialog/folder-dialog.component';
 
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
 import { GlobalsService } from 'src/services/globals.service';
@@ -22,16 +23,20 @@ import { GlobalsService } from 'src/services/globals.service';
     selector: 'app-myfiles',
     templateUrl: './myfiles.component.html',
     styleUrls: ['./myfiles.component.scss'],
+    providers: [DialogService],
 })
 export class MyfilesComponent implements OnInit {
-    rangeDates: any;
+    tableValue = [];
+    totalCount = 0;
+    tableColumns = [];
+    selectedItems = [];
+    menuItems = [];
+    selectedFile: any;
+
+    rangeDates: any[];
     modalRef: BsModalRef;
 
-    //dtInstance:DataTables.Api;
-
-    // Static Estate Orders Data List
     public data: any;
-    public mainData: any[];
     roasterId: string;
     folderId: any;
     parentId: any = 0;
@@ -64,11 +69,10 @@ export class MyfilesComponent implements OnInit {
     shareFileId: any;
     myFiles: any = 0;
     selectedValue: string;
-    appLanguage?: any;
-    deleteFolderId: any;
-    deleteFileId: any;
     resetButtonValue: string = 'Share';
+
     constructor(
+        public dialogSrv: DialogService,
         public router: Router,
         public cookieService: CookieService,
         public roasterService: RoasterserviceService,
@@ -78,31 +82,207 @@ export class MyfilesComponent implements OnInit {
         public globals: GlobalsService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
-
-        this.folderNameError = '';
-        this.descriptionError = '';
-
-        // this.mainData =
-        // 	[
-        // 	{ files:  'SEWN Sales & Concept prese..', orderid: '#221669', modified: '-', type: 'Folder'},
-        // 	{ files:  'SEWN service offerings', orderid: '-', modified: '-',  type: 'Document'},
-        // 	{ files: 'Löfbergs - Brand assets', orderid: '#127908', modified: '24/01/2020  11:05pm', type: 'CSV'},
-        // 	{ files: 'Löfbergs - Machineries', orderid: '-', modified: '27/02/2020  4:17pm', type: 'CSV'},
-        // 	{ files: 'What is coffee?', orderid: '#727520', modified: '17/03/2020  7:17am', type: 'mp4'}
-
-        // ];
     }
 
-    // Function Name : Open Modal
-    // Description: This function helps to get the Id
-
-    openModal(template: TemplateRef<any>, itemId: any, itemName: any, itemDesc: any) {
-        this.modalRef = this.modalService.show(template);
-        this.folderItemId = itemId;
-        this.folderName = itemName;
-        this.folderDescription = itemDesc;
-        console.log(this.folderName);
+    ngOnInit(): void {
+        this.menuItems = [
+            {
+                label: this.globals.languageJson?.download,
+                command: () => {
+                    this.downloadFile(this.selectedFile);
+                },
+            },
+            {
+                label: this.globals.languageJson?.pin,
+                command: () => {
+                    this.pinFileorFolder(this.selectedFile.id);
+                },
+            },
+            {
+                label: this.globals.languageJson?.rename,
+                command: () => {
+                    if (this.selectedFile.type === 'FOLDER') {
+                        this.updateFolder(this.selectedFile);
+                    } else {
+                        this.updateFile(this.selectedFile);
+                    }
+                },
+            },
+            {
+                label: this.globals.languageJson?.comment,
+                command: () => {
+                    console.log(this.globals.languageJson?.comment);
+                },
+            },
+            {
+                label: this.globals.languageJson?.delete,
+                command: () => {
+                    this.openDeleteModal(this.selectedFile);
+                },
+            },
+        ];
+        this.fileService.getFilesandFolders();
+        this.createTable();
     }
+
+    createTable() {
+        this.tableColumns = [
+            {
+                field: 'name',
+                header: 'files',
+                sortable: true,
+                width: 30,
+            },
+            {
+                field: 'order_ids',
+                header: 'order_id',
+                sortable: true,
+                width: 10,
+            },
+            {
+                field: 'updated_at',
+                header: 'modified',
+                sortable: true,
+                width: 20,
+            },
+            {
+                field: 'type',
+                header: 'type',
+                sortable: true,
+                width: 10,
+            },
+            {
+                field: 'actions',
+                header: '',
+                sortable: false,
+                width: 22,
+            },
+        ];
+    }
+
+    getData(event) {
+        console.log(event);
+        // setTimeout(() => {
+        //     this.sourcingSrv.queryParams.next({
+        //         ...this.queryParams,
+        //         sort_by: event.sortField,
+        //         sort_order: event.sortOrder === 1 ? 'asc' : 'desc',
+        //     });
+        // });
+    }
+
+    downloadFile(item: any) {
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    title: 'Please confirm!',
+                    desp: 'Are you sure want to download',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    const a = document.createElement('a');
+                    a.href = item.url;
+                    a.download = item.name;
+                    a.target = '_blank';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }
+            });
+    }
+
+    pinFileorFolder(id: any) {
+        this.roasterService.pinFileorFolder(this.roasterId, id).subscribe((res: any) => {
+            if (res.success) {
+                this.toastrService.success('The Selected file/folder is pinned successfully');
+                this.fileService.getPinnedFilesorFolders();
+            } else {
+                this.toastrService.error('Error while pinning the File/Folder');
+            }
+        });
+    }
+
+    updateFolder(item: any = null) {
+        this.dialogSrv
+            .open(FolderDialogComponent, {
+                data: {
+                    record: item,
+                },
+                header: item ? this.globals.languageJson.update_folder : this.globals.languageJson.create_folder,
+                styleClass: 'folder-dialog',
+            })
+            .onClose.subscribe((result: any) => {
+                if (result) {
+                    this.fileService.getFilesandFolders();
+                }
+            });
+    }
+
+    updateFile(item: any = null) {
+        this.dialogSrv
+            .open(FolderDialogComponent, {
+                data: {
+                    record: item,
+                },
+                header: (item ? this.globals.languageJson.create : this.globals.languageJson.create) + ' file',
+                styleClass: 'folder-dialog',
+            })
+            .onClose.subscribe((result: any) => {
+                if (result) {
+                    this.fileService.getFilesandFolders();
+                }
+            });
+    }
+
+    openDeleteModal(item: any) {
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'delete',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    if (item.type === 'FOLDER') {
+                        this.deleteFolder(item.id);
+                    } else {
+                        this.deleteFile(item.id);
+                    }
+                }
+            });
+    }
+
+    deleteFolder(id: any) {
+        this.roasterService.deleteFolder(this.roasterId, id).subscribe((res: any) => {
+            if (res.success) {
+                this.toastrService.success('The Selected folder is deleted successfully');
+                setTimeout(() => {
+                    this.fileService.getFilesandFolders();
+                }, 2000);
+            } else {
+                this.toastrService.error('Error while deleting the Folder');
+            }
+        });
+    }
+
+    deleteFile(id: any) {
+        this.roasterService.deleteFile(this.roasterId, id).subscribe((res: any) => {
+            if (res.success) {
+                this.toastrService.success('The Selected file is deleted successfully');
+                setTimeout(() => {
+                    this.fileService.getFilesandFolders();
+                }, 2500);
+            } else {
+                this.toastrService.error('Error while deleting the File');
+            }
+        });
+    }
+
     openFileModal(template: TemplateRef<any>, itemId: any) {
         this.modalRef = this.modalService.show(template);
         this.roasterService.getFileDetails(this.roasterId, itemId).subscribe((data) => {
@@ -115,56 +295,14 @@ export class MyfilesComponent implements OnInit {
             }
         });
     }
-    ngOnInit(): void {
-        // var fileModule = "File-Share";
-        //Toggle Esstate active
-        $('.btn-switch').click(function () {
-            var $group = $(this).closest('.cardpanel-detail');
-            $('.btn-switch', $group).removeClass('active');
-            $(this).addClass('active');
-        });
-        $('.activate-toggle').click(function () {
-            $('.cardpanel-detail').fadeIn();
-            $('.table-details').fadeOut();
-            $('.remove-toggle').removeClass('active');
-            // $(".cardpanel-detail").addClass('active')
-        });
-        $('.remove-toggle').click(function () {
-            $('.table-details').fadeIn();
-            $('.cardpanel-detail').fadeOut();
-            $('.activate-toggle').removeClass('active');
-        });
-
-        //Auth checking
-        if (this.cookieService.get('Auth') == '') {
-            this.router.navigate(['/auth/login']);
-        }
-        this.fileService.getFilesandFolders();
-        this.language();
-        // this.sharedUsersLists()
-    }
-
-    language() {
-        this.appLanguage = this.globals.languageJson;
-        this.myFiles++;
-    }
 
     openShareModal(shareTemplate: TemplateRef<any>, item: any) {
         this.shareFileId = item.id;
         this.modalRef = this.modalService.show(shareTemplate);
         this.sharedUsersLists();
     }
-    openDeleteModal(deleteTemplate: TemplateRef<any>, deleteId: any) {
-        this.modalRef = this.modalService.show(deleteTemplate);
-        this.deleteFolderId = deleteId;
-    }
-    openFileDeleteModal(deleteFileTemplate: TemplateRef<any>, deleteFileId: any) {
-        this.modalRef = this.modalService.show(deleteFileTemplate);
-        this.deleteFileId = deleteFileId;
-    }
 
     sharedUsersLists() {
-        console.info(this.shareFileId);
         this.roasterService.getSharedUserList(this.roasterId, this.shareFileId).subscribe((response) => {
             if (response['success'] == true) {
                 console.log(response);
@@ -225,42 +363,20 @@ export class MyfilesComponent implements OnInit {
         this.url = item.url;
         const player = new Plyr('#player');
         $('.popup-video').parents('.modal-content').addClass('video-content');
-
-        // $('.popup-video').parents('.modal-content').css({
-        //   "padding":"0px !important"
-        // })
-        // $('.popup-video').parents('.modal-body').css({
-        //   "margin-top":"0 !important"
-        // })
     }
+
     closePopup() {
         this.modalRef.hide();
     }
+
     toggleVideo(event: any) {
-        // this.videoplayer.nativeElement.play();
         event.toElement.play();
     }
 
-    downloadFile(item: any) {
-        if (confirm('Please confirm! you want to download?') == true) {
-            const a = document.createElement('a');
-            a.href = item.url;
-            a.download = item.name;
-            a.target = '_blank';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }
-    }
-
-    // Function Name : CheckAll
-    // Description: This function helps to check all roles of the role list.
     checkAll(ev: any) {
         this.fileService.mainData.forEach((x) => (x.state = ev.target.checked));
     }
 
-    // Function Name : IsAllchecked
-    // Description: This function helps to check single role.
     isAllChecked() {
         // return this.mainData.every(_ => _.state);
     }
@@ -274,51 +390,6 @@ export class MyfilesComponent implements OnInit {
         };
 
         this.router.navigate(['/features/file-share-details'], navigationExtras);
-    }
-
-    deleteFolder(id: any) {
-        // if (confirm("Please confirm! you want to delete?") == true) {
-        this.roasterService.deleteFolder(this.roasterId, id).subscribe((data) => {
-            if (data['success'] == true) {
-                this.toastrService.success('The Selected folder is deleted successfully');
-                setTimeout(() => {
-                    this.fileService.getFilesandFolders();
-                }, 2000);
-            } else {
-                this.toastrService.error('Error while deleting the Folder');
-            }
-        });
-        // }
-    }
-    deleteFile(id: any) {
-        // if (confirm("Please confirm! you want to delete?") == true) {
-        this.roasterService.deleteFile(this.roasterId, id).subscribe((data) => {
-            if (data['success'] == true) {
-                this.toastrService.success('The Selected file is deleted successfully');
-                setTimeout(() => {
-                    this.fileService.getFilesandFolders();
-                }, 2500);
-            } else {
-                this.toastrService.error('Error while deleting the File');
-            }
-        });
-        // }
-    }
-
-    pinFileorFolder(id: any) {
-        this.roasterService.pinFileorFolder(this.roasterId, id).subscribe((data) => {
-            if (data['success'] == true) {
-                this.toastrService.success('The Selected file/folder is pinned successfully');
-                // Calling the Grade info component by creating object of the component and accessing its methods
-
-                //  let callPinnedDetails = new FileShareComponent(this.router,this.dashboard,this.toastrService,this.cookieService,this.roasterService,this.fileService,this.modalService);
-                //  callPinnedDetails.getPinnedFilesorFolders();
-
-                this.fileService.getPinnedFilesorFolders();
-            } else {
-                this.toastrService.error('Error while pinning the File/Folder');
-            }
-        });
     }
 
     reUploadFile(event: any) {
@@ -366,80 +437,32 @@ export class MyfilesComponent implements OnInit {
         }
     }
 
-    updateFile() {
-        // if (
-        //   this.fileName == "" ||
-        //   this.fileName == null ||
-        //   this.fileName == undefined
-        // ) {
-        //   this.fileNameError = "Please enter your password";
-        //   document.getElementById("updatefile_name").style.border =
-        //     "1px solid #D50000 ";
-        //   setTimeout(() => {
-        //     this.fileNameError = "";
-        //   }, 3000);
-        // }
-        // else if (
-        //   this.fileDescription == "" ||
-        //   this.fileDescription == null ||
-        //   this.fileDescription == undefined
-        // ) {
-        //   this.filedescriptionError = "Please enter your password";
-        //   document.getElementById("updatefile_descr").style.border = "1px solid #D50000 ";
-        //   setTimeout(() => {
-        //     this.filedescriptionError = "";
-        //   }, 3000);
-        // }
-        // else{
+    // updateFile() {
+    //     let fileList: FileList = this.fileEvent;
+    //     console.log(fileList);
+    //     if (fileList == undefined || fileList == null) {
+    //         this.toastrService.error('Please upload the file to update the details');
+    //     } else if (fileList.length > 0) {
+    //         let file: File = fileList[0];
+    //         let formData: FormData = new FormData();
+    //         formData.append('file', file, file.name);
+    //         formData.append('name', this.file_name);
+    //         formData.append('description', this.file_description);
+    //         this.roasterId = this.cookieService.get('roaster_id');
+    //         formData.append('api_call', '/ro/' + this.roasterId + '/file-manager/files/' + this.file_id);
+    //         formData.append('token', this.cookieService.get('Auth'));
+    //         this.roasterService.updateFiles(formData).subscribe((result) => {
+    //             if (result['success'] == true) {
+    //                 this.toastrService.success('The File has been updated successfully');
 
-        let fileList: FileList = this.fileEvent;
-        console.log(fileList);
-        if (fileList == undefined || fileList == null) {
-            // let formData: FormData = new FormData();
-            // // formData.append("file", file, file.name);
-            // formData.append("name", this.file_name);
-            // formData.append("description",this.file_description)
-            // this.roasterId = this.cookieService.get("roaster_id");
-            // formData.append(
-            //   "api_call",
-            //   "/ro/" + this.roasterId + "/file-manager/files/" + this.file_id
-            // );
-            // formData.append("token", this.cookieService.get("Auth"));
-            // this.roasterService.updateFiles(formData).subscribe(
-            //   result=>{
-            //     if(result['success']==true){
-            //       this.toastrService.success("The File has been updated successfully");
-            //       this.getFilesandFolders();
-            //       this.modalRef.hide();
-            //     }else{
-            //       this.toastrService.error("Error while updating the file details");
-            //       this.modalRef.hide();
-            //     }
-            //   }
-            // )
-            this.toastrService.error('Please upload the file to update the details');
-        } else if (fileList.length > 0) {
-            let file: File = fileList[0];
-            let formData: FormData = new FormData();
-            formData.append('file', file, file.name);
-            formData.append('name', this.file_name);
-            formData.append('description', this.file_description);
-            this.roasterId = this.cookieService.get('roaster_id');
-            formData.append('api_call', '/ro/' + this.roasterId + '/file-manager/files/' + this.file_id);
-            formData.append('token', this.cookieService.get('Auth'));
-            this.roasterService.updateFiles(formData).subscribe((result) => {
-                if (result['success'] == true) {
-                    this.toastrService.success('The File has been updated successfully');
-
-                    this.fileService.getFilesandFolders();
-                    this.modalRef.hide();
-                } else {
-                    this.toastrService.error('Error while updating the file details');
-                    this.modalRef.hide();
-                }
-            });
-        }
-    }
+    //                 this.fileService.getFilesandFolders();
+    //                 this.modalRef.hide();
+    //             } else {
+    //                 this.toastrService.error('Error while updating the file details');
+    //                 this.modalRef.hide();
+    //             }
+    //         });
+    //     }
     // }
 
     shareFileAndFolder() {

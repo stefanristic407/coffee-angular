@@ -14,6 +14,7 @@ import { DocumentFileComponent } from './file-share-details/document-file/docume
 import { VideoFileComponent } from './file-share-details/video-file/video-file.component';
 import { DocumentTableComponent } from './file-share-details/document-table/document-table.component';
 import { VideoTableComponent } from './file-share-details/video-table/video-table.component';
+import { FolderDialogComponent } from './folder-dialog/folder-dialog.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,9 @@ import { VideoTableComponent } from './file-share-details/video-table/video-tabl
         VideoFileComponent,
         DocumentTableComponent,
         VideoTableComponent,
+        FolderDialogComponent,
     ],
+    entryComponents: [FolderDialogComponent],
     imports: [CommonModule, FileShareRoutingModule, SharedModule, Ng2SearchPipeModule],
 })
 export class FileShareModule {}

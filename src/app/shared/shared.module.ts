@@ -29,6 +29,7 @@ import { MenuModule } from 'primeng/menu';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
@@ -42,7 +43,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ImageCropperModule } from 'ngx-image-cropper';
-// import { RatingModule } from 'ng-starrating';
 import { GalleryModule } from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
 import { MatVideoModule } from 'mat-video';
@@ -95,9 +95,6 @@ import { PhoneNumberComponent } from './components/phone-number/phone-number.com
 import { ReviewSummaryComponent } from './components/review-summary/review-summary.component';
 import { ReviewsComponent } from './components/reviews/reviews.component';
 import { ProgressBarModule } from 'primeng/progressbar';
-// #region material
-const MATMODULES = [];
-// #endregion
 
 // #region third libs
 const THIRDMODULES = [
@@ -125,6 +122,7 @@ const THIRDMODULES = [
     MultiSelectModule,
     OverlayPanelModule,
     ProgressSpinnerModule,
+    RadioButtonModule,
     RatingModule,
     SelectButtonModule,
     SliderModule,
@@ -139,7 +137,6 @@ const THIRDMODULES = [
     RangeNavigatorAllModule,
     NgxChartsModule,
     ImageCropperModule,
-    // RatingModule,
     GalleryModule,
     LightboxModule,
     MatVideoModule,
@@ -202,7 +199,6 @@ const PIPES = [
         FormsModule,
         RouterModule,
         ReactiveFormsModule,
-        ...MATMODULES,
         // third libs
         ...THIRDMODULES,
         NgxEchartsModule.forRoot({
@@ -222,7 +218,6 @@ const PIPES = [
         FormsModule,
         ReactiveFormsModule,
         RouterModule,
-        ...MATMODULES,
         // third libs
         ...THIRDMODULES,
         // your components

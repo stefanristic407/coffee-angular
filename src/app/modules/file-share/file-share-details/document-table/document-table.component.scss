@@ -73,7 +73,7 @@ span.checkmark {
     border-radius: 2px;
 }
 
-.customcheckbox input:checked~.checkmark {
+.customcheckbox input:checked ~ .checkmark {
     background-color: #30855c !important;
 }
 
@@ -101,7 +101,6 @@ span.checkmark {
     background-color: #3d8462;
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
-
 
 .estate-title {
     border-radius: 4px;
@@ -180,8 +179,6 @@ span.checkmark {
     padding-left: 45px;
 }
 
-
-
 /**********popover*******/
 
 .list-group-item {
@@ -207,7 +204,7 @@ span.checkmark {
 }
 
 ::ng-deep .popover-body {
-    padding: .25rem .25rem !important;
+    padding: 0.25rem 0.25rem !important;
 }
 
 ::ng-deep .popover {
@@ -226,7 +223,7 @@ span.checkmark {
     cursor: pointer;
 }
 
-@media (max-width:1024px) {
+@media (max-width: 1024px) {
     .estate-table {
         /* width: 100%; */
         overflow: scroll;
@@ -236,7 +233,7 @@ span.checkmark {
     }
 }
 
-@media (max-width:480px) {
+@media (max-width: 480px) {
     .estate-orders {
         margin: 1rem 0px;
     }
@@ -249,7 +246,6 @@ span.checkmark {
 .spacing-order {
     padding: 1rem 0.6rem !important;
 }
-
 
 .display_div {
     /* width: 100%; */
@@ -279,23 +275,24 @@ span.checkmark {
     height: 17px;
 }
 .share_icon {
-	position: relative;
+    position: relative;
     display: table-cell;
-    width: 5%!important;
+    width: 5% !important;
 }
 
-.share_icon:hover .edit , tr:hover .edit {
-	display: block;
+.share_icon:hover .edit,
+tr:hover .edit {
+    display: block;
 }
 
 .edit {
-	padding-top: 17px;	
+    padding-top: 17px;
     padding-right: 0px;
     padding-left: 0px;
-	position: absolute;
-	right: 0;
-	top: 0;
-	display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: none;
 }
 .dwnd-img {
     width: 23px;
@@ -303,7 +300,7 @@ span.checkmark {
     object-fit: contain;
 }
 
-.share-bor {
+.btn-trans-icon {
     border-radius: 2px;
     border: solid 2px rgba(116, 117, 136, 0.6);
     padding: 6px 12px;
@@ -327,12 +324,11 @@ span.checkmark {
     object-fit: contain;
 }
 
-
 /*  media query Fram Link */
 
-@media (max-width:767px) {
+@media (max-width: 767px) {
     .bg-fff {
-        padding: 1rem .7rem !important;
+        padding: 1rem 0.7rem !important;
     }
     .bread-nav {
         padding-left: 0rem;
@@ -371,7 +367,7 @@ span.checkmark {
         margin: 1% !important;
     }
     .mobile-ce p {
-        margin-bottom: .5rem !important;
+        margin-bottom: 0.5rem !important;
     }
     .bor-d6d6 {
         border-top: 2px dashed #d6d6d6;
@@ -382,7 +378,7 @@ span.checkmark {
         display: flex;
         flex-wrap: wrap;
     }
-    .video-section-modal{
+    .video-section-modal {
         padding: 0 !important;
         margin-top: 0 !important;
     }
@@ -409,22 +405,22 @@ span.checkmark {
     background-color: #30855c !important;
 }
 
-@media (min-width: 576px){
+@media (min-width: 576px) {
     ::ng-deep .modal-dialog {
         max-width: 55% !important;
     }
-    }
-    .customcheckbox{
-        bottom: 8px;
-    }
+}
+.customcheckbox {
+    bottom: 8px;
+}
 
 /* =====Video popup css==== */
 
-.video-section-modal{
+.video-section-modal {
     padding: 0 !important;
     margin-top: 0 !important;
 }
-::ng-deep .modal-content.video-content{
+::ng-deep .modal-content.video-content {
     padding: 0 !important;
     background: none !important;
 }
@@ -448,8 +444,6 @@ span.checkmark {
     pointer-events: all;
 }
 
-
-    
 /* ===============Image Popup CSS================== */
 .priview-popup-fileshare__back {
     position: relative;
@@ -520,15 +514,13 @@ span.checkmark {
     margin-bottom: 3px;
     cursor: pointer;
 }
-.underline-text{
+.underline-text {
     text-decoration: none;
     color: #747588;
 }
-.underline-text:hover{
+.underline-text:hover {
     color: #232334;
 }
-
-
 
 @media (min-width: 576px) {
     .priview-popup-fileshare__img {
@@ -581,7 +573,6 @@ span.checkmark {
     .priview-popup-fileshare__back {
         top: 40px;
     }
-
 }
 
 @media (min-width: 992px) {
@@ -602,10 +593,10 @@ span.checkmark {
         width: 35px;
         height: 35px;
     }
-    .file-share-search input[type="search"]::placeholder {
+    .file-share-search input[type='search']::placeholder {
         font-size: 14px;
     }
-    .file-share-search input[type="search"] {
+    .file-share-search input[type='search'] {
         font-size: 14px;
     }
     /* .modal-header {
@@ -650,13 +641,11 @@ span.checkmark {
     }
 }
 
-
-.auto-complete-box{
+.auto-complete-box {
     box-shadow: none !important;
     border: none !important;
     outline: none !important;
 }
-
 
 .file-share-addMail {
     background-color: #ffffff;
@@ -676,7 +665,7 @@ span.checkmark {
     background: none;
 }
 
-.quick-pinned-files__Image input[type="file"] {
+.quick-pinned-files__Image input[type='file'] {
     opacity: 0;
     visibility: hidden;
     display: none;
@@ -686,10 +675,10 @@ span.checkmark {
     width: 60%;
 }
 
-.ownerName{
+.ownerName {
     text-overflow: ellipsis;
 }
-.folderName{
+.folderName {
     text-overflow: ellipsis;
 }
 
@@ -698,10 +687,10 @@ span.checkmark {
         width: 65%;
     }
 }
-.tab-overflow-auto{
+.tab-overflow-auto {
     width: 100%;
 }
-.user-img{
+.user-img {
     border-radius: 100%;
     height: 32px;
     width: 32px;
