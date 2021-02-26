@@ -264,6 +264,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         threadUser.computed_organization_name = this.chatUtil.getOrganization(threadUser.org_type);
         threadUser.computed_fullname = threadUser.first_name + ' ' + threadUser.last_name;
         threadUser.computed_profile_dp = this.getProfileImageBgStyle(threadUser.profile_pic);
+        threadUser.computed_profile_direct_url = this.getProfileImageDirectURL(threadUser.profile_pic);
         return threadUser;
     }
 
@@ -296,12 +297,12 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     handleIncomingMessages(WSmsg: WSResponse<IncomingChatMessage>) {
-        const message = WSmsg.data;
+        let message = WSmsg.data;
         if (WSmsg.code === 201 && (message?.content || '').trim() !== '') {
             if (message.activity_type === ThreadActivityType.message) {
                 const inThread = this.threadList.find((thread) => thread.id === message.thread_id);
                 if (inThread) {
-                    this.processChatMessages(message, inThread);
+                    message = this.processChatMessages(message, inThread) as IncomingChatMessage;
                     const user = message?.member?.user;
                     if (user) {
                         this.processThreadUser(user);
@@ -314,6 +315,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                         this.SM['lastRender'] = this.lastMessageRendered.pipe(first()).subscribe((x) => {
                             this.scrollbottom();
                         });
+                        const lastMessage = this.messageList[this.messageList.length - 1];
+                        message.showUserBadge = lastMessage.isActiveUser && !message.isActiveUser;
                         this.messageList.push(message);
                         this.openedThread.computed_lastActivityText = message.content;
                         this.sendReadToken(message.id);
@@ -354,9 +357,18 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             this.messageList = WSmsg.data
                 .filter((x) => x.activity_type === ThreadActivityType.message && x.content.trim() !== '')
                 .reverse();
-            this.messageList.forEach((message) => {
-                this.processChatMessages(message, this.openedThread);
-            });
+            let showUserBadge = true; // Set true on To message, and false after first From message
+            // Need different logic for group chat
+            for (let index = 0, len = this.messageList.length; index < len; index++) {
+                this.messageList[index] = this.processChatMessages(this.messageList[index], this.openedThread);
+                if (!this.messageList[index].isActiveUser) {
+                    this.messageList[index].showUserBadge = showUserBadge;
+                    showUserBadge = false;
+                } else {
+                    this.messageList[index].showUserBadge = false; // always false on TO message
+                    showUserBadge = true;
+                }
+            }
             const lastMessage = this.messageList[this.messageList.length - 1];
             if (lastMessage) {
                 if (lastMessage && lastMessage.content) {
@@ -632,6 +644,13 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             return `url(assets/images/profile.svg)`; // Placeholder image
         }
     }
+    getProfileImageDirectURL(profileImageUrl: string) {
+        if (profileImageUrl) {
+            return profileImageUrl;
+        } else {
+            return 'assets/images/profile.svg';
+        }
+    }
 
     inputkeyPress(event: KeyboardEvent) {
         if (event.key === 'Enter' && !event.shiftKey && !event.ctrlKey) {
@@ -759,6 +778,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                     user_id: x.id || 0,
                     computed_fullname: x.firstname + ' ' + x.lastname,
                     computed_profile_dp: this.getProfileImageBgStyle(x.profile_pic),
+                    computed_profile_direct_url: this.getProfileImageDirectURL(x.profile_pic),
                     computed_organization_name: '',
                 };
                 processedItem.computed_organization_name = this.chatUtil.getOrganization(

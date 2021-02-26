@@ -111,6 +111,7 @@ export interface ThreadMembers {
     computed_lastseen: string;
     computed_fullname: string;
     computed_profile_dp: string;
+    computed_profile_direct_url: string;
     computed_organization_name: string;
 }
 
@@ -144,6 +145,7 @@ export interface ChatMessage {
     computed_date: string;
     computed_author: ThreadMembers;
     isActiveUser: boolean;
+    showUserBadge: boolean;
 }
 export interface ChatMessageMember {
     id: number;
@@ -181,6 +183,7 @@ export interface UserListItem {
     timezone: string;
     computed_fullname: string;
     computed_profile_dp: string;
+    computed_profile_direct_url: string;
     computed_organization_name: string;
 }
 export interface OpenChatThread {
