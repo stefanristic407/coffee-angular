@@ -37,7 +37,7 @@ td {
 
 .table-head {
     border-radius: 4px;
-    background-color: #f8f8f8
+    background-color: #f8f8f8;
 }
 
 .express__delivery {
@@ -68,7 +68,6 @@ td {
     background-color: #ffffff;
 }
 
-
 /* togggle */
 
 .active__main {
@@ -97,7 +96,6 @@ td {
     color: #979797;
     font-family: Muli;
 }
-
 
 /********Modal********/
 

@@ -29,22 +29,126 @@
                 </nav>
             </div>
             <section class="estate-orders-heading">
-                <div class="row">
+                <div class="row justify-content-between align-items-center">
                     <div class="col-lg-9 col-md-6">
                         <h5 class="estate-order-title">API Requests</h5>
                         <p class="Give-your-end-users">
                             Accept, reject API key requests by customers and generate API keys.
                         </p>
                     </div>
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-3 col-md-6 text-right">
                         <div class="file-share-search">
                             <img class="mr-1 mr-md-2" src="assets/images/search.svg" />
                             <input
                                 class="fadout-search"
                                 type="search"
-                                placeholder="Search by request id "
+                                placeholder="Search by request id or Customer Name "
                                 name="filesTerm"
                             />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="header-details row justify-content-between align-items-center">
+                    <div class="header-inner col-lg-9 col-md-6">
+                        <div
+                            class="d-inline border-total col-sm-3"
+                            id="status_id"
+                            [outsideClick]="true"
+                            (onShown)="toggleStatus()"
+                            (onHidden)="toggleStatus()"
+                            [popover]="allTemplate"
+                            placement="bottom"
+                            container="body"
+                            #pop="bs-popover"
+                        >
+                            <p class="d-inline filter-text" *ngIf="termStatus == ''">Customer Type&nbsp;</p>
+                            <a class="pointer-item">
+                                <p class="d-inline filter" *ngIf="termStatus == ''">
+                                    &nbsp;
+                                    <img
+                                        src="{{
+                                            showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'
+                                        }}"
+                                    />
+                                </p>
+                            </a>
+                            <a class="pointer-item">
+                                <p class="d-inline filter" *ngIf="termStatus != ''">
+                                    {{ termStatus }}&nbsp;
+                                    <img
+                                        src="{{
+                                            showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'
+                                        }}"
+                                    />
+                                </p>
+                            </a>
+                        </div>
+                        <div class="d-inline border-order date-div col-sm-3" (click)="openCalendar($event)">
+                            <p class="d-inline filter-text">
+                                Date range &nbsp;
+                                <span *ngIf="showDateRange != ''">{{ showDateRange }}</span>
+                            </p>
+
+                            <a class="pointer-item">
+                                <p class="d-inline filter">
+                                    <p-calendar
+                                        #calendar
+                                        styleClass="only-icon"
+                                        [(ngModel)]="rangeDates"
+                                        (onSelect)="filterDate($event)"
+                                        selectionMode="range"
+                                        dateFormat="dd.mm.yy"
+                                        [readonlyInput]="true"
+                                        [showButtonBar]="true"
+                                    ></p-calendar>
+                                    &nbsp; <img src="assets/images/active-calender.png" alt="" />
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="d-inline">
+                            <div class="hover-filters">
+                                <div
+                                    class="float-right border-order top-space"
+                                    id="display_id"
+                                    [outsideClick]="true"
+                                    (onShown)="toggleDisplay()"
+                                    (onHidden)="toggleDisplay()"
+                                    [popover]="displayTemplate"
+                                    placement="bottom"
+                                    [outsideClick]="true"
+                                    container="body"
+                                    #pop9="bs-popover"
+                                >
+                                    <p class="d-inline filter-text">Display &#9679;</p>
+                                    <a class="pointer-item">
+                                        <p class="d-inline filter" *ngIf="display == '-1'">
+                                            &nbsp; &nbsp;
+                                            <img
+                                                src="{{
+                                                    showDisplay
+                                                        ? 'assets/images/down-arrow.svg'
+                                                        : 'assets/images/user-down.svg'
+                                                }}"
+                                            />
+                                        </p>
+                                    </a>
+                                    <a class="pointer-item">
+                                        <p class="d-inline filter" *ngIf="display != '-1'">
+                                            {{ display }}&nbsp; &nbsp;
+                                            <img
+                                                src="{{
+                                                    showDisplay
+                                                        ? 'assets/images/down-arrow.svg'
+                                                        : 'assets/images/user-down.svg'
+                                                }}"
+                                            />
+                                        </p>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -200,6 +304,30 @@
                 </li>
                 <li class="list-group-item item-color">
                     <a class="pointer-item">Hidden</a>
+                </li>
+            </ul>
+        </div>
+    </ng-template>
+    <ng-template #allTemplate>
+        <div id="status-content">
+            <ul class="list-group">
+                <li class="list-group-item item-color" (click)="setStatus(''); pop.hide()">
+                    <a class="pointer-item">All</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setStatus('Brazil'); pop.hide()">
+                    <a class="pointer-item">Brazil</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setStatus('Guatemala'); pop.hide()">
+                    <a class="pointer-item">Guatemala</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setStatus('Spain'); pop.hide()">
+                    <a class="pointer-item">Spain</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setStatus('Sweden'); pop.hide()">
+                    <a class="pointer-item">Sweden</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setStatus('Vietnam'); pop.hide()">
+                    <a class="pointer-item">Vietnam</a>
                 </li>
             </ul>
         </div>
