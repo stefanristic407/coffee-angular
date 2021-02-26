@@ -14,7 +14,7 @@
                 </div>
                 <div class="mt-4 pb-2" [formGroup]="batchForm" (ngSubmit)="onSave()" novalidate>
                     <div class="row">
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-10 col-xl-10 sewn-form-field w-100">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 sewn-form-field w-100">
                             <label>Roast batch name<span class="star">*</span></label>
                             <input
                                 type="text"
@@ -50,7 +50,7 @@
                     </div>
                     <div class="row mt-4">
                         <div
-                            class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 sewn-form-field w-100"
+                            class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 sewn-form-field w-100"
                             *ngIf="ordId != 'select the order'"
                         >
                             <label>Roaster ref no</label>
@@ -59,7 +59,7 @@
                                 Required
                             </small>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 sewn-form-field w-100">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 sewn-form-field w-100">
                             <label>Batch Ref no.</label>
                             <input
                                 type="number"
@@ -147,7 +147,7 @@
                     </div>
 
                     <div class="row mt-2">
-                        <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 sewn-form-field w-100">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 sewn-form-field w-100">
                             <label>Select roasting profile<span class="star">*</span></label>
                             <p-dropdown
                                 [options]="roastProfileArray"
@@ -161,7 +161,7 @@
                                 Required
                             </small>
                         </div>
-                        <div class="col-12 col-sm-6 col-md-5 col-lg-5 col-xl-5 sewn-form-field w-100">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 sewn-form-field w-100">
                             <label>Quantity after roasted<span class="star">*</span></label>
                             <div class="input-group weightInputGroupDiv">
                                 <input
@@ -191,14 +191,14 @@
                                 globals.languageJson?.tasting_notes
                             }}</span>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 sewn-form-field w-100">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 sewn-form-field w-100">
                             <label>Aroma<span class="star">*</span></label>
                             <input type="number" placeholder="Enter a number" formControlName="aroma" pInputText />
                             <small *ngIf="batchForm.controls['aroma'].errors?.required" class="p-error">
                                 Required
                             </small>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 sewn-form-field w-100">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 sewn-form-field w-100">
                             <label>Acidity<span class="star">*</span></label>
                             <input type="number" placeholder="Enter a number" formControlName="acidity" pInputText />
                             <small *ngIf="batchForm.controls['acidity'].errors?.required" class="p-error">
@@ -207,14 +207,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 sewn-form-field w-100">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 sewn-form-field w-100">
                             <label>Body<span class="star">*</span></label>
                             <input type="number" placeholder="Enter a number" formControlName="body" pInputText />
                             <small *ngIf="batchForm.controls['body'].errors?.required" class="p-error">
                                 Required
                             </small>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 sewn-form-field w-100">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 sewn-form-field w-100">
                             <label>Flavour<span class="star">*</span></label>
                             <input type="number" placeholder="Enter a number" formControlName="flavour" pInputText />
                             <small *ngIf="batchForm.controls['flavour'].errors?.required" class="p-error">
@@ -223,7 +223,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 sewn-form-field w-100">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 sewn-form-field w-100">
                             <label>Processing<span class="star">*</span></label>
                             <input type="text" placeholder="" formControlName="processing" pInputText />
                             <small *ngIf="batchForm.controls['processing'].errors?.required" class="p-error">
@@ -274,7 +274,7 @@
                         </div>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 sewn-form-field w-100">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 sewn-form-field w-100">
                             <label>Roaster Notes<span class="star">*</span></label>
                             <textarea
                                 type="text"
