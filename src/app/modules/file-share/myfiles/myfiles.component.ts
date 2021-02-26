@@ -211,7 +211,7 @@ export class MyfilesComponent implements OnInit {
                 data: {
                     record: item,
                 },
-                header: (item ? this.globals.languageJson.create : this.globals.languageJson.create) + ' folder',
+                header: item ? this.globals.languageJson.update_folder : this.globals.languageJson.create_folder,
                 styleClass: 'folder-dialog',
             })
             .onClose.subscribe((result: any) => {

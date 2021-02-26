@@ -90,4 +90,11 @@
         height: 13px;
         background-image: url('/assets/images/region-plus.svg');
     }
+    &.zoom-icon::before {
+        top: 7px;
+        left: 11px;
+        width: 17px;
+        height: 17px;
+        background-image: url('/assets/images/zoom.svg');
+    }
 }
