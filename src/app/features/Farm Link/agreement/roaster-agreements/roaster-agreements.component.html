@@ -1,70 +1,63 @@
 <section class="estate-orders">
-    <div class="row web-farm">
-        <div class="d-inline table-w pt-2 agre-index-z">
-            <div class="title-header d-inline web">
-                <div class="hover-filters d-inline-block">
-                    <div class="d-inline border-order role-div col-sm-6" id="origin_id">
-                        <p class="d-inline filter-text" *ngIf="estatetermOrigin == ''">Select customer&nbsp;</p>
-                        <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body"
-                            #pop4="bs-popover">
-                            <p class="d-inline filter" *ngIf="estatetermOrigin == ''" (click)="toggleOrigin()">
-                                &nbsp;
-                                <img
-                                    src="{{showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                            </p>
-                        </a>
-                        <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body"
-                            #pop5="bs-popover">
-                            <p class="d-inline filter" *ngIf="estatetermOrigin != ''" (click)="toggleOrigin()">
-                                {{ estatetermOrigin }} &nbsp;
-                                <img
-                                    src="{{showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                            </p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="row pl-3">
+        <p-dropdown id="select-customer" [options]="newList" [(ngModel)]="selectedCustomers" scrollHeight="225px"
+            (onChange)="filterAgrements()" [showClear]="true" placeholder="Select customer"
+            styleClass="round-border mr-25 mb-25 mb-md-4"></p-dropdown>
     </div>
-    <div class="row mobile-farm">
-        <div class="title-header d-inline">
-            <div class="d-inline border-order top-padd col-sm-6" id="orgin-mob-id">
-                <p class="d-inline filter-text" *ngIf="customerMob == ''">Select customer&nbsp;</p>
-                <a class="pointer-item" [popover]="templateMob" placement="bottom" container="body" #pop9="bs-popover">
-                    <p class="d-inline filter" *ngIf="customerMob == ''" (click)="toggleCustomerMob()">
-                        &nbsp;
-                        <img
-                            src="{{ showCustomerMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg' }}" />
-                    </p>
-                </a>
-                <a class="pointer-item" [popover]="templateMob" placement="bottom" container="body" #pop10="bs-popover">
-                    <p class="d-inline filter" *ngIf="customerMob != ''" (click)="toggleCustomerMob()">
-                        {{ customerMob }} &nbsp;<img
-                            src="{{ showCustomerMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg' }}" />
-                    </p>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="estate-table pt-2 web-farm">
+    <div class="estate-table web-farm">
         <div class="table-responsive border-lots">
             <table class="table">
                 <thead class="table-header">
                     <tr class="header-row">
-                        <th>{{ globals.languageJson?.files }}</th>
-                        <th scope="col">{{ globals.languageJson?.added_on }}</th>
-                        <th scope="col">{{ globals.languageJson?.customer_name }}</th>
-                        <th scope="col">{{ globals.languageJson?.origin }}</th>
-                        <th></th>
+                        <th id="bord-left">{{ globals.languageJson?.files }}
+                            <img src="../../../../../assets/images/arrow-up.svg" class="arrow-align pl-2"
+                                (click)="onDescendingSort('file_name')"
+                                *ngIf="isAscending && sortColumnName === 'file_name'">
+                            <img src="../../../../../assets/images/arrow-down.svg" class="arrow-align pl-2"
+                                (click)="onDefaultSort()" *ngIf="isDescending && sortColumnName === 'file_name' ">
+                            <img src="../../../../../assets/images/combined-shape-user.svg" class="pl-2"
+                                (click)="onAscendingSort('file_name')"
+                                *ngIf="!isAscending && !isDescending || sortColumnName !== 'file_name'">
+                        </th>
+                        <th scope="col">{{ globals.languageJson?.added_on }}
+                            <img src="../../../../../assets/images/arrow-up.svg" class="arrow-align pl-2"
+                                (click)="onDescendingSort('created_at')"
+                                *ngIf="isAscending && sortColumnName === 'created_at'">
+                            <img src="../../../../../assets/images/arrow-down.svg" class="arrow-align pl-2"
+                                (click)="onDefaultSort()" *ngIf="isDescending && sortColumnName === 'created_at'">
+                            <img src="../../../../../assets/images/combined-shape-user.svg" class="pl-2"
+                                (click)="onAscendingSort('created_at')"
+                                *ngIf="!isAscending && !isDescending || sortColumnName !== 'created_at'">
+                        </th>
+                        <th scope="col">{{ globals.languageJson?.customer_name }}
+                            <img src="../../../../../assets/images/arrow-up.svg" class="arrow-align pl-2"
+                                (click)="onDescendingSort('customer_name')"
+                                *ngIf="isAscending && sortColumnName === 'customer_name'">
+                            <img src="../../../../../assets/images/arrow-down.svg" class="arrow-align pl-2"
+                                (click)="onDefaultSort()" *ngIf="isDescending && sortColumnName === 'customer_name'">
+                            <img src="../../../../../assets/images/combined-shape-user.svg" class="pl-2"
+                                (click)="onAscendingSort('customer_name')"
+                                *ngIf="!isAscending && !isDescending || sortColumnName !== 'customer_name'">
+                        </th>
+                        <th scope="col">{{ globals.languageJson?.origin }}
+                            <img src="../../../../../assets/images/arrow-up.svg" class="arrow-align pl-2"
+                                (click)="onDescendingSort('origin')" *ngIf="isAscending && sortColumnName === 'origin'">
+                            <img src="../../../../../assets/images/arrow-down.svg" class="arrow-align pl-2"
+                                (click)="onDefaultSort()" *ngIf="isDescending && sortColumnName === 'origin'">
+                            <img src="../../../../../assets/images/combined-shape-user.svg" class="pl-2"
+                                (click)="onAscendingSort('origin')"
+                                *ngIf="!isAscending && !isDescending || sortColumnName !== 'origin'">
+                        </th>
+                        <th id="bord-right"></th>
                     </tr>
                 </thead>
-                <tbody class="customtable" *ngIf="mainData && mainData.length > 0">
+                <tbody class="customtable" *ngIf="sortedMainData && sortedMainData.length > 0">
                     <tr class="ticket-boby-txt"
-                        *ngFor="let item of mainData | filter: searchTerm | filter: estatetermOrigin">
+                        *ngFor="let item of sortedMainData | filter: searchTerm | filter: estatetermOrigin">
                         <td>
-                            <span><img class="file-icon pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon" />
-                                {{ item.file_name }}</span>
+                            <a href="{{item.file_url}}" target="_blank" class="file_url"><span><img
+                                        class="file-icon pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon" />
+                                    {{ item.file_name }}</span></a>
                         </td>
                         <td>{{ item.created_at | date: 'M/d/yy, h:mm a' }}</td>
                         <td>{{ item.customer_name }}</td>
@@ -72,7 +65,7 @@
                         <td>
                             <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true"
                                 #pop="bs-popover">
-                                <p><img class="ellipse-image" src="assets/images/more-opns-file.png" alt="" /></p>
+                                <p><i class="pi pi-ellipsis-v"></i></p>
                             </a>
                             <ng-template #poplistTemplate id="{{ item.id }}">
                                 <div id="popover-mobile-content">
@@ -116,39 +109,9 @@
     </div>
 </section>
 
-<ng-template #originTemplate>
-    <div id="status-content">
-        <ul class="list-group custom-popover">
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOrigin(''); pop4.hide(); pop5.hide(); toggleOrigin()">All</a>
-            </li>
-            <li class="list-group-item item-color" *ngFor="let customer of newList">
-                <a class="pointer-item" (click)="setOrigin(customer.name); pop4.hide(); pop5.hide(); toggleOrigin()">{{
-                    customer.name
-                    }}</a>
-            </li>
-        </ul>
-    </div>
-</ng-template>
-
-<ng-template #templateMob>
-    <div id="status-content">
-        <ul class="list-group custom-popover">
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setUser(''); pop9.hide(); pop10.hide(); toggleCustomerMob()">All</a>
-            </li>
-            <li class="list-group-item item-color" *ngFor="let customer of newList">
-                <a class="pointer-item"
-                    (click)="setUser(customer.name); pop9.hide(); pop10.hide(); toggleCustomerMob()">{{ customer.name
-                    }}</a>
-            </li>
-        </ul>
-    </div>
-</ng-template>
-
 <div class="modal fade" id="uploadfolder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-lg" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-lg modal-large" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">
@@ -206,10 +169,10 @@
                                     <span class="d-block fnt-14 fnt-500 text-clr588 fnt-muli text-clr334 mb-1">{{
                                         globals.languageJson?.please_upload_document
                                         }}</span>
-                                    <label class="share-bor w-30 d-inline-block">
-                                        <input class="file-inpt" accept="application/pdf" type="file"
+                                    <label class="share-bor custom-width-30 d-inline-block">
+                                        <input class="file-input" accept="application/pdf" type="file"
                                             (change)="uploadFile($event)" /><img class="dwnd-img"
-                                            src="assets/images/upload-icon.png" alt="upload-icon" />
+                                            src="assets/images/group-6.svg" alt="upload-icon" />
                                         <span class="share-txt"> {{ globals.languageJson?.upload }} </span>
                                     </label>
                                     <span class="value-name pl-3">{{ fileNameValue }}</span>
@@ -220,8 +183,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn-raised create-share fnt-14 fnt-700 fnt-muli"
-                    (click)="uploadAgreement()"
+                <button type="button" class="btn-raised fnt-14 fnt-700 fnt-muli" (click)="uploadAgreement()"
                     [disabled]="resetButtonValue === 'Uploading' || !(horecaFormGroup.get('customerId').valid && fileNameValue)">
                     {{ resetButtonValue}}
                     <img class="loader" *ngIf="resetButtonValue === 'Uploading'"
@@ -234,16 +196,18 @@
 
 <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
-    <div class="modal-dialog  modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-small" role="document">
         <div class="modal-content">
             <div class="modal-body mt-5 mb-5 text-center fnt-muli">
                 <div><img src="assets/images/delete-role.svg" alt="" /></div>
-                <div class="fnt-muli fnt-18 fnt-normal delete__text mt-2 pb-3">You sure you really want to delete this?
+                <div class="fnt-muli fnt-18 fnt-normal delete__text mt-3">
+                    <p class="oh-noh pb-3 mb-0">Oh noh :(</p>
+                    <p class="mb-0">You sure you really want to delete this?</p>
                 </div>
-                <div class="mt-4">
-                    <button class="cancel-btn" id="dismissDeleteModal" data-dismiss="modal">{{
+                <div class="mt-5">
+                    <button class="btn-stroked btn-padding" id="dismissDeleteModal" data-dismiss="modal">{{
                         globals.languageJson?.cancel }}</button>
-                    <button class="btn delete-btn ml-3" (click)="deleteAgreement(deleteAgreementId)">
+                    <button class="btn-raised btn-padding ml-3" (click)="deleteAgreement(deleteAgreementId)">
                         {{ globals.languageJson?.delete }}
                     </button>
                 </div>

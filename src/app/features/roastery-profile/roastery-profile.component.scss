@@ -1,5 +1,5 @@
 .breadcrumb1 {
-    padding: 2rem 2rem 0rem 1rem;
+    padding: 2rem 1rem 0rem 1rem;
 }
 
 .cancel-butn {
@@ -66,6 +66,7 @@
     height: 160px;
     border: solid 0.2px #979797;
     border-radius: 100%; */
+    width: 160px;
     position: relative;
     left: 3rem;
     bottom: 11rem;
@@ -159,7 +160,7 @@ li.nav-item {
 }
 
 .nav-pills .nav-link.active,
-.nav-pills .show>.nav-link {
+.nav-pills .show > .nav-link {
     color: #30855c !important;
     font-size: 14px;
     font-weight: 600;
@@ -211,7 +212,7 @@ li.nav-item {
 /* ========== Profile Pic CSS ========== */
 
 @media screen and (max-width: 40em) {
-     :host ::ng-deep .ui-dialog {
+    :host ::ng-deep .ui-dialog {
         width: 75vw !important;
     }
 }
@@ -488,8 +489,22 @@ li.nav-item {
         top: 6.5rem;
     }
 }
-.cover-image{
+
+.cover-image {
     height: 158px;
     width: 100%;
     object-fit: cover;
+}
+
+::ng-deep .responsive-tabMenu {
+    .p-tabmenu-nav {
+        overflow: hidden;
+        overflow-x: auto;
+        white-space: nowrap;
+        flex-wrap: nowrap !important;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
 }

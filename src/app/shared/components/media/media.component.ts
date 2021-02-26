@@ -6,7 +6,6 @@ import { VideoPlayerComponent } from '../video-player/video-player.component';
     selector: 'app-media',
     templateUrl: './media.component.html',
     styleUrls: ['./media.component.scss'],
-    providers: [DialogService],
 })
 export class MediaComponent implements OnInit {
     fileUrl = '';

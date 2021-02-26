@@ -35,15 +35,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CofeeExpeienceDetailsComponent } from './Farm Link/cofee-expeience-details/cofee-expeience-details.component';
 import { BlogDetailsComponent } from './Farm Link/blog-details/blog-details.component';
-import { ContactComponent } from './roastery-profile/contact/contact.component';
-import { VirtualTourComponent } from './roastery-profile/virtual-tour/virtual-tour.component';
-import { AboutRoasteryComponent } from './roastery-profile/about-roastery/about-roastery.component';
-import { RoasteryProfileComponent } from './roastery-profile/roastery-profile.component';
-import { ProfilePhotoComponent } from './roastery-profile/profile-photo/profile-photo.component';
-import { ReviewsComponent } from './roastery-profile/reviews/reviews.component';
 import { ProfileLicenseComponent } from './profile-edit/profile-license/profile-license.component';
 import { NotificationComponent } from './notification/notification.component';
-import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/roastery-license.component';
 import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
 
 import { AddProductComponent } from './e-commerce/add-product/add-product.component';
@@ -120,15 +113,8 @@ import { ListboxModule } from 'primeng/listbox';
         ResetPasswordComponent,
         CofeeExpeienceDetailsComponent,
         BlogDetailsComponent,
-        RoasteryProfileComponent,
-        ContactComponent,
-        VirtualTourComponent,
-        AboutRoasteryComponent,
-        ProfilePhotoComponent,
-        ReviewsComponent,
         ProfileLicenseComponent,
         NotificationComponent,
-        RoasteryLicenseComponent,
         RoasterOnboardComponent,
         AddProductComponent,
         ProductsTableComponent,

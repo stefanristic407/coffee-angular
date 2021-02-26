@@ -1,45 +1,69 @@
-<div class="row">
-    <div class="col-lg-12">
-        <p class="description">{{ appLanguage?.add_photo_files }}</p>
-    </div>
+<div *ngIf="isLoading" class="text-center py-5">
+    Loading...
 </div>
-<div class="row">
-    <div class="col-lg-12">
-        <div class="row cursor-pointer mobile-tabs-gallary">
-            <div class="col-lg-4 col-md-6 col-sm-6 col-6 pb-3" *ngIf="roasteryProfileService.addMediaDiv">
-                <div class="card text-center">
-                    <label class="mr-3">
-                        <input
-                            class="file-inpt"
-                            type="file"
-                            accept="image/png, image/jpeg"
-                            (change)="handleFile($event)"
-                        />
-                        <img class="plus-circle" src="assets/images/plus-circle.svg" />
-                        <p class="text">Add photo or videos</p>
-                    </label>
-                </div>
-            </div>
 
-            <!-- <a href="javascript:void(0);" class="col-lg-4 col-md-6 col-sm-6 col-6 pb-3 " *ngIf="roasteryProfileService.addMediaDiv">
-                    <div class="card text-center">
-                        <img class="plus-circle" src="assets/images/plus-circle.svg">
-                        <p class="text">Add photo or videos</p>
-                    </div>
-                </a> -->
-
-            <a
-                href="javascript:void(0);"
-                class="col-lg-4 col-md-6 col-sm-6 col-6 pb-3"
-                *ngFor="let image of tourImages"
-            >
-                <div class="social-post-farmlink__item position-relative">
-                    <img class="social-images" *ngIf="image.type == 'IMAGE'" [src]="image.url" alt="farm" />
-                    <video *ngIf="image.type != 'IMAGE'" [src]="image.url"></video>
-                    <!-- <img class="video-play" src="assets/images/play-button.png" alt="farm"> -->
-                    <p class="mb-0 post-info">{{ image.description }}</p>
-                </div>
-            </a>
+<div *ngIf="!isLoading">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="description mb-1">{{ appLanguage?.add_photo_files }}</div>
         </div>
     </div>
+    <div class="mx-2 mx-md-0">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row cursor-pointer mobile-tabs-gallary px-md-3px">
+                    <a class="col-lg-4 col-md-6 col-sm-6 col-6 a-panel d-flex d-md-none" *ngIf="roasteryProfileService.addMediaDiv">
+                        <div class="card text-center">
+                            <label>
+                                <input
+                                    class="file-inpt"
+                                    type="file"
+                                    accept="image/png, image/jpeg"
+                                    (change)="handleFile($event)"
+                                />
+                                <img class="plus-circle" src="assets/images/plus-circle.svg" />
+                                <p class="text">Add photo or videos</p>
+                            </label>
+                        </div>
+                    </a>
+
+                    <a
+                        href="javascript:void(0)"
+                        class="col-lg-4 col-md-6 col-sm-6 col-6 a-panel"
+                        *ngFor="let image of tourImages"
+                    >
+                        <div *ngIf="roasteryProfileService.addMediaDiv" class="media-delete-button" (click)="handleRemoveMediaFile(image.id)">
+                            <img src="assets/images/delete-icon.svg" alt="delete">
+                        </div>
+                        <div class="social-post-farmlink__item position-relative">
+                            <img class="social-images" *ngIf="image.type == 'IMAGE'" [src]="image.url" alt="farm" />
+                            <video *ngIf="image.type != 'IMAGE'" [src]="image.url"></video>
+                            <!-- <img class="video-play" src="assets/images/play-button.png" alt="farm"> -->
+                            <p class="mb-0 post-info">{{ image.description }}</p>
+                        </div>
+                    </a>
+
+                    <a class="col-lg-4 col-md-6 col-sm-6 col-6 a-panel d-none d-md-flex" *ngIf="roasteryProfileService.addMediaDiv">
+                        <div class="card add-panel text-center">
+                            <label>
+                                <input
+                                    class="file-inpt"
+                                    type="file"
+                                    accept="image/png, image/jpeg"
+                                    (change)="handleFile($event)"
+                                />
+                                <img class="plus-circle" src="assets/images/plus-circle.svg" />
+                                <p class="text">Add photo or videos</p>
+                            </label>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div *ngIf="!isLoading && !tourImages.length && !roasteryProfileService.addMediaDiv" class="py-5 text-center">
+    No data to display
 </div>
