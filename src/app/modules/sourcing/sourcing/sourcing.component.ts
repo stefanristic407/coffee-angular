@@ -79,7 +79,7 @@ export class SourcingComponent implements OnInit {
     openFilter() {
         this.dialogSrv.open(FilterComponent, {
             data: {},
-            showHeader: false,
+            header: this.globals.languageJson.more_filters,
         });
     }
 }
