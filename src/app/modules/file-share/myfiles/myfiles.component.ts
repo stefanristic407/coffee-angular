@@ -229,7 +229,7 @@ export class MyfilesComponent implements OnInit {
                 data: {
                     record: item,
                 },
-                header: (item ? this.globals.languageJson.create : this.globals.languageJson.create) + ' file',
+                header: item ? this.globals.languageJson.update_file : this.globals.languageJson.create_file,
                 styleClass: 'file-dialog',
             })
             .onClose.subscribe((result: any) => {
