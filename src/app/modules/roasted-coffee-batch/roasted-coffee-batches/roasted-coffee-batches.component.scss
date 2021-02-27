@@ -51,17 +51,24 @@
     background-color: #f8f8f8;
 }
 
-::ng-deep .productListTable .p-checkbox {
+::ng-deep .roastedCoffeeTable .p-checkbox {
     margin-left: 0px;
 }
-::ng-deep .productListTable .p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
+::ng-deep .roastedCoffeeTable .p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
     background: #ffffff;
+}
+.view-det {
+    color: #80460b !important;
+}
+.view-det:hover {
+    text-decoration: underline !important;
+    cursor: pointer;
 }
 @media screen and (max-width: 767px) {
     .filterLayout {
         margin-top: 1.5rem;
     }
-    :host ::ng-deep .productListTable .p-datatable-tbody > tr > .nameMobileHeader {
+    :host ::ng-deep .roastedCoffeeTable .p-datatable-tbody > tr > .nameMobileHeader {
         padding: 0px;
         width: 100% !important;
     }
@@ -72,11 +79,11 @@
         border-bottom: 1px dashed #d6d6d6;
         padding: 1rem 0px;
     }
-    :host ::ng-deep .productListTable .p-datatable-tbody > tr > .cardBottom {
+    :host ::ng-deep .roastedCoffeeTable .p-datatable-tbody > tr > .cardBottom {
         margin-bottom: 14px;
         border-bottom: 1px solid #d6d6d6 !important;
     }
-    :host ::ng-deep .productListTable .p-datatable .p-datatable-tbody > tr {
+    :host ::ng-deep .roastedCoffeeTable .p-datatable .p-datatable-tbody > tr {
         border-bottom: 0px !important;
     }
     .borderCard {
@@ -98,5 +105,22 @@
     }
     .bord-profile {
         border: none;
+    }
+}
+@media (max-width: 1270px) and (min-width: 768px) {
+    .spacing-batch {
+        margin-top: 1.2rem;
+        margin-bottom: 1rem;
+    }
+    ::ng-deep .roastedCoffeeTable .p-datatable {
+        position: relative !important;
+        overflow: auto !important;
+        width: 100% !important;
+    }
+
+    ::ng-deep .roastedCoffeeTable .p-datatable table {
+        border-collapse: collapse;
+        table-layout: fixed;
+        width: 1100px !important;
     }
 }
