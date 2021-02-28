@@ -83,9 +83,9 @@ export class ShareComponent implements OnInit {
         this.fileSrv.updatePermission(this.record.id, postData).subscribe((res: any) => {
             this.submitted = false;
             if (res.success) {
-                this.toastrService.success('Permission has been changed succssfully.');
+                this.toastrService.success('Permission has been updated succssfully.');
             } else {
-                this.toastrService.error('Error! while changing permission');
+                this.toastrService.error('Error while changing the Share permissions');
             }
         });
     }

@@ -94,7 +94,7 @@ export class FileService {
         };
         return this.http.post(this.deleteUrl, data);
     }
-    // Unpin the file/folder
+    // Pin the file/folder
     pinFileorFolder(id: any) {
         const data = {
             api_call: `/${this.orgType}/${this.orgId}/file-manager/${id}/pin`,

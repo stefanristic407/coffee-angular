@@ -13,16 +13,19 @@ const routes: Routes = [
         path: '',
         component: FileShareComponent,
         canActivate: [AuthGuard],
-    },
-    {
-        path: 'my-files',
-        component: MyfilesComponent,
-        canActivate: [AuthGuard],
-    },
-    {
-        path: 'share',
-        component: SharewithmeComponent,
-        canActivate: [AuthGuard],
+        children: [
+            {
+                path: 'my-files',
+                component: MyfilesComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'shared-files',
+                component: SharewithmeComponent,
+                canActivate: [AuthGuard],
+            },
+            { path: '', redirectTo: 'my-files', pathMatch: 'full' },
+        ],
     },
     {
         path: 'file-share-details',

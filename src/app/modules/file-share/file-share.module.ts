@@ -18,7 +18,8 @@ import { FolderDialogComponent } from './folder-dialog/folder-dialog.component';
 import { EditFileComponent } from './edit-file/edit-file.component';
 import { EditFolderComponent } from './edit-folder/edit-folder.component';
 import { ShareComponent } from './share/share.component';
-import { ImgPreviewComponent } from './img-preview/img-preview.component';
+import { MediaPreviewComponent } from './media-preview/media-preview.component';
+import { FileListComponent } from './file-list/file-list.component';
 
 @NgModule({
     declarations: [
@@ -34,9 +35,10 @@ import { ImgPreviewComponent } from './img-preview/img-preview.component';
         EditFileComponent,
         EditFolderComponent,
         ShareComponent,
-        ImgPreviewComponent,
+        MediaPreviewComponent,
+        FileListComponent,
     ],
-    entryComponents: [FolderDialogComponent, EditFileComponent, ShareComponent, ImgPreviewComponent],
+    entryComponents: [FolderDialogComponent, EditFileComponent, ShareComponent, MediaPreviewComponent],
     imports: [CommonModule, FileShareRoutingModule, SharedModule, Ng2SearchPipeModule],
 })
 export class FileShareModule {}
