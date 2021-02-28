@@ -4,6 +4,57 @@
     background-color: #ffffff;
 }
 
+.delivery__body .pl-16 {
+    padding-left: 16px;
+}
+
+.delivery__body {
+    padding-top: 25px;
+}
+
+.delivery__body .key-activate-block {
+    padding: 0 0 16px 16px;
+}
+
+.note-heading {
+    display: flex;
+    padding: 16px 0 32px 0;
+}
+
+.pause-templete-modal-body {
+    position: relative;
+    padding: 67px 84px;
+}
+
+.delete-template-modal-body {
+    position: relative;
+    padding: 67px 84px;
+}
+
+.pt-32 {
+    padding-top: 32px;
+}
+
+.pl-8 {
+    padding-left: 8px;
+}
+
+.pt-16 {
+    padding-top: 16px;
+}
+
+.delete-confirmation-modal-body {
+    padding: 99px 147px 117px 152px;
+}
+
+.pause-templete-modal-body .templete-btn {
+    padding: 24px;
+}
+
+.delete-template-modal-body .templete-btn {
+    padding: 24px;
+}
+
 th {
     font-family: Muli;
     font-size: 14px;
@@ -34,6 +85,9 @@ td {
     font-weight: 600;
     color: #232334;
 }
+.table {
+    margin: 0 !important;
+}
 
 .table-head {
     border-radius: 4px;
@@ -55,6 +109,7 @@ td {
 .lot-table tr,
 .key-border {
     border-bottom: 1px dashed #dddddd;
+    border-top: 1px dashed #dddddd;
 }
 
 .lot-table tr:last-child {
@@ -62,6 +117,9 @@ td {
 }
 
 .generate-border {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 16px;
     border-radius: 4px;
     border: solid 1px #ebebeb;

@@ -35,6 +35,10 @@ export class ApiRequestsTableComponent implements OnInit {
         }
     }
 
+    setDisplay(displayData: any) {
+        this.display = displayData;
+    }
+
     openCalendar(event: any) {
         this.calendar.showOverlay(this.calendar.inputfieldViewChild.nativeElement);
         event.stopPropagation();

@@ -13,6 +13,9 @@ export class ApiRequestDetailsComponent implements OnInit {
     modalRef: BsModalRef;
     resetButtonValue: string;
     showStatus: boolean = true;
+    isDeletedApiKey: boolean = false;
+    generatedKeyStep: number = 0;
+    apikeyStatus: string = '';
 
     constructor(private modalService: BsModalService) {
         this.termStatus = '';
@@ -27,6 +30,25 @@ export class ApiRequestDetailsComponent implements OnInit {
     ngOnInit(): void {
         this.resetButtonValue = 'Generate Key';
     }
+
+    generateKey() {
+        this.resetButtonValue = 'Generating Key…';
+        setTimeout(() => {
+            this.generatedKeyStep = 1;
+        }, 2000);
+    }
+
+    notify() {
+        this.generatedKeyStep = 2;
+    }
+
+    pauseKey() {
+        this.apikeyStatus = 'paused';
+        setTimeout(() => {
+            this.modalRef.hide();
+        }, 1000);
+    }
+
     activeStatus() {
         this.btnToggle = !this.btnToggle;
         if (this.btnToggle == true) {
@@ -39,6 +61,13 @@ export class ApiRequestDetailsComponent implements OnInit {
     setStatus(term: any) {
         this.termStatus = term;
         console.log(this.termStatus);
+    }
+
+    onConfirm() {
+        this.isDeletedApiKey = true;
+        setTimeout(() => {
+            this.modalRef.hide();
+        }, 1000);
     }
 
     toggleStatus() {
