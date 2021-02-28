@@ -18,6 +18,7 @@ import { FolderDialogComponent } from './folder-dialog/folder-dialog.component';
 import { EditFileComponent } from './edit-file/edit-file.component';
 import { EditFolderComponent } from './edit-folder/edit-folder.component';
 import { ShareComponent } from './share/share.component';
+import { ImgPreviewComponent } from './img-preview/img-preview.component';
 
 @NgModule({
     declarations: [
@@ -33,8 +34,9 @@ import { ShareComponent } from './share/share.component';
         EditFileComponent,
         EditFolderComponent,
         ShareComponent,
+        ImgPreviewComponent,
     ],
-    entryComponents: [FolderDialogComponent, EditFileComponent, ShareComponent],
+    entryComponents: [FolderDialogComponent, EditFileComponent, ShareComponent, ImgPreviewComponent],
     imports: [CommonModule, FileShareRoutingModule, SharedModule, Ng2SearchPipeModule],
 })
 export class FileShareModule {}

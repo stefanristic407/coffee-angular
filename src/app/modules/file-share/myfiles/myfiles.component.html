@@ -73,7 +73,7 @@
                     <span
                         class="d-flex align-items-center"
                         *ngIf="rowData.type == 'IMAGE'"
-                        (click)="popupPrivew(rowData)"
+                        (click)="previewImg(rowData)"
                     >
                         <img class="file-icon" style="height: 20px" src="assets/images/image.svg" alt="upload-icon" />
                         {{ rowData[col.field] }}
@@ -109,23 +109,6 @@
 
 <p-menu #menu [popup]="true" [model]="menuItems"></p-menu>
 
-<div class="priview-popup-fileshare">
-    <div class="priview-popup-fileshare__back d-flex justify-content-betwen clearfix">
-        <div class="float-left">
-            <img src="assets/images/popup-back-arrow.svg" (click)="popupClose()" />
-            <span class="ml-2 fnt-16 fnt-600 fnt-muli text-white"></span>
-        </div>
-        <div class="img-side-dots ml-auto">
-            <span></span>
-            <span></span>
-            <span class="mb-0"></span>
-        </div>
-    </div>
-    <div class="priview-popup-fileshare__img">
-        <img class="img" src="assets/images/quick-f2.png" />
-    </div>
-</div>
-
 <ng-template #popTemplate>
     <div class="popup-video">
         <div class="video-close" (click)="closePopup()">
@@ -139,73 +122,6 @@
                     <source src="{{ url }}" type="video/mp4" />
                 </video>
             </div>
-        </div>
-    </div>
-</ng-template>
-
-<ng-template #fileTemplate>
-    <div class="modal-header">
-        <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">
-            {{ globals.languageJson?.update_file }}
-        </h5>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <form>
-            <div class="roastery-fields mb-4">
-                <div class="farm-input col-12 col-md-5 px-0">
-                    <label class="mb-0">{{ globals.languageJson?.name }}</label>
-                    <input
-                        type="text"
-                        placeholder="Enter file name"
-                        name="updatefile_name"
-                        id="updatefile_name"
-                        [(ngModel)]="file_name"
-                        required
-                    />
-                    <div class="fileNameError" *ngIf="fileNameError != ''">
-                        {{ fileNameError }}
-                    </div>
-                </div>
-            </div>
-            <div class="roastery-fields mb-4">
-                <div class="farm-input col-12 px-0">
-                    <label class="mb-0">{{ globals.languageJson?.give_short_description }} *</label>
-                    <textarea
-                        class="mb-0"
-                        type="text"
-                        rows="5"
-                        placeholder="Give a short description to your file (optional) "
-                        id="updatefile_descr"
-                        name="updatefile_descr"
-                        [(ngModel)]="file_description"
-                        required
-                    ></textarea>
-                    <div class="filedescriptionError" *ngIf="filedescriptionError != ''">
-                        {{ filedescriptionError }}
-                    </div>
-                </div>
-            </div>
-            <div class="roastery-fields mb-4">
-                <label class="mb-1 mr-2">{{ globals.languageJson?.file_upload }} </label>
-                <label class="share-bor mr-3">
-                    <input class="file-inpt" type="file" (change)="reUploadFile($event)" />
-                    <img class="share-img" src="assets/images/upload-icon.png" alt="farm" />
-                    <span class="share-txt ml-2"> {{ globals.languageJson?.upload }} </span>
-                </label>
-                <span class="value-name">{{ fileNameValue }}</span>
-            </div>
-        </form>
-        <div class="main_button">
-            <button
-                type="submit"
-                class="btn create-share fnt-14 fnt-700 fnt-muli pull-right mt-2 mb-4"
-                (click)="updateFile()"
-            >
-                {{ globals.languageJson?.update }}
-            </button>
         </div>
     </div>
 </ng-template>

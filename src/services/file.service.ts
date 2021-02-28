@@ -94,4 +94,21 @@ export class FileService {
         };
         return this.http.post(this.deleteUrl, data);
     }
+    // Unpin the file/folder
+    pinFileorFolder(id: any) {
+        const data = {
+            api_call: `/${this.orgType}/${this.orgId}/file-manager/${id}/pin`,
+            token: this.cookieSrv.get('Auth'),
+            method: 'PUT',
+        };
+        return this.http.post(this.url, data);
+    }
+    // Unpin the file/folder
+    unpinFileorFolder(id: any) {
+        const data = {
+            api_call: `/${this.orgType}/${this.orgId}/file-manager/${id}/pin`,
+            token: this.cookieSrv.get('Auth'),
+        };
+        return this.http.post(this.deleteUrl, data);
+    }
 }

@@ -1,0 +1,17 @@
+<div class="priview-wrap">
+    <div class="back-wrap d-flex justify-content-between align-items-center">
+        <div>
+            <a class="back-page white" (click)="close()">
+                {{ record.name }}
+            </a>
+        </div>
+        <div class="img-side-dots">
+            <span></span>
+            <span></span>
+            <span class="mb-0"></span>
+        </div>
+    </div>
+    <div class="img-wrap">
+        <img class="img" [src]="record.url" />
+    </div>
+</div>

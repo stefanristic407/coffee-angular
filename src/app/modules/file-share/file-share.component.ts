@@ -1,16 +1,17 @@
 import { Component, OnInit, ɵɵresolveBody, TemplateRef } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
-import { CookieService } from 'ngx-cookie-service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
-import { FileShareService } from './file-share.service';
-import { MyfilesComponent } from './myfiles/myfiles.component';
 import { Router, NavigationExtras } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { PlyrModule } from 'ngx-plyr';
+import { ToastrService } from 'ngx-toastr';
+import { DialogService } from 'primeng/dynamicdialog';
+import { CookieService } from 'ngx-cookie-service';
+import { GlobalsService } from '@services';
+import { RoasterserviceService } from '@services';
+import { FileService } from '@services';
+import { FileShareService } from './file-share.service';
 import * as Plyr from 'plyr';
 
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
-import { GlobalsService } from 'src/services/globals.service';
+import { ConfirmComponent } from '@shared';
 
 @Component({
     selector: 'app-file-share',
@@ -53,14 +54,15 @@ export class FileShareComponent implements OnInit {
     usersList: any[] = [];
     appLanguage?: any;
     shareMainActive: any = 0;
-    unPinId: any;
     loadId: any;
 
     constructor(
+        public dialogSrv: DialogService,
         public router: Router,
         public toastrService: ToastrService,
         private cookieService: CookieService,
         private roasterService: RoasterserviceService,
+        private fileSrv: FileService,
         public fileService: FileShareService,
         public modalService: BsModalService,
         public globals: GlobalsService,
@@ -86,9 +88,27 @@ export class FileShareComponent implements OnInit {
         $('.popup-video').parents('.modal-content').addClass('video-content');
     }
 
-    openUnpinModal(template1: TemplateRef<any>, unpinId: any) {
-        this.modalRef = this.modalService.show(template1);
-        this.unPinId = unpinId;
+    openUnpinModal(id: any) {
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    desp: 'You sure you really want to unpin this?',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.fileSrv.unpinFileorFolder(id).subscribe((res: any) => {
+                        if (res.success) {
+                            this.toastrService.success('Unpinned successfully');
+                            this.fileService.getPinnedFilesorFolders();
+                        } else {
+                            this.toastrService.error('Error while unpinning');
+                        }
+                    });
+                }
+            });
     }
 
     openDownloadModal(template2: TemplateRef<any>, downloadId: any) {
@@ -114,27 +134,6 @@ export class FileShareComponent implements OnInit {
             a.click();
             document.body.removeChild(a);
         }
-    }
-
-    onSelect(event: TypeaheadMatch): void {
-        this.selectedOption = event.item;
-        console.log(this.selectedOption.id);
-        this.user_id_value = this.selectedOption.id;
-        this.company_id = this.selectedOption.organization_id;
-        this.company_type = this.selectedOption.organization_type;
-    }
-
-    unpinFileorFolder(id: any) {
-        this.roasterService.unpinFileorFolder(this.roasterId, id).subscribe((data) => {
-            if (data['success'] == true) {
-                this.toastrService.success('The Selected file is unpinned successfully');
-                setTimeout(() => {
-                    this.fileService.getPinnedFilesorFolders();
-                }, 2500);
-            } else {
-                this.toastrService.error('Error while unpinning the File');
-            }
-        });
     }
 
     shareDetails(size: any) {
