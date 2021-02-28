@@ -1,5 +1,5 @@
 <p-table
-    [value]="fileService.mainData | filter: fileService.filesTerm"
+    [value]="fileService.myFileList | filter: fileService.filesTerm"
     [columns]="tableColumns"
     dataKey="id"
     [resizableColumns]="true"
@@ -73,7 +73,7 @@
                     <span
                         class="d-flex align-items-center"
                         *ngIf="rowData.type == 'IMAGE'"
-                        (click)="popupPrivew(rowData)"
+                        (click)="previewImg(rowData)"
                     >
                         <img class="file-icon" style="height: 20px" src="assets/images/image.svg" alt="upload-icon" />
                         {{ rowData[col.field] }}
@@ -87,10 +87,7 @@
                 <span *ngSwitchCase="'actions'" class="">
                     <span class="d-flex justify-content-between align-items-center">
                         <span class="tr-hover-visible">
-                            <span
-                                class="btn-trans-icon upload-icon mr-3"
-                                (click)="openShareModal(shareTemplate, rowData)"
-                            >
+                            <span class="btn-trans-icon upload-icon mr-3" (click)="openShareModal(rowData)">
                                 {{ 'share' | translate }}
                             </span>
                         </span>
@@ -112,23 +109,6 @@
 
 <p-menu #menu [popup]="true" [model]="menuItems"></p-menu>
 
-<div class="priview-popup-fileshare">
-    <div class="priview-popup-fileshare__back d-flex justify-content-betwen clearfix">
-        <div class="float-left">
-            <img src="assets/images/popup-back-arrow.svg" (click)="popupClose()" />
-            <span class="ml-2 fnt-16 fnt-600 fnt-muli text-white"></span>
-        </div>
-        <div class="img-side-dots ml-auto">
-            <span></span>
-            <span></span>
-            <span class="mb-0"></span>
-        </div>
-    </div>
-    <div class="priview-popup-fileshare__img">
-        <img class="img" src="assets/images/quick-f2.png" />
-    </div>
-</div>
-
 <ng-template #popTemplate>
     <div class="popup-video">
         <div class="video-close" (click)="closePopup()">
@@ -142,292 +122,6 @@
                     <source src="{{ url }}" type="video/mp4" />
                 </video>
             </div>
-        </div>
-    </div>
-</ng-template>
-
-<!---Modal Share-->
-<!-- Modal share folder-->
-<ng-template #shareTemplate>
-    <div>
-        <div>
-            <div>
-                <div class="modal-header">
-                    <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">
-                        {{ globals.languageJson?.share }}
-                    </h5>
-                    <button
-                        type="button"
-                        class="close"
-                        data-dismiss="modal"
-                        aria-label="Close"
-                        (click)="modalRef.hide()"
-                    >
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="">
-                        <form>
-                            <div class="roastery-fields mb-0">
-                                <div class="farm-input col-12 px-0">
-                                    <label>{{ globals.languageJson?.enter_name_email }}*</label>
-                                    <div
-                                        class="file-share-addMail pl-md-2 clearfix d-flex flex-column flex-md-row align-items-center justify-content-between"
-                                    >
-                                        <input
-                                            class="float-left px-0 form-control auto-complete-box"
-                                            type="email"
-                                            [(ngModel)]="selectedValue"
-                                            name="name"
-                                            [typeahead]="usersList"
-                                            typeaheadOptionField="firstname"
-                                            typeaheadWaitMs="1000"
-                                            [typeaheadItemTemplate]="customItemTemplate"
-                                            (typeaheadOnSelect)="onSelect($event)"
-                                            (keyup)="getUsersList($event)"
-                                            placeholder="Enter name or email"
-                                            autocomplete="off"
-                                        />
-                                        <ng-template #customItemTemplate let-model="item">
-                                            <span *ngIf="model.organization_type == 'RO'"
-                                                ><strong>{{ model.firstname }} {{ model.lastname }}</strong>
-                                                (Roaster)</span
-                                            >
-                                            <span *ngIf="model.organization_type == 'FC'"
-                                                ><strong>{{ model.firstname }} {{ model.lastname }}</strong>
-                                                (Facilitator)</span
-                                            >
-                                            <span *ngIf="model.organization_type == 'ES'"
-                                                ><strong>{{ model.firstname }} {{ model.lastname }}</strong>
-                                                (Estate)</span
-                                            >
-                                            <span *ngIf="model.organization_type == 'MR'"
-                                                ><strong>{{ model.firstname }} {{ model.lastname }}</strong> (Micro
-                                                Roaster)</span
-                                            >
-                                            <span *ngIf="model.organization_type == 'HRC'"
-                                                ><strong>{{ model.firstname }} {{ model.lastname }}</strong>
-                                                (HoReCa)</span
-                                            >
-                                        </ng-template>
-                                        <div class="ml-auto">
-                                            <div class="Custom-select w-100 border-left66">
-                                                <div class="Custom-select-input w-100 pr-3">
-                                                    <input
-                                                        type="text"
-                                                        value="{{ globals.languageJson?.can_view }}"
-                                                        readonly
-                                                    />
-                                                    <span
-                                                        class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-clr334"
-                                                        id="share_permission"
-                                                        >{{ globals.languageJson?.can_view }}</span
-                                                    >
-                                                    <ul
-                                                        class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-clr334"
-                                                    >
-                                                        <li class="Custom-select-input-list__item">
-                                                            {{ globals.languageJson?.can_view }}
-                                                        </li>
-                                                        <li class="Custom-select-input-list__item">
-                                                            {{ globals.languageJson?.can_edit }}
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-3 mt-lg-4" *ngIf="sharedUsers != 0">
-                                <h4 class="fnt-16 mb-4 mt-lg-2 mb-3 mb-lg-4 fnt-700 fnt-muli text-clr334">
-                                    {{ globals.languageJson?.existing_members }}
-                                </h4>
-                                <!--Existing Memebr-->
-                                <ul class="existing-members-list">
-                                    <!-- <li class="existing-members-list__item">
-                                <div class="member d-flex align-items-center justify-content-between clearfix">
-                                    <div class="member__info d-flex align-items-center float-left">
-                                        <div class="member-profile">
-                                            <img class="img" src="assets/images/activity3.png">
-                                        </div>
-                                        <span class="ml-2 fnt-16 fnt-600 fnt-muli text-clr334">Finca La
-                                            Pampa</span>
-                                    </div>
-
-                                    <div class="member__type float-right ml-auto">
-
-                                        <span
-                                            class="text-capitalize fnt-14 fnt-600 fnt-muli text-clr334 owner">owner</span>
-                                    </div>
-                                </div>
-                            </li> -->
-
-                                    <li class="existing-members-list__item" *ngFor="let item of sharedUserslists">
-                                        <div class="member d-flex align-items-center justify-content-between clearfix">
-                                            <div class="member__info d-flex align-items-center float-left">
-                                                <div class="member-profile">
-                                                    <img class="img" src="{{ item.thumb_image }}" />
-                                                </div>
-
-                                                <span class="ml-2 fnt-16 fnt-600 fnt-muli text-clr334"
-                                                    >{{ item.firstname }} {{ item.lastname }}</span
-                                                >
-
-                                                <!-- <div class="Custom-select w-100">
-                                            <div class="Custom-select-input w-100  pr-3">
-                                                <input type="text" value="Can view" readonly>
-                                                <span class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-clr334">Can view</span>
-                                                <ul class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-clr334">
-                                                    <li class="Custom-select-input-list__item">Can view</li>
-                                                    <li class="Custom-select-input-list__item">Can edit</li>
-
-                                                </ul>
-                                            </div>
-                                        </div> -->
-                                            </div>
-
-                                            <div class="member__type float-right ml-auto">
-                                                <div class="Custom-select w-100">
-                                                    <div class="Custom-select-input w-100">
-                                                        <input
-                                                            type="text"
-                                                            value="{{ globals.languageJson?.can_view }}"
-                                                            readonly
-                                                        />
-                                                        <span
-                                                            class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-clr334"
-                                                            id="canEdit"
-                                                            *ngIf="item.permission == 'EDIT'"
-                                                            >{{ globals.languageJson?.can_edit }}</span
-                                                        >
-                                                        <span
-                                                            class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-clr334"
-                                                            id="canView"
-                                                            *ngIf="item.permission == 'VIEW'"
-                                                            >{{ globals.languageJson?.can_view }}</span
-                                                        >
-                                                        <ul
-                                                            class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-clr334"
-                                                        >
-                                                            <li
-                                                                class="Custom-select-input-list__item"
-                                                                (click)="changePermissions('VIEW', item)"
-                                                            >
-                                                                {{ globals.languageJson?.can_view }}
-                                                            </li>
-                                                            <li
-                                                                class="Custom-select-input-list__item"
-                                                                (click)="changePermissions('EDIT', item)"
-                                                            >
-                                                                {{ globals.languageJson?.can_edit }}
-                                                            </li>
-                                                            <li
-                                                                class="Custom-select-input-list__item"
-                                                                (click)="removeAccess(item)"
-                                                            >
-                                                                {{ globals.languageJson?.remove }}
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-between mx-3 mb-2">
-                    <p
-                        class="fnt-14 fnt-600 fnt-muli text-clr588 col-sm-12 col-md-10 col-lg-9 px-0 m-0 text-center text-md-left pb-3 pb-md-0"
-                    >
-                        {{ globals.languageJson?.admin_notice_text }}
-                    </p>
-                    <button
-                        type="button"
-                        class="btn-raised create-share fnt-14 fnt-700 fnt-muli"
-                        (click)="shareFileAndFolder()"
-                        [disabled]="resetButtonValue === 'Sharing'"
-                    >
-                        {{ resetButtonValue
-                        }}<img
-                            class="loader"
-                            *ngIf="resetButtonValue === 'Sharing'"
-                            src="assets/images/orange-loader.gif"
-                        />
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</ng-template>
-
-<ng-template #fileTemplate>
-    <div class="modal-header">
-        <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">
-            {{ globals.languageJson?.update_file }}
-        </h5>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <form>
-            <div class="roastery-fields mb-4">
-                <div class="farm-input col-12 col-md-5 px-0">
-                    <label class="mb-0">{{ globals.languageJson?.name }}</label>
-                    <input
-                        type="text"
-                        placeholder="Enter file name"
-                        name="updatefile_name"
-                        id="updatefile_name"
-                        [(ngModel)]="file_name"
-                        required
-                    />
-                    <div class="fileNameError" *ngIf="fileNameError != ''">
-                        {{ fileNameError }}
-                    </div>
-                </div>
-            </div>
-            <div class="roastery-fields mb-4">
-                <div class="farm-input col-12 px-0">
-                    <label class="mb-0">{{ globals.languageJson?.give_short_description }} *</label>
-                    <textarea
-                        class="mb-0"
-                        type="text"
-                        rows="5"
-                        placeholder="Give a short description to your file (optional) "
-                        id="updatefile_descr"
-                        name="updatefile_descr"
-                        [(ngModel)]="file_description"
-                        required
-                    ></textarea>
-                    <div class="filedescriptionError" *ngIf="filedescriptionError != ''">
-                        {{ filedescriptionError }}
-                    </div>
-                </div>
-            </div>
-            <div class="roastery-fields mb-4">
-                <label class="mb-1 mr-2">{{ globals.languageJson?.file_upload }} </label>
-                <label class="share-bor mr-3">
-                    <input class="file-inpt" type="file" (change)="reUploadFile($event)" />
-                    <img class="share-img" src="assets/images/upload-icon.png" alt="farm" />
-                    <span class="share-txt ml-2"> {{ globals.languageJson?.upload }} </span>
-                </label>
-                <span class="value-name">{{ fileNameValue }}</span>
-            </div>
-        </form>
-        <div class="main_button">
-            <button
-                type="submit"
-                class="btn create-share fnt-14 fnt-700 fnt-muli pull-right mt-2 mb-4"
-                (click)="updateFile()"
-            >
-                {{ globals.languageJson?.update }}
-            </button>
         </div>
     </div>
 </ng-template>

@@ -15,7 +15,6 @@ export class EditFileComponent implements OnInit {
     isCreate = true;
     infoForm: FormGroup;
     record: any;
-    roasterId: string;
     submitted = false;
 
     constructor(
@@ -26,7 +25,6 @@ export class EditFileComponent implements OnInit {
         private toastrService: ToastrService,
         private fileSrv: FileService,
     ) {
-        this.roasterId = this.cookieSrv.get('roaster_id');
         this.record = config.data.record;
         if (this.record) {
             this.isCreate = false;

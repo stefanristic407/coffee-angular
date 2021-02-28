@@ -349,16 +349,6 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
 
-    //API Function Name : Unpin File/Folder
-    //API Description: This API calls helps to unpin the File/Folder.
-
-    unpinFileorFolder(roaster_id: any, id: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/file-manager/' + id + '/pin';
-        data['token'] = this.cookieService.get('Auth');
-        return this.http.post(this.deleteUrl, data);
-    }
-
     //API Function Name : Rename the Details of the  Folder
     //API Description: This API calls helps to rename the details of the folder.
 

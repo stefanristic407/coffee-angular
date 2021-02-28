@@ -6,6 +6,7 @@ import { FileShareDetailsComponent } from './file-share-details/file-share-detai
 import { FileShareComponent } from './file-share.component';
 import { MyfilesComponent } from './myfiles/myfiles.component';
 import { SharewithmeComponent } from './sharewithme/sharewithme.component';
+import { EditFolderComponent } from './edit-folder/edit-folder.component';
 
 const routes: Routes = [
     {
@@ -31,6 +32,11 @@ const routes: Routes = [
     {
         path: 'file-share-details/:folderId',
         component: FileShareDetailsComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'create-folder',
+        component: EditFolderComponent,
         canActivate: [AuthGuard],
     },
 ];
