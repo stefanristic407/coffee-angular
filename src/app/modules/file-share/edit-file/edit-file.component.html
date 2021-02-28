@@ -1,0 +1,21 @@
+<form [formGroup]="infoForm" class="mt-4 mt-md-45 mb-2">
+    <div class="w-100 sewn-form-field">
+        <label> {{ 'name' | translate }}<span class="star">*</span> </label>
+        <input type="text" formControlName="name" pInputText />
+        <small *ngIf="infoForm.controls.name.errors?.required" class="p-error"> Required </small>
+    </div>
+
+    <div class="w-100 sewn-form-field">
+        <label>
+            {{ 'give_short_description' | translate }}
+        </label>
+        <textarea formControlName="description" rows="5" pInputTextarea></textarea>
+    </div>
+</form>
+<div class="d-flex justify-content-end mt-3">
+    <button type="button" class="btn-stroked mr-25" (click)="close()">{{ 'cancel' | translate }}</button>
+    <button type="button" class="btn-raised" [class.loading]="submitted" (click)="save()">
+        <span *ngIf="!isCreate">{{ 'update' | translate }}</span>
+        <span *ngIf="isCreate">{{ 'create' | translate }}</span>
+    </button>
+</div>

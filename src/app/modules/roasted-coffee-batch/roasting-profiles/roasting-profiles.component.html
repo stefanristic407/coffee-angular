@@ -67,7 +67,7 @@
             </div>
         </div>
 
-        <div class="userTable mt-2 mb-2 pt-0 productListTable">
+        <div class="userTable mt-2 mb-2 pt-0 roastingProfileTable">
             <p-table
                 #myTable
                 [class.table-mobile]="sharedService.isMobileView"
@@ -143,7 +143,7 @@
                                             >
                                                 <img
                                                     class="ellipse-image pl-3"
-                                                    src="assets/images/more-opns-file.png"
+                                                    src="assets/images/kebab-menu.svg"
                                                     alt=""
                                                 />
                                             </a>
@@ -198,7 +198,9 @@
                             </span>
                             <span *ngSwitchCase="'actions'" class="">
                                 <span>
-                                    <a class="fnt-muli editBtn" (click)="redirectToEdit(rowData['id'])">View details</a>
+                                    <a class="fnt-muli fnt-14 fnt-700 view-det" (click)="redirectToEdit(rowData['id'])"
+                                        >View details</a
+                                    >
                                     <span>
                                         <a
                                             class="menu-arrow"
@@ -209,7 +211,7 @@
                                         >
                                             <img
                                                 class="ellipse-image pl-3"
-                                                src="assets/images/more-opns-file.png"
+                                                src="assets/images/kebab-menu.svg"
                                                 alt=""
                                             />
                                         </a>
@@ -254,7 +256,7 @@
     header=""
     position="center"
     [style]="{ width: '28.12rem' }"
-    styleClass="userDialog"
+    styleClass="userDialog no-padding"
     [(visible)]="popupDisplay"
 >
     <div class="mt-5 mb-5 text-center fnt-muli">

@@ -56,17 +56,7 @@ export class SharewithmeComponent implements OnInit {
         public globals: GlobalsService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
-        // this.mainData =
-        // 	[
-        // 	{ files:  'Finca La Pampa - Brand asse..', orderid: '#221669', modified: '-', owner:'Finca La Pampa', type: 'Folder'},
-        // 	{ files: 'Roastery Machine Manuals', orderid: '-', modified: '-', owner:'Löfbergs', type: 'Document'},
-        // 	{ files:  'Viay - Brand assets', orderid: '#127908', modified: '24/01/2020  11:05pm',owner:'Viay', type: 'CSV'},
-        // 	{ files: 'coffee?', orderid: '#727520', modified: '17/03/2020  7:17am', owner:'Simha', type: 'mp4'}
-        // ];
     }
-
-    // Function Name : Open Modal
-    // Description: This function helps to get the Id
 
     openModal(template: TemplateRef<any>, itemId: any, itemName: any, itemDesc: any) {
         this.modalRef = this.modalService.show(template);
@@ -89,17 +79,7 @@ export class SharewithmeComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.appLanguage = this.globals.languageJson;
-        //Auth checking
-        if (this.cookieService.get('Auth') == '') {
-            this.router.navigate(['/auth/login']);
-        }
         this.getSharedFilesandFolders();
-        this.language();
-    }
-    language() {
-        this.appLanguage = this.globals.languageJson;
-        this.shareMe++;
     }
 
     // Function Name : CheckAll

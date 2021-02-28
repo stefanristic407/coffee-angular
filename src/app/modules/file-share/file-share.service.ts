@@ -5,62 +5,45 @@ import { CookieService } from 'ngx-cookie-service';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class FileShareService {
-  pinnedData : any = [];
-  filesTerm:any;
-  filterTerm:any;
-  roasterId: any;
-  parentId: any = 0;
-  mainData: any;
-//   shareMainActive:any=0;
+    pinnedData: any = [];
+    filesTerm: any;
+    filterTerm: any;
+    roasterId: any;
+    parentId: any = 0;
+    myFileList: any;
+    sharedFileList: any;
 
-  constructor(
-    public roasterService : RoasterserviceService,
-    public toastrService : ToastrService,
-    public cookieService : CookieService,
-    public http : HttpClient
-  ) { 
-    this.roasterId = this.cookieService.get('roaster_id');
-  }
+    constructor(
+        public roasterService: RoasterserviceService,
+        public toastrService: ToastrService,
+        public cookieService: CookieService,
+        public http: HttpClient,
+    ) {
+        this.roasterId = this.cookieService.get('roaster_id');
+    }
 
-  
-  // getCountries() {
-  //   return this.http.get<any>('assets/countries.json')
-  //     .toPromise()
-  //     .then(res => <any[]>res.data)
-  //     .then(data => { return data; });
-  //   }
+    public getFilesandFolders() {
+        this.roasterService.getFilesandFolders(this.roasterId, this.parentId).subscribe((res: any) => {
+            if (res.success) {
+                console.log('File List:', res.result);
+                this.myFileList = res.result;
+            } else {
+                this.toastrService.error('Error while getting the Files and Folders');
+            }
+        });
+    }
 
-  public getFilesandFolders(){
-    console.log("calling from file share");
-    this.roasterService.getFilesandFolders(this.roasterId,this.parentId).subscribe(
-      result => {
-        console.log(result);
-        if(result['success']==true){
-          console.log(result);
-          this.mainData = result['result'];
-        }else{
-          this.toastrService.error("Error while getting the Files and Folders");
-		}
-		// this.shareMainActive++;
-      }
-    )
-  }
-
-  public  getPinnedFilesorFolders(){
-    this.roasterService.getPinnedFilesandFolders(this.roasterId).subscribe(
-      data => {
-        if(data['success']==true){
-          console.log(data);
-          this.pinnedData = data['result'];
-        }else{
-          this.toastrService.error("Error while getting the pinned files/folders");
-        }
-      }
-    )
-  }
-
-
+    public getPinnedFilesorFolders() {
+        this.roasterService.getPinnedFilesandFolders(this.roasterId).subscribe((res: any) => {
+            if (res.success) {
+                console.log(res.result);
+                this.pinnedData = res.result;
+            } else {
+                this.toastrService.error('Error while getting the pinned files/folders');
+            }
+        });
+    }
 }

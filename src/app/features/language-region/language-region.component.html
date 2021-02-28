@@ -737,7 +737,14 @@
         </div>
     </ng-template>
 
-    <p-dialog [(visible)]="displayModal" [modal]="true" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <p-dialog
+        [(visible)]="displayModal"
+        [modal]="true"
+        [baseZIndex]="10000"
+        [draggable]="false"
+        [resizable]="false"
+        styleClass="no-padding"
+    >
         <div class="text-center">
             <p class="fnt-muli black-semibold p-4">{{ globals.languageJson?.please_login_text }}!</p>
             <button class="btn logout-btn create-role-btn mb-3" type="button" (click)="userLogout()">

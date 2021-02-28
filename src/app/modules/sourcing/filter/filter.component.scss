@@ -9,7 +9,6 @@
         height: 32px;
     }
 }
-
 .altitude-block {
     @media (min-width: 768px) {
         max-width: 286px;
@@ -24,12 +23,6 @@
 .flavour-block {
     max-height: 246px;
     overflow-y: auto;
-}
-.dialog-wrap {
-    padding: 20px 16px 24px 16px;
-    @media (min-width: 768px) {
-        padding: 2rem 1.5rem 1rem 1.5rem;
-    }
 }
 ::ng-deep .p-checkbox-label {
     color: $muted-text-color;

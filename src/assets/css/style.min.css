@@ -16660,11 +16660,11 @@ li.select-list__item {
     }
 }
 
-@media (max-width:425px) {
+/* @media (max-width:425px) {
     .mat-chip-list-wrapper {
         padding-left: 0rem !important;
     }
-}
+} */
 
 @media (max-width:375px) {
     .padl-r {

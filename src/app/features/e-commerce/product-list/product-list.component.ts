@@ -1,12 +1,14 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DialogService } from 'primeng/dynamicdialog';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
 import { GlobalsService, RoasterserviceService } from '@services';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
+import { ConfirmComponent } from '@shared';
 
 @Component({
     selector: 'app-product-list',
@@ -34,6 +36,7 @@ export class ProductListComponent implements OnInit {
     popupDisplay = false;
 
     constructor(
+        public dialogSrv: DialogService,
         public router: Router,
         public cookieService: CookieService,
         private roasterService: RoasterserviceService,
@@ -160,25 +163,33 @@ export class ProductListComponent implements OnInit {
     filterCall() {
         this.getTableData();
     }
-    deleteproduct(): void {
-        this.roasterService.deleteProductDetails(this.roasterID, this.deleteProductID).subscribe(
-            (res) => {
-                if (res.success) {
-                    this.toastrService.success('Product deleted successfully');
-                    this.getTableData();
-                } else {
-                    this.toastrService.error('Error while deleting the product');
+    deleteproduct(deleteId): void {
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'delete',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.roasterService.deleteProductDetails(this.roasterID, deleteId).subscribe(
+                        (res) => {
+                            if (res.success) {
+                                this.toastrService.success('Product deleted successfully');
+                                this.getTableData();
+                            } else {
+                                this.toastrService.error('Error while deleting the product');
+                            }
+                            this.popupDisplay = false;
+                        },
+                        (err) => {
+                            this.popupDisplay = false;
+                            this.toastrService.error('Error while deleting the product');
+                        },
+                    );
                 }
-                this.popupDisplay = false;
-            },
-            (err) => {
-                this.popupDisplay = false;
-                this.toastrService.error('Error while deleting the product');
-            },
-        );
-    }
-    openDeleteModal(deleteId: any) {
-        this.popupDisplay = true;
-        this.deleteProductID = deleteId;
+            });
     }
 }
