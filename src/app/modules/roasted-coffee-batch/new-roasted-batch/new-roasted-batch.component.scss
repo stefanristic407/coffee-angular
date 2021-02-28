@@ -80,7 +80,7 @@
 .order-details-clr {
     border-radius: 8px;
     background-color: #faf8f4;
-    padding: 2rem 2.9rem;
+    padding: 2rem;
 }
 
 .recent-time td {
@@ -144,7 +144,9 @@
 .descriptionText-area {
     height: 6.25rem;
 }
-
+.flav-border {
+    border: 2px solid #f23737 !important;
+}
 @media screen and (max-width: 767px) {
     .order_details_card {
         padding: 1rem 1rem 0.1rem 1rem;
@@ -153,8 +155,8 @@
     }
 
     .order_details_card table.mtable {
-        margin: 0.75rem;
-        width: calc(100% - 24px);
+        // margin: 0 0.75rem 0.75rem 0.75rem;
+        width: calc(100% - 0px);
     }
     .order_details_card table.mtable td:first-child {
         padding-left: 0;
@@ -171,6 +173,6 @@
     }
     .order_details_card table tr:last-child > td {
         border-bottom: none;
-        padding: 16px 0 0 0 !important;
+        padding: 16px 0 14px 0 !important;
     }
 }
