@@ -57,8 +57,7 @@
                                         class="folder-img cursor-pointer"
                                         *ngIf="data.type == 'FOLDER'"
                                         src="../../../../assets/images/folder-icon.png"
-                                        routerLink="/file-share/file-share-details"
-                                        [queryParams]="{ folderId: data.id }"
+                                        routerLink="/file-share/file-share-details/{{ data.id }}"
                                     />
                                     <img
                                         class="folder-img video-img cursor-pointer"
@@ -86,8 +85,7 @@
                                 <div class="quick-pinned-files__info d-flex align-items-center flex-wrap clearfix">
                                     <div
                                         class="file-name float-left cursor-pointer"
-                                        routerLink="/file-share/file-share-details"
-                                        [queryParams]="{ folderId: data.id }"
+                                        routerLink="/file-share/file-share-details/{{ data.id }}"
                                         *ngIf="data.type == 'FOLDER'"
                                     >
                                         <h4 class="fnt-12 fnt-700 text-clr334 mb-0 folderName">

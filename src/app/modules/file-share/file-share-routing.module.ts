@@ -3,15 +3,17 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '@guards';
 
 import { FileShareDetailsComponent } from './file-share-details/file-share-details.component';
-import { FileShareComponent } from './file-share.component';
-import { MyfilesComponent } from './myfiles/myfiles.component';
-import { SharewithmeComponent } from './sharewithme/sharewithme.component';
+import { FileShareListComponent } from './file-share-list/file-share-list.component';
+import { MyfilesComponent } from './file-share-list/myfiles/myfiles.component';
+import { SharewithmeComponent } from './file-share-list/sharewithme/sharewithme.component';
 import { EditFolderComponent } from './edit-folder/edit-folder.component';
+import { DocumentFileComponent } from './file-share-details/document-file/document-file.component';
+import { VideoFileComponent } from './file-share-details/video-file/video-file.component';
 
 const routes: Routes = [
     {
         path: '',
-        component: FileShareComponent,
+        component: FileShareListComponent,
         canActivate: [AuthGuard],
         children: [
             {
@@ -28,14 +30,22 @@ const routes: Routes = [
         ],
     },
     {
-        path: 'file-share-details',
-        component: FileShareDetailsComponent,
-        canActivate: [AuthGuard],
-    },
-    {
         path: 'file-share-details/:folderId',
         component: FileShareDetailsComponent,
         canActivate: [AuthGuard],
+        children: [
+            {
+                path: 'documents',
+                component: DocumentFileComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'videos',
+                component: VideoFileComponent,
+                canActivate: [AuthGuard],
+            },
+            { path: '', redirectTo: 'documents', pathMatch: 'full' },
+        ],
     },
     {
         path: 'create-folder',

@@ -1,20 +1,20 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { FileShareService } from '../file-share.service';
+import { FileShareService } from '../../file-share.service';
 
 @Component({
-    selector: 'app-sharewithme',
-    templateUrl: './sharewithme.component.html',
-    styleUrls: ['./sharewithme.component.scss'],
+    selector: 'app-myfiles',
+    templateUrl: './myfiles.component.html',
+    styleUrls: ['./myfiles.component.scss'],
 })
-export class SharewithmeComponent implements OnInit, OnDestroy {
+export class MyfilesComponent implements OnInit, OnDestroy {
     actionSub: Subscription;
 
     constructor(public fileShareSrv: FileShareService) {}
 
     ngOnInit(): void {
         this.actionSub = this.fileShareSrv.action$.subscribe((action) => {
-            this.fileShareSrv.getSharedFilesandFolders();
+            this.fileShareSrv.getFilesandFolders();
         });
     }
 

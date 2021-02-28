@@ -1,22 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { FileService } from '@services';
 import { FileShareService } from '../file-share.service';
-import { ConfirmComponent } from '@shared';
-import { FolderDialogComponent } from '../folder-dialog/folder-dialog.component';
-import { EditFileComponent } from '../edit-file/edit-file.component';
-import { ShareComponent } from '../share/share.component';
-import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'app-file-list',
-    templateUrl: './file-list.component.html',
-    styleUrls: ['./file-list.component.scss'],
+    selector: 'app-file-table',
+    templateUrl: './file-table.component.html',
+    styleUrls: ['./file-table.component.scss'],
 })
-export class FileListComponent implements OnInit {
+export class FileTableComponent implements OnInit {
     tableValue = [];
     totalCount = 0;
     tableColumns = [];

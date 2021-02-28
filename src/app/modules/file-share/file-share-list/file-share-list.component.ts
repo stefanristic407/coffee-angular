@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from '@services';
-import { FileShareService } from './file-share.service';
+import { FileShareService } from '../file-share.service';
 
 @Component({
-    selector: 'app-file-share',
-    templateUrl: './file-share.component.html',
-    styleUrls: ['./file-share.component.scss'],
+    selector: 'app-file-share-list',
+    templateUrl: './file-share-list.component.html',
+    styleUrls: ['./file-share-list.component.scss'],
 })
-export class FileShareComponent implements OnInit {
+export class FileShareListComponent implements OnInit {
     breadItems: any[];
     menuItems: any[];
     rangeDates: Date[];
@@ -16,6 +16,7 @@ export class FileShareComponent implements OnInit {
     constructor(public fileShareSrv: FileShareService, public globals: GlobalsService) {}
 
     ngOnInit(): void {
+        this.fileShareSrv.folderId = 0;
         this.breadItems = [
             { label: this.globals.languageJson?.home, routerLink: '/' },
             { label: this.globals.languageJson?.file_share },

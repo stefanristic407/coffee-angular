@@ -47,8 +47,7 @@
                     <span
                         class="d-flex align-items-center"
                         *ngIf="rowData.type == 'FOLDER'"
-                        routerLink="/file-share/file-share-details"
-                        [queryParams]="{ folderId: rowData.id }"
+                        routerLink="/file-share/file-share-details/{{ rowData.id }}"
                     >
                         <img class="file-icon" src="assets/images/folder.svg" alt="upload-icon" />
                         {{ rowData[col.field] }}
@@ -89,10 +88,7 @@
                 <span *ngSwitchCase="'actions'" class="">
                     <span class="d-flex justify-content-between align-items-center">
                         <span class="tr-hover-visible">
-                            <span
-                                class="btn-trans-icon upload-icon mr-3"
-                                (click)="fileShareSrv.openShareModal(rowData)"
-                            >
+                            <span class="btn-trans-icon share-icon mr-3" (click)="fileShareSrv.openShareModal(rowData)">
                                 {{ 'share' | translate }}
                             </span>
                         </span>

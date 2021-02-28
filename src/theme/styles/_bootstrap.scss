@@ -63,6 +63,16 @@ $gutters: (
                     padding-left: $length / 2;
                 }
             }
+            .row.v-gutter#{$infix}-#{$size} {
+                margin-top: -$length / 2;
+                margin-bottom: -$length / 2;
+
+                > .col,
+                > [class*='col-'] {
+                    padding-top: $length / 2;
+                    padding-bottom: $length / 2;
+                }
+            }
         }
     }
 }

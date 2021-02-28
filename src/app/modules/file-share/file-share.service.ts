@@ -22,7 +22,7 @@ export class FileShareService {
     filesTerm: any;
     filterTerm: any;
     roasterId: any;
-    parentId: any = 0;
+    folderId: any = 0;
     myFileList: any;
     action: any = new BehaviorSubject('');
     action$: any = this.action.asObservable();
@@ -44,7 +44,7 @@ export class FileShareService {
 
     getFilesandFolders() {
         this.loading = true;
-        this.roasterService.getFilesandFolders(this.roasterId, this.parentId).subscribe((res: any) => {
+        this.roasterService.getFilesandFolders(this.roasterId, this.folderId).subscribe((res: any) => {
             this.loading = false;
             if (res.success) {
                 console.log('File List:', res.result);
