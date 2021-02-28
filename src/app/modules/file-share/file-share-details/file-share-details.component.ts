@@ -41,6 +41,7 @@ export class FileShareDetailsComponent implements OnInit {
                 this.fileShareSrv.folderId = params.get('folderId');
                 this.refreshMenuItems();
                 this.getFolderDetails();
+                this.fileShareSrv.action.next('refresh');
             }
         });
     }
