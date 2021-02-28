@@ -136,7 +136,7 @@
     border: 0px;
 }
 .input-group-append {
-    width: 31%;
+    width: auto;
     border: 0px !important;
     padding: 0px;
     background-color: #f8f8f8;
@@ -172,13 +172,5 @@
     .order_details_card table tr:last-child > td {
         border-bottom: none;
         padding: 16px 0 0 0 !important;
-    }
-    .input-group-append {
-        width: 26%;
-    }
-}
-@media (max-width: 1024px) and (min-width: 768px) {
-    .input-group-append {
-        width: 44%;
     }
 }
