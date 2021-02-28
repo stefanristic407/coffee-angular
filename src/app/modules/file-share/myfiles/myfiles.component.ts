@@ -9,7 +9,6 @@ import { ToastrService } from 'ngx-toastr';
 import { RoasterserviceService } from '@services';
 import { FileService } from '@services';
 import { FileShareService } from '../file-share.service';
-import { FileShareComponent } from '../file-share.component';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { PlyrModule } from 'ngx-plyr';
 import * as Plyr from 'plyr';
@@ -17,6 +16,7 @@ declare var $: any;
 import { ConfirmComponent } from '@shared';
 import { FolderDialogComponent } from '../folder-dialog/folder-dialog.component';
 import { EditFileComponent } from '../edit-file/edit-file.component';
+import { ShareComponent } from '../share/share.component';
 
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
 import { GlobalsService } from 'src/services/globals.service';
@@ -239,6 +239,23 @@ export class MyfilesComponent implements OnInit {
             });
     }
 
+    openShareModal(item: any) {
+        this.dialogSrv
+            .open(ShareComponent, {
+                data: {
+                    record: item,
+                },
+                header: this.globals.languageJson.share,
+                styleClass: 'share-dialog',
+            })
+            .onClose.subscribe((result: any) => {
+                if (result) {
+                    this.fileService.getFilesandFolders();
+                }
+            });
+        // this.sharedUsersLists();
+    }
+
     openDeleteModal(item: any) {
         this.dialogSrv
             .open(ConfirmComponent, {
@@ -296,12 +313,6 @@ export class MyfilesComponent implements OnInit {
                 this.fileNameValue = data['result'].name;
             }
         });
-    }
-
-    openShareModal(shareTemplate: TemplateRef<any>, item: any) {
-        this.shareFileId = item.id;
-        this.modalRef = this.modalService.show(shareTemplate);
-        this.sharedUsersLists();
     }
 
     sharedUsersLists() {
@@ -375,14 +386,6 @@ export class MyfilesComponent implements OnInit {
         event.toElement.play();
     }
 
-    checkAll(ev: any) {
-        this.fileService.mainData.forEach((x) => (x.state = ev.target.checked));
-    }
-
-    isAllChecked() {
-        // return this.mainData.every(_ => _.state);
-    }
-
     shareDetails(size: any) {
         this.folderId = size.id;
         let navigationExtras: NavigationExtras = {
@@ -438,34 +441,6 @@ export class MyfilesComponent implements OnInit {
             });
         }
     }
-
-    // updateFile() {
-    //     let fileList: FileList = this.fileEvent;
-    //     console.log(fileList);
-    //     if (fileList == undefined || fileList == null) {
-    //         this.toastrService.error('Please upload the file to update the details');
-    //     } else if (fileList.length > 0) {
-    //         let file: File = fileList[0];
-    //         let formData: FormData = new FormData();
-    //         formData.append('file', file, file.name);
-    //         formData.append('name', this.file_name);
-    //         formData.append('description', this.file_description);
-    //         this.roasterId = this.cookieService.get('roaster_id');
-    //         formData.append('api_call', '/ro/' + this.roasterId + '/file-manager/files/' + this.file_id);
-    //         formData.append('token', this.cookieService.get('Auth'));
-    //         this.roasterService.updateFiles(formData).subscribe((result) => {
-    //             if (result['success'] == true) {
-    //                 this.toastrService.success('The File has been updated successfully');
-
-    //                 this.fileService.getFilesandFolders();
-    //                 this.modalRef.hide();
-    //             } else {
-    //                 this.toastrService.error('Error while updating the file details');
-    //                 this.modalRef.hide();
-    //             }
-    //         });
-    //     }
-    // }
 
     shareFileAndFolder() {
         this.resetButtonValue = 'Sharing';

@@ -1,0 +1,54 @@
+<form [formGroup]="infoForm" class="mt-4 mt-md-45 mb-2">
+    <div class="w-100 sewn-form-field">
+        <label> {{ 'Enter a name or email' | translate }}<span class="star">*</span> </label>
+        <div class="input-and-select">
+            <p-autoComplete
+                formControlName="user"
+                [suggestions]="usersList"
+                field="name"
+                (completeMethod)="getUsersList($event)"
+                placeholder="{{ 'Enter a name or email' | translate }}"
+                scrollHeight="225px"
+            >
+            </p-autoComplete>
+            <p-dropdown
+                [options]="permissionItems"
+                formControlName="permission"
+                [style]="{ width: '115px' }"
+            ></p-dropdown>
+            <small *ngIf="infoForm.controls.user.errors?.required" class="p-error"> Required </small>
+        </div>
+    </div>
+</form>
+
+<div *ngIf="sharedUsers?.length" class="mb-4 mb-lg-475">
+    <div class="fnt-16 fnt-700 text-clr334 mb-4 mb-lg-45">
+        {{ 'existing_members' | translate }}
+    </div>
+    <ng-container *ngFor="let item of sharedUsers; index as i">
+        <div *ngIf="i" class="divider w-100 mt-3 mb-3"></div>
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <app-avatar [size]="35" [src]="item.thumb_image" [name]="item.firstname"></app-avatar>
+                <span class="fnt-16 fnt-600 text-clr334 ml-2">{{ item.firstname }} {{ item.lastname }}</span>
+            </div>
+            <p-dropdown
+                [options]="permissionItems"
+                [(ngModel)]="item.permission"
+                (ngModelChange)="updatePermission(item)"
+                styleClass="no-border"
+            ></p-dropdown>
+        </div>
+    </ng-container>
+</div>
+
+<div class="solid-divider-de mb-3 mb-md-4"></div>
+
+<div class="d-flex flex-wrap justify-content-end justify-content-md-between">
+    <div class="fnt-mb-12 fnt-600 text-clr588 col-md-8 px-0 m-0 text-center text-md-left pb-5 pb-md-0">
+        {{ 'admin_notice_text' | translate }}
+    </div>
+    <button type="button" class="btn-raised" [class.loading]="submitted" (click)="share()">
+        <span>{{ 'share' | translate }}</span>
+    </button>
+</div>

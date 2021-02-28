@@ -13,7 +13,8 @@ export class FileShareService {
     filterTerm: any;
     roasterId: any;
     parentId: any = 0;
-    mainData: any;
+    myFileList: any;
+    sharedFileList: any;
 
     constructor(
         public roasterService: RoasterserviceService,
@@ -28,7 +29,7 @@ export class FileShareService {
         this.roasterService.getFilesandFolders(this.roasterId, this.parentId).subscribe((res: any) => {
             if (res.success) {
                 console.log('File List:', res.result);
-                this.mainData = res.result;
+                this.myFileList = res.result;
             } else {
                 this.toastrService.error('Error while getting the Files and Folders');
             }

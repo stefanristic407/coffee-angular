@@ -17,6 +17,7 @@ import { VideoTableComponent } from './file-share-details/video-table/video-tabl
 import { FolderDialogComponent } from './folder-dialog/folder-dialog.component';
 import { EditFileComponent } from './edit-file/edit-file.component';
 import { EditFolderComponent } from './edit-folder/edit-folder.component';
+import { ShareComponent } from './share/share.component';
 
 @NgModule({
     declarations: [
@@ -31,8 +32,9 @@ import { EditFolderComponent } from './edit-folder/edit-folder.component';
         FolderDialogComponent,
         EditFileComponent,
         EditFolderComponent,
+        ShareComponent,
     ],
-    entryComponents: [FolderDialogComponent, EditFileComponent],
+    entryComponents: [FolderDialogComponent, EditFileComponent, ShareComponent],
     imports: [CommonModule, FileShareRoutingModule, SharedModule, Ng2SearchPipeModule],
 })
 export class FileShareModule {}
