@@ -116,7 +116,9 @@ ul {
     border-radius: 4px;
     padding: 14px;
 }
-
+::ng-deep .breadCrumb .p-breadcrumb ul {
+    width: max-content;
+}
 @media (max-width: 748px) {
     .source-cont-available {
         padding: 24px 8px;

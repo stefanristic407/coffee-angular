@@ -34,6 +34,9 @@
 .text-underline {
     text-decoration: underline;
 }
+::ng-deep .breadCrumb .p-breadcrumb ul {
+    width: max-content;
+}
 
 /****************************    Media Queries   ****************************/
 
@@ -44,10 +47,10 @@
         padding-top: 1rem;
     }
     .mob-sec {
-        display: block;
+        display: block !important;
     }
     .web-sec {
-        display: none;
+        display: none !important;
     }
     .border-div {
         margin-top: 1.2rem !important;

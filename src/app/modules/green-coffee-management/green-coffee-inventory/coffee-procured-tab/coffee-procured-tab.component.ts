@@ -224,4 +224,14 @@ export class CoffeeProcuredTabComponent implements OnInit {
             }
         });
     }
+
+    viewOrderPage(item) {
+        if (item.type === 'GC_ORDER') {
+            return `/ordermanagement/order-booked`;
+        } else if (item.type === 'GC_ORDER_SAMPLE') {
+            return `/ordermanagement/order-sample`;
+        } else if (item.type === 'PREBOOK_LOT') {
+            return `/ordermanagement/order-prebook`;
+        }
+    }
 }

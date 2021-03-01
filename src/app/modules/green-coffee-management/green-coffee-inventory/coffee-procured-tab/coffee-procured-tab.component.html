@@ -148,7 +148,8 @@
                                                 <li class="list-group-item">
                                                     <a
                                                         class="text-clr588 fnt-600 fnt-14"
-                                                        [routerLink]="availabilityPage(rowData)"
+                                                        [routerLink]="viewOrderPage(rowData)"
+                                                        [queryParams]="{ type: rowData.status, order: rowData.id }"
                                                         >View order page</a
                                                     >
                                                 </li>
@@ -219,7 +220,8 @@
                                         <li class="list-group-item">
                                             <a
                                                 class="text-clr588 fnt-600 fnt-14"
-                                                [routerLink]="availabilityPage(rowData)"
+                                                [routerLink]="viewOrderPage(rowData)"
+                                                [queryParams]="{ type: rowData.status, order: rowData.id }"
                                                 >View order page</a
                                             >
                                         </li>
