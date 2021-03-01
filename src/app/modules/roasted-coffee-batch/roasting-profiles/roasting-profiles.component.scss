@@ -68,7 +68,11 @@
 ::ng-deep .roastingProfileTable .p-checkbox {
     margin-left: 0px;
 }
-::ng-deep .roastingProfileTable .p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
+::ng-deep
+    .roastingProfileTable
+    .p-datatable.p-datatable-hoverable-rows
+    .p-datatable-tbody
+    > tr:not(.p-highlight):hover {
     background: #ffffff;
 }
 .view-det {
@@ -98,7 +102,15 @@
         border-bottom: 1px solid #d6d6d6 !important;
     }
     :host ::ng-deep .roastingProfileTable .p-datatable .p-datatable-tbody > tr {
-        border-bottom: 0px !important;
+        // border-bottom: 0px !important;
+        border: 0px !important;
+        padding: 0 !important;
+    }
+    :host ::ng-deep .roastingProfileTable .p-datatable.p-datatable-responsive .p-datatable-tbody > tr {
+        margin: 0 !important;
+    }
+    :host ::ng-deep .roastingProfileTable .p-datatable.p-datatable-responsive .p-datatable-tbody > tr > td {
+        border-bottom: none !important;
     }
     .borderCard {
         background-color: #f8f8f8;
