@@ -8,6 +8,14 @@
     padding-left: 16px;
 }
 
+::ng-deep .modal-dialog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin-top: 0;
+}
+
 .delivery__body {
     padding-top: 25px;
 }
