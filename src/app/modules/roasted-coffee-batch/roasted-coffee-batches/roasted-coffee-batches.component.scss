@@ -64,6 +64,12 @@
     text-decoration: underline !important;
     cursor: pointer;
 }
+.truncate-roasted {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 83%;
+}
 @media screen and (max-width: 767px) {
     .filterLayout {
         margin-top: 1.5rem;
