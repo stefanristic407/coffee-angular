@@ -93,18 +93,18 @@ export class CoffeeSaleComponent implements OnInit {
                 field: 'lot_id',
                 header: this.globals.languageJson?.lot_id,
                 sortable: false,
-                width: 15,
+                width: 10,
             },
             {
                 field: 'estate_name',
                 header: this.globals.languageJson?.estate,
-                width: 15,
+                width: 25,
             },
             {
                 field: 'order_reference',
                 header: this.globals.languageJson?.roaster_ref_no,
                 sortable: false,
-                width: 15,
+                width: 20,
             },
             {
                 field: 'origin',
