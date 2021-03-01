@@ -40,6 +40,7 @@ export class PrimeTableService {
     public paginatorValue = false;
     public origin: any;
     public status: any;
+    paginationValue: any;
 
     constructor(public http: HttpClient, public cookieService: CookieService) {}
 
