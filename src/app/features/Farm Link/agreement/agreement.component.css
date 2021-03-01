@@ -35,7 +35,7 @@
     top: 80%;
     transform: translate(-50%);
     border-radius: 1.5px;
-    background-color: #232334;
+    background-color: #30855c;
 }
 
 .bottom-bord {
@@ -62,14 +62,14 @@ li.nav-item {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
-    color: #232334;
+    color: #30855c;
 }
 
 .nav-pills .nav-link.active {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
-    color: #232334;
+    color: #30855c;
 }
 
 .file-share-search input[type="search"] {
