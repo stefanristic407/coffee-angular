@@ -16,7 +16,7 @@ export class FileShareListComponent implements OnInit {
     constructor(public fileShareSrv: FileShareService, public globals: GlobalsService) {}
 
     ngOnInit(): void {
-        this.fileShareSrv.folderId = 0;
+        this.fileShareSrv.folderId = null;
         this.breadItems = [
             { label: this.globals.languageJson?.home, routerLink: '/' },
             { label: this.globals.languageJson?.file_share },

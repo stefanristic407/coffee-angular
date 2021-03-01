@@ -19,6 +19,7 @@ import { ShareComponent } from './share/share.component';
 import { MediaPreviewComponent } from './media-preview/media-preview.component';
 import { FileTableComponent } from './file-table/file-table.component';
 import { FileCardComponent } from './file-card/file-card.component';
+import { VideoCardComponent } from './video-card/video-card.component';
 
 @NgModule({
     declarations: [
@@ -35,6 +36,7 @@ import { FileCardComponent } from './file-card/file-card.component';
         MediaPreviewComponent,
         FileTableComponent,
         FileCardComponent,
+        VideoCardComponent,
     ],
     entryComponents: [FolderDialogComponent, EditFileComponent, ShareComponent, MediaPreviewComponent],
     imports: [CommonModule, FileShareRoutingModule, SharedModule, Ng2SearchPipeModule],
