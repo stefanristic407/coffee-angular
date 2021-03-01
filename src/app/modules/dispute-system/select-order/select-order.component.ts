@@ -42,8 +42,8 @@ export class SelectOrderComponent implements OnInit {
         this.roasterID = this.cookieService.get('roaster_id');
         this.loadFilterValues();
         this.createRoasterTable();
-        if (this.activeRoute.snapshot.queryParams.orderId) {
-            this.orderID = this.activeRoute.snapshot.queryParams.orderId;
+        if (this.activeRoute.snapshot.queryParams.id) {
+            this.orderID = this.activeRoute.snapshot.queryParams.id;
         }
     }
     createRoasterTable() {

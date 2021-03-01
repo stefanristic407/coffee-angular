@@ -50,4 +50,21 @@
         width: 24px;
         height: 24px;
     }
+    .arrowClass {
+        font-size: 20px;
+        font-weight: bold;
+        color: #232334;
+    }
+}
+@media only screen and (max-width: 1240px) {
+    .dashboard-button {
+        height: 12.31rem;
+        width: 20.06rem;
+        border-radius: 2px;
+        border: solid 1px #ebebeb;
+        background-color: #ffffff;
+        padding-left: 30px;
+        padding-right: 30px;
+        text-align: center;
+    }
 }

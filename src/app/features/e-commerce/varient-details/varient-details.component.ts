@@ -71,7 +71,7 @@ export class VarientDetailsComponent implements OnInit {
             { label: 'kg', value: 'kg' },
         ];
         this.quantityTypeArray = [
-            { label: 'Crate', value: 'crate' },
+            { label: 'boxes', value: 'boxes' },
             { label: 'kg', value: 'kg' },
         ];
         this.grindArray = [

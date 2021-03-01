@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="row no-gutters">
-        <div [formGroup]="ticketForm" class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 formDiv order-2 order-md-1">
+        <div [formGroup]="ticketForm" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 formDiv order-2 order-md-1">
             <div class="col-12 p-0 d-none d-sm-none d-md-flex">
                 <span class="primary_txt">Raise a ticket</span>
             </div>
@@ -41,7 +41,7 @@
                                     routerLink="/dispute-system/select-order"
                                     [queryParams]="{ orderId: orderID, orderType: orderType }"
                                 >
-                                    <img src="/assets/images/shape-2.png" alt="" /> change order</span
+                                    <img src="/assets/images/change_order.svg" alt="" /> change order</span
                                 >
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                 <p-dropdown
                     [options]="helpTextArray"
                     optionLabel="label"
-                    placeholder="Select subscription type"
+                    placeholder=""
                     [style]="{ width: '100%' }"
                     formControlName="dispute_type"
                     optionValue="value"
@@ -120,7 +120,7 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="orderDetails" class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 order-1 order-md-2">
+        <div *ngIf="orderDetails" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 order-1 order-md-2">
             <div class="formDiv detailsDiv h-100">
                 <div class="col-12 p-0">
                     <span class="primary_txt">Order details</span>
