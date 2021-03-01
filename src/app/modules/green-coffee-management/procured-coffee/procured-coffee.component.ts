@@ -82,6 +82,12 @@ export class ProcuredCoffeeComponent implements OnInit {
                     this.orderDetails.wet_mill = result.wet_milling.name;
                     this.orderDetails.processing = result.processing_types;
                     this.orderDetails.images = result.images;
+                    this.orderDetails.available_quantity = result.quantity;
+                    this.orderDetails.available_quantity_count = result.quantity_count;
+                    this.orderDetails.available_quantity_unit = result.quantity_unit;
+                    this.orderDetails.available_quantity_type = result.quantity_type;
+                    this.orderDetails.buying_price = result.price;
+                    this.orderDetails.buying_price_unit = result.price_unit;
                     this.items = result.images.map((item) => new ImageItem({ src: item.url, thumb: item.thumb_url }));
                 }
             },

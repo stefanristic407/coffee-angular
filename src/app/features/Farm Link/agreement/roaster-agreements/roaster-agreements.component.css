@@ -165,8 +165,12 @@ tr:last-child {
     display: none;
 }
 
-.input[type='radio']:checked:after {
-    color: #30855c !important;
+.cust-pad-left {
+    padding-left: 2.5rem !important;
+}
+
+.cust-width {
+    width: 40%;
 }
 
 /* MOdal popup css */
@@ -259,6 +263,7 @@ button:disabled {
     }
     .modal-content {
         padding: 25px !important;
+        width: 89.5% !important;
     }
     .btn-padding {
         padding: 12px 38px;
@@ -350,6 +355,57 @@ button:disabled {
     border-bottom-left-radius: 4px;
 }
 
-#up-del-pop popover-container {
-    border: 0 !important;
+.custom-radio {
+    display: block;
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-family: 'Muli';
+    font-size: 14px;
+    font-weight: normal;
+    color: #020202;
+}
+
+.custom-radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    border: 1px solid #979797;
+}
+
+.custom-radio input:checked~.checkmark {
+    border-color: #30855c !important;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.custom-radio input:checked~.checkmark:after {
+    display: block;
+}
+
+.custom-radio .checkmark:after {
+    top: 5px;
+    left: 5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #30855c;
 }

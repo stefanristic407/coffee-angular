@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, HostListener, AfterViewInit, AfterContentInit } from '@angular/core';
 import { GlobalsService } from 'src/services/globals.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -21,14 +21,12 @@ export class CoffeeProcuredTabComponent implements OnInit {
     mainData: any[] = [];
     originArray: any[] = [];
     searchString = '';
-    sellerItems = [
-        { label: 'All origins', value: null },
-        { label: 'Sweden', value: 'SE' },
-        { label: 'UK', value: 'UK' },
-        { label: 'India', value: 'IN' },
-    ];
+    // sellerItems = [
+    //     { label: 'Sweden', value: 'SE' },
+    //     { label: 'UK', value: 'UK' },
+    //     { label: 'India', value: 'IN' },
+    // ];
     displayItems = [
-        { label: 'All', value: '' },
         { label: 'Display 10', value: 10 },
         { label: 'Display 20', value: 20 },
         { label: 'Display 25', value: 25 },
@@ -52,8 +50,8 @@ export class CoffeeProcuredTabComponent implements OnInit {
         public primeTableService: PrimeTableService,
         public fb: FormBuilder,
     ) {
-        this.termStatus = { name: 'All origins', isoCode: '' };
-        this.display = '10';
+        // this.termStatus = '';
+        this.display = 10;
         this.roasterID = this.cookieService.get('roaster_id');
         this.primeTableService.rows = 10;
         this.primeTableService.sortBy = 'created_at';
@@ -120,13 +118,13 @@ export class CoffeeProcuredTabComponent implements OnInit {
                     field: 'availability_name',
                     header: 'Availibility Name',
                     sortable: false,
-                    width: 70,
+                    width: 80,
                 },
                 {
                     field: 'estate_name',
                     header: 'Estate Name',
                     sortable: false,
-                    width: 70,
+                    width: 80,
                 },
                 {
                     field: 'origin',
@@ -138,7 +136,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
                     field: 'order_reference',
                     header: 'Roaster Ref. No.',
                     sortable: false,
-                    width: 70,
+                    width: 60,
                 },
                 {
                     field: 'varieties',
@@ -187,6 +185,8 @@ export class CoffeeProcuredTabComponent implements OnInit {
 
         this.primeTableService.form = this.form;
 
+        this.originArray = this.globals.countryList;
+
         this.primeTableService.form?.valueChanges.subscribe((data) =>
             setTimeout(() => {
                 this.table.reset();
@@ -197,9 +197,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
     }
 
     setStatus() {
-        this.primeTableService.form?.patchValue({
-            status: this.termStatus,
-        });
+        this.primeTableService.origin = this.termStatus;
         this.table.reset();
     }
 
