@@ -1,6 +1,7 @@
 <p-table
-    [value]="fileService.myFileList | filter: fileService.filesTerm"
+    [value]="fileShareSrv.myFileList | filter: fileShareSrv.filesTerm"
     [columns]="tableColumns"
+    [loading]="fileShareSrv.loading"
     dataKey="id"
     [resizableColumns]="true"
     [paginator]="false"
@@ -9,7 +10,7 @@
     [showCurrentPageReport]="false"
     [paginator]="false"
     [lazy]="true"
-    (onLazyLoad)="getData($event)"
+    (onLazyLoad)="filterCall($event)"
     [totalRecords]="totalCount"
     [responsive]="true"
 >
@@ -46,7 +47,7 @@
                     <span
                         class="d-flex align-items-center"
                         *ngIf="rowData.type == 'FOLDER'"
-                        (click)="shareDetails(rowData)"
+                        routerLink="/file-share/file-share-details/{{ rowData.id }}"
                     >
                         <img class="file-icon" src="assets/images/folder.svg" alt="upload-icon" />
                         {{ rowData[col.field] }}
@@ -54,7 +55,7 @@
                     <span
                         class="d-flex align-items-center"
                         *ngIf="rowData.type == 'DOCUMENT'"
-                        (click)="downloadFile(rowData)"
+                        (click)="fileShareSrv.downloadFile(rowData)"
                     >
                         <img class="file-icon" src="assets/images/pdf.svg" alt="upload-icon" />
                         {{ rowData[col.field] }}</span
@@ -65,7 +66,7 @@
                     <span
                         class="d-flex align-items-center"
                         *ngIf="rowData.type == 'VIDEO'"
-                        (click)="openVideoModal(popTemplate, rowData)"
+                        (click)="fileShareSrv.preview(rowData)"
                     >
                         <img class="file-icon" src="assets/images/video.svg" alt="upload-icon" />
                         {{ rowData[col.field] }}
@@ -73,7 +74,7 @@
                     <span
                         class="d-flex align-items-center"
                         *ngIf="rowData.type == 'IMAGE'"
-                        (click)="previewImg(rowData)"
+                        (click)="fileShareSrv.preview(rowData)"
                     >
                         <img class="file-icon" style="height: 20px" src="assets/images/image.svg" alt="upload-icon" />
                         {{ rowData[col.field] }}
@@ -87,7 +88,7 @@
                 <span *ngSwitchCase="'actions'" class="">
                     <span class="d-flex justify-content-between align-items-center">
                         <span class="tr-hover-visible">
-                            <span class="btn-trans-icon upload-icon mr-3" (click)="openShareModal(rowData)">
+                            <span class="btn-trans-icon share-icon mr-3" (click)="fileShareSrv.openShareModal(rowData)">
                                 {{ 'share' | translate }}
                             </span>
                         </span>
@@ -108,20 +109,3 @@
 </p-table>
 
 <p-menu #menu [popup]="true" [model]="menuItems"></p-menu>
-
-<ng-template #popTemplate>
-    <div class="popup-video">
-        <div class="video-close" (click)="closePopup()">
-            <span>&#x2715;</span>
-        </div>
-        <div class="modal-body video-section-modal p-0">
-            <div>
-                <!-- <mat-video src="{{url}}"></mat-video> -->
-
-                <video id="player" playsinline controls data-poster="/path/to/poster.jpg">
-                    <source src="{{ url }}" type="video/mp4" />
-                </video>
-            </div>
-        </div>
-    </div>
-</ng-template>

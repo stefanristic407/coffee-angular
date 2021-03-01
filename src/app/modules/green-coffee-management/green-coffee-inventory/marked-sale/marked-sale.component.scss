@@ -16,3 +16,17 @@
 ::ng-deep .deleteProductDiv .p-dialog .p-dialog-header {
     display: none;
 }
+
+@media (max-width: 1270px) and (min-width: 768px) {
+    ::ng-deep .coffee-procured .p-datatable table {
+        border-collapse: collapse;
+        table-layout: fixed;
+        width: 1100px !important;
+    }
+
+    ::ng-deep .coffee-procured .p-datatable {
+        position: relative;
+        overflow: auto !important;
+        width: 100% !important;
+    }
+}

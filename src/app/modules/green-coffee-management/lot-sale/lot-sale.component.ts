@@ -30,6 +30,7 @@ export class LotSaleComponent implements OnInit {
     priceTypeArray: any = [];
     vatDetailsArray: any = [];
     stockTypeArray: any = [];
+    weightTypeArray: any = [];
     availablityName: any;
     tableColumns = [];
     tableValue = [];
@@ -65,7 +66,12 @@ export class LotSaleComponent implements OnInit {
         ];
         this.priceTypeArray = [
             { label: 'Per kg', value: 'kg' },
-            { label: 'per bags', value: 'Bags' },
+            { label: 'per lb', value: 'lb' },
+        ];
+        this.weightTypeArray = [
+            { label: 'kg', value: 'kg' },
+            { label: 'lb', value: 'lb' },
+            { label: 'tonnes', value: 'tonnes' },
         ];
         this.stockTypeArray = [
             { label: 'In stock', value: 'IN_STOCK' },

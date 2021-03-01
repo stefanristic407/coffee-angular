@@ -1,6 +1,7 @@
-<div class="mt-2 pt-2">
+<div class="mt-4">
     <p-dropdown
         [options]="sellerItems"
+        [showClear]="true"
         [(ngModel)]="termOrigin"
         (onChange)="setOrigin()"
         scrollHeight="225px"
@@ -10,28 +11,30 @@
     ></p-dropdown>
     <p-dropdown
         [options]="statusItems"
+        [showClear]="true"
         [(ngModel)]="termStatus"
         (onChange)="setStatus()"
         scrollHeight="225px"
         placeholder="{{ globals.languageJson?.status }}"
         [autoDisplayFirst]="false"
-        styleClass="round-border mr-2 mb-3 mb-md-4 {{ termStatus ? 'highlight' : '' }}"
+        styleClass="round-border mr-2 mb-3 {{ termStatus ? 'highlight' : '' }}"
     ></p-dropdown>
     <div class="float-right mobile-lead">
         <p-dropdown
             [options]="displayItems"
+            [showClear]="true"
             [(ngModel)]="display"
             (onChange)="setDisplay()"
             scrollHeight="225px"
             placeholder="Display"
             [autoDisplayFirst]="false"
-            styleClass="round-border mb-3 mb-md-4 {{ display ? 'highlight' : '' }}"
+            styleClass="round-border mb-3 {{ display ? 'highlight' : '' }}"
         ></p-dropdown>
     </div>
 </div>
 
 <!-- Primeng table for Marked for sale -->
-<div class="mt-4">
+<div class="coffee-procured">
     <p-table
         #markedTable
         [class.table-mobile]="primeTableService.isMobileView"
@@ -143,7 +146,7 @@
                             <ng-template #mobile_name>
                                 <span class="ml-auto">
                                     <ng-container *ngIf="primeTableService.isMobileView">
-                                        <span class="pull-right custom-link" [routerLink]="onEdit(rowData)">View </span>
+                                        <span class="pull-right brown-cta" [routerLink]="onEdit(rowData)">View </span>
                                     </ng-container>
                                 </span>
                             </ng-template>
@@ -152,7 +155,7 @@
 
                     <span *ngSwitchCase="'actions'" class="text-center">
                         <ng-container *ngIf="!primeTableService.isMobileView">
-                            <span class="custom-link" [routerLink]="onEdit(rowData)">View</span>
+                            <span class="brown-cta" [routerLink]="onEdit(rowData)">View</span>
                         </ng-container>
                     </span>
 

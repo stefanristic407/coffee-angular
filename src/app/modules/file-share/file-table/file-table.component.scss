@@ -1,0 +1,36 @@
+.file-icon {
+    margin-right: 12px;
+    width: 22px;
+    height: auto;
+}
+
+::ng-deep .folder-dialog.p-dialog {
+    width: 90vw;
+    @media (min-width: 768px) {
+        width: 740px;
+    }
+}
+
+::ng-deep .file-dialog.p-dialog {
+    width: 90vw;
+    @media (min-width: 768px) {
+        width: 740px;
+    }
+}
+
+::ng-deep .share-dialog.p-dialog {
+    width: 90vw;
+    @media (min-width: 768px) {
+        width: 542px;
+    }
+}
+
+::ng-deep .preview-dialog.p-dialog {
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    background: transparent;
+    .p-dialog-content {
+        background: transparent;
+    }
+}
