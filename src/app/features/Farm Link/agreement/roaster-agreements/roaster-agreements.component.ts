@@ -19,10 +19,14 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
     appLanguage?: any;
     agreementsActive = 0;
     estatetermOrigin: any;
-    showOrigin = true;
     customerMob: any;
+    showOrigin = true;
     showCustomerMob = true;
+    isUpdate = false;
     roasterId: string;
+    agreementfileId: any;
+    deleteAgreementId: any;
+    itemId: any;
     horecaFormGroup: FormGroup;
     resetButtonValue = 'Upload Agreement';
     files: any;
@@ -30,23 +34,16 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
     fileNameValue: any;
     fileName: string | Blob;
     horecaList: any;
-    agreementfileId: any;
     newList: any = [];
     mainData: any = [];
     sortedMainData: any = [];
     modalDropdownList: any = [];
-    isAscending = false;
-    isDescending = false;
     selectedCustomers: any;
 
     @ViewChild('dismissAddModal') dismissAddModal: ElementRef;
     @ViewChild('dismissDeleteModal') dismissDeleteModal: ElementRef;
     @Input() searchTerm: any = '';
     @Input() customerType: string;
-    deleteAgreementId: any;
-    isUpdate: boolean;
-    itemId: any;
-    sortColumnName: string;
 
     constructor(
         public router: Router,

@@ -45,7 +45,6 @@ export class AgreementComponent implements OnInit {
 
     language() {
         this.appLanguage = this.globals.languageJson;
-        // this.agreementsActive++;
     }
 
     // Function Name: Navbar Change

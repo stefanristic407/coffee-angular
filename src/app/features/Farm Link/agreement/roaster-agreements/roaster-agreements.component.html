@@ -8,7 +8,8 @@
         <p-table [value]="sortedMainData | filter: searchTerm | filter: estatetermOrigin" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
-                    <th pSortableColumn="file_name">{{ globals.languageJson?.files }} <p-sortIcon field="file_name">
+                    <th pSortableColumn="file_name" class="cust-pad-left cust-width">{{
+                        globals.languageJson?.files }} <p-sortIcon field="file_name">
                         </p-sortIcon>
                     </th>
                     <th pSortableColumn="created_at">{{ globals.languageJson?.added_on }} <p-sortIcon
@@ -21,21 +22,21 @@
                     <th pSortableColumn="origin">{{ globals.languageJson?.origin }} <p-sortIcon field="origin">
                         </p-sortIcon>
                     </th>
-                    <th style="width:50px;"></th>
+                    <th style="width:5%;"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-item>
                 <tr>
-                    <td><a href="{{item.file_url}}" target="_blank" class="file_url"><span><img class="file-icon pr-2"
-                                    src="assets/images/pdf-img.PNG" alt="upload-icon" />
+                    <td class="cust-pad-left"><a href="{{item.file_url}}" target="_blank" class="file_url"><span><img
+                                    class="file-icon pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon" />
                                 {{ item.file_name }}</span></a></td>
                     <td>{{item.created_at | date: 'M/d/yy, h:mm a'}}</td>
                     <td>{{item.customer_name}}</td>
                     <td>{{getCountryName(item.origin)}}</td>
-                    <td id="up-del-pop">
+                    <td id="sales-contract-popup">
                         <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true"
                             #pop="bs-popover">
-                            <p><i class="pi pi-ellipsis-v"></i></p>
+                            <p><img src="assets/images/kebab-menu.svg"></p>
                         </a>
                         <ng-template #poplistTemplate id="{{ item.id }}">
                             <div id="popover-mobile-content">
@@ -98,17 +99,17 @@
                                 <h4 class="fnt-16 fnt-700 fnt-muli text-clr334 mb-0">
                                     Select the type of customer you want to upload the agreement for
                                 </h4>
-                                <div class="row mt-3">
-                                    <span class="pl-3">
-                                        <input type="radio" id="horeca_customer_add" name="horeca_customer" value="hrc"
-                                            [formControl]="horecaFormGroup.controls['customerType']" />
-                                        <label for="horeca_customer_add" class="pl-2">HoReCa</label><br />
-                                    </span>
-                                    <span class="pl-3">
-                                        <input type="radio" id="mr_customer_add" name="horeca_customer" value="mr"
-                                            [formControl]="horecaFormGroup.controls['customerType']" />
-                                        <label class="pl-2" for="mr_customer_add">Micro-Roaster</label><br />
-                                    </span>
+                                <div class="row mt-3 pl-3">
+                                    <label class="custom-radio">HoReCa
+                                        <input type="radio" [formControl]="horecaFormGroup.controls['customerType']"
+                                            name="horeca_customer" value="hrc">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="custom-radio ml-4">Micro-Roaster
+                                        <input type="radio" name="horeca_customer"
+                                            [formControl]="horecaFormGroup.controls['customerType']" value="mr">
+                                        <span class="checkmark"></span>
+                                    </label>
                                 </div>
                             </div>
 
