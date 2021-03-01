@@ -37,8 +37,9 @@ export class GreenCoffeeInventoryComponent implements OnInit {
         this.appLanguage = this.globals.languageJson;
         this.greenActive++;
     }
-    onSearch(event) {
-        this.procureTab.searchString = event;
+    onSearch() {
+        this.procureTab.search(this.searchString);
+        this.markForSaleTab.search(this.searchString);
     }
     handleChange(event: any) {
         if (event.index === 0) {

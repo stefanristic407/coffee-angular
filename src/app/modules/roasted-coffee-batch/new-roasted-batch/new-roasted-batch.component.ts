@@ -81,7 +81,7 @@ export class NewRoastedBatchComponent implements OnInit {
             roasting_profile_unit: ['lb'],
             roaster_ref_no: [{ value: '', disabled: true }],
             batch_ref_no: [''],
-            // processing: ['', Validators.compose([Validators.required])],
+            processing: [{ value: '', disabled: true }],
         });
         this.supplyBreadCrumb();
 

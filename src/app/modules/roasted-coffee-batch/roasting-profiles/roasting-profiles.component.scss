@@ -40,7 +40,7 @@
 .list-group-item {
     border: none;
     font-family: 'Muli';
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600 !important;
     color: #747588;
 }
@@ -112,9 +112,14 @@
     :host ::ng-deep .roastingProfileTable .p-datatable.p-datatable-responsive .p-datatable-tbody > tr > td {
         border-bottom: none !important;
     }
-    .borderCard {
-        background-color: #f8f8f8;
+    .borderRoastedCard {
         border: 1px solid #d6d6d6;
+        border-bottom: none;
+        padding: 4px;
+    }
+    .bgRoastedCard {
+        background-color: #f8f8f8;
+        padding: 6px 12px 8px 12px;
     }
     .productHeight {
         height: 138px !important;

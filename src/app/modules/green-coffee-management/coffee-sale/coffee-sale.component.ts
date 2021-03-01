@@ -93,18 +93,18 @@ export class CoffeeSaleComponent implements OnInit {
                 field: 'lot_id',
                 header: this.globals.languageJson?.lot_id,
                 sortable: false,
-                width: 15,
+                width: 10,
             },
             {
                 field: 'estate_name',
                 header: this.globals.languageJson?.estate,
-                width: 15,
+                width: 25,
             },
             {
                 field: 'order_reference',
                 header: this.globals.languageJson?.roaster_ref_no,
                 sortable: false,
-                width: 15,
+                width: 20,
             },
             {
                 field: 'origin',
@@ -209,6 +209,10 @@ export class CoffeeSaleComponent implements OnInit {
                     this.toasterService.success('Status updated successfully');
                     this.showDropdown = false;
                     this.statusLabel = this.formatStatus(status.status);
+                } else if (!response.success && response.messages.status === 'cannot_change') {
+                    this.toasterService.error('Status cannot be changed');
+                } else {
+                    this.toasterService.error('Error while changing the status');
                 }
             },
             (err) => {

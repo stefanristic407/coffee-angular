@@ -116,14 +116,18 @@ ul {
     border-radius: 4px;
     padding: 14px;
 }
-
+::ng-deep .breadCrumb .p-breadcrumb ul {
+    width: max-content;
+}
 @media (max-width: 748px) {
     .source-cont-available {
         padding: 24px 8px;
     }
-    .prodect-details,
-    .produect-pro {
+    .prodect-details {
         padding: 12px;
+    }
+    .produect-pro {
+        padding: 0px 8px;
     }
     .avaialble-web {
         display: none;
@@ -134,6 +138,9 @@ ul {
     .det-tit h2,
     .estate-focus h3 {
         font-size: 16px;
+    }
+    .estate-focus ul {
+        padding: 0px;
     }
     .v-report {
         text-align: left;
@@ -151,5 +158,8 @@ ul {
         h3 {
             font-size: 14px;
         }
+    }
+    .no-pad {
+        padding: 0px;
     }
 }

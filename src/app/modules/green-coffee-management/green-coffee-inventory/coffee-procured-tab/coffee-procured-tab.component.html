@@ -113,7 +113,7 @@
                                 Quantity
                             </span>
 
-                            <span *ngIf="primeTableService.isMobileView" class="w-50 pl-2">
+                            <span *ngIf="primeTableService.isMobileView" class="w-50">
                                 {{ rowData['quantity'] }}&nbsp; {{ rowData['quantity_type'] }}
                             </span>
                             <span *ngIf="!primeTableService.isMobileView" class="">
@@ -138,7 +138,9 @@
                                         [outsideClick]="true"
                                         #pop="bs-popover"
                                     >
-                                        <p><img class="ellipse-image" src="assets/images/ellipses.png" alt="" /></p>
+                                        <p class="mb-0">
+                                            <img class="ellipse-image" src="assets/images/ellipses.png" alt="" />
+                                        </p>
                                     </a>
                                     <ng-template #poplistTemplate>
                                         <div id="popover-mobile-content">
@@ -146,14 +148,15 @@
                                                 <li class="list-group-item">
                                                     <a
                                                         class="text-clr588 fnt-600 fnt-14"
-                                                        [routerLink]="availabilityPage(rowData)"
+                                                        [routerLink]="viewOrderPage(rowData)"
+                                                        [queryParams]="{ type: rowData.status, order: rowData.id }"
                                                         >View order page</a
                                                     >
                                                 </li>
                                                 <li class="list-group-item">
                                                     <a
                                                         class="text-clr588 fnt-600 fnt-14"
-                                                        [routerLink]="sourcingRedirect()"
+                                                        [routerLink]="sourcingRedirect(rowData)"
                                                     >
                                                         Go to Availability page</a
                                                     >
@@ -207,7 +210,9 @@
                                 [outsideClick]="true"
                                 #pop="bs-popover"
                             >
-                                <p><img class="ellipse-image" src="assets/images/ellipses.png" alt="" /></p>
+                                <p class="mb-0">
+                                    <img class="ellipse-image" src="assets/images/ellipses.png" alt="" />
+                                </p>
                             </a>
                             <ng-template #poplistTemplate>
                                 <div id="popover-mobile-content">
@@ -215,12 +220,16 @@
                                         <li class="list-group-item">
                                             <a
                                                 class="text-clr588 fnt-600 fnt-14"
-                                                [routerLink]="availabilityPage(rowData)"
+                                                [routerLink]="viewOrderPage(rowData)"
+                                                [queryParams]="{ type: rowData.status, order: rowData.id }"
                                                 >View order page</a
                                             >
                                         </li>
                                         <li class="list-group-item">
-                                            <a class="text-clr588 fnt-600 fnt-14" [routerLink]="sourcingRedirect()">
+                                            <a
+                                                class="text-clr588 fnt-600 fnt-14"
+                                                [routerLink]="sourcingRedirect(rowData)"
+                                            >
                                                 Go to Availability page</a
                                             >
                                         </li>
