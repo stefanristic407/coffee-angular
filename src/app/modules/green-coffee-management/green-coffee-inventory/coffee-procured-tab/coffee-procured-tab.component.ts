@@ -7,6 +7,8 @@ import { NavigationExtras, Router } from '@angular/router';
 import { PrimeTableService } from 'src/services/prime-table.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Table } from 'primeng/table';
+import { UserserviceService } from '@services';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-coffee-procured-tab',
@@ -44,6 +46,8 @@ export class CoffeeProcuredTabComponent implements OnInit {
     constructor(
         public globals: GlobalsService,
         public roasterService: RoasterserviceService,
+        private userService: UserserviceService,
+        private toastrService: ToastrService,
         public router: Router,
         public cookieService: CookieService,
         public roasteryProfileService: RoasteryProfileService,
@@ -112,7 +116,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
                     field: 'id',
                     header: 'Order ID',
                     sortable: false,
-                    width: 50,
+                    width: 40,
                 },
                 {
                     field: 'availability_name',
@@ -124,7 +128,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
                     field: 'estate_name',
                     header: 'Estate Name',
                     sortable: false,
-                    width: 80,
+                    width: 90,
                 },
                 {
                     field: 'origin',
@@ -153,12 +157,6 @@ export class CoffeeProcuredTabComponent implements OnInit {
                 {
                     field: 'cup_score',
                     header: 'Cup score',
-                    sortable: false,
-                    width: 50,
-                },
-                {
-                    field: 'status',
-                    header: 'Status',
                     sortable: false,
                     width: 50,
                 },
@@ -217,7 +215,13 @@ export class CoffeeProcuredTabComponent implements OnInit {
     availabilityPage(item) {
         return `/green-coffee-management/procured-coffee/${item.id}`;
     }
-    sourcingRedirect() {
-        return '/sourcing/coffee-list';
+    sourcingRedirect(item) {
+        this.userService.getGreenCoffeeDetails(this.roasterID, item.harvest_id).subscribe((res) => {
+            if (res.success) {
+                return `/sourcing/coffee-list/${res.result?.estate_id}/${res.result?.harvest_id}`;
+            } else {
+                this.toastrService.error('Error while getting the Availability details');
+            }
+        });
     }
 }

@@ -32,9 +32,28 @@
 }
 
 @media (max-width: 767px) {
-    ::ng-deep .coffee-procured .p-datatable table {
+    ::ng-deep .mobile-card-view .coffee-procured .p-datatable table {
         border-collapse: collapse;
         table-layout: auto !important;
         width: 100% !important;
+    }
+    ::ng-deep .mobile-card-view .coffee-procured .p-datatable .p-datatable-tbody > tr > td:first-child {
+        background-color: #f8f8f8;
+        border-bottom: 0 dashed #d6d6d6 !important;
+        border-radius: 4px;
+        padding: 9px 12px;
+    }
+    ::ng-deep .mobile-card-view .coffee-procured .p-datatable .p-datatable-tbody > tr {
+        display: flow-root;
+        margin: 10px 0 20px;
+        border: 1px solid #ebebeb;
+        background-color: #fff;
+        border-radius: 4px;
+        padding: 4px;
+    }
+    ::ng-deep .mobile-card-view .coffee-procured .p-datatable .p-datatable-tbody > tr > td {
+        padding: 14px 12px;
+        margin: 0 0 8px;
+        border-bottom: 1px dashed #d6d6d6 !important;
     }
 }

@@ -113,7 +113,7 @@
                                 Quantity
                             </span>
 
-                            <span *ngIf="primeTableService.isMobileView" class="w-50 pl-2">
+                            <span *ngIf="primeTableService.isMobileView" class="w-50">
                                 {{ rowData['quantity'] }}&nbsp; {{ rowData['quantity_type'] }}
                             </span>
                             <span *ngIf="!primeTableService.isMobileView" class="">
@@ -155,7 +155,7 @@
                                                 <li class="list-group-item">
                                                     <a
                                                         class="text-clr588 fnt-600 fnt-14"
-                                                        [routerLink]="sourcingRedirect()"
+                                                        [routerLink]="sourcingRedirect(rowData)"
                                                     >
                                                         Go to Availability page</a
                                                     >
@@ -224,7 +224,10 @@
                                             >
                                         </li>
                                         <li class="list-group-item">
-                                            <a class="text-clr588 fnt-600 fnt-14" [routerLink]="sourcingRedirect()">
+                                            <a
+                                                class="text-clr588 fnt-600 fnt-14"
+                                                [routerLink]="sourcingRedirect(rowData)"
+                                            >
                                                 Go to Availability page</a
                                             >
                                         </li>

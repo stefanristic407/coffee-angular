@@ -588,7 +588,7 @@ export class UserserviceService {
 
     // API Function Name : Green Coffee availability Detail Page
     // API Description: This API call helps details of green coffee availability.
-    getGreenCoffeeDetails(roaster_id: any, harvest_id: any) {
+    getGreenCoffeeDetails(roaster_id: any, harvest_id: any): Observable<any> {
         const data = {
             api_call: '/ro/' + roaster_id + '/availability/gc/' + harvest_id,
             method: 'GET',
@@ -1502,7 +1502,7 @@ export class UserserviceService {
         formData.append('name', name);
         formData.append('file_module', fileModule);
         console.log('roaster id >>>>>>>>>>>', roasterId);
-        return this.http.post(this.fileUploadURL, formData, {headers});
+        return this.http.post(this.fileUploadURL, formData, { headers });
     }
 
     deleteFile(roasterId: any, fileId: any): Observable<any> {
