@@ -56,7 +56,7 @@ export class CoffeeSaleComponent implements OnInit {
         ];
         this.priceTypeArray = [
             { label: 'Per kg', value: 'kg' },
-            { label: 'per bags', value: 'Bags' },
+            { label: 'per lb', value: 'lb' },
         ];
         this.stockTypeArray = [
             { label: 'In stock', value: 'IN_STOCK' },
@@ -200,6 +200,30 @@ export class CoffeeSaleComponent implements OnInit {
                 console.log(err);
             },
         );
+    }
+    updateStatus() {
+        const status = { status: this.coffeeSaleForm.value.status };
+        this.roasterService.updateMarkForSaleStatus(this.roasterID, this.orderID, status).subscribe(
+            (response) => {
+                if (response && response.success) {
+                    this.toasterService.success('Status updated successfully');
+                    this.showDropdown = false;
+                    this.statusLabel = this.formatStatus(status.status);
+                }
+            },
+            (err) => {
+                this.toasterService.error('Error while updating status');
+                console.log(err);
+            },
+        );
+    }
+    formatStatus(stringVal) {
+        let formatVal = '';
+        if (stringVal) {
+            formatVal = stringVal.toLowerCase().charAt(0).toUpperCase() + stringVal.slice(1).toLowerCase();
+            formatVal = formatVal.replace('_', ' ');
+        }
+        return formatVal.replace('-', '');
     }
     validateForms() {
         let returnFlag = true;

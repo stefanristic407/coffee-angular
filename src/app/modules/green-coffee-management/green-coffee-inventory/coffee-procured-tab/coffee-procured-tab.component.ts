@@ -52,7 +52,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
         public primeTableService: PrimeTableService,
         public fb: FormBuilder,
     ) {
-        this.termStatus = { name: 'All origins', isoCode: '' };
+        this.termStatus = '';
         this.display = '10';
         this.roasterID = this.cookieService.get('roaster_id');
         this.primeTableService.rows = 10;

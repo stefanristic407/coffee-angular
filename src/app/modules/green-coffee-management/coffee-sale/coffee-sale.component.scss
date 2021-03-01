@@ -119,6 +119,9 @@
 ::ng-deep .productListTable .p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
     background: #ffffff;
 }
+.current-s-bg {
+    padding: 0.75rem !important;
+}
 @media (max-width: 1270px) and (min-width: 768px) {
     ::ng-deep .productListTable .p-datatable table {
         border-collapse: collapse;

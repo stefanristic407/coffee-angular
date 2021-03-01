@@ -118,6 +118,9 @@
     padding: 0px;
     width: auto;
 }
+.current-s-bg {
+    padding: 0.75rem !important;
+}
 @media (max-width: 1270px) and (min-width: 768px) {
     ::ng-deep .productListTable .p-datatable table {
         border-collapse: collapse;
