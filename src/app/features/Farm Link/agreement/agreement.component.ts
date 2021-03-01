@@ -48,6 +48,9 @@ export class AgreementComponent implements OnInit {
         // this.agreementsActive++;
     }
 
+    // Function Name: Navbar Change
+    // Description: This function helps to send customer type roaster-agreement on navbar change.
+
     onNavChange(value: string): void {
         this.customerType = value;
     }

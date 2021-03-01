@@ -27,8 +27,8 @@
                         <p class="m-0 fnt-14 fnt-muli fnt-700 black">API Key Generation Request</p>
                     </div>
                     <div class="delivery__body">
-                        <div class="w-100 p-2 mt-2">
-                            <div class="float-left">
+                        <div class="w-100" *ngIf="generatedKeyStep == 1 || generatedKeyStep == 2">
+                            <div class="float-left key-activate-block">
                                 <p class="m-0 fnt-14 fnt-muli fnt-700 black">Key activated on 25 Jan 2020</p>
                                 <p class="view-order m-0 cursor-pointer" (click)="delete()">Delete Key</p>
                             </div>
@@ -60,15 +60,21 @@
                         <table class="table lot-table">
                             <tbody>
                                 <tr>
-                                    <td><span class="list-ques float-left"> Requested by </span></td>
+                                    <td class="pl-16">
+                                        <span class="list-ques float-left text-clr588"> Requested by </span>
+                                    </td>
                                     <td><span class="list-answ float-right"> Third wave coffee roasters </span></td>
                                 </tr>
                                 <tr>
-                                    <td><span class="list-ques float-left"> Customer Type </span></td>
+                                    <td class="pl-16">
+                                        <span class="list-ques float-left text-clr588"> Customer Type </span>
+                                    </td>
                                     <td><span class="list-answ float-right"> Micro-Roaster </span></td>
                                 </tr>
                                 <tr>
-                                    <td><span class="list-ques float-left"> Requested on </span></td>
+                                    <td class="pl-16">
+                                        <span class="list-ques float-left text-clr588"> Requested on </span>
+                                    </td>
                                     <td><span class="list-answ float-right"> 24 Jan 2020 </span></td>
                                 </tr>
                             </tbody>
@@ -78,31 +84,36 @@
             </div>
         </div>
 
-        <div class="row mt-3">
-            <div class="pl-4">
+        <div class="note-heading" *ngIf="generatedKeyStep == 0">
+            <div>
                 <p class="fnt-14 fnt-muli fnt-700 text-clr334">NOTE :</p>
             </div>
 
-            <div class="col-md-6">
-                <p class="fnt-14 fnt-muli fnt-700 text-clr588">
+            <div class="col-md-6 pl-8">
+                <p class="fnt-14 fnt-muli fnt-700 text-clr588 m-0">
                     Confirming the request will grant the customer to all the coffee stories for their orders and all
                     the marketing material.
                 </p>
             </div>
         </div>
 
-        <div class="d-flex mt-3">
+        <div class="d-flex" *ngIf="generatedKeyStep == 0">
             <div class="generate-border col-md-7 col-12">
-                <p class="fnt-14 fnt-muli fnt-700 text-clr334 col-8 float-left m-0">
+                <p class="fnt-14 fnt-muli fnt-700 text-clr334 col-8 float-left m-0 p-0">
                     Confirm the API Key generation request, to allow the customer to access coffee story.
                 </p>
                 <!-- <button class="save float-right"> Generate Key</button> -->
 
-                <button type="submit" class="save float-right" [disabled]="resetButtonValue === 'Generating Key…'">
+                <button
+                    type="submit"
+                    class="save float-right"
+                    (click)="generateKey()"
+                    [disabled]="resetButtonValue === 'Generating Key…'"
+                >
                     <img
                         class="loader"
                         *ngIf="resetButtonValue === 'Generating Key…'"
-                        src="assets/images/orange-loader.gif"
+                        src="assets/images/btn-loader.svg"
                     />
                     {{ resetButtonValue }}
                 </button>
@@ -111,18 +122,18 @@
 
         <!-- API key is generated -->
 
-        <div class="d-flex mt-3">
+        <div class="d-flex pt-32" *ngIf="generatedKeyStep == 1">
             <div class="generate-border col-md-7 col-12">
-                <p class="fnt-14 fnt-muli fnt-700 text-clr334 col-8 float-left mt-2">
+                <p class="fnt-14 fnt-muli fnt-700 text-clr334 col-8 float-left m-0 p-0">
                     <span><img class="mr-2" src="assets/images/correct.png" alt="" /> </span> The API key is generated!
                 </p>
-                <button class="save float-right">Notify now</button>
+                <button class="save float-right" (click)="notify()">Notify now</button>
             </div>
         </div>
 
         <!-- The API key is generated and the customer is notified!-->
 
-        <div class="d-flex mt-3">
+        <div class="d-flex pt-32" *ngIf="generatedKeyStep == 2">
             <div class="generate-border col-md-7 col-12">
                 <p class="fnt-14 fnt-muli fnt-700 text-clr334 float-left m-0">
                     <span><img class="mr-2" src="assets/images/correct.png" alt="" /> </span> The API key is generated
@@ -133,7 +144,7 @@
 
         <!-- pause-->
 
-        <div class="d-flex mt-3">
+        <div class="d-flex pt-32" *ngIf="apikeyStatus == 'paused'">
             <div class="generate-border col-md-7 col-12">
                 <p class="fnt-14 fnt-muli fnt-700 text-clr334 float-left m-0">
                     <span><img class="mr-2" src="assets/images/pause.png" alt="" /> </span> The API key access is paused
@@ -141,8 +152,8 @@
             </div>
         </div>
 
-        <div class="d-flex mt-3">
-            <p class="fnt-14 fnt-muli fnt-700 text-clr588 col-7">
+        <div class="d-flex pt-16" *ngIf="apikeyStatus == 'paused'">
+            <p class="fnt-14 fnt-muli fnt-700 text-clr588 col-7 p-0 m-0">
                 The customer can send a key access reactivation request. When you get the request, activate the key
                 access.
             </p>
@@ -151,37 +162,31 @@
 </section>
 
 <ng-template #deletetemplate>
-    <div class="modal-header">
-        <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true">&times;</span>
-          </button> -->
-    </div>
-    <div class="modal-body text-center mb-2">
-        <p class="fnt-14 fnt-muli fnt-700 text-clr334">
+    <div class="delete-template-modal-body text-center" *ngIf="!isDeletedApiKey">
+        <p class="fnt-14 fnt-muli fnt-700 text-clr334 m-0">
             Are you sure you want to delete the API key for "Third wave coffee roasters"?
         </p>
-
-        <div class="pt-4">
+        <div class="templete-btn">
             <button class="btn no-btn" (click)="modalRef.hide()">Cancel</button>
-            <button class="btn add-btn ml-3" (click)="modalRef.hide()">Yes</button>
+            <button class="btn add-btn ml-3" (click)="onConfirm()">Yes</button>
         </div>
+    </div>
+
+    <div class="delete-confirmation-modal-body text-center mb-2" *ngIf="isDeletedApiKey">
+        <p class="fnt-14 fnt-muli fnt-700 text-clr334 float-left m-0">
+            <span><img class="mr-2" src="assets/images/correct.png" alt="" /> </span> The Api Key Is Deleted.
+        </p>
     </div>
 </ng-template>
 
 <ng-template #pausetemplate>
-    <div class="modal-header">
-        <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true">&times;</span>
-          </button> -->
-    </div>
-    <div class="modal-body text-center mb-2">
-        <p class="fnt-14 fnt-muli fnt-700 text-clr334">
+    <div class="pause-templete-modal-body text-center">
+        <p class="fnt-14 fnt-muli fnt-700 text-clr334 m-0">
             Are you sure you want to Pause API key access for "Third wave coffee roasters"?
         </p>
-
-        <div class="pt-4">
+        <div class="templete-btn">
             <button class="btn no-btn" (click)="modalRef.hide()">Cancel</button>
-            <button class="btn add-btn ml-3" (click)="modalRef.hide()">Yes</button>
+            <button class="btn add-btn ml-3" (click)="pauseKey()">Yes</button>
         </div>
     </div>
 </ng-template>

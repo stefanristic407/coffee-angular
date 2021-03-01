@@ -1,0 +1,60 @@
+<div class="quicker-files__list">
+    <div class="quick-pinned-files filegridview">
+        <div class="quick-pinned-files__Image">
+            <img
+                class="img cursor-pointer"
+                *ngIf="data.type == 'IMAGE'"
+                src="{{ data.url }}"
+                (click)="fileShareSrv.preview(data)"
+            />
+            <img
+                class="folder-img cursor-pointer"
+                *ngIf="data.type == 'FOLDER'"
+                src="../../../../../../assets/images/folder-icon.png"
+                routerLink="/file-share/file-share-details/{{ data.id }}"
+            />
+            <img
+                class="folder-img video-img cursor-pointer"
+                *ngIf="data.type == 'VIDEO'"
+                src="../../../../assets/images/videocamera-icon.png"
+                (click)="fileShareSrv.preview(data)"
+            />
+            <img
+                class="folder-img cursor-pointer"
+                *ngIf="data.type == 'DOCUMENT'"
+                src="../../../../assets/images/document.png"
+                (click)="fileShareSrv.downloadFile(data)"
+            />
+        </div>
+        <div class="quick-pinned-files__info d-flex align-datas-center flex-wrap clearfix">
+            <div class="file-name float-left">
+                <h4
+                    class="fnt-12 fnt-700 text-clr334 mb-0 cursor-pointer"
+                    *ngIf="data.type == 'FOLDER'"
+                    routerLink="/file-share/file-share-details/{{ data.id }}"
+                >
+                    {{ data.name }}
+                </h4>
+                <h4 class="fnt-12 fnt-700 text-clr334 mb-0" *ngIf="data.type != 'FOLDER'">
+                    {{ data.name }}
+                </h4>
+                <span class="fnt-12 fnt-700 text-clr588 mb-0">{{ data.type | titlecase }}</span>
+            </div>
+            <div class="file-dropdown ml-auto">
+                <a [href]="data.url" target="_blank" [download]="data.name">
+                    <img class="img" *ngIf="data.type != 'FOLDER'" src="assets/images/dwnd.png" />
+                </a>
+                <a
+                    class="menu-arrow"
+                    [popover]="documentTemplate"
+                    placement="left"
+                    [outsideClick]="true"
+                    #pop="bs-popover"
+                >
+                    <img class="img" src="assets/images/more-opns-file.png" />
+                </a>
+                <ng-template #documentTemplate> ssd </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

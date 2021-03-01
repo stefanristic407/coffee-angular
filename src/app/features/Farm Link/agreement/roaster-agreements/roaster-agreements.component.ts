@@ -34,6 +34,7 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
     newList: any = [];
     mainData: any = [];
     sortedMainData: any = [];
+    modalDropdownList: any = [];
     isAscending = false;
     isDescending = false;
     selectedCustomers: any;
@@ -78,7 +79,6 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
         }
         this.estatetermOrigin = '';
         this.customerMob = '';
-        // this.createForm();
         this.getAgreements();
         this.language();
     }
@@ -96,10 +96,16 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
         this.agreementsActive++;
     }
 
+    // Function Name: Get Country Name
+    // Description: This function helps to transfer country code to full country name.
+
     getCountryName(code: any) {
         const country = this.roasteryProfileService.countryList.find((con) => con.isoCode === code);
         return country ? country.name : '';
     }
+
+    // Function Name: Get Agreements
+    // Description: This function helps to fetch the all agreemnts
 
     getAgreements() {
         this.mainData = [];
@@ -113,6 +119,9 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
         });
     }
 
+    // Function Name: Get Micro Roaster
+    // Description: This function helps to fetch the all micro roaster list
+
     getMicroRoastersList() {
         this.newList = [];
         this.roasterService.getMicroRoastersList(this.roasterId).subscribe((res: any) => {
@@ -123,6 +132,7 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
                         this.newList.push(element);
                     }
                 });
+                this.modalDropdownList = this.newList;
                 this.newList = this.newList.map((item) => {
                     const transformItem = { label: '', value: '' };
                     transformItem.label = item.name;
@@ -138,6 +148,9 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
         });
     }
 
+    // Function Name: Get Horeca List
+    // Description: This function helps to fetch the all horeca list
+
     getHorecaList() {
         this.newList = [];
         this.roasterService.getMicroRoastersHoreca(this.roasterId).subscribe((res: any) => {
@@ -148,6 +161,7 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
                         this.newList.push(element);
                     }
                 });
+                this.modalDropdownList = this.newList;
                 this.newList = this.newList.map((item) => {
                     const transformItem = { label: '', value: '' };
                     transformItem.label = item.name;
@@ -162,6 +176,9 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
             }
         });
     }
+
+    // Function Name: Update Modal
+    // Description: This function helps to fetch the indiviual details of the column
 
     onUpdateModal(itemId: any) {
         this.fileNameValue = '';
@@ -181,31 +198,8 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
         });
     }
 
-    setUser(value: any) {
-        this.customerMob = value;
-    }
-
-    toggleOrigin() {
-        this.showOrigin = !this.showOrigin;
-        if (!this.showOrigin) {
-            document.getElementById('origin_id').style.border = '1px solid #30855c';
-        } else {
-            document.getElementById('origin_id').style.border = '1px solid #d6d6d6';
-        }
-    }
-
-    toggleCustomerMob() {
-        this.showCustomerMob = !this.showCustomerMob;
-        if (!this.showCustomerMob) {
-            document.getElementById('orgin-mob-id').style.border = '1px solid #30855c';
-        } else {
-            document.getElementById('orgin-mob-id').style.border = '1px solid #d6d6d6';
-        }
-    }
-
-    setOrigin(origindata: any) {
-        this.estatetermOrigin = origindata;
-    }
+    // Function Name: Filter Agreements
+    // Description: This function helps to filter agrements based on dropdown
 
     filterAgrements() {
         if (!this.selectedCustomers || this.selectedCustomers === 'All') {
@@ -215,12 +209,18 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
         }
     }
 
+    // Function Name: Upload File
+    // Description: This function helps to capture uploaded file details
+
     uploadFile(event: any) {
         this.fileNameValue = '';
         this.files = event.target.files;
         this.fileEvent = this.files;
         this.fileNameValue = this.files[0].name;
     }
+
+    // Function Name: Upload Agreement
+    // Description: This function helps in uploading the file and also creates the agreement
 
     uploadAgreement() {
         this.resetButtonValue = 'Uploading';
@@ -289,9 +289,15 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
         }
     }
 
+    // Function Name: Delete Modal
+    // Description: This function helps to capture indiviual agreement id to delete a agrement
+
     onDeleteModal(deleteId: any) {
         this.deleteAgreementId = deleteId;
     }
+
+    // Function Name: Delete Agreement
+    // Description: This function helps to delete a agrement
 
     deleteAgreement(item: any) {
         this.roasterService.deleteAgreement(this.roasterId, this.customerType, item).subscribe((res: any) => {
@@ -303,25 +309,5 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
                 this.toastrService.error('Error while deleting the agreement');
             }
         });
-    }
-
-    onAscendingSort(columnName: string) {
-        this.sortColumnName = columnName;
-        this.sortedMainData = this.sortedMainData.sort((a, b) => a[columnName].localeCompare(b[columnName]));
-        this.isAscending = true;
-        this.isDescending = false;
-    }
-
-    onDescendingSort(columnName: string) {
-        this.sortColumnName = columnName;
-        this.sortedMainData = this.sortedMainData.sort((a, b) => b[columnName].localeCompare(a[columnName]));
-        this.isAscending = false;
-        this.isDescending = true;
-    }
-
-    onDefaultSort() {
-        this.sortedMainData = this.sortedMainData.sort((a, b) => b.created_at.localeCompare(a.created_at));
-        this.isAscending = false;
-        this.isDescending = false;
     }
 }

@@ -36,6 +36,7 @@ export class NewRoastedBatchComponent implements OnInit {
     roastProfileArray: any = [];
     weightTypeArray: any = '';
     ordId: any;
+    isflavourProfile = false;
 
     constructor(
         public globals: GlobalsService,
@@ -80,7 +81,7 @@ export class NewRoastedBatchComponent implements OnInit {
             roasting_profile_unit: ['lb'],
             roaster_ref_no: [{ value: '', disabled: true }],
             batch_ref_no: [''],
-            processing: ['', Validators.compose([Validators.required])],
+            // processing: ['', Validators.compose([Validators.required])],
         });
         this.supplyBreadCrumb();
 
@@ -113,6 +114,7 @@ export class NewRoastedBatchComponent implements OnInit {
     addLang(value: any) {
         const id = value.id;
         const name = value.name;
+        this.isflavourProfile = false;
         if ((name || '').trim()) {
             this.langChips.push(value);
             this.flavourProfileArray.push(id);
@@ -153,7 +155,7 @@ export class NewRoastedBatchComponent implements OnInit {
                     'roasting_profile_id',
                     // 'roaster_ref_no',
                     'batch_ref_no',
-                    'processing',
+                    // 'processing',
                 ];
 
                 batchFields.forEach((ele) => {
@@ -257,15 +259,19 @@ export class NewRoastedBatchComponent implements OnInit {
     }
     onSave() {
         if (this.validateForms()) {
-            const productObj = this.batchForm.value;
-            productObj.flavour_profile = this.flavourProfileArray;
-            delete productObj.batch_ref_no;
-            productObj.order_id = Number(this.ordId);
-            if (this.batchId) {
-                this.updateRoastedBatch(productObj);
-            } else {
+            if (this.flavourProfileArray.length > 0) {
+                const productObj = this.batchForm.value;
+                productObj.flavour_profile = this.flavourProfileArray;
                 delete productObj.batch_ref_no;
-                this.createRoastedBatch(productObj);
+                productObj.order_id = Number(this.ordId);
+                if (this.batchId) {
+                    this.updateRoastedBatch(productObj);
+                } else {
+                    delete productObj.batch_ref_no;
+                    this.createRoastedBatch(productObj);
+                }
+            } else {
+                this.isflavourProfile = true;
             }
         } else {
             this.batchForm.markAllAsTouched();
