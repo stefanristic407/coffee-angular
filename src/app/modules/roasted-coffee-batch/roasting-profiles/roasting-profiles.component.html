@@ -1,7 +1,7 @@
 <section>
     <div class="main-block roaster-profile">
         <div class="row">
-            <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+            <div class="col-12 col-sm-12 col-md-8 col-lg-8 overflow-auto d-flex flex-nowrap breadCrumb">
                 <p-breadcrumb [model]="breadItems"></p-breadcrumb>
             </div>
             <div class="col-12 col-sm-12 col-md-4 col-lg-4">
@@ -41,7 +41,7 @@
                 />
             </div>
         </div>
-        <div class="row mt-md-4 mt-0 pb-2">
+        <div class="row mt-md-4 mt-0 pb-2 pb-md-0">
             <div class="col-12 col-sm-12 col-md-6 filterLayout">
                 <p-dropdown
                     [options]="roastLevelArray"
@@ -67,7 +67,7 @@
             </div>
         </div>
 
-        <div class="userTable mt-2 mt-md-1 mb-2 pt-0 roastingProfileTable">
+        <div class="userTable mt-2 mt-md-0 mb-2 pt-0 roastingProfileTable">
             <p-table
                 #myTable
                 [class.table-mobile]="sharedService.isMobileView"
@@ -257,8 +257,8 @@
     styleClass="userDialog no-padding"
     [(visible)]="popupDisplay"
 >
-<ng-template pTemplate="header">
-       <span> </span>
+    <ng-template pTemplate="header">
+        <span> </span>
     </ng-template>
 
     <div class="mt-5 mb-5 text-center fnt-muli">

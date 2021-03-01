@@ -72,8 +72,11 @@
                             </small>
                         </div>
                     </div>
-                    <div class="d-block d-sm-block  d-mb-block d-lg-block d-xl-none mt-2 mb-4" *ngIf="ordId != 'select the order'">
-                        <div class="mt-2 order_details_card col-sm-10 ">
+                    <div
+                        class="d-block d-sm-block d-mb-block d-lg-block d-xl-none mt-2 mb-4"
+                        *ngIf="ordId != 'select the order'"
+                    >
+                        <div class="mt-2 order_details_card col-sm-10">
                             <div class="fnt-16 fnt-muli fnt-700 black mb-3">Order details</div>
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex">
@@ -191,7 +194,7 @@
                                 globals.languageJson?.tasting_notes
                             }}</span>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 sewn-form-field w-100 ">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 sewn-form-field w-100">
                             <label>Aroma<span class="star">*</span></label>
                             <input type="number" placeholder="Enter a number" formControlName="aroma" pInputText />
                             <small *ngIf="batchForm.controls['aroma'].errors?.required" class="p-error">
@@ -237,7 +240,7 @@
                                 >Flavour profile<span class="star">*</span></span
                             >
                         </div>
-                        <div class="col-md-6 col-12">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-10">
                             <a
                                 class="pointer-item"
                                 [popover]="allTemplate"
@@ -246,9 +249,9 @@
                                 container="body"
                                 #pop2="bs-popover"
                             >
-                                <span class="share-bor" [ngClass]="{ 'flav-border': isflavourProfile }"
+                                <span class="flav-descriptor-bor" [ngClass]="{ 'flav-border': isflavourProfile }"
                                     ><img src="assets/images/region-plus.svg" alt="farm" class="dwnd-img" /><span
-                                        class="share-txt ml-1"
+                                        class="fnt-muli fnt-14 fnt-700 black ml-2"
                                     >
                                         Add Descriptors
                                     </span></span
@@ -298,7 +301,7 @@
                             >
                                 Cancel
                             </button>
-                            <button type="submit" class="btn btn-raised ml-4" (click)="onSave()">Save</button>
+                            <button type="submit" class="btn btn-raised ml-3" (click)="onSave()">Save</button>
                         </div>
                     </div>
                     <div class="row mt-2 d-block d-sm-block d-md-none">
@@ -318,7 +321,10 @@
                 </div>
             </div>
 
-            <div class="col-12 col-md-12 col-lg-12 col-xl-4 d-none d-sm-none d-md-none d-lg-none d-xl-block" *ngIf="ordId != 'select the order'">
+            <div
+                class="col-12 col-md-12 col-lg-12 col-xl-4 d-none d-sm-none d-md-none d-lg-none d-xl-block"
+                *ngIf="ordId != 'select the order'"
+            >
                 <p class="primary_txt pt-2 pt-md-4">{{ globals.languageJson?.order_details }}</p>
                 <div class="order-details-clr">
                     <div class="d-flex justify-content-between pb-1">
