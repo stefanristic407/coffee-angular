@@ -10,7 +10,7 @@
 }
 
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-    color: #232334;
+    color: #30855c;
     font-size: 14px;
     font-weight: 600;
     background-color: unset !important;
@@ -53,7 +53,7 @@
 }
 
 li.nav-item {
-    margin-right: 2.85rem;
+    margin-right: 1.5rem;
     position: relative;
     top: .25rem;
 }
@@ -62,7 +62,7 @@ li.nav-item {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
-    color: #30855c;
+    color: #232334;
 }
 
 .nav-pills .nav-link.active {
