@@ -5,8 +5,7 @@
         font-size: 14px;
         font-weight: 600;
         color: #232334;
-        padding-left: 0px;
-        padding-right: 0px;
+        padding: 0px;
     }
     .nav-link.active {
         color: #232334;
@@ -86,7 +85,8 @@
 }
 .addWeightDiv {
     border: 1px solid #747588;
-    padding: 8px 16px 8px 12px;
+    padding: 4px 0px;
+    height: 34px;
     border-radius: 2px;
 }
 .checkBoxDiv {

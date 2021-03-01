@@ -51,14 +51,14 @@ export class LotSaleComponent implements OnInit {
         this.lotSaleForm = this.fb.group({
             name: ['', Validators.compose([Validators.required])],
             price: ['', Validators.compose([Validators.required])],
-            price_per_unit: ['', Validators.compose([Validators.required])],
+            price_per_unit: ['kg', Validators.compose([Validators.required])],
             quantity: ['', Validators.compose([Validators.required])],
-            quantity_type: ['', Validators.compose([Validators.required])],
+            quantity_type: ['bags', Validators.compose([Validators.required])],
             quantity_count: ['', Validators.compose([Validators.required])],
-            quantity_unit: ['', Validators.compose([Validators.required])],
+            quantity_unit: ['kg', Validators.compose([Validators.required])],
             minimum_order_quantity_count: ['', Validators.compose([Validators.required])],
             vat_settings_id: ['', Validators.compose([Validators.required])],
-            status: ['', Validators.compose([Validators.required])],
+            status: ['IN_STOCK', Validators.compose([Validators.required])],
         });
         this.quantityUnitArray = [
             { label: 'Bags', value: 'Bags' },
@@ -108,13 +108,13 @@ export class LotSaleComponent implements OnInit {
             {
                 field: 'estate_name',
                 header: this.globals.languageJson?.estate,
-                width: 15,
+                width: 25,
             },
             {
                 field: 'order_reference',
                 header: this.globals.languageJson?.roaster_ref_no,
                 sortable: false,
-                width: 15,
+                width: 20,
             },
             {
                 field: 'origin',
@@ -250,6 +250,7 @@ export class LotSaleComponent implements OnInit {
         return returnFlag;
     }
     onSave(): void {
+        console.log(this.lotSaleForm.value);
         if (this.validateForms()) {
             const productObj = this.lotSaleForm.value;
             this.updateMarkForSale(productObj);

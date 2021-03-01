@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ToastrService } from 'ngx-toastr';
@@ -12,6 +12,7 @@ import { FileShareService } from '../file-share.service';
     styleUrls: ['./file-table.component.scss'],
 })
 export class FileTableComponent implements OnInit {
+    @Input() listType = '';
     tableValue = [];
     totalCount = 0;
     tableColumns = [];
@@ -19,6 +20,7 @@ export class FileTableComponent implements OnInit {
     menuItems = [];
     selectedFile: any;
     rangeDates: any[];
+    data;
 
     constructor(
         public dialogSrv: DialogService,

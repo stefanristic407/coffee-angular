@@ -112,7 +112,7 @@
                                 Origin
                             </span>
 
-                            <span *ngIf="primeTableService.isMobileView" class="w-50 pl-2">
+                            <span *ngIf="primeTableService.isMobileView" class="w-50">
                                 {{ rowData['origin'] | titlecase }}
                             </span>
                             <span *ngIf="!primeTableService.isMobileView" class="w-50">
@@ -170,13 +170,19 @@
                                 [outsideClick]="true"
                                 #pop="bs-popover"
                             >
-                                <p><img class="ellipse-image" src="assets/images/ellipses.png" alt="" /></p>
+                                <p class="mb-0">
+                                    <img class="ellipse-image" src="assets/images/ellipses.png" alt="" />
+                                </p>
                             </a>
                             <ng-template #poplistTemplate>
                                 <div id="popover-mobile-content">
                                     <ul class="list-group custom-popover">
                                         <li class="list-group-item">
-                                            <a class="text-clr588 fnt-600 fnt-14" (click)="pop.hide()">Edit</a>
+                                            <a
+                                                class="text-clr588 fnt-600 fnt-14"
+                                                (click)="lotSaleReirection(rowData); pop.hide()"
+                                                >Edit</a
+                                            >
                                         </li>
                                         <li class="list-group-item">
                                             <a

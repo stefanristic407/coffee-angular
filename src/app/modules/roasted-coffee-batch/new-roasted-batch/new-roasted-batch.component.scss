@@ -147,6 +147,22 @@
 .flav-border {
     border: 2px solid #f23737 !important;
 }
+.flav-descriptor-bor {
+    border-radius: 2px;
+    border: solid 1px #747588;
+    padding: 8px 32px 8px 12px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+}
+@media screen and (max-width: 1200px) {
+    .order_details_card {
+        padding: 2rem;
+        background-color: #faf8f4;
+        border-radius: 4px;
+    }
+}
+
 @media screen and (max-width: 767px) {
     .order_details_card {
         padding: 1rem 1rem 0.1rem 1rem;

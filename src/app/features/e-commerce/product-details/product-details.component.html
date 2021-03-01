@@ -16,7 +16,7 @@
                             id="activeStatus"
                             (click)="togglePublic(true)"
                         >
-                            Active
+                            Public
                         </div>
                         <div
                             class="btn disbableBtn"
@@ -24,7 +24,7 @@
                             [ngClass]="!productForm['controls']['is_public']['value'] ? 'enableBtn' : ''"
                             id="disableStatus"
                         >
-                            Disable
+                            Private
                         </div>
                     </div>
                 </div>
@@ -88,9 +88,9 @@
             </div>
         </div>
         <div class="divSeperator"></div>
-        <div class="row no-gutters mb-5">
+        <div class="row no-gutters mb-3">
             <div class="col-12">
-                <span class="primary_txt">Variants</span>
+                <span class="primary_txt font-16">Variants</span>
             </div>
             <div class="col-12 col-sm-12 col-md-8 mt-2 p-0">
                 <p-checkbox
@@ -104,7 +104,7 @@
                 *ngIf="productForm['value']['is_variants_included']"
                 class="col-12 col-sm-12 col-md-4 d-none d-sm-none d-md-block"
             >
-                <div class="pull-right addWeightDiv">
+                <div class="pull-right addNewWeightDiv">
                     <img class="" src="assets/images/add_grey.svg" />
                     <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer" (click)="addNewVarients()">
                         Add new variant
@@ -147,7 +147,7 @@
                         <span>{{ varient['value']['varient_name'] }}</span>
                     </ng-template>
                     <div [formGroupName]="i">
-                        <div class="row mt-4">
+                        <div class="row mt-3">
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
                                 <label>Select roasted coffee batch<span class="star">*</span></label>
                                 <p-dropdown
@@ -188,7 +188,7 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col-12 mb-3">
-                                <span class="primary_txt">Estate Details</span>
+                                <span class="primary_txt font-16">Estate Details</span>
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
                                 <label>Estate Name<span class="star">*</span></label>
@@ -209,7 +209,7 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col-12 mb-3">
-                                <span class="primary_txt">Tasting notes</span>
+                                <span class="primary_txt font-16">Tasting notes</span>
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
                                 <label>Body<span class="star">*</span></label>
@@ -263,7 +263,6 @@
                                     type="text"
                                     class="roasterDivText-area"
                                     placeholder=""
-                                    readonly
                                     formControlName="recipes"
                                     pInputText
                                 ></textarea>
@@ -271,7 +270,7 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col-12 mb-3">
-                                <span class="primary_txt">Recommended brewing method</span>
+                                <span class="primary_txt font-16">Recommended brewing method</span>
                             </div>
                             <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
                                 <label>Select a brewing method<span class="star">*</span></label>
@@ -305,7 +304,7 @@
                         <div class="divSeperator"></div>
                         <div class="row">
                             <div class="col-12 mb-3">
-                                <span class="primary_txt">Product Weights</span>
+                                <span class="primary_txt font-16">Product Weights</span>
                             </div>
                             <div class="col-12">
                                 <app-varient-details
@@ -321,7 +320,7 @@
             </p-tabView>
         </div>
         <div class="col-12 p-0 mb-3">
-            <span class="primary_txt">Boxes details</span><br />
+            <span class="primary_txt font-16">Boxes details</span><br />
             <span>Add values per crate to let your customer know</span>
         </div>
         <div
@@ -350,7 +349,7 @@
         </div>
         <div class="divSeperator"></div>
         <div class="row mt-4">
-            <div class="col-12 mb-3"><span class="primary_txt">VAT Details</span><br /></div>
+            <div class="col-12 mb-3"><span class="primary_txt font-16">VAT Details</span><br /></div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
                 <label>Select VAT trasaction type<span class="star">*</span></label>
                 <p-dropdown

@@ -12,6 +12,7 @@ import { FolderDialogComponent } from './folder-dialog/folder-dialog.component';
 import { EditFileComponent } from './edit-file/edit-file.component';
 import { ShareComponent } from './share/share.component';
 import { BehaviorSubject } from 'rxjs';
+import * as _ from 'underscore';
 
 @Injectable({
     providedIn: 'root',
@@ -22,8 +23,9 @@ export class FileShareService {
     filesTerm: any;
     filterTerm: any;
     roasterId: any;
-    folderId: any = 0;
+    folderId: any = null;
     myFileList: any;
+    videoList: any;
     viewMode: any = new BehaviorSubject('grid');
     viewMode$: any = this.viewMode.asObservable();
     action: any = new BehaviorSubject('');
@@ -94,6 +96,17 @@ export class FileShareService {
                 if (res.success) {
                     console.log('File List:', res.result);
                     this.myFileList = res.result;
+                    this.videoList = _.chain(this.myFileList)
+                        .groupBy('parent_id')
+                        .map((value, key) => {
+                            return {
+                                key,
+                                folderName: value[0].parent_name,
+                                files: value,
+                            };
+                        })
+                        .value();
+                    console.log(this.videoList);
                 } else {
                     this.toastrService.error('Error while getting the Files and Folders');
                 }
@@ -123,7 +136,7 @@ export class FileShareService {
         });
     }
 
-    myFileUpload(event: any, parentId = '0') {
+    uploadFile(event: any) {
         const files = event.target.files;
         const fileName = files[0].name;
         if (files.length > 0) {
@@ -132,14 +145,14 @@ export class FileShareService {
             formData.append('file', file, file.name);
             formData.append('name', fileName);
             formData.append('file_module', 'File-Share');
-            formData.append('parent_id', parentId);
+            formData.append('parent_id', this.folderId);
             this.roasterId = this.cookieService.get('roaster_id');
             formData.append('api_call', '/ro/' + this.roasterId + '/file-manager/files');
             formData.append('token', this.cookieService.get('Auth'));
-            this.roasterService.uploadFiles(formData).subscribe((res: any) => {
+            this.fileSrv.uploadFiles(formData).subscribe((res: any) => {
                 if (res.success) {
                     this.toastrService.success('The file ' + fileName + ' uploaded successfully');
-                    this.getFilesandFolders();
+                    this.refresh();
                 } else {
                     this.toastrService.error('Error while uploading the file');
                 }

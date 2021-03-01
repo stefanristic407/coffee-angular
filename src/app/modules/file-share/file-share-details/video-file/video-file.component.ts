@@ -1,13 +1,5 @@
-import { Component, OnInit, ElementRef, ViewChild, TemplateRef, OnDestroy } from '@angular/core';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
-import { ToastrService } from 'ngx-toastr';
-import { CookieService } from 'ngx-cookie-service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FileShareService } from '../../file-share.service';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { PlyrModule } from 'ngx-plyr';
-import * as Plyr from 'plyr';
-import { FileShareDetailsService } from '../file-share-details.service';
 
 import { GlobalsService } from 'src/services/globals.service';
 import { Subscription } from 'rxjs';
@@ -19,9 +11,12 @@ import { Subscription } from 'rxjs';
 export class VideoFileComponent implements OnInit, OnDestroy {
     actionSub: Subscription;
 
-    constructor(public fileShareSrv: FileShareService) {}
+    constructor(public fileShareSrv: FileShareService, private globals: GlobalsService) {}
 
     ngOnInit(): void {
+        if (this.globals.device === 'mobile') {
+            this.fileShareSrv.viewMode.next('grid');
+        }
         this.actionSub = this.fileShareSrv.action$.subscribe((action) => {
             this.fileShareSrv.getVideos();
         });

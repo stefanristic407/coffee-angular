@@ -33,6 +33,13 @@
     top: 0px !important;
 }
 
+::ng-deep .userDialog .p-dialog .p-dialog-header {
+    display: flex;
+    float: right;
+    justify-content: flex-end;
+    padding: 16px 16px 16px 16px;
+}
+
 .pointer-item {
     cursor: pointer;
 }
@@ -40,7 +47,7 @@
 .list-group-item {
     border: none;
     font-family: 'Muli';
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600 !important;
     color: #747588;
 }
@@ -63,6 +70,12 @@
 .view-det:hover {
     text-decoration: underline !important;
     cursor: pointer;
+}
+.truncate-roasted {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 83%;
 }
 @media screen and (max-width: 767px) {
     .filterLayout {
@@ -95,8 +108,13 @@
         border-bottom: none !important;
     }
     .borderCard {
-        background-color: #f8f8f8;
         border: 1px solid #d6d6d6;
+        border-bottom: none;
+        padding: 4px;
+    }
+    .bgCard {
+        background-color: #f8f8f8;
+        padding: 10px 12px 8px 12px;
     }
     .productHeight {
         height: 138px !important;

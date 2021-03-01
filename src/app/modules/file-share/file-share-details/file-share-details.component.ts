@@ -47,9 +47,6 @@ export class FileShareDetailsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.globals.device === 'mobile') {
-            this.viewMode = 'table';
-        }
         this.changeViewMode();
         this.sharedUsersLists();
     }

@@ -34,6 +34,9 @@
 .text-underline {
     text-decoration: underline;
 }
+::ng-deep .breadCrumb .p-breadcrumb ul {
+    width: max-content;
+}
 
 /****************************    Media Queries   ****************************/
 
@@ -44,10 +47,10 @@
         padding-top: 1rem;
     }
     .mob-sec {
-        display: block;
+        display: block !important;
     }
     .web-sec {
-        display: none;
+        display: none !important;
     }
     .border-div {
         margin-top: 1.2rem !important;
@@ -129,9 +132,17 @@
         width: 1100px !important;
     }
 
-    ::ng-deep .productListTable .p-datatable {
+    .productListTable {
         position: relative;
         overflow: auto !important;
         width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    .tabViewModel {
+        display: inline !important;
+    }
+    .lotIdText {
+        padding-left: 30px;
     }
 }

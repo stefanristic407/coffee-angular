@@ -51,8 +51,8 @@ export class CoffeeSaleComponent implements OnInit {
             { label: `Order #${this.orderID}` },
         ];
         this.quantityUnitArray = [
-            { label: 'Bags', value: 'Bags' },
-            { label: 'Kg', value: 'Kg' },
+            { label: 'Bags', value: 'bags' },
+            { label: 'Kg', value: 'kg' },
         ];
         this.priceTypeArray = [
             { label: 'Per kg', value: 'kg' },
@@ -71,14 +71,14 @@ export class CoffeeSaleComponent implements OnInit {
         this.coffeeSaleForm = this.fb.group({
             name: ['', Validators.compose([Validators.required])],
             price: ['', Validators.compose([Validators.required])],
-            price_per_unit: ['', Validators.compose([Validators.required])],
+            price_per_unit: ['kg', Validators.compose([Validators.required])],
             quantity: ['', Validators.compose([Validators.required])],
-            quantity_type: ['', Validators.compose([Validators.required])],
+            quantity_type: ['bags', Validators.compose([Validators.required])],
             quantity_count: ['', Validators.compose([Validators.required])],
-            quantity_unit: ['', Validators.compose([Validators.required])],
+            quantity_unit: ['kg', Validators.compose([Validators.required])],
             minimum_purchase_quantity: ['', Validators.compose([Validators.required])],
             vat_settings_id: ['', Validators.compose([Validators.required])],
-            status: ['', Validators.compose([Validators.required])],
+            status: ['IN_STOCK', Validators.compose([Validators.required])],
         });
     }
     ngOnInit(): void {
@@ -93,18 +93,18 @@ export class CoffeeSaleComponent implements OnInit {
                 field: 'lot_id',
                 header: this.globals.languageJson?.lot_id,
                 sortable: false,
-                width: 15,
+                width: 10,
             },
             {
                 field: 'estate_name',
                 header: this.globals.languageJson?.estate,
-                width: 15,
+                width: 25,
             },
             {
                 field: 'order_reference',
                 header: this.globals.languageJson?.roaster_ref_no,
                 sortable: false,
-                width: 15,
+                width: 20,
             },
             {
                 field: 'origin',
@@ -209,6 +209,10 @@ export class CoffeeSaleComponent implements OnInit {
                     this.toasterService.success('Status updated successfully');
                     this.showDropdown = false;
                     this.statusLabel = this.formatStatus(status.status);
+                } else if (!response.success && response.messages.status === 'cannot_change') {
+                    this.toasterService.error('Status cannot be changed');
+                } else {
+                    this.toasterService.error('Error while changing the status');
                 }
             },
             (err) => {
@@ -234,6 +238,7 @@ export class CoffeeSaleComponent implements OnInit {
         return returnFlag;
     }
     onSave(): void {
+        console.log(this.coffeeSaleForm.value);
         if (this.validateForms()) {
             const productObj = this.coffeeSaleForm.value;
             this.createMarkForSale(productObj);

@@ -128,7 +128,7 @@
 <ng-template #btnWrap>
     <div class="mt-4 mb-4 mb-lg-45">
         <label class="btn-trans-icon upload-icon mr-25 mb-4 mb-md-0">
-            <input type="file" (change)="fileShareSrv.myFileUpload($event)" />
+            <input type="file" (change)="fileShareSrv.uploadFile($event)" />
             <span> {{ 'upload' | translate }} </span>
         </label>
         <span class="btn-trans-icon plus-icon mb-4 mb-md-0" routerLink="/file-share/create-folder">
