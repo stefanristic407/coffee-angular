@@ -36,7 +36,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="row avaialble-mob m-1">
+                        <div class="row avaialble-mob p-0">
                             <h2 class="fnt-18 fnt-bold text-clr334 pl-3 mt-3">
                                 {{ saleInformation.name ? saleInformation.name : 'NA' }}
                             </h2>
@@ -64,14 +64,14 @@
             </div>
             <div class="prodect-details mt-md-4">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                    <div class="col-lg-6 col-md-6 col-sm-12 mb-4 no-pad">
                         <div class="prodect-gal">
                             <gallery id="basic-test" [items]="items" gallerize></gallery>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                         <div class="product-description">
-                            <div class="row">
+                            <div class="row ml-md-0 mr-md-0">
                                 <div class="col-lg-12 border-class">
                                     <div *ngIf="!saleInformation && orderDetails" class="estate-focus">
                                         <ul class="clearfix">
@@ -111,7 +111,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div *ngIf="saleInformation" class="row mt-4">
+                            <div *ngIf="saleInformation" class="row mt-4 ml-md-0 mr-md-0">
                                 <h3 class="pb-1 fnt-18 fnt-bold text-clr334">
                                     {{ globals.languageJson?.selling_details }}
                                 </h3>
@@ -161,11 +161,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row mt-3">
+                            <div class="row mt-3 ml-md-0 mr-md-0">
                                 <div *ngIf="orderDetails" class="col-12 border-class">
                                     <p-tabView styleClass=" mt-1 pb-3 pb-md-4" [(activeIndex)]="selectedTab">
                                         <p-tabPanel header="{{ globals.languageJson?.green_coffee_details }}">
-                                            <div class="col-lg-12 px-1">
+                                            <div class="col-lg-12 px-1 mt-4 mt-md-3">
                                                 <div class="estate-focus">
                                                     <ul class="clearfix">
                                                         <li>
@@ -302,7 +302,7 @@
                                 </div>
                             </div>
 
-                            <div class="row mt-3">
+                            <div class="row mt-3 ml-md-0 mr-md-0">
                                 <div class="col-lg-12 border-class">
                                     <div class="produect-pro">
                                         <div *ngIf="orderDetails" class="row">

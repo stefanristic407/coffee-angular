@@ -1,7 +1,3 @@
-.source-cont-available {
-    background: #fff;
-    padding: 1rem 2.5rem;
-}
 .det-tit {
     h2 {
         font-size: 18px;
@@ -116,12 +112,11 @@ ul {
     padding: 14px;
 }
 @media (max-width: 748px) {
-    .source-cont-available {
-        padding: 24px 8px;
-    }
-    .prodect-details,
-    .produect-pro {
+    .prodect-details {
         padding: 12px;
+    }
+    .produect-pro {
+        padding: 0px 8px;
     }
     .avaialble-web {
         display: none;
@@ -149,5 +144,11 @@ ul {
         h3 {
             font-size: 14px;
         }
+    }
+    .no-pad {
+        padding: 0px;
+    }
+    .estate-focus ul {
+        padding: 0px;
     }
 }
