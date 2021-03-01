@@ -1,3 +1,5 @@
+@import '_variables.scss';
+
 .file-icon {
     margin-right: 12px;
     width: 22px;
@@ -32,5 +34,15 @@
     background: transparent;
     .p-dialog-content {
         background: transparent;
+    }
+}
+::ng-deep .p-datatable.p-datatable-responsive .p-datatable-tbody > tr {
+    padding: 0;
+    border: none;
+    @media (max-width: 767px) {
+        margin: 0;
+        td {
+            padding: 24px 0;
+        }
     }
 }

@@ -55,6 +55,7 @@ import { ReviewLinkPipe } from './pipes/link/review-link.pipe';
 import { RoasterBrandLinkPipe } from './pipes/link/roaster-brand-link.pipe';
 import { OrderRatingLinkPipe } from './pipes/link/order-rating-link.pipe';
 import { OrderLinkPipe } from './pipes/link/order-link.pipe';
+import { FileIconPipe } from './pipes/file-icon.pipe';
 import { FileNamePipe } from './pipes/file-name.pipe';
 import { MonthPipe } from './pipes/month/month.pipe';
 import { OrgTypePipe } from './pipes/org-type.pipe';
@@ -181,6 +182,7 @@ const DIRECTIVES = [WordLimitDirective, RatingDirective, LifecyclehookDirective]
 const PIPES = [
     CountryPipe,
     EstateBrandLinkPipe,
+    FileIconPipe,
     FileNamePipe,
     MonthPipe,
     ProfileLinkPipe,

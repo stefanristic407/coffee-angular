@@ -24,6 +24,8 @@ export class FileShareService {
     roasterId: any;
     folderId: any = 0;
     myFileList: any;
+    viewMode: any = new BehaviorSubject('grid');
+    viewMode$: any = this.viewMode.asObservable();
     action: any = new BehaviorSubject('');
     action$: any = this.action.asObservable();
 
@@ -44,15 +46,58 @@ export class FileShareService {
 
     getFilesandFolders() {
         this.loading = true;
-        this.roasterService.getFilesandFolders(this.roasterId, this.folderId).subscribe((res: any) => {
-            this.loading = false;
-            if (res.success) {
-                console.log('File List:', res.result);
-                this.myFileList = res.result;
-            } else {
-                this.toastrService.error('Error while getting the Files and Folders');
-            }
-        });
+        this.fileSrv
+            .getFilesandFolders({
+                file_module: 'File-Share',
+                parent_id: this.folderId,
+            })
+            .subscribe((res: any) => {
+                this.loading = false;
+                if (res.success) {
+                    console.log('File List:', res.result);
+                    this.myFileList = res.result;
+                } else {
+                    this.toastrService.error('Error while getting the Files and Folders');
+                }
+            });
+    }
+
+    getDocuments() {
+        this.loading = true;
+        this.fileSrv
+            .getFilesandFolders({
+                file_module: 'File-Share',
+                parent_id: this.folderId,
+                type_in: 'FOLDER,DOCUMENT,CSV,IMAGE',
+            })
+            .subscribe((res: any) => {
+                this.loading = false;
+                if (res.success) {
+                    console.log('File List:', res.result);
+                    this.myFileList = res.result;
+                } else {
+                    this.toastrService.error('Error while getting the Files and Folders');
+                }
+            });
+    }
+
+    getVideos() {
+        this.loading = true;
+        this.fileSrv
+            .getFilesandFolders({
+                file_module: 'File-Share',
+                parent_id: this.folderId,
+                type_in: 'VIDEO',
+            })
+            .subscribe((res: any) => {
+                this.loading = false;
+                if (res.success) {
+                    console.log('File List:', res.result);
+                    this.myFileList = res.result;
+                } else {
+                    this.toastrService.error('Error while getting the Files and Folders');
+                }
+            });
     }
 
     getSharedFilesandFolders() {
