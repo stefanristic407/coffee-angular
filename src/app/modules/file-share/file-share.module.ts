@@ -12,8 +12,6 @@ import { MyfilesComponent } from './file-share-list/myfiles/myfiles.component';
 import { SharewithmeComponent } from './file-share-list/sharewithme/sharewithme.component';
 import { DocumentFileComponent } from './file-share-details/document-file/document-file.component';
 import { VideoFileComponent } from './file-share-details/video-file/video-file.component';
-import { DocumentTableComponent } from './file-share-details/document-table/document-table.component';
-import { VideoTableComponent } from './file-share-details/video-table/video-table.component';
 import { FolderDialogComponent } from './folder-dialog/folder-dialog.component';
 import { EditFileComponent } from './edit-file/edit-file.component';
 import { EditFolderComponent } from './edit-folder/edit-folder.component';
@@ -30,8 +28,6 @@ import { FileCardComponent } from './file-card/file-card.component';
         SharewithmeComponent,
         DocumentFileComponent,
         VideoFileComponent,
-        DocumentTableComponent,
-        VideoTableComponent,
         FolderDialogComponent,
         EditFileComponent,
         EditFolderComponent,

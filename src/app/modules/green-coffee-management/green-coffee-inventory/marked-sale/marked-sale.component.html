@@ -1,11 +1,13 @@
 <div class="mt-4">
     <p-dropdown
-        [options]="sellerItems"
+        [options]="originArray"
         [showClear]="true"
+        optionLabel="name"
+        optionValue="isoCode"
         [(ngModel)]="termOrigin"
         (onChange)="setOrigin()"
         scrollHeight="225px"
-        placeholder="{{ globals.languageJson?.all_origins }}"
+        placeholder="{{ globals.languageJson?.origins }}"
         [autoDisplayFirst]="false"
         styleClass="round-border mr-2 mb-3 mb-md-4 {{ termOrigin ? 'highlight' : '' }}"
     ></p-dropdown>
@@ -46,7 +48,7 @@
         [rows]="primeTableService.rows"
         [showCurrentPageReport]="false"
         [loading]="primeTableService.loading"
-        [paginator]="true"
+        [paginator]="primeTableService.paginationValue"
         [lazy]="true"
         (onLazyLoad)="primeTableService.getData($event)"
         [totalRecords]="primeTableService.totalRecords"

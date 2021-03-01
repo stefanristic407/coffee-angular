@@ -47,6 +47,10 @@ export class FileShareDetailsComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        if (this.globals.device === 'mobile') {
+            this.viewMode = 'table';
+        }
+        this.changeViewMode();
         this.sharedUsersLists();
     }
 
@@ -94,5 +98,7 @@ export class FileShareDetailsComponent implements OnInit {
 
     filterCall() {}
 
-    changeViewMode() {}
+    changeViewMode() {
+        this.fileShareSrv.viewMode.next(this.viewMode);
+    }
 }

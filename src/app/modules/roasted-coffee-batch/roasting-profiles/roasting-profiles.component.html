@@ -1,10 +1,10 @@
 <section>
     <div class="main-block">
         <div class="row">
-            <div class="col-6">
+            <div class="col-12 col-sm-12 col-md-8 col-lg-8">
                 <p-breadcrumb [model]="breadItems"></p-breadcrumb>
             </div>
-            <div class="col-6">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                 <button
                     type="submit"
                     class="btn pull-right btn-raised d-md-block d-none"
@@ -209,11 +209,7 @@
                                             [outsideClick]="true"
                                             #pop="bs-popover"
                                         >
-                                            <img
-                                                class="ellipse-image pl-3"
-                                                src="assets/images/kebab-menu.svg"
-                                                alt=""
-                                            />
+                                            <img class="ellipse-image pl-3" src="assets/images/kebab-menu.svg" alt="" />
                                         </a>
                                         <ng-template #poplistTemplate>
                                             <div id="popover-mobile-content">

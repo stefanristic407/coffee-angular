@@ -27,6 +27,7 @@ export class FileShareListComponent implements OnInit {
         ];
 
         this.fileShareSrv.getPinnedFilesorFolders();
+        this.fileShareSrv.viewMode.next('table');
     }
 
     filterCall() {}

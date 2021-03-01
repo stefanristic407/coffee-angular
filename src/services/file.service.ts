@@ -68,4 +68,8 @@ export class FileService extends ApiService {
     unpinFileorFolder(id: any) {
         return this.post(this.deleteUrl, `file-manager/${id}/pin`, 'DELETE');
     }
+    // List all files/folders under My files section
+    getFilesandFolders(query?: object) {
+        return this.post(this.url, `file-manager/my-files`, 'GET', query);
+    }
 }
