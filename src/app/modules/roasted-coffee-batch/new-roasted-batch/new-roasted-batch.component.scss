@@ -147,6 +147,14 @@
 .flav-border {
     border: 2px solid #f23737 !important;
 }
+@media screen and (max-width: 1200px) {
+    .order_details_card {
+        padding: 2rem;
+        background-color: #faf8f4;
+        border-radius: 4px;
+    }
+}
+
 @media screen and (max-width: 767px) {
     .order_details_card {
         padding: 1rem 1rem 0.1rem 1rem;

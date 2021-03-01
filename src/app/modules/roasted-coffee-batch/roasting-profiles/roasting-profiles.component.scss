@@ -33,6 +33,13 @@
     top: 0px !important;
 }
 
+::ng-deep .userDialog .p-dialog .p-dialog-header {
+    display: flex;
+    float: right;
+    justify-content: flex-end;
+    padding: 16px 16px 16px 16px;
+}
+
 .pointer-item {
     cursor: pointer;
 }

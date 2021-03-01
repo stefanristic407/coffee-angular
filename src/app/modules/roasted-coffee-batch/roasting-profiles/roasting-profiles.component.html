@@ -1,5 +1,5 @@
 <section>
-    <div class="main-block">
+    <div class="main-block roaster-profile">
         <div class="row">
             <div class="col-12 col-sm-12 col-md-8 col-lg-8">
                 <p-breadcrumb [model]="breadItems"></p-breadcrumb>
@@ -257,6 +257,10 @@
     styleClass="userDialog no-padding"
     [(visible)]="popupDisplay"
 >
+<ng-template pTemplate="header">
+       <span> </span>
+    </ng-template>
+
     <div class="mt-5 mb-5 text-center fnt-muli">
         <div><img src="assets/images/delete-role.svg" alt="" /></div>
         <div class="popupExpression_txt mt-2">Oh noh :(</div>
