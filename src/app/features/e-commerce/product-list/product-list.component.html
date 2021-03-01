@@ -238,7 +238,7 @@
                                                         <li class="list-group-item">
                                                             <a
                                                                 class="pointer-item"
-                                                                (click)="openDeleteModal(rowData['id']); pop.hide()"
+                                                                (click)="deleteproduct(rowData['id']); pop.hide()"
                                                                 >{{ globals.languageJson?.delete }}</a
                                                             >
                                                         </li>
@@ -271,7 +271,7 @@
                                                 <li class="list-group-item">
                                                     <a
                                                         class="pointer-item"
-                                                        (click)="openDeleteModal(rowData['id']); pop.hide()"
+                                                        (click)="deleteproduct(rowData['id']); pop.hide()"
                                                         >{{ globals.languageJson?.delete }}</a
                                                     >
                                                 </li>
@@ -298,26 +298,4 @@
             </ng-template>
         </p-table>
     </div>
-    <p-dialog
-        *ngIf="popupDisplay"
-        header=""
-        position="center"
-        [style]="{ width: '28.12rem' }"
-        styleClass="userDialog"
-        [(visible)]="popupDisplay"
-    >
-        <div class="mt-5 mb-5 text-center fnt-muli">
-            <div><img src="assets/images/delete-role.svg" alt="" /></div>
-            <div class="popupExpression_txt mt-2">Oh noh :(</div>
-            <div class="popupMessage_txt mt-2 pb-3">Are you sure you want to delete this product?</div>
-            <div class="mt-4">
-                <button class="btn btn-stroked" (click)="popupDisplay = false">
-                    {{ globals.languageJson?.cancel }}
-                </button>
-                <button class="btn btn-raised ml-3" (click)="deleteproduct()">
-                    {{ globals.languageJson?.delete }}
-                </button>
-            </div>
-        </div>
-    </p-dialog>
 </div>

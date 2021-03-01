@@ -6,10 +6,10 @@ import { ImageCropperComponent } from 'ngx-image-cropper';
 })
 export class ProfilePhotoService {
   image: any;
-  imageChangedEvent: any = "";
-  croppedImage: any = "assets/images/oval.svg";
+  imageChangedEvent: any = '';
+  croppedImage: any = 'assets/images/oval.svg';
   imageCropper: ImageCropperComponent;
-  displayModal: boolean = false;
+  displayModal = false;
   constructor() {}
   //  Function Name : Save Facilitator Logo.
   //  Description   : This function helps to save the Facilitator logo.
@@ -17,5 +17,5 @@ export class ProfilePhotoService {
     this.imageCropper.crop();
     this.displayModal = false;
   }
- 
+
 }

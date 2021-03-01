@@ -26,6 +26,7 @@ export class UserserviceService {
     private sendEmailURL = environment.apiURL + '/sendemail';
     private inviteUrl = environment.apiURL + '/ro/inviteusers';
     private estateUrl = environment.apiURL + '/es/api';
+    private fileUploadURL = environment.apiURL + '/ro/filesfolders';
 
     // private roasterUrl = "/ro/api";
     // private roasterDeleteUrl = "https://fed-api.sewnstaging.com/ro/deleteapi";
@@ -587,7 +588,7 @@ export class UserserviceService {
 
     // API Function Name : Green Coffee availability Detail Page
     // API Description: This API call helps details of green coffee availability.
-    getGreenCoffeeDetails(roaster_id: any, harvest_id: any) {
+    getGreenCoffeeDetails(roaster_id: any, harvest_id: any): Observable<any> {
         const data = {
             api_call: '/ro/' + roaster_id + '/availability/gc/' + harvest_id,
             method: 'GET',
@@ -1488,6 +1489,27 @@ export class UserserviceService {
             method: 'GET',
             token: this.cookieService.get('Auth'),
         };
+        return this.http.post(this.roasterUrl, data);
+    }
+
+    uploadFile(roasterId: any, file: any, fileModule: string): Observable<any> {
+        const name = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        const headers = new HttpHeaders({ Accept: 'application/json' });
+        const formData = new FormData();
+        formData.append('api_call', '/ro/' + roasterId + '/file-manager/files');
+        formData.append('token', this.cookieService.get('Auth'));
+        formData.append('file', file);
+        formData.append('name', name);
+        formData.append('file_module', fileModule);
+        console.log('roaster id >>>>>>>>>>>', roasterId);
+        return this.http.post(this.fileUploadURL, formData, { headers });
+    }
+
+    deleteFile(roasterId: any, fileId: any): Observable<any> {
+        const data = {};
+        data['api_call'] = `/ro/${roasterId}/file-manager/files/${fileId}`;
+        data['method'] = 'DELETE';
+        data['token'] = this.cookieService.get('Auth');
         return this.http.post(this.roasterUrl, data);
     }
 }

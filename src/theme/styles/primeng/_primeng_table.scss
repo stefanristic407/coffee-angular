@@ -40,6 +40,9 @@
     }
 }
 
+.tr-hover-visible {
+    visibility: hidden;
+}
 .p-datatable .p-datatable-tbody > tr {
     border-bottom: 1px dashed $primary-border-color;
     background-color: inherit;
@@ -48,13 +51,18 @@
         background-color: transparent;
         box-shadow: 0 4px 26px 2px rgba(0, 0, 0, 0.05);
         cursor: pointer;
+        .tr-hover-visible {
+            visibility: visible;
+        }
     }
 
     &:last-child {
         border: none;
     }
 }
-
+.p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
+    background: #ffffff;
+}
 .p-datatable .p-paginator-bottom {
     background-color: transparent;
     border-width: 0px;

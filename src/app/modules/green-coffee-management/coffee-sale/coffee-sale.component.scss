@@ -34,6 +34,9 @@
 .text-underline {
     text-decoration: underline;
 }
+::ng-deep .breadCrumb .p-breadcrumb ul {
+    width: max-content;
+}
 
 /****************************    Media Queries   ****************************/
 
@@ -44,10 +47,10 @@
         padding-top: 1rem;
     }
     .mob-sec {
-        display: block;
+        display: block !important;
     }
     .web-sec {
-        display: none;
+        display: none !important;
     }
     .border-div {
         margin-top: 1.2rem !important;
@@ -118,4 +121,20 @@
 }
 ::ng-deep .productListTable .p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
     background: #ffffff;
+}
+.current-s-bg {
+    padding: 0.75rem !important;
+}
+@media (max-width: 1270px) and (min-width: 768px) {
+    ::ng-deep .productListTable .p-datatable table {
+        border-collapse: collapse;
+        table-layout: fixed;
+        width: 1100px !important;
+    }
+
+    .productListTable {
+        position: relative;
+        overflow: auto !important;
+        width: 100% !important;
+    }
 }

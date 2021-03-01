@@ -1,10 +1,10 @@
 <section>
     <div class="main-block">
         <div class="row mb-1">
-            <div class="col-6">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
                 <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
             </div>
-            <div class="col-6">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 spacing-batch">
                 <button
                     type="submit"
                     class="btn pull-right btn-raised d-md-block d-none"
@@ -39,7 +39,7 @@
                     name="search"
                     class="search-raised pull-right"
                     formControlName="searchField"
-                    placeholder="{{ globals.languageJson?.search_name_role }}"
+                    placeholder="Search"
                 />
             </div>
         </div>
@@ -70,7 +70,7 @@
                     name="search"
                     class="search-raised w-100 ml-0"
                     formControlName="searchField"
-                    placeholder="{{ globals.languageJson?.search_name_role }}"
+                    placeholder="Search"
                 />
             </div>
         </div>
@@ -91,7 +91,7 @@
             </div>
         </div>
 
-        <div class="table-container userTable mt-2 mb-2 pt-0 productListTable">
+        <div class="table-container userTable mt-md-1 mt-2 mb-2 pt-0 roastedCoffeeTable">
             <p-table
                 #myTable
                 [class.table-mobile]="sharedService.isMobileView"
@@ -159,46 +159,50 @@
                             }"
                         >
                             <span *ngSwitchCase="'roast_batch_name'" class="">
-                                <span class="d-none d-sm-none d-md-inline-block">
+                                <span class="d-none d-sm-none d-md-inline-block truncate-roasted">
                                     {{ rowData['roast_batch_name'] | titlecase }}
                                 </span>
 
                                 <div class="d-block d-sm-block d-md-none row m-0 pb-4">
-                                    <div class="col-12 borderCard p-3">
-                                        <span>{{ rowData[col.field] | titlecase }}</span>
-                                        <span class="float-right">
-                                            <a
-                                                class="menu-arrow"
-                                                [popover]="poplistTemplate"
-                                                placement="left"
-                                                [outsideClick]="true"
-                                                #pop="bs-popover"
-                                            >
-                                                <img
-                                                    class="ellipse-image pl-3"
-                                                    src="assets/images/more-opns-file.png"
-                                                    alt=""
-                                                />
-                                            </a>
-                                            <ng-template #poplistTemplate>
-                                                <div id="popover-mobile-content">
-                                                    <ul class="list-group custom-popover">
-                                                        <li class="list-group-item">
-                                                            <a
-                                                                class="pointer-item"
-                                                                (click)="openDeleteModal(rowData['id']); pop.hide()"
-                                                                >{{ globals.languageJson?.delete }}</a
-                                                            >
-                                                        </li>
-                                                        <li class="list-group-item">
-                                                            <a class="pointer-item" (click)="redirectToEdit(rowData)"
-                                                                >View details</a
-                                                            >
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </ng-template>
-                                        </span>
+                                    <div class="borderCard">
+                                        <div class="col-12 bgCard">
+                                            <span>{{ rowData[col.field] | titlecase }}</span>
+                                            <span class="float-right">
+                                                <a
+                                                    class="menu-arrow"
+                                                    [popover]="poplistTemplate"
+                                                    placement="left"
+                                                    [outsideClick]="true"
+                                                    #pop="bs-popover"
+                                                >
+                                                    <img
+                                                        class="ellipse-image pl-3"
+                                                        src="assets/images/kebab-menu.svg"
+                                                        alt=""
+                                                    />
+                                                </a>
+                                                <ng-template #poplistTemplate>
+                                                    <div id="popover-mobile-content">
+                                                        <ul class="list-group custom-popover">
+                                                            <li class="list-group-item">
+                                                                <a
+                                                                    class="pointer-item"
+                                                                    (click)="openDeleteModal(rowData['id']); pop.hide()"
+                                                                    >{{ globals.languageJson?.delete }}</a
+                                                                >
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <a
+                                                                    class="pointer-item"
+                                                                    (click)="redirectToEdit(rowData)"
+                                                                    >View details</a
+                                                                >
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </ng-template>
+                                            </span>
+                                        </div>
                                     </div>
                                     <div class="col-12 row p-3 m-0 mobileCard">
                                         <div class="cardBottom p-0 w-100">
@@ -244,7 +248,9 @@
                             </span>
                             <span *ngSwitchCase="'actions'" class="">
                                 <span>
-                                    <a class="fnt-muli editBtn" (click)="redirectToEdit(rowData)">View details</a>
+                                    <a class="fnt-muli fnt-14 fnt-700 view-det" (click)="redirectToEdit(rowData)"
+                                        >View details</a
+                                    >
                                     <span class="float-right">
                                         <a
                                             class="menu-arrow"
@@ -253,11 +259,7 @@
                                             [outsideClick]="true"
                                             #pop="bs-popover"
                                         >
-                                            <img
-                                                class="ellipse-image pl-3"
-                                                src="assets/images/more-opns-file.png"
-                                                alt=""
-                                            />
+                                            <img class="ellipse-image pl-3" src="assets/images/kebab-menu.svg" alt="" />
                                         </a>
                                         <ng-template #poplistTemplate>
                                             <div id="popover-mobile-content">
@@ -298,7 +300,7 @@
     header=""
     position="center"
     [style]="{ width: '28.12rem' }"
-    styleClass="userDialog"
+    styleClass="userDialog no-padding"
     [(visible)]="popupDisplay"
 >
     <div class="mt-5 mb-5 text-center fnt-muli">

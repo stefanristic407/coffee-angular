@@ -8,13 +8,17 @@ import { GlobalsService } from 'src/services/globals.service';
 @Component({
     selector: 'app-roastery-profile',
     templateUrl: './roastery-profile.component.html',
-    styleUrls: ['./roastery-profile.component.css'],
+    styleUrls: ['./roastery-profile.component.scss'],
 })
 export class RoasteryProfileComponent implements OnInit {
     @ViewChild('image') image;
     appLanguage?: any;
     roasteryActive: any = 0;
     menuItems: any[];
+    items = [
+        {label: 'Home', routerLink: '/'},
+        {label: 'Roaster Profile'},
+    ];
 
     constructor(
         private router: Router,

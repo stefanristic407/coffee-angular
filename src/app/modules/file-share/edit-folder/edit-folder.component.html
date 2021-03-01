@@ -1,0 +1,103 @@
+<div class="main-block">
+    <div class="d-flex justify-content-between align-items-center mb-3 mb-md-4">
+        <a class="back-page" routerLink="/file-share">
+            {{ 'back' | translate }}
+        </a>
+    </div>
+    <div class="fnt-18 lh-normal fnt-bold text-clr24">
+        {{ 'create_folder' | translate }}
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <form [formGroup]="infoForm" class="mt-4 mt-md-45 mb-2">
+                <div class="w-100 sewn-form-field">
+                    <label> {{ 'name' | translate }}<span class="star">*</span> </label>
+                    <input type="text" formControlName="name" pInputText />
+                    <small *ngIf="infoForm.controls.name.errors?.required" class="p-error"> Required </small>
+                </div>
+
+                <div class="w-100 sewn-form-field">
+                    <label>
+                        {{ 'give_short_description' | translate }}
+                    </label>
+                    <textarea formControlName="description" rows="5" pInputTextarea></textarea>
+                </div>
+            </form>
+
+            <ng-container *ngIf="isCreate">
+                <div class="mb-4 mb-md-45">
+                    <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-1">
+                        {{ 'sharing_access' | translate }}
+                    </h4>
+                    <div class="fnt-14 lh-normal fnt-500 text-clr588 mb-3 mb-4">
+                        {{ 'invite_to_access' | translate }}
+                    </div>
+                    <div class="">
+                        <p-radioButton
+                            name="invite"
+                            [value]="true"
+                            label="{{ 'invite_people' | translate }}"
+                            [(ngModel)]="invite"
+                            class="mr-4 mr-md-45"
+                        ></p-radioButton>
+                        <p-radioButton
+                            name="invite"
+                            [value]="false"
+                            label="{{ 'only_me' | translate }}"
+                            [(ngModel)]="invite"
+                        ></p-radioButton>
+                    </div>
+                </div>
+
+                <ng-container *ngIf="invite">
+                    <div class="mb-4 mb-md-45">
+                        <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-1">
+                            {{ 'select_an_order' | translate }}
+                        </h4>
+                        <div class="fnt-14 lh-normal fnt-500 text-clr588 mb-3 mb-4">
+                            {{ 'link_your_files' | translate }}
+                        </div>
+                        <span class="btn-trans-icon zoom-icon mr-3" (click)="selectOrder()">
+                            {{ 'view_orders' | translate }}
+                        </span>
+                    </div>
+
+                    <form [formGroup]="shareForm" class="form-container">
+                        <div class="w-100 sewn-form-field">
+                            <label> {{ 'Enter a name or email' | translate }}<span class="star">*</span> </label>
+                            <div class="input-and-select">
+                                <p-autoComplete
+                                    formControlName="user"
+                                    [suggestions]="usersList"
+                                    field="name"
+                                    (completeMethod)="getUsersList($event)"
+                                    placeholder="{{ 'Enter a name or email' | translate }}"
+                                    scrollHeight="225px"
+                                >
+                                </p-autoComplete>
+                                <p-dropdown
+                                    [options]="permissionItems"
+                                    formControlName="permission"
+                                    [style]="{ width: '115px' }"
+                                ></p-dropdown>
+                                <small *ngIf="shareForm.controls.user.errors?.required" class="p-error">
+                                    Required
+                                </small>
+                            </div>
+                        </div>
+                    </form>
+                </ng-container>
+            </ng-container>
+            <div class="mt-3">
+                <button type="button" class="btn-stroked mr-3" routerLink="/file-share">
+                    {{ 'cancel' | translate }}
+                </button>
+                <button type="button" class="btn-raised" [class.loading]="submitted" (click)="save()">
+                    <span *ngIf="!isCreate">{{ 'update' | translate }}</span>
+                    <span *ngIf="isCreate && invite">{{ 'create_share' | translate }}</span>
+                    <span *ngIf="isCreate && !invite">{{ 'create' | translate }}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

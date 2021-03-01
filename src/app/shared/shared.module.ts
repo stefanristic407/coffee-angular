@@ -19,7 +19,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { DynamicDialogModule, DialogService } from 'primeng/dynamicdialog';
 import { GalleriaModule } from 'primeng/galleria';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
@@ -29,6 +29,7 @@ import { MenuModule } from 'primeng/menu';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
@@ -42,7 +43,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ImageCropperModule } from 'ngx-image-cropper';
-// import { RatingModule } from 'ng-starrating';
 import { GalleryModule } from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
 import { MatVideoModule } from 'mat-video';
@@ -55,6 +55,7 @@ import { ReviewLinkPipe } from './pipes/link/review-link.pipe';
 import { RoasterBrandLinkPipe } from './pipes/link/roaster-brand-link.pipe';
 import { OrderRatingLinkPipe } from './pipes/link/order-rating-link.pipe';
 import { OrderLinkPipe } from './pipes/link/order-link.pipe';
+import { FileIconPipe } from './pipes/file-icon.pipe';
 import { FileNamePipe } from './pipes/file-name.pipe';
 import { MonthPipe } from './pipes/month/month.pipe';
 import { OrgTypePipe } from './pipes/org-type.pipe';
@@ -95,9 +96,6 @@ import { PhoneNumberComponent } from './components/phone-number/phone-number.com
 import { ReviewSummaryComponent } from './components/review-summary/review-summary.component';
 import { ReviewsComponent } from './components/reviews/reviews.component';
 import { ProgressBarModule } from 'primeng/progressbar';
-// #region material
-const MATMODULES = [];
-// #endregion
 
 // #region third libs
 const THIRDMODULES = [
@@ -125,6 +123,7 @@ const THIRDMODULES = [
     MultiSelectModule,
     OverlayPanelModule,
     ProgressSpinnerModule,
+    RadioButtonModule,
     RatingModule,
     SelectButtonModule,
     SliderModule,
@@ -139,7 +138,6 @@ const THIRDMODULES = [
     RangeNavigatorAllModule,
     NgxChartsModule,
     ImageCropperModule,
-    // RatingModule,
     GalleryModule,
     LightboxModule,
     MatVideoModule,
@@ -184,6 +182,7 @@ const DIRECTIVES = [WordLimitDirective, RatingDirective, LifecyclehookDirective]
 const PIPES = [
     CountryPipe,
     EstateBrandLinkPipe,
+    FileIconPipe,
     FileNamePipe,
     MonthPipe,
     ProfileLinkPipe,
@@ -202,7 +201,6 @@ const PIPES = [
         FormsModule,
         RouterModule,
         ReactiveFormsModule,
-        ...MATMODULES,
         // third libs
         ...THIRDMODULES,
         NgxEchartsModule.forRoot({
@@ -222,7 +220,6 @@ const PIPES = [
         FormsModule,
         ReactiveFormsModule,
         RouterModule,
-        ...MATMODULES,
         // third libs
         ...THIRDMODULES,
         // your components
@@ -230,5 +227,6 @@ const PIPES = [
         ...DIRECTIVES,
         ...PIPES,
     ],
+    providers: [DialogService],
 })
 export class SharedModule {}

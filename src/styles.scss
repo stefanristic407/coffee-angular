@@ -15,3 +15,7 @@
 @import 'theme/styles/common';
 @import 'theme/styles/_variables';
 @import 'theme/styles/_header';
+
+#sales-contract-popup popover-container {
+    border: 0 !important;
+}

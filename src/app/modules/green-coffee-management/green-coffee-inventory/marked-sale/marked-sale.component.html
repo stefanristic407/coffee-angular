@@ -1,37 +1,42 @@
-<div class="mt-2 pt-2">
+<div class="mt-4">
     <p-dropdown
-        [options]="sellerItems"
+        [options]="originArray"
+        [showClear]="true"
+        optionLabel="name"
+        optionValue="isoCode"
         [(ngModel)]="termOrigin"
         (onChange)="setOrigin()"
         scrollHeight="225px"
-        placeholder="{{ globals.languageJson?.all_origins }}"
+        placeholder="{{ globals.languageJson?.origins }}"
         [autoDisplayFirst]="false"
         styleClass="round-border mr-2 mb-3 mb-md-4 {{ termOrigin ? 'highlight' : '' }}"
     ></p-dropdown>
     <p-dropdown
         [options]="statusItems"
+        [showClear]="true"
         [(ngModel)]="termStatus"
         (onChange)="setStatus()"
         scrollHeight="225px"
         placeholder="{{ globals.languageJson?.status }}"
         [autoDisplayFirst]="false"
-        styleClass="round-border mr-2 mb-3 mb-md-4 {{ termStatus ? 'highlight' : '' }}"
+        styleClass="round-border mr-2 mb-3 {{ termStatus ? 'highlight' : '' }}"
     ></p-dropdown>
     <div class="float-right mobile-lead">
         <p-dropdown
             [options]="displayItems"
+            [showClear]="true"
             [(ngModel)]="display"
             (onChange)="setDisplay()"
             scrollHeight="225px"
             placeholder="Display"
             [autoDisplayFirst]="false"
-            styleClass="round-border mb-3 mb-md-4 {{ display ? 'highlight' : '' }}"
+            styleClass="round-border mb-3 {{ display ? 'highlight' : '' }}"
         ></p-dropdown>
     </div>
 </div>
 
 <!-- Primeng table for Marked for sale -->
-<div class="mt-4">
+<div class="coffee-procured">
     <p-table
         #markedTable
         [class.table-mobile]="primeTableService.isMobileView"
@@ -43,7 +48,7 @@
         [rows]="primeTableService.rows"
         [showCurrentPageReport]="false"
         [loading]="primeTableService.loading"
-        [paginator]="true"
+        [paginator]="primeTableService.paginationValue"
         [lazy]="true"
         (onLazyLoad)="primeTableService.getData($event)"
         [totalRecords]="primeTableService.totalRecords"
@@ -107,7 +112,7 @@
                                 Origin
                             </span>
 
-                            <span *ngIf="primeTableService.isMobileView" class="w-50 pl-2">
+                            <span *ngIf="primeTableService.isMobileView" class="w-50">
                                 {{ rowData['origin'] | titlecase }}
                             </span>
                             <span *ngIf="!primeTableService.isMobileView" class="w-50">
@@ -143,7 +148,7 @@
                             <ng-template #mobile_name>
                                 <span class="ml-auto">
                                     <ng-container *ngIf="primeTableService.isMobileView">
-                                        <span class="pull-right custom-link" [routerLink]="onEdit(rowData)">View </span>
+                                        <span class="pull-right brown-cta" [routerLink]="onEdit(rowData)">View </span>
                                     </ng-container>
                                 </span>
                             </ng-template>
@@ -152,7 +157,7 @@
 
                     <span *ngSwitchCase="'actions'" class="text-center">
                         <ng-container *ngIf="!primeTableService.isMobileView">
-                            <span class="custom-link" [routerLink]="onEdit(rowData)">View</span>
+                            <span class="brown-cta" [routerLink]="onEdit(rowData)">View</span>
                         </ng-container>
                     </span>
 
@@ -165,7 +170,9 @@
                                 [outsideClick]="true"
                                 #pop="bs-popover"
                             >
-                                <p><img class="ellipse-image" src="assets/images/ellipses.png" alt="" /></p>
+                                <p class="mb-0">
+                                    <img class="ellipse-image" src="assets/images/ellipses.png" alt="" />
+                                </p>
                             </a>
                             <ng-template #poplistTemplate>
                                 <div id="popover-mobile-content">
@@ -201,7 +208,7 @@
         header=""
         position="center"
         [style]="{ width: '28.12rem' }"
-        styleClass="userDialog"
+        styleClass="userDialog no-padding"
         [(visible)]="popupDisplay"
     >
         <div class="mt-5 mb-5 text-center fnt-muli">

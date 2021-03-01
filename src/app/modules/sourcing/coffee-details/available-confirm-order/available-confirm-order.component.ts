@@ -15,7 +15,6 @@ import { ConfirmComponent } from '@shared';
     selector: 'app-available-confirm-order',
     templateUrl: './available-confirm-order.component.html',
     styleUrls: ['./available-confirm-order.component.scss'],
-    providers: [DialogService],
 })
 export class AvailableConfirmOrderComponent implements OnInit {
     breadItems: any[];

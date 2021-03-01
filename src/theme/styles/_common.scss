@@ -63,6 +63,16 @@ span.star {
         color: $brown-color !important;
         text-decoration: underline !important;
     }
+
+    &.white {
+        color: #fff !important;
+        &::before {
+            background-image: url('/assets/images/popup-back-arrow.svg');
+        }
+        &:hover {
+            color: #fff !important;
+        }
+    }
 }
 
 .single-calendar {

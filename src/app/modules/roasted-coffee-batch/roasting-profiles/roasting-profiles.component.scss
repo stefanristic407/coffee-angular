@@ -40,7 +40,7 @@
 .list-group-item {
     border: none;
     font-family: 'Muli';
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600 !important;
     color: #747588;
 }
@@ -65,17 +65,28 @@
     font-size: 14px;
 }
 
-::ng-deep .productListTable .p-checkbox {
+::ng-deep .roastingProfileTable .p-checkbox {
     margin-left: 0px;
 }
-::ng-deep .productListTable .p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
+::ng-deep
+    .roastingProfileTable
+    .p-datatable.p-datatable-hoverable-rows
+    .p-datatable-tbody
+    > tr:not(.p-highlight):hover {
     background: #ffffff;
+}
+.view-det {
+    color: #80460b !important;
+}
+.view-det:hover {
+    text-decoration: underline !important;
+    cursor: pointer;
 }
 @media screen and (max-width: 767px) {
     .filterLayout {
         margin-top: 0.5rem;
     }
-    :host ::ng-deep .productListTable .p-datatable-tbody > tr > .nameMobileHeader {
+    :host ::ng-deep .roastingProfileTable .p-datatable-tbody > tr > .nameMobileHeader {
         padding: 0px;
         width: 100% !important;
     }
@@ -86,16 +97,29 @@
         border-bottom: 1px dashed #d6d6d6;
         padding: 1rem 0px;
     }
-    :host ::ng-deep .productListTable .p-datatable-tbody > tr > .cardBottom {
+    :host ::ng-deep .roastingProfileTable .p-datatable-tbody > tr > .cardBottom {
         margin-bottom: 14px;
         border-bottom: 1px solid #d6d6d6 !important;
     }
-    :host ::ng-deep .productListTable .p-datatable .p-datatable-tbody > tr {
-        border-bottom: 0px !important;
+    :host ::ng-deep .roastingProfileTable .p-datatable .p-datatable-tbody > tr {
+        // border-bottom: 0px !important;
+        border: 0px !important;
+        padding: 0 !important;
     }
-    .borderCard {
-        background-color: #f8f8f8;
+    :host ::ng-deep .roastingProfileTable .p-datatable.p-datatable-responsive .p-datatable-tbody > tr {
+        margin: 0 !important;
+    }
+    :host ::ng-deep .roastingProfileTable .p-datatable.p-datatable-responsive .p-datatable-tbody > tr > td {
+        border-bottom: none !important;
+    }
+    .borderRoastedCard {
         border: 1px solid #d6d6d6;
+        border-bottom: none;
+        padding: 4px;
+    }
+    .bgRoastedCard {
+        background-color: #f8f8f8;
+        padding: 6px 12px 8px 12px;
     }
     .productHeight {
         height: 138px !important;

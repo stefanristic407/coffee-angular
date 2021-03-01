@@ -1,5 +1,5 @@
 export * from './agro.service';
-export * from './api';
+export * from './api.service';
 export * from './form.service';
 export * from './form-validators';
 export * from './globals.service';
@@ -12,3 +12,4 @@ export * from './chat/chat-handler.service';
 export * from './chat/order-chat-thread.resolver';
 export * from './chat/order-detail.resolver';
 export * from './chat/chat-util.service';
+export * from './file.service';

@@ -37,6 +37,11 @@ export class PrimeTableService {
     public windowWidth: number;
     public responsiveStartsAt = 640;
     public table: Table;
+    public paginationValue = false;
+    public origin: any;
+    public status: any;
+    public searchQuery: any;
+    // paginationValue: any;
 
     constructor(public http: HttpClient, public cookieService: CookieService) {}
 
@@ -84,6 +89,20 @@ export class PrimeTableService {
             postData = { ...postData, ...{ sort_by: this.sortBy } };
         }
 
+        // If origin is required
+        if (this.origin) {
+            postData = { ...postData, ...{ origin: this.origin } };
+        }
+
+        // If status is required
+        if (this.status) {
+            postData = { ...postData, ...{ status: this.status } };
+        }
+        // If search_query is required
+        if (this.searchQuery) {
+            postData = { ...postData, ...{ search_query: this.searchQuery } };
+        }
+
         const data = {
             api_call: this.url + '?' + this.serlialise(postData),
             method: 'GET',
@@ -103,6 +122,11 @@ export class PrimeTableService {
                         this.records = [...result.result];
                         this.totalRecords = result.result_info.total_count;
                         this.currentPage = result.result_info.page;
+                        if (this.totalRecords < 10) {
+                            this.paginationValue = false;
+                        } else {
+                            this.paginationValue = true;
+                        }
                     } else {
                         this.records = [...[]];
                         this.totalRecords = 0;

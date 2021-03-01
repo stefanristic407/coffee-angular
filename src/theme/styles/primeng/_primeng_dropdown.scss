@@ -23,6 +23,9 @@
 .p-dropdown {
     border-color: $primary-border-color;
 }
+.no-border.p-dropdown {
+    border: none;
+}
 .p-dropdown.highlight {
     border-color: $primary-color;
 }

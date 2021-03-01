@@ -16,7 +16,6 @@ import * as _ from 'underscore';
     selector: 'app-visit-us',
     templateUrl: './visit-us.component.html',
     styleUrls: ['./visit-us.component.scss'],
-    providers: [DialogService],
 })
 export class VisitUsComponent implements OnInit {
     roasterId: string;

@@ -11,7 +11,9 @@
         <div class="main-block">
             <div class="row m-1">
                 <div class="col-lg-9 col-md-6 p-0">
-                    <p-breadcrumb [model]="breadItems"></p-breadcrumb>
+                    <div class="overflow-auto d-flex flex-nowrap breadCrumb">
+                        <p-breadcrumb [model]="breadItems"></p-breadcrumb>
+                    </div>
                 </div>
                 <div class="col-lg-3 col-md-6 mobile-lead">
                     <div class="file-share-search">
@@ -21,14 +23,14 @@
                             type="search"
                             placeholder="Search by order id"
                             [(ngModel)]="searchString"
-                            (ngModelChange)="onSearch($event)"
+                            (input)="onSearch()"
                             name="filesTerm"
                         />
                     </div>
                 </div>
             </div>
             <section class="">
-                <h5 class="fnt-18 text-clr334 fnt-bold pt-3">{{ globals.languageJson?.green_coffee_inventory }}</h5>
+                <h5 class="fnt-18 text-clr334 fnt-bold">{{ globals.languageJson?.green_coffee_inventory }}</h5>
                 <p class="fnt-14 text-clr334 fnt-normal mobile-lead">
                     Manage your procured coffee and mark coffee for sale
                 </p>
@@ -39,7 +41,7 @@
                         type="search"
                         placeholder="Search by order id"
                         [(ngModel)]="searchString"
-                        (ngModelChange)="onSearch($event)"
+                        (input)="onSearch()"
                         name="filesTerm"
                     />
                 </div>

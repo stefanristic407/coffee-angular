@@ -1,0 +1,55 @@
+<div class="quicker-files__list">
+    <div class="quick-pinned-files filegridview">
+        <div class="quick-pinned-files__Image d-flex justify-content-center align-items-center">
+            <img
+                class="img cursor-pointer"
+                *ngIf="data.type == 'IMAGE'"
+                src="{{ data.url }}"
+                (click)="fileShareSrv.preview(data)"
+            />
+            <img
+                class="cursor-pointer"
+                *ngIf="data.type == 'FOLDER'"
+                src="../../../../../../assets/images/folder-gray-filled.svg"
+                routerLink="/file-share/file-share-details/{{ data.id }}"
+            />
+            <img
+                class="cursor-pointer"
+                *ngIf="data.type == 'VIDEO'"
+                src="../../../../assets/images/videocamera-icon.png"
+                (click)="fileShareSrv.preview(data)"
+            />
+            <img
+                class="cursor-pointer"
+                *ngIf="data.type == 'DOCUMENT'"
+                src="../../../../assets/images/document.png"
+                (click)="fileShareSrv.downloadFile(data)"
+            />
+        </div>
+        <div class="bg-white p-2 p-md-25 d-flex justify-content-between align-items-center">
+            <div>
+                <div
+                    class="fnt-12 lh-normal fnt-600 text-clr334 mb-1 cursor-pointer"
+                    *ngIf="data.type == 'FOLDER'"
+                    routerLink="/file-share/file-share-details/{{ data.id }}"
+                >
+                    {{ data.name }}
+                </div>
+                <div class="fnt-12 lh-normal fnt-600 text-clr334 mb-1" *ngIf="data.type != 'FOLDER'">
+                    {{ data.name }}
+                </div>
+                <span class="fnt-12 lh-normal fnt-600 text-clr588">{{ data.type | titlecase }}</span>
+            </div>
+            <div class="">
+                <a class="mr-25" [href]="data.url" target="_blank" [download]="data.name">
+                    <img class="img" *ngIf="data.type != 'FOLDER'" src="assets/images/download-gray.svg" />
+                </a>
+                <a class="menu-arrow" (click)="menu.toggle($event)">
+                    <img src="assets/images/menu-gray.svg" alt="menu" />
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-menu #menu [popup]="true" [model]="menuItems"></p-menu>

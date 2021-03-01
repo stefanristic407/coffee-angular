@@ -1,72 +1,3 @@
-.bread-nav {
-    padding-left: 3.1rem;
-}
-
-.agre-index-z {
-    z-index: 9;
-}
-
-.orders-border {
-    border-radius: 4px;
-    border: solid 1px #d6d6d6 !important;
-}
-
-.agreements {
-    padding: 2rem 0rem;
-}
-
-.row {
-    color: #232334 !important;
-    font-size: 14px !important;
-    font-weight: bold !important;
-    font-family: 'Muli' !important;
-    border-bottom: none !important;
-}
-
-.ticket-boby-txt:hover {
-    box-shadow: 0 12px 34px 0 rgba(0, 0, 0, 0.1);
-}
-
-.estate-order-title {
-    font-family: Muli;
-    font-size: 18px;
-    font-weight: bold;
-    color: #232334;
-}
-
-.border-order {
-    border-radius: 20px;
-    border: solid 1px #d6d6d6;
-    background-color: #ffffff;
-    padding: 10px 12px;
-}
-
-.border-order:focus {
-    outline-color: 1px solid #30855c;
-}
-
-.title-header {
-    margin: 1.3rem 1rem;
-}
-
-.estate-table {
-    margin: 1rem 0rem;
-}
-
-.filter-text {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    color: #747588;
-}
-
-.filter {
-    font-family: 'Muli';
-    font-weight: 600;
-    color: #232334;
-    font-size: 14px;
-}
-
 .search {
     font-family: 'Muli';
     height: 36px;
@@ -76,31 +7,10 @@
     padding-left: 45px;
 }
 
-span.checkmark {
-    background-color: white;
-    border: 1px solid #d6d6d6;
-    border-radius: 2px;
-}
-
-.customcheckbox input:checked~.checkmark {
-    background-color: #30855c !important;
-}
-
-.customcheckbox .checkmark:after {
-    left: 6px !important;
-    top: 3px !important;
-    border-width: 0 2px 2px 0 !important;
-}
-
-.estate-title .checkmark {
-    top: 3px !important;
-}
-
 .border-lots {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
     padding: 6px 4px;
-    margin-top: 0.7rem;
 }
 
 .table-container {
@@ -144,32 +54,14 @@ tr:last-child {
     color: #232334;
     padding-top: 2rem;
     padding-bottom: 2rem;
-    /* cursor: pointer; */
+}
+
+.ticket-boby-txt:hover {
+    box-shadow: 0 12px 34px 0 rgba(0, 0, 0, 0.1);
 }
 
 .estate-orders {
-    /* margin: 1rem 3.1rem; */
     position: relative;
-}
-
-.estate-orders-heading {
-    margin: 1rem 3.1rem;
-}
-
-.add-role-butn {
-    border-radius: 4px;
-    background-color: #30855c;
-    padding: 10px 0px;
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    color: #ffffff;
-    margin-right: 3rem;
-}
-
-.add-role-butn:hover {
-    background-color: #3d8462;
-    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
 .row {
@@ -178,34 +70,6 @@ tr:last-child {
     font-weight: bold !important;
     font-family: 'Muli' !important;
     border-bottom: none !important;
-}
-
-.estate-order-title {
-    font-family: Muli;
-    font-size: 18px;
-    font-weight: bold;
-    color: #232334;
-}
-
-.border-order {
-    border-radius: 20px;
-    border: solid 1px #d6d6d6;
-    background-color: #ffffff;
-    padding: 10px 12px;
-}
-
-.border-order:focus {
-    outline-color: 1px solid #30855c;
-}
-
-span.checkmark {
-    background-color: white;
-    border: 1px solid #d6d6d6;
-    border-radius: 2px;
-}
-
-.customcheckbox input:checked~.checkmark {
-    background-color: #232334;
 }
 
 .customer {
@@ -220,18 +84,6 @@ span.checkmark {
     font-weight: 600;
     cursor: pointer;
     color: #747588;
-}
-
-.notify-text {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.43;
-    letter-spacing: normal;
-    color: #747588;
-    padding-left: 5%;
 }
 
 /**********popover*******/
@@ -260,40 +112,6 @@ span.checkmark {
     top: 6px;
 }
 
-::ng-deep .popover-body {
-    padding: 0 !important;
-}
-
-::ng-deep .popover {
-    border: none !important;
-    border-radius: 5px !important;
-    box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
-    background-color: #ffffff;
-    top: 4px !important;
-}
-
-::ng-deep .bs-popover-bottom .arrow:after {
-    top: 0px !important;
-}
-
-.pointer-item {
-    cursor: pointer;
-}
-
-.customerIdError, .notifyError, .uploadError {
-    color: #d50000;
-}
-
-/******Date Range Css*********/
-
-:host ::ng-deep .ui-inputtext {
-    display: none !important;
-}
-
-:host ::ng-deep .ui-button-icon-only .ui-button-icon-left {
-    color: #3d8462;
-}
-
 @media (max-width:1024px) {
     .estate-table {
         overflow: scroll;
@@ -309,126 +127,17 @@ span.checkmark {
     }
 }
 
-/* The container */
-
-.bestate-check {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    margin-left: 1rem;
-}
-
-/* Hide the browser's default checkbox */
-
-.bestate-check input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-/* Create a custom checkbox */
-
-.estatecheckmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 17px;
-    width: 17px;
-    background-color: #fff;
-    border: 1px solid #d6d6d6;
-    border-radius: 2px;
-}
-
-.first_t {
-    top: -5px !important;
-}
-
-/* On mouse-over, add a grey background color */
-
-.bestate-check:hover input~.estatecheckmark {
-    background-color: #fff;
-}
-
-/* When the checkbox is checked, add a blue background */
-
-.bestate-check input:checked~.estatecheckmark {
-    background-color: #30855c;
-}
-
-/* Create the checkmark/indicator (hidden when not checked) */
-
-.estatecheckmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-/* Show the checkmark when checked */
-
-.bestate-check input:checked~.estatecheckmark:after {
-    display: block;
-}
-
-/* .customcheckbox:hover input ~ .checkmark{
-    background-color: #ffffff !important;
-} */
-
-/* Style the checkmark/indicator */
-
-.bestate-check .estatecheckmark:after {
-    left: 5px;
-    top: 2px;
-    width: 5px;
-    height: 10px;
-    border: 1px solid #d6d6d6;
-    border-width: 0 2px 2px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-
-.create-role-section {
-    padding: 0px 40px;
-}
-
-.spacing-order {
-    padding: 1rem 0.6rem !important;
-}
-
-.display_div {
-    position: absolute;
-    right: 1.2rem;
-    top: -0.3rem;
-}
-
-.Give-your-end-users {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: normal;
-    color: #747588;
-    width: 48%;
-    padding: 5px 0px;
-}
-
 .share-txt {
-    font-family: Muli;
-    font-size: 13px;
+    font-family: 'Muli';
+    font-size: 14px;
     font-weight: 500;
     color: #232334;
+    position: relative;
+    top: 2px;
 }
 
-.share-img {
-    width: 17px;
-    height: 17px;
+.text-black2424 {
+    color: #232334;
 }
 
 .dwnd-img {
@@ -438,16 +147,11 @@ span.checkmark {
     right: 6%;
 }
 
-/* .file-icon{
-height: 32px;
-width: 32px;
-} */
-
 .share-bor {
-    border-radius: 2px;
-    border: solid 2px rgba(116, 117, 136, 0.6);
-    padding: 6px 12px;
     cursor: pointer;
+    padding: 8px 12px 9px 12px;
+    border-radius: 2px;
+    border: solid 1px #747588;
 }
 
 .upload-order {
@@ -455,46 +159,27 @@ width: 32px;
     padding: 8px 12px;
 }
 
-.file-inpt {
+.file-input {
     opacity: 0;
     visibility: hidden;
     display: none;
+}
+
+.cust-pad-left {
+    padding-left: 2.5rem !important;
+}
+
+.cust-width {
+    width: 40%;
 }
 
 /* MOdal popup css */
 
-.create-share {
-    border-radius: 4px;
-    background-color: #30855c;
-    outline: 0;
-    border: 0;
-    color: #ffffff;
-    opacity: 0.9;
-}
-
-.create-share:hover {
-    background-color: #30855c;
-    opacity: 1;
-}
-
-.create-share:focus {
-    box-shadow: none !important;
-    outline: 0 !important;
-    border: 0 !important;
-    background-color: #30855c !important;
-}
-
-.create-share:disabled {
+button:disabled {
     opacity: .5 !important;
 }
 
-.file-inpt {
-    opacity: 0;
-    visibility: hidden;
-    display: none;
-}
-
-.w-30 {
+.custom-width-30 {
     width: 20%;
 }
 
@@ -566,8 +251,11 @@ width: 32px;
     .modal-body {
         padding: 25px 0 0 0 !important;
     }
-    .modal-dialog {
+    .modal-large {
         max-width: 740px !important;
+    }
+    .modal-small {
+        max-width: 449px !important;
     }
     .modal-footer {
         padding: 25px 0 0 0 !important;
@@ -575,12 +263,10 @@ width: 32px;
     }
     .modal-content {
         padding: 25px !important;
+        width: 89.5% !important;
     }
-    .file-share-search input[type="search"]::placeholder {
-        font-size: 14px;
-    }
-    .file-share-search input[type="search"] {
-        font-size: 14px;
+    .btn-padding {
+        padding: 12px 38px;
     }
 }
 
@@ -589,15 +275,6 @@ width: 32px;
 @media (max-width:767px) {
     .bg-fff {
         padding: 1rem .7rem;
-    }
-    .bread-nav {
-        padding-left: 0rem;
-    }
-    .estate-orders-heading {
-        margin: .2rem;
-    }
-    .title-header {
-        margin: 1.3rem 1rem;
     }
     .estate-table {
         margin: 1rem 0rem;
@@ -609,83 +286,31 @@ width: 32px;
         border-top: 2px dashed #d6d6d6;
         padding-bottom: 5px;
     }
-    .agreements {
-        padding: 1rem;
-    }
-    .display_div {
-        position: absolute;
-        right: -0.9rem;
-        top: -.5rem;
-    }
-    .upload-order {
-        padding: 8px 10px;
-    }
     .agreement-top {
         margin-top: 2rem;
     }
-    .w-30 {
+    .custom-width-30 {
         width: 25%;
     }
     .top-padd {
         top: 8px;
     }
-    .customer {
-        height: 45px !important;
-        width: 100%;
-    }
-    .notify-text {
-        padding-left: 8%;
-    }
 }
 
 @media (max-width: 480px) {
-    .w-30 {
+    .custom-width-30 {
         width: 30%;
     }
 }
 
 @media (max-width: 360px) {
-    .w-30 {
+    .custom-width-30 {
         width: 34%;
     }
 }
 
-.oh__text {
-    color: #020202;
-}
-
 .delete__text {
     color: #5d5d5d;
-}
-
-.cancel-btn {
-    color: #30855c;
-    border-radius: 4px;
-    border: 1px solid #30855c;
-    background-color: #fff;
-    cursor: pointer;
-}
-
-.cancel-btn:hover {
-    background-color: #30855c;
-    color: #fff;
-}
-
-.delete-btn {
-    color: #fff;
-    border-radius: 4px;
-    background-color: #30855c;
-}
-
-.delete-btn:hover {
-    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-}
-
-.cancel-btn, .delete-btn {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 700;
-    padding: 11px 30px;
 }
 
 .p-invalid {
@@ -693,4 +318,94 @@ width: 32px;
     font-size: 14px;
     font-weight: 600;
     color: #d50000;
+}
+
+.arrow-align {
+    width: 20px;
+    position: relative;
+    bottom: 2px;
+}
+
+.file_url {
+    color: #232334 !important;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Muli';
+    text-decoration: none !important;
+}
+
+.oh-noh {
+    font-family: 'PlayfairDisplay';
+    font-size: 24px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.4px;
+    color: #020202;
+}
+
+#bord-right {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+#bord-left {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.custom-radio {
+    display: block;
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-family: 'Muli';
+    font-size: 14px;
+    font-weight: normal;
+    color: #020202;
+}
+
+.custom-radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    border: 1px solid #979797;
+}
+
+.custom-radio input:checked~.checkmark {
+    border-color: #30855c !important;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.custom-radio input:checked~.checkmark:after {
+    display: block;
+}
+
+.custom-radio .checkmark:after {
+    top: 5px;
+    left: 5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #30855c;
 }

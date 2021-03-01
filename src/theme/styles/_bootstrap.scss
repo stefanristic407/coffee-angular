@@ -9,6 +9,9 @@ $spacers: () !default;
 $spacers: map-merge(
     (
         0: 0,
+        z5: (
+            $spacer * 0.125,
+        ),
         1: (
             $spacer * 0.25,
         ),
@@ -28,6 +31,9 @@ $spacers: map-merge(
         45: (
             $spacer * 2,
         ),
+        475: (
+            $spacer * 2.5,
+        ),
         5: (
             $spacer * 3,
         ),
@@ -36,3 +42,40 @@ $spacers: map-merge(
 );
 
 @import 'node_modules/bootstrap/scss/bootstrap';
+
+// Cutomize gutter
+$gutters: (
+    8: 8px,
+    12: 12px,
+    16: 16px,
+    20: 20px,
+    26: 26px,
+);
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+        @each $size, $length in $gutters {
+            .row.gutter#{$infix}-#{$size} {
+                margin-right: -$length / 2;
+                margin-left: -$length / 2;
+
+                > .col,
+                > [class*='col-'] {
+                    padding-right: $length / 2;
+                    padding-left: $length / 2;
+                }
+            }
+            .row.v-gutter#{$infix}-#{$size} {
+                margin-top: -$length / 2;
+                margin-bottom: -$length / 2;
+
+                > .col,
+                > [class*='col-'] {
+                    padding-top: $length / 2;
+                    padding-bottom: $length / 2;
+                }
+            }
+        }
+    }
+}

@@ -1,23 +1,16 @@
-.bread-nav {
-    padding-left: 3.1rem;
-}
-
 .agre-index-z {
     z-index: 9;
 }
-
 
 /*=======   Tabs  =======*/
 
 .mixups-tabs {
     background-color: #ffffff;
     overflow: hidden;
-    padding: 1rem 2rem;
 }
 
-.nav-pills .nav-link.active,
-.nav-pills .show>.nav-link {
-    color: #232334;
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #30855c;
     font-size: 14px;
     font-weight: 600;
     background-color: unset !important;
@@ -45,12 +38,22 @@
     background-color: #30855c;
 }
 
-.nav-pills {
+.bottom-bord {
     border-bottom: 1px solid #dddddd;
 }
 
+.align-arrow-top {
+    position: relative;
+    top: 2px;
+}
+
+.nav-pills {
+    position: relative;
+    top: 4px;
+}
+
 li.nav-item {
-    margin-right: 7%;
+    margin-right: 1.5rem;
     position: relative;
     top: .25rem;
 }
@@ -95,21 +98,44 @@ li.nav-item {
     padding: 5px 10px;
 }
 
-.bread-nav {
-    padding-left: 3.1rem;
-}
-
 .orders-border {
     border-radius: 4px;
     border: solid 1px #d6d6d6 !important;
 }
 
 .agreements {
-    padding: 2rem 0rem;
+    padding: 2rem 3rem;
 }
 
 .estate-orders-heading {
-    margin: 1rem 2.1rem;
+    margin: 1rem 0rem;
+}
+
+.estate-order-title {
+    font-family: 'Muli';
+    font-size: 18px;
+    font-weight: bold;
+    color: #232334;
+}
+
+.share-bor:hover {
+    border: solid 2px #30855c !important;
+}
+
+.upload-btn {
+    cursor: pointer;
+    padding: 8px 12px 9px 12px;
+    border-radius: 2px;
+    border: solid 1px #747588;
+}
+
+.upload-name {
+    font-family: 'Muli';
+    font-size: 14px;
+    font-weight: 500;
+    color: #232334;
+    position: relative;
+    top: 2px;
 }
 
 @media (max-width:767px) {

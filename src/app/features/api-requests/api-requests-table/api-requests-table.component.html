@@ -9,42 +9,144 @@
 <div *ngIf="greenActive == 1">
     <section>
         <div class="bg-fff coffee-exp">
-            <div class="row col-12">
-                <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
-                    <span class="sr-only"></span>
-                    <ul class="bread-nav">
-                        <li class="b-cum">
-                            <a class="b-cum" routerLink="/">{{ globals.languageJson?.home }}</a
-                            ><span class="padl-r" aria-hidden="true"
-                                ><img class="group-img" src="/assets/images/arrow-1.png" alt="" />
-                            </span>
-                        </li>
-                        <!-- <li class="b-cum">
+            <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
+                <span class="sr-only"></span>
+                <ul class="bread-nav pl-48">
+                    <li class="b-cum">
+                        <a class="b-cum" routerLink="/">{{ globals.languageJson?.home }}</a
+                        ><span class="padl-r" aria-hidden="true"
+                            ><img class="group-img" src="/assets/images/arrow-1.png" alt="" />
+                        </span>
+                    </li>
+                    <!-- <li class="b-cum">
                                     <a class="b-cum" routerLink="/features/green-coffee-inventory">{{globals.languageJson?.inventory}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                                 </li> -->
 
-                        <li class="b-cum c-pink">API Requests</li>
-                        <!-- <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">Export</button> -->
-                    </ul>
-                </nav>
-            </div>
+                    <li class="b-cum c-pink">API Requests</li>
+                    <!-- <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">Export</button> -->
+                </ul>
+            </nav>
             <section class="estate-orders-heading">
-                <div class="row">
-                    <div class="col-lg-9 col-md-6">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-lg-8 col-md-4">
                         <h5 class="estate-order-title">API Requests</h5>
                         <p class="Give-your-end-users">
                             Accept, reject API key requests by customers and generate API keys.
                         </p>
                     </div>
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-4 col-md-8 text-right">
                         <div class="file-share-search">
                             <img class="mr-1 mr-md-2" src="assets/images/search.svg" />
                             <input
                                 class="fadout-search"
                                 type="search"
-                                placeholder="Search by request id "
+                                placeholder="Search by request id or Customer Name "
                                 name="filesTerm"
                             />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="header-details row justify-content-between align-items-center">
+                    <div class="header-inner col-lg-9 col-md-6">
+                        <div
+                            class="d-inline border-total col-sm-3"
+                            id="status_id"
+                            [outsideClick]="true"
+                            (onShown)="toggleStatus()"
+                            (onHidden)="toggleStatus()"
+                            [popover]="allTemplate"
+                            placement="bottom"
+                            container="body"
+                            #pop="bs-popover"
+                        >
+                            <p class="d-inline filter-text" *ngIf="termStatus == ''">Customer Type&nbsp;</p>
+                            <a class="pointer-item">
+                                <p class="d-inline filter" *ngIf="termStatus == ''">
+                                    &nbsp;
+                                    <img
+                                        src="{{
+                                            showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'
+                                        }}"
+                                    />
+                                </p>
+                            </a>
+                            <a class="pointer-item">
+                                <p class="d-inline filter" *ngIf="termStatus != ''">
+                                    {{ termStatus }}&nbsp;
+                                    <img
+                                        src="{{
+                                            showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'
+                                        }}"
+                                    />
+                                </p>
+                            </a>
+                        </div>
+                        <div class="d-inline border-order date-div col-sm-3" (click)="openCalendar($event)">
+                            <p class="d-inline filter-text">
+                                Date range &nbsp;
+                                <span *ngIf="showDateRange != ''">{{ showDateRange }}</span>
+                            </p>
+
+                            <a class="pointer-item">
+                                <p class="d-inline filter">
+                                    <p-calendar
+                                        #calendar
+                                        styleClass="only-icon"
+                                        [(ngModel)]="rangeDates"
+                                        (onSelect)="filterDate($event)"
+                                        selectionMode="range"
+                                        dateFormat="dd.mm.yy"
+                                        [readonlyInput]="true"
+                                        [showButtonBar]="true"
+                                    ></p-calendar>
+                                    &nbsp; <img src="assets/images/active-calender.png" alt="" />
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="d-inline">
+                            <div class="hover-filters">
+                                <div
+                                    class="float-right border-order top-space"
+                                    id="display_id"
+                                    [outsideClick]="true"
+                                    (onShown)="toggleDisplay()"
+                                    (onHidden)="toggleDisplay()"
+                                    [popover]="displayTemplate"
+                                    placement="bottom"
+                                    [outsideClick]="true"
+                                    container="body"
+                                    #pop9="bs-popover"
+                                >
+                                    <p class="d-inline filter-text">Display &#9679;</p>
+                                    <a class="pointer-item">
+                                        <p class="d-inline filter" *ngIf="display == '-1'">
+                                            &nbsp; &nbsp;
+                                            <img
+                                                src="{{
+                                                    showDisplay
+                                                        ? 'assets/images/down-arrow.svg'
+                                                        : 'assets/images/user-down.svg'
+                                                }}"
+                                            />
+                                        </p>
+                                    </a>
+                                    <a class="pointer-item">
+                                        <p class="d-inline filter" *ngIf="display != '-1'">
+                                            {{ display }}&nbsp; &nbsp;
+                                            <img
+                                                src="{{
+                                                    showDisplay
+                                                        ? 'assets/images/down-arrow.svg'
+                                                        : 'assets/images/user-down.svg'
+                                                }}"
+                                            />
+                                        </p>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -155,15 +257,23 @@
     </ng-template>
 
     <ng-template #displayTemplate>
-        <div>
+        <div id="status-content">
             <ul class="list-group custom-popover">
-                <li class="list-group-item item-color">
+                <li class="list-group-item item-color" (click)="setDisplay(''); pop9.hide()">
                     <a class="pointer-item">All</a>
                 </li>
-                <li class="list-group-item item-color"><a class="pointer-item">10</a></li>
-                <li class="list-group-item item-color"><a class="pointer-item">25</a></li>
-                <li class="list-group-item item-color"><a class="pointer-item">50</a></li>
-                <li class="list-group-item item-color"><a class="pointer-item">100</a></li>
+                <li class="list-group-item item-color" (click)="setDisplay('10'); pop9.hide()">
+                    <a class="pointer-item">10</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setDisplay('20'); pop9.hide()">
+                    <a class="pointer-item">20</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setDisplay('25'); pop9.hide()">
+                    <a class="pointer-item">25</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setDisplay('50'); pop9.hide()">
+                    <a class="pointer-item">50</a>
+                </li>
             </ul>
         </div>
     </ng-template>
@@ -200,6 +310,30 @@
                 </li>
                 <li class="list-group-item item-color">
                     <a class="pointer-item">Hidden</a>
+                </li>
+            </ul>
+        </div>
+    </ng-template>
+    <ng-template #allTemplate>
+        <div id="status-content">
+            <ul class="list-group">
+                <li class="list-group-item item-color" (click)="setStatus(''); pop.hide()">
+                    <a class="pointer-item">All</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setStatus('Brazil'); pop.hide()">
+                    <a class="pointer-item">Brazil</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setStatus('Guatemala'); pop.hide()">
+                    <a class="pointer-item">Guatemala</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setStatus('Spain'); pop.hide()">
+                    <a class="pointer-item">Spain</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setStatus('Sweden'); pop.hide()">
+                    <a class="pointer-item">Sweden</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setStatus('Vietnam'); pop.hide()">
+                    <a class="pointer-item">Vietnam</a>
                 </li>
             </ul>
         </div>
