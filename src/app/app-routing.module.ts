@@ -72,6 +72,13 @@ export const routes: Routes = [
                         (m) => m.RoastedCoffeeBatchModule,
                     ),
             },
+            {
+                path: 'sales-contract',
+                loadChildren: () =>
+                    import('./modules/sales-contract/sales-contract.module').then(
+                        (m) => m.SalesContractModule,
+                    ),
+            },
         ],
     },
     {
@@ -89,4 +96,4 @@ const config: ExtraOptions = {
     imports: [RouterModule.forRoot(routes, config)],
     exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

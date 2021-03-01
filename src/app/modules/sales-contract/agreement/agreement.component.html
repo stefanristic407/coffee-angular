@@ -27,7 +27,15 @@
             <div class="col-12">
                 <div class="mixups-tabs col-lg-12 col-md-12 px-0">
                     <div class="row bottom-bord px-3">
-                        <div class="col-lg-10 col-md-10 p-0">
+                        <div class="col-lg-2 col-md-2 p-0 mt-2 mobile-farm">
+                            <div class="upload-order top-space" data-toggle="modal" data-target="#uploadfolder">
+                                <label class="upload-btn">
+                                    <img class="dwnd-img" src="assets/images/group-6.svg" alt="upload-icon" />
+                                    <span class="upload-name">&nbsp; Upload </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-10 p-0" id="agreements-nav">
                             <ul class="nav nav-pills w-100" id="pills-tab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="pills-land-lots-tab" data-toggle="pill"
@@ -36,7 +44,6 @@
                                         style="padding-bottom: 0.875rem;">
                                         {{ globals.languageJson?.horeca }}</a>
                                 </li>
-
                                 <li class="nav-item">
                                     <a class="nav-link" id="pills-batch-status-tab" data-toggle="pill"
                                         href="#pills-batch-status" role="tab" aria-controls="pills-profile"
@@ -46,7 +53,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-lg-2 col-md-2 p-0">
+                        <div class="col-lg-2 col-md-2 p-0 web-farm">
                             <div class="d-inline display_div">
                                 <div class="float-right upload-order top-space" data-toggle="modal"
                                     data-target="#uploadfolder">

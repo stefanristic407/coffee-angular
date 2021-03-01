@@ -6,7 +6,6 @@ import { OnboardCustomersComponent } from './onboard-customers/onboard-customers
 import { AddProductComponent } from './e-commerce/add-product/add-product.component';
 import { ProductsTableComponent } from './e-commerce/products-table/products-table.component';
 import { FDirectMessagingComponent } from './f-direct-messaging/f-direct-messaging.component';
-import { AgreementComponent } from './Farm Link/agreement/agreement.component';
 import { BlogDetailsComponent } from './Farm Link/blog-details/blog-details.component';
 import { CofeeExpeienceDetailsComponent } from './Farm Link/cofee-expeience-details/cofee-expeience-details.component';
 import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-experience.component';
@@ -134,11 +133,6 @@ const routes: Routes = [
             {
                 path: 'coffee-experience',
                 component: CoffeeExperienceComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'agreement',
-                component: AgreementComponent,
                 canActivate: [AuthGuard],
             },
             {
@@ -341,4 +335,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
-export class FeaturesRoutingModule {}
+export class FeaturesRoutingModule { }
