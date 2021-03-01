@@ -21,7 +21,7 @@
                             type="search"
                             placeholder="Search by order id"
                             [(ngModel)]="searchString"
-                            (ngModelChange)="onSearch($event)"
+                            (input)="onSearch()"
                             name="filesTerm"
                         />
                     </div>
@@ -39,7 +39,7 @@
                         type="search"
                         placeholder="Search by order id"
                         [(ngModel)]="searchString"
-                        (ngModelChange)="onSearch($event)"
+                        (input)="onSearch()"
                         name="filesTerm"
                     />
                 </div>

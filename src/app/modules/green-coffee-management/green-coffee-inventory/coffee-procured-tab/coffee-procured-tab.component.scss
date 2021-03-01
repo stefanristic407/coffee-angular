@@ -30,3 +30,11 @@
         width: 100% !important;
     }
 }
+
+@media (max-width: 767px) {
+    ::ng-deep .coffee-procured .p-datatable table {
+        border-collapse: collapse;
+        table-layout: auto !important;
+        width: 100% !important;
+    }
+}

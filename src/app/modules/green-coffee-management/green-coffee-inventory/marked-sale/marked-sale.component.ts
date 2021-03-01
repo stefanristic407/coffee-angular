@@ -186,7 +186,10 @@ export class MarkedSaleComponent implements OnInit {
         this.primeTableService.origin = this.termOrigin;
         this.table.reset();
     }
-
+    search(item) {
+        this.primeTableService.searchQuery = item;
+        this.table.reset();
+    }
     setDisplay() {
         if (this.display) {
             this.primeTableService.rows = this.display;

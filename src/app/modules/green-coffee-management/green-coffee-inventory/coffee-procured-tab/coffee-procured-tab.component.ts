@@ -200,7 +200,10 @@ export class CoffeeProcuredTabComponent implements OnInit {
         this.primeTableService.origin = this.termStatus;
         this.table.reset();
     }
-
+    search(item) {
+        this.primeTableService.searchQuery = item;
+        this.table.reset();
+    }
     setDisplay() {
         if (this.display) {
             this.primeTableService.rows = this.display;
