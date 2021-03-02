@@ -7,12 +7,11 @@ import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from 'src/services/globals.service';
-import { RoasteryProfileService } from '../../roastery-profile/roastery-profile.service';
 
 @Component({
     selector: 'app-agreement',
     templateUrl: './agreement.component.html',
-    styleUrls: ['./agreement.component.css']
+    styleUrls: ['./agreement.component.scss']
 })
 export class AgreementComponent implements OnInit {
 
@@ -27,7 +26,6 @@ export class AgreementComponent implements OnInit {
         public cookieService: CookieService,
         public roasterService: RoasterserviceService,
         public toastrService: ToastrService,
-        public roasteryProfileService: RoasteryProfileService,
         public globals: GlobalsService) {
         this.roasterId = this.cookieService.get('roaster_id');
     }

@@ -86,18 +86,18 @@ export class RoastingProfilesComponent implements OnInit {
                 field: 'roast_profile_name',
                 header: 'Roast name',
                 sortable: false,
-                width: 15,
+                width: 19,
             },
             {
                 field: 'roast_level',
                 header: 'Roast level',
                 sortable: false,
-                width: 15,
+                width: 17,
             },
             {
                 field: 'temperature',
                 header: 'Temperature',
-                width: 15,
+                width: 16,
             },
             {
                 field: 'roast_duration',
@@ -109,7 +109,7 @@ export class RoastingProfilesComponent implements OnInit {
                 field: 'actions',
                 header: 'Actions',
                 sortable: false,
-                width: 15,
+                width: 10,
             },
         ];
     }
