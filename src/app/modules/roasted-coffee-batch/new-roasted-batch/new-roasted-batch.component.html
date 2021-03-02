@@ -14,7 +14,7 @@
                 </div>
                 <div class="mt-md-1 mt-4 pb-2" [formGroup]="batchForm" (ngSubmit)="onSave()" novalidate>
                     <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 sewn-form-field w-100">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-10 col-xl-10 sewn-form-field w-100">
                             <label>Roast batch name<span class="star">*</span></label>
                             <input
                                 type="text"
@@ -36,7 +36,7 @@
                                 >Select the order through which the green coffee was procured</span
                             >
                         </div>
-                        <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5">
                             <div class="sample_info">
                                 <div class="info_heading d-flex cursor-pointer" (click)="selectOrder()">
                                     <div class="pull-left secondary_txt" *ngIf="ordId == ''">Select the order</div>
@@ -76,7 +76,7 @@
                         class="d-block d-sm-block d-mb-block d-lg-block d-xl-none mt-2 mb-4"
                         *ngIf="ordId != 'select the order'"
                     >
-                        <div class="mt-2 order_details_card col-sm-10">
+                        <div class="mt-2 order_details_card col-sm-12 col-md-12 col-lg-10 col-xl-10">
                             <div class="fnt-16 fnt-muli fnt-700 black mb-3">Order details</div>
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex">
@@ -239,8 +239,8 @@
                             </small> -->
                         </div>
                     </div>
-                    <div class="row pt-md-1 pb-4">
-                        <div class="col-12 pb-2">
+                    <div class="row pt-md-1 pb-1">
+                        <div class="col-12 pb-2 tab-flavour-space">
                             <span class="fnt-14 fnt-muli fnt-600 black"
                                 >Flavour profile<span class="star">*</span></span
                             >
@@ -271,7 +271,7 @@
                             </p-chips>
                         </div>
                     </div>
-                    <div class="row mt-2">
+                    <div class="row mt-1">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 sewn-form-field w-100">
                             <label>Roaster Notes<span class="star">*</span></label>
                             <textarea

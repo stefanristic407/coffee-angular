@@ -165,4 +165,7 @@
     .bord-profile {
         border: none;
     }
+    .breadCrumb::-webkit-scrollbar {
+        display: none !important;
+    }
 }
