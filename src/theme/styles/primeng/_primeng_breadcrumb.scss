@@ -25,14 +25,21 @@
     }
 }
 .p-breadcrumb ul li.p-breadcrumb-chevron {
-    margin-right: 16px;
-    margin-left: 8px;
     margin-top: -4px;
+    margin-right: 8px;
+    margin-left: 4px;
+    @media (min-width: 768px) {
+        margin-right: 16px;
+        margin-left: 8px;
+    }
 }
 .p-breadcrumb ul li:last-child .p-menuitem-link .p-menuitem-text {
     color: $general-text-color;
 }
 .p-breadcrumb .pi-chevron-right::before {
-    font-size: 14px;
     color: $button-icon-color;
+    font-size: 12px;
+    @media (min-width: 768px) {
+        font-size: 14px;
+    }
 }
