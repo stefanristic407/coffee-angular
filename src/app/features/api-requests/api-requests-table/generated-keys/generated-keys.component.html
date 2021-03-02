@@ -1,15 +1,22 @@
+<div *ngIf="loader">
+    <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
+    <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
+</div>
 <div
     class="mb-2 mt-4"
     *ngIf="globals.permissions['coffee-list'].view || globals.permissions['coffee-management'].manage"
 >
-    <p-table [value]="mainData" [paginator]="true" [lazy]="true" [rows]="40">
+    <!-- <p-table [value]="mainData" [paginator]="true" [lazy]="true" [rows]="40"> -->
+    <p-table [value]="mainData" [lazy]="true">
         <ng-template pTemplate="header">
             <tr>
-                <th>Customer</th>
-                <th>Customer type</th>
-                <th>Date requested</th>
-                <th>Key generated on</th>
-                <th>Key status</th>
+                <th pSortableColumn="Customer">
+                    Customer<p-sortIcon field="Customer" (click)="sort($event)"></p-sortIcon>
+                </th>
+                <th>Customer type <p-sortIcon field="customer_type"></p-sortIcon></th>
+                <th>Date requested<p-sortIcon field="date_requested"></p-sortIcon></th>
+                <th>Key generated on<p-sortIcon field="key_generated_on"></p-sortIcon></th>
+                <th>Key status<p-sortIcon field="key_status"></p-sortIcon></th>
                 <th>{{ globals.languageJson?.actions }}</th>
             </tr>
         </ng-template>
@@ -59,7 +66,7 @@
                                     <a class="pointer-item" (click)="deleteKey(); pop.hide()">Delete Key</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a class="pointer-item" (click)="reactiveuser(); pop.hide()">Notifiy customer</a>
+                                    <a class="pointer-item" (click)="notifyCustomer(); pop.hide()">Notifiy customer</a>
                                 </li>
                             </ul>
                         </div>
@@ -80,4 +87,5 @@
             </div>
         </ng-template>
     </p-table>
+    <p-paginator [rows]="10" totalRecords="100" pageLinkSize="3"></p-paginator>
 </div>

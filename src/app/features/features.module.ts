@@ -88,6 +88,7 @@ import { VarientDetailsComponent } from './e-commerce/varient-details/varient-de
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { RatingModule } from 'primeng/rating';
 import { ListboxModule } from 'primeng/listbox';
+import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
     declarations: [
@@ -161,6 +162,7 @@ import { ListboxModule } from 'primeng/listbox';
         VarientDetailsComponent,
     ],
     imports: [
+        PaginatorModule,
         CommonModule,
         FeaturesRoutingModule,
         DragDropModule,
@@ -177,4 +179,4 @@ import { ListboxModule } from 'primeng/listbox';
         ListboxModule,
     ],
 })
-export class FeaturesModule { }
+export class FeaturesModule {}
