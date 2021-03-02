@@ -25,6 +25,8 @@ export class ProductDetailsComponent implements OnInit {
     roastedBatches: any = [];
     productID = '';
     variantTypeArray: any = [];
+    productDescriptionLength = 50;
+    recommendationTextLength = 10;
     roastedFields = [
         'roaster_ref_no',
         'batch_ref_no',
@@ -254,7 +256,7 @@ export class ProductDetailsComponent implements OnInit {
             weight: [0, Validators.compose([Validators.required])],
             crate_unit: 'lb',
             product_weight_variant_id: '',
-            crate_capacity: [0, Validators.compose([Validators.required])],
+            crate_capacity: ['', Validators.compose([Validators.required])],
         });
     }
     onWeightCreate(event) {
@@ -276,6 +278,20 @@ export class ProductDetailsComponent implements OnInit {
     }
     onCancel(): void {
         this.router.navigate(['/features/products-list']);
+    }
+    wordCounter(event) {
+        this.productDescriptionLength = event.target.value ? 51 - event.target.value.split(/\s+/).length : 50;
+        if (this.productDescriptionLength <= 0 && event.keyCode !== 8) {
+            this.productDescriptionLength = 0;
+            event.preventDefault();
+        }
+    }
+    wordCounterText(event) {
+        this.recommendationTextLength = event.target.value ? 11 - event.target.value.split(/\s+/).length : 10;
+        if (this.recommendationTextLength <= 0 && event.keyCode !== 8) {
+            this.recommendationTextLength = 0;
+            event.preventDefault();
+        }
     }
     onSave(): void {
         if (this.validateForms()) {
@@ -416,6 +432,7 @@ export class ProductDetailsComponent implements OnInit {
     }
     togglePublic(flag) {
         this.productForm.controls.is_public.setValue(flag);
+        this.onSave();
     }
     createTypeVariantArray() {
         this.variantTypeArray = [];

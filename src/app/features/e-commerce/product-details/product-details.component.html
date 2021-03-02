@@ -78,14 +78,14 @@
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
                 <div>
                     <label>Product Description<span class="star">*</span></label>
-                    <label class="float-right limitFont">0/50 words</label>
+                    <label class="float-right limitFont">0/{{ productDescriptionLength }} words</label>
                 </div>
                 <textarea
                     type="text"
                     class="descriptionText-area"
                     placeholder="Tell us a bit about the product "
                     formControlName="description"
-                    maxlength="50"
+                    (keydown)="wordCounter($event)"
                     pInputText
                 ></textarea>
                 <small *ngIf="productForm.controls['description'].errors?.required" class="p-error"> Required </small>
@@ -294,9 +294,14 @@
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
                                 <div>
                                     <label>Recommendation text<span class="star">*</span></label>
-                                    <label class="float-right limitFont">0/10 words</label>
+                                    <label class="float-right limitFont">0/{{ recommendationTextLength }} words</label>
                                 </div>
-                                <input type="text" maxlength="10" formControlName="roaster_recommendation" pInputText />
+                                <input
+                                    type="text"
+                                    (keydown)="wordCounterText($event)"
+                                    formControlName="roaster_recommendation"
+                                    pInputText
+                                />
                                 <small
                                     *ngIf="varient['controls']['roaster_recommendation'].errors?.required"
                                     class="p-error"
