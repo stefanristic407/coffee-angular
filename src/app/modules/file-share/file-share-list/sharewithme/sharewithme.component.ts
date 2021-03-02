@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Action } from '@models';
 import { FileShareService } from '../../file-share.service';
 
 @Component({
@@ -13,9 +14,12 @@ export class SharewithmeComponent implements OnInit, OnDestroy {
     constructor(public fileShareSrv: FileShareService) {}
 
     ngOnInit(): void {
-        this.actionSub = this.fileShareSrv.action$.subscribe((action) => {
-            this.fileShareSrv.getSharedFilesandFolders();
+        this.actionSub = this.fileShareSrv.action$.subscribe((action: Action) => {
+            if (action === Action.REFRESH) {
+                this.fileShareSrv.getSharedFilesandFolders();
+            }
         });
+        this.fileShareSrv.getSharedFilesandFolders();
     }
 
     ngOnDestroy() {

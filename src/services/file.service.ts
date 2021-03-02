@@ -15,6 +15,10 @@ export class FileService extends ApiService {
     // ------------ Farmlink Folders ------------
 
     // Delete the folder details
+    createFolder(body: any) {
+        return this.post(this.url, `file-manager/folders`, 'POST', null, body);
+    }
+    // Delete the folder details
     deleteFolder(id: any) {
         return this.post(this.deleteUrl, `file-manager/folders/${id}`, 'DELETE');
     }

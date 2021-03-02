@@ -1,6 +1,6 @@
 <div *ngIf="(fileShareSrv.viewMode$ | async) === 'table'; else gridView">
     <p-table
-        [value]="fileShareSrv.myFileList | filter: fileShareSrv.filesTerm"
+        [value]="fileShareSrv.mainData"
         [columns]="tableColumns"
         [loading]="fileShareSrv.loading"
         dataKey="id"
@@ -129,23 +129,20 @@
 <ng-template #gridView>
     <ng-container *ngIf="!fileShareSrv.loading; else loading">
         <div *ngIf="listType != 'video'" class="row gutter-20 v-gutter-20 mt-3">
-            <div
-                class="col-md-4 col-lg-3"
-                *ngFor="let item of fileShareSrv.myFileList | filter: fileShareSrv.filesTerm"
-            >
+            <div class="col-md-4 col-lg-3" *ngFor="let item of fileShareSrv.mainData">
                 <app-file-card [data]="item"></app-file-card>
             </div>
         </div>
-        <div *ngIf="listType == 'video'" class="mt-3">
-            <div *ngFor="let folder of fileShareSrv.videoList" class="mb-45 mb-md-5">
-                <div class="row no-wrap gutter-20">
-                    <div class="col-md-4 col-lg-3" *ngFor="let item of folder.files | filter: fileShareSrv.filesTerm">
-                        <app-video-card [data]="item"></app-video-card>
-                    </div>
-                </div>
+        <div *ngIf="listType == 'video'" class="row no-wrap gutter-20 mt-3">
+            <div class="col-md-4 col-lg-3" *ngFor="let item of fileShareSrv.mainData">
+                <app-video-card *ngIf="item.type == 'VIDEO'" [data]="item"></app-video-card>
+                <app-file-card *ngIf="item.type == 'FOLDER'" [data]="item"></app-file-card>
             </div>
         </div>
     </ng-container>
     <ng-template #loading><app-loading></app-loading></ng-template>
 </ng-template>
 <p-menu #menu [popup]="true" [model]="menuItems"></p-menu>
+<ng-container *ngIf="!fileShareSrv.mainData?.length">
+    <app-empty title="No data available"></app-empty>
+</ng-container>

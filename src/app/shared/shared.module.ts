@@ -38,6 +38,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { TabViewModule } from 'primeng/tabview';
 import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
+import { ChipsModule } from 'primeng/chips';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
@@ -143,6 +144,7 @@ const THIRDMODULES = [
     MatVideoModule,
     Ng2TelInputModule,
     ProgressBarModule,
+    ChipsModule,
 ];
 // #endregion
 

@@ -6,7 +6,8 @@
                 <input
                     type="text"
                     pInputText
-                    [(ngModel)]="fileShareSrv.filesTerm"
+                    [(ngModel)]="queryParams.search"
+                    (keyup)="filterCall()"
                     [placeholder]="'search_files' | translate"
                     class="w-100 {{ fileShareSrv.filesTerm ? 'highlight' : '' }}"
                 />
@@ -131,7 +132,10 @@
             <input type="file" (change)="fileShareSrv.uploadFile($event)" />
             <span> {{ 'upload' | translate }} </span>
         </label>
-        <span class="btn-trans-icon plus-icon mb-4 mb-md-0" routerLink="/file-share/create-folder">
+        <span
+            class="btn-trans-icon plus-icon mb-4 mb-md-0"
+            routerLink="/file-share/create-folder/{{ fileShareSrv.folderId }}"
+        >
             <span> {{ 'create_new_folder' | translate }} </span>
         </span>
         <p-calendar
