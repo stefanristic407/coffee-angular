@@ -61,13 +61,12 @@ export class FaqQuestionComponent implements OnInit {
         this.getFAQList();
     }
     navigateAssignTicket() {
-        // const navigationExtras: NavigationExtras = {
-        //     queryParams: {
-        //         disputeID: this.orderID,
-        //         id: this.orderID,
-        //     },
-        // };
-        this.router.navigate(['/dispute-system/raise-ticket', this.orderID]);
+        const navigationExtras: NavigationExtras = {
+            queryParams: {
+                supportValue: this.buttonValue,
+            },
+        };
+        this.router.navigate(['/dispute-system/raise-ticket', this.orderID], navigationExtras);
     }
     getFAQList() {
         this.userService.getDisputeFAQList(this.roasterID).subscribe(

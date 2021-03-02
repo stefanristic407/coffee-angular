@@ -169,4 +169,13 @@ export class OrderChatComponent implements OnInit {
         };
         this.router.navigate(['/dispute-system/assign-user'], navigationExtras);
     }
+
+    onReturnOrder() {
+        const navigationExtras: NavigationExtras = {
+            queryParams: {
+                id: this.orderID,
+            },
+        };
+        this.router.navigate(['/ordermanagement/order-booked'], navigationExtras);
+    }
 }

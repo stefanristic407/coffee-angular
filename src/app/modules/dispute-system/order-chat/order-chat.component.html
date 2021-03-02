@@ -1,7 +1,7 @@
 <div>
     <div class="row m-0 p-3 headerDiv containerDiv d-none d-sm-none d-md-flex">
         <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8 d-flex align-items-center">
-            <div class="back-href cursor-pointer">
+            <div class="back-href cursor-pointer" (click)="onReturnOrder()">
                 <img class="back-arrow-butn mr-2" src="assets/images/do-back-arrow.svg" />
                 {{ globals.languageJson?.return_to_order }}
             </div>
