@@ -10,8 +10,6 @@
         [(selection)]="selectedItems"
         [showCurrentPageReport]="false"
         [paginator]="false"
-        [lazy]="true"
-        (onLazyLoad)="filterCall($event)"
         [totalRecords]="totalCount"
         [responsive]="true"
     >
@@ -52,34 +50,45 @@
                 >
                     <ng-container *ngSwitchCase="'name'">
                         <span class="d-flex justify-content-between align-items-start">
-                            <span class="d-flex align-items-start align-items-md-center">
+                            <span class="col-10 col-md-12 px-0 d-flex align-items-start align-items-md-center">
                                 <img class="file-icon" [src]="rowData.type | fileIcon" alt="upload-icon" />
-                                <div>
+                                <div class="col-10 col-md-12 px-0">
                                     <div
                                         *ngIf="rowData.type == 'FOLDER'"
                                         routerLink="/file-share/file-share-details/{{ rowData.id }}"
+                                        class="ellipsis"
                                     >
                                         {{ rowData[col.field] }}
                                     </div>
                                     <div
                                         *ngIf="rowData.type == 'DOCUMENT'"
                                         (click)="fileShareSrv.downloadFile(rowData)"
+                                        class="ellipsis"
                                     >
                                         {{ rowData[col.field] }}
                                     </div>
                                     <div
                                         *ngIf="rowData.type == 'CSV'"
                                         routerLink="/file-share/file-share-details/{{ rowData.id }}"
+                                        class="ellipsis"
                                     >
                                         {{ rowData[col.field] }}
                                     </div>
-                                    <div *ngIf="rowData.type == 'VIDEO'" (click)="fileShareSrv.preview(rowData)">
+                                    <div
+                                        *ngIf="rowData.type == 'VIDEO'"
+                                        (click)="fileShareSrv.preview(rowData)"
+                                        class="ellipsis"
+                                    >
                                         {{ rowData[col.field] }}
                                     </div>
-                                    <div *ngIf="rowData.type == 'IMAGE'" (click)="fileShareSrv.preview(rowData)">
+                                    <div
+                                        *ngIf="rowData.type == 'IMAGE'"
+                                        (click)="fileShareSrv.preview(rowData)"
+                                        class="ellipsis"
+                                    >
                                         {{ rowData[col.field] }}
                                     </div>
-                                    <div class="fnt-12 lh-normal text-clr588 mt-z5 d-md-none">
+                                    <div class="fnt-12 lh-normal text-clr588 mt-z5 d-md-none ellipsis">
                                         Modified by {{ rowData.owner_name }}
                                     </div>
                                     <div *ngIf="rowData.order_ids" class="fnt-12 lh-normal text-clr588 d-md-none">
@@ -128,15 +137,17 @@
 
 <ng-template #gridView>
     <ng-container *ngIf="!fileShareSrv.loading; else loading">
-        <div *ngIf="listType != 'video'" class="row gutter-20 v-gutter-20 mt-3">
-            <div class="col-md-4 col-lg-3" *ngFor="let item of fileShareSrv.mainData">
-                <app-file-card [data]="item"></app-file-card>
+        <div class="pt-3 pt-md-0">
+            <div *ngIf="listType != 'video'" class="row gutter-20 v-gutter-16 v-gutter-md-20">
+                <div class="col-md-4 col-lg-3" *ngFor="let item of fileShareSrv.mainData">
+                    <app-file-card [data]="item"></app-file-card>
+                </div>
             </div>
-        </div>
-        <div *ngIf="listType == 'video'" class="row no-wrap gutter-20 v-gutter-20 mt-3">
-            <div class="col-md-4 col-lg-3" *ngFor="let item of fileShareSrv.mainData">
-                <app-video-card *ngIf="item.type == 'VIDEO'" [data]="item"></app-video-card>
-                <app-file-card *ngIf="item.type == 'FOLDER'" [data]="item"></app-file-card>
+            <div *ngIf="listType == 'video'" class="row no-wrap gutter-20 v-gutter-16 v-gutter-md-20">
+                <div class="col-md-4 col-lg-3" *ngFor="let item of fileShareSrv.mainData">
+                    <app-video-card *ngIf="item.type == 'VIDEO'" [data]="item"></app-video-card>
+                    <app-file-card *ngIf="item.type == 'FOLDER'" [data]="item"></app-file-card>
+                </div>
             </div>
         </div>
     </ng-container>

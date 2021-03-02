@@ -21,7 +21,7 @@
                     <div class="fnt-16 lh-normal fnt-600 text-clr588">{{ folderDetail?.description }}</div>
                 </div>
 
-                <div class="col-md-4 d-flex flex-column align-items-end px-0 d-none d-md-flex">
+                <div class="col-md-4 flex-column align-items-end px-0 d-none d-md-flex">
                     <span class="btn-trans-icon share-icon" (click)="fileShareSrv.openShareModal(folderDetail)">
                         {{ 'share' | translate }}
                     </span>
@@ -31,20 +31,23 @@
                 </div>
             </div>
 
-            <div class="pt-2 pb-3">
-                <label class="btn-trans-icon upload-icon mr-25 mb-4 mb-md-0">
+            <div class="pt-3">
+                <label class="btn-trans-icon upload-icon mr-25 mb-25 mb-md-0">
                     <input type="file" (change)="fileShareSrv.uploadFile($event)" />
                     <span> {{ 'upload' | translate }} </span>
                 </label>
                 <span
-                    class="btn-trans-icon plus-icon mb-4 mb-md-0"
+                    class="btn-trans-icon plus-icon mb-25 mb-md-0"
                     routerLink="/file-share/create-folder/{{ fileShareSrv.folderId }}"
                 >
                     <span> {{ 'create_new_folder' | translate }} </span>
                 </span>
+                <span class="btn-trans-icon share-icon d-md-none" (click)="fileShareSrv.openShareModal(folderDetail)">
+                    {{ 'share' | translate }}
+                </span>
             </div>
 
-            <div class="position-relative">
+            <div class="position-relative mt-4 mt-md-5 pt-md-25 mb-2 mb-md-45">
                 <div class="filter-sort d-none d-md-block">
                     <p-dropdown
                         [options]="sortItems"
@@ -88,9 +91,7 @@
                         </ng-template>
                     </p-selectButton>
                 </div>
-                <div class="mt-45 mb-2 mb-md-45">
-                    <p-tabMenu [model]="menuItems"></p-tabMenu>
-                </div>
+                <p-tabMenu [model]="menuItems"></p-tabMenu>
             </div>
             <div class="mb-4">
                 <router-outlet></router-outlet>
