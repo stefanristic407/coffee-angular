@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 d-none d-sm-none d-md-block">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 d-none d-sm-none d-md-block">
         <div
             class="nav flex-column nav-pills weightDiv"
             *ngFor="let weight of this.weightForm['value']['weights']; let i = index"
@@ -45,7 +45,7 @@
         </p-dropdown>
     </div>
     <div
-        class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9"
+        class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 mt-md-2"
         [formGroup]="weightForm['controls']['weights']['controls'][currentVarientIndex]"
     >
         <div class="row mt-3">
@@ -204,7 +204,7 @@
         </div>
         <div class="row">
             <div class="col-12 fnt-16 fnt-muli fnt-700 black mt-3 mb-3">Add Images</div>
-            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 sewn-form-field w-100">
                 <label>Upload Feature Image<span class="star">*</span></label>
                 <div
                     *ngIf="!weightForm['controls']['weights']['controls'][currentVarientIndex]['value']['fileDetails']"
@@ -271,7 +271,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-9 row">
                 <div
                     class="col-4 pl-3 sewn-form-field w-100"
                     *ngFor="
