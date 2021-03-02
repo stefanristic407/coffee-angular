@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
+import { FileService } from '@services';
 import { RoasterserviceService } from '@services';
+import { FileShareService } from '../file-share.service';
 
 @Component({
     selector: 'app-edit-folder',
@@ -24,13 +26,21 @@ export class EditFolderComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
+        private route: ActivatedRoute,
         private router: Router,
         private cookieSrv: CookieService,
         private toastrService: ToastrService,
         private globals: GlobalsService,
+        private fileSrv: FileService,
         private roasterSrv: RoasterserviceService,
+        private fileShareSrv: FileShareService,
     ) {
         this.roasterId = this.cookieSrv.get('roaster_id');
+        this.route.paramMap.subscribe((params) => {
+            if (params.has('folderId')) {
+                this.fileShareSrv.folderId = +params.get('folderId');
+            }
+        });
     }
 
     ngOnInit(): void {
@@ -59,10 +69,11 @@ export class EditFolderComponent implements OnInit {
             const postData = {
                 ...this.infoForm.value,
                 file_module: 'File-Share',
+                parent_id: +this.fileShareSrv.folderId,
             };
             this.submitted = true;
             if (this.isCreate) {
-                this.roasterSrv.createFolder(this.roasterId, postData).subscribe((res: any) => {
+                this.fileSrv.createFolder(postData).subscribe((res: any) => {
                     if (res.success) {
                         if (this.invite) {
                             this.record = res.result;

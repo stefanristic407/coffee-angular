@@ -28,7 +28,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-experience.component';
 import { SocialMediaPostsComponent } from './Farm Link/social-media-posts/social-media-posts.component';
-import { AgreementComponent } from './Farm Link/agreement/agreement.component';
 
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
@@ -70,7 +69,6 @@ import { ForumComponent } from './Farm Link/q-a-forum/forum/forum.component';
 import { MyAnswersComponent } from './Farm Link/q-a-forum/my-answers/my-answers.component';
 import { BatchSelectAnOrderComponent } from './batch-select-an-order/batch-select-an-order.component';
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
-import { RoasterAgreementsComponent } from './Farm Link/agreement/roaster-agreements/roaster-agreements.component';
 import { EstateOrdersComponent } from './Farm Link/coffee-experience/estate-orders/estate-orders.component';
 import { MicroRoasterOrdersComponent } from './Farm Link/coffee-experience/micro-roaster-orders/micro-roaster-orders.component';
 import { HorecaOrdersComponent } from './Farm Link/coffee-experience/horeca-orders/horeca-orders.component';
@@ -109,7 +107,6 @@ import { ListboxModule } from 'primeng/listbox';
         LanguageRegionComponent,
         CoffeeExperienceComponent,
         SocialMediaPostsComponent,
-        AgreementComponent,
         ResetPasswordComponent,
         CofeeExpeienceDetailsComponent,
         BlogDetailsComponent,
@@ -147,7 +144,6 @@ import { ListboxModule } from 'primeng/listbox';
         MyAnswersComponent,
         BatchSelectAnOrderComponent,
         SuccessfulPageComponent,
-        RoasterAgreementsComponent,
         EstateOrdersComponent,
         MicroRoasterOrdersComponent,
         HorecaOrdersComponent,

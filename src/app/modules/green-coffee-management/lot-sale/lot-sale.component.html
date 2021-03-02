@@ -31,11 +31,11 @@
                     Manage the price, quantity & delivery charges of coffee marked for sale
                 </div>
                 <div *ngIf="orderDetails" class="border-div">
-                    <div class="row">
+                    <div class="row tabViewModel">
                         <div class="col-12 web-sec fnt-18 text-clr334 fnt-bold pb-2">
                             {{ globals.languageJson?.green_coffee_details }}
                         </div>
-                        <div class="table-container userTable mx-3 mt-2 mb-2 p-1 pt-0 productListTable">
+                        <div class="table-container userTable mx-2 mt-2 mb-2 p-1 pt-0 productListTable">
                             <p-table
                                 #myTable
                                 [class.table-mobile]="sharedService.isMobileView"
@@ -107,13 +107,13 @@
                                         >
                                             <span *ngSwitchCase="'lot_id'" class="">
                                                 <span
-                                                    class="d-none d-sm-none d-md-inline-block text-clr588 fnt-600 text-underline"
+                                                    class="d-none d-sm-none d-md-inline-block text-clr588 fnt-600 text-underline lotIdText"
                                                 >
                                                     {{ rowData['lot_id'] }}
                                                 </span>
 
                                                 <div class="d-block d-sm-block d-md-none row m-0 pb-4">
-                                                    <div class="col-12 row p-3 m-0">
+                                                    <div class="col-12 row p-3 m-0 weightInputGroupDiv">
                                                         <div class="cardBottom p-0 w-100">
                                                             <p class="fnt-16 text-clr334 fnt-bold">
                                                                 {{ globals.languageJson?.green_coffee_details }}
@@ -290,7 +290,7 @@
                         />
                         <small *ngIf="lotSaleForm.controls['name'].errors?.required" class="p-error"> Required </small>
                     </div>
-                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
                         <label>Selling price<span class="star">*</span>(in USD)</label>
                         <div class="input-group weightInputGroupDiv">
                             <input
@@ -301,12 +301,17 @@
                                 pInputText
                             />
 
-                            <div class="input-group-append">
+                            <div class="input-group-append groupPadding">
                                 <p-dropdown
                                     [options]="priceTypeArray"
                                     optionLabel="label"
                                     placeholder=""
-                                    [style]="{ width: '100%', border: '0px', 'background-color': '#f8f8f8' }"
+                                    [style]="{
+                                        width: '100%',
+                                        border: '0px',
+                                        'background-color': '#f8f8f8',
+                                        height: '40px'
+                                    }"
                                     formControlName="price_per_unit"
                                     optionValue="value"
                                 >
@@ -325,7 +330,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
                         <label>Quantity for sale<span class="star">*</span></label>
                         <div class="input-group weightInputGroupDiv">
                             <input
@@ -336,12 +341,17 @@
                                 pInputText
                             />
 
-                            <div class="input-group-append">
+                            <div class="input-group-append groupPadding">
                                 <p-dropdown
                                     [options]="quantityUnitArray"
                                     optionLabel="label"
                                     placeholder="Bags"
-                                    [style]="{ width: '100%', border: '0px', 'background-color': '#f8f8f8' }"
+                                    [style]="{
+                                        width: '100%',
+                                        border: '0px',
+                                        'background-color': '#f8f8f8',
+                                        height: '40px'
+                                    }"
                                     formControlName="quantity_type"
                                     optionValue="value"
                                 >
@@ -358,11 +368,11 @@
                             Required
                         </small>
                     </div>
-                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
-                        <label>Remaining quantity<span class="star">*</span></label>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
+                        <label>Remaining quantity</label>
                         <input type="text" placeholder="-" pInputText disabled />
                     </div>
-                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
                         <label>Minimum order quantity<span class="star">*</span></label>
                         <div class="input-group weightInputGroupDiv">
                             <input
@@ -373,12 +383,17 @@
                                 pInputText
                             />
 
-                            <div class="input-group-append">
+                            <div class="input-group-append groupPadding">
                                 <p-dropdown
                                     [options]="quantityUnitArray"
                                     optionLabel="label"
                                     placeholder="kg"
-                                    [style]="{ width: '100%', border: '0px', 'background-color': '#f8f8f8' }"
+                                    [style]="{
+                                        width: '100%',
+                                        border: '0px',
+                                        'background-color': '#f8f8f8',
+                                        height: '40px'
+                                    }"
                                     formControlName="quantity_type"
                                     optionValue="value"
                                 >
@@ -395,7 +410,7 @@
                             Required
                         </small>
                     </div>
-                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
                         <label>Weight / bag<span class="star">*</span></label>
                         <div class="input-group weightInputGroupDiv">
                             <input
@@ -406,12 +421,17 @@
                                 pInputText
                             />
 
-                            <div class="input-group-append">
+                            <div class="input-group-append groupPadding">
                                 <p-dropdown
                                     [options]="weightTypeArray"
                                     optionLabel="label"
                                     placeholder="kg"
-                                    [style]="{ width: '100%', border: '0px', 'background-color': '#f8f8f8' }"
+                                    [style]="{
+                                        width: '100%',
+                                        border: '0px',
+                                        'background-color': '#f8f8f8',
+                                        height: '40px'
+                                    }"
                                     formControlName="quantity_unit"
                                     optionValue="value"
                                 >
@@ -430,7 +450,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
                         <label>VAT role<span class="star">*</span></label>
                         <p-dropdown
                             [options]="vatDetailsArray"

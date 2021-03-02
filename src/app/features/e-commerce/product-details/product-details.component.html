@@ -6,7 +6,7 @@
     </div>
     <div [formGroup]="productForm" (ngSubmit)="onSave()" novalidate>
         <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 d-none d-sm-none d-md-block">
+            <div *ngIf="productID" class="col-12 col-sm-12 col-md-12 d-none d-sm-none d-md-block">
                 <div class="float-right">
                     <span class="primary_txt pr-3">Product Visibility : </span>
                     <div class="btn-group toggleDiv">
@@ -16,7 +16,7 @@
                             id="activeStatus"
                             (click)="togglePublic(true)"
                         >
-                            Active
+                            Public
                         </div>
                         <div
                             class="btn disbableBtn"
@@ -24,12 +24,12 @@
                             [ngClass]="!productForm['controls']['is_public']['value'] ? 'enableBtn' : ''"
                             id="disableStatus"
                         >
-                            Disable
+                            Private
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-12 row d-flex d-sm-flex d-md-none pr-0">
+            <div *ngIf="productID" class="col-12 col-sm-12 col-md-12 row d-flex d-sm-flex d-md-none pr-0">
                 <div class="col-6 d-flex align-items-center">
                     <span class="primary_txt font-14">Product Visibility : </span>
                 </div>
@@ -41,7 +41,7 @@
                             id="activeStatus"
                             (click)="togglePublic(true)"
                         >
-                            Active
+                            Public
                         </div>
                         <div
                             class="btn disbableBtn"
@@ -49,7 +49,7 @@
                             [ngClass]="!productForm['controls']['is_public']['value'] ? 'enableBtn' : ''"
                             id="disableStatus"
                         >
-                            Disable
+                            Private
                         </div>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                 <input type="text" placeholder="product name" formControlName="name" pInputText />
                 <small *ngIf="productForm.controls['name'].errors?.required" class="p-error"> Required </small>
             </div>
-            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
                 <label>Product eligible for<span class="star">*</span></label>
                 <p-dropdown
                     [options]="eligibleArray"
@@ -76,21 +76,25 @@
         </div>
         <div class="row mt-2">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
-                <label>Product Description<span class="star">*</span></label>
+                <div>
+                    <label>Product Description<span class="star">*</span></label>
+                    <label class="float-right limitFont">0/50 words</label>
+                </div>
                 <textarea
                     type="text"
                     class="descriptionText-area"
                     placeholder="Tell us a bit about the product "
                     formControlName="description"
+                    maxlength="50"
                     pInputText
                 ></textarea>
                 <small *ngIf="productForm.controls['description'].errors?.required" class="p-error"> Required </small>
             </div>
         </div>
         <div class="divSeperator"></div>
-        <div class="row no-gutters mb-5">
+        <div class="row no-gutters mb-3">
             <div class="col-12">
-                <span class="primary_txt">Variants</span>
+                <span class="primary_txt font-16">Variants</span>
             </div>
             <div class="col-12 col-sm-12 col-md-8 mt-2 p-0">
                 <p-checkbox
@@ -104,7 +108,7 @@
                 *ngIf="productForm['value']['is_variants_included']"
                 class="col-12 col-sm-12 col-md-4 d-none d-sm-none d-md-block"
             >
-                <div class="pull-right addWeightDiv">
+                <div class="pull-right addNewWeightDiv">
                     <img class="" src="assets/images/add_grey.svg" />
                     <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer" (click)="addNewVarients()">
                         Add new variant
@@ -147,7 +151,7 @@
                         <span>{{ varient['value']['varient_name'] }}</span>
                     </ng-template>
                     <div [formGroupName]="i">
-                        <div class="row mt-4">
+                        <div class="row mt-3">
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
                                 <label>Select roasted coffee batch<span class="star">*</span></label>
                                 <p-dropdown
@@ -188,7 +192,7 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col-12 mb-3">
-                                <span class="primary_txt">Estate Details</span>
+                                <span class="primary_txt font-16">Estate Details</span>
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
                                 <label>Estate Name<span class="star">*</span></label>
@@ -209,7 +213,7 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col-12 mb-3">
-                                <span class="primary_txt">Tasting notes</span>
+                                <span class="primary_txt font-16">Tasting notes</span>
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
                                 <label>Body<span class="star">*</span></label>
@@ -263,7 +267,6 @@
                                     type="text"
                                     class="roasterDivText-area"
                                     placeholder=""
-                                    readonly
                                     formControlName="recipes"
                                     pInputText
                                 ></textarea>
@@ -271,9 +274,9 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col-12 mb-3">
-                                <span class="primary_txt">Recommended brewing method</span>
+                                <span class="primary_txt font-16">Recommended brewing method</span>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
                                 <label>Select a brewing method<span class="star">*</span></label>
                                 <p-dropdown
                                     [options]="brewingMethodArray"
@@ -291,9 +294,9 @@
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
                                 <div>
                                     <label>Recommendation text<span class="star">*</span></label>
-                                    <label class="float-right">0/10 words</label>
+                                    <label class="float-right limitFont">0/10 words</label>
                                 </div>
-                                <input type="text" formControlName="roaster_recommendation" pInputText />
+                                <input type="text" maxlength="10" formControlName="roaster_recommendation" pInputText />
                                 <small
                                     *ngIf="varient['controls']['roaster_recommendation'].errors?.required"
                                     class="p-error"
@@ -305,7 +308,7 @@
                         <div class="divSeperator"></div>
                         <div class="row">
                             <div class="col-12 mb-3">
-                                <span class="primary_txt">Product Weights</span>
+                                <span class="primary_txt font-16">Product Weights</span>
                             </div>
                             <div class="col-12">
                                 <app-varient-details
@@ -321,7 +324,7 @@
             </p-tabView>
         </div>
         <div class="col-12 p-0 mb-3">
-            <span class="primary_txt">Boxes details</span><br />
+            <span class="primary_txt font-16">Boxes details</span><br />
             <span>Add values per crate to let your customer know</span>
         </div>
         <div
@@ -330,17 +333,17 @@
             class="mt-4"
         >
             <div [formGroupName]="i" class="row mt-2">
-                <div class="col-3 col-sm-2 col-md-2 col-md-2 col-lg-2 col-xl-2 sewn-form-field w-100 pr-0">
+                <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-2 sewn-form-field w-100 pr-0">
                     <label>Box value<span class="star">*</span></label>
                     <input type="text" placeholder="" readonly formControlName="crate_unit" pInputText />
                 </div>
                 <div class="equal-operators">=</div>
-                <div class="col-3 col-sm-2 col-md-2 col-md-2 col-lg-2 col-xl-2 sewn-form-field w-100 pl-0 pr-0">
+                <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-2 sewn-form-field w-100 pl-0 pr-0">
                     <label>Weight<span class="star">*</span></label>
                     <input type="number" readonly placeholder="" formControlName="weight" pInputText />
                 </div>
                 <div class="equal-operators pl-2 pr-2">x</div>
-                <div class="col-3 col-sm-2 col-md-2 col-md-2 col-lg-2 col-xl-2 sewn-form-field w-100 pl-0">
+                <div class="col-4 col-sm-4 col-md-3 col-lg-3 col-xl-2 sewn-form-field w-100 pl-0">
                     <label class="d-none d-sm-none d-md-block">Number of bags<span class="star">*</span></label>
                     <label class="d-block d-sm-block d-md-none">No. of bags<span class="star">*</span></label>
                     <input type="number" placeholder="" formControlName="crate_capacity" pInputText />
@@ -350,7 +353,7 @@
         </div>
         <div class="divSeperator"></div>
         <div class="row mt-4">
-            <div class="col-12 mb-3"><span class="primary_txt">VAT Details</span><br /></div>
+            <div class="col-12 mb-3"><span class="primary_txt font-16">VAT Details</span><br /></div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
                 <label>Select VAT trasaction type<span class="star">*</span></label>
                 <p-dropdown
@@ -365,12 +368,12 @@
                     Required
                 </small>
             </div>
-            <div class="col-12 col-sm-12 col-md-3 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
                 <label>Is the product price inclusive of VAT<span class="star">*</span></label>
                 <p-checkbox
                     formControlName="is_price_including_vat"
                     binary="true"
-                    class="mt-3"
+                    class="mt-1"
                     label="The price is inclusive of VAT"
                 >
                 </p-checkbox>
@@ -379,15 +382,15 @@
         <div class="row mt-4 d-none d-sm-none d-md-flex">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                 <button type="button" class="btn btn-stroked" (click)="onCancel()">Cancel</button>
-                <button type="submit" class="btn btn-raised ml-4" (click)="onSave()">Save</button>
+                <button type="submit" class="btn btn-raised ml-3" (click)="onSave()">Save</button>
             </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                <button type="button" class="btn btn-raised pull-right" (click)="onSave()">Publish</button>
+            <div *ngIf="!productID" class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <button type="button" class="btn btn-raised pull-right" (click)="togglePublic(true)">Publish</button>
             </div>
         </div>
         <div class="row mt-4 d-block d-sm-block d-md-none">
-            <div class="col-12 col-sm-12">
-                <button type="button" class="btn btn-raised w-100" (click)="onSave()">Publish</button>
+            <div *ngIf="!productID" class="col-12 col-sm-12">
+                <button type="button" class="btn btn-raised w-100" (click)="togglePublic(true)">Publish</button>
             </div>
             <div class="col-12 col-sm-12 mt-3">
                 <button type="submit" class="btn btn-raised w-100">Save</button>

@@ -28,7 +28,9 @@ export class AssignUserComponent implements OnInit {
 
     ngOnInit(): void {
         this.orderID = decodeURIComponent(this.route.snapshot.queryParams.id);
-        this.disputeID = decodeURIComponent(this.route.snapshot.queryParams.disputeID);
+        this.disputeID = this.route.snapshot.queryParams.disputeID
+            ? decodeURIComponent(this.route.snapshot.queryParams.disputeID)
+            : undefined;
         this.roasterId = this.cookieService.get('roaster_id');
     }
     onSearch(event) {
@@ -58,7 +60,8 @@ export class AssignUserComponent implements OnInit {
     }
     onAssign() {
         const user = { user_id: this.userDetails.id };
-        this.roasterService.assignUserDispute(this.roasterId, this.disputeID, user).subscribe(
+        const assignID = this.disputeID ? this.disputeID : this.orderID;
+        this.roasterService.assignUserDispute(this.roasterId, assignID, user).subscribe(
             (res: any) => {
                 console.log(res);
                 if (res && res.success) {

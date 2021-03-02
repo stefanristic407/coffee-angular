@@ -36,8 +36,8 @@ export class NewRoastedBatchComponent implements OnInit {
     roastProfileArray: any = [];
     weightTypeArray: any = '';
     ordId: any;
-    isflavourProfile = false;
-
+    // isflavourProfile = false;
+    getFlavourArray: any = [];
     constructor(
         public globals: GlobalsService,
         public userService: UserserviceService,
@@ -54,7 +54,6 @@ export class NewRoastedBatchComponent implements OnInit {
     ngOnInit(): void {
         this.appLanguage = this.globals.languageJson;
         this.getRoastingProfiles();
-        this.getRoasterFlavourProfile();
 
         if (this.route.snapshot.queryParams.batchId && this.route.snapshot.queryParams.ordId) {
             this.batchId = decodeURIComponent(this.route.snapshot.queryParams.batchId);
@@ -66,8 +65,10 @@ export class NewRoastedBatchComponent implements OnInit {
         } else if (this.route.snapshot.queryParams.ordId) {
             this.ordId = decodeURIComponent(this.route.snapshot.queryParams.ordId);
             this.getOrderDetails();
+            this.getRoasterFlavourProfile();
         } else {
             this.ordId = 'select the order';
+            this.getRoasterFlavourProfile();
         }
         this.batchForm = this.fb.group({
             roast_batch_name: ['', Validators.compose([Validators.required])],
@@ -111,24 +112,6 @@ export class NewRoastedBatchComponent implements OnInit {
         this.breadCrumbItem.push(obj2);
         this.breadCrumbItem.push(obj3);
     }
-    addLang(value: any) {
-        const id = value.id;
-        const name = value.name;
-        this.isflavourProfile = false;
-        if ((name || '').trim()) {
-            this.langChips.push(value);
-            this.flavourProfileArray.push(id);
-        }
-    }
-
-    remove(lang: any): void {
-        const index = this.langChips.indexOf(lang);
-        console.log(this.flavourProfileArray);
-        if (index >= 0) {
-            this.langChips.splice(index, 1);
-            this.flavourProfileArray.splice(index, 1);
-        }
-    }
 
     getRoastedBatch() {
         this.userService.getRoastedBatchDetail(this.roasterId, this.batchId).subscribe((res) => {
@@ -139,8 +122,7 @@ export class NewRoastedBatchComponent implements OnInit {
                         id: element.flavour_profile_id,
                         name: element.flavour_profile_name,
                     };
-                    this.langChips.push(chips);
-                    this.flavourProfileArray.push(element.flavour_profile_id);
+                    this.getFlavourArray.push(chips);
                 });
                 const batchDetails = res.result;
                 const batchFields = [
@@ -163,6 +145,7 @@ export class NewRoastedBatchComponent implements OnInit {
                     this.batchForm.controls[ele].setValue(getValue);
                 });
             }
+            this.getRoasterFlavourProfile();
         });
     }
 
@@ -187,6 +170,15 @@ export class NewRoastedBatchComponent implements OnInit {
         this.userService.getRoasterFlavourProfile(this.roasterId).subscribe((data) => {
             if (data.success) {
                 this.roasterFlavourProfile = data.result;
+                this.langChips = [];
+                if (this.getFlavourArray.length > 0) {
+                    this.getFlavourArray.forEach((element) => {
+                        const findObj = data.result.find((item) => item.name === element.name);
+                        if (findObj) {
+                            this.langChips.push(findObj);
+                        }
+                    });
+                }
             } else {
                 this.toastrService.error('Error while getting the roasting Flavour Profile');
             }
@@ -257,6 +249,9 @@ export class NewRoastedBatchComponent implements OnInit {
     }
     onSave() {
         if (this.validateForms()) {
+            this.flavourProfileArray = this.langChips.map((ele) => {
+                return ele.id;
+            });
             if (this.flavourProfileArray.length > 0) {
                 const productObj = this.batchForm.value;
                 productObj.flavour_profile = this.flavourProfileArray;
@@ -269,11 +264,11 @@ export class NewRoastedBatchComponent implements OnInit {
                     this.createRoastedBatch(productObj);
                 }
             } else {
-                this.isflavourProfile = true;
+                // this.isflavourProfile = true;
+                this.toastrService.error('Please fill Flavour Profile');
             }
         } else {
             this.batchForm.markAllAsTouched();
-
             this.toastrService.error('Please fill all Data');
         }
     }
@@ -288,6 +283,18 @@ export class NewRoastedBatchComponent implements OnInit {
             this.router.navigate(['/roasted-coffee-batch/select-order-list'], navigationExtras);
         } else {
             this.router.navigate(['/roasted-coffee-batch/select-order-list']);
+        }
+    }
+
+    addLangProfile(event) {
+        const existedItem = this.langChips.find((item) => item.id === event.value.id);
+        if (existedItem) {
+            return;
+        }
+        const name = event.value.name;
+
+        if ((name || '').trim() && event.value) {
+            this.langChips = [...this.langChips, event.value];
         }
     }
 }

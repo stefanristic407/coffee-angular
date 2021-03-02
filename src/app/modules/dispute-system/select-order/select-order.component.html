@@ -13,6 +13,20 @@
             <div class="secondary_txt">Please select one ongoing order to raise a ticket for</div>
         </div>
     </div>
+    <div class="row">
+        <div *ngIf="selectedOrder" class="col-12 d-none d-sm-none d-md-flex">
+            <button class="btn btn-stroked ml-auto" [routerLink]="['/dispute-system/order-chat/', orderID]">
+                {{ globals.languageJson?.cancel }}
+            </button>
+            <button class="btn btn-raised ml-3" (click)="onContinue()">Continue</button>
+        </div>
+        <div *ngIf="selectedOrder" class="col-12 d-flex d-sm-flex d-md-none">
+            <button class="btn btn-stroked flex-grow-1" [routerLink]="['/dispute-system/order-chat/', orderID]">
+                {{ globals.languageJson?.cancel }}
+            </button>
+            <button class="btn btn-raised ml-3 flex-grow-1" (click)="onContinue()">Continue</button>
+        </div>
+    </div>
     <div class="row tabPadding">
         <div class="col-12">
             <p-tabView [(activeIndex)]="currentIndex" (onChange)="onTabChange($event)">
@@ -253,20 +267,6 @@
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
-    </div>
-    <div class="row mt-5">
-        <div *ngIf="selectedOrder" class="col-12 d-none d-sm-none d-md-flex">
-            <button class="btn btn-stroked ml-auto" [routerLink]="['/dispute-system/order-chat/', orderID]">
-                {{ globals.languageJson?.cancel }}
-            </button>
-            <button class="btn btn-raised ml-3" (click)="onContinue()">Continue</button>
-        </div>
-        <div *ngIf="selectedOrder" class="col-12 d-flex d-sm-flex d-md-none">
-            <button class="btn btn-stroked flex-grow-1" [routerLink]="['/dispute-system/order-chat/', orderID]">
-                {{ globals.languageJson?.cancel }}
-            </button>
-            <button class="btn btn-raised ml-3 flex-grow-1" (click)="onContinue()">Continue</button>
         </div>
     </div>
 </div>

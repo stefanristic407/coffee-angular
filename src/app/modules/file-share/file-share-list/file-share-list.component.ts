@@ -12,11 +12,12 @@ export class FileShareListComponent implements OnInit {
     menuItems: any[];
     rangeDates: Date[];
     showQuicker = true;
+    queryParams: any;
 
     constructor(public fileShareSrv: FileShareService, public globals: GlobalsService) {}
 
     ngOnInit(): void {
-        this.fileShareSrv.folderId = null;
+        this.fileShareSrv.folderId = 0;
         this.breadItems = [
             { label: this.globals.languageJson?.home, routerLink: '/' },
             { label: this.globals.languageJson?.file_share },
@@ -26,9 +27,14 @@ export class FileShareListComponent implements OnInit {
             { label: this.globals.languageJson?.shared_with_me, routerLink: ['/file-share/shared-files'] },
         ];
 
+        this.fileShareSrv.clearQueryParams();
+        this.queryParams = { ...this.fileShareSrv.queryParams.getValue() };
+
         this.fileShareSrv.getPinnedFilesorFolders();
         this.fileShareSrv.viewMode.next('table');
     }
 
-    filterCall() {}
+    filterCall() {
+        this.fileShareSrv.queryParams.next({ ...this.queryParams });
+    }
 }

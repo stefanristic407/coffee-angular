@@ -205,6 +205,18 @@ export class MarkedSaleComponent implements OnInit {
         link = [`/green-coffee-management/green-coffee-for-sale-details/${item.order_id}`];
         return link;
     }
+    lotSaleReirection(item) {
+        if (item.status !== 'SOLD') {
+            const navigationExtras: NavigationExtras = {
+                queryParams: {
+                    orderId: encodeURIComponent(item.order_id),
+                },
+            };
+            this.router.navigate(['/green-coffee-management/lot-sale'], navigationExtras);
+        } else {
+            this.toastrService.error('Cannot Edit! ,The item is already been sold');
+        }
+    }
     deleteProductFromList(deleteId) {
         this.roasterService.deleteProcuredCoffee(this.roasterID, deleteId).subscribe(
             (response) => {

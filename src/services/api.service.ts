@@ -63,7 +63,6 @@ export class ApiService {
     }
 
     private getDto(apiCall: string, method: string, query?: object, data?: object): RequestDto {
-        console.log(query);
         const dto: RequestDto = {
             api_call: `/${this.orgType}/${this.orgId}/${apiCall}${query ? '?' + this.serializeParams(query) : ''}`,
             method,

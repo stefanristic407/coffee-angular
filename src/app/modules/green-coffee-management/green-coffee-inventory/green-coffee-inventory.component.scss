@@ -16,11 +16,11 @@
 }
 
 .file-share-search {
-    display: inline-block;
+    display: flex;
     border-radius: 4px;
     border: solid 1px #d6d6d6;
     background-color: #ffffff;
-    padding: 5px 44px 5px 10px;
+    padding: 5px 10px 5px 10px;
 }
 ::ng-deep .breadCrumb .p-breadcrumb ul {
     width: max-content;

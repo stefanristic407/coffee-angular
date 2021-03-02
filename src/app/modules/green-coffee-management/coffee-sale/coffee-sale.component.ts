@@ -51,8 +51,8 @@ export class CoffeeSaleComponent implements OnInit {
             { label: `Order #${this.orderID}` },
         ];
         this.quantityUnitArray = [
-            { label: 'Bags', value: 'Bags' },
-            { label: 'Kg', value: 'Kg' },
+            { label: 'Bags', value: 'bags' },
+            { label: 'Kg', value: 'kg' },
         ];
         this.priceTypeArray = [
             { label: 'Per kg', value: 'kg' },
@@ -71,14 +71,14 @@ export class CoffeeSaleComponent implements OnInit {
         this.coffeeSaleForm = this.fb.group({
             name: ['', Validators.compose([Validators.required])],
             price: ['', Validators.compose([Validators.required])],
-            price_per_unit: ['', Validators.compose([Validators.required])],
+            price_per_unit: ['kg', Validators.compose([Validators.required])],
             quantity: ['', Validators.compose([Validators.required])],
-            quantity_type: ['', Validators.compose([Validators.required])],
+            quantity_type: ['bags', Validators.compose([Validators.required])],
             quantity_count: ['', Validators.compose([Validators.required])],
-            quantity_unit: ['', Validators.compose([Validators.required])],
+            quantity_unit: ['kg', Validators.compose([Validators.required])],
             minimum_purchase_quantity: ['', Validators.compose([Validators.required])],
             vat_settings_id: ['', Validators.compose([Validators.required])],
-            status: ['', Validators.compose([Validators.required])],
+            status: ['IN_STOCK', Validators.compose([Validators.required])],
         });
     }
     ngOnInit(): void {
@@ -238,6 +238,7 @@ export class CoffeeSaleComponent implements OnInit {
         return returnFlag;
     }
     onSave(): void {
+        console.log(this.coffeeSaleForm.value);
         if (this.validateForms()) {
             const productObj = this.coffeeSaleForm.value;
             this.createMarkForSale(productObj);

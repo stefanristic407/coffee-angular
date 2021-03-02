@@ -17,9 +17,10 @@
     color: #979797;
     font-size: 12px;
 }
-.addWeightDiv {
+.addNewWeightDiv {
     border: 1px solid #747588;
-    padding: 8px 16px 8px 12px;
+    padding: 4px 8px;
+    height: 34px;
     border-radius: 2px;
 }
 .descriptionText-area {
@@ -34,6 +35,17 @@
     background-color: #747588;
     color: #fff;
     margin: 5px;
+}
+.limitFont {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: right;
+    color: #ababab;
 }
 
 ::ng-deep .isProductOption .p-tabview .p-tabview-nav {

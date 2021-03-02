@@ -13,6 +13,7 @@ import { EditFileComponent } from './edit-file/edit-file.component';
 import { ShareComponent } from './share/share.component';
 import { BehaviorSubject } from 'rxjs';
 import * as _ from 'underscore';
+import { Action, FileType } from '@models';
 
 @Injectable({
     providedIn: 'root',
@@ -24,12 +25,18 @@ export class FileShareService {
     filterTerm: any;
     roasterId: any;
     folderId: any = null;
-    myFileList: any;
-    videoList: any;
+    allFiles: any;
+    fileTree: any = {};
+    mainData: any[] = [];
     viewMode: any = new BehaviorSubject('grid');
     viewMode$: any = this.viewMode.asObservable();
-    action: any = new BehaviorSubject('');
+    action: any = new BehaviorSubject(Action.EMPTY);
     action$: any = this.action.asObservable();
+    queryParams: any = new BehaviorSubject({
+        search: '',
+        type: '',
+    });
+    queryParams$: any = this.queryParams.asObservable();
 
     constructor(
         public dialogSrv: DialogService,
@@ -40,10 +47,45 @@ export class FileShareService {
         public cookieService: CookieService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
+        this.queryParams$.subscribe((params: any) => {
+            this.filterData();
+        });
     }
 
+    // Broadcast require refresh
     refresh() {
-        this.action.next('refresh');
+        this.action.next(Action.REFRESH);
+    }
+
+    // Broadcast data retrieved event
+    dataRetrieved() {
+        this.action.next(Action.DATA_RETRIEVED);
+    }
+
+    clearQueryParams() {
+        this.queryParams.next({
+            search: '',
+            type: '',
+        });
+    }
+
+    filterData() {
+        const search = this.queryParams.getValue().search || '';
+        const type = this.queryParams.getValue().type;
+        if (this.fileTree && this.fileTree[this.folderId]) {
+            this.mainData = this.fileTree[this.folderId].children.filter((element) => {
+                return (
+                    element.name.toLowerCase().indexOf(search.toLowerCase()) >= 0 &&
+                    (!type ||
+                        type.indexOf(element.type) >= 0 ||
+                        (type === FileType.VIDEO &&
+                            element.type === FileType.FOLDER &&
+                            this.fileTree[element.id].videoCnt > 0))
+                );
+            });
+        } else {
+            this.mainData = null;
+        }
     }
 
     getFilesandFolders() {
@@ -51,62 +93,15 @@ export class FileShareService {
         this.fileSrv
             .getFilesandFolders({
                 file_module: 'File-Share',
-                parent_id: this.folderId,
             })
             .subscribe((res: any) => {
                 this.loading = false;
                 if (res.success) {
-                    console.log('File List:', res.result);
-                    this.myFileList = res.result;
-                } else {
-                    this.toastrService.error('Error while getting the Files and Folders');
-                }
-            });
-    }
-
-    getDocuments() {
-        this.loading = true;
-        this.fileSrv
-            .getFilesandFolders({
-                file_module: 'File-Share',
-                parent_id: this.folderId,
-                type_in: 'FOLDER,DOCUMENT,CSV,IMAGE',
-            })
-            .subscribe((res: any) => {
-                this.loading = false;
-                if (res.success) {
-                    console.log('File List:', res.result);
-                    this.myFileList = res.result;
-                } else {
-                    this.toastrService.error('Error while getting the Files and Folders');
-                }
-            });
-    }
-
-    getVideos() {
-        this.loading = true;
-        this.fileSrv
-            .getFilesandFolders({
-                file_module: 'File-Share',
-                parent_id: this.folderId,
-                type_in: 'VIDEO',
-            })
-            .subscribe((res: any) => {
-                this.loading = false;
-                if (res.success) {
-                    console.log('File List:', res.result);
-                    this.myFileList = res.result;
-                    this.videoList = _.chain(this.myFileList)
-                        .groupBy('parent_id')
-                        .map((value, key) => {
-                            return {
-                                key,
-                                folderName: value[0].parent_name,
-                                files: value,
-                            };
-                        })
-                        .value();
-                    console.log(this.videoList);
+                    this.allFiles = res.result;
+                    this.fileTree = {};
+                    this.makeFolderTree({ id: 0 });
+                    this.filterData();
+                    this.dataRetrieved();
                 } else {
                     this.toastrService.error('Error while getting the Files and Folders');
                 }
@@ -118,11 +113,39 @@ export class FileShareService {
         this.roasterService.getSharedFilesandFolders(this.roasterId).subscribe((res: any) => {
             this.loading = false;
             if (res.success) {
-                this.myFileList = res.result;
+                this.allFiles = res.result;
+                this.fileTree = {};
+                this.makeFolderTree({ id: 0 });
+                this.filterData();
+                this.dataRetrieved();
             } else {
                 this.toastrService.error('Error while getting the Shared Files and Folders');
             }
         });
+    }
+
+    makeFolderTree(folder, originParents: any[] = []): number {
+        if (folder.id !== 0 && folder.type !== 'FOLDER') {
+            return;
+        }
+        const parents = JSON.parse(JSON.stringify(originParents));
+        if (folder.parent_id) {
+            parents.push(folder.parent_id);
+        }
+        const items: any[] = this.allFiles.filter((element) => element.parent_id === folder.id);
+        let videoCnt = 0;
+        const children = [];
+        items.forEach((element) => {
+            children.push(element);
+            if (element.type === 'VIDEO') {
+                videoCnt++;
+            }
+            if (element.type === 'FOLDER') {
+                videoCnt += this.makeFolderTree(element, parents);
+            }
+        });
+        this.fileTree = { ...this.fileTree, [folder.id]: { ...folder, videoCnt, parents, children } };
+        return videoCnt;
     }
 
     getPinnedFilesorFolders() {

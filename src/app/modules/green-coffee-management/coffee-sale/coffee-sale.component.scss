@@ -113,9 +113,14 @@
 }
 .input-group-append {
     border: 0px !important;
-    padding: 0px;
+    padding: 4px;
     width: auto;
 }
+::ng-deep .groupPadding .p-dropdown .p-inputtext {
+    position: relative;
+    bottom: 4px;
+}
+
 ::ng-deep .productListTable .p-checkbox {
     margin-left: 0px;
 }
@@ -136,5 +141,13 @@
         position: relative;
         overflow: auto !important;
         width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    .tabViewModel {
+        display: inline !important;
+    }
+    .lotIdText {
+        padding-left: 30px;
     }
 }

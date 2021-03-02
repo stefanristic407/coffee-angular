@@ -24,6 +24,7 @@ export class RaiseTicketComponent implements OnInit {
     roasterID: any;
     filesArray = [];
     disputeID: string;
+    supportValue: any = '';
     constructor(
         public globals: GlobalsService,
         private fb: FormBuilder,
@@ -40,19 +41,25 @@ export class RaiseTicketComponent implements OnInit {
             this.orderID = params.orderId ? params.orderId : '';
             this.getOrderDetails();
         });
+        if (this.route.snapshot.queryParams.supportValue) {
+            this.supportValue = decodeURIComponent(this.route.snapshot.queryParams.supportValue);
+        }
         this.supplyBreadCrumb();
         this.ticketForm = this.fb.group({
             orderID: [{ value: this.orderID, disabled: true }, Validators.compose([Validators.required])],
-            dispute_type: ['', Validators.compose([Validators.required])],
+            dispute_type: [this.supportValue, Validators.compose([Validators.required])],
             dispute_reason: [''],
             description: ['', Validators.compose([Validators.required])],
             solution: [''],
             images: [],
         });
         this.helpTextArray = [
+            { label: 'Buying Coffee', value: 'Buying Coffee' },
+            { label: 'Requesting Samples', value: 'Requesting Samples' },
             { label: 'Payment', value: 'Payment' },
-            { label: 'Order', value: 'Order' },
-            { label: 'Test', value: 'Test' },
+            { label: 'Coffee Bulks', value: 'Coffee Bulks' },
+            { label: 'Shipping', value: 'Shipping' },
+            { label: 'Others', value: 'Others' },
         ];
         this.reasonTextArray = [
             {

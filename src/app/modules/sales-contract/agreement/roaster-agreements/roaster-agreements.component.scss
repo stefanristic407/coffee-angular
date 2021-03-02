@@ -22,7 +22,9 @@
     background-color: #f8f8f8;
 }
 
-table th, table td, .header-row {
+table th,
+table td,
+.header-row {
     border: none !important;
 }
 
@@ -112,21 +114,16 @@ tr:last-child {
     top: 6px;
 }
 
-@media (max-width:1024px) {
-    .estate-table {
-        overflow: scroll;
-    }
+@media (max-width: 1024px) {
     .estate-table table {
         width: 1024px;
     }
 }
-
-@media (max-width:480px) {
+@media (max-width: 480px) {
     .estate-orders {
         margin: 1rem 0px;
     }
 }
-
 .share-txt {
     font-family: 'Muli';
     font-size: 14px;
@@ -135,100 +132,79 @@ tr:last-child {
     position: relative;
     top: 2px;
 }
-
 .text-black2424 {
     color: #232334;
 }
-
 .dwnd-img {
     width: 15px;
     height: 15px;
     position: relative;
     right: 6%;
 }
-
 .share-bor {
     cursor: pointer;
     padding: 8px 12px 9px 12px;
     border-radius: 2px;
     border: solid 1px #747588;
 }
-
 .upload-order {
     background-color: #ffffff;
     padding: 8px 12px;
 }
-
 .file-input {
     opacity: 0;
     visibility: hidden;
     display: none;
 }
-
 .cust-pad-left {
     padding-left: 2.5rem !important;
 }
-
 .cust-width {
     width: 40%;
 }
-
 /* MOdal popup css */
-
 button:disabled {
-    opacity: .5 !important;
+    opacity: 0.5 !important;
 }
-
 .custom-width-30 {
     width: 20%;
 }
-
 .star-mark {
     color: #d50000;
 }
-
 .modal-content {
     padding: 15px !important;
 }
-
 .modal-header {
     padding: 0 0 15px 0 !important;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
-
 .modal-content .close {
     padding: 0 !important;
     margin: 0 !important;
 }
-
 .modal-content .close span {
     font-size: 35px;
     line-height: 0;
 }
-
 .modal-content .close:focus {
     box-shadow: none !important;
     outline: 0;
     border: 0;
 }
-
 .modal-body {
     padding: 15px 0 0 0 !important;
 }
-
 .modal-backdrop {
     background-color: rgb(0, 0, 0) !important;
 }
-
 .modal-backdrop.show {
     opacity: 0.8 !important;
 }
-
 .modal-footer {
     border: 0 !important;
     padding: 15px 0 0 0 !important;
 }
-
 @media (min-width: 768px) {
     .modal-content {
         padding: 20px !important;
@@ -243,7 +219,6 @@ button:disabled {
         padding: 20px 0 0 0 !important;
     }
 }
-
 @media (min-width: 992px) {
     .modal-header {
         padding: 0 0 25px 0 !important;
@@ -269,22 +244,26 @@ button:disabled {
         padding: 12px 38px;
     }
 }
-
 /*  media query Fram Link */
-
-@media (max-width:767px) {
+@media (max-width: 767px) {
     .bg-fff {
-        padding: 1rem .7rem;
+        padding: 1rem 0.7rem;
     }
     .estate-table {
-        margin: 1rem 0rem;
+        margin: -1.5rem 0rem;
     }
     .mobile-ce p {
-        margin-bottom: .5rem !important;
+        margin-bottom: 0rem !important;
     }
-    .bor-d6d6 {
-        border-top: 2px dashed #d6d6d6;
-        padding-bottom: 5px;
+    .bg-f4f4 {
+        background: #f8f8f8;
+    }
+    .bor-bot-d6d6 {
+        border-bottom: 2px dashed #d6d6d6 !important;
+    }
+    .bor-ebe {
+        border: 1px solid #ebebeb;
+        border-radius: 4px;
     }
     .agreement-top {
         margin-top: 2rem;
@@ -296,36 +275,30 @@ button:disabled {
         top: 8px;
     }
 }
-
 @media (max-width: 480px) {
     .custom-width-30 {
         width: 30%;
     }
 }
-
 @media (max-width: 360px) {
     .custom-width-30 {
         width: 34%;
     }
 }
-
 .delete__text {
     color: #5d5d5d;
 }
-
 .p-invalid {
     font-family: 'Muli';
     font-size: 14px;
     font-weight: 600;
     color: #d50000;
 }
-
 .arrow-align {
     width: 20px;
     position: relative;
     bottom: 2px;
 }
-
 .file_url {
     color: #232334 !important;
     font-size: 14px;
@@ -333,7 +306,6 @@ button:disabled {
     font-family: 'Muli';
     text-decoration: none !important;
 }
-
 .oh-noh {
     font-family: 'PlayfairDisplay';
     font-size: 24px;
@@ -344,17 +316,14 @@ button:disabled {
     letter-spacing: 0.4px;
     color: #020202;
 }
-
 #bord-right {
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
 }
-
 #bord-left {
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
 }
-
 .custom-radio {
     display: block;
     position: relative;
@@ -369,13 +338,11 @@ button:disabled {
     font-weight: normal;
     color: #020202;
 }
-
 .custom-radio input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
 }
-
 .checkmark {
     position: absolute;
     top: 0;
@@ -386,21 +353,17 @@ button:disabled {
     border-radius: 50%;
     border: 1px solid #979797;
 }
-
-.custom-radio input:checked~.checkmark {
+.custom-radio input:checked ~ .checkmark {
     border-color: #30855c !important;
 }
-
 .checkmark:after {
-    content: "";
+    content: '';
     position: absolute;
     display: none;
 }
-
-.custom-radio input:checked~.checkmark:after {
+.custom-radio input:checked ~ .checkmark:after {
     display: block;
 }
-
 .custom-radio .checkmark:after {
     top: 5px;
     left: 5px;

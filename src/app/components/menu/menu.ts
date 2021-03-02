@@ -53,7 +53,7 @@ export const menuItems = [
 
     new Menu(5, 'Sales Management', null, null, null, null, true, 0, []),
     new Menu(51, 'Sales', './', null, null, null, false, 5, []),
-    new Menu(52, 'Sales Contracts', '/features/agreement', null, null, null, false, 5, []),
+    new Menu(52, 'Sales Contracts', '/sales-contract', null, null, null, false, 5, []),
     new Menu(53, 'Sales Tool', '/features/agreement', null, null, null, false, 5, []),
     new Menu(53, 'API Requests', '/features/api-requests-list', null, null, null, false, 5, []),
 

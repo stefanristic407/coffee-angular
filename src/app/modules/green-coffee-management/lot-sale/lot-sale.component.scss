@@ -110,6 +110,7 @@
 }
 .weightInputGroupDiv {
     border: 1px solid #d6d6d6;
+    border-radius: 4px;
 }
 .weightInputDiv {
     flex: 1 1 auto;
@@ -118,9 +119,14 @@
 }
 .input-group-append {
     border: 0px !important;
-    padding: 0px;
+    padding: 4px;
     width: auto;
 }
+::ng-deep .groupPadding .p-dropdown .p-inputtext {
+    position: relative;
+    bottom: 4px;
+}
+
 .current-s-bg {
     padding: 0.75rem !important;
 }
@@ -135,5 +141,13 @@
         position: relative;
         overflow: auto !important;
         width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    .tabViewModel {
+        display: inline !important;
+    }
+    .lotIdText {
+        padding-left: 30px;
     }
 }
