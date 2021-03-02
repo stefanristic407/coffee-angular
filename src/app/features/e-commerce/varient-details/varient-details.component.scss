@@ -63,15 +63,24 @@
     width: 92%;
     color: #ffffff;
     position: absolute;
-    bottom: 0;
+    bottom: 4px;
     margin: 0px 0.5rem;
+    padding: 6px 4px 2px 8px;
+    border-radius: 2px;
 }
+.imageLabel label {
+    font-family: 'Muli';
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+    float: left;
+}
+
 .uploadImg {
     height: 4rem;
 }
 .addImageContainer {
-    // width: 13.25rem;
-    height: 8.12rem;
+    height: 130px;
     border: 1px solid #d6d6d6;
     border-radius: 4px;
     text-align: center;
@@ -86,8 +95,8 @@
 }
 .addWeightDiv {
     border: 1px solid #747588;
-    padding: 4px 0px;
-    height: 34px;
+    padding: 6px 0px;
+    height: 38px;
     border-radius: 2px;
 }
 .checkBoxDiv {
@@ -99,10 +108,30 @@
     font-weight: 700;
     color: #232334;
 }
+.delBtn {
+    position: relative;
+    top: -16px;
+}
 .weightDiv {
-    border-radius: 4px;
+    padding: 4px;
+    border: 1px solid #d6d6d6;
+    border-top: 0px solid #d6d6d6;
+    border-left: 1px solid #d6d6d6;
+    border-right: 1px solid #d6d6d6;
+    border-bottom: 1px solid #d6d6d6;
+}
+.weightDiv:first-child {
+    border-radius: 4px 4px 0px 0px;
     border: 1px solid #d6d6d6;
 }
+.weightDiv:last-child {
+    border-radius: 0px 0px 4px 4px;
+    border-top: 0px solid #d6d6d6;
+    border-left: 1px solid #d6d6d6;
+    border-right: 1px solid #d6d6d6;
+    border-bottom: 1px solid #d6d6d6;
+}
+
 .weightInputGroupDiv {
     border: 1px solid #d6d6d6;
     border-radius: 4px;
@@ -151,6 +180,10 @@
     .addImageContainer {
         width: auto;
         text-align: center;
+    }
+    .addImageContainer {
+        width: auto;
+        height: auto;
     }
     .weightVariantBtn {
         border: solid 1px #30855c;
