@@ -98,6 +98,9 @@ import { ReviewSummaryComponent } from './components/review-summary/review-summa
 import { ReviewsComponent } from './components/reviews/reviews.component';
 import { ProgressBarModule } from 'primeng/progressbar';
 
+import { SewnDirectMessageComponent } from './../modules/chat/sewn-direct-message/sewn-direct-message.component';
+import { SewnOrderChatComponent } from './../modules/chat/sewn-order-chat/sewn-order-chat.component';
+import { SearchFilterPipe } from './../modules/chat/sewn-direct-message/search-filter.pipe';
 // #region third libs
 const THIRDMODULES = [
     AutocompleteLibModule,
@@ -178,6 +181,8 @@ const COMPONENTS = [
     PhoneNumberComponent,
     ReviewSummaryComponent,
     ReviewsComponent,
+    SewnDirectMessageComponent,
+    SewnOrderChatComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 const DIRECTIVES = [WordLimitDirective, RatingDirective, LifecyclehookDirective];
@@ -194,6 +199,7 @@ const PIPES = [
     OrderLinkPipe,
     OrgTypePipe,
     WordCountPipe,
+    SearchFilterPipe,
 ];
 // #endregion
 
@@ -222,6 +228,7 @@ const PIPES = [
         FormsModule,
         ReactiveFormsModule,
         RouterModule,
+
         // third libs
         ...THIRDMODULES,
         // your components

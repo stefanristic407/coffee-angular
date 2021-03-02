@@ -20,6 +20,7 @@
             "@shared": ["src/app/shared/index"],
             "@modules/*": ["src/app/modules/*"],
             "@models/*": ["src/models/*"],
+            "@models": ["src/models/index"],
             "@guards": ["src/app/guards/index"]
         }
     },
