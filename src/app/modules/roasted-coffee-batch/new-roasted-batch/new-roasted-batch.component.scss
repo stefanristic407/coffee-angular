@@ -165,6 +165,14 @@
         border-radius: 4px;
     }
 }
+@media (max-width: 1199px) and (min-width: 768px) {
+    .tab-flavour-space {
+        margin-bottom: 4px;
+    }
+    .recent-time {
+        width: 100%;
+    }
+}
 
 @media screen and (max-width: 767px) {
     .order_details_card {

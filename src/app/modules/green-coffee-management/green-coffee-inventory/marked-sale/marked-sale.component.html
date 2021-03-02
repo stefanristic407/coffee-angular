@@ -80,7 +80,7 @@
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
                 <td *ngFor="let col of columns" [ngSwitch]="col.field">
-                    <span *ngSwitchCase="'product_name'">
+                    <span *ngSwitchCase="'product_name'" [routerLink]="onEdit(rowData)">
                         <div class="d-flex">
                             <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
                                 Product Name
@@ -92,7 +92,7 @@
                         </div>
                     </span>
 
-                    <span *ngSwitchCase="'estate_name'">
+                    <span *ngSwitchCase="'estate_name'" [routerLink]="onEdit(rowData)">
                         <div class="d-flex">
                             <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
                                 Estate Name
@@ -104,7 +104,7 @@
                         </div>
                     </span>
 
-                    <span *ngSwitchCase="'origin'">
+                    <span *ngSwitchCase="'origin'" [routerLink]="onEdit(rowData)">
                         <div class="d-flex">
                             <div></div>
 
@@ -121,17 +121,35 @@
                         </div>
                     </span>
 
-                    <span *ngSwitchCase="'varieties'">
+                    <span *ngSwitchCase="'varieties'" [routerLink]="onEdit(rowData)">
                         <div class="d-flex">
                             <div></div>
 
                             <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
-                                {{ rowData['varieties'] | titlecase }}
+                                {{ rowData['varieties'] || '--' }}
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'quantity'" [routerLink]="onEdit(rowData)">
+                        <div class="d-flex">
+                            <div></div>
+
+                            <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
+                                {{ rowData['quantity'] || '--' }}
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'cup_score'" [routerLink]="onEdit(rowData)">
+                        <div class="d-flex">
+                            <div></div>
+
+                            <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
+                                {{ rowData['cup_score'] || '--' }}
                             </span>
                         </div>
                     </span>
 
-                    <span *ngSwitchCase="'status'">
+                    <span *ngSwitchCase="'status'" [routerLink]="onEdit(rowData)">
                         <span *ngIf="!primeTableService.isMobileView">
                             {{ rowData[col.field] | titlecase }}
                         </span>

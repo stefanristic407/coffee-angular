@@ -154,4 +154,7 @@ ul {
     .estate-focus ul {
         padding: 0px;
     }
+    .breadCrumb::-webkit-scrollbar {
+        display: none;
+    }
 }

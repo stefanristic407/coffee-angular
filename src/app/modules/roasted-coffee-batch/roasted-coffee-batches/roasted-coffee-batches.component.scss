@@ -77,6 +77,7 @@
     text-overflow: ellipsis;
     width: 83%;
 }
+
 @media screen and (max-width: 767px) {
     .filterLayout {
         margin-top: 1.5rem;
@@ -135,6 +136,12 @@
     }
     .bord-profile {
         border: none;
+    }
+    .inventory-text-height {
+        line-height: 18px !important;
+    }
+    .breadcrumb-scroll .breadCrumb::-webkit-scrollbar {
+        display: none !important;
     }
 }
 @media (max-width: 1270px) and (min-width: 768px) {
