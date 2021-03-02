@@ -1,7 +1,7 @@
 <section>
     <div class="main-block">
         <div class="row mb-1">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 breadcrumb-scroll">
                 <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 spacing-batch">
@@ -28,7 +28,7 @@
         </div>
         <div class="row mb-3 mt-2 mt-md-0">
             <div class="col-12 col-sm-12 col-md-7">
-                <span class="fnt-14 black fnt-normal fnt-muli">{{
+                <span class="fnt-14 black fnt-normal fnt-muli inventory-text-height">{{
                     globals.languageJson?.maintain_inventory_text
                 }}</span>
             </div>
@@ -166,7 +166,7 @@
                                 <div class="d-block d-sm-block d-md-none row m-0 pb-4">
                                     <div class="borderCard">
                                         <div class="col-12 bgCard">
-                                            <span>{{ rowData[col.field] | titlecase }}</span>
+                                            <span class="fnt-muli fnt-700">{{ rowData[col.field] | titlecase }}</span>
                                             <span class="float-right">
                                                 <a
                                                     class="menu-arrow"
@@ -208,9 +208,11 @@
                                         <div class="cardBottom p-0 w-100">
                                             <div class="mobileCardBody pt-0">
                                                 <div class="pb-1">
-                                                    <span>Order id #{{ rowData['order_id'] }}</span>
+                                                    <span class="fnt-muli fnt-600 black"
+                                                        >Order id #{{ rowData['order_id'] }}</span
+                                                    >
                                                 </div>
-                                                <div class="pb-3 fnt-12">
+                                                <div class="pb-3 fnt-12 fnt-600">
                                                     <span class="light-eight">Created on : </span>
                                                     <span class="black">{{
                                                         rowData['created_at'] | date: 'dd MMM y h:mma'

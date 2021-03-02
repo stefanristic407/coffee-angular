@@ -74,7 +74,7 @@
                     [ngSwitch]="col.field"
                     [ngClass]="{ borderNone: col.field === 'order_reference' }"
                 >
-                    <span *ngSwitchCase="'availability_name'">
+                    <span *ngSwitchCase="'availability_name'" [routerLink]="availabilityPage(rowData)">
                         <div class="d-flex">
                             <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
                                 Availability Name
@@ -85,7 +85,7 @@
                             </span>
                         </div>
                     </span>
-                    <span *ngSwitchCase="'estate_name'">
+                    <span *ngSwitchCase="'estate_name'" [routerLink]="availabilityPage(rowData)">
                         <div class="d-flex">
                             <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
                                 Estate Name
@@ -96,19 +96,26 @@
                             </span>
                         </div>
                     </span>
-                    <span *ngSwitchCase="'status'">
+                    <span *ngSwitchCase="'status'" [routerLink]="availabilityPage(rowData)">
                         <span *ngIf="!primeTableService.isMobileView">
                             {{ rowData['status'] | titlecase }}
                         </span>
                     </span>
-                    <span *ngSwitchCase="'varieties'">
+                    <span *ngSwitchCase="'varieties'" [routerLink]="availabilityPage(rowData)">
                         <div class="d-flex">
                             <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
-                                {{ rowData['varieties'] }}
+                                {{ rowData['varieties'] || '--' }}
                             </span>
                         </div>
                     </span>
-                    <span *ngSwitchCase="'quantity'">
+                    <span *ngSwitchCase="'origin'" [routerLink]="availabilityPage(rowData)">
+                        <div class="d-flex">
+                            <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
+                                {{ rowData['origin'] }}
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'quantity'" [routerLink]="availabilityPage(rowData)">
                         <div class="d-flex">
                             <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
                                 Quantity
@@ -126,7 +133,12 @@
                         <div class="d-flex">
                             <span>
                                 <p *ngIf="primeTableService.isMobileView" class="fnt-18 txt-clr334 fnt-bold mb-0">
-                                    Roaster Ref. No: {{ rowData['order_reference'] }}
+                                    Roaster Ref. No: {{ rowData['order_reference'] || '--' }}
+                                </p>
+                            </span>
+                            <span [routerLink]="availabilityPage(rowData)">
+                                <p *ngIf="!primeTableService.isMobileView" class="mb-0">
+                                    {{ rowData['order_reference'] || '--' }}
                                 </p>
                             </span>
                             <span class="ml-auto">
@@ -168,7 +180,7 @@
                             </span>
                         </div>
                     </span>
-                    <span *ngSwitchCase="'id'">
+                    <span *ngSwitchCase="'id'" [routerLink]="availabilityPage(rowData)">
                         <span *ngIf="!primeTableService.isMobileView">
                             {{ rowData[col.field] }}
                         </span>
@@ -193,7 +205,7 @@
                             </ng-template>
                         </div>
                     </span>
-                    <span *ngSwitchCase="'actions'" class="text-center">
+                    <span *ngSwitchCase="'actions'" class="text-center" [routerLink]="availabilityPage(rowData)">
                         <ng-container *ngIf="!primeTableService.isMobileView">
                             <span class="brown-cta" [routerLink]="availabilityPage(rowData)">View</span>
                         </ng-container>
