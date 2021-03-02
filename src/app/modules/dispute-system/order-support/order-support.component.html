@@ -37,7 +37,12 @@
         </div>
     </div>
     <div class="row mt-3">
-        <div *ngFor="let item of buttonArray" class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-3">
+        <div
+            *ngFor="let item of buttonArray"
+            (mouseover)="item.showHoverImage = true"
+            (mouseout)="item.showHoverImage = false"
+            class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-3"
+        >
             <div class="d-flex d-sm-flex d-md-none align-items-center mobileCardDiv" (click)="selectCard(item.label)">
                 <img class="logo-img" [src]="item.logo" />
                 <p class="primary_txt m-0 pl-3">{{ item.label }}</p>
@@ -46,7 +51,8 @@
             <button class="btn dashboard-button d-none d-sm-none d-md-block" (click)="selectCard(item.label)">
                 <img class="logo-img" [src]="item.logo" />
                 <p class="primary_txt">{{ item.label }}</p>
-                <img class="icon-img" src="assets/images/go-ticket.svg" />
+                <img *ngIf="item.showHoverImage" class="icon-img" src="assets/images/filed-go.svg" />
+                <img *ngIf="!item.showHoverImage" class="icon-img" src="assets/images/go-ticket.svg" />
             </button>
         </div>
     </div>
