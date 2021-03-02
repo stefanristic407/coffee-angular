@@ -31,9 +31,9 @@
                     <td class="cust-pad-left"><a href="{{item.file_url}}" target="_blank" class="file_url"><span><img
                                     class="file-icon pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon" />
                                 {{ item.file_name }}</span></a></td>
-                    <td>{{item.created_at | date: 'M/d/yy, h:mm a'}}</td>
-                    <td>{{item.customer_name}}</td>
-                    <td>{{getCountryName(item.origin)}}</td>
+                    <td class="fnt-14">{{item.created_at | date: 'M/d/yy, h:mm a'}}</td>
+                    <td class="fnt-14">{{item.customer_name}}</td>
+                    <td class="fnt-14">{{getCountryName(item.origin)}}</td>
                     <td id="sales-contract-popup">
                         <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true"
                             #pop="bs-popover">
@@ -185,7 +185,7 @@
                                     <h4 class="fnt-16 fnt-700 fnt-muli text-clr334 mb-0">
                                         {{ globals.languageJson?.upload }}
                                     </h4>
-                                    <span class="d-block fnt-14 fnt-500 text-clr588 fnt-muli text-clr334 mb-1">{{
+                                    <span class="d-block fnt-14 fnt-500 fnt-muli text-clr334 mb-1">{{
                                         globals.languageJson?.please_upload_document
                                         }}</span>
                                     <label *ngIf="!isUpdate" class="share-bor d-inline-block">
