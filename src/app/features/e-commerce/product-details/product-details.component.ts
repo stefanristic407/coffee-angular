@@ -125,6 +125,11 @@ export class ProductDetailsComponent implements OnInit {
                 }
             },
         );
+        // disable mousewheel on a input number field when in focus
+        // (to prevent Cromium browsers change the value when scrolling)
+        $(document).on('wheel', 'input[type=number]', function (e) {
+            $(this).blur();
+        });
         this.supplyBreadCrumb();
     }
     getProductDetails(id) {
@@ -408,9 +413,6 @@ export class ProductDetailsComponent implements OnInit {
             }
         });
         return returnFlag;
-    }
-    onPublish(): void {
-        console.log('onpublish');
     }
     togglePublic(flag) {
         this.productForm.controls.is_public.setValue(flag);
