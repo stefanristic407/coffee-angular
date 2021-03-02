@@ -119,9 +119,14 @@
 }
 .input-group-append {
     border: 0px !important;
-    padding: 0px;
+    padding: 4px;
     width: auto;
 }
+::ng-deep .groupPadding .p-dropdown .p-inputtext {
+    position: relative;
+    bottom: 4px;
+}
+
 .current-s-bg {
     padding: 0.75rem !important;
 }
