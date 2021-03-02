@@ -72,12 +72,6 @@ export class OrderSupportComponent implements OnInit {
         this.breadCrumbItem.push(obj4);
         this.breadCrumbItem.push(obj5);
     }
-    mouseOverCard(card) {
-        card.showHoverImage = true;
-    }
-    mouseoutCard(card) {
-        card.showHoverImage = false;
-    }
     selectCard(cardType) {
         const navigationExtras: NavigationExtras = {
             queryParams: {

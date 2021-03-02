@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalsService, RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import * as $ from 'jquery';
 
 @Component({
     selector: 'app-varient-details',
@@ -82,6 +83,11 @@ export class VarientDetailsComponent implements OnInit {
             { label: 'Medium', value: 'medium' },
             { label: 'Fine', value: 'fine' },
         ];
+        // disable mousewheel on a input number field when in focus
+        // (to prevent Cromium browsers change the value when scrolling)
+        $(document).on('wheel', 'input[type=number]', function (e) {
+            $(this).blur();
+        });
     }
     onWeightChange(event) {
         const weight = this.weightForm.get('weights') as FormArray;
@@ -171,7 +177,7 @@ export class VarientDetailsComponent implements OnInit {
             fileDetails: null,
             product_images: [],
             weight: [0, Validators.compose([Validators.required])],
-            status: ['', Validators.compose([Validators.required])],
+            status: ['in-stock', Validators.compose([Validators.required])],
             is_public: [false, Validators.compose([Validators.required])],
             is_default_product: [false, Validators.compose([Validators.required])],
             grind_variants: this.fb.array([this.createEmptyGrindVarient()]),

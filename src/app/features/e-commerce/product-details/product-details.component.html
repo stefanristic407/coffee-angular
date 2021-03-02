@@ -6,7 +6,7 @@
     </div>
     <div [formGroup]="productForm" (ngSubmit)="onSave()" novalidate>
         <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 d-none d-sm-none d-md-block">
+            <div *ngIf="productID" class="col-12 col-sm-12 col-md-12 d-none d-sm-none d-md-block">
                 <div class="float-right">
                     <span class="primary_txt pr-3">Product Visibility : </span>
                     <div class="btn-group toggleDiv">
@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-12 row d-flex d-sm-flex d-md-none pr-0">
+            <div *ngIf="productID" class="col-12 col-sm-12 col-md-12 row d-flex d-sm-flex d-md-none pr-0">
                 <div class="col-6 d-flex align-items-center">
                     <span class="primary_txt font-14">Product Visibility : </span>
                 </div>
@@ -41,7 +41,7 @@
                             id="activeStatus"
                             (click)="togglePublic(true)"
                         >
-                            Active
+                            Public
                         </div>
                         <div
                             class="btn disbableBtn"
@@ -49,7 +49,7 @@
                             [ngClass]="!productForm['controls']['is_public']['value'] ? 'enableBtn' : ''"
                             id="disableStatus"
                         >
-                            Disable
+                            Private
                         </div>
                     </div>
                 </div>
@@ -76,12 +76,16 @@
         </div>
         <div class="row mt-2">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
-                <label>Product Description<span class="star">*</span></label>
+                <div>
+                    <label>Product Description<span class="star">*</span></label>
+                    <label class="float-right limitFont">0/50 words</label>
+                </div>
                 <textarea
                     type="text"
                     class="descriptionText-area"
                     placeholder="Tell us a bit about the product "
                     formControlName="description"
+                    maxlength="50"
                     pInputText
                 ></textarea>
                 <small *ngIf="productForm.controls['description'].errors?.required" class="p-error"> Required </small>
@@ -290,9 +294,9 @@
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
                                 <div>
                                     <label>Recommendation text<span class="star">*</span></label>
-                                    <label class="float-right">0/10 words</label>
+                                    <label class="float-right limitFont">0/10 words</label>
                                 </div>
-                                <input type="text" formControlName="roaster_recommendation" pInputText />
+                                <input type="text" maxlength="10" formControlName="roaster_recommendation" pInputText />
                                 <small
                                     *ngIf="varient['controls']['roaster_recommendation'].errors?.required"
                                     class="p-error"
@@ -380,13 +384,13 @@
                 <button type="button" class="btn btn-stroked" (click)="onCancel()">Cancel</button>
                 <button type="submit" class="btn btn-raised ml-3" (click)="onSave()">Save</button>
             </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                <button type="button" class="btn btn-raised pull-right" (click)="onSave()">Publish</button>
+            <div *ngIf="!productID" class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <button type="button" class="btn btn-raised pull-right" (click)="togglePublic(true)">Publish</button>
             </div>
         </div>
         <div class="row mt-4 d-block d-sm-block d-md-none">
-            <div class="col-12 col-sm-12">
-                <button type="button" class="btn btn-raised w-100" (click)="onSave()">Publish</button>
+            <div *ngIf="!productID" class="col-12 col-sm-12">
+                <button type="button" class="btn btn-raised w-100" (click)="togglePublic(true)">Publish</button>
             </div>
             <div class="col-12 col-sm-12 mt-3">
                 <button type="submit" class="btn btn-raised w-100">Save</button>
