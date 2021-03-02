@@ -19,12 +19,10 @@ const routes: Routes = [
             {
                 path: 'my-files',
                 component: MyfilesComponent,
-                canActivate: [AuthGuard],
             },
             {
                 path: 'shared-files',
                 component: SharewithmeComponent,
-                canActivate: [AuthGuard],
             },
             { path: '', redirectTo: 'my-files', pathMatch: 'full' },
         ],
@@ -37,18 +35,16 @@ const routes: Routes = [
             {
                 path: 'documents',
                 component: DocumentFileComponent,
-                canActivate: [AuthGuard],
             },
             {
                 path: 'videos',
                 component: VideoFileComponent,
-                canActivate: [AuthGuard],
             },
             { path: '', redirectTo: 'documents', pathMatch: 'full' },
         ],
     },
     {
-        path: 'create-folder',
+        path: 'create-folder/:folderId',
         component: EditFolderComponent,
         canActivate: [AuthGuard],
     },
