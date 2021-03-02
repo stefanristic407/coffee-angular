@@ -192,3 +192,14 @@
         padding: 16px 0 14px 0 !important;
     }
 }
+@media screen and (max-width: 640px) {
+    .recent-time td {
+        border: 0px solid #dddddd !important;
+    }
+    .recent-time tr {
+        border-bottom: 1px dashed #d6d6d6;
+    }
+    .recent-time tr:last-child {
+        border-bottom: none;
+    }
+}
