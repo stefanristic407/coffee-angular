@@ -54,6 +54,12 @@
     ::ng-deep .mobile-card-view .coffee-procured .p-datatable .p-datatable-tbody > tr > td {
         padding: 14px 12px;
         margin: 0 0 8px;
-        border-bottom: 1px dashed #d6d6d6 !important;
+        border-bottom: 1px dashed #d6d6d6;
+    }
+    ::ng-deep .mobile-card-view .coffee-procured .p-datatable .p-datatable-tbody > tr > td:last-child {
+        border: none !important;
+    }
+    .borderNone {
+        border-bottom: none !important;
     }
 }
