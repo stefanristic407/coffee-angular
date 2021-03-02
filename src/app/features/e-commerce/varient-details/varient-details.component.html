@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 d-none d-sm-none d-md-block">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 d-none d-sm-none d-md-block">
         <div
             class="nav flex-column nav-pills weightDiv"
             *ngFor="let weight of this.weightForm['value']['weights']; let i = index"
@@ -45,7 +45,7 @@
         </p-dropdown>
     </div>
     <div
-        class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9"
+        class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 mt-md-2"
         [formGroup]="weightForm['controls']['weights']['controls'][currentVarientIndex]"
     >
         <div class="row mt-3">
@@ -192,9 +192,9 @@
                     </small>
                 </div>
                 <div class="col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1 sewn-form-field pl-md-0 checkBoxDiv">
-                    <span class="fnt-700 editBtn cursor-pointer" (click)="deleteGrindVariant(i)"> Delete </span>
+                    <span class="fnt-700 editBtn cursor-pointer delBtn" (click)="deleteGrindVariant(i)"> Delete </span>
                 </div>
-                <div *ngIf="isLast" class="col-12 mt-1 mb-1">
+                <div *ngIf="isLast" class="col-12 mt-md-0 mt-1 mb-1">
                     <img src="assets/images/add-partner.svg" />
                     <span class="ml-2 fnt-muli fnt-700 fnt-14 editBtn cursor-pointer" (click)="addNewGrindVarients()">
                         Add a grind variant
@@ -203,8 +203,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 primary_txt mt-3 mb-3">Add Images</div>
-            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+            <div class="col-12 fnt-16 fnt-muli fnt-700 black mt-3 mb-3">Add Images</div>
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 sewn-form-field w-100">
                 <label>Upload Feature Image<span class="star">*</span></label>
                 <div
                     *ngIf="!weightForm['controls']['weights']['controls'][currentVarientIndex]['value']['fileDetails']"
@@ -252,7 +252,7 @@
                             [outsideClick]="true"
                             #pop="bs-popover"
                         >
-                            <img class="img" src="assets/images/more-opns-file.png" />
+                            <img class="img" src="assets/images/Ecom-Kebab-menu.svg" />
                         </a>
                         <ng-template #documentTemplate2>
                             <div id="popover-mobile-content">
@@ -271,7 +271,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-9 row">
                 <div
                     class="col-4 pl-3 sewn-form-field w-100"
                     *ngFor="
@@ -316,7 +316,7 @@
                                 [outsideClick]="true"
                                 #pop="bs-popover"
                             >
-                                <img class="img" src="assets/images/more-opns-file.png" />
+                                <img class="img" src="assets/images/Ecom-Kebab-menu.svg" />
                             </a>
                             <ng-template #documentTemplate2>
                                 <div id="popover-mobile-content">
@@ -336,7 +336,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 mt-3">
+            <div class="col-12 mt-2 mb-3">
                 <button type="button" (click)="uploadImages()" class="btn btn-stroked">Update</button>
             </div>
         </div>
