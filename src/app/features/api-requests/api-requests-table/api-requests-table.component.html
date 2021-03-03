@@ -1,5 +1,4 @@
 <div class="total-loader" *ngIf="greenActive != 1">
-    <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
     <div>
         <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
         <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
@@ -18,12 +17,7 @@
                             ><img class="group-img" src="/assets/images/arrow-1.png" alt="" />
                         </span>
                     </li>
-                    <!-- <li class="b-cum">
-                                    <a class="b-cum" routerLink="/features/green-coffee-inventory">{{globals.languageJson?.inventory}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                                </li> -->
-
                     <li class="b-cum c-pink">API Requests</li>
-                    <!-- <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">Export</button> -->
                 </ul>
             </nav>
             <section class="estate-orders-heading">
@@ -96,7 +90,6 @@
                                         #calendar
                                         styleClass="only-icon"
                                         [(ngModel)]="rangeDates"
-                                        (onSelect)="filterDate($event)"
                                         selectionMode="range"
                                         dateFormat="dd.mm.yy"
                                         [readonlyInput]="true"
@@ -155,39 +148,12 @@
 
                 <div class="row">
                     <div class="mixups-tabs mt-32 pr-3 col-lg-12 col-md-12">
-                        <!-- <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
-                            <li class="nav-item">
-                                <a
-                                    class="nav-link active"
-                                    id="pills-procured-tab"
-                                    data-toggle="pill"
-                                    href="#pills-procured"
-                                    role="tab"
-                                    aria-controls="pills-home"
-                                    aria-selected="true"
-                                    >API Key Requests</a
-                                >
-                            </li>
-                            <li class="nav-item">
-                                <a
-                                    class="nav-link"
-                                    id="pills-marked-tab"
-                                    data-toggle="pill"
-                                    href="#pills-marked"
-                                    role="tab"
-                                    aria-controls="pills-profile"
-                                    aria-selected="false"
-                                    >Generated Keys</a
-                                >
-                            </li>
-                        </ul> -->
                         <p-tabView
                             styleClass="pb-3 pb-md-4"
                             [(activeIndex)]="selectedTab"
                             (onChange)="handleChange($event)"
                         >
                             <p-tabPanel header="API Key Requests">
-                                <!-- <app-coffee-procured-tab *ngIf="isProcuredTab"></app-coffee-procured-tab> -->
                                 <app-api-key-requests
                                     *ngIf="isApiRequestPage"
                                     [searchRequestId]="KeySearch"
@@ -197,64 +163,20 @@
                                 ></app-api-key-requests>
                             </p-tabPanel>
                             <p-tabPanel header="Generated Keys">
-                                <!-- <app-marked-sale *ngIf="!isProcuredTab"></app-marked-sale> -->
                                 <app-generated-keys
                                     *ngIf="!isApiRequestPage"
-                                    [searchRequestId]="apiKeySearch"
+                                    [searchRequestId]="KeySearch"
                                     [filterData]="customerType"
                                     [dateRange]="rangeDates"
                                     [perPage]="perPage"
                                 ></app-generated-keys>
                             </p-tabPanel>
                         </p-tabView>
-                        <!-- <div class="tab-content mt-md-4" id="pills-tabContent">
-                            <div
-                                class="tab-pane fade show active spacing-order"
-                                id="pills-procured"
-                                role="tabpanel"
-                                aria-labelledby="pills-home-tab"
-                            >
-                                <app-api-key-requests
-                                    [searchRequestId]="apiKeySearch"
-                                    [filterData]="customerType"
-                                    [dateRange]="rangeDates"
-                                ></app-api-key-requests>
-                            </div>
-                            <div
-                                class="tab-pane fade spacing-order"
-                                id="pills-marked"
-                                role="tabpanel"
-                                aria-labelledby="pills-profile-tab"
-                            >
-                                <app-generated-keys
-                                    [searchRequestId]="apiKeySearch"
-                                    [filterData]="customerType"
-                                    [dateRange]="rangeDates"
-                                ></app-generated-keys>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
             </section>
         </div>
     </section>
-
-    <ng-template #originTemplate>
-        <div id="status-content">
-            <ul class="list-group custom-popover">
-                <li class="list-group-item item-color">
-                    <a class="pointer-item">All</a>
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item">Colombia</a>
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item">Ethopia</a>
-                </li>
-            </ul>
-        </div>
-    </ng-template>
-
     <ng-template #allTemplate>
         <div id="status-content">
             <ul class="list-group custom-popover">
@@ -281,19 +203,6 @@
             </ul>
         </div>
     </ng-template>
-    <ng-template #typeTemplate>
-        <div>
-            <ul class="list-group custom-popover">
-                <li class="list-group-item item-color">
-                    <a class="pointer-item">All</a>
-                </li>
-                <li class="list-group-item item-color"><a class="pointer-item">Sample</a></li>
-                <li class="list-group-item item-color"><a class="pointer-item">Booked</a></li>
-                <li class="list-group-item item-color"><a class="pointer-item">Pre-Booked</a></li>
-            </ul>
-        </div>
-    </ng-template>
-
     <ng-template #displayTemplate>
         <div id="status-content">
             <ul class="list-group custom-popover">
