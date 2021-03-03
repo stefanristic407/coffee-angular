@@ -11,26 +11,25 @@ import { GlobalsService } from 'src/services/globals.service';
 @Component({
     selector: 'app-agreement',
     templateUrl: './agreement.component.html',
-    styleUrls: ['./agreement.component.scss']
+    styleUrls: ['./agreement.component.scss'],
 })
 export class AgreementComponent implements OnInit {
-
     appLanguage: any;
     searchTerm: any;
     customerType: string;
     roasterId: string;
     mainData: any;
+    isUpdate: boolean;
 
     constructor(
         public router: Router,
         public cookieService: CookieService,
         public roasterService: RoasterserviceService,
         public toastrService: ToastrService,
-        public globals: GlobalsService) {
+        public globals: GlobalsService,
+    ) {
         this.roasterId = this.cookieService.get('roaster_id');
     }
-
-
 
     ngOnInit(): void {
         // Auth checking

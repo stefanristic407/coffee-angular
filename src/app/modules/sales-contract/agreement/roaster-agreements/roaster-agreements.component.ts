@@ -21,7 +21,6 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
     customerMob: any;
     showOrigin = true;
     showCustomerMob = true;
-    isUpdate = false;
     roasterId: string;
     agreementfileId: any;
     deleteAgreementId: any;
@@ -48,6 +47,7 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
     @ViewChild('dismissDeleteModal') dismissDeleteModal: ElementRef;
     @Input() searchTerm = '';
     @Input() customerType: string;
+    @Input() isUpdate: boolean;
 
     constructor(
         public router: Router,
@@ -67,11 +67,9 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
         if (this.customerType === 'micro-roasters') {
             this.getMicroRoastersList();
             this.horecaFormGroup.get('customerType').setValue('mr');
-            this.horecaFormGroup.get('customerType').disable();
         } else if (this.customerType === 'hrc') {
             this.getHorecaList();
             this.horecaFormGroup.get('customerType').setValue('hrc');
-            this.horecaFormGroup.get('customerType').disable();
         }
     }
 
@@ -128,15 +126,24 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
                 this.horecaList.forEach((element) => {
                     if (element.id > 0) {
                         this.newList.push(element);
+                        this.modalDropdownList.push(element);
                     }
                 });
-                this.modalDropdownList = this.newList;
                 this.newList = this.newList.map((item) => {
                     const transformItem = { label: '', value: '' };
                     transformItem.label = item.name;
                     transformItem.value = item.name;
                     return transformItem;
                 });
+                this.modalDropdownList = this.modalDropdownList.map((item) => {
+                    const transformItem = { label: '', value: '' };
+                    transformItem.label = item.name;
+                    transformItem.value = item.name;
+                    return transformItem;
+                });
+                const blankOption = { label: 'Please select customer', value: '' };
+                this.modalDropdownList.push(blankOption);
+                this.modalDropdownList = this.modalDropdownList.sort((a, b) => a.label.localeCompare(b.label));
                 const allOption = { label: 'All', value: 'All' };
                 this.newList.push(allOption);
                 this.newList = this.newList.sort((a, b) => a.label.localeCompare(b.label));
@@ -158,15 +165,24 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
                 this.horecaList.forEach((element) => {
                     if (element.id > 0) {
                         this.newList.push(element);
+                        this.modalDropdownList.push(element);
                     }
                 });
-                this.modalDropdownList = this.newList;
                 this.newList = this.newList.map((item) => {
                     const transformItem = { label: '', value: '' };
                     transformItem.label = item.name;
                     transformItem.value = item.name;
                     return transformItem;
                 });
+                this.modalDropdownList = this.modalDropdownList.map((item) => {
+                    const transformItem = { label: '', value: '' };
+                    transformItem.label = item.name;
+                    transformItem.value = item.name;
+                    return transformItem;
+                });
+                const blankOption = { label: 'Please select customer', value: '' };
+                this.modalDropdownList.push(blankOption);
+                this.modalDropdownList = this.modalDropdownList.sort((a, b) => a.label.localeCompare(b.label));
                 const allOption = { label: 'All', value: 'All' };
                 this.newList.push(allOption);
                 this.newList = this.newList.sort((a, b) => a.label.localeCompare(b.label));
@@ -205,7 +221,7 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
         if (!this.selectedCustomers || this.selectedCustomers === 'All') {
             this.sortedMainData = this.mainData;
         } else {
-            this.sortedMainData = this.mainData.filter(item => item.customer_name === this.selectedCustomers);
+            this.sortedMainData = this.mainData.filter((item) => item.customer_name === this.selectedCustomers);
         }
     }
 
