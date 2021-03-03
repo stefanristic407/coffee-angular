@@ -4,7 +4,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { FileService } from '@services';
-import { FileShareService } from '../file-share.service';
+import { FileShareService } from '../../file-share.service';
 
 @Component({
     selector: 'app-file-table',

@@ -12,14 +12,14 @@ import { MyfilesComponent } from './file-share-list/myfiles/myfiles.component';
 import { SharewithmeComponent } from './file-share-list/sharewithme/sharewithme.component';
 import { DocumentFileComponent } from './file-share-details/document-file/document-file.component';
 import { VideoFileComponent } from './file-share-details/video-file/video-file.component';
-import { FolderDialogComponent } from './folder-dialog/folder-dialog.component';
-import { EditFileComponent } from './edit-file/edit-file.component';
+import { FolderDialogComponent } from './components/folder-dialog/folder-dialog.component';
+import { EditFileComponent } from './components/edit-file/edit-file.component';
 import { EditFolderComponent } from './edit-folder/edit-folder.component';
-import { ShareComponent } from './share/share.component';
-import { MediaPreviewComponent } from './media-preview/media-preview.component';
-import { FileTableComponent } from './file-table/file-table.component';
-import { FileCardComponent } from './file-card/file-card.component';
-import { VideoCardComponent } from './video-card/video-card.component';
+import { ShareComponent } from './components/share/share.component';
+import { MediaPreviewComponent } from './components/media-preview/media-preview.component';
+import { FileTableComponent } from './components/file-table/file-table.component';
+import { FileCardComponent } from './components/file-card/file-card.component';
+import { VideoCardComponent } from './components/video-card/video-card.component';
 
 @NgModule({
     declarations: [
