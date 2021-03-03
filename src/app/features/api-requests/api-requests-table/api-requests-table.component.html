@@ -40,6 +40,8 @@
                             <input
                                 class="fadout-search"
                                 type="search"
+                                #searchInput
+                                [(ngModel)]="apiKeySearch"
                                 placeholder="Search by request id or Customer Name "
                                 name="filesTerm"
                             />
@@ -60,9 +62,9 @@
                             container="body"
                             #pop="bs-popover"
                         >
-                            <p class="d-inline filter-text" *ngIf="termStatus == ''">Customer Type&nbsp;</p>
+                            <p class="d-inline filter-text" *ngIf="customerType == ''">Customer Type&nbsp;</p>
                             <a class="pointer-item">
-                                <p class="d-inline filter" *ngIf="termStatus == ''">
+                                <p class="d-inline filter" *ngIf="customerType == ''">
                                     &nbsp;
                                     <img
                                         src="{{
@@ -72,8 +74,8 @@
                                 </p>
                             </a>
                             <a class="pointer-item">
-                                <p class="d-inline filter" *ngIf="termStatus != ''">
-                                    {{ termStatus }}&nbsp;
+                                <p class="d-inline filter" *ngIf="customerType != ''">
+                                    {{ customerType }}&nbsp;
                                     <img
                                         src="{{
                                             showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'
@@ -122,7 +124,7 @@
                                 >
                                     <p class="d-inline filter-text">Display &#9679;</p>
                                     <a class="pointer-item">
-                                        <p class="d-inline filter" *ngIf="display == '-1'">
+                                        <p class="d-inline filter" *ngIf="perPage == '-1'">
                                             &nbsp; &nbsp;
                                             <img
                                                 src="{{
@@ -134,8 +136,8 @@
                                         </p>
                                     </a>
                                     <a class="pointer-item">
-                                        <p class="d-inline filter" *ngIf="display != '-1'">
-                                            {{ display }}&nbsp; &nbsp;
+                                        <p class="d-inline filter" *ngIf="perPage != '-1'">
+                                            {{ perPage }}&nbsp; &nbsp;
                                             <img
                                                 src="{{
                                                     showDisplay
@@ -152,8 +154,8 @@
                 </div>
 
                 <div class="row">
-                    <div class="mixups-tabs mt-3 pr-3 col-lg-12 col-md-12">
-                        <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
+                    <div class="mixups-tabs mt-32 pr-3 col-lg-12 col-md-12">
+                        <!-- <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
                             <li class="nav-item">
                                 <a
                                     class="nav-link active"
@@ -178,15 +180,45 @@
                                     >Generated Keys</a
                                 >
                             </li>
-                        </ul>
-                        <div class="tab-content mt-md-4" id="pills-tabContent">
+                        </ul> -->
+                        <p-tabView
+                            styleClass="pb-3 pb-md-4"
+                            [(activeIndex)]="selectedTab"
+                            (onChange)="handleChange($event)"
+                        >
+                            <p-tabPanel header="API Key Requests">
+                                <!-- <app-coffee-procured-tab *ngIf="isProcuredTab"></app-coffee-procured-tab> -->
+                                <app-api-key-requests
+                                    *ngIf="isApiRequestPage"
+                                    [searchRequestId]="KeySearch"
+                                    [filterData]="customerType"
+                                    [dateRange]="rangeDates"
+                                    [perPage]="perPage"
+                                ></app-api-key-requests>
+                            </p-tabPanel>
+                            <p-tabPanel header="Generated Keys">
+                                <!-- <app-marked-sale *ngIf="!isProcuredTab"></app-marked-sale> -->
+                                <app-generated-keys
+                                    *ngIf="!isApiRequestPage"
+                                    [searchRequestId]="apiKeySearch"
+                                    [filterData]="customerType"
+                                    [dateRange]="rangeDates"
+                                    [perPage]="perPage"
+                                ></app-generated-keys>
+                            </p-tabPanel>
+                        </p-tabView>
+                        <!-- <div class="tab-content mt-md-4" id="pills-tabContent">
                             <div
                                 class="tab-pane fade show active spacing-order"
                                 id="pills-procured"
                                 role="tabpanel"
                                 aria-labelledby="pills-home-tab"
                             >
-                                <app-api-key-requests></app-api-key-requests>
+                                <app-api-key-requests
+                                    [searchRequestId]="apiKeySearch"
+                                    [filterData]="customerType"
+                                    [dateRange]="rangeDates"
+                                ></app-api-key-requests>
                             </div>
                             <div
                                 class="tab-pane fade spacing-order"
@@ -194,9 +226,13 @@
                                 role="tabpanel"
                                 aria-labelledby="pills-profile-tab"
                             >
-                                <app-generated-keys></app-generated-keys>
+                                <app-generated-keys
+                                    [searchRequestId]="apiKeySearch"
+                                    [filterData]="customerType"
+                                    [dateRange]="rangeDates"
+                                ></app-generated-keys>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </section>
@@ -223,22 +259,24 @@
         <div id="status-content">
             <ul class="list-group custom-popover">
                 <li class="list-group-item item-color">
-                    <a class="pointer-item">All</a>
+                    <a class="pointer-item" (click)="customerTypeFilter('All'); pop.hide()">All</a>
                 </li>
                 <li class="list-group-item item-color">
-                    <a class="pointer-item">Shipped</a>
+                    <a class="pointer-item" (click)="customerTypeFilter('Shipped'); pop.hide()">Shipped</a>
                 </li>
                 <li class="list-group-item item-color">
-                    <a class="pointer-item">Order Confirmed</a>
+                    <a class="pointer-item" (click)="customerTypeFilter('Order Confirmed'); pop.hide()"
+                        >Order Confirmed</a
+                    >
                 </li>
                 <li class="list-group-item item-color">
-                    <a class="pointer-item">Payment</a>
+                    <a class="pointer-item" (click)="customerTypeFilter('Payment'); pop.hide()">Payment</a>
                 </li>
                 <li class="list-group-item item-color">
-                    <a class="pointer-item">Harvest Ready</a>
+                    <a class="pointer-item" (click)="customerTypeFilter('Harvest Ready'); pop.hide()">Harvest Ready</a>
                 </li>
                 <li class="list-group-item item-color">
-                    <a class="pointer-item">Received</a>
+                    <a class="pointer-item" (click)="customerTypeFilter('Received'); pop.hide()">Received</a>
                 </li>
             </ul>
         </div>
@@ -273,67 +311,6 @@
                 </li>
                 <li class="list-group-item item-color" (click)="setDisplay('50'); pop9.hide()">
                     <a class="pointer-item">50</a>
-                </li>
-            </ul>
-        </div>
-    </ng-template>
-
-    <ng-template #originTemplateMob>
-        <div id="origin-content">
-            <ul class="list-group custom-popover">
-                <li class="list-group-item item-color">
-                    <a class="pointer-item">All</a>
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item">Colombia</a>
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item">Ethiopia</a>
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item">Brazil</a>
-                </li>
-            </ul>
-        </div>
-    </ng-template>
-    <ng-template #statusTemplate>
-        <div id="status-content">
-            <ul class="list-group custom-popover">
-                <li class="list-group-item item-color">
-                    <a class="pointer-item">All</a>
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item">Instock</a>
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item">Sold</a>
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item">Hidden</a>
-                </li>
-            </ul>
-        </div>
-    </ng-template>
-    <ng-template #allTemplate>
-        <div id="status-content">
-            <ul class="list-group">
-                <li class="list-group-item item-color" (click)="setStatus(''); pop.hide()">
-                    <a class="pointer-item">All</a>
-                </li>
-                <li class="list-group-item item-color" (click)="setStatus('Brazil'); pop.hide()">
-                    <a class="pointer-item">Brazil</a>
-                </li>
-                <li class="list-group-item item-color" (click)="setStatus('Guatemala'); pop.hide()">
-                    <a class="pointer-item">Guatemala</a>
-                </li>
-                <li class="list-group-item item-color" (click)="setStatus('Spain'); pop.hide()">
-                    <a class="pointer-item">Spain</a>
-                </li>
-                <li class="list-group-item item-color" (click)="setStatus('Sweden'); pop.hide()">
-                    <a class="pointer-item">Sweden</a>
-                </li>
-                <li class="list-group-item item-color" (click)="setStatus('Vietnam'); pop.hide()">
-                    <a class="pointer-item">Vietnam</a>
                 </li>
             </ul>
         </div>

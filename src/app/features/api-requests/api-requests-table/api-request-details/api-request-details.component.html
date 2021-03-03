@@ -29,7 +29,9 @@
                     <div class="delivery__body">
                         <div class="w-100" *ngIf="generatedKeyStep == 1 || generatedKeyStep == 2">
                             <div class="float-left key-activate-block">
-                                <p class="m-0 fnt-14 fnt-muli fnt-700 black">Key activated on 25 Jan 2020</p>
+                                <p class="m-0 fnt-14 fnt-muli fnt-700 black">
+                                    {{ requestDetailData?.created_at | date: 'MMMM y' }}
+                                </p>
                                 <p class="view-order m-0 cursor-pointer" (click)="delete()">Delete Key</p>
                             </div>
 
@@ -63,19 +65,27 @@
                                     <td class="pl-16">
                                         <span class="list-ques float-left text-clr588"> Requested by </span>
                                     </td>
-                                    <td><span class="list-answ float-right"> Third wave coffee roasters </span></td>
+                                    <td>
+                                        <span class="list-answ float-right"> {{ requestDetailData?.org_name }} </span>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="pl-16">
                                         <span class="list-ques float-left text-clr588"> Customer Type </span>
                                     </td>
-                                    <td><span class="list-answ float-right"> Micro-Roaster </span></td>
+                                    <td>
+                                        <span class="list-answ float-right"> {{ requestDetailData?.org_type }} </span>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="pl-16">
                                         <span class="list-ques float-left text-clr588"> Requested on </span>
                                     </td>
-                                    <td><span class="list-answ float-right"> 24 Jan 2020 </span></td>
+                                    <td>
+                                        <span class="list-answ float-right">
+                                            {{ requestDetailData?.created_at | date: 'MMMM y' }}</span
+                                        >
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
