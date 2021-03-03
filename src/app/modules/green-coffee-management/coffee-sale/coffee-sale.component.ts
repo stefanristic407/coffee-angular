@@ -207,8 +207,8 @@ export class CoffeeSaleComponent implements OnInit {
             (response) => {
                 if (response && response.success) {
                     this.toasterService.success('Status updated successfully');
-                    this.showDropdown = false;
                     this.statusLabel = this.formatStatus(status.status);
+                    this.showDropdown = false;
                 } else if (!response.success && response.messages.status === 'cannot_change') {
                     this.toasterService.error('Status cannot be changed');
                 } else {

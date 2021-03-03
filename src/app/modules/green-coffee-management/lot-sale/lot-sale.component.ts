@@ -61,8 +61,8 @@ export class LotSaleComponent implements OnInit {
             status: ['IN_STOCK', Validators.compose([Validators.required])],
         });
         this.quantityUnitArray = [
-            { label: 'Bags', value: 'Bags' },
-            { label: 'Kg', value: 'Kg' },
+            { label: 'Bags', value: 'bags' },
+            { label: 'Kg', value: 'kg' },
         ];
         this.priceTypeArray = [
             { label: 'Per kg', value: 'kg' },
@@ -231,8 +231,8 @@ export class LotSaleComponent implements OnInit {
             (response) => {
                 if (response && response.success) {
                     this.toasterService.success('Status updated successfully');
-                    this.showDropdown = false;
                     this.statusLabel = this.formatStatus(this.orderStatus);
+                    this.showDropdown = false;
                 }
             },
             (err) => {

@@ -42,11 +42,20 @@
                             <h2 class="fnt-18 fnt-bold text-clr334 pl-3 mt-3">Order #{{ orderDetails?.id }}</h2>
                             <div class="col-sm-12">
                                 <button
+                                    *ngIf="!saleInformation"
                                     class="btn-raised w-100"
                                     routerLink="/green-coffee-management/coffee-sale"
                                     [queryParams]="{ orderId: orderDetails?.id }"
                                 >
                                     Mark for sale
+                                </button>
+                                <button
+                                    *ngIf="saleInformation && saleInformation.status !== 'SOLD'"
+                                    class="btn-raised"
+                                    routerLink="/green-coffee-management/lot-sale"
+                                    [queryParams]="{ orderId: orderDetails?.id }"
+                                >
+                                    {{ globals.languageJson?.edit }}
                                 </button>
                             </div>
                         </div>
