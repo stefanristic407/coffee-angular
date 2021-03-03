@@ -23,6 +23,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
     mainData: any[] = [];
     originArray: any[] = [];
     searchString = '';
+    markedCoffeeSaleLists: any = [];
     // sellerItems = [
     //     { label: 'Sweden', value: 'SE' },
     //     { label: 'UK', value: 'UK' },
@@ -34,6 +35,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
         { label: 'Display 25', value: 25 },
         { label: 'Display 50', value: 50 },
     ];
+    procuredCoffeeListArray: any[];
     @Input('form')
     set form(value: FormGroup) {
         this._form = value;
@@ -59,6 +61,11 @@ export class CoffeeProcuredTabComponent implements OnInit {
         this.roasterID = this.cookieService.get('roaster_id');
         this.primeTableService.rows = 10;
         this.primeTableService.sortBy = 'created_at';
+        this.roasterService.getCoffeeSaleList(this.roasterID).subscribe((res) => {
+            if (res.result && res.success) {
+                this.primeTableService.markedCoffeeSaleLists = res.result;
+            }
+        });
     }
 
     // tslint:disable: variable-name

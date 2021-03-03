@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Table } from 'primeng/table';
+import { RoasterserviceService } from './roasters/roasterservice.service';
 
 @Injectable({
     providedIn: 'root',
@@ -20,6 +21,9 @@ export class PrimeTableService {
     public form: FormGroup;
     public _allColumns: any[];
     public roasterId: any;
+    markedCoffeeSaleLists: any[] = [];
+    procuredCoffeeListArray: any[] = [];
+    filterResult: any = [];
     set allColumns(value: any[]) {
         this._allColumns = value;
     }
@@ -43,7 +47,13 @@ export class PrimeTableService {
     public searchQuery: any;
     // paginationValue: any;
 
-    constructor(public http: HttpClient, public cookieService: CookieService) {}
+    constructor(
+        public http: HttpClient,
+        public cookieService: CookieService,
+        private roasterService: RoasterserviceService,
+    ) {
+        this.roasterId = this.cookieService.get('roaster_id');
+    }
 
     getData(event: any) {
         if (event && event.sortOrder === 1) {
@@ -126,6 +136,14 @@ export class PrimeTableService {
                             this.paginationValue = false;
                         } else {
                             this.paginationValue = true;
+                        }
+                        if (this.markedCoffeeSaleLists) {
+                            this.procuredCoffeeListArray = this.records.filter((el) => {
+                                return !this.markedCoffeeSaleLists.find((element) => {
+                                    return element.order_id === el.id;
+                                });
+                            });
+                            console.log(this.procuredCoffeeListArray);
                         }
                     } else {
                         this.records = [...[]];

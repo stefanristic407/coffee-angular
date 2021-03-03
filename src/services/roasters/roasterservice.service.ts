@@ -883,7 +883,7 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
     //Get Coffee Sale List
-    getCoffeeSaleList(roaster_id: any, status?, displayCount?) {
+    getCoffeeSaleList(roaster_id: any, status?, displayCount?): Observable<any> {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/marked-sale-coffees';
         data['method'] = 'GET';
