@@ -175,6 +175,7 @@ button:disabled {
 .modal-content {
     padding: 15px !important;
 }
+
 .modal-header {
     padding: 0 0 15px 0 !important;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -373,7 +374,12 @@ button:disabled {
     background: #30855c;
 }
 
-.buttonMainCon{
+.button-main-Con{
     display: flex;
     justify-content: space-between;
 }
+
+.cust-text-color{
+    color: #747588 !important;
+}
+

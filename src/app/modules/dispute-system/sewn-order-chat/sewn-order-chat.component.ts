@@ -15,7 +15,7 @@ import {
     Renderer2,
     EventEmitter,
 } from '@angular/core';
-import { ChatMessageType, ThreadActivityType, ThreadType, OrganizationType } from '@enums';
+import { ChatMessageType, ThreadActivityType, ThreadType, OrganizationType } from '@core/enums';
 import {
     ThreadListItem,
     ThreadMember,
@@ -25,8 +25,8 @@ import {
     OrderChatThreadListItem,
     WSResponse,
     ResponseUserStatus,
-} from '@models';
-import { ChatHandlerService, GlobalsService, SocketService, ChatUtil } from '@services';
+} from '@core/models';
+import { ChatHandlerService, GlobalsService, SocketService, ChatUtil } from '@core/services';
 const badwordsRegExp = require('badwords/regexp') as RegExp;
 @Component({
     selector: 'app-sewn-order-chat',

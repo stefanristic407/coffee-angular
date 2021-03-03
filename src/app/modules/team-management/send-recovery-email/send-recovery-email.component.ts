@@ -4,9 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
-import { GlobalsService } from '@services';
-import { RoasterserviceService } from '@services';
-import { UserserviceService } from '@services';
+import { GlobalsService } from '@core/services';
+import { RoasterserviceService } from '@core/services';
+import { UserserviceService } from '@core/services';
 
 @Component({
     selector: 'app-send-recovery-email',

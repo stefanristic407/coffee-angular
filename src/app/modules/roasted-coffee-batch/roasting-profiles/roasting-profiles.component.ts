@@ -1,11 +1,11 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { RoasterserviceService } from '@services';
+import { RoasterserviceService } from '@core/services/api/roaster.service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from '@services';
+import { GlobalsService } from '@core/services/globals.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { UserserviceService } from '@services';
+import { UserserviceService } from '@core/services/api/user.service';
 import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
 

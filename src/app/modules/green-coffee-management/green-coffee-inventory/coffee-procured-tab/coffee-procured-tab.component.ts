@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, ViewChild, HostListener, AfterViewInit, AfterContentInit } from '@angular/core';
-import { GlobalsService } from '@services';
-import { RoasterserviceService } from '@services';
+import { GlobalsService } from '@core/services/globals.service';
+import { RoasterserviceService } from '@core/services/api/roaster.service';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 import { NavigationExtras, Router } from '@angular/router';
-import { PrimeTableService } from '@services';
+import { PrimeTableService } from '@core/services/prime-table.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Table } from 'primeng/table';
-import { UserserviceService } from '@services';
+import { UserserviceService } from '@core/services/api/user.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({

@@ -19,6 +19,7 @@ export class AgreementComponent implements OnInit {
     customerType: string;
     roasterId: string;
     mainData: any;
+    isUpdate: boolean;
 
     constructor(
         public router: Router,
