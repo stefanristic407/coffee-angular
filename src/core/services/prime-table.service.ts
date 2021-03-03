@@ -44,7 +44,6 @@ export class PrimeTableService {
     public origin: any;
     public status: any;
     public searchQuery: any;
-    // paginationValue: any;
 
     constructor(public http: HttpClient, public cookieService: CookieService) {
         this.roasterId = this.cookieService.get('roaster_id');
