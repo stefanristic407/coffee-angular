@@ -116,7 +116,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 d-flex d-sm-flex d-md-none p-0">
+        <div *ngIf="productForm['value']['is_variants_included']" class="col-12 d-flex d-sm-flex d-md-none p-0">
             <p-dropdown
                 [options]="variantTypeArray"
                 optionLabel="label"
@@ -262,11 +262,11 @@
                                 ></textarea>
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
-                               <div >
-                                <label>Recipes</label>
-                                <label class="float-right limitFont">0/50 words</label>
-                               </div>
-                                
+                                <div>
+                                    <label>Recipes</label>
+                                    <label class="float-right limitFont">0/50 words</label>
+                                </div>
+
                                 <textarea
                                     type="text"
                                     class="roasterDivText-area"
