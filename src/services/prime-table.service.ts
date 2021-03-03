@@ -85,7 +85,6 @@ export class PrimeTableService {
 
         // Search submission
         if (this.form) {
-            console.log(this.form);
             postData = { ...this.clean(this.form.value), ...postData };
         }
 
@@ -143,7 +142,6 @@ export class PrimeTableService {
                                     return element.order_id === el.id;
                                 });
                             });
-                            console.log(this.procuredCoffeeListArray);
                         }
                     } else {
                         this.records = [...[]];
