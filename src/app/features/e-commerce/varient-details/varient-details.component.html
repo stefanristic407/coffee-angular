@@ -208,7 +208,8 @@
         </div>
         <div class="row">
             <div class="col-12 fnt-16 fnt-muli fnt-700 black mt-3 mb-3">Add Images</div>
-            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 sewn-form-field w-100">
+            <div class="col-sm-12">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 sewn-form-field w-100">
                 <label>Upload Feature Image<span class="star">*</span></label>
                 <div
                     *ngIf="!weightForm['controls']['weights']['controls'][currentVarientIndex]['value']['fileDetails']"
@@ -274,10 +275,11 @@
                         </ng-template>
                     </div>
                 </div>
-            </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-9 row">
+                </div>
+                <!-- </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-9 row"> -->
                 <div
-                    class="col-4 pl-3 sewn-form-field w-100"
+                    class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 pl-3 sewn-form-field w-100"
                     *ngFor="
                         let product_image of weightForm['controls']['weights']['controls'][currentVarientIndex][
                             'value'
@@ -339,6 +341,7 @@
                         </div>
                     </div>
                 </div>
+            
             </div>
             <div class="col-12 mt-2 mb-3">
                 <button type="button" (click)="uploadImages()" class="btn btn-stroked">Update</button>
