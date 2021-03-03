@@ -1,4 +1,4 @@
-import { ServiceChatTypes } from '../../../models/order-chat';
+import { OrderChatType } from '@enums';
 // AUTHOR : Sindhuja
 // PAGE DESCRIPTION : This page contains functions of Order Pre-Book.
 import { Component, OnInit, ViewChild, ElementRef, AfterContentInit, AfterViewInit } from '@angular/core';
@@ -7,7 +7,7 @@ import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { PrebookGradeInfoComponent } from './prebook-grade-info/prebook-grade-info.component';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@services';
 import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 import { OrderBookedService } from '../order-booked/order-booked.service';
 declare var $: any;
@@ -42,7 +42,7 @@ export class OrderPrebookComponent implements OnInit, AfterContentInit, AfterVie
     appLanguage?: any;
     orderPreBookId: any;
     countryValue: any;
-    SERVICE_TYPE = ServiceChatTypes.RO_ES;
+    SERVICE_TYPE = OrderChatType.RO_ES;
 
     constructor(
         public prebookService: OrderPrebookService,

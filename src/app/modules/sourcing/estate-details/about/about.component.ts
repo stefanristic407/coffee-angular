@@ -1,6 +1,6 @@
 import { ChatHandlerService, GlobalsService } from '@services';
 import { Component, OnInit } from '@angular/core';
-import {} from 'src/services/globals.service';
+import {} from '@services';
 import { SourcingService } from '../../sourcing.service';
 
 @Component({

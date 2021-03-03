@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from 'src/services/globals.service';
-import { UserserviceService } from 'src/services/users/userservice.service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { GlobalsService } from '@services';
+import { UserserviceService } from '@services';
+import { RoasterserviceService } from '@services';
 @Component({
     selector: 'app-welcome-aboard',
     templateUrl: './welcome-aboard.component.html',

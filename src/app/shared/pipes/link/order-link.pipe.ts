@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { OrgType, OrderType, OrderStatus } from '@models';
+import { OrgType, OrderType, OrderStatus } from '@enums';
 
 @Pipe({
     name: 'orderLink',
@@ -8,19 +8,19 @@ export class OrderLinkPipe implements PipeTransform {
     transform(orgType: OrgType, orderId: number, orderType: OrderType, orderStatus: OrderStatus): string {
         switch (orgType) {
             case OrgType.ESTATE: {
-                if (orderType === OrderType.GC_ORDER) {
+                if (orderType === OrderType.Booked) {
                     return `/ordermanagement/order-booked/${orderId}/${orderStatus}`;
-                } else if (orderType === OrderType.GC_ORDER_SAMPLE) {
+                } else if (orderType === OrderType.Sample) {
                     return `/ordermanagement/order-sample/${orderId}/${orderStatus}`;
-                } else if (orderType === OrderType.PREBOOK_LOT) {
+                } else if (orderType === OrderType.Prebook) {
                     return `/ordermanagement/order-prebook/${orderId}/${orderStatus}`;
                 }
                 break;
             }
             case OrgType.MICRO_ROASTER: {
-                if (orderStatus === OrderStatus.PLACED) {
+                if (orderStatus === OrderStatus.Placed) {
                     return `/ordermanagement/booked-order-confirmation/${orderId}/${orderType}`;
-                } else if (orderStatus === OrderStatus.REJECTED) {
+                } else if (orderStatus === OrderStatus.Rejected) {
                     return `/ordermanagement/microroaster-orders/${orderId}/${orderType}`;
                 } else {
                     return `/ordermanagement/mr-booked/${orderId}/${orderType}`;

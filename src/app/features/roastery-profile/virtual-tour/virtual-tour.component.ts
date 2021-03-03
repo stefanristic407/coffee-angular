@@ -1,11 +1,10 @@
-import { UserserviceService } from 'src/services/users/userservice.service';
+import { UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { YourServicesService } from 'src/services/your-services/your-services.service';
+import { YourServicesService } from '@services';
 import { Component, OnInit } from '@angular/core';
 import { RoasteryProfileService } from '../roastery-profile.service';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
-
 
 @Component({
     selector: 'sewn-virtual-tour',
@@ -25,8 +24,7 @@ export class VirtualTourComponent implements OnInit {
         private toasterService: ToastrService,
         private userService: UserserviceService,
         private cookieService: CookieService,
-    ) {
-    }
+    ) {}
 
     async ngOnInit() {
         const lang = localStorage.getItem('locale') ? localStorage.getItem('locale') : 'en';
@@ -38,7 +36,7 @@ export class VirtualTourComponent implements OnInit {
 
     getFiles() {
         this.isLoading = true;
-        this.yourService.getMyFiles().subscribe(res => {
+        this.yourService.getMyFiles().subscribe((res) => {
             if (res.success) {
                 this.isLoading = false;
                 this.tourImages = res.result;
@@ -47,7 +45,7 @@ export class VirtualTourComponent implements OnInit {
     }
 
     addFile(data) {
-        this.yourService.addFile(data).subscribe(res => {
+        this.yourService.addFile(data).subscribe((res) => {
             if (res.success) {
                 this.getFiles();
             } else {
@@ -58,7 +56,7 @@ export class VirtualTourComponent implements OnInit {
 
     handleRemoveMediaFile(id: number): void {
         console.log('id >>>>>>>>>>>', id);
-        this.tourImages = this.tourImages.filter(item => item.id !== id);
+        this.tourImages = this.tourImages.filter((item) => item.id !== id);
         this.userService.deleteFile(this.roasterId, id).subscribe();
     }
 
@@ -66,14 +64,17 @@ export class VirtualTourComponent implements OnInit {
         if (e.target.files.length > 0) {
             for (let i = 0; i <= e.target.files.length - 1; i++) {
                 const fsize = e.target.files.item(i).size;
-                const file = Math.round((fsize / 1024));
+                const file = Math.round(fsize / 1024);
                 // The size of the file.
                 if (file >= 2048) {
                     this.toasterService.error('File too big, please select a file smaller than 2mb');
                 } else {
                     const image = e.target.files[0];
                     const File = new FormData();
-                    File.append('name', Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15));
+                    File.append(
+                        'name',
+                        Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
+                    );
                     File.append('file', image);
                     File.append('file_module', 'Virtual-Tour');
                     this.addFile(File);

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '../../guards/auth.guard';
+import { AuthGuard } from '@guards';
 import { AgreementComponent } from './agreement/agreement.component';
 
 const routes: Routes = [
@@ -14,11 +14,10 @@ const routes: Routes = [
         redirectTo: '',
         pathMatch: 'full',
     },
-
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
-export class SalesContractRoutingModule { }
+export class SalesContractRoutingModule {}

@@ -4,10 +4,10 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { UserserviceService } from 'src/services/users/userservice.service';
+import { UserserviceService } from '@services';
 import { GlobalsService } from '@services';
 import * as _ from 'underscore';
-import { OrgType } from '@models';
+import { OrgType } from '@enums';
 
 @Injectable({
     providedIn: 'root',

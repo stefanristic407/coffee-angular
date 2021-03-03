@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { FileType } from '@models';
+import { FileType } from '@enums';
 
 @Pipe({
     name: 'fileIcon',

@@ -3,12 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { from } from 'rxjs';
 import { MicroOrderBookedService } from '../micro-order-booked/micro-order-booked.service';
-import { GlobalsService } from 'src/services/globals.service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
-import { UserserviceService } from 'src/services/users/userservice.service';
+import { GlobalsService } from '@services';
+import { RoasterserviceService } from '@services';
+import { UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { stringify } from 'querystring';
-import { OrgType } from '@models';
+import { OrgType } from '@enums';
 @Component({
     selector: 'app-micro-order-booked',
     templateUrl: './micro-order-booked.component.html',

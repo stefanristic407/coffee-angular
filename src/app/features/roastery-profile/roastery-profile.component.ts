@@ -3,7 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ProfilePhotoService } from './profile-photo/profile-photo.service';
 import { RoasteryProfileService } from './roastery-profile.service';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@services';
 
 @Component({
     selector: 'app-roastery-profile',
@@ -15,10 +15,7 @@ export class RoasteryProfileComponent implements OnInit {
     appLanguage?: any;
     roasteryActive: any = 0;
     menuItems: any[];
-    items = [
-        {label: 'Home', routerLink: '/'},
-        {label: 'Roaster Profile'},
-    ];
+    items = [{ label: 'Home', routerLink: '/' }, { label: 'Roaster Profile' }];
 
     constructor(
         private router: Router,

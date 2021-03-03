@@ -1,15 +1,8 @@
-/* direct messaging css starts here */
-
-/* .mt-chat {
-    margin-top: -11rem;
-} */
 .chat {
     border-radius: 4px;
     position: fixed;
     right: -200%;
     width: 100%;
-    /* top: 0;
-    height: 100vh; */
     bottom: 0px;
     transition: 0.4s ease-in-out;
     z-index: 10;
@@ -24,30 +17,6 @@
         z-index: 99;
     }
 }
-
-/* @media (min-width: 768px) {
-    .chat {
-        width: 720px;
-    }
-}
-
-@media (min-width: 992px) {
-    .chat {
-        width: 960px;
-    }
-}
-
-@media (min-width: 1200px) {
-    .chat {
-        width: 1140px;
-    }
-}
-
-@media (min-width: 1280px) {
-    .chat {
-        width: 1240px;
-    }
-} */
 
 .chat.open {
     right: 0 !important;
@@ -83,8 +52,6 @@
 }
 .expand-active {
     left: 0px;
-    // box-shadow: 0 10px 9px 0 rgba(233, 233, 233, 0.5);
-    // padding: 0px;
     background-color: #f1f1f1;
 }
 
@@ -279,7 +246,6 @@
     display: none;
     opacity: 0;
     visibility: hidden;
-    // padding: 10px 25px 25px 25px;
 }
 
 .chat-accounts__body.active {
@@ -750,10 +716,6 @@
     text-align: left;
 }
 
-/* .expand-active .offensive-lang {
-    top: calc(-100% - 15px);
-} */
-
 .offensive-lang {
     border-radius: 2px;
     background-color: #d50000;
@@ -768,11 +730,6 @@
     opacity: 0;
     transition: 0.4s ease-in-out;
 }
-
-/* .expand-active .offensive-lang {
-    top: calc(-100% - 55px);
-    opacity: 1;
-} */
 
 .offensive-lang.active {
     opacity: 1;
@@ -904,15 +861,6 @@
 }
 
 @media (min-width: 768px) {
-    /* .chat {
-        width: 85%;
-    } */
-    // .expand-active {
-    //     .chat-box {
-    //         width: 55%;
-    //     }
-    // }
-
     .chat-box {
         width: 50%;
         margin-left: auto;
@@ -926,10 +874,6 @@
         font-size: 18px;
         line-height: 28px;
     }
-    /* .expand-active .offensive-lang {
-        top: calc(-100% - 70px);
-        opacity: 1;
-    } */
     .last-seen {
         display: none;
         visibility: hidden;
@@ -994,21 +938,6 @@
         width: 75%;
     }
 }
-
-/* 
-@media (min-width: 1200px) {
-    .offensive-lang {
-        top: calc(-100% + 35px);
-    }
-}
-
-@media (min-width: 1300px) {
-    .offensive-lang {
-        top: calc(-100% + 45px);
-    }
-} */
-
-/* direct messaging css Ends here */
 
 .chat-seeting__content {
     position: relative;

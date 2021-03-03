@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RoasteryProfileService } from '../roastery-profile.service';
-import { UserserviceService } from 'src/services/users/userservice.service';
+import { UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { GlobalsService } from 'src/services/globals.service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { GlobalsService } from '@services';
+import { RoasterserviceService } from '@services';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -117,10 +117,10 @@ export class AboutRoasteryComponent implements OnInit {
     getRoasterUsers() {
         this.roasterService.getRoasterUsers(this.roasterId).subscribe((data: any) => {
             if (data.success === true) {
-                this.roasterUsersOptions = (data.result || []).map(item => {
+                this.roasterUsersOptions = (data.result || []).map((item) => {
                     return {
                         name: item.firstname + ' ' + item.lastname,
-                        value: item.id
+                        value: item.id,
                     };
                 });
             }
@@ -134,13 +134,13 @@ export class AboutRoasteryComponent implements OnInit {
         data.append('file', file);
         data.append('api_call', `/ro/${this.roasterId}/brands`);
         data.append('token', this.cookieService.get('Auth'));
-        this.roasterService.addRoasterBrand(data).subscribe(res => {
+        this.roasterService.addRoasterBrand(data).subscribe((res) => {
             this.getBrands();
         });
     }
 
     getBrands() {
-        this.roasterService.getRoasterBrands(this.roasterId).subscribe(res => {
+        this.roasterService.getRoasterBrands(this.roasterId).subscribe((res) => {
             this.brands = res.success ? res.result : [];
         });
     }
@@ -154,7 +154,7 @@ export class AboutRoasteryComponent implements OnInit {
         if (e.target.files.length > 0) {
             for (let i = 0; i <= e.target.files.length - 1; i++) {
                 const fsize = e.target.files.item(i).size;
-                const file = Math.round((fsize / 1024));
+                const file = Math.round(fsize / 1024);
                 // The size of the file.
                 if (file >= 2048) {
                     this.toastrService.error('File too big, please select a file smaller than 2mb');
@@ -180,14 +180,12 @@ export class AboutRoasteryComponent implements OnInit {
         }
     }
 
-
     onKeyPress(event: any) {
         if (event.target.value === '') {
             document.getElementById(event.target.id).style.border = '1px solid #D50000';
         } else {
             document.getElementById(event.target.id).style.border = '1px solid #d6d6d6';
         }
-
     }
 
     editCertificate(event, certificates: any) {
@@ -196,16 +194,14 @@ export class AboutRoasteryComponent implements OnInit {
 
     deleteCertificate(certificateId: any) {
         if (confirm('Please confirm! you want to delete?') === true) {
-            this.userService.deleteCompanyCertificate(this.roasterId, certificateId).subscribe(
-                (response: any) => {
-                    if (response.success) {
-                        this.toastrService.success('The selected Certificate has been successfully deleted');
-                        this.getCertificates();
-                    } else {
-                        this.toastrService.error('Something went wrong while deleting the certificate');
-                    }
-                },
-            );
+            this.userService.deleteCompanyCertificate(this.roasterId, certificateId).subscribe((response: any) => {
+                if (response.success) {
+                    this.toastrService.success('The selected Certificate has been successfully deleted');
+                    this.getCertificates();
+                } else {
+                    this.toastrService.error('Something went wrong while deleting the certificate');
+                }
+            });
         }
     }
 
@@ -226,23 +222,20 @@ export class AboutRoasteryComponent implements OnInit {
             user_id: parseInt(this.roasteryProfileService.empName, 10),
         };
         this.assignButtonValue = 'Adding';
-        this.roasterService
-            .addRoasterContacts(this.roasterId, contactData)
-            .subscribe((result: any) => {
-                if (result.success === true) {
-                    this.assignButtonValue = 'Add Contact';
-                    this.toastrService.success('Contact has been added.');
-                    this.roasteryProfileService.getcontactList();
-                    this.roasteryProfileService.empName = '';
-                    this.assignRow = false;
-                    this.addBtn = true;
-                    this.roasteryProfileService.showDelete = true;
-                } else {
-                    this.assignButtonValue = 'Add Contact';
-                    this.toastrService.error('Error while assigning the role');
-                }
-            });
-
+        this.roasterService.addRoasterContacts(this.roasterId, contactData).subscribe((result: any) => {
+            if (result.success === true) {
+                this.assignButtonValue = 'Add Contact';
+                this.toastrService.success('Contact has been added.');
+                this.roasteryProfileService.getcontactList();
+                this.roasteryProfileService.empName = '';
+                this.assignRow = false;
+                this.addBtn = true;
+                this.roasteryProfileService.showDelete = true;
+            } else {
+                this.assignButtonValue = 'Add Contact';
+                this.toastrService.error('Error while assigning the role');
+            }
+        });
     }
 
     showContact() {
@@ -258,14 +251,13 @@ export class AboutRoasteryComponent implements OnInit {
 
     removeContact(contactId: any) {
         this.roasterService.deleteRoasterContacts(this.roasterId, contactId).subscribe((data: any) => {
-                if (data.success === true) {
-                    this.toastrService.success('The selected contact has been removed successfully');
-                    this.roasteryProfileService.getcontactList();
-                } else {
-                    this.toastrService.error('Error while deleting the contact');
-                }
-            },
-        );
+            if (data.success === true) {
+                this.toastrService.success('The selected contact has been removed successfully');
+                this.roasteryProfileService.getcontactList();
+            } else {
+                this.toastrService.error('Error while deleting the contact');
+            }
+        });
     }
 
     public addBrandProfile() {
@@ -273,12 +265,10 @@ export class AboutRoasteryComponent implements OnInit {
             name: '',
             logo: '',
             short_descr: '',
-
         });
     }
 
     public deleteRow(index) {
         this.brandProfile.splice(index, 1);
     }
-
 }

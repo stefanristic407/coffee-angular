@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { GreenCoffeeManagementComponent } from './green-coffee-management/green-coffee-management.component';
-import { AuthGuard } from '@app/guards/auth.guard';
+import { AuthGuard } from '@guards';
 import { GreenCoffeeInventoryComponent } from './green-coffee-inventory/green-coffee-inventory.component';
 import { ProcuredCoffeeComponent } from './procured-coffee/procured-coffee.component';
 import { GreenCoffeeForSaleDetailsComponent } from './green-coffee-for-sale-details/green-coffee-for-sale-details.component';

@@ -13,7 +13,7 @@ import { EditFileComponent } from './components/edit-file/edit-file.component';
 import { ShareComponent } from './components/share/share.component';
 import { BehaviorSubject } from 'rxjs';
 import * as _ from 'underscore';
-import { Action, FileType } from '@models';
+import { Action, FileType } from '@enums';
 
 @Injectable({
     providedIn: 'root',

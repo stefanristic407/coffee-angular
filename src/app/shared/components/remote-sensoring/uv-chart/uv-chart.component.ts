@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AgroService } from 'src/services/agro.service';
+import { AgroService } from '@services';
 import * as moment from 'moment';
 import * as _ from 'underscore';
 

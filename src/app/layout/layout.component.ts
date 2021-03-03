@@ -2,13 +2,13 @@ import { SocketService, ChatHandlerService } from '@services';
 import { AfterViewInit, Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
-import { UserserviceService } from 'src/services/users/userservice.service';
+import { UserserviceService } from '@services';
 import { NavigationEnd, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 declare var $: any;
 import { TranslateService } from '@ngx-translate/core';
-import { GlobalsService } from 'src/services/globals.service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { GlobalsService } from '@services';
+import { RoasterserviceService } from '@services';
 import { filter } from 'rxjs/operators';
 import { MenuService } from '@components';
 

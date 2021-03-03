@@ -4,17 +4,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { RoasterserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@services';
 
 @Component({
     selector: 'app-agreement',
     templateUrl: './agreement.component.html',
-    styleUrls: ['./agreement.component.scss']
+    styleUrls: ['./agreement.component.scss'],
 })
 export class AgreementComponent implements OnInit {
-
     appLanguage: any;
     searchTerm: any;
     customerType: string;
@@ -26,11 +25,10 @@ export class AgreementComponent implements OnInit {
         public cookieService: CookieService,
         public roasterService: RoasterserviceService,
         public toastrService: ToastrService,
-        public globals: GlobalsService) {
+        public globals: GlobalsService,
+    ) {
         this.roasterId = this.cookieService.get('roaster_id');
     }
-
-
 
     ngOnInit(): void {
         // Auth checking
