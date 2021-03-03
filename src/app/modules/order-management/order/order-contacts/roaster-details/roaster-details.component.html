@@ -1,0 +1,23 @@
+<div class="d-flex mt-4 border-div flex-column flex-md-row border-bottom">
+  <div class="p-0">
+      <app-avatar [src]="companyImageThumbnailUrl" [name]="ownerName"></app-avatar>
+  </div>
+  <div class="pull-left">
+      <ul class="details-list p-0 ml-3 mb-4">
+          <li class="fnt-16 fnt-600 text-black334">{{ ownerName }}</li>
+          <li class="fnt-12 fnt-600 pt-1">
+              <span class="cursor-pointer">
+                  <img class="" src="assets/images/star-1.svg" alt="User" />
+                  <span class="star-no pl-1"> {{ rating }}</span>
+              </span>
+          </li>
+      </ul>
+  </div>
+
+  <div class="pull-right ml-auto">
+      <span class="btn-stroked-muted cursor-pointer p-2">
+          <img class="svg" src="assets/images/message-icon.svg" />
+          <span class="estate-message pl-2">{{ 'message' | translate }}</span>
+      </span>
+  </div>
+</div>

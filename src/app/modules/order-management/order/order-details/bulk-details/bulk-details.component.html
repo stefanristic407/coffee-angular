@@ -1,0 +1,41 @@
+<h4 class="fnt-18 font-bold">{{ 'bulk_details' | translate }}</h4>
+
+<table class="recent-time">
+  <tr>
+    <td><span class="list-que"> {{ 'taste_profile' | translate }} : </span></td>
+    <td><span class="list-ans"> - </span></td>
+  </tr>
+  <tr>
+    <td><span class="list-que"> {{ 'listing_status' | translate }}: </span></td>
+    <td><span class="list-ans">{{ (bulk?.listingStatus | strReplace : '_' : ' ' | titlecase) || '-' }}</span></td>
+  </tr>
+  <tr>
+    <td><span class="list-que"> {{ 'processing' | translate }}: </span></td>
+    <td><span class="list-ans">{{ (bulk?.processingTypes | strReplace : '_' : ' ' | titlecase) || '-' }}</span></td>
+  </tr>
+
+  <tr>
+    <td><span class="list-que"> {{ 'type' | translate }}: </span></td>
+    <td><span class="list-ans"> {{ (bulk?.type | strReplace : '_' : ' ' | titlecase) }} </span></td>
+  </tr>
+
+  <tr>
+    <td><span class="list-que"> {{ 'species' | translate }}: </span></td>
+    <td><span class="list-ans"> {{ (bulk?.species | strReplace : '_' : ' ' | titlecase) }} </span></td>
+  </tr>
+
+  <tr>
+    <td><span class="list-que"> {{ 'quality' | translate }}: </span></td>
+    <td><span class="list-ans"> - </span></td>
+  </tr>
+
+  <tr>
+    <td><span class="list-que"> {{ 'flavours' | translate }}: </span></td>
+    <td><span class="list-ans">{{ (bulk?.flavours | strReplace : '_' : ' ' | titlecase) || '-' }}</span></td>
+  </tr>
+
+  <tr>
+    <td><span class="list-que"> {{ 'other' | translate }}: </span></td>
+    <td><span class="list-ans"> - </span></td>
+  </tr>
+</table>

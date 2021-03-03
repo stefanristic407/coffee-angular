@@ -1,0 +1,27 @@
+<div class="border-ebebeb pb-md-3 pb-lg-4 px-3 px-md-4 p-lg-4">
+    <app-delivery-address></app-delivery-address>
+
+    <div class="d-none d-md-block">
+        <div class="d-flex mt-4 justify-content-between">
+            <div class="fnt-18 font-bold text-black334">{{ 'roaster_details' | translate }}</div>
+            <!-- TODO: view-order - make generic class -->
+            <a class="view-order cursor-pointer">{{ 'view_details' | translate }}</a>
+        </div>
+
+        <app-roaster-details [ownerName]="roaster?.ownerName" [rating]="roaster?.rating"
+            [companyImageThumbnailUrl]="roaster?.companyImageThumbnailUrl"></app-roaster-details>
+
+        <table class="recent-time recent-add mt-3">
+            <tr>
+                <td><span class="fnt-14">{{ 'address' | translate }}&nbsp;: </span></td>
+                <td>
+                    <span class="list-ans fnt-16 fnt-600">{{ roaster?.addressLine1 }},
+                        {{ roaster?.addressLine2 }},
+                        {{ roaster?.zipcode }} -
+                        {{ commonService.getCountryName(roaster?.country) }}
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

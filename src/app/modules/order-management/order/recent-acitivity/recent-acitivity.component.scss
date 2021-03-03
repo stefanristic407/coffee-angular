@@ -1,0 +1,32 @@
+@import '../../../../../theme/styles/variables';
+
+.recent ul li {
+    padding: 15px 0px;
+}
+
+.activity-date {
+    color: $davys-grey;
+    margin-bottom: 0 !important;
+}
+
+.date-separator {
+    height: 1px;
+    margin: 16.4px 0 14.6px;
+    border-bottom: dotted 1px #eeeeee;
+}
+
+.timing {
+    min-width: 63px;
+}
+
+.confirmation {
+    @media all and (max-width: 767px) {
+        color: $general-text-color;
+    }
+}
+
+::ng-deep {
+    .p-accordion-content {
+        max-width: 350px;
+    }
+}

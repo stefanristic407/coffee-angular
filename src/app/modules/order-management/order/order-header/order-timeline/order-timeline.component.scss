@@ -1,0 +1,89 @@
+$icon-size: 34px;
+
+.order-tracking {
+    width: 20%;
+    position: relative;
+
+    @media all and (max-width: 767px) {
+        .order-tracking__mb-text {
+            position: relative;
+            left: $icon-size;
+            top: -$icon-size;
+        }
+    }
+
+    .is-complete {
+        position: relative;
+        width: $icon-size;
+        height: $icon-size;
+
+        &:after {
+            position: absolute;
+            content: '';
+            background: url(../../../../../../assets/images/timeline-check-active.svg) no-repeat scroll 0px 0px;
+            top: 50%;
+            left: 50%;
+            width: $icon-size;
+            height: $icon-size;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+    }
+
+    &.completed {
+        .is-complete {
+            position: relative;
+
+            &:after {
+                position: absolute;
+                content: '';
+                background: url(../../../../../../assets/images/timeline-check.svg) no-repeat scroll 0px 0px;
+                top: 50%;
+                left: 50%;
+                width: $icon-size;
+                height: $icon-size;
+                transform: translate(-50%, -50%);
+                z-index: 1;
+            }
+        }
+
+        &:before {
+            border: dashed 0.5px #d6d6d6;
+        }
+    }
+
+    &:last-child:after {
+        content: '';
+        display: block;
+        height: 3px;
+        background-color: #c29d7a1f;
+        top: 13px;
+        position: absolute;
+        right: calc(-19%);
+        z-index: 0;
+    }
+
+    &:before {
+        content: '';
+        display: block;
+        background-color: #c29d7a1f;
+        top: 13px;
+        position: absolute;
+        left: calc(-50% - -25px);
+        z-index: 0;
+        width: calc(100% - 50px);
+        border: dashed 0.5px #d6d6d6;
+    }
+
+    &:first-child:before {
+        display: none;
+    }
+}
+
+.main-order-tracking-mbVesrion {
+    background-color: #faf8f4;
+}
+
+.invoice-block {
+    margin-top: -36px;
+}

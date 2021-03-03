@@ -1,0 +1,19 @@
+<h4 class="fnt-18 fnt-sm-16 font-bold text-black334">{{'payment_status' | translate}}</h4>
+<div class="w-100 mt-2 mt-md-3">
+  <p class="fnt-18 fnt-sm-16 fnt-500" *ngIf="order?.statusPending">PENDING</p>
+  <p class="fnt-18 fnt-sm-16 fnt-500" *ngIf="order?.statusPaid">PAID</p>
+  <div *ngIf="order?.receiptShow">
+    <button type="button" class="btn receipt-btn mb-3 mb-md-2 fnt-14 fnt-sm-12 fnt-500" (click)="openReceipt()">
+      <img src=" assets/images/view-reciept.svg" class="pr-2" />View receipt
+    </button>
+  </div>
+  <p class="pb-md-2 mb-0 mt-sm-2 mt-md-0 mt-lg-3">
+    <a class="view-order cursor-pointer mt-2">View payment procedure </a>
+  </p>
+  <div class="track-info mt-4 pt-2" *ngIf="order?.statusPaid && false">
+    <p class="track-info-title mb-1">
+      Tracking ID
+    </p>
+    <button class="btn btn-outline-primary"><span class="track">{{'track_shipment' | translate}}</span></button>
+  </div>
+</div>

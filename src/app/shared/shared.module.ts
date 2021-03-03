@@ -97,6 +97,9 @@ import { PhoneNumberComponent } from './components/phone-number/phone-number.com
 import { ReviewSummaryComponent } from './components/review-summary/review-summary.component';
 import { ReviewsComponent } from './components/reviews/reviews.component';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { ArrayFilterPipe } from './pipes/array-filter.pipe';
+import { StringReplacePipe } from './pipes/string-replace.pipe';
+import { AccordionModule } from 'primeng/accordion';
 
 // #region third libs
 const THIRDMODULES = [
@@ -145,6 +148,7 @@ const THIRDMODULES = [
     Ng2TelInputModule,
     ProgressBarModule,
     ChipsModule,
+    AccordionModule,
 ];
 // #endregion
 
@@ -182,6 +186,7 @@ const COMPONENTS = [
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 const DIRECTIVES = [WordLimitDirective, RatingDirective, LifecyclehookDirective];
 const PIPES = [
+    ArrayFilterPipe,
     CountryPipe,
     EstateBrandLinkPipe,
     FileIconPipe,
@@ -193,6 +198,7 @@ const PIPES = [
     OrderRatingLinkPipe,
     OrderLinkPipe,
     OrgTypePipe,
+    StringReplacePipe,
     WordCountPipe,
 ];
 // #endregion

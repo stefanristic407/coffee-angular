@@ -22,6 +22,11 @@ export const routes: Routes = [
                 loadChildren: () => import('./features/features.module').then((m) => m.FeaturesModule),
             },
             {
+                path: 'orders',
+                loadChildren: () =>
+                    import('./modules/order-management/order-management.module').then((m) => m.OrderManagementModule),
+            },
+            {
                 path: 'ordermanagement',
                 loadChildren: () =>
                     import('./ordermanagement/ordermanagement.module').then((m) => m.OrdermanagementModule),
@@ -75,9 +80,7 @@ export const routes: Routes = [
             {
                 path: 'sales-contract',
                 loadChildren: () =>
-                    import('./modules/sales-contract/sales-contract.module').then(
-                        (m) => m.SalesContractModule,
-                    ),
+                    import('./modules/sales-contract/sales-contract.module').then((m) => m.SalesContractModule),
             },
         ],
     },
@@ -96,4 +99,4 @@ const config: ExtraOptions = {
     imports: [RouterModule.forRoot(routes, config)],
     exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

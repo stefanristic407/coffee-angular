@@ -1,0 +1,42 @@
+<ng-container *ngIf="!rejectMode; else rejectForm">
+  <div class="confirm-header">{{ 'confirm_order' | translate }}</div>
+  <div class="mt-2 available-quantity" *ngIf="availability$ | async as availability">
+    {{ 'available_quantity' | translate }} : {{ availability.quantityCount }} {{ availability.quantityType }}
+  </div>
+  <!-- TODO: Add translation -->
+  <div class="mt-2 secondary-description">Confirm the order within 72 hrs, else the request will be cancelled automatically.</div>
+  <div class="mt-4 button-block">
+    <!-- TODO: Add translation -->
+    <button class="btn btn-primary p-12" (click)="accept()">Accept Order</button>
+    <button class="ml-4 btn btn-outline-primary p-12" (click)="reject()">Reject Order</button>
+  </div>
+</ng-container>
+
+<ng-template #rejectForm>
+  <div class="available-quantity pt-4">
+    <!-- TODO: Add translation -->
+    This order has been rejected. The roaster will be notified with an update. Please let us know the reason for rejecting the order.
+  </div>
+  <div>
+    <label>
+      <!-- TODO: Add translation -->
+      Not-Serviceable
+      <input type="checkbox" checked="checked" />
+      <span class="checkmark"></span>
+    </label>
+    <label>
+      <!-- TODO: Add translation -->
+      Out-of-Stock
+      <input type="checkbox" checked="checked" />
+      <span class="checkmark"></span>
+    </label>
+    <label>
+      {{ 'other' | translate }}
+      <input type="checkbox" checked="checked" />
+      <span class="checkmark"></span>
+    </label>
+  </div>
+  <div class="mt-4 button-block">
+    <button class="btn btn-primary p-12" (click)="submitReason()">{{ 'submit' | translate }}</button>
+  </div>
+</ng-template>

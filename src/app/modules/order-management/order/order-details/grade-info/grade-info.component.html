@@ -1,0 +1,44 @@
+<div class="grade-container" *ngIf="cuppingScore && cuppingScore.length; else: noGradeInfo">
+  <div class="row progress-bar-tooltip pb-7">
+    <div class="col-12 col-md-12 p-0">
+        <div class="row justify-content-between">
+            <div *ngFor="let item of cuppingScore; let first = first" class="col p-0 order-tracking completed mixups-track">
+                <div class="tooltips is-complete" [class.in-progress]="!item.finalScore">
+                    <p *ngIf="item.finalScore" class="cup-score fnt-21 font-bold text-black334 pb-2">{{item.finalScore}}</p>
+                    <p *ngIf="item.finalScore" class="score-text muted-text font-bold fnt-14 pb-2">{{ 'cupping_score' | translate }}</p>
+                </div>
+                <p class="order-date mt-3 mb-0 fnt-14 font-bold text-black334">{{item.cuppingDate | date : 'd MMM yyyy'}}</p>
+                <p class="order-status mt-1 mb-25 muted-text font-bold fnt-12 fnt-md-14">Graded by {{ item.evaluatorType | titlecase}}</p>
+                <a *ngIf="first" class="view-order cursor-pointer" data-toggle="collapse" data-target="#estate" (click)="viewReport()">
+                    {{ 'view_report' | translate }}
+                </a>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="fnt-28 mb-2 fnt-play text-black334 mt-5 d-none d-md-block">
+    {{ 'trying_best' | translate }} :)
+  </div>
+  <div class="fnt-12 fnt-md-16 mt-4 mt-md-2 text-black334">
+    To get you your coffee, we make sure the coffee is graded at various stages to make sure you get the beans you
+    ordered. In our extensive process, coffee is graded by the facilitator, roaster and you, to guarentee a consistent
+    grade and avoid miscommunication.
+  </div>
+  <div class="fnt-12 fnt-md-16 mt-4 mt-md-2 text-black334 d-md-none">
+    SEWN follow a unique grade scale to ensure there is no confusion with grading.
+  </div>
+</div>
+
+<ng-template #noGradeInfo>
+  <div class="grade-container d-flex flex-column align-items-center justify-content-center">
+    <div class="fnt-28 fnt-bold fnt-play text-black334">
+      You’re order isnt ready yet!
+    </div>
+    <div class="fnt-16 fnt-normal text-black334 text-center mt-4">
+      <span class="d-block limited-width-text">
+        Once your order is ready, the coffee would be graded by the facilitator and the scores would be visible here 
+      </span>
+    </div>
+  </div>
+</ng-template>

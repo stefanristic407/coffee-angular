@@ -1,0 +1,24 @@
+@import '../../../../../theme/styles/variables';
+
+:host {
+    display: block;
+
+    @media all and (max-width: 767px) {
+        padding-top: 8px;
+    }
+
+    .border-ebebeb {
+        padding-top: 32px;
+
+        &.tabs {
+            padding-top: 37px;
+            padding-right: 16px !important;
+        }
+
+        &.border-mobile {
+            @media all and (max-width: 767px) {
+                border: solid 1px $secondary-border-color !important;
+            }
+        }
+    }
+}
