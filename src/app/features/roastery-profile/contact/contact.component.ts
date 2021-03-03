@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RoasteryProfileService } from '../roastery-profile.service';
 
 declare var $: any;
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@services';
 
 @Component({
     selector: 'sewn-contact',
@@ -10,17 +10,17 @@ import { GlobalsService } from 'src/services/globals.service';
     styleUrls: ['./contact.component.scss'],
 })
 export class ContactComponent implements OnInit {
-// name : string;
-// email : string;
-// phoneno : string;
-// city: string;
-// country : string = '';
-// state: string = "";
-// address1 : string;
-// address2 : string;
-// zipcode: string;
-// facebook : string;
-// instagram : string;
+    // name : string;
+    // email : string;
+    // phoneno : string;
+    // city: string;
+    // country : string = '';
+    // state: string = "";
+    // address1 : string;
+    // address2 : string;
+    // zipcode: string;
+    // facebook : string;
+    // instagram : string;
     nameError: string;
     emailError: string;
     phoneError: string;
@@ -43,8 +43,29 @@ export class ContactComponent implements OnInit {
         this.language();
         let selectedVal = '+91';
         let EnteredNum;
-        const optionText = ['IND 91', 'USA 1', 'AUS 61', 'ITA 39', 'Ban 880', 'SWE 46', 'AFG 93', 'UK 44', 'UAE 971', 'CHE 41', 'SAU 966', 'PRT 351', 'PO 48', 'NOR 47', 'NZL 64', 'GER 49', 'FRA 33', 'DNK 45', 'CHN 86', 'PAK 92'];
-// Phone Number selection
+        const optionText = [
+            'IND 91',
+            'USA 1',
+            'AUS 61',
+            'ITA 39',
+            'Ban 880',
+            'SWE 46',
+            'AFG 93',
+            'UK 44',
+            'UAE 971',
+            'CHE 41',
+            'SAU 966',
+            'PRT 351',
+            'PO 48',
+            'NOR 47',
+            'NZL 64',
+            'GER 49',
+            'FRA 33',
+            'DNK 45',
+            'CHN 86',
+            'PAK 92',
+        ];
+        // Phone Number selection
         const optionLen = $('.phone-number').find('.select-list');
 
         for (const option of optionText) {
@@ -52,18 +73,21 @@ export class ContactComponent implements OnInit {
             optionLen.append(optionVal);
         }
 
-        $('.entered-number').on('input', function() {
+        $('.entered-number').on('input', function () {
             EnteredNum = $(this).val();
             const Num = '+' + parseInt(selectedVal + EnteredNum, 10);
             $(this).parents('.phone-number').find('.hidden-phone-num').val(Num);
             const s = $(this).parents('.phone-number').find('.hidden-phone-num').val();
         });
 
-        $('body').on('click', '.select-list li', function() {
+        $('body').on('click', '.select-list li', function () {
             const $thisVal = $(this).text();
             selectedVal = $thisVal.replace(/[^0-9]/gi, '');
             console.log(selectedVal);
-            $(this).parents('.phone-number').find('.Selected-ISD').text('+' + selectedVal);
+            $(this)
+                .parents('.phone-number')
+                .find('.Selected-ISD')
+                .text('+' + selectedVal);
             const Num = '+' + parseInt(selectedVal + EnteredNum, 10);
             $(this).parents('.phone-number').find('.hidden-phone-num').val(Num);
             const s = $(this).parents('.phone-number').find('.hidden-phone-num').val();
@@ -73,12 +97,10 @@ export class ContactComponent implements OnInit {
             // console.log(this.numb)
         });
 
-        $('.Selected-ISD').on('click', function() {
+        $('.Selected-ISD').on('click', function () {
             $(this).toggleClass('active');
             $(this).parents('.phone-number').find('.select-list').toggleClass('active');
         });
-
-
     }
 
     onKeyPress(event: any) {
@@ -87,7 +109,6 @@ export class ContactComponent implements OnInit {
         } else {
             document.getElementById(event.target.id).style.border = '1px solid #d6d6d6';
         }
-
     }
 
     language() {
@@ -102,5 +123,4 @@ export class ContactComponent implements OnInit {
         console.log('the selected country is : ');
         this.roasteryProfileService.changeCountry(this.roasteryProfileService.country);
     }
-
 }

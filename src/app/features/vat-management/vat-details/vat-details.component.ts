@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { RoasteryProfileService } from '../../roastery-profile/roastery-profile.service';
-import { UserserviceService } from 'src/services/users/userservice.service';
+import { UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -48,26 +48,26 @@ export class VatDetailsComponent implements OnInit {
         });
     }
     public addNewTranscation() {
-		if (!this.editIndex) {
-			this.editIndex = this.mrList.length;
-			this.mrList.push({
-				country: '',
-				transaction_type: '',
-				vat_percentage: '',
-			});
-			this.transaction = this.fb.group({
-				country: ['', Validators.compose([Validators.required])],
-				transaction_type: [null, Validators.compose([Validators.required])],
-				vat_percentage: [null, Validators.compose([Validators.required])],
-				vat_type: [this.feature],
-			});
-		} else {
-			this.toastrService.error('Please save the unsaved changes.');
-		}
+        if (!this.editIndex) {
+            this.editIndex = this.mrList.length;
+            this.mrList.push({
+                country: '',
+                transaction_type: '',
+                vat_percentage: '',
+            });
+            this.transaction = this.fb.group({
+                country: ['', Validators.compose([Validators.required])],
+                transaction_type: [null, Validators.compose([Validators.required])],
+                vat_percentage: [null, Validators.compose([Validators.required])],
+                vat_type: [this.feature],
+            });
+        } else {
+            this.toastrService.error('Please save the unsaved changes.');
+        }
     }
     public deleteRow(index) {
-		this.mrList.splice(index, 1);
-		this.editIndex = null;
+        this.mrList.splice(index, 1);
+        this.editIndex = null;
     }
     cancelItem(item, index) {
         if (item.id) {
@@ -99,27 +99,27 @@ export class VatDetailsComponent implements OnInit {
         });
     }
     editVAT(vatItem: any, index = null) {
-		if (this.editIndex === null) {
-			this.eachId = vatItem.id;
-			this.editIndex = index;
-			this.transaction = this.fb.group({
-				country: [vatItem.country.toUpperCase(), Validators.compose([Validators.required])],
-				transaction_type: [vatItem.transaction_type, Validators.compose([Validators.required])],
-				vat_percentage: [vatItem.vat_percentage, Validators.compose([Validators.required])],
-				vat_type: [this.feature],
-			});
-		} else {
-			this.toastrService.error('Please save the unsaved changes.');
-		}
+        if (this.editIndex === null) {
+            this.eachId = vatItem.id;
+            this.editIndex = index;
+            this.transaction = this.fb.group({
+                country: [vatItem.country.toUpperCase(), Validators.compose([Validators.required])],
+                transaction_type: [vatItem.transaction_type, Validators.compose([Validators.required])],
+                vat_percentage: [vatItem.vat_percentage, Validators.compose([Validators.required])],
+                vat_type: [this.feature],
+            });
+        } else {
+            this.toastrService.error('Please save the unsaved changes.');
+        }
     }
 
     saveVATDetails(vatId: any, data) {
-		const updateData =  data;
-		if (!vatId) {
-			this.addNewVatItem(updateData);
-			return;
-		}
-		this.userService.updateMrVat(this.roasterId, updateData, vatId).subscribe((result) => {
+        const updateData = data;
+        if (!vatId) {
+            this.addNewVatItem(updateData);
+            return;
+        }
+        this.userService.updateMrVat(this.roasterId, updateData, vatId).subscribe((result) => {
             if (result.success) {
                 const featureName = this.feature === 'mr' ? 'Micro roaster' : 'B2B';
                 this.toastrService.success(`${featureName} VAT Details updated successfully`);

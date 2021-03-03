@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { UserserviceService } from 'src/services/users/userservice.service';
+import { UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@services';
 
 declare var $: any;
 
@@ -99,7 +99,6 @@ export class RoasteryLicenseComponent implements OnInit {
         // this.certificationFileError = '';
     }
 
-
     ngOnInit(): void {
         this.savedcertificatesArray = [];
         this.showsaveddatadiv = false;
@@ -110,8 +109,7 @@ export class RoasteryLicenseComponent implements OnInit {
 
     onKeyPress(event: any) {
         if (event.target.value === '') {
-            document.getElementById(event.target.id).style.border =
-                '1px solid #d6d6d6';
+            document.getElementById(event.target.id).style.border = '1px solid #d6d6d6';
             // } else {
             //   document.getElementById(event.target.id).style.border =
             //     "1px solid #d6d6d6";
@@ -119,16 +117,13 @@ export class RoasteryLicenseComponent implements OnInit {
     }
 
     getCertificates() {
-        this.userService.getCompanyCertificates(this.roasterId).subscribe(
-            (data: any) => {
-                if (data.success) {
-
-                    this.showsaveddatadiv = true;
-                    this.savedcertificatesArray = data.result;
-                    console.log(this.savedcertificatesArray);
-                }
-            },
-        );
+        this.userService.getCompanyCertificates(this.roasterId).subscribe((data: any) => {
+            if (data.success) {
+                this.showsaveddatadiv = true;
+                this.savedcertificatesArray = data.result;
+                console.log(this.savedcertificatesArray);
+            }
+        });
     }
 
     setStatus(term: any) {
@@ -137,7 +132,6 @@ export class RoasteryLicenseComponent implements OnInit {
 
     toggleRelavant() {
         this.showRelavant = !this.showRelavant;
-
     }
 
     //  Function Name : File Open.
@@ -148,28 +142,22 @@ export class RoasteryLicenseComponent implements OnInit {
         console.log(this.fileEvent);
         if (this.files.length > 0) {
             for (let x = 0; x <= this.files.length - 1; x++) {
-
                 const fsize = this.files.item(x).size;
-                const file = Math.round((fsize / 1024));
+                const file = Math.round(fsize / 1024);
                 // The size of the file.
                 if (file >= 2048) {
                     this.toastrService.error('File too big, please select a file smaller than 2mb');
                 } else {
-
                     this.fileName = this.files[0].name;
                     for (const license of this.licenseArray) {
                         if (rowcount === license.id) {
                             license.attachFileDiv = false;
                             license.fileTagDiv = true;
                             license.certattachment =
-                                this.fileName.substring(0, 5) +
-                                '... .' +
-                                this.fileName.split('.').pop();
+                                this.fileName.substring(0, 5) + '... .' + this.fileName.split('.').pop();
                             license.uploadFileFlag = 'upload';
                         }
                     }
-
-
                 }
             }
         }
@@ -206,15 +194,12 @@ export class RoasteryLicenseComponent implements OnInit {
     // Description: This function helps for saving certificate.
     savecertificate(rowcount, event) {
         for (let j = 0; j < this.licenseArray.length; j++) {
-            if (
-                this.licenseArray[j].name === '' && this.licenseArray[j].year === '') {
+            if (this.licenseArray[j].name === '' && this.licenseArray[j].year === '') {
                 $('.myAlert-top').show();
                 this.certificationNameError = 'Please Fill the mandatory Fields';
                 this.certificationYearError = 'Please Fill the mandatory Fields';
-                document.getElementById('certification_name').style.border =
-                    '1px solid #d50000';
-                document.getElementById('certification_year').style.border =
-                    '1px solid #d50000';
+                document.getElementById('certification_name').style.border = '1px solid #d50000';
+                document.getElementById('certification_year').style.border = '1px solid #d50000';
                 setTimeout(() => {
                     this.certificationNameError = '';
                     this.certificationYearError = '';
@@ -226,8 +211,7 @@ export class RoasteryLicenseComponent implements OnInit {
             ) {
                 $('.myAlert-top').show();
                 this.certificationNameError = 'Please enter your Certification Name';
-                document.getElementById('certification_name').style.border =
-                    '1px solid #d50000';
+                document.getElementById('certification_name').style.border = '1px solid #d50000';
                 setTimeout(() => {
                     this.certificationNameError = '';
                 }, 3000);
@@ -238,19 +222,18 @@ export class RoasteryLicenseComponent implements OnInit {
             ) {
                 $('.myAlert-top').show();
                 this.certificationYearError = 'Please enter your certification Year';
-                document.getElementById('certification_year').style.border =
-                    '1px solid #d50000';
+                document.getElementById('certification_year').style.border = '1px solid #d50000';
                 setTimeout(() => {
                     this.certificationYearError = '';
                 }, 3000);
             }
-                // else if(this.files[0]  == null || this.files[0] == undefined){
-                //   $(".myAlert-top").show();
-                //   this.certificationFileError="Please enter your certification File";
-                //   document.getElementById('attachFile_'+ this.licenseArray[j].id).style.border="1px solid #FD4545";
-                //   setTimeout(() => {
-                //     this.certificationFileError="";
-                //   },3000);
+            // else if(this.files[0]  == null || this.files[0] == undefined){
+            //   $(".myAlert-top").show();
+            //   this.certificationFileError="Please enter your certification File";
+            //   document.getElementById('attachFile_'+ this.licenseArray[j].id).style.border="1px solid #FD4545";
+            //   setTimeout(() => {
+            //     this.certificationFileError="";
+            //   },3000);
             //   }
             else {
                 $('.myAlert-top').hide();
@@ -273,45 +256,36 @@ export class RoasteryLicenseComponent implements OnInit {
                             formData.append('name', name);
                             formData.append('year', year);
                             this.roasterId = this.cokkieService.get('roaster_id');
-                            formData.append(
-                                'api_call',
-                                '/ro/' + this.roasterId + '/certificates',
-                            );
+                            formData.append('api_call', '/ro/' + this.roasterId + '/certificates');
                             formData.append('token', this.cokkieService.get('Auth'));
-                            this.userService
-                                .uploadCertificate(formData)
-                                .subscribe((uploadResult: any) => {
-                                    if (uploadResult.success === true) {
-                                        $('.myAlert-top').hide();
-                                        this.secondButtonValue = 'Save';
-                                        this.toastrService.success(
-                                            'Certificates has been added Succesfully',
+                            this.userService.uploadCertificate(formData).subscribe((uploadResult: any) => {
+                                if (uploadResult.success === true) {
+                                    $('.myAlert-top').hide();
+                                    this.secondButtonValue = 'Save';
+                                    this.toastrService.success('Certificates has been added Succesfully');
+                                    this.savedcertificatesArray.push({
+                                        sid: uploadResult.result.id,
+                                        sname: name,
+                                        syear: year,
+                                        scertattachment: this.licenseArray[j].certattachment,
+                                        uploadFileFlag: uploadCondition,
+                                    });
+                                } else {
+                                    $('.myAlert-top').hide();
+                                    if (uploadResult.messages.file === 'required') {
+                                        this.toastrService.error('File Required , please upload File');
+                                    } else if (uploadResult.messages.file === 'invalid') {
+                                        this.toastrService.error(
+                                            'The Uploaded file is Invalid. Please upload specified format',
                                         );
-                                        this.savedcertificatesArray.push({
-                                            sid: uploadResult.result.id,
-                                            sname: name,
-                                            syear: year,
-                                            scertattachment: this.licenseArray[j].certattachment,
-                                            uploadFileFlag: uploadCondition,
-                                        });
                                     } else {
-                                        $('.myAlert-top').hide();
-                                        if (uploadResult.messages.file === 'required') {
-                                            this.toastrService.error(
-                                                'File Required , please upload File',
-                                            );
-                                        } else if (uploadResult.messages.file === 'invalid') {
-                                            this.toastrService.error(
-                                                'The Uploaded file is Invalid. Please upload specified format',
-                                            );
-                                        } else {
-                                            this.toastrService.error(
-                                                'There is something went wrong! Please try again later',
-                                            );
-                                        }
-                                        this.secondButtonValue = 'Save';
+                                        this.toastrService.error(
+                                            'There is something went wrong! Please try again later',
+                                        );
                                     }
-                                });
+                                    this.secondButtonValue = 'Save';
+                                }
+                            });
                         }
                         uploadCondition = 'upload';
                     } else {
@@ -387,16 +361,14 @@ export class RoasteryLicenseComponent implements OnInit {
 
     deleteCertificate(certificateId: any) {
         if (confirm('Please confirm! you want to delete?') === true) {
-            this.userService.deleteCompanyCertificate(this.roasterId, certificateId).subscribe(
-                (response: any) => {
-                    if (response.success === true) {
-                        this.toastrService.success('The selected certificate has been deleted successfully');
-                        this.getCertificates();
-                    } else {
-                        this.toastrService.error('Something went wrong while deleting the certificate');
-                    }
-                },
-            );
+            this.userService.deleteCompanyCertificate(this.roasterId, certificateId).subscribe((response: any) => {
+                if (response.success === true) {
+                    this.toastrService.success('The selected certificate has been deleted successfully');
+                    this.getCertificates();
+                } else {
+                    this.toastrService.error('Something went wrong while deleting the certificate');
+                }
+            });
         }
     }
 }

@@ -158,11 +158,22 @@
     position: relative;
     bottom: 4px;
 }
+::ng-deep .breadCrumb .p-breadcrumb ul {
+    width: max-content;
+}
 @media screen and (max-width: 1200px) {
     .order_details_card {
         padding: 2rem;
         background-color: #faf8f4;
         border-radius: 4px;
+    }
+}
+@media (max-width: 1199px) and (min-width: 768px) {
+    .tab-flavour-space {
+        margin-bottom: 4px;
+    }
+    .recent-time {
+        width: 100%;
     }
 }
 
@@ -193,6 +204,9 @@
     .order_details_card table tr:last-child > td {
         border-bottom: none;
         padding: 16px 0 14px 0 !important;
+    }
+    .breadCrumb::-webkit-scrollbar {
+        display: none !important;
     }
 }
 @media screen and (max-width: 640px) {

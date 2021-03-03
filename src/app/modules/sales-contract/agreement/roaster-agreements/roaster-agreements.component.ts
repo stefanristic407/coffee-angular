@@ -5,9 +5,9 @@ import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@ang
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@services';
 import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { RoasterserviceService } from '@services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({

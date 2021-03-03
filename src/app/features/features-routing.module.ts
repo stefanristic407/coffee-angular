@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '../guards/auth.guard';
+import { AuthGuard } from '@guards';
 import { ChatNotificationComponent } from './chat-notification/chat-notification.component';
 import { OnboardCustomersComponent } from './onboard-customers/onboard-customers.component';
 import { AddProductComponent } from './e-commerce/add-product/add-product.component';
@@ -157,7 +157,8 @@ const routes: Routes = [
             },
             {
                 path: 'roastery-profile',
-                loadChildren: () => import('./roastery-profile/roastery-profile.module').then(m => m.RoasteryProfileModule),
+                loadChildren: () =>
+                    import('./roastery-profile/roastery-profile.module').then((m) => m.RoasteryProfileModule),
                 canActivate: [AuthGuard],
             },
             {
@@ -328,11 +329,11 @@ const routes: Routes = [
                 pathMatch: 'full',
             },
         ],
-    }
+    },
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
-export class FeaturesRoutingModule { }
+export class FeaturesRoutingModule {}

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Browser } from '@syncfusion/ej2-base';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@services';
 import { WelcomeService } from '../welcome.service';
 import * as _ from 'underscore';
 

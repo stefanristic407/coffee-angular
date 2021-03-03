@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { map } from 'rxjs/operators';
-import { maxWordCountValidator, fileCountValidator } from '@services';
+import { maxWordCountValidator, fileCountValidator } from '@utils';
 import { FormService } from '@services';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';

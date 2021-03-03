@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { UserserviceService } from 'src/services/users/userservice.service';
+import { UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { RoasterserviceService } from '@services';
 import { ThumbnailsPosition } from 'ng-gallery';
 import { ToastrService } from 'ngx-toastr';
 import { ProfilePhotoService } from './profile-photo/profile-photo.service';
@@ -121,7 +121,7 @@ export class RoasteryProfileService {
                 'Jijel',
                 'Khenchela',
                 'Laghouat',
-                'M\'Sila',
+                "M'Sila",
                 'Mascara',
                 'Medea',
                 'Mila',
@@ -149,7 +149,7 @@ export class RoasteryProfileService {
         {
             name: 'American Samoa',
             isoCode: 'AS',
-            cities: ['Eastern', 'Manu\'a', 'Rose Island', 'Swains Island', 'Western'],
+            cities: ['Eastern', "Manu'a", 'Rose Island', 'Swains Island', 'Western'],
         },
         {
             name: 'Angola',
@@ -236,13 +236,13 @@ export class RoasteryProfileService {
                 'Aragatsotn',
                 'Ararat',
                 'Armavir',
-                'Geghark\'unik\'',
-                'Kotayk\'',
+                "Geghark'unik'",
+                "Kotayk'",
                 'Lorri',
                 'Shirak',
-                'Syunik\'',
+                "Syunik'",
                 'Tavush',
-                'Vayots\' Dzor',
+                "Vayots' Dzor",
                 'Yerevan',
             ],
         },
@@ -368,7 +368,7 @@ export class RoasteryProfileService {
                 'Exuma',
                 'Freeport',
                 'Fresh Creek',
-                'Governor\'s Harbour',
+                "Governor's Harbour",
                 'Green Turtle Cay',
                 'Harbour Island',
                 'High Rock',
@@ -395,10 +395,10 @@ export class RoasteryProfileService {
                 'Al Mintaqah al Wusta',
                 'Al Mintaqah ash Shamaliyah',
                 'Al Muharraq',
-                'Ar Rifa\' wa al Mintaqah al Janubiyah',
+                "Ar Rifa' wa al Mintaqah al Janubiyah",
                 'Jidd Hafs',
                 'Juzur Hawar',
-                'Madinat \'Isa',
+                "Madinat 'Isa",
                 'Madinat Hamad',
                 'Sitrah',
             ],
@@ -418,7 +418,7 @@ export class RoasteryProfileService {
                 'Chandpur',
                 'Chittagong',
                 'Comilla',
-                'Cox\'s Bazar',
+                "Cox's Bazar",
                 'Feni',
                 'Khagrachari',
                 'Lakshmipur',
@@ -496,7 +496,7 @@ export class RoasteryProfileService {
             isoCode: 'BY',
             cities: [
                 'Brestskaya (Brest)',
-                'Homyel\'skaya (Homyel\')',
+                "Homyel'skaya (Homyel')",
                 'Horad Minsk',
                 'Hrodzyenskaya (Hrodna)',
                 'Mahilyowskaya (Mahilyow)',
@@ -524,14 +524,7 @@ export class RoasteryProfileService {
         {
             name: 'Belize',
             isoCode: 'BZ',
-            cities: [
-                'Belize',
-                'Cayo',
-                'Corozal',
-                'Orange Walk',
-                'Stann Creek',
-                'Toledo',
-            ],
+            cities: ['Belize', 'Cayo', 'Corozal', 'Orange Walk', 'Stann Creek', 'Toledo'],
         },
         {
             name: 'Benin',
@@ -595,17 +588,7 @@ export class RoasteryProfileService {
         {
             name: 'Bolivia',
             isoCode: 'BO',
-            cities: [
-                'Beni',
-                'Chuquisaca',
-                'Cochabamba',
-                'La Paz',
-                'Oruro',
-                'Pando',
-                'Potosi',
-                'Santa Cruz',
-                'Tarija',
-            ],
+            cities: ['Beni', 'Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosi', 'Santa Cruz', 'Tarija'],
         },
         {
             name: 'Bosnia and Herzegovina',
@@ -892,15 +875,7 @@ export class RoasteryProfileService {
         {
             name: 'Cayman Islands',
             isoCode: 'KY',
-            cities: [
-                'Creek',
-                'Eastern',
-                'Midland',
-                'South Town',
-                'Spot Bay',
-                'Stake Bay',
-                'West End,Western',
-            ],
+            cities: ['Creek', 'Eastern', 'Midland', 'South Town', 'Spot Bay', 'Stake Bay', 'West End,Western'],
         },
         {
             name: 'Central African Republic',
@@ -955,7 +930,7 @@ export class RoasteryProfileService {
                 'Atacama',
                 'Bio-Bio',
                 'Coquimbo',
-                'Libertador General Bernardo O\'Higgins',
+                "Libertador General Bernardo O'Higgins",
                 'Los Lagos',
                 'Magallanes y de la Antartica Chilena',
                 'Maule',
@@ -1125,28 +1100,20 @@ export class RoasteryProfileService {
         {
             name: 'Costa Rica',
             isoCode: 'CR',
-            cities: [
-                'Alajuela',
-                'Cartago',
-                'Guanacaste',
-                'Heredia',
-                'Limon',
-                'Puntarenas',
-                'San Jose',
-            ],
+            cities: ['Alajuela', 'Cartago', 'Guanacaste', 'Heredia', 'Limon', 'Puntarenas', 'San Jose'],
         },
         {
-            name: 'Cote d\'Ivoire',
+            name: "Cote d'Ivoire",
             isoCode: 'CI',
             cities: [
                 'Abengourou',
                 'Abidjan',
                 'Aboisso',
-                'Adiake\'',
+                "Adiake'",
                 'Adzope',
                 'Agboville',
                 'Agnibilekrou',
-                'Ale\'pe\'',
+                "Ale'pe'",
                 'Bangolo',
                 'Beoumi',
                 'Biankouma',
@@ -1250,14 +1217,7 @@ export class RoasteryProfileService {
         {
             name: 'Cyprus',
             isoCode: 'CY',
-            cities: [
-                'Famagusta',
-                'Kyrenia',
-                'Larnaca',
-                'Limassol',
-                'Nicosia',
-                'Paphos',
-            ],
+            cities: ['Famagusta', 'Kyrenia', 'Larnaca', 'Limassol', 'Nicosia', 'Paphos'],
         },
         {
             name: 'Czeck Republic',
@@ -1396,7 +1356,7 @@ export class RoasteryProfileService {
                 'Al Fayyum',
                 'Al Gharbiyah',
                 'Al Iskandariyah',
-                'Al Isma\'iliyah',
+                "Al Isma'iliyah",
                 'Al Jizah',
                 'Al Minufiyah',
                 'Al Minya',
@@ -1408,13 +1368,13 @@ export class RoasteryProfileService {
                 'Aswan',
                 'Asyut',
                 'Bani Suwayf',
-                'Bur Sa\'id',
+                "Bur Sa'id",
                 'Dumyat',
-                'Janub Sina\'',
+                "Janub Sina'",
                 'Kafr ash Shaykh',
                 'Matruh',
                 'Qina',
-                'Shamal Sina\'',
+                "Shamal Sina'",
                 'Suhaj',
             ],
         },
@@ -1441,29 +1401,12 @@ export class RoasteryProfileService {
         {
             name: 'Equatorial Guinea',
             isoCode: 'GQ',
-            cities: [
-                'Annobon',
-                'Bioko Norte',
-                'Bioko Sur',
-                'Centro Sur',
-                'Kie-Ntem',
-                'Litoral',
-                'Wele-Nzas',
-            ],
+            cities: ['Annobon', 'Bioko Norte', 'Bioko Sur', 'Centro Sur', 'Kie-Ntem', 'Litoral', 'Wele-Nzas'],
         },
         {
             name: 'Eritrea',
             isoCode: 'ER',
-            cities: [
-                'Akale Guzay',
-                'Barka',
-                'Denkel',
-                'Hamasen',
-                'Sahil',
-                'Semhar',
-                'Senhit',
-                'Seraye',
-            ],
+            cities: ['Akale Guzay', 'Barka', 'Denkel', 'Hamasen', 'Sahil', 'Semhar', 'Senhit', 'Seraye'],
         },
         {
             name: 'Estonia',
@@ -1511,17 +1454,7 @@ export class RoasteryProfileService {
         {
             name: 'Faroe Islands',
             isoCode: 'FO',
-            cities: [
-                'Bordoy',
-                'Eysturoy',
-                'Mykines',
-                'Sandoy',
-                'Skuvoy',
-                'Streymoy',
-                'Suduroy',
-                'Tvoroyri',
-                'Vagar',
-            ],
+            cities: ['Bordoy', 'Eysturoy', 'Mykines', 'Sandoy', 'Skuvoy', 'Streymoy', 'Suduroy', 'Tvoroyri', 'Vagar'],
         },
         {
             name: 'Fiji',
@@ -1531,14 +1464,7 @@ export class RoasteryProfileService {
         {
             name: 'Finland',
             isoCode: 'FI',
-            cities: [
-                'Aland',
-                'Etela-Suomen Laani',
-                'Ita-Suomen Laani',
-                'Lansi-Suomen Laani',
-                'Lappi',
-                'Oulun Laani',
-            ],
+            cities: ['Aland', 'Etela-Suomen Laani', 'Ita-Suomen Laani', 'Lansi-Suomen Laani', 'Lappi', 'Oulun Laani'],
         },
         {
             name: 'France',
@@ -1564,7 +1490,7 @@ export class RoasteryProfileService {
                 'Pays de la Loire',
                 'Picardie',
                 'Poitou-Charentes',
-                'Provence-Alpes-Cote d\'Azur',
+                "Provence-Alpes-Cote d'Azur",
                 'Rhone-Alpes',
             ],
         },
@@ -1583,12 +1509,7 @@ export class RoasteryProfileService {
         {
             name: 'French Southern and Antarctic Lands',
             isoCode: 'TF',
-            cities: [
-                'Adelie Land',
-                'Ile Crozet',
-                'Iles Kerguelen',
-                'Iles Saint-Paul et Amsterdam',
-            ],
+            cities: ['Adelie Land', 'Ile Crozet', 'Iles Kerguelen', 'Iles Saint-Paul et Amsterdam'],
         },
         {
             name: 'Gabon',
@@ -1608,14 +1529,7 @@ export class RoasteryProfileService {
         {
             name: 'Gambia',
             isoCode: 'GM',
-            cities: [
-                'Banjul',
-                'Central River',
-                'Lower River',
-                'North Bank',
-                'Upper River',
-                'Western',
-            ],
+            cities: ['Banjul', 'Central River', 'Lower River', 'North Bank', 'Upper River', 'Western'],
         },
         { name: 'Gaza Strip', isoCode: 'PS', cities: ['Gaza Strip'] },
         {
@@ -1623,67 +1537,67 @@ export class RoasteryProfileService {
             isoCode: 'GE',
             cities: [
                 'Abashis',
-                'Abkhazia or Ap\'khazet\'is Avtonomiuri Respublika (Sokhumi)',
+                "Abkhazia or Ap'khazet'is Avtonomiuri Respublika (Sokhumi)",
                 'Adigenis',
-                'Ajaria or Acharis Avtonomiuri Respublika (Bat\'umi)',
+                "Ajaria or Acharis Avtonomiuri Respublika (Bat'umi)",
                 'Akhalgoris',
-                'Akhalk\'alak\'is',
-                'Akhalts\'ikhis',
+                "Akhalk'alak'is",
+                "Akhalts'ikhis",
                 'Akhmetis',
                 'Ambrolauris',
                 'Aspindzis',
-                'Baghdat\'is',
+                "Baghdat'is",
                 'Bolnisis',
                 'Borjomis',
-                'Ch\'khorotsqus',
-                'Ch\'okhatauris',
-                'Chiat\'ura',
-                'Dedop\'listsqaros',
+                "Ch'khorotsqus",
+                "Ch'okhatauris",
+                "Chiat'ura",
+                "Dedop'listsqaros",
                 'Dmanisis',
-                'Dushet\'is',
+                "Dushet'is",
                 'Gardabanis',
                 'Gori',
                 'Goris',
                 'Gurjaanis',
                 'Javis',
-                'K\'arelis',
-                'K\'ut\'aisi',
+                "K'arelis",
+                "K'ut'aisi",
                 'Kaspis',
                 'Kharagaulis',
                 'Khashuris',
                 'Khobis',
                 'Khonis',
                 'Lagodekhis',
-                'Lanch\'khut\'is',
+                "Lanch'khut'is",
                 'Lentekhis',
                 'Marneulis',
                 'Martvilis',
                 'Mestiis',
-                'Mts\'khet\'is',
+                "Mts'khet'is",
                 'Ninotsmindis',
                 'Onis',
-                'Ozurget\'is',
-                'P\'ot\'i',
+                "Ozurget'is",
+                "P'ot'i",
                 'Qazbegis',
                 'Qvarlis',
-                'Rust\'avi',
-                'Sach\'kheris',
+                "Rust'avi",
+                "Sach'kheris",
                 'Sagarejos',
                 'Samtrediis',
                 'Senakis',
                 'Sighnaghis',
-                'T\'bilisi',
-                'T\'elavis',
-                'T\'erjolis',
-                'T\'et\'ritsqaros',
-                'T\'ianet\'is',
+                "T'bilisi",
+                "T'elavis",
+                "T'erjolis",
+                "T'et'ritsqaros",
+                "T'ianet'is",
                 'Tqibuli',
-                'Ts\'ageris',
+                "Ts'ageris",
                 'Tsalenjikhis',
                 'Tsalkis',
                 'Tsqaltubo',
                 'Vanis',
-                'Zestap\'onis',
+                "Zestap'onis",
                 'Zugdidi',
                 'Zugdidis',
             ],
@@ -1793,11 +1707,7 @@ export class RoasteryProfileService {
         {
             name: 'Greenland',
             isoCode: 'GL',
-            cities: [
-                'Avannaa (Nordgronland)',
-                'Kitaa (Vestgronland)',
-                'Tunu (Ostgronland)',
-            ],
+            cities: ['Avannaa (Nordgronland)', 'Kitaa (Vestgronland)', 'Tunu (Ostgronland)'],
         },
         {
             name: 'Grenada',
@@ -1815,13 +1725,7 @@ export class RoasteryProfileService {
         {
             name: 'Guadeloupe',
             isoCode: 'GP',
-            cities: [
-                'Basse-Terre',
-                'Grande-Terre',
-                'Iles de la Petite Terre',
-                'Iles des Saintes',
-                'Marie-Galante',
-            ],
+            cities: ['Basse-Terre', 'Grande-Terre', 'Iles de la Petite Terre', 'Iles des Saintes', 'Marie-Galante'],
         },
         { name: 'Guam', isoCode: 'GU', cities: ['Guam'] },
         {
@@ -1911,17 +1815,7 @@ export class RoasteryProfileService {
         {
             name: 'Guinea-Bissau',
             isoCode: 'GW',
-            cities: [
-                'Bafata',
-                'Biombo',
-                'Bissau',
-                'Bolama-Bijagos',
-                'Cacheu',
-                'Gabu',
-                'Oio',
-                'Quinara',
-                'Tombali',
-            ],
+            cities: ['Bafata', 'Biombo', 'Bissau', 'Bolama-Bijagos', 'Cacheu', 'Gabu', 'Oio', 'Quinara', 'Tombali'],
         },
         {
             name: 'Guyana',
@@ -1942,17 +1836,7 @@ export class RoasteryProfileService {
         {
             name: 'Haiti',
             isoCode: 'HT',
-            cities: [
-                'Artibonite',
-                'Centre',
-                'Grand\'Anse',
-                'Nord',
-                'Nord-Est',
-                'Nord-Ouest',
-                'Ouest',
-                'Sud',
-                'Sud-Est',
-            ],
+            cities: ['Artibonite', 'Centre', "Grand'Anse", 'Nord', 'Nord-Est', 'Nord-Ouest', 'Ouest', 'Sud', 'Sud-Est'],
         },
         {
             name: 'Heard Island and McDonald Islands',
@@ -2203,13 +2087,13 @@ export class RoasteryProfileService {
                 'An Najaf',
                 'Arbil',
                 'As Sulaymaniyah',
-                'At Ta\'mim',
+                "At Ta'mim",
                 'Babil',
                 'Baghdad',
                 'Dahuk',
                 'Dhi Qar',
                 'Diyala',
-                'Karbala\'',
+                "Karbala'",
                 'Maysan',
                 'Ninawa',
                 'Salah ad Din',
@@ -2283,14 +2167,7 @@ export class RoasteryProfileService {
         {
             name: 'Israel',
             isoCode: 'IL',
-            cities: [
-                'Central',
-                'Haifa',
-                'Jerusalem',
-                'Northern',
-                'Southern',
-                'Tel Aviv',
-            ],
+            cities: ['Central', 'Haifa', 'Jerusalem', 'Northern', 'Southern', 'Tel Aviv'],
         },
         {
             name: 'Italy',
@@ -2314,7 +2191,7 @@ export class RoasteryProfileService {
                 'Toscana',
                 'Trentino-Alto Adige',
                 'Umbria',
-                'Valle d\'Aosta',
+                "Valle d'Aosta",
                 'Veneto',
             ],
         },
@@ -2401,7 +2278,7 @@ export class RoasteryProfileService {
             cities: [
                 'Amman',
                 'Ajlun',
-                'Al \'Aqabah',
+                "Al 'Aqabah",
                 'Al Balqa',
                 'Al Karak',
                 'Al Mafraq',
@@ -2409,7 +2286,7 @@ export class RoasteryProfileService {
                 'Az Zarqa',
                 'Irbid',
                 'Jarash',
-                'Ma\'an',
+                "Ma'an",
                 'Madaba',
             ],
         },
@@ -2501,10 +2378,10 @@ export class RoasteryProfileService {
                 'Hwanghae-namdo (South Hwanghae Province)',
                 'Kaesong-si (Kaesong City)',
                 'Kangwon-do (Kangwon Province)',
-                'Namp\'o-si (Namp\'o City)',
-                'P\'yongan-bukto (North P\'yongan Province)',
-                'P\'yongan-namdo (South P\'yongan Province)',
-                'P\'yongyang-si (P\'yongyang City)',
+                "Namp'o-si (Namp'o City)",
+                "P'yongan-bukto (North P'yongan Province)",
+                "P'yongan-namdo (South P'yongan Province)",
+                "P'yongyang-si (P'yongyang City)",
                 'Yanggang-do (Yanggang Province)',
             ],
         },
@@ -2512,19 +2389,19 @@ export class RoasteryProfileService {
             name: 'Korea, South',
             isoCode: 'KR',
             cities: [
-                'Ch\'ungch\'ong-bukto',
-                'Ch\'ungch\'ong-namdo',
+                "Ch'ungch'ong-bukto",
+                "Ch'ungch'ong-namdo",
                 'Cheju-do',
                 'Cholla-bukto',
                 'Cholla-namdo',
-                'Inch\'on-gwangyoksi',
+                "Inch'on-gwangyoksi",
                 'Kangwon-do',
                 'Kwangju-gwangyoksi',
                 'Kyonggi-do',
                 'Kyongsang-bukto',
                 'Kyongsang-namdo',
                 'Pusan-gwangyoksi',
-                'Soul-t\'ukpyolsi',
+                "Soul-t'ukpyolsi",
                 'Taegu-gwangyoksi',
                 'Taejon-gwangyoksi',
                 'Ulsan-gwangyoksi',
@@ -2533,13 +2410,7 @@ export class RoasteryProfileService {
         {
             name: 'Kuwait',
             isoCode: 'KW',
-            cities: [
-                'Al \'Asimah',
-                'Al Ahmadi',
-                'Al Farwaniyah',
-                'Al Jahra',
-                'Hawalli',
-            ],
+            cities: ["Al 'Asimah", 'Al Ahmadi', 'Al Farwaniyah', 'Al Jahra', 'Hawalli'],
         },
         {
             name: 'Kyrgyzstan',
@@ -2621,13 +2492,7 @@ export class RoasteryProfileService {
         {
             name: 'Lebanon',
             isoCode: 'LB',
-            cities: [
-                'Beyrouth',
-                'Ech Chimal',
-                'Ej Jnoub',
-                'El Bekaa',
-                'Jabal Loubnane',
-            ],
+            cities: ['Beyrouth', 'Ech Chimal', 'Ej Jnoub', 'El Bekaa', 'Jabal Loubnane'],
         },
         {
             name: 'Lesotho',
@@ -2640,7 +2505,7 @@ export class RoasteryProfileService {
                 'Maseru',
                 'Mohales Hoek',
                 'Mokhotlong',
-                'Qacha\'s Nek',
+                "Qacha's Nek",
                 'Quthing',
                 'Thaba-Tseka',
             ],
@@ -2669,14 +2534,14 @@ export class RoasteryProfileService {
             isoCode: 'LY',
             cities: [
                 'Ajdabiya',
-                'Al \'Aziziyah',
+                "Al 'Aziziyah",
                 'Al Fatih',
                 'Al Jabal al Akhdar',
                 'Al Jufrah',
                 'Al Khums',
                 'Al Kufrah',
                 'An Nuqat al Khams',
-                'Ash Shati\'',
+                "Ash Shati'",
                 'Awbari',
                 'Az Zawiyah',
                 'Banghazi',
@@ -2910,14 +2775,7 @@ export class RoasteryProfileService {
         {
             name: 'Madagascar',
             isoCode: 'MG',
-            cities: [
-                'Antananarivo',
-                'Antsiranana',
-                'Fianarantsoa',
-                'Mahajanga',
-                'Toamasina',
-                'Toliara',
-            ],
+            cities: ['Antananarivo', 'Antsiranana', 'Fianarantsoa', 'Mahajanga', 'Toamasina', 'Toliara'],
         },
         {
             name: 'Malawi',
@@ -3002,16 +2860,7 @@ export class RoasteryProfileService {
         {
             name: 'Mali',
             isoCode: 'ML',
-            cities: [
-                'Gao',
-                'Kayes',
-                'Kidal',
-                'Koulikoro',
-                'Mopti',
-                'Segou',
-                'Sikasso',
-                'Tombouctou',
-            ],
+            cities: ['Gao', 'Kayes', 'Kidal', 'Koulikoro', 'Mopti', 'Segou', 'Sikasso', 'Tombouctou'],
         },
         {
             name: 'Mayotte',
@@ -3213,7 +3062,7 @@ export class RoasteryProfileService {
         {
             name: 'Montserrat',
             isoCode: 'MS',
-            cities: ['Saint Anthony', 'Saint Georges', 'Saint Peter\'s'],
+            cities: ['Saint Anthony', 'Saint Georges', "Saint Peter's"],
         },
         {
             name: 'Morocco',
@@ -3394,7 +3243,7 @@ export class RoasteryProfileService {
                 'Grey',
                 'Hauraki Plains',
                 'Hawera',
-                'Hawke\'s Bay',
+                "Hawke's Bay",
                 'Heathcote',
                 'Hikurangi',
                 'Hobson',
@@ -3498,16 +3347,7 @@ export class RoasteryProfileService {
         {
             name: 'Niger',
             isoCode: 'NE',
-            cities: [
-                'Agadez',
-                'Diffa',
-                'Dosso',
-                'Maradi',
-                'Niamey',
-                'Tahoua',
-                'Tillaberi',
-                'Zinder',
-            ],
+            cities: ['Agadez', 'Diffa', 'Dosso', 'Maradi', 'Niamey', 'Tahoua', 'Tillaberi', 'Zinder'],
         },
         {
             name: 'Nigeria',
@@ -4058,7 +3898,7 @@ export class RoasteryProfileService {
                 'Altay (Gorno-Altaysk)',
                 'Altayskiy (Barnaul)',
                 'Amurskaya (Blagoveshchensk)',
-                'Arkhangel\'skaya',
+                "Arkhangel'skaya",
                 'Astrakhanskaya',
                 'Bashkortostan (Ufa)',
                 'Belgorodskaya',
@@ -4067,14 +3907,14 @@ export class RoasteryProfileService {
                 'Chechnya (Groznyy)',
                 'Chelyabinskaya',
                 'Chitinskaya',
-                'Chukotskiy (Anadyr\')',
+                "Chukotskiy (Anadyr')",
                 'Chuvashiya (Cheboksary)',
                 'Dagestan (Makhachkala)',
                 'Evenkiyskiy (Tura)',
-                'Ingushetiya (Nazran\')',
+                "Ingushetiya (Nazran')",
                 'Irkutskaya',
                 'Ivanovskaya',
-                'Kabardino-Balkariya (Nal\'chik)',
+                "Kabardino-Balkariya (Nal'chik)",
                 'Kaliningradskaya',
                 'Kalmykiya (Elista)',
                 'Kaluzhskaya',
@@ -4102,7 +3942,7 @@ export class RoasteryProfileService {
                 'Moskovskaya',
                 'Moskva (Moscow)',
                 'Murmanskaya',
-                'Nenetskiy (Nar\'yan-Mar)',
+                "Nenetskiy (Nar'yan-Mar)",
                 'Nizhegorodskaya',
                 'Novgorodskaya',
                 'Novosibirskaya',
@@ -4122,19 +3962,19 @@ export class RoasteryProfileService {
                 'Saratovskaya',
                 'Severnaya Osetiya-Alaniya [North Ossetia] (Vladikavkaz)',
                 'Smolenskaya',
-                'Stavropol\'skiy',
+                "Stavropol'skiy",
                 'Sverdlovskaya (Yekaterinburg)',
                 'Tambovskaya',
-                'Tatarstan (Kazan\')',
+                "Tatarstan (Kazan')",
                 'Taymyrskiy (Dudinka)',
                 'Tomskaya',
-                'Tul\'skaya',
+                "Tul'skaya",
                 'Tverskaya',
                 'Tyumenskaya',
                 'Tyva (Kyzyl)',
                 'Udmurtiya (Izhevsk)',
-                'Ul\'yanovskaya',
-                'Ust\'-Ordynskiy Buryatskiy (Ust\'-Ordynskiy)',
+                "Ul'yanovskaya",
+                "Ust'-Ordynskiy Buryatskiy (Ust'-Ordynskiy)",
                 'Vladimirskaya',
                 'Volgogradskaya',
                 'Vologodskaya',
@@ -4211,7 +4051,7 @@ export class RoasteryProfileService {
             name: 'Saudi Arabia',
             isoCode: 'SA',
             cities: [
-                '\'Asir',
+                "'Asir",
                 'Al Bahah',
                 'Al Hudud ash Shamaliyah',
                 'Al Jawf',
@@ -4219,7 +4059,7 @@ export class RoasteryProfileService {
                 'Al Qasim',
                 'Ar Riyad',
                 'Ash Sharqiyah (Eastern Province)',
-                'Ha\'il',
+                "Ha'il",
                 'Jizan',
                 'Makkah',
                 'Najran',
@@ -4297,8 +4137,8 @@ export class RoasteryProfileService {
                 'Bel Ombre',
                 'Cascade',
                 'Glacis',
-                'Grand\' Anse (on Mahe)',
-                'Grand\' Anse (on Praslin)',
+                "Grand' Anse (on Mahe)",
+                "Grand' Anse (on Praslin)",
                 'La Digue',
                 'La Riviere Anglaise',
                 'Mont Buxton',
@@ -4563,7 +4403,7 @@ export class RoasteryProfileService {
             name: 'Sudan',
             isoCode: 'SD',
             cities: [
-                'A\'ali an Nil',
+                "A'ali an Nil",
                 'Al Bahr al Ahmar',
                 'Al Buhayrat',
                 'Al Jazirah',
@@ -4574,7 +4414,7 @@ export class RoasteryProfileService {
                 'An Nil al Azraq',
                 'Ash Shamaliyah',
                 'Bahr al Jabal',
-                'Gharb al Istiwa\'iyah',
+                "Gharb al Istiwa'iyah",
                 'Gharb Bahr al Ghazal',
                 'Gharb Darfur',
                 'Gharb Kurdufan',
@@ -4586,7 +4426,7 @@ export class RoasteryProfileService {
                 'Shamal Bahr al Ghazal',
                 'Shamal Darfur',
                 'Shamal Kurdufan',
-                'Sharq al Istiwa\'iyah',
+                "Sharq al Istiwa'iyah",
                 'Sinnar',
                 'Warab',
             ],
@@ -4693,8 +4533,8 @@ export class RoasteryProfileService {
                 'Al Ladhiqiyah',
                 'Al Qunaytirah',
                 'Ar Raqqah',
-                'As Suwayda\'',
-                'Dar\'a',
+                "As Suwayda'",
+                "Dar'a",
                 'Dayr az Zawr',
                 'Dimashq',
                 'Halab',
@@ -4713,7 +4553,7 @@ export class RoasteryProfileService {
                 'Chi-lung',
                 'Chia-i',
                 'Chia-i',
-                'Chung-hsing-hsin-ts\'un',
+                "Chung-hsing-hsin-ts'un",
                 'Hsin-chu',
                 'Hsin-chu',
                 'Hua-lien',
@@ -4721,28 +4561,24 @@ export class RoasteryProfileService {
                 'Kao-hsiung',
                 'Kao-hsiung',
                 'Miao-li',
-                'Nan-t\'ou',
-                'P\'eng-hu',
-                'P\'ing-tung',
-                'T\'ai-chung',
-                'T\'ai-chung',
-                'T\'ai-nan',
-                'T\'ai-nan',
-                'T\'ai-pei',
-                'T\'ai-pei',
-                'T\'ai-tung',
-                'T\'ao-yuan',
+                "Nan-t'ou",
+                "P'eng-hu",
+                "P'ing-tung",
+                "T'ai-chung",
+                "T'ai-chung",
+                "T'ai-nan",
+                "T'ai-nan",
+                "T'ai-pei",
+                "T'ai-pei",
+                "T'ai-tung",
+                "T'ao-yuan",
                 'Yun-lin',
             ],
         },
         {
             name: 'Tajikistan',
             isoCode: 'TJ',
-            cities: [
-                'Viloyati Khatlon',
-                'Viloyati Leninobod',
-                'Viloyati Mukhtori Kuhistoni Badakhshon',
-            ],
+            cities: ['Viloyati Khatlon', 'Viloyati Leninobod', 'Viloyati Mukhtori Kuhistoni Badakhshon'],
         },
         {
             name: 'Tanzania',
@@ -4865,13 +4701,7 @@ export class RoasteryProfileService {
         {
             name: 'Toga',
             isoCode: 'TG',
-            cities: [
-                'De La Kara',
-                'Des Plateaux',
-                'Des Savanes',
-                'Du Centre',
-                'Maritime',
-            ],
+            cities: ['De La Kara', 'Des Plateaux', 'Des Savanes', 'Du Centre', 'Maritime'],
         },
         {
             name: 'Tokelau',
@@ -4881,7 +4711,7 @@ export class RoasteryProfileService {
         {
             name: 'Tonga',
             isoCode: 'TO',
-            cities: ['Ha\'apai', 'Tongatapu', 'Vava\'u'],
+            cities: ["Ha'apai", 'Tongatapu', "Vava'u"],
         },
         {
             name: 'Trinidad',
@@ -5019,13 +4849,7 @@ export class RoasteryProfileService {
         {
             name: 'Turkmenistan',
             isoCode: 'TM',
-            cities: [
-                'Ahal Welayaty',
-                'Balkan Welayaty',
-                'Dashhowuz Welayaty',
-                'Lebap Welayaty',
-                'Mary Welayaty',
-            ],
+            cities: ['Ahal Welayaty', 'Balkan Welayaty', 'Dashhowuz Welayaty', 'Lebap Welayaty', 'Mary Welayaty'],
         },
         {
             name: 'Tuvalu',
@@ -5087,45 +4911,45 @@ export class RoasteryProfileService {
             name: 'Ukraine',
             isoCode: 'UA',
             cities: [
-                'Avtonomna Respublika Krym (Simferopol\')',
-                'Cherkas\'ka (Cherkasy)',
-                'Chernihivs\'ka (Chernihiv)',
-                'Chernivets\'ka (Chernivtsi)',
-                'Dnipropetrovs\'ka (Dnipropetrovs\'k)',
-                'Donets\'ka (Donets\'k)',
-                'Ivano-Frankivs\'ka (Ivano-Frankivs\'k)',
-                'Kharkivs\'ka (Kharkiv)',
-                'Khersons\'ka (Kherson)',
-                'Khmel\'nyts\'ka (Khmel\'nyts\'kyy)',
-                'Kirovohrads\'ka (Kirovohrad)',
+                "Avtonomna Respublika Krym (Simferopol')",
+                "Cherkas'ka (Cherkasy)",
+                "Chernihivs'ka (Chernihiv)",
+                "Chernivets'ka (Chernivtsi)",
+                "Dnipropetrovs'ka (Dnipropetrovs'k)",
+                "Donets'ka (Donets'k)",
+                "Ivano-Frankivs'ka (Ivano-Frankivs'k)",
+                "Kharkivs'ka (Kharkiv)",
+                "Khersons'ka (Kherson)",
+                "Khmel'nyts'ka (Khmel'nyts'kyy)",
+                "Kirovohrads'ka (Kirovohrad)",
                 'Kyyiv',
-                'Kyyivs\'ka (Kiev)',
-                'L\'vivs\'ka (L\'viv)',
-                'Luhans\'ka (Luhans\'k)',
-                'Mykolayivs\'ka (Mykolayiv)',
-                'Odes\'ka (Odesa)',
-                'Poltavs\'ka (Poltava)',
-                'Rivnens\'ka (Rivne)',
-                'Sevastopol\'',
-                'Sums\'ka (Sumy)',
-                'Ternopil\'s\'ka (Ternopil\')',
-                'Vinnyts\'ka (Vinnytsya)',
-                'Volyns\'ka (Luts\'k)',
-                'Zakarpats\'ka (Uzhhorod)',
-                'Zaporiz\'ka (Zaporizhzhya)',
-                'Zhytomyrs\'ka (Zhytomyr)',
+                "Kyyivs'ka (Kiev)",
+                "L'vivs'ka (L'viv)",
+                "Luhans'ka (Luhans'k)",
+                "Mykolayivs'ka (Mykolayiv)",
+                "Odes'ka (Odesa)",
+                "Poltavs'ka (Poltava)",
+                "Rivnens'ka (Rivne)",
+                "Sevastopol'",
+                "Sums'ka (Sumy)",
+                "Ternopil's'ka (Ternopil')",
+                "Vinnyts'ka (Vinnytsya)",
+                "Volyns'ka (Luts'k)",
+                "Zakarpats'ka (Uzhhorod)",
+                "Zaporiz'ka (Zaporizhzhya)",
+                "Zhytomyrs'ka (Zhytomyr)",
             ],
         },
         {
             name: 'United Arab Emirates',
             isoCode: 'AE',
             cities: [
-                '\'Ajman',
+                "'Ajman",
                 'Abu Zaby (Abu Dhabi)',
                 'Al Fujayrah',
                 'Ash Shariqah (Sharjah)',
                 'Dubayy (Dubai)',
-                'Ra\'s al Khaymah',
+                "Ra's al Khaymah",
                 'Umm al Qaywayn',
             ],
         },
@@ -5492,10 +5316,10 @@ export class RoasteryProfileService {
             name: 'Yemen',
             isoCode: 'YE',
             cities: [
-                '\'Adan',
-                '\'Ataq',
+                "'Adan",
+                "'Ataq",
                 'Abyan',
-                'Al Bayda\'',
+                "Al Bayda'",
                 'Al Hudaydah',
                 'Al Jawf',
                 'Al Mahrah',
@@ -5505,10 +5329,10 @@ export class RoasteryProfileService {
                 'Hajjah',
                 'Ibb',
                 'Lahij',
-                'Ma\'rib',
-                'Sa\'dah',
-                'San\'a\'',
-                'Ta\'izz',
+                "Ma'rib",
+                "Sa'dah",
+                "San'a'",
+                "Ta'izz",
             ],
         },
         {
@@ -5581,7 +5405,7 @@ export class RoasteryProfileService {
     roasterUsers: any = [];
     empName: any = '';
     roasterContacts: any = [];
-    single: { 'name': string; 'value': any; }[];
+    single: { name: string; value: any }[];
     vatNos: any;
     cmpyRid: any;
     companyDetailsPublic: any = false;
@@ -5603,11 +5427,9 @@ export class RoasteryProfileService {
         this.userId = this.cookieService.get('user_id');
         this.roasterId = this.cookieService.get('roaster_id');
         this.roasterProfile();
-
     }
 
     roasterProfile() {
-
         this.userService.getRoasterAccount(this.roasterId).subscribe((result: any) => {
             if (result.success) {
                 console.log(result);
@@ -5618,7 +5440,7 @@ export class RoasteryProfileService {
                 this.name = result.result.name;
                 this.phoneno = result.result.phone;
                 this.country = result.result.country;
-                const country = this.countryList.find(con => con.isoCode === this.country);
+                const country = this.countryList.find((con) => con.isoCode === this.country);
                 this.countryName = country ? country.name : '';
                 this.state = result.result.state;
                 this.city = result.result.city;
@@ -5678,12 +5500,11 @@ export class RoasteryProfileService {
         });
     }
 
-
     //  Function Name :Change Country.
     // Description: This function helps to get the values of cities according to selcted country.
     changeCountry(count) {
         console.log('changing country selection >>>>>>>>>>>>>>>', count);
-        this.cities = this.countryList.find(con => con.isoCode === count).cities;
+        this.cities = this.countryList.find((con) => con.isoCode === count).cities;
     }
 
     b64toBlob(b64Data, contentType, sliceSize) {
@@ -5713,7 +5534,7 @@ export class RoasteryProfileService {
     saveRoasterProfile() {
         this.isSaving = true;
         if (this.bannerFile) {
-            this.userService.uploadFile(this.roasterId, this.bannerFile, 'Cover-Image').subscribe(res => {
+            this.userService.uploadFile(this.roasterId, this.bannerFile, 'Cover-Image').subscribe((res) => {
                 console.log('banner file upload result >>>>>>', res);
                 if (res.success) {
                     this.bannerFileId = res.result.id;
@@ -5756,75 +5577,68 @@ export class RoasteryProfileService {
             is_company_details_public: this.companyDetailsPublic,
             banner_file_id: this.bannerFileId || 0,
         };
-        this.userService.updateRoasterAccount(this.roasterId, data).subscribe(
-            (response: any) => {
-                if (response.success === true) {
-                    console.log(response);
-                    const base64Rejex = /^data:image\/(?:gif|png|jpeg|bmp|webp)(?:;charset=utf-8)?;base64,(?:[A-Za-z0-9]|[+/])+={0,2}/;
-                    const isBase64Valid = base64Rejex.test(this.profilePhotoService.croppedImage); // base64Data is the base64 string
+        this.userService.updateRoasterAccount(this.roasterId, data).subscribe((response: any) => {
+            if (response.success === true) {
+                console.log(response);
+                const base64Rejex = /^data:image\/(?:gif|png|jpeg|bmp|webp)(?:;charset=utf-8)?;base64,(?:[A-Za-z0-9]|[+/])+={0,2}/;
+                const isBase64Valid = base64Rejex.test(this.profilePhotoService.croppedImage); // base64Data is the base64 string
 
-                    if (isBase64Valid === false) {
-                        if (this.empName === '') {
-                            this.toastrService.success('Roaster profile details updated successfully');
-                            this.contactInfo = true;
-                            this.addMediaDiv = false;
-                            this.savemode = false;
-                            this.editmode = true;
-                            this.empName = '';
-                            this.roasterProfile();
-                        } else {
-                            const contactData = {
-                                user_id: parseInt(this.empName, 10),
-                            };
-                        }
+                if (isBase64Valid === false) {
+                    if (this.empName === '') {
+                        this.toastrService.success('Roaster profile details updated successfully');
+                        this.contactInfo = true;
+                        this.addMediaDiv = false;
+                        this.savemode = false;
+                        this.editmode = true;
+                        this.empName = '';
+                        this.roasterProfile();
                     } else {
-                        console.log('entering here');
-                        const ImageURL = this.profilePhotoService.croppedImage;
-                        // Split the base64 string in data and contentType
-                        const block = ImageURL.split(';');
-                        // Get the content type of the image
-                        const contentType = block[0].split(':')[1]; // In this case "image/gif"
-                        // get the real base64 content of the file
-                        const realData = block[1].split(',')[1]; // In this case "R0lGODlhPQBEAPeoAJosM...."
-
-                        // Convert it to a blob to upload
-                        const blob = this.b64toBlob(realData, contentType, 0);
-
-                        const formData: FormData = new FormData();
-                        formData.append('file', blob);
-                        formData.append(
-                            'api_call',
-                            '/ro/' + this.roasterId + '/company-image',
-                        );
-                        formData.append('token', this.cookieService.get('Auth'));
-                        this.userService.uploadProfileImage(formData).subscribe(
-                            (result: any) => {
-                                console.log(result);
-                                if (result.success) {
-                                    if (this.empName === '') {
-                                        this.toastrService.success('Roaster profile details updated successfully');
-                                        this.contactInfo = true;
-                                        this.addMediaDiv = false;
-                                        this.savemode = false;
-                                        this.editmode = true;
-                                        this.empName = '';
-                                        this.roasterProfile();
-                                    } else {
-                                    }
-                                } else {
-                                    console.log(result);
-                                    this.isSaving = false;
-                                    this.toastrService.error('Error while uploading company image, please try again.');
-                                }
-                            },
-                        );
+                        const contactData = {
+                            user_id: parseInt(this.empName, 10),
+                        };
                     }
                 } else {
-                    this.isSaving = false;
-                    this.toastrService.error('Error while updating details, please try again.');
+                    console.log('entering here');
+                    const ImageURL = this.profilePhotoService.croppedImage;
+                    // Split the base64 string in data and contentType
+                    const block = ImageURL.split(';');
+                    // Get the content type of the image
+                    const contentType = block[0].split(':')[1]; // In this case "image/gif"
+                    // get the real base64 content of the file
+                    const realData = block[1].split(',')[1]; // In this case "R0lGODlhPQBEAPeoAJosM...."
+
+                    // Convert it to a blob to upload
+                    const blob = this.b64toBlob(realData, contentType, 0);
+
+                    const formData: FormData = new FormData();
+                    formData.append('file', blob);
+                    formData.append('api_call', '/ro/' + this.roasterId + '/company-image');
+                    formData.append('token', this.cookieService.get('Auth'));
+                    this.userService.uploadProfileImage(formData).subscribe((result: any) => {
+                        console.log(result);
+                        if (result.success) {
+                            if (this.empName === '') {
+                                this.toastrService.success('Roaster profile details updated successfully');
+                                this.contactInfo = true;
+                                this.addMediaDiv = false;
+                                this.savemode = false;
+                                this.editmode = true;
+                                this.empName = '';
+                                this.roasterProfile();
+                            } else {
+                            }
+                        } else {
+                            console.log(result);
+                            this.isSaving = false;
+                            this.toastrService.error('Error while uploading company image, please try again.');
+                        }
+                    });
                 }
-            },
-        );
+            } else {
+                this.isSaving = false;
+                this.toastrService.error('Error while updating details, please try again.');
+            }
+        });
     }
 
     handleBannerImageFile(inputElement: any) {
@@ -5851,7 +5665,7 @@ export class RoasteryProfileService {
 
     handleDeleteBannerImage(): void {
         console.log('banner file id ?????????????', this.bannerFileId);
-        this.userService.deleteFile(this.roasterId, this.bannerFileId).subscribe(res => {
+        this.userService.deleteFile(this.roasterId, this.bannerFileId).subscribe((res) => {
             console.log('remove banner file res >>>>>>>>>', res);
         });
     }

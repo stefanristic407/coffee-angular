@@ -38,7 +38,7 @@ import { SampleOrderConfirmationComponent } from './microroaster-orders/micro-or
 import { BookedOrderConfirmationComponent } from './microroaster-orders/micro-order-booked/booked-order-confirmation/booked-order-confirmation.component';
 import { MrOrdersComponent } from './microroaster-orders/mr-orders/mr-orders.component';
 import { MrRequestDetailsComponent } from './microroaster-orders/mr-request-details/mr-request-details.component';
-import { AuthGuard } from '../guards/auth.guard';
+import { AuthGuard } from '@guards';
 import { AssignUserComponent } from './assign-user/assign-user.component';
 
 const routes: Routes = [

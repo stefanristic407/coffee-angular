@@ -78,14 +78,15 @@
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
                 <div>
                     <label>Product Description<span class="star">*</span></label>
-                    <label class="float-right limitFont">0/50 words</label>
+                    <label class="float-right limitFont">{{ productDescriptionLength }}/50 words</label>
                 </div>
                 <textarea
                     type="text"
                     class="descriptionText-area"
                     placeholder="Tell us a bit about the product "
                     formControlName="description"
-                    maxlength="50"
+                    (keydown)="onPasteDescription('description')"
+                    (input)="onPasteDescription('description')"
                     pInputText
                 ></textarea>
                 <small *ngIf="productForm.controls['description'].errors?.required" class="p-error"> Required </small>
@@ -116,7 +117,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 d-flex d-sm-flex d-md-none p-0">
+        <div *ngIf="productForm['value']['is_variants_included']" class="col-12 d-flex d-sm-flex d-md-none p-0">
             <p-dropdown
                 [options]="variantTypeArray"
                 optionLabel="label"
@@ -168,17 +169,17 @@
                                 </small>
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
-                                <label>Roaster Ref No.<span class="star">*</span></label>
+                                <label>Roaster Ref No.</label>
                                 <input type="text" readonly formControlName="roaster_ref_no" pInputText />
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
-                                <label>Batch Ref No.<span class="star">*</span></label>
+                                <label>Batch Ref No.</label>
                                 <input type="text" readonly formControlName="batch_ref_no" pInputText />
                             </div>
                         </div>
                         <div class="row mt-2">
                             <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
-                                <label>Roaster Profile<span class="star">*</span></label>
+                                <label>Roaster Profile</label>
                                 <input type="text" readonly formControlName="roasting_profile_name" pInputText />
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
@@ -186,7 +187,7 @@
                                 <input type="text" readonly formControlName="roast_level" pInputText />
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
-                                <label>Roasting Time<span class="star">*</span></label>
+                                <label>Roasting Time</label>
                                 <input type="text" readonly formControlName="roast_time" pInputText />
                             </div>
                         </div>
@@ -195,19 +196,19 @@
                                 <span class="primary_txt font-16">Estate Details</span>
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
-                                <label>Estate Name<span class="star">*</span></label>
+                                <label>Estate Name</label>
                                 <input type="text" readonly formControlName="estate_name" pInputText />
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
-                                <label>Origin<span class="star">*</span></label>
+                                <label>Origin</label>
                                 <input type="text" readonly formControlName="origin" pInputText />
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
-                                <label>Region<span class="star">*</span></label>
+                                <label>Region</label>
                                 <input type="text" readonly formControlName="region" pInputText />
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
-                                <label>Harvest year<span class="star">*</span></label>
+                                <label>Harvest year</label>
                                 <input type="text" readonly formControlName="harvest_year" pInputText />
                             </div>
                         </div>
@@ -216,23 +217,23 @@
                                 <span class="primary_txt font-16">Tasting notes</span>
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
-                                <label>Body<span class="star">*</span></label>
+                                <label>Body</label>
                                 <input type="text" readonly formControlName="body" pInputText />
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
-                                <label>Acidity<span class="star">*</span></label>
+                                <label>Acidity</label>
                                 <input type="text" readonly formControlName="acidity" pInputText />
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
-                                <label>Aroma<span class="star">*</span></label>
+                                <label>Aroma</label>
                                 <input type="text" readonly formControlName="aroma" pInputText />
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
-                                <label>Flavour<span class="star">*</span></label>
+                                <label>Flavour</label>
                                 <input type="text" readonly formControlName="flavour" pInputText />
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
-                                <label>Processing<span class="star">*</span></label>
+                                <label>Processing</label>
                                 <input type="text" readonly formControlName="processing" pInputText />
                             </div>
                         </div>
@@ -262,11 +263,11 @@
                                 ></textarea>
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
-                               <div >
-                                <label>Recipes</label>
-                                <label class="float-right limitFont">0/50 words</label>
-                               </div>
-                                
+                                <div>
+                                    <label>Recipes</label>
+                                    <label class="float-right limitFont">0/50 words</label>
+                                </div>
+
                                 <textarea
                                     type="text"
                                     class="roasterDivText-area"
@@ -298,9 +299,15 @@
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
                                 <div>
                                     <label>Recommendation text<span class="star">*</span></label>
-                                    <label class="float-right limitFont">0/10 words</label>
+                                    <label class="float-right limitFont">{{ recommendationTextLength }}/10 words</label>
                                 </div>
-                                <input type="text" maxlength="10" formControlName="roaster_recommendation" pInputText />
+                                <input
+                                    type="text"
+                                    (keydown)="onPasteDescription('recommendation', i)"
+                                    (input)="onPasteDescription('recommendation', i)"
+                                    formControlName="roaster_recommendation"
+                                    pInputText
+                                />
                                 <small
                                     *ngIf="varient['controls']['roaster_recommendation'].errors?.required"
                                     class="p-error"
@@ -339,7 +346,7 @@
             <div [formGroupName]="i" class="row mt-2">
                 <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-2 sewn-form-field w-100 pr-0">
                     <label>Box value<span class="star">*</span></label>
-                    <input type="text" placeholder="" readonly formControlName="crate_unit" pInputText />
+                    <input type="text" placeholder="" readonly formControlName="boxField" pInputText />
                 </div>
                 <div class="equal-operators">=</div>
                 <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-2 sewn-form-field w-100 pl-0 pr-0">

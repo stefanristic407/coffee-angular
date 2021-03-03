@@ -1,9 +1,9 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { RoasterserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@services';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
 import { MenuItem } from 'primeng/api';
@@ -30,6 +30,12 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
     breadCrumbItem: MenuItem[] = [];
 
     ordId: any;
+    breadItems = [
+        { label: 'Home', routerLink: '/' },
+        { label: 'Inventory', routerLink: '/' },
+        { label: 'Roasted coffee batchs' },
+    ];
+
     constructor(
         public router: Router,
         public cookieService: CookieService,
@@ -57,7 +63,6 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
             this.roasterCoffeeBatchsData();
         });
         this.loadFilterValues();
-        this.supplyBreadCrumb();
         this.tableColumns = [
             {
                 field: 'roast_batch_name',
@@ -118,25 +123,7 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
             { label: 'Dark', value: 5 },
         ];
     }
-    supplyBreadCrumb(): void {
-        const obj1: MenuItem = {
-            label: 'Home',
-            routerLink: '/',
-            disabled: false,
-        };
-        const obj2: MenuItem = {
-            label: 'Inventory',
-            routerLink: '/',
-            disabled: false,
-        };
-        const obj3: MenuItem = {
-            label: 'New roasted coffee batch',
-            disabled: false,
-        };
-        this.breadCrumbItem.push(obj1);
-        this.breadCrumbItem.push(obj2);
-        this.breadCrumbItem.push(obj3);
-    }
+
     // Table data
     roasterCoffeeBatchsData() {
         const postData: any = {};

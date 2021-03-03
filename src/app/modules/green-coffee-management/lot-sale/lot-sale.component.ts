@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalsService } from 'src/services/globals.service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { GlobalsService } from '@services';
+import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -61,8 +61,8 @@ export class LotSaleComponent implements OnInit {
             status: ['IN_STOCK', Validators.compose([Validators.required])],
         });
         this.quantityUnitArray = [
-            { label: 'Bags', value: 'Bags' },
-            { label: 'Kg', value: 'Kg' },
+            { label: 'Bags', value: 'bags' },
+            { label: 'Kg', value: 'kg' },
         ];
         this.priceTypeArray = [
             { label: 'Per kg', value: 'kg' },
@@ -226,13 +226,13 @@ export class LotSaleComponent implements OnInit {
         );
     }
     updateStatus() {
-        const status = { status: this.orderStatus };
+        const status = { status: this.lotSaleForm.value.status };
         this.roasterService.updateMarkForSaleStatus(this.roasterID, this.orderID, status).subscribe(
             (response) => {
                 if (response && response.success) {
                     this.toasterService.success('Status updated successfully');
-                    this.showDropdown = false;
                     this.statusLabel = this.formatStatus(this.orderStatus);
+                    this.showDropdown = false;
                 }
             },
             (err) => {

@@ -1,7 +1,7 @@
 import { ChatHandlerService } from '@services';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@services';
 import { WelcomeService } from '../welcome.service';
 
 @Component({

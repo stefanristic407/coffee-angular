@@ -1,23 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@services';
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.css']
+    selector: 'app-settings',
+    templateUrl: './settings.component.html',
+    styleUrls: ['./settings.component.css'],
 })
 export class SettingsComponent implements OnInit {
-  appLanguage?: any;
-  settingsActive:any =0;
+    appLanguage?: any;
+    settingsActive: any = 0;
 
-  constructor(public globals : GlobalsService) { }
+    constructor(public globals: GlobalsService) {}
 
-  ngOnInit(): void {
-    this.language();
-  }
-  language(){
-    this.appLanguage = this.globals.languageJson;
-       this.settingsActive++;
+    ngOnInit(): void {
+        this.language();
     }
-
+    language() {
+        this.appLanguage = this.globals.languageJson;
+        this.settingsActive++;
+    }
 }

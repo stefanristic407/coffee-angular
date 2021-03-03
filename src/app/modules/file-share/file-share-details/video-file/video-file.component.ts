@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FileShareService } from '../../file-share.service';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@services';
 @Component({
     selector: 'app-video-file',
     templateUrl: './video-file.component.html',

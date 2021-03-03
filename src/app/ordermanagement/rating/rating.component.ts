@@ -7,7 +7,7 @@ import { FormService } from '@services';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
-import { OrgType, OrderType, OrderStatus } from '@models';
+import { OrgType, OrderType, OrderStatus } from '@enums';
 
 @Component({
     selector: 'app-rating',

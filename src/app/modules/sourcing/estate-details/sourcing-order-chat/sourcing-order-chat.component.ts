@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 declare var $: any;
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@services';
 
 @Component({
     selector: 'app-sourcing-order-chat',

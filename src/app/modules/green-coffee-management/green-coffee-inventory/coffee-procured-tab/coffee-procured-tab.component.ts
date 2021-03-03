@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, ViewChild, HostListener, AfterViewInit, AfterContentInit } from '@angular/core';
-import { GlobalsService } from 'src/services/globals.service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { GlobalsService } from '@services';
+import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 import { NavigationExtras, Router } from '@angular/router';
-import { PrimeTableService } from 'src/services/prime-table.service';
+import { PrimeTableService } from '@services';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Table } from 'primeng/table';
 import { UserserviceService } from '@services';
@@ -23,6 +23,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
     mainData: any[] = [];
     originArray: any[] = [];
     searchString = '';
+    markedCoffeeSaleLists: any = [];
     // sellerItems = [
     //     { label: 'Sweden', value: 'SE' },
     //     { label: 'UK', value: 'UK' },
@@ -34,6 +35,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
         { label: 'Display 25', value: 25 },
         { label: 'Display 50', value: 50 },
     ];
+    procuredCoffeeListArray: any[];
     @Input('form')
     set form(value: FormGroup) {
         this._form = value;
@@ -59,6 +61,11 @@ export class CoffeeProcuredTabComponent implements OnInit {
         this.roasterID = this.cookieService.get('roaster_id');
         this.primeTableService.rows = 10;
         this.primeTableService.sortBy = 'created_at';
+        this.roasterService.getCoffeeSaleList(this.roasterID).subscribe((res) => {
+            if (res.result && res.success) {
+                this.primeTableService.markedCoffeeSaleLists = res.result;
+            }
+        });
     }
 
     // tslint:disable: variable-name

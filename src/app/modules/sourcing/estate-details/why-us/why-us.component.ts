@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Gallery, ImageItem, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@services';
 import { SourcingService } from '../../sourcing.service';
 
 @Component({

@@ -92,7 +92,9 @@
 ::ng-deep .breadCrumb .p-breadcrumb ul {
     width: max-content;
 }
-
+.width-90 {
+    width: 90% !important;
+}
 @media (max-width: 1270px) and (min-width: 768px) {
     ::ng-deep .roastingProfileTable .p-datatable {
         position: relative !important;
@@ -164,5 +166,14 @@
     }
     .bord-profile {
         border: none;
+    }
+    .breadCrumb::-webkit-scrollbar {
+        display: none !important;
+    }
+    .width-head {
+        width: 47% !important;
+    }
+    .width-desc {
+        width: 53% !important;
     }
 }

@@ -3,7 +3,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { DataTableDirective, DataTablesModule } from 'angular-datatables';
 import { data } from 'jquery';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@services';
 
 @Component({
     selector: 'app-requests',

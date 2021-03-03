@@ -139,10 +139,12 @@
                         </div>
                         <div class="col-10 p-0 ownerDiv">
                             <span class="estateMediumFont mb-1"
-                                >Estate name: {{ orderDetails.estate_name ? orderDetails.estate_name : 'NA' }}</span
+                                ><span class="fnt-600">Estate name: </span
+                                >{{ orderDetails.estate_name ? orderDetails.estate_name : 'NA' }}</span
                             >
                             <span class="estateMediumFont"
-                                >Owner: {{ orderDetails.estate_owner ? orderDetails.estate_owner : 'NA' }}</span
+                                ><span class="fnt-600">Owner:</span>
+                                {{ orderDetails.estate_owner ? orderDetails.estate_owner : 'NA' }}</span
                             >
                         </div>
                     </div>
@@ -156,39 +158,43 @@
                         </div>
                         <div class="col-10 p-0 ownerDiv">
                             <span class="estateMediumFont mb-1"
-                                >Roaster name: {{ orderDetails.roaster_name ? orderDetails.roaster_name : 'NA' }}</span
+                                ><span class="fnt-600">Roaster name:</span>
+                                {{ orderDetails.roaster_name ? orderDetails.roaster_name : 'NA' }}</span
                             >
                             <span class="estateMediumFont"
-                                >Owner: {{ orderDetails.roaster_owner ? orderDetails.roaster_owner : 'NA' }}</span
+                                ><span class="fnt-600">Owner:</span>
+                                {{ orderDetails.roaster_owner ? orderDetails.roaster_owner : 'NA' }}</span
                             >
                         </div>
                     </div>
                     <div class="row pt-3 pb-3 rowBorder">
-                        <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt">Origin :</div>
+                        <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">Origin :</div>
                         <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
                             {{ orderDetails.origin ? orderDetails.origin : 'NA' }}
                         </div>
                     </div>
                     <div class="row pt-3 pb-3 rowBorder">
-                        <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt">Variety :</div>
+                        <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">Variety :</div>
                         <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
                             {{ orderDetails.varieties ? orderDetails.varieties : 'NA' }}
                         </div>
                     </div>
                     <div class="row pt-3 pb-3 rowBorder">
-                        <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt">Price :</div>
+                        <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">Price :</div>
                         <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
                             {{ orderDetails.price ? orderDetails.price : 'NA' }}
                         </div>
                     </div>
                     <div class="row pt-3 pb-3 rowBorder">
-                        <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt">Type of order :</div>
+                        <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
+                            Type of order :
+                        </div>
                         <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
                             {{ orderDetails.order_type ? orderDetails.order_type : 'NA' }}
                         </div>
                     </div>
                     <div class="row pt-3 pb-3 statusBorder">
-                        <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt">Status :</div>
+                        <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">Status :</div>
                         <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
                             {{ orderDetails.status ? orderDetails.status : 'NA' }}
                         </div>
