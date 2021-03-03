@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Table } from 'primeng/table';
-import { RoasterserviceService } from '@core/services/api/roaster.service';
 
 @Injectable({
     providedIn: 'root',
@@ -46,11 +45,7 @@ export class PrimeTableService {
     public status: any;
     public searchQuery: any;
 
-    constructor(
-        public http: HttpClient,
-        public cookieService: CookieService,
-        private roasterService: RoasterserviceService,
-    ) {
+    constructor(public http: HttpClient, public cookieService: CookieService) {
         this.roasterId = this.cookieService.get('roaster_id');
     }
 

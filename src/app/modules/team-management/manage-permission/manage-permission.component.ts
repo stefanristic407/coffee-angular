@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GlobalsService } from '@services';
+import { GlobalsService } from '@core/services/';
 
 @Component({
     selector: 'app-manage-permission',
