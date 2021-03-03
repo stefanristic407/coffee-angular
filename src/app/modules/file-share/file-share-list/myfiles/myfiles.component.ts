@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Action } from '@models';
+import { Action } from '@enums';
 import { Subscription } from 'rxjs';
 import { FileShareService } from '../../file-share.service';
 

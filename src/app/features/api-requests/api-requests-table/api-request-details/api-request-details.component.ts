@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { RoasterserviceService } from '@services';
 
 @Component({
     selector: 'app-api-request-details',

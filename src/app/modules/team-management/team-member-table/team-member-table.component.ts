@@ -8,8 +8,8 @@ import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators';
-import { ChatHandlerService } from './../../../../services/chat/chat-handler.service';
-import { WSOrganizationType } from '@models';
+import { ChatHandlerService } from '@services';
+import { OrganizationType } from '@enums';
 
 @Component({
     selector: 'app-team-member-table',
@@ -357,7 +357,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
     sendDirectMessage(userID) {
         const payLoad = {
             user_id: userID,
-            org_type: WSOrganizationType.ROASTER,
+            org_type: OrganizationType.ROASTER,
             org_id: Number(this.roasterID),
         };
         this.messageService.openChatThread(payLoad);

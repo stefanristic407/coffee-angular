@@ -2,8 +2,8 @@ import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core'
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from 'src/services/globals.service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { GlobalsService } from '@services';
+import { RoasterserviceService } from '@services';
 
 @Component({
     selector: 'app-generated-keys',

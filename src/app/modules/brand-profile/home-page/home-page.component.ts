@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
-import { maxWordCountValidator, fileCountValidator } from '@services';
+import { maxWordCountValidator, fileCountValidator } from '@utils';
 import { FormService } from '@services';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';

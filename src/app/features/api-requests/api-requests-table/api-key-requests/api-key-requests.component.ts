@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, SimpleChange, ViewChild } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { GlobalsService } from 'src/services/globals.service';
-import { RoasterserviceService } from '../../../../../services/roasters/roasterservice.service';
+import { GlobalsService } from '@services';
+import { RoasterserviceService } from '@services';
 import * as moment from 'moment';
 @Component({
     selector: 'app-api-key-requests',

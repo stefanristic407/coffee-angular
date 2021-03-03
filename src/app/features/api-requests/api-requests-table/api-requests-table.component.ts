@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@services';
 
 @Component({
     selector: 'app-api-requests-table',

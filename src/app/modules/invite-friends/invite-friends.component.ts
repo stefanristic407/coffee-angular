@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
-import { UserserviceService } from 'src/services/users/userservice.service';
+import { UserserviceService } from '@services';
 import { Router } from '@angular/router';
 import { rejects } from 'assert';
 

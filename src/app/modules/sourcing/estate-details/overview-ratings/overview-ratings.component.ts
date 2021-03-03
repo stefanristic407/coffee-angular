@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@services';
 import { SourcingService } from '../../sourcing.service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
-import { UserserviceService } from 'src/services/users/userservice.service';
+import { RoasterserviceService } from '@services';
+import { UserserviceService } from '@services';
 
 @Component({
     selector: 'app-overview-ratings',

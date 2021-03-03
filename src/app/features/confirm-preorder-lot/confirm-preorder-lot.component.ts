@@ -1,12 +1,12 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Router, ActivatedRoute } from '@angular/router';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@services';
 import { RoasteryProfileService } from '../roastery-profile/roastery-profile.service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { Toast, ToastrService } from 'ngx-toastr';
-import { UserserviceService } from 'src/services/users/userservice.service';
+import { UserserviceService } from '@services';
 
 @Component({
     selector: 'app-confirm-preorder-lot',

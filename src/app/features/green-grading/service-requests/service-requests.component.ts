@@ -3,9 +3,9 @@ import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { DataTableDirective, DataTablesModule } from 'angular-datatables';
 import { data } from 'jquery';
-import { GlobalsService } from 'src/services/globals.service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
-import { UserserviceService } from 'src/services/users/userservice.service';
+import { GlobalsService } from '@services';
+import { RoasterserviceService } from '@services';
+import { UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { GenerateReportService } from '../generate-report/generate-report.service';
 
