@@ -25,8 +25,8 @@ export class ProductDetailsComponent implements OnInit {
     roastedBatches: any = [];
     productID = '';
     variantTypeArray: any = [];
-    productDescriptionLength = 50;
-    recommendationTextLength = 10;
+    productDescriptionLength = 0;
+    recommendationTextLength = 0;
     roastedFields = [
         'roaster_ref_no',
         'batch_ref_no',
@@ -255,6 +255,7 @@ export class ProductDetailsComponent implements OnInit {
             id: '',
             weight: [0, Validators.compose([Validators.required])],
             crate_unit: 'lb',
+            boxField: '1 box',
             product_weight_variant_id: '',
             crate_capacity: ['', Validators.compose([Validators.required])],
         });
@@ -264,6 +265,7 @@ export class ProductDetailsComponent implements OnInit {
         if (!event.modify) {
             const getCrate = this.createEmptyCrate();
             getCrate.controls.weight.setValue(event.value);
+            getCrate.controls.crate_unit.setValue(event.unit);
             getCrate.controls.product_weight_variant_id.setValue(event.product_weight_variant_id);
             this.crates.push(getCrate);
         } else {
@@ -272,6 +274,7 @@ export class ProductDetailsComponent implements OnInit {
             );
             const indexValue = this.crates.value.indexOf(getObj);
             if (getObj) {
+                this.crates.controls[indexValue]['controls'].crate_unit.setValue(event.unit);
                 this.crates.controls[indexValue]['controls'].weight.setValue(event.value);
             }
         }
@@ -280,17 +283,44 @@ export class ProductDetailsComponent implements OnInit {
         this.router.navigate(['/features/products-list']);
     }
     wordCounter(event) {
-        this.productDescriptionLength = event.target.value ? 51 - event.target.value.split(/\s+/).length : 50;
-        if (this.productDescriptionLength <= 0 && event.keyCode !== 8) {
+        const wordlimit = event.target.value ? 51 - event.target.value.split(/\s+/).length : 50;
+        this.productDescriptionLength = event.target.value ? event.target.value.split(/\s+/).length : 0;
+        if (wordlimit <= 0 && event.keyCode !== 8) {
             this.productDescriptionLength = 0;
             event.preventDefault();
         }
     }
-    wordCounterText(event) {
-        this.recommendationTextLength = event.target.value ? 11 - event.target.value.split(/\s+/).length : 10;
-        if (this.recommendationTextLength <= 0 && event.keyCode !== 8) {
-            this.recommendationTextLength = 0;
-            event.preventDefault();
+    onPasteDescription(flag, idx?) {
+        if (flag === 'description') {
+            const getValue = this.productForm.controls.description.value;
+            const value = getValue.split(/\s+/);
+            const wordlimit = getValue ? 50 - value.length : 50;
+            this.productDescriptionLength = value.length;
+            if (wordlimit <= 0) {
+                value.splice(50);
+                let updatedString = '';
+                value.forEach((ele) => {
+                    updatedString = updatedString + ' ' + ele;
+                });
+                this.productDescriptionLength = 50;
+                this.productForm.controls.description.setValue(updatedString);
+            }
+        } else if (flag === 'recommendation') {
+            const getValue = this.productForm.controls.varients['controls'][idx].controls.roaster_recommendation.value;
+            const value = getValue.split(/\s+/);
+            const wordlimit = getValue ? 10 - value.length : 10;
+            this.recommendationTextLength = value.length;
+            if (wordlimit <= 0) {
+                value.splice(10);
+                let updatedString = '';
+                value.forEach((ele) => {
+                    updatedString = updatedString + ' ' + ele;
+                });
+                this.recommendationTextLength = 10;
+                this.productForm.controls.varients['controls'][idx].controls.roaster_recommendation.setValue(
+                    updatedString,
+                );
+            }
         }
     }
     onSave(): void {

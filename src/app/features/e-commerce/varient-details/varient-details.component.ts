@@ -94,6 +94,18 @@ export class VarientDetailsComponent implements OnInit {
         const getObj = {
             value: Number(event.target.value),
             product_weight_variant_id: weight.controls[this.currentVarientIndex].value.product_weight_variant_id,
+            unit: weight.controls[this.currentVarientIndex].value.weight_unit,
+            modify: true,
+        };
+        this.onWeightCreate.emit(getObj);
+        this.createWeightVariantArray();
+    }
+    onWeightUnitChange() {
+        const weight = this.weightForm.get('weights') as FormArray;
+        const getObj = {
+            value: weight.controls[this.currentVarientIndex].value.weight,
+            product_weight_variant_id: weight.controls[this.currentVarientIndex].value.product_weight_variant_id,
+            unit: weight.controls[this.currentVarientIndex].value.weight_unit,
             modify: true,
         };
         this.onWeightCreate.emit(getObj);
