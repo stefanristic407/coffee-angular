@@ -21,6 +21,7 @@ export class ProcuredCoffeeComponent implements OnInit {
     breadItems: any = [];
     selectedTab = 0;
     roasterNotes: any = [];
+    saleInformation: any;
     constructor(
         public gallery: Gallery,
         public lightbox: Lightbox,
@@ -50,6 +51,7 @@ export class ProcuredCoffeeComponent implements OnInit {
         this.language();
         this.getOrderDetails();
         this.getRoasterNotes();
+        this.getSaleOrderDetails();
     }
     getOrderDetails() {
         this.roasterService.getProcuredCoffeeDetails(this.roasterID, this.orderID).subscribe(
@@ -60,6 +62,19 @@ export class ProcuredCoffeeComponent implements OnInit {
                     if (this.orderDetails && this.orderDetails.harvest_id) {
                         this.getGCAvailableDetails(this.orderDetails.harvest_id);
                     }
+                }
+            },
+            (err) => {
+                console.log(err);
+            },
+        );
+    }
+    getSaleOrderDetails() {
+        this.roasterService.getMarkForSaleDetails(this.roasterID, this.orderID).subscribe(
+            (response) => {
+                console.log(response);
+                if (response.success && response.result) {
+                    this.saleInformation = response.result;
                 }
             },
             (err) => {

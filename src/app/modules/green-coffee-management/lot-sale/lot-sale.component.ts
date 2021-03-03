@@ -226,7 +226,7 @@ export class LotSaleComponent implements OnInit {
         );
     }
     updateStatus() {
-        const status = { status: this.orderStatus };
+        const status = { status: this.lotSaleForm.value.status };
         this.roasterService.updateMarkForSaleStatus(this.roasterID, this.orderID, status).subscribe(
             (response) => {
                 if (response && response.success) {
