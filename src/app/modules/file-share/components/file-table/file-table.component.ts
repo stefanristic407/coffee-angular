@@ -14,14 +14,10 @@ import { FileType } from '@core/enums';
 })
 export class FileTableComponent implements OnInit {
     @Input() listType = '';
-    tableValue = [];
-    totalCount = 0;
     tableColumns = [];
     selectedItems = [];
     menuItems = [];
     selectedFile: any;
-    rangeDates: any[];
-    data;
 
     constructor(
         public dialogSrv: DialogService,
