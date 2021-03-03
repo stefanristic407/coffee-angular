@@ -288,7 +288,7 @@
                             <span>{{ rowData[col.field] | titlecase }}</span>
                         </span>
                         <span *ngSwitchCase="'weight'" class="">
-                            <span>{{ rowData[col.field] }} lb</span>
+                            <span>{{ rowData[col.field] }} {{ rowData['weight_unit'] }}</span>
                         </span>
                         <span *ngSwitchCase="'price'" class="">
                             <span>${{ rowData[col.field] }}</span>
