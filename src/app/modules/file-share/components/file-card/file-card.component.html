@@ -9,19 +9,19 @@
         <img
             class="cursor-pointer"
             *ngIf="data.type == 'FOLDER'"
-            src="../../../../../../assets/images/folder-gray-filled.svg"
+            src="assets/images/folder-gray-filled.svg"
             routerLink="/file-share/file-share-details/{{ data.id }}"
         />
         <img
             class="cursor-pointer"
             *ngIf="data.type == 'VIDEO'"
-            src="../../../../assets/images/videocamera-icon.png"
+            src="assets/images/video-gray-filled.svg"
             (click)="fileShareSrv.preview(data)"
         />
         <img
             class="cursor-pointer"
             *ngIf="data.type == 'DOCUMENT'"
-            src="../../../../assets/images/document.png"
+            src="assets/images/document.png"
             (click)="fileShareSrv.downloadFile(data)"
         />
         <div class="quick-pinned-files__pinIcon">
