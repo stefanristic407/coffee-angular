@@ -63,10 +63,6 @@
     padding: 7px 12px 7px 36px;
     cursor: pointer;
     transition: box-shadow all 300ms border-color all 300ms;
-    &:hover {
-        border-color: $primary-color;
-        box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-    }
     input {
         display: none;
     }

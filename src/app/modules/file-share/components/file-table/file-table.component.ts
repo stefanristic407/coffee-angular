@@ -39,6 +39,14 @@ export class FileTableComponent implements OnInit {
                     this.fileShareSrv.downloadFile(this.selectedFile);
                 },
             },
+            this.globals.device !== 'desktop'
+                ? {
+                      label: this.globals.languageJson?.share,
+                      command: () => {
+                          this.fileShareSrv.openShareModal(this.selectedFile);
+                      },
+                  }
+                : {},
             {
                 label: this.globals.languageJson?.pin,
                 command: () => {
@@ -77,31 +85,31 @@ export class FileTableComponent implements OnInit {
                 field: 'name',
                 header: 'files',
                 sortable: true,
-                width: 30,
+                width: this.globals.device === 'desktop' ? 30 : 33,
             },
             {
                 field: 'order_ids',
                 header: 'order_id',
                 sortable: true,
-                width: 10,
+                width: this.globals.device === 'desktop' ? 10 : 12,
             },
             {
                 field: 'updated_at',
                 header: 'modified',
                 sortable: true,
-                width: 20,
+                width: this.globals.device === 'desktop' ? 20 : 25,
             },
             {
                 field: 'type',
                 header: 'type',
                 sortable: true,
-                width: 10,
+                width: this.globals.device === 'desktop' ? 10 : 12,
             },
             {
                 field: 'actions',
                 header: '',
                 sortable: false,
-                width: 22,
+                width: this.globals.device === 'desktop' ? 22 : 10,
             },
         ];
     }
