@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
-import { GlobalsService } from '@services';
-import { RoasterserviceService } from '@services';
+import { GlobalsService } from '@core/services/globals.service';
+import { RoasterserviceService } from '@core/services/api/roaster.service';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({

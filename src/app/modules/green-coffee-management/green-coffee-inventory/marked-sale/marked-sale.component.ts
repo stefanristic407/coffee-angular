@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, ViewChild, HostListener, AfterContentInit } from '@angular/core';
-import { GlobalsService } from '@services';
-import { RoasterserviceService } from '@services';
+import { GlobalsService } from '@core/services/globals.service';
+import { RoasterserviceService } from '@core/services/api/roaster.service';
 import { CookieService } from 'ngx-cookie-service';
 import { NavigationExtras, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
-import { PrimeTableService } from '@services';
+import { PrimeTableService } from '@core/services/prime-table.service';
 import { Table } from 'primeng/table';
 import { ToastrService } from 'ngx-toastr';
 

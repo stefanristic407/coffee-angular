@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Table } from 'primeng/table';
-import { RoasterserviceService } from './roasters/roasterservice.service';
+import { RoasterserviceService } from '@core/services/api/roaster.service';
 
 @Injectable({
     providedIn: 'root',
@@ -45,7 +45,6 @@ export class PrimeTableService {
     public origin: any;
     public status: any;
     public searchQuery: any;
-    // paginationValue: any;
 
     constructor(
         public http: HttpClient,
