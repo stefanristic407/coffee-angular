@@ -27,7 +27,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr class="">
+            <tr (click)="onClick(rowData)">
                 <td class="d-none d-sm-none d-md-table-cell">
                     <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
                 </td>
@@ -53,39 +53,7 @@
                             <span class="col-10 col-md-12 px-0 d-flex align-items-start align-items-md-center">
                                 <img class="file-icon" [src]="rowData.type | fileIcon" alt="upload-icon" />
                                 <div class="col-10 px-0">
-                                    <div
-                                        *ngIf="rowData.type == 'FOLDER'"
-                                        routerLink="/file-share/file-share-details/{{ rowData.id }}"
-                                        class="ellipsis"
-                                    >
-                                        {{ rowData[col.field] }}
-                                    </div>
-                                    <div
-                                        *ngIf="rowData.type == 'DOCUMENT'"
-                                        (click)="fileShareSrv.downloadFile(rowData)"
-                                        class="ellipsis"
-                                    >
-                                        {{ rowData[col.field] }}
-                                    </div>
-                                    <div
-                                        *ngIf="rowData.type == 'CSV'"
-                                        routerLink="/file-share/file-share-details/{{ rowData.id }}"
-                                        class="ellipsis"
-                                    >
-                                        {{ rowData[col.field] }}
-                                    </div>
-                                    <div
-                                        *ngIf="rowData.type == 'VIDEO'"
-                                        (click)="fileShareSrv.preview(rowData)"
-                                        class="ellipsis"
-                                    >
-                                        {{ rowData[col.field] }}
-                                    </div>
-                                    <div
-                                        *ngIf="rowData.type == 'IMAGE'"
-                                        (click)="fileShareSrv.preview(rowData)"
-                                        class="ellipsis"
-                                    >
+                                    <div class="ellipsis">
                                         {{ rowData[col.field] }}
                                     </div>
                                     <div class="fnt-12 lh-normal text-clr588 mt-z5 d-md-none ellipsis">
@@ -97,7 +65,7 @@
                                 </div>
                             </span>
                             <span class="d-md-none">
-                                <a (click)="selectedFile = rowData; menu.toggle($event)">
+                                <a (click)="selectedFile = rowData; menu.toggle($event); $event.stopPropagation()">
                                     <img src="assets/images/menu-gray.svg" alt="menu" />
                                 </a>
                             </span>
@@ -117,17 +85,26 @@
                     </span>
 
                     <span *ngSwitchCase="'actions'" class="">
-                        <span class="d-flex justify-content-end justify-content-lg-between align-items-center">
-                            <span class="tr-hover-visible d-none d-lg-block">
+                        <span class="d-flex justify-content-end align-items-center">
+                            <span *ngIf="!rowData.parent_id" class="tr-hover-visible mr-3 d-none d-lg-block">
                                 <span
-                                    class="btn-trans-icon share-icon mr-3"
-                                    (click)="fileShareSrv.openShareModal(rowData)"
+                                    class="btn-trans-icon share-icon"
+                                    (click)="fileShareSrv.openShareModal(rowData); $event.stopPropagation()"
                                 >
                                     {{ 'share' | translate }}
                                 </span>
                             </span>
+                            <span *ngIf="rowData.parent_id" class="mr-3">
+                                <img
+                                    src="assets/images/shared.svg"
+                                    pTooltip="Sharing with {{ rowData.parent_id }} members"
+                                    tooltipPosition="top"
+                                    tooltipStyleClass="share"
+                                    (click)="fileShareSrv.openShareModal(rowData); $event.stopPropagation()"
+                                />
+                            </span>
                             <span>
-                                <a (click)="selectedFile = rowData; menu.toggle($event)">
+                                <a (click)="selectedFile = rowData; menu.toggle($event); $event.stopPropagation()">
                                     <img src="assets/images/menu-gray.svg" alt="menu" />
                                 </a>
                             </span>

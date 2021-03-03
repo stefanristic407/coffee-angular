@@ -72,6 +72,14 @@ export class FileService extends ApiService {
     getFilesandFolders(query?: object) {
         return this.post(this.url, `file-manager/my-files`, 'GET', query);
     }
+    // List all file/folders shared with me
+    getSharedFilesandFolders(query?: object) {
+        return this.post(this.url, `file-manager/shared`, 'GET', query);
+    }
+    // List all pinned file/folders for quick access
+    getPinnedFilesandFolders(query?: object) {
+        return this.post(this.url, `file-manager/pinned`, 'GET', query);
+    }
     // Map files with order_id
     mapOrder(id: any, body: any) {
         return this.post(this.url, `file-manager/${id}/order-mapping`, 'POST', null, body);

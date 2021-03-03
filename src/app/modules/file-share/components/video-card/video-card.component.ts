@@ -44,12 +44,6 @@ export class VideoCardComponent implements OnInit {
                 },
             },
             {
-                label: this.globals.languageJson?.comment,
-                command: () => {
-                    console.log(this.globals.languageJson?.comment);
-                },
-            },
-            {
                 label: this.globals.languageJson?.delete,
                 command: () => {
                     this.fileShareSrv.openDeleteModal(this.data);
