@@ -104,6 +104,10 @@
                         </span>
                     </ng-container>
 
+                    <span *ngSwitchCase="'order_ids'" class="">
+                        <span>{{ rowData[col.field] ? '#' + rowData[col.field] : '-' }}</span>
+                    </span>
+
                     <span *ngSwitchCase="'updated_at'" class="">
                         <span>{{ rowData[col.field] | date: 'dd/MM/yyyy, hh:mm a' }}</span>
                     </span>
