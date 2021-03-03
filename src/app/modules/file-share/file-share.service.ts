@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { FileService } from '@services';
 import { GlobalsService } from '@services';
-import { RoasterserviceService } from '@services';
-import { MediaPreviewComponent } from './media-preview/media-preview.component';
 import { ConfirmComponent } from '@shared';
-import { FolderDialogComponent } from './folder-dialog/folder-dialog.component';
-import { EditFileComponent } from './edit-file/edit-file.component';
-import { ShareComponent } from './share/share.component';
-import { BehaviorSubject } from 'rxjs';
+import { Action, FileType } from '@enums';
+import { MediaPreviewComponent } from './components/media-preview/media-preview.component';
+import { FolderDialogComponent } from './components/folder-dialog/folder-dialog.component';
+import { EditFileComponent } from './components/edit-file/edit-file.component';
+import { ShareComponent } from './components/share/share.component';
 import * as _ from 'underscore';
-import { Action, FileType } from '@models';
 
 @Injectable({
     providedIn: 'root',
@@ -42,7 +41,6 @@ export class FileShareService {
         public dialogSrv: DialogService,
         public fileSrv: FileService,
         public globals: GlobalsService,
-        public roasterService: RoasterserviceService,
         public toastrService: ToastrService,
         public cookieService: CookieService,
     ) {
@@ -93,6 +91,8 @@ export class FileShareService {
         this.fileSrv
             .getFilesandFolders({
                 file_module: 'File-Share',
+                sort_by: 'updated_at',
+                sort_order: 'desc',
             })
             .subscribe((res: any) => {
                 this.loading = false;
@@ -110,18 +110,24 @@ export class FileShareService {
 
     getSharedFilesandFolders() {
         this.loading = true;
-        this.roasterService.getSharedFilesandFolders(this.roasterId).subscribe((res: any) => {
-            this.loading = false;
-            if (res.success) {
-                this.allFiles = res.result;
-                this.fileTree = {};
-                this.makeFolderTree({ id: 0 });
-                this.filterData();
-                this.dataRetrieved();
-            } else {
-                this.toastrService.error('Error while getting the Shared Files and Folders');
-            }
-        });
+        this.fileSrv
+            .getSharedFilesandFolders({
+                file_module: 'File-Share',
+                sort_by: 'updated_at',
+                sort_order: 'desc',
+            })
+            .subscribe((res: any) => {
+                this.loading = false;
+                if (res.success) {
+                    this.allFiles = res.result;
+                    this.fileTree = {};
+                    this.makeFolderTree({ id: 0 });
+                    this.filterData();
+                    this.dataRetrieved();
+                } else {
+                    this.toastrService.error('Error while getting the Shared Files and Folders');
+                }
+            });
     }
 
     makeFolderTree(folder, originParents: any[] = []): number {
@@ -149,14 +155,20 @@ export class FileShareService {
     }
 
     getPinnedFilesorFolders() {
-        this.roasterService.getPinnedFilesandFolders(this.roasterId).subscribe((res: any) => {
-            if (res.success) {
-                console.log(res.result);
-                this.pinnedData = res.result;
-            } else {
-                this.toastrService.error('Error while getting the pinned files/folders');
-            }
-        });
+        this.fileSrv
+            .getPinnedFilesandFolders({
+                file_module: 'File-Share',
+                sort_by: 'updated_at',
+                sort_order: 'desc',
+            })
+            .subscribe((res: any) => {
+                if (res.success) {
+                    console.log(res.result);
+                    this.pinnedData = res.result;
+                } else {
+                    this.toastrService.error('Error while getting the pinned files/folders');
+                }
+            });
     }
 
     uploadFile(event: any) {

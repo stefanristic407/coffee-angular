@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService, ChatHandlerService } from '@services';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { WSOrganizationType } from '@models/chat/message';
-import { ChatHandlerService } from '@services';
+import { OrganizationType } from '@enums';
 import { SourcingService } from '../sourcing.service';
 
 @Component({
@@ -55,7 +54,7 @@ export class EstateDetailsComponent implements OnInit {
     chatWithEstate() {
         this.chatSrv.openChatThread({
             user_id: +this.userId,
-            org_type: WSOrganizationType.ESTATE,
+            org_type: OrganizationType.ESTATE,
             org_id: +this.sourcing.estateId,
         });
     }

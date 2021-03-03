@@ -17,109 +17,45 @@
             <h1 class="fnt-18 lh-normal fnt-700 text-clr334 mb-1 mb-md-4">
                 {{ 'file_share' | translate }}
             </h1>
-            <div class="fnt-16 lh-normal fnt-600 text-clr588 mb-3 mb-lg-4">
+            <div class="fnt-12 fnt-md-16 lh-normal fnt-600 text-clr588 mb-3 mb-lg-4">
                 {{ 'pinned_items' | translate }}
             </div>
 
             <!--Quick pin files-->
-            <ul class="row gutter-12 gutter-lg-20 mb-md-3 mb-lg-4">
-                <li *ngIf="showQuicker" class="col-12 col-md-4 col-lg-3 mb-3 mb-md-0">
-                    <div class="pin-quiker-files text-center position-relative">
+            <div class="row gutter-12 gutter-lg-20 mb-md-3 mb-lg-4">
+                <div *ngIf="showQuicker" class="col-12 col-md-4 col-lg-3 mb-25 mb-md-0">
+                    <div class="pin-quiker-files position-relative text-md-center d-flex align-items-center">
                         <label class="mb-0">
-                            <div class="pin-quiker-file__upload">
-                                <img class="mb-0 mb-md-3" src="assets/images/pin.PNG" />
-                                <p class="mb-0 fnt-16 fnt-500 pl-3 pl-md-0 text-clr334">
+                            <div class="pin-quiker-file__upload d-flex d-md-block">
+                                <img class="mb-0 mb-md-3" src="assets/images/pin-brown.svg" />
+                                <div class="fnt-12 fnt-md-16 lh-normal fnt-600 text-clr334 pl-25 pl-md-0">
                                     {{ 'pin_your_files' | translate }}
-                                </p>
-                                <span class="remove-quiker-file d-inline-block" (click)="showQuicker = false">
-                                    <img class="close-file" src="assets/images/close.svg"
-                                /></span>
+                                </div>
                             </div>
                         </label>
+                        <img class="close-file" src="assets/images/close.svg" (click)="showQuicker = false" />
                     </div>
-                </li>
+                </div>
 
-                <li class="col-12 col-md-8 col-lg-9">
-                    <ul class="row gutter-12 gutter-lg-20 quicker-files">
-                        <li
-                            class="col-12 col-md-6 col-lg-4 quicker-files__list"
-                            *ngFor="let data of fileShareSrv.pinnedData"
+                <div class="col-12 overflow-auto" [ngClass]="showQuicker ? 'col-md-8 col-lg-9' : ''">
+                    <div class="row gutter-12 gutter-lg-20 flex-nowrap">
+                        <div
+                            *ngFor="let item of fileShareSrv.pinnedData"
+                            class="col-8"
+                            [ngClass]="showQuicker ? 'col-md-6 col-lg-4' : 'col-md-4 col-lg-3'"
                         >
-                            <div class="quick-pinned-files">
-                                <div class="quick-pinned-files__Image">
-                                    <input type="file" />
-                                    <img
-                                        class="img"
-                                        *ngIf="data.type == 'IMAGE'"
-                                        src="{{ data.url }}"
-                                        (click)="fileShareSrv.preview(data)"
-                                    />
-                                    <img
-                                        class="folder-img cursor-pointer"
-                                        *ngIf="data.type == 'FOLDER'"
-                                        src="../../../../assets/images/folder-icon.png"
-                                        routerLink="/file-share/file-share-details/{{ data.id }}"
-                                    />
-                                    <img
-                                        class="folder-img video-img cursor-pointer"
-                                        *ngIf="data.type == 'VIDEO'"
-                                        src="../../../../assets/images/videocamera-icon.png"
-                                        (click)="fileShareSrv.preview(data)"
-                                    />
-                                    <img
-                                        class="folder-img cursor-pointer"
-                                        *ngIf="data.type == 'DOCUMENT'"
-                                        src="../../../../assets/images/document.png"
-                                        (click)="fileShareSrv.downloadFile(data)"
-                                    />
-                                    <div class="quick-pinned-files__pinIcon">
-                                        <div class="w-100 h-100 position-relative">
-                                            <a (click)="fileShareSrv.unpinFileorFolder(data.id)"
-                                                ><img
-                                                    src="assets/images/pin.svg"
-                                                    pTooltip="Unpin"
-                                                    tooltipPosition="top"
-                                            /></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="quick-pinned-files__info d-flex align-items-center flex-wrap clearfix">
-                                    <div
-                                        class="file-name float-left cursor-pointer"
-                                        routerLink="/file-share/file-share-details/{{ data.id }}"
-                                        *ngIf="data.type == 'FOLDER'"
-                                    >
-                                        <h4 class="fnt-12 fnt-700 text-clr334 mb-0 folderName">
-                                            {{ data.name }}
-                                        </h4>
-                                        <span class="fnt-12 fnt-700 text-clr588 mb-0 ownerName"
-                                            >Added by {{ data.owner_name }}</span
-                                        >
-                                    </div>
-                                    <div class="file-name float-left cursor-pointer" *ngIf="data.type != 'FOLDER'">
-                                        <h4 class="fnt-12 fnt-700 text-clr334 mb-0 folderName">
-                                            {{ data.name }}
-                                        </h4>
-                                        <span class="fnt-12 fnt-700 text-clr588 mb-0 ownerName"
-                                            >Added by {{ data.owner_name }}</span
-                                        >
-                                    </div>
-                                    <div class="file-dropdown ml-auto">
-                                        <img class="img" src="assets/images/more-opns-file.png" />
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+                            <app-file-card [data]="item" [showPin]="true"></app-file-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div>
-            <div class="mt-45">
+            <div class="mt-45 mt-md-5 pt-md-25">
                 <p-tabMenu [model]="menuItems"></p-tabMenu>
             </div>
             <ng-container *ngTemplateOutlet="btnWrap"></ng-container>
-            <div class="mb-4">
+            <div class="mb-4 content-block">
                 <router-outlet></router-outlet>
             </div>
         </div>
@@ -128,27 +64,12 @@
 
 <ng-template #btnWrap>
     <div class="mt-4 mb-4 mb-lg-45">
-        <label class="btn-trans-icon upload-icon mr-25 mb-4 mb-md-0">
+        <label class="btn-trans-icon upload-icon mr-25 mb-0">
             <input type="file" (change)="fileShareSrv.uploadFile($event)" />
             <span> {{ 'upload' | translate }} </span>
         </label>
-        <span
-            class="btn-trans-icon plus-icon mb-4 mb-md-0"
-            routerLink="/file-share/create-folder/{{ fileShareSrv.folderId }}"
-        >
+        <span class="btn-trans-icon plus-icon" routerLink="/file-share/create-folder/{{ fileShareSrv.folderId }}">
             <span> {{ 'create_new_folder' | translate }} </span>
         </span>
-        <p-calendar
-            styleClass="only-icon"
-            [(ngModel)]="rangeDates"
-            [showIcon]="true"
-            selectionMode="range"
-            dateFormat="dd.mm.yy"
-            (onClose)="filterCall()"
-            [readonlyInput]="true"
-            [showButtonBar]="true"
-            placeholder="{{ 'filter_by_date' | translate }}"
-            styleClass="round-border mb-3 mb-md-4 d-md-none"
-        ></p-calendar>
     </div>
 </ng-template>

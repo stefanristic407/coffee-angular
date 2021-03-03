@@ -1,7 +1,9 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@services';
+import { RoasterserviceService } from '@services';
 
 @Component({
     selector: 'app-generated-keys',
@@ -9,6 +11,10 @@ import { GlobalsService } from 'src/services/globals.service';
     styleUrls: ['./generated-keys.component.css'],
 })
 export class GeneratedKeysComponent implements OnInit {
+    @Input() searchRequestId;
+    @Input() filterData;
+    @Input() dateRange;
+    @Input() perPage;
     termStatus: any;
     showStatus: boolean = true;
     modalRef: BsModalRef;
@@ -17,6 +23,8 @@ export class GeneratedKeysComponent implements OnInit {
     display: any;
     showDisplay: boolean = true;
     appLanguage?: any;
+    roasterID: string = '';
+    loader: boolean = false;
 
     mainData: any[] = [
         {
@@ -66,14 +74,38 @@ export class GeneratedKeysComponent implements OnInit {
         public globals: GlobalsService,
         private toastrService: ToastrService,
         private modalService: BsModalService,
+        private roasterserviceService: RoasterserviceService,
+        public cookieService: CookieService,
     ) {
         this.termStatus = '';
         this.display = '10';
+        this.roasterID = this.cookieService.get('roaster_id');
     }
     @ViewChild('deletetemplate') private deletetemplate: any;
 
+    ngOnChanges(): void {
+        console.log('filterData', this.filterData);
+        console.log('this.date range--.', this.dateRange);
+        console.log('per page===>>>', this.perPage);
+    }
+
     ngOnInit(): void {
+        console.log('searchRequestId----->>>', this.searchRequestId);
+        console.log('filterData------', this.filterData);
         this.appLanguage = this.globals.languageJson;
+        console.log('this.date range--.', this.dateRange);
+        this.appLanguage = this.globals.languageJson;
+        this.getGeneratedRoKeys();
+    }
+
+    getGeneratedRoKeys() {
+        const data = { roaster_id: this.roasterID, page: 1, per_page: 25 };
+        this.roasterserviceService.getGeneratedRoKeys(data).subscribe((res) => {
+            console.log('res------->>>>>>', res);
+            setTimeout(() => {
+                this.loader = false;
+            }, 1000);
+        });
     }
 
     setStatus(term: any) {
@@ -117,11 +149,29 @@ export class GeneratedKeysComponent implements OnInit {
     }
 
     resumeKey() {
+        const data = {
+            roaster_id: this.roasterID,
+            api_key_id: 2,
+        };
+        this.roasterserviceService.enableRoApiKey(data).subscribe((res) => {
+            console.log('res---<>>>', res);
+        });
         this.toastrService.success('Key has been reactivated!');
         this.resumeTemplate = false;
     }
 
+    sort(event) {
+        console.log('sort-------', event);
+    }
+
     pauseKey() {
+        const data = {
+            roaster_id: this.roasterID,
+            api_key_id: 2,
+        };
+        this.roasterserviceService.disableRoApiKey(data).subscribe((res) => {
+            console.log('res---<>>>', res);
+        });
         this.toastrService.success('Key access has been paused');
         this.resumeTemplate = true;
     }
@@ -130,11 +180,25 @@ export class GeneratedKeysComponent implements OnInit {
     }
 
     onConfirm() {
+        const data = {
+            roaster_id: this.roasterID,
+            api_key_id: 2,
+        };
+        this.roasterserviceService.deleteRoApiKey(data).subscribe((res) => {
+            console.log('res---<>>>', res);
+        });
         this.toastrService.error('Key has been delete');
         this, this.modalRef.hide();
     }
 
-    reactiveuser() {
+    notifyCustomer() {
+        const data = {
+            roaster_id: this.roasterID,
+            api_key_id: 2,
+        };
+        this.roasterserviceService.notifyRoCustomer(data).subscribe((res) => {
+            console.log('res---<>>>', res);
+        });
         this.toastrService.success('Key has been reactivated!');
     }
 }

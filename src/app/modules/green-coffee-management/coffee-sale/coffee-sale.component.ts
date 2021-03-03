@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalsService } from 'src/services/globals.service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { GlobalsService } from '@core/services/globals.service';
+import { RoasterserviceService } from '@core/services/api/roaster.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { UserserviceService } from '@services';
+import { UserserviceService } from '@core/services/api/user.service';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
 
 @Component({
@@ -207,8 +207,8 @@ export class CoffeeSaleComponent implements OnInit {
             (response) => {
                 if (response && response.success) {
                     this.toasterService.success('Status updated successfully');
-                    this.showDropdown = false;
                     this.statusLabel = this.formatStatus(status.status);
+                    this.showDropdown = false;
                 } else if (!response.success && response.messages.status === 'cannot_change') {
                     this.toasterService.error('Status cannot be changed');
                 } else {

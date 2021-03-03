@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { timeStamp } from 'console';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from 'src/services/globals.service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { GlobalsService } from '@services';
+import { RoasterserviceService } from '@services';
 
 @Component({
     selector: 'app-add-product',

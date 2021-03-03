@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalsService } from 'src/services/globals.service';
-import { UserserviceService } from 'src/services/users/userservice.service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { GlobalsService } from '@core/services/globals.service';
+import { UserserviceService } from '@core/services/api/user.service';
+import { RoasterserviceService } from '@core/services/api/roaster.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -38,6 +38,15 @@ export class NewRoastedBatchComponent implements OnInit {
     ordId: any;
     // isflavourProfile = false;
     getFlavourArray: any = [];
+
+    breadItems = [
+        { label: 'Home', routerLink: '/' },
+        {
+            label: 'Roasted coffee',
+            routerLink: '/roasted-coffee-batch/roasted-coffee-batchs',
+        },
+        { label: 'New roasted coffee batch' },
+    ];
     constructor(
         public globals: GlobalsService,
         public userService: UserserviceService,
@@ -84,33 +93,11 @@ export class NewRoastedBatchComponent implements OnInit {
             batch_ref_no: [''],
             processing: [{ value: '', disabled: true }],
         });
-        this.supplyBreadCrumb();
 
         this.weightTypeArray = [
             { label: 'lb', value: 'lb' },
             { label: 'kg', value: 'kg' },
         ];
-    }
-
-    supplyBreadCrumb(): void {
-        const obj1: MenuItem = {
-            label: this.globals.languageJson?.home,
-            routerLink: '/',
-            disabled: false,
-        };
-        const obj2: MenuItem = {
-            label: this.globals.languageJson?.roasted_coffee,
-            routerLink: '/roasted-coffee-batch/roasted-coffee-batchs',
-            disabled: false,
-        };
-        const obj3: MenuItem = {
-            label: this.globals.languageJson?.new_roasted_batch,
-            routerLink: 'features/add-product',
-            disabled: false,
-        };
-        this.breadCrumbItem.push(obj1);
-        this.breadCrumbItem.push(obj2);
-        this.breadCrumbItem.push(obj3);
     }
 
     getRoastedBatch() {

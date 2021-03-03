@@ -4,9 +4,9 @@
 import { Component, OnInit } from '@angular/core';
 // import * as $ from 'jquery';
 import { Router, ActivatedRoute } from '@angular/router';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
-import { UserserviceService } from 'src/services/users/userservice.service';
+import { UserserviceService } from '@services';
 import { Toast, ToastrService } from 'ngx-toastr';
 declare var $: any;
 

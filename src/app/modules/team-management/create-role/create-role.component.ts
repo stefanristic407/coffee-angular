@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RoasterserviceService, UserserviceService } from '@services';
+import { RoasterserviceService, UserserviceService } from '@core/services/api';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem, TreeNode } from 'primeng/api';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@core/services';
 import { ManagePermissionComponent } from '../manage-permission/manage-permission.component';
 
 @Component({

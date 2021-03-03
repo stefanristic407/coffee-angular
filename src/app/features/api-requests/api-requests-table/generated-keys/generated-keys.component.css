@@ -14,6 +14,12 @@
     background-color: #f8f8f8;
 }
 
+::ng-deep .p-paginator {
+    padding: 22px 0;
+    border: none;
+    background: transparent;
+}
+
 .pl-8 {
     padding-left: 8px;
 }

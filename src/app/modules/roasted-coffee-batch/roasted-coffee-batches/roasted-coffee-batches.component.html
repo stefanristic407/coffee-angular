@@ -1,8 +1,10 @@
 <section>
     <div class="main-block">
         <div class="row mb-1">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
-                <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 overflow-auto d-flex flex-nowrap breadCrumb">
+                <p-breadcrumb [model]="breadItems"></p-breadcrumb>
+
+                <!-- <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb> -->
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 spacing-batch">
                 <button
@@ -23,12 +25,12 @@
         </div>
         <div class="row mt-4 mt-md-0">
             <div class="col-12">
-                <span class="primary_txt mb-1">Roasted Coffee Inventory</span>
+                <span class="primary_txt mb-1">Roasted coffee batchs</span>
             </div>
         </div>
         <div class="row mb-3 mt-2 mt-md-0">
             <div class="col-12 col-sm-12 col-md-7">
-                <span class="fnt-14 black fnt-normal fnt-muli">{{
+                <span class="fnt-14 black fnt-normal fnt-muli inventory-text-height">{{
                     globals.languageJson?.maintain_inventory_text
                 }}</span>
             </div>
@@ -165,9 +167,11 @@
 
                                 <div class="d-block d-sm-block d-md-none row m-0 pb-4">
                                     <div class="borderCard">
-                                        <div class="col-12 bgCard">
-                                            <span>{{ rowData[col.field] | titlecase }}</span>
-                                            <span class="float-right">
+                                        <div class="d-flex bgCard">
+                                            <span class="fnt-muli fnt-700 width-90" (click)="redirectToEdit(rowData)">{{
+                                                rowData[col.field] | titlecase
+                                            }}</span>
+                                            <span class="">
                                                 <a
                                                     class="menu-arrow"
                                                     [popover]="poplistTemplate"
@@ -191,54 +195,49 @@
                                                                     >{{ globals.languageJson?.delete }}</a
                                                                 >
                                                             </li>
-                                                            <li class="list-group-item">
-                                                                <a
-                                                                    class="pointer-item"
-                                                                    (click)="redirectToEdit(rowData)"
-                                                                    >View details</a
-                                                                >
-                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </ng-template>
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="col-12 row p-3 m-0 mobileCard">
+                                    <div class="col-12 row p-3 m-0 mobileCard" (click)="redirectToEdit(rowData)">
                                         <div class="cardBottom p-0 w-100">
                                             <div class="mobileCardBody pt-0">
                                                 <div class="pb-1">
-                                                    <span>Order id #{{ rowData['order_id'] }}</span>
+                                                    <span class="fnt-muli fnt-600 black"
+                                                        >Order id #{{ rowData['order_id'] }}</span
+                                                    >
                                                 </div>
-                                                <div class="pb-3 fnt-12">
+                                                <div class="pb-3 fnt-12 fnt-600">
                                                     <span class="light-eight">Created on : </span>
                                                     <span class="black">{{
                                                         rowData['created_at'] | date: 'dd MMM y h:mma'
                                                     }}</span>
                                                 </div>
-                                                <div>
-                                                    <span class="secondary_txt">Estate Name </span>
-                                                    <span class="float-right primary_txt mobileValueTxt">{{
+                                                <div class="d-flex">
+                                                    <span class="secondary_txt width-head">Estate Name </span>
+                                                    <span class="width-desc primary_txt mobileValueTxt pl-3">{{
                                                         rowData['estate_name']
                                                     }}</span>
                                                 </div>
                                             </div>
-                                            <div class="mobileCardBody">
-                                                <span class="secondary_txt">Roaster Ref. No.</span>
-                                                <span class="float-right primary_txt mobileValueTxt">{{
+                                            <div class="mobileCardBody d-flex">
+                                                <span class="secondary_txt width-head">Roaster Ref. No.</span>
+                                                <span class="width-desc primary_txt mobileValueTxt pl-3">{{
                                                     rowData['roaster_ref_no']
                                                 }}</span>
                                             </div>
-                                            <div class="mobileCardBody">
-                                                <span class="secondary_txt">Quantity </span>
-                                                <span class="float-right primary_txt mobileValueTxt"
+                                            <div class="mobileCardBody d-flex">
+                                                <span class="secondary_txt width-head">Quantity </span>
+                                                <span class="width-desc primary_txt mobileValueTxt pl-3"
                                                     >{{ rowData['roasting_profile_quantity'] }}
                                                     {{ rowData['roasting_profile_unit'] }}</span
                                                 >
                                             </div>
-                                            <div class="pt-3">
-                                                <span class="secondary_txt">Roasting profile</span>
-                                                <span class="float-right primary_txt mobileValueTxt">{{
+                                            <div class="pt-3 d-flex">
+                                                <span class="width-head secondary_txt">Roasting profile</span>
+                                                <span class="width-desc primary_txt mobileValueTxt pl-3">{{
                                                     rowData['roasting_profile_name']
                                                 }}</span>
                                             </div>

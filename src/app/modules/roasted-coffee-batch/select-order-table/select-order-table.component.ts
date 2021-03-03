@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { RoasterserviceService } from '@core/services/api/roaster.service';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@core/services/globals.service';
 import * as moment from 'moment';
 
 @Component({

@@ -1,12 +1,12 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
 import { OrderBookedService } from '../order-booked/order-booked.service';
-import { OrderType, OrderStatus } from '@models/order';
-import { OrgType } from '@models/organization';
+import { OrgType, OrderType, OrderStatus } from '@enums';
+
 @Component({
     selector: 'app-review-ratings',
     templateUrl: './review-ratings.component.html',

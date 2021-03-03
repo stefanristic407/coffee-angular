@@ -1,37 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@services';
 
 @Component({
-  selector: 'app-blog-details',
-  templateUrl: './blog-details.component.html',
-  styleUrls: ['./blog-details.component.css']
+    selector: 'app-blog-details',
+    templateUrl: './blog-details.component.html',
+    styleUrls: ['./blog-details.component.css'],
 })
 export class BlogDetailsComponent implements OnInit {
-  backValue: any;
-  appLanguage?: any;
-	blogDetailsActive:any = 0;
-  constructor(private router : Router,
-    public globals: GlobalsService) { }
+    backValue: any;
+    appLanguage?: any;
+    blogDetailsActive: any = 0;
+    constructor(private router: Router, public globals: GlobalsService) {}
 
-  ngOnInit(): void {
-	// this.appLanguage = this.globals.languageJson;
-	this.language();
-  }
-
-  language(){
-	this.appLanguage = this.globals.languageJson;
-	this.blogDetailsActive++;
-}
-  back() {
-    this.backValue = true;
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-        "data": encodeURIComponent(this.backValue),
-      }
+    ngOnInit(): void {
+        // this.appLanguage = this.globals.languageJson;
+        this.language();
     }
 
-    this.router.navigate(['/features/social-media'], navigationExtras);
-  }
+    language() {
+        this.appLanguage = this.globals.languageJson;
+        this.blogDetailsActive++;
+    }
+    back() {
+        this.backValue = true;
+        let navigationExtras: NavigationExtras = {
+            queryParams: {
+                data: encodeURIComponent(this.backValue),
+            },
+        };
 
+        this.router.navigate(['/features/social-media'], navigationExtras);
+    }
 }

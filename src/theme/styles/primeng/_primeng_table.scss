@@ -68,6 +68,10 @@
     border-width: 0px;
 }
 
+.p-paginator.p-paginator-bottom {
+    padding: 16px 0;
+}
+
 .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
     background-color: transparent;
     color: $primary-color;
@@ -101,6 +105,14 @@
 .p-paginator .p-paginator-next:not(.p-disabled):not(.p-highlight):hover,
 .p-paginator .p-paginator-last:not(.p-disabled):not(.p-highlight):hover {
     background: transparent;
+}
+
+@media (max-width: 1270px) and (min-width: 768px) {
+    .e-comm-catlog .p-datatable table {
+        border-collapse: collapse;
+        table-layout: fixed;
+        width: 1100px !important;
+    }
 }
 
 @media (min-width: 768px) {

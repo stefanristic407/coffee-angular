@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { MicroOrderSampleService } from './micro-order-sample.service';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@services';
 
 @Component({
     selector: 'app-micro-order-sample',
@@ -30,7 +30,6 @@ export class MicroOrderSampleComponent implements OnInit {
     paymentStatusDiv: boolean = true;
     paymentCompletedDiv: boolean = false;
     waitingConfirmShow: boolean = false;
-    bookId: any;
     date6: Date;
     savemode: boolean = true;
     editmode: boolean = false;
@@ -48,7 +47,6 @@ export class MicroOrderSampleComponent implements OnInit {
         if (this.cookieService.get('Auth') == '') {
             this.router.navigate(['/auth/login']);
         }
-        this.bookId = decodeURIComponent(this.route.snapshot.queryParams['id']);
         // this.sampleValueToShow = "Order Placed";
         // this.paymentStatusDiv = true;
 

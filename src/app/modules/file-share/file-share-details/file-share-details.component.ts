@@ -6,7 +6,7 @@ import { RoasterserviceService } from '@services';
 import { GlobalsService } from '@services';
 import { FileShareService } from '../file-share.service';
 import { Subscription } from 'rxjs';
-import { Action } from '@models';
+import { Action } from '@enums';
 
 @Component({
     selector: 'app-file-share-details',

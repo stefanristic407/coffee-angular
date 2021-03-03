@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@core/services/globals.service';
 import { CoffeeProcuredTabComponent } from './coffee-procured-tab/coffee-procured-tab.component';
 import { MarkedSaleComponent } from './marked-sale/marked-sale.component';
-import { PrimeTableService } from 'src/services/prime-table.service';
+import { PrimeTableService } from '@core/services/prime-table.service';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({

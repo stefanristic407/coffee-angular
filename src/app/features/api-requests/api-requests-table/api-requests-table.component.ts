@@ -1,5 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { GlobalsService } from 'src/services/globals.service';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { fromEvent } from 'rxjs';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
+import { GlobalsService } from '@services';
 
 @Component({
     selector: 'app-api-requests-table',
@@ -10,20 +12,47 @@ export class ApiRequestsTableComponent implements OnInit {
     showDateRange: any;
     @ViewChild('calendar')
     calendar: any;
+    @ViewChild('searchInput') input: ElementRef;
     showDisplay: boolean = true;
-    display: any;
+    customerType: string = '';
+    perPage: any;
     rangeDates: any;
     appLanguage?: any = {};
     greenActive: any = 0;
     termStatus: any;
     showStatus: boolean = true;
+    apiKeySearch: string = '';
+    KeySearch: string = '';
+    selectedTab = 0;
+    isApiRequestPage = true;
+    customerTypeArray = [
+        { label: 'All', value: 'All' },
+        { label: 'Shipped', value: 'Shipped' },
+        { label: 'Payment', value: 'Payment' },
+        { label: 'Harvest Ready', value: 'Harvest Ready' },
+        { label: 'Received', value: 'Received' },
+    ];
     constructor(public globals: GlobalsService) {
         this.termStatus = '';
-        this.display = '10';
+        this.perPage = '10';
     }
 
     ngOnInit(): void {
         this.language();
+    }
+
+    ngAfterViewInit() {
+        fromEvent(this.input.nativeElement, 'keyup')
+            .pipe(
+                debounceTime(400),
+                distinctUntilChanged(),
+                tap((text) => {
+                    console.log('search input callll', text);
+                    console.log('apiKeySearch----', this.apiKeySearch);
+                    this.KeySearch = this.apiKeySearch;
+                }),
+            )
+            .subscribe();
     }
 
     toggleDisplay() {
@@ -36,7 +65,7 @@ export class ApiRequestsTableComponent implements OnInit {
     }
 
     setDisplay(displayData: any) {
-        this.display = displayData;
+        this.perPage = displayData;
     }
 
     openCalendar(event: any) {
@@ -63,5 +92,21 @@ export class ApiRequestsTableComponent implements OnInit {
         }
     }
 
-    filterDate(event: any) {}
+    customerTypeFilter(filterData: any) {
+        console.log('filterdata--->>>', filterData);
+        this.customerType = filterData;
+    }
+    handleChange(event: any) {
+        this.perPage = null;
+        if (event.index === 0) {
+            this.isApiRequestPage = true;
+        } else {
+            this.isApiRequestPage = false;
+        }
+    }
+
+    filterDate(event: any) {
+        console.log('date range--->>>>>', this.rangeDates);
+        console.log('event--->>>>', event);
+    }
 }

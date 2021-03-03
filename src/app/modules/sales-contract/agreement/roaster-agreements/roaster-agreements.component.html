@@ -1,56 +1,82 @@
 <section class="estate-orders">
     <div class="row pl-3">
-        <p-dropdown id="select-customer" [options]="newList" [(ngModel)]="selectedCustomers" scrollHeight="225px"
-            (onChange)="filterAgrements()" [showClear]="true" placeholder="Select customer"
-            styleClass="round-border mr-25 mb-25 mb-md-4"></p-dropdown>
+        <p-dropdown
+            id="select-customer"
+            [options]="newList"
+            [(ngModel)]="selectedCustomers"
+            scrollHeight="225px"
+            (onChange)="filterAgrements()"
+            [showClear]="true"
+            placeholder="Select customer"
+            styleClass="round-border mr-25 mb-25 mb-md-4"
+        ></p-dropdown>
     </div>
     <div class="estate-table web-farm">
-        <p-table id="sales-table" [value]="sortedMainData | filter: searchTerm | filter: estatetermOrigin"
-            sortMode="multiple">
+        <p-table
+            id="sales-table"
+            [value]="sortedMainData | filter: searchTerm | filter: estatetermOrigin"
+            sortMode="multiple"
+        >
             <ng-template pTemplate="header">
                 <tr>
-                    <th pSortableColumn="file_name" class="cust-pad-left cust-width">{{
-                        globals.languageJson?.files }} <p-sortIcon field="file_name">
-                        </p-sortIcon>
+                    <th pSortableColumn="file_name" class="cust-pad-left cust-width">
+                        {{ globals.languageJson?.files }} <p-sortIcon field="file_name"> </p-sortIcon>
                     </th>
-                    <th pSortableColumn="created_at">{{ globals.languageJson?.added_on }} <p-sortIcon
-                            field="created_at">
-                        </p-sortIcon>
+                    <th pSortableColumn="created_at">
+                        {{ globals.languageJson?.added_on }} <p-sortIcon field="created_at"> </p-sortIcon>
                     </th>
-                    <th pSortableColumn="customer_name">{{ globals.languageJson?.customer_name }} <p-sortIcon
-                            field="customer_name"></p-sortIcon>
+                    <th pSortableColumn="customer_name">
+                        {{ globals.languageJson?.customer_name }} <p-sortIcon field="customer_name"></p-sortIcon>
                     </th>
-                    <th pSortableColumn="origin">{{ globals.languageJson?.origin }} <p-sortIcon field="origin">
-                        </p-sortIcon>
+                    <th pSortableColumn="origin">
+                        {{ globals.languageJson?.origin }} <p-sortIcon field="origin"> </p-sortIcon>
                     </th>
-                    <th style="width:5%;"></th>
+                    <th style="width: 5%"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-item>
                 <tr>
-                    <td class="cust-pad-left"><a href="{{item.file_url}}" target="_blank" class="file_url"><span><img
-                                    class="file-icon pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon" />
-                                {{ item.file_name }}</span></a></td>
-                    <td>{{item.created_at | date: 'M/d/yy, h:mm a'}}</td>
-                    <td>{{item.customer_name}}</td>
-                    <td>{{getCountryName(item.origin)}}</td>
+                    <td class="cust-pad-left">
+                        <a href="{{ item.file_url }}" target="_blank" class="file_url"
+                            ><span
+                                ><img class="file-icon pr-2" src="assets/images/pdf.svg" alt="upload-icon" />
+                                {{ item.file_name }}</span
+                            ></a
+                        >
+                    </td>
+                    <td class="fnt-14">{{ item.created_at | date: 'M/d/yy, h:mm a' }}</td>
+                    <td class="fnt-14">{{ item.customer_name }}</td>
+                    <td class="fnt-14">{{ getCountryName(item.origin) }}</td>
                     <td id="sales-contract-popup">
-                        <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true"
-                            #pop="bs-popover">
-                            <p><img src="assets/images/kebab-menu.svg"></p>
+                        <a
+                            class="menu-arrow"
+                            [popover]="poplistTemplate"
+                            placement="left"
+                            [outsideClick]="true"
+                            #pop="bs-popover"
+                        >
+                            <p><img src="assets/images/kebab-menu.svg" /></p>
                         </a>
                         <ng-template #poplistTemplate id="{{ item.id }}">
                             <div id="popover-mobile-content">
                                 <ul class="list-group custom-popover">
                                     <li class="list-group-item">
-                                        <a class="pointer-item" (click)="pop.hide();onUpdateModal(item.id)"
-                                            data-toggle="modal" data-target="#uploadfolder">{{
-                                            globals.languageJson?.update }}</a>
+                                        <a
+                                            class="pointer-item"
+                                            (click)="pop.hide(); onUpdateModal(item.id)"
+                                            data-toggle="modal"
+                                            data-target="#uploadfolder"
+                                            >{{ globals.languageJson?.update }}</a
+                                        >
                                     </li>
                                     <li class="list-group-item">
-                                        <a class="pointer-item" (click)="pop.hide();deleteAgreementId = item.id"
-                                            data-toggle="modal" data-target="#deletemodal">{{
-                                            globals.languageJson?.delete }}</a>
+                                        <a
+                                            class="pointer-item"
+                                            (click)="pop.hide(); deleteAgreementId = item.id"
+                                            data-toggle="modal"
+                                            data-target="#deletemodal"
+                                            >{{ globals.languageJson?.delete }}</a
+                                        >
                                     </li>
                                 </ul>
                             </div>
@@ -72,23 +98,34 @@
                                     <p class="black fnt-14">{{ data.file_name }}</p>
                                 </div>
                                 <div>
-                                    <a [popover]="poplistTemplate" placement="left" [outsideClick]="true"
-                                        #pop="bs-popover">
-                                        <p><img src="assets/images/kebab-menu.svg"></p>
+                                    <a
+                                        [popover]="poplistTemplate"
+                                        placement="left"
+                                        [outsideClick]="true"
+                                        #pop="bs-popover"
+                                    >
+                                        <p><img src="assets/images/kebab-menu.svg" /></p>
                                     </a>
                                     <ng-template #poplistTemplate id="{{ data.id }}">
                                         <div id="popover-mobile-content">
                                             <ul class="list-group custom-popover">
                                                 <li class="list-group-item">
-                                                    <a class="pointer-item" (click)="pop.hide();onUpdateModal(data.id)"
-                                                        data-toggle="modal" data-target="#uploadfolder">{{
-                                                        globals.languageJson?.update }}</a>
+                                                    <a
+                                                        class="pointer-item"
+                                                        (click)="pop.hide(); onUpdateModal(data.id)"
+                                                        data-toggle="modal"
+                                                        data-target="#uploadfolder"
+                                                        >{{ globals.languageJson?.update }}</a
+                                                    >
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <a class="pointer-item"
-                                                        (click)="pop.hide();deleteAgreementId = data.id"
-                                                        data-toggle="modal" data-target="#deletemodal">{{
-                                                        globals.languageJson?.delete }}</a>
+                                                    <a
+                                                        class="pointer-item"
+                                                        (click)="pop.hide(); deleteAgreementId = data.id"
+                                                        data-toggle="modal"
+                                                        data-target="#deletemodal"
+                                                        >{{ globals.languageJson?.delete }}</a
+                                                    >
                                                 </li>
                                             </ul>
                                         </div>
@@ -127,17 +164,31 @@
     </div>
 </section>
 
-<div class="modal fade" id="uploadfolder" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false"
-    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div
+    class="modal fade"
+    id="uploadfolder"
+    tabindex="-1"
+    role="dialog"
+    data-backdrop="static"
+    data-keyboard="false"
+    aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true"
+>
     <div class="modal-dialog modal-dialog-centered modal-dialog-lg modal-large" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">
                     {{ globals.languageJson?.upload_new_agreement }}
                 </h5>
-                <button type="button" id="dismissAddModal" (click)="onUpdateModalClose()" class="close"
-                    data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                <button
+                    type="button"
+                    id="dismissAddModal"
+                    (click)="onUpdateModalClose()"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <img src="assets/images/close.svg" />
                 </button>
             </div>
             <div class="modal-body">
@@ -145,18 +196,30 @@
                     <form>
                         <div class="invite-to">
                             <div class="roastery-fields mb-3 mb-lg-4">
-                                <h4 class="fnt-16 fnt-700 fnt-muli text-clr334 mb-0">
+                                <h4 class="fnt-16 fnt-700 fnt-muli text-clr02 mb-0">
                                     Select the type of customer you want to upload the agreement for
                                 </h4>
                                 <div class="row mt-3 pl-3">
-                                    <label class="custom-radio">HoReCa
-                                        <input type="radio" [formControl]="horecaFormGroup.controls['customerType']"
-                                            name="horeca_customer" value="hrc">
+                                    <label class="custom-radio"
+                                        >HoReCa
+                                        <input
+                                            type="radio"
+                                            [formControl]="horecaFormGroup.controls['customerType']"
+                                            name="horeca_customer"
+                                            value="hrc"
+                                            [disabled]="isUpdate"
+                                        />
                                         <span class="checkmark"></span>
                                     </label>
-                                    <label class="custom-radio ml-4">Micro-Roaster
-                                        <input type="radio" name="horeca_customer"
-                                            [formControl]="horecaFormGroup.controls['customerType']" value="mr">
+                                    <label class="custom-radio ml-4"
+                                        >Micro-Roaster
+                                        <input
+                                            type="radio"
+                                            name="horeca_customer"
+                                            [formControl]="horecaFormGroup.controls['customerType']"
+                                            value="mr"
+                                            [disabled]="isUpdate"
+                                        />
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
@@ -166,70 +229,136 @@
                                 <h4 class="fnt-16 fnt-700 fnt-muli text-clr334 mb-0">
                                     {{ globals.languageJson?.select_customer }} <span class="star-mark">*</span>
                                 </h4>
-                                <select class="customer px-2" name="customerId" id="customerId"
-                                    [formControl]="horecaFormGroup.controls['customerId']">
+                                <p-dropdown
+                                    id="select-modal-customer"
+                                    [options]="modalDropdownList"
+                                    [formControl]="horecaFormGroup.controls['customerId']"
+                                    scrollHeight="225px"
+                                    [showClear]="true"
+                                    placeholder="Select customer"
+                                    styleClass="round-border"
+                                ></p-dropdown>
+                                <!-- <select
+                                    class="customer px-2"
+                                    name="customerId"
+                                    id="customerId"
+                                    [formControl]="horecaFormGroup.controls['customerId']"
+                                >
                                     <option value="">Please select customer</option>
                                     <option *ngFor="let horeca of modalDropdownList" value="{{ horeca.id }}">
                                         {{ horeca.name }}
                                     </option>
-                                </select>
-                                <div class="mt-1"
-                                    *ngIf="horecaFormGroup.controls['customerId'].invalid && horecaFormGroup.controls['customerId'].touched">
-                                    <small class="p-invalid pl-1 pt-3"
-                                        *ngIf="horecaFormGroup.controls['customerId'].errors?.required">Please Select
-                                        Customer Id</small>
+                                </select> -->
+                                <div
+                                    class="mt-0"
+                                    *ngIf="
+                                        horecaFormGroup.controls['customerId'].invalid &&
+                                        horecaFormGroup.controls['customerId'].touched
+                                    "
+                                >
+                                    <small
+                                        class="p-invalid pl-1"
+                                        *ngIf="horecaFormGroup.controls['customerId'].errors?.required"
+                                        >Please Select a Customer</small
+                                    >
                                 </div>
                             </div>
                             <div class="roastery-fields mb-0">
-                                <div class="farm-input col-12 col-md-8 px-0">
+                                <div class="farm-input col-12 px-0">
                                     <h4 class="fnt-16 fnt-700 fnt-muli text-clr334 mb-0">
                                         {{ globals.languageJson?.upload }}
                                     </h4>
-                                    <span class="d-block fnt-14 fnt-500 text-clr588 fnt-muli text-clr334 mb-1">{{
+                                    <span class="d-block fnt-14 fnt-500 fnt-muli text-clr334 cust-text-color mb-1">{{
                                         globals.languageJson?.please_upload_document
-                                        }}</span>
-                                    <label *ngIf="!isUpdate" class="share-bor d-inline-block">
-                                        <input class="file-input" accept="application/pdf" type="file"
-                                            (change)="uploadFile($event)" /><img class="dwnd-img"
-                                            src="assets/images/group-6.svg" alt="upload-icon" />
-                                        <span class="share-txt"> {{ globals.languageJson?.upload }} </span>
-                                    </label>
-                                    <span *ngIf="!isUpdate" class="value-name pl-3">{{ fileNameValue }}</span>
-                                    <label *ngIf="isUpdate" class="share-bor d-inline-block">
-                                        <input class="file-input" accept="application/pdf" type="file"
-                                            (change)="reUploadFile($event)" /><img class="dwnd-img"
-                                            src="assets/images/group-6.svg" alt="upload-icon" />
-                                        <span class="share-txt"> {{ globals.languageJson?.upload }} </span>
-                                    </label>
-                                    <span *ngIf="isUpdate" class="value-name pl-3">{{ fileNameValue ? fileNameValue :
-                                        reFileNameValue }}</span>
+                                    }}</span>
+                                    <div class="button-main-Con">
+                                        <div class="upload-con mb-0">
+                                            <label *ngIf="!isUpdate" class="share-bor d-inline-block">
+                                                <input
+                                                    class="file-input"
+                                                    accept="application/pdf"
+                                                    type="file"
+                                                    (change)="uploadFile($event)"
+                                                /><img
+                                                    class="dwnd-img"
+                                                    src="assets/images/group-6.svg"
+                                                    alt="upload-icon"
+                                                />
+                                                <span class="share-txt"> {{ globals.languageJson?.upload }} </span>
+                                            </label>
+                                            <span *ngIf="!isUpdate" class="value-name pl-3">{{ fileNameValue }}</span>
+                                            <label *ngIf="isUpdate" class="share-bor d-inline-block">
+                                                <input
+                                                    class="file-input"
+                                                    accept="application/pdf"
+                                                    type="file"
+                                                    (change)="reUploadFile($event)"
+                                                /><img
+                                                    class="dwnd-img"
+                                                    src="assets/images/group-6.svg"
+                                                    alt="upload-icon"
+                                                />
+                                                <span class="share-txt"> {{ globals.languageJson?.upload }} </span>
+                                            </label>
+                                            <span *ngIf="isUpdate" class="value-name pl-3">{{
+                                                fileNameValue ? fileNameValue : reFileNameValue
+                                            }}</span>
+                                        </div>
+                                        <div class="upload-agreement-con">
+                                            <button
+                                                *ngIf="!isUpdate"
+                                                type="button"
+                                                class="btn-raised fnt-14 fnt-700 fnt-muli custButton"
+                                                (click)="uploadAgreement()"
+                                                [disabled]="
+                                                    uploadButtonValue === 'Uploading' ||
+                                                    !(horecaFormGroup.get('customerId').valid && fileNameValue)
+                                                "
+                                            >
+                                                {{ uploadButtonValue }}
+                                                <img
+                                                    class="loader"
+                                                    *ngIf="uploadButtonValue === 'Uploading'"
+                                                    src="assets/images/orange-loader.gif"
+                                                />
+                                            </button>
+                                            <button
+                                                *ngIf="isUpdate"
+                                                type="button"
+                                                class="btn-raised fnt-14 fnt-700 fnt-muli custButton"
+                                                (click)="updateAgreements()"
+                                                [disabled]="updateButtonValue === 'Updating' || !reFileNameValue"
+                                            >
+                                                {{ updateButtonValue }}
+                                                <img
+                                                    class="loader"
+                                                    *ngIf="updateButtonValue === 'Uploading'"
+                                                    src="assets/images/orange-loader.gif"
+                                                />
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button *ngIf="!isUpdate" type="button" class="btn-raised fnt-14 fnt-700 fnt-muli"
-                    (click)="uploadAgreement()"
-                    [disabled]="uploadButtonValue === 'Uploading' || !(horecaFormGroup.get('customerId').valid && fileNameValue)">
-                    {{ uploadButtonValue}}
-                    <img class="loader" *ngIf="uploadButtonValue === 'Uploading'"
-                        src="assets/images/orange-loader.gif" />
-                </button>
-                <button *ngIf="isUpdate" type="button" class="btn-raised fnt-14 fnt-700 fnt-muli"
-                    (click)="updateAgreements()" [disabled]="updateButtonValue === 'Updating' || !(reFileNameValue)">
-                    {{ updateButtonValue}}
-                    <img class="loader" *ngIf="updateButtonValue === 'Uploading'"
-                        src="assets/images/orange-loader.gif" />
-                </button>
-            </div>
+            <!-- <div class="modal-footer">
+               
+            </div> -->
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
+<div
+    class="modal fade"
+    id="deletemodal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true"
+>
     <div class="modal-dialog modal-dialog-centered modal-small" role="document">
         <div class="modal-content">
             <div class="modal-body mt-5 mb-5 text-center fnt-muli">
@@ -239,8 +368,9 @@
                     <p class="mb-0">You sure you really want to delete this?</p>
                 </div>
                 <div class="mt-5">
-                    <button class="btn-stroked btn-padding" id="dismissDeleteModal" data-dismiss="modal">{{
-                        globals.languageJson?.cancel }}</button>
+                    <button class="btn-stroked btn-padding" id="dismissDeleteModal" data-dismiss="modal">
+                        {{ globals.languageJson?.cancel }}
+                    </button>
                     <button class="btn-raised btn-padding ml-3" (click)="deleteAgreement(deleteAgreementId)">
                         {{ globals.languageJson?.delete }}
                     </button>

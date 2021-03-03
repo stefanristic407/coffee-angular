@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { RoasterserviceService } from '@services';
 
 import { DataTableDirective } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';

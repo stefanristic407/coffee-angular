@@ -1,15 +1,15 @@
 import { Component, ElementRef, OnInit, AfterViewInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
-import { GlobalsService, RoasterserviceService, UserserviceService } from '@services';
+import { GlobalsService, RoasterserviceService, UserserviceService } from '@core/services';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators';
-import { ChatHandlerService } from './../../../../services/chat/chat-handler.service';
-import { WSOrganizationType } from '@models/chat/message';
+import { ChatHandlerService } from '@core/services';
+import { OrganizationType } from '@core/enums';
 
 @Component({
     selector: 'app-team-member-table',
@@ -357,7 +357,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
     sendDirectMessage(userID) {
         const payLoad = {
             user_id: userID,
-            org_type: WSOrganizationType.ROASTER,
+            org_type: OrganizationType.ROASTER,
             org_id: Number(this.roasterID),
         };
         this.messageService.openChatThread(payLoad);

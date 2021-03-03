@@ -16,12 +16,15 @@
             "@app/*": ["src/app/*"],
             "@components": ["src/app/components/index"],
             "@env/*": ["src/environments/*"],
-            "@services": ["src/services/index"],
-            "@shared": ["src/app/shared/index"],
             "@modules/*": ["src/app/modules/*"],
-            "@models/*": ["src/models/*"],
-            "@models": ["src/models/index"],
-            "@guards": ["src/app/guards/index"]
+            "@shared": ["src/app/shared/index"],
+            "@core/*": ["src/core/*"],
+            "@services": ["src/core/services/index"],
+            "@models": ["src/core/models/index"],
+            "@constants": ["src/core/constants/index"],
+            "@enums": ["src/core/enums/index"],
+            "@guards": ["src/core/guards/index"],
+            "@utils": ["src/core/utils/index"]
         }
     },
     "angularCompilerOptions": {

@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
-import { GlobalsService } from 'src/services/globals.service';
+import { GlobalsService } from '@services';
 import { SourcingService } from '../sourcing.service';
-import { UserserviceService } from 'src/services/users/userservice.service';
+import { UserserviceService } from '@services';
 
 @Component({
     selector: 'app-coffee-list',

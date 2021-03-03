@@ -81,7 +81,7 @@ tr:last-child {
     background: url('../../../../../assets/images/role-down.svg') right 16px top 16px no-repeat;
     border: 1px solid #d6d6d6;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 14px;
     font-family: Muli;
     font-weight: 600;
     cursor: pointer;
@@ -175,6 +175,7 @@ button:disabled {
 .modal-content {
     padding: 15px !important;
 }
+
 .modal-header {
     padding: 0 0 15px 0 !important;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -372,3 +373,13 @@ button:disabled {
     border-radius: 50%;
     background: #30855c;
 }
+
+.button-main-Con{
+    display: flex;
+    justify-content: space-between;
+}
+
+.cust-text-color{
+    color: #747588 !important;
+}
+

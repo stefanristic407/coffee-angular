@@ -13,9 +13,10 @@ import {
     Renderer2,
     EventEmitter,
 } from '@angular/core';
+import { ChatMessageType, ThreadActivityType, ThreadType, OrganizationType } from '@core/enums';
 import {
     ThreadListItem,
-    ThreadMembers,
+    ThreadMember,
     ChatMessage,
     IncomingChatMessage,
     WSChatMessageType,
@@ -34,14 +35,14 @@ const badwordsRegExp = require('badwords/regexp') as RegExp;
 export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     @Input() orderThread: OrderChatThreadListItem;
     @Input() orderDisputes: DisputeChatThreadListItem;
-    @Output() threadUsers: EventEmitter<ThreadMembers[]> = new EventEmitter<ThreadMembers[]>();
+    @Output() threadUsers: EventEmitter<ThreadMember[]> = new EventEmitter<ThreadMember[]>();
 
     messageList: ChatMessage[] = [];
     organizedMessages: any[] = [];
     threadDetails: ThreadListItem = null;
     SM: { [SubscriptionName: string]: Subscription } = {}; // Subscrition MAP object
     messageInput = '';
-    TIMESTAMP_MAP: { [K in WSChatMessageType]: string } = {} as { [K in WSChatMessageType]: string };
+    TIMESTAMP_MAP: { [K in ChatMessageType]: string } = {} as { [K in ChatMessageType]: string };
     activeThreadId: number = null;
     activeThreadType: 'ORDER' | 'DISPUTE' | 'UNSET' = 'UNSET';
     showOffensiveMessageError = false;
@@ -133,10 +134,10 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
 
     getThreadHistory(threadId: number) {
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[WSChatMessageType.history] = timestamp;
+        this.TIMESTAMP_MAP[ChatMessageType.history] = timestamp;
         this.socket.orderChatSent.next({
             timestamp,
-            type: WSChatMessageType.history,
+            type: ChatMessageType.history,
             data: {
                 thread_id: threadId,
                 page: this.messageListConfig.activePage,
@@ -147,10 +148,10 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
 
     getThreadDetails(threadId: number) {
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[WSChatMessageType.thread] = timestamp;
+        this.TIMESTAMP_MAP[ChatMessageType.thread] = timestamp;
         this.socket.orderChatSent.next({
             timestamp,
-            type: WSChatMessageType.thread,
+            type: ChatMessageType.thread,
             data: {
                 thread_id: threadId,
             },
@@ -158,8 +159,8 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     processThreads(thread: ThreadListItem): ThreadListItem {
-        const activeUser: ThreadMembers[] = [];
-        const targtedUserList: ThreadMembers[] = [];
+        const activeUser: ThreadMember[] = [];
+        const targtedUserList: ThreadMember[] = [];
         thread.members = thread.members.map((mem: any) => {
             mem = { ...mem, ...mem.user } as ThreadListItem;
             mem = this.processThreadUser(mem);
@@ -268,7 +269,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
             console.log('Error: nable to find message owner');
         }
     }
-    processThreadUser(threadUser: ThreadMembers) {
+    processThreadUser(threadUser: ThreadMember) {
         threadUser.last_seen = threadUser.last_seen || '';
         threadUser.computed_lastseen = this.chatUtil.getReadableTime(threadUser.last_seen);
         threadUser.computed_organization_name = this.chatUtil.getOrganization(threadUser.org_type);
@@ -278,9 +279,9 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     }
     sendReadToken(lastMessageId: number) {
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[WSChatMessageType.read] = timestamp;
+        this.TIMESTAMP_MAP[ChatMessageType.read] = timestamp;
         this.socket.orderChatSent.next({
-            type: WSChatMessageType.read,
+            type: ChatMessageType.read,
             timestamp,
             data: {
                 thread_id: this.threadDetails.id,
@@ -363,9 +364,9 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
 
     getMessagePayload(message: string) {
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[WSChatMessageType.message] = timestamp;
+        this.TIMESTAMP_MAP[ChatMessageType.message] = timestamp;
         return {
-            type: WSChatMessageType.message,
+            type: ChatMessageType.message,
             timestamp,
             data: {
                 thread_id: this.threadDetails.id,

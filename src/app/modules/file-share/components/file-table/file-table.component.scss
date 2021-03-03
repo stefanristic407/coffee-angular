@@ -1,0 +1,64 @@
+@import '_variables.scss';
+
+.file-icon {
+    margin-right: 12px;
+    width: 22px;
+    height: auto;
+}
+
+::ng-deep .folder-dialog.p-dialog {
+    width: 90vw;
+    @media (min-width: 768px) {
+        width: 740px;
+    }
+}
+
+::ng-deep .file-dialog.p-dialog {
+    width: 90vw;
+    @media (min-width: 768px) {
+        width: 740px;
+    }
+}
+
+::ng-deep .share-dialog.p-dialog {
+    width: 90vw;
+    @media (min-width: 768px) {
+        width: 542px;
+    }
+}
+
+::ng-deep .preview-dialog.p-dialog {
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    background: transparent;
+    .p-dialog-content {
+        background: transparent;
+    }
+}
+::ng-deep .p-datatable.p-datatable-responsive .p-datatable-tbody > tr {
+    padding: 0;
+    border: none;
+    @media (max-width: 767px) {
+        margin: 0;
+        td {
+            padding: 24px 0;
+        }
+    }
+}
+
+::ng-deep .p-tooltip.share {
+    transform: translate(-30%, -8px);
+    .p-tooltip-text {
+        padding: 8px;
+        font-size: 10px;
+        font-weight: 600;
+        background-color: #fff;
+        color: $muted-text-color;
+        border-radius: 2px;
+        box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
+    }
+    .p-tooltip-arrow {
+        display: none;
+    }
+}

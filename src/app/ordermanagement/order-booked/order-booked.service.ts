@@ -2,11 +2,11 @@
 // PAGE DESCRIPTION : This page contains functions of Payment Status for booked type order.
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { RoasterserviceService } from '@services';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { UserserviceService } from 'src/services/users/userservice.service';
-import { OrgType } from '@models/organization';
+import { UserserviceService } from '@services';
+import { OrgType } from '@enums';
 
 @Injectable({
     providedIn: 'root',
