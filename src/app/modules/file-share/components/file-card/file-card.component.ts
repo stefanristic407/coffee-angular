@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { GlobalsService } from '@services';
-import { FileShareService } from '../file-share.service';
+import { FileShareService } from '../../file-share.service';
 
 @Component({
     selector: 'app-file-card',

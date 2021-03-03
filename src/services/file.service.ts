@@ -47,7 +47,6 @@ export class FileService extends ApiService {
         };
         return this.http.post(this.fileuploadUrl, formData, httpOptions);
     }
-
     // Update the file
     updateFile(fileId, formData: FormData) {
         const httpOptions = {
@@ -57,17 +56,14 @@ export class FileService extends ApiService {
         formData.append('token', this.cookieSrv.get('Auth'));
         return this.http.post(this.putfileuploadUrl, formData, httpOptions);
     }
-
     // Delete the file details
     deleteFile(id: any) {
         return this.post(this.deleteUrl, `file-manager/files/${id}`, 'DELETE');
     }
-
     // Pin the file/folder
     pinFileorFolder(id: any) {
         return this.post(this.url, `file-manager/${id}/pin`, 'PUT');
     }
-
     // Unpin the file/folder
     unpinFileorFolder(id: any) {
         return this.post(this.deleteUrl, `file-manager/${id}/pin`, 'DELETE');
@@ -75,5 +71,9 @@ export class FileService extends ApiService {
     // List all files/folders under My files section
     getFilesandFolders(query?: object) {
         return this.post(this.url, `file-manager/my-files`, 'GET', query);
+    }
+    // Map files with order_id
+    mapOrder(id: any, body: any) {
+        return this.post(this.url, `file-manager/${id}/order-mapping`, 'POST', null, body);
     }
 }

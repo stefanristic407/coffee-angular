@@ -23,6 +23,9 @@ export class EditFolderComponent implements OnInit {
     permissionItems = [];
     usersList: any[];
     submitted = false;
+    showOrderPanel = false;
+    selectedOrderId: any;
+    selectedOrderType: any;
 
     constructor(
         private fb: FormBuilder,
@@ -77,7 +80,7 @@ export class EditFolderComponent implements OnInit {
                     if (res.success) {
                         if (this.invite) {
                             this.record = res.result;
-                            this.shareFolder(res.result.id);
+                            this.shareAndMap(res.result.id);
                         } else {
                             this.submitted = false;
                             this.toastrService.success('Folder created sucessfully');
@@ -93,7 +96,7 @@ export class EditFolderComponent implements OnInit {
                     if (res.success) {
                         if (this.invite) {
                             this.record = res.result;
-                            this.shareFolder(res.result.id);
+                            this.shareAndMap(res.result.id);
                         } else {
                             this.submitted = false;
                             this.toastrService.success('Folder details updated sucessfully');
@@ -111,7 +114,20 @@ export class EditFolderComponent implements OnInit {
         }
     }
 
-    shareFolder(fileId) {
+    shareAndMap(fileId) {
+        const promises = [];
+        promises.push(new Promise((resolve, reject) => this.shareFolder(fileId, resolve, reject)));
+        if (this.selectedOrderId && !(this.record?.order_ids === this.selectedOrderId)) {
+            promises.push(new Promise((resolve, reject) => this.mapOrder(fileId, resolve, reject)));
+        }
+        Promise.all(promises)
+            .then(() => {
+                this.router.navigateByUrl('/file-share');
+            })
+            .catch(() => {});
+    }
+
+    shareFolder(fileId, resolve, reject) {
         const postData = {
             user_id: this.shareForm.value.user.id,
             permission: this.shareForm.value.permission,
@@ -121,15 +137,36 @@ export class EditFolderComponent implements OnInit {
         this.roasterSrv.shareFolder(this.roasterId, fileId, postData).subscribe((res: any) => {
             this.submitted = false;
             if (res.success) {
-                this.toastrService.success('New folder ' + this.record.name + ' has been created.');
-                this.router.navigateByUrl('/file-share');
+                this.toastrService.success('Successfully shared.');
+                resolve();
             } else {
                 this.toastrService.error('Error! while sharing the created folder');
+                reject();
             }
         });
     }
 
-    selectOrder() {}
+    mapOrder(fileId, resolve, reject) {
+        const postData = {
+            order_id: this.selectedOrderId,
+            order_type: this.selectedOrderType,
+        };
+        this.fileSrv.mapOrder(fileId, postData).subscribe((res: any) => {
+            this.submitted = false;
+            if (res.success) {
+                this.toastrService.success('Order mapped successfully');
+                resolve();
+            } else {
+                this.toastrService.error('Error! while mapping order');
+                reject();
+            }
+        });
+    }
+
+    selectOrder(event) {
+        this.selectedOrderId = event.orderId;
+        this.selectedOrderType = event.orderType;
+    }
 
     getUsersList(event: any) {
         this.roasterSrv.getUsersList(event.query).subscribe((res: any) => {

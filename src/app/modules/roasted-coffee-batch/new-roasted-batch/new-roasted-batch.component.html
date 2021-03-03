@@ -1,8 +1,9 @@
 <section>
     <div class="main-block">
         <div class="row pb-md-3 pb-1">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 overflow-auto d-flex flex-nowrap breadCrumb">
+                <p-breadcrumb [model]="breadItems"></p-breadcrumb>
+                <!-- <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb> -->
             </div>
         </div>
         <div class="row">
@@ -102,9 +103,17 @@
                                             <li class="estate-number fnt-muli fnt-600 fnt-12 pt-1">Coffee Estate</li>
                                         </ul>
                                     </div>
+                                    <div class="d-none d-md-block d-lg-none">
+                                        <p class="pl-4">
+                                            <span class="cursor-pointer">
+                                                <img src="assets/images/star-1.png" alt="User" />
+                                                <span class="star-no pl-1"> {{ rating }}</span>
+                                            </span>
+                                        </p>
+                                    </div>
                                 </div>
                                 <div>
-                                    <p>
+                                    <p class="d-block d-md-none d-lg-block">
                                         <span class="cursor-pointer">
                                             <img src="assets/images/star-1.png" alt="User" />
                                             <span class="star-no pl-1"> {{ rating }}</span>
