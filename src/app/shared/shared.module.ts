@@ -98,9 +98,10 @@ import { ReviewSummaryComponent } from './components/review-summary/review-summa
 import { ReviewsComponent } from './components/reviews/reviews.component';
 import { ProgressBarModule } from 'primeng/progressbar';
 
-import { SewnDirectMessageComponent } from './../modules/chat/sewn-direct-message/sewn-direct-message.component';
-import { SewnOrderChatComponent } from './../modules/chat/sewn-order-chat/sewn-order-chat.component';
-import { SearchFilterPipe } from './../modules/chat/sewn-direct-message/search-filter.pipe';
+import { SewnDirectMessageComponent } from './components/chat/sewn-direct-message/sewn-direct-message.component';
+import { SewnOrderChatComponent } from './components/chat/sewn-order-chat/sewn-order-chat.component';
+import { SearchFilterPipe } from './components/chat/sewn-direct-message/search-filter.pipe';
+
 // #region third libs
 const THIRDMODULES = [
     AutocompleteLibModule,
