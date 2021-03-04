@@ -10,6 +10,7 @@ import { UserserviceService } from '@services';
 import { FormService } from '@services';
 import { SourcingService } from '../../sourcing.service';
 import { ConfirmComponent } from '@shared';
+import { COUNTRY_LIST } from '@constants';
 
 @Component({
     selector: 'app-available-confirm-order',
@@ -17,6 +18,7 @@ import { ConfirmComponent } from '@shared';
     styleUrls: ['./available-confirm-order.component.scss'],
 })
 export class AvailableConfirmOrderComponent implements OnInit {
+    public readonly COUNTRY_LIST = COUNTRY_LIST;
     breadItems: any[];
     serviceItems: any[] = [
         { label: 'Import & Delivery service', value: true },

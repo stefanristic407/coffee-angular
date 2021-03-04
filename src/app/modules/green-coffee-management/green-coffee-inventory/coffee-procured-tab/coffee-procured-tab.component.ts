@@ -9,6 +9,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Table } from 'primeng/table';
 import { UserserviceService } from '@core/services/api/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { COUNTRY_LIST } from '@core/constants';
 
 @Component({
     selector: 'app-coffee-procured-tab',
@@ -190,7 +191,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
 
         this.primeTableService.form = this.form;
 
-        this.originArray = this.globals.countryList;
+        this.originArray = COUNTRY_LIST;
 
         this.primeTableService.form?.valueChanges.subscribe((data) =>
             setTimeout(() => {

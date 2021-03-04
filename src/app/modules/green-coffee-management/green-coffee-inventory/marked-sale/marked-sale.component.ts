@@ -7,6 +7,7 @@ import { FormGroup } from '@angular/forms';
 import { PrimeTableService } from '@core/services/prime-table.service';
 import { Table } from 'primeng/table';
 import { ToastrService } from 'ngx-toastr';
+import { COUNTRY_LIST } from '@core/constants';
 
 @Component({
     selector: 'app-marked-sale',
@@ -167,7 +168,7 @@ export class MarkedSaleComponent implements OnInit {
         this.primeTableService.url = `/ro/${this.roasterID}/marked-sale-coffees`;
 
         this.initializeTable();
-        this.originArray = this.globals.countryList;
+        this.originArray = COUNTRY_LIST;
         this.primeTableService.form = this.form;
 
         this.primeTableService.form?.valueChanges.subscribe((data) =>

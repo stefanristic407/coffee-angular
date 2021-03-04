@@ -4,6 +4,7 @@ import { Browser } from '@syncfusion/ej2-base';
 import { GlobalsService } from '@services';
 import { WelcomeService } from '../welcome.service';
 import * as _ from 'underscore';
+import { COUNTRY_LIST } from '@core/constants';
 
 @Component({
     selector: 'app-dashboard-sourcing',
@@ -32,7 +33,7 @@ export class DashboardSourcingComponent implements OnInit, OnDestroy {
 
     makeChartData(oriData) {
         oriData.map((item: any) => {
-            this.globals.countryList.map((country: any) => {
+            COUNTRY_LIST.map((country: any) => {
                 if (country.isoCode.toLowerCase() === item.origin.toLowerCase()) {
                     const tempItem = {
                         name: country.name,
