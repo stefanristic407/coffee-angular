@@ -68,3 +68,28 @@
         text-align: center;
     }
 }
+@media only screen and (max-width: 1024px) and (min-width: 991px) {
+    .dashboard-button {
+        height: 12.31rem;
+        width: 16.93rem;
+        border-radius: 2px;
+        border: solid 1px #ebebeb;
+        background-color: #ffffff;
+        padding-left: 30px;
+        padding-right: 30px;
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 990px) {
+    .dashboard-button {
+        height: 12.31rem;
+        width: 20.06rem;
+        border-radius: 2px;
+        border: solid 1px #ebebeb;
+        background-color: #ffffff;
+        padding-left: 30px;
+        padding-right: 30px;
+        text-align: center;
+    }
+}

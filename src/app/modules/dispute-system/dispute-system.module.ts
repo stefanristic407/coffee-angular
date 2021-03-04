@@ -11,7 +11,6 @@ import { SharedModule } from '@shared';
 import { DisputeSystemRoutingModule } from './dispute-routing.module';
 import { DisputeComponent } from './dispute/dispute.component';
 import { AccordionModule } from 'primeng/accordion';
-import { SewnOrderChatComponent } from './sewn-order-chat/sewn-order-chat.component';
 
 @NgModule({
     declarations: [
@@ -23,7 +22,6 @@ import { SewnOrderChatComponent } from './sewn-order-chat/sewn-order-chat.compon
         RaiseTicketComponent,
         SelectOrderComponent,
         DisputeComponent,
-        SewnOrderChatComponent,
     ],
     imports: [CommonModule, SharedModule, DisputeSystemRoutingModule, AccordionModule],
 })

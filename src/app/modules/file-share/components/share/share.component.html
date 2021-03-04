@@ -7,6 +7,8 @@
                 [suggestions]="usersList"
                 field="name"
                 (completeMethod)="getUsersList($event)"
+                (onShow)="isOpened = true"
+                (onHide)="isOpened = false"
                 placeholder="{{ 'Enter a name or email' | translate }}"
                 scrollHeight="225px"
             >
@@ -21,25 +23,27 @@
     </div>
 </form>
 
-<div *ngIf="sharedUsers?.length" class="mb-4 mb-lg-475">
-    <div class="fnt-16 fnt-700 text-clr334 mb-4 mb-lg-45">
-        {{ 'existing_members' | translate }}
-    </div>
-    <ng-container *ngFor="let item of sharedUsers; index as i">
-        <div *ngIf="i" class="divider w-100 mt-3 mb-3"></div>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="d-flex align-items-center">
-                <app-avatar [size]="35" [src]="item.thumb_image" [name]="item.firstname"></app-avatar>
-                <span class="fnt-16 fnt-600 text-clr334 ml-2">{{ item.firstname }} {{ item.lastname }}</span>
-            </div>
-            <p-dropdown
-                [options]="permissionItems"
-                [(ngModel)]="item.permission"
-                (ngModelChange)="updatePermission(item)"
-                styleClass="no-border"
-            ></p-dropdown>
+<div [class.existing-min]="usersList?.length && isOpened">
+    <div *ngIf="sharedUsers?.length" class="mb-4 mb-lg-475">
+        <div class="fnt-16 fnt-700 text-clr334 mb-4 mb-lg-45">
+            {{ 'existing_members' | translate }}
         </div>
-    </ng-container>
+        <ng-container *ngFor="let item of sharedUsers; index as i">
+            <div *ngIf="i" class="divider w-100 mt-3 mb-3"></div>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <app-avatar [size]="35" [src]="item.thumb_image" [name]="item.firstname"></app-avatar>
+                    <span class="fnt-16 fnt-600 text-clr334 ml-2">{{ item.firstname }} {{ item.lastname }}</span>
+                </div>
+                <p-dropdown
+                    [options]="permissionItems"
+                    [(ngModel)]="item.permission"
+                    (ngModelChange)="updatePermission(item)"
+                    styleClass="no-border"
+                ></p-dropdown>
+            </div>
+        </ng-container>
+    </div>
 </div>
 
 <div class="solid-divider-de mb-3 mb-md-4"></div>
@@ -48,7 +52,7 @@
     <div class="fnt-mb-12 fnt-600 text-clr588 col-md-8 px-0 m-0 text-center text-md-left pb-5 pb-md-0">
         {{ 'admin_notice_text' | translate }}
     </div>
-    <button type="button" class="btn-raised" [class.loading]="submitted" (click)="share()">
+    <button type="button" class="btn-raised w-mob-100" [class.loading]="submitted" (click)="share()">
         <span>{{ 'share' | translate }}</span>
     </button>
 </div>

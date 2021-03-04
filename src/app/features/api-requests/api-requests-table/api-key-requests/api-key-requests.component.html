@@ -6,10 +6,10 @@
     <p-table [value]="requestData" [totalRecords]="100" [lazy]="true" (onLazyLoad)="getData($event)">
         <ng-template pTemplate="header">
             <tr>
-                <th>Requested By<p-sortIcon field="org_name"></p-sortIcon></th>
-                <th>Customer Type<p-sortIcon field="org_type"></p-sortIcon></th>
-                <th>Date Request<p-sortIcon field="created_at"></p-sortIcon></th>
-                <th>Action<p-sortIcon field="Customer"></p-sortIcon></th>
+                <th pSortableColumn="org_name">Requested By<p-sortIcon field="org_name"></p-sortIcon></th>
+                <th pSortableColumn="org_type">Customer Type<p-sortIcon field="org_type"></p-sortIcon></th>
+                <th pSortableColumn="created_at">Date Request<p-sortIcon field="created_at"></p-sortIcon></th>
+                <th>Action</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-product>
@@ -26,5 +26,16 @@
         [totalRecords]="totalRecords"
         (onPageChange)="paginate($event)"
         pageLinkSize="3"
+        *ngIf="paginationValue && requestData?.length"
     ></p-paginator>
 </div>
+<!-- no-data for Api Request -->
+<div class="row pt-5" *ngIf="!requestData?.length && !loader">
+    <div class="col-lg-12 col-md-12 no-data-sec">
+        <div class="text-center">
+            <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image" />
+            <h1 class="fnt-18 fnt-700 fnt-muli text-clr334">No data available</h1>
+        </div>
+    </div>
+</div>
+<!-- no-data for Api Request -->

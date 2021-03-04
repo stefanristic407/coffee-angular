@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { FileService } from '@services';
 import { FileShareService } from '../../file-share.service';
+import { FileType } from '@core/enums';
 
 @Component({
     selector: 'app-file-table',
@@ -13,14 +14,10 @@ import { FileShareService } from '../../file-share.service';
 })
 export class FileTableComponent implements OnInit {
     @Input() listType = '';
-    tableValue = [];
-    totalCount = 0;
     tableColumns = [];
     selectedItems = [];
     menuItems = [];
     selectedFile: any;
-    rangeDates: any[];
-    data;
 
     constructor(
         public dialogSrv: DialogService,
@@ -39,14 +36,12 @@ export class FileTableComponent implements OnInit {
                     this.fileShareSrv.downloadFile(this.selectedFile);
                 },
             },
-            this.globals.device !== 'desktop'
-                ? {
-                      label: this.globals.languageJson?.share,
-                      command: () => {
-                          this.fileShareSrv.openShareModal(this.selectedFile);
-                      },
-                  }
-                : {},
+            {
+                label: this.globals.languageJson?.share,
+                command: () => {
+                    this.fileShareSrv.openShareModal(this.selectedFile);
+                },
+            },
             {
                 label: this.globals.languageJson?.pin,
                 command: () => {
@@ -61,12 +56,6 @@ export class FileTableComponent implements OnInit {
                     } else {
                         this.fileShareSrv.updateFile(this.selectedFile);
                     }
-                },
-            },
-            {
-                label: this.globals.languageJson?.comment,
-                command: () => {
-                    console.log(this.globals.languageJson?.comment);
                 },
             },
             {
@@ -85,19 +74,19 @@ export class FileTableComponent implements OnInit {
                 field: 'name',
                 header: 'files',
                 sortable: true,
-                width: this.globals.device === 'desktop' ? 30 : 33,
+                width: this.globals.device === 'desktop' ? 34 : 33,
             },
             {
                 field: 'order_ids',
                 header: 'order_id',
                 sortable: true,
-                width: this.globals.device === 'desktop' ? 10 : 12,
+                width: this.globals.device === 'desktop' ? 12 : 12,
             },
             {
                 field: 'updated_at',
                 header: 'modified',
                 sortable: true,
-                width: this.globals.device === 'desktop' ? 20 : 25,
+                width: this.globals.device === 'desktop' ? 22 : 25,
             },
             {
                 field: 'type',
@@ -109,9 +98,32 @@ export class FileTableComponent implements OnInit {
                 field: 'actions',
                 header: '',
                 sortable: false,
-                width: this.globals.device === 'desktop' ? 22 : 10,
+                width: this.globals.device === 'desktop' ? 14 : 10,
             },
         ];
+    }
+
+    onClick(item) {
+        switch (item.type) {
+            case FileType.CSV: {
+                break;
+            }
+            case FileType.DOCUMENT: {
+                break;
+            }
+            case FileType.FOLDER: {
+                this.router.navigateByUrl(`/file-share/file-share-details/${item.id}`);
+                break;
+            }
+            case FileType.IMAGE: {
+                this.fileShareSrv.preview(item);
+                break;
+            }
+            case FileType.VIDEO: {
+                this.fileShareSrv.preview(item);
+                break;
+            }
+        }
     }
 
     filterCall(event) {

@@ -9,6 +9,7 @@ import { FileShareService } from '../../file-share.service';
 })
 export class FileCardComponent implements OnInit {
     @Input() data: any;
+    @Input() showPin = false;
     menuItems = [];
 
     constructor(public fileShareSrv: FileShareService, public globals: GlobalsService) {}
@@ -41,12 +42,6 @@ export class FileCardComponent implements OnInit {
                     } else {
                         this.fileShareSrv.updateFile(this.data);
                     }
-                },
-            },
-            {
-                label: this.globals.languageJson?.comment,
-                command: () => {
-                    console.log(this.globals.languageJson?.comment);
                 },
             },
             {

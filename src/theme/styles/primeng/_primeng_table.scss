@@ -68,6 +68,10 @@
     border-width: 0px;
 }
 
+.p-paginator.p-paginator-bottom {
+    padding: 16px 0;
+}
+
 .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
     background-color: transparent;
     color: $primary-color;

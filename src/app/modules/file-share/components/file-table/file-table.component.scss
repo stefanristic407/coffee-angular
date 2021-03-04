@@ -46,3 +46,19 @@
         }
     }
 }
+
+::ng-deep .p-tooltip.share {
+    transform: translate(-30%, -8px);
+    .p-tooltip-text {
+        padding: 8px;
+        font-size: 10px;
+        font-weight: 600;
+        background-color: #fff;
+        color: $muted-text-color;
+        border-radius: 2px;
+        box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
+    }
+    .p-tooltip-arrow {
+        display: none;
+    }
+}

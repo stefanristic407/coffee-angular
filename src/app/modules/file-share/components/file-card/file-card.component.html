@@ -18,13 +18,8 @@
             src="assets/images/video-gray-filled.svg"
             (click)="fileShareSrv.preview(data)"
         />
-        <img
-            class="cursor-pointer"
-            *ngIf="data.type == 'DOCUMENT'"
-            src="assets/images/document.png"
-            (click)="fileShareSrv.downloadFile(data)"
-        />
-        <div class="quick-pinned-files__pinIcon">
+        <img *ngIf="data.type == 'DOCUMENT'" src="assets/images/doc-gray-filled.svg" />
+        <div class="quick-pinned-files__pinIcon" [class.d-none]="!showPin">
             <div class="w-100 h-100 position-relative">
                 <a (click)="fileShareSrv.unpinFileorFolder(data.id)">
                     <img src="assets/images/pin.svg" pTooltip="Unpin" tooltipPosition="top" />
@@ -47,7 +42,7 @@
             <span class="fnt-12 lh-normal fnt-600 text-clr588">{{ data.type | titlecase }}</span>
         </div>
         <div class="">
-            <a class="mr-25" [href]="data.url" target="_blank" [download]="data.name">
+            <a class="d-none d-md-inline mr-25" [href]="data.url" target="_blank" [download]="data.name">
                 <img class="img" *ngIf="data.type != 'FOLDER'" src="assets/images/download-gray.svg" />
             </a>
             <a class="menu-arrow" (click)="menu.toggle($event)">

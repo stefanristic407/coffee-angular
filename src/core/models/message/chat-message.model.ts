@@ -12,5 +12,6 @@ export interface ChatMessage {
     updated_at: string;
     computed_date: string;
     computed_author: ThreadMember;
+    showUserBadge: boolean;
     isActiveUser: boolean;
 }

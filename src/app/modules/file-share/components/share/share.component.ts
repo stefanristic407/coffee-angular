@@ -19,6 +19,7 @@ export class ShareComponent implements OnInit {
     usersList: any[] = [];
     sharedUsers: any[] = [];
     submitted = false;
+    isOpened = false;
 
     constructor(
         public ref: DynamicDialogRef,
