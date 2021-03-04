@@ -6,7 +6,6 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Subscription, Subject, BehaviorSubject, Observable } from 'rxjs';
 import { ChatUtil } from './chat/chat-util.service';
 import { distinct, catchError } from 'rxjs/operators';
-import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { environment } from '@env/environment';
 
 @Injectable({
@@ -61,7 +60,7 @@ export class SocketService implements OnDestroy {
                     return caught;
                 }),
             ).subscribe((WSMessage: WSResponse<unknown>) => {
-                if (WSMessage.type === WSChatMessageType.auth) {
+                if (WSMessage.type === ChatMessageType.auth) {
                     this.handleAuthResponse(WSMessage as WSResponse<null>);
                 }
                 const arr = Object.values(ChatMessageType);

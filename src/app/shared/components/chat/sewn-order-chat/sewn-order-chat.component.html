@@ -1,0 +1,100 @@
+<div class="conversatio-body">
+    <div class="conversatio-body__messages" data-element="live-chat-message-body">
+        <!-- <div class="new-date">
+            <span class="new-date__bar"></span>
+            <span class="new-date__upadte">14th Jan 2020</span>
+            <span class="new-date__bar"></span>
+        </div> -->
+
+        <!--Mesaage From-->
+
+        <div *ngFor="let message of messageList; let last = last">
+            <div appLifecyclehook (viewChecked)="last && lastMessageRendered.next('done')">
+                <div *ngIf="message.isActiveUser" class="main-message message-from">
+                    <!-- <div class="main-message__profile clearfix">
+                        <div class="float-left img">
+                            <img src="assets/images/user-profile.png" />
+                        </div>
+                        <div class="profile-name">
+                            <div class="float-left">
+                                <h4 class="name">Finca La Pampa</h4>
+                                <span class="status">Facilitator</span>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="message-info">
+                        <div class="message-info__body position-relative">
+                            <span class="live-time">{{ message.computed_date }}</span>
+                            <p class="message-text">
+                                {{ message.content }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Mesaage To-->
+                <div *ngIf="!message.isActiveUser" class="main-message message-to">
+                    <!-- <div class="main-message__profile clearfix">
+                        <div class="float-left img">
+                            <img src="assets/images/user-profile.png" />
+                        </div>
+                        <div class="profile-name">
+                            <div class="float-left">
+                                <h4 class="name">Finca La Pampa</h4>
+                                <span class="status">Facilitator</span>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="message-info">
+                        <div class="message-info__body position-relative">
+                            <span class="live-time">{{ message.computed_date }}</span>
+                            <!-- <div class="message-info__img">
+                                                    <img src="assets/images/community.png">
+                                                </div> -->
+                            <p class="message-text">{{ message.content }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="conversatio-form">
+        <div data-element="message-form">
+            <div class="messag-form position-relative">
+                <div class="offensive-lang" [ngClass]="{ active: false }">
+                    <span
+                        >Use of offensive language is strictly prohibited using within member to member messaging, on
+                        our public groups, non-compliance may lead to permanent / temporary suspension of your
+                        account.</span
+                    >
+                </div>
+                <div class="img-container">
+                    <span class="img-container__remove">&#10008;</span>
+                </div>
+
+                <div class="chat-inputs" *ngIf="threadDetails?.computed_activeUser?.user_id">
+                    <label class="chat-inputs__img">
+                        <img src="assets/images/dm-img-upload.svg" />
+                        <input type="file" class="files" />
+                    </label>
+                    <textarea
+                        (keypress)="inputkeyPress($event)"
+                        (input)="inputChanges($event)"
+                        data-element="messag-text-area"
+                        type="text"
+                        rows="1"
+                        class="chat-inputs__text"
+                        placeholder="Type something.."
+                        [(ngModel)]="messageInput"
+                    ></textarea>
+                    <div class="send-message">
+                        <button (click)="sendMessage()" type="button" class="send-message__btn">
+                            <img src="assets/images/dm-send2.svg" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

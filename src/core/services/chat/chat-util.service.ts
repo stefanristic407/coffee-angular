@@ -7,7 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
     providedIn: 'root',
 })
 export class ChatUtil {
-    public ORGANIZATION_TYPE = WSOrganizationType.ROASTER;
+    public ORGANIZATION_TYPE = OrganizationType.ROASTER;
     private incomingAudioPlayer = new Audio('assets/sounds/msg-incoming.mp3');
     private outgoingAudioPlayer = new Audio('assets/sounds/msg-outgoing.mp3');
     constructor(private cookieService: CookieService) {

@@ -3,11 +3,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { RoasterserviceService } from '@core/services/api/roaster.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-<<<<<<< HEAD
-import { OrderChatTypes } from '@models/chat/order-chat';
-=======
 import { OrderChatType } from '@core/enums/order-chat';
->>>>>>> master
 
 @Component({
     selector: 'app-assign-user',
@@ -21,11 +17,7 @@ export class AssignUserComponent implements OnInit {
     roasterId = '';
     userList: any = [];
     disputeID = '';
-<<<<<<< HEAD
-    SERVICE_TYPE = OrderChatTypes.RO_ES;
-=======
     SERVICE_TYPE = OrderChatType.RO_ES;
->>>>>>> master
     constructor(
         private route: ActivatedRoute,
         private roasterService: RoasterserviceService,

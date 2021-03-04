@@ -15,4 +15,5 @@ export interface UserListItem {
     computed_fullname: string;
     computed_profile_dp: string;
     computed_organization_name: string;
+    computed_profile_direct_url: string;
 }
