@@ -114,7 +114,7 @@ ul {
 ::ng-deep .breadCrumb .p-breadcrumb ul {
     width: max-content;
 }
-@media (max-width: 748px) {
+@media (max-width: 767px) {
     .prodect-details {
         padding: 12px;
     }
@@ -156,5 +156,20 @@ ul {
     }
     .breadCrumb::-webkit-scrollbar {
         display: none;
+    }
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+    .no-pad {
+        padding-left: 10.5rem;
+        padding-right: 10.5rem;
+    }
+    .v-report {
+        a {
+            font-size: 12px;
+        }
+    }
+    .botSpacing {
+        padding-bottom: 1.5rem;
+        border-bottom: 1px dashed #d6d6d6;
     }
 }

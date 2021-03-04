@@ -5,6 +5,7 @@ import { GlobalsService } from '@core/services/globals.service';
 import * as moment from 'moment';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { COUNTRY_LIST } from '@core/constants';
 
 @Component({
     selector: 'app-select-order',
@@ -122,7 +123,7 @@ export class SelectOrderComponent implements OnInit {
         this.getTableData();
     }
     loadFilterValues() {
-        this.originArray = this.globals.countryList;
+        this.originArray = COUNTRY_LIST;
         this.orderTypeArray = [
             { label: 'Shipped', value: 'SHIPPED' },
             { label: 'Confirmed', value: 'CONFIRMED' },

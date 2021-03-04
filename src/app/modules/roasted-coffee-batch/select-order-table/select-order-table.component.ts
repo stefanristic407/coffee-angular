@@ -6,6 +6,7 @@ import { RoasterserviceService } from '@core/services/api/roaster.service';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { GlobalsService } from '@core/services/globals.service';
+import { COUNTRY_LIST } from '@core/constants';
 import * as moment from 'moment';
 
 @Component({
@@ -128,7 +129,7 @@ export class SelectOrderTableComponent implements OnInit {
     }
 
     loadFilterValues() {
-        this.originArray = this.globals.countryList;
+        this.originArray = COUNTRY_LIST;
         this.displayArray = [
             { label: '10', value: 10 },
             { label: '20', value: 20 },

@@ -107,3 +107,20 @@
         padding: 16px;
     }
 }
+@media only screen and (max-width: 1200px) and (min-width: 768px) {
+    .n-margin {
+        margin: 0;
+    }
+}
+@media only screen and (max-width: 640px) {
+    .detailsDiv {
+        margin-left: 0px !important;
+        margin-top: 1rem !important;
+    }
+    .formDiv {
+        padding: 16px 0px;
+    }
+    .origin-pad {
+        padding: 0rem 1rem;
+    }
+}

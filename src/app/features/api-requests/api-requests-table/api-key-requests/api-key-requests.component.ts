@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChange, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChange } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { GlobalsService } from '@services';
@@ -14,6 +14,7 @@ export class ApiKeyRequestsComponent implements OnInit {
     @Input() filterData;
     @Input() dateRange;
     @Input() perPage;
+    @Output() filterType = new EventEmitter<any>();
     termStatus: any;
     showStatus = true;
     paginationValue = false;
@@ -69,10 +70,11 @@ export class ApiKeyRequestsComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    viewRequestDetails(id: any) {
+    viewRequestDetails(item: any) {
         const navigationExtras: NavigationExtras = {
             queryParams: {
-                id: encodeURIComponent(id),
+                id: encodeURIComponent(item.id),
+                status: encodeURIComponent(item.status),
             },
         };
         this.router.navigate(['/features/api-request-details'], navigationExtras);
@@ -82,6 +84,7 @@ export class ApiKeyRequestsComponent implements OnInit {
             roaster_id: this.roasterID,
             page: this.pageNumber,
             per_page: this.perPage,
+            org_type: this.filterData,
         };
         if (this.dateFrom && this.dateTo) {
             data['date_from'] = moment(this.dateFrom).format('YYYY-MM-DD');
@@ -99,6 +102,7 @@ export class ApiKeyRequestsComponent implements OnInit {
             if (res.success) {
                 this.loader = false;
                 this.requestData = res.result;
+                this.filterType.emit(res.result);
                 this.totalRecords = res.result_info.total_count;
                 this.rows = res.result_info.per_page;
                 if (this.totalRecords < 10) {

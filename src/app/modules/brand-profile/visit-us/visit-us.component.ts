@@ -11,6 +11,7 @@ import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
 import { ConfirmComponent } from '@shared';
+import { COUNTRY_LIST } from '@constants';
 import * as _ from 'underscore';
 @Component({
     selector: 'app-visit-us',
@@ -18,6 +19,7 @@ import * as _ from 'underscore';
     styleUrls: ['./visit-us.component.scss'],
 })
 export class VisitUsComponent implements OnInit {
+    public readonly COUNTRY_LIST = COUNTRY_LIST;
     roasterId: string;
     roasterSlug: string;
     breadItems: any[];

@@ -23,6 +23,7 @@ export class ApiRequestsTableComponent implements OnInit {
     apiKeySearch: string = '';
     KeySearch: string = '';
     selectedTab = 0;
+    FilterTypeList: any[] = [];
     isApiRequestPage = true;
     customerTypeArray = [
         { label: 'All', value: 'All' },
@@ -85,6 +86,10 @@ export class ApiRequestsTableComponent implements OnInit {
 
     customerTypeFilter(filterData: any) {
         this.customerType = filterData;
+    }
+
+    setFilterData(event) {
+        this.FilterTypeList = event;
     }
 
     handleChange(event: any) {

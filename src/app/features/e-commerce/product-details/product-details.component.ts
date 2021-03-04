@@ -49,6 +49,7 @@ export class ProductDetailsComponent implements OnInit {
     ];
     @ViewChildren(VarientDetailsComponent) varientComponent: QueryList<VarientDetailsComponent>;
     currentVariant = 0;
+    allCrates = [];
     constructor(
         public globals: GlobalsService,
         private fb: FormBuilder,
@@ -153,19 +154,10 @@ export class ProductDetailsComponent implements OnInit {
                         const getValue = productDetails[ele];
                         this.productForm.controls[ele].setValue(getValue);
                     });
-                    this.crates = this.productForm.get('crates') as FormArray;
-                    this.crates.removeAt(0);
-                    productDetails.crates.forEach((crate) => {
-                        const randomNumber = '_' + Math.random().toString(36).substr(2, 9);
-                        const crateForm = this.createEmptyCrate();
-                        crateForm.controls.weight.setValue(crate.weight);
-                        crateForm.controls.id.setValue(crate.id);
-                        crateForm.controls.product_weight_variant_id.setValue(randomNumber);
-                        crateForm.controls.crate_capacity.setValue(crate.crate_capacity);
-                        this.crates.push(crateForm);
-                    });
                     this.varients = this.productForm.get('varients') as FormArray;
                     this.varients.removeAt(0);
+                    let increment = 0;
+                    this.allCrates = [];
                     // tslint:disable-next-line: forin
                     for (const key in res.result.variants) {
                         const getVariant = res.result.variants[key];
@@ -183,11 +175,35 @@ export class ProductDetailsComponent implements OnInit {
                         varient.brewing_method = getVariant[0].variant_details.brewing_method;
                         const variantForm = this.fb.group(varient);
                         const weight_variants = getVariant[0].weight_variants;
+                        weight_variants.forEach((ele) => {
+                            const getCrate = productDetails.crates.find(
+                                (item) => item.weight === ele.weight && ele.weight_unit === item.crate_unit,
+                            );
+                            if (getCrate) {
+                                getCrate.has_weight = true;
+                                getCrate.product_weight_variant_id = ele.product_weight_variant_id;
+                                this.allCrates.push(getCrate);
+                            }
+                        });
                         const flavour_profile = getBatchDetails.flavour_profile;
                         variantForm.controls.flavour_profile.setValue(flavour_profile);
                         variantForm.controls.weight_variants.setValue(weight_variants);
                         this.varients.push(variantForm);
+                        increment++;
                     }
+                    this.crates = this.productForm.get('crates') as FormArray;
+                    this.crates.removeAt(0);
+                    this.allCrates = productDetails.crates;
+                    productDetails.crates.forEach((crate) => {
+                        if (crate.has_weight) {
+                            const crateForm = this.createEmptyCrate();
+                            crateForm.controls.weight.setValue(crate.weight);
+                            crateForm.controls.id.setValue(crate.id);
+                            crateForm.controls.product_weight_variant_id.setValue(crate.product_weight_variant_id);
+                            crateForm.controls.crate_capacity.setValue(crate.crate_capacity);
+                            this.crates.push(crateForm);
+                        }
+                    });
                     this.createTypeVariantArray();
                 }
             },
@@ -273,6 +289,14 @@ export class ProductDetailsComponent implements OnInit {
             const getObj = this.crates.value.find(
                 (ele) => ele.product_weight_variant_id === event.product_weight_variant_id,
             );
+            if (this.productID) {
+                const getcrate = this.allCrates.find(
+                    (ele) => ele.product_weight_variant_id === event.product_weight_variant_id,
+                );
+                if (getcrate) {
+                    getcrate.hasChanged = true;
+                }
+            }
             const indexValue = this.crates.value.indexOf(getObj);
             if (getObj) {
                 this.crates.controls[indexValue]['controls'].crate_unit.setValue(event.unit);
@@ -355,6 +379,14 @@ export class ProductDetailsComponent implements OnInit {
         );
     }
     updateProductDetails(productObj) {
+        delete productObj.varients;
+        const getOldCrate = this.allCrates.filter((ele) => ele.hasChanged || ele.has_weight);
+        productObj.crates = productObj.crates.concat(getOldCrate);
+        productObj.crates.forEach((ele) => {
+            delete ele.id;
+            delete ele.boxField;
+            delete ele.product_weight_variant_id;
+        });
         this.services.updateProductDetails(this.roasterId, this.productID, productObj).subscribe(
             (res) => {
                 if (res && res.success) {
@@ -398,7 +430,7 @@ export class ProductDetailsComponent implements OnInit {
                 if (childIndex === this.varientComponent.length - 1 && index === getWeightArray.length - 1) {
                     showToaster = true;
                 }
-                if (!this.productID || !weightVariantID) {
+                if (weight.isNew) {
                     this.addNewGrindVariant(productID, weightObj, showToaster);
                 } else if (weightVariantID) {
                     this.updateGrindVariant(weightObj, showToaster, weightVariantID);
