@@ -35,6 +35,7 @@ export class LotSaleComponent implements OnInit {
     tableColumns = [];
     tableValue = [];
     popupDisplay = false;
+    remaining: any;
     constructor(
         public globals: GlobalsService,
         public route: ActivatedRoute,
@@ -183,6 +184,8 @@ export class LotSaleComponent implements OnInit {
                     this.orderStatus = response.result.status;
                     this.availablityName = lotDetails.name;
                     this.statusLabel = this.formatStatus(this.orderStatus);
+                    const remaining = this.orderDetails?.quantity_count - lotDetails.quantity_count;
+                    this.remaining = `${remaining} Bags`;
                     this.refreshData();
                 }
             },
@@ -289,5 +292,13 @@ export class LotSaleComponent implements OnInit {
                 });
             }
         });
+    }
+    changeQuantity() {
+        const remaining = this.orderDetails.quantity_count - this.lotSaleForm.value.quantity_count;
+        this.remaining = `${remaining} Bags`;
+        if (this.remaining < 0) {
+            this.toasterService.error('Please enter below available quantity');
+            this.remaining = '0 Bags';
+        }
     }
 }

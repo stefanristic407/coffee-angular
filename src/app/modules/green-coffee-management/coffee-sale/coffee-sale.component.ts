@@ -30,6 +30,7 @@ export class CoffeeSaleComponent implements OnInit {
     weightTypeArray: any = [];
     tableColumns = [];
     tableValue = [];
+    remaining: any;
     constructor(
         public globals: GlobalsService,
         public route: ActivatedRoute,
@@ -154,6 +155,8 @@ export class CoffeeSaleComponent implements OnInit {
                 if (response.success && response.result) {
                     this.orderDetails = response.result;
                     this.tableValue.push(this.orderDetails);
+                    const remaining = this.orderDetails?.quantity_count;
+                    this.remaining = `${remaining} Bags`;
                 }
             },
             (err) => {
@@ -250,5 +253,13 @@ export class CoffeeSaleComponent implements OnInit {
     }
     onCancel() {
         this.router.navigate([`/green-coffee-management/procured-coffee/${this.orderID}`]);
+    }
+    changeQuantity() {
+        const remaining = this.orderDetails.quantity_count - this.coffeeSaleForm.value.quantity_count;
+        this.remaining = `${remaining} Bags`;
+        if (this.remaining < 0) {
+            this.toasterService.error('Please enter below available quantity');
+            this.remaining = '0 Bags';
+        }
     }
 }

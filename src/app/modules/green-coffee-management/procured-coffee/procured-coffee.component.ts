@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
 import { GlobalsService } from '@core/services/globals.service';
@@ -27,6 +27,7 @@ export class ProcuredCoffeeComponent implements OnInit {
         public lightbox: Lightbox,
         public globals: GlobalsService,
         public route: ActivatedRoute,
+        private router: Router,
         public roasterService: RoasterserviceService,
         public cookieService: CookieService,
     ) {
@@ -126,5 +127,8 @@ export class ProcuredCoffeeComponent implements OnInit {
     language() {
         this.appLanguage = this.globals.languageJson;
         this.procuredActive++;
+    }
+    availabilityPage() {
+        return `/sourcing/coffee-list/${this.orderDetails.estate_id}/${this.orderDetails.harvest_id}`;
     }
 }

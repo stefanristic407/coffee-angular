@@ -335,6 +335,7 @@
                                 class="weightInputDiv"
                                 formControlName="quantity_count"
                                 placeholder="Enter a number"
+                                (input)="changeQuantity()"
                                 pInputText
                             />
 
@@ -361,7 +362,7 @@
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
                         <label>Remaining quantity</label>
-                        <input type="text" placeholder="-" pInputText disabled />
+                        <input type="text" placeholder="-" [value]="remaining" pInputText disabled />
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
                         <label>Minimum order quantity<span class="star">*</span></label>

@@ -127,6 +127,10 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
             },
         );
     }
+    availabilityPage() {
+        console.log(`sourcing/coffee-list/${this.orderDetails.estate_id}/${this.orderDetails.harvest_id}`);
+        return `/sourcing/coffee-list/${this.orderDetails.estate_id}/${this.orderDetails.harvest_id}`;
+    }
     viewReport() {
         this.roasterService.getCuppingReportDetails(this.orderDetails.harvest_id).subscribe(
             (res) => {

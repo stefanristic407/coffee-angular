@@ -564,6 +564,9 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="no-items-found" *ngIf="recentUserList.length === 0">
+                                            You don't have any recent contacts
+                                        </div>
                                     </ng-container>
                                     <ng-container *ngIf="userSearchKeywords">
                                         <div
@@ -583,6 +586,13 @@
                                                     <span class="status">{{ user.computed_organization_name }}</span>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="no-items-found" *ngIf="usersList.length === 0 && userListLoading">
+                                            <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+                                            Fetching users..
+                                        </div>
+                                        <div class="no-items-found" *ngIf="usersList.length === 0 && !userListLoading">
+                                            No users found
                                         </div>
                                     </ng-container>
                                 </div>
@@ -654,6 +664,12 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div
+                                        class="no-items-found"
+                                        *ngIf="(threadList | searchFilter: threadSearchKeyword).length === 0"
+                                    >
+                                        No Search results found
                                     </div>
                                 </div>
                                 <div class="start-chat">

@@ -184,20 +184,10 @@
 .drop-margin {
     margin: 4px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
     .add-image-flex {
         display: flex;
         overflow: auto;
-    }
-}
-@media screen and (max-width: 1024px) {
-    .weightVariantBtn {
-        border: solid 1px #30855c;
-        color: #30855c;
-        padding: 0.5rem 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
 }
 
