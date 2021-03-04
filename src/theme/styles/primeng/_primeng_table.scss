@@ -87,6 +87,15 @@
     padding: 8px 4px 7px 6px;
 }
 
+.p-datatable-custom-paginator {
+    .p-paginator-first,
+    .p-paginator-last {
+        span {
+            border-width: 0;
+        }
+    }
+}
+
 .p-datatable .p-sortable-column:focus {
     box-shadow: none;
 }
@@ -122,8 +131,11 @@
 @media (min-width: 768px) {
     .p-datatable-responsive,
     .p-datatable-responsive-single {
-        .p-datatable-tbody > tr > td .p-column-title {
-            display: none;
+        .p-datatable-tbody > tr > td {
+            .p-column-title,
+            .p-mobile-row-content {
+                display: none;
+            }
         }
     }
 }
@@ -153,6 +165,11 @@
                 margin-right: 1rem;
                 font-weight: 500;
                 color: $muted-text-color;
+            }
+
+            .p-mobile-row-content {
+                width: 100%;
+                display: block;
             }
 
             &:first-child {
@@ -243,4 +260,25 @@
 .p-datatable .p-sortable-column.p-highlight:hover .p-sortable-column-icon,
 .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
     color: $general-text-color;
+}
+
+.p-sortable-column-icon.pi.pi-fw {
+    &.pi-sort-alt:before {
+        content: '';
+    }
+
+    &.pi-sort-amount-up-alt:before,
+    &.pi-sort-amount-down:before {
+        content: url('/assets/images/sort-icon.svg');
+    }
+}
+
+@media all and (min-width: 768px) and (max-width: 991px) {
+    .p-datatable-tablet-scrollable {
+        overflow-x: scroll;
+
+        .p-datatable-wrapper {
+            min-width: 992px;
+        }
+    }
 }

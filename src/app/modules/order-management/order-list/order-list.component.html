@@ -14,7 +14,7 @@
                 <span class="p-input-icon-left custom-search w-100">
                     <input pInputText
                         class="w-100 h-100 border-rounded-left-md-0 pt-2 pb-2 {{ searchForm.get('search_query').value ? 'highlight' : '' }}"
-                        type="text" placeholder="Search by order id, roaster name"
+                        type="text" placeholder="Search by order id, estate name"
                         formControlName="search_query" />
                 </span>
                 <button type="submit" class="btn-raised ml-2 d-none d-lg-block"
@@ -38,9 +38,9 @@
             </div>
             <div class="d-none d-md-flex">
                 <p-dropdown [options]="displayOptions" formControlName="per_page" optionLabel="label"
-                    optionValue="value" placeholder="Display" class="round-border" placeholder="Display">
+                    optionValue="value" placeholder="Display" styleClass="round-border" placeholder="Display">
                     <ng-template pTemplate="selectedItem">
-                        <span [innerHTML]="'Display ' + searchForm.get('per_page').value"> </span>
+                        <span class="text-muted" [innerHTML]="'Display ' + searchForm.get('per_page').value"></span>
                     </ng-template>
                 </p-dropdown>
             </div>
@@ -48,12 +48,12 @@
     </div>
 
     <div class="row no-gutters">
-        <div class="col-12 border p-1">
+        <div class="col-12 p-1">
             <p-table #myTable [class.table-mobile]="isMobile$ | async" class="mt-2" [value]="orders"
                 [(selection)]="selectedOrders" dataKey="id" [rows]="this.searchForm.get('per_page').value"
                 [showCurrentPageReport]="false" [paginator]="true" [lazy]="true" [loading]="loading"
                 (onLazyLoad)="loadOrders($event)" [totalRecords]="pageInfo.total_count" sortField="date_received"
-                styleClass="p-datatable-responsive-single p-datatable-tablet-scrollable">
+                styleClass="p-datatable-responsive-single p-datatable-tablet-scrollable p-datatable-custom-paginator">
 
                 <ng-template pTemplate="header" let-columns>
                     <tr>
@@ -69,11 +69,11 @@
                                 </p-sortIcon>
                             </div>
                         </th>
-                        <th pSortableColumn="roaster_name">
+                        <th pSortableColumn="estate_name">
                             <div class="d-flex">
-                                <span class="text-overflow-ellipsis">{{ 'roaster' | translate }}</span>
+                                <span class="text-overflow-ellipsis">{{ 'estate' | translate }}</span>
                                 <p-sortIcon
-                                    field="roaster_name"
+                                    field="estate_name"
                                     ariaLabel="Activate to sort"
                                     ariaLabelDesc="Activate to sort in descending order"
                                     ariaLabelAsc="Activate to sort in ascending order"
@@ -192,8 +192,8 @@
                                         </div>
 
                                         <div class="mobile-row py-2 d-flex">
-                                            <span class="text-muted cell-header">{{ 'roaster_name' | translate }}</span>
-                                            <span class="text-black334">{{ rowData.roasterName }}</span>
+                                            <span class="text-muted cell-header">{{ 'estate_name' | translate }}</span>
+                                            <span class="text-black334">{{ rowData.estateName }}</span>
                                         </div>
                                         <div class="mobile-row py-2 d-flex">
                                             <span class="text-muted cell-header">{{ 'origin' | translate }}</span>
@@ -210,7 +210,7 @@
                             </div>
                         </td>
 
-                        <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.roasterName }}</td>
+                        <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.estateName }}</td>
                         <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.createdAt | date: 'd MMM yyyy' }}</td>
                         <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.varieties }}</td>
                         <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.price | currency: 'USD' }}

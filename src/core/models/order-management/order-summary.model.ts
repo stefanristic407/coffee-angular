@@ -10,7 +10,7 @@ export interface OrderSummary {
     status: OrderStatus;
     type: OrderType;
     varieties: string;
-    roasterName: string;
+    estateName: string;
     quantity: number;
     quantityType: string;
 }
