@@ -354,6 +354,10 @@
     right: calc(-100% + 30px);
     opacity: 0;
     transition: 0.4s ease-in-out;
+    &.active {
+        opacity: 1;
+        right: 0px;
+    }
 }
 .main-message__profile {
     .name {
@@ -412,6 +416,10 @@
     }
 }
 .conversatio-body__messages {
-    height: calc(100vh - 276px);
+    height: calc(100% - 115px);
     padding: 25px 25px 10px 25px;
+}
+.conversatio-body {
+    height: 100%;
+    position: relative;
 }

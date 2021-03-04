@@ -75,8 +75,12 @@ export class ChatUtil {
     }
     public playNotificationSound(type: 'INCOMING' | 'OUTGOING') {
         if (type === 'INCOMING') {
+            this.incomingAudioPlayer.pause();
+            this.incomingAudioPlayer.currentTime = 0;
             this.incomingAudioPlayer.play();
         } else if (type === 'OUTGOING') {
+            this.outgoingAudioPlayer.pause();
+            this.outgoingAudioPlayer.currentTime = 0;
             this.outgoingAudioPlayer.play();
         }
     }

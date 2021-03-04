@@ -501,6 +501,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.SM[name].unsubscribe();
             }
         }
+        if (this.offensiveTimeout) {
+            clearTimeout(this.offensiveTimeout);
+        }
         if (this.userStatusTimerRef) {
             clearTimeout(this.userStatusTimerRef);
         }
@@ -670,7 +673,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             badwordsRegExp.lastIndex = 0;
             if (badwordsRegExp.test(msg)) {
                 this.showOffensiveMessageError = true;
-                this.offensiveTimeout = window.setTimeout(this.offensiveTimeoutHandler, 5000);
+                this.offensiveTimeout = window.setTimeout(this.offensiveTimeoutHandler, 3500);
                 msg = msg.replace(badwordsRegExp, '****');
             }
             this.socket.chatSent.next(this.getMessagePayload(msg));

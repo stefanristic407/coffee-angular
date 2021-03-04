@@ -5,9 +5,7 @@
             <span class="new-date__upadte">14th Jan 2020</span>
             <span class="new-date__bar"></span>
         </div> -->
-
         <!--Mesaage From-->
-
         <div *ngFor="let message of messageList; let last = last">
             <div appLifecyclehook (viewChecked)="last && lastMessageRendered.next('done')">
                 <div *ngIf="message.isActiveUser" class="main-message message-from">
@@ -62,7 +60,7 @@
     <div class="conversatio-form">
         <div data-element="message-form">
             <div class="messag-form position-relative">
-                <div class="offensive-lang" [ngClass]="{ active: false }">
+                <div class="offensive-lang active" *ngIf="showOffensiveMessageError">
                     <span
                         >Use of offensive language is strictly prohibited using within member to member messaging, on
                         our public groups, non-compliance may lead to permanent / temporary suspension of your
