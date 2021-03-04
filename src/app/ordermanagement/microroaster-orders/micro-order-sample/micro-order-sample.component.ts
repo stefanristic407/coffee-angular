@@ -34,6 +34,7 @@ export class MicroOrderSampleComponent implements OnInit {
     savemode: boolean = true;
     editmode: boolean = false;
     dataFromTable: string;
+    bookId: any = '';
     constructor(
         private route: ActivatedRoute,
         public router: Router,
@@ -43,6 +44,7 @@ export class MicroOrderSampleComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.bookId = decodeURIComponent(this.route.snapshot.queryParams['id']);
         //Auth checking
         if (this.cookieService.get('Auth') == '') {
             this.router.navigate(['/auth/login']);

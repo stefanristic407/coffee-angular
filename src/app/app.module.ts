@@ -21,7 +21,7 @@ import { environment } from '@env/environment';
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
 import { HealthCheckComponent } from './components/health-check/health-check.component';
-import { SewnDirectMessageComponent } from './components/sewn-direct-message/sewn-direct-message.component';
+
 import { MenuComponent } from '@components';
 import { FooterComponent } from './layout/footer/footer.component';
 
@@ -33,17 +33,16 @@ import 'hammerjs';
 import { AuthGuard } from '@guards';
 import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from '@services';
-import { SearchFilterPipe } from './components/sewn-direct-message/search-filter.pipe';
+
 import { SearchPanelComponent } from './layout/search-panel/search-panel.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 @NgModule({
     declarations: [
         AppComponent,
         HealthCheckComponent,
-        SewnDirectMessageComponent,
         MenuComponent,
         LayoutComponent,
-        SearchFilterPipe,
         FooterComponent,
         SearchPanelComponent,
     ],

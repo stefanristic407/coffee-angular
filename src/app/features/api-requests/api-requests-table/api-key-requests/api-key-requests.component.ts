@@ -15,19 +15,21 @@ export class ApiKeyRequestsComponent implements OnInit {
     @Input() dateRange;
     @Input() perPage;
     termStatus: any;
-    showStatus: boolean = true;
-    paginationValue: boolean = false;
-    loader: boolean = true;
-    totalRecords: number = 0;
-    rows: number = 10;
+    showStatus = true;
+    paginationValue = false;
+    loader = true;
+    totalRecords = 0;
+    rows = 10;
     dateFrom: any;
     dateTo: any;
+    pageNumber = 1;
 
     display: any;
-    showDisplay: boolean = true;
-    appLanguage?: any;
-    roasterID: string = '';
+    showDisplay = true;
+    roasterID = '';
     requestData: any[] = [];
+    sortOrder = '';
+    sortType = '';
 
     mainData: any[] = [
         { requested_by: 'Third wave coffee roasters', customer_type: 'Micro-Roaster', date_requested: '24 Jan 2020' },
@@ -38,7 +40,6 @@ export class ApiKeyRequestsComponent implements OnInit {
         { requested_by: 'La Barista', customer_type: 'HoReCa', date_requested: '19 Sep 2019' },
     ];
     constructor(
-        public globals: GlobalsService,
         private roasterserviceService: RoasterserviceService,
         public cookieService: CookieService,
         public router: Router,
@@ -57,27 +58,19 @@ export class ApiKeyRequestsComponent implements OnInit {
             const [dateFrom, dateTo] = this.dateRange;
             this.dateFrom = dateFrom;
             this.dateTo = dateTo;
+        } else {
+            this.dateFrom = null;
+            this.dateTo = null;
         }
         console.log('date from-->>', this.dateFrom);
         console.log('date To-->>', this.dateTo);
-        if (this.dateFrom && this.dateTo) {
-            this.getApiRequestData();
-        }
-        if (this.searchRequestId) {
-            this.getApiRequestData();
-        }
-    }
-
-    ngOnInit(): void {
-        console.log('searchRequestId----->>>', this.searchRequestId);
-        console.log('filterData------', this.filterData);
-        this.appLanguage = this.globals.languageJson;
-        console.log('this.date range--.', this.dateRange);
         this.getApiRequestData();
     }
 
+    ngOnInit(): void {}
+
     viewRequestDetails(id: any) {
-        let navigationExtras: NavigationExtras = {
+        const navigationExtras: NavigationExtras = {
             queryParams: {
                 id: encodeURIComponent(id),
             },
@@ -87,7 +80,7 @@ export class ApiKeyRequestsComponent implements OnInit {
     getApiRequestData() {
         const data = {
             roaster_id: this.roasterID,
-            page: 1,
+            page: this.pageNumber,
             per_page: this.perPage,
         };
         if (this.dateFrom && this.dateTo) {
@@ -97,12 +90,17 @@ export class ApiKeyRequestsComponent implements OnInit {
         if (this.searchRequestId) {
             data['query'] = this.searchRequestId;
         }
+        if (this.sortOrder && this.sortType) {
+            data['sort_by'] = this.sortType;
+            data['sort_order'] = this.sortOrder;
+        }
         this.roasterserviceService.getApiKeysForRo(data).subscribe((res) => {
             console.log('res------->>>>>>', res);
             if (res.success) {
                 this.loader = false;
                 this.requestData = res.result;
                 this.totalRecords = res.result_info.total_count;
+                this.rows = res.result_info.per_page;
                 if (this.totalRecords < 10) {
                     this.paginationValue = false;
                 } else {
@@ -114,11 +112,20 @@ export class ApiKeyRequestsComponent implements OnInit {
     }
 
     getData(event) {
+        this.sortOrder = event.sortOrder === 1 ? 'asc' : 'desc';
+        this.sortType = event.sortField;
         console.log('event-->>>', event);
+        if (event.sortField) {
+            this.getApiRequestData();
+        }
     }
 
     paginate(event) {
         console.log('event--->>>>', event);
+        const page = event.page + 1;
+        console.log('page-->>', page);
+        this.pageNumber = event.page + 1;
+        this.getApiRequestData();
         //event.first = Index of the first record
         //event.rows = Number of rows to display in new page
         //event.page = Index of the new page
@@ -131,7 +138,7 @@ export class ApiKeyRequestsComponent implements OnInit {
     }
     toggleStatus() {
         this.showStatus = !this.showStatus;
-        if (this.showStatus == false) {
+        if (this.showStatus === false) {
             document.getElementById('status_id').style.border = '1px solid #30855c';
         } else {
             document.getElementById('status_id').style.border = '1px solid #d6d6d6';
@@ -143,7 +150,7 @@ export class ApiKeyRequestsComponent implements OnInit {
     }
     toggleDisplay() {
         this.showDisplay = !this.showDisplay;
-        if (this.showDisplay == false) {
+        if (this.showDisplay === false) {
             document.getElementById('display_id').style.border = '1px solid #30855c';
         } else {
             document.getElementById('display_id').style.border = '1px solid #d6d6d6';

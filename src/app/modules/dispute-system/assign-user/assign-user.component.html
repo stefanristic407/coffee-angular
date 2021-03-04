@@ -23,10 +23,7 @@
 
         <div class="d-flex justify-content-center continue-web">
             <div class="mt-2">
-                <button
-                    class="btn btn-stroked mr-3"
-                    [routerLink]="['/dispute-system/order-chat/', SERVICE_TYPE, orderID]"
-                >
+                <button class="btn btn-stroked mr-3" [routerLink]="['/dispute-system/order-chat/', orderID]">
                     Cancel
                 </button>
                 <button class="btn btn-raised" [disabled]="!userDetails" (click)="onAssign()">Assign</button>

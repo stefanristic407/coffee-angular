@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalsService } from '@services';
+import { GlobalsService, ChatHandlerService } from '@services';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { OrganizationType } from '@enums';
-import { ChatHandlerService } from '@services';
 import { SourcingService } from '../sourcing.service';
 
 @Component({

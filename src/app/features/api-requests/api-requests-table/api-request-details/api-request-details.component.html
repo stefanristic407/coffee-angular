@@ -1,5 +1,8 @@
 <section>
-    <div class="bg-fff">
+    <div *ngIf="loader">
+        <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
+    </div>
+    <div class="bg-fff" *ngIf="!loader">
         <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4 web-sec">
             <span id="title-breadcrumb-1" class="sr-only"></span>
             <ul class="bread-nav">
@@ -112,8 +115,6 @@
                 <p class="fnt-14 fnt-muli fnt-700 text-clr334 col-8 float-left m-0 p-0">
                     Confirm the API Key generation request, to allow the customer to access coffee story.
                 </p>
-                <!-- <button class="save float-right"> Generate Key</button> -->
-
                 <button
                     type="submit"
                     class="save float-right"
@@ -131,7 +132,6 @@
         </div>
 
         <!-- API key is generated -->
-
         <div class="d-flex pt-32" *ngIf="generatedKeyStep == 1">
             <div class="generate-border col-md-7 col-12">
                 <p class="fnt-14 fnt-muli fnt-700 text-clr334 col-8 float-left m-0 p-0">
@@ -142,7 +142,6 @@
         </div>
 
         <!-- The API key is generated and the customer is notified!-->
-
         <div class="d-flex pt-32" *ngIf="generatedKeyStep == 2">
             <div class="generate-border col-md-7 col-12">
                 <p class="fnt-14 fnt-muli fnt-700 text-clr334 float-left m-0">
@@ -153,7 +152,6 @@
         </div>
 
         <!-- pause-->
-
         <div class="d-flex pt-32" *ngIf="apikeyStatus == 'paused'">
             <div class="generate-border col-md-7 col-12">
                 <p class="fnt-14 fnt-muli fnt-700 text-clr334 float-left m-0">
@@ -196,7 +194,7 @@
         </p>
         <div class="templete-btn">
             <button class="btn no-btn" (click)="modalRef.hide()">Cancel</button>
-            <button class="btn add-btn ml-3" (click)="pauseKey()">Yes</button>
+            <button class="btn add-btn ml-3" (click)="confirmPauseKey()">Yes</button>
         </div>
     </div>
 </ng-template>
