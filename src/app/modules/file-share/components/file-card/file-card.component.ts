@@ -10,46 +10,8 @@ import { FileShareService } from '../../file-share.service';
 export class FileCardComponent implements OnInit {
     @Input() data: any;
     @Input() showPin = false;
-    menuItems = [];
 
     constructor(public fileShareSrv: FileShareService, public globals: GlobalsService) {}
 
-    ngOnInit(): void {
-        this.menuItems = [
-            {
-                label: this.globals.languageJson?.download,
-                command: () => {
-                    this.fileShareSrv.downloadFile(this.data);
-                },
-            },
-            {
-                label: this.globals.languageJson?.share,
-                command: () => {
-                    this.fileShareSrv.openShareModal(this.data);
-                },
-            },
-            {
-                label: this.globals.languageJson?.pin,
-                command: () => {
-                    this.fileShareSrv.pinFileorFolder(this.data.id);
-                },
-            },
-            {
-                label: this.globals.languageJson?.rename,
-                command: () => {
-                    if (this.data.type === 'FOLDER') {
-                        this.fileShareSrv.updateFolder(this.data);
-                    } else {
-                        this.fileShareSrv.updateFile(this.data);
-                    }
-                },
-            },
-            {
-                label: this.globals.languageJson?.delete,
-                command: () => {
-                    this.fileShareSrv.openDeleteModal(this.data);
-                },
-            },
-        ];
-    }
+    ngOnInit(): void {}
 }

@@ -65,9 +65,7 @@
                                     </div>
                                 </span>
                                 <span class="d-md-none">
-                                    <a (click)="selectedFile = rowData; menu.toggle($event); $event.stopPropagation()">
-                                        <img src="assets/images/menu-gray.svg" alt="menu" />
-                                    </a>
+                                    <app-file-menu [data]="rowData" (clickEvent)="menuClicked()"></app-file-menu>
                                 </span>
                             </span>
                         </ng-container>
@@ -103,11 +101,7 @@
                                         (click)="fileShareSrv.openShareModal(rowData); $event.stopPropagation()"
                                     />
                                 </span>
-                                <span>
-                                    <a (click)="selectedFile = rowData; menu.toggle($event); $event.stopPropagation()">
-                                        <img src="assets/images/menu-gray.svg" alt="menu" />
-                                    </a>
-                                </span>
+                                <app-file-menu [data]="rowData" (clickEvent)="menuClicked()"></app-file-menu>
                             </span>
                         </span>
 
@@ -139,8 +133,6 @@
         <ng-template #loading><app-loading></app-loading></ng-template>
     </ng-template>
 </ng-container>
-
-<p-menu #menu [popup]="true" [model]="menuItems"></p-menu>
 
 <ng-container *ngIf="!fileShareSrv.mainData?.length">
     <app-empty title="No data available"></app-empty>

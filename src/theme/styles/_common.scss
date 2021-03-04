@@ -349,3 +349,31 @@ span.star {
         border-color: $invalid-color !important;
     }
 }
+
+// Menu
+.popover {
+    border: none;
+    border-radius: 2px;
+    box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
+    .popover-body {
+        padding: 4px;
+    }
+    &.bs-popover-left > .arrow::before,
+    &.bs-popover-auto[x-placement^='left'] > .arrow::before {
+        border-left-color: transparent;
+    }
+    .menu-list {
+        margin: 0;
+        li {
+            font-family: $general-font-family;
+            color: $muted-text-color;
+            border-radius: 2px;
+            padding: 0.75rem 3rem 0.75rem 0.75rem;
+            font-weight: 600;
+            &:hover {
+                color: $general-text-color;
+                background: $primary-bg-color;
+            }
+        }
+    }
+}

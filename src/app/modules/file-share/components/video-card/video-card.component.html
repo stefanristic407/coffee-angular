@@ -12,11 +12,7 @@
             {{ data.name }}
         </div>
         <div class="">
-            <a class="menu-arrow" (click)="menu.toggle($event)">
-                <img src="assets/images/menu-gray.svg" alt="menu" />
-            </a>
+            <app-file-menu [data]="data"></app-file-menu>
         </div>
     </div>
 </div>
-
-<p-menu #menu [popup]="true" [model]="menuItems"></p-menu>
