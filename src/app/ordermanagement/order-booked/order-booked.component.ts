@@ -1,4 +1,3 @@
-import { OrderChatType } from '@enums';
 // AUTHOR : Sindhuja
 // PAGE DESCRIPTION : This page contains functions of Order Booked.
 import { Component, OnInit, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
@@ -9,12 +8,10 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { BookedOrderDetailsComponent } from './booked-order-details/booked-order-details.component';
 declare var $: any;
-import { GlobalsService } from '@services';
-import { UserserviceService } from '@services';
-import { RoasterserviceService } from '@services';
+import { UserserviceService, RoasterserviceService, GlobalsService } from '@services';
 import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 import { ToastrService } from 'ngx-toastr';
-import { OrgType } from '@enums';
+import { OrgType, OrderChatType } from '@enums';
 
 @Component({
     selector: 'app-order-booked',

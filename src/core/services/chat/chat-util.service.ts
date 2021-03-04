@@ -1,14 +1,16 @@
 import { OrganizationType } from '@enums';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class ChatUtil {
-    incomingAudioPlayer = new Audio('assets/sounds/msg-incoming.mp3');
-    outgoingAudioPlayer = new Audio('assets/sounds/msg-outgoing.mp3');
-    constructor() {
+    public ORGANIZATION_TYPE = OrganizationType.ROASTER;
+    private incomingAudioPlayer = new Audio('assets/sounds/msg-incoming.mp3');
+    private outgoingAudioPlayer = new Audio('assets/sounds/msg-outgoing.mp3');
+    constructor(private cookieService: CookieService) {
         this.incomingAudioPlayer.load();
         this.outgoingAudioPlayer.load();
     }
@@ -39,6 +41,13 @@ export class ChatUtil {
         }
     }
 
+    public get ORGANIZATION_ID(): number | null {
+        return parseInt(this.cookieService.get('roaster_id'), 10) || null;
+    }
+    public get USER_ID(): number | null {
+        return parseInt(this.cookieService.get('user_id'), 10) || null;
+    }
+
     getOrganization(orgType: OrganizationType) {
         if (orgType === OrganizationType.EMPTY || orgType === OrganizationType.SEWN_ADMIN) {
             return 'SEWN Admin';
@@ -57,14 +66,14 @@ export class ChatUtil {
         }
     }
 
-    getProfileImageBgStyle(profileImageUrl: string) {
+    public getProfileImageBgStyle(profileImageUrl: string) {
         if (profileImageUrl) {
             return `url(${profileImageUrl})`;
         } else {
             return `url(assets/images/profile.svg)`; // Placeholder image
         }
     }
-    playNotificationSound(type: 'INCOMING' | 'OUTGOING') {
+    public playNotificationSound(type: 'INCOMING' | 'OUTGOING') {
         if (type === 'INCOMING') {
             this.incomingAudioPlayer.play();
         } else if (type === 'OUTGOING') {
