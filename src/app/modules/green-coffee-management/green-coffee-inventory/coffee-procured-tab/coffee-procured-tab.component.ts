@@ -7,7 +7,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { PrimeTableService } from '@core/services/prime-table.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Table } from 'primeng/table';
-import { UserserviceService } from '@core/services/api/user.service';
+import { UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { COUNTRY_LIST } from '@core/constants';
 
