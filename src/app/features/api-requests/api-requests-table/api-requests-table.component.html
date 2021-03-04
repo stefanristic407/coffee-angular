@@ -160,6 +160,7 @@
                                     [filterData]="customerType"
                                     [dateRange]="rangeDates"
                                     [perPage]="perPage"
+                                    (filterType)="setFilterData($event)"
                                 ></app-api-key-requests>
                             </p-tabPanel>
                             <p-tabPanel header="Generated Keys">
@@ -169,6 +170,7 @@
                                     [filterData]="customerType"
                                     [dateRange]="rangeDates"
                                     [perPage]="perPage"
+                                    (filterType)="setFilterData($event)"
                                 ></app-generated-keys>
                             </p-tabPanel>
                         </p-tabView>
@@ -180,25 +182,10 @@
     <ng-template #allTemplate>
         <div id="status-content">
             <ul class="list-group custom-popover">
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="customerTypeFilter('All'); pop.hide()">All</a>
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="customerTypeFilter('Shipped'); pop.hide()">Shipped</a>
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="customerTypeFilter('Order Confirmed'); pop.hide()"
-                        >Order Confirmed</a
-                    >
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="customerTypeFilter('Payment'); pop.hide()">Payment</a>
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="customerTypeFilter('Harvest Ready'); pop.hide()">Harvest Ready</a>
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="customerTypeFilter('Received'); pop.hide()">Received</a>
+                <li class="list-group-item item-color" *ngFor="let item of FilterTypeList">
+                    <a class="pointer-item" (click)="customerTypeFilter(item.org_type); pop.hide()">{{
+                        item.org_type
+                    }}</a>
                 </li>
             </ul>
         </div>

@@ -27,7 +27,7 @@
                         <h1 class="text-clr334 fnt-18 fnt-bold m-0">Order #{{ orderDetails?.id }}</h1>
                     </div>
                 </div>
-                <div class="pull-left mr-auto col-md-7 p-0 mb-3 text-clr334 fnt-14 fnt-normal">
+                <div class="pull-left mr-auto p-0 mb-3 text-clr588 fnt-14 fnt-normal">
                     Manage the price, quantity & delivery charges of coffee marked for sale
                 </div>
                 <div *ngIf="orderDetails" class="border-div">
@@ -108,7 +108,7 @@
                                         >
                                             <span *ngSwitchCase="'lot_id'" class="">
                                                 <span
-                                                    class="d-none d-sm-none d-md-inline-block text-clr588 fnt-600 text-underline lotIdText"
+                                                    class="d-none d-sm-none d-md-inline-block text-clr588 fnt-600 text-underline"
                                                 >
                                                     {{ rowData['lot_id'] }}
                                                 </span>
@@ -255,7 +255,7 @@
                         </div>
                     </div>
 
-                    <div *ngIf="!showDropdown" class="col-sm-12 col-md-3 col-lg-3 current-s-bg">
+                    <div *ngIf="!showDropdown" class="col-sm-12 col-md-3 col-lg-3 current-s-bg webMobPage">
                         <p class="fnt-14 fnt-muli fnt-400 text-clr334 m-0">Current status</p>
                         <span class="fnt-14 fnt-700 fnt-muli text-clr334">{{ statusLabel }}</span>
                         <span class="text-brown float-right" (click)="showDropdown = true"><a>Change status</a> </span>
@@ -263,7 +263,7 @@
 
                     <div
                         *ngIf="showDropdown"
-                        class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100 current-s-bg d-inline"
+                        class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100 current-s-bg d-inline webMobPage"
                     >
                         <p-dropdown
                             [options]="stockTypeArray"
@@ -279,7 +279,38 @@
                         <span (click)="updateStatus()" class="text-brown mt-4 pull-right ml-auto"><a>Save</a> </span>
                     </div>
                 </div>
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div *ngIf="!showDropdown" class="col-md-12 current-s-bg tabPage">
+                            <p class="fnt-24 fnt-play fnt-normal text-clr02 m-0 pb-2">Availability Status</p>
+                            <p class="fnt-mb-14 fnt-muli fnt-600 text-clr334 m-0 pb-3">
+                                Maintain the status of your product and keep the roasters updated
+                            </p>
+                            <p class="fnt-14 fnt-muli fnt-400 text-clr334 m-0">Current status</p>
+                            <span class="fnt-14 fnt-700 fnt-muli text-clr334">{{ statusLabel }}</span>
+                            <span class="text-brown float-right" (click)="showDropdown = true"
+                                ><a>Change status</a>
+                            </span>
+                        </div>
 
+                        <div *ngIf="showDropdown" class="col-md-12 sewn-form-field w-100 current-s-bg d-inline tabPage">
+                            <p-dropdown
+                                [options]="stockTypeArray"
+                                optionLabel="label"
+                                placeholder="In Stock"
+                                [style]="{ width: '75%' }"
+                                formControlName="status"
+                                optionValue="value"
+                            ></p-dropdown>
+                            <small *ngIf="coffeeSaleForm.controls['status'].errors?.required" class="p-error">
+                                Required
+                            </small>
+                            <span (click)="updateStatus()" class="text-brown mt-4 pull-right ml-auto"
+                                ><a>Save</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
                 <div class="row mt-4 pt-2">
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
                         <label>Product name<span class="star">*</span></label>
@@ -335,6 +366,7 @@
                                 class="weightInputDiv"
                                 formControlName="quantity_count"
                                 placeholder="Enter a number"
+                                (input)="changeQuantity()"
                                 pInputText
                             />
 
@@ -361,7 +393,7 @@
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
                         <label>Remaining quantity</label>
-                        <input type="text" placeholder="-" pInputText disabled />
+                        <input type="text" placeholder="-" [value]="remaining" pInputText disabled />
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
                         <label>Minimum order quantity<span class="star">*</span></label>

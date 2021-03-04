@@ -112,6 +112,9 @@
     position: relative;
     top: -16px;
 }
+::ng-deep .isWeightTab .p-tabview .p-tabview-nav {
+    display: flex;
+}
 .weightDiv {
     padding: 4px;
     border: 1px solid #d6d6d6;
@@ -184,20 +187,17 @@
 .drop-margin {
     margin: 4px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
     .add-image-flex {
         display: flex;
         overflow: auto;
     }
-}
-@media screen and (max-width: 1024px) {
-    .weightVariantBtn {
-        border: solid 1px #30855c;
-        color: #30855c;
-        padding: 0.5rem 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .addWeightDiv {
+        border: 1px solid #747588;
+        padding: 6px 6px;
+        height: 38px;
+        width: 30%;
+        border-radius: 2px;
     }
 }
 

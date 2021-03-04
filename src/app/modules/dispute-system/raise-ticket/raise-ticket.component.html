@@ -10,7 +10,7 @@
         </div>
         <div
             [formGroup]="searchForm"
-            class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 d-none d-sm-none d-md-block ml-auto"
+            class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 d-none d-sm-none d-md-none d-lg-none d-xl-block ml-auto"
         >
             <input
                 type="text"
@@ -33,11 +33,11 @@
             </div>
             <div class="col-12 p-0 mt-4">
                 <div class="row no-gutters">
-                    <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 sewn-form-field">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8 sewn-form-field">
                         <div class="d-flex">
                             <label class="mobileOrderDiv">Order ID #<span class="star">*</span></label>
                             <div
-                                class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 d-flex d-sm-flex p-0 d-md-none mobileOrderDiv"
+                                class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 d-flex d-sm-flex p-0 d-md-none mobileOrderDiv"
                             >
                                 <span
                                     class="raise-chng-ord fnt-muli ml-auto"
@@ -54,7 +54,7 @@
                         </small>
                     </div>
                     <div
-                        class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 d-none d-sm-none d-md-flex pl-3 align-items-center"
+                        class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 d-none d-sm-none d-md-flex pl-3 align-items-center"
                     >
                         <span
                             class="raise-chng-ord fnt-muli"
@@ -66,7 +66,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 sewn-form-field">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8 p-0 sewn-form-field">
                 <label>What can we help you with?<span class="star">*</span></label>
                 <p-dropdown
                     [options]="helpTextArray"
@@ -78,7 +78,7 @@
                 ></p-dropdown>
                 <small *ngIf="ticketForm.controls['dispute_type'].errors?.required" class="p-error"> Required </small>
             </div>
-            <div class="col-12 p-0 sewn-form-field">
+            <div class="col-12 col-md-12 col-lg-12 col-xl-12 p-0 sewn-form-field">
                 <label>Why do you want to dispute the order?</label>
                 <p-dropdown
                     [options]="reasonTextArray"
@@ -128,8 +128,9 @@
                 <div class="col-12 p-0">
                     <span class="primary_txt">Order details</span>
                 </div>
-                <div class="col-12 mt-4">
-                    <div class="row pb-4 rowBorder d-none d-sm-none d-md-flex">
+                <div class="row p-3"> 
+                <div class="col-xl-12 col-lg-5 col-md-5 col-sm-12 mt-4">
+                    <div class="row pb-4 rowBorder d-none d-sm-none d-md-flex n-margin">
                         <div class="col-2 p-0 d-flex align-items-center">
                             <img
                                 class="img-estate img-procured"
@@ -148,7 +149,7 @@
                             >
                         </div>
                     </div>
-                    <div class="row roasterDiv pb-4 rowBorder">
+                    <div class="row roasterDiv pb-4 rowBorder n-margin">
                         <div class="col-2 p-0 d-flex align-items-center">
                             <img
                                 class="img-estate img-procured"
@@ -167,6 +168,12 @@
                             >
                         </div>
                     </div>
+
+                </div>
+                
+                    
+
+                    <div class="col-xl-12 col-lg-7 col-md-7 col-sm-12 mt-4 origin-pad">
                     <div class="row pt-3 pb-3 rowBorder">
                         <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">Origin :</div>
                         <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
@@ -199,6 +206,7 @@
                             {{ orderDetails.status ? orderDetails.status : 'NA' }}
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </div>

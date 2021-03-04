@@ -136,7 +136,7 @@ export class RoastingProfilesComponent implements OnInit {
         this.roasterService.getRoastingProfile(this.roasterId, postData).subscribe(
             (data: any) => {
                 if (data.success) {
-                    this.tableValue = data.result;
+                    this.tableValue = data.result.reverse();
                 } else {
                     this.toastrService.error('Error while getting the roasting profile list!');
                 }

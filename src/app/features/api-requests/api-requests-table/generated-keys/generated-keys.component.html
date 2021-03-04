@@ -29,7 +29,7 @@
                 <td>
                     <a
                         class="menu-arrow"
-                        [popover]="resumeTemplate ? resumeAccessTemplate : poplistTemplate"
+                        [popover]="!item.is_active ? resumeAccessTemplate : poplistTemplate"
                         placement="left"
                         [outsideClick]="true"
                         #pop="bs-popover"
@@ -40,7 +40,7 @@
                         <div id="popover-mobile-content">
                             <ul class="list-group custom-popover">
                                 <li class="list-group-item">
-                                    <a class="pointer-item" (click)="resumeKey(item.id); pop.hide()"
+                                    <a class="pointer-item" (click)="resumeKey(item); pop.hide()"
                                         >Resume Access & Notify Customer
                                     </a>
                                 </li>
@@ -51,9 +51,7 @@
                         <div id="popover-mobile-content">
                             <ul class="list-group custom-popover">
                                 <li class="list-group-item">
-                                    <a class="pointer-item" (click)="pauseKey(item.id); pop.hide()"
-                                        >Pause Key Access
-                                    </a>
+                                    <a class="pointer-item" (click)="pauseKey(item); pop.hide()">Pause Key Access </a>
                                 </li>
                                 <li class="list-group-item">
                                     <a class="pointer-item" (click)="deleteKey(); pop.hide()">Delete Key</a>

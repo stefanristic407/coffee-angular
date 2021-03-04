@@ -42,12 +42,12 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
     sortedMainData: any = [];
     modalDropdownList: any = [];
     selectedCustomers: any;
+    isUpdate: boolean;
 
     @ViewChild('dismissAddModal') dismissAddModal: ElementRef;
     @ViewChild('dismissDeleteModal') dismissDeleteModal: ElementRef;
     @Input() searchTerm = '';
     @Input() customerType: string;
-    @Input() isUpdate: boolean;
 
     constructor(
         public router: Router,
@@ -204,7 +204,7 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
         this.roasterService.getAgreementValue(this.roasterId, this.customerType, itemId).subscribe((resp: any) => {
             if (resp.success) {
                 this.horecaFormGroup.get('customerType').setValue(resp.result.customer_type);
-                this.horecaFormGroup.get('customerId').setValue(resp.result.customer_id);
+                this.horecaFormGroup.get('customerId').setValue(resp.result.customer_name);
                 this.horecaFormGroup.get('customerId').disable();
                 this.horecaFormGroup.get('customerType').disable();
                 this.agreementfileId = resp.result.file_id;
@@ -345,6 +345,7 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
     onUpdateModalClose() {
         this.fileNameValue = '';
         this.reFileNameValue = '';
+        this.horecaFormGroup.get('customerType').enable();
         this.horecaFormGroup.get('customerId').enable();
         this.horecaFormGroup.get('customerId').setValue('');
     }

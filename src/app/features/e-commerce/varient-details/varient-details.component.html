@@ -1,4 +1,14 @@
 <div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3 d-flex">
+        <span class="primary_txt font-16">Product Weights</span>
+        <div class="d-none d-sm-none d-md-flex d-lg-none ml-auto addWeightDiv">
+            <img class="" src="assets/images/add_grey.svg" />
+            <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer" (click)="addNewWeights()">
+                Add weight variant
+            </span>
+        </div>
+    </div>
+
     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 d-none d-sm-none d-md-none d-lg-block">
         <div
             class="nav flex-column nav-pills weightDiv"
@@ -24,7 +34,7 @@
             </span>
         </div>
     </div>
-    <div class="col-12 d-block d-sm-block d-md-block d-lg-none">
+    <div class="col-12 d-block d-sm-block d-md-none d-lg-none">
         <p-dropdown
             [options]="weightVariantArray"
             optionLabel="label"
@@ -43,6 +53,15 @@
                 </span>
             </ng-template>
         </p-dropdown>
+    </div>
+    <div class="col-12 d-none d-sm-none d-md-block d-lg-none isWeightTab">
+        <p-tabView [(activeIndex)]="currentVarientIndex">
+            <p-tabPanel *ngFor="let weight of this.weightForm['value']['weights']; let i = index">
+                <ng-template pTemplate="header">
+                    <span>Weight - {{ weight.weight }} {{ weight.weight_unit }}</span>
+                </ng-template>
+            </p-tabPanel>
+        </p-tabView>
     </div>
     <div
         class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 mt-md-2"
