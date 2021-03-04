@@ -5,7 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserserviceService } from '@core/services/api/user.service';
+import { UserserviceService } from '@services';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
 
 @Component({

@@ -19,7 +19,7 @@ export class AgreementComponent implements OnInit {
     customerType: string;
     roasterId: string;
     mainData: any;
-    isUpdate: boolean;
+    menuItems: any = [];
 
     constructor(
         public router: Router,
@@ -36,6 +36,10 @@ export class AgreementComponent implements OnInit {
         if (this.cookieService.get('Auth') === '') {
             this.router.navigate(['/auth/login']);
         }
+        this.menuItems = [
+            { label: this.globals.languageJson?.horeca },
+            { label: this.globals.languageJson?.micro_roasters },
+        ];
         this.customerType = 'hrc';
         this.language();
     }

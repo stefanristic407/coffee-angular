@@ -7,21 +7,15 @@ import { CookieService } from 'ngx-cookie-service';
 @Injectable({
     providedIn: 'root',
 })
-export class UserService extends ApiService {
+export class AclService extends ApiService {
     constructor(protected cookieSrv: CookieService, protected http: HttpClient) {
         super(cookieSrv, http);
     }
 
-    // ------------ USER ------------
+    // ------------ ACL ------------
 
-    // View user profile
-    getUserProfile() {
-        return this.post(this.url, `users/profile`, 'GET');
-    }
-
-    // ------------ Privacy & Terms ------------
-    // Profile - Privacy and terms status
-    getPrivacyTerms() {
-        return this.postWithoutOrg(this.url, `users/privacy-terms`, 'GET');
+    // List of all permissions of user (duplicates removed)
+    getUserPermissions() {
+        return this.post(this.url, `users/permissions`, 'GET');
     }
 }
