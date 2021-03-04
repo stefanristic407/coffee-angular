@@ -112,6 +112,9 @@
     position: relative;
     top: -16px;
 }
+::ng-deep .isWeightTab .p-tabview .p-tabview-nav {
+    display: flex;
+}
 .weightDiv {
     padding: 4px;
     border: 1px solid #d6d6d6;
@@ -188,6 +191,13 @@
     .add-image-flex {
         display: flex;
         overflow: auto;
+    }
+    .addWeightDiv {
+        border: 1px solid #747588;
+        padding: 6px 6px;
+        height: 38px;
+        width: 30%;
+        border-radius: 2px;
     }
 }
 
