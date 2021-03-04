@@ -95,6 +95,9 @@
 .width-90 {
     width: 90% !important;
 }
+::ng-deep .deleteProductDiv .p-dialog .p-dialog-header {
+    display: none;
+}
 @media (max-width: 1270px) and (min-width: 768px) {
     ::ng-deep .roastingProfileTable .p-datatable {
         position: relative !important;
