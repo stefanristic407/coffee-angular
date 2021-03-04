@@ -163,7 +163,6 @@ export class FileShareService {
             })
             .subscribe((res: any) => {
                 if (res.success) {
-                    console.log(res.result);
                     this.pinnedData = res.result;
                 } else {
                     this.toastrService.error('Error while getting the pinned files/folders');
