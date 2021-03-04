@@ -1,4 +1,3 @@
-/* tslint:disable no-string-literal */
 import { first } from 'rxjs/operators';
 import { Subscription, Subject } from 'rxjs';
 import {
@@ -65,7 +64,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     ) {}
 
     ngOnInit(): void {
-        this.SM['WSState'] = this.socket.socketState.subscribe((value) => {
+        this.SM.WSState = this.socket.socketState.subscribe((value) => {
             if (value === 'CONNECTED') {
                 this.initializeWebSocket();
             }
@@ -73,10 +72,10 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     initializeWebSocket() {
-        if (this.SM['WSSubscription'] && this.SM['WSSubscription'].unsubscribe) {
-            this.SM['WSSubscription'].unsubscribe();
+        if (this.SM.WSSubscription && this.SM.WSSubscription.unsubscribe) {
+            this.SM.WSSubscription.unsubscribe();
         }
-        this.SM['WSSubscription'] = this.socket.orderChatReceive.subscribe((WSmsg: WSResponse<unknown>) => {
+        this.SM.WSSubscription = this.socket.orderChatReceive.subscribe((WSmsg: WSResponse<unknown>) => {
             if (this.TIMESTAMP_MAP[WSmsg.type] === WSmsg.timestamp) {
                 if (WSmsg.type === ChatMessageType.threads) {
                     // this.handleThreadsResponse(WSmsg as WSResponse<ThreadListItem[]>);
@@ -226,10 +225,10 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
 
     handleThreadHistory(WSmsg: WSResponse<ChatMessage[]>) {
         if (WSmsg.code === 200) {
-            if (this.SM['lastRender'] && this.SM['lastRender'].unsubscribe) {
-                this.SM['lastRender'].unsubscribe();
+            if (this.SM.lastRender && this.SM.lastRender.unsubscribe) {
+                this.SM.lastRender.unsubscribe();
             }
-            this.SM['lastRender'] = this.lastMessageRendered.pipe(first()).subscribe((x) => {
+            this.SM.lastRender = this.lastMessageRendered.pipe(first()).subscribe((x) => {
                 this.scrollbottom();
             });
 
@@ -261,10 +260,10 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                 if (user) {
                     this.processThreadUser(user);
                 }
-                if (this.SM['lastRender'] && this.SM['lastRender'].unsubscribe) {
-                    this.SM['lastRender'].unsubscribe();
+                if (this.SM.lastRender && this.SM.lastRender.unsubscribe) {
+                    this.SM.lastRender.unsubscribe();
                 }
-                this.SM['lastRender'] = this.lastMessageRendered.pipe(first()).subscribe((x) => {
+                this.SM.lastRender = this.lastMessageRendered.pipe(first()).subscribe((x) => {
                     this.scrollbottom();
                 });
                 this.messageList.push(message);
@@ -380,26 +379,24 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
             badwordsRegExp.lastIndex = 0;
             if (badwordsRegExp.test(msg)) {
                 this.showOffensiveMessageError = true;
-                this.offensiveTimeout = window.setTimeout(this.offensiveTimeoutHandler, 3500);
+                this.offensiveTimeout = window.setTimeout(() => {
+                    this.showOffensiveMessageError = false;
+                }, 3500);
                 msg = msg.replace(badwordsRegExp, '****');
             }
             this.socket.chatSent.next(this.getMessagePayload(msg));
             this.chatUtil.playNotificationSound('OUTGOING');
             this.messageInput = '';
             this.chatInputHeightAdjust();
-            if (this.SM['lastRender2'] && this.SM['lastRender2'].unsubscribe) {
-                this.SM['lastRender2'].unsubscribe();
+            if (this.SM.lastRender2 && this.SM.lastRender2.unsubscribe) {
+                this.SM.lastRender2.unsubscribe();
             }
-            this.SM['lastRender2'] = this.lastMessageRendered.pipe(first()).subscribe((x) => {
+            this.SM.lastRender2 = this.lastMessageRendered.pipe(first()).subscribe((x) => {
                 console.log('Last render chatInputHeightAdjust');
                 this.chatInputHeightAdjust(true);
             });
         }
     }
-
-    offensiveTimeoutHandler = () => {
-        this.showOffensiveMessageError = false;
-    };
 
     getMessagePayload(message: string) {
         const timestamp = this.chatUtil.getTimeStamp();
