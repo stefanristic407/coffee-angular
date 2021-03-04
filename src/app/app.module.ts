@@ -36,6 +36,7 @@ import { UserserviceService } from '@services';
 import { SearchFilterPipe } from './components/sewn-direct-message/search-filter.pipe';
 import { SearchPanelComponent } from './layout/search-panel/search-panel.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AgmCoreModule } from '@agm/core';
 @NgModule({
     declarations: [
         AppComponent,
@@ -71,6 +72,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         }),
         TypeaheadModule.forRoot(),
         SharedModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyAacYaKLrRdDZDzrQ5QAdNFMj9nQ2PgweU',
+        }),
     ],
     providers: [
         {

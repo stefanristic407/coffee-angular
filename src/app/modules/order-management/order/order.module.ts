@@ -22,15 +22,7 @@ import { AgmCoreModule } from '@agm/core';
 import { RoasterDetailsComponent } from './order-contacts/roaster-details/roaster-details.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyAacYaKLrRdDZDzrQ5QAdNFMj9nQ2PgweU',
-        }),
-        SharedModule,
-        OrderRoutingModule,
-    ],
+    imports: [CommonModule, FormsModule, AgmCoreModule, SharedModule, OrderRoutingModule],
     declarations: [
         OrderComponent,
         OrderHeaderComponent,

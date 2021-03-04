@@ -48,15 +48,7 @@ import { FilterComponent } from './filter/filter.component';
         WhyUsComponent,
         FilterComponent,
     ],
-    imports: [
-        CommonModule,
-        SourcingRoutingModule,
-        SharedModule,
-        AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyAacYaKLrRdDZDzrQ5QAdNFMj9nQ2PgweU',
-        }),
-        RatingModule,
-    ],
+    imports: [CommonModule, SourcingRoutingModule, SharedModule, AgmCoreModule, RatingModule],
     entryComponents: [FilterComponent],
 })
 export class SourcingModule {}
