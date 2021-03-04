@@ -36,6 +36,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     public recentUserList: RecentUserListItem[] = [];
     public userSearchKeywords = '';
     public selectedUser: ThreadMember | null = null;
+    public userListLoading = false;
     private threadListConfig = {
         perPage: 200,
         activePage: 1,
@@ -312,14 +313,17 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                             this.scrollbottom();
                         });
                         const lastMessage = this.messageList[this.messageList.length - 1];
-                        message.showUserBadge = lastMessage.isActiveUser && !message.isActiveUser;
+                        if (lastMessage) {
+                            message.showUserBadge = lastMessage.isActiveUser && !message.isActiveUser;
+                        } else {
+                            message.showUserBadge = true;
+                        }
                         this.messageList.push(message);
                         this.openedThread.computed_lastActivityText = message.content;
                         this.sendReadToken(message.id);
                     } else {
                         inThread.computed_lastActivityText = message.content;
-                        if (!inThread.computed_mute) {
-                            // The play sound is'nt playing for sender since his chat open
+                        if (!inThread.computed_mute && !message.isActiveUser) {
                             this.chatUtil.playNotificationSound('INCOMING');
                         }
                     }
@@ -696,6 +700,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.SM['userSearchInputEvents'] = fromEvent(userSearchInput, 'input')
                     .pipe(debounce(() => interval(500)))
                     .subscribe((event: InputEvent) => {
+                        this.userListLoading = true;
+                        this.usersList = [];
                         const searchQuery = this.userSearchKeywords.trim();
                         if (searchQuery) {
                             this.fetchUserList(searchQuery);
@@ -708,6 +714,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     startNewChat() {
         this.recentUserList = [];
         this.usersList = [];
+        this.userListLoading = false;
         this.userSearchKeywords = '';
         this.generateRecentUserList();
         this.chatService.userSearch.next(true);
@@ -722,6 +729,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     backToListFromUsers() {
         this.recentUserList = [];
         this.usersList = [];
+        this.userListLoading = false;
         this.userSearchKeywords = '';
         this.chatService.userSearch.next(false);
     }
@@ -755,6 +763,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             this.SM['userListSubscription'].unsubscribe();
         }
         this.SM['userListSubscription'] = this.userService.searchUser(searchQuery).subscribe((data) => {
+            this.userListLoading = false;
             let list = [];
             if (data && data.success && data.result && data.result.length > 0) {
                 list = data.result || [];

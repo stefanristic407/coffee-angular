@@ -1106,3 +1106,21 @@
     border-radius: 50%;
     display: block;
 }
+.no-items-found {
+    display: flex;
+    height: 100px;
+    width: 100%;
+    justify-content: center;
+    font-size: 14px;
+    align-items: center;
+    line-height: 100%;
+    ::ng-deep .p-progress-spinner {
+        width: 14px;
+        height: 14px;
+        margin-right: 6px;
+        display: block;
+    }
+    ::ng-deep .p-progress-spinner .p-progress-spinner-circle {
+        stroke: #3e5569;
+    }
+}
