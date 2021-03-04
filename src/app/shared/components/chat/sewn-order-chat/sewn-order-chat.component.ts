@@ -194,23 +194,27 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
             const thread = WSmsg.data;
             if (thread.type !== ThreadType.normal && thread.type !== ThreadType.service_request) {
                 this.threadDetails = this.processThreads(thread);
-                if (this.activeThreadId && this.activeThreadType !== 'UNSET') {
-                    this.getThreadHistory(this.activeThreadId);
-                    const memberList = this.threadDetails.members || [];
-                    const users: { [key: string]: ThreadMember } = {};
-                    for (const member of memberList) {
-                        let isRemoved = false;
-                        if (member.hasOwnProperty('is_removed')) {
-                            isRemoved = member.is_removed;
-                        } else {
-                            isRemoved = (member as any).removed_at !== '0001-01-01T00:00:00Z';
-                        }
-                        if (!isRemoved) {
-                            const key = member.user_id + '_' + member.org_id + '_' + member.org_type;
-                            users[key] = member;
-                        }
+                const memberList = this.threadDetails.members || [];
+                const users: { [key: string]: ThreadMember } = {};
+                for (const member of memberList) {
+                    let isRemoved = false;
+                    if (member.hasOwnProperty('is_removed')) {
+                        isRemoved = member.is_removed;
+                    } else {
+                        isRemoved = (member as any).removed_at !== '0001-01-01T00:00:00Z';
                     }
-                    this.threadUsers.emit(Object.values(users));
+                    if (!isRemoved) {
+                        const key = member.user_id + '_' + member.org_id + '_' + member.org_type;
+                        users[key] = member;
+                    }
+                }
+                this.threadUsers.emit(Object.values(users));
+                if (this.threadDetails.computed_activeUser) {
+                    if (this.activeThreadId && this.activeThreadType !== 'UNSET') {
+                        this.getThreadHistory(this.activeThreadId);
+                    }
+                } else {
+                    console.log('User is not authorized to view this chat');
                 }
             } else {
                 console.error('Websocket:Requested-thread: Received non direct message thread ');

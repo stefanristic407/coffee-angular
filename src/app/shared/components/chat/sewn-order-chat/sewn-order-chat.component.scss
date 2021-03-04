@@ -208,6 +208,17 @@
 .chat-inputs {
     border: 1px solid #d6d6d6;
     border-radius: 4px;
+    &.disable {
+        .chat-inputs__img {
+            img {
+                opacity: 0.7;
+            }
+        }
+        background-color: #f7f7f7;
+        .chat-inputs__text {
+            background-color: #f7f7f7;
+        }
+    }
 }
 .messag-form {
     padding: 10px 34px;
@@ -422,4 +433,24 @@
 .conversatio-body {
     height: 100%;
     position: relative;
+}
+.new-date {
+    width: 100%;
+    font-size: 12px;
+    font-weight: 600;
+    color: #979797;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    .new-date__bar {
+        height: 1px;
+        background-color: #979797;
+        display: inline-block;
+        flex-grow: 1;
+        flex-shrink: 1;
+    }
+    .new-date__upadte {
+        display: inline-block;
+        padding: 5px 10px;
+    }
 }

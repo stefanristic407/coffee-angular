@@ -15579,27 +15579,6 @@ button:focus {
     text-align: left !important;
 } */
 
-.new-date {
-    width: 100%;
-    font-size: 12px;
-    font-weight: 600;
-    color: #979797;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-}
-
-.new-date__bar {
-    width: calc(50% - 50px);
-    height: 1px;
-    background-color: #979797;
-    display: inline-block;
-}
-
-.new-date__upadte {
-    display: inline-block;
-    padding: 5px 10px;
-}
 
 @media (min-width: 768px) {
     .back-to {
