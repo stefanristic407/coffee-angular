@@ -96,6 +96,7 @@ export class GateComponent extends DestroyableComponent implements OnInit {
             (res: any) => {
                 if (res.success) {
                     this.cookieService.set('name', res.result.name);
+                    this.cookieService.set('roasterSlug', res.result.slug);
                     if (res.result.status === 'ACTIVE') {
                         resolve();
                     } else if (res.result.status === 'INACTIVE') {
@@ -116,6 +117,8 @@ export class GateComponent extends DestroyableComponent implements OnInit {
         this.userSrv.getUserProfile().subscribe(
             (res: any) => {
                 if (res.success) {
+                    this.cookieService.set('user_id', res.result.id);
+                    this.cookieService.set('userName', res.result.firstname + ' ' + res.result.lastname);
                     this.cookieService.set('referral_code', res.result.referral_code);
                     resolve();
                 } else {
