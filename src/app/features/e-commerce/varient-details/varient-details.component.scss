@@ -184,6 +184,13 @@
 .drop-margin {
     margin: 4px;
 }
+@media screen and (max-width: 768px) {
+    .add-image-flex {
+        display: flex;
+        overflow: auto;
+    }
+}
+
 @media screen and (max-width: 767px) {
     .addImageContainer {
         width: auto;
