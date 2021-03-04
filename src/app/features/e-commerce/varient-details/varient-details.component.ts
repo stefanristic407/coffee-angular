@@ -127,6 +127,7 @@ export class VarientDetailsComponent implements OnInit {
             this.weights.removeAt(0);
             this.varientDetails.value.weight_variants.forEach((ele) => {
                 const weightForm = this.createEmptyWeights();
+                weightForm.controls.product_weight_variant_id.setValue(ele.product_weight_variant_id);
                 weightForm.controls.weight_name.setValue('weight -' + ele.weight + '' + ele.weight_unit);
                 if (ele.featured_image) {
                     weightForm.controls.featured_image_id.setValue(ele.featured_image.image_id);
