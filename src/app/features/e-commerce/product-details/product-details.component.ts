@@ -380,7 +380,7 @@ export class ProductDetailsComponent implements OnInit {
     }
     updateProductDetails(productObj) {
         delete productObj.varients;
-        const getOldCrate = this.allCrates.filter((ele) => ele.hasChanged);
+        const getOldCrate = this.allCrates.filter((ele) => ele.hasChanged || ele.has_weight);
         productObj.crates = productObj.crates.concat(getOldCrate);
         productObj.crates.forEach((ele) => {
             delete ele.id;
@@ -430,7 +430,7 @@ export class ProductDetailsComponent implements OnInit {
                 if (childIndex === this.varientComponent.length - 1 && index === getWeightArray.length - 1) {
                     showToaster = true;
                 }
-                if (!this.productID || !weightVariantID) {
+                if (weight.isNew) {
                     this.addNewGrindVariant(productID, weightObj, showToaster);
                 } else if (weightVariantID) {
                     this.updateGrindVariant(weightObj, showToaster, weightVariantID);
