@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, OnDestroy, Renderer2, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { RoasterserviceService } from '@core/services/api';
 import { GlobalsService } from '@core/services/globals.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { fromEvent, interval, Subscription } from 'rxjs';
+import { debounce } from 'rxjs/operators';
 
 @Component({
     selector: 'app-order-chat',
     templateUrl: './order-chat.component.html',
     styleUrls: ['./order-chat.component.scss'],
 })
-export class OrderChatComponent implements OnInit {
+export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
     roasterID: any;
     orderDetails: any;
     currentDisputeID: any;
@@ -25,6 +27,10 @@ export class OrderChatComponent implements OnInit {
     roasterName: any;
     orderType: any;
     threadUserList = [];
+    orderChatWrapperEl: HTMLElement | null = null;
+    headerEl: HTMLElement | null = null;
+    private resizeEventSubscription: Subscription;
+
     constructor(
         public globals: GlobalsService,
         private route: ActivatedRoute,
@@ -32,6 +38,8 @@ export class OrderChatComponent implements OnInit {
         public roasterService: RoasterserviceService,
         public cookieService: CookieService,
         private toasterService: ToastrService,
+        private elRef: ElementRef,
+        private render: Renderer2,
     ) {}
 
     ngOnInit(): void {
@@ -48,6 +56,38 @@ export class OrderChatComponent implements OnInit {
             this.getOrderDetails();
             this.getOrderDisputes();
         });
+        this.resizeEventSubscription = fromEvent(window, 'resize')
+            .pipe(debounce(() => interval(500)))
+            .subscribe(this.viewPortSizeChanged);
+        this.viewPortSizeChanged();
+    }
+    viewPortSizeChanged = () => {
+        if (!this.orderChatWrapperEl) {
+            this.orderChatWrapperEl =
+                (this.elRef?.nativeElement?.querySelector('[data-element="order-chat-wrapper"]') as HTMLElement) ||
+                null;
+        }
+        if (!this.headerEl) {
+            this.headerEl = (document.querySelector('header') as HTMLElement) || null;
+        }
+
+        if (this.orderChatWrapperEl && this.headerEl) {
+            const top = this.orderChatWrapperEl.offsetTop;
+            const headerHeight = this.headerEl.offsetHeight;
+            const viewPort = window.innerHeight;
+            const calculatedHeight = viewPort - (top + headerHeight + 30);
+            const height = Math.max(calculatedHeight, 400);
+            this.render.setStyle(this.orderChatWrapperEl, 'height', `${height}px`);
+        }
+    };
+    ngAfterViewInit() {
+        this.viewPortSizeChanged();
+    }
+
+    ngOnDestroy() {
+        if (this.resizeEventSubscription && this.resizeEventSubscription.unsubscribe) {
+            this.resizeEventSubscription.unsubscribe();
+        }
     }
     getOrderDetails() {
         this.roasterService.getViewOrderDetails(this.roasterID, this.orderID, this.orderType).subscribe(
@@ -152,6 +192,7 @@ export class OrderChatComponent implements OnInit {
                 if (res.success) {
                     this.toasterService.success('Successfully escalated a dispute');
                     this.showEscalateBtn = true;
+                    this.currentDispute.dispute_status = this.formatStatus('Resolved');
                 }
             },
             (err) => {
