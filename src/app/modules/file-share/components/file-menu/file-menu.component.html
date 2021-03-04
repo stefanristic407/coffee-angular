@@ -1,0 +1,35 @@
+<span>
+    <a
+        class="cursor-pointer"
+        [popover]="poplistTemplate"
+        placement="left"
+        [outsideClick]="true"
+        (click)="click()"
+        #pop="bs-popover"
+    >
+        <img src="assets/images/menu-gray.svg" alt="menu" />
+    </a>
+
+    <ng-template #poplistTemplate>
+        <ul class="menu-list">
+            <li *ngIf="data.type != 'FOLDER'" (click)="pop.hide(); click(); fileShareSrv.downloadFile(data)">
+                {{ 'download' | translate }}
+            </li>
+            <li (click)="pop.hide(); click(); fileShareSrv.openShareModal(data)">
+                {{ 'share' | translate }}
+            </li>
+            <li (click)="pop.hide(); click(); fileShareSrv.pinFileorFolder(data.id)">
+                {{ 'pin' | translate }}
+            </li>
+            <li *ngIf="data.type == 'FOLDER'" (click)="pop.hide(); click(); fileShareSrv.updateFolder(data)">
+                {{ 'rename' | translate }}
+            </li>
+            <li *ngIf="data.type != 'FOLDER'" (click)="pop.hide(); click(); fileShareSrv.updateFile(data)">
+                {{ 'rename' | translate }}
+            </li>
+            <li (click)="pop.hide(); click(); fileShareSrv.openDeleteModal(data)">
+                {{ 'delete' | translate }}
+            </li>
+        </ul>
+    </ng-template>
+</span>

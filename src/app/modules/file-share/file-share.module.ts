@@ -21,6 +21,7 @@ import { FileTableComponent } from './components/file-table/file-table.component
 import { FileCardComponent } from './components/file-card/file-card.component';
 import { VideoCardComponent } from './components/video-card/video-card.component';
 import { SelectOrderComponent } from './components/select-order/select-order.component';
+import { FileMenuComponent } from './components/file-menu/file-menu.component';
 
 @NgModule({
     declarations: [
@@ -39,6 +40,7 @@ import { SelectOrderComponent } from './components/select-order/select-order.com
         FileCardComponent,
         VideoCardComponent,
         SelectOrderComponent,
+        FileMenuComponent,
     ],
     entryComponents: [FolderDialogComponent, EditFileComponent, ShareComponent, MediaPreviewComponent],
     imports: [CommonModule, FileShareRoutingModule, SharedModule, Ng2SearchPipeModule],

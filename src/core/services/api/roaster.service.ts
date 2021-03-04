@@ -995,12 +995,17 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
     //API Function Name : Assign user to Dispute
-    assignUserDispute(roasterId: any, disputeId: any, userData) {
+    assignUserDispute(roasterId: any, disputeId: any, userData, flag?) {
         var data = {};
         data['api_call'] = '/ro/' + roasterId + '/disputes/' + disputeId + '/assign';
+        data['method'] = 'POST';
+        if (flag) {
+            data['api_call'] = '/ro/' + roasterId + '/orders/' + disputeId + '/users/' + userData.user_id + '/assign';
+            data['method'] = 'PUT';
+        }
         data['token'] = this.cookieService.get('Auth');
         data['data'] = userData;
-        data['method'] = 'POST';
+
         return this.http.post(this.url, data);
     }
     //API Function Name : Add file IDs to dispute

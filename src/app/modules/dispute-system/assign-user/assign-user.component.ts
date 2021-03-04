@@ -61,7 +61,8 @@ export class AssignUserComponent implements OnInit {
     onAssign() {
         const user = { user_id: this.userDetails.id };
         const assignID = this.disputeID ? this.disputeID : this.orderID;
-        this.roasterService.assignUserDispute(this.roasterId, assignID, user).subscribe(
+        const orderFlag = this.disputeID ? false : true;
+        this.roasterService.assignUserDispute(this.roasterId, assignID, user, orderFlag).subscribe(
             (res: any) => {
                 console.log(res);
                 if (res && res.success) {
@@ -71,10 +72,7 @@ export class AssignUserComponent implements OnInit {
                             disputeID: this.disputeID,
                         },
                     };
-                    this.router.navigate(
-                        ['/dispute-system/order-chat', this.SERVICE_TYPE, this.orderID],
-                        navigationExtras,
-                    );
+                    this.router.navigate(['/dispute-system/order-chat', this.orderID], navigationExtras);
                 }
             },
             (err) => {
