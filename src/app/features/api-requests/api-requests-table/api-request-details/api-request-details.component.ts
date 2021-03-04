@@ -14,17 +14,17 @@ export class ApiRequestDetailsComponent implements OnInit {
     loader = true;
     termStatus: any;
     btnToggle = true;
-    statusChange: string;
     modalRef: BsModalRef;
     resetButtonValue: string;
     showStatus: boolean = true;
     isDeletedApiKey: boolean = false;
     generatedKeyStep: number = 0;
-    apikeyStatus: string = '';
     roasterID: string = '';
     keyId: string = '';
     requestDetailData: any;
     apiKeyId: string = '';
+    apikeyStatus: string = '';
+    initialStatus: string = '';
 
     constructor(
         private modalService: BsModalService,
@@ -37,7 +37,10 @@ export class ApiRequestDetailsComponent implements OnInit {
         this.roasterID = this.cookieService.get('roaster_id');
         this.route.queryParams.subscribe((params) => {
             console.log('params---->>>>', params);
-            this.keyId = params.id;
+            const paramsData = JSON.parse(JSON.stringify(params));
+            this.keyId = paramsData.id;
+            this.apikeyStatus = paramsData.status;
+            this.initialStatus = paramsData.status;
         });
     }
 
@@ -49,7 +52,34 @@ export class ApiRequestDetailsComponent implements OnInit {
     }
     ngOnInit(): void {
         this.resetButtonValue = 'Generate Key';
-        this.viewRoDetails();
+        if (this.apikeyStatus === 'GENERATED') {
+            this.getGeneratedRoKeys();
+        } else {
+            this.viewRoDetails();
+        }
+    }
+
+    getGeneratedRoKeys() {
+        const data = {
+            roaster_id: this.roasterID,
+            page: 1,
+            per_page: 10,
+            org_type: '',
+        };
+        this.roasterserviceService.getGeneratedRoKeys(data).subscribe((res) => {
+            if (res.success) {
+                this.loader = false;
+                this.requestDetailData = res.result[0];
+                this.apiKeyId = res.result[0].id;
+                if (res.result[0].is_active) {
+                    this.btnToggle = true;
+                    this.apikeyStatus = 'active';
+                } else {
+                    this.btnToggle = false;
+                    this.apikeyStatus = 'paused';
+                }
+            }
+        });
     }
 
     viewRoDetails() {
@@ -72,9 +102,8 @@ export class ApiRequestDetailsComponent implements OnInit {
             request_id: this.keyId,
         };
         this.roasterserviceService.generateRoApiKey(data).subscribe((res) => {
-            console.log('res---<>>>', res);
             if (res.success) {
-                this.generatedKeyStep = 1;
+                this.apikeyStatus = 'GENERATED';
                 this.apiKeyId = res.result.id;
             }
         });
@@ -86,9 +115,8 @@ export class ApiRequestDetailsComponent implements OnInit {
             api_key_id: this.apiKeyId,
         };
         this.roasterserviceService.notifyRoCustomer(data).subscribe((res) => {
-            console.log('res---<>>>', res);
             if (res.success) {
-                this.generatedKeyStep = 2;
+                this.apikeyStatus = 'Notified';
             }
         });
     }
@@ -99,16 +127,12 @@ export class ApiRequestDetailsComponent implements OnInit {
             api_key_id: this.apiKeyId,
         };
         this.roasterserviceService.disableRoApiKey(data).subscribe((res) => {
-            console.log('res---<>>>', res);
             if (res.success) {
                 this.apikeyStatus = 'paused';
                 this.toastrService.success('Key access has been paused');
+                this.modalRef.hide();
             }
         });
-    }
-
-    pauseKey() {
-        this.apikeyStatus = 'paused';
     }
 
     resumeKey() {
@@ -118,7 +142,7 @@ export class ApiRequestDetailsComponent implements OnInit {
         };
         this.roasterserviceService.enableRoApiKey(data).subscribe((res) => {
             if (res.success) {
-                this.apikeyStatus = 'resume';
+                this.apikeyStatus = 'active';
                 this.toastrService.success('Key access has been active');
             }
         });
@@ -127,24 +151,22 @@ export class ApiRequestDetailsComponent implements OnInit {
     activeStatus() {
         this.btnToggle = !this.btnToggle;
         if (this.btnToggle === true) {
-            this.statusChange = 'ACTIVE';
             this.resumeKey();
-        } else {
-            this.pauseKey();
-            this.statusChange = 'INACTIVE';
         }
     }
 
     onConfirm() {
         const data = {
             roaster_id: this.roasterID,
-            api_key_id: 2,
+            api_key_id: this.apiKeyId,
         };
         this.roasterserviceService.deleteRoApiKey(data).subscribe((res) => {
             console.log('res---<>>>', res);
             if (res.success) {
                 this.toastrService.error('Key has been delete');
                 this.modalRef.hide();
+                this.apikeyStatus = 'DELETED';
+                this.resetButtonValue = 'Generate Key';
                 this.isDeletedApiKey = true;
             }
         });

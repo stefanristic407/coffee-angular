@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -16,13 +16,13 @@ export class GeneratedKeysComponent implements OnInit {
     @Input() filterData;
     @Input() dateRange;
     @Input() perPage;
+    @Output() filterType = new EventEmitter<any>();
     sortOrder = '';
     sortType = '';
     termStatus: any;
     showStatus = true;
     paginationValue = false;
     modalRef: BsModalRef;
-    resumeTemplate = false;
     totalRecords = 0;
     rows = 10;
     dateFrom: any;
@@ -76,15 +76,9 @@ export class GeneratedKeysComponent implements OnInit {
     }
 
     paginate(event) {
-        console.log('event--->>>>', event);
         const page = event.page + 1;
-        console.log('page-->>', page);
         this.pageNumber = event.page + 1;
         this.getGeneratedRoKeys();
-        // event.first = Index of the first record
-        //event.rows = Number of rows to display in new page
-        //event.page = Index of the new page
-        //event.pageCount = Total number of pages
     }
 
     getGeneratedRoKeys() {
@@ -92,6 +86,7 @@ export class GeneratedKeysComponent implements OnInit {
             roaster_id: this.roasterID,
             page: this.pageNumber,
             per_page: this.perPage,
+            org_type: this.filterData,
         };
         if (this.dateFrom && this.dateTo) {
             data['date_from'] = moment(this.dateFrom).format('YYYY-MM-DD');
@@ -109,6 +104,7 @@ export class GeneratedKeysComponent implements OnInit {
             if (res.success) {
                 this.loader = false;
                 this.generatedKeyData = res.result;
+                this.filterType.emit(res.result);
                 this.totalRecords = res.result_info.total_count;
                 this.rows = res.result_info.per_page;
                 if (this.totalRecords < 10) {
@@ -118,10 +114,6 @@ export class GeneratedKeysComponent implements OnInit {
                 }
                 console.log('generatedKeyData', this.generatedKeyData);
             }
-
-            setTimeout(() => {
-                this.loader = false;
-            }, 1000);
         });
     }
 
@@ -129,30 +121,30 @@ export class GeneratedKeysComponent implements OnInit {
         this.modalRef = this.modalService.show(template);
     }
 
-    resumeKey(id: any) {
+    resumeKey(item: any) {
         const data = {
             roaster_id: this.roasterID,
-            api_key_id: id,
+            api_key_id: item.id,
         };
         this.roasterserviceService.enableRoApiKey(data).subscribe((res) => {
             console.log('res---<>>>', res);
             if (res.success) {
                 this.toastrService.success('Key has been reactivated!');
-                this.resumeTemplate = false;
+                item.is_active = true;
             }
         });
     }
 
-    pauseKey(id: any) {
+    pauseKey(item: any) {
         const data = {
             roaster_id: this.roasterID,
-            api_key_id: id,
+            api_key_id: item.id,
         };
         this.roasterserviceService.disableRoApiKey(data).subscribe((res) => {
             console.log('res---<>>>', res);
             if (res.success) {
                 this.toastrService.success('Key access has been paused');
-                this.resumeTemplate = true;
+                item.is_active = false;
             }
         });
     }
@@ -169,6 +161,10 @@ export class GeneratedKeysComponent implements OnInit {
         this.roasterserviceService.deleteRoApiKey(data).subscribe((res) => {
             if (res.success) {
                 this.toastrService.error('Key has been delete');
+                const index = this.generatedKeyData.findIndex((item) => item.id === id);
+                const temp = JSON.parse(JSON.stringify(this.generatedKeyData));
+                temp.splice(index, 1);
+                this.generatedKeyData = temp;
                 this.modalRef.hide();
             }
         });
