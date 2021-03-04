@@ -40,7 +40,7 @@
 
 /****************************    Media Queries   ****************************/
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
     .create-role {
         margin-left: 0.9rem;
         margin-right: 0.9rem;
@@ -150,7 +150,19 @@
     .tabViewModel {
         display: inline !important;
     }
-    .lotIdText {
-        padding-left: 30px;
+    .webMobPage {
+        display: none !important;
     }
+    .tabPage {
+        display: block !important;
+    }
+    .border-div {
+        border-top: 1px dashed #d6d6d6;
+    }
+}
+.webMobPage {
+    display: block;
+}
+.tabPage {
+    display: none;
 }

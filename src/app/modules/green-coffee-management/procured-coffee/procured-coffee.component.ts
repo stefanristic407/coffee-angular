@@ -131,4 +131,19 @@ export class ProcuredCoffeeComponent implements OnInit {
     availabilityPage() {
         return `/sourcing/coffee-list/${this.orderDetails.estate_id}/${this.orderDetails.harvest_id}`;
     }
+    viewReport() {
+        this.roasterService.getCuppingReportDetails(this.orderDetails.harvest_id).subscribe(
+            (res) => {
+                if (res.success && res.result && res.result.url) {
+                    const hiddenElement = document.createElement('a');
+                    hiddenElement.href = res.result.url;
+                    hiddenElement.target = '_blank';
+                    hiddenElement.click();
+                }
+            },
+            (err) => {
+                console.log(err);
+            },
+        );
+    }
 }
