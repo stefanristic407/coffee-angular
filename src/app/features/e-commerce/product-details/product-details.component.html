@@ -1,18 +1,16 @@
 <div class="main-block">
     <div class="row mb-3">
         <div class="col-10">
-            <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
+            <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
         </div>
-    </div>
-    <div class="row gutter-16 gutter-lg-24">
-        <div class="col-12 productDiv">
-            <span class="fnt-18 fnt-700 fnt-muli black">Add a product</span>
-        </div>
-        <div *ngIf="productID" class="col-12 productLineDiv"></div>
     </div>
     <div [formGroup]="productForm" (ngSubmit)="onSave()" novalidate>
-        <div class="row gutter-16 gutter-lg-24">
-            <div *ngIf="productID" class="col-12 col-sm-12 col-md-12 d-none d-sm-none d-md-block">
+        <div class="row gutter-16 gutter-lg-24 productDiv">
+            <div class="col-6">
+                <span class="fnt-18 fnt-700 fnt-muli black">Add a product</span>
+            </div>
+            <div *ngIf="productID" class="d-block d-sm-block d-md-none col-12 productLineDiv"></div>
+            <div *ngIf="productID" class="col-12 col-sm-12 col-md-6 d-none d-sm-none d-md-block">
                 <div class="float-right">
                     <span class="primary_txt pr-3">Product Visibility : </span>
                     <div class="btn-group toggleDiv">
@@ -62,7 +60,7 @@
                 <div class="col-12 divSeperator w-100 ml-3"></div>
             </div>
         </div>
-        <div class="row gutter-16 gutter-lg-24">
+        <div class="row gutter-16 gutter-lg-24 mt-2">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
                 <label>Product Name<span class="star">*</span></label>
                 <input type="text" placeholder="product name" formControlName="name" pInputText />
@@ -104,7 +102,7 @@
             <div class="col-12">
                 <span class="primary_txt font-16">Variants</span>
             </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 mt-2 p-0">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 mt-2 p-lg-2 p-md-0">
                 <p-checkbox
                     formControlName="is_variants_included"
                     binary="true"
@@ -202,8 +200,8 @@
                                 <input type="text" readonly formControlName="roast_time" pInputText />
                             </div>
                         </div>
-                        <div class="row gutter-16 gutter-lg-24 mt-2 e-comm-border-top">
-                            <div class="col-12 mb-3">
+                        <div class="row gutter-16 gutter-lg-24 mt-2 e-comm-border-top pl-0 pr-0">
+                            <div class="col-12 mb-3 mt-2">
                                 <span class="primary_txt font-16">Estate Details</span>
                             </div>
                             <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
@@ -223,8 +221,8 @@
                                 <input type="text" readonly formControlName="harvest_year" pInputText />
                             </div>
                         </div>
-                        <div class="row gutter-16 gutter-lg-24 mt-2 e-comm-border-top">
-                            <div class="col-12 mb-3">
+                        <div class="row gutter-16 gutter-lg-24 mt-2 e-comm-border-top pl-0 pr-0">
+                            <div class="col-12 mb-3 mt-2">
                                 <span class="primary_txt font-16">Tasting notes</span>
                             </div>
                             <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-3 sewn-form-field w-100">
@@ -249,8 +247,10 @@
                             </div>
                         </div>
                         <div class="row gutter-16 gutter-lg-24 mt-2 e-comm-border-top">
-                            <div class="col-12 col-sm-12 col-md-12 sewn-form-field w-100">
-                                <label class="fnt-bold fnt-14 black fnt-muli">Flavour profile</label>
+                            <div
+                                class="col-12 col-sm-12 col-md-12 sewn-form-field w-100 pl-md-2 pr-md-3 pl-0 pr-0 mb-0 mt-2"
+                            >
+                                <label class="fnt-bold fnt-14 black fnt-muli mt-1">Flavour profile</label>
                                 <div>
                                     <span
                                         class="flavour-item d-inline-block"
@@ -261,7 +261,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row gutter-16 gutter-lg-24 mt-2">
+                        <div class="row gutter-16 gutter-lg-24 mt-md-2 mt-1">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 sewn-form-field w-100">
                                 <label>Roaster notes</label>
                                 <textarea
@@ -288,8 +288,8 @@
                                 ></textarea>
                             </div>
                         </div>
-                        <div class="row gutter-16 gutter-lg-24 mt-2 e-comm-border-top">
-                            <div class="col-12 mb-3">
+                        <div class="row gutter-16 gutter-lg-24 mt-2 e-comm-border-top pl-0 pr-0 pt-3">
+                            <div class="col-12 mb-3 mt-1">
                                 <span class="primary_txt font-16">Recommended brewing method</span>
                             </div>
                             <div class="col-12 col-sm-12 col-md-4 col-lg-5 col-xl-3 sewn-form-field w-100">

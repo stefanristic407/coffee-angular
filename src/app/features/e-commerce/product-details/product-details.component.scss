@@ -71,6 +71,14 @@
     margin-top: 2rem;
     margin-bottom: 1.5rem;
 }
+
+@media screen and (max-width: 1100px) {
+    .divSeperator {
+        border: 1px dashed #d6d6d6;
+        margin-top: 22px !important;
+        margin-bottom: 24px !important;
+    }
+}
 @media screen and (max-width: 767px) {
     .weightVariantBtn {
         border: solid 1px #30855c;
@@ -90,19 +98,21 @@
         border-top: 1px dashed #d6d6d6;
         padding: 10px;
     }
-    .productDiv {
-        margin-top: 1rem;
-        margin-bottom: 1.5rem;
-    }
     .divSeperator {
         border: 1px dashed #d6d6d6;
-        margin-top: 1.5rem !important;
+        margin-top: 1rem !important;
         margin-bottom: 1.5rem !important;
     }
+    .productDiv {
+        margin-top: 1rem;
+        margin-bottom: 0px !important;
+    }
     .productLineDiv {
-        padding-top: 1rem !important;
-        padding-bottom: 1.5rem !important;
+        padding-bottom: 1rem !important;
         border-bottom: 1px solid #d6d6d6;
+    }
+    .roasterDivText-area {
+        height: 232px;
     }
 }
 .addWeightDiv {

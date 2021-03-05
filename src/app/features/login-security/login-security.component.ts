@@ -200,7 +200,7 @@ export class LoginSecurityComponent implements OnInit {
             if (res['success'] == true) {
                 this.cookieService.deleteAll();
                 localStorage.clear();
-                this.router.navigate(['/login']);
+                this.router.navigate(['/gate']);
                 console.log('Logout successfully !');
                 this.toastrService.success('Logout successfully !');
             } else {

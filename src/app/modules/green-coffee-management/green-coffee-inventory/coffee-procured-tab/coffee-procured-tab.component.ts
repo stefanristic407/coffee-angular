@@ -24,7 +24,6 @@ export class CoffeeProcuredTabComponent implements OnInit {
     mainData: any[] = [];
     originArray: any[] = [];
     searchString = '';
-    markedCoffeeSaleLists: any = [];
     // sellerItems = [
     //     { label: 'Sweden', value: 'SE' },
     //     { label: 'UK', value: 'UK' },
@@ -62,11 +61,6 @@ export class CoffeeProcuredTabComponent implements OnInit {
         this.roasterID = this.cookieService.get('roaster_id');
         this.primeTableService.rows = 10;
         this.primeTableService.sortBy = 'created_at';
-        this.roasterService.getCoffeeSaleList(this.roasterID).subscribe((res) => {
-            if (res.result && res.success) {
-                this.primeTableService.markedCoffeeSaleLists = res.result;
-            }
-        });
     }
 
     // tslint:disable: variable-name
@@ -185,6 +179,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.primeTableService.isMarkedForSale = true;
         this.primeTableService.url = `/ro/${this.roasterID}/procured-coffees`;
 
         this.initializeTableProcuredCoffee();

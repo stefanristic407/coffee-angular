@@ -165,6 +165,7 @@ export class MarkedSaleComponent implements OnInit {
         this.deleteId = item.order_id;
     }
     ngOnInit(): void {
+        this.primeTableService.isMarkedForSale = false;
         this.primeTableService.url = `/ro/${this.roasterID}/marked-sale-coffees`;
 
         this.initializeTable();
