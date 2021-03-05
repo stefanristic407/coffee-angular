@@ -8,7 +8,7 @@
                 <img class="back-arrow-butn mr-2" src="assets/images/do-back-arrow.svg" />
             </div>
         </div>
-        <div
+        <!-- <div
             [formGroup]="searchForm"
             class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 d-none d-sm-none d-md-none d-lg-none d-xl-block ml-auto"
         >
@@ -19,7 +19,7 @@
                 formControlName="searchField"
                 placeholder="{{ globals.languageJson?.search_name_role }}"
             />
-        </div>
+        </div> -->
     </div>
     <div class="row no-gutters d-flex d-sm-flex d-md-none">
         <div class="col-12 p-0">
@@ -31,7 +31,7 @@
             <div class="col-12 p-0 d-none d-sm-none d-md-flex">
                 <span class="primary_txt">Raise a ticket</span>
             </div>
-            <div class="col-12 p-0 mt-4">
+            <div class="col-12 p-0 mt-md-4">
                 <div class="row no-gutters">
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8 sewn-form-field">
                         <div class="d-flex">
@@ -129,7 +129,7 @@
                     <span class="primary_txt">Order details</span>
                 </div>
                 <div class="row p-3">
-                    <div class="col-xl-12 col-lg-5 col-md-5 col-sm-12 mt-4">
+                    <div class="col-xl-12 col-lg-5 col-md-6 col-sm-12 mt-md-4">
                         <div class="row pb-4 rowBorder d-none d-sm-none d-md-flex n-margin">
                             <div class="col-2 p-0 d-flex align-items-center">
                                 <img
@@ -170,7 +170,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xl-12 col-lg-7 col-md-7 col-sm-12 mt-2 origin-pad">
+                    <div class="col-xl-12 col-lg-7 col-md-6 col-sm-12 mt-2 origin-pad">
                         <div class="row pt-3 pb-3 rowBorder">
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
                                 Origin :
@@ -216,7 +216,7 @@
             </div>
         </div>
     </div>
-    <div class="row mt-4">
+    <div class="row mt-md-4">
         <div class="col-12 d-none d-sm-none d-md-flex">
             <button class="btn btn-stroked ml-auto" [routerLink]="['/dispute-system/order-chat/', orderID]">
                 {{ globals.languageJson?.cancel }}

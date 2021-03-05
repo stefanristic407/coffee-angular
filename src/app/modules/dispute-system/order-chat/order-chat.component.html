@@ -25,15 +25,15 @@
             </div>
         </div>
         <div class="row m-0 p-3 headerDiv containerDiv d-flex d-sm-flex d-md-none">
-            <div class="back-href cursor-pointer">
+            <div class="back-href cursor-pointer" (click)="onReturnOrder()">
                 <img class="back-arrow-butn mr-2" src="assets/images/do-back-arrow.svg" />
             </div>
             <div class="orderDiv">
                 <span *ngIf="!currentDisputeID" class="primary_txt">Order #{{ orderDetails?.id }}</span>
                 <span *ngIf="currentDisputeID" class="primary_txt">Ticket #{{ currentDisputeID }}</span>
                 <span class="font-12">{{ orderDetails?.order_type }}</span>
-                <span *ngIf="isView" class="text-highlited mt-2" (click)="isView = false">Close tickets</span>
-                <span *ngIf="!isView" class="text-highlited mt-2" (click)="isView = true">View tickets</span>
+                <span *ngIf="isView" class="text-highlited mt-4" (click)="isView = false">Close tickets</span>
+                <span *ngIf="!isView" class="text-highlited mt-4" (click)="isView = true">View tickets</span>
             </div>
             <div class="imgMobileDiv orderDiv">
                 <div *ngIf="threadUserList.length" class="pr-3 imgDiv">
@@ -46,13 +46,14 @@
                         />
                     </span>
                 </div>
+                <span class="text-highlited mt-2" (click)="navigateAssignUser()"> Change assigned user</span>
                 <span *ngIf="currentDisputeID && showResolveBtn" class="text-highlited mt-2" (click)="markResolved()"
                     >Mark as resolved</span
                 >
             </div>
         </div>
         <div class="row m-0 p-3 headerDiv containerDiv d-none d-sm-none d-md-flex">
-            <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 no-gutters d-flex align-items-center">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8 no-gutters d-flex align-items-center">
                 <div class="orderDiv pr-5">
                     <span *ngIf="!currentDisputeID" class="primary_txt">Order #{{ orderDetails?.id }}</span>
                     <span *ngIf="currentDisputeID" class="primary_txt">Ticket #{{ currentDisputeID }}</span>
@@ -80,7 +81,7 @@
                 </div>
             </div>
             <div
-                class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 no-gutters d-flex align-items-center justify-content-end"
+                class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 no-gutters d-flex align-items-center justify-content-end"
             >
                 <span class="text-highlited pr-3" (click)="navigateAssignUser()"> Change assigned user</span>
                 <div class="seperatorClass"></div>

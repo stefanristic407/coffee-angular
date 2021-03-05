@@ -20,9 +20,6 @@ export class PrimeTableService {
     public form: FormGroup;
     public _allColumns: any[];
     public roasterId: any;
-    markedCoffeeSaleLists: any[] = [];
-    procuredCoffeeListArray: any[] = [];
-    filterResult: any = [];
     set allColumns(value: any[]) {
         this._allColumns = value;
     }
@@ -44,7 +41,7 @@ export class PrimeTableService {
     public origin: any;
     public status: any;
     public searchQuery: any;
-
+    public isMarkedForSale = false;
     constructor(public http: HttpClient, public cookieService: CookieService) {
         this.roasterId = this.cookieService.get('roaster_id');
     }
@@ -106,6 +103,10 @@ export class PrimeTableService {
             postData = { ...postData, ...{ search_query: this.searchQuery } };
         }
 
+        if (this.isMarkedForSale) {
+            postData = { ...postData, ...{ marked_for_sale: 'no' } };
+        }
+
         const data = {
             api_call: this.url + '?' + this.serlialise(postData),
             method: 'GET',
@@ -129,13 +130,6 @@ export class PrimeTableService {
                             this.paginationValue = false;
                         } else {
                             this.paginationValue = true;
-                        }
-                        if (this.markedCoffeeSaleLists) {
-                            this.procuredCoffeeListArray = this.records.filter((el) => {
-                                return !this.markedCoffeeSaleLists.find((element) => {
-                                    return element.order_id === el.id;
-                                });
-                            });
                         }
                     } else {
                         this.records = [...[]];
