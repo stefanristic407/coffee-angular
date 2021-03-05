@@ -53,7 +53,7 @@ export class EstateDetailsComponent implements OnInit {
 
     chatWithEstate() {
         this.chatSrv.openChatThread({
-            user_id: +this.userId,
+            user_id: +this.sourcing.estate.admin_id,
             org_type: OrganizationType.ESTATE,
             org_id: +this.sourcing.estateId,
         });

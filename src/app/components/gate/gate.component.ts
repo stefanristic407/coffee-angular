@@ -9,6 +9,7 @@ import { GeneralService } from '@services';
 import { UserService } from '@services';
 import { DestroyableComponent } from '@core/base-components';
 import { environment } from '@env/environment';
+import { OrgType } from '@core/enums';
 
 @Component({
     selector: 'app-gate',
@@ -177,6 +178,6 @@ export class GateComponent extends DestroyableComponent implements OnInit {
     }
 
     goToLogin() {
-        window.open(`${environment.ssoWeb}/login?orgType=${environment.orgType}`, '_self');
+        window.open(`${environment.ssoWeb}/login?orgType=${OrgType.ROASTER}`, '_self');
     }
 }
