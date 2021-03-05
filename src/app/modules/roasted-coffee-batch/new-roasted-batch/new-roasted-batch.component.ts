@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GlobalsService } from '@core/services/globals.service';
 import { UserserviceService } from '@services';
 import { RoasterserviceService } from '@core/services/api/roaster.service';
@@ -7,6 +7,7 @@ import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { MenuItem } from 'primeng/api';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SelectOrderTableComponent } from '../select-order-table/select-order-table.component';
 
 @Component({
     selector: 'app-new-roasted-batch',
@@ -26,7 +27,6 @@ export class NewRoastedBatchComponent implements OnInit {
     quantity: any;
     batchId: string;
     flavourProfileArray: any = [];
-    orderId: string;
     orderDetails: any = {};
     rating: any;
     flavourArray: any = [];
@@ -38,7 +38,8 @@ export class NewRoastedBatchComponent implements OnInit {
     ordId: any;
     // isflavourProfile = false;
     getFlavourArray: any = [];
-
+    @ViewChild(SelectOrderTableComponent, { static: false })
+    selectOrd: SelectOrderTableComponent;
     breadItems = [
         { label: 'Home', routerLink: '/' },
         {
@@ -47,6 +48,7 @@ export class NewRoastedBatchComponent implements OnInit {
         },
         { label: 'New roasted coffee batch' },
     ];
+    showOrder: boolean;
     constructor(
         public globals: GlobalsService,
         public userService: UserserviceService,
@@ -173,12 +175,11 @@ export class NewRoastedBatchComponent implements OnInit {
     }
 
     getOrderDetails() {
-        this.orderId = this.globals.selected_order_id;
         this.roasterService.getViewOrderDetails(this.roasterId, this.ordId).subscribe((response) => {
             if (response.success) {
                 this.orderDetails = response.result;
                 this.getRatingData(this.orderDetails.estate_id);
-                this.batchForm.controls['roaster_ref_no'].setValue(this.orderDetails.order_reference);
+                this.batchForm.controls.roaster_ref_no.setValue(this.orderDetails.order_reference);
             } else {
                 this.toastrService.error('Error while getting the order list');
             }
@@ -260,16 +261,24 @@ export class NewRoastedBatchComponent implements OnInit {
         }
     }
     selectOrder() {
-        if (this.ordId && this.batchId) {
-            const navigationExtras: NavigationExtras = {
-                queryParams: {
-                    batchId: this.batchId ? this.batchId : '',
-                    ordId: this.ordId ? this.ordId : '',
-                },
-            };
-            this.router.navigate(['/roasted-coffee-batch/select-order-list'], navigationExtras);
-        } else {
-            this.router.navigate(['/roasted-coffee-batch/select-order-list']);
+        this.showOrder = true;
+        // if (this.ordId && this.batchId) {
+        //     const navigationExtras: NavigationExtras = {
+        //         queryParams: {
+        //             batchId: this.batchId ? this.batchId : '',
+        //             ordId: this.ordId ? this.ordId : '',
+        //         },
+        //     };
+        //     this.router.navigate(['/roasted-coffee-batch/select-order-list'], navigationExtras);
+        // } else {
+        //     this.router.navigate(['/roasted-coffee-batch/select-order-list']);
+        // }
+    }
+    setOrder(id: string) {
+        this.showOrder = false;
+        if (id !== '') {
+            this.ordId = id;
+            this.getOrderDetails();
         }
     }
 
