@@ -1149,7 +1149,7 @@ export class LanguageRegionComponent implements OnInit {
         this.userService.logOut().subscribe((res) => {
             if (res['success'] == true) {
                 this.cookieService.deleteAll();
-                this.router.navigate(['/login']);
+                this.router.navigate(['/gate']);
 
                 console.log('Logout successfully !');
                 this.toastrService.success('Logout successfully !');

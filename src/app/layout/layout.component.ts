@@ -223,7 +223,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         this.userService.logOut().subscribe((res: any) => {
             if (res.success) {
                 this.cookieService.deleteAll();
-                this.router.navigate(['/login']);
+                this.router.navigate(['/gate']);
                 this.toastrService.success('Logout successfully !');
             } else {
                 this.toastrService.error('Error while Logout!');
