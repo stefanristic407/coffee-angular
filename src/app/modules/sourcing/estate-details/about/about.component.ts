@@ -2,6 +2,7 @@ import { ChatHandlerService, GlobalsService } from '@services';
 import { Component, OnInit } from '@angular/core';
 import {} from '@services';
 import { SourcingService } from '../../sourcing.service';
+import { OrganizationType } from '@core/enums';
 
 @Component({
     selector: 'app-about',
@@ -11,10 +12,15 @@ import { SourcingService } from '../../sourcing.service';
 export class AboutComponent implements OnInit {
     brandProfileEstateWeb = 'https://qa-brand-profile.sewnstaging.com/estatebrandprofile/green-coffee';
 
-    constructor(public globals: GlobalsService, public sourcing: SourcingService, public chat: ChatHandlerService) {}
+    constructor(public globals: GlobalsService, public sourcing: SourcingService, public chatSrv: ChatHandlerService) {}
 
     ngOnInit(): void {}
-    message() {
-        this.chat.showChatPanel();
+
+    message(userId: number) {
+        this.chatSrv.openChatThread({
+            user_id: userId,
+            org_type: OrganizationType.ESTATE,
+            org_id: +this.sourcing.estateId,
+        });
     }
 }
