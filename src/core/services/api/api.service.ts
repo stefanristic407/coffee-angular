@@ -17,12 +17,12 @@ export class ApiService {
     protected putfileuploadUrl: string;
 
     constructor(protected cookieSrv: CookieService, protected http: HttpClient) {
-        this.orgType = environment.orgType;
+        this.orgType = 'ro';
         this.url = environment.apiURL + '/ro/api';
-        this.putUrl = `${environment.apiURL}/${environment.orgType}/putapi`;
-        this.deleteUrl = `${environment.apiURL}/${environment.orgType}/deleteapi`;
-        this.fileuploadUrl = `${environment.apiURL}/${environment.orgType}/filesfolders`;
-        this.putfileuploadUrl = `${environment.apiURL}/${environment.orgType}/putfilesfolders`;
+        this.putUrl = `${environment.apiURL}/${this.orgType}/putapi`;
+        this.deleteUrl = `${environment.apiURL}/${this.orgType}/deleteapi`;
+        this.fileuploadUrl = `${environment.apiURL}/${this.orgType}/filesfolders`;
+        this.putfileuploadUrl = `${environment.apiURL}/${this.orgType}/putfilesfolders`;
     }
 
     protected post(

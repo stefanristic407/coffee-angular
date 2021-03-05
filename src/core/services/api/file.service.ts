@@ -53,7 +53,7 @@ export class FileService extends ApiService {
         const httpOptions = {
             headers: new HttpHeaders({ Accept: 'application/json' }),
         };
-        formData.append('api_call', `/${environment.orgType}/${orgId}/file-manager/files/${fileId}`);
+        formData.append('api_call', `/${this.orgType}/${orgId}/file-manager/files/${fileId}`);
         formData.append('token', this.cookieSrv.get('Auth'));
         return this.http.post(this.putfileuploadUrl, formData, httpOptions);
     }
