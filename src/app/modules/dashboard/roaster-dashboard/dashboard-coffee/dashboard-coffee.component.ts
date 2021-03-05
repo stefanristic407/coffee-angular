@@ -39,7 +39,9 @@ export class DashboardCoffeeComponent implements OnInit, OnDestroy {
             }
         });
         this.ordersSub = this.welcomeSrv.orders$.subscribe((res: any) => {
-            this.orders = res;
+            if (res) {
+                this.orders = res;
+            }
         });
     }
 
