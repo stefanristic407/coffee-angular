@@ -17231,6 +17231,9 @@ li.select-list__item {
     .header-profile-links .profile-link__info {
         max-width: 120px;
     }
+    .g-thumbs-container .ng-star-inserted {
+        padding-right: 8px !important;
+    }
 }
 
 @media (min-width: 992px) {
