@@ -1,3 +1,4 @@
 export * from './common';
+export * from './menu/menu.model';
 export * from './message';
 export * from './order-chat';

@@ -9,6 +9,7 @@ export * from './api/your.service';
 
 export * from './agro/agro.service';
 export * from './global/globals.service';
+export * from './menu/menu.service';
 export * from './socket/socket.service';
 export * from './chat/chat-handler.service';
 export * from './chat/order-chat-thread.resolver';

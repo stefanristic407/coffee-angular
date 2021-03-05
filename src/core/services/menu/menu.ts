@@ -1,4 +1,4 @@
-import { Menu } from './menu.model';
+import { Menu } from '@models';
 
 export const menuItems = [
     new Menu(1, 'dashboard', '/roaster-dashboard', null, null, null, false, 0, []),

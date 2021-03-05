@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
-import { MenuService } from './menu.service';
+import { MenuService } from '@services';
 import { GlobalsService } from '@services';
-import { Menu } from './menu.model';
+import { Menu } from '@models';
 
 @Component({
     selector: 'app-menu',
