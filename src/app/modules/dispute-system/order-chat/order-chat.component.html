@@ -1,152 +1,171 @@
-<div>
-    <div class="row m-0 p-3 headerDiv containerDiv d-none d-sm-none d-md-flex">
-        <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8 d-flex align-items-center">
+<div class="chat-page-wrapper">
+    <div class="header-group">
+        <div class="row m-0 p-3 headerDiv containerDiv d-none d-sm-none d-md-flex">
+            <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8 d-flex align-items-center">
+                <div class="back-href cursor-pointer" (click)="onReturnOrder()">
+                    <img class="back-arrow-butn mr-2" src="assets/images/do-back-arrow.svg" />
+                    {{ globals.languageJson?.return_to_order }}
+                </div>
+            </div>
+            <div class="col-4">
+                <button
+                    *ngIf="currentDisputeID && showResolveBtn"
+                    (click)="markResolved()"
+                    class="btn pull-right btn-stroked"
+                >
+                    Mark as resolved
+                </button>
+                <button
+                    *ngIf="!currentDisputeID && orderDetails && orderDetails['status'] !== 'Received'"
+                    [routerLink]="['/dispute-system/order-support/', orderID]"
+                    class="btn pull-right btn-raised"
+                >
+                    Have a problem?
+                </button>
+            </div>
+        </div>
+        <div class="row m-0 p-3 headerDiv containerDiv d-flex d-sm-flex d-md-none">
             <div class="back-href cursor-pointer" (click)="onReturnOrder()">
                 <img class="back-arrow-butn mr-2" src="assets/images/do-back-arrow.svg" />
-                {{ globals.languageJson?.return_to_order }}
             </div>
-        </div>
-        <div class="col-4">
-            <button
-                *ngIf="currentDisputeID && showResolveBtn"
-                (click)="markResolved()"
-                class="btn pull-right btn-stroked"
-            >
-                Mark as resolved
-            </button>
-            <button
-                *ngIf="!currentDisputeID && orderDetails && orderDetails['status'] !== 'Received'"
-                [routerLink]="['/dispute-system/order-support/', orderID]"
-                class="btn pull-right btn-raised"
-            >
-                Have a problem?
-            </button>
-        </div>
-    </div>
-    <div class="row m-0 p-3 headerDiv containerDiv d-flex d-sm-flex d-md-none">
-        <div class="back-href cursor-pointer">
-            <img class="back-arrow-butn mr-2" src="assets/images/do-back-arrow.svg" />
-        </div>
-        <div class="orderDiv">
-            <span *ngIf="!currentDisputeID" class="primary_txt">Order #{{ orderDetails?.id }}</span>
-            <span *ngIf="currentDisputeID" class="primary_txt">Ticket #{{ currentDisputeID }}</span>
-            <span class="font-12">{{ orderDetails?.order_type }}</span>
-            <span *ngIf="isView" class="text-highlited mt-2" (click)="isView = false">Close tickets</span>
-            <span *ngIf="!isView" class="text-highlited mt-2" (click)="isView = true">View tickets</span>
-        </div>
-        <div class="imgMobileDiv orderDiv">
-            <div *ngIf="orderDetails && orderDetails['images']">
-                <span *ngFor="let user of orderDetails['images']">
-                    <img class="profileImg" [src]="user" />
-                </span>
-            </div>
-            <span *ngIf="currentDisputeID && showResolveBtn" class="text-highlited mt-2" (click)="markResolved()"
-                >Mark as resolved</span
-            >
-        </div>
-    </div>
-    <div class="row m-0 p-3 headerDiv containerDiv d-none d-sm-none d-md-flex">
-        <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 no-gutters d-flex align-items-center">
-            <div class="orderDiv pr-5">
+            <div class="orderDiv">
                 <span *ngIf="!currentDisputeID" class="primary_txt">Order #{{ orderDetails?.id }}</span>
                 <span *ngIf="currentDisputeID" class="primary_txt">Ticket #{{ currentDisputeID }}</span>
-                <span class="statusLable font-12">Order Status - {{ orderDetails?.status }}</span>
+                <span class="font-12">{{ orderDetails?.order_type }}</span>
+                <span *ngIf="isView" class="text-highlited mt-4" (click)="isView = false">Close tickets</span>
+                <span *ngIf="!isView" class="text-highlited mt-4" (click)="isView = true">View tickets</span>
             </div>
-            <!-- <div *ngIf="orderDetails && orderDetails['images']" class="pr-3 imgDiv">
+            <div class="imgMobileDiv orderDiv">
+                <div *ngIf="threadUserList.length" class="pr-3 imgDiv">
+                    <span *ngFor="let user of threadUserList">
+                        <img
+                            class="profileImg"
+                            [pTooltip]="user.computed_fullname"
+                            tooltipPosition="top"
+                            [src]="user.profile_pic || 'assets/images/profile.svg'"
+                        />
+                    </span>
+                </div>
+                <span class="text-highlited mt-2" (click)="navigateAssignUser()"> Change assigned user</span>
+                <span *ngIf="currentDisputeID && showResolveBtn" class="text-highlited mt-2" (click)="markResolved()"
+                    >Mark as resolved</span
+                >
+            </div>
+        </div>
+        <div class="row m-0 p-3 headerDiv containerDiv d-none d-sm-none d-md-flex">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8 no-gutters d-flex align-items-center">
+                <div class="orderDiv pr-5">
+                    <span *ngIf="!currentDisputeID" class="primary_txt">Order #{{ orderDetails?.id }}</span>
+                    <span *ngIf="currentDisputeID" class="primary_txt">Ticket #{{ currentDisputeID }}</span>
+                    <span class="statusLable font-12">Order Status - {{ orderDetails?.status }}</span>
+                </div>
+                <!-- <div *ngIf="orderDetails && orderDetails['images']" class="pr-3 imgDiv">
                 <span *ngFor="let user of orderDetails['images']">
                     <img class="profileImg" [src]="user" />
                 </span>
             </div> -->
-            <div *ngIf="threadUserList.length" class="pr-3 imgDiv">
-                <span *ngFor="let user of threadUserList">
-                    <img class="profileImg" [src]="user.profile_pic || 'assets/images/profile.svg'" />
-                </span>
-            </div>
+                <div *ngIf="threadUserList.length" class="pr-3 imgDiv">
+                    <span *ngFor="let user of threadUserList">
+                        <img
+                            class="profileImg"
+                            [pTooltip]="user.computed_fullname"
+                            tooltipPosition="top"
+                            [src]="user.profile_pic || 'assets/images/profile.svg'"
+                        />
+                    </span>
+                </div>
 
-            <div class="orderDiv pl-3">
-                <span class="secondary_txt">{{ globals.languageJson?.order_type }}</span>
-                <span class="orderLable">{{ orderDetails?.order_type }}</span>
-            </div>
-        </div>
-        <div
-            class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 no-gutters d-flex align-items-center justify-content-end"
-        >
-            <span class="text-highlited pr-3" (click)="navigateAssignUser()"> Change assigned user</span>
-            <div class="seperatorClass"></div>
-            <span *ngIf="isView" class="text-highlited" (click)="isView = false">Close tickets</span>
-            <span *ngIf="!isView" class="text-highlited" (click)="isView = true">View tickets</span>
-        </div>
-    </div>
-    <div class="row m-0 containerDiv">
-        <div *ngIf="isView" class="order-ticket">
-            <div class="card-width" (click)="clickOrder()" [ngClass]="!currentDisputeID ? 'cardSelect' : ''">
-                <div class="font-14 m-0" [ngClass]="!currentDisputeID ? 'selectedDataFont' : 'primary_label'">
-                    Order
-                </div>
-                <div class="font-14" [ngClass]="!currentDisputeID ? 'selectedDataFont' : 'primary_label'">
-                    #{{ orderDetails?.id }}
-                </div>
-                <div class="primary_label font-12 m-0 mb-3">
-                    {{ orderDetails?.created_at | date: 'h:mm a' }}
+                <div class="orderDiv pl-3">
+                    <span class="secondary_txt">{{ globals.languageJson?.order_type }}</span>
+                    <span class="orderLable">{{ orderDetails?.order_type }}</span>
                 </div>
             </div>
             <div
-                *ngFor="let item of orderDisputes"
-                class="card-width"
-                (click)="clickDispute(item)"
-                [ngClass]="currentDisputeID == item.id ? 'cardSelect' : ''"
+                class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 no-gutters d-flex align-items-center justify-content-end"
             >
-                <div class="font-14 m-0" [ngClass]="currentDisputeID == item.id ? 'selectedDataFont' : 'primary_label'">
-                    Ticket #{{ item.id }}
+                <span class="text-highlited pr-3" (click)="navigateAssignUser()"> Change assigned user</span>
+                <div class="seperatorClass"></div>
+                <span *ngIf="isView" class="text-highlited" (click)="isView = false">Close tickets</span>
+                <span *ngIf="!isView" class="text-highlited" (click)="isView = true">View tickets</span>
+            </div>
+        </div>
+        <div class="row m-0 containerDiv floting-containerDiv">
+            <div *ngIf="isView" class="order-ticket">
+                <div class="card-width" (click)="clickOrder()" [ngClass]="!currentDisputeID ? 'cardSelect' : ''">
+                    <div class="font-14 m-0" [ngClass]="!currentDisputeID ? 'selectedDataFont' : 'primary_label'">
+                        Order
+                    </div>
+                    <div class="font-14" [ngClass]="!currentDisputeID ? 'selectedDataFont' : 'primary_label'">
+                        #{{ orderDetails?.id }}
+                    </div>
+                    <div class="primary_label font-12 m-0 mb-3">
+                        {{ orderDetails?.created_at | date: 'h:mm a' }}
+                    </div>
                 </div>
                 <div
-                    class="font-12 mb-3"
-                    [ngClass]="currentDisputeID == item.id ? 'selectedDataFont' : 'primary_label'"
+                    *ngFor="let item of orderDisputes"
+                    class="card-width"
+                    (click)="clickDispute(item)"
+                    [ngClass]="currentDisputeID == item.id ? 'cardSelect' : ''"
                 >
-                    {{ item.dispute_type }}
-                </div>
-                <div
-                    class="ticket-num__status float-left"
-                    [ngClass]="currentDisputeID == item.id ? 'selectedFont' : ''"
-                >
-                    {{ item.dispute_status }}
+                    <div
+                        class="font-14 m-0"
+                        [ngClass]="currentDisputeID == item.id ? 'selectedDataFont' : 'primary_label'"
+                    >
+                        Ticket #{{ item.id }}
+                    </div>
+                    <div
+                        class="font-12 mb-3"
+                        [ngClass]="currentDisputeID == item.id ? 'selectedDataFont' : 'primary_label'"
+                    >
+                        {{ item.dispute_type }}
+                    </div>
+                    <div
+                        class="ticket-num__status float-left"
+                        [ngClass]="currentDisputeID == item.id ? 'selectedFont' : ''"
+                    >
+                        {{ item.dispute_status }}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div
-        *ngIf="currentDispute && currentDispute['dispute_status'] !== 'Resolved'"
-        class="d-flex disputeDiv containerDiv row p-3"
-    >
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 float-left">
-            <span><b>Dispute raised: </b></span>
-            <p *ngIf="roasterName">
-                Roaster {{ roasterName }} has raised a dispute on the purchase of {{ orderDetails?.order_type }}. Please
-                take appropriate action.
-            </p>
-            <span><b>Message: </b></span>
-            <p>{{ currentDispute.message ? currentDispute.message : 'NA' }}</p>
+
+    <div class="order-chat-wrapper" data-element="order-chat-wrapper">
+        <div
+            *ngIf="currentDispute && currentDispute['dispute_status'] !== 'Resolved'"
+            class="d-flex disputeDiv containerDiv row p-3"
+        >
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 float-left">
+                <span><b>Dispute raised: </b></span>
+                <p *ngIf="roasterName">
+                    Roaster {{ roasterName }} has raised a dispute on the purchase of {{ orderDetails?.order_type }}.
+                    Please take appropriate action.
+                </p>
+                <span><b>Message: </b></span>
+                <p>{{ currentDispute.message ? currentDispute.message : 'NA' }}</p>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <button
+                    *ngIf="currentDisputeID && !showEscalateBtn"
+                    class="btn btn-stroked float-right"
+                    (click)="escalateTicket()"
+                >
+                    <span class="track">Escalate</span>
+                </button>
+                <button
+                    *ngIf="currentDisputeID && showEscalateBtn"
+                    class="btn btn-stroked float-right"
+                    title="Already dispute has been escalated"
+                >
+                    <span class="track">Escalate</span>
+                </button>
+            </div>
         </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <button
-                *ngIf="currentDisputeID && !showEscalateBtn"
-                class="btn btn-stroked float-right"
-                (click)="escalateTicket()"
-            >
-                <span class="track">Escalate</span>
-            </button>
-            <button
-                *ngIf="currentDisputeID && showEscalateBtn"
-                class="btn btn-stroked float-right"
-                title="Already dispute has been escalated"
-            >
-                <span class="track">Escalate</span>
-            </button>
-        </div>
+        <app-sewn-order-chat
+            [orderThread]="orderThread"
+            [orderDisputes]="currentDispute"
+            (threadUsers)="threadUserList = $event"
+        ></app-sewn-order-chat>
     </div>
-    <app-sewn-order-chat
-        [orderThread]="orderThread"
-        [orderDisputes]="currentDispute"
-        (threadUsers)="threadUserList = $event"
-    ></app-sewn-order-chat>
 </div>

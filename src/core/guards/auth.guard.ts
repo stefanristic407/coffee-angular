@@ -1,21 +1,13 @@
 import { Injectable } from '@angular/core';
-import {
-    Route,
-    UrlSegment,
-    CanActivate,
-    ActivatedRouteSnapshot,
-    RouterStateSnapshot,
-    UrlTree,
-    Router,
-} from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Title } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from '@env/environment';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
     projectId;
-    constructor(private titleService: Title, private router: Router, private cookieService: CookieService) {}
+    constructor(private router: Router, private cookieService: CookieService) {}
     canActivate(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot,
@@ -24,7 +16,7 @@ export class AuthGuard implements CanActivate {
             return true;
         } else {
             localStorage.setItem('redirectUrl', state.url);
-            this.router.navigate(['auth/login']);
+            this.router.navigateByUrl('/gate');
             return false;
         }
     }

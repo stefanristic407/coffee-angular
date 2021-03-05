@@ -1,8 +1,20 @@
 .containerDiv {
     background: #ffffff;
 }
+
+.floting-containerDiv {
+    position: absolute;
+    width: 100%;
+    width: 100%;
+    z-index: 41;
+}
+.header-group {
+    position: relative;
+    width: 100%;
+}
 .headerDiv {
     border-bottom: 1px solid #d6d6d6;
+    position: relative;
 }
 .imgDiv {
     border-right: 1px solid #d6d6d6;
@@ -57,8 +69,11 @@
 }
 .disputeDiv {
     margin: 24px 32px;
+    width: calc(100% - 64px);
+    position: absolute;
     box-shadow: 0 12px 44px -10px rgba(143, 51, 11, 0.1);
     display: -webkit-inline-box;
+    z-index: 40;
 }
 .dispute-margin {
     margin: 10px;
@@ -85,11 +100,22 @@
     border: solid 2px #ffffff;
     background-color: #d8d8d8;
 }
+.chat-page-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.order-chat-wrapper {
+    position: relative;
+    width: 100%;
+}
 @media (max-width: 768px) {
     .disputeDiv {
         margin: 16px;
         box-shadow: 0 12px 44px -10px rgba(143, 51, 11, 0.1);
         display: -webkit-inline-box;
+        width: calc(100% - 32px);
+        position: absolute;
     }
     .imgMobileDiv {
         margin-left: auto;

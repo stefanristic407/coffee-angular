@@ -1,6 +1,11 @@
+p-breadcrumb {
+    max-width: 100%;
+    overflow-x: auto;
+}
 .p-breadcrumb {
     border: none;
     padding: 0;
+    width: max-content;
 }
 .p-breadcrumb ul li .p-menuitem-link:hover {
     text-decoration: underline;

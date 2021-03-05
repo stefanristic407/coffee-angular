@@ -1205,7 +1205,14 @@ export class RoasterserviceService {
     getApiKeysForRo(roasterData: any): Observable<any> {
         var data = {};
         (data['api_call'] = `/ro/${roasterData.roaster_id}/api-keys/requests`), (data['method'] = 'GET');
-        data['api_call'] = data['api_call'] + '?page=' + roasterData.page + '&per_page=' + roasterData.per_page;
+        data['api_call'] =
+            data['api_call'] +
+            '?page=' +
+            roasterData.page +
+            '&per_page=' +
+            roasterData.per_page +
+            '&org_type=' +
+            roasterData.org_type;
         if (roasterData.date_from && roasterData.date_to) {
             data['api_call'] =
                 data['api_call'] + '&date_from=' + roasterData.date_from + '&date_to=' + roasterData.date_to;
@@ -1254,7 +1261,14 @@ export class RoasterserviceService {
     getGeneratedRoKeys(roasterData: any): Observable<any> {
         var data = {};
         (data['api_call'] = `/ro/${roasterData.roaster_id}/api-keys`), (data['method'] = 'GET');
-        data['api_call'] = data['api_call'] + '?page=' + roasterData.page + '&per_page=' + roasterData.per_page;
+        data['api_call'] =
+            data['api_call'] +
+            '?page=' +
+            roasterData.page +
+            '&per_page=' +
+            roasterData.per_page +
+            '&org_type=' +
+            roasterData.org_type;
         if (roasterData.date_from && roasterData.date_to) {
             data['api_call'] =
                 data['api_call'] + '&date_from=' + roasterData.date_from + '&date_to=' + roasterData.date_to;

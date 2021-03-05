@@ -1,4 +1,3 @@
-/* tslint:disable no-string-literal */
 import { first } from 'rxjs/operators';
 import { Subscription, Subject } from 'rxjs';
 import {
@@ -53,6 +52,8 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     chatMessageBodyElement: HTMLElement;
     lastMessageRendered = new Subject();
 
+    sentTokenDelayTimeOut = 0;
+
     constructor(
         public globals: GlobalsService,
         public chatService: ChatHandlerService,
@@ -63,7 +64,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     ) {}
 
     ngOnInit(): void {
-        this.SM['WSState'] = this.socket.socketState.subscribe((value) => {
+        this.SM.WSState = this.socket.socketState.subscribe((value) => {
             if (value === 'CONNECTED') {
                 this.initializeWebSocket();
             }
@@ -71,10 +72,10 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     initializeWebSocket() {
-        if (this.SM['WSSubscription'] && this.SM['WSSubscription'].unsubscribe) {
-            this.SM['WSSubscription'].unsubscribe();
+        if (this.SM.WSSubscription && this.SM.WSSubscription.unsubscribe) {
+            this.SM.WSSubscription.unsubscribe();
         }
-        this.SM['WSSubscription'] = this.socket.orderChatReceive.subscribe((WSmsg: WSResponse<unknown>) => {
+        this.SM.WSSubscription = this.socket.orderChatReceive.subscribe((WSmsg: WSResponse<unknown>) => {
             if (this.TIMESTAMP_MAP[WSmsg.type] === WSmsg.timestamp) {
                 if (WSmsg.type === ChatMessageType.threads) {
                     // this.handleThreadsResponse(WSmsg as WSResponse<ThreadListItem[]>);
@@ -192,9 +193,27 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
             const thread = WSmsg.data;
             if (thread.type !== ThreadType.normal && thread.type !== ThreadType.service_request) {
                 this.threadDetails = this.processThreads(thread);
-                if (this.activeThreadId && this.activeThreadType !== 'UNSET') {
-                    this.getThreadHistory(this.activeThreadId);
-                    this.threadUsers.emit(this.threadDetails.members);
+                const memberList = this.threadDetails.members || [];
+                const users: { [key: string]: ThreadMember } = {};
+                for (const member of memberList) {
+                    let isRemoved = false;
+                    if (member.hasOwnProperty('is_removed')) {
+                        isRemoved = member.is_removed;
+                    } else {
+                        isRemoved = (member as any).removed_at !== '0001-01-01T00:00:00Z';
+                    }
+                    if (!isRemoved) {
+                        const key = member.user_id + '_' + member.org_id + '_' + member.org_type;
+                        users[key] = member;
+                    }
+                }
+                this.threadUsers.emit(Object.values(users));
+                if (this.threadDetails.computed_activeUser) {
+                    if (this.activeThreadId && this.activeThreadType !== 'UNSET') {
+                        this.getThreadHistory(this.activeThreadId);
+                    }
+                } else {
+                    console.log('User is not authorized to view this chat');
                 }
             } else {
                 console.error('Websocket:Requested-thread: Received non direct message thread ');
@@ -206,10 +225,10 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
 
     handleThreadHistory(WSmsg: WSResponse<ChatMessage[]>) {
         if (WSmsg.code === 200) {
-            if (this.SM['lastRender'] && this.SM['lastRender'].unsubscribe) {
-                this.SM['lastRender'].unsubscribe();
+            if (this.SM.lastRender && this.SM.lastRender.unsubscribe) {
+                this.SM.lastRender.unsubscribe();
             }
-            this.SM['lastRender'] = this.lastMessageRendered.pipe(first()).subscribe((x) => {
+            this.SM.lastRender = this.lastMessageRendered.pipe(first()).subscribe((x) => {
                 this.scrollbottom();
             });
 
@@ -221,7 +240,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
             });
             const lastMessage = this.messageList[this.messageList.length - 1];
             if (lastMessage) {
-                this.sendReadToken(lastMessage.id);
+                this.sentReadTokenTimeout(lastMessage.id);
             }
         } else {
             console.log('Websocket:Thread History: Failure');
@@ -241,14 +260,14 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                 if (user) {
                     this.processThreadUser(user);
                 }
-                if (this.SM['lastRender'] && this.SM['lastRender'].unsubscribe) {
-                    this.SM['lastRender'].unsubscribe();
+                if (this.SM.lastRender && this.SM.lastRender.unsubscribe) {
+                    this.SM.lastRender.unsubscribe();
                 }
-                this.SM['lastRender'] = this.lastMessageRendered.pipe(first()).subscribe((x) => {
+                this.SM.lastRender = this.lastMessageRendered.pipe(first()).subscribe((x) => {
                     this.scrollbottom();
                 });
                 this.messageList.push(message);
-                this.sendReadToken(message.id);
+                this.sentReadTokenTimeout(message.id);
             } else {
                 console.log('Websocket:Incoming Message : Failure');
             }
@@ -275,6 +294,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
         threadUser.computed_profile_dp = this.chatUtil.getProfileImageBgStyle(threadUser.profile_pic);
         return threadUser;
     }
+
     sendReadToken(lastMessageId: number) {
         const timestamp = this.chatUtil.getTimeStamp();
         this.TIMESTAMP_MAP[ChatMessageType.read] = timestamp;
@@ -288,8 +308,18 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
         });
     }
 
-    chatBodyHeightAdjust(resetFlag = false) {
+    sentReadTokenTimeout(lastMessageId: number) {
+        if (this.sentTokenDelayTimeOut) {
+            clearTimeout(this.sentTokenDelayTimeOut);
+        }
+        this.sentTokenDelayTimeOut = window.setTimeout(() => {
+            this.sendReadToken(lastMessageId);
+        }, 800);
+    }
+
+    chatInputHeightAdjust(resetFlag = false) {
         this.updateMessageInputElRef();
+        this.updateChatMessageBodyElRef();
         if (resetFlag) {
             this.messageInputElement.value = '';
         }
@@ -297,8 +327,18 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
             this.render.removeStyle(this.messageInputElement, 'height');
             const inputHeight = this.messageInputElement.offsetHeight;
             const scrollHeight = this.messageInputElement.scrollHeight;
+            const calculatedHeight = Math.min(scrollHeight, 80);
             if (inputHeight < scrollHeight) {
-                this.render.setStyle(this.messageInputElement, 'height', Math.min(scrollHeight, 80) + 'px');
+                this.render.setStyle(this.messageInputElement, 'height', `${calculatedHeight}px`);
+                if (this.chatMessageBodyElement) {
+                    this.render.setStyle(
+                        this.chatMessageBodyElement,
+                        'height',
+                        `calc(100% - ${calculatedHeight + 80}px)`,
+                    );
+                }
+            } else {
+                this.render.removeStyle(this.chatMessageBodyElement, 'height');
             }
         }
     }
@@ -328,7 +368,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     inputChanges(event: InputEvent) {
-        this.chatBodyHeightAdjust();
+        this.chatInputHeightAdjust();
     }
 
     sendMessage() {
@@ -339,26 +379,24 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
             badwordsRegExp.lastIndex = 0;
             if (badwordsRegExp.test(msg)) {
                 this.showOffensiveMessageError = true;
-                this.offensiveTimeout = window.setTimeout(this.offensiveTimeoutHandler, 5000);
+                this.offensiveTimeout = window.setTimeout(() => {
+                    this.showOffensiveMessageError = false;
+                }, 3500);
                 msg = msg.replace(badwordsRegExp, '****');
             }
             this.socket.chatSent.next(this.getMessagePayload(msg));
             this.chatUtil.playNotificationSound('OUTGOING');
             this.messageInput = '';
-            this.chatBodyHeightAdjust();
-            if (this.SM['lastRender2'] && this.SM['lastRender2'].unsubscribe) {
-                this.SM['lastRender2'].unsubscribe();
+            this.chatInputHeightAdjust();
+            if (this.SM.lastRender2 && this.SM.lastRender2.unsubscribe) {
+                this.SM.lastRender2.unsubscribe();
             }
-            this.SM['lastRender2'] = this.lastMessageRendered.pipe(first()).subscribe((x) => {
-                console.log('Last render chatBodyHeightAdjust');
-                this.chatBodyHeightAdjust(true);
+            this.SM.lastRender2 = this.lastMessageRendered.pipe(first()).subscribe((x) => {
+                console.log('Last render chatInputHeightAdjust');
+                this.chatInputHeightAdjust(true);
             });
         }
     }
-
-    offensiveTimeoutHandler = () => {
-        this.showOffensiveMessageError = false;
-    };
 
     getMessagePayload(message: string) {
         const timestamp = this.chatUtil.getTimeStamp();
@@ -379,6 +417,12 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
             if (this.SM[name] && this.SM[name].unsubscribe) {
                 this.SM[name].unsubscribe();
             }
+        }
+        if (this.sentTokenDelayTimeOut) {
+            clearTimeout(this.sentTokenDelayTimeOut);
+        }
+        if (this.offensiveTimeout) {
+            clearTimeout(this.offensiveTimeout);
         }
     }
 }

@@ -17,7 +17,7 @@
                 <td>{{ product.org_name }}</td>
                 <td>{{ product.org_type }}</td>
                 <td>{{ product.created_at | date: 'MMMM y' }}</td>
-                <td class="view-order" (click)="viewRequestDetails(product?.id)">View request</td>
+                <td class="view-order" (click)="viewRequestDetails(product)">View request</td>
             </tr>
         </ng-template>
     </p-table>

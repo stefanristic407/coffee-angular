@@ -30,7 +30,7 @@
     <p-table
         #procuredCoffeeTable
         [class.table-mobile]="primeTableService.isMobileView"
-        [value]="primeTableService.procuredCoffeeListArray"
+        [value]="primeTableService.records"
         [columns]="primeTableService._allColumns"
         [(selection)]="primeTableService.selectedRecords"
         dataKey="id"

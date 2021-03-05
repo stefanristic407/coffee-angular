@@ -112,6 +112,9 @@
     position: relative;
     top: -16px;
 }
+::ng-deep .isWeightTab .p-tabview .p-tabview-nav {
+    display: flex;
+}
 .weightDiv {
     padding: 4px;
     border: 1px solid #d6d6d6;
@@ -189,6 +192,18 @@
         display: flex;
         overflow: auto;
     }
+    .addWeightDiv {
+        border: 1px solid #747588;
+        padding: 6px 6px;
+        height: 38px;
+        width: 30%;
+        border-radius: 2px;
+    }
+    .divSeperator {
+        border: 1px dashed #d6d6d6;
+        margin-top: 22px !important;
+        margin-bottom: 24px !important;
+    }
 }
 
 @media screen and (max-width: 767px) {
@@ -207,5 +222,15 @@
     .e-comm-border-top {
         border-top: 1px dashed #d6d6d6;
         padding: 10px;
+    }
+    .divSeperator {
+        border: 1px dashed #d6d6d6;
+        margin-top: 12px !important;
+        margin-bottom: 12px !important;
+        width: 100%;
+    }
+    .delBtn {
+        position: relative;
+        top: 6px;
     }
 }

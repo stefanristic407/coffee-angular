@@ -84,7 +84,7 @@
 
                         <span *ngSwitchCase="'actions'" class="">
                             <span class="d-flex justify-content-end align-items-center">
-                                <span *ngIf="!rowData.parent_id" class="tr-hover-visible mr-3 d-none d-lg-block">
+                                <span *ngIf="!rowData.shared_count" class="tr-hover-visible mr-3 d-none d-lg-block">
                                     <span
                                         class="btn-trans-icon share-icon"
                                         (click)="fileShareSrv.openShareModal(rowData); $event.stopPropagation()"
@@ -92,10 +92,10 @@
                                         {{ 'share' | translate }}
                                     </span>
                                 </span>
-                                <span *ngIf="rowData.parent_id" class="mr-3">
+                                <span *ngIf="rowData.shared_count" class="mr-3">
                                     <img
                                         src="assets/images/shared.svg"
-                                        pTooltip="Sharing with {{ rowData.parent_id }} members"
+                                        pTooltip="Sharing with {{ rowData.shared_count }} members"
                                         tooltipPosition="top"
                                         tooltipStyleClass="share"
                                         (click)="fileShareSrv.openShareModal(rowData); $event.stopPropagation()"

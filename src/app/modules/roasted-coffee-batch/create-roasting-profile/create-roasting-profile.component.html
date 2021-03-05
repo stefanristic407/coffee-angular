@@ -5,9 +5,6 @@
                 {{ globals.languageJson?.back }}</a
             >
         </div>
-        <!-- <div class="col-2">
-            <button type="submit" class="btn pull-right btn-raised d-md-block d-none" (click)="onSave()">Save</button>
-        </div> -->
     </div>
     <div class="row mt-3 pb-2">
         <div class="col-12">
@@ -34,7 +31,7 @@
                 <span class="fnt-16 fnt-muli black fnt-700 mb-1">{{ globals.languageJson?.roast_attributes }}</span>
             </div>
         </div>
-        <div class="row">
+        <div class="row gutter-16 gutter-lg-24 ">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 sewn-form-field w-100">
                 <label>Roast level<span class="star">*</span></label>
                 <p-dropdown
@@ -60,7 +57,7 @@
                 <input type="text" placeholder="Enter a number" formControlName="temperature" pInputText />
                 <small *ngIf="roastingForm.controls['temperature'].errors?.required" class="p-error"> Required </small>
             </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 sewn-form-field w-100">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 sewn-form-field w-100 mar-top">
                 <label>Machine type<span class="star">*</span></label>
                 <input
                     type="text"
