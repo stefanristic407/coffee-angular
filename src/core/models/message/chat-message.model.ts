@@ -1,4 +1,4 @@
-import { ThreadActivityType } from '@core/enums';
+import { ThreadActivityType } from '@enums';
 import { ChatMessageMember } from './chat-message-member.model';
 import { ThreadMember } from './thread-member.model';
 

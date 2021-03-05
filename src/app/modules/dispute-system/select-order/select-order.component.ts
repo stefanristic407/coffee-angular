@@ -5,7 +5,7 @@ import { GlobalsService } from '@services';
 import * as moment from 'moment';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { COUNTRY_LIST } from '@core/constants';
+import { COUNTRY_LIST } from '@constants';
 
 @Component({
     selector: 'app-select-order',

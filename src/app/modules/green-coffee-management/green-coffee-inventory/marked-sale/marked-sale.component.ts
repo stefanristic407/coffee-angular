@@ -7,7 +7,7 @@ import { FormGroup } from '@angular/forms';
 import { PrimeTableService } from '@services';
 import { Table } from 'primeng/table';
 import { ToastrService } from 'ngx-toastr';
-import { COUNTRY_LIST } from '@core/constants';
+import { COUNTRY_LIST } from '@constants';
 
 @Component({
     selector: 'app-marked-sale',

@@ -4,7 +4,7 @@ import { Browser } from '@syncfusion/ej2-base';
 import { GlobalsService } from '@services';
 import { WelcomeService } from '../welcome.service';
 import * as _ from 'underscore';
-import { COUNTRY_LIST } from '@core/constants';
+import { COUNTRY_LIST } from '@constants';
 
 @Component({
     selector: 'app-dashboard-sourcing',

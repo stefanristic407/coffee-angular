@@ -10,7 +10,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { ConfirmComponent } from '@shared';
-import { COUNTRY_LIST } from '@core/constants';
+import { COUNTRY_LIST } from '@constants';
 
 @Component({
     selector: 'app-product-list',

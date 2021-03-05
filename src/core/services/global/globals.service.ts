@@ -3,8 +3,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Gallery, ImageItem, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
-import { COUNTRY_LIST, CONTINIENT_LIST } from '@core/constants';
-import { Country } from '@core/models';
+import { COUNTRY_LIST, CONTINIENT_LIST } from '@constants';
+import { Country } from '@models';
 
 @Injectable({
     providedIn: 'root',

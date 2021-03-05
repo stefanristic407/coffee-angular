@@ -1,4 +1,4 @@
-import { OrganizationType } from '@core/enums';
+import { OrganizationType } from '@enums';
 
 export interface UserListItem {
     email_verified: boolean;

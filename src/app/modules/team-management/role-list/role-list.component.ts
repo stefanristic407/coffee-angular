@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
-import { GlobalsService, RoasterserviceService } from '@core/services';
+import { GlobalsService, RoasterserviceService } from '@services';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';

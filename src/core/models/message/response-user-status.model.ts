@@ -1,4 +1,4 @@
-import { OrganizationType } from '@core/enums';
+import { OrganizationType } from '@enums';
 
 export interface ResponseUserStatus {
     id: number;
