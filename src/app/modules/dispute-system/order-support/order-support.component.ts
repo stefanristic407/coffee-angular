@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { GlobalsService } from '@core/services/globals.service';
+import { GlobalsService } from '@services';
 import { MenuItem } from 'primeng/api';
 
 @Component({
