@@ -1,234 +1,215 @@
-<div class="total-loader" *ngIf="roasteryActive != 1">
-    <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
-    <div>
-        <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
-        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
-    </div>
-</div>
-<div *ngIf="roasteryActive == 1">
-    <section>
-        <div class="bg-fff pb-md-5">
-            <section class="col-sm-12 col-md-12 col-lg-12 top-padding">
-                <div class="d-flex justify-content-between align-items-center breadcrumb1 mb-3">
-                    <div>
-                        <p-breadcrumb [model]="items"></p-breadcrumb>
-                    </div>
-                    <div class="d-none d-md-block">
-                        <button
-                            pButton
-                            type="button"
-                            class="btn-stroked mr-2"
-                            [label]="globals.languageJson?.cancel"
-                            *ngIf="roasteryProfileService.savemode"
-                            (click)="roasteryProfileService.preview()"
-                        ></button>
-                        <button
-                            pButton
-                            type="button"
-                            class="btn-raised"
-                            [disabled]="roasteryProfileService.isSaving"
-                            [label]="globals.languageJson?.save"
-                            *ngIf="roasteryProfileService.savemode"
-                            (click)="roasteryProfileService.saveRoasterProfile()"
-                        ></button>
-                        <button
-                            pButton
-                            type="button"
-                            class="btn-raised"
-                            [label]="globals.languageJson?.edit"
-                            *ngIf="roasteryProfileService.editmode"
-                            (click)="roasteryProfileService.editRoasterProfile()"
-                        ></button>
-                    </div>
-                </div>
-            </section>
-            <section class="my-profile pb-md-5">
-                <div class="col-lg-12 col-sm-12 no-padding">
-                    <h1 class="fnt-muli mb-0 mb-md-3">{{ globals.languageJson?.roastery_profile }}</h1>
-
-                    <!--                    <div class="m-3">-->
-                    <!--                        new content-->
-                    <!--                    </div>-->
-
-                    <div class="mt-lg-2 cover-div position-relative cursor-pointer">
-                        <div
-                            class="cover-pic text-center"
-                            (click)="bannerFileInput.click()"
-                            *ngIf="roasteryProfileService.savemode && !roasteryProfileService.bannerUrl"
-                        >
-                            <img class="plus-circle" src="assets/images/plus-circle.svg" />
-                            <img class="camera desk-view" src="assets/images/camera.svg" />
-                            <p class="text-data pt-2">{{ globals.languageJson?.add_cover_image }}</p>
-                            <p class="text-data">{{ globals.languageJson?.dimension }} 1144 x 160</p>
-                        </div>
-                        <img
-                            class="cover-image-profile-banner w-100"
-                            *ngIf="roasteryProfileService.savemode && roasteryProfileService.bannerUrl"
-                            [src]="roasteryProfileService.bannerUrl"
-                            height="160"
-                        />
-
-                        <input
-                            type="file"
-                            hidden
-                            #bannerFileInput
-                            (change)="roasteryProfileService.handleBannerImageFile($event.target)"
-                        />
-
-                        <img
-                            class="cover-image-profile-banner w-100"
-                            *ngIf="roasteryProfileService.editmode && !roasteryProfileService.bannerUrl"
-                            src="assets/images/blank.png"
-                            height="160"
-                        />
-                        <img
-                            class="cover-image-profile-banner w-100"
-                            *ngIf="roasteryProfileService.editmode && roasteryProfileService.bannerUrl"
-                            [src]="roasteryProfileService.bannerUrl"
-                            height="160"
-                        />
-
-                        <!--                        <span-->
-                        <!--                            class="add-a-service replace-img fnt-14 fnt-muli fnt-700"-->
-                        <!--                            *ngIf="roasteryProfileService.editmode"-->
-                        <!--                        >-->
-                        <!--                            Replace image-->
-                        <!--                        </span>-->
-                        <button
-                            *ngIf="roasteryProfileService.savemode && roasteryProfileService.bannerUrl"
-                            (click)="bannerFileInput.click()"
-                            pButton
-                            label="Replace image"
-                            class="btn-raised position-absolute replace-img d-none d-lg-inline"
-                        ></button>
-                        <span
-                            *ngIf="roasteryProfileService.savemode && roasteryProfileService.bannerUrl"
-                            (click)="roasteryProfileService.handleDeleteBannerImage()"
-                            class="delete-img text-clrfff fnt-14 fnt-muli fnt-700 d-none d-lg-inline"
-                        >
-                            <img class="del-prf-cover" src="assets/images/delete.svg " /> Delete
-                        </span>
-                        <div class="profile-div">
-                            <div class="col-lg-4 title-div pb-1 pb-md-0">
-                                <p class="title mt-0 pt-md-3" (click)="link.click()">
-                                    {{ roasteryProfileService.name }}
-                                    <img class="back_arrow_link desk-view" src="assets/images/back_arrow_link.svg" />
-                                </p>
-                                <input
-                                    id="company-website"
-                                    class="w-100"
-                                    *ngIf="roasteryProfileService.savemode"
-                                    type="text"
-                                    pInputText
-                                    placeholder="www.royalcoffee.az.com/"
-                                    [(ngModel)]="roasteryProfileService.website"
-                                    name="website"
-                                />
-                                <p class="website-text mob-view" *ngIf="roasteryProfileService.editmode">
-                                    {{ roasteryProfileService.website }}
-                                </p>
-                                <a target="blank" href="{{ roasteryProfileService.website }}" #link hidden></a>
-                                <p class="owned-text desk-view" *ngIf="roasteryProfileService.editmode">
-                                    {{ globals.languageJson?.owned_by }} {{ roasteryProfileService.name }}
-                                </p>
-                                <p class="founded-text desk-view" *ngIf="roasteryProfileService.editmode">
-                                    {{ globals.languageJson?.founded_in }} {{ roasteryProfileService.foundedIn }}
-                                </p>
-                            </div>
-                            <div class="pic-div">
-                                <img [src]="profilePhotoService.croppedImage" class="oval-pic" />
-                                <a
-                                    class="show_modal"
-                                    *ngIf="roasteryProfileService.savemode"
-                                    (click)="showModalDialog()"
-                                >
-                                    <img src="assets/images/camera.svg" class="camera-pic" />
-                                </a>
-                            </div>
-                            <div>
-                                <input type="file" accept="image/*" hidden #image (change)="handleFile($event)" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <div class="bg-fff pb-5 mt-md-3">
-            <div class="tab">
-                <div class="responsive-tabMenu">
-                    <p-tabMenu [model]="menuItems"></p-tabMenu>
-                </div>
-                <div class="mt-3 mt-md-4">
-                    <router-outlet></router-outlet>
-                </div>
+<section>
+    <div class="bg-fff pl-lg-5 pr-lg-5 pt-lg-45">
+        <div class="d-flex justify-content-between mb-3">
+            <div>
+                <p-breadcrumb [model]="items"></p-breadcrumb>
             </div>
-            <div class="mobile-farm farm-stricky col-12">
-                <div class="row" *ngIf="roasteryProfileService.savemode">
-                    <div class="col-6">
-                        <button
-                            type="button"
-                            pButton
-                            class="btn-stroked w-100"
-                            [label]="globals.languageJson?.preview"
-                            (click)="roasteryProfileService.preview()"
-                        ></button>
-                    </div>
-                    <div class="col-6">
-                        <button
-                            type="button"
-                            pButton
-                            class="btn-stroked w-100"
-                            [label]="globals.languageJson?.save"
-                            (click)="roasteryProfileService.saveRoasterProfile()"
-                        ></button>
-                    </div>
-                </div>
+            <div class="d-none d-md-block">
                 <button
+                    pButton
                     type="button"
-                    class="btn edit-butn"
+                    class="cancel-butn mr-2"
+                    [label]="globals.languageJson?.cancel"
+                    *ngIf="roasteryProfileService.savemode"
+                    (click)="roasteryProfileService.preview()"
+                ></button>
+                <button
+                    pButton
+                    type="button"
+                    class="btn-normal"
+                    [disabled]="roasteryProfileService.isSaving"
+                    [label]="globals.languageJson?.save"
+                    *ngIf="roasteryProfileService.savemode"
+                    (click)="roasteryProfileService.saveRoasterProfile()"
+                ></button>
+                <button
+                    pButton
+                    type="button"
+                    class="btn-normal"
+                    [label]="globals.languageJson?.edit"
                     *ngIf="roasteryProfileService.editmode"
                     (click)="roasteryProfileService.editRoasterProfile()"
-                >
-                    {{ globals.languageJson?.go_back_edit }}
-                </button>
+                ></button>
             </div>
         </div>
-    </section>
+        <section class="my-profile pb-md-5">
+            <div class="col-lg-12 col-sm-12 no-padding">
+                <h1 class="fnt-muli mb-0 mb-md-3">{{ globals.languageJson?.roastery_profile }}</h1>
 
-    <p-dialog
-        header="Edit Photo"
-        [(visible)]="profilePhotoService.displayModal"
-        [modal]="true"
-        [style]="{ width: '50vw' }"
-        [baseZIndex]="10000"
-        [draggable]="false"
-        [resizable]="false"
-        styleClass="no-padding"
-    >
-        <p-header>
-            <span class="close-img-div">
-                <img
-                    class="close-pic pull-right"
-                    src="assets/images/close.svg"
-                    alt="close-image"
-                    (click)="closeProfileModal()"
-                />
-            </span>
-        </p-header>
-        <sewn-profile-photo></sewn-profile-photo>
-        <p-footer>
-            <button type="button" id="change-pic" class="previous btn" (click)="showModalDialog()">
-                {{ globals.languageJson?.change_photo }}
-            </button>
+                <div class="mt-lg-2 cover-div position-relative cursor-pointer">
+                    <div
+                        class="cover-pic text-center"
+                        (click)="bannerFileInput.click()"
+                        *ngIf="roasteryProfileService.savemode && !roasteryProfileService.bannerUrl"
+                    >
+                        <img class="plus-circle" src="assets/images/plus-circle.svg" />
+                        <img class="camera desk-view" src="assets/images/camera.svg" />
+                        <p class="text-data pt-2">{{ globals.languageJson?.add_cover_image }}</p>
+                        <p class="text-data">{{ globals.languageJson?.dimension }} 1144 x 160</p>
+                    </div>
+                    <img
+                        class="cover-image-profile-banner w-100"
+                        *ngIf="roasteryProfileService.savemode && roasteryProfileService.bannerUrl"
+                        [src]="roasteryProfileService.bannerUrl"
+                        height="160"
+                    />
+
+                    <input
+                        type="file"
+                        hidden
+                        #bannerFileInput
+                        (change)="roasteryProfileService.handleBannerImageFile($event.target)"
+                    />
+
+                    <img
+                        class="cover-image-profile-banner w-100"
+                        *ngIf="roasteryProfileService.editmode && !roasteryProfileService.bannerUrl"
+                        src="assets/images/blank.png"
+                        height="160"
+                    />
+                    <img
+                        class="cover-image-profile-banner w-100"
+                        *ngIf="roasteryProfileService.editmode && roasteryProfileService.bannerUrl"
+                        [src]="roasteryProfileService.bannerUrl"
+                        height="160"
+                    />
+
+                    <!--                        <span-->
+                    <!--                            class="add-a-service replace-img fnt-14 fnt-muli fnt-700"-->
+                    <!--                            *ngIf="roasteryProfileService.editmode"-->
+                    <!--                        >-->
+                    <!--                            Replace image-->
+                    <!--                        </span>-->
+                    <button
+                        *ngIf="roasteryProfileService.savemode && roasteryProfileService.bannerUrl"
+                        (click)="bannerFileInput.click()"
+                        pButton
+                        label="Replace image"
+                        class="btn-raised position-absolute replace-img d-none d-lg-inline"
+                    ></button>
+                    <span
+                        *ngIf="roasteryProfileService.savemode && roasteryProfileService.bannerUrl"
+                        (click)="roasteryProfileService.handleDeleteBannerImage()"
+                        class="delete-img text-clrfff fnt-14 fnt-muli fnt-700 d-none d-lg-inline"
+                    >
+                        <img class="del-prf-cover" src="assets/images/delete.svg " /> Delete
+                    </span>
+                    <div class="profile-div">
+                        <div class="col-lg-4 title-div pb-1 pb-md-0">
+                            <p class="title mt-0 pt-md-3" (click)="link.click()">
+                                {{ roasteryProfileService.name }}
+                                <img class="back_arrow_link desk-view" src="assets/images/back_arrow_link.svg" />
+                            </p>
+                            <input
+                                id="company-website"
+                                class="w-100"
+                                *ngIf="roasteryProfileService.savemode"
+                                type="text"
+                                pInputText
+                                placeholder="www.royalcoffee.az.com/"
+                                [(ngModel)]="roasteryProfileService.website"
+                                name="website"
+                            />
+                            <p class="website-text mob-view" *ngIf="roasteryProfileService.editmode">
+                                {{ roasteryProfileService.website }}
+                            </p>
+                            <a target="blank" href="{{ roasteryProfileService.website }}" #link hidden></a>
+                            <p class="owned-text desk-view" *ngIf="roasteryProfileService.editmode">
+                                {{ globals.languageJson?.owned_by }} {{ roasteryProfileService.name }}
+                            </p>
+                            <p class="founded-text desk-view" *ngIf="roasteryProfileService.editmode">
+                                {{ globals.languageJson?.founded_in }} {{ roasteryProfileService.foundedIn }}
+                            </p>
+                        </div>
+                        <div class="pic-div">
+                            <img [src]="profilePhotoService.croppedImage" class="oval-pic" />
+                            <a class="show_modal" *ngIf="roasteryProfileService.savemode" (click)="showModalDialog()">
+                                <img src="assets/images/camera.svg" class="camera-pic" />
+                            </a>
+                        </div>
+                        <div>
+                            <input type="file" accept="image/*" hidden #image (change)="handleFile($event)" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="bg-fff pb-5 mt-md-3">
+        <div class="tab">
+            <div class="responsive-tabMenu">
+                <p-tabMenu [model]="menuItems"></p-tabMenu>
+            </div>
+            <div class="mt-3 mt-md-4">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+        <div class="mobile-farm farm-stricky col-12">
+            <div class="row" *ngIf="roasteryProfileService.savemode">
+                <div class="col-6">
+                    <button
+                        type="button"
+                        pButton
+                        class="btn-stroked w-100"
+                        [label]="globals.languageJson?.preview"
+                        (click)="roasteryProfileService.preview()"
+                    ></button>
+                </div>
+                <div class="col-6">
+                    <button
+                        type="button"
+                        pButton
+                        class="btn-stroked w-100"
+                        [label]="globals.languageJson?.save"
+                        (click)="roasteryProfileService.saveRoasterProfile()"
+                    ></button>
+                </div>
+            </div>
             <button
                 type="button"
-                id="save-pic"
-                class="btn btn-info login-butn"
-                (click)="profilePhotoService.saveProfilePic()"
+                class="btn edit-butn"
+                *ngIf="roasteryProfileService.editmode"
+                (click)="roasteryProfileService.editRoasterProfile()"
             >
-                {{ globals.languageJson?.save_photo }}
+                {{ globals.languageJson?.go_back_edit }}
             </button>
-        </p-footer>
-    </p-dialog>
-</div>
+        </div>
+    </div>
+</section>
+
+<p-dialog
+    header="Edit Photo"
+    [(visible)]="profilePhotoService.displayModal"
+    [modal]="true"
+    [style]="{ width: '50vw' }"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
+    styleClass="no-padding"
+>
+    <p-header>
+        <span class="close-img-div">
+            <img
+                class="close-pic pull-right"
+                src="assets/images/close.svg"
+                alt="close-image"
+                (click)="closeProfileModal()"
+            />
+        </span>
+    </p-header>
+    <sewn-profile-photo></sewn-profile-photo>
+    <p-footer>
+        <button type="button" id="change-pic" class="previous btn" (click)="showModalDialog()">
+            {{ globals.languageJson?.change_photo }}
+        </button>
+        <button
+            type="button"
+            id="save-pic"
+            class="btn btn-info login-butn"
+            (click)="profilePhotoService.saveProfilePic()"
+        >
+            {{ globals.languageJson?.save_photo }}
+        </button>
+    </p-footer>
+</p-dialog>

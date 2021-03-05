@@ -32,6 +32,21 @@
     }
 }
 
+.btn-normal {
+    border-radius: 4px;
+    background-color: #30855c;
+    border: 1px solid #30855c;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 12px 24px;
+    &:hover {
+        box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+    }
+    &:focus {
+        outline: none !important;
+    }
+}
+
 .btn-raised.loading {
     span {
         padding-right: 20px;
