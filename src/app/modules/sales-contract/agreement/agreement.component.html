@@ -5,8 +5,9 @@
                 <span id="title-breadcrumb-1" class="sr-only"></span>
                 <ul class="pl-3">
                     <li class="b-cum">
-                        <a class="b-cum" [routerLink]="['/']">{{ globals.languageJson?.home }}</a><span class="padl-r"
-                            aria-hidden="true"><i class="pi pi-angle-right align-arrow-top"></i>
+                        <a class="b-cum" [routerLink]="['/']">{{ globals.languageJson?.home }}</a
+                        ><span class="padl-r" aria-hidden="true"
+                            ><i class="pi pi-angle-right align-arrow-top"></i>
                         </span>
                     </li>
                     <li class="b-cum c-pink">{{ globals.languageJson?.agreements }}</li>
@@ -14,8 +15,13 @@
             </nav>
             <div class="file-share-search col-12 col-md-3 ml-md-auto mb-3 mr-3 d-none d-md-flex align-items-center">
                 <img class="mr-1 mr-md-2" src="assets/images/search.svg" />
-                <input class="fadout-search fnt-14" type="search" placeholder="{{ globals.languageJson?.search_files }}"
-                    [(ngModel)]="searchTerm" name="filesTerm" />
+                <input
+                    class="fadout-search fnt-14"
+                    type="search"
+                    placeholder="{{ globals.languageJson?.search_files }}"
+                    [(ngModel)]="searchTerm"
+                    name="filesTerm"
+                />
             </div>
         </div>
 
@@ -37,14 +43,20 @@
                         </div>
                         <div class="col-lg-12 col-md-12 px-0 mt-4 pt-2" id="agreements-nav">
                             <p-tabView (onChange)="onTabChange($event)">
-                                <p-tabPanel header="{{globals.languageJson?.horeca}}">
-                                    <app-roaster-agreements *ngIf="customerType === 'hrc'" [searchTerm]="searchTerm"
-                                        [customerType]="'hrc'">
+                                <p-tabPanel header="{{ globals.languageJson?.horeca }}">
+                                    <app-roaster-agreements
+                                        *ngIf="customerType === 'hrc'"
+                                        [searchTerm]="searchTerm"
+                                        [customerType]="'hrc'"
+                                    >
                                     </app-roaster-agreements>
                                 </p-tabPanel>
-                                <p-tabPanel header="{{globals.languageJson?.micro_roasters}}">
-                                    <app-roaster-agreements *ngIf="customerType === 'micro-roasters'"
-                                        [searchTerm]="searchTerm" [customerType]="'micro-roasters'">
+                                <p-tabPanel header="{{ globals.languageJson?.micro_roasters }}">
+                                    <app-roaster-agreements
+                                        *ngIf="customerType === 'micro-roasters'"
+                                        [searchTerm]="searchTerm"
+                                        [customerType]="'micro-roasters'"
+                                    >
                                     </app-roaster-agreements>
                                 </p-tabPanel>
                             </p-tabView>
