@@ -29,10 +29,10 @@ export class FaqQuestionComponent implements OnInit {
         this.route.params.subscribe((params) => {
             this.orderID = params.orderId ? params.orderId : '';
         });
-        this.supplyBreadCrumb();
         if (this.route.snapshot.queryParams.buttonValue) {
             this.buttonValue = decodeURIComponent(this.route.snapshot.queryParams.buttonValue);
         }
+        this.supplyBreadCrumb();
     }
     supplyBreadCrumb(): void {
         const obj1: MenuItem = {
@@ -41,24 +41,30 @@ export class FaqQuestionComponent implements OnInit {
         };
         const obj2: MenuItem = {
             label: 'Order Management',
-            routerLink: 'ordermanagement/estate-orders',
+            routerLink: '/ordermanagement/estate-orders',
         };
         const obj3: MenuItem = {
             label: 'Estate Orders',
-            routerLink: 'ordermanagement/estate-orders',
+            routerLink: '/ordermanagement/estate-orders]',
         };
         const obj4: MenuItem = {
             label: 'Order ' + this.orderID,
-            routerLink: '/ordermanagement/order-booked',
+            queryParams: { id: this.orderID },
+            routerLink: ['/ordermanagement/order-booked'],
         };
         const obj5: MenuItem = {
             label: 'Order Support',
+            routerLink: ['/dispute-system/order-support', this.orderID],
+        };
+        const obj6: MenuItem = {
+            label: this.buttonValue,
         };
         this.breadCrumbItem.push(obj1);
         this.breadCrumbItem.push(obj2);
         this.breadCrumbItem.push(obj3);
         this.breadCrumbItem.push(obj4);
         this.breadCrumbItem.push(obj5);
+        this.breadCrumbItem.push(obj6);
         this.getFAQList();
     }
     navigateAssignTicket() {

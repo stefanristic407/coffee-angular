@@ -5,9 +5,10 @@
         </div>
     </div>
     <div class="row gutter-16 gutter-lg-24">
-        <div class="col-12">
-            <p class="fnt-18 fnt-700 fnt-muli black">Add a product</p>
+        <div class="col-12 productDiv">
+            <span class="fnt-18 fnt-700 fnt-muli black">Add a product</span>
         </div>
+        <div *ngIf="productID" class="col-12 productLineDiv"></div>
     </div>
     <div [formGroup]="productForm" (ngSubmit)="onSave()" novalidate>
         <div class="row gutter-16 gutter-lg-24">
@@ -34,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="productID" class="col-12 col-sm-12 col-md-12 row d-flex d-sm-flex d-md-none pr-0">
+            <div *ngIf="productID" class="col-12 col-sm-12 col-md-12 row d-flex d-sm-flex d-md-none pt-4">
                 <div class="col-6 d-flex align-items-center">
                     <span class="primary_txt font-14">Product Visibility : </span>
                 </div>
@@ -58,9 +59,10 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-12 divSeperator w-100 ml-3"></div>
             </div>
         </div>
-        <div class="row gutter-16 gutter-lg-24 mt-4">
+        <div class="row gutter-16 gutter-lg-24">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
                 <label>Product Name<span class="star">*</span></label>
                 <input type="text" placeholder="product name" formControlName="name" pInputText />
