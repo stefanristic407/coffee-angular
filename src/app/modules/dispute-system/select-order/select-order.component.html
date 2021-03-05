@@ -8,18 +8,18 @@
         </div>
     </div>
     <div class="row mt-4">
-        <div class="col-12">
+        <div class="col-8">
             <div class="primary_txt mb-2">Select an order</div>
             <div class="secondary_txt">Please select one ongoing order to raise a ticket for</div>
         </div>
-    </div>
-    <div class="row">
-        <div *ngIf="selectedOrder" class="col-12 d-none d-sm-none d-md-flex">
+        <div *ngIf="selectedOrder" class="col-4 d-none d-sm-none d-md-flex">
             <button class="btn btn-stroked ml-auto" [routerLink]="['/dispute-system/order-chat/', orderID]">
                 {{ globals.languageJson?.cancel }}
             </button>
             <button class="btn btn-raised ml-3" (click)="onContinue()">Continue</button>
         </div>
+    </div>
+    <div class="row">
         <div *ngIf="selectedOrder" class="col-12 d-flex d-sm-flex d-md-none">
             <button class="btn btn-stroked flex-grow-1" [routerLink]="['/dispute-system/order-chat/', orderID]">
                 {{ globals.languageJson?.cancel }}
