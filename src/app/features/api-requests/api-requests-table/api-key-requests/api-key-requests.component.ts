@@ -14,6 +14,7 @@ export class ApiKeyRequestsComponent implements OnInit {
     @Input() filterData;
     @Input() dateRange;
     @Input() perPage;
+    statusFilter: string = 'PENDING';
     @Output() filterType = new EventEmitter<any>();
     termStatus: any;
     showStatus = true;
@@ -51,10 +52,6 @@ export class ApiKeyRequestsComponent implements OnInit {
     }
 
     ngOnChanges(changes: SimpleChange): void {
-        console.log('changes-->>', changes);
-        console.log('filterData', this.filterData);
-        console.log('this.date range--.', this.dateRange);
-        console.log('perPage---', this.perPage);
         if (this.dateRange?.length) {
             const [dateFrom, dateTo] = this.dateRange;
             this.dateFrom = dateFrom;
@@ -85,6 +82,7 @@ export class ApiKeyRequestsComponent implements OnInit {
             page: this.pageNumber,
             per_page: this.perPage,
             org_type: this.filterData,
+            status: this.statusFilter,
         };
         if (this.dateFrom && this.dateTo) {
             data['date_from'] = moment(this.dateFrom).format('YYYY-MM-DD');
