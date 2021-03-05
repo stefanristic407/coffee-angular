@@ -1,4 +1,4 @@
-<section>
+<section *ngIf="!showOrder">
     <div class="main-block">
         <div class="row pb-md-3 pb-1">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 overflow-auto d-flex flex-nowrap breadCrumb">
@@ -408,3 +408,4 @@
         </div>
     </div>
 </section>
+<app-select-order-table *ngIf="showOrder" (orderSelectEvent)="setOrder($event)"></app-select-order-table>
