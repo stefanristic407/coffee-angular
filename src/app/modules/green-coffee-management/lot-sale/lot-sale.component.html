@@ -32,10 +32,10 @@
                 </div>
                 <div *ngIf="orderDetails" class="border-div">
                     <div class="row tabViewModel">
-                        <div class="col-12 web-sec fnt-18 text-clr334 fnt-bold pb-2">
+                        <div class="col-12 web-sec fnt-18 text-clr334 fnt-bold pb-2 pl-0 pl-lg-3">
                             {{ globals.languageJson?.green_coffee_details }}
                         </div>
-                        <div class="table-container userTable mx-2 mt-2 mb-2 p-1 pt-0 productListTable">
+                        <div class="table-container userTable mx-2 mt-2 mb-2 px-1 pt-0 productListTable">
                             <p-table
                                 #myTable
                                 [class.table-mobile]="sharedService.isMobileView"
@@ -244,9 +244,9 @@
                     </div>
                 </div>
             </section>
-            <section class="mt-3" [formGroup]="lotSaleForm" (ngSubmit)="onSave()" novalidate>
+            <section class="mt-lg-3" [formGroup]="lotSaleForm" (ngSubmit)="onSave()" novalidate>
                 <div class="row w-100 border-bottom-gray pb-3 mx-0">
-                    <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9 px-0 pt-md-3">
+                    <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9 px-0 pt-lg-3">
                         <h1 class="text-clr334 fnt-18 fnt-bold">{{ globals.languageJson?.sale_information }}</h1>
                         <div class="col-12 pull-left p-0 text-clr334 fnt-14 fnt-normal">
                             Manage the price, quantity & delivery charges of coffee marked for sale
@@ -278,9 +278,9 @@
                         <span (click)="updateStatus()" class="text-brown mt-4 pull-right ml-auto"><a>Save</a> </span>
                     </div>
                 </div>
-                <div class="row mt-4">
+                <div class="row">
                     <div class="col-md-6">
-                        <div *ngIf="!showDropdown" class="col-md-12 current-s-bg tabPage">
+                        <div *ngIf="!showDropdown" class="col-md-12 current-s-bg tabPage mt-4">
                             <p class="fnt-24 fnt-play fnt-normal text-clr02 m-0 pb-2">Availability Status</p>
                             <p class="fnt-mb-14 fnt-muli fnt-600 text-clr334 m-0 pb-3">
                                 Maintain the status of your product and keep the roasters updated
@@ -292,7 +292,10 @@
                             </span>
                         </div>
 
-                        <div *ngIf="showDropdown" class="col-md-12 sewn-form-field w-100 current-s-bg d-inline tabPage">
+                        <div
+                            *ngIf="showDropdown"
+                            class="col-md-12 sewn-form-field w-100 current-s-bg d-inline tabPage mt-4"
+                        >
                             <p-dropdown
                                 [options]="stockTypeArray"
                                 optionLabel="label"
@@ -310,7 +313,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-4 pt-2">
+                <div class="row mt-4 pt-lg-2 gutter-16 gutter-lg-24">
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
                         <label>Product name<span class="star">*</span></label>
                         <input
@@ -360,7 +363,7 @@
                         </small>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row gutter-16 gutter-lg-24">
                     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
                         <label>Quantity for sale<span class="star">*</span></label>
                         <div class="input-group weightInputGroupDiv">
@@ -481,7 +484,7 @@
                         </small>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row gutter-16 gutter-lg-24">
                     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
                         <label>VAT role<span class="star">*</span></label>
                         <p-dropdown
@@ -501,13 +504,13 @@
                 <div class="col-lg-12 col-md-12 px-0">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 web-sec">
-                            <div class="float-left mt-48 mb-48">
+                            <div class="float-left my-4">
                                 <button class="btn btn-stroked mt-32" (click)="popupDisplay = true">
                                     Delete product from listing
                                 </button>
                             </div>
 
-                            <div class="float-right mt-48 mb-48">
+                            <div class="float-right my-4">
                                 <button type="button" class="btn btn-stroked mt-32" (click)="onCancel()">Cancel</button>
                                 <button type="submit" class="ml-3 btn-raised btn" (click)="onSave()">
                                     Save changes
