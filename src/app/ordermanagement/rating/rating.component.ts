@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { FormService } from '@services';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
@@ -31,7 +30,6 @@ export class RatingComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private formSrv: FormService,
         private route: ActivatedRoute,
         private router: Router,
         public globals: GlobalsService,
@@ -140,7 +138,7 @@ export class RatingComponent implements OnInit {
                     }
                 });
         } else {
-            this.formSrv.markGroupDirty(this.infoForm);
+            this.infoForm.markAllAsTouched();
         }
     }
 }

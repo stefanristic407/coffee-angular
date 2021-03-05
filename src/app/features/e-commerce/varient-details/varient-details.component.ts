@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { RoasterserviceService } from '@core/services/api';
-import { GlobalsService } from '@core/services/globals.service';
+import { RoasterserviceService } from '@services';
+import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import * as $ from 'jquery';
@@ -116,6 +116,7 @@ export class VarientDetailsComponent implements OnInit {
         const weight = this.weightForm.get('weights') as FormArray;
         const getObj = {
             value: weight.controls[idx].value.weight,
+            unit: weight.controls[idx].value.weight_unit,
             product_weight_variant_id: weight.controls[idx].value.product_weight_variant_id,
             modify: false,
         };

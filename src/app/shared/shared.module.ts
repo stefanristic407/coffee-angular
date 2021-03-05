@@ -79,7 +79,6 @@ import { ImageMapComponent } from './components/remote-sensoring/image-map/image
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { MediaComponent } from './components/media/media.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
-import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { ReadMoreComponent } from './components/read-more/read-more.component';
 import { UploaderComponent } from './components/uploader/uploader.component';
 
@@ -177,7 +176,6 @@ const COMPONENTS = [
     DayPickerComponent,
     BlogCardComponent,
     BarChartComponent,
-    BreadcrumbComponent,
     HorizontalBarComponent,
     PhoneNumberComponent,
     ReviewSummaryComponent,

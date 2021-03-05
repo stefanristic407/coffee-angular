@@ -5,7 +5,6 @@ import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { map } from 'rxjs/operators';
 import { maxWordCountValidator, fileCountValidator } from '@utils';
-import { FormService } from '@services';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
@@ -31,7 +30,6 @@ export class AboutUsComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private formSrv: FormService,
         public globals: GlobalsService,
         private toastrService: ToastrService,
         public cookieService: CookieService,
@@ -169,7 +167,7 @@ export class AboutUsComponent implements OnInit {
                     this.toastrService.error('Error while updating details');
                 });
         } else {
-            this.formSrv.markGroupDirty(this.infoForm);
+            this.infoForm.markAllAsTouched();
         }
     }
 

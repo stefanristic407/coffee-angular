@@ -964,6 +964,6 @@ export class SetupComponent implements OnInit {
     //Description: After Completion of roaster setup and redirects to dashboard.
     done() {
         this.toastrService.success('Roaster SetUp Successfully Done!');
-        this.router.navigate(['/login']);
+        this.router.navigate(['/gate']);
     }
 }

@@ -116,7 +116,7 @@ ul {
 }
 @media (max-width: 767px) {
     .prodect-details {
-        padding: 12px;
+        padding: 0px 12px;
     }
     .produect-pro {
         padding: 0px 8px;
@@ -162,6 +162,8 @@ ul {
     .no-pad {
         padding-left: 10.5rem;
         padding-right: 10.5rem;
+        padding-bottom: 1.5rem;
+        padding-top: 1rem;
     }
     .v-report {
         a {

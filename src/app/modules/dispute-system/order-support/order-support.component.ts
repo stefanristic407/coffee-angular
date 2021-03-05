@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { GlobalsService } from '@core/services/globals.service';
+import { GlobalsService } from '@services';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -61,7 +61,8 @@ export class OrderSupportComponent implements OnInit {
         };
         const obj4: MenuItem = {
             label: 'Order ' + this.orderID,
-            routerLink: '/ordermanagement/order-booked',
+            queryParams: { id: this.orderID },
+            routerLink: ['/ordermanagement/order-booked'],
         };
         const obj5: MenuItem = {
             label: 'Order Support',

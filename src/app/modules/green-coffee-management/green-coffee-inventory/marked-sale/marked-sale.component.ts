@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, ViewChild, HostListener, AfterContentInit } from '@angular/core';
-import { GlobalsService } from '@core/services/globals.service';
-import { RoasterserviceService } from '@core/services/api/roaster.service';
+import { GlobalsService } from '@services';
+import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { NavigationExtras, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
-import { PrimeTableService } from '@core/services/prime-table.service';
+import { PrimeTableService } from '@services';
 import { Table } from 'primeng/table';
 import { ToastrService } from 'ngx-toastr';
 import { COUNTRY_LIST } from '@core/constants';
@@ -165,6 +165,7 @@ export class MarkedSaleComponent implements OnInit {
         this.deleteId = item.order_id;
     }
     ngOnInit(): void {
+        this.primeTableService.isMarkedForSale = false;
         this.primeTableService.url = `/ro/${this.roasterID}/marked-sale-coffees`;
 
         this.initializeTable();

@@ -19,10 +19,10 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { environment } from '@env/environment';
 import { AppComponent } from './app.component';
-import { LayoutComponent } from './layout/layout.component';
-import { HealthCheckComponent } from './components/health-check/health-check.component';
-
+import { GateComponent } from '@components';
+import { HealthCheckComponent } from '@components';
 import { MenuComponent } from '@components';
+import { LayoutComponent } from './layout/layout.component';
 import { FooterComponent } from './layout/footer/footer.component';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -45,6 +45,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         LayoutComponent,
         FooterComponent,
         SearchPanelComponent,
+        GateComponent,
     ],
     imports: [
         BrowserModule,
