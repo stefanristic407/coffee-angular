@@ -31,7 +31,7 @@
             <div class="orderDiv">
                 <span *ngIf="!currentDisputeID" class="primary_txt">Order #{{ orderDetails?.id }}</span>
                 <span *ngIf="currentDisputeID" class="primary_txt">Ticket #{{ currentDisputeID }}</span>
-                <span class="font-12">{{ orderDetails?.order_type }}</span>
+                <span class="fnt-12">{{ orderDetails?.order_type }}</span>
                 <span *ngIf="isView" class="text-highlited mt-4" (click)="isView = false">Close tickets</span>
                 <span *ngIf="!isView" class="text-highlited mt-4" (click)="isView = true">View tickets</span>
             </div>
@@ -57,7 +57,7 @@
                 <div class="orderDiv pr-5">
                     <span *ngIf="!currentDisputeID" class="primary_txt">Order #{{ orderDetails?.id }}</span>
                     <span *ngIf="currentDisputeID" class="primary_txt">Ticket #{{ currentDisputeID }}</span>
-                    <span class="statusLable font-12">Order Status - {{ orderDetails?.status }}</span>
+                    <span class="statusLable fnt-12">Order Status - {{ orderDetails?.status }}</span>
                 </div>
                 <!-- <div *ngIf="orderDetails && orderDetails['images']" class="pr-3 imgDiv">
                 <span *ngFor="let user of orderDetails['images']">
@@ -92,13 +92,13 @@
         <div class="row m-0 containerDiv floting-containerDiv">
             <div *ngIf="isView" class="order-ticket">
                 <div class="card-width" (click)="clickOrder()" [ngClass]="!currentDisputeID ? 'cardSelect' : ''">
-                    <div class="font-14 m-0" [ngClass]="!currentDisputeID ? 'selectedDataFont' : 'primary_label'">
+                    <div class="fnt-14 m-0" [ngClass]="!currentDisputeID ? 'selectedDataFont' : 'primary_label'">
                         Order
                     </div>
-                    <div class="font-14" [ngClass]="!currentDisputeID ? 'selectedDataFont' : 'primary_label'">
+                    <div class="fnt-14" [ngClass]="!currentDisputeID ? 'selectedDataFont' : 'primary_label'">
                         #{{ orderDetails?.id }}
                     </div>
-                    <div class="primary_label font-12 m-0 mb-3">
+                    <div class="primary_label fnt-12 m-0 mb-3">
                         {{ orderDetails?.created_at | date: 'h:mm a' }}
                     </div>
                 </div>
@@ -109,13 +109,13 @@
                     [ngClass]="currentDisputeID == item.id ? 'cardSelect' : ''"
                 >
                     <div
-                        class="font-14 m-0"
+                        class="fnt-14 m-0"
                         [ngClass]="currentDisputeID == item.id ? 'selectedDataFont' : 'primary_label'"
                     >
                         Ticket #{{ item.id }}
                     </div>
                     <div
-                        class="font-12 mb-3"
+                        class="fnt-12 mb-3"
                         [ngClass]="currentDisputeID == item.id ? 'selectedDataFont' : 'primary_label'"
                     >
                         {{ item.dispute_type }}

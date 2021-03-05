@@ -4,7 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { GlobalsService } from '@core/services/';
-import { RoasterserviceService, UserserviceService } from '@core/services/api/';
+import { RoasterserviceService, UserserviceService } from '@services';
 import { EditUserDetailsComponent } from '../edit-user-details/edit-user-details.component';
 
 @Component({

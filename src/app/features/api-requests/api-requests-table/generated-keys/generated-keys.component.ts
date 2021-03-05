@@ -48,9 +48,6 @@ export class GeneratedKeysComponent implements OnInit {
     @ViewChild('deletetemplate') private deletetemplate: any;
 
     ngOnChanges(): void {
-        console.log('filterData', this.filterData);
-        console.log('this.date range--.', this.dateRange);
-        console.log('per page===>>>', this.perPage);
         if (this.dateRange?.length) {
             const [dateFrom, dateTo] = this.dateRange;
             this.dateFrom = dateFrom;
