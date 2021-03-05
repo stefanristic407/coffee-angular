@@ -78,6 +78,10 @@
         margin-top: 22px !important;
         margin-bottom: 24px !important;
     }
+    .variant-pos {
+        position: relative;
+        top: 37px;
+    }
 }
 @media screen and (max-width: 767px) {
     .weightVariantBtn {
@@ -113,6 +117,8 @@
     }
     .roasterDivText-area {
         height: 232px;
+    }
+    .variant-pos {
     }
 }
 .addWeightDiv {
