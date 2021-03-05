@@ -1,7 +1,7 @@
 <div class="main-block">
     <div class="row mb-3">
         <div class="col-md-12 col-lg-12 col-xl-9 d-none d-sm-none d-md-block">
-            <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
+            <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex d-sm-flex d-md-none align-items-center">
             <div class="back-href cursor-pointer" [routerLink]="['/dispute-system/order-chat/', orderID]">
@@ -128,85 +128,90 @@
                 <div class="col-12 p-0">
                     <span class="primary_txt">Order details</span>
                 </div>
-                <div class="row p-3"> 
-                <div class="col-xl-12 col-lg-5 col-md-5 col-sm-12 mt-4">
-                    <div class="row pb-4 rowBorder d-none d-sm-none d-md-flex n-margin">
-                        <div class="col-2 p-0 d-flex align-items-center">
-                            <img
-                                class="img-estate img-procured"
-                                [src]="orderDetails?.estate_profile_image_thumbnail_url"
-                                alt="User"
-                            />
+                <div class="row p-3">
+                    <div class="col-xl-12 col-lg-5 col-md-5 col-sm-12 mt-4">
+                        <div class="row pb-4 rowBorder d-none d-sm-none d-md-flex n-margin">
+                            <div class="col-2 p-0 d-flex align-items-center">
+                                <img
+                                    class="img-estate img-procured"
+                                    [src]="orderDetails?.estate_profile_image_thumbnail_url"
+                                    alt="User"
+                                />
+                            </div>
+                            <div class="col-10 p-0 ownerDiv">
+                                <span class="estateMediumFont mb-1"
+                                    ><span class="fnt-600">Estate name: </span
+                                    >{{ orderDetails.estate_name ? orderDetails.estate_name : 'NA' }}</span
+                                >
+                                <span class="estateMediumFont"
+                                    ><span class="fnt-600">Owner:</span>
+                                    {{ orderDetails.estate_owner ? orderDetails.estate_owner : 'NA' }}</span
+                                >
+                            </div>
                         </div>
-                        <div class="col-10 p-0 ownerDiv">
-                            <span class="estateMediumFont mb-1"
-                                ><span class="fnt-600">Estate name: </span
-                                >{{ orderDetails.estate_name ? orderDetails.estate_name : 'NA' }}</span
-                            >
-                            <span class="estateMediumFont"
-                                ><span class="fnt-600">Owner:</span>
-                                {{ orderDetails.estate_owner ? orderDetails.estate_owner : 'NA' }}</span
-                            >
+                        <div class="row roasterDiv pb-4 rowBorder n-margin">
+                            <div class="col-2 p-0 d-flex align-items-center">
+                                <img
+                                    class="img-estate img-procured"
+                                    [src]="orderDetails?.roaster_profile_image_thumbnail_url"
+                                    alt="User"
+                                />
+                            </div>
+                            <div class="col-10 p-0 ownerDiv">
+                                <span class="estateMediumFont mb-1"
+                                    ><span class="fnt-600">Roaster name:</span>
+                                    {{ orderDetails.roaster_name ? orderDetails.roaster_name : 'NA' }}</span
+                                >
+                                <span class="estateMediumFont"
+                                    ><span class="fnt-600">Owner:</span>
+                                    {{ orderDetails.roaster_owner ? orderDetails.roaster_owner : 'NA' }}</span
+                                >
+                            </div>
                         </div>
                     </div>
-                    <div class="row roasterDiv pb-4 rowBorder n-margin">
-                        <div class="col-2 p-0 d-flex align-items-center">
-                            <img
-                                class="img-estate img-procured"
-                                [src]="orderDetails?.roaster_profile_image_thumbnail_url"
-                                alt="User"
-                            />
-                        </div>
-                        <div class="col-10 p-0 ownerDiv">
-                            <span class="estateMediumFont mb-1"
-                                ><span class="fnt-600">Roaster name:</span>
-                                {{ orderDetails.roaster_name ? orderDetails.roaster_name : 'NA' }}</span
-                            >
-                            <span class="estateMediumFont"
-                                ><span class="fnt-600">Owner:</span>
-                                {{ orderDetails.roaster_owner ? orderDetails.roaster_owner : 'NA' }}</span
-                            >
-                        </div>
-                    </div>
-
-                </div>
-                
-                    
 
                     <div class="col-xl-12 col-lg-7 col-md-7 col-sm-12 mt-2 origin-pad">
-                    <div class="row pt-3 pb-3 rowBorder">
-                        <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">Origin :</div>
-                        <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
-                            {{ orderDetails.origin ? orderDetails.origin : 'NA' }}
+                        <div class="row pt-3 pb-3 rowBorder">
+                            <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
+                                Origin :
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
+                                {{ orderDetails.origin ? orderDetails.origin : 'NA' }}
+                            </div>
+                        </div>
+                        <div class="row pt-3 pb-3 rowBorder">
+                            <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
+                                Variety :
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
+                                {{ orderDetails.varieties ? orderDetails.varieties : 'NA' }}
+                            </div>
+                        </div>
+                        <div class="row pt-3 pb-3 rowBorder">
+                            <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
+                                Price :
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
+                                {{ orderDetails.price ? orderDetails.price : 'NA' }}
+                            </div>
+                        </div>
+                        <div class="row pt-3 pb-3 rowBorder">
+                            <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
+                                Type of order :
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
+                                {{ orderDetails.order_type ? orderDetails.order_type : 'NA' }}
+                            </div>
+                        </div>
+                        <div class="row pt-3 pb-3 statusBorder">
+                            <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
+                                Status :
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
+                                {{ orderDetails.status ? orderDetails.status : 'NA' }}
+                            </div>
                         </div>
                     </div>
-                    <div class="row pt-3 pb-3 rowBorder">
-                        <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">Variety :</div>
-                        <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
-                            {{ orderDetails.varieties ? orderDetails.varieties : 'NA' }}
-                        </div>
-                    </div>
-                    <div class="row pt-3 pb-3 rowBorder">
-                        <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">Price :</div>
-                        <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
-                            {{ orderDetails.price ? orderDetails.price : 'NA' }}
-                        </div>
-                    </div>
-                    <div class="row pt-3 pb-3 rowBorder">
-                        <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
-                            Type of order :
-                        </div>
-                        <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
-                            {{ orderDetails.order_type ? orderDetails.order_type : 'NA' }}
-                        </div>
-                    </div>
-                    <div class="row pt-3 pb-3 statusBorder">
-                        <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">Status :</div>
-                        <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
-                            {{ orderDetails.status ? orderDetails.status : 'NA' }}
-                        </div>
-                    </div>
-                </div>
                 </div>
             </div>
         </div>
