@@ -129,7 +129,7 @@ export class ProcuredCoffeeComponent implements OnInit {
         this.procuredActive++;
     }
     availabilityPage() {
-        return `/sourcing/coffee-list/${this.orderDetails.estate_id}/${this.orderDetails.harvest_id}`;
+        return `/sourcing/coffee-details/${this.orderDetails.estate_id}/${this.orderDetails.harvest_id}`;
     }
     viewReport() {
         this.roasterService.getCuppingReportDetails(this.orderDetails.harvest_id).subscribe(
