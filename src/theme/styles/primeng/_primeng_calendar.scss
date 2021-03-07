@@ -9,6 +9,10 @@
     &:hover {
         border-color: $primary-color;
     }
+
+    &.highlight {
+        border-color: $primary-color;
+    }
 }
 .round-border.p-calendar {
     border-radius: 20px;
@@ -53,5 +57,51 @@
     }
     .p-calendar {
         border: none;
+    }
+}
+
+.p-calendar {
+    &.p-calendar-full-width {
+        max-width: 100%;
+        min-width: 100%;
+    }
+
+    &.p-calendar-left-icon {
+        flex-direction: row-reverse;
+
+        .p-inputtext {
+            margin-left: 0;
+        }
+    }
+
+    &.p-calendar-has-left-icon {
+        .p-inputtext {
+            margin-left: 38px;
+        }
+    }
+
+    &.p-inputtext-black {
+        .p-inputtext {
+            color: #232334;
+            opacity: 1;
+            padding: 15px 16px;
+            @media (max-width: 767px) {
+                padding: 13px 16px;
+            }
+        }
+    }
+    &.big-padding {
+        .p-inputtext {
+            padding: 15px 16px;
+            @media (max-width: 767px) {
+                padding: 13px 16px;
+            }
+        }
+    }
+
+    &.p-calendar-transparent {
+        .p-inputtext {
+            background: transparent;
+        }
     }
 }

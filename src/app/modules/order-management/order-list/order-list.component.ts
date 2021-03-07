@@ -125,7 +125,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     downloadOrderClicked() {
         const form = this.exportForm.value;
         this.orderService
-            .downloadOrders(form.export_type, form.from_date, form.to_date)
+            .downloadOrders(this.organizationType, form.export_type, form.from_date, form.to_date)
             .subscribe((response: ApiResponse<any>) => {
                 if (response.success) {
                     window.open(response.result.url, '_blank');

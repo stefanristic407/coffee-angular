@@ -165,14 +165,14 @@ export class OrdersService extends ApiService {
         );
     }
 
-    downloadOrders(exportType: string, dateFrom: string, dateTo: string) {
+    downloadOrders(orgType: string, exportType: string, dateFrom: string, dateTo: string) {
         const paramsObj = {
             from_date: dateFrom ? moment(dateFrom).format('yyyy-MM-DD') : '',
             to_date: dateTo ? moment(dateTo).format('yyyy-MM-DD') : '',
         };
         const params = this.serializeParams(paramsObj);
 
-        return this.post(this.url, `orders/export/${exportType}?${params}`, 'GET');
+        return this.post(this.url, `${orgType === 'mr' ? 'mr-' : ''}orders/export/${exportType}?${params}`, 'GET');
     }
 
     getCuppingReportUrl(harvestId: number): Observable<string> {
