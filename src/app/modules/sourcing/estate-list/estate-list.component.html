@@ -1,10 +1,16 @@
-<div *ngIf="(sourcingSrv.viewMode$ | async) === 'grid'; else tableView" class="row gutter-26">
-    <div *ngFor="let item of estateData" class="col-12 col-md-6 col-lg-4 card-wrap">
-        <div class="cursor-pointer h-100" routerLink="/sourcing/estate-details/{{ item.estate_id }}">
-            <app-estate-card [data]="item"></app-estate-card>
+<div *ngIf="(sourcingSrv.viewMode$ | async) === 'grid'; else tableView">
+    <ng-container *ngIf="!isLoaded; else mainLoader">
+        <div class="row gutter-26">
+            <div *ngFor="let item of estateData" class="col-12 col-md-6 col-lg-4 card-wrap">
+                <div class="cursor-pointer h-100" routerLink="/sourcing/estate-details/{{ item.estate_id }}">
+                    <app-estate-card [data]="item"></app-estate-card>
+                </div>
+            </div>
         </div>
-    </div>
-    <app-loading *ngIf="!isLoaded"></app-loading>
+    </ng-container>
+    <ng-template #mainLoader>
+        <app-loading></app-loading>
+    </ng-template>
 </div>
 <ng-template #tableView>
     <p-table

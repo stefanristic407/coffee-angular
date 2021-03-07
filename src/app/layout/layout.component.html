@@ -1,11 +1,4 @@
-<div class="total-loader" *ngIf="!loaded">
-    <div>
-        <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
-        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
-    </div>
-</div>
-
-<header class="stricky" *ngIf="loaded">
+<header class="stricky" *ngIf="loaded; else headerLoader">
     <nav class="bg-white nav-top1">
         <div class="container">
             <div class="d-flex align-items-center">
@@ -222,6 +215,12 @@
     </nav>
 </header>
 
+<ng-template #headerLoader>
+    <div class="stricky">
+        <img class="w-100" src="/assets/images/loader-header.gif" />
+    </div>
+</ng-template>
+
 <footer class="sectin-footer-mb">
     <section>
         <div class="container px-0">
@@ -328,17 +327,23 @@
 <div class="layout-wrap">
     <div class="container" *ngIf="loaded">
         <div class="router-design">
-            <app-sewn-direct-message></app-sewn-direct-message>
-            <app-search-panel
-                [show]="showSearch"
-                [searchStr]="searchString"
-                [searchResults]="searchResults"
-                (closeEmitter)="closeSearchPanel()"
-            ></app-search-panel>
-            <div [class.d-none]="showSearch">
-                <router-outlet></router-outlet>
-            </div>
+            <ng-container *ngIf="loaded; else mainLoader">
+                <app-sewn-direct-message></app-sewn-direct-message>
+                <app-search-panel
+                    [show]="showSearch"
+                    [searchStr]="searchString"
+                    [searchResults]="searchResults"
+                    (closeEmitter)="closeSearchPanel()"
+                ></app-search-panel>
+                <div [class.d-none]="showSearch">
+                    <router-outlet></router-outlet>
+                </div>
+            </ng-container>
         </div>
     </div>
     <app-footer></app-footer>
 </div>
+
+<ng-template #mainLoader>
+    <app-loading></app-loading>
+</ng-template>
