@@ -14,6 +14,7 @@ export class OrderHeaderComponent implements OnInit {
     breadcrumbs: MenuItem[] = [];
 
     @Input() orderId: number;
+    @Input() organizationType: string;
     @Input() orderType: OrderType;
     @Input() createdAt: Date;
     @Input() statusPaid = true;
@@ -45,7 +46,7 @@ export class OrderHeaderComponent implements OnInit {
     ngOnInit(): void {
         this.breadcrumbs = [
             { label: 'Home', routerLink: '/features/welcome-aboard' },
-            { label: 'Order Management', routerLink: '/orders' },
+            { label: 'Order Management', routerLink: `/orders/${this.organizationType}` },
             { label: `Order ${this.orderId}` },
         ];
     }

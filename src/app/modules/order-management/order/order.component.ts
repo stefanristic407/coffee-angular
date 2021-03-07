@@ -18,6 +18,7 @@ export class OrderComponent extends DestroyableComponent implements OnInit {
     roaster$ = this.ordersService.roasterDetails$;
 
     orderId: number;
+    organizationType: string;
     orderDetails: OrderDetails;
 
     constructor(private route: ActivatedRoute, private ordersService: OrdersService) {
@@ -27,6 +28,7 @@ export class OrderComponent extends DestroyableComponent implements OnInit {
     ngOnInit(): void {
         this.route.params.pipe(takeUntil(this.unsubscribeAll$)).subscribe((params) => {
             this.orderId = +params.id;
+            this.organizationType = params.organizationType;
             this.ordersService.loadOrderDetails(this.orderId);
             this.ordersService.orderDetails$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((data) => {
                 this.orderDetails = data;
