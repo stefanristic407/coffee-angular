@@ -995,12 +995,17 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
     //API Function Name : Assign user to Dispute
-    assignUserDispute(roasterId: any, disputeId: any, userData) {
+    assignUserDispute(roasterId: any, disputeId: any, userData, flag?) {
         var data = {};
         data['api_call'] = '/ro/' + roasterId + '/disputes/' + disputeId + '/assign';
+        data['method'] = 'POST';
+        if (flag) {
+            data['api_call'] = '/ro/' + roasterId + '/orders/' + disputeId + '/users/' + userData.user_id + '/assign';
+            data['method'] = 'PUT';
+        }
         data['token'] = this.cookieService.get('Auth');
         data['data'] = userData;
-        data['method'] = 'POST';
+
         return this.http.post(this.url, data);
     }
     //API Function Name : Add file IDs to dispute
@@ -1196,44 +1201,34 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
 
-    //get list of api keys request for RO
+    // get list of api keys request for RO
     getApiKeysForRo(roasterData: any): Observable<any> {
         var data = {};
         (data['api_call'] = `/ro/${roasterData.roaster_id}/api-keys/requests`), (data['method'] = 'GET');
-        data['api_call'] = status ? data['api_call'] + '?status=' + status : data['api_call'];
-        if (roasterData.page && roasterData.per_page) {
-            data['api_call'] = data['api_call'] + '?page=' + roasterData.page + '&per_page=' + roasterData.per_page;
-            // data['api_call'] = data['api_call'];
-        }
+        data['api_call'] =
+            data['api_call'] +
+            '?page=' +
+            roasterData.page +
+            '&per_page=' +
+            roasterData.per_page +
+            '&org_type=' +
+            roasterData.org_type +
+            '&status=' +
+            roasterData.status;
         if (roasterData.date_from && roasterData.date_to) {
             data['api_call'] =
-                data['api_call'] +
-                '?page=' +
-                roasterData.page +
-                '&per_page=' +
-                roasterData.per_page +
-                '&date_from=' +
-                roasterData.date_from +
-                '&date_to=' +
-                roasterData.date_to;
+                data['api_call'] + '&date_from=' + roasterData.date_from + '&date_to=' + roasterData.date_to;
             // data['api_call'] = data['api_call'];
         }
         if (roasterData.query) {
+            data['api_call'] = data['api_call'] + '&query=' + roasterData.query;
+        }
+        if (roasterData.sort_by && roasterData.sort_order) {
             data['api_call'] =
-                data['api_call'] +
-                '?page=' +
-                roasterData.page +
-                '&per_page=' +
-                roasterData.per_page +
-                '&query=' +
-                roasterData.query;
+                data['api_call'] + '&sort_by=' + roasterData.sort_by + '&sort_order=' + roasterData.sort_order;
         }
         if (roasterData.date_from && roasterData.date_to && roasterData.query) {
             data['api_call'] +
-                '?page=' +
-                roasterData.page +
-                '&per_page=' +
-                roasterData.per_page +
                 '&date_from=' +
                 roasterData.date_from +
                 '&date_to=' +
@@ -1241,24 +1236,85 @@ export class RoasterserviceService {
                 '&query=' +
                 roasterData.query;
         }
-        data['token'] = this.cookieService.get('Auth');
-        return this.http.post(this.url, data);
-    }
-
-    //List of API keys for RO
-    getGeneratedRoKeys(roasterData: any) {
-        var data = {};
-        (data['api_call'] = `/ro/${roasterData.roaster_id}/api-keys`), (data['method'] = 'GET');
-        data['api_call'] = status ? data['api_call'] + '?status=' + status : data['api_call'];
-        if (roasterData.page && roasterData.per_page) {
-            // data['api_call'] = data['api_call'] + '?page=' + roasterData.page + '&per_page=' + roasterData.per_page;
-            data['api_call'] = data['api_call'];
+        if (
+            roasterData.date_from &&
+            roasterData.date_to &&
+            roasterData.query &&
+            roasterData.sort_by &&
+            roasterData.sort_order
+        ) {
+            data['api_call'] +
+                '&date_from=' +
+                roasterData.date_from +
+                '&date_to=' +
+                roasterData.date_to +
+                '&query=' +
+                roasterData.query +
+                '&sort_by=' +
+                roasterData.sort_by +
+                '&sort_order=' +
+                roasterData.sort_order;
         }
         data['token'] = this.cookieService.get('Auth');
         return this.http.post(this.url, data);
     }
 
-    //View API keys request details for RO
+    // List of API keys for RO
+    getGeneratedRoKeys(roasterData: any): Observable<any> {
+        var data = {};
+        (data['api_call'] = `/ro/${roasterData.roaster_id}/api-keys`), (data['method'] = 'GET');
+        data['api_call'] =
+            data['api_call'] +
+            '?page=' +
+            roasterData.page +
+            '&per_page=' +
+            roasterData.per_page +
+            '&org_type=' +
+            roasterData.org_type;
+        if (roasterData.date_from && roasterData.date_to) {
+            data['api_call'] =
+                data['api_call'] + '&date_from=' + roasterData.date_from + '&date_to=' + roasterData.date_to;
+        }
+        if (roasterData.query) {
+            data['api_call'] = data['api_call'] + '&query=' + roasterData.query;
+        }
+        if (roasterData.sort_by && roasterData.sort_order) {
+            data['api_call'] =
+                data['api_call'] + '&sort_by=' + roasterData.sort_by + '&sort_order=' + roasterData.sort_order;
+        }
+        if (roasterData.date_from && roasterData.date_to && roasterData.query) {
+            data['api_call'] +
+                '&date_from=' +
+                roasterData.date_from +
+                '&date_to=' +
+                roasterData.date_to +
+                '&query=' +
+                roasterData.query;
+        }
+        if (
+            roasterData.date_from &&
+            roasterData.date_to &&
+            roasterData.query &&
+            roasterData.sort_by &&
+            roasterData.sort_order
+        ) {
+            data['api_call'] +
+                '&date_from=' +
+                roasterData.date_from +
+                '&date_to=' +
+                roasterData.date_to +
+                '&query=' +
+                roasterData.query +
+                '&sort_by=' +
+                roasterData.sort_by +
+                '&sort_order=' +
+                roasterData.sort_order;
+        }
+        data['token'] = this.cookieService.get('Auth');
+        return this.http.post(this.url, data);
+    }
+
+    // View API keys request details for RO
     getApiKeysRequestRo(roasterData: any): Observable<any> {
         var data = {};
         (data['api_call'] = `/ro/${roasterData.roaster_id}/api-keys/requests/${roasterData.request_id}`),
@@ -1267,17 +1323,17 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
 
-    //Generate API key for the request by RO
+    // Generate API key for the request by RO
     generateRoApiKey(roasterData: any): Observable<any> {
         var data = {};
         (data['api_call'] = `/ro/${roasterData.roaster_id}/api-keys/requests/${roasterData.request_id}/generate`),
-            (data['method'] = 'POST ');
+            (data['method'] = 'POST');
         data['token'] = this.cookieService.get('Auth');
         return this.http.post(this.url, data);
     }
 
-    //Delete the API key by RO
-    deleteRoApiKey(roasterData: any) {
+    // Delete the API key by RO
+    deleteRoApiKey(roasterData: any): Observable<any> {
         var data = {};
         (data['api_call'] = `/ro/${roasterData.roaster_id}/api-keys/${roasterData.api_key_id}`),
             (data['method'] = 'DELETE');
@@ -1285,8 +1341,8 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
 
-    //Enable the API key by RO
-    enableRoApiKey(roasterData: any) {
+    // Enable the API key by RO
+    enableRoApiKey(roasterData: any): Observable<any> {
         var data = {};
         (data['api_call'] = `/ro/${roasterData.roaster_id}/api-keys/${roasterData.api_key_id}/enable`),
             (data['method'] = 'PUT');
@@ -1294,8 +1350,8 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
 
-    //Notify customer about the API key by RO
-    disableRoApiKey(roasterData: any) {
+    // Notify customer about the API key by RO
+    disableRoApiKey(roasterData: any): Observable<any> {
         var data = {};
         (data['api_call'] = `/ro/${roasterData.roaster_id}/api-keys/${roasterData.api_key_id}/disable`),
             (data['method'] = 'PUT');
@@ -1303,8 +1359,8 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
 
-    //Notify customer about the API key by RO
-    notifyRoCustomer(roasterData: any) {
+    // Notify customer about the API key by RO
+    notifyRoCustomer(roasterData: any): Observable<any> {
         var data = {};
         (data['api_call'] = `/ro/${roasterData.roaster_id}/api-keys/${roasterData.api_key_id}/notify`),
             (data['method'] = 'POST');
@@ -1312,7 +1368,7 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
 
-    //View API key details for RO
+    // View API key details for RO
     viewRoDetails(roasterData: any) {
         var data = {};
         (data['api_call'] = `/ro/${roasterData.roaster_id}/api-keys/${roasterData.request_id}`),

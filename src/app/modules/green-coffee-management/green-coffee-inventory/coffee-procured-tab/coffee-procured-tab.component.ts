@@ -1,14 +1,15 @@
 import { Component, OnInit, Input, ViewChild, HostListener, AfterViewInit, AfterContentInit } from '@angular/core';
-import { GlobalsService } from '@core/services/globals.service';
-import { RoasterserviceService } from '@core/services/api/roaster.service';
+import { GlobalsService } from '@services';
+import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 import { NavigationExtras, Router } from '@angular/router';
-import { PrimeTableService } from '@core/services/prime-table.service';
+import { PrimeTableService } from '@services';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Table } from 'primeng/table';
-import { UserserviceService } from '@core/services/api/user.service';
+import { UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
+import { COUNTRY_LIST } from '@constants';
 
 @Component({
     selector: 'app-coffee-procured-tab',
@@ -23,7 +24,6 @@ export class CoffeeProcuredTabComponent implements OnInit {
     mainData: any[] = [];
     originArray: any[] = [];
     searchString = '';
-    markedCoffeeSaleLists: any = [];
     // sellerItems = [
     //     { label: 'Sweden', value: 'SE' },
     //     { label: 'UK', value: 'UK' },
@@ -61,11 +61,6 @@ export class CoffeeProcuredTabComponent implements OnInit {
         this.roasterID = this.cookieService.get('roaster_id');
         this.primeTableService.rows = 10;
         this.primeTableService.sortBy = 'created_at';
-        this.roasterService.getCoffeeSaleList(this.roasterID).subscribe((res) => {
-            if (res.result && res.success) {
-                this.primeTableService.markedCoffeeSaleLists = res.result;
-            }
-        });
     }
 
     // tslint:disable: variable-name
@@ -184,13 +179,14 @@ export class CoffeeProcuredTabComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.primeTableService.isMarkedForSale = true;
         this.primeTableService.url = `/ro/${this.roasterID}/procured-coffees`;
 
         this.initializeTableProcuredCoffee();
 
         this.primeTableService.form = this.form;
 
-        this.originArray = this.globals.countryList;
+        this.originArray = COUNTRY_LIST;
 
         this.primeTableService.form?.valueChanges.subscribe((data) =>
             setTimeout(() => {
@@ -225,7 +221,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
     sourcingRedirect(item) {
         this.userService.getGreenCoffeeDetails(this.roasterID, item.harvest_id).subscribe((res) => {
             if (res.success) {
-                return `/sourcing/coffee-list/${res.result?.estate_id}/${res.result?.harvest_id}`;
+                return `/sourcing/coffee-details/${res.result?.estate_id}/${res.result?.harvest_id}`;
             } else {
                 this.toastrService.error('Error while getting the Availability details');
             }

@@ -1,4 +1,4 @@
-import { OrganizationType } from '@core/enums';
+import { OrganizationType } from '@enums';
 
 export interface ThreadMember {
     first_name: string;
@@ -16,4 +16,5 @@ export interface ThreadMember {
     computed_fullname: string;
     computed_profile_dp: string;
     computed_organization_name: string;
+    computed_profile_direct_url: string;
 }

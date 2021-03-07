@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
-import { GlobalsService } from '@core/services/globals.service';
-import { RoasterserviceService } from '@core/services/api/roaster.service';
+import { GlobalsService } from '@services';
+import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -27,6 +27,7 @@ export class ProcuredCoffeeComponent implements OnInit {
         public lightbox: Lightbox,
         public globals: GlobalsService,
         public route: ActivatedRoute,
+        private router: Router,
         public roasterService: RoasterserviceService,
         public cookieService: CookieService,
     ) {
@@ -126,5 +127,23 @@ export class ProcuredCoffeeComponent implements OnInit {
     language() {
         this.appLanguage = this.globals.languageJson;
         this.procuredActive++;
+    }
+    availabilityPage() {
+        return `/sourcing/coffee-details/${this.orderDetails.estate_id}/${this.orderDetails.harvest_id}`;
+    }
+    viewReport() {
+        this.roasterService.getCuppingReportDetails(this.orderDetails.harvest_id).subscribe(
+            (res) => {
+                if (res.success && res.result && res.result.url) {
+                    const hiddenElement = document.createElement('a');
+                    hiddenElement.href = res.result.url;
+                    hiddenElement.target = '_blank';
+                    hiddenElement.click();
+                }
+            },
+            (err) => {
+                console.log(err);
+            },
+        );
     }
 }

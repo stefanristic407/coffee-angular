@@ -20,10 +20,11 @@ import { ToastrModule } from 'ngx-toastr';
 import { environment } from '@env/environment';
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
-import { HealthCheckComponent } from './components/health-check/health-check.component';
-import { SewnDirectMessageComponent } from './components/sewn-direct-message/sewn-direct-message.component';
+import { FooterComponent } from '@components';
+import { GateComponent } from '@components';
+import { HealthCheckComponent } from '@components';
 import { MenuComponent } from '@components';
-import { FooterComponent } from './layout/footer/footer.component';
+import { SearchPanelComponent } from '@components';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -33,20 +34,19 @@ import 'hammerjs';
 import { AuthGuard } from '@guards';
 import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from '@services';
-import { SearchFilterPipe } from './components/sewn-direct-message/search-filter.pipe';
-import { SearchPanelComponent } from './layout/search-panel/search-panel.component';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
+
 @NgModule({
     declarations: [
         AppComponent,
         HealthCheckComponent,
-        SewnDirectMessageComponent,
         MenuComponent,
         LayoutComponent,
-        SearchFilterPipe,
         FooterComponent,
         SearchPanelComponent,
+        GateComponent,
     ],
     imports: [
         BrowserModule,

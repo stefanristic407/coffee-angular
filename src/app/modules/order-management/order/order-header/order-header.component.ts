@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { OrderStatus, OrderType } from '@core/enums';
+import { OrderStatus, OrderType } from '@enums';
 import { MenuItem } from 'primeng/api';
 
 @Component({

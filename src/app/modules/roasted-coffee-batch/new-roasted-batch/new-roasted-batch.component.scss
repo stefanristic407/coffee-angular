@@ -161,6 +161,9 @@
 ::ng-deep .breadCrumb .p-breadcrumb ul {
     width: max-content;
 }
+.sewn-form-field {
+    margin-bottom: 1rem !important;
+}
 @media screen and (max-width: 1200px) {
     .order_details_card {
         padding: 2rem;
@@ -218,5 +221,11 @@
     }
     .recent-time tr:last-child {
         border-bottom: none;
+    }
+    .order-details-clr {
+        padding: 12px;
+    }
+    .recent-time td {
+        padding: 1rem 0rem 1rem 0rem !important;
     }
 }

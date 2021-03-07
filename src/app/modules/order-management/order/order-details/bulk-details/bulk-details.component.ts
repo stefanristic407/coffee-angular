@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BulkDetails, OrderDetails } from '@core/models';
+import { BulkDetails, OrderDetails } from '@models';
 
 @Component({
     selector: 'app-bulk-details',

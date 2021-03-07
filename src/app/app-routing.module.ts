@@ -2,13 +2,9 @@ import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { HealthCheckComponent } from '@components';
 import { LayoutComponent } from './layout/layout.component';
+import { GateComponent } from '@components';
 
 export const routes: Routes = [
-    { path: 'health-check', component: HealthCheckComponent },
-    {
-        path: 'auth',
-        loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
-    },
     {
         path: '',
         component: LayoutComponent,
@@ -84,11 +80,13 @@ export const routes: Routes = [
             },
         ],
     },
+    { path: 'gate', component: GateComponent },
+    { path: 'health-check', component: HealthCheckComponent },
     {
         path: 'error',
         loadChildren: () => import('./modules/error-module/error-module.module').then((m) => m.ErrorModuleModule),
     },
-    { path: '**', redirectTo: 'auth' },
+    { path: '**', redirectTo: 'roaster-dashboard' },
 ];
 
 const config: ExtraOptions = {

@@ -68,6 +68,10 @@
     border-width: 0px;
 }
 
+.p-paginator.p-paginator-bottom {
+    padding: 16px 0;
+}
+
 .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
     background-color: transparent;
     color: $primary-color;
@@ -116,6 +120,11 @@
     .e-comm-catlog .p-datatable table {
         border-collapse: collapse;
         table-layout: fixed;
+        width: 1100px !important;
+    }
+    .select-order .p-datatable table {
+        border-collapse: collapse;
+        table-layout: auto;
         width: 1100px !important;
     }
 }

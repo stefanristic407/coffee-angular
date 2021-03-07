@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { FileService } from '@services';
 import { FileShareService } from '../../file-share.service';
-import { FileType } from '@core/enums';
+import { FileType } from '@enums';
 
 @Component({
     selector: 'app-file-table',
@@ -14,14 +14,10 @@ import { FileType } from '@core/enums';
 })
 export class FileTableComponent implements OnInit {
     @Input() listType = '';
-    tableValue = [];
-    totalCount = 0;
     tableColumns = [];
     selectedItems = [];
-    menuItems = [];
     selectedFile: any;
-    rangeDates: any[];
-    data;
+    disableAction = false;
 
     constructor(
         public dialogSrv: DialogService,
@@ -33,42 +29,6 @@ export class FileTableComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.menuItems = [
-            {
-                label: this.globals.languageJson?.download,
-                command: () => {
-                    this.fileShareSrv.downloadFile(this.selectedFile);
-                },
-            },
-            {
-                label: this.globals.languageJson?.share,
-                command: () => {
-                    this.fileShareSrv.openShareModal(this.selectedFile);
-                },
-            },
-            {
-                label: this.globals.languageJson?.pin,
-                command: () => {
-                    this.fileShareSrv.pinFileorFolder(this.selectedFile.id);
-                },
-            },
-            {
-                label: this.globals.languageJson?.rename,
-                command: () => {
-                    if (this.selectedFile.type === 'FOLDER') {
-                        this.fileShareSrv.updateFolder(this.selectedFile);
-                    } else {
-                        this.fileShareSrv.updateFile(this.selectedFile);
-                    }
-                },
-            },
-            {
-                label: this.globals.languageJson?.delete,
-                command: () => {
-                    this.fileShareSrv.openDeleteModal(this.selectedFile);
-                },
-            },
-        ];
         this.createTable();
     }
 
@@ -108,26 +68,36 @@ export class FileTableComponent implements OnInit {
     }
 
     onClick(item) {
-        switch (item.type) {
-            case FileType.CSV: {
-                break;
-            }
-            case FileType.DOCUMENT: {
-                break;
-            }
-            case FileType.FOLDER: {
-                this.router.navigateByUrl(`/file-share/file-share-details/${item.id}`);
-                break;
-            }
-            case FileType.IMAGE: {
-                this.fileShareSrv.preview(item);
-                break;
-            }
-            case FileType.VIDEO: {
-                this.fileShareSrv.preview(item);
-                break;
+        if (!this.disableAction) {
+            switch (item.type) {
+                case FileType.CSV: {
+                    break;
+                }
+                case FileType.DOCUMENT: {
+                    break;
+                }
+                case FileType.FOLDER: {
+                    this.router.navigateByUrl(`/file-share/file-share-details/${item.id}`);
+                    break;
+                }
+                case FileType.IMAGE: {
+                    this.fileShareSrv.preview(item);
+                    break;
+                }
+                case FileType.VIDEO: {
+                    this.fileShareSrv.preview(item);
+                    break;
+                }
             }
         }
+    }
+
+    menuClicked() {
+        // Stop propagation
+        this.disableAction = true;
+        setTimeout(() => {
+            this.disableAction = false;
+        }, 100);
     }
 
     filterCall(event) {

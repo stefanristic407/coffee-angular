@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { ResizeService } from '@core/services';
+import { ResizeService } from '@services';
 import { takeUntil } from 'rxjs/operators';
 import { DestroyableComponent } from './destroyable.component';
 

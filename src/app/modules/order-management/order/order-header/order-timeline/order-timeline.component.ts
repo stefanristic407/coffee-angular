@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ResizeableComponent } from '@core/base-components';
-import { OrderStatus, OrderType } from '@core/enums';
-import { LabelValue, OrderDetails, RecentActivity } from '@core/models';
-import { OrdersService, ResizeService } from '@core/services';
+import { ResizeableComponent } from '@base-components';
+import { OrderStatus, OrderType } from '@enums';
+import { LabelValue, OrderDetails, RecentActivity } from '@models';
+import { OrdersService, ResizeService } from '@services';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

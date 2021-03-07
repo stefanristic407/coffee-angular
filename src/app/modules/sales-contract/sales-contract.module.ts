@@ -5,11 +5,13 @@ import { SalesContractRoutingModule } from './sales-contract-routing.module';
 import { SharedModule } from './../../shared/shared.module';
 import { RoasterAgreementsComponent } from './agreement/roaster-agreements/roaster-agreements.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { RoasterAgreementFormComponent } from './agreement/roaster-agreement-form/roaster-agreement-form.component';
 
 @NgModule({
   declarations: [
     AgreementComponent,
-    RoasterAgreementsComponent
+    RoasterAgreementsComponent,
+    RoasterAgreementFormComponent
   ],
   imports: [
     CommonModule,

@@ -6,7 +6,6 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { maxWordCountValidator, fileCountValidator } from '@utils';
-import { FormService } from '@services';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
@@ -44,7 +43,6 @@ export class HomePageComponent implements OnInit {
     constructor(
         public dialogSrv: DialogService,
         private fb: FormBuilder,
-        private formSrv: FormService,
         public globals: GlobalsService,
         private toastrService: ToastrService,
         public cookieService: CookieService,
@@ -107,7 +105,7 @@ export class HomePageComponent implements OnInit {
                 }
             });
         } else {
-            this.formSrv.markGroupDirty(this.infoForm);
+            this.infoForm.markAllAsTouched();
         }
     }
 

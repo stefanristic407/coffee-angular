@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { GlobalsService } from '@core/services/';
+import { GlobalsService } from '@services';
 
 @Component({
     selector: 'app-edit-user-details',

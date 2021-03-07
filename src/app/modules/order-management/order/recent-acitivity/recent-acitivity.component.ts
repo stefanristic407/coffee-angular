@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DestroyableComponent } from '@core/base-components';
-import { GroupedRecentActivity } from '@core/models';
-import { OrdersService } from '@core/services';
+import { DestroyableComponent } from '@base-components';
+import { GroupedRecentActivity } from '@models';
+import { OrdersService } from '@services';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { takeUntil } from 'rxjs/operators';

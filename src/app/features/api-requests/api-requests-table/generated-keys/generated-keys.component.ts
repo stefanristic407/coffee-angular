@@ -1,9 +1,10 @@
-import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-generated-keys',
@@ -15,63 +16,26 @@ export class GeneratedKeysComponent implements OnInit {
     @Input() filterData;
     @Input() dateRange;
     @Input() perPage;
+    @Output() filterType = new EventEmitter<any>();
+    sortOrder = '';
+    sortType = '';
     termStatus: any;
-    showStatus: boolean = true;
+    showStatus = true;
+    paginationValue = false;
     modalRef: BsModalRef;
-    resumeTemplate: boolean = false;
+    totalRecords = 0;
+    rows = 10;
+    dateFrom: any;
+    dateTo: any;
+    pageNumber = 1;
+    generatedKeyData: any[] = [];
 
     display: any;
-    showDisplay: boolean = true;
-    appLanguage?: any;
-    roasterID: string = '';
-    loader: boolean = false;
+    showDisplay = true;
+    roasterID = '';
+    loader = true;
 
-    mainData: any[] = [
-        {
-            customer: 'Third wave coffee roasters',
-            customer_type: 'Micro-Roaster',
-            date_requested: '24 Jan 2020',
-            key_generated_on: '24 Jan 2020',
-            key_status: 'Active',
-        },
-        {
-            customer: 'Home brew coffee',
-            customer_type: 'HoReCa',
-            date_requested: '12 Jan 2020',
-            key_generated_on: '12 Jan 2020',
-            key_status: 'Active',
-        },
-        {
-            customer: 'La Barista',
-            customer_type: 'Micro-Roaster',
-            date_requested: '13 Oct 2018',
-            key_generated_on: '13 Oct 2018',
-            key_status: 'Paused',
-        },
-        {
-            customer: 'BRU coffee roastes',
-            customer_type: 'HoReCa',
-            date_requested: '02 Dec 2019',
-            key_generated_on: '02 Dec 2019',
-            key_status: 'Paused',
-        },
-        {
-            customer: 'Blue Tokai roasters',
-            customer_type: 'Micro-Roaster',
-            date_requested: '02 Oct 2019',
-            key_generated_on: '02 Oct 2019',
-            key_status: 'Active',
-        },
-        {
-            customer: 'La Barista',
-            customer_type: 'HoReCa',
-            date_requested: ' 19 Sep 2019',
-            key_generated_on: '19 Sep 2019',
-            key_status: 'Active',
-        },
-    ];
     constructor(
-        public globals: GlobalsService,
         private toastrService: ToastrService,
         private modalService: BsModalService,
         private roasterserviceService: RoasterserviceService,
@@ -84,121 +48,135 @@ export class GeneratedKeysComponent implements OnInit {
     @ViewChild('deletetemplate') private deletetemplate: any;
 
     ngOnChanges(): void {
-        console.log('filterData', this.filterData);
-        console.log('this.date range--.', this.dateRange);
-        console.log('per page===>>>', this.perPage);
+        if (this.dateRange?.length) {
+            const [dateFrom, dateTo] = this.dateRange;
+            this.dateFrom = dateFrom;
+            this.dateTo = dateTo;
+        } else {
+            this.dateFrom = null;
+            this.dateTo = null;
+        }
+        console.log('date from-->>', this.dateFrom);
+        console.log('date To-->>', this.dateTo);
+        this.getGeneratedRoKeys();
     }
 
-    ngOnInit(): void {
-        console.log('searchRequestId----->>>', this.searchRequestId);
-        console.log('filterData------', this.filterData);
-        this.appLanguage = this.globals.languageJson;
-        console.log('this.date range--.', this.dateRange);
-        this.appLanguage = this.globals.languageJson;
+    ngOnInit(): void {}
+
+    getData(event) {
+        this.sortOrder = event.sortOrder === 1 ? 'asc' : 'desc';
+        this.sortType = event.sortField;
+        console.log('event-->>>', event);
+        if (event.sortField) {
+            this.getGeneratedRoKeys();
+        }
+    }
+
+    paginate(event) {
+        const page = event.page + 1;
+        this.pageNumber = event.page + 1;
         this.getGeneratedRoKeys();
     }
 
     getGeneratedRoKeys() {
-        const data = { roaster_id: this.roasterID, page: 1, per_page: 25 };
+        const data = {
+            roaster_id: this.roasterID,
+            page: this.pageNumber,
+            per_page: this.perPage,
+            org_type: this.filterData,
+        };
+        if (this.dateFrom && this.dateTo) {
+            data['date_from'] = moment(this.dateFrom).format('YYYY-MM-DD');
+            data['date_to'] = moment(this.dateTo).format('YYYY-MM-DD');
+        }
+        if (this.searchRequestId) {
+            data['query'] = this.searchRequestId;
+        }
+        if (this.sortOrder && this.sortType) {
+            data['sort_by'] = this.sortType;
+            data['sort_order'] = this.sortOrder;
+        }
         this.roasterserviceService.getGeneratedRoKeys(data).subscribe((res) => {
             console.log('res------->>>>>>', res);
-            setTimeout(() => {
+            if (res.success) {
                 this.loader = false;
-            }, 1000);
+                this.generatedKeyData = res.result;
+                this.filterType.emit(res.result);
+                this.totalRecords = res.result_info.total_count;
+                this.rows = res.result_info.per_page;
+                if (this.totalRecords < 10) {
+                    this.paginationValue = false;
+                } else {
+                    this.paginationValue = true;
+                }
+                console.log('generatedKeyData', this.generatedKeyData);
+            }
         });
-    }
-
-    setStatus(term: any) {
-        this.termStatus = term;
-        console.log(this.termStatus);
-    }
-    toggleStatus() {
-        this.showStatus = !this.showStatus;
-        if (this.showStatus == false) {
-            document.getElementById('status_id').style.border = '1px solid #30855c';
-        } else {
-            document.getElementById('status_id').style.border = '1px solid #d6d6d6';
-        }
-    }
-
-    setDisplay(displayData: any) {
-        this.display = displayData;
-    }
-    toggleDisplay() {
-        this.showDisplay = !this.showDisplay;
-        if (this.showDisplay == false) {
-            document.getElementById('display_id').style.border = '1px solid #30855c';
-        } else {
-            document.getElementById('display_id').style.border = '1px solid #d6d6d6';
-        }
-    }
-    // Function Name : CheckAll
-    // Description: This function helps to check all roles of the role list.
-    checkAll(ev: any) {
-        this.mainData.forEach((x) => (x.state = ev.target.checked));
     }
 
     openModal(template: TemplateRef<any>) {
         this.modalRef = this.modalService.show(template);
     }
 
-    // Function Name : IsAllchecked
-    // Description: This function helps to check single role.
-    isAllChecked() {
-        return this.mainData.every((_) => _.state);
-    }
-
-    resumeKey() {
+    resumeKey(item: any) {
         const data = {
             roaster_id: this.roasterID,
-            api_key_id: 2,
+            api_key_id: item.id,
         };
         this.roasterserviceService.enableRoApiKey(data).subscribe((res) => {
             console.log('res---<>>>', res);
+            if (res.success) {
+                this.toastrService.success('Key has been reactivated!');
+                item.is_active = true;
+            }
         });
-        this.toastrService.success('Key has been reactivated!');
-        this.resumeTemplate = false;
     }
 
-    sort(event) {
-        console.log('sort-------', event);
-    }
-
-    pauseKey() {
+    pauseKey(item: any) {
         const data = {
             roaster_id: this.roasterID,
-            api_key_id: 2,
+            api_key_id: item.id,
         };
         this.roasterserviceService.disableRoApiKey(data).subscribe((res) => {
             console.log('res---<>>>', res);
+            if (res.success) {
+                this.toastrService.success('Key access has been paused');
+                item.is_active = false;
+            }
         });
-        this.toastrService.success('Key access has been paused');
-        this.resumeTemplate = true;
     }
+
     deleteKey() {
         this.openModal(this.deletetemplate);
     }
 
-    onConfirm() {
+    onConfirm(id: any) {
         const data = {
             roaster_id: this.roasterID,
-            api_key_id: 2,
+            api_key_id: id,
         };
         this.roasterserviceService.deleteRoApiKey(data).subscribe((res) => {
-            console.log('res---<>>>', res);
+            if (res.success) {
+                this.toastrService.error('Key has been delete');
+                const index = this.generatedKeyData.findIndex((item) => item.id === id);
+                const temp = JSON.parse(JSON.stringify(this.generatedKeyData));
+                temp.splice(index, 1);
+                this.generatedKeyData = temp;
+                this.modalRef.hide();
+            }
         });
-        this.toastrService.error('Key has been delete');
-        this, this.modalRef.hide();
     }
 
-    notifyCustomer() {
+    notifyCustomer(id: any) {
         const data = {
             roaster_id: this.roasterID,
-            api_key_id: 2,
+            api_key_id: id,
         };
         this.roasterserviceService.notifyRoCustomer(data).subscribe((res) => {
             console.log('res---<>>>', res);
+            if (res.success) {
+                this.toastrService.success('Key has been reactivated!');
+            }
         });
-        this.toastrService.success('Key has been reactivated!');
     }
 }

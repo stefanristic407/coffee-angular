@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BulkDetails } from '@core/models';
+import { BulkDetails } from '@models';
 
 @Component({
     selector: 'app-availability-details',

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { OrderDetails } from '@core/models';
-import { CommonService } from '@core/services';
-import { trimCharRight } from '@core/utils';
+import { OrderDetails } from '@models';
+import { CommonService } from '@services';
+import { trimCharRight } from '@utils';
 
 @Component({
     selector: 'app-lot-details',

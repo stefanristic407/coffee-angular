@@ -1,5 +1,5 @@
-import { OrderStatus } from '@core/enums';
-import { LabelValue } from '@core/models';
+import { OrderStatus } from '@enums';
+import { LabelValue } from '@models';
 
 export const ORDER_STATUS_ITEMS: LabelValue[] = [
     { label: 'Placed', value: OrderStatus.Placed },

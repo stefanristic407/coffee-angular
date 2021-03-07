@@ -123,6 +123,11 @@ li.nav-item {
     border: solid 2px #30855c !important;
 }
 
+.upload-order {
+    background-color: #ffffff;
+    padding: 8px 12px;
+}
+
 .upload-btn {
     cursor: pointer;
     padding: 8px 12px 9px 12px;
@@ -149,5 +154,16 @@ li.nav-item {
     }
     .nav-pills .nav-link.active:before {
         height: 4px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    #agreements-nav .p-tabview .p-tabview-nav li {
+        margin-right: 1.5rem !important;
+    }
+}
+@media (max-width: 991px) {
+    .estate-orders-heading {
+        padding-left: 0px !important;
     }
 }

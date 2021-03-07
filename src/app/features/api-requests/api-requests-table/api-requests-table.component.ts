@@ -19,11 +19,11 @@ export class ApiRequestsTableComponent implements OnInit {
     rangeDates: any;
     appLanguage?: any = {};
     greenActive: any = 0;
-    termStatus: any;
     showStatus: boolean = true;
     apiKeySearch: string = '';
     KeySearch: string = '';
     selectedTab = 0;
+    FilterTypeList: any[] = [];
     isApiRequestPage = true;
     customerTypeArray = [
         { label: 'All', value: 'All' },
@@ -33,7 +33,6 @@ export class ApiRequestsTableComponent implements OnInit {
         { label: 'Received', value: 'Received' },
     ];
     constructor(public globals: GlobalsService) {
-        this.termStatus = '';
         this.perPage = '10';
     }
 
@@ -47,8 +46,6 @@ export class ApiRequestsTableComponent implements OnInit {
                 debounceTime(400),
                 distinctUntilChanged(),
                 tap((text) => {
-                    console.log('search input callll', text);
-                    console.log('apiKeySearch----', this.apiKeySearch);
                     this.KeySearch = this.apiKeySearch;
                 }),
             )
@@ -57,7 +54,7 @@ export class ApiRequestsTableComponent implements OnInit {
 
     toggleDisplay() {
         this.showDisplay = !this.showDisplay;
-        if (this.showDisplay == false) {
+        if (this.showDisplay === false) {
             document.getElementById('display_id').style.border = '1px solid #30855c';
         } else {
             document.getElementById('display_id').style.border = '1px solid #d6d6d6';
@@ -78,14 +75,9 @@ export class ApiRequestsTableComponent implements OnInit {
         this.greenActive++;
     }
 
-    setStatus(term: any) {
-        this.termStatus = term;
-        console.log(this.termStatus);
-    }
-
     toggleStatus() {
         this.showStatus = !this.showStatus;
-        if (this.showStatus == false) {
+        if (this.showStatus === false) {
             document.getElementById('status_id').style.border = '1px solid #30855c';
         } else {
             document.getElementById('status_id').style.border = '1px solid #d6d6d6';
@@ -93,20 +85,22 @@ export class ApiRequestsTableComponent implements OnInit {
     }
 
     customerTypeFilter(filterData: any) {
-        console.log('filterdata--->>>', filterData);
         this.customerType = filterData;
     }
+
+    setFilterData(event) {
+        this.FilterTypeList = event;
+    }
+
     handleChange(event: any) {
-        this.perPage = null;
+        this.apiKeySearch = null;
+        this.KeySearch = null;
+        this.perPage = 10;
+        this.customerType = '';
         if (event.index === 0) {
             this.isApiRequestPage = true;
         } else {
             this.isApiRequestPage = false;
         }
-    }
-
-    filterDate(event: any) {
-        console.log('date range--->>>>>', this.rangeDates);
-        console.log('event--->>>>', event);
     }
 }

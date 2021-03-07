@@ -21,11 +21,11 @@
                     <div class="fnt-16 lh-normal fnt-600 text-clr588">{{ folderDetail?.description }}</div>
                 </div>
 
-                <div class="col-md-4 flex-column align-items-end px-0 d-none d-md-flex">
+                <div class="col-md-4 flex-column align-items-end px-0 d-none d-md-flex mt-lg-35">
                     <span class="btn-trans-icon share-icon" (click)="fileShareSrv.openShareModal(folderDetail)">
                         {{ 'share' | translate }}
                     </span>
-                    <p class="fnt-14 fnt-600 text-clr588 mt-2" *ngIf="sharedUsers?.length">
+                    <p class="fnt-14 fnt-600 text-clr588 mt-25" *ngIf="sharedUsers?.length">
                         Sharing with {{ sharedUsers?.length }} members
                     </p>
                 </div>

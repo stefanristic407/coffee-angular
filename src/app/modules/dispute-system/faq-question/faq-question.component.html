@@ -1,15 +1,17 @@
-<div class="main-block">
+<div class="main-block faq">
     <div class="row mb-3">
-        <div class="col-9 d-none d-sm-none d-md-block">
-            <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
+        <div class="col-md-9 d-none d-sm-none d-md-block">
+            <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
         </div>
+
+        <div class="col-md-3 d-md-block d-sm-none d-none">
+            <button class="btn btn-raised float-right" (click)="navigateAssignTicket()">Raise a ticket</button>
+        </div>
+
         <div class="col-12 d-flex d-sm-flex d-md-none align-items-center">
             <div class="back-href cursor-pointer">
                 <img class="back-arrow-butn mr-2" src="assets/images/do-back-arrow.svg" />
             </div>
-        </div>
-        <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 d-flex">
-            <button class="btn btn-raised ml-auto" (click)="navigateAssignTicket()">Raise a ticket</button>
         </div>
     </div>
     <div class="row">
@@ -32,30 +34,37 @@
                         </p-accordionTab>
                     </p-accordion>
                 </div>
-                <div class="col-12 row no-gutters p-4 resultDiv">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex align-items-center">
-                        <span class="resultText"> Did you get the help you need? </span>
+                <div class="d-none d-sm-none d-md-block">
+                    <div class="col-12 row no-gutters p-3 resultDiv">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                            <span class="resultText"> Did you get the help you need? </span>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                            <button class="btn btn-raised float-right" (click)="navigateAssignTicket()">
+                                No, Raise a ticket
+                            </button>
+                            <button
+                                class="btn-stroked float-right mr-3"
+                                [routerLink]="['/ordermanagement/order-booked/']"
+                                [queryParams]="{ id: orderID }"
+                            >
+                                Yes
+                            </button>
+                        </div>
                     </div>
-                    <div
-                        class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 justify-content-end d-none d-sm-none d-md-block"
-                    >
-                        <button class="btn btn-raised float-right" (click)="navigateAssignTicket()">
-                            No, Raise a ticket
-                        </button>
-                        <button
-                            class="btn-stroked float-right mr-3"
-                            [routerLink]="['/ordermanagement/order-booked/']"
-                            [queryParams]="{ id: orderID }"
-                        >
-                            Yes
-                        </button>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3 d-flex d-sm-flex d-md-none">
-                        <button class="btn btn-stroked mr-3 flex-grow-1" (click)="navigateAssignTicket()">Yes</button>
-                        <button class="btn btn-raised flex-grow-1" (click)="navigateAssignTicket()">
-                            No, Raise a ticket
-                        </button>
-                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 d-block d-sm-block d-md-none mt-3">
+            <div class="resultDiv pt-3 pb-3">
+                <div class="col-12">
+                    <span class="resultText"> Did you get the help you need? </span>
+
+                    <button class="btn btn-stroked w-100 mb-2 mt-2" (click)="navigateAssignTicket()">Yes</button>
+                    <button class="btn btn-raised w-100" (click)="navigateAssignTicket()">No, Raise a ticket</button>
                 </div>
             </div>
         </div>

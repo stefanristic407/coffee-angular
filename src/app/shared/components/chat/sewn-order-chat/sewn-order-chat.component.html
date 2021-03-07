@@ -1,0 +1,96 @@
+<div class="conversatio-body">
+    <ng-container *ngIf="threadDetails?.computed_activeUser?.user_id">
+        <div class="conversatio-body__messages" data-element="live-chat-message-body">
+            <!--Mesaage From-->
+            <div *ngFor="let message of messageList; let last = last">
+                <div appLifecyclehook (viewChecked)="last && lastMessageRendered.next('done')">
+                    <div *ngIf="message.isActiveUser" class="main-message message-from">
+                        <div class="message-info">
+                            <div class="message-info__body position-relative">
+                                <span class="live-time">{{ message.computed_date }}</span>
+                                <p class="message-text">
+                                    {{ message.content }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Mesaage To-->
+                    <div *ngIf="!message.isActiveUser" class="main-message message-to">
+                        <div class="message-info">
+                            <div class="message-info__body position-relative">
+                                <span class="live-time">{{ message.computed_date }}</span>
+                                <p class="message-text">{{ message.content }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="!threadDetails?.computed_activeUser?.user_id">
+        <div class="conversatio-body__messages" data-element="live-chat-message-body">
+            <div class="new-date">
+                <span class="new-date__bar"></span>
+                <span class="new-date__upadte">You are not authorized to view this chat</span>
+                <span class="new-date__bar"></span>
+            </div>
+        </div>
+    </ng-container>
+    <div class="conversatio-form">
+        <div data-element="message-form">
+            <div class="messag-form position-relative">
+                <div class="offensive-lang active" *ngIf="showOffensiveMessageError">
+                    <span
+                        >Use of offensive language is strictly prohibited using within member to member messaging, on
+                        our public groups, non-compliance may lead to permanent / temporary suspension of your
+                        account.</span
+                    >
+                </div>
+                <div class="img-container">
+                    <span class="img-container__remove">&#10008;</span>
+                </div>
+
+                <ng-container *ngIf="threadDetails?.computed_activeUser?.user_id">
+                    <div class="chat-inputs">
+                        <label class="chat-inputs__img">
+                            <img src="assets/images/dm-img-upload.svg" />
+                            <input type="file" class="files" />
+                        </label>
+                        <textarea
+                            (keypress)="inputkeyPress($event)"
+                            (input)="inputChanges($event)"
+                            data-element="messag-text-area"
+                            type="text"
+                            rows="1"
+                            class="chat-inputs__text"
+                            placeholder="Type something.."
+                            [(ngModel)]="messageInput"
+                        ></textarea>
+                        <div class="send-message">
+                            <button (click)="sendMessage()" type="button" class="send-message__btn">
+                                <img src="assets/images/dm-send2.svg" />
+                            </button>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="!threadDetails?.computed_activeUser?.user_id">
+                    <div class="chat-inputs disable">
+                        <label class="chat-inputs__img">
+                            <img src="assets/images/dm-img-upload.svg" />
+                        </label>
+                        <textarea
+                            disabled
+                            data-element="messag-text-area"
+                            type="text"
+                            rows="1"
+                            class="chat-inputs__text"
+                            placeholder=""
+                        ></textarea>
+                        <div class="send-message"></div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

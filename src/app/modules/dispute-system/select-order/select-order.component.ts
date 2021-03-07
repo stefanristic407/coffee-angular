@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { RoasterserviceService } from '@core/services/api/roaster.service';
-import { GlobalsService } from '@core/services/globals.service';
+import { RoasterserviceService } from '@services';
+import { GlobalsService } from '@services';
 import * as moment from 'moment';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { COUNTRY_LIST } from '@constants';
 
 @Component({
     selector: 'app-select-order',
@@ -122,7 +123,7 @@ export class SelectOrderComponent implements OnInit {
         this.getTableData();
     }
     loadFilterValues() {
-        this.originArray = this.globals.countryList;
+        this.originArray = COUNTRY_LIST;
         this.orderTypeArray = [
             { label: 'Shipped', value: 'SHIPPED' },
             { label: 'Confirmed', value: 'CONFIRMED' },

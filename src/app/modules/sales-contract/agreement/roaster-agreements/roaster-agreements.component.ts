@@ -1,53 +1,37 @@
 // AUTHOR : Gaurav Kunal
 // PAGE DESCRIPTION : This page contains functions of  Orders List,Search and Filters.
 
-import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 import { RoasterserviceService } from '@services';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-roaster-agreements',
     templateUrl: './roaster-agreements.component.html',
     styleUrls: ['./roaster-agreements.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
-export class RoasterAgreementsComponent implements OnInit, OnChanges {
+export class RoasterAgreementsComponent implements OnInit {
     appLanguage?: any;
     estatetermOrigin: any;
     customerMob: any;
-    showOrigin = true;
-    showCustomerMob = true;
     roasterId: string;
-    agreementfileId: any;
     deleteAgreementId: any;
-    itemId: any;
-    horecaFormGroup: FormGroup;
-    uploadButtonValue = 'Upload Agreement';
-    updateButtonValue = 'Update Agreement';
-    files: any;
-    fileEvent: any;
-    fileNameValue: any;
-    fileName: string | Blob;
-    reFiles: any;
-    reFileEvent: any;
-    reFileNameValue: any;
-    reFileName: string | Blob;
     horecaList: any;
     newList: any = [];
     mainData: any = [];
     sortedMainData: any = [];
-    modalDropdownList: any = [];
     selectedCustomers: any;
-
+    isUpdate: boolean;
+    selectedItemId: number;
     @ViewChild('dismissAddModal') dismissAddModal: ElementRef;
     @ViewChild('dismissDeleteModal') dismissDeleteModal: ElementRef;
     @Input() searchTerm = '';
-    @Input() customerType: string;
-    @Input() isUpdate: boolean;
+    @Input() customerType = 'hrc';
 
     constructor(
         public router: Router,
@@ -55,22 +39,9 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
         public roasterService: RoasterserviceService,
         public toastrService: ToastrService,
         public roasteryProfileService: RoasteryProfileService,
-        private formBuilder: FormBuilder,
         public globals: GlobalsService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
-    }
-
-    ngOnChanges(): void {
-        this.createForm();
-        this.getAgreements();
-        if (this.customerType === 'micro-roasters') {
-            this.getMicroRoastersList();
-            this.horecaFormGroup.get('customerType').setValue('mr');
-        } else if (this.customerType === 'hrc') {
-            this.getHorecaList();
-            this.horecaFormGroup.get('customerType').setValue('hrc');
-        }
     }
 
     ngOnInit(): void {
@@ -81,20 +52,17 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
         this.estatetermOrigin = '';
         this.customerMob = '';
         this.getAgreements();
-    }
-
-    createForm(): void {
-        this.horecaFormGroup = this.formBuilder.group({
-            customerType: ['', [Validators.required]],
-            customerId: ['', [Validators.required]],
-            customerIdValue: ['', Validators.required],
-        });
+        if (this.customerType === 'micro-roasters') {
+            this.getMicroRoastersList();
+        } else if (this.customerType === 'hrc') {
+            this.getHorecaList();
+        }
     }
 
     // Function Name: Get Country Name
     // Description: This function helps to transfer country code to full country name.
 
-    getCountryName(code: any) {
+    getCountryName(code: any): void {
         const country = this.roasteryProfileService.countryList.find((con) => con.isoCode === code);
         return country ? country.name : '';
     }
@@ -102,7 +70,7 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
     // Function Name: Get Agreements
     // Description: This function helps to fetch the all agreemnts
 
-    getAgreements() {
+    getAgreements(event?: any): void {
         this.mainData = [];
         this.roasterService.getAgreements(this.roasterId, this.customerType).subscribe((resp: any) => {
             if (resp.success) {
@@ -117,16 +85,14 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
     // Function Name: Get Micro Roaster
     // Description: This function helps to fetch the all micro roaster list
 
-    getMicroRoastersList() {
+    getMicroRoastersList(): void {
         this.roasterService.getMicroRoastersList(this.roasterId).subscribe((res: any) => {
             this.newList = [];
-            this.modalDropdownList = [];
             if (res.success) {
                 this.horecaList = res.result;
                 this.horecaList.forEach((element) => {
                     if (element.id > 0) {
                         this.newList.push(element);
-                        this.modalDropdownList.push(element);
                     }
                 });
                 this.newList = this.newList.map((item) => {
@@ -135,15 +101,6 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
                     transformItem.value = item.name;
                     return transformItem;
                 });
-                this.modalDropdownList = this.modalDropdownList.map((item) => {
-                    const transformItem = { label: '', value: '' };
-                    transformItem.label = item.name;
-                    transformItem.value = item.name;
-                    return transformItem;
-                });
-                const blankOption = { label: 'Please select customer', value: '' };
-                this.modalDropdownList.push(blankOption);
-                this.modalDropdownList = this.modalDropdownList.sort((a, b) => a.label.localeCompare(b.label));
                 const allOption = { label: 'All', value: 'All' };
                 this.newList.push(allOption);
                 this.newList = this.newList.sort((a, b) => a.label.localeCompare(b.label));
@@ -156,16 +113,14 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
     // Function Name: Get Horeca List
     // Description: This function helps to fetch the all horeca list
 
-    getHorecaList() {
+    getHorecaList(): void {
         this.roasterService.getMicroRoastersHoreca(this.roasterId).subscribe((res: any) => {
             this.newList = [];
-            this.modalDropdownList = [];
             if (res.success) {
                 this.horecaList = res.result;
                 this.horecaList.forEach((element) => {
                     if (element.id > 0) {
                         this.newList.push(element);
-                        this.modalDropdownList.push(element);
                     }
                 });
                 this.newList = this.newList.map((item) => {
@@ -174,15 +129,6 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
                     transformItem.value = item.name;
                     return transformItem;
                 });
-                this.modalDropdownList = this.modalDropdownList.map((item) => {
-                    const transformItem = { label: '', value: '' };
-                    transformItem.label = item.name;
-                    transformItem.value = item.name;
-                    return transformItem;
-                });
-                const blankOption = { label: 'Please select customer', value: '' };
-                this.modalDropdownList.push(blankOption);
-                this.modalDropdownList = this.modalDropdownList.sort((a, b) => a.label.localeCompare(b.label));
                 const allOption = { label: 'All', value: 'All' };
                 this.newList.push(allOption);
                 this.newList = this.newList.sort((a, b) => a.label.localeCompare(b.label));
@@ -196,22 +142,8 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
     // Description: This function helps to fetch the indiviual details of the column
 
     onUpdateModal(itemId: any) {
-        this.fileNameValue = '';
-        this.uploadButtonValue = 'Update Agreement';
-        this.horecaFormGroup.get('customerType').setValue('');
-        this.horecaFormGroup.get('customerId').setValue('');
         this.isUpdate = true;
-        this.roasterService.getAgreementValue(this.roasterId, this.customerType, itemId).subscribe((resp: any) => {
-            if (resp.success) {
-                this.horecaFormGroup.get('customerType').setValue(resp.result.customer_type);
-                this.horecaFormGroup.get('customerId').setValue(resp.result.customer_id);
-                this.horecaFormGroup.get('customerId').disable();
-                this.horecaFormGroup.get('customerType').disable();
-                this.agreementfileId = resp.result.file_id;
-                this.fileNameValue = resp.result.file_name;
-                this.itemId = resp.result.id;
-            }
-        });
+        this.selectedItemId = itemId;
     }
 
     // Function Name: Filter Agreements
@@ -225,128 +157,12 @@ export class RoasterAgreementsComponent implements OnInit, OnChanges {
         }
     }
 
-    // Function Name: Upload File
-    // Description: This function helps to capture uploaded file details
+    // Function Name: Upload Modal Open
+    // Description: This function helps to set the value of radio button when upload button is clicked
 
-    uploadFile(event: any) {
-        this.fileNameValue = '';
-        this.files = event.target.files;
-        this.fileEvent = this.files;
-        this.fileNameValue = this.files[0].name;
-    }
-
-    // Function Name: Upload Agreement
-    // Description: This function helps in uploading the file and also creates the agreement
-
-    uploadAgreement() {
-        this.uploadButtonValue = 'Uploading';
-        if (this.horecaFormGroup.get('customerId').valid) {
-            const fileList: FileList = this.fileEvent;
-            if (fileList && fileList.length > 0) {
-                const file: File = fileList[0];
-                const formData: FormData = new FormData();
-                formData.append('file', file, file.name);
-                formData.append('name', this.fileNameValue);
-                formData.append('file_module', 'Agreements');
-                this.roasterId = this.cookieService.get('roaster_id');
-                formData.append('api_call', '/ro/' + this.roasterId + '/file-manager/files');
-                formData.append('token', this.cookieService.get('Auth'));
-                this.roasterService.uploadFiles(formData).subscribe((result: any) => {
-                    if (result.success) {
-                        this.toastrService.success('The file ' + this.fileNameValue + ' uploaded successfully');
-                        const requestBody = {
-                            customer_id: parseInt(this.horecaFormGroup.get('customerId').value, 10),
-                            notify_customer: true,
-                            file_id: result.result.id,
-                        };
-                        this.roasterService
-                            .uploadAgreements(this.roasterId, this.customerType, requestBody)
-                            .subscribe((res: any) => {
-                                if (res.success) {
-                                    this.uploadButtonValue = 'Upload Agreement';
-                                    this.toastrService.success('The Agreement has been uploaded successfully');
-                                    this.getAgreements();
-                                    this.onUpdateModalClose();
-                                    this.fileNameValue = '';
-                                    document.getElementById('dismissAddModal').click();
-                                } else {
-                                    this.uploadButtonValue = 'Upload Agreement';
-                                    this.toastrService.error('Error while uploading Agreegement');
-                                }
-                            });
-                    } else {
-                        this.uploadButtonValue = 'Upload Agreement';
-                        this.toastrService.error('Error while uploading the file');
-                    }
-                });
-            }
-        }
-    }
-
-    // Function Name: Re-Upload File
-    // Description: This function helps to capture re-uploaded file details
-
-    reUploadFile(event: any) {
-        this.fileNameValue = '';
-        this.reFileNameValue = '';
-        this.reFiles = event.target.files;
-        this.reFileEvent = this.reFiles;
-        this.reFileNameValue = this.reFiles[0].name;
-    }
-
-    // Function Name: Update Agreement
-    // Description: This function helps in updating the file for the selected agreement
-
-    updateAgreements() {
-        this.updateButtonValue = 'Updating';
-        const fileList: FileList = this.reFileEvent;
-        if (fileList && fileList.length > 0) {
-            const file: File = fileList[0];
-            const formData: FormData = new FormData();
-            formData.append('file', file, file.name);
-            formData.append('name', this.reFileNameValue);
-            formData.append('file_module', 'Agreements');
-            this.roasterId = this.cookieService.get('roaster_id');
-            formData.append('api_call', '/ro/' + this.roasterId + '/file-manager/files');
-            formData.append('token', this.cookieService.get('Auth'));
-            this.roasterService.uploadFiles(formData).subscribe((result: any) => {
-                if (result.success) {
-                    this.toastrService.success('The file ' + this.fileNameValue + ' uploaded successfully');
-                    const dataBody = {
-                        file_id: result.result.id,
-                    };
-                    this.roasterService
-                        .updateAgreements(this.roasterId, this.customerType, this.itemId, dataBody)
-                        .subscribe((res: any) => {
-                            if (res.success) {
-                                this.uploadButtonValue = 'Update Agreement';
-                                this.toastrService.success('The Agreement updated successfully');
-                                this.getAgreements();
-                                this.onUpdateModalClose();
-                                this.fileNameValue = '';
-                                document.getElementById('dismissAddModal').click();
-                            } else {
-                                this.uploadButtonValue = 'Upload Agreement';
-                                this.toastrService.error('Error while updating the agreement details');
-                            }
-                        });
-                    this.toastrService.success('The file ' + this.fileNameValue + ' uploaded successfully');
-                }
-            });
-        } else {
-            this.updateButtonValue = 'Update Agreement';
-            this.toastrService.error('Error while uploading the file');
-        }
-    }
-
-    // Function Name: Modal Close
-    // Description: This function helps to reset the form data on modal close
-
-    onUpdateModalClose() {
-        this.fileNameValue = '';
-        this.reFileNameValue = '';
-        this.horecaFormGroup.get('customerId').enable();
-        this.horecaFormGroup.get('customerId').setValue('');
+    onUploadModalOpen() {
+        this.selectedItemId = null;
+        this.isUpdate = false;
     }
 
     // Function Name: Delete Modal

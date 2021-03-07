@@ -1,11 +1,11 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { RoasterserviceService } from '@core/services/api/roaster.service';
+import { RoasterserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from '@core/services/globals.service';
+import { GlobalsService } from '@services';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { UserserviceService } from '@core/services/api/user.service';
+import { UserserviceService } from '@services';
 import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
 
@@ -136,7 +136,7 @@ export class RoastingProfilesComponent implements OnInit {
         this.roasterService.getRoastingProfile(this.roasterId, postData).subscribe(
             (data: any) => {
                 if (data.success) {
-                    this.tableValue = data.result;
+                    this.tableValue = data.result.reverse();
                 } else {
                     this.toastrService.error('Error while getting the roasting profile list!');
                 }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DestroyableComponent } from '@core/base-components';
-import { OrderStatus, OrderType } from '@core/enums';
-import { OrderDetails } from '@core/models';
-import { OrdersService } from '@core/services';
+import { DestroyableComponent } from '@base-components';
+import { OrderStatus, OrderType } from '@enums';
+import { OrderDetails } from '@models';
+import { OrdersService } from '@services';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

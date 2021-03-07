@@ -13,7 +13,7 @@
                         <div class="overflow-auto d-flex flex-nowrap breadCrumb">
                             <p-breadcrumb [model]="breadItems"></p-breadcrumb>
                         </div>
-                        <div class="w-100 mt-4 pt-2 clearfix avaialble-web">
+                        <div class="w-100 mt-4 pt-2 clearfix botSpacing avaialble-web">
                             <div *ngIf="saleInformation" class="source-det-tit pull-left pt-2">
                                 <div class="det-tit d-inline-block">
                                     <h2>{{ saleInformation.name ? saleInformation.name : 'NA' }}</h2>
@@ -64,14 +64,14 @@
                     </div>
                 </div>
             </div>
-            <div class="prodect-details mt-md-4">
+            <div class="prodect-details mt-4">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12 mb-4 no-pad">
+                    <div class="col-lg-6 col-md-12 col-sm-12 mb-4 no-pad">
                         <div class="prodect-gal">
                             <gallery id="basic-test" [items]="items" gallerize></gallery>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                         <div class="product-description">
                             <div class="row ml-md-0 mr-md-0">
                                 <div class="col-lg-12 border-class">
@@ -163,7 +163,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row mt-3 ml-md-0 mr-md-0">
+                            <div class="row mt-4 ml-md-0 mr-md-0">
+                                <h3
+                                    class="d-none d-sm-none d-xl-none d-lg-none d-md-block pb-1 fnt-18 fnt-bold text-clr334"
+                                >
+                                    Green coffee details
+                                </h3>
                                 <div *ngIf="orderDetails" class="col-12 border-class">
                                     <p-tabView styleClass=" mt-1 pb-3 pb-md-4" [(activeIndex)]="selectedTab">
                                         <p-tabPanel header="{{ globals.languageJson?.green_coffee_details }}">
@@ -268,8 +273,10 @@
                                                             </p>
                                                         </li>
                                                     </ul>
-                                                    <div class="mt-3 pl-2">
-                                                        <p class="brown-cta m-0">View more details</p>
+                                                    <div class="mt-3 pl-md-2">
+                                                        <p class="brown-cta m-0" [routerLink]="availabilityPage()">
+                                                            View more details
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -304,11 +311,11 @@
                                 </div>
                             </div>
 
-                            <div class="row mt-3 ml-md-0 mr-md-0">
+                            <div class="row mt-4 ml-md-0 mr-md-0">
                                 <div class="col-lg-12 border-class">
                                     <div class="produect-pro">
                                         <div *ngIf="orderDetails" class="row">
-                                            <div class="col-xl-4 col-lg-4 col-md-5 col-sm-6 col-xs-12">
+                                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                                 <div class="real-estate p-date">
                                                     <h6 class="mt-0" *ngIf="orderDetails['cupping_at']">
                                                         {{ orderDetails['cupping_at'] | date: 'dd MMM, yyyy' }}
@@ -338,12 +345,14 @@
                                                     <h6 class="mt-0">Facilitator</h6>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-4 d-xl-block d-lg-none d-md-none d-sm-none v-report">
+                                            <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6 v-report">
                                                 <a class="brown-cta" (click)="viewReport()">View report </a>
                                             </div>
-                                            <div class=" d-xl-none d-lg-block d-md-block d-sm-block col-lg-3 col-md-2 col-sm-6 v-report">
+                                            <!-- <div
+                                                class="d-none d-sm-none d-xl-none d-lg-block d-md-block col-lg-3 col-md-2 col-sm-6 v-report"
+                                            >
                                                 <a class="brown-cta" (click)="viewReport()">View </a>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>

@@ -1,12 +1,17 @@
 <div class="main-block">
     <div class="row mb-3">
         <div class="col-10">
-            <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
+            <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
         </div>
     </div>
     <div [formGroup]="productForm" (ngSubmit)="onSave()" novalidate>
-        <div class="row">
-            <div *ngIf="productID" class="col-12 col-sm-12 col-md-12 d-none d-sm-none d-md-block">
+        <div class="row gutter-16 gutter-lg-24 productDiv">
+            <div class="col-12 col-sm-12 col-md-6 d-flex">
+                <span class="fnt-18 fnt-700 fnt-muli black w-100" [ngClass]="{ productLineDiv: productID }"
+                    >Add a new product</span
+                >
+            </div>
+            <div *ngIf="productID" class="col-12 col-sm-12 col-md-6 d-none d-sm-none d-md-block">
                 <div class="float-right">
                     <span class="primary_txt pr-3">Product Visibility : </span>
                     <div class="btn-group toggleDiv">
@@ -29,9 +34,12 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="productID" class="col-12 col-sm-12 col-md-12 row d-flex d-sm-flex d-md-none pr-0">
+            <div
+                *ngIf="productID"
+                class="col-12 col-sm-12 col-md-12 row d-flex d-sm-flex d-md-none pt-4 row gutter-16 gutter-lg-24"
+            >
                 <div class="col-6 d-flex align-items-center">
-                    <span class="primary_txt font-14">Product Visibility : </span>
+                    <span class="primary_txt fnt-14">Product Visibility : </span>
                 </div>
                 <div class="col-6 p-0">
                     <div class="btn-group toggleDiv float-right">
@@ -53,9 +61,10 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-12 divSeperator w-100 ml-1 mt-4"></div>
             </div>
         </div>
-        <div class="row mt-4">
+        <div class="row gutter-16 gutter-lg-24 mt-2">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
                 <label>Product Name<span class="star">*</span></label>
                 <input type="text" placeholder="product name" formControlName="name" pInputText />
@@ -74,8 +83,8 @@
                 <small *ngIf="productForm.controls['purchase_type'].errors?.required" class="p-error"> Required </small>
             </div>
         </div>
-        <div class="row mt-2">
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
+        <div class="row gutter-16 gutter-lg-24 mt-2">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 sewn-form-field w-100">
                 <div>
                     <label>Product Description<span class="star">*</span></label>
                     <label class="float-right limitFont">{{ productDescriptionLength }}/50 words</label>
@@ -93,11 +102,11 @@
             </div>
         </div>
         <div class="divSeperator"></div>
-        <div class="row no-gutters mb-3">
+        <div class="row gutter-16 gutter-lg-24 no-gutters mb-4">
             <div class="col-12">
-                <span class="primary_txt font-16">Variants</span>
+                <span class="primary_txt fnt-16">Variants</span>
             </div>
-            <div class="col-12 col-sm-12 col-md-8 mt-2 p-0">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 mt-3 p-lg-2 p-sm-0">
                 <p-checkbox
                     formControlName="is_variants_included"
                     binary="true"
@@ -107,9 +116,9 @@
             </div>
             <div
                 *ngIf="productForm['value']['is_variants_included']"
-                class="col-12 col-sm-12 col-md-4 d-none d-sm-none d-md-block"
+                class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 d-none d-sm-none d-md-block"
             >
-                <div class="pull-right addNewWeightDiv">
+                <div class="pull-right addNewWeightDiv variant-pos">
                     <img class="" src="assets/images/add_grey.svg" />
                     <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer" (click)="addNewVarients()">
                         Add new variant
@@ -152,8 +161,8 @@
                         <span>{{ varient['value']['varient_name'] }}</span>
                     </ng-template>
                     <div [formGroupName]="i">
-                        <div class="row mt-3">
-                            <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
+                        <div class="row gutter-16 gutter-lg-24 mt-4">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
                                 <label>Select roasted coffee batch<span class="star">*</span></label>
                                 <p-dropdown
                                     [options]="roastedBatches"
@@ -168,77 +177,83 @@
                                     Required
                                 </small>
                             </div>
-                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                            <div
+                                class="col-md-6 col-lg-6 sewn-form-field w-100 d-xl-none d-lg-block d-md-block d-sm-none d-none"
+                            ></div>
+
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
                                 <label>Roaster Ref No.</label>
                                 <input type="text" readonly formControlName="roaster_ref_no" pInputText />
                             </div>
-                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
                                 <label>Batch Ref No.</label>
                                 <input type="text" readonly formControlName="batch_ref_no" pInputText />
                             </div>
                         </div>
-                        <div class="row mt-2">
-                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                        <div class="row gutter-16 gutter-lg-24">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
                                 <label>Roaster Profile</label>
                                 <input type="text" readonly formControlName="roasting_profile_name" pInputText />
                             </div>
-                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
                                 <label>Roaster level<span class="star">*</span></label>
                                 <input type="text" readonly formControlName="roast_level" pInputText />
                             </div>
-                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
                                 <label>Roasting Time</label>
                                 <input type="text" readonly formControlName="roast_time" pInputText />
                             </div>
                         </div>
-                        <div class="row mt-2 e-comm-border-top">
-                            <div class="col-12 mb-3">
-                                <span class="primary_txt font-16">Estate Details</span>
+                        <div class="row gutter-16 gutter-lg-24 mt-2 e-comm-border-top pl-0 pr-0">
+                            <div class="col-12 mb-3 mt-3">
+                                <span class="primary_txt fnt-16">Estate Details</span>
                             </div>
-                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
                                 <label>Estate Name</label>
                                 <input type="text" readonly formControlName="estate_name" pInputText />
                             </div>
-                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
                                 <label>Origin</label>
                                 <input type="text" readonly formControlName="origin" pInputText />
                             </div>
-                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
                                 <label>Region</label>
                                 <input type="text" readonly formControlName="region" pInputText />
                             </div>
-                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
                                 <label>Harvest year</label>
                                 <input type="text" readonly formControlName="harvest_year" pInputText />
                             </div>
                         </div>
-                        <div class="row mt-2 e-comm-border-top">
-                            <div class="col-12 mb-3">
-                                <span class="primary_txt font-16">Tasting notes</span>
+                        <div class="row gutter-16 gutter-lg-24 mt-2 e-comm-border-top pl-0 pr-0">
+                            <div class="col-12 mb-3 mt-3 mt-md-0">
+                                <span class="primary_txt fnt-16">Tasting notes</span>
                             </div>
-                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                            <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-3 sewn-form-field w-100">
                                 <label>Body</label>
                                 <input type="text" readonly formControlName="body" pInputText />
                             </div>
-                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                            <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-3 sewn-form-field w-100">
                                 <label>Acidity</label>
                                 <input type="text" readonly formControlName="acidity" pInputText />
                             </div>
-                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                            <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-3 sewn-form-field w-100">
                                 <label>Aroma</label>
                                 <input type="text" readonly formControlName="aroma" pInputText />
                             </div>
-                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                            <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-3 sewn-form-field w-100">
                                 <label>Flavour</label>
                                 <input type="text" readonly formControlName="flavour" pInputText />
                             </div>
-                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                            <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-3 sewn-form-field w-100">
                                 <label>Processing</label>
                                 <input type="text" readonly formControlName="processing" pInputText />
                             </div>
                         </div>
-                        <div class="row mt-2 e-comm-border-top">
-                            <div class="col-12 col-sm-12 col-md-12 sewn-form-field w-100">
+                        <div class="row gutter-16 gutter-lg-24 mt-2 e-comm-border-top">
+                            <div
+                                class="col-12 col-sm-12 col-md-12 sewn-form-field w-100 pl-md-2 pr-md-3 pl-0 pr-0 mb-0 mt-2"
+                            >
                                 <label>Flavour profile</label>
                                 <div>
                                     <span
@@ -250,8 +265,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt-2">
-                            <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
+                        <div class="row gutter-16 gutter-lg-24 mt-md-2 mt-1">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 sewn-form-field w-100">
                                 <label>Roaster notes</label>
                                 <textarea
                                     type="text"
@@ -262,7 +277,7 @@
                                     pInputText
                                 ></textarea>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 sewn-form-field w-100">
                                 <div>
                                     <label>Recipes</label>
                                     <label class="float-right limitFont">0/50 words</label>
@@ -277,11 +292,11 @@
                                 ></textarea>
                             </div>
                         </div>
-                        <div class="row mt-2 e-comm-border-top">
-                            <div class="col-12 mb-3">
-                                <span class="primary_txt font-16">Recommended brewing method</span>
+                        <div class="row gutter-16 gutter-lg-24 mt-2 e-comm-border-top pl-0 pr-0 pt-3">
+                            <div class="col-12 mb-3 mt-1">
+                                <span class="primary_txt fnt-16">Recommended brewing method</span>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-5 col-xl-3 sewn-form-field w-100">
                                 <label>Select a brewing method<span class="star">*</span></label>
                                 <p-dropdown
                                     [options]="brewingMethodArray"
@@ -296,7 +311,7 @@
                                     Required
                                 </small>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
+                            <div class="col-12 col-sm-12 col-md-8 col-lg-7 col-xl-6 sewn-form-field w-100">
                                 <div>
                                     <label>Recommendation text<span class="star">*</span></label>
                                     <label class="float-right limitFont">{{ recommendationTextLength }}/10 words</label>
@@ -317,10 +332,7 @@
                             </div>
                         </div>
                         <div class="divSeperator"></div>
-                        <div class="row">
-                            <div class="col-12 mb-3">
-                                <span class="primary_txt font-16">Product Weights</span>
-                            </div>
+                        <div class="row gutter-16 gutter-lg-24">
                             <div class="col-12">
                                 <app-varient-details
                                     #cmp
@@ -335,7 +347,7 @@
             </p-tabView>
         </div>
         <div class="col-12 p-0 mb-3">
-            <span class="primary_txt font-16">Boxes details</span><br />
+            <span class="primary_txt fnt-16">Boxes details</span><br />
             <span>Add values per crate to let your customer know</span>
         </div>
         <div
@@ -344,14 +356,14 @@
             class="mt-4"
         >
             <div [formGroupName]="i" class="row mt-2">
-                <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-2 sewn-form-field w-100 pr-0">
+                <div class="col-3 col-sm-3 col-md-4 col-lg-4 col-xl-2 sewn-form-field w-100 pr-0">
                     <label>Box value<span class="star">*</span></label>
                     <input type="text" placeholder="" readonly formControlName="boxField" pInputText />
                 </div>
                 <div class="equal-operators">=</div>
-                <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-2 sewn-form-field w-100 pl-0 pr-0">
+                <div class="col-3 col-sm-3 col-md-4 col-lg-4 col-xl-2 sewn-form-field w-100 pl-0 pr-0">
                     <label>Weight<span class="star">*</span></label>
-                    <input type="number" readonly placeholder="" formControlName="weight" pInputText />
+                    <input type="text" readonly placeholder="" formControlName="weight_name" pInputText />
                 </div>
                 <div class="equal-operators pl-2 pr-2">x</div>
                 <div class="col-4 col-sm-4 col-md-3 col-lg-3 col-xl-2 sewn-form-field w-100 pl-0">
@@ -363,8 +375,8 @@
             </div>
         </div>
         <div class="divSeperator"></div>
-        <div class="row mt-4">
-            <div class="col-12 mb-3"><span class="primary_txt font-16">VAT Details</span><br /></div>
+        <div class="row gutter-16 gutter-lg-24 mt-4">
+            <div class="col-12 mb-3"><span class="primary_txt fnt-16">VAT Details</span><br /></div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
                 <label>Select VAT trasaction type<span class="star">*</span></label>
                 <p-dropdown
@@ -380,7 +392,9 @@
                 </small>
             </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
-                <label>Is the product price inclusive of VAT<span class="star">*</span></label>
+                <label class="fnt-14 fnt-600 fnt-muli txt-clr-554"
+                    >Is the product price inclusive of VAT<span class="star">*</span></label
+                >
                 <p-checkbox
                     formControlName="is_price_including_vat"
                     binary="true"
@@ -390,7 +404,7 @@
                 </p-checkbox>
             </div>
         </div>
-        <div class="row mt-4 d-none d-sm-none d-md-flex">
+        <div class="row gutter-16 gutter-lg-24 mt-4 d-none d-sm-none d-md-flex">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                 <button type="button" class="btn btn-stroked" (click)="onCancel()">Cancel</button>
                 <button type="submit" class="btn btn-raised ml-3" (click)="onSave()">Save</button>
@@ -399,12 +413,12 @@
                 <button type="button" class="btn btn-raised pull-right" (click)="togglePublic(true)">Publish</button>
             </div>
         </div>
-        <div class="row mt-4 d-block d-sm-block d-md-none">
+        <div class="row gutter-16 gutter-lg-24 mt-4 d-block d-sm-block d-md-none">
             <div *ngIf="!productID" class="col-12 col-sm-12">
                 <button type="button" class="btn btn-raised w-100" (click)="togglePublic(true)">Publish</button>
             </div>
             <div class="col-12 col-sm-12 mt-3">
-                <button type="submit" class="btn btn-raised w-100">Save</button>
+                <button type="submit" class="btn btn-raised w-100" (click)="onSave()">Save</button>
             </div>
             <div class="col-12 col-sm-12 mt-3">
                 <button type="button" class="btn btn-stroked w-100" (click)="onCancel()">Cancel</button>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
-import { GlobalsService } from '@core/services/globals.service';
-import { RoasterserviceService } from '@core/services/api/roaster.service';
+import { GlobalsService } from '@services';
+import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
@@ -126,6 +126,9 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
                 console.log(err);
             },
         );
+    }
+    availabilityPage() {
+        return `/sourcing/coffee-details/${this.orderDetails.estate_id}/${this.orderDetails.harvest_id}`;
     }
     viewReport() {
         this.roasterService.getCuppingReportDetails(this.orderDetails.harvest_id).subscribe(

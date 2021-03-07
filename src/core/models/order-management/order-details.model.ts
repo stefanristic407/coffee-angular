@@ -1,4 +1,4 @@
-import { OrderStatus, OrderType } from '@core/enums';
+import { OrderStatus, OrderType } from '@enums';
 import { Address } from '../common';
 
 export interface OrderDetails {

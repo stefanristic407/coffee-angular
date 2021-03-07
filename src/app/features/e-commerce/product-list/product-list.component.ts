@@ -3,13 +3,14 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
-import { RoasterserviceService } from '@core/services/api';
-import { GlobalsService } from '@core/services/globals.service';
+import { RoasterserviceService } from '@services';
+import { GlobalsService } from '@services';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { ConfirmComponent } from '@shared';
+import { COUNTRY_LIST } from '@constants';
 
 @Component({
     selector: 'app-product-list',
@@ -116,7 +117,7 @@ export class ProductListComponent implements OnInit {
         this.supplyBreadCrumb();
     }
     loadFilterValues() {
-        this.originArray = this.globals.countryList;
+        this.originArray = COUNTRY_LIST;
         this.priceRangeArray = [
             { label: '$0-$500', value: { price_min: '0', price_max: '500' } },
             { label: '$500-$1000', value: { price_min: '500', price_max: '1000' } },

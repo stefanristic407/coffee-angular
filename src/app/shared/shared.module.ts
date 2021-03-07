@@ -79,7 +79,6 @@ import { ImageMapComponent } from './components/remote-sensoring/image-map/image
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { MediaComponent } from './components/media/media.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
-import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { ReadMoreComponent } from './components/read-more/read-more.component';
 import { UploaderComponent } from './components/uploader/uploader.component';
 
@@ -100,6 +99,10 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { ArrayFilterPipe } from './pipes/array-filter.pipe';
 import { StringReplacePipe } from './pipes/string-replace.pipe';
 import { AccordionModule } from 'primeng/accordion';
+
+import { SewnDirectMessageComponent } from './components/chat/sewn-direct-message/sewn-direct-message.component';
+import { SewnOrderChatComponent } from './components/chat/sewn-order-chat/sewn-order-chat.component';
+import { SearchFilterPipe } from './components/chat/sewn-direct-message/search-filter.pipe';
 
 // #region third libs
 const THIRDMODULES = [
@@ -177,11 +180,12 @@ const COMPONENTS = [
     DayPickerComponent,
     BlogCardComponent,
     BarChartComponent,
-    BreadcrumbComponent,
     HorizontalBarComponent,
     PhoneNumberComponent,
     ReviewSummaryComponent,
     ReviewsComponent,
+    SewnDirectMessageComponent,
+    SewnOrderChatComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 const DIRECTIVES = [WordLimitDirective, RatingDirective, LifecyclehookDirective];
@@ -200,6 +204,7 @@ const PIPES = [
     OrgTypePipe,
     StringReplacePipe,
     WordCountPipe,
+    SearchFilterPipe,
 ];
 // #endregion
 
@@ -228,6 +233,7 @@ const PIPES = [
         FormsModule,
         ReactiveFormsModule,
         RouterModule,
+
         // third libs
         ...THIRDMODULES,
         // your components

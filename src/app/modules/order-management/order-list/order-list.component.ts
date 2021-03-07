@@ -1,11 +1,11 @@
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CommonService, OrdersService, ResizeService } from '@core/services';
+import { CommonService, OrdersService, ResizeService } from '@services';
 import { LazyLoadEvent, MenuItem } from 'primeng/api';
-import { ApiResponse, LabelValue, OrderSummary, PageInfo } from '@core/models';
-import { ORDER_STATUS_ITEMS, ORDER_TYPE_ITEMS } from '@core/constants';
-import { ResizeableComponent } from '@core/base-components';
+import { ApiResponse, LabelValue, OrderSummary, PageInfo } from '@models';
+import { ORDER_STATUS_ITEMS, ORDER_TYPE_ITEMS } from '@constants';
+import { ResizeableComponent } from '@base-components';
 import { takeUntil } from 'rxjs/operators';
 import { Table } from 'primeng/table';
 

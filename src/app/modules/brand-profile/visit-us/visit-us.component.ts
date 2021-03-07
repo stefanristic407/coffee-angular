@@ -6,11 +6,11 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { maxWordCountValidator } from '@utils';
-import { FormService } from '@services';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
 import { ConfirmComponent } from '@shared';
+import { COUNTRY_LIST } from '@constants';
 import * as _ from 'underscore';
 @Component({
     selector: 'app-visit-us',
@@ -18,6 +18,7 @@ import * as _ from 'underscore';
     styleUrls: ['./visit-us.component.scss'],
 })
 export class VisitUsComponent implements OnInit {
+    public readonly COUNTRY_LIST = COUNTRY_LIST;
     roasterId: string;
     roasterSlug: string;
     breadItems: any[];
@@ -33,7 +34,6 @@ export class VisitUsComponent implements OnInit {
         public dialogSrv: DialogService,
         private fb: FormBuilder,
         private router: Router,
-        private formSrv: FormService,
         public globals: GlobalsService,
         private toastrService: ToastrService,
         private cookieService: CookieService,
@@ -101,7 +101,7 @@ export class VisitUsComponent implements OnInit {
                 }
             });
         } else {
-            this.formSrv.markGroupDirty(this.infoForm);
+            this.infoForm.markAllAsTouched();
         }
     }
 
@@ -182,7 +182,7 @@ export class VisitUsComponent implements OnInit {
                 );
             }
         } else {
-            this.formSrv.markGroupDirty(this.questionForm);
+            this.questionForm.markAllAsTouched();
         }
     }
 

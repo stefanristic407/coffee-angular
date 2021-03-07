@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DestroyableComponent } from '@core/base-components';
-import { OrderStatus, OrderType } from '@core/enums';
-import { OrderDetails, RoasterDetails } from '@core/models';
-import { GlobalsService, OrdersService } from '@core/services';
+import { DestroyableComponent } from '@base-components';
+import { OrderStatus, OrderType } from '@enums';
+import { OrderDetails, RoasterDetails } from '@models';
+import { GlobalsService, OrdersService } from '@services';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { OrderDetails, RoasterDetails } from '@core/models';
-import { CommonService } from '@core/services';
+import { OrderDetails, RoasterDetails } from '@models';
+import { CommonService } from '@services';
 
 @Component({
     selector: 'app-order-contacts',

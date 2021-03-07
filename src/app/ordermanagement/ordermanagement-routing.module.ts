@@ -127,16 +127,6 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
 
-            // {
-            //     path: 'order-chat/:chatType/:orderId',
-            //     component: SewnOrderChatComponent,
-            //     canActivate: [AuthGuard],
-            //     resolve: {
-            //         threadList: OrderChatThreadResolver,
-            //         orderDetails: OrderDetailsRsolver,
-            //     },
-            // },
-
             /**
              * These entries are kept for debugging purposes will be remove it later
              */

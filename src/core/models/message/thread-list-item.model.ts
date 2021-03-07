@@ -1,4 +1,4 @@
-import { OrganizationType, ThreadActivityType, ThreadType } from '@core/enums';
+import { OrganizationType, ThreadActivityType, ThreadType } from '@enums';
 import { ThreadMember } from './thread-member.model';
 
 export interface ThreadListItem {

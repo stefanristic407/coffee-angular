@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { RoasterserviceService } from '@core/services/api';
-import { GlobalsService } from '@core/services/globals.service';
+import { RoasterserviceService } from '@services';
+import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import * as $ from 'jquery';
@@ -116,6 +116,7 @@ export class VarientDetailsComponent implements OnInit {
         const weight = this.weightForm.get('weights') as FormArray;
         const getObj = {
             value: weight.controls[idx].value.weight,
+            unit: weight.controls[idx].value.weight_unit,
             product_weight_variant_id: weight.controls[idx].value.product_weight_variant_id,
             modify: false,
         };
@@ -127,6 +128,7 @@ export class VarientDetailsComponent implements OnInit {
             this.weights.removeAt(0);
             this.varientDetails.value.weight_variants.forEach((ele) => {
                 const weightForm = this.createEmptyWeights();
+                weightForm.controls.product_weight_variant_id.setValue(ele.product_weight_variant_id);
                 weightForm.controls.weight_name.setValue('weight -' + ele.weight + '' + ele.weight_unit);
                 if (ele.featured_image) {
                     weightForm.controls.featured_image_id.setValue(ele.featured_image.image_id);
@@ -150,10 +152,10 @@ export class VarientDetailsComponent implements OnInit {
                 this.loadGrindVariants(weightForm.controls.grind_variants, ele.grind_variants);
                 const productImageArray = this.setProductImages(productImages);
                 weightForm.controls.product_images.setValue(productImageArray);
+                weightForm.controls.isNew.setValue(false);
                 this.weights.push(weightForm);
             });
-            console.log(this.weights);
-            //this.createWeightVariantArray();
+            this.createWeightVariantArray();
         }
     }
     loadGrindVariants(grindForm, item): void {
@@ -173,6 +175,8 @@ export class VarientDetailsComponent implements OnInit {
         this.weights = this.weightForm.get('weights') as FormArray;
         this.weights.push(this.createEmptyWeights());
         this.updateCrate(this.weights.length - 1);
+        const weight = this.weightForm.get('weights') as FormArray;
+        weight.controls[this.currentVarientIndex + 1]['controls'].product_images.setValue(this.setProductImages([]));
         this.createWeightVariantArray();
     }
     addNewGrindVarients(): void {
@@ -188,6 +192,7 @@ export class VarientDetailsComponent implements OnInit {
             product_weight_variant_id: emptyVarientID,
             featured_image_id: '',
             fileDetails: null,
+            isNew: true,
             product_images: [],
             weight: [0, Validators.compose([Validators.required])],
             status: ['in-stock', Validators.compose([Validators.required])],

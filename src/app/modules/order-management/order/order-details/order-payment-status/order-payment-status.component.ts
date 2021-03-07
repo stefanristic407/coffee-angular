@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Input } from '@angular/core';
 import { Component } from '@angular/core';
-import { OrderDetails } from '@core/models';
+import { OrderDetails } from '@models';
 
 @Component({
     selector: 'app-order-payment-status',

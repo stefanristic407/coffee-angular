@@ -1,8 +1,8 @@
 import { AgmGeocoder } from '@agm/core';
 import { Component, Input, OnInit } from '@angular/core';
-import { DestroyableComponent } from '@core/base-components';
-import { Address, OrderDetails } from '@core/models';
-import { OrdersService, CommonService } from '@core/services';
+import { DestroyableComponent } from '@base-components';
+import { Address, OrderDetails } from '@models';
+import { OrdersService, CommonService } from '@services';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

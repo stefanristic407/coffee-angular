@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DestroyableComponent } from '@core/base-components';
-import { CuppingScore } from '@core/models';
-import { OrdersService } from '@core/services';
+import { DestroyableComponent } from '@base-components';
+import { CuppingScore } from '@models';
+import { OrdersService } from '@services';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

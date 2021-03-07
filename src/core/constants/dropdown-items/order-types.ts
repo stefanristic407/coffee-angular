@@ -1,5 +1,5 @@
-import { OrderType } from '@core/enums';
-import { LabelValue } from '@core/models';
+import { OrderType } from '@enums';
+import { LabelValue } from '@models';
 
 export const ORDER_TYPE_ITEMS: LabelValue[] = [
     { label: 'Sample', value: OrderType.Sample },

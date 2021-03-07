@@ -1,4 +1,4 @@
-import { ThreadActivityType } from '@core/enums';
+import { ThreadActivityType } from '@enums';
 import { ChatMessageMember } from './chat-message-member.model';
 import { ThreadMember } from './thread-member.model';
 
@@ -12,5 +12,6 @@ export interface ChatMessage {
     updated_at: string;
     computed_date: string;
     computed_author: ThreadMember;
+    showUserBadge: boolean;
     isActiveUser: boolean;
 }

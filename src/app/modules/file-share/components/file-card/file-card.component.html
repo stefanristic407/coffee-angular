@@ -45,11 +45,7 @@
             <a class="d-none d-md-inline mr-25" [href]="data.url" target="_blank" [download]="data.name">
                 <img class="img" *ngIf="data.type != 'FOLDER'" src="assets/images/download-gray.svg" />
             </a>
-            <a class="menu-arrow" (click)="menu.toggle($event)">
-                <img src="assets/images/menu-gray.svg" alt="menu" />
-            </a>
+            <app-file-menu [data]="data"></app-file-menu>
         </div>
     </div>
 </div>
-
-<p-menu #menu [popup]="true" [model]="menuItems"></p-menu>

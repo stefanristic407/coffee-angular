@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { DestroyableComponent } from '@core/base-components';
-import { OrdersService } from '@core/services';
+import { DestroyableComponent } from '@base-components';
+import { OrdersService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { takeUntil } from 'rxjs/operators';
 

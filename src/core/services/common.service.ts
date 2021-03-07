@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { COUNTRY_LIST, CONTINIENT_LIST } from '@core/constants';
+import { COUNTRY_LIST, CONTINIENT_LIST } from '@constants';
 
 @Injectable({
     providedIn: 'root',
