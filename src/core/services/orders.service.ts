@@ -29,10 +29,14 @@ export class OrdersService extends ApiService {
     private readonly bulkDetailsSubject = new BehaviorSubject<BulkDetails>(null);
     private readonly roasterDetailsSubject = new BehaviorSubject<RoasterDetails>(null);
     private readonly documentsSubject = new BehaviorSubject<OrderDocument[]>([]);
-    private readonly ordersSubject = new BehaviorSubject<ApiResponse<OrderSummary[]>>(null);
+    private readonly ordersSubjects = {
+        es: new BehaviorSubject<ApiResponse<OrderSummary[]>>(null),
+        mr: new BehaviorSubject<ApiResponse<OrderSummary[]>>(null),
+    };
     private readonly cuppingScoreSubject = new BehaviorSubject<CuppingScore[]>([]);
 
     private orderId: number;
+    private organiztionType: string;
 
     constructor(protected http: HttpClient, protected cookieService: CookieService) {
         super(cookieService, http);
@@ -58,21 +62,21 @@ export class OrdersService extends ApiService {
         return this.documentsSubject.asObservable();
     }
 
-    get orders$(): Observable<ApiResponse<OrderSummary[]>> {
-        return this.ordersSubject.asObservable();
-    }
-
     get cuppingScore$(): Observable<CuppingScore[]> {
         return this.cuppingScoreSubject.asObservable();
+    }
+
+    getOrders(organizationType: string): Observable<ApiResponse<OrderSummary[]>> {
+        return this.ordersSubjects[organizationType].asObservable();
     }
 
     getOrderDetailsById(orderId: number): Observable<ApiResponse<OrderDetails>> {
         return this.post(this.url, `orders/${orderId}`, 'GET');
     }
 
-    loadOrders(options: any): void {
+    loadOrders(organiztionType: string, options: any): void {
         const params = this.serializeParams(options);
-        this.post(this.url, `orders?${params}`, 'GET').subscribe((res) => {
+        this.post(this.url, `${organiztionType === 'mr' ? 'mr-' : ''}orders?${params}`, 'GET').subscribe((res) => {
             if (res.success) {
                 res.result = res.result || [];
                 const arr = res.result
@@ -83,7 +87,7 @@ export class OrdersService extends ApiService {
                         type: this.getLabel(ORDER_TYPE_ITEMS, x.type),
                     }));
 
-                this.ordersSubject.next({ ...res, result: arr });
+                this.ordersSubjects[organiztionType].next({ ...res, result: arr });
             }
         });
     }

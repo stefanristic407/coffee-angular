@@ -7,10 +7,12 @@ export interface OrderSummary {
     cupScore: number;
     origin: string;
     price: number;
+    totalPrice: number;
     status: OrderStatus;
     type: OrderType;
     varieties: string;
     estateName: string;
+    microRoasterName: string;
     quantity: number;
     quantityType: string;
 }

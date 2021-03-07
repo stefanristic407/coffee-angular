@@ -1,11 +1,13 @@
+import { ActivatedRoute } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonService, OrdersService, ResizeService } from '@core/services';
 import { LazyLoadEvent, MenuItem } from 'primeng/api';
 import { ApiResponse, LabelValue, OrderSummary, PageInfo } from '@core/models';
 import { ORDER_STATUS_ITEMS, ORDER_TYPE_ITEMS } from '@core/constants';
 import { ResizeableComponent } from '@core/base-components';
 import { takeUntil } from 'rxjs/operators';
+import { Table } from 'primeng/table';
 
 @Component({
     selector: 'app-order-list',
@@ -45,15 +47,25 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     });
 
     loading = false;
+    organizationType = 'es';
     orders: OrderSummary[] = [];
     pageInfo: PageInfo = { page: 1, per_page: 10, total_count: 0 };
-    selectedOrders: OrderSummary[] = [];
-
     queryParams: any = {};
     displayExportDialog = false;
 
+    @ViewChild('ordersTable') ordersTable: Table;
+
+    get customerPropertyName(): string {
+        return this.organizationType === 'es' ? 'estate_name' : 'micro_roaster_name';
+    }
+
+    get customerPropertyNameCamelCase(): string {
+        return this.organizationType === 'es' ? 'estateName' : 'microRoasterName';
+    }
+
     constructor(
         private fb: FormBuilder,
+        private route: ActivatedRoute,
         private orderService: OrdersService,
         protected resizeService: ResizeService,
         public commonService: CommonService,
@@ -62,13 +74,24 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.orderService.orders$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((res) => {
-            if (res) {
-                this.orders = res.result;
-                this.pageInfo = res.result_info;
+        this.route.params.pipe(takeUntil(this.unsubscribeAll$)).subscribe((params) => {
+            this.organizationType = params.organizationType;
+            if (this.ordersTable) {
+                // To load data when navigating between MR and ES orders
+                this.ordersTable.reset();
             }
 
-            this.loading = false;
+            this.orderService
+                .getOrders(this.organizationType)
+                .pipe(takeUntil(this.unsubscribeAll$))
+                .subscribe((res) => {
+                    if (res) {
+                        this.orders = res.result;
+                        this.pageInfo = res.result_info;
+                    }
+
+                    this.loading = false;
+                });
         });
 
         this.searchForm.valueChanges.pipe(takeUntil(this.unsubscribeAll$)).subscribe((value) => {
@@ -92,7 +115,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
         }
 
         setTimeout(() => (this.loading = true), 0); // To prevent expression has been checked error
-        this.orderService.loadOrders(this.searchForm.value);
+        this.orderService.loadOrders(this.organizationType, this.searchForm.value);
     }
 
     showExportDialog() {

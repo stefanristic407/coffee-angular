@@ -14,7 +14,7 @@
                 <span class="p-input-icon-left custom-search w-100">
                     <input pInputText
                         class="w-100 h-100 border-rounded-left-md-0 pt-2 pb-2 {{ searchForm.get('search_query').value ? 'highlight' : '' }}"
-                        type="text" placeholder="Search by order id, estate name"
+                        type="text" placeholder="Search by order id, {{ customerPropertyName | strReplace: '_': ' ' }}"
                         formControlName="search_query" />
                 </span>
                 <button type="submit" class="btn-raised ml-2 d-none d-lg-block"
@@ -49,8 +49,8 @@
 
     <div class="row no-gutters">
         <div class="col-12 p-1">
-            <p-table #myTable [class.table-mobile]="isMobile$ | async" class="mt-2" [value]="orders"
-                [(selection)]="selectedOrders" dataKey="id" [rows]="this.searchForm.get('per_page').value"
+            <p-table #ordersTable [class.table-mobile]="isMobile$ | async" class="mt-2" [value]="orders"
+                dataKey="id" [rows]="this.searchForm.get('per_page').value"
                 [showCurrentPageReport]="false" [paginator]="true" [lazy]="true" [loading]="loading"
                 (onLazyLoad)="loadOrders($event)" [totalRecords]="pageInfo.total_count" sortField="date_received"
                 styleClass="p-datatable-responsive-single p-datatable-tablet-scrollable p-datatable-custom-paginator">
@@ -69,11 +69,11 @@
                                 </p-sortIcon>
                             </div>
                         </th>
-                        <th pSortableColumn="estate_name">
+                        <th [pSortableColumn]="customerPropertyName">
                             <div class="d-flex">
-                                <span class="text-overflow-ellipsis">{{ 'estate' | translate }}</span>
+                                <span class="text-overflow-ellipsis">{{ customerPropertyName | translate }}</span>
                                 <p-sortIcon
-                                    field="estate_name"
+                                    [field]="customerPropertyName"
                                     ariaLabel="Activate to sort"
                                     ariaLabelDesc="Activate to sort in descending order"
                                     ariaLabelAsc="Activate to sort in ascending order"
@@ -192,8 +192,8 @@
                                         </div>
 
                                         <div class="mobile-row py-2 d-flex">
-                                            <span class="text-muted cell-header">{{ 'estate_name' | translate }}</span>
-                                            <span class="text-black334">{{ rowData.estateName }}</span>
+                                            <span class="text-muted cell-header">{{ customerPropertyName | translate }}</span>
+                                            <span class="text-black334">{{ rowData[customerPropertyNameCamelCase] }}</span>
                                         </div>
                                         <div class="mobile-row py-2 d-flex">
                                             <span class="text-muted cell-header">{{ 'origin' | translate }}</span>
@@ -210,10 +210,10 @@
                             </div>
                         </td>
 
-                        <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.estateName }}</td>
+                        <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData[customerPropertyNameCamelCase] }}</td>
                         <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.createdAt | date: 'd MMM yyyy' }}</td>
                         <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.varieties }}</td>
-                        <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.price | currency: 'USD' }}
+                        <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ (rowData.price || rowData.totalPrice) | currency: 'USD' }}
                         </td>
                         <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.quantity ? rowData.quantity
                             + ' ' + rowData.quantityType : '-' }}</td>
