@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Table } from 'primeng/table';
 import { UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { COUNTRY_LIST } from '@core/constants';
+import { COUNTRY_LIST } from '@constants';
 
 @Component({
     selector: 'app-coffee-procured-tab',

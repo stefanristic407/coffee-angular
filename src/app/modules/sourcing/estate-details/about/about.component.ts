@@ -2,7 +2,7 @@ import { ChatHandlerService, GlobalsService } from '@services';
 import { Component, OnInit } from '@angular/core';
 import {} from '@services';
 import { SourcingService } from '../../sourcing.service';
-import { OrganizationType } from '@core/enums';
+import { OrganizationType } from '@enums';
 
 @Component({
     selector: 'app-about',

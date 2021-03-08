@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 
-import { Menu } from './menu.model';
+import { Menu } from '@models';
 import { menuItems } from './menu';
 
 @Injectable()

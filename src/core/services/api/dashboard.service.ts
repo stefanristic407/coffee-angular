@@ -16,6 +16,6 @@ export class DashboardService extends ApiService {
 
     // Get details for dashboard
     getStats(query: any = null) {
-        return this.post(this.url, `stats`, 'GET', query);
+        return this.postWithOrg(this.url, `stats`, 'GET', query);
     }
 }

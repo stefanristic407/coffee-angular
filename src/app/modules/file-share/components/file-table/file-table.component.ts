@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { FileService } from '@services';
 import { FileShareService } from '../../file-share.service';
-import { FileType } from '@core/enums';
+import { FileType } from '@enums';
 
 @Component({
     selector: 'app-file-table',

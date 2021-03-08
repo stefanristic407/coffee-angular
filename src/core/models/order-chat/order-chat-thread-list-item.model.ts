@@ -1,4 +1,4 @@
-import { OrderChatDisputeType, OrderChatThreadType, OrderChatThreadStatus } from '@core/enums';
+import { OrderChatDisputeType, OrderChatThreadType, OrderChatThreadStatus } from '@enums';
 
 export interface OrderChatThreadListItem {
     dispute_type: OrderChatDisputeType;

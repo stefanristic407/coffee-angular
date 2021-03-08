@@ -3,7 +3,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { OrderChatType } from '@core/enums/order-chat';
+import { OrderChatType } from '@enums';
 
 @Component({
     selector: 'app-assign-user',

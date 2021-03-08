@@ -5,7 +5,7 @@ import { RoasterserviceService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem, TreeNode } from 'primeng/api';
-import { GlobalsService } from '@core/services';
+import { GlobalsService } from '@services';
 import { ManagePermissionComponent } from '../manage-permission/manage-permission.component';
 
 @Component({
