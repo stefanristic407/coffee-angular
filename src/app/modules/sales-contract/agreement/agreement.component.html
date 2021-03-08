@@ -1,7 +1,10 @@
 <section>
     <div class="bg-fff coffee-exp agreements">
         <div class="row align-items-center">
-            <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
+            <div class="mb-4 pl-3">
+                <p-breadcrumb [model]="navItems" [home]="selectedNav"></p-breadcrumb>
+            </div>
+            <!-- <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
                 <span id="title-breadcrumb-1" class="sr-only"></span>
                 <ul class="pl-3">
                     <li class="b-cum">
@@ -11,7 +14,7 @@
                     </li>
                     <li class="b-cum c-pink">{{ globals.languageJson?.agreements }}</li>
                 </ul>
-            </nav>
+            </nav> -->
             <div class="file-share-search col-12 col-md-3 ml-md-auto mb-3 mr-3 d-none d-md-flex align-items-center">
                 <img class="mr-1 mr-md-2" src="assets/images/search.svg" />
                 <input class="fadout-search" type="search" placeholder="{{ globals.languageJson?.search_files }}"
