@@ -51,6 +51,15 @@
 .popover-body {
     padding: 0.25rem 0.25rem !important;
 }
+.weightVariantBtn {
+    border: solid 1px #30855c;
+    color: #30855c;
+    padding: 0.5rem 2rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .cross-icon {
     cursor: pointer;
@@ -177,6 +186,9 @@
     }
     .recent-time {
         width: 100%;
+    }
+    .order-details-clr {
+        padding: 32px 16px;
     }
 }
 
