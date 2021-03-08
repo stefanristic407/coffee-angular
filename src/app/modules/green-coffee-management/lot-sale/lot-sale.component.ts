@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserserviceService } from '@services';
@@ -220,7 +220,12 @@ export class LotSaleComponent implements OnInit {
             (response) => {
                 if (response && response.success) {
                     this.toasterService.success('Details updated successfully');
-                    this.router.navigate(['/green-coffee-management/green-coffee-inventory']);
+                    const navigationExtras: NavigationExtras = {
+                        queryParams: {
+                            markSale: 'yes',
+                        },
+                    };
+                    this.router.navigate(['/green-coffee-management/green-coffee-inventory'], navigationExtras);
                 }
             },
             (err) => {
