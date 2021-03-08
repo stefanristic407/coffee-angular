@@ -20,20 +20,7 @@
     height: 46px;
 }
 
-.border-sub-secondary {
-    border: 1px solid #ebebeb;
-    border-radius: 2px;
-}
-
 .header {
-    font-family: Muli;
-    font-size: 18px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #232334;
     height: 50px;
     border-radius: 4px;
     background-color: #f8f8f8;
@@ -72,7 +59,6 @@ label {
 
 hr {
     border: 1px dashed #d6d6d6 !important;
-    margin-bottom: 2rem !important;
 }
 
 .sub-header {
@@ -111,30 +97,7 @@ hr {
     color: #232334;
 }
 
-.emp_count,
-.avg_count {
-    font-family: Muli;
-    font-size: 32px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #232334;
-}
-
-.emp_text {
-    font-family: Muli;
-    font-size: 18px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #747588;
-}
-
-.emp_count_div {
+.border-right {
     border-right: 1px solid #d6d6d6;
 }
 
@@ -157,10 +120,6 @@ hr {
     text-align: center;
     color: #979797;
     word-wrap: break-word;
-}
-
-.chart-div {
-    padding: 1rem;
 }
 
 .logo-btn {
@@ -423,11 +382,6 @@ hr {
         font-size: 28px;
     }
 
-    .emp_count,
-    .avg_count {
-        font-size: 24px;
-    }
-
     .emp_text {
         font-size: 14px;
     }
@@ -452,10 +406,6 @@ hr {
         font-weight: bold;
         color: #232334;
         text-overflow: ellipsis;
-    }
-
-    .chart-div {
-        padding: 1rem;
     }
 
     .camera-pic {
@@ -549,26 +499,6 @@ input[type='number']::-webkit-inner-spin-button {
     display: none;
 }
 
-.pie-chart-div {
-    padding-left: 2rem;
-}
-
-@media screen and (max-width: 375px) {
-    .pie-chart-div {
-        padding-left: 0rem;
-    }
-}
-
-.certificate-hover {
-    padding: 10px 20px;
-    margin: 0;
-}
-
-.certificate-hover:hover {
-    box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
-    cursor: pointer;
-}
-
 :host ::ng-deep .ui-inputswitch.ui-inputswitch-checked .ui-inputswitch-slider:before {
     background-color: #24be46 !important;
 }
@@ -612,4 +542,12 @@ input[type='number']::-webkit-inner-spin-button {
         background: #f8f8f8;
         border: none;
     }
+}
+
+.custom-chart-container {
+    height: 235px;
+    width: 235px;
+    margin: auto;
+    margin-top: -72px;
+    margin-bottom: 60px;
 }

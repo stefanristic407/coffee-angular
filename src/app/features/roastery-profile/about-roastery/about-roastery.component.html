@@ -2,7 +2,7 @@
     <div class="col-lg-12">
         <div class="form-container">
             <div class="row pl-2 pr-2">
-                <div class="col-lg-8 p-2">
+                <div class="col-lg-8 col-12 p-2">
                     <div class="br-main br-4 p-4">
                         <div class="row mt-3 m-0">
                             <div class="form-group col-md-6 m-0 pl-0 pr-2">
@@ -442,9 +442,9 @@
                             </div>
                         </div>
 
-                        <hr />
+                        <hr class="mt-45" />
                         <div class="" *ngIf="roasteryProfileService.savemode">
-                            <div class="row mt-5">
+                            <div class="row mt-5 mb-4">
                                 <div class="col-12">
                                     <p class="sub-header">{{ 'contacts' | translate }}<span class="star">*</span></p>
                                     <p class="header-descr m-0 mb-0">{{ 'list_contacts' | translate }}!</p>
@@ -498,7 +498,7 @@
                                     ></button>
                                 </div>
                             </div>
-                            <div class="add-brand-div mt-3">
+                            <div class="add-brand-div mt-3 mb-3">
                                 <a class="brand-tag add-link" (click)="showContact()">
                                     <span class="add-text">{{ 'add_another_contact' | translate }}</span>
                                 </a>
@@ -591,7 +591,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 p-2">
+                <div class="col-lg-4 col-12 p-2">
                     <div class="d-none d-md-block">
                         <ng-template *ngTemplateOutlet="rightSidePanel"></ng-template>
                     </div>
@@ -603,60 +603,69 @@
 
 <ng-template #rightSidePanel>
     <div
-        class="border-sub-secondary p-0"
+        class="br-main br-4 p-0"
         *ngIf="this.globals.checkItem('certificate-list') || this.globals.checkItem('certificate-management')"
     >
-        <div class="header m-1">{{ 'awards_and_certificates' | translate }}</div>
-        <div class="row mt-3 border-div certificate-hover" *ngFor="let certificate of certificatesArray">
-            <div class="p-0">
-                <img class="img-estate" src="assets/images/certificate.svg" alt="User" />
-            </div>
-            <div class="pull-left">
-                <ul class="details-list p-0 ml-3">
-                    <li class="estate-name">{{ certificate.name }}</li>
-                    <li class="estate-number pt-1">
-                        {{ certificate.year }}
-                    </li>
-                </ul>
-            </div>
-            <div class="pull-right ml-auto">
-                <a
-                    class="menu-arrow"
-                    [popover]="listTemplate"
-                    placement="bottom"
-                    [outsideClick]="true"
-                    #pop1="bs-popover"
-                >
-                    <img class="message-icon" src="assets/images/ellipses.png" alt="Message" />
-                </a>
-                <ng-template #listTemplate id="{{ certificate.id }}">
-                    <div id="popover-mobile-content">
-                        <ul class="list-data custom-popover">
-                            <li
-                                class="list-item"
-                                *ngIf="
-                                    this.globals.checkItem('certificate-management') &&
-                                    this.globals.permissions['certificate-management'].manage
-                                "
-                            >
-                                <a class="pointer-item" (click)="editCertificate($event, certificate); pop1.hide()">
-                                    {{ 'edit' | translate }}
-                                </a>
-                            </li>
-                            <li
-                                class="list-item"
-                                *ngIf="
-                                    this.globals.checkItem('certificate-management') &&
-                                    this.globals.permissions['certificate-management'].manage
-                                "
-                            >
-                                <a class="pointer-item" (click)="deleteCertificate(certificate.id); pop1.hide()">{{
-                                    'delete' | translate
-                                }}</a>
-                            </li>
-                        </ul>
+        <div class="header fnt-18 font-bold text-clr334 m-1">{{ 'awards_and_certificates' | translate }}</div>
+        <div class="row mt-3 m-0" *ngFor="let certificate of certificatesArray">
+            <div class="col-12">
+                <div class="w-100 certification-item-container border-div d-flex justify-content-between">
+                    <div class="certification-item-metadata d-flex">
+                        <img class="img-estate" src="assets/images/certificate.svg" alt="User" />
+                        <div class="certification-description ml-2">
+                            <ul>
+                                <li class="fnt-14-normal fnt-600 text-clr334">{{ certificate.name }}</li>
+                                <li class="fnt-14-normal fnt-600 text-clr588">
+                                    {{ certificate.year }}
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </ng-template>
+                    <div class="certificaion-action d-flex">
+                        <a
+                            class="menu-arrow"
+                            [popover]="listTemplate"
+                            placement="bottom"
+                            [outsideClick]="true"
+                            #pop1="bs-popover"
+                        >
+                            <img class="message-icon" src="assets/images/ellipses.png" alt="Message" />
+                        </a>
+                        <ng-template #listTemplate id="{{ certificate.id }}">
+                            <div id="popover-mobile-content">
+                                <ul class="list-data custom-popover">
+                                    <li
+                                        class="list-item"
+                                        *ngIf="
+                                            this.globals.checkItem('certificate-management') &&
+                                            this.globals.permissions['certificate-management'].manage
+                                        "
+                                    >
+                                        <a
+                                            class="pointer-item"
+                                            (click)="editCertificate($event, certificate); pop1.hide()"
+                                        >
+                                            {{ 'edit' | translate }}
+                                        </a>
+                                    </li>
+                                    <li
+                                        class="list-item"
+                                        *ngIf="
+                                            this.globals.checkItem('certificate-management') &&
+                                            this.globals.permissions['certificate-management'].manage
+                                        "
+                                    >
+                                        <a
+                                            class="pointer-item"
+                                            (click)="deleteCertificate(certificate.id); pop1.hide()"
+                                            >{{ 'delete' | translate }}</a
+                                        >
+                                    </li>
+                                </ul>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
             </div>
         </div>
         <div
@@ -671,43 +680,27 @@
             </a>
         </div>
     </div>
-    <div class="border-sub-secondary mt-3 p-0">
-        <div class="header m-1">{{ 'employee_details' | translate }}</div>
-        <div class="row">
-            <div class="form-group col-md-6 emp_count_div px-4 py-2 col-6 mb-0">
-                <p class="emp_count mb-0">{{ roasteryProfileService.employeeNos }}</p>
-                <label class="emp_text">{{ 'total_employees' | translate }}</label>
-            </div>
-
-            <div class="form-group col-md-6 avg_count_div px-4 py-2 col-6 mb-0">
-                <p class="avg_count mb-0">{{ roasteryProfileService.employeeAvg }}</p>
-                <label class="emp_text">{{ 'average_age' | translate }}</label>
+    <div class="br-main br-4 mt-3 p-0">
+        <div class="header fnt-18 font-bold text-clr334 m-1">{{ 'employee_details' | translate }}</div>
+        <div class="w-100">
+            <div class="d-flex employee-details-container pt-45 pb-45 pl-4 pr-4">
+                <div class="w-50 border-right">
+                    <p class="m-0 fnt-32 font-bold text-clr334">{{ roasteryProfileService.employeeNos }}</p>
+                    <p class="mt-2 mb-0 fnt-18 font-600 text-clr588">{{ 'total_employees' | translate }}</p>
+                </div>
+                <div class="w-50 pl-45">
+                    <p class="m-0 fnt-32 font-bold text-clr334">{{ roasteryProfileService.employeeAvg }}</p>
+                    <p class="mt-2 mb-0 fnt-18 font-600 text-clr588">{{ 'average_age' | translate }}</p>
+                </div>
             </div>
         </div>
-        <div class="row mt-3">
-            <div class="col-md-12 chart-div">
-                <div
-                    class="oval text-center mx-auto"
-                    *ngIf="this.roasteryProfileService.maleNum == null && this.roasteryProfileService.femaleNum == null"
-                >
-                    <p class="note">{{ 'no_data_display' | translate }}</p>
-                </div>
-                <div class="text-center mx-auto pie-chart-div">
-                    <ngx-charts-pie-chart
-                        [view]="view"
-                        [scheme]="colorScheme"
-                        [results]="roasteryProfileService.single"
-                        [gradient]="gradient"
-                        [legend]="showLegend"
-                        [legendPosition]="legendPosition"
-                        [labels]="showLabels"
-                        [doughnut]="isDoughnut"
-                        (select)="onSelect($event)"
-                        (activate)="onActivate($event)"
-                        (deactivate)="onDeactivate($event)"
-                    >
-                    </ngx-charts-pie-chart>
-                </div>
+
+        <div class="w-100">
+            <div *ngIf="this.roasteryProfileService.maleNum == null && this.roasteryProfileService.femaleNum == null">
+                <p class="note">{{ 'no_data_display' | translate }}</p>
+            </div>
+            <div class="custom-chart-container">
+                <app-pie-area-chart [results]="roasteryProfileService.single"></app-pie-area-chart>
             </div>
         </div>
     </div>
