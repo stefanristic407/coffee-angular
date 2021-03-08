@@ -97,6 +97,9 @@ export class LotSaleComponent implements OnInit {
         this.getProcuredOrderDetails();
         this.getSaleOrderDetails();
         this.getRoasterVatDetails();
+        this.lotSaleForm.get('quantity_type').valueChanges.subscribe((value) => {
+            this.lotSaleForm.patchValue({ quantity_type: value }, { emitEvent: false });
+        });
         if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
             this.sharedService.isMobileView = true;
         }
