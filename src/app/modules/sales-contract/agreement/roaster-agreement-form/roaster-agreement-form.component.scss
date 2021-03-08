@@ -158,6 +158,9 @@ button:disabled {
     position: relative;
     right: 6%;
 }
+.share-bor:hover {
+    border: solid 1px #747588;
+}
 
 .upload-btn {
     cursor: pointer;
@@ -184,8 +187,11 @@ button:disabled {
         border: none !important;
         padding-bottom: 0 !important;
     }
-    .modal-content .close {
-        display: none !important;
+    .modal-content {
+        border: 0px !important;
+        .close {
+            display: none !important;
+        }
     }
     .foot-section {
         flex-direction: column;

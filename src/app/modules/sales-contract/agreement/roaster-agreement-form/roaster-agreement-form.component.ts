@@ -79,6 +79,7 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
 
   getSingleAgreement(): void {
     this.updateButtonValue = 'Update Agreement';
+    // tslint:disable-next-line: deprecation
     this.roasterService.getAgreementValue(this.roasterId, this.customerType, this.selectedItemId).subscribe((resp: any) => {
       if (resp.success) {
         this.horecaFormGroup.get('customerType').setValue(resp.result.customer_type);
@@ -114,6 +115,7 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
   // Description: This function helps to fetch the all micro roaster list
 
   getMicroRoastersList(): void {
+    // tslint:disable-next-line: deprecation
     this.roasterService.getMicroRoastersList(this.roasterId).subscribe((res: any) => {
       this.modalDropdownList = [];
       if (res.success) {
@@ -130,8 +132,6 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
           transformItem.value = item.id;
           return transformItem;
         });
-        const blankOption = { label: 'Please select customer', value: '' };
-        this.modalDropdownList.push(blankOption);
         this.modalDropdownList = this.modalDropdownList.sort((a, b) => a.value.toString().localeCompare(b.value.toString()));
       } else {
         this.toastrService.error('Error while getting Micro-Roaster list');
@@ -143,6 +143,7 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
   // Description: This function helps to fetch the all horeca list
 
   getHorecaList(): void {
+    // tslint:disable-next-line: deprecation
     this.roasterService.getMicroRoastersHoreca(this.roasterId).subscribe((res: any) => {
       this.modalDropdownList = [];
       if (res.success) {
@@ -158,8 +159,6 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
           transformItem.value = item.id;
           return transformItem;
         });
-        const blankOption = { label: 'Please select customer', value: '' };
-        this.modalDropdownList.push(blankOption);
         this.modalDropdownList = this.modalDropdownList.sort((a, b) => a.value.toString().localeCompare(b.value.toString()));
       } else {
         this.toastrService.error('Error while getting HoReCa list');
@@ -193,6 +192,7 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
         this.roasterId = this.cookieService.get('roaster_id');
         formData.append('api_call', '/ro/' + this.roasterId + '/file-manager/files');
         formData.append('token', this.cookieService.get('Auth'));
+        // tslint:disable-next-line: deprecation
         this.roasterService.uploadFiles(formData).subscribe((result: any) => {
           if (result.success) {
             this.toastrService.success('The file ' + this.fileNameValue + ' uploaded successfully');
@@ -203,6 +203,7 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
             };
             this.roasterService
               .uploadAgreements(this.roasterId, this.customerType, requestBody)
+              // tslint:disable-next-line: deprecation
               .subscribe((res: any) => {
                 if (res.success) {
                   this.uploadButtonValue = 'Upload Agreement';
@@ -251,6 +252,7 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
       this.roasterId = this.cookieService.get('roaster_id');
       formData.append('api_call', '/ro/' + this.roasterId + '/file-manager/files');
       formData.append('token', this.cookieService.get('Auth'));
+      // tslint:disable-next-line: deprecation
       this.roasterService.uploadFiles(formData).subscribe((result: any) => {
         if (result.success) {
           this.toastrService.success('The file ' + this.fileNameValue + ' uploaded successfully');
@@ -259,6 +261,7 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
           };
           this.roasterService
             .updateAgreements(this.roasterId, this.customerType, this.itemId, dataBody)
+            // tslint:disable-next-line: deprecation
             .subscribe((res: any) => {
               if (res.success) {
                 this.updateButtonValue = 'Update Agreement';
@@ -286,9 +289,9 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
 
   onRadioChange(value): void {
     if (value === 'mr') {
-      // this.getMicroRoastersList();
+      this.getMicroRoastersList();
     } else if (value === 'hrc') {
-      // this.getHorecaList();
+      this.getHorecaList();
     }
   }
 
@@ -300,7 +303,15 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
     this.reFileNameValue = '';
     this.horecaFormGroup.get('customerType').enable();
     this.horecaFormGroup.get('customerId').enable();
+    this.horecaFormGroup.reset();
     this.horecaFormGroup.get('customerId').setValue('');
+    if (this.customerType === 'micro-roasters') {
+      this.getMicroRoastersList();
+      this.horecaFormGroup.get('customerType').setValue('mr');
+    } else if (this.customerType === 'hrc') {
+      this.horecaFormGroup.get('customerType').setValue('hrc');
+      this.getHorecaList();
+    }
   }
 
 
