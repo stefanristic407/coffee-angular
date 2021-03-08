@@ -1,9 +1,16 @@
 <section class="estate-orders">
     <div class="d-flex justify-content-between mt-4 pt-2">
         <div>
-            <p-dropdown id="select-table-customer" [options]="newList" [(ngModel)]="selectedCustomers"
-                scrollHeight="225px" (onChange)="filterAgrements()" [showClear]="true" placeholder="Select customer"
-                styleClass="round-border mr-25 mb-25 mb-md-4"></p-dropdown>
+            <p-dropdown
+                id="select-table-customer"
+                [options]="newList"
+                [(ngModel)]="selectedCustomers"
+                scrollHeight="225px"
+                (onChange)="filterAgrements()"
+                [showClear]="true"
+                placeholder="Select customer"
+                styleClass="round-border mr-25 mb-25 mb-md-4"
+            ></p-dropdown>
         </div>
         <div class="web-farm">
             <div class="float-right" data-toggle="modal" data-target="#uploadfolder">
@@ -15,8 +22,11 @@
         </div>
     </div>
     <div class="estate-table web-farm">
-        <p-table id="sales-table" [value]="sortedMainData | filter: searchTerm | filter: estatetermOrigin"
-            sortMode="multiple">
+        <p-table
+            id="sales-table"
+            [value]="sortedMainData | filter: searchTerm | filter: estatetermOrigin"
+            sortMode="multiple"
+        >
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="file_name" class="pl-4 ml-3 cust-width">
@@ -38,30 +48,45 @@
                 <tr>
                     <td class="pl-4 ml-3">
                         <a href="{{ item.file_url }}" target="_blank" class="file_url">
-                            <div><img class="file-icon pr-2" src="assets/images/pdf.svg" alt="upload-icon" />
-                                {{ item.file_name }}</div>
+                            <div>
+                                <img class="file-icon pr-2" src="assets/images/pdf.svg" alt="upload-icon" />
+                                {{ item.file_name }}
+                            </div>
                         </a>
                     </td>
                     <td class="fnt-14">{{ item.created_at | date: 'M/d/yy, h:mm a' }}</td>
                     <td class="fnt-14">{{ item.customer_name }}</td>
                     <td class="fnt-14">{{ getCountryName(item.origin) }}</td>
                     <td id="sales-contract-popup">
-                        <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true"
-                            #pop="bs-popover">
+                        <a
+                            class="menu-arrow"
+                            [popover]="poplistTemplate"
+                            placement="left"
+                            [outsideClick]="true"
+                            #pop="bs-popover"
+                        >
                             <p><img src="assets/images/kebab-menu.svg" /></p>
                         </a>
                         <ng-template #poplistTemplate id="{{ item.id }}">
                             <div id="popover-mobile-content">
                                 <ul class="list-group custom-popover">
                                     <li class="list-group-item">
-                                        <a class="pointer-item" (click)="pop.hide(); onUpdateModal(item.id)"
-                                            data-toggle="modal" data-target="#uploadfolder">{{
-                                            globals.languageJson?.update }}</a>
+                                        <a
+                                            class="pointer-item"
+                                            (click)="pop.hide(); onUpdateModal(item.id)"
+                                            data-toggle="modal"
+                                            data-target="#uploadfolder"
+                                            >{{ globals.languageJson?.update }}</a
+                                        >
                                     </li>
                                     <li class="list-group-item">
-                                        <a class="pointer-item" (click)="pop.hide(); deleteAgreementId = item.id"
-                                            data-toggle="modal" data-target="#deletemodal">{{
-                                            globals.languageJson?.delete }}</a>
+                                        <a
+                                            class="pointer-item"
+                                            (click)="pop.hide(); deleteAgreementId = item.id"
+                                            data-toggle="modal"
+                                            data-target="#deletemodal"
+                                            >{{ globals.languageJson?.delete }}</a
+                                        >
                                     </li>
                                 </ul>
                             </div>
@@ -83,24 +108,33 @@
                                     <p class="black fnt-14">{{ data.file_name }}</p>
                                 </div>
                                 <div>
-                                    <a [popover]="poplistTemplate" placement="left" [outsideClick]="true"
-                                        #pop="bs-popover">
+                                    <a
+                                        [popover]="poplistTemplate"
+                                        placement="left"
+                                        [outsideClick]="true"
+                                        #pop="bs-popover"
+                                    >
                                         <p><img src="assets/images/kebab-menu.svg" /></p>
                                     </a>
                                     <ng-template #poplistTemplate id="{{ data.id }}">
                                         <div id="popover-mobile-content">
                                             <ul class="list-group custom-popover">
                                                 <li class="list-group-item">
-                                                    <a class="pointer-item"
+                                                    <a
+                                                        class="pointer-item"
                                                         [routerLink]="'/sales-contract/' + customerType + '/' + data.id"
-                                                        (click)="pop.hide(); onUpdateModal(data.id)">{{
-                                                        globals.languageJson?.update }}</a>
+                                                        (click)="pop.hide(); onUpdateModal(data.id)"
+                                                        >{{ globals.languageJson?.update }}</a
+                                                    >
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <a class="pointer-item"
+                                                    <a
+                                                        class="pointer-item"
                                                         (click)="pop.hide(); deleteAgreementId = data.id"
-                                                        data-toggle="modal" data-target="#deletemodal">{{
-                                                        globals.languageJson?.delete }}</a>
+                                                        data-toggle="modal"
+                                                        data-target="#deletemodal"
+                                                        >{{ globals.languageJson?.delete }}</a
+                                                    >
                                                 </li>
                                             </ul>
                                         </div>
@@ -139,17 +173,36 @@
     </div>
 </section>
 
-<div class="modal fade" id="uploadfolder" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false"
-    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div
+    class="modal fade"
+    id="uploadfolder"
+    tabindex="-1"
+    role="dialog"
+    data-backdrop="static"
+    data-keyboard="false"
+    aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true"
+>
     <div class="modal-dialog modal-dialog-centered modal-dialog-lg modal-large" role="document">
-        <app-roaster-agreement-form class="w-100" [isUpdate]="isUpdate" [customerType]="customerType"
-            [selectedItemId]="selectedItemId" (getAgreements)="getAgreements($event)">
+        <app-roaster-agreement-form
+            class="w-100"
+            [isUpdate]="isUpdate"
+            [customerType]="customerType"
+            [selectedItemId]="selectedItemId"
+            (getAgreements)="getAgreements($event)"
+        >
         </app-roaster-agreement-form>
     </div>
 </div>
 
-<div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
+<div
+    class="modal fade"
+    id="deletemodal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true"
+>
     <div class="modal-dialog modal-dialog-centered modal-small" role="document">
         <div class="modal-content">
             <div class="modal-body mt-5 mb-5 text-center fnt-muli">

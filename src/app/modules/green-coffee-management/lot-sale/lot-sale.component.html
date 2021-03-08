@@ -280,13 +280,13 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div *ngIf="!showDropdown" class="col-md-12 current-s-bg tabPage mt-4">
+                        <div *ngIf="!showDropdown" class="col-md-12 tabPage mt-4 avail-status">
                             <p class="fnt-24 fnt-play fnt-normal text-clr02 m-0 pb-2">Availability Status</p>
                             <p class="fnt-mb-14 fnt-muli fnt-600 text-clr334 m-0 pb-3">
                                 Maintain the status of your product and keep the roasters updated
                             </p>
-                            <p class="fnt-14 fnt-muli fnt-400 text-clr334 m-0">Current status</p>
-                            <span class="fnt-14 fnt-700 fnt-muli text-clr334">{{ statusLabel }}</span>
+                            <p class="fnt-14 fnt-muli fnt-600 text-clr588 m-0">Current status</p>
+                            <span class="fnt-md-18 fnt-bold fnt-muli text-clr334">{{ statusLabel }}</span>
                             <span *ngIf="!readOnlyMode" class="text-brown float-right" (click)="showDropdown = true"
                                 ><a>Change status</a>
                             </span>
@@ -294,7 +294,7 @@
 
                         <div
                             *ngIf="showDropdown"
-                            class="col-md-12 sewn-form-field w-100 current-s-bg d-inline tabPage mt-4"
+                            class="col-md-12 sewn-form-field w-100 current-s-bg d-inline tabPage d-lg-none mt-4"
                         >
                             <p-dropdown
                                 [options]="stockTypeArray"
@@ -389,6 +389,7 @@
                                     }"
                                     formControlName="quantity_type"
                                     optionValue="value"
+                                    (onChange)="quantityTypeChange()"
                                 >
                                 </p-dropdown>
                             </div>

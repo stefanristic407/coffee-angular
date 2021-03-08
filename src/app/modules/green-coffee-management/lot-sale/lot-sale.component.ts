@@ -36,6 +36,7 @@ export class LotSaleComponent implements OnInit {
     tableValue = [];
     popupDisplay = false;
     remaining: any;
+    quantityType: any;
     constructor(
         public globals: GlobalsService,
         public route: ActivatedRoute,
@@ -184,8 +185,14 @@ export class LotSaleComponent implements OnInit {
                     this.orderStatus = response.result.status;
                     this.availablityName = lotDetails.name;
                     this.statusLabel = this.formatStatus(this.orderStatus);
-                    const remaining = this.orderDetails?.quantity_count - lotDetails.quantity_count;
-                    this.remaining = `${remaining} Bags`;
+                    if (lotDetails.quantity_type === 'bags') {
+                        const remaining = this.orderDetails?.quantity_count - lotDetails.quantity_count;
+                        this.remaining = `${remaining} Bags`;
+                    } else if (lotDetails.quantity_type === 'kg') {
+                        const remaining =
+                            this.orderDetails?.quantity_count * this.orderDetails?.quantity - lotDetails.quantity_count;
+                        this.remaining = `${remaining} kg`;
+                    }
                     this.refreshData();
                 }
             },
@@ -239,7 +246,7 @@ export class LotSaleComponent implements OnInit {
             (response) => {
                 if (response && response.success) {
                     this.toasterService.success('Status updated successfully');
-                    this.statusLabel = this.formatStatus(this.orderStatus);
+                    this.statusLabel = this.formatStatus(status.status);
                     this.showDropdown = false;
                 }
             },
@@ -298,12 +305,26 @@ export class LotSaleComponent implements OnInit {
             }
         });
     }
+    quantityTypeChange() {
+        this.quantityType = this.lotSaleForm.value.quantity_type;
+        this.changeQuantity();
+    }
     changeQuantity() {
-        const remaining = this.orderDetails.quantity_count - this.lotSaleForm.value.quantity_count;
-        this.remaining = `${remaining} Bags`;
-        if (this.remaining < 0) {
-            this.toasterService.error('Please enter below available quantity');
-            this.remaining = '0 Bags';
+        if (this.quantityType === 'kg') {
+            const remaining =
+                this.orderDetails.quantity_count * this.orderDetails.quantity - this.lotSaleForm.value.quantity_count;
+            this.remaining = `${remaining} kg`;
+            if (remaining < 0) {
+                this.toasterService.error('Please check quantity available with you');
+                this.remaining = '0 kg';
+            }
+        } else {
+            const remaining = this.orderDetails.quantity_count - this.lotSaleForm.value.quantity_count;
+            this.remaining = `${remaining} bags`;
+            if (remaining < 0) {
+                this.toasterService.error('Please check quantity available with you');
+                this.remaining = '0 bags';
+            }
         }
     }
 }
