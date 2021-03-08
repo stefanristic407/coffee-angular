@@ -126,7 +126,10 @@
                             }"
                         >
                             <span *ngSwitchCase="'roast_profile_name'" class="">
-                                <span class="d-none d-sm-none d-md-inline-block">
+                                <span
+                                    class="d-none d-sm-none d-md-inline-block"
+                                    (click)="redirectToEdit(rowData['id'])"
+                                >
                                     {{ rowData['roast_profile_name'] | titlecase }}
                                 </span>
 
@@ -226,16 +229,16 @@
                                     </span>
                                 </span>
                             </span>
-                            <span *ngSwitchCase="'roast_level'" class="">
+                            <span *ngSwitchCase="'roast_level'" class="" (click)="redirectToEdit(rowData['id'])">
                                 <span>{{ getRoastLevel(rowData[col.field]) }}</span>
                             </span>
-                            <span *ngSwitchCase="'temperature'" class="">
+                            <span *ngSwitchCase="'temperature'" class="" (click)="redirectToEdit(rowData['id'])">
                                 <span>{{ rowData[col.field] }}°C</span>
                             </span>
-                            <span *ngSwitchCase="'roast_duration'" class="">
+                            <span *ngSwitchCase="'roast_duration'" class="" (click)="redirectToEdit(rowData['id'])">
                                 <span>{{ rowData[col.field] }} min</span>
                             </span>
-                            <span *ngSwitchDefault>
+                            <span *ngSwitchDefault (click)="redirectToEdit(rowData['id'])">
                                 <span>{{ rowData[col.field] }}</span>
                             </span>
                         </td>
@@ -257,7 +260,7 @@
         <div class="mt-5 mb-5 text-center fnt-muli">
             <div><img src="assets/images/delete-role.svg" alt="" /></div>
             <div class="fnt-play fnt-24 fnt-bold mt-2">Oh noh :(</div>
-            <div class="fnt-muli fnt-18 fnt-400 mt-2 pb-3">You sure you really want to delete this?</div>
+            <div class="fnt-muli fnt-16 fnt-md-18 fnt-400 mt-2 pb-3">You sure you really want to delete this?</div>
             <div class="mt-4">
                 <button class="btn btn-stroked" (click)="popupDisplay = false">
                     {{ globals.languageJson?.cancel }}

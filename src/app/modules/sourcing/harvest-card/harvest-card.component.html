@@ -9,9 +9,9 @@
         </div>
     </div>
     <div class="card-body">
-        <h5 class="fnt-18 lh-normal black fnt-700 mb-1 ellipsis">{{ data.name }}</h5>
-        <div class="fnt-16 lh-normal fnt-500 text-clr588 mb-3">{{ data.estate?.name || '-' }}</div>
-        <div class="fnt-18 lh-normal fnt-bold text-clr334">
+        <h5 class="fnt-16 fnt-md-18 fnt-md-18 lh-normal black fnt-700 mb-1 ellipsis">{{ data.name }}</h5>
+        <div class="fnt-14 fnt-md-16 lh-normal fnt-500 text-clr588 mb-3">{{ data.estate?.name || '-' }}</div>
+        <div class="fnt-16 fnt-md-18 fnt-md-18 lh-normal fnt-bold text-clr334">
             {{ data.price_unit }}{{ data.price }} {{ Currencies[data.price_unit] }}&nbsp;/&nbsp;kg
         </div>
         <div class="pad-card">
@@ -56,7 +56,7 @@
             </div>
         </div>
         <div class="solid-divider-de mb-3 mb-md-4"></div>
-        <div class="fnt-16 lh-normal fnt-600 text-clr588">
+        <div class="fnt-14 fnt-md-16 lh-normal fnt-600 text-clr588">
             {{ globals.languageJson?.available_quantity }} :
             <span class="fnt-bold text-clr334">
                 {{ data.quantity_count }}&nbsp;{{ data.quantity_type }} of {{ data.quantity }}{{ data.quantity_unit }}

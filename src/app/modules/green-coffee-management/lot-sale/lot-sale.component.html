@@ -18,13 +18,13 @@
                     </div>
                 </section>
             </div>
-            <div class="overflow-auto d-flex flex-nowrap breadCrumb web-sec">
+            <div class="overflow-auto flex-nowrap breadCrumb web-sec">
                 <p-breadcrumb [model]="breadItems"></p-breadcrumb>
             </div>
             <section class="mt-4">
                 <div class="row w-100 ml-0">
                     <div>
-                        <h1 class="text-clr334 fnt-18 fnt-bold">Order #{{ orderDetails?.id }}</h1>
+                        <h1 class="text-clr334 fnt-16 fnt-md-18 fnt-bold">Order #{{ orderDetails?.id }}</h1>
                     </div>
                 </div>
                 <div class="pull-left mr-auto p-0 mb-3 text-clr588 fnt-14 fnt-normal">
@@ -32,7 +32,7 @@
                 </div>
                 <div *ngIf="orderDetails" class="border-div">
                     <div class="row tabViewModel">
-                        <div class="col-12 web-sec fnt-18 text-clr334 fnt-bold pb-2 pl-0 pl-lg-3">
+                        <div class="col-12 web-sec fnt-16 fnt-md-18 text-clr334 fnt-bold pb-2 pl-0 pl-lg-3">
                             {{ globals.languageJson?.green_coffee_details }}
                         </div>
                         <div class="table-container userTable mx-2 mt-2 mb-2 px-1 pt-0 productListTable">
@@ -115,7 +115,7 @@
                                                 <div class="d-block d-sm-block d-md-none row m-0 pb-4">
                                                     <div class="col-12 row p-3 m-0 weightInputGroupDiv">
                                                         <div class="cardBottom p-0 w-100">
-                                                            <p class="fnt-16 text-clr334 fnt-bold">
+                                                            <p class="fnt-14 fnt-md-16 text-clr334 fnt-bold">
                                                                 {{ globals.languageJson?.green_coffee_details }}
                                                             </p>
                                                             <div class="mobileCardBody pt-0">
@@ -247,7 +247,9 @@
             <section class="mt-lg-3" [formGroup]="lotSaleForm" (ngSubmit)="onSave()" novalidate>
                 <div class="row w-100 border-bottom-gray pb-3 mx-0">
                     <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9 px-0 pt-lg-3">
-                        <h1 class="text-clr334 fnt-18 fnt-bold">{{ globals.languageJson?.sale_information }}</h1>
+                        <h1 class="text-clr334 fnt-16 fnt-md-18 fnt-bold">
+                            {{ globals.languageJson?.sale_information }}
+                        </h1>
                         <div class="col-12 pull-left p-0 text-clr334 fnt-14 fnt-normal">
                             Manage the price, quantity & delivery charges of coffee marked for sale
                         </div>
@@ -280,13 +282,13 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div *ngIf="!showDropdown" class="col-md-12 current-s-bg tabPage mt-4">
+                        <div *ngIf="!showDropdown" class="col-md-12 tabPage mt-4 avail-status">
                             <p class="fnt-24 fnt-play fnt-normal text-clr02 m-0 pb-2">Availability Status</p>
                             <p class="fnt-mb-14 fnt-muli fnt-600 text-clr334 m-0 pb-3">
                                 Maintain the status of your product and keep the roasters updated
                             </p>
-                            <p class="fnt-14 fnt-muli fnt-400 text-clr334 m-0">Current status</p>
-                            <span class="fnt-14 fnt-700 fnt-muli text-clr334">{{ statusLabel }}</span>
+                            <p class="fnt-14 fnt-muli fnt-600 text-clr588 m-0">Current status</p>
+                            <span class="fnt-md-18 fnt-bold fnt-muli text-clr334">{{ statusLabel }}</span>
                             <span *ngIf="!readOnlyMode" class="text-brown float-right" (click)="showDropdown = true"
                                 ><a>Change status</a>
                             </span>
@@ -294,7 +296,7 @@
 
                         <div
                             *ngIf="showDropdown"
-                            class="col-md-12 sewn-form-field w-100 current-s-bg d-inline tabPage mt-4"
+                            class="col-md-12 sewn-form-field w-100 current-s-bg d-inline tabPage d-lg-none mt-4"
                         >
                             <p-dropdown
                                 [options]="stockTypeArray"
@@ -389,6 +391,7 @@
                                     }"
                                     formControlName="quantity_type"
                                     optionValue="value"
+                                    (onChange)="quantityTypeChange()"
                                 >
                                 </p-dropdown>
                             </div>
@@ -546,7 +549,9 @@
         <div class="mt-5 mb-5 text-center fnt-muli">
             <div><img src="assets/images/delete-role.svg" alt="" /></div>
             <div class="fnt-play fnt-24 fnt-bold mt-2">Oh noh :(</div>
-            <div class="fnt-muli fnt-18 fnt-normal mt-2 pb-3">Are you sure you want to delete this product?</div>
+            <div class="fnt-muli fnt-16 fnt-md-18 fnt-normal mt-2 pb-3">
+                Are you sure you want to delete this product?
+            </div>
             <div class="mt-4">
                 <button class="btn btn-stroked" (click)="popupDisplay = false">
                     {{ globals.languageJson?.cancel }}

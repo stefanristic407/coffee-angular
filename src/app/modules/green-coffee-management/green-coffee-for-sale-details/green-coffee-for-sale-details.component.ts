@@ -50,7 +50,11 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
             { label: 'Home', routerLink: '/roaster-dashboard' },
             { label: 'Sourcing Module', routerLink: '/sourcing/estate-list' },
             { label: 'Green coffee Inventory', routerLink: '/green-coffee-management/green-coffee-inventory' },
-            { label: 'Marked for sale' },
+            {
+                label: 'Marked for sale',
+                routerLink: `/green-coffee-management/green-coffee-inventory`,
+                queryParams: { markSale: 'yes' },
+            },
             { label: this.saleInformation.name ? this.saleInformation.name : '' },
         ];
     }
