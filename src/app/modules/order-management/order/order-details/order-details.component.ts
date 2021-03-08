@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DestroyableComponent } from '@base-components';
-import { OrderStatus, OrderType } from '@enums';
+import { OrderStatus, OrderType, OrgType } from '@enums';
 import { OrderDetails, RoasterDetails } from '@models';
 import { GlobalsService, OrdersService } from '@services';
 import { takeUntil } from 'rxjs/operators';
@@ -17,8 +17,10 @@ export class OrderDetailsComponent extends DestroyableComponent implements OnIni
 
     roaster: RoasterDetails;
     showDetails = true;
+    selectedTab = 0;
 
     @Input() orderId: number;
+    @Input() orgType: OrgType;
     @Input() order: OrderDetails;
 
     constructor(private orderService: OrdersService, public globals: GlobalsService) {

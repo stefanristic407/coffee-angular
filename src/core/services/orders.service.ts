@@ -19,6 +19,7 @@ import * as moment from 'moment';
 import { ORDER_STATUS_ITEMS, ORDER_TYPE_ITEMS } from '@constants';
 import { map } from 'rxjs/operators';
 import { ApiService } from './api/api.service';
+import { OrgType } from '@enums';
 
 @Injectable({
     providedIn: 'root',
@@ -30,13 +31,13 @@ export class OrdersService extends ApiService {
     private readonly roasterDetailsSubject = new BehaviorSubject<RoasterDetails>(null);
     private readonly documentsSubject = new BehaviorSubject<OrderDocument[]>([]);
     private readonly ordersSubjects = {
-        es: new BehaviorSubject<ApiResponse<OrderSummary[]>>(null),
-        mr: new BehaviorSubject<ApiResponse<OrderSummary[]>>(null),
+        [OrgType.ROASTER]: new BehaviorSubject<ApiResponse<OrderSummary[]>>(null),
+        [OrgType.MICRO_ROASTER]: new BehaviorSubject<ApiResponse<OrderSummary[]>>(null),
     };
     private readonly cuppingScoreSubject = new BehaviorSubject<CuppingScore[]>([]);
 
     private orderId: number;
-    private organiztionType: string;
+    private organiztionType: OrgType;
 
     constructor(protected http: HttpClient, protected cookieService: CookieService) {
         super(cookieService, http);
@@ -66,39 +67,37 @@ export class OrdersService extends ApiService {
         return this.cuppingScoreSubject.asObservable();
     }
 
-    getOrders(organizationType: string): Observable<ApiResponse<OrderSummary[]>> {
+    getOrders(organizationType: OrgType): Observable<ApiResponse<OrderSummary[]>> {
         return this.ordersSubjects[organizationType].asObservable();
     }
 
-    getOrderDetailsById(orderId: number): Observable<ApiResponse<OrderDetails>> {
-        return this.post(this.url, `orders/${orderId}`, 'GET');
+    getOrderDetailsById(orderId: number, orgType: OrgType): Observable<ApiResponse<OrderDetails>> {
+        return this.postWithOrg(this.url, `${this.getUrlPreffix(orgType)}orders/${orderId}`, 'GET');
     }
 
-    loadOrders(organiztionType: string, options: any): void {
+    loadOrders(organiztionType: OrgType, options: any): void {
         const params = this.serializeParams(options);
-        this.postWithOrg(this.url, `${organiztionType === 'mr' ? 'mr-' : ''}orders?${params}`, 'GET').subscribe(
-            (res) => {
-                if (res.success) {
-                    res.result = res.result || [];
-                    const arr = res.result
-                        .map((x) => toCamelCase(x))
-                        .map((x) => ({
-                            ...x,
-                            status: this.getLabel(ORDER_STATUS_ITEMS, x.status),
-                            type: this.getLabel(ORDER_TYPE_ITEMS, x.type),
-                        }));
+        this.postWithOrg(this.url, `${this.getUrlPreffix(organiztionType)}orders?${params}`, 'GET').subscribe((res) => {
+            if (res.success) {
+                res.result = res.result || [];
+                const arr = res.result
+                    .map((x) => toCamelCase(x))
+                    .map((x) => ({
+                        ...x,
+                        status: this.getLabel(ORDER_STATUS_ITEMS, x.status),
+                        type: this.getLabel(ORDER_TYPE_ITEMS, x.type),
+                    }));
 
-                    this.ordersSubjects[organiztionType].next({ ...res, result: arr });
-                }
-            },
-        );
+                this.ordersSubjects[organiztionType].next({ ...res, result: arr });
+            }
+        });
     }
 
-    loadOrderDetails(orderId: number): void {
+    loadOrderDetails(orderId: number, orgType: OrgType): void {
         const rewrite = this.orderId !== orderId;
         this.orderId = orderId;
 
-        this.getOrderDetailsById(orderId).subscribe((res) => {
+        this.getOrderDetailsById(orderId, orgType).subscribe((res) => {
             if (res.success && res.result.id) {
                 const details = toCamelCase<OrderDetails>(res.result);
                 details.uploadShow = true;
@@ -119,11 +118,11 @@ export class OrdersService extends ApiService {
 
                 this.orderDetailsSubject.next(details);
 
-                this.loadActivities(orderId);
-                this.loadBulkDetails(details.harvestId);
-                this.loadCuppingScore(details.harvestId);
-                this.loadRoasterDetails(details.roasterId);
-                this.loadDocuments(1, 5, rewrite);
+                this.loadActivities(orderId, orgType);
+                this.loadBulkDetails(details.harvestId, orgType);
+                this.loadCuppingScore(details.harvestId, orgType);
+                this.loadRoasterDetails(details.roasterId, orgType);
+                this.loadDocuments(orgType, 1, 5, rewrite);
             }
         });
     }
@@ -150,35 +149,32 @@ export class OrdersService extends ApiService {
         }
     }
 
-    loadDocuments(page = 1, perPage = 5, rewrite = false): void {
-        this.post(this.url, `orders/${this.orderId}/documents?page=${page}&per_page=${perPage}`).subscribe(
-            (response) => {
-                if (response.success) {
-                    if (rewrite) {
-                        this.documentsSubject.next([]);
-                    }
-
-                    const result = response.result ? response.result.map((x) => toCamelCase<OrderDocument[]>(x)) : [];
-                    const documents = this.documentsSubject.getValue();
-                    documents.push(...result);
-                    this.documentsSubject.next(documents);
+    loadDocuments(orgType: OrgType, page = 1, perPage = 5, rewrite = false): void {
+        this.postWithOrg(
+            this.url,
+            `${this.getUrlPreffix(orgType)}orders/${this.orderId}/documents?page=${page}&per_page=${perPage}`,
+        ).subscribe((response) => {
+            if (response.success) {
+                if (rewrite) {
+                    this.documentsSubject.next([]);
                 }
-            },
-        );
+
+                const result = response.result ? response.result.map((x) => toCamelCase<OrderDocument[]>(x)) : [];
+                const documents = this.documentsSubject.getValue();
+                documents.push(...result);
+                this.documentsSubject.next(documents);
+            }
+        });
     }
 
-    downloadOrders(orgType: string, exportType: string, dateFrom: string, dateTo: string) {
+    downloadOrders(orgType: OrgType, exportType: string, dateFrom: string, dateTo: string) {
         const paramsObj = {
             from_date: dateFrom ? moment(dateFrom).format('yyyy-MM-DD') : '',
             to_date: dateTo ? moment(dateTo).format('yyyy-MM-DD') : '',
         };
         const params = this.serializeParams(paramsObj);
 
-        return this.postWithOrg(
-            this.url,
-            `${orgType === 'mr' ? 'mr-' : ''}orders/export/${exportType}?${params}`,
-            'GET',
-        );
+        return this.postWithOrg(this.url, `${this.getUrlPreffix(orgType)}orders/export/${exportType}?${params}`, 'GET');
     }
 
     getCuppingReportUrl(harvestId: number): Observable<string> {
@@ -193,15 +189,17 @@ export class OrdersService extends ApiService {
         );
     }
 
-    private loadActivities(orderId: any): void {
-        this.post(this.url, `orders/${orderId}/events`, 'GET').subscribe((response) => {
-            if (response.success) {
-                this.recentActivitiesSubject.next(response.result);
-            }
-        });
+    private loadActivities(orderId: number, orgType: OrgType): void {
+        this.postWithOrg(this.url, `${this.getUrlPreffix(orgType)}orders/${orderId}/events`, 'GET').subscribe(
+            (response) => {
+                if (response.success) {
+                    this.recentActivitiesSubject.next(response.result);
+                }
+            },
+        );
     }
 
-    private loadBulkDetails(harvestId: number): void {
+    private loadBulkDetails(harvestId: number, orgType: OrgType): void {
         this.post(this.url, `availability/gc/${harvestId}`, 'GET').subscribe((response) => {
             if (response.success) {
                 const details: BulkDetails = {
@@ -222,7 +220,7 @@ export class OrdersService extends ApiService {
         });
     }
 
-    private loadRoasterDetails(roasterId: number): void {
+    private loadRoasterDetails(roasterId: number, orgType: OrgType): void {
         this.post(this.url, `/general/ro/${roasterId}/profile/`, 'GET').subscribe((response) => {
             if (response.success) {
                 this.roasterDetailsSubject.next(toCamelCase<RoasterDetails>(response.result));
@@ -230,7 +228,7 @@ export class OrdersService extends ApiService {
         });
     }
 
-    private loadCuppingScore(harvestId: number): void {
+    private loadCuppingScore(harvestId: number, orgType: OrgType): void {
         this.post(this.url, `/general/harvests/${harvestId}/cupping-scores`, 'GET').subscribe((response) => {
             if (response.success) {
                 this.cuppingScoreSubject.next(response.result.map((x) => toCamelCase<CuppingScore>(x)));
@@ -241,5 +239,13 @@ export class OrdersService extends ApiService {
     private getLabel(labels: LabelValue[], value: any): string {
         const label = labels.find((x) => x.value === value);
         return label ? label.label : '';
+    }
+
+    private getUrlPreffix(orgType: OrgType): string {
+        if (orgType === OrgType.MICRO_ROASTER) {
+            return 'mr-';
+        }
+
+        return '';
     }
 }

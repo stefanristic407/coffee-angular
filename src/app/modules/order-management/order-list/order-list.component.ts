@@ -8,6 +8,7 @@ import { ORDER_STATUS_ITEMS, ORDER_TYPE_ITEMS } from '@constants';
 import { ResizeableComponent } from '@base-components';
 import { takeUntil } from 'rxjs/operators';
 import { Table } from 'primeng/table';
+import { OrgType } from '@enums';
 
 @Component({
     selector: 'app-order-list',
@@ -17,6 +18,7 @@ import { Table } from 'primeng/table';
 export class OrderListComponent extends ResizeableComponent implements OnInit {
     readonly statusItems = ORDER_STATUS_ITEMS;
     readonly orderTypeItems = ORDER_TYPE_ITEMS;
+    readonly OrgType = OrgType;
     readonly items: MenuItem[] = [
         { label: 'Home', routerLink: '/features/welcome-aboard' },
         { label: 'Order Management' }, // Do we need this item while we have no page for it?
@@ -47,7 +49,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     });
 
     loading = false;
-    organizationType = 'es';
+    organizationType = OrgType.ROASTER;
     orders: OrderSummary[] = [];
     pageInfo: PageInfo = { page: 1, per_page: 10, total_count: 0 };
     queryParams: any = {};
@@ -56,11 +58,11 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     @ViewChild('ordersTable') ordersTable: Table;
 
     get customerPropertyName(): string {
-        return this.organizationType === 'es' ? 'estate_name' : 'micro_roaster_name';
+        return this.organizationType === OrgType.ROASTER ? 'estate_name' : 'micro_roaster_name';
     }
 
     get customerPropertyNameCamelCase(): string {
-        return this.organizationType === 'es' ? 'estateName' : 'microRoasterName';
+        return this.organizationType === OrgType.ROASTER ? 'estateName' : 'microRoasterName';
     }
 
     constructor(

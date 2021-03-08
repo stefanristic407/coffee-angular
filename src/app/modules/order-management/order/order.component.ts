@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DestroyableComponent } from '@base-components';
-import { OrderStatus, OrderType } from '@enums';
+import { OrderStatus, OrderType, OrgType } from '@enums';
 import { OrderDetails } from '@models';
 import { OrdersService } from '@services';
 import { takeUntil } from 'rxjs/operators';
@@ -18,7 +18,7 @@ export class OrderComponent extends DestroyableComponent implements OnInit {
     roaster$ = this.ordersService.roasterDetails$;
 
     orderId: number;
-    organizationType: string;
+    organizationType: OrgType;
     orderDetails: OrderDetails;
 
     constructor(private route: ActivatedRoute, private ordersService: OrdersService) {
@@ -29,7 +29,7 @@ export class OrderComponent extends DestroyableComponent implements OnInit {
         this.route.params.pipe(takeUntil(this.unsubscribeAll$)).subscribe((params) => {
             this.orderId = +params.id;
             this.organizationType = params.organizationType;
-            this.ordersService.loadOrderDetails(this.orderId);
+            this.ordersService.loadOrderDetails(this.orderId, this.organizationType);
             this.ordersService.orderDetails$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((data) => {
                 this.orderDetails = data;
             });

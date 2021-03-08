@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { DestroyableComponent } from '@base-components';
+import { OrgType } from '@enums';
 import { OrdersService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { takeUntil } from 'rxjs/operators';
@@ -15,6 +16,7 @@ export class ConfirmOrderComponent extends DestroyableComponent {
     rejectMode = false;
 
     @Input() orderId = 0;
+    @Input() orgType: OrgType;
 
     constructor(private toastrService: ToastrService, private orderService: OrdersService) {
         super();
@@ -24,7 +26,7 @@ export class ConfirmOrderComponent extends DestroyableComponent {
         this.orderService.confirmOrder(this.orderId).subscribe((response) => {
             if (response.success) {
                 this.toastrService.success('Order confirmed');
-                this.orderService.loadOrderDetails(this.orderId);
+                this.orderService.loadOrderDetails(this.orderId, this.orgType);
             } else {
                 this.toastrService.error('error while accepting order');
             }
