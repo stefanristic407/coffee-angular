@@ -1,4 +1,4 @@
-import { ChatMessageType, SocketMessageOrigin } from '/enums';
+import { ChatMessageType, SocketMessageOrigin } from '@enums';
 
 export interface WSRequest<RequestBody> {
     type: ChatMessageType;

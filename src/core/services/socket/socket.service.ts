@@ -5,11 +5,7 @@ import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 import { CookieService } from 'ngx-cookie-service';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Subscription, Subject, BehaviorSubject, Observable } from 'rxjs';
-<<<<<<< HEAD:src/core/services/ws-socket/socket.service.ts
 import { ChatUtilService } from '../chat/chat-util.service';
-=======
-import { ChatUtil } from '../chat/chat-util.service';
->>>>>>> c236df9145111b2c8ef0d58736c26feee85ac515:src/core/services/socket/socket.service.ts
 import { distinct, catchError } from 'rxjs/operators';
 import { environment } from '@env/environment';
 
@@ -80,12 +76,8 @@ export class SocketService implements OnDestroy {
                 }
                 // console.log('WEBSOCKET::Receiving ...', WSMessage);
             });
-<<<<<<< HEAD:src/core/services/ws-socket/socket.service.ts
             this.SM['chatSentSubscription'] = this.directMessageSent.subscribe((payload) => {
                 payload.origin = SocketMessageOrigin.DIRECT_MESSAGING;
-=======
-            this.SM.chatSentSubscription = this.chatSent.subscribe((payload) => {
->>>>>>> c236df9145111b2c8ef0d58736c26feee85ac515:src/core/services/socket/socket.service.ts
                 this.WSSubject.next(payload);
             });
             this.SM.orderChatSentSubscription = this.orderChatSent.subscribe((payload) => {
