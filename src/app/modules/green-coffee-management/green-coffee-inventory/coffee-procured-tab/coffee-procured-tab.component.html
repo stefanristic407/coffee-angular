@@ -7,7 +7,7 @@
         [(ngModel)]="termStatus"
         (onChange)="setStatus()"
         scrollHeight="225px"
-        placeholder="{{ globals.languageJson?.origins }}"
+        placeholder="{{ globals.languageJson?.all_origins }}"
         [autoDisplayFirst]="false"
         styleClass="round-border mr-2 mb-3 {{ termStatus ? 'highlight' : '' }}"
     ></p-dropdown>
@@ -30,7 +30,7 @@
     <p-table
         #procuredCoffeeTable
         [class.table-mobile]="primeTableService.isMobileView"
-        [value]="primeTableService.procuredCoffeeListArray"
+        [value]="primeTableService.records"
         [columns]="primeTableService._allColumns"
         [(selection)]="primeTableService.selectedRecords"
         dataKey="id"
@@ -132,7 +132,10 @@
                     <span *ngSwitchCase="'order_reference'">
                         <div class="d-flex">
                             <span [routerLink]="availabilityPage(rowData)">
-                                <p *ngIf="primeTableService.isMobileView" class="fnt-18 txt-clr334 fnt-bold mb-0">
+                                <p
+                                    *ngIf="primeTableService.isMobileView"
+                                    class="fnt-16 fnt-md-18 txt-clr334 fnt-bold mb-0"
+                                >
                                     Roaster Ref. No: {{ rowData['order_reference'] || '--' }}
                                 </p>
                             </span>

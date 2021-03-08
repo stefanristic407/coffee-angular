@@ -1,4 +1,4 @@
-import { OrganizationType } from '@core/enums';
+import { OrganizationType } from '@enums';
 
 export interface ThreadMember {
     first_name: string;

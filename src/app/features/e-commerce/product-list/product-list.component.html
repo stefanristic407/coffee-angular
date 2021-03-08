@@ -1,7 +1,7 @@
 <div class="main-block e-comm-catlog">
     <div class="row mb-3">
         <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
-            <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
+            <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
         </div>
         <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 d-none d-md-block">
             <button type="submit" class="btn pull-right btn-raised" routerLink="/features/new-product">
@@ -28,7 +28,7 @@
                 name="search"
                 class="search-raised w-100 m-0"
                 formControlName="searchField"
-                placeholder="{{ globals.languageJson?.search_name_role }}"
+                placeholder="Search for products"
             />
         </div>
         <div class="col-12 col-sm-12 col-md-6 filterLayout">
@@ -40,7 +40,7 @@
                 (onChange)="filterCall()"
                 scrollHeight="225px"
                 [showClear]="true"
-                placeholder="Origin"
+                placeholder="Origins"
                 styleClass="round-border mr-2 mb-3 mb-md-4 {{ originFilter ? 'highlight' : '' }}"
             >
             </p-dropdown>
@@ -52,7 +52,7 @@
                 (onChange)="filterCall()"
                 scrollHeight="225px"
                 [showClear]="true"
-                placeholder="Price"
+                placeholder="Price range"
                 styleClass="round-border mr-2 mb-3 mb-md-4 {{ priceFilter ? 'highlight' : '' }}"
             >
             </p-dropdown>
@@ -75,7 +75,7 @@
                 name="search"
                 class="search-raised pull-right"
                 formControlName="searchField"
-                placeholder="{{ globals.languageJson?.search_name_role }}"
+                placeholder="Search for products"
             />
         </div>
     </div>
@@ -177,11 +177,11 @@
                                         }}</span></span
                                     >
                                 </div>
-                                <div class="col-12 row p-3 m-0 mobileCard">
-                                    <div class="col-4">
+                                <div class="col-12 row p-0 m-0 mobileCard">
+                                    <div class="col-4 p-3">
                                         <img class="w-100 productHeight" src="{{ rowData['featured_image'] }}" />
                                     </div>
-                                    <div class="col-8 cardBottom p-0">
+                                    <div class="col-8 cardBottom p-3">
                                         <div class="mobileCardBody">
                                             <span class="secondary_txt">Product: </span>
                                             <span class="float-right primary_txt mobileValueTxt">{{

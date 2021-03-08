@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -7,8 +7,9 @@ import { AclService } from '@services';
 import { DashboardService } from '@services';
 import { GeneralService } from '@services';
 import { UserService } from '@services';
-import { DestroyableComponent } from '@core/base-components';
+import { DestroyableComponent } from '@base-components';
 import { environment } from '@env/environment';
+import { OrgType } from '@enums';
 
 @Component({
     selector: 'app-gate',
@@ -177,6 +178,6 @@ export class GateComponent extends DestroyableComponent implements OnInit {
     }
 
     goToLogin() {
-        window.open(`${environment.ssoWeb}/login?orgType=${environment.orgType}`, '_self');
+        window.open(`${environment.ssoWeb}/login?orgType=${OrgType.ROASTER}`, '_self');
     }
 }

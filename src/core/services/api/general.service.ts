@@ -16,6 +16,6 @@ export class GeneralService extends ApiService {
 
     // Display the details of estate
     getProfile() {
-        return this.post(this.url, `profile`, 'GET');
+        return this.postWithOrg(this.url, `profile`, 'GET');
     }
 }

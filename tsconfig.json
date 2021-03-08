@@ -16,14 +16,14 @@
             "@app/*": ["src/app/*"],
             "@components": ["src/app/components/index"],
             "@env/*": ["src/environments/*"],
-            "@modules/*": ["src/app/modules/*"],
             "@shared": ["src/app/shared/index"],
-            "@core/*": ["src/core/*"],
-            "@services": ["src/core/services/index"],
-            "@models": ["src/core/models/index"],
+            "@base-components": ["src/core/base-components/index"],
             "@constants": ["src/core/constants/index"],
             "@enums": ["src/core/enums/index"],
             "@guards": ["src/core/guards/index"],
+            "@interceptors": ["src/core/interceptors/index"],
+            "@models": ["src/core/models/index"],
+            "@services": ["src/core/services/index"],
             "@utils": ["src/core/utils/index"]
         }
     },

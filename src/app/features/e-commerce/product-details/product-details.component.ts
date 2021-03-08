@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild, QueryList, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RoasterserviceService } from '@core/services/api';
-import { GlobalsService } from '@core/services/globals.service';
+import { GlobalsService, RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
@@ -199,6 +198,7 @@ export class ProductDetailsComponent implements OnInit {
                             const crateForm = this.createEmptyCrate();
                             crateForm.controls.weight.setValue(crate.weight);
                             crateForm.controls.id.setValue(crate.id);
+                            crateForm.controls.weight_name.setValue(crate.weight + ' ' + crate.crate_unit);
                             crateForm.controls.product_weight_variant_id.setValue(crate.product_weight_variant_id);
                             crateForm.controls.crate_capacity.setValue(crate.crate_capacity);
                             this.crates.push(crateForm);
@@ -273,6 +273,7 @@ export class ProductDetailsComponent implements OnInit {
             weight: [0, Validators.compose([Validators.required])],
             crate_unit: 'lb',
             boxField: '1 box',
+            weight_name: '0 lb',
             product_weight_variant_id: '',
             crate_capacity: ['', Validators.compose([Validators.required])],
         });
@@ -283,6 +284,7 @@ export class ProductDetailsComponent implements OnInit {
             const getCrate = this.createEmptyCrate();
             getCrate.controls.weight.setValue(event.value);
             getCrate.controls.crate_unit.setValue(event.unit);
+            getCrate.controls.weight_name.setValue(event.value + ' ' + event.unit);
             getCrate.controls.product_weight_variant_id.setValue(event.product_weight_variant_id);
             this.crates.push(getCrate);
         } else {
@@ -301,6 +303,7 @@ export class ProductDetailsComponent implements OnInit {
             if (getObj) {
                 this.crates.controls[indexValue]['controls'].crate_unit.setValue(event.unit);
                 this.crates.controls[indexValue]['controls'].weight.setValue(event.value);
+                this.crates.controls[indexValue]['controls'].weight_name.setValue(event.value + ' ' + event.unit);
             }
         }
     }

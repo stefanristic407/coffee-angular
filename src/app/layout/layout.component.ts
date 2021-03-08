@@ -9,8 +9,9 @@ declare var $: any;
 import { TranslateService } from '@ngx-translate/core';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
-import { filter } from 'rxjs/operators';
-import { MenuService } from '@components';
+import { filter, takeUntil } from 'rxjs/operators';
+import { MenuService } from '@services';
+import { DestroyableComponent } from '@base-components';
 
 @Component({
     selector: 'app-layout',
@@ -18,7 +19,7 @@ import { MenuService } from '@components';
     styleUrls: ['./layout.component.scss'],
     providers: [MenuService],
 })
-export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
+export class LayoutComponent extends DestroyableComponent implements OnInit, AfterViewInit {
     menuItems: any[];
     userName: string;
     selected: string;
@@ -34,8 +35,6 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     supportLanguages = ['en', 'es'];
     rolename: any;
     slugList: any;
-    chatStateSubcription: Subscription;
-    routeSubscription: Subscription;
 
     notifications: any[];
     readNotification: any;
@@ -55,6 +54,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         public menuService: MenuService,
         private socket: SocketService,
     ) {
+        super();
         this.translateService.addLangs(this.supportLanguages);
         if (localStorage.getItem('locale')) {
             const browserLang = localStorage.getItem('locale');
@@ -68,14 +68,15 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
 
     ngOnInit(): void {
         this.socket.initSocketService(); // Enable socket service
-        this.chatStateSubcription = this.chat.isOpen.subscribe((x) => {
+        this.chat.isOpen.pipe(takeUntil(this.unsubscribeAll$)).subscribe((x) => {
             if (x) {
                 this.activeLink = 'MESSAGES';
             } else {
                 this.updateActiveLinkState();
             }
         });
-        this.routeSubscription = this.router.events
+        this.router.events
+            .pipe(takeUntil(this.unsubscribeAll$))
             .pipe(filter((event) => event instanceof NavigationEnd))
             .subscribe((event: NavigationEnd) => {
                 window.scrollTo(0, 0);
@@ -144,14 +145,6 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         });
 
         this.getNotificationList();
-    }
-    ngOnDestroy() {
-        if (this.chatStateSubcription) {
-            this.chatStateSubcription.unsubscribe();
-        }
-        if (this.routeSubscription) {
-            this.routeSubscription.unsubscribe();
-        }
     }
 
     refreshMenuItems() {
@@ -223,7 +216,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         this.userService.logOut().subscribe((res: any) => {
             if (res.success) {
                 this.cookieService.deleteAll();
-                this.router.navigate(['/login']);
+                this.router.navigate(['/gate']);
                 this.toastrService.success('Logout successfully !');
             } else {
                 this.toastrService.error('Error while Logout!');

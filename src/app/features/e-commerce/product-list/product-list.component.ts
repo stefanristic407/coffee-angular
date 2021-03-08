@@ -3,14 +3,14 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
-import { RoasterserviceService } from '@core/services/api';
-import { GlobalsService } from '@core/services/globals.service';
+import { RoasterserviceService } from '@services';
+import { GlobalsService } from '@services';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { ConfirmComponent } from '@shared';
-import { COUNTRY_LIST } from '@core/constants';
+import { COUNTRY_LIST } from '@constants';
 
 @Component({
     selector: 'app-product-list',
@@ -133,10 +133,14 @@ export class ProductListComponent implements OnInit {
             routerLink: '/',
         };
         const obj2: MenuItem = {
-            label: this.globals.languageJson?.products,
+            label: 'Inventory',
+        };
+        const obj3: MenuItem = {
+            label: 'E-commerce catalog management',
         };
         this.breadCrumbItem.push(obj1);
         this.breadCrumbItem.push(obj2);
+        this.breadCrumbItem.push(obj3);
     }
     getTableData(event?) {
         const postData: any = {};

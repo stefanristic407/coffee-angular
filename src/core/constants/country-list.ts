@@ -1,4 +1,4 @@
-import { Country } from '@core/models';
+import { Country } from '@models';
 
 export const CONTINIENT_LIST: any = {
     AF: 'Africa',

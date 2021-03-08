@@ -1,11 +1,4 @@
-<div class="total-loader" *ngIf="!loaded">
-    <div>
-        <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
-        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
-    </div>
-</div>
-
-<header class="stricky" *ngIf="loaded">
+<header class="stricky" *ngIf="loaded; else headerLoader">
     <nav class="bg-white nav-top1">
         <div class="container">
             <div class="d-flex align-items-center">
@@ -65,7 +58,7 @@
                         <ng-template #notifList>
                             <div class="notification-header">
                                 <span
-                                    class="notfi-header-title fnt-18 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 ng-star-inserted"
+                                    class="notfi-header-title fnt-16 fnt-md-18 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 ng-star-inserted"
                                     >Notifications</span
                                 >
                                 <a href="javascript:void(0)" class="notif-close">
@@ -79,7 +72,7 @@
                                         <div class="border-container">
                                             <div class="notifi-cotainer">
                                                 <p
-                                                    class="fnt-16 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-none d-md-block"
+                                                    class="fnt-14 fnt-md-16 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-none d-md-block"
                                                 >
                                                     Order Shipped!
                                                 </p>
@@ -98,7 +91,7 @@
                                         <div class="border-container">
                                             <div class="notifi-cotainer">
                                                 <p
-                                                    class="fnt-16 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-none d-md-block"
+                                                    class="fnt-14 fnt-md-16 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-none d-md-block"
                                                 >
                                                     Order Shipped!
                                                 </p>
@@ -133,7 +126,7 @@
                                         container="body"
                                         [outsideClick]="true"
                                     >
-                                        <h6 class="d-block fnt-16 fnt-600 text-clr24 m-0">
+                                        <h6 class="d-block fnt-14 fnt-md-16 fnt-600 text-clr24 m-0">
                                             {{ userName }}
                                             <span class="pl-1"><img src="assets/images/triangle.svg" /> </span>
                                         </h6>
@@ -221,6 +214,12 @@
         </div>
     </nav>
 </header>
+
+<ng-template #headerLoader>
+    <div class="stricky">
+        <img class="w-100" src="/assets/images/loader-header.gif" />
+    </div>
+</ng-template>
 
 <footer class="sectin-footer-mb">
     <section>
@@ -328,17 +327,23 @@
 <div class="layout-wrap">
     <div class="container" *ngIf="loaded">
         <div class="router-design">
-            <app-sewn-direct-message></app-sewn-direct-message>
-            <app-search-panel
-                [show]="showSearch"
-                [searchStr]="searchString"
-                [searchResults]="searchResults"
-                (closeEmitter)="closeSearchPanel()"
-            ></app-search-panel>
-            <div [class.d-none]="showSearch">
-                <router-outlet></router-outlet>
-            </div>
+            <ng-container *ngIf="loaded; else mainLoader">
+                <app-sewn-direct-message></app-sewn-direct-message>
+                <app-search-panel
+                    [show]="showSearch"
+                    [searchStr]="searchString"
+                    [searchResults]="searchResults"
+                    (closeEmitter)="closeSearchPanel()"
+                ></app-search-panel>
+                <div [class.d-none]="showSearch">
+                    <router-outlet></router-outlet>
+                </div>
+            </ng-container>
         </div>
     </div>
     <app-footer></app-footer>
 </div>
+
+<ng-template #mainLoader>
+    <app-loading></app-loading>
+</ng-template>

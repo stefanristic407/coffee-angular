@@ -49,7 +49,7 @@ span.star {
         height: 20px;
         left: 0;
         top: 0;
-        background-image: url('/assets/images/back-arrow-1.svg');
+        background-image: url('/assets/images/back-arrow1.svg');
         background-size: cover;
         background-position: center;
         transition: all 0.6s cubic-bezier(0.2, 0.59, 0.21, 0.6);
@@ -309,45 +309,6 @@ span.star {
     // & > div {
     //     min-width: 968px;
     // }
-}
-
-// Phone number input
-.phone-number-input {
-    height: 50px !important;
-    border: 1px solid $primary-border-color;
-    border-radius: 4px;
-    color: $general-text-color;
-    font-family: 'Muli', sans-serif !important;
-    font-weight: 600;
-    font-size: 14px;
-    padding-left: 64px !important;
-    &:hover {
-        border-color: $primary-color !important;
-    }
-}
-
-.iti__flag-container {
-    left: 9px !important;
-}
-
-.iti__selected-flag {
-    border-right: 1px solid #d6d6d6 !important;
-}
-
-.iti {
-    width: 100% !important;
-}
-
-.iti__flag-container {
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
-}
-
-.phone-number-input.ng-invalid {
-    border: 1px solid $invalid-color !important;
-    &:hover {
-        border-color: $invalid-color !important;
-    }
 }
 
 // Menu

@@ -51,6 +51,15 @@
 .popover-body {
     padding: 0.25rem 0.25rem !important;
 }
+.weightVariantBtn {
+    border: solid 1px #30855c;
+    color: #30855c;
+    padding: 0.5rem 2rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .cross-icon {
     cursor: pointer;
@@ -178,6 +187,9 @@
     .recent-time {
         width: 100%;
     }
+    .order-details-clr {
+        padding: 32px 16px;
+    }
 }
 
 @media screen and (max-width: 767px) {
@@ -223,6 +235,9 @@
         border-bottom: none;
     }
     .order-details-clr {
-        padding: 1rem;
+        padding: 12px;
+    }
+    .recent-time td {
+        padding: 1rem 0rem 1rem 0rem !important;
     }
 }

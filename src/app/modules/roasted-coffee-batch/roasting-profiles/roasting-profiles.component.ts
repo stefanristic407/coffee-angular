@@ -1,9 +1,9 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { RoasterserviceService } from '@core/services/api/roaster.service';
+import { RoasterserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from '@core/services/globals.service';
+import { GlobalsService } from '@services';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { UserserviceService } from '@services';
 import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';

@@ -1,17 +1,19 @@
 // AUTHOR : Vijaysimhareddy
 // PAGE DESCRIPTION : This page contains functions of  Orders List,Search and Filters.
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
+import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'app-agreement',
     templateUrl: './agreement.component.html',
     styleUrls: ['./agreement.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class AgreementComponent implements OnInit {
     appLanguage: any;
@@ -19,7 +21,8 @@ export class AgreementComponent implements OnInit {
     customerType: string;
     roasterId: string;
     mainData: any;
-    menuItems: any = [];
+    navItems: MenuItem[];
+    selectedNav: MenuItem;
 
     constructor(
         public router: Router,
@@ -36,11 +39,12 @@ export class AgreementComponent implements OnInit {
         if (this.cookieService.get('Auth') === '') {
             this.router.navigate(['/auth/login']);
         }
-        this.menuItems = [
-            { label: this.globals.languageJson?.horeca },
-            { label: this.globals.languageJson?.micro_roasters },
-        ];
         this.customerType = 'hrc';
+        this.navItems = [
+            { label: this.globals.languageJson?.agreements }
+        ];
+
+        this.selectedNav = { label: this.globals.languageJson?.home, routerLink: '/' };
         this.language();
     }
 
@@ -48,10 +52,14 @@ export class AgreementComponent implements OnInit {
         this.appLanguage = this.globals.languageJson;
     }
 
-    // Function Name: Navbar Change
-    // Description: This function helps to send customer type roaster-agreement on navbar change.
+    // Function Name: Tab Change
+    // Description: This function helps to set customer type on tab change.
 
-    onNavChange(value: string): void {
-        this.customerType = value;
+    onTabChange(event) {
+        if (event.index === 0) {
+            this.customerType = 'hrc';
+        } else if (event.index === 1) {
+            this.customerType = 'micro-roasters';
+        }
     }
 }

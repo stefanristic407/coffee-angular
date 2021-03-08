@@ -17,6 +17,7 @@ import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { CarouselModule } from 'primeng/carousel';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ChipsModule } from 'primeng/chips';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule, DialogService } from 'primeng/dynamicdialog';
@@ -38,7 +39,6 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { TabViewModule } from 'primeng/tabview';
 import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
-import { ChipsModule } from 'primeng/chips';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
@@ -79,7 +79,6 @@ import { ImageMapComponent } from './components/remote-sensoring/image-map/image
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { MediaComponent } from './components/media/media.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
-import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { ReadMoreComponent } from './components/read-more/read-more.component';
 import { UploaderComponent } from './components/uploader/uploader.component';
 
@@ -117,6 +116,7 @@ const THIRDMODULES = [
     CarouselModule,
     CheckboxModule,
     DialogModule,
+    ChipsModule,
     DropdownModule,
     DynamicDialogModule,
     GalleriaModule,
@@ -148,7 +148,6 @@ const THIRDMODULES = [
     MatVideoModule,
     Ng2TelInputModule,
     ProgressBarModule,
-    ChipsModule,
 ];
 // #endregion
 
@@ -177,7 +176,6 @@ const COMPONENTS = [
     DayPickerComponent,
     BlogCardComponent,
     BarChartComponent,
-    BreadcrumbComponent,
     HorizontalBarComponent,
     PhoneNumberComponent,
     ReviewSummaryComponent,

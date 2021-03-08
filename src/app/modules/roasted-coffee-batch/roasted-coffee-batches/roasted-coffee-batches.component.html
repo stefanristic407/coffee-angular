@@ -4,7 +4,7 @@
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 overflow-auto d-flex flex-nowrap breadCrumb">
                 <p-breadcrumb [model]="breadItems"></p-breadcrumb>
 
-                <!-- <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb> -->
+                <!-- <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb> -->
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 spacing-batch">
                 <button
@@ -161,7 +161,10 @@
                             }"
                         >
                             <span *ngSwitchCase="'roast_batch_name'" class="">
-                                <span class="d-none d-sm-none d-md-inline-block truncate-roasted">
+                                <span
+                                    class="d-none d-sm-none d-md-inline-block truncate-roasted"
+                                    (click)="redirectToEdit(rowData)"
+                                >
                                     {{ rowData['roast_batch_name'] | titlecase }}
                                 </span>
 
@@ -276,14 +279,18 @@
                                     </span>
                                 </span>
                             </span>
-                            <span *ngSwitchCase="'created_at'" class="">
+                            <span *ngSwitchCase="'created_at'" class="" (click)="redirectToEdit(rowData)">
                                 <span>{{ rowData[col.field] | date: 'dd MMM y' }}</span>
                             </span>
-                            <span *ngSwitchCase="'roasting_profile_quantity'" class="">
+                            <span
+                                *ngSwitchCase="'roasting_profile_quantity'"
+                                class=""
+                                (click)="redirectToEdit(rowData)"
+                            >
                                 <span>{{ rowData[col.field] }} {{ rowData['roasting_profile_unit'] }}</span>
                             </span>
 
-                            <span *ngSwitchDefault>
+                            <span *ngSwitchDefault (click)="redirectToEdit(rowData)">
                                 <span>{{ rowData[col.field] }}</span>
                             </span>
                         </td>

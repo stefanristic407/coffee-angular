@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
-import { GlobalsService } from '@core/services/globals.service';
-import { RoasterserviceService } from '@core/services/api/roaster.service';
+import { GlobalsService } from '@services';
+import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
@@ -50,7 +50,11 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
             { label: 'Home', routerLink: '/roaster-dashboard' },
             { label: 'Sourcing Module', routerLink: '/sourcing/estate-list' },
             { label: 'Green coffee Inventory', routerLink: '/green-coffee-management/green-coffee-inventory' },
-            { label: 'Marked for sale' },
+            {
+                label: 'Marked for sale',
+                routerLink: `/green-coffee-management/green-coffee-inventory`,
+                queryParams: { markSale: 'yes' },
+            },
             { label: this.saleInformation.name ? this.saleInformation.name : '' },
         ];
     }
@@ -128,7 +132,7 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
         );
     }
     availabilityPage() {
-        return `/sourcing/coffee-list/${this.orderDetails.estate_id}/${this.orderDetails.harvest_id}`;
+        return `/sourcing/coffee-details/${this.orderDetails.estate_id}/${this.orderDetails.harvest_id}`;
     }
     viewReport() {
         this.roasterService.getCuppingReportDetails(this.orderDetails.harvest_id).subscribe(

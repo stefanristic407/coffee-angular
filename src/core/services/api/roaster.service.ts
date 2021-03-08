@@ -1212,7 +1212,9 @@ export class RoasterserviceService {
             '&per_page=' +
             roasterData.per_page +
             '&org_type=' +
-            roasterData.org_type;
+            roasterData.org_type +
+            '&status=' +
+            roasterData.status;
         if (roasterData.date_from && roasterData.date_to) {
             data['api_call'] =
                 data['api_call'] + '&date_from=' + roasterData.date_from + '&date_to=' + roasterData.date_to;

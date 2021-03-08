@@ -30,6 +30,7 @@
         font-weight: bold;
         color: #232334;
         text-transform: capitalize;
+        margin-bottom: 8px;
     }
 }
 .estate-focus {
@@ -116,10 +117,10 @@ ul {
 }
 @media (max-width: 767px) {
     .prodect-details {
-        padding: 12px;
+        padding: 0px 12px;
     }
     .produect-pro {
-        padding: 0px 8px;
+        padding: 0px 2px;
     }
     .avaialble-web {
         display: none;
@@ -139,14 +140,25 @@ ul {
         width: 50%;
     }
     .real-estate {
-        margin-top: 12px;
+        margin-top: 2px;
         h6 {
-            margin-bottom: 8px;
+            margin-bottom: 4px;
             font-size: 12px;
         }
         h3 {
             font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
         }
+        p,
+        span {
+            font-weight: 14px !important;
+            color: #232334 !important;
+            font-weight: bold;
+        }
+    }
+    .p-date {
+        margin-top: 14px;
     }
     .no-pad {
         padding: 0px;
@@ -154,14 +166,13 @@ ul {
     .estate-focus ul {
         padding: 0px;
     }
-    .breadCrumb::-webkit-scrollbar {
-        display: none;
-    }
 }
 @media (min-width: 768px) and (max-width: 1199px) {
     .no-pad {
         padding-left: 10.5rem;
         padding-right: 10.5rem;
+        padding-bottom: 1.5rem;
+        padding-top: 1rem;
     }
     .v-report {
         a {
@@ -172,4 +183,12 @@ ul {
         padding-bottom: 1.5rem;
         border-bottom: 1px dashed #d6d6d6;
     }
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.breadCrumb {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+.breadCrumb::-webkit-scrollbar {
+    display: none !important;
 }

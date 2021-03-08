@@ -5,7 +5,6 @@ import { map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { maxWordCountValidator, fileCountValidator } from '@utils';
-import { FormService } from '@services';
 import { GlobalsService } from '@services';
 import { UserserviceService } from '@services';
 import { RoasterserviceService } from '@services';
@@ -24,7 +23,6 @@ export class SustainabilityComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private route: Router,
-        private formSrv: FormService,
         public globals: GlobalsService,
         private toastrService: ToastrService,
         private cookieService: CookieService,
@@ -94,7 +92,7 @@ export class SustainabilityComponent implements OnInit {
                 }
             });
         } else {
-            this.formSrv.markGroupDirty(this.infoForm);
+            this.infoForm.markAllAsTouched();
         }
     }
 
