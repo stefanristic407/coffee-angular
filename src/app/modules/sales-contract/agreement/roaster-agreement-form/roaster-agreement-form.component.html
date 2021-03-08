@@ -9,7 +9,7 @@
     </div>
     <div class="modal-header">
         <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-clr334 mb-0">
-            {{ globals.languageJson?.upload_new_agreement }}
+            {{ 'upload_new_agreement' | translate }}
         </h5>
         <button
             type="button"
@@ -57,7 +57,7 @@
 
                 <div class="roastery-fields mb-3 mb-lg-4">
                     <h4 class="fnt-16 fnt-700 fnt-muli text-clr334 mb-0">
-                        {{ globals.languageJson?.select_customer }} <span class="star-mark">*</span>
+                        {{ 'select_customer' | translate }} <span class="star-mark">*</span>
                     </h4>
                     <p-dropdown
                         id="select-modal-customer"
@@ -84,10 +84,10 @@
                 <div class="roastery-fields mb-0">
                     <div class="farm-input col-12 px-0">
                         <h4 class="fnt-16 fnt-700 fnt-muli text-clr334 mb-0">
-                            {{ globals.languageJson?.upload }}
+                            {{ 'upload' | translate }}
                         </h4>
                         <span class="d-block fnt-14 fnt-500 fnt-muli text-clr334 text-clr588 mb-1">
-                            {{ globals.languageJson?.please_upload_document }}</span
+                            {{ 'please_upload_document' | translate }}</span
                         >
                         <div class="d-flex foot-section">
                             <div>
@@ -98,7 +98,7 @@
                                         type="file"
                                         (change)="uploadFile($event)"
                                     /><img class="dwnd-img" src="assets/images/group-6.svg" alt="upload-icon" />
-                                    <span class="share-txt"> {{ globals.languageJson?.upload }} </span>
+                                    <span class="share-txt"> {{ 'upload' | translate }} </span>
                                 </label>
                                 <span *ngIf="!isUpdate" class="value-name pl-3">{{ fileNameValue }}</span>
                                 <label *ngIf="isUpdate" class="share-bor d-inline-block">
@@ -108,7 +108,7 @@
                                         type="file"
                                         (change)="reUploadFile($event)"
                                     /><img class="dwnd-img" src="assets/images/group-6.svg" alt="upload-icon" />
-                                    <span class="share-txt"> {{ globals.languageJson?.upload }} </span>
+                                    <span class="share-txt"> {{ 'upload' | translate }} </span>
                                 </label>
                                 <span *ngIf="isUpdate" class="value-name pl-3">{{
                                     fileNameValue ? fileNameValue : reFileNameValue
