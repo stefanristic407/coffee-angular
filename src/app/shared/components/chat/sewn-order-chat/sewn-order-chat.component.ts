@@ -22,7 +22,7 @@ import {
     OrderChatThreadListItem,
 } from '@models';
 import { ThreadType, ThreadActivityType, ChatMessageType } from '@enums';
-import { ChatHandlerService, GlobalsService, SocketService, ChatUtil } from '@services';
+import { ChatHandlerService, GlobalsService, SocketService, ChatUtilService } from '@services';
 const badwordsRegExp = require('badwords/regexp') as RegExp;
 @Component({
     selector: 'app-sewn-order-chat',
@@ -59,7 +59,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
         public chatService: ChatHandlerService,
         private socket: SocketService,
         private elRef: ElementRef,
-        private chatUtil: ChatUtil,
+        private chatUtil: ChatUtilService,
         private render: Renderer2,
     ) {}
 
@@ -240,7 +240,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
             });
             const lastMessage = this.messageList[this.messageList.length - 1];
             if (lastMessage) {
-                this.sentReadTokenTimeout(lastMessage.id);
+                this.sendReadToken(lastMessage.id);
             }
         } else {
             console.log('Websocket:Thread History: Failure');
@@ -267,7 +267,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                     this.scrollbottom();
                 });
                 this.messageList.push(message);
-                this.sentReadTokenTimeout(message.id);
+                this.sendReadToken(message.id);
             } else {
                 console.log('Websocket:Incoming Message : Failure');
             }
@@ -306,15 +306,6 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                 last_read_id: lastMessageId,
             },
         });
-    }
-
-    sentReadTokenTimeout(lastMessageId: number) {
-        if (this.sentTokenDelayTimeOut) {
-            clearTimeout(this.sentTokenDelayTimeOut);
-        }
-        this.sentTokenDelayTimeOut = window.setTimeout(() => {
-            this.sendReadToken(lastMessageId);
-        }, 800);
     }
 
     chatInputHeightAdjust(resetFlag = false) {
@@ -384,7 +375,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                 }, 3500);
                 msg = msg.replace(badwordsRegExp, '****');
             }
-            this.socket.chatSent.next(this.getMessagePayload(msg));
+            this.socket.orderChatSent.next(this.getMessagePayload(msg));
             this.chatUtil.playNotificationSound('OUTGOING');
             this.messageInput = '';
             this.chatInputHeightAdjust();
