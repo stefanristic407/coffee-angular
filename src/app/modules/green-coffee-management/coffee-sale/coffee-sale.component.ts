@@ -240,7 +240,7 @@ export class CoffeeSaleComponent implements OnInit {
     }
     quantityTypeChange() {
         this.quantityType = this.coffeeSaleForm.value.quantity_type;
-        console.log(this);
+        this.changeQuantity();
     }
     validateForms() {
         let returnFlag = true;

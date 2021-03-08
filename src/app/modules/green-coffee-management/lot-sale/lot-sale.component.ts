@@ -307,7 +307,7 @@ export class LotSaleComponent implements OnInit {
     }
     quantityTypeChange() {
         this.quantityType = this.lotSaleForm.value.quantity_type;
-        console.log(this);
+        this.changeQuantity();
     }
     changeQuantity() {
         if (this.quantityType === 'kg') {
