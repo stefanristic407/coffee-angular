@@ -100,6 +100,11 @@ export class NewRoastedBatchComponent implements OnInit {
             { label: 'lb', value: 'lb' },
             { label: 'kg', value: 'kg' },
         ];
+        // disable mousewheel on a input number field when in focus
+        // (to prevent Cromium browsers change the value when scrolling)
+        $(document).on('wheel', 'input[type=number]', function (e) {
+            $(this).blur();
+        });
     }
 
     getRoastedBatch() {
@@ -149,6 +154,11 @@ export class NewRoastedBatchComponent implements OnInit {
                     };
                     this.roastProfileArray.push(sample);
                 });
+                const button = {
+                    label: '',
+                    value: 'button',
+                };
+                this.roastProfileArray.push(button);
             } else {
                 this.toastrService.error('Error while getting the roasting profiles');
             }
