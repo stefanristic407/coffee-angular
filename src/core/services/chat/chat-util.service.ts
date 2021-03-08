@@ -6,7 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 @Injectable({
     providedIn: 'root',
 })
-export class ChatUtil {
+export class ChatUtilService {
     public ORGANIZATION_TYPE = OrganizationType.ROASTER;
     private incomingAudioPlayer = new Audio('assets/sounds/msg-incoming.mp3');
     private outgoingAudioPlayer = new Audio('assets/sounds/msg-outgoing.mp3');

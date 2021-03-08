@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { OrderChatThreadResolver, OrderDetailsRsolver } from '@services';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EstateOrdersComponent } from './estate-orders/estate-orders.component';
