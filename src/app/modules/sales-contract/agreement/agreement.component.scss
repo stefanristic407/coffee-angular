@@ -119,10 +119,6 @@ li.nav-item {
     color: #232334;
 }
 
-.share-bor:hover {
-    border: solid 2px #30855c !important;
-}
-
 .upload-order {
     background-color: #ffffff;
     padding: 8px 12px;
@@ -162,8 +158,11 @@ li.nav-item {
         margin-right: 1.5rem !important;
     }
 }
-@media (max-width: 991px) {
+@media (min-width: 767px) and (max-width: 991px) {
     .estate-orders-heading {
         padding-left: 0px !important;
+    }
+    .agreements {
+        padding: 1.5rem 1rem !important;
     }
 }
