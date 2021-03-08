@@ -513,22 +513,59 @@ input[type='number'] {
     }
 }
 
-// link without arrow
-.custom-link {
+// link with up arrow
+.uparrow-link {
     color: $brown-color !important;
-    font-size: 12px;
     font-weight: 700;
     position: relative;
-    text-decoration: underline !important;
+    padding-right: 16px;
+    line-height: normal !important;
+    cursor: pointer;
 
-    &:hover {
-        color: $brown-color !important;
-        cursor: pointer;
-        text-decoration: underline !important;
+    &::after {
+        content: '';
+        position: absolute;
+        width: 16px;
+        height: 100%;
+        top: 0px;
+        right: -8px;
+        background-image: url('/assets/images/back_arrow_link.svg');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
     }
 
-    @media (min-width: 992px) {
-        font-size: 14px;
+    &:hover {
+        color: $brown-color;
+        text-decoration: underline !important;
+    }
+}
+
+// link with add
+.add-link {
+    color: $brown-color !important;
+    font-weight: 700;
+    position: relative;
+    padding-right: 16px;
+    line-height: normal !important;
+    cursor: pointer;
+
+    &::before {
+        content: '';
+        position: absolute;
+        width: 16px;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+        background-image: url('/assets/images/add-field.svg');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    &:hover {
+        color: $brown-color;
+        text-decoration: underline !important;
     }
 }
 

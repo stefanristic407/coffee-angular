@@ -50,7 +50,6 @@ export class AboutRoasteryComponent implements OnInit {
     userId: any;
     single: any[];
     view: any[] = [300, 200];
-    aboutActive: any = 0;
     // options
     gradient = true;
     showLegend = false;
@@ -111,7 +110,6 @@ export class AboutRoasteryComponent implements OnInit {
 
     language() {
         this.appLanguage = this.globals.languageJson;
-        this.aboutActive++;
     }
 
     getRoasterUsers() {
@@ -171,11 +169,9 @@ export class AboutRoasteryComponent implements OnInit {
             this.userService.getCompanyCertificates(this.roasterId).subscribe((result: any) => {
                 if (result.success === true) {
                     this.certificatesArray = result.result;
-                    // this.aboutActive++;
                 } else {
                     this.toastrService.error('Error in loading Roaster Certificates');
                 }
-                // this.aboutActive++;
             });
         }
     }

@@ -7,13 +7,17 @@
     color: #d50000;
 }
 
-.rectangle {
-    height: 46px;
+.btn-file-upload {
+    background: transparent;
+    font-size: 14px;
+    color: #747588;
+    line-height: normal;
+    padding: 7px 12px;
+    border: 1px solid #a6a6a6;
 }
 
-.border-class {
-    border: 1px solid #ebebeb;
-    border-radius: 2px;
+.rectangle {
+    height: 46px;
 }
 
 .border-sub-secondary {
@@ -193,6 +197,7 @@ hr {
     letter-spacing: normal;
     text-align: right;
     color: #80460b;
+    padding-left: 24px;
 }
 
 .add-field {
@@ -275,23 +280,6 @@ hr {
     letter-spacing: normal;
     color: #232334;
 }
-
-.capabilitiesDiv {
-    border-right: 1px solid #d6d6d6;
-    float: left;
-    margin-right: 1rem;
-}
-
-.border-total {
-    border: 1px solid #d6d6d6;
-    padding: 1rem;
-    margin-left: 1rem;
-}
-
-.capabilitiesdescrDiv {
-    padding: 1.5rem;
-}
-
 .capacity-header {
     color: #747588;
     font-weight: 600;
@@ -301,14 +289,9 @@ hr {
     display: block !important;
 }
 
-.about-web {
-    display: block !important;
-}
-
 .about-mobile {
     display: none !important;
 }
-
 
 /**********popover*******/
 
@@ -361,18 +344,9 @@ hr {
         display: none !important;
     }
 
-    .no-margin {
-        margin-top: 0% !important;
-        margin-bottom: 0% !important;
-    }
-
     #founded_in,
     #owner_name {
         margin-bottom: 2rem;
-    }
-
-    .about-web {
-        display: none !important;
     }
 
     .about-mobile {
@@ -403,18 +377,8 @@ hr {
         padding: 1rem;
     }
 
-    .border-class {
-        padding-left: 15px !important;
-        padding-right: 15px !important;
-        border: none;
-    }
-
     .form-group {
         margin-bottom: 2rem;
-    }
-
-    .mp-3 {
-        padding-top: 0 !important;
     }
 
     .sub-header {
@@ -424,11 +388,6 @@ hr {
     .rectangle {
         height: 46px;
         font-size: 14px !important;
-    }
-
-    .p-3 {
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
     }
 
     .file-attach-label {
@@ -462,11 +421,6 @@ hr {
 
     .weight {
         font-size: 28px;
-    }
-
-    .border-capacity {
-        border-bottom: 1px dashed #d6d6d6;
-        display: flex !important;
     }
 
     .emp_count,
@@ -508,12 +462,6 @@ hr {
         right: 7%;
     }
 
-    .web-border {
-        border: none !important;
-        padding-left: 0rem !important;
-        padding-right: 0rem !important;
-    }
-
     .brand-image {
         margin-top: 5%;
         height: 72px !important;
@@ -552,11 +500,10 @@ hr {
     word-wrap: break-word;
 }
 
-
 /* contacts view port Desktop view */
 
 .p-gal img {
-    width: 100%
+    width: 100%;
 }
 
 .profile-des h4 {
@@ -598,7 +545,7 @@ hr {
     color: #232334;
 }
 
-input[type=number]::-webkit-inner-spin-button {
+input[type='number']::-webkit-inner-spin-button {
     display: none;
 }
 
@@ -610,13 +557,6 @@ input[type=number]::-webkit-inner-spin-button {
     .pie-chart-div {
         padding-left: 0rem;
     }
-}
-
-.web-border {
-    border: 1px solid #d6d6d6;
-    border-radius: 2px;
-    padding-left: 1rem;
-    padding-right: 1rem;
 }
 
 .certificate-hover {
@@ -638,7 +578,7 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 :host ::ng-deep .ui-inputswitch.ui-inputswitch-checked .ui-inputswitch-slider {
-    background-color: #D3F2DA !important;
+    background-color: #d3f2da !important;
 }
 
 :host ::ng-deep .ui-inputswitch .ui-inputswitch-slider {
@@ -656,5 +596,20 @@ input[type=number]::-webkit-inner-spin-button {
 
 .add-partner {
     cursor: pointer;
-    color: #80460b
+    color: #80460b;
+}
+
+.unit-dropdown {
+    position: absolute;
+    bottom: 5px;
+    right: 13px;
+}
+
+::ng-deep .unit-dropdown {
+    .p-dropdown {
+        height: 42px;
+        min-width: 87px;
+        background: #f8f8f8;
+        border: none;
+    }
 }

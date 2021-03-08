@@ -1,0 +1,9 @@
+@import '../variables';
+
+.p-button {
+    &:enabled:hover {
+        background: $primary-color;
+        border-color: transparent;
+        border: none;
+    }
+}

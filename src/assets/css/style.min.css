@@ -18308,19 +18308,6 @@ button {
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
-.cover-image-profile-banner {
-    height: 158px;
-    width: 100%;
-    object-fit: cover;
-}
-
-.replace-img {
-    position: absolute;
-    bottom: 20px;
-    right: 12%;
-    cursor: pointer;
-}
-
 .delete-img {
     position: absolute;
     bottom: 30px;
