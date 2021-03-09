@@ -7,59 +7,42 @@
             {{ 'upload_new_agreement' | translate }}
         </h4>
     </div>
-    <form>
+    <form [formGroup]="horecaFormGroup">
         <div class="invite-to">
             <div class="pb-2 mt-md-4 pt-md-3 sewn-form-field">
                 <label class="fnt-16 fnt-700 fnt-muli text-clr02 mb-0">
                     Select the type of customer you want to upload the agreement for
                 </label>
+
                 <div class="row mt-3 pl-3">
-                    <label class="custom-radio"
-                        >HoReCa
-                        <input
-                            type="radio"
-                            [formControl]="horecaFormGroup.controls['customerType']"
-                            name="horeca_customer"
-                            value="hrc"
-                            (change)="onRadioChange($event.target.value)"
-                        />
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="custom-radio ml-4"
-                        >Micro-Roaster
-                        <input
-                            type="radio"
-                            name="horeca_customer"
-                            [formControl]="horecaFormGroup.controls['customerType']"
-                            value="mr"
-                            (change)="onRadioChange($event.target.value)"
-                        />
-                        <span class="checkmark"></span>
-                    </label>
+                    <p-radioButton
+                        [value]="'hrc'"
+                        label="HoReCa"
+                        formControlName="customerType"
+                        (onClick)="onRadioChange()"
+                        class="mr-4"
+                    ></p-radioButton>
+                    <p-radioButton
+                        [value]="'mr'"
+                        label="Micro-Roaster"
+                        formControlName="customerType"
+                        (onClick)="onRadioChange()"
+                    ></p-radioButton>
                 </div>
             </div>
 
             <div class="pb-md-2 sewn-form-field w-50 btn-width">
-                <label class="fnt-16 fnt-muli ft-bold mb-md-3"
-                    >{{ 'select_customer' | translate }} <span class="star-mark">*</span>
-                </label>
+                <label> {{ 'select_customer' | translate }}<span class="star">*</span> </label>
                 <p-dropdown
                     [options]="modalDropdownList"
-                    [formControl]="horecaFormGroup.controls['customerId']"
+                    formControlName="customerId"
                     [style]="{ width: '100%' }"
                     placeholder="Select customer"
                 >
                 </p-dropdown>
-                <div
-                    class="mt-2 ml-1"
-                    *ngIf="
-                        horecaFormGroup.controls['customerId'].invalid && horecaFormGroup.controls['customerId'].touched
-                    "
-                >
-                    <small class="p-invalid pl-1" *ngIf="horecaFormGroup.controls['customerId'].errors?.required"
-                        >Please Select a Customer</small
-                    >
-                </div>
+                <small class="p-error" *ngIf="horecaFormGroup.controls.customerId.errors?.required">
+                    Please Select a Customer
+                </small>
             </div>
             <div class="mb-0">
                 <div class="col-12 px-0">
@@ -71,67 +54,42 @@
                     >
                     <div class="d-flex foot-section mb-2 mb-md-4 mt-2 mt-md-3 pb-md-1">
                         <div>
-                            <label *ngIf="!isUpdate" class="btn-trans-icon upload-icon">
+                            <label class="btn-trans-icon upload-icon">
                                 <input
-                                    class="file-input"
+                                    class="d-none"
                                     accept="application/pdf"
                                     type="file"
                                     (change)="uploadFile($event)"
                                 />
                                 {{ 'upload' | translate }}
                             </label>
-                            <span *ngIf="!isUpdate" class="value-name pl-3">{{ fileNameValue }}</span>
-                            <label *ngIf="isUpdate" class="btn-trans-icon upload-icon">
-                                <input
-                                    class="file-input"
-                                    accept="application/pdf"
-                                    type="file"
-                                    (change)="reUploadFile($event)"
-                                />
-                                {{ 'upload' | translate }}
-                            </label>
-                            <span *ngIf="isUpdate" class="value-name pl-3">{{ fileNameValue || reFileNameValue }}</span>
+                            <span class="value-name pl-3">{{ fileNameValue }}</span>
                         </div>
                         <div class="align-btn">
                             <div *ngIf="!isUpdate">
                                 <button
                                     type="button"
-                                    class="btn-raised btn-width"
+                                    class="btn-raised loading btn-width"
+                                    [class.loading]="uploadButtonValue == 'Uploading'"
+                                    [disabled]="uploadButtonValue == 'Uploading'"
                                     (click)="uploadAgreement()"
-                                    [disabled]="
-                                        uploadButtonValue === 'Uploading' ||
-                                        !(horecaFormGroup.get('customerId').valid && fileNameValue)
-                                    "
                                 >
-                                    {{ uploadButtonValue }}
-                                    <img
-                                        class="loader"
-                                        *ngIf="uploadButtonValue === 'Uploading'"
-                                        src="assets/images/orange-loader.gif"
-                                    />
+                                    <span>{{ uploadButtonValue }}</span>
                                 </button>
                             </div>
                             <div *ngIf="isUpdate">
                                 <button
                                     type="button"
-                                    class="btn-raised fnt-14 fnt-700 fnt-muli btn-width"
+                                    class="btn-raised btn-width"
+                                    [class.loading]="updateButtonValue == 'Updating'"
+                                    [disabled]="updateButtonValue == 'Updating'"
                                     (click)="updateAgreements()"
-                                    [disabled]="updateButtonValue === 'Updating' || !reFileNameValue"
                                 >
-                                    {{ updateButtonValue }}
-                                    <img
-                                        class="loader"
-                                        *ngIf="updateButtonValue === 'Uploading'"
-                                        src="assets/images/orange-loader.gif"
-                                    />
+                                    <span>{{ updateButtonValue }}</span>
                                 </button>
                             </div>
                             <div class="mobile-farm mt-3">
-                                <button
-                                    type="button"
-                                    [routerLink]="['/sales-contract']"
-                                    class="btn-stroked fnt-14 fnt-700 fnt-muli btn-width"
-                                >
+                                <button type="button" [routerLink]="['/sales-contract']" class="btn-stroked btn-width">
                                     Cancel
                                 </button>
                             </div>

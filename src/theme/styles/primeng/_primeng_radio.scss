@@ -15,7 +15,7 @@
     background-color: $primary-color;
 }
 .p-radiobutton-label {
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
     color: $muted-text-color;
     &.p-radiobutton-label-active {
         color: $general-text-color;
