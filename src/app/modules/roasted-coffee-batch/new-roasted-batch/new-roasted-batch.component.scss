@@ -173,6 +173,9 @@
 ::ng-deep .breadCrumb .p-breadcrumb ul {
     width: max-content;
 }
+::ng-deep .sewn-form-field .dropdownClass .p-inputgroup-addon {
+    padding: 5px !important;
+}
 .sewn-form-field {
     margin-bottom: 1rem !important;
 }
