@@ -12,8 +12,8 @@
                             {{point.label}}
                         </p>
 
-                        <p class="view-order cursor-pointer mb-0" *ngIf="isPrebook && index === 3; else statusInfo">View
-                            lot status
+                        <p class="view-order cursor-pointer mb-0" *ngIf="isPrebook && index === 3; else statusInfo">
+                            {{ 'view_lot_status' | translate }}
                         </p>
                         <ng-template #statusInfo>
                             <p class="mb-0 fnt-14 fnt-sm-12 text-muted font-bold d-lg-block d-md-none d-sm-block"
@@ -25,8 +25,9 @@
                         </ng-template>
 
                         <ng-container *ngIf="last && isGraded">
-                            <label class="order-datecolor mb-0" *ngIf="!isGraded" (click)="upload.click()">Upload
-                                report</label>
+                            <label class="order-datecolor mb-0" *ngIf="!isGraded" (click)="upload.click()">
+                                {{ 'upload_report' | translate }}
+                            </label>
                             <input hidden type="file" #upload />
                             <p class="order-datecolor mb-0" *ngIf="isGraded">
                                 {{ 'view_report' | translate}}
