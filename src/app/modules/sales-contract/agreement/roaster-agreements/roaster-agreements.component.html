@@ -78,7 +78,9 @@
                                     <li class="list-group-item">
                                         <a
                                             class="pointer-item"
-                                            (click)="pop.hide(); deleteAgreementId = item.id; displayDeleteModal = true"
+                                            (click)="
+                                                pop.hide(); deleteAgreementId = item.id; onOpenDeleteModal(item.id)
+                                            "
                                             >{{ globals.languageJson?.delete }}</a
                                         >
                                     </li>
@@ -126,7 +128,7 @@
                                                         class="pointer-item"
                                                         (click)="
                                                             pop.hide();
-                                                            displayDeleteModal = true;
+                                                            onOpenDeleteModal(data.id);
                                                             deleteAgreementId = data.id
                                                         "
                                                         >{{ globals.languageJson?.delete }}</a
@@ -197,15 +199,8 @@
 </p-dialog>
 
 <!-- Delete Modal -->
-<p-dialog
-    *ngIf="displayDeleteModal"
-    [(visible)]="displayDeleteModal"
-    [style]="{ width: '28.12rem' }"
-    [showHeader]="false"
-    position="center"
-    styleClass="no-padding"
-    [closable]="false"
->
+<!-- <p-dialog *ngIf="displayDeleteModal" [(visible)]="displayDeleteModal" [style]="{ width: '28.12rem' }"
+    [showHeader]="false" position="center" styleClass="no-padding" [closable]="false">
     <div class="mt-5 mb-5 text-center fnt-muli">
         <div><img src="assets/images/delete-role.svg" alt="" /></div>
         <div class="fnt-muli fnt-18 fnt-normal text-clr5d mt-3">
@@ -221,4 +216,4 @@
             </button>
         </div>
     </div>
-</p-dialog>
+</p-dialog> -->
