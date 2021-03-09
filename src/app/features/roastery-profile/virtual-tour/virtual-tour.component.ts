@@ -12,7 +12,6 @@ import { CookieService } from 'ngx-cookie-service';
     styleUrls: ['./virtual-tour.component.scss'],
 })
 export class VirtualTourComponent implements OnInit {
-    appLanguage: any;
     tourImages: any = [];
     roasterId: any;
     isLoading?: boolean;
@@ -29,7 +28,6 @@ export class VirtualTourComponent implements OnInit {
     async ngOnInit() {
         const lang = localStorage.getItem('locale') ? localStorage.getItem('locale') : 'en';
         this.globals.languageJson = await this.userService.getLanguageStrings(lang);
-        this.appLanguage = this.globals.languageJson;
         this.getFiles();
         this.roasterId = this.cookieService.get('roaster_id');
     }

@@ -185,33 +185,17 @@
     header="Edit Photo"
     [(visible)]="profilePhotoService.displayModal"
     [modal]="true"
-    [style]="{ width: '50vw' }"
     [baseZIndex]="10000"
     [draggable]="false"
     [resizable]="false"
     styleClass="no-padding"
 >
-    <p-header>
-        <span class="close-img-div">
-            <img
-                class="close-pic pull-right"
-                src="assets/images/close.svg"
-                alt="close-image"
-                (click)="closeProfileModal()"
-            />
-        </span>
-    </p-header>
     <sewn-profile-photo></sewn-profile-photo>
     <p-footer>
-        <button type="button" id="change-pic" class="previous btn" (click)="showModalDialog()">
+        <button type="button" id="change-pic" class="btn-normal fnt-14" (click)="showModalDialog()">
             {{ globals.languageJson?.change_photo }}
         </button>
-        <button
-            type="button"
-            id="save-pic"
-            class="btn btn-info login-butn"
-            (click)="profilePhotoService.saveProfilePic()"
-        >
+        <button type="button" id="save-pic" class="btn-normal fnt-14" (click)="profilePhotoService.saveProfilePic()">
             {{ globals.languageJson?.save_photo }}
         </button>
     </p-footer>
