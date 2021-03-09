@@ -32,11 +32,12 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
   selectedCustomers: number;
   modalDropdownList: any = [];
 
-  @ViewChild('dismissAddModal') dismissAddModal: ElementRef;
   @Input() isUpdate: boolean;
   @Input() selectedItemId: any;
   @Input() customerType = 'hrc';
+  @Input() isModalClose = false;
   @Output() getAgreements = new EventEmitter();
+  @Output() closeModal = new EventEmitter();
 
   constructor(
     public router: Router,
@@ -108,6 +109,9 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
     } else if (this.customerType === 'hrc') {
       this.horecaFormGroup.get('customerType').setValue('hrc');
       this.getHorecaList();
+    }
+    if (this.isModalClose) {
+      this.onUpdateModalClose();
     }
   }
 
@@ -211,7 +215,6 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
                   this.getAgreements.emit();
                   this.onUpdateModalClose();
                   this.fileNameValue = '';
-                  document.getElementById('dismissAddModal').click();
                 } else {
                   this.uploadButtonValue = 'Upload Agreement';
                   this.toastrService.error('Error while uploading Agreegement');
@@ -269,7 +272,6 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
                 this.getAgreements.emit();
                 this.onUpdateModalClose();
                 this.fileNameValue = '';
-                document.getElementById('dismissAddModal').click();
               } else {
                 this.updateButtonValue = 'Upload Agreement';
                 this.toastrService.error('Error while updating the agreement details');
@@ -312,6 +314,7 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
       this.horecaFormGroup.get('customerType').setValue('hrc');
       this.getHorecaList();
     }
+    this.closeModal.emit();
   }
 
 

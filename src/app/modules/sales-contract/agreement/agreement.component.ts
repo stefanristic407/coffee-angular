@@ -23,6 +23,7 @@ export class AgreementComponent implements OnInit {
     mainData: any;
     navItems: MenuItem[];
     selectedNav: MenuItem;
+    displayAddEditModal = false;
 
     constructor(
         public router: Router,
