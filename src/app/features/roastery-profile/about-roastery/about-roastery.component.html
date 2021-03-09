@@ -1,580 +1,568 @@
-<div class="total-loader" *ngIf="aboutActive != 1">
-    <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
-    <div>
-        <img class="loader-gif web-loader" src="/assets/images/loader.gif"/>
-        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif"/>
-    </div>
-</div>
-<div *ngIf="aboutActive == 1">
-    <div class="row form-section">
-        <div class="col-lg-12">
-            <div class="form-container">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="border-class p-4">
-                            <div class="row mt-3 no-margin">
-                                <div class="form-group col-md-6 no-margin">
-                                    <label *ngIf="roasteryProfileService.savemode" for="owner_name">
-                                        {{ globals.languageJson?.owner_name }}<span class="star">*</span>
-                                    </label>
-                                    <input
-                                            *ngIf="roasteryProfileService.savemode"
-                                            pInputText
-                                            class="w-100"
-                                            id="owner_name"
-                                            type="text"
-                                            required
-                                            name="owner_name"
-                                            [(ngModel)]="roasteryProfileService.name"
-                                            placeholder="Please enter owner name"
-                                    />
-                                    <label *ngIf="roasteryProfileService.editmode" for="owner_name" class="mob-view">
-                                        {{globals.languageJson?.owner_name}}
-                                    </label>
-                                    <p class="info-content mob-view" *ngIf="roasteryProfileService.editmode">
-                                        {{ roasteryProfileService.name }}
-                                    </p>
-                                    <div class="ownerNameError" *ngIf="ownerNameError">
-                                        {{ ownerNameError }}
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 no-margin">
-                                    <label *ngIf="roasteryProfileService.savemode" for="founded_in">
-                                        {{ globals.languageJson?.founded_in }}
-                                        <span class="star">*</span>
-                                    </label>
-                                    <input
-                                            *ngIf="roasteryProfileService.savemode"
-                                            id="founded_in"
-                                            type="text"
-                                            pInputText
-                                            class="w-100"
-                                            name="founded_in"
-                                            [(ngModel)]="roasteryProfileService.foundedIn"
-                                            placeholder="Please enter founded year"
-                                    />
-                                    <label *ngIf="roasteryProfileService.editmode" for="founded_in" class="mob-view">
-                                        {{globals.languageJson?.founded_in}}
-                                    </label>
-                                    <p class="info-content mob-view" *ngIf="roasteryProfileService.editmode">
-                                        {{ roasteryProfileService.foundedIn }}
-                                    </p>
-                                    <div class="foundedInError" *ngIf="foundedInError">
-                                        {{ foundedInError }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-md-12 mt-md-3" *ngIf="roasteryProfileService.savemode">
-                                    <label for="summary">{{ globals.languageJson?.roastery_summary }}</label>
-                                    <textarea
-                                            *ngIf="roasteryProfileService.savemode"
-                                            pInputTextarea
-                                            class="w-100"
-                                            id="summary"
-                                            name="summary"
-                                            rows="5"
-                                            [(ngModel)]="roasteryProfileService.summary"
-                                            placeholder="Tell us and to our users about who you are as a company!"
-                                    >
-                                    </textarea>
-                                </div>
-                                <div class="mb-3 col-md-12 mt-md-3 mob-border"
-                                     *ngIf="roasteryProfileService.editmode">
-                                    <label for="summary" class="mob-label">
-                                        {{globals.languageJson?.roastery_summary}}
-                                    </label>
-                                    <p class="info-content mob-info-content" *ngIf="roasteryProfileService.editmode">
-                                        {{ roasteryProfileService.summary }}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <hr class="d-none d-lg-block" *ngIf="roasteryProfileService.savemode"/>
-                            <div class="row p-3 mt-md-5 mp-3" *ngIf="roasteryProfileService.savemode">
-                                <p class="sub-header">{{ globals.languageJson?.employee_details }}</p>
-                                <p class="header-descr">{{ globals.languageJson?.give_overview_text }}.</p>
-                            </div>
-                            <div class="row mb-md-3" *ngIf="roasteryProfileService.savemode">
-                                <div class="form-group col-md-6">
-                                    <label for="employee_nos">
-                                        {{ globals.languageJson?.total_number_employees}}
-                                        <span class="star">*</span>
-                                    </label>
-                                    <input
-                                            class="w-100"
-                                            id="employee_nos"
-                                            type="number"
-                                            pInputText
-                                            required
-                                            name="employee_nos"
-                                            [(ngModel)]="roasteryProfileService.employeeNos"
-                                            placeholder="Please enter no. of employees"
-                                    />
-                                    <div class="employeeNoError" *ngIf="employeeNoError">
-                                        {{ employeeNoError }}
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="employee_avg">
-                                        {{ globals.languageJson?.average_employee_age}}
-                                        <span class="star">*</span>
-                                    </label>
-                                    <input
-                                            class="w-100"
-                                            id="employee_avg"
-                                            type="number"
-                                            pInputText
-                                            required
-                                            name="employee_avg"
-                                            [(ngModel)]="roasteryProfileService.employeeAvg"
-                                            placeholder="Please enter employee avg. age"
-                                    />
-                                    <div class="employeeAvgError" *ngIf="employeeAvgError">
-                                        {{ employeeAvgError }}
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="text-data" *ngIf="roasteryProfileService.savemode">
-                                {{ globals.languageJson?.gender_distribution }}
-                                <span class="star">*</span>
-                            </span>
-                            <div class="row" *ngIf="roasteryProfileService.savemode">
-                                <div class="form-group col-md-6">
-                                    <label for="female_num">
-                                        {{ globals.languageJson?.total_number_female_employees}}
-                                        <span class="star">*</span>
-                                    </label>
-                                    <input
-                                            class="w-100"
-                                            id="female_num"
-                                            pInputText
-                                            type="number"
-                                            required
-                                            name="female_num"
-                                            [(ngModel)]="roasteryProfileService.femaleNum"
-                                            placeholder="Please enter the number of female employees"
-                                    />
-                                    <div class="femaleNumError" *ngIf="femaleNumError">
-                                        {{ femaleNumError }}
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="male_num">
-                                        {{ globals.languageJson?.total_number_male_employees}}
-                                        <span class="star">*</span>
-                                    </label>
-                                    <input
-                                            class="w-100"
-                                            id="male_num"
-                                            pInputText
-                                            type="number"
-                                            required
-                                            name="male_num"
-                                            [(ngModel)]="roasteryProfileService.maleNum"
-                                            placeholder="Please enter the number of male employees"
-                                    />
-                                    <div class="maleNumError" *ngIf="maleNumError">
-                                        {{ maleNumError }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="d-block d-md-none mb-3">
-                                <ng-template *ngTemplateOutlet="rightSidePanel"></ng-template>
-                            </div>
-
-                            <!-- company details -->
-
-                            <hr class="d-none d-lg-block"/>
-                            <div class="row mt-md-4">
-                                <div class="col-md-9">
-                                    <p class="sub-header">Company details</p>
-                                    <p class="header-descr">Enter your VAT and customer ID for billing purposes</p>
-                                </div>
-                                <div class="col-md-3" *ngIf="roasteryProfileService.savemode">
-                                    <p class="header-descr private-pad-7">Private</p>
-                                    <p class="float-right ml-auto">
-                                        <p-inputSwitch
-                                                [(ngModel)]="roasteryProfileService.companyDetailsPublic"
-                                        ></p-inputSwitch>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="row mb-md-3">
-                                <div class="col-md-6">
-                                    <label for="vat_nos">VAT number<span class="star">*</span></label>
-                                    <input
-                                            class="w-100"
-                                            *ngIf="roasteryProfileService.savemode"
-                                            id="vat_nos"
-                                            type="text"
-                                            pInputText
-                                            required
-                                            name="vat_nos"
-                                            [(ngModel)]="roasteryProfileService.vatNos"
-                                            placeholder="Please VAT Number"
-                                    />
-                                    <p class="info-content" *ngIf="roasteryProfileService.editmode">
-                                        {{ roasteryProfileService.vatNos }}
-                                    </p>
-                                    <div class="vatNoError" *ngIf="vatNoError">
-                                        {{ vatNoError }}
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="cmpy_rid">Company registration ID<span class="star">*</span></label>
-                                    <input
-                                            class="w-100"
-                                            *ngIf="roasteryProfileService.savemode"
-                                            id="cmpy_rid"
-                                            pInputText
-                                            type="text"
-                                            required
-                                            name="cmpy_rid"
-                                            [(ngModel)]="roasteryProfileService.cmpyRid"
-                                            placeholder="Please enter employee avg. age"
-                                    />
-                                    <!-- <label *ngIf="roasteryProfileService.editmode" for="cmpy_rid" class="mob-view">Company registration ID<span class="star">*</span></label> -->
-                                    <p class="info-content" *ngIf="roasteryProfileService.editmode">
-                                        {{ roasteryProfileService.cmpyRid }}
-                                    </p>
-                                    <div class="cmpyRidError" *ngIf="cmpyRidError">
-                                        {{ cmpyRidError }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <hr class="d-none d-md-block"/>
-                            <div class="row p-3 mt-md-4 mp-3">
-                                <p class="sub-header">{{ globals.languageJson?.roastery_capabilities }}</p>
-                                <p class="header-descr" *ngIf="roasteryProfileService.savemode">
-                                    {{ globals.languageJson?.tell_us_capability_text }}.
+<div class="row">
+    <div class="col-lg-12">
+        <div class="form-container">
+            <div class="row pl-2 pr-2">
+                <div class="col-md-7 pl-2 pr-2 pb-3 d-none d-md-block d-lg-none">
+                    <ng-template *ngTemplateOutlet="rightSidePanel"></ng-template>
+                </div>
+                <div class="col-lg-8 col-12 pt-0 pl-2 pr-2">
+                    <div class="br-md-main br-4 p-lg-4 p-md-3">
+                        <div class="row br-main br-md-none br-4 mt-3 m-0 p-3 p-md-0">
+                            <div class="form-group col-6 m-0 pl-0 pr-2">
+                                <label *ngIf="roasteryProfileService.savemode" for="owner_name">
+                                    {{ 'owner_name' | translate }}<span class="star">*</span>
+                                </label>
+                                <input
+                                    *ngIf="roasteryProfileService.savemode"
+                                    pInputText
+                                    class="p-3 w-100"
+                                    id="owner_name"
+                                    type="text"
+                                    required
+                                    name="owner_name"
+                                    [(ngModel)]="roasteryProfileService.name"
+                                    placeholder="Please enter owner name"
+                                />
+                                <label *ngIf="roasteryProfileService.editmode" for="owner_name" class="d-block">
+                                    {{ 'owner_name' | translate }}
+                                </label>
+                                <p class="fnt-14 fnt-600 text-clr334" *ngIf="roasteryProfileService.editmode">
+                                    {{ roasteryProfileService.name }}
                                 </p>
-                                <p class="header-descr" *ngIf="roasteryProfileService.editmode">
-                                    {{ globals.languageJson?.our_roastery_capabilities_storage }}.
+                                <div class="ownerNameError" *ngIf="ownerNameError">
+                                    {{ ownerNameError }}
+                                </div>
+                            </div>
+                            <div class="form-group col-6 m-0 pl-2 pr-0">
+                                <label *ngIf="roasteryProfileService.savemode" for="founded_in">
+                                    {{ 'founded_in' | translate }}
+                                    <span class="star">*</span>
+                                </label>
+                                <input
+                                    *ngIf="roasteryProfileService.savemode"
+                                    id="founded_in"
+                                    type="text"
+                                    pInputText
+                                    class="w-100 p-3"
+                                    name="founded_in"
+                                    [(ngModel)]="roasteryProfileService.foundedIn"
+                                    placeholder="Please enter founded year"
+                                />
+                                <label *ngIf="roasteryProfileService.editmode" for="founded_in" class="d-block">
+                                    {{ 'founded_in' | translate }}
+                                </label>
+                                <p class="fnt-14 fnt-600 text-clr334" *ngIf="roasteryProfileService.editmode">
+                                    {{ roasteryProfileService.foundedIn }}
+                                </p>
+                                <div class="foundedInError" *ngIf="foundedInError">
+                                    {{ foundedInError }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row br-main br-md-none br-4 mt-3 mb-3 m-0 p-3 p-md-0">
+                            <div class="form-group col-md-12 mt-md-45 p-0" *ngIf="roasteryProfileService.savemode">
+                                <label for="summary">{{ 'roastery_summary' | translate }}</label>
+                                <textarea
+                                    *ngIf="roasteryProfileService.savemode"
+                                    pInputTextarea
+                                    class="w-100"
+                                    id="summary"
+                                    name="summary"
+                                    rows="5"
+                                    [(ngModel)]="roasteryProfileService.summary"
+                                    placeholder="Tell us and to our users about who you are as a company!"
+                                >
+                                </textarea>
+                            </div>
+                            <div class="mb-3 col-md-12 mt-md-3 p-0" *ngIf="roasteryProfileService.editmode">
+                                <label for="summary" class="mob-label">
+                                    {{ 'roastery_summary' | translate }}
+                                </label>
+                                <p
+                                    class="fnt-14 fnt-600 mob-fnt-14 text-clr334"
+                                    *ngIf="roasteryProfileService.editmode"
+                                >
+                                    {{ roasteryProfileService.summary }}
                                 </p>
                             </div>
+                        </div>
+                        <hr class="d-none d-lg-block" *ngIf="roasteryProfileService.savemode" />
 
-                            <div class="row" *ngIf="roasteryProfileService.savemode">
-                                <div class="form-group col-md-4 col-6">
-                                    <label for="capacity">
-                                        {{ globals.languageJson?.roaster_capacity }}
-                                        <span class="star">*</span>
-                                    </label>
-                                    <input
-                                            class="w-100"
-                                            id="capacity"
-                                            type="number"
-                                            required
-                                            pInputText
-                                            name="capacity"
-                                            [(ngModel)]="roasteryProfileService.capacity"
-                                            placeholder="Enter capacity"
-                                    />
-                                    <div class="capacityError" *ngIf="capacityError">
-                                        {{ capacityError }}
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-2 pl-0 col-6">
-                                    <label for="kgs">&nbsp;</label>
-                                    <p-dropdown
-                                            id="kgs"
-                                            name="kgs"
-                                            optionLabel="name"
-                                            optionValue="value"
-                                            [options]="kgsOptions"
-                                            [(ngModel)]="roasteryProfileService.kgs"
-                                    >
-                                    </p-dropdown>
-                                    <div class="kilogramsError" *ngIf="kilogramsError">
-                                        {{ kilogramsError }}
-                                    </div>
-                                </div>
+                        <div class="row" *ngIf="roasteryProfileService.savemode">
+                            <div class="col-12 mb-45">
+                                <p class="fnt-18 font-bold text-clr334 w-100">{{ 'employee_details' | translate }}</p>
+                                <p class="fnt-14 fnt-600 text-clr588 w-100 m-0">
+                                    {{ 'give_overview_text' | translate }}.
+                                </p>
+                            </div>
+                        </div>
 
-                                <div class="form-group col-md-6">
-                                    <label for="capabilities">
-                                        {{ globals.languageJson?.capabilities }}
-                                        <span class="star">*</span>
-                                    </label>
-                                    <input
-                                            class="w-100"
-                                            id="capabilities"
-                                            type="text"
-                                            pInputText
-                                            required
-                                            name="capabilities"
-                                            [(ngModel)]="roasteryProfileService.capabilities"
-                                            placeholder="Eg. Hand roasted, Blended, Mocha-Java"
-                                    />
-                                    <div class="capabilitiesError" *ngIf="capabilitiesError">
-                                        {{ capabilitiesError }}
-                                    </div>
+                        <div class="row mb-md-3" *ngIf="roasteryProfileService.savemode">
+                            <div class="form-group col-md-6 pr-2">
+                                <label for="employee_nos">
+                                    {{ 'total_number_employees' | translate }}
+                                    <span class="star">*</span>
+                                </label>
+                                <input
+                                    class="w-100 p-3"
+                                    id="employee_nos"
+                                    type="number"
+                                    pInputText
+                                    required
+                                    name="employee_nos"
+                                    [(ngModel)]="roasteryProfileService.employeeNos"
+                                    placeholder="Please enter no. of employees"
+                                />
+                                <div class="employeeNoError" *ngIf="employeeNoError">
+                                    {{ employeeNoError }}
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 pl-2">
+                                <label for="employee_avg">
+                                    {{ 'average_employee_age' | translate }}
+                                    <span class="star">*</span>
+                                </label>
+                                <input
+                                    class="w-100 p-3"
+                                    id="employee_avg"
+                                    type="number"
+                                    pInputText
+                                    required
+                                    name="employee_avg"
+                                    [(ngModel)]="roasteryProfileService.employeeAvg"
+                                    placeholder="Please enter employee avg. age"
+                                />
+                                <div class="employeeAvgError" *ngIf="employeeAvgError">
+                                    {{ employeeAvgError }}
+                                </div>
+                            </div>
+                        </div>
+                        <span class="fnt-14 font-bold text-clr334" *ngIf="roasteryProfileService.savemode">
+                            {{ 'gender_distribution' | translate }}
+                            <span class="star">*</span>
+                        </span>
+                        <div class="row" *ngIf="roasteryProfileService.savemode">
+                            <div class="form-group col-md-6 pr-2">
+                                <label for="female_num">
+                                    {{ 'total_number_female_employees' | translate }}
+                                    <span class="star">*</span>
+                                </label>
+                                <input
+                                    class="w-100 p-3"
+                                    id="female_num"
+                                    pInputText
+                                    type="number"
+                                    required
+                                    name="female_num"
+                                    [(ngModel)]="roasteryProfileService.femaleNum"
+                                    placeholder="Please enter the number of female employees"
+                                />
+                                <div class="femaleNumError" *ngIf="femaleNumError">
+                                    {{ femaleNumError }}
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 pl-2">
+                                <label for="male_num">
+                                    {{ 'total_number_male_employees' | translate }}
+                                    <span class="star">*</span>
+                                </label>
+                                <input
+                                    class="w-100 p-3"
+                                    id="male_num"
+                                    pInputText
+                                    type="number"
+                                    required
+                                    name="male_num"
+                                    [(ngModel)]="roasteryProfileService.maleNum"
+                                    placeholder="Please enter the number of male employees"
+                                />
+                                <div class="maleNumError" *ngIf="maleNumError">
+                                    {{ maleNumError }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-block d-md-none mb-3">
+                            <ng-template *ngTemplateOutlet="rightSidePanel"></ng-template>
+                        </div>
+
+                        <!-- company details -->
+
+                        <hr class="d-none d-lg-block" />
+                        <div class="row br-main br-md-none br-4 mt-md-4 mb-4 m-0 p-3 p-md-0">
+                            <div class="col-9 mb-3 mb-md-45 p-0">
+                                <p class="fnt-18 font-bold text-clr334 w-100">Company details</p>
+                                <p class="fnt-14 fnt-600 text-clr588 w-100 m-0">
+                                    Enter your VAT and customer ID for billing purposes
+                                </p>
+                            </div>
+                            <div class="col-3 text-right" *ngIf="roasteryProfileService.savemode">
+                                <p class="fnt-14 fnt-600 text-clr588 w-100 mb-2 text-clr588">Private</p>
+                                <p-inputSwitch
+                                    styleClass="custom-input-switch"
+                                    [(ngModel)]="roasteryProfileService.companyDetailsPublic"
+                                ></p-inputSwitch>
+                            </div>
+
+                            <div class="col-12 col-md-6 p-0 pr-md-2">
+                                <label for="vat_nos">VAT number<span class="star">*</span></label>
+                                <input
+                                    class="w-100 p-3"
+                                    *ngIf="roasteryProfileService.savemode"
+                                    id="vat_nos"
+                                    type="text"
+                                    pInputText
+                                    required
+                                    name="vat_nos"
+                                    [(ngModel)]="roasteryProfileService.vatNos"
+                                    placeholder="Please VAT Number"
+                                />
+                                <p class="fnt-14 fnt-600" *ngIf="roasteryProfileService.editmode">
+                                    {{ roasteryProfileService.vatNos }}
+                                </p>
+                                <div class="vatNoError" *ngIf="vatNoError">
+                                    {{ vatNoError }}
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 p-0 pl-md-2">
+                                <label for="cmpy_rid">Company registration ID<span class="star">*</span></label>
+                                <input
+                                    class="w-100 p-3"
+                                    *ngIf="roasteryProfileService.savemode"
+                                    id="cmpy_rid"
+                                    pInputText
+                                    type="text"
+                                    required
+                                    name="cmpy_rid"
+                                    [(ngModel)]="roasteryProfileService.cmpyRid"
+                                    placeholder="Please enter employee avg. age"
+                                />
+                                <!-- <label *ngIf="roasteryProfileService.editmode" for="cmpy_rid">Company registration ID<span class="star">*</span></label> -->
+                                <p class="fnt-14 fnt-600" *ngIf="roasteryProfileService.editmode">
+                                    {{ roasteryProfileService.cmpyRid }}
+                                </p>
+                                <div class="cmpyRidError" *ngIf="cmpyRidError">
+                                    {{ cmpyRidError }}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row mb-md-45"></div> -->
+
+                        <hr class="d-none d-md-block" />
+                        <div class="row mt-md-4 mb-4 ml-0 mr-0">
+                            <div class="col-12 pl-2 pr-2 p-md-0">
+                                <p class="fnt-18 font-bold text-clr334 w-100">
+                                    {{ 'roastery_capabilities' | translate }}
+                                </p>
+                                <p class="fnt-14 fnt-600 text-clr588 w-100 m-0" *ngIf="roasteryProfileService.savemode">
+                                    {{ 'tell_us_capability_text' | translate }}.
+                                </p>
+                                <p class="fnt-14 fnt-600 text-clr588 w-100 m-0" *ngIf="roasteryProfileService.editmode">
+                                    {{ 'our_roastery_capabilities_storage' | translate }}.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="roasteryProfileService.savemode">
+                            <div class="form-group col-md-6 pr-2 position-relative">
+                                <label for="capacity">
+                                    {{ 'roaster_capacity' | translate }}
+                                    <span class="star">*</span>
+                                </label>
+                                <input
+                                    class="w-100 p-3"
+                                    id="capacity"
+                                    type="number"
+                                    required
+                                    pInputText
+                                    name="capacity"
+                                    [(ngModel)]="roasteryProfileService.capacity"
+                                    placeholder="Enter capacity"
+                                />
+                                <p-dropdown
+                                    id="kgs"
+                                    name="kgs"
+                                    class="unit-dropdown"
+                                    optionLabel="name"
+                                    optionValue="value"
+                                    [options]="kgsOptions"
+                                    [(ngModel)]="roasteryProfileService.kgs"
+                                >
+                                </p-dropdown>
+                                <div class="capacityError" *ngIf="capacityError">
+                                    {{ capacityError }}
                                 </div>
                             </div>
 
-                            <div class="row about-web mb-5" *ngIf="roasteryProfileService.editmode">
-                                <div class="col-lg-11 border-total">
-                                    <div class="col-lg-4 capabilitiesDiv">
-                                        <label class="capacity-header">
-                                            {{globals.languageJson?.roaster_capacity}}
+                            <div class="form-group col-md-6 pl-2">
+                                <label for="capabilities">
+                                    {{ 'capabilities' | translate }}
+                                    <span class="star">*</span>
+                                </label>
+                                <input
+                                    class="w-100 p-3"
+                                    id="capabilities"
+                                    type="text"
+                                    pInputText
+                                    required
+                                    name="capabilities"
+                                    [(ngModel)]="roasteryProfileService.capabilities"
+                                    placeholder="Eg. Hand roasted, Blended, Mocha-Java"
+                                />
+                                <div class="capabilitiesError" *ngIf="capabilitiesError">
+                                    {{ capabilitiesError }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4 mb-md-5" *ngIf="roasteryProfileService.editmode">
+                            <div class="col-lg-12">
+                                <div
+                                    class="capability-container d-flex br-md-main br-4 p-2 pt-md-4 pb-md-1 pl-md-4 pr-md-4"
+                                >
+                                    <div class="capability-meta-data pr-3 pr-md-4 border-right">
+                                        <label class="fnt-600 text-clr588">
+                                            {{ 'roaster_capacity' | translate }}
                                         </label>
-                                        <p class="weight">{{ roasteryProfileService.capacity }} Kgs</p>
-                                    </div>
-                                    <div class="col-lg-11 capabilitiesdescrDiv">
-                                        <p class="capabilities_content">
-                                            {{ roasteryProfileService.capabilities }}
+                                        <p class="fnt-md-38 fnt-28 font-bold text-clr334">
+                                            {{ roasteryProfileService.capacity }} Kgs
                                         </p>
                                     </div>
+                                    <div class="capability-content font-bold pl-25 pt-md-3 pl-md-4 text-clr334">
+                                        {{ roasteryProfileService.capabilities }}
+                                    </div>
                                 </div>
                             </div>
-                            <div class="about-mobile d-flex border-capacity" *ngIf="roasteryProfileService.editmode">
-                                <div class="capacity-text">
-                                    <label class="capacity-header">{{ globals.languageJson?.roaster_capacity }}</label>
-                                    <h6 class="weight">{{ roasteryProfileService.capacity }} Kgs</h6>
-                                </div>
-                                <div class="capacity-text-1">
-                                    <h6 class="capabilities_content">{{ roasteryProfileService.capabilities }}</h6>
-                                </div>
-                            </div>
+                        </div>
 
-                            <hr/>
+                        <hr />
 
-                            <!-- Brand Profile -->
+                        <!-- Brand Profile -->
 
-                            <div class="row p-3 mt-md-5 mt-4">
-                                <p class="sub-header mt-2 mt-md-0">{{ globals.languageJson?.brands }}</p>
-                                <p class="header-descr" *ngIf="roasteryProfileService.savemode">
-                                    {{ globals.languageJson?.list_down_brands }}.
+                        <div class="row mt-md-45 mb-md-45">
+                            <div class="col-12">
+                                <p class="fnt-18 font-bold text-clr334 w-100 mt-2 mt-md-0">
+                                    {{ 'brands' | translate }}
+                                </p>
+                                <p class="fnt-14 fnt-600 text-clr588 w-100 m-0" *ngIf="roasteryProfileService.savemode">
+                                    {{ 'list_down_brands' | translate }}.
                                 </p>
                             </div>
-                            <div *ngIf="roasteryProfileService.savemode">
-                                <div class="mt-2" *ngFor="let brand of brandProfile; let i = index">
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label>
-                                                {{ globals.languageJson?.brand_name}}<span class="star">*</span>
-                                            </label>
-                                            <input
-                                                    class="w-100"
-                                                    type="text"
-                                                    required
-                                                    pInputText
-                                                    [(ngModel)]="brand.name"
-                                                    [ngModelOptions]="{ standalone: true }"
-                                                    placeholder="Please enter brand name"
-                                            />
-                                            <div class="brandNameError" *ngIf="brandNameError">
-                                                {{ brandNameError }}
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group col-md-4">
-                                            <p class="brand-mb">Brand Logo<span class="star">*</span></p>
-                                            <button pButton class="btn-raised mt-1" (click)="roasterImage.click()" label="Upload"></button>
-                                            <input
-                                                    type="file"
-                                                    class="file-inpt"
-                                                    #roasterImage
-                                                    (change)="handleRoasterFile($event, brand)"
-                                            />
-                                            <span class="view-order mt-5 cursor-pointer ml-3" *ngIf="i != 0"
-                                                  (click)="deleteRow(i)">Delete</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="form-group col-md-12 mt-3">
-                                            <label>{{ globals.languageJson?.short_description_brand}}<span class="star">*</span></label>
-                                            <textarea
-                                                    class="w-100"
-                                                    pInputTextarea
-                                                    rows="5"
-                                                    [(ngModel)]="brand.short_descr"
-                                                    [ngModelOptions]="{ standalone: true }"
-                                                    placeholder="Tell us a bit about your brand"
-                                            >
-                                            </textarea>
-                                            <div class="shortDescError" *ngIf="shortDescError">
-                                                {{ shortDescError }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="border-capacity web-border mb-3" *ngFor="let brand of brands">
-                                <div class="p-3 d-flex align-items-center">
-                                    <div class="mr-3">
-                                        <img [src]="brand.url" class="brand-image"/>
-                                    </div>
-                                    <div>
-                                        <p class="brand-title">
-                                            {{ brand.name }}
-                                        </p>
-                                        <p class="brand-content">
-                                            {{ brand.description }}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div *ngIf="!brands?.length" class="text-center p-2">
-                                    <span> No brands found.</span>
-                                </div>
-                            </div>
-
-                            <hr/>
-                            <div class="" *ngIf="roasteryProfileService.savemode">
-                                <div class="row p-3 mt-5">
-                                    <p class="sub-header">
-                                        {{ globals.languageJson?.contacts }}<span class="star">*</span>
-                                    </p>
-                                    <p class="header-descr mb-0">{{ globals.languageJson?.list_contacts }}!</p>
-                                </div>
-                                <div class="row"
-                                     *ngFor="let role of roasteryProfileService.roasterContacts; let i = index">
-                                    <div class="form-group col-md-6 mt-md-3 mb-0">
+                        </div>
+                        <div *ngIf="roasteryProfileService.savemode">
+                            <div class="mt-2" *ngFor="let brand of brandProfile; let i = index">
+                                <div class="row">
+                                    <div class="form-group col-md-6 pr-2">
+                                        <label> {{ 'brand_name' | translate }}<span class="star">*</span> </label>
                                         <input
-                                                class="w-100"
-                                                type="text"
-                                                pInputText
-                                                required
-                                                [(ngModel)]="role.name"
-                                                [ngModelOptions]="{ standalone: true }"
+                                            class="w-100 p-3"
+                                            type="text"
+                                            required
+                                            pInputText
+                                            [(ngModel)]="brand.name"
+                                            [ngModelOptions]="{ standalone: true }"
+                                            placeholder="Please enter brand name"
                                         />
+                                        <div class="brandNameError" *ngIf="brandNameError">
+                                            {{ brandNameError }}
+                                        </div>
                                     </div>
-                                    <div class="add-partner mt-3 col-md-6" *ngIf="roasteryProfileService.showDelete">
-                                        <span class="ml-2 fnt-muli fnt-700 fnt-14" (click)="removeContact(role.id)">Remove Contact</span>
-                                    </div>
-                                </div>
-                                <div class="row mt-3" *ngIf="assignRow">
+
                                     <div class="form-group col-md-6">
-                                        <label for="emp_name">{{ globals.languageJson?.select_employee }}</label>
-                                        <p-dropdown
-                                                class="w-100"
-                                                id="emp_name"
-                                                name="emp_name"
-                                                [options]="roasterUsersOptions"
-                                                optionLabel="name"
-                                                optionValue="'value"
-                                                [(ngModel)]="roasteryProfileService.empName"
-                                        ></p-dropdown>
-                                    </div>
-                                    <div class="col-12 col-md-6 mt-4 pt-1">
+                                        <p class="brand-mb">Brand Logo<span class="star">*</span></p>
                                         <button
-                                                type="submit"
-                                                pButton
-                                                class="btn-raised mr-2"
-                                                [label]="assignButtonValue"
-                                                [disabled]="assignButtonValue === 'Adding'"
-                                                (click)="addContact()"
-                                        ></button>
-                                        <button
-                                                pButton
-                                                type="submit"
-                                                class="btn-stroked"
-                                                (click)="cancelAssign()"
-                                                [label]="globals.languageJson?.cancel"
-                                        ></button>
+                                            pButton
+                                            class="btn-file-upload mt-25"
+                                            (click)="roasterImage.click()"
+                                            label="{{ 'upload' | translate }}"
+                                        >
+                                            <img
+                                                class="mr-2"
+                                                src="assets/images/upload-green-icon.svg"
+                                                alt="upload icon"
+                                            />
+                                        </button>
+                                        <input
+                                            type="file"
+                                            class="file-inpt"
+                                            hidden
+                                            #roasterImage
+                                            (change)="handleRoasterFile($event, brand)"
+                                        />
+                                        <span
+                                            class="view-order mt-5 cursor-pointer ml-3"
+                                            *ngIf="i != 0"
+                                            (click)="deleteRow(i)"
+                                            >Delete</span
+                                        >
                                     </div>
                                 </div>
-                                <div class="add-brand-div mt-3">
-                                    <a class="brand-tag" (click)="showContact()">
-                                        <img class="add-field" src="assets/images/add-field.svg"/>
-                                        <span class="add-text">{{ globals.languageJson?.add_another_contact }}</span>
+
+                                <div class="row">
+                                    <div class="form-group col-md-12 mt-3">
+                                        <label
+                                            >{{ 'short_description_brand' | translate
+                                            }}<span class="star">*</span></label
+                                        >
+                                        <textarea
+                                            class="w-100"
+                                            pInputTextarea
+                                            rows="5"
+                                            [(ngModel)]="brand.short_descr"
+                                            [ngModelOptions]="{ standalone: true }"
+                                            placeholder="Tell us a bit about your brand"
+                                        >
+                                        </textarea>
+                                        <div class="shortDescError" *ngIf="shortDescError">
+                                            {{ shortDescError }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 mb-45">
+                                        <a class="add-link" href="javascript:void(0); ">
+                                            <span class="fnt-14 font-bold add-text ml-4">{{
+                                                'add_another_contact' | translate
+                                            }}</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="br-md-main mb-3" *ngFor="let brand of brands">
+                            <div class="pl-3 p-md-4 d-flex align-items-center">
+                                <div class="mr-3">
+                                    <img [src]="brand.url" class="brand-image" />
+                                </div>
+                                <div class="brand-meta-container">
+                                    <p class="fnt-16 font-bold text-clr334 mb-2">
+                                        {{ brand.name }}
+                                    </p>
+                                    <p class="brand-content">
+                                        {{ brand.description }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div *ngIf="!brands?.length" class="text-center p-2">
+                                <span> No brands found.</span>
+                            </div>
+                        </div>
+
+                        <hr class="mt-45" />
+                        <div class="" *ngIf="roasteryProfileService.savemode">
+                            <div class="row mt-45 mb-md-45 mb-0">
+                                <div class="col-12">
+                                    <p class="fnt-18 font-bold text-clr334 w-100">
+                                        {{ 'contacts' | translate }}<span class="star">*</span>
+                                    </p>
+                                    <p class="fnt-14 fnt-600 text-clr588 w-100 m-0 mb-0">
+                                        {{ 'list_contacts' | translate }}!
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row" *ngFor="let role of roasteryProfileService.roasterContacts; let i = index">
+                                <div class="form-group col-md-6 mt-md-3 mb-0">
+                                    <input
+                                        class="w-100 p-3"
+                                        type="text"
+                                        pInputText
+                                        required
+                                        [(ngModel)]="role.name"
+                                        [ngModelOptions]="{ standalone: true }"
+                                    />
+                                </div>
+                                <div class="add-partner mt-3 col-md-6" *ngIf="roasteryProfileService.showDelete">
+                                    <a
+                                        class="ml-2 custom-link"
+                                        href="javascript:void(0);"
+                                        (click)="removeContact(role.id)"
+                                    >
+                                        {{ 'remove' | translate }} {{ 'contact' | translate }}
                                     </a>
                                 </div>
                             </div>
+                            <div class="row mt-3" *ngIf="assignRow">
+                                <div class="form-group col-md-6">
+                                    <label for="emp_name">{{ 'select_employee' | translate }}</label>
+                                    <p-dropdown
+                                        class="w-100"
+                                        id="emp_name"
+                                        name="emp_name"
+                                        [options]="roasterUsersOptions"
+                                        optionLabel="name"
+                                        optionValue="'value"
+                                        [(ngModel)]="roasteryProfileService.empName"
+                                    ></p-dropdown>
+                                </div>
+                                <div class="col-12 col-md-6 mt-4 pt-1">
+                                    <button
+                                        type="submit"
+                                        pButton
+                                        class="btn-normal mr-2"
+                                        [label]="assignButtonValue"
+                                        [disabled]="assignButtonValue === 'Adding'"
+                                        (click)="addContact()"
+                                    ></button>
+                                    <button
+                                        pButton
+                                        type="submit"
+                                        class="cancel-butn"
+                                        (click)="cancelAssign()"
+                                        [label]="'cancel' | translate"
+                                    ></button>
+                                </div>
+                            </div>
+                            <div class="add-brand-div mt-3 mb-3">
+                                <a class="brand-tag add-link" (click)="showContact()">
+                                    <span class="add-text ml-4">{{ 'add_another_contact' | translate }}</span>
+                                </a>
+                            </div>
+                        </div>
 
-                            <!-- </div> -->
-
-                            <div class="mob-view" *ngIf="roasteryProfileService.editmode">
-                                <div class="employer mt-4 d-none d-md-block">
-<!--                                    <h2>{{ globals.languageJson?.contacts }}</h2>-->
-                                    <p class="sub-header">{{ globals.languageJson?.contacts }}</p>
-                                    <p class="header-descr">
-                                        {{ globals.languageJson?.list_down_top_employees }}
-                                    </p>
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2"
-                                             *ngFor="let contact of roasteryProfileService.roasterContacts">
-                                            <div class="employ-profile">
-                                                <div class="p-gal">
-                                                    <img [src]="contact.profile_image_url || 'assets/images/profile.svg'"/>
-                                                </div>
-                                                <div class="profile-des">
-                                                    <h4>{{ contact.name | titlecase }}</h4>
-                                                    <h6>{{ contact.roles[0] || '-' }}</h6>
-                                                </div>
-                                                <div class="msg-chat mt-2">
-                                                    <img src="assets/images/message-icon.svg" class="d-inline-block"/>
-                                                    <p class="pl-1 d-inline-block cursor-pointer">
-                                                        {{ globals.languageJson?.message }}
-                                                    </p>
-                                                </div>
+                        <div class="d-block" *ngIf="roasteryProfileService.editmode">
+                            <div class="employer mt-4 d-none d-md-block">
+                                <p class="fnt-18 font-bold text-clr334 w-100">{{ 'contacts' | translate }}</p>
+                                <p class="fnt-14 fnt-600 text-clr588 w-100 m-0 mb-4">
+                                    {{ 'list_down_top_employees' | translate }}
+                                </p>
+                                <div class="row">
+                                    <div
+                                        class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2"
+                                        *ngFor="let contact of roasteryProfileService.roasterContacts"
+                                    >
+                                        <div class="employ-profile">
+                                            <div class="p-gal">
+                                                <img [src]="contact.profile_image_url || 'assets/images/profile.svg'" />
+                                            </div>
+                                            <div class="profile-des">
+                                                <h4>{{ contact.name | titlecase }}</h4>
+                                                <h6>{{ contact.roles[0] || '-' }}</h6>
+                                            </div>
+                                            <div class="mt-2">
+                                                <button
+                                                    pButton
+                                                    class="btn-file-upload mt-25"
+                                                    label="{{ 'message' | translate }}"
+                                                >
+                                                    <img
+                                                        class="mr-2"
+                                                        src="assets/images/message-icon.svg"
+                                                        alt="message icon"
+                                                    />
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="about-mobile" *ngIf="roasteryProfileService.editmode">
-                                <p class="sub-header mt-2 mt-md-0">{{ globals.languageJson?.contacts }}</p>
-                                <div class="row mt-3 mx-0 border-div">
-                                    <div class="p-0">
-                                        <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"/>
-                                    </div>
-                                    <div class="pull-left">
-                                        <ul class="details-list p-0 ml-3">
-                                            <li class="contact-name">Hannah morris</li>
-                                            <li class="contact-number">Cupping manager</li>
-                                            <li class="contact-number">hannahmorris@royalcoffeerosters</li>
-                                            <li class="contact-name">+46 793 313 322</li>
-                                        </ul>
-                                    </div>
-                                    <div class="pull-right ml-auto">
-                                        <img class="message-icon" src="assets/images/add-user.svg" alt="Message"/>
-                                    </div>
-                                </div>
-                                <div class="row mt-3 mx-0 border-div">
-                                    <div class="p-0">
-                                        <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"/>
-                                    </div>
-                                    <div class="pull-left">
-                                        <ul class="details-list p-0 ml-3">
-                                            <li class="contact-name">Molly Jennings</li>
-                                            <li class="contact-number">Cupping manager</li>
-                                            <li class="contact-number">mollyjkennings@royalcoffeerosters</li>
-                                            <li class="contact-name">+46 793 313 322</li>
-                                        </ul>
-                                    </div>
-                                    <div class="pull-right ml-auto">
-                                        <img class="message-icon" src="assets/images/add-user.svg" alt="Message"/>
-                                    </div>
-                                </div>
-                                <div class="row mt-3 mx-0 border-div">
-                                    <div class="p-0">
-                                        <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"/>
-                                    </div>
-                                    <div class="pull-left">
-                                        <ul class="details-list p-0 ml-3">
-                                            <li class="contact-name">Johanna ortiz</li>
-                                            <li class="contact-number">Cupping manager</li>
-                                            <li class="contact-number">johannaortiz@royalcoffeerosters</li>
-                                            <li class="contact-name">+46 793 313 322</li>
-                                        </ul>
-                                    </div>
-                                    <div class="pull-right ml-auto">
-                                        <img class="message-icon" src="assets/images/add-user.svg" alt="Message"/>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="d-none d-md-block">
-                            <ng-template *ngTemplateOutlet="rightSidePanel"></ng-template>
-                        </div>
-                    </div>
+                </div>
+                <div class="col-lg-4 col-12 pt-0 pl-2 pr-2 d-none d-lg-block">
+                    <ng-template *ngTemplateOutlet="rightSidePanel"></ng-template>
                 </div>
             </div>
         </div>
@@ -582,89 +570,105 @@
 </div>
 
 <ng-template #rightSidePanel>
-    <div class="border-sub-secondary p-0"
-         *ngIf="this.globals.checkItem('certificate-list') ||this.globals.checkItem('certificate-management')">
-        <div class="header m-1">{{ globals.languageJson?.awards_and_certificates }}</div>
-        <div class="row mt-3 border-div certificate-hover"
-             *ngFor="let certificate of certificatesArray">
-            <div class="p-0">
-                <img class="img-estate" src="assets/images/certificate.svg" alt="User"/>
-            </div>
-            <div class="pull-left">
-                <ul class="details-list p-0 ml-3">
-                    <li class="estate-name">{{ certificate.name }}</li>
-                    <li class="estate-number pt-1">
-                        {{ certificate.year }}
-                    </li>
-                </ul>
-            </div>
-            <div class="pull-right ml-auto">
-                <a class="menu-arrow" [popover]="listTemplate" placement="bottom"
-                   [outsideClick]="true" #pop1="bs-popover">
-                    <img class="message-icon" src="assets/images/ellipses.png" alt="Message"/>
-                </a>
-                <ng-template #listTemplate id="{{ certificate.id }}">
-                    <div id="popover-mobile-content">
-                        <ul class="list-data custom-popover">
-                            <li class="list-item"
-                                *ngIf="this.globals.checkItem('certificate-management') &&this.globals.permissions['certificate-management'].manage">
-                                <a class="pointer-item"
-                                   (click)="editCertificate($event, certificate); pop1.hide()">
-                                    {{ globals.languageJson?.edit }}
-                                </a>
-                            </li>
-                            <li class="list-item"
-                                *ngIf="this.globals.checkItem('certificate-management') &&this.globals.permissions['certificate-management'].manage                                                    ">
-                                <a class="pointer-item"
-                                   (click)="deleteCertificate(certificate.id); pop1.hide()">{{ globals.languageJson?.delete }}</a>
-                            </li>
-                        </ul>
+    <div
+        class="br-main br-4 p-0"
+        *ngIf="this.globals.checkItem('certificate-list') || this.globals.checkItem('certificate-management')"
+    >
+        <div class="header fnt-18 font-bold text-clr334 m-1">{{ 'awards_and_certificates' | translate }}</div>
+        <div class="row mt-3 m-0" *ngFor="let certificate of certificatesArray">
+            <div class="col-12">
+                <div class="w-100 certification-item-container border-div d-flex justify-content-between">
+                    <div class="certification-item-metadata d-flex">
+                        <img class="img-estate" src="assets/images/certificate.svg" alt="User" />
+                        <div class="certification-description ml-2">
+                            <ul>
+                                <li class="fnt-14-normal fnt-600 text-clr334">{{ certificate.name }}</li>
+                                <li class="fnt-14-normal fnt-600 text-clr588">
+                                    {{ certificate.year }}
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </ng-template>
+                    <div class="certificaion-action d-flex">
+                        <a
+                            class="menu-arrow"
+                            [popover]="listTemplate"
+                            placement="bottom"
+                            [outsideClick]="true"
+                            #pop1="bs-popover"
+                        >
+                            <img class="message-icon" src="assets/images/ellipses.png" alt="Message" />
+                        </a>
+                        <ng-template #listTemplate id="{{ certificate.id }}">
+                            <div id="popover-mobile-content">
+                                <ul class="list-data custom-popover">
+                                    <li
+                                        class="list-item"
+                                        *ngIf="
+                                            this.globals.checkItem('certificate-management') &&
+                                            this.globals.permissions['certificate-management'].manage
+                                        "
+                                    >
+                                        <a
+                                            class="pointer-item"
+                                            (click)="editCertificate($event, certificate); pop1.hide()"
+                                        >
+                                            {{ 'edit' | translate }}
+                                        </a>
+                                    </li>
+                                    <li
+                                        class="list-item"
+                                        *ngIf="
+                                            this.globals.checkItem('certificate-management') &&
+                                            this.globals.permissions['certificate-management'].manage
+                                        "
+                                    >
+                                        <a
+                                            class="pointer-item"
+                                            (click)="deleteCertificate(certificate.id); pop1.hide()"
+                                            >{{ 'delete' | translate }}</a
+                                        >
+                                    </li>
+                                </ul>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="add-brand-div p-4"
-             *ngIf="this.globals.checkItem('certificate-management') &&this.globals.permissions['certificate-management'].manage">
-            <a class="brand-tag" routerLink="/features/license">
-                <img class="add-field" src="assets/images/add-field.svg"/>
-                <span class="add-text">{{ globals.languageJson?.add_another_certificate }}</span>
+        <div
+            class="add-brand-div p-4"
+            *ngIf="
+                this.globals.checkItem('certificate-management') &&
+                this.globals.permissions['certificate-management'].manage
+            "
+        >
+            <a class="brand-tag add-link" routerLink="/features/license">
+                <span class="add-text ml-4">{{ 'add_another_certificate' | translate }}</span>
             </a>
         </div>
     </div>
-    <div class="border-sub-secondary mt-3 p-0">
-        <div class="header m-1">{{ globals.languageJson?.employee_details }}</div>
-        <div class="row">
-            <div class="form-group col-md-6 emp_count_div px-4 py-2 col-6 mb-0">
-                <p class="emp_count mb-0">{{ roasteryProfileService.employeeNos }}</p>
-                <label class="emp_text">{{ globals.languageJson?.total_employees }}</label>
-            </div>
-
-            <div class="form-group col-md-6 avg_count_div px-4 py-2 col-6 mb-0">
-                <p class="avg_count mb-0">{{ roasteryProfileService.employeeAvg }}</p>
-                <label class="emp_text">{{ globals.languageJson?.average_age }}</label>
+    <div class="br-main br-4 mt-3 p-0 d-none d-lg-block">
+        <div class="header fnt-18 font-bold text-clr334 m-1">{{ 'employee_details' | translate }}</div>
+        <div class="w-100">
+            <div class="d-flex employee-details-container pt-45 pb-45 pl-4 pr-4">
+                <div class="w-50 border-right">
+                    <p class="m-0 fnt-32 font-bold text-clr334">{{ roasteryProfileService.employeeNos }}</p>
+                    <p class="mt-2 mb-0 fnt-18 font-600 text-clr588">{{ 'total_employees' | translate }}</p>
+                </div>
+                <div class="w-50 pl-45">
+                    <p class="m-0 fnt-32 font-bold text-clr334">{{ roasteryProfileService.employeeAvg }}</p>
+                    <p class="mt-2 mb-0 fnt-18 font-600 text-clr588">{{ 'average_age' | translate }}</p>
+                </div>
             </div>
         </div>
-        <div class="row mt-3">
-            <div class="col-md-12 chart-div">
-                <div class="oval text-center mx-auto" *ngIf="this.roasteryProfileService.maleNum == null && this.roasteryProfileService.femaleNum == null">
-                    <p class="note">{{ globals.languageJson?.no_data_display }}</p>
-                </div>
-                <div class="text-center mx-auto pie-chart-div">
-                    <ngx-charts-pie-chart
-                            [view]="view"
-                            [scheme]="colorScheme"
-                            [results]="roasteryProfileService.single"
-                            [gradient]="gradient"
-                            [legend]="showLegend"
-                            [legendPosition]="legendPosition"
-                            [labels]="showLabels"
-                            [doughnut]="isDoughnut"
-                            (select)="onSelect($event)"
-                            (activate)="onActivate($event)"
-                            (deactivate)="onDeactivate($event)"
-                    >
-                    </ngx-charts-pie-chart>
-                </div>
+
+        <div class="w-100">
+            <div *ngIf="this.roasteryProfileService.maleNum == null && this.roasteryProfileService.femaleNum == null">
+                <p class="note">{{ 'no_data_display' | translate }}</p>
+            </div>
+            <div class="custom-chart-container">
+                <app-pie-area-chart [results]="roasteryProfileService.single"></app-pie-area-chart>
             </div>
         </div>
     </div>

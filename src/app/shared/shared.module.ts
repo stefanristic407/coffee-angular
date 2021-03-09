@@ -100,6 +100,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { SewnDirectMessageComponent } from './components/chat/sewn-direct-message/sewn-direct-message.component';
 import { SewnOrderChatComponent } from './components/chat/sewn-order-chat/sewn-order-chat.component';
 import { SearchFilterPipe } from './components/chat/sewn-direct-message/search-filter.pipe';
+import { PieAreaChartComponent } from './components/pie-area-chart/pie-area-chart.component';
 
 // #region third libs
 const THIRDMODULES = [
@@ -182,6 +183,7 @@ const COMPONENTS = [
     ReviewsComponent,
     SewnDirectMessageComponent,
     SewnOrderChatComponent,
+    PieAreaChartComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 const DIRECTIVES = [WordLimitDirective, RatingDirective, LifecyclehookDirective];

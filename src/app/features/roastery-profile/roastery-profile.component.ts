@@ -12,7 +12,6 @@ import { GlobalsService } from '@services';
 })
 export class RoasteryProfileComponent implements OnInit {
     @ViewChild('image') image;
-    appLanguage?: any;
     roasteryActive: any = 0;
     menuItems: any[];
     items = [{ label: 'Home', routerLink: '/' }, { label: 'Roaster Profile' }];
@@ -30,7 +29,6 @@ export class RoasteryProfileComponent implements OnInit {
     }
 
     language() {
-        this.appLanguage = this.globals.languageJson;
         this.roasteryActive++;
         this.menuItems = [
             {
