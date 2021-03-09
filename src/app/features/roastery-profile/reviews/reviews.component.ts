@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { GlobalsService } from '@services';
+import { GlobalsService, UserserviceService } from '@services';
 import { RoasterserviceService } from '@services';
 
 @Component({
@@ -17,11 +17,13 @@ export class ReviewsComponent implements OnInit {
     roasterId: any;
     reviews: any = [];
     isLoading?: boolean;
-
+    summary: any;
+    average: any;
     constructor(
         public globals: GlobalsService,
         private roasterService: RoasterserviceService,
         private cookieService: CookieService,
+        public userSrv: UserserviceService,
     ) {
         this.termStatus = 'Most relevant';
     }
@@ -38,6 +40,13 @@ export class ReviewsComponent implements OnInit {
             if (res.success) {
                 this.isLoading = false;
                 this.reviews = res.result ? res.result : [];
+            }
+        });
+
+        this.userSrv.getReviewsSummary(this.roasterId).subscribe((res: any) => {
+            if (res.success) {
+                this.summary = res.result.summary;
+                this.average = res.result.average;
             }
         });
     }
