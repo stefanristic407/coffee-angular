@@ -30,7 +30,7 @@
         font-weight: bold;
         color: #232334;
         text-transform: capitalize;
-        margin-bottom: 8px;
+        margin-bottom: 6px;
     }
 }
 .estate-focus {
@@ -90,7 +90,6 @@
         font-size: 14px;
         font-weight: bold;
         color: #80460b;
-        text-decoration: underline;
     }
 }
 ul {
@@ -164,7 +163,7 @@ ul {
         padding: 0px;
     }
     .estate-focus ul {
-        padding: 0px;
+        padding: 2px;
     }
 }
 @media (min-width: 768px) and (max-width: 1199px) {

@@ -2,7 +2,7 @@
 import { debounce, first, filter } from 'rxjs/operators';
 import { Subscription, fromEvent, interval, Subject } from 'rxjs';
 import { Component, OnInit, OnDestroy, AfterViewInit, Renderer2, ElementRef } from '@angular/core';
-import { UserserviceService, SocketService, ChatHandlerService, ChatUtil, GlobalsService } from '@services';
+import { UserserviceService, SocketService, ChatHandlerService, ChatUtilService, GlobalsService } from '@services';
 
 import {
     WSResponse,
@@ -29,7 +29,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     private SM: { [SubscriptionName: string]: Subscription } = {}; // Subscrition MAP object
     public threadList: ThreadListItem[] = [];
-    private TIMESTAMP_MAP: { [K in ChatMessageType]: string } = {} as { [K in ChatMessageType]: string };
     private userStatusTimerRef = 0;
     private unReadTimerRef = 0;
     public usersList: UserListItem[] = [];
@@ -73,7 +72,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         private socket: SocketService,
         public chatService: ChatHandlerService,
         private userService: UserserviceService,
-        private chatUtil: ChatUtil,
+        private chatUtil: ChatUtilService,
     ) {}
 
     ngOnInit(): void {
@@ -96,39 +95,27 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         if (this.SM['WSSubscription'] && this.SM['WSSubscription'].unsubscribe) {
             this.SM['WSSubscription'].unsubscribe();
         }
-        this.SM['WSSubscription'] = this.socket.chatReceive.subscribe((WSmsg: WSResponse<unknown>) => {
+        this.SM['WSSubscription'] = this.socket.directMessageReceive.subscribe((WSmsg: WSResponse<unknown>) => {
             if (WSmsg.type === ChatMessageType.threads) {
-                if (this.TIMESTAMP_MAP[WSmsg.type] === WSmsg.timestamp) {
-                    this.handleThreadsResponse(WSmsg as WSResponse<ThreadListItem[]>);
-                }
+                this.handleThreadsResponse(WSmsg as WSResponse<ThreadListItem[]>);
             } else if (WSmsg.type === ChatMessageType.unread) {
-                if (this.TIMESTAMP_MAP[WSmsg.type] === WSmsg.timestamp) {
-                    this.handleUnReadResponse(WSmsg as WSResponse<null>);
-                }
+                this.handleUnReadResponse(WSmsg as WSResponse<null>);
             } else if (WSmsg.type === ChatMessageType.users) {
-                if (this.TIMESTAMP_MAP[WSmsg.type] === WSmsg.timestamp) {
-                    this.handleUserDetailResponse(WSmsg as WSResponse<ResponseUserStatus[]>);
-                }
+                this.handleUserDetailResponse(WSmsg as WSResponse<ResponseUserStatus[]>);
             } else if (WSmsg.type === ChatMessageType.history) {
-                if (this.TIMESTAMP_MAP[WSmsg.type] === WSmsg.timestamp) {
-                    this.handleThreadHistory(WSmsg as WSResponse<ChatMessage[]>);
-                }
+                this.handleThreadHistory(WSmsg as WSResponse<ChatMessage[]>);
             } else if (WSmsg.type === ChatMessageType.message) {
                 this.handleIncomingMessages(WSmsg as WSResponse<IncomingChatMessage>);
             } else if (WSmsg.type === ChatMessageType.getCreate) {
-                if (this.TIMESTAMP_MAP[WSmsg.type] === WSmsg.timestamp) {
-                    this.handleFindThreadRequest(WSmsg as WSResponse<ThreadListItem[]>);
-                }
+                this.handleFindThreadRequest(WSmsg as WSResponse<ThreadListItem[]>);
             } else if (WSmsg.type === ChatMessageType.thread) {
-                if (this.TIMESTAMP_MAP[WSmsg.type] === WSmsg.timestamp) {
-                    this.handleRequestedThreadDetails(WSmsg as WSResponse<ThreadListItem>);
-                }
+                this.handleRequestedThreadDetails(WSmsg as WSResponse<ThreadListItem>);
             }
         });
 
         this.SM['WSAuthentication'] = this.socket.authenticate().subscribe((res) => {
             if (res === 'SUCCESS') {
-                this.socket.chatSent.next(this.getCurrentThreadPayload());
+                this.socket.directMessageSent.next(this.getCurrentThreadPayload());
                 this.updateUserStatus();
                 this.updateUnRead();
             }
@@ -153,7 +140,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             });
         });
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[ChatMessageType.users] = timestamp;
         return {
             timestamp,
             type: ChatMessageType.users,
@@ -165,7 +151,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     getCurrentThreadPayload() {
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[ChatMessageType.threads] = timestamp;
         return {
             timestamp,
             type: ChatMessageType.threads,
@@ -181,7 +166,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     getUnReadPayload() {
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[ChatMessageType.unread] = timestamp;
         return {
             timestamp,
             type: ChatMessageType.unread,
@@ -190,7 +174,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     getMessagePayload(message: string) {
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[ChatMessageType.message] = timestamp;
         return {
             type: ChatMessageType.message,
             timestamp,
@@ -204,7 +187,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     getHistoryPayload(thread: ThreadListItem) {
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[ChatMessageType.history] = timestamp;
         return {
             timestamp,
             type: ChatMessageType.history,
@@ -220,9 +202,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     findThread(payload: OpenChatThread) {
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[ChatMessageType.getCreate] = timestamp;
         console.log('Open chat request payload', payload);
-        this.socket.chatSent.next({
+        this.socket.directMessageSent.next({
             timestamp,
             type: ChatMessageType.getCreate,
             data: payload,
@@ -231,8 +212,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     threadRequestByNewMessage(threadId: number) {
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[ChatMessageType.thread] = timestamp;
-        this.socket.chatSent.next({
+        this.socket.directMessageSent.next({
             timestamp,
             type: ChatMessageType.thread,
             data: {
@@ -477,7 +457,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     updateUserStatus = () => {
         // Fetch last_seen and online
         if (this.threadList.length > 0) {
-            this.socket.chatSent.next(this.getMultipleUserDetailsPayload());
+            this.socket.directMessageSent.next(this.getMultipleUserDetailsPayload());
         }
         if (this.userStatusTimerRef) {
             clearTimeout(this.userStatusTimerRef);
@@ -487,7 +467,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     updateUnRead = () => {
         // Fetch unread
         if (this.threadList.length > 0) {
-            this.socket.chatSent.next(this.getUnReadPayload());
+            this.socket.directMessageSent.next(this.getUnReadPayload());
         }
         if (this.unReadTimerRef) {
             clearTimeout(this.unReadTimerRef);
@@ -676,7 +656,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.offensiveTimeout = window.setTimeout(this.offensiveTimeoutHandler, 3500);
                 msg = msg.replace(badwordsRegExp, '****');
             }
-            this.socket.chatSent.next(this.getMessagePayload(msg));
+            this.socket.directMessageSent.next(this.getMessagePayload(msg));
             this.chatUtil.playNotificationSound('OUTGOING');
             this.messageInput = '';
             this.chatBodyHeightAdjust();
@@ -799,8 +779,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     openThreadWithUser(item: UserListItem | RecentUserListItem) {
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[ChatMessageType.getCreate] = timestamp;
-        this.socket.chatSent.next({
+        this.socket.directMessageSent.next({
             timestamp,
             type: ChatMessageType.getCreate,
             data: {
@@ -819,8 +798,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     sendReadToken(lastMessageId: number) {
         const timestamp = this.chatUtil.getTimeStamp();
-        this.TIMESTAMP_MAP[ChatMessageType.read] = timestamp;
-        this.socket.chatSent.next({
+        this.socket.directMessageSent.next({
             type: ChatMessageType.read,
             timestamp,
             data: {
@@ -837,7 +815,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     openThreadChat(thread: ThreadListItem) {
         this.messageList = [];
         this.openedThread = thread;
-        this.socket.chatSent.next(this.getHistoryPayload(thread));
+        this.socket.directMessageSent.next(this.getHistoryPayload(thread));
         if (this.SM['lastRender'] && this.SM['lastRender'].unsubscribe) {
             this.SM['lastRender'].unsubscribe();
         }

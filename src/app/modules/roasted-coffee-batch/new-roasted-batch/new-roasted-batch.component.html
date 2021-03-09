@@ -50,7 +50,9 @@
                         </div>
                         <div class="col-12 d-block d-sm-block d-md-none mt-4" *ngIf="ordId != 'select the order'">
                             <div class="order-details-clr">
-                                <p class="primary_txt pt-2 pt-md-4">{{ globals.languageJson?.order_details }}</p>
+                                <label class="primary_txt pt-2 pt-md-4">{{
+                                    globals.languageJson?.order_details
+                                }}</label>
                                 <div class="d-flex justify-content-between pb-1">
                                     <div class="d-flex">
                                         <div class="p-0">
@@ -393,10 +395,10 @@
             </div>
 
             <div
-                class="col-12 col-md-7 col-lg-12 col-xl-4 d-none d-sm-none d-md-block d-lg-block d-xl-block"
+                class="col-12 col-md-7 col-lg-12 col-xl-4 orderDiv d-none d-sm-none d-md-block d-lg-block d-xl-block"
                 *ngIf="ordId != 'select the order'"
             >
-                <p class="primary_txt pt-2 pt-md-4">{{ globals.languageJson?.order_details }}</p>
+                <label class="primary_txt mb-3">{{ globals.languageJson?.order_details }}</label>
                 <div class="order-details-clr">
                     <div class="d-flex justify-content-between pb-1">
                         <div class="d-flex">
@@ -485,7 +487,7 @@
                     <button type="submit" class="btn btn-raised ml-3" (click)="onSave()">Save</button>
                 </div>
             </div>
-            <div class="col-12 row no-gutters mt-2 d-block d-sm-block d-md-none">
+            <div class="col-12 row no-gutters d-block d-sm-block d-md-none">
                 <div class="col-12 col-sm-12">
                     <button type="submit" class="btn btn-raised w-100" (click)="onSave()">Save</button>
                 </div>

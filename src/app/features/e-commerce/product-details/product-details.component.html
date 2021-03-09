@@ -6,7 +6,7 @@
     </div>
     <div [formGroup]="productForm" (ngSubmit)="onSave()" novalidate>
         <div class="row gutter-16 gutter-lg-24 productDiv">
-            <div class="col-12 col-sm-12 col-md-6 d-flex">
+            <div class="col-12 col-sm-12 col-md-6 d-flex align-items-center">
                 <span class="fnt-16 fnt-md-18 fnt-700 fnt-muli black w-100" [ngClass]="{ productLineDiv: productID }"
                     >Add a new product</span
                 >
@@ -84,7 +84,7 @@
             </div>
         </div>
         <div class="row gutter-16 gutter-lg-24 mt-2">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 sewn-form-field w-100">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 sewn-form-field w-100 describePadding">
                 <div>
                     <label>Product Description<span class="star">*</span></label>
                     <label class="float-right limitFont">{{ productDescriptionLength }}/50 words</label>
@@ -102,11 +102,11 @@
             </div>
         </div>
         <div class="divSeperator"></div>
-        <div class="row gutter-16 gutter-lg-24 no-gutters mb-4">
-            <div class="col-12">
+        <div class="row no-gutters mb-4">
+            <div class="col-12 mb-3">
                 <span class="primary_txt fnt-14 fnt-md-16">Variants</span>
             </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 mt-3 p-lg-2 p-sm-0">
+            <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 d-flex align-items-center">
                 <p-checkbox
                     formControlName="is_variants_included"
                     binary="true"
@@ -116,12 +116,12 @@
             </div>
             <div
                 *ngIf="productForm['value']['is_variants_included']"
-                class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 d-none d-sm-none d-md-block"
+                class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 d-none d-sm-none d-md-block"
             >
                 <div class="pull-right addNewWeightDiv variant-pos">
-                    <img class="" src="assets/images/add_grey.svg" />
+                    <img class="mb-1" src="assets/images/add_grey.svg" />
                     <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer" (click)="addNewVarients()">
-                        Add new variant
+                        Add a new variant
                     </span>
                 </div>
             </div>
