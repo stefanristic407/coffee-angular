@@ -591,7 +591,7 @@
                                         </li> -->
                                         <li class="list-activity">
                                             <div
-                                                class="mb-1 text-left fnt-600 fnt-mb-14 d-block d-md-none list-time list-time--mobile"
+                                                class="mb-1 text-left fnt-600 fnt-12 fnt-md-14 d-block d-md-none list-time list-time--mobile"
                                             >
                                                 {{ activity.created_at | date: 'shortTime' }}
                                             </div>
@@ -615,7 +615,7 @@
                         <button
                             type="button"
                             class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
-                             [routerLink]="['/dispute-system/order-chat/', orderPreBookId]"
+                            [routerLink]="['/dispute-system/order-chat/', orderPreBookId]"
                         >
                             {{ globals.languageJson?.order }} #{{ orderPreBookId }} {{ globals.languageJson?.chat }}
                             <span class="chat-indicator"> &#x25CF;</span
