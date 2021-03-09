@@ -407,6 +407,28 @@ input[type='number'] {
     }
 }
 
+.br-none {
+    border: none !important;
+}
+
+.br-lg-none {
+    @media (min-width: 992px) {
+        border: none !important;
+    }
+}
+
+.br-md-none {
+    @media (min-width: 768px) {
+        border: none !important;
+    }
+}
+
+.br-sm-none {
+    @media (max-width: 767px) {
+        border: none !important;
+    }
+}
+
 .br-left {
     border-left: 1px solid $primary-border-color;
 }
