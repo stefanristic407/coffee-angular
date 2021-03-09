@@ -278,12 +278,16 @@ export class CoffeeSaleComponent implements OnInit {
             ) {
                 this.toasterService.error('Please check quantity available with you');
                 this.remaining = '0 kg';
+            } else if (this.coffeeSaleForm.value.quantity_count <= 0) {
+                this.remaining = '0 kg';
             }
         } else {
             const remaining = this.coffeeSaleForm.value.quantity_count;
             this.remaining = `${remaining} bags`;
             if (this.orderDetails.quantity_count - this.coffeeSaleForm.value.quantity_count < 0) {
                 this.toasterService.error('Please check quantity available with you');
+                this.remaining = '0 bags';
+            } else if (this.coffeeSaleForm.value.quantity_count <= 0) {
                 this.remaining = '0 bags';
             }
         }

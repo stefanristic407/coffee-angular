@@ -189,11 +189,10 @@ export class LotSaleComponent implements OnInit {
                     this.availablityName = lotDetails.name;
                     this.statusLabel = this.formatStatus(this.orderStatus);
                     if (lotDetails.quantity_type === 'bags') {
-                        const remaining = this.orderDetails?.quantity_count - lotDetails.quantity_count;
+                        const remaining = lotDetails.quantity_count;
                         this.remaining = `${remaining} Bags`;
                     } else if (lotDetails.quantity_type === 'kg') {
-                        const remaining =
-                            this.orderDetails?.quantity_count * this.orderDetails?.quantity - lotDetails.quantity_count;
+                        const remaining = lotDetails.quantity_count;
                         this.remaining = `${remaining} kg`;
                     }
                     this.refreshData();
@@ -314,18 +313,24 @@ export class LotSaleComponent implements OnInit {
     }
     changeQuantity() {
         if (this.quantityType === 'kg') {
-            const remaining =
-                this.orderDetails.quantity_count * this.orderDetails.quantity - this.lotSaleForm.value.quantity_count;
+            const remaining = this.lotSaleForm.value.quantity_count;
             this.remaining = `${remaining} kg`;
-            if (remaining < 0) {
+            if (
+                this.orderDetails.quantity_count * this.orderDetails.quantity - this.lotSaleForm.value.quantity_count <
+                0
+            ) {
                 this.toasterService.error('Please check quantity available with you');
+                this.remaining = '0 kg';
+            } else if (this.lotSaleForm.value.quantity_count <= 0) {
                 this.remaining = '0 kg';
             }
         } else {
-            const remaining = this.orderDetails.quantity_count - this.lotSaleForm.value.quantity_count;
+            const remaining = this.lotSaleForm.value.quantity_count;
             this.remaining = `${remaining} bags`;
-            if (remaining < 0) {
+            if (this.orderDetails.quantity_count - this.lotSaleForm.value.quantity_count < 0) {
                 this.toasterService.error('Please check quantity available with you');
+                this.remaining = '0 bags';
+            } else if (this.lotSaleForm.value.quantity_count <= 0) {
                 this.remaining = '0 bags';
             }
         }
