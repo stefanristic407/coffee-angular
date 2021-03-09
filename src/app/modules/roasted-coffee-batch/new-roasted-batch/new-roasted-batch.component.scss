@@ -91,6 +91,9 @@
     background-color: #faf8f4;
     padding: 2rem;
 }
+.orderDiv {
+    margin-top: 1.5rem !important;
+}
 
 .recent-time td {
     padding: 1rem 1rem 1rem 1.5rem !important;
@@ -178,6 +181,9 @@
         padding: 2rem;
         background-color: #faf8f4;
         border-radius: 4px;
+    }
+    .orderDiv {
+        margin-top: 0px !important;
     }
 }
 @media (max-width: 1199px) and (min-width: 768px) {

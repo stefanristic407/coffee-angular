@@ -24,7 +24,7 @@
             <section class="mt-4">
                 <div class="row w-100 ml-0">
                     <div class="">
-                        <h1 class="text-clr334 fnt-18 fnt-bold m-0">Order #{{ orderDetails?.id }}</h1>
+                        <h1 class="text-clr334 fnt-16 fnt-md-18 fnt-bold m-0">Order #{{ orderDetails?.id }}</h1>
                     </div>
                 </div>
                 <div class="pull-left mr-auto p-0 mb-3 text-clr588 fnt-14 fnt-normal">
@@ -32,7 +32,7 @@
                 </div>
                 <div *ngIf="orderDetails" class="border-div">
                     <div class="row tabViewModel">
-                        <div class="col-12 fnt-18 text-clr334 fnt-bold pb-2 pl-0 pl-lg-3 web-sec">
+                        <div class="col-12 fnt-16 fnt-md-18 text-clr334 fnt-bold pb-2 pl-0 pl-lg-3 web-sec">
                             {{ globals.languageJson?.green_coffee_details }}
                         </div>
 
@@ -116,7 +116,7 @@
                                                 <div class="d-block d-sm-block d-md-none row m-0 pb-4">
                                                     <div class="col-12 row p-3 m-0 weightInputGroupDiv">
                                                         <div class="cardBottom p-0 w-100">
-                                                            <p class="fnt-16 text-clr334 fnt-bold">
+                                                            <p class="fnt-14 fnt-md-16 text-clr334 fnt-bold">
                                                                 {{ globals.languageJson?.green_coffee_details }}
                                                             </p>
                                                             <div class="mobileCardBody pt-0">
@@ -249,7 +249,9 @@
             <section class="mt-lg-3" [formGroup]="coffeeSaleForm" (ngSubmit)="onSave()" novalidate>
                 <div class="row w-100 border-bottom-gray pb-3 mx-0">
                     <div class="col-sm-12 col-md-9 col-lg-9 px-0 pt-lg-3">
-                        <h1 class="text-clr334 fnt-18 fnt-bold">{{ globals.languageJson?.sale_information }}</h1>
+                        <h1 class="text-clr334 fnt-16 fnt-md-18 fnt-bold">
+                            {{ globals.languageJson?.sale_information }}
+                        </h1>
                         <div class="col-12 pull-left p-0 text-clr334 fnt-14 fnt-normal">
                             Manage the price, quantity & delivery charges of coffee marked for sale
                         </div>

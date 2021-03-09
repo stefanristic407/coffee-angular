@@ -87,6 +87,9 @@ export class CoffeeSaleComponent implements OnInit {
         this.language();
         this.getProcuredOrderDetails();
         this.getRoasterVatDetails();
+        this.coffeeSaleForm.get('quantity_type').valueChanges.subscribe((value) => {
+            this.coffeeSaleForm.patchValue({ quantity_type: value }, { emitEvent: false });
+        });
         if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
             this.sharedService.isMobileView = true;
         }
@@ -156,7 +159,7 @@ export class CoffeeSaleComponent implements OnInit {
                 if (response.success && response.result) {
                     this.orderDetails = response.result;
                     this.tableValue.push(this.orderDetails);
-                    const remaining = this.orderDetails?.quantity_count;
+                    const remaining = 0;
                     this.remaining = `${remaining} Bags`;
                 }
             },
@@ -266,19 +269,25 @@ export class CoffeeSaleComponent implements OnInit {
     }
     changeQuantity() {
         if (this.quantityType === 'kg') {
-            const remaining =
-                this.orderDetails.quantity_count * this.orderDetails.quantity -
-                this.coffeeSaleForm.value.quantity_count;
+            const remaining = this.coffeeSaleForm.value.quantity_count;
             this.remaining = `${remaining} kg`;
-            if (remaining < 0) {
+            if (
+                this.orderDetails.quantity_count * this.orderDetails.quantity -
+                    this.coffeeSaleForm.value.quantity_count <
+                0
+            ) {
                 this.toasterService.error('Please check quantity available with you');
+                this.remaining = '0 kg';
+            } else if (this.coffeeSaleForm.value.quantity_count <= 0) {
                 this.remaining = '0 kg';
             }
         } else {
-            const remaining = this.orderDetails.quantity_count - this.coffeeSaleForm.value.quantity_count;
+            const remaining = this.coffeeSaleForm.value.quantity_count;
             this.remaining = `${remaining} bags`;
-            if (remaining < 0) {
+            if (this.orderDetails.quantity_count - this.coffeeSaleForm.value.quantity_count < 0) {
                 this.toasterService.error('Please check quantity available with you');
+                this.remaining = '0 bags';
+            } else if (this.coffeeSaleForm.value.quantity_count <= 0) {
                 this.remaining = '0 bags';
             }
         }

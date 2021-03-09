@@ -47,6 +47,7 @@ export class RoastingProfilesComponent implements OnInit {
     termSearch = '';
     selectedProfiles = [];
     popupDisplay = false;
+    disableAction = false;
 
     constructor(
         public router: Router,
@@ -154,14 +155,22 @@ export class RoastingProfilesComponent implements OnInit {
     }
 
     redirectToEdit(item) {
-        this.profileID = item;
-        const navigationExtras: NavigationExtras = {
-            queryParams: {
-                profileID: encodeURIComponent(this.profileID),
-            },
-        };
-
-        this.router.navigate(['/roasted-coffee-batch/create-roasting-profile'], navigationExtras);
+        if (!this.disableAction) {
+            this.profileID = item;
+            const navigationExtras: NavigationExtras = {
+                queryParams: {
+                    profileID: encodeURIComponent(this.profileID),
+                },
+            };
+            this.router.navigate(['/roasted-coffee-batch/create-roasting-profile'], navigationExtras);
+        }
+    }
+    menuClicked() {
+        // Stop propagation
+        this.disableAction = true;
+        setTimeout(() => {
+            this.disableAction = false;
+        }, 100);
     }
 
     deleteRoastingProfile() {

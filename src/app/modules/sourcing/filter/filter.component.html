@@ -18,7 +18,7 @@
 
     <div class="solid-divider-de my-4"></div>
 
-    <h3 class="fnt-16 lh-normal fnt-bold text-clr334 mb-4">Flavour profile (A-Z)</h3>
+    <h3 class="fnt-14 fnt-md-16 lh-normal fnt-bold text-clr334 mb-4">Flavour profile (A-Z)</h3>
     <div class="row no-gutters flavour-block">
         <div
             *ngFor="
@@ -35,7 +35,7 @@
 
     <div class="solid-divider-de my-4"></div>
 
-    <h3 class="fnt-16 lh-normal fnt-bold text-clr334 mb-4">Listing status</h3>
+    <h3 class="fnt-14 fnt-md-16 lh-normal fnt-bold text-clr334 mb-4">Listing status</h3>
     <div class="row no-gutters">
         <div *ngFor="let item of listingStatusItems" class="col-6 col-md-4 col-lg-3 mb-4">
             <p-checkbox [value]="item.value" [(ngModel)]="queryParams.listing_status" [label]="item.label"></p-checkbox>
@@ -44,7 +44,7 @@
 
     <div class="solid-divider-de mb-4"></div>
 
-    <h3 class="fnt-16 lh-normal fnt-bold text-clr334 mb-4">Certificates</h3>
+    <h3 class="fnt-14 fnt-md-16 lh-normal fnt-bold text-clr334 mb-4">Certificates</h3>
     <p-checkbox value="1" [(ngModel)]="queryParams.certificates" label="Show listings with certificates"></p-checkbox>
 </div>
 

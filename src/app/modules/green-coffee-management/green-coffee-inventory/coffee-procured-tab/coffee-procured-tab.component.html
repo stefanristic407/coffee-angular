@@ -132,7 +132,10 @@
                     <span *ngSwitchCase="'order_reference'">
                         <div class="d-flex">
                             <span [routerLink]="availabilityPage(rowData)">
-                                <p *ngIf="primeTableService.isMobileView" class="fnt-18 txt-clr334 fnt-bold mb-0">
+                                <p
+                                    *ngIf="primeTableService.isMobileView"
+                                    class="fnt-16 fnt-md-18 txt-clr334 fnt-bold mb-0"
+                                >
                                     Roaster Ref. No: {{ rowData['order_reference'] || '--' }}
                                 </p>
                             </span>
