@@ -51,9 +51,6 @@ import { BatchSelectAnOrderComponent } from './batch-select-an-order/batch-selec
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
 import { DefaultSettingComponent } from './Farm Link/coffee-experience/default-setting/default-setting.component';
 // tslint:disable-next-line: max-line-length
-import { ApiRequestsTableComponent } from './api-requests/api-requests-table/api-requests-table.component';
-import { ApiRequestDetailsComponent } from './api-requests/api-requests-table/api-request-details/api-request-details.component';
-import { GenerateKeyDetailsComponent } from './api-requests/api-requests-table/generate-key-details/generate-key-details.component';
 import { ConfirmPreorderLotComponent } from './confirm-preorder-lot/confirm-preorder-lot.component';
 import { OtherCuppingServiceComponent } from './green-grading/cupping-report/other-cupping-service/other-cupping-service.component';
 import { OtherGenerateReportComponent } from './green-grading/cupping-report/other-generate-report/other-generate-report.component';
@@ -295,17 +292,8 @@ const routes: Routes = [
             },
             {
                 path: 'api-requests-list',
-                component: ApiRequestsTableComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'api-request-details',
-                component: ApiRequestDetailsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'generate-key-details',
-                component: GenerateKeyDetailsComponent,
+                loadChildren: () =>
+                    import('./api-requests/api-requests-table/api-request.module').then((m) => m.ApiRequestModule),
                 canActivate: [AuthGuard],
             },
             {

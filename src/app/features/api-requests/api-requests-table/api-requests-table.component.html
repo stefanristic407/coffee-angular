@@ -17,13 +17,13 @@
                             ><img class="group-img" src="/assets/images/arrow-1.png" alt="" />
                         </span>
                     </li>
-                    <li class="b-cum c-pink">API Requests</li>
+                    <li class="b-cum c-pink">{{ globals.languageJson?.api_request }}</li>
                 </ul>
             </nav>
             <section class="estate-orders-heading">
                 <div class="row justify-content-between align-items-center">
                     <div class="col-lg-8 col-md-4">
-                        <h5 class="estate-order-title">API Requests</h5>
+                        <h5 class="estate-order-title">{{ globals.languageJson?.api_request }}</h5>
                         <p class="Give-your-end-users">
                             Accept, reject API key requests by customers and generate API keys.
                         </p>
@@ -56,7 +56,9 @@
                             container="body"
                             #pop="bs-popover"
                         >
-                            <p class="d-inline filter-text" *ngIf="customerType == ''">Customer Type&nbsp;</p>
+                            <p class="d-inline filter-text" *ngIf="customerType == ''">
+                                {{ globals.languageJson?.customer_type }}&nbsp;
+                            </p>
                             <a class="pointer-item">
                                 <p class="d-inline filter" *ngIf="customerType == ''">
                                     &nbsp;
