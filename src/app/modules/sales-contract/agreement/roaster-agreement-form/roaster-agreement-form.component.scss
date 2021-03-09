@@ -126,13 +126,6 @@ button:disabled {
 }
 
 @media (max-width: 767px) {
-    .custom-padding {
-        background-color: white;
-        padding: 16px;
-    }
-}
-
-@media (min-width: 320px) and (max-width: 480px) {
     .foot-section {
         flex-direction: column;
     }
@@ -147,5 +140,9 @@ button:disabled {
     }
     .btn-width {
         width: 100% !important;
+    }
+    .custom-padding {
+        background-color: white;
+        padding: 16px;
     }
 }
