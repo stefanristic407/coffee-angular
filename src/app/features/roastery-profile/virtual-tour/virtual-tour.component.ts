@@ -12,7 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
     styleUrls: ['./virtual-tour.component.scss'],
 })
 export class VirtualTourComponent implements OnInit {
-    tourImages: any = [];
+    tourMedias: any = [];
     roasterId: any;
     isLoading?: boolean;
 
@@ -26,8 +26,6 @@ export class VirtualTourComponent implements OnInit {
     ) {}
 
     async ngOnInit() {
-        const lang = localStorage.getItem('locale') ? localStorage.getItem('locale') : 'en';
-        this.globals.languageJson = await this.userService.getLanguageStrings(lang);
         this.getFiles();
         this.roasterId = this.cookieService.get('roaster_id');
     }
@@ -37,7 +35,8 @@ export class VirtualTourComponent implements OnInit {
         this.yourService.getMyFiles().subscribe((res) => {
             if (res.success) {
                 this.isLoading = false;
-                this.tourImages = res.result;
+                this.tourMedias = res.result;
+                console.log('this is tour messages: ', this.tourMedias);
             }
         });
     }
@@ -54,7 +53,7 @@ export class VirtualTourComponent implements OnInit {
 
     handleRemoveMediaFile(id: number): void {
         console.log('id >>>>>>>>>>>', id);
-        this.tourImages = this.tourImages.filter((item) => item.id !== id);
+        this.tourMedias = this.tourMedias.filter((item) => item.id !== id);
         this.userService.deleteFile(this.roasterId, id).subscribe();
     }
 

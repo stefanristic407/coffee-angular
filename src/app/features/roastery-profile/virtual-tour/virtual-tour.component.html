@@ -3,74 +3,83 @@
 <div *ngIf="!isLoading">
     <div class="row">
         <div class="col-lg-12">
-            <div class="description mt-2 mt-md-4 mb-1">{{ 'add_photo_files' | translate }}</div>
+            <div class="fnt-14 fnt-600 text-clr334 mt-2 mt-md-4 mb-1">{{ 'add_photo_files' | translate }}</div>
         </div>
     </div>
-    <div class="mx-2 mx-md-0">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="row cursor-pointer mobile-tabs-gallary px-md-3px">
-                    <a
-                        class="col-lg-4 col-md-6 col-sm-6 col-6 a-panel d-flex d-md-none"
-                        *ngIf="roasteryProfileService.addMediaDiv"
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row cursor-pointer mobile-tabs-gallary p-3 p-md-1">
+                <a
+                    class="col-lg-4 col-md-6 col-sm-6 col-6 position-relative p-1 p-md-25 d-flex d-md-none text-decoration-none"
+                    *ngIf="roasteryProfileService.addMediaDiv"
+                >
+                    <div
+                        class="bg-f8 h-100 w-100 d-flex align-items-center justify-content-center br-main br-4 text-center"
                     >
-                        <div class="card text-center">
-                            <label>
-                                <input
-                                    class="file-inpt"
-                                    type="file"
-                                    accept="image/png, image/jpeg"
-                                    (change)="handleFile($event)"
-                                />
-                                <img class="plus-circle" src="assets/images/plus-circle.svg" />
-                                <p class="text">Add photo or videos</p>
-                            </label>
-                        </div>
-                    </a>
+                        <label>
+                            <input
+                                class="file-inpt"
+                                type="file"
+                                accept="image/png, image/jpeg"
+                                (change)="handleFile($event)"
+                            />
+                            <img class="plus-circle" src="assets/images/plus-circle.svg" />
+                            <p class="fnt-14 fnt-600 text-clr588">Add photo or videos</p>
+                        </label>
+                    </div>
+                </a>
 
-                    <a
-                        href="javascript:void(0)"
-                        class="col-lg-4 col-md-6 col-sm-6 col-6 a-panel"
-                        *ngFor="let image of tourImages"
-                    >
-                        <div
-                            *ngIf="roasteryProfileService.addMediaDiv"
-                            class="media-delete-button"
-                            (click)="handleRemoveMediaFile(image.id)"
-                        >
-                            <img src="assets/images/delete-icon.svg" alt="delete" />
-                        </div>
-                        <div class="social-post-farmlink__item position-relative">
-                            <img class="social-images" *ngIf="image.type == 'IMAGE'" [src]="image.url" alt="farm" />
-                            <video *ngIf="image.type != 'IMAGE'" [src]="image.url"></video>
-                            <!-- <img class="video-play" src="assets/images/play-button.png" alt="farm"> -->
-                            <p class="mb-0 post-info">{{ image.description }}</p>
-                        </div>
-                    </a>
-
-                    <a
-                        class="col-lg-4 col-md-6 col-sm-6 col-6 a-panel d-none d-md-flex"
+                <a
+                    href="javascript:void(0)"
+                    class="col-lg-4 col-md-6 col-sm-6 col-6 position-relative p-1 p-md-25 text-decoration-none"
+                    *ngFor="let mediaItem of tourMedias"
+                >
+                    <div
                         *ngIf="roasteryProfileService.addMediaDiv"
+                        class="media-delete-button bg-white justify-content-center align-items-center d-flex"
+                        (click)="handleRemoveMediaFile(mediaItem.id)"
                     >
-                        <div class="card add-panel text-center">
-                            <label>
-                                <input
-                                    class="file-inpt"
-                                    type="file"
-                                    accept="image/png, image/jpeg"
-                                    (change)="handleFile($event)"
-                                />
-                                <img class="plus-circle" src="assets/images/plus-circle.svg" />
-                                <p class="text">Add photo or videos</p>
-                            </label>
-                        </div>
-                    </a>
-                </div>
+                        <img src="assets/images/delete-icon.svg" alt="delete" />
+                    </div>
+                    <div class="social-post-farmlink__item w-100 h-100 position-relative square-container">
+                        <img
+                            class="social-images w-100 h-100 br-4"
+                            *ngIf="mediaItem.type === 'IMAGE'"
+                            [src]="mediaItem.url"
+                            alt="farm"
+                        />
+                        <video *ngIf="mediaItem.type != 'IMAGE'" [src]="mediaItem.url"></video>
+                        <img
+                            class="video-play"
+                            *ngIf="mediaItem.type !== 'IMAGE'"
+                            src="assets/images/play-button.png"
+                            alt="farm"
+                        />
+                        <p class="mb-0 post-info fnt-16 fnt-600 pt-0 pb-0 pl-3">
+                            {{ mediaItem.description }}
+                        </p>
+                    </div>
+                </a>
+
+                <a
+                    class="col-lg-4 col-md-6 col-sm-6 col-6 position-relative p-1 p-md-25 d-none d-md-flex"
+                    *ngIf="roasteryProfileService.addMediaDiv"
+                >
+                    <div
+                        class="bg-f8 h-100 w-100 d-flex align-items-center justify-content-center br-main br-4 text-center"
+                    >
+                        <label>
+                            <input hidden type="file" accept="image/png, image/jpeg" (change)="handleFile($event)" />
+                            <img class="mb-25 mt-2" src="assets/images/plus-circle.svg" />
+                            <p class="fnt-14 fnt-600 text-clr588">Add photo or videos</p>
+                        </label>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
 </div>
 
-<div *ngIf="!isLoading && !tourImages.length && !roasteryProfileService.addMediaDiv" class="py-5 text-center">
+<div *ngIf="!isLoading && !tourMedias.length && !roasteryProfileService.addMediaDiv" class="py-5 text-center">
     No data to display
 </div>
