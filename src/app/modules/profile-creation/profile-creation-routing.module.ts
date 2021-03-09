@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
-import { RoasteryProfileComponent } from './roastery-profile.component';
-import { AboutRoasteryComponent } from '@app/features/roastery-profile/about-roastery/about-roastery.component';
-import { VirtualTourComponent } from '@app/features/roastery-profile/virtual-tour/virtual-tour.component';
-import { ContactComponent } from '@app/features/roastery-profile/contact/contact.component';
-import { ReviewsComponent } from '@app/features/roastery-profile/reviews/reviews.component';
+import { RouterModule, Routes } from '@angular/router';
+import { ProfileCreationComponent } from './profile-creation.component';
+import { AboutRoasteryComponent } from './about-roastery/about-roastery.component';
+import { VirtualTourComponent } from './virtual-tour/virtual-tour.component';
+import { ContactComponent } from './contact/contact.component';
+import { ReviewsComponent } from './reviews/reviews.component';
 
 const routes: Routes = [
     {
         path: '',
-        component: RoasteryProfileComponent,
+        component: ProfileCreationComponent,
         children: [
             {
                 path: 'about_roastery',
@@ -29,7 +28,7 @@ const routes: Routes = [
                 component: ReviewsComponent,
             },
             { path: '', redirectTo: 'about_roastery', pathMatch: 'full' },
-        ]
+        ],
     },
 ];
 
@@ -37,5 +36,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
-export class RoasteryProfileRoutingModule {
-}
+export class ProfileCreationRoutingModule {}

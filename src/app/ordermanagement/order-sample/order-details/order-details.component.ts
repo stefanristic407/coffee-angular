@@ -3,7 +3,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { OrderSampleService } from '../order-sample.service';
 import { GlobalsService } from '@services';
-import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
+import { RoasteryProfileService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RoasteryProfileService } from '../roastery-profile.service';
+import { RoasteryProfileService } from '@services';
 
 declare var $: any;
 import { GlobalsService } from '@services';

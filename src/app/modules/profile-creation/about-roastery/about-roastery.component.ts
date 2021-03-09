@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { RoasteryProfileService } from '../roastery-profile.service';
+import { RoasteryProfileService } from '@services';
 import { UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';

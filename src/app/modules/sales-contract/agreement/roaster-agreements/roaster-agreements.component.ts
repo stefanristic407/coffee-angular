@@ -6,14 +6,14 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
-import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
+import { RoasteryProfileService } from '@services';
 import { RoasterserviceService } from '@services';
 
 @Component({
     selector: 'app-roaster-agreements',
     templateUrl: './roaster-agreements.component.html',
     styleUrls: ['./roaster-agreements.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class RoasterAgreementsComponent implements OnInit {
     appLanguage?: any;

@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GlobalsService } from '@services';
-import { RoasteryProfileService } from '../roastery-profile/roastery-profile.service';
+import { RoasteryProfileService } from '@services';
 import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { Toast, ToastrService } from 'ngx-toastr';

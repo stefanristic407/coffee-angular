@@ -6,7 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { GenerateReportService } from '../generate-report/generate-report.service';
-import { RoasteryProfileService } from '../../roastery-profile/roastery-profile.service';
+import { RoasteryProfileService } from '@services';
 
 @Component({
     selector: 'app-grade-sample',

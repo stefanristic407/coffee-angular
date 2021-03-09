@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { RoasteryProfileService } from '../../roastery-profile/roastery-profile.service';
+import { RoasteryProfileService } from '@services';
 import { UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';

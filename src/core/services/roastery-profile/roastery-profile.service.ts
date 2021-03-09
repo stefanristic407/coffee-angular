@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import { UserserviceService } from '@services';
+import { UserserviceService } from '../api/user-original.service';
 import { CookieService } from 'ngx-cookie-service';
-import { RoasterserviceService } from '@services';
-import { ThumbnailsPosition } from 'ng-gallery';
+import { RoasterserviceService } from '../api/roaster.service';
 import { ToastrService } from 'ngx-toastr';
-import { ProfilePhotoService } from './profile-photo/profile-photo.service';
+import { ProfilePhotoService } from './profile-photo.service';
 import { Router } from '@angular/router';
-import { debug } from 'console';
 
 @Injectable({
     providedIn: 'root',

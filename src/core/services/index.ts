@@ -14,3 +14,5 @@ export * from './socket/socket.service';
 export * from './chat/chat-handler.service';
 export * from './chat/chat-util.service';
 export * from './prime-table/prime-table.service';
+export * from './roastery-profile/profile-photo.service';
+export * from './roastery-profile/roastery-profile.service';
