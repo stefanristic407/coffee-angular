@@ -10,7 +10,7 @@ declare var $: any;
 @Component({
     selector: 'app-roastery-license',
     templateUrl: './roastery-license.component.html',
-    styleUrls: ['./roastery-license.component.css'],
+    styleUrls: ['./roastery-license.component.scss'],
 })
 export class RoasteryLicenseComponent implements OnInit {
     public licenseArray: any = [];
@@ -96,7 +96,6 @@ export class RoasteryLicenseComponent implements OnInit {
         this.userId = this.cokkieService.get('user_id');
         this.certificationNameError = '';
         this.certificationYearError = '';
-        // this.certificationFileError = '';
     }
 
     ngOnInit(): void {
@@ -105,15 +104,6 @@ export class RoasteryLicenseComponent implements OnInit {
         this.secondButtonValue = 'Save';
         this.getCertificates();
         this.appLanguage = this.globals.languageJson;
-    }
-
-    onKeyPress(event: any) {
-        if (event.target.value === '') {
-            document.getElementById(event.target.id).style.border = '1px solid #d6d6d6';
-            // } else {
-            //   document.getElementById(event.target.id).style.border =
-            //     "1px solid #d6d6d6";
-        }
     }
 
     getCertificates() {
