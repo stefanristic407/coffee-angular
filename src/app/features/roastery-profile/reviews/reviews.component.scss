@@ -1,0 +1,18 @@
+.menu-arrow {
+    cursor: pointer;
+}
+
+::ng-deep .popover-body {
+    padding: 0.25rem 0.25rem !important;
+}
+
+::ng-deep .popover {
+    border: none !important;
+    border-radius: 4px !important;
+    box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
+    background-color: #ffffff;
+}
+
+::ng-deep .bs-popover-bottom .arrow:after {
+    top: 0px !important;
+}
