@@ -1,14 +1,17 @@
 // Custom Theming for Prime Ng
+
 @import '../variables';
 @import 'primeng_accordion';
 @import 'primeng_autocomplete';
 @import 'primeng_breadcrumb';
+@import 'primeng_button';
 @import 'primeng_calendar';
 @import 'primeng_carousel';
 @import 'primeng_checkbox';
 @import 'primeng_dialog';
 @import 'primeng_dropdown';
 @import 'primeng_inputtext';
+@import 'primeng_listbox';
 @import 'primeng_menu';
 @import 'primeng_multiselect';
 @import 'primeng_progressbar';
@@ -18,15 +21,16 @@
 @import 'primeng_table';
 @import 'primeng_tabmenu';
 @import 'primeng_tabview';
-@import 'primeng_listbox';
+
 // global
 .p-component {
     font-family: $general-font-family;
     font-size: $general-font-size;
 }
 
-.p-button:focus {
-    box-shadow: none;
+// Icon input
+.p-input-icon-left > i:first-of-type {
+    color: $button-icon-color;
 }
 
 // Form helper
@@ -124,13 +128,27 @@
     }
 }
 
+.sewn-form-two-field {
+    display: inline-flex;
+    flex-direction: column;
+    .p-error {
+        color: #fff;
+    }
+
+    .ng-dirty + .p-error {
+        color: $invalid-color;
+    }
+}
+
 p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
     border-color: $error-border-color;
 }
 
-// Icon input
-.p-input-icon-left > i:first-of-type {
-    color: $button-icon-color;
+textarea {
+    &::placeholder,
+    &::-webkit-input-placeholder {
+        color: #8a8b9f !important;
+    }
 }
 
 .custom-search,

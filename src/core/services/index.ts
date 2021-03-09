@@ -13,8 +13,6 @@ export * from './menu/menu.service';
 export * from './socket/socket.service';
 export * from './common.service';
 export * from './chat/chat-handler.service';
-export * from './chat/order-chat-thread.resolver';
-export * from './chat/order-detail.resolver';
 export * from './chat/chat-util.service';
 export * from './orders.service';
 export * from './resize.service';

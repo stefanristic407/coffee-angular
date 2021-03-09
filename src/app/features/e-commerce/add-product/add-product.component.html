@@ -23,7 +23,9 @@
         <div class="add-new-product">
             <div class="row">
                 <div class="col-12">
-                    <p class="fnt-18 fnt-muli fnt-700 black">{{ productId ? product.name : 'Add product' }}</p>
+                    <p class="fnt-16 fnt-md-18 fnt-muli fnt-700 black">
+                        {{ productId ? product.name : 'Add product' }}
+                    </p>
 
                     <div class="row">
                         <div class="farm-input col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
@@ -66,7 +68,7 @@
                     </div>
                 </div>
                 <div *ngIf="false" class="col-12">
-                    <p class="fnt-18 fnt-muli fnt-700 black">
+                    <p class="fnt-16 fnt-md-18 fnt-muli fnt-700 black">
                         Product visibility :
                         <span class="fnt-12 ml-2">
                             <p-selectButton [options]="isPublicOptions" [(ngModel)]="isPublic" optionLabel="label">
@@ -78,7 +80,7 @@
         </div>
 
         <div class="varient mt-5">
-            <p class="fnt-18 fnt-muli fnt-700 black">Variants</p>
+            <p class="fnt-16 fnt-md-18 fnt-muli fnt-700 black">Variants</p>
             <p-checkbox
                 [(ngModel)]="product.is_variants_included"
                 binary="true"
@@ -159,7 +161,7 @@
         </div>
 
         <div class="estate-details-sec mt-5">
-            <p class="fnt-18 fnt-muli fnt-700 black">Estate Details</p>
+            <p class="fnt-16 fnt-md-18 fnt-muli fnt-700 black">Estate Details</p>
 
             <div class="row">
                 <div class="farm-input col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
@@ -213,7 +215,7 @@
         </div>
 
         <div class="estate-details-sec mt-5">
-            <p class="fnt-18 fnt-muli fnt-700 black">Tasting notes</p>
+            <p class="fnt-16 fnt-md-18 fnt-muli fnt-700 black">Tasting notes</p>
 
             <div class="row">
                 <div class="farm-input w-m-19 col-12 col-sm-3 col-md-3 col-lg-4 col-xl-2">
@@ -325,7 +327,7 @@
         </div>
 
         <div class="select-roasted-coffee-batch-sec mt-5">
-            <p class="fnt-18 fnt-muli fnt-700 black">Recommended brewing method</p>
+            <p class="fnt-16 fnt-md-18 fnt-muli fnt-700 black">Recommended brewing method</p>
 
             <div class="row">
                 <div class="farm-input col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -365,7 +367,7 @@
         <!-- Product Weights-->
 
         <div class="product-weights mt-5">
-            <p class="fnt-18 fnt-muli fnt-700 black">Product Weights</p>
+            <p class="fnt-16 fnt-md-18 fnt-muli fnt-700 black">Product Weights</p>
 
             <div class="row pt-4">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
@@ -540,7 +542,7 @@
                             <div *ngFor="let varient of varients; let gIndex = index" class="p-0 m-0 mt-2">
                                 <div class="row" *ngIf="currentVarientIndex == gIndex">
                                     <div class="p-0 pl-3">
-                                        <p class="fnt-18 fnt-muli fnt-700 black m-0 mt-3 mb-3">Add Images</p>
+                                        <p class="fnt-16 fnt-md-18 fnt-muli fnt-700 black m-0 mt-3 mb-3">Add Images</p>
                                         <div class="row m-0">
                                             <div
                                                 class="form-section__inputs roastery-upload-files mb-2 p-0 border-0 col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3"
@@ -733,7 +735,7 @@
         <!-- Crate details-->
 
         <div class="crate-details mt-3">
-            <p class="fnt-18 fnt-muli fnt-700 black">Boxes details</p>
+            <p class="fnt-16 fnt-md-18 fnt-muli fnt-700 black">Boxes details</p>
             <p class="fnt-14 fnt-muli fnt-600 black">Add values per crate to let your customer know</p>
             <div class="row" *ngFor="let carte of product.crates">
                 <div class="farm-input col-3 col-sm-2 col-md-2 col-md-2 col-lg-2 col-xl-2">
@@ -763,7 +765,7 @@
         <!-- Vat details -->
 
         <div class="vat-details mt-5">
-            <p class="fnt-18 fnt-muli fnt-700 black">VAT Details</p>
+            <p class="fnt-16 fnt-md-18 fnt-muli fnt-700 black">VAT Details</p>
             <div class="row">
                 <div class="farm-input col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
                     <label class="label p-0">Select VAT trasaction type<span>*</span></label>

@@ -4,6 +4,7 @@ import { CoffeeProcuredTabComponent } from './coffee-procured-tab/coffee-procure
 import { MarkedSaleComponent } from './marked-sale/marked-sale.component';
 import { PrimeTableService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-green-coffee-inventory',
@@ -28,10 +29,17 @@ export class GreenCoffeeInventoryComponent implements OnInit {
         public globals: GlobalsService,
         public cookieService: CookieService,
         public primeTableService: PrimeTableService,
+        public route: ActivatedRoute,
     ) {}
 
     ngOnInit(): void {
         this.language();
+        if (this.route.snapshot.queryParams.markSale === 'yes') {
+            this.selectedTab = 1;
+            this.isProcuredTab = false;
+        } else {
+            this.selectedTab = 0;
+        }
     }
     language() {
         this.appLanguage = this.globals.languageJson;

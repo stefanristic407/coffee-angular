@@ -133,10 +133,14 @@ export class ProductListComponent implements OnInit {
             routerLink: '/',
         };
         const obj2: MenuItem = {
-            label: this.globals.languageJson?.products,
+            label: 'Inventory',
+        };
+        const obj3: MenuItem = {
+            label: 'E-commerce catalog management',
         };
         this.breadCrumbItem.push(obj1);
         this.breadCrumbItem.push(obj2);
+        this.breadCrumbItem.push(obj3);
     }
     getTableData(event?) {
         const postData: any = {};

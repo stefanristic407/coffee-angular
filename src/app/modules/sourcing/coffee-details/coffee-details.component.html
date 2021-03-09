@@ -17,10 +17,12 @@
                     </div>
 
                     <div class="d-inline-block">
-                        <h2 class="fnt-18 fnt-bold text-clr24 mb-0">{{ sourcing.harvestDetail?.estate_name }}</h2>
+                        <h2 class="fnt-16 fnt-md-18 fnt-bold text-clr24 mb-0">
+                            {{ sourcing.harvestDetail?.estate_name }}
+                        </h2>
                         <div class="d-flex align-items-center">
                             <span class="fa fa-star checked mr-2"></span>
-                            <h6 class="fnt-18 fnt-700 custom-link mb-0">
+                            <h6 class="fnt-16 fnt-md-18 fnt-700 custom-link mb-0">
                                 {{ (sourcing.harvestDetail?.estate_rating || 0).toFixed(2) }}
                             </h6>
                         </div>
@@ -41,7 +43,7 @@
                             <gallery id="basic-test" class="bg-white" [items]="items" gallerize></gallery>
                         </div>
                         <div class="certify-green d-none d-md-block" *ngIf="sourcing.availableCertify != ''">
-                            <h5 class="fnt-18 fnt-bold text-clr000">Certificates</h5>
+                            <h5 class="fnt-16 fnt-md-18 fnt-bold text-clr000">Certificates</h5>
                             <div class="pt-3 d-none d-md-block">
                                 <img
                                     *ngFor="let cert of sourcing.availableCertify"
@@ -65,7 +67,9 @@
                                     </a>
                                 </div>
                                 <div class="d-flex justify-content-between">
-                                    <h2 class="fnt-18 fnt-bold text-clr334 mb-1">{{ sourcing.harvestDetail?.name }}</h2>
+                                    <h2 class="fnt-16 fnt-md-18 fnt-bold text-clr334 mb-1">
+                                        {{ sourcing.harvestDetail?.name }}
+                                    </h2>
                                     <div class="d-md-none d-flex">
                                         <img
                                             *ngFor="let cert of sourcing.availableCertify"
@@ -75,11 +79,11 @@
                                     </div>
                                 </div>
 
-                                <h6 class="fnt-16 lh-normal fnt-600 text-clr334 mb-3">
+                                <h6 class="fnt-14 fnt-md-16 lh-normal fnt-600 text-clr334 mb-3">
                                     <img src="assets/images/location-rating.png" alt="" />
                                     {{ sourcing.harvestDetail?.country | country }}
                                 </h6>
-                                <p class="d-none d-md-block fnt-16 text-clr334">
+                                <p class="d-none d-md-block fnt-14 fnt-md-16 text-clr334">
                                     {{ sourcing.harvestDetail?.about }}
                                 </p>
                                 <p class="d-md-none mb-0 fnt-14 text-clr588">
@@ -226,7 +230,9 @@
                             </div>
 
                             <div class="estate-focus with-last-border br-sm-main br-4 p-3 p-md-0">
-                                <h3 class="fnt-18 fnt-bold text-clr000">{{ globals.languageJson?.estate_details }}</h3>
+                                <h3 class="fnt-16 fnt-md-18 fnt-bold text-clr000">
+                                    {{ globals.languageJson?.estate_details }}
+                                </h3>
                                 <ul class="clearfix">
                                     <li>
                                         <label>Location :</label>
@@ -293,7 +299,7 @@
 
     <div class="bg-white br-4 pl-2 px-md-3 px-lg-5 py-3 py-lg-4 mt-4">
         <div class="px-0">
-            <div class="fnt-18 fnt-bold text-clr000 mt-lg-2 mb-3 mb-lg-4">
+            <div class="fnt-16 fnt-md-18 fnt-bold text-clr000 mt-lg-2 mb-3 mb-lg-4">
                 {{ globals.languageJson?.estates_other_green_coffee }}
             </div>
             <div

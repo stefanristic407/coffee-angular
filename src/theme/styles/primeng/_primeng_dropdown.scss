@@ -1,8 +1,3 @@
-// Custom Theming for Prime Ng
-
-@import '../variables';
-
-// DropDown
 .round-border.p-dropdown {
     border-radius: 20px;
 }
@@ -22,9 +17,6 @@
 }
 .p-dropdown {
     border-color: $primary-border-color;
-}
-.no-border.p-dropdown {
-    border: none;
 }
 .p-dropdown.highlight {
     border-color: $primary-color;

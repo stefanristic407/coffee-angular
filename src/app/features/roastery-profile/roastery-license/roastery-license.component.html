@@ -2,7 +2,7 @@
     <div class="bg-fff page-padding">
         <div class="row mobile-view">
             <span class="cursor-pointer" routerLink="/features/roastery-profile">
-                <img src="/assets/images/back-arrow1.png" alt="" />
+                <img src="/assets/images/back-arrow1.svg" alt="" />
                 <span class="back-ticket pl-3">{{ globals.languageJson?.back }}</span>
             </span>
         </div>
@@ -37,7 +37,7 @@
                     <span class="button-div pull-left">
                         <button type="button" id="edit-btn" class="btn edit-btn">
                             <img src="assets/images/edit.png" class="edit-img" />
-                            {{globals.languageJson?.edit}}
+                            {{ globals.languageJson?.edit }}
                         </button>
                         <span class="name bar">|</span>
                         <button
@@ -91,11 +91,7 @@
                                 globals.languageJson?.edit
                             }}</button
                         ><span class="name bar">|</span>
-                        <button
-                            type="button"
-                            class="btn del-btn"
-                            (click)="deleteCertificate(saveddata.id)"
-                        >
+                        <button type="button" class="btn del-btn" (click)="deleteCertificate(saveddata.id)">
                             <img src="assets/images/delete.png" class="del-img" />{{ globals.languageJson?.delete }}
                         </button>
                         <span class="name bar">|</span>
@@ -233,8 +229,7 @@
                                 [label]="globals.languageJson?.save"
                                 class="btn-raised"
                                 (click)="savecertificate(licensedata.id, $event)"
-                            >
-                            </button>
+                            ></button>
                             <span class="v-line" *ngIf="i > 0">|</span>
                             <button
                                 *ngIf="i > 0"

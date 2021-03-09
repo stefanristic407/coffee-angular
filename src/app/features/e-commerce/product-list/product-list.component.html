@@ -28,7 +28,7 @@
                 name="search"
                 class="search-raised w-100 m-0"
                 formControlName="searchField"
-                placeholder="{{ globals.languageJson?.search_name_role }}"
+                placeholder="Search for products"
             />
         </div>
         <div class="col-12 col-sm-12 col-md-6 filterLayout">
@@ -40,7 +40,7 @@
                 (onChange)="filterCall()"
                 scrollHeight="225px"
                 [showClear]="true"
-                placeholder="Origin"
+                placeholder="Origins"
                 styleClass="round-border mr-2 mb-3 mb-md-4 {{ originFilter ? 'highlight' : '' }}"
             >
             </p-dropdown>
@@ -52,7 +52,7 @@
                 (onChange)="filterCall()"
                 scrollHeight="225px"
                 [showClear]="true"
-                placeholder="Price"
+                placeholder="Price range"
                 styleClass="round-border mr-2 mb-3 mb-md-4 {{ priceFilter ? 'highlight' : '' }}"
             >
             </p-dropdown>
@@ -75,7 +75,7 @@
                 name="search"
                 class="search-raised pull-right"
                 formControlName="searchField"
-                placeholder="{{ globals.languageJson?.search_name_role }}"
+                placeholder="Search for products"
             />
         </div>
     </div>

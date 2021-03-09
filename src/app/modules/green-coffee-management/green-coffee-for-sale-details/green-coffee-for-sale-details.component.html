@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="sourcing-details">
-                        <div class="overflow-auto d-flex flex-nowrap breadCrumb">
+                        <div class="overflow-auto flex-nowrap breadCrumb">
                             <p-breadcrumb [model]="breadItems"></p-breadcrumb>
                         </div>
                         <div class="w-100 mt-4 pt-2 clearfix botSpacing avaialble-web">
@@ -29,7 +29,7 @@
                                     Mark for sale
                                 </button>
                                 <button
-                                    *ngIf="saleInformation && saleInformation.status !== 'SOLD'"
+                                    *ngIf="saleInformation"
                                     class="btn-raised"
                                     routerLink="/green-coffee-management/lot-sale"
                                     [queryParams]="{ orderId: orderDetails?.id }"
@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <div class="row avaialble-mob p-0">
-                            <h2 class="fnt-18 fnt-bold text-clr334 pl-3 mt-3">
+                            <h2 class="fnt-16 fnt-md-18 fnt-bold text-clr334 pl-3 mt-3">
                                 {{ saleInformation.name ? saleInformation.name : 'NA' }}
                             </h2>
                             <div class="col-sm-12">
@@ -52,7 +52,7 @@
                                     Mark for sale
                                 </button>
                                 <button
-                                    *ngIf="saleInformation && saleInformation.status !== 'SOLD'"
+                                    *ngIf="saleInformation"
                                     class="btn-raised w-100"
                                     routerLink="/green-coffee-management/lot-sale"
                                     [queryParams]="{ orderId: orderDetails?.id }"
@@ -114,7 +114,7 @@
                                 </div>
                             </div>
                             <div *ngIf="saleInformation" class="row mt-4 ml-md-0 mr-md-0">
-                                <h3 class="pb-1 fnt-18 fnt-bold text-clr334">
+                                <h3 class="pb-1 fnt-16 fnt-md-18 fnt-bold text-clr334">
                                     {{ globals.languageJson?.selling_details }}
                                 </h3>
                                 <div class="col-lg-12 border-class">
@@ -165,12 +165,12 @@
                             </div>
                             <div class="row mt-4 ml-md-0 mr-md-0">
                                 <h3
-                                    class="d-none d-sm-none d-xl-none d-lg-none d-md-block pb-1 fnt-18 fnt-bold text-clr334"
+                                    class="d-none d-sm-none d-xl-none d-lg-none d-md-block pb-1 fnt-16 fnt-md-18 fnt-bold text-clr334"
                                 >
                                     Green coffee details
                                 </h3>
                                 <div *ngIf="orderDetails" class="col-12 border-class">
-                                    <p-tabView styleClass=" mt-1 pb-3 pb-md-4" [(activeIndex)]="selectedTab">
+                                    <p-tabView styleClass=" mt-1 pb-md-2" [(activeIndex)]="selectedTab">
                                         <p-tabPanel header="{{ globals.languageJson?.green_coffee_details }}">
                                             <div class="col-lg-12 px-1 mt-4 mt-md-3">
                                                 <div class="estate-focus">
@@ -316,18 +316,20 @@
                                     <div class="produect-pro">
                                         <div *ngIf="orderDetails" class="row">
                                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                <div class="real-estate p-date">
+                                                <div class="real-estate">
                                                     <h6 class="mt-0" *ngIf="orderDetails['cupping_at']">
                                                         {{ orderDetails['cupping_at'] | date: 'dd MMM, yyyy' }}
                                                     </h6>
                                                     <p class="text-clr334 fnt-600 fnt-14 mb-0">
-                                                        <span class="text-clr588 fnt-600 fnt-14">Cup Score :</span>
+                                                        <span class="text-clr588 fnt-600 fnt-14 pr-md-3 mr-md-1"
+                                                            >Cup Score :</span
+                                                        >
                                                         {{ orderDetails.cup_score ? orderDetails.cup_score : 'NA' }}
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6">
-                                                <div class="real-estate d-grid">
+                                            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-6">
+                                                <div class="real-estate d-grid p-date">
                                                     <div class="p-photo">
                                                         <img
                                                             class="img-procured mb-0"
@@ -345,7 +347,7 @@
                                                     <h6 class="mt-0">Facilitator</h6>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6 v-report">
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 v-report">
                                                 <a class="brown-cta" (click)="viewReport()">View report </a>
                                             </div>
                                             <!-- <div

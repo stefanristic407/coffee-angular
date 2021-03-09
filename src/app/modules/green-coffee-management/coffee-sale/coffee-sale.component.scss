@@ -37,6 +37,9 @@
 ::ng-deep .breadCrumb .p-breadcrumb ul {
     width: max-content;
 }
+::ng-deep .productListTable .p-datatable table tr td {
+    white-space: normal;
+}
 
 /****************************    Media Queries   ****************************/
 
@@ -100,8 +103,8 @@
         border-right: 1px solid #d6d6d6;
         border-bottom: 1px solid #d6d6d6;
     }
-    .breadCrumb::-webkit-scrollbar {
-        display: none;
+    .tabPage {
+        display: none !important;
     }
 }
 
@@ -160,10 +163,23 @@
     .border-div {
         border-top: 1px dashed #d6d6d6;
     }
+    .avail-status {
+        background-color: #faf8f4;
+        border-radius: 4px;
+        padding: 1.5rem;
+    }
 }
 .webMobPage {
     display: block;
 }
 .tabPage {
     display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.breadCrumb {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+.breadCrumb::-webkit-scrollbar {
+    display: none !important;
 }

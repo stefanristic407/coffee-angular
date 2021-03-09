@@ -11,7 +11,7 @@
         <div class="main-block">
             <div class="row m-1">
                 <div class="col-lg-9 col-md-8 p-0">
-                    <div class="overflow-auto d-flex flex-nowrap breadCrumb">
+                    <div class="overflow-auto flex-nowrap breadCrumb">
                         <p-breadcrumb [model]="breadItems"></p-breadcrumb>
                     </div>
                 </div>
@@ -30,7 +30,9 @@
                 </div>
             </div>
             <section class="mt-4 mt-lg-0">
-                <h5 class="fnt-18 text-clr334 fnt-bold">{{ globals.languageJson?.green_coffee_inventory }}</h5>
+                <h5 class="fnt-16 fnt-md-18 text-clr334 fnt-bold">
+                    {{ globals.languageJson?.green_coffee_inventory }}
+                </h5>
                 <p class="fnt-14 text-clr334 fnt-normal mobile-lead">
                     Manage your procured coffee and mark coffee for sale
                 </p>

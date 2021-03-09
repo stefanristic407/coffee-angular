@@ -7,6 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
+import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'app-agreement',
@@ -20,6 +21,8 @@ export class AgreementComponent implements OnInit {
     customerType: string;
     roasterId: string;
     mainData: any;
+    navItems: MenuItem[];
+    selectedNav: MenuItem;
 
     constructor(
         public router: Router,
@@ -37,6 +40,11 @@ export class AgreementComponent implements OnInit {
             this.router.navigate(['/auth/login']);
         }
         this.customerType = 'hrc';
+        this.navItems = [
+            { label: this.globals.languageJson?.agreements }
+        ];
+
+        this.selectedNav = { label: this.globals.languageJson?.home, routerLink: '/' };
         this.language();
     }
 

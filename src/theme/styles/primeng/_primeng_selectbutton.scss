@@ -105,3 +105,36 @@
         }
     }
 }
+
+.p-selectbutton.p-selectbutton-prebook {
+    .p-button {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
+
+.p-selectbutton.p-selectbutton-milling-type {
+    border: none;
+    flex-wrap: wrap;
+    .p-button {
+        background-color: #f8f8f8;
+        border-radius: 4px !important;
+        border: solid 1px #d8d8d8 !important;
+        color: #747588;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.57;
+        margin-right: 12px;
+        padding: 12px 22px;
+        white-space: nowrap;
+        margin-top: 12px;
+        &.p-highlight {
+            border: solid 1px #232334 !important;
+            background-color: #f8f8f8;
+            color: #232334;
+        }
+        &.p-disabled {
+            opacity: 1;
+        }
+    }
+}
