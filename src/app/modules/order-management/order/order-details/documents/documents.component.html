@@ -6,7 +6,7 @@
                 optionLabel="label" optionValue="value"></p-dropdown>
 
             <div>
-                <div class="btn-stroked-muted cursor-pointer p-2" (click)="downloadAll()">
+                <div class="btn-trans-icon cursor-pointer p-2" (click)="downloadAll()">
                     <img class="svg" src="assets/images/download-icon.svg" />
                     <span class="estate-message pl-2">{{ 'download_all' | translate }}</span>
                 </div>
@@ -14,13 +14,10 @@
         </div>
     </div>
     <div class="col-12 px-0">
-        <p-table [value]="documents | arrayFilter: owner.name: 'fileOwner'" [(selection)]="selectedDocuments"
-            styleClass="p-datatable-responsive-single">
+        <p-table [value]="documents | arrayFilter: owner.name: 'fileOwner'"
+            styleClass="p-datatable-responsive-single border-none">
             <ng-template pTemplate="header">
                 <tr>
-                    <th class="w-checkbox-column">
-                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                    </th>
                     <th pSortableColumn>{{ 'Document Name' | translate }}</th>
                     <th class="w-20" pSortableColumn>{{ 'date_added' | translate }}</th>
                     <th class="w-20" pSortableColumn>{{ 'owner' | translate }}</th>
@@ -30,9 +27,6 @@
 
             <ng-template pTemplate="body" let-document>
                 <tr>
-                    <td class="d-none d-md-table-cell">
-                        <p-tableCheckbox [value]="document"></p-tableCheckbox>
-                    </td>
                     <td class="text-overflow-ellipsis border-0">
                         <span class="d-none d-md-inline">{{ document.name }}</span>
                         <div class="p-mobile-row-content">
@@ -66,13 +60,14 @@
                     <td class="d-none d-md-table-cell px-0 text-center">
                         <span (click)="downloadFile(document)"><img class="pr-2"
                                 *ngIf="document.mime == 'image/jpeg' || document.mime == 'image/png'"
-                                src="assets/images/pdf-doc.svg" alt="download-icon" /></span>
+                                src="assets/images/pdf.svg" alt="download-icon" /></span>
                     </td>
                 </tr>
             </ng-template>
 
             <ng-template pTemplate="summary">
-                <div *ngIf="showLoadMore" class="text-center mt-1"><span class="navigation-link" (click)="loadMore()">{{ 'load_more' | translate }}</span>
+                <div *ngIf="showLoadMore" class="text-center mt-1">
+                    <span class="navigation-link" (click)="loadMore()">{{ 'load_more' | translate }}</span>
                 </div>
             </ng-template>
         </p-table>

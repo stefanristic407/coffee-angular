@@ -116,6 +116,10 @@
     background: transparent;
 }
 
+.p-datatable .p-datatable-footer {
+    border: 0;
+}
+
 @media (max-width: 1270px) and (min-width: 768px) {
     .e-comm-catlog .p-datatable table {
         border-collapse: collapse;

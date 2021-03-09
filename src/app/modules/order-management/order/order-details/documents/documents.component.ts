@@ -14,7 +14,6 @@ export class DocumentsComponent extends DestroyableComponent implements OnInit {
     page = 1;
     showLoadMore = true;
     documents: OrderDocument[] = [];
-    selectedDocuments: OrderDocument[] = [];
     owners: any[] = [];
     owner: any = {};
 

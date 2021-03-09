@@ -25,6 +25,10 @@
     .have-a-problem {
         position: absolute;
         right: 19px;
-        top: 10px;
+        top: 13px;
+    }
+
+    ::ng-deep .p-tabview-panel {
+        padding-top: 1.5rem;
     }
 }
