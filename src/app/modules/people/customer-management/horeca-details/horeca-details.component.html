@@ -27,20 +27,26 @@
 
                     <div class="col-9">
                         <p class="m-0">
-                            <span class="fnt-18 fnt-muli fnt-700 black" *ngIf="customerService.company_name != ''">
+                            <span
+                                class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
+                                *ngIf="customerService.company_name != ''"
+                            >
                                 {{ customerService.company_name }}</span
                             >
                         </p>
                         <p class="m-0">
-                            <span class="fnt-18 fnt-muli fnt-700 black" *ngIf="customerService.company_name == ''">
+                            <span
+                                class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
+                                *ngIf="customerService.company_name == ''"
+                            >
                                 -</span
                             >
                         </p>
-                        <p class="fnt-18 fnt-600 fnt-muli text-clr588 m-0">
+                        <p class="fnt-16 fnt-md-18 fnt-600 fnt-muli text-clr588 m-0">
                             <span> Owned by {{ customerService.owner_name }} </span>
                             <span> .Founded in {{ customerService.founded_on }}</span>
                         </p>
-                        <p class="fnt-18 fnt-700 fnt-muli text-clr55c">
+                        <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli text-clr55c">
                             <span> Admin: </span> <span>{{ customerService.admin_name }} </span>
                         </p>
                     </div>
@@ -72,7 +78,7 @@
                 <div class="col-md-6 col-12 discount-border" id="edithoreca-discount">
                     <div class="row">
                         <div class="col-9">
-                            <p class="fnt-18 fnt-700 fnt-muli black">Discount %</p>
+                            <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli black">Discount %</p>
                             <p class="fnt-14 fnt-400 fnt-muli black">
                                 Please enter the discount % you would be provident this customer. The price would be
                                 changed on the e-commerce shop accordingly
@@ -81,7 +87,7 @@
 
                         <div class="col-3">
                             <p class="fnt-40 fnt-bold fnt-muli black m-0">{{ customerService.discount_percentage }}%</p>
-                            <p class="fnt-18 fnt-600 fnt-muli text-clr588 m-0">Discount</p>
+                            <p class="fnt-16 fnt-md-18 fnt-600 fnt-muli text-clr588 m-0">Discount</p>
                             <p (click)="editHorecaDiscount()" class="pointer-hand">
                                 <span
                                     ><img src="assets/images/edit-horeca.svg" alt="edit-horeca" class="edit-horeca" />
@@ -94,7 +100,7 @@
                 <div class="col-md-6 col-12 discount-border" id="savehoreca-discount">
                     <div class="row">
                         <div class="col-9">
-                            <p class="fnt-18 fnt-700 fnt-muli black">
+                            <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli black">
                                 Please enter the discount % you would be provident this customer.
                             </p>
                             <input
@@ -117,7 +123,7 @@
                 <div class="col-md-6 col-12 discount-border customer-status-width">
                     <div class="row">
                         <div class="col-8">
-                            <p class="fnt-18 fnt-700 fnt-muli black m-0">Customer Status</p>
+                            <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli black m-0">Customer Status</p>
                             <p class="fnt-14 fnt-600 fnt-muli black">Manage their status on the platform</p>
                         </div>
 
@@ -151,7 +157,7 @@
     <!--Important Contacts -->
 
     <section class="imp-contact">
-        <p class="fnt-18 fnt-700 fnt-muli black" *ngIf="hrContacts != null">Important Contacts</p>
+        <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli black" *ngIf="hrContacts != null">Important Contacts</p>
         <div class="row meet-our-team-list">
             <div class="col-12 col-md-4 col-lg-2 meet-our-team-list__item" *ngFor="let contact of hrContacts">
                 <div class="team-img">
@@ -163,7 +169,7 @@
                     />
                 </div>
                 <div class="team-des">
-                    <p class="fnt-muli fnt-16 fnt-700 text-clr334 m-0">{{ contact.name | titlecase }}</p>
+                    <p class="fnt-muli fnt-14 fnt-md-16 fnt-700 text-clr334 m-0">{{ contact.name | titlecase }}</p>
                     <p class="fnt-muli fnt-mb-14 fnt-500 text-clr00 m-0">{{ contact.roles[0] }}</p>
                 </div>
                 <div class="msg-team mt-2">
@@ -177,7 +183,7 @@
             <!-- <div class="col-12 col-md-4 col-lg-2 meet-our-team-list__item">
                 <div class="team-img"><img src="assets/images/team-2.png" class="team-images"></div>
                 <div class="team-des">
-                    <p class="fnt-muli fnt-16 fnt-700 text-clr334 m-0">Hannah morris</p>
+                    <p class="fnt-muli fnt-14 fnt-md-16 fnt-700 text-clr334 m-0">Hannah morris</p>
                     <p class="fnt-muli fnt-mb-14 fnt-500 text-clr00 m-0">Cupping manager</p>
                 </div>
                 <div class="msg-team mt-2"><img src="assets/images/message-icon.svg" class="d-inline-block"><span class="pl-1 d-inline-block fnt-muli fnt-mb-14 fnt-500 text-clr334">Message</span></div>
@@ -186,7 +192,7 @@
             <div class="col-12 col-md-4 col-lg-2 meet-our-team-list__item">
                 <div class="team-img"><img src="assets/images/team-3.png" class="team-images"></div>
                 <div class="team-des">
-                    <p class="fnt-muli fnt-16 fnt-700 text-clr334 m-0">Hannah morris</p>
+                    <p class="fnt-muli fnt-14 fnt-md-16 fnt-700 text-clr334 m-0">Hannah morris</p>
                     <p class="fnt-muli fnt-mb-14 fnt-500 text-clr00 m-0">Cupping manager</p>
                 </div>
                 <div class="msg-team mt-2"><img src="assets/images/message-icon.svg" class="d-inline-block"><span class="pl-1 d-inline-block fnt-muli fnt-mb-14 fnt-500 text-clr334">Message</span></div>
@@ -197,7 +203,7 @@
     <!-- Customers on-boarder by HoReCa -->
 
     <section class="discount-sec">
-        <p class="fnt-18 fnt-700 fnt-muli black">Customers on-boarder by HoReCa</p>
+        <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli black">Customers on-boarder by HoReCa</p>
         <div class="col-12">
             <app-horeca-table> </app-horeca-table>
         </div>

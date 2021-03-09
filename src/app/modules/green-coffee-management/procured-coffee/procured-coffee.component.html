@@ -39,7 +39,9 @@
                             </div>
                         </div>
                         <div class="row avaialble-mob p-0">
-                            <h2 class="fnt-18 fnt-bold text-clr334 pl-3 mt-3">Order #{{ orderDetails?.id }}</h2>
+                            <h2 class="fnt-16 fnt-md-18 fnt-bold text-clr334 pl-3 mt-3">
+                                Order #{{ orderDetails?.id }}
+                            </h2>
                             <div class="col-sm-12">
                                 <button
                                     *ngIf="!saleInformation"
@@ -101,7 +103,7 @@
                             </div>
                             <div class="row mt-4 ml-md-0 mr-md-0">
                                 <h3
-                                    class="d-none d-sm-none d-xl-none d-lg-none d-md-block pb-1 fnt-18 fnt-bold text-clr334"
+                                    class="d-none d-sm-none d-xl-none d-lg-none d-md-block pb-1 fnt-16 fnt-md-18 fnt-bold text-clr334"
                                 >
                                     Green coffee details
                                 </h3>
@@ -255,14 +257,14 @@
                                                         {{ orderDetails['cupping_at'] | date: 'dd MMM, yyyy' }}
                                                     </h6>
                                                     <p class="text-clr334 fnt-600 fnt-14 mb-0">
-                                                        <span class="text-clr588 fnt-600 fnt-14 pr-lg-4"
+                                                        <span class="text-clr588 fnt-600 fnt-14 pr-md-3 mr-md-1"
                                                             >Cup Score :</span
                                                         >
                                                         {{ orderDetails.cup_score ? orderDetails.cup_score : 'NA' }}
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6">
+                                            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-6">
                                                 <div class="real-estate d-grid p-date">
                                                     <div class="p-photo">
                                                         <img
@@ -282,7 +284,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6 v-report">
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 v-report">
                                                 <a class="brown-cta" (click)="viewReport()">View report </a>
                                             </div>
                                             <!-- <div

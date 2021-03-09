@@ -1,10 +1,11 @@
-import { OrganizationType, ChatMessageType } from '@enums';
+/* tslint:disable no-string-literal */
+import { OrganizationType, ChatMessageType, SocketMessageOrigin } from '@enums';
 import { WSResponse, WSRequest } from '@models';
 import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 import { CookieService } from 'ngx-cookie-service';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Subscription, Subject, BehaviorSubject, Observable } from 'rxjs';
-import { ChatUtil } from '../chat/chat-util.service';
+import { ChatUtilService } from '../chat/chat-util.service';
 import { distinct, catchError } from 'rxjs/operators';
 import { environment } from '@env/environment';
 
@@ -15,15 +16,16 @@ export class SocketService implements OnDestroy {
     private SM: { [SubscriptionName: string]: Subscription } = {}; // Subscrition MAP object
     private WSSubject: WebSocketSubject<any> | null = null;
 
-    public chatSent = new Subject<WSRequest<unknown>>();
-    public chatReceive = new Subject<WSResponse<unknown>>();
+    public directMessageSent = new Subject<WSRequest<unknown>>();
+    public directMessageReceive = new Subject<WSResponse<unknown>>();
+
     public orderChatSent = new Subject<WSRequest<unknown>>();
     public orderChatReceive = new Subject<WSResponse<unknown>>();
 
     public authenticationState = new BehaviorSubject<'INIT' | 'IP' | 'FAIL' | 'SUCCESS'>('IP');
     public socketState = new BehaviorSubject<'INIT' | 'IP' | 'CONNECTED' | 'FAILED' | 'CLOSED'>('IP');
 
-    constructor(private cookieService: CookieService, private chatUtil: ChatUtil) {
+    constructor(private cookieService: CookieService, private chatUtil: ChatUtilService) {
         this.initSocketService();
     }
 
@@ -60,22 +62,27 @@ export class SocketService implements OnDestroy {
                     return caught;
                 }),
             ).subscribe((WSMessage: WSResponse<unknown>) => {
-                if (WSMessage.type === ChatMessageType.auth) {
+                if (WSMessage.type === ChatMessageType.auth && WSMessage.origin === SocketMessageOrigin.UTIL_AUTH) {
                     this.handleAuthResponse(WSMessage as WSResponse<null>);
                 }
                 const arr = Object.values(ChatMessageType);
                 if (arr.includes(WSMessage.type)) {
                     // Created Handlers for your message type
-                    this.chatReceive.next(WSMessage);
-                    this.orderChatReceive.next(WSMessage);
+                    if (WSMessage.origin === SocketMessageOrigin.DIRECT_MESSAGING) {
+                        this.directMessageReceive.next(WSMessage);
+                    } else if (WSMessage.origin === SocketMessageOrigin.ORDER_CHAT) {
+                        this.orderChatReceive.next(WSMessage);
+                    }
                 }
                 // console.log('WEBSOCKET::Receiving ...', WSMessage);
             });
-            this.SM.chatSentSubscription = this.chatSent.subscribe((payload) => {
+            this.SM['chatSentSubscription'] = this.directMessageSent.subscribe((payload) => {
+                payload.origin = SocketMessageOrigin.DIRECT_MESSAGING;
                 this.WSSubject.next(payload);
             });
             this.SM.orderChatSentSubscription = this.orderChatSent.subscribe((payload) => {
                 // console.log('WEBSOCKET::Sending ...', payload);
+                payload.origin = SocketMessageOrigin.ORDER_CHAT;
                 this.WSSubject.next(payload);
             });
         } else {
@@ -104,7 +111,6 @@ export class SocketService implements OnDestroy {
     }
 
     public destorySocket(cleanup = false) {
-        // NOTE Call this function on logout
         console.log('Error: Destory called');
         if (this.WSSubject) {
             this.WSSubject.complete();
@@ -127,6 +133,7 @@ export class SocketService implements OnDestroy {
             const payload = {
                 timestamp: this.chatUtil.getTimeStamp(),
                 type: ChatMessageType.auth,
+                origin: SocketMessageOrigin.UTIL_AUTH,
                 data: {
                     user_token: this.token,
                 },

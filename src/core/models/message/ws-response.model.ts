@@ -1,4 +1,4 @@
-import { ChatMessageType } from '@enums';
+import { ChatMessageType, SocketMessageOrigin } from '@enums';
 
 export interface WSResponse<ResponseBody> {
     type: ChatMessageType; // same as request
@@ -6,6 +6,7 @@ export interface WSResponse<ResponseBody> {
     timestamp: string; // same as request
     success: boolean;
     code: number;
+    origin: SocketMessageOrigin;
     messages: {
         [errorKey: string]: string;
     } | null;

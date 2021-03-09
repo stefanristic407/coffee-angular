@@ -31,6 +31,7 @@ export class CoffeeSaleComponent implements OnInit {
     tableColumns = [];
     tableValue = [];
     remaining: any;
+    quantityType: string;
     constructor(
         public globals: GlobalsService,
         public route: ActivatedRoute,
@@ -86,6 +87,9 @@ export class CoffeeSaleComponent implements OnInit {
         this.language();
         this.getProcuredOrderDetails();
         this.getRoasterVatDetails();
+        this.coffeeSaleForm.get('quantity_type').valueChanges.subscribe((value) => {
+            this.coffeeSaleForm.patchValue({ quantity_type: value }, { emitEvent: false });
+        });
         if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
             this.sharedService.isMobileView = true;
         }
@@ -155,7 +159,7 @@ export class CoffeeSaleComponent implements OnInit {
                 if (response.success && response.result) {
                     this.orderDetails = response.result;
                     this.tableValue.push(this.orderDetails);
-                    const remaining = this.orderDetails?.quantity_count;
+                    const remaining = 0;
                     this.remaining = `${remaining} Bags`;
                 }
             },
@@ -237,6 +241,10 @@ export class CoffeeSaleComponent implements OnInit {
         }
         return formatVal.replace('-', '');
     }
+    quantityTypeChange() {
+        this.quantityType = this.coffeeSaleForm.value.quantity_type;
+        this.changeQuantity();
+    }
     validateForms() {
         let returnFlag = true;
         if (!this.coffeeSaleForm.valid) {
@@ -260,11 +268,24 @@ export class CoffeeSaleComponent implements OnInit {
         this.router.navigate([`/green-coffee-management/procured-coffee/${this.orderID}`]);
     }
     changeQuantity() {
-        const remaining = this.orderDetails.quantity_count - this.coffeeSaleForm.value.quantity_count;
-        this.remaining = `${remaining} Bags`;
-        if (this.remaining < 0) {
-            this.toasterService.error('Please enter below available quantity');
-            this.remaining = '0 Bags';
+        if (this.quantityType === 'kg') {
+            const remaining = this.coffeeSaleForm.value.quantity_count;
+            this.remaining = `${remaining} kg`;
+            if (
+                this.orderDetails.quantity_count * this.orderDetails.quantity -
+                    this.coffeeSaleForm.value.quantity_count <
+                0
+            ) {
+                this.toasterService.error('Please check quantity available with you');
+                this.remaining = '0 kg';
+            }
+        } else {
+            const remaining = this.coffeeSaleForm.value.quantity_count;
+            this.remaining = `${remaining} bags`;
+            if (this.orderDetails.quantity_count - this.coffeeSaleForm.value.quantity_count < 0) {
+                this.toasterService.error('Please check quantity available with you');
+                this.remaining = '0 bags';
+            }
         }
     }
 }

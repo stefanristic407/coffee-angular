@@ -42,7 +42,7 @@
                 <!-- Order detail table -->
                 <div class="mb-3">
                     <div class="br-sm-main br-4 p-3 p-md-0">
-                        <div class="fnt-18 fnt-bold text-clr000 pb-2">
+                        <div class="fnt-16 fnt-md-18 fnt-bold text-clr000 pb-2">
                             {{ globals.languageJson?.order_details }}
                         </div>
                         <p-table *ngIf="orderDetail" [value]="[orderDetail]" styleClass="p-datatable-responsive-single">
@@ -121,7 +121,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="col-4 col-lg-3 col-xl-2 fnt-18 fnt-bold text-clr334 form-middle d-none d-md-block"
+                                    class="col-4 col-lg-3 col-xl-2 fnt-16 fnt-md-18 fnt-bold text-clr334 form-middle d-none d-md-block"
                                 >
                                     ${{ sourcing.harvestDetail?.price * infoForm.value.quantity | number: '1.0-0' }}
                                 </div>
@@ -138,7 +138,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="col-4 col-lg-3 col-xl-2 fnt-18 fnt-bold text-clr334 form-middle d-none d-md-block"
+                                    class="col-4 col-lg-3 col-xl-2 fnt-16 fnt-md-18 fnt-bold text-clr334 form-middle d-none d-md-block"
                                 >
                                     ${{
                                         (infoForm.value.service ? shipInfo.unit_price * infoForm.value.quantity : 0)
@@ -157,7 +157,7 @@
                                 <div class="fnt-14 fnt-bold text-clr334">
                                     {{ globals.languageJson?.total_amount }}
                                 </div>
-                                <div class="fnt-18 fnt-bold text-clr334 pt-md-2">
+                                <div class="fnt-16 fnt-md-18 fnt-bold text-clr334 pt-md-2">
                                     ${{ totalPrice | number: '1.0-0' }}
                                 </div>
                             </div>
@@ -165,7 +165,9 @@
                     </div>
 
                     <div *ngIf="!editAddress" class="col-12 col-md-7 mt-5 px-0">
-                        <div class="fnt-18 fnt-bold text-clr000 d-flex justify-content-between align-items-center">
+                        <div
+                            class="fnt-16 fnt-md-18 fnt-bold text-clr000 d-flex justify-content-between align-items-center"
+                        >
                             <div *ngIf="(!infoForm.value.service && orderType == 'booked') || orderType == 'sample'">
                                 {{ globals.languageJson?.delivery_address }}
                             </div>
@@ -198,7 +200,7 @@
                     </div>
 
                     <div *ngIf="editAddress" class="mt-4 mt-md-45">
-                        <div class="fnt-18 fnt-bold text-clr000 mb-4">
+                        <div class="fnt-16 fnt-md-18 fnt-bold text-clr000 mb-4">
                             {{ globals.languageJson?.shipping_address }}
                         </div>
                         <form [formGroup]="addressForm" class="form-container">
