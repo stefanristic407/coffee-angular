@@ -15,10 +15,9 @@ import { ConfirmComponent } from '@shared';
     selector: 'app-roaster-agreements',
     templateUrl: './roaster-agreements.component.html',
     styleUrls: ['./roaster-agreements.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class RoasterAgreementsComponent implements OnInit {
-    appLanguage?: any;
     estatetermOrigin: any;
     customerMob: any;
     roasterId: string;
@@ -49,10 +48,6 @@ export class RoasterAgreementsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // Auth checking
-        if (this.cookieService.get('Auth') === '') {
-            this.router.navigate(['/auth/login']);
-        }
         this.estatetermOrigin = '';
         this.customerMob = '';
         this.getAgreements();
@@ -63,20 +58,13 @@ export class RoasterAgreementsComponent implements OnInit {
         }
     }
 
-    // Function Name: Get Country Name
-    // Description: This function helps to transfer country code to full country name.
-
     getCountryName(code: any): void {
         const country = this.roasteryProfileService.countryList.find((con) => con.isoCode === code);
         return country ? country.name : '';
     }
 
-    // Function Name: Get Agreements
-    // Description: This function helps to fetch the all agreemnts
-
     getAgreements(event?: any): void {
         this.mainData = [];
-        // tslint:disable-next-line: deprecation
         this.roasterService.getAgreements(this.roasterId, this.customerType).subscribe((resp: any) => {
             if (resp.success) {
                 this.mainData = resp.result;
@@ -87,11 +75,7 @@ export class RoasterAgreementsComponent implements OnInit {
         });
     }
 
-    // Function Name: Get Micro Roaster
-    // Description: This function helps to fetch the all micro roaster list
-
     getMicroRoastersList(): void {
-        // tslint:disable-next-line: deprecation
         this.roasterService.getMicroRoastersList(this.roasterId).subscribe((res: any) => {
             this.newList = [];
             if (res.success) {
@@ -116,11 +100,7 @@ export class RoasterAgreementsComponent implements OnInit {
         });
     }
 
-    // Function Name: Get Horeca List
-    // Description: This function helps to fetch the all horeca list
-
     getHorecaList(): void {
-        // tslint:disable-next-line: deprecation
         this.roasterService.getMicroRoastersHoreca(this.roasterId).subscribe((res: any) => {
             this.newList = [];
             if (res.success) {
@@ -145,17 +125,11 @@ export class RoasterAgreementsComponent implements OnInit {
         });
     }
 
-    // Function Name: Update Modal
-    // Description: This function helps to fetch the indiviual details of the column
-
     onUpdateModal(itemId: any) {
         this.displayAddEditModal = true;
         this.isUpdate = true;
         this.selectedItemId = itemId;
     }
-
-    // Function Name: Filter Agreements
-    // Description: This function helps to filter agrements based on dropdown
 
     filterAgrements() {
         if (!this.selectedCustomers || this.selectedCustomers === 'All') {
@@ -165,27 +139,17 @@ export class RoasterAgreementsComponent implements OnInit {
         }
     }
 
-    // Function Name: Upload Modal Open
-    // Description: This function helps to set the value of radio button when upload button is clicked
-
     onUploadModalOpen() {
         this.displayAddEditModal = true;
         this.selectedItemId = null;
         this.isUpdate = false;
     }
 
-    // Function Name: Update Modal Close
-    // Description: This function helps to close the dialog when cross button is clicked
-
     onUpdateModalClose(event?) {
         this.displayAddEditModal = false;
     }
 
-    // Function Name: Delete Modal
-    // Description: This function helps to capture indiviual agreement id to delete a agrement
-
     onOpenDeleteModal(item) {
-        // this.displayDeleteModal = true;
         this.dialogSrv
             .open(ConfirmComponent, {
                 data: {
@@ -194,19 +158,19 @@ export class RoasterAgreementsComponent implements OnInit {
                 showHeader: false,
                 styleClass: 'confirm-dialog',
             })
-            // tslint:disable-next-line: deprecation
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
-                    // tslint:disable-next-line: deprecation
-                    this.roasterService.deleteAgreement(this.roasterId, this.customerType, item).subscribe((res: any) => {
-                        if (res.success) {
-                            // this.displayDeleteModal = false;
-                            this.toastrService.success('The Selected agreement deleted successfully!');
-                            this.getAgreements();
-                        } else {
-                            this.toastrService.error('Error while deleting the agreement');
-                        }
-                    });
+                    this.roasterService
+                        .deleteAgreement(this.roasterId, this.customerType, item)
+                        .subscribe((res: any) => {
+                            if (res.success) {
+                                // this.displayDeleteModal = false;
+                                this.toastrService.success('The Selected agreement deleted successfully!');
+                                this.getAgreements();
+                            } else {
+                                this.toastrService.error('Error while deleting the agreement');
+                            }
+                        });
                 }
             });
     }
