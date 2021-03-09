@@ -14,10 +14,9 @@
         </div>
         <div class="web-farm">
             <div class="float-right">
-                <label class="upload-btn" (click)="onUploadModalOpen()">
-                    <img class="dwnd-img" src="assets/images/group-6.svg" alt="upload-icon" />
-                    <span class="upload-name">&nbsp; Upload </span>
-                </label>
+                <div class="btn-trans-icon upload-icon" (click)="onUploadModalOpen()">
+                    {{ 'upload' | translate }}
+                </div>
             </div>
         </div>
     </div>

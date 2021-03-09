@@ -25,12 +25,9 @@
             <div class="col-12">
                 <div class="col-lg-12 col-md-12 px-0">
                     <div class="row px-3">
-                        <div class="col-lg-2 col-md-2 p-0 mt-2 mobile-farm">
-                            <div class="upload-order pl-0" [routerLink]="'/sales-contract/' + customerType">
-                                <label class="upload-btn">
-                                    <img class="dwnd-img" src="assets/images/group-6.svg" alt="upload-icon" />
-                                    <span class="upload-name">&nbsp; Upload </span>
-                                </label>
+                        <div class="col-lg-2 col-md-2 p-0 mt-3 mb-2 mobile-farm">
+                            <div class="btn-trans-icon upload-icon" [routerLink]="'/sales-contract/' + customerType">
+                                {{ 'upload' | translate }}
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12 px-0 mt-4 pt-2" id="agreements-nav">
