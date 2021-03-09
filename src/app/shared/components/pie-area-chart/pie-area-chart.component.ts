@@ -1,13 +1,4 @@
-import {
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    Input,
-    OnChanges,
-    OnInit,
-    SimpleChanges,
-    ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 
 import * as echarts from 'echarts';
 import ECharts = echarts.ECharts;
@@ -32,7 +23,6 @@ export class PieAreaChartComponent implements OnInit, OnChanges {
                 fontSize: '12px',
                 fontFamily: 'Muli',
             },
-            alwaysShowContent: true,
         },
         series: [
             {

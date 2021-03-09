@@ -1,4 +1,4 @@
-<div class="bg-fff pl-lg-5 pr-lg-5 pt-lg-45 pb-lg-325">
+<div class="bg-fff pl-lg-5 pr-lg-5 pt-lg-45 pb-lg-325 p-md-3">
     <div class="w-100 d-flex justify-content-between mb-3">
         <div>
             <p-breadcrumb [model]="items"></p-breadcrumb>
@@ -139,14 +139,12 @@
     </div>
 </div>
 
-<div class="bg-fff p-5 mt-md-3">
-    <div class="tab">
-        <div class="responsive-tabMenu">
-            <p-tabMenu [model]="menuItems"></p-tabMenu>
-        </div>
-        <div class="mt-3">
-            <router-outlet></router-outlet>
-        </div>
+<div class="bg-fff p-lg-5 p-md-3 mt-md-3">
+    <div class="responsive-tabMenu">
+        <p-tabMenu [model]="menuItems"></p-tabMenu>
+    </div>
+    <div class="mt-3">
+        <router-outlet></router-outlet>
     </div>
     <div class="mobile-farm farm-stricky col-12">
         <div class="row" *ngIf="roasteryProfileService.savemode">
