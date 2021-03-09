@@ -1,7 +1,7 @@
 // AUTHOR : Gaurav Kunal
-// PAGE DESCRIPTION : This page contains functions of  Orders List,Search and Filters.
+// PAGE DESCRIPTION : This page contains functions of sales contract roaster agreements.
 
-import { Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -28,8 +28,9 @@ export class RoasterAgreementsComponent implements OnInit {
     selectedCustomers: any;
     isUpdate: boolean;
     selectedItemId: number;
-    @ViewChild('dismissAddModal') dismissAddModal: ElementRef;
-    @ViewChild('dismissDeleteModal') dismissDeleteModal: ElementRef;
+    displayDeleteModal = false;
+    displayAddEditModal = false;
+
     @Input() searchTerm = '';
     @Input() customerType = 'hrc';
 
@@ -72,6 +73,7 @@ export class RoasterAgreementsComponent implements OnInit {
 
     getAgreements(event?: any): void {
         this.mainData = [];
+        // tslint:disable-next-line: deprecation
         this.roasterService.getAgreements(this.roasterId, this.customerType).subscribe((resp: any) => {
             if (resp.success) {
                 this.mainData = resp.result;
@@ -86,6 +88,7 @@ export class RoasterAgreementsComponent implements OnInit {
     // Description: This function helps to fetch the all micro roaster list
 
     getMicroRoastersList(): void {
+        // tslint:disable-next-line: deprecation
         this.roasterService.getMicroRoastersList(this.roasterId).subscribe((res: any) => {
             this.newList = [];
             if (res.success) {
@@ -114,6 +117,7 @@ export class RoasterAgreementsComponent implements OnInit {
     // Description: This function helps to fetch the all horeca list
 
     getHorecaList(): void {
+        // tslint:disable-next-line: deprecation
         this.roasterService.getMicroRoastersHoreca(this.roasterId).subscribe((res: any) => {
             this.newList = [];
             if (res.success) {
@@ -142,6 +146,7 @@ export class RoasterAgreementsComponent implements OnInit {
     // Description: This function helps to fetch the indiviual details of the column
 
     onUpdateModal(itemId: any) {
+        this.displayAddEditModal = true;
         this.isUpdate = true;
         this.selectedItemId = itemId;
     }
@@ -161,24 +166,33 @@ export class RoasterAgreementsComponent implements OnInit {
     // Description: This function helps to set the value of radio button when upload button is clicked
 
     onUploadModalOpen() {
+        this.displayAddEditModal = true;
         this.selectedItemId = null;
         this.isUpdate = false;
+    }
+
+    // Function Name: Update Modal Close
+    // Description: This function helps to close the dialog when cross button is clicked
+
+    onUpdateModalClose(event?) {
+        this.displayAddEditModal = false;
     }
 
     // Function Name: Delete Modal
     // Description: This function helps to capture indiviual agreement id to delete a agrement
 
-    onDeleteModal(deleteId: any) {
-        this.deleteAgreementId = deleteId;
+    onOpenDeleteModal() {
+        this.displayDeleteModal = true;
     }
 
     // Function Name: Delete Agreement
     // Description: This function helps to delete a agrement
 
     deleteAgreement(item: any) {
+        // tslint:disable-next-line: deprecation
         this.roasterService.deleteAgreement(this.roasterId, this.customerType, item).subscribe((res: any) => {
             if (res.success) {
-                document.getElementById('dismissDeleteModal').click();
+                this.displayDeleteModal = false;
                 this.toastrService.success('The Selected agreement deleted successfully!');
                 this.getAgreements();
             } else {

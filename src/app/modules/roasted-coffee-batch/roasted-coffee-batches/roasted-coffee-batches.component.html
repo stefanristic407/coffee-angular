@@ -9,14 +9,14 @@
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 spacing-batch">
                 <button
                     type="submit"
-                    class="btn pull-right btn-raised d-md-block d-none"
+                    class="btn pull-right btn-raised d-md-none d-none d-lg-block d-xl-block"
                     routerLink="/roasted-coffee-batch/roasting-profile"
                 >
                     {{ globals.languageJson?.manage_roasting_profiles }}
                 </button>
                 <button
                     type="submit"
-                    class="btn pull-right btn-stroked d-md-block d-none mr-2"
+                    class="btn pull-right btn-stroked d-md-none d-none mr-2 d-lg-block d-xl-block"
                     routerLink="/roasted-coffee-batch/new-roasted-batch"
                 >
                     {{ globals.languageJson?.create_new_batch }}
@@ -41,7 +41,7 @@
                     name="search"
                     class="search-raised pull-right"
                     formControlName="searchField"
-                    placeholder="Search"
+                    placeholder="Search by batch name"
                 />
             </div>
         </div>
@@ -72,12 +72,12 @@
                     name="search"
                     class="search-raised w-100 ml-0"
                     formControlName="searchField"
-                    placeholder="Search"
+                    placeholder="Search by batch name"
                 />
             </div>
         </div>
         <div class="row pt-1">
-            <div class="col-lg-8">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-12 col-xl-12">
                 <p-dropdown
                     [options]="profileArray"
                     optionLabel="label"
@@ -90,6 +90,22 @@
                     styleClass="round-border mb-3 {{ profileFilter ? 'highlight' : '' }}"
                 >
                 </p-dropdown>
+            </div>
+            <div class="col-md-8 d-none d-sm-none d-md-block d-lg-none d-xl-none">
+                <button
+                    type="submit"
+                    class="btn pull-right btn-raised d-md-block"
+                    routerLink="/roasted-coffee-batch/roasting-profile"
+                >
+                    {{ globals.languageJson?.manage_roasting_profiles }}
+                </button>
+                <button
+                    type="submit"
+                    class="btn pull-right btn-stroked d-md-block mr-2"
+                    routerLink="/roasted-coffee-batch/new-roasted-batch"
+                >
+                    {{ globals.languageJson?.create_new_batch }}
+                </button>
             </div>
         </div>
 
@@ -127,7 +143,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
-                    <tr>
+                    <tr (click)="redirectToEdit(rowData)">
                         <td
                             *ngFor="let col of columns"
                             [ngSwitch]="col.field"
@@ -161,20 +177,17 @@
                             }"
                         >
                             <span *ngSwitchCase="'roast_batch_name'" class="">
-                                <span
-                                    class="d-none d-sm-none d-md-inline-block truncate-roasted"
-                                    (click)="redirectToEdit(rowData)"
-                                >
+                                <span class="d-none d-sm-none d-md-inline-block truncate-roasted">
                                     {{ rowData['roast_batch_name'] | titlecase }}
                                 </span>
 
                                 <div class="d-block d-sm-block d-md-none row m-0 pb-4">
                                     <div class="borderCard">
                                         <div class="d-flex bgCard">
-                                            <span class="fnt-muli fnt-700 width-90" (click)="redirectToEdit(rowData)">{{
+                                            <span class="fnt-muli fnt-700 width-90">{{
                                                 rowData[col.field] | titlecase
                                             }}</span>
-                                            <span class="">
+                                            <span (click)="menuClicked()" class="">
                                                 <a
                                                     class="menu-arrow"
                                                     [popover]="poplistTemplate"
@@ -204,7 +217,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="col-12 row p-3 m-0 mobileCard" (click)="redirectToEdit(rowData)">
+                                    <div class="col-12 row p-3 m-0 mobileCard">
                                         <div class="cardBottom p-0 w-100">
                                             <div class="mobileCardBody pt-0">
                                                 <div class="pb-1">
@@ -250,10 +263,8 @@
                             </span>
                             <span *ngSwitchCase="'actions'" class="">
                                 <span>
-                                    <a class="fnt-muli fnt-14 fnt-700 view-det" (click)="redirectToEdit(rowData)"
-                                        >View details</a
-                                    >
-                                    <span class="float-right">
+                                    <a class="fnt-muli fnt-14 fnt-700 view-det">View details</a>
+                                    <span class="float-right" (click)="menuClicked()">
                                         <a
                                             class="menu-arrow"
                                             [popover]="poplistTemplate"
@@ -279,18 +290,14 @@
                                     </span>
                                 </span>
                             </span>
-                            <span *ngSwitchCase="'created_at'" class="" (click)="redirectToEdit(rowData)">
+                            <span *ngSwitchCase="'created_at'" class="">
                                 <span>{{ rowData[col.field] | date: 'dd MMM y' }}</span>
                             </span>
-                            <span
-                                *ngSwitchCase="'roasting_profile_quantity'"
-                                class=""
-                                (click)="redirectToEdit(rowData)"
-                            >
+                            <span *ngSwitchCase="'roasting_profile_quantity'" class="">
                                 <span>{{ rowData[col.field] }} {{ rowData['roasting_profile_unit'] }}</span>
                             </span>
 
-                            <span *ngSwitchDefault (click)="redirectToEdit(rowData)">
+                            <span *ngSwitchDefault>
                                 <span>{{ rowData[col.field] }}</span>
                             </span>
                         </td>

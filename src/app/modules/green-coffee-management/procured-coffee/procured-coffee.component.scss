@@ -30,7 +30,10 @@
         font-weight: bold;
         color: #232334;
         text-transform: capitalize;
-        margin-bottom: 8px;
+        margin-bottom: 6px;
+    }
+    img {
+        width: 38px !important;
     }
 }
 .estate-focus {
@@ -90,7 +93,6 @@
         font-size: 14px;
         font-weight: bold;
         color: #80460b;
-        text-decoration: underline;
     }
 }
 ul {
@@ -152,9 +154,12 @@ ul {
         }
         p,
         span {
-            font-weight: 14px !important;
-            color: #232334 !important;
+            color: #232334;
             font-weight: bold;
+        }
+        img {
+            height: 32px;
+            width: 32px;
         }
     }
     .p-date {
@@ -164,7 +169,18 @@ ul {
         padding: 0px;
     }
     .estate-focus ul {
-        padding: 0px;
+        padding: 2px;
+    }
+    .dateAt {
+        font-size: 12px;
+        font-weight: 600 !important;
+        color: #747588 !important;
+    }
+    .notes {
+        color: #747588 !important;
+    }
+    .text-head {
+        color: #232334 !important;
     }
 }
 @media (min-width: 768px) and (max-width: 1199px) {

@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
 import { RoasterserviceService } from '@services';
@@ -36,6 +36,7 @@ export class ProductListComponent implements OnInit {
     statusArray: any = [];
     searchForm: FormGroup;
     popupDisplay = false;
+    disableAction = false;
 
     constructor(
         public dialogSrv: DialogService,
@@ -197,5 +198,17 @@ export class ProductListComponent implements OnInit {
                     );
                 }
             });
+    }
+    redirectToEdit(item) {
+        if (!this.disableAction) {
+            this.router.navigate(['/features/new-product/', item.id]);
+        }
+    }
+    menuClicked() {
+        // Stop propagation
+        this.disableAction = true;
+        setTimeout(() => {
+            this.disableAction = false;
+        }, 100);
     }
 }

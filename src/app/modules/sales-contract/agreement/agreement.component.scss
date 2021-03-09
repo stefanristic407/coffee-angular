@@ -1,16 +1,3 @@
-.agre-index-z {
-    z-index: 9;
-}
-
-.bottom-bord {
-    border-bottom: 1px solid #dddddd;
-}
-
-.align-arrow-top {
-    position: relative;
-    top: 2px;
-}
-
 .file-share-search input[type='search'] {
     outline: 0;
     border: 0;
@@ -46,13 +33,6 @@
     padding: 2rem 3rem;
 }
 
-.estate-order-title {
-    font-family: 'Muli';
-    font-size: 18px;
-    font-weight: bold;
-    color: #232334;
-}
-
 .upload-order {
     background-color: #ffffff;
     padding: 8px 12px;
@@ -75,23 +55,18 @@
 }
 
 @media (max-width: 767px) {
-    .bg-fff {
+    .agreements {
         padding: 1rem 0.7rem;
     }
     .estate-orders-heading {
         margin: 0.2rem 0.2rem 0.2rem 0;
         padding-left: 0 !important;
     }
-    .nav-pills .nav-link.active:before {
-        height: 4px !important;
-    }
-}
-
-@media (max-width: 767px) {
     #agreements-nav .p-tabview .p-tabview-nav li {
         margin-right: 1.5rem !important;
     }
 }
+
 @media (min-width: 767px) and (max-width: 991px) {
     .estate-orders-heading {
         padding-left: 0px !important;

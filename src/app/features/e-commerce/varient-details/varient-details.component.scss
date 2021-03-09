@@ -95,9 +95,9 @@
 }
 .addWeightDiv {
     border: 1px solid #747588;
-    padding: 6px 0px;
+    padding: 8px 12px;
     height: 38px;
-    border-radius: 2px;
+    border-radius: 4px;
 }
 .checkBoxDiv {
     justify-content: flex-end;
@@ -194,15 +194,18 @@
     }
     .addWeightDiv {
         border: 1px solid #747588;
-        padding: 6px 6px;
-        height: 38px;
-        width: 30%;
-        border-radius: 2px;
+        padding: 6px 12px;
+        height: 34px;
+        border-radius: 4px;
     }
     .divSeperator {
         border: 1px dashed #d6d6d6;
         margin-top: 22px !important;
         margin-bottom: 24px !important;
+    }
+    .weight-pos {
+        position: relative;
+        top: 24px;
     }
 }
 
@@ -216,6 +219,7 @@
         color: #30855c;
         padding: 0.5rem 2rem;
         display: flex;
+        border-radius: 4px;
         align-items: center;
         justify-content: center;
     }

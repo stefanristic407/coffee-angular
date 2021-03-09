@@ -24,7 +24,7 @@
             <section class="mt-4">
                 <div class="row w-100 ml-0">
                     <div class="">
-                        <h1 class="text-clr334 fnt-16 fnt-md-18 fnt-bold m-0">Order #{{ orderDetails?.id }}</h1>
+                        <h1 class="text-clr334 fnt-16 fnt-md-18 fnt-bold">Order #{{ orderDetails?.id }}</h1>
                     </div>
                 </div>
                 <div class="pull-left mr-auto p-0 mb-3 text-clr588 fnt-14 fnt-normal">
@@ -247,7 +247,7 @@
                 </div>
             </section>
             <section class="mt-lg-3" [formGroup]="coffeeSaleForm" (ngSubmit)="onSave()" novalidate>
-                <div class="row w-100 border-bottom-gray pb-3 mx-0">
+                <div class="row w-100 border-bottom-gray pb-4 pb-md-3 mx-0">
                     <div class="col-sm-12 col-md-9 col-lg-9 px-0 pt-lg-3">
                         <h1 class="text-clr334 fnt-16 fnt-md-18 fnt-bold">
                             {{ globals.languageJson?.sale_information }}
@@ -257,7 +257,7 @@
                         </div>
                     </div>
 
-                    <div *ngIf="!showDropdown" class="col-sm-12 col-md-3 col-lg-3 current-s-bg webMobPage">
+                    <div *ngIf="!showDropdown" class="col-sm-12 col-md-3 col-lg-3 current-s-bg webMobPage mt-48">
                         <p class="fnt-14 fnt-muli fnt-400 text-clr334 m-0">Current status</p>
                         <span class="fnt-14 fnt-700 fnt-muli text-clr334">{{ statusLabel }}</span>
                         <span class="text-brown float-right" (click)="showDropdown = true"><a>Change status</a> </span>
@@ -265,7 +265,7 @@
 
                     <div
                         *ngIf="showDropdown"
-                        class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100 current-s-bg d-inline webMobPage"
+                        class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100 current-s-bg d-inline webMobPage mt-48"
                     >
                         <p-dropdown
                             [options]="stockTypeArray"
@@ -285,7 +285,7 @@
                     <div class="col-md-6">
                         <div *ngIf="!showDropdown" class="col-md-12 avail-status tabPage mt-4">
                             <p class="fnt-24 fnt-play fnt-normal text-clr02 m-0 pb-2">Availability Status</p>
-                            <p class="fnt-mb-14 fnt-muli fnt-600 text-clr334 m-0 pb-3">
+                            <p class="fnt-12 fnt-md-14 fnt-muli fnt-600 text-clr334 m-0 pb-3">
                                 Maintain the status of your product and keep the roasters updated
                             </p>
                             <p class="fnt-14 fnt-muli fnt-600 text-clr588 m-0">Current status</p>
@@ -331,16 +331,13 @@
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
                         <label>Selling price<span class="star">*</span>(in USD)</label>
-                        <div class="input-group weightInputGroupDiv">
-                            <input
-                                type="number"
-                                class="weightInputDiv"
+
+                        <div class="p-inputgroup custom-addon dropdownClass">
+                            <p-inputNumber
                                 formControlName="price"
                                 placeholder="Enter the selling price"
-                                pInputText
-                            />
-
-                            <div class="input-group-append groupPadding">
+                            ></p-inputNumber>
+                            <span class="p-inputgroup-addon">
                                 <p-dropdown
                                     [options]="priceTypeArray"
                                     optionLabel="label"
@@ -355,7 +352,7 @@
                                     optionValue="value"
                                 >
                                 </p-dropdown>
-                            </div>
+                            </span>
                         </div>
                         <small *ngIf="coffeeSaleForm.controls['price'].errors?.required" class="p-error">
                             Required
@@ -365,17 +362,14 @@
                 <div class="row gutter-16 gutter-lg-24">
                     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
                         <label>Quantity for sale<span class="star">*</span></label>
-                        <div class="input-group weightInputGroupDiv">
-                            <input
-                                type="number"
-                                class="weightInputDiv"
+
+                        <div class="p-inputgroup custom-addon dropdownClass">
+                            <p-inputNumber
                                 formControlName="quantity_count"
                                 placeholder="Enter a number"
-                                (input)="changeQuantity()"
-                                pInputText
-                            />
-
-                            <div class="input-group-append groupPadding">
+                                (onInput)="changeQuantity($event)"
+                            ></p-inputNumber>
+                            <span class="p-inputgroup-addon">
                                 <p-dropdown
                                     [options]="quantityUnitArray"
                                     optionLabel="label"
@@ -391,7 +385,7 @@
                                     (onChange)="quantityTypeChange()"
                                 >
                                 </p-dropdown>
-                            </div>
+                            </span>
                         </div>
                         <small *ngIf="coffeeSaleForm.controls['quantity_count'].errors?.required" class="p-error">
                             Required
@@ -403,16 +397,13 @@
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
                         <label>Minimum order quantity<span class="star">*</span></label>
-                        <div class="input-group weightInputGroupDiv">
-                            <input
-                                type="number"
-                                class="weightInputDiv"
+
+                        <div class="p-inputgroup custom-addon dropdownClass">
+                            <p-inputNumber
                                 formControlName="minimum_purchase_quantity"
                                 placeholder="Enter a number"
-                                pInputText
-                            />
-
-                            <div class="input-group-append groupPadding">
+                            ></p-inputNumber>
+                            <span class="p-inputgroup-addon">
                                 <p-dropdown
                                     [options]="quantityUnitArray"
                                     optionLabel="label"
@@ -427,7 +418,7 @@
                                     optionValue="value"
                                 >
                                 </p-dropdown>
-                            </div>
+                            </span>
                         </div>
                         <small
                             *ngIf="coffeeSaleForm.controls['minimum_purchase_quantity'].errors?.required"
@@ -438,16 +429,10 @@
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
                         <label>Weight / bag<span class="star">*</span></label>
-                        <div class="input-group weightInputGroupDiv">
-                            <input
-                                type="number"
-                                class="weightInputDiv"
-                                formControlName="quantity"
-                                placeholder="Enter a number"
-                                pInputText
-                            />
 
-                            <div class="input-group-append groupPadding">
+                        <div class="p-inputgroup custom-addon dropdownClass">
+                            <p-inputNumber formControlName="quantity" placeholder="Enter a number"></p-inputNumber>
+                            <span class="p-inputgroup-addon">
                                 <p-dropdown
                                     [options]="weightTypeArray"
                                     optionLabel="label"
@@ -462,7 +447,7 @@
                                     optionValue="value"
                                 >
                                 </p-dropdown>
-                            </div>
+                            </span>
                         </div>
                         <small *ngIf="coffeeSaleForm.controls['quantity'].errors?.required" class="p-error">
                             Required

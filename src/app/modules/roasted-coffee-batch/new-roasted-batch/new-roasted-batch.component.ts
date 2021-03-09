@@ -78,7 +78,7 @@ export class NewRoastedBatchComponent implements OnInit {
             this.getOrderDetails();
             this.getRoasterFlavourProfile();
         } else {
-            this.ordId = 'select the order';
+            //  this.ordId = 'select the order';
             this.getRoasterFlavourProfile();
         }
         this.batchForm = this.fb.group({

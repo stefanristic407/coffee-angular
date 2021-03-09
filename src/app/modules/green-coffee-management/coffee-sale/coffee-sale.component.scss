@@ -19,9 +19,7 @@
 .pb-24 {
     padding-bottom: 24px !important;
 }
-.mt-48 {
-    margin-top: 2rem;
-}
+
 .mb-48 {
     margin-bottom: 2rem;
 }
@@ -45,9 +43,7 @@
 
 @media screen and (max-width: 767px) {
     .create-role {
-        margin-left: 0.9rem;
-        margin-right: 0.9rem;
-        padding-top: 1rem;
+        padding-top: 0.25rem;
     }
     .mob-sec {
         display: block !important;
@@ -59,8 +55,6 @@
         margin-top: 1.2rem !important;
     }
     .back-icon {
-        border-bottom: 1px solid #ebebeb;
-        padding-bottom: 13px;
         a {
             font-size: 14px;
             color: #80460b;
@@ -106,6 +100,9 @@
     .tabPage {
         display: none !important;
     }
+    .mt-48 {
+        margin-top: 1.5rem;
+    }
 }
 
 .weightInputGroupDiv {
@@ -126,7 +123,10 @@
     position: relative;
     bottom: 4px;
 }
-
+::ng-deep .p-inputgroup-addon .p-dropdown .p-inputtext {
+    position: relative;
+    bottom: 4px;
+}
 ::ng-deep .productListTable .p-checkbox {
     margin-left: 0px;
 }
@@ -182,4 +182,7 @@
 }
 .breadCrumb::-webkit-scrollbar {
     display: none !important;
+}
+::ng-deep .sewn-form-field .dropdownClass .p-inputgroup-addon {
+    padding: 5px !important;
 }

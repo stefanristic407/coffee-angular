@@ -1,4 +1,7 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
+// AUTHOR : Gaurav Kunal
+// PAGE DESCRIPTION : This page contains functions of sales contract roaster agreement form details.
+
+import { Component, Input, OnChanges, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -32,11 +35,11 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
   selectedCustomers: number;
   modalDropdownList: any = [];
 
-  @ViewChild('dismissAddModal') dismissAddModal: ElementRef;
   @Input() isUpdate: boolean;
   @Input() selectedItemId: any;
   @Input() customerType = 'hrc';
   @Output() getAgreements = new EventEmitter();
+  @Output() closeModal = new EventEmitter();
 
   constructor(
     public router: Router,
@@ -92,6 +95,9 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
       }
     });
   }
+
+  // Function Name: Intiate
+  // Description: This function helps to fetch and set form values
 
   initiate() {
     if (this.selectedItemId) {
@@ -211,7 +217,6 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
                   this.getAgreements.emit();
                   this.onUpdateModalClose();
                   this.fileNameValue = '';
-                  document.getElementById('dismissAddModal').click();
                 } else {
                   this.uploadButtonValue = 'Upload Agreement';
                   this.toastrService.error('Error while uploading Agreegement');
@@ -269,7 +274,6 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
                 this.getAgreements.emit();
                 this.onUpdateModalClose();
                 this.fileNameValue = '';
-                document.getElementById('dismissAddModal').click();
               } else {
                 this.updateButtonValue = 'Upload Agreement';
                 this.toastrService.error('Error while updating the agreement details');
@@ -312,7 +316,6 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
       this.horecaFormGroup.get('customerType').setValue('hrc');
       this.getHorecaList();
     }
+    this.closeModal.emit();
   }
-
-
 }
