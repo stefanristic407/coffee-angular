@@ -26,6 +26,12 @@
         position: absolute;
         right: 19px;
         top: 13px;
+
+        @media all and (max-width: 767px) {
+            position: static !important;
+            display: inline-block;
+            width: 100%;
+        }
     }
 
     ::ng-deep .p-tabview-panel {

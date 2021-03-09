@@ -40,12 +40,12 @@
 
 <ng-template #confirmationDetails>
     <div class="border-ebebeb pr-0">
-        <div class="fnt-bold fnt-18 text-black334">{{ 'order_details' | translate}}</div>
+        <div class="fnt-bold fnt-18 text-clr334">{{ 'order_details' | translate}}</div>
         <app-lot-details [lot]="order"></app-lot-details>
     </div>
 
     <div class="border-ebebeb mt-3">
-        <div class="fnt-bold fnt-18 text-black334">{{ 'delivery_details' | translate }}</div>
+        <div class="fnt-bold fnt-18 text-clr334">{{ 'delivery_details' | translate }}</div>
         <app-roaster-details [ownerName]="roaster?.ownerName" [rating]="roaster?.rating"
             [companyImageThumbnailUrl]="roaster?.companyImageThumbnailUrl"></app-roaster-details>
         <app-delivery-address [orderConfirmation]="true"></app-delivery-address>

@@ -7,7 +7,7 @@
 
     <div class="row no-gutters mt-2 px-2" [formGroup]="searchForm">
         <div class="col-12 col-md-4 px-0 d-flex align-items-center">
-            <h4 class="fnt-18 font-bold text-black334 m-0">{{ 'my_orders' | translate }}</h4>
+            <h4 class="fnt-18 font-bold text-clr334 m-0">{{ 'my_orders' | translate }}</h4>
         </div>
         <div class="col-12 col-md-8 search-export px-0 mt-25">
             <div class="d-flex justify-content-end search-bar">
@@ -178,7 +178,7 @@
                             <div class="p-mobile-row-content border-ebebeb p-0" [routerLink]="['/orders', organizationType, rowData.id]">
                                 <div class="d-flex flex-column fnt-12">
                                     <div class="order-header d-flex justify-content-between px-3 py-1">
-                                        <span class="fnt-14 font-bold text-black334">
+                                        <span class="fnt-14 font-bold text-clr334">
                                             {{ 'Order' | translate }} #{{ rowData.id }}
                                         </span>
                                         <span class="fnt-500" [ngClass]="rowData.type">&#9679;&nbsp;{{ rowData.type
@@ -187,23 +187,23 @@
 
                                     <div class="px-3">
                                         <div class="d-flex justify-content-between pt-2">
-                                            <span class="text-black334">{{ rowData.status }}</span>
+                                            <span class="text-clr334">{{ rowData.status }}</span>
                                             <span class="text-muted">{{ rowData.createdAt | date: 'd MMM yyyy' }}</span>
                                         </div>
 
                                         <div class="mobile-row py-2 d-flex">
                                             <span class="text-muted cell-header">{{ customerPropertyName | translate }}</span>
-                                            <span class="text-black334">{{ rowData[customerPropertyNameCamelCase] }}</span>
+                                            <span class="text-clr334">{{ rowData[customerPropertyNameCamelCase] }}</span>
                                         </div>
                                         <div class="mobile-row py-2 d-flex">
                                             <span class="text-muted cell-header">{{ 'origin' | translate }}</span>
-                                            <span class="text-black334">{{ commonService.getCountryName(rowData.origin)
+                                            <span class="text-clr334">{{ commonService.getCountryName(rowData.origin)
                                                 }}</span>
                                         </div>
                                         <div class="py-2 d-flex">
                                             <span class="text-muted cell-header cell-header">{{ 'variety' | translate
                                                 }}</span>
-                                            <span class="text-black334">{{ rowData.varieties }}</span>
+                                            <span class="text-clr334">{{ rowData.varieties }}</span>
                                         </div>
                                     </div>
                                 </div>

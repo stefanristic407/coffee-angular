@@ -4,6 +4,19 @@
     padding: 15px 0px;
 }
 
+.list-activity p {
+    color: #747588;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+@media (max-width: 767px) {
+    .list-time--mobile {
+        font-size: 12px !important;
+        font-weight: 600 !important;
+    }
+}
+
 .activity-date {
     color: $davys-grey;
     margin-bottom: 0 !important;
@@ -23,6 +36,15 @@
     @media all and (max-width: 767px) {
         color: $general-text-color;
     }
+}
+
+.recent-activity-list {
+    border-bottom: 1px solid #d6d6d6;
+    padding: 0 !important;
+}
+
+.recent-activity-list:last-child {
+    border-bottom: none;
 }
 
 ::ng-deep {

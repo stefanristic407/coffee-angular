@@ -20,7 +20,7 @@ export class OrderHeaderComponent implements OnInit {
     @Input() createdAt: Date;
     @Input() statusPaid = true;
     @Input() invoiceUrl = '';
-    @Input() orderStatus = '';
+    @Input() orderStatus: OrderStatus;
 
     get typeClass(): string {
         switch (this.orderType) {
@@ -42,6 +42,10 @@ export class OrderHeaderComponent implements OnInit {
             case OrderType.Prebook:
                 return 'Pre-Booked';
         }
+    }
+
+    get isConfirmationMode(): boolean {
+        return this.organizationType === OrgType.MICRO_ROASTER && this.orderStatus === OrderStatus.Placed;
     }
 
     ngOnInit(): void {

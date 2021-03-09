@@ -7,7 +7,7 @@
                     *ngFor="let point of timelinePoints; let index = index; let last = last">
                     <span class="d-block is-complete"></span>
                     <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
-                        <p class="order-status fnt-13 font-bold text-black334 mt-md-2 mb-1"
+                        <p class="order-status fnt-13 font-bold text-clr334 mt-md-2 mb-1"
                             [class.text-muted]="index > currentPointIndex">
                             {{point.label}}
                         </p>
@@ -16,7 +16,7 @@
                             lot status
                         </p>
                         <ng-template #statusInfo>
-                            <p class="mb-0 fnt-14 fnt-sm-12 muted-text font-bold d-lg-block d-md-none d-sm-block"
+                            <p class="mb-0 fnt-14 fnt-sm-12 text-muted font-bold d-lg-block d-md-none d-sm-block"
                                 *ngIf="index < 2">By :
                                 <span class="text-underline">{{ getStatusAuthor(point) }}</span>
                             </p>
@@ -43,7 +43,7 @@
     <div class="row">
         <div class="col-12 col-md-12">
             <ng-container *ngIf="(isMobile$ | async) !== true; else mobileTimeline">
-                <h4 class="fnt-play fnt-700 fnt-24 text-black334 mb-4 mb-md-2">
+                <h4 class="fnt-play fnt-700 fnt-24 text-clr334 mb-4 mb-md-2">
                     {{ statusLabel }}
                 </h4>
                 <ng-container *ngTemplateOutlet="timeline"></ng-container>
@@ -62,7 +62,7 @@
     <p-accordion (onOpen)="accordionOpened = true" (onClose)="accordionOpened = false">
         <p-accordionTab #tab [selected]="true">
             <ng-template pTemplate="header">
-                <div class="w-100 fnt-play fnt-700 fnt-18 text-black334 mb-4 mb-md-2">
+                <div class="w-100 fnt-play fnt-700 fnt-18 text-clr334 mb-4 mb-md-2">
                     <span>{{ statusLabel }}</span>
                     <img class="pl-2 pt-2 mt-1 pull-right" src="assets/images/collapse-arrow.svg"
                         *ngIf="!tab.selected" />
@@ -85,7 +85,7 @@
                         <span class="circle-image"> <img src="assets/images/timeline-check-active.svg" /></span>
                     </div>
                     <div class="txt-block">
-                        <h4 class="fnt-26 text-black334 fnt-sm-18 fnt-play">Received on {{ receivedDate | date: 'd MMMM
+                        <h4 class="fnt-26 text-clr334 fnt-sm-18 fnt-play">Received on {{ receivedDate | date: 'd MMMM
                             y' }}</h4>
                         <div class="fnt-16 fnt-sm-12 text-clr5d pt-2">
                             Wohoo! You have successfully recieved the bulk you ordered.
@@ -109,7 +109,7 @@
             <div class="row">
                 <div class="col-lg-9 col-md-8 col-sm-12 d-flex px-2 px-md-3">
                     <div class="col-md-12">
-                        <h4 class="fnt-26 text-black334 fnt-play">Waiting for a confirmation from Roaster</h4>
+                        <h4 class="fnt-26 text-clr334 fnt-play">Waiting for a confirmation from Roaster</h4>
                         <div class="fnt-16 fnt-sm-12 text-clr5d pt-2">
                             The roaster will review the grade report and confirm the order.
                         </div>
@@ -134,7 +134,7 @@
                         </span>
                     </div>
                     <div class="txt-block">
-                        <h4 class="fnt-26 fnt-sm-18 text-black334 fnt-play">
+                        <h4 class="fnt-26 fnt-sm-18 text-clr334 fnt-play">
                             Received on {{ receivedDate | date: 'd MMMM y' }}
                         </h4>
                         <div class="fnt-16 fnt-sm-12 text-clr5d pt-2">
