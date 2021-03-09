@@ -9,7 +9,7 @@ import { ApiRequestService } from 'src/core/services/api/api-request.service';
 @Component({
     selector: 'app-generated-keys',
     templateUrl: './generated-keys.component.html',
-    styleUrls: ['./generated-keys.component.css'],
+    styleUrls: ['./generated-keys.component.scss'],
 })
 export class GeneratedKeysComponent implements OnInit {
     @Input() searchRequestId;
@@ -85,20 +85,25 @@ export class GeneratedKeysComponent implements OnInit {
             page: this.pageNumber,
             per_page: this.perPage,
             org_type: this.filterData,
+            query: this.searchRequestId,
         };
         if (this.dateFrom && this.dateTo) {
-            data['date_from'] = moment(this.dateFrom).format('YYYY-MM-DD');
-            data['date_to'] = moment(this.dateTo).format('YYYY-MM-DD');
+            const dateFrom = 'date_from';
+            const dateTo = 'date_to';
+            data[dateFrom] = moment(this.dateFrom).format('YYYY-MM-DD');
+            data[dateTo] = moment(this.dateTo).format('YYYY-MM-DD');
         }
         if (this.searchRequestId) {
-            data['query'] = this.searchRequestId;
+            const query = 'query';
+            data[query] = this.searchRequestId;
         }
         if (this.sortOrder && this.sortType) {
-            data['sort_by'] = this.sortType;
-            data['sort_order'] = this.sortOrder;
+            const sortBy = 'sort_by';
+            data[sortBy] = this.sortType;
+            const newLocal = 'sort_order';
+            data[newLocal] = this.sortOrder;
         }
         this.apiRequestService.getGeneratedRoKeys(data).subscribe((res) => {
-            console.log('res------->>>>>>', res);
             if (res.success) {
                 this.loader = false;
                 this.generatedKeyData = res.result;
@@ -125,7 +130,6 @@ export class GeneratedKeysComponent implements OnInit {
             api_key_id: item.id,
         };
         this.apiRequestService.enableRoApiKey(data).subscribe((res) => {
-            console.log('res---<>>>', res);
             if (res.success) {
                 this.toastrService.success('Key has been reactivated!');
                 item.is_active = true;
@@ -139,7 +143,6 @@ export class GeneratedKeysComponent implements OnInit {
             api_key_id: item.id,
         };
         this.apiRequestService.disableRoApiKey(data).subscribe((res) => {
-            console.log('res---<>>>', res);
             if (res.success) {
                 this.toastrService.success('Key access has been paused');
                 item.is_active = false;

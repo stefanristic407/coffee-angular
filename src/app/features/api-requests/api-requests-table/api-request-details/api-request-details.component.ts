@@ -10,7 +10,7 @@ import { GlobalsService } from '@services';
 @Component({
     selector: 'app-api-request-details',
     templateUrl: './api-request-details.component.html',
-    styleUrls: ['./api-request-details.component.css'],
+    styleUrls: ['./api-request-details.component.scss'],
 })
 export class ApiRequestDetailsComponent implements OnInit {
     loader = true;
@@ -18,15 +18,15 @@ export class ApiRequestDetailsComponent implements OnInit {
     btnToggle = true;
     modalRef: BsModalRef;
     resetButtonValue: string;
-    showStatus: boolean = true;
-    isDeletedApiKey: boolean = false;
-    generatedKeyStep: number = 0;
-    roasterID: string = '';
-    keyId: string = '';
+    showStatus = true;
+    isDeletedApiKey = false;
+    generatedKeyStep = 0;
+    roasterID = '';
+    keyId = '';
     requestDetailData: any;
-    apiKeyId: string = '';
-    apikeyStatus: string = '';
-    initialStatus: string = '';
+    apiKeyId = '';
+    apikeyStatus = '';
+    initialStatus = '';
 
     constructor(
         private modalService: BsModalService,

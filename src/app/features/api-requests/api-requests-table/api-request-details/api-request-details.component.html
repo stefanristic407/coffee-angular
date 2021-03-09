@@ -214,8 +214,8 @@
             Are you sure you want to delete the API key for "Third wave coffee roasters"?
         </p>
         <div class="templete-btn">
-            <button class="btn no-btn" (click)="modalRef.hide()">Cancel</button>
-            <button class="btn add-btn ml-3" (click)="onConfirm()">Yes</button>
+            <button class="btn btn-stroked" (click)="modalRef.hide()">Cancel</button>
+            <button class="btn btn-raised ml-3" (click)="onConfirm()">Yes</button>
         </div>
     </div>
 
@@ -232,8 +232,8 @@
             Are you sure you want to Pause API key access for "Third wave coffee roasters"?
         </p>
         <div class="templete-btn">
-            <button class="btn no-btn" (click)="modalRef.hide()">{{ 'Cancel' | translate }}</button>
-            <button class="btn add-btn ml-3" (click)="confirmPauseKey()">{{ 'Yes' | translate }}</button>
+            <button class="btn btn-stroked" (click)="modalRef.hide()">{{ 'Cancel' | translate }}</button>
+            <button class="btn btn-raised ml-3" (click)="confirmPauseKey()">{{ 'Yes' | translate }}</button>
         </div>
     </div>
 </ng-template>

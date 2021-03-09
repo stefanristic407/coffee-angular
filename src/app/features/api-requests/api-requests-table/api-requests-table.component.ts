@@ -6,22 +6,22 @@ import { GlobalsService } from '@services';
 @Component({
     selector: 'app-api-requests-table',
     templateUrl: './api-requests-table.component.html',
-    styleUrls: ['./api-requests-table.component.css'],
+    styleUrls: ['./api-requests-table.component.scss'],
 })
 export class ApiRequestsTableComponent implements OnInit {
     showDateRange: any;
     @ViewChild('calendar')
     calendar: any;
     @ViewChild('searchInput') input: ElementRef;
-    showDisplay: boolean = true;
-    customerType: string = '';
+    showDisplay = true;
+    customerType = '';
     perPage: any;
     rangeDates: any;
     appLanguage?: any = {};
     greenActive: any = 0;
-    showStatus: boolean = true;
-    apiKeySearch: string = '';
-    KeySearch: string = '';
+    showStatus = true;
+    apiKeySearch = '';
+    KeySearch = '';
     selectedTab = 0;
     FilterTypeList: any[] = [];
     isApiRequestPage = true;

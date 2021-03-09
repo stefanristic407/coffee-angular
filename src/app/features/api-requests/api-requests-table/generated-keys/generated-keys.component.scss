@@ -1,0 +1,42 @@
+.active-status {
+    color: #32a822 !important;
+}
+
+::ng-deep .popover-content ul li:hover {
+    background-color: #f8f8f8;
+}
+
+::ng-deep .p-paginator {
+    padding: 22px 0;
+    border: none;
+    background: transparent;
+}
+
+.pl-8 {
+    padding-left: 8px;
+}
+
+.status-paused {
+    color: #f23737 !important;
+}
+
+.delete-template-modal-body {
+    position: relative;
+    padding: 67px 84px;
+}
+
+::ng-deep .modal-dialog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin-top: 0;
+}
+
+.delete-confirmation-modal-body {
+    padding: 99px 147px 117px 152px;
+}
+
+.delete-template-modal-body .templete-btn {
+    padding: 24px;
+}

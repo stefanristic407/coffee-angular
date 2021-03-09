@@ -7,7 +7,7 @@ import { ApiRequestService } from 'src/core/services/api/api-request.service';
 @Component({
     selector: 'app-api-key-requests',
     templateUrl: './api-key-requests.component.html',
-    styleUrls: ['./api-key-requests.component.css'],
+    styleUrls: ['./api-key-requests.component.scss'],
 })
 export class ApiKeyRequestsComponent implements OnInit {
     @Input() searchRequestId;
@@ -84,15 +84,20 @@ export class ApiKeyRequestsComponent implements OnInit {
             status: this.statusFilter,
         };
         if (this.dateFrom && this.dateTo) {
-            data['date_from'] = moment(this.dateFrom).format('YYYY-MM-DD');
-            data['date_to'] = moment(this.dateTo).format('YYYY-MM-DD');
+            const dateFrom = 'date_from';
+            const dateTo = 'date_to';
+            data[dateFrom] = moment(this.dateFrom).format('YYYY-MM-DD');
+            data[dateTo] = moment(this.dateTo).format('YYYY-MM-DD');
         }
         if (this.searchRequestId) {
-            data['query'] = this.searchRequestId;
+            const query = 'query';
+            data[query] = this.searchRequestId;
         }
         if (this.sortOrder && this.sortType) {
-            data['sort_by'] = this.sortType;
-            data['sort_order'] = this.sortOrder;
+            const sortBy = 'sort_by';
+            data[sortBy] = this.sortType;
+            const newLocal = 'sort_order';
+            data[newLocal] = this.sortOrder;
         }
         this.apiRequestService.getApiKeysForRo(data).subscribe((res) => {
             if (res.success) {
