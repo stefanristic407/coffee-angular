@@ -37,7 +37,7 @@
                     name="search"
                     class="search-raised w-100 ml-0"
                     formControlName="searchField"
-                    placeholder="{{ globals.languageJson?.search_name_role }}"
+                    placeholder="Search by roast name"
                 />
             </div>
         </div>
@@ -59,10 +59,10 @@
             <div [formGroup]="searchForm" class="d-none d-sm-none d-md-block col-6">
                 <input
                     type="text"
-                    name="Search"
+                    name="search"
                     class="search-raised pull-right"
                     formControlName="searchField"
-                    placeholder="Search"
+                    placeholder="Search by roast name"
                 />
             </div>
         </div>
@@ -204,7 +204,11 @@
                                             [outsideClick]="true"
                                             #pop="bs-popover"
                                         >
-                                            <img class="ellipse-image pl-3" src="assets/images/kebab-menu.svg" alt="" />
+                                            <img
+                                                class="ellipse-image ml-lg-3 pl-3"
+                                                src="assets/images/kebab-menu.svg"
+                                                alt=""
+                                            />
                                         </a>
                                         <ng-template #poplistTemplate>
                                             <div id="popover-mobile-content">
