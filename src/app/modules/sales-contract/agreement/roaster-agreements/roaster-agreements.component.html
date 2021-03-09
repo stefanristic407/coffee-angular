@@ -1,9 +1,16 @@
 <section class="estate-orders">
     <div class="d-flex justify-content-between mt-4 pt-2">
         <div>
-            <p-dropdown id="select-table-customer" [options]="newList" [(ngModel)]="selectedCustomers"
-                scrollHeight="225px" (onChange)="filterAgrements()" [showClear]="true" placeholder="Select customer"
-                styleClass="round-border mr-25 mb-25 mb-md-4"></p-dropdown>
+            <p-dropdown
+                id="select-table-customer"
+                [options]="newList"
+                [(ngModel)]="selectedCustomers"
+                scrollHeight="225px"
+                (onChange)="filterAgrements()"
+                [showClear]="true"
+                placeholder="Select customer"
+                styleClass="round-border mr-25 mb-25 mb-md-4"
+            ></p-dropdown>
         </div>
         <div class="web-farm">
             <div class="float-right">
@@ -15,8 +22,11 @@
         </div>
     </div>
     <div class="estate-table web-farm">
-        <p-table id="sales-table" [value]="sortedMainData | filter: searchTerm | filter: estatetermOrigin"
-            sortMode="multiple">
+        <p-table
+            id="sales-table"
+            [value]="sortedMainData | filter: searchTerm | filter: estatetermOrigin"
+            sortMode="multiple"
+        >
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="file_name" class="pl-4 ml-3 cust-width">
@@ -48,8 +58,13 @@
                     <td class="fnt-14">{{ item.customer_name }}</td>
                     <td class="fnt-14">{{ getCountryName(item.origin) }}</td>
                     <td id="sales-contract-popup">
-                        <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true"
-                            #pop="bs-popover">
+                        <a
+                            class="menu-arrow"
+                            [popover]="poplistTemplate"
+                            placement="left"
+                            [outsideClick]="true"
+                            #pop="bs-popover"
+                        >
                             <p><img src="assets/images/kebab-menu.svg" /></p>
                         </a>
                         <ng-template #poplistTemplate id="{{ item.id }}">
@@ -58,12 +73,16 @@
                                     <li class="list-group-item">
                                         <a class="pointer-item" (click)="pop.hide(); onUpdateModal(item.id)">{{
                                             globals.languageJson?.update
-                                            }}</a>
+                                        }}</a>
                                     </li>
                                     <li class="list-group-item">
-                                        <a class="pointer-item"
-                                            (click)="pop.hide(); deleteAgreementId = item.id; onOpenDeleteModal(item.id);">{{
-                                            globals.languageJson?.delete }}</a>
+                                        <a
+                                            class="pointer-item"
+                                            (click)="
+                                                pop.hide(); deleteAgreementId = item.id; onOpenDeleteModal(item.id)
+                                            "
+                                            >{{ globals.languageJson?.delete }}</a
+                                        >
                                     </li>
                                 </ul>
                             </div>
@@ -85,25 +104,35 @@
                                     <p class="black fnt-14">{{ data.file_name }}</p>
                                 </div>
                                 <div>
-                                    <a [popover]="poplistTemplate" placement="left" [outsideClick]="true"
-                                        #pop="bs-popover">
+                                    <a
+                                        [popover]="poplistTemplate"
+                                        placement="left"
+                                        [outsideClick]="true"
+                                        #pop="bs-popover"
+                                    >
                                         <p><img src="assets/images/kebab-menu.svg" /></p>
                                     </a>
                                     <ng-template #poplistTemplate id="{{ data.id }}">
                                         <div id="popover-mobile-content">
                                             <ul class="list-group custom-popover">
                                                 <li class="list-group-item">
-                                                    <a class="pointer-item"
+                                                    <a
+                                                        class="pointer-item"
                                                         [routerLink]="'/sales-contract/' + customerType + '/' + data.id"
-                                                        (click)="pop.hide(); onUpdateModal(data.id)">{{
-                                                        globals.languageJson?.update }}</a>
+                                                        (click)="pop.hide(); onUpdateModal(data.id)"
+                                                        >{{ globals.languageJson?.update }}</a
+                                                    >
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <a class="pointer-item" (click)="
+                                                    <a
+                                                        class="pointer-item"
+                                                        (click)="
                                                             pop.hide();
                                                             onOpenDeleteModal(data.id);
                                                             deleteAgreementId = data.id
-                                                        ">{{ globals.languageJson?.delete }}</a>
+                                                        "
+                                                        >{{ globals.languageJson?.delete }}</a
+                                                    >
                                                 </li>
                                             </ul>
                                         </div>
@@ -143,8 +172,13 @@
 </section>
 
 <!-- Upload and Update Modal -->
-<p-dialog *ngIf="displayAddEditModal" [(visible)]="displayAddEditModal" [style]="{ width: '41.375rem' }"
-    [baseZIndex]="10000" [closable]="false">
+<p-dialog
+    *ngIf="displayAddEditModal"
+    [(visible)]="displayAddEditModal"
+    [style]="{ width: '41.375rem' }"
+    [baseZIndex]="10000"
+    [closable]="false"
+>
     <ng-template pTemplate="header">
         <div class="d-flex justify-content-between w-100">
             <h4 class="fnt-18 fnt-muli fnt-700 text-clr334">{{ globals.languageJson?.upload_new_agreement }}</h4>
@@ -153,9 +187,14 @@
             </a>
         </div>
     </ng-template>
-    <app-roaster-agreement-form class="w-100" [isUpdate]="isUpdate" [customerType]="customerType"
-        [selectedItemId]="selectedItemId" (closeModal)="onUpdateModalClose($event)"
-        (getAgreements)="getAgreements($event)">
+    <app-roaster-agreement-form
+        class="w-100"
+        [isUpdate]="isUpdate"
+        [customerType]="customerType"
+        [selectedItemId]="selectedItemId"
+        (closeModal)="onUpdateModalClose($event)"
+        (getAgreements)="getAgreements($event)"
+    >
     </app-roaster-agreement-form>
 </p-dialog>
 
