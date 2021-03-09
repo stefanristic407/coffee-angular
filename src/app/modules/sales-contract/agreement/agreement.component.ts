@@ -1,5 +1,5 @@
-// AUTHOR : Vijaysimhareddy
-// PAGE DESCRIPTION : This page contains functions of  Orders List,Search and Filters.
+// AUTHOR : Gaurav Kunal
+// PAGE DESCRIPTION : This page contains functions of sales contract.
 
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
@@ -23,6 +23,7 @@ export class AgreementComponent implements OnInit {
     mainData: any;
     navItems: MenuItem[];
     selectedNav: MenuItem;
+    displayAddEditModal = false;
 
     constructor(
         public router: Router,
