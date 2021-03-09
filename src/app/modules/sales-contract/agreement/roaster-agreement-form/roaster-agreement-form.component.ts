@@ -1,4 +1,7 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
+// AUTHOR : Gaurav Kunal
+// PAGE DESCRIPTION : This page contains functions of sales contract roaster agreement form details.
+
+import { Component, Input, OnChanges, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -35,7 +38,6 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
   @Input() isUpdate: boolean;
   @Input() selectedItemId: any;
   @Input() customerType = 'hrc';
-  @Input() isModalClose = false;
   @Output() getAgreements = new EventEmitter();
   @Output() closeModal = new EventEmitter();
 
@@ -94,6 +96,9 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
     });
   }
 
+  // Function Name: Intiate
+  // Description: This function helps to fetch and set form values
+
   initiate() {
     if (this.selectedItemId) {
       this.isUpdate = true;
@@ -109,9 +114,6 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
     } else if (this.customerType === 'hrc') {
       this.horecaFormGroup.get('customerType').setValue('hrc');
       this.getHorecaList();
-    }
-    if (this.isModalClose) {
-      this.onUpdateModalClose();
     }
   }
 
@@ -316,6 +318,4 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
     }
     this.closeModal.emit();
   }
-
-
 }

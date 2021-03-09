@@ -1,7 +1,7 @@
 // AUTHOR : Gaurav Kunal
-// PAGE DESCRIPTION : This page contains functions of  Orders List,Search and Filters.
+// PAGE DESCRIPTION : This page contains functions of sales contract roaster agreements.
 
-import { Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -171,6 +171,8 @@ export class RoasterAgreementsComponent implements OnInit {
         this.isUpdate = false;
     }
 
+    // Function Name: Update Modal Close
+    // Description: This function helps to close the dialog when cross button is clicked
 
     onUpdateModalClose(event?) {
         this.displayAddEditModal = false;
