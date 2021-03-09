@@ -6,7 +6,7 @@ import { data } from 'jquery';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
+import { RoasteryProfileService } from '@services';
 
 @Component({
     selector: 'app-requests-table',

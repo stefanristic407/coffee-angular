@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Dimensions, ImageCroppedEvent, ImageCropperComponent, ImageTransform } from 'ngx-image-cropper';
-import { ProfilePhotoService } from './profile-photo.service';
+import { ProfilePhotoService } from '@services';
 import { GlobalsService } from '@services';
 
 @Component({
-    selector: 'sewn-profile-photo',
+    selector: 'app-sewn-profile-photo',
     templateUrl: './profile-photo.component.html',
     styleUrls: ['./profile-photo.component.css'],
 })

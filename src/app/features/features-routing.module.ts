@@ -39,12 +39,6 @@ import { RoasterOnboardingComponent } from './roaster-onboarding/roaster-onboard
 import { RoasterQuickSetupComponent } from './roaster-quick-setup/roaster-quick-setup.component';
 import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/roastery-license.component';
 
-import { RoasteryProfileComponent } from './roastery-profile/roastery-profile.component';
-import { AboutRoasteryComponent } from './roastery-profile/about-roastery/about-roastery.component';
-import { VirtualTourComponent } from './roastery-profile/virtual-tour/virtual-tour.component';
-import { ContactComponent } from './roastery-profile/contact/contact.component';
-import { ReviewsComponent } from './roastery-profile/reviews/reviews.component';
-
 import { SettingsComponent } from './settings/settings.component';
 import { VatManagementComponent } from './vat-management/vat-management.component';
 import { BatchSelectAnOrderComponent } from './batch-select-an-order/batch-select-an-order.component';
@@ -150,12 +144,6 @@ const routes: Routes = [
             {
                 path: 'blog-details',
                 component: BlogDetailsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'roastery-profile',
-                loadChildren: () =>
-                    import('./roastery-profile/roastery-profile.module').then((m) => m.RoasteryProfileModule),
                 canActivate: [AuthGuard],
             },
             {

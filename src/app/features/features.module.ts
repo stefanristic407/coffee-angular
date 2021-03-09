@@ -84,6 +84,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { RatingModule } from 'primeng/rating';
 import { ListboxModule } from 'primeng/listbox';
 import { PaginatorModule } from 'primeng/paginator';
+import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/roastery-license.component';
 
 @NgModule({
     declarations: [
@@ -150,6 +151,7 @@ import { PaginatorModule } from 'primeng/paginator';
         ProductListComponent,
         ProductDetailsComponent,
         VarientDetailsComponent,
+        RoasteryLicenseComponent,
     ],
     imports: [
         PaginatorModule,

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { RoasterserviceService } from '@services';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
+import { RoasteryProfileService } from '@services';
 import { UserserviceService } from '@services';
 
 @Injectable({

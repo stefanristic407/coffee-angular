@@ -8,7 +8,7 @@ import { PrebookGradeInfoComponent } from './prebook-grade-info/prebook-grade-in
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { GlobalsService } from '@services';
-import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
+import { RoasteryProfileService } from '@services';
 import { OrderBookedService } from '../order-booked/order-booked.service';
 declare var $: any;
 

@@ -73,6 +73,11 @@ export const routes: Routes = [
                 loadChildren: () =>
                     import('./modules/sales-contract/sales-contract.module').then((m) => m.SalesContractModule),
             },
+            {
+                path: 'roastery-profile',
+                loadChildren: () =>
+                    import('./modules/profile-creation/profile-creation.module').then((m) => m.ProfileCreationModule),
+            },
         ],
     },
     { path: 'gate', component: GateComponent },

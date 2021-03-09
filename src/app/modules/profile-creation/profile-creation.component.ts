@@ -1,17 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { ProfilePhotoService } from './profile-photo/profile-photo.service';
-import { RoasteryProfileService } from './roastery-profile.service';
+import { ProfilePhotoService } from '@services';
+import { RoasteryProfileService } from '@services';
 import { GlobalsService } from '@services';
 
 @Component({
-    selector: 'app-roastery-profile',
-    templateUrl: './roastery-profile.component.html',
-    styleUrls: ['./roastery-profile.component.scss'],
+    selector: 'app-profile-creation',
+    templateUrl: './profile-creation.component.html',
+    styleUrls: ['./profile-creation.component.scss'],
 })
-export class RoasteryProfileComponent implements OnInit {
-    @ViewChild('image') image;
+export class ProfileCreationComponent implements OnInit {
+    @ViewChild('image', { static: true }) image;
     roasteryActive: any = 0;
     menuItems: any[];
     items = [{ label: 'Home', routerLink: '/' }, { label: 'Roaster Profile' }];
@@ -33,11 +33,11 @@ export class RoasteryProfileComponent implements OnInit {
         this.menuItems = [
             {
                 label: this.globals.languageJson?.about_roastery,
-                routerLink: '/features/roastery-profile/about_roastery',
+                routerLink: '/roastery-profile/about_roastery',
             },
-            { label: this.globals.languageJson?.virtual_tour, routerLink: '/features/roastery-profile/virtual_tour' },
-            { label: this.globals.languageJson?.contact, routerLink: '/features/roastery-profile/contact' },
-            { label: this.globals.languageJson?.reviews, routerLink: '/features/roastery-profile/reviews' },
+            { label: this.globals.languageJson?.virtual_tour, routerLink: '/roastery-profile/virtual_tour' },
+            { label: this.globals.languageJson?.contact, routerLink: '/roastery-profile/contact' },
+            { label: this.globals.languageJson?.reviews, routerLink: '/roastery-profile/reviews' },
         ];
     }
 

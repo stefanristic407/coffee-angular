@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
-import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
+import { RoasteryProfileService } from '@services';
 import { RoasterserviceService } from '@services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 

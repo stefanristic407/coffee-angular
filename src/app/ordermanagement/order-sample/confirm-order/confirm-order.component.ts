@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { $ } from 'protractor';
-import { RoasteryProfileService } from '../../../features/roastery-profile/roastery-profile.service';
+import { RoasteryProfileService } from '@services';
 import { GlobalsService } from '@services';
 
 @Component({

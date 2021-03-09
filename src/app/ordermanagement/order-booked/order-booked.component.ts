@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { BookedOrderDetailsComponent } from './booked-order-details/booked-order-details.component';
 declare var $: any;
 import { UserserviceService, RoasterserviceService, GlobalsService } from '@services';
-import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
+import { RoasteryProfileService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { OrgType, OrderChatType } from '@enums';
 

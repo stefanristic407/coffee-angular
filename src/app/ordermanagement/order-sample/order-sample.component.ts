@@ -9,7 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { OrderDetailsComponent } from '../order-sample/order-details/order-details.component';
 import { GlobalsService } from '@services';
-import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
+import { RoasteryProfileService } from '@services';
 import { OrderBookedService } from '../order-booked/order-booked.service';
 import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
