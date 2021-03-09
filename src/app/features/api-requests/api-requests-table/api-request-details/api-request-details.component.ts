@@ -4,6 +4,8 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { RoasterserviceService } from '@services';
+import { ApiRequestService } from 'src/core/services/api/api-request.service';
+import { GlobalsService } from '@services';
 
 @Component({
     selector: 'app-api-request-details',
@@ -29,14 +31,15 @@ export class ApiRequestDetailsComponent implements OnInit {
     constructor(
         private modalService: BsModalService,
         private roasterserviceService: RoasterserviceService,
+        private apiRequestService: ApiRequestService,
         public cookieService: CookieService,
         private toastrService: ToastrService,
         private route: ActivatedRoute,
+        public globals: GlobalsService,
     ) {
         this.termStatus = '';
         this.roasterID = this.cookieService.get('roaster_id');
         this.route.queryParams.subscribe((params) => {
-            console.log('params---->>>>', params);
             const paramsData = JSON.parse(JSON.stringify(params));
             this.keyId = paramsData.id;
             this.apikeyStatus = paramsData.status;
@@ -66,7 +69,7 @@ export class ApiRequestDetailsComponent implements OnInit {
             per_page: 10,
             org_type: '',
         };
-        this.roasterserviceService.getGeneratedRoKeys(data).subscribe((res) => {
+        this.apiRequestService.getGeneratedRoKeys(data).subscribe((res) => {
             if (res.success) {
                 this.loader = false;
                 this.requestDetailData = res.result[0];
@@ -87,7 +90,7 @@ export class ApiRequestDetailsComponent implements OnInit {
             roaster_id: this.roasterID,
             request_id: this.keyId,
         };
-        this.roasterserviceService.getApiKeysRequestRo(data).subscribe((res) => {
+        this.apiRequestService.getApiKeysRequestRo(data).subscribe((res) => {
             if (res.success) {
                 this.requestDetailData = res.result;
                 this.loader = false;
@@ -101,7 +104,7 @@ export class ApiRequestDetailsComponent implements OnInit {
             roaster_id: this.roasterID,
             request_id: this.keyId,
         };
-        this.roasterserviceService.generateRoApiKey(data).subscribe((res) => {
+        this.apiRequestService.generateRoApiKey(data).subscribe((res) => {
             if (res.success) {
                 this.apikeyStatus = 'GENERATED';
                 this.apiKeyId = res.result.id;
@@ -114,7 +117,7 @@ export class ApiRequestDetailsComponent implements OnInit {
             roaster_id: this.roasterID,
             api_key_id: this.apiKeyId,
         };
-        this.roasterserviceService.notifyRoCustomer(data).subscribe((res) => {
+        this.apiRequestService.notifyRoCustomer(data).subscribe((res) => {
             if (res.success) {
                 this.apikeyStatus = 'Notified';
             }
@@ -126,11 +129,12 @@ export class ApiRequestDetailsComponent implements OnInit {
             roaster_id: this.roasterID,
             api_key_id: this.apiKeyId,
         };
-        this.roasterserviceService.disableRoApiKey(data).subscribe((res) => {
+        this.apiRequestService.disableRoApiKey(data).subscribe((res) => {
             if (res.success) {
                 this.apikeyStatus = 'paused';
                 this.toastrService.success('Key access has been paused');
                 this.modalRef.hide();
+                this.btnToggle = false;
             }
         });
     }
@@ -140,7 +144,7 @@ export class ApiRequestDetailsComponent implements OnInit {
             roaster_id: this.roasterID,
             api_key_id: this.apiKeyId,
         };
-        this.roasterserviceService.enableRoApiKey(data).subscribe((res) => {
+        this.apiRequestService.enableRoApiKey(data).subscribe((res) => {
             if (res.success) {
                 this.apikeyStatus = 'active';
                 this.toastrService.success('Key access has been active');
@@ -149,7 +153,7 @@ export class ApiRequestDetailsComponent implements OnInit {
     }
 
     activeStatus() {
-        this.btnToggle = !this.btnToggle;
+        this.btnToggle = true;
         if (this.btnToggle === true) {
             this.resumeKey();
         }
@@ -160,8 +164,7 @@ export class ApiRequestDetailsComponent implements OnInit {
             roaster_id: this.roasterID,
             api_key_id: this.apiKeyId,
         };
-        this.roasterserviceService.deleteRoApiKey(data).subscribe((res) => {
-            console.log('res---<>>>', res);
+        this.apiRequestService.deleteRoApiKey(data).subscribe((res) => {
             if (res.success) {
                 this.toastrService.error('Key has been delete');
                 this.modalRef.hide();

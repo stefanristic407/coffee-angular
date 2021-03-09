@@ -6,10 +6,16 @@
     <p-table [value]="requestData" [totalRecords]="100" [lazy]="true" (onLazyLoad)="getData($event)">
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="org_name">Requested By<p-sortIcon field="org_name"></p-sortIcon></th>
-                <th pSortableColumn="org_type">Customer Type<p-sortIcon field="org_type"></p-sortIcon></th>
-                <th pSortableColumn="created_at">Date Request<p-sortIcon field="created_at"></p-sortIcon></th>
-                <th>Action</th>
+                <th pSortableColumn="org_name">
+                    {{ globals.languageJson?.requested_by }}<p-sortIcon field="org_name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="org_type">
+                    {{ globals.languageJson?.customer_type }}<p-sortIcon field="org_type"></p-sortIcon>
+                </th>
+                <th pSortableColumn="created_at">
+                    {{ globals.languageJson?.date_request }}<p-sortIcon field="created_at"></p-sortIcon>
+                </th>
+                <th>{{ globals.languageJson?.action }}</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-product>
@@ -17,7 +23,9 @@
                 <td>{{ product.org_name }}</td>
                 <td>{{ product.org_type }}</td>
                 <td>{{ product.created_at | date: 'MMMM y' }}</td>
-                <td class="view-order" (click)="viewRequestDetails(product)">View request</td>
+                <td class="view-order" (click)="viewRequestDetails(product)">
+                    {{ globals.languageJson?.view_request }}
+                </td>
             </tr>
         </ng-template>
     </p-table>
