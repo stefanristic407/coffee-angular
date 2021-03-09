@@ -9,14 +9,14 @@
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 spacing-batch">
                 <button
                     type="submit"
-                    class="btn pull-right btn-raised d-md-block d-none"
+                    class="btn pull-right btn-raised d-md-none d-none d-lg-block d-xl-block"
                     routerLink="/roasted-coffee-batch/roasting-profile"
                 >
                     {{ globals.languageJson?.manage_roasting_profiles }}
                 </button>
                 <button
                     type="submit"
-                    class="btn pull-right btn-stroked d-md-block d-none mr-2"
+                    class="btn pull-right btn-stroked d-md-none d-none mr-2 d-lg-block d-xl-block"
                     routerLink="/roasted-coffee-batch/new-roasted-batch"
                 >
                     {{ globals.languageJson?.create_new_batch }}
@@ -41,7 +41,7 @@
                     name="search"
                     class="search-raised pull-right"
                     formControlName="searchField"
-                    placeholder="Search"
+                    placeholder="Search by batch name"
                 />
             </div>
         </div>
@@ -72,12 +72,12 @@
                     name="search"
                     class="search-raised w-100 ml-0"
                     formControlName="searchField"
-                    placeholder="Search"
+                    placeholder="Search by batch name"
                 />
             </div>
         </div>
         <div class="row pt-1">
-            <div class="col-lg-8">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-12 col-xl-12">
                 <p-dropdown
                     [options]="profileArray"
                     optionLabel="label"
@@ -90,6 +90,22 @@
                     styleClass="round-border mb-3 {{ profileFilter ? 'highlight' : '' }}"
                 >
                 </p-dropdown>
+            </div>
+            <div class="col-md-8 d-none d-sm-none d-md-block d-lg-none d-xl-none">
+                <button
+                    type="submit"
+                    class="btn pull-right btn-raised d-md-block"
+                    routerLink="/roasted-coffee-batch/roasting-profile"
+                >
+                    {{ globals.languageJson?.manage_roasting_profiles }}
+                </button>
+                <button
+                    type="submit"
+                    class="btn pull-right btn-stroked d-md-block mr-2"
+                    routerLink="/roasted-coffee-batch/new-roasted-batch"
+                >
+                    {{ globals.languageJson?.create_new_batch }}
+                </button>
             </div>
         </div>
 

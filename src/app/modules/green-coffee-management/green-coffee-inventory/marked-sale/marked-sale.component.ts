@@ -219,6 +219,14 @@ export class MarkedSaleComponent implements OnInit {
             this.toastrService.error('Cannot Edit! ,The item is already been sold');
         }
     }
+    formatStatus(stringVal) {
+        let formatVal = '';
+        if (stringVal) {
+            formatVal = stringVal.toLowerCase().charAt(0).toUpperCase() + stringVal.slice(1).toLowerCase();
+            formatVal = formatVal.replace('_', ' ');
+        }
+        return formatVal.replace('-', '');
+    }
     deleteProductFromList(deleteId) {
         this.roasterService.deleteProcuredCoffee(this.roasterID, deleteId).subscribe(
             (response) => {

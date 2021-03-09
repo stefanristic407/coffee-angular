@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output, SimpleChange } from '@a
 import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { GlobalsService } from '@services';
-import { RoasterserviceService } from '@services';
 import * as moment from 'moment';
+import { ApiRequestService } from 'src/core/services/api/api-request.service';
 @Component({
     selector: 'app-api-key-requests',
     templateUrl: './api-key-requests.component.html',
@@ -42,9 +42,10 @@ export class ApiKeyRequestsComponent implements OnInit {
         { requested_by: 'La Barista', customer_type: 'HoReCa', date_requested: '19 Sep 2019' },
     ];
     constructor(
-        private roasterserviceService: RoasterserviceService,
         public cookieService: CookieService,
+        private apiRequestService: ApiRequestService,
         public router: Router,
+        public globals: GlobalsService,
     ) {
         this.termStatus = '';
         this.display = '10';
@@ -60,8 +61,6 @@ export class ApiKeyRequestsComponent implements OnInit {
             this.dateFrom = null;
             this.dateTo = null;
         }
-        console.log('date from-->>', this.dateFrom);
-        console.log('date To-->>', this.dateTo);
         this.getApiRequestData();
     }
 
@@ -74,7 +73,7 @@ export class ApiKeyRequestsComponent implements OnInit {
                 status: encodeURIComponent(item.status),
             },
         };
-        this.router.navigate(['/features/api-request-details'], navigationExtras);
+        this.router.navigate(['/features/api-requests-list/api-request-details'], navigationExtras);
     }
     getApiRequestData() {
         const data = {
@@ -95,8 +94,7 @@ export class ApiKeyRequestsComponent implements OnInit {
             data['sort_by'] = this.sortType;
             data['sort_order'] = this.sortOrder;
         }
-        this.roasterserviceService.getApiKeysForRo(data).subscribe((res) => {
-            console.log('res------->>>>>>', res);
+        this.apiRequestService.getApiKeysForRo(data).subscribe((res) => {
             if (res.success) {
                 this.loader = false;
                 this.requestData = res.result;
@@ -108,7 +106,6 @@ export class ApiKeyRequestsComponent implements OnInit {
                 } else {
                     this.paginationValue = true;
                 }
-                console.log('requestData', this.requestData);
             }
         });
     }
@@ -116,22 +113,14 @@ export class ApiKeyRequestsComponent implements OnInit {
     getData(event) {
         this.sortOrder = event.sortOrder === 1 ? 'asc' : 'desc';
         this.sortType = event.sortField;
-        console.log('event-->>>', event);
         if (event.sortField) {
             this.getApiRequestData();
         }
     }
 
     paginate(event) {
-        console.log('event--->>>>', event);
-        const page = event.page + 1;
-        console.log('page-->>', page);
         this.pageNumber = event.page + 1;
         this.getApiRequestData();
-        //event.first = Index of the first record
-        //event.rows = Number of rows to display in new page
-        //event.page = Index of the new page
-        //event.pageCount = Total number of pages
     }
 
     setStatus(term: any) {

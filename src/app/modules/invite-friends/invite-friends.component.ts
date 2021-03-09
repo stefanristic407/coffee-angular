@@ -59,7 +59,7 @@ export class InviteFriendsComponent implements OnInit {
                             if (res.status === '200 OK') {
                                 resolve(res);
                             } else {
-                                rejects(res);
+                                reject(res);
                             }
                         });
                     }),

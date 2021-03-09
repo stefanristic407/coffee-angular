@@ -3,8 +3,8 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
-import { RoasterserviceService } from '@services';
 import * as moment from 'moment';
+import { ApiRequestService } from 'src/core/services/api/api-request.service';
 
 @Component({
     selector: 'app-generated-keys',
@@ -38,8 +38,9 @@ export class GeneratedKeysComponent implements OnInit {
     constructor(
         private toastrService: ToastrService,
         private modalService: BsModalService,
-        private roasterserviceService: RoasterserviceService,
         public cookieService: CookieService,
+        private apiRequestService: ApiRequestService,
+        public globals: GlobalsService,
     ) {
         this.termStatus = '';
         this.display = '10';
@@ -96,7 +97,7 @@ export class GeneratedKeysComponent implements OnInit {
             data['sort_by'] = this.sortType;
             data['sort_order'] = this.sortOrder;
         }
-        this.roasterserviceService.getGeneratedRoKeys(data).subscribe((res) => {
+        this.apiRequestService.getGeneratedRoKeys(data).subscribe((res) => {
             console.log('res------->>>>>>', res);
             if (res.success) {
                 this.loader = false;
@@ -123,7 +124,7 @@ export class GeneratedKeysComponent implements OnInit {
             roaster_id: this.roasterID,
             api_key_id: item.id,
         };
-        this.roasterserviceService.enableRoApiKey(data).subscribe((res) => {
+        this.apiRequestService.enableRoApiKey(data).subscribe((res) => {
             console.log('res---<>>>', res);
             if (res.success) {
                 this.toastrService.success('Key has been reactivated!');
@@ -137,7 +138,7 @@ export class GeneratedKeysComponent implements OnInit {
             roaster_id: this.roasterID,
             api_key_id: item.id,
         };
-        this.roasterserviceService.disableRoApiKey(data).subscribe((res) => {
+        this.apiRequestService.disableRoApiKey(data).subscribe((res) => {
             console.log('res---<>>>', res);
             if (res.success) {
                 this.toastrService.success('Key access has been paused');
@@ -155,7 +156,7 @@ export class GeneratedKeysComponent implements OnInit {
             roaster_id: this.roasterID,
             api_key_id: id,
         };
-        this.roasterserviceService.deleteRoApiKey(data).subscribe((res) => {
+        this.apiRequestService.deleteRoApiKey(data).subscribe((res) => {
             if (res.success) {
                 this.toastrService.error('Key has been delete');
                 const index = this.generatedKeyData.findIndex((item) => item.id === id);
@@ -172,7 +173,7 @@ export class GeneratedKeysComponent implements OnInit {
             roaster_id: this.roasterID,
             api_key_id: id,
         };
-        this.roasterserviceService.notifyRoCustomer(data).subscribe((res) => {
+        this.apiRequestService.notifyRoCustomer(data).subscribe((res) => {
             console.log('res---<>>>', res);
             if (res.success) {
                 this.toastrService.success('Key has been reactivated!');

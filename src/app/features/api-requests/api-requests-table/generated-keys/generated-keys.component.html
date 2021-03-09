@@ -6,11 +6,21 @@
     <p-table [value]="generatedKeyData" [lazy]="true" (onLazyLoad)="getData($event)">
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="org_name">Customer<p-sortIcon field="org_name"></p-sortIcon></th>
-                <th pSortableColumn="org_type">Customer type <p-sortIcon field="org_type"></p-sortIcon></th>
-                <th pSortableColumn="requested_at">Date requested<p-sortIcon field="requested_at"></p-sortIcon></th>
-                <th pSortableColumn="generated_at">Key generated on<p-sortIcon field="generated_at"></p-sortIcon></th>
-                <th pSortableColumn="is_active">Key status<p-sortIcon field="is_active"></p-sortIcon></th>
+                <th pSortableColumn="org_name">
+                    {{ globals.languageJson?.customer }}<p-sortIcon field="org_name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="org_type">
+                    {{ globals.languageJson?.customer_type }}<p-sortIcon field="org_type"></p-sortIcon>
+                </th>
+                <th pSortableColumn="requested_at">
+                    {{ globals.languageJson?.date_requested }}<p-sortIcon field="requested_at"></p-sortIcon>
+                </th>
+                <th pSortableColumn="generated_at">
+                    {{ globals.languageJson?.key_generated_on }}<p-sortIcon field="generated_at"></p-sortIcon>
+                </th>
+                <th pSortableColumn="is_active">
+                    {{ globals.languageJson?.key_status }}<p-sortIcon field="is_active"></p-sortIcon>
+                </th>
                 <th>Action</th>
             </tr>
         </ng-template>
@@ -41,7 +51,7 @@
                             <ul class="list-group custom-popover">
                                 <li class="list-group-item">
                                     <a class="pointer-item" (click)="resumeKey(item); pop.hide()"
-                                        >Resume Access & Notify Customer
+                                        >{{ globals.languageJson?.resume_access_and_notify_customer }}
                                     </a>
                                 </li>
                             </ul>
@@ -51,15 +61,19 @@
                         <div id="popover-mobile-content">
                             <ul class="list-group custom-popover">
                                 <li class="list-group-item">
-                                    <a class="pointer-item" (click)="pauseKey(item); pop.hide()">Pause Key Access </a>
+                                    <a class="pointer-item" (click)="pauseKey(item); pop.hide()">{{
+                                        globals.languageJson?.pause_key_access
+                                    }}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a class="pointer-item" (click)="deleteKey(); pop.hide()">Delete Key</a>
+                                    <a class="pointer-item" (click)="deleteKey(); pop.hide()">{{
+                                        globals.languageJson?.delete_key
+                                    }}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a class="pointer-item" (click)="notifyCustomer(item.id); pop.hide()"
-                                        >Notifiy customer</a
-                                    >
+                                    <a class="pointer-item" (click)="notifyCustomer(item.id); pop.hide()">{{
+                                        globals.languageJson?.notify_customer
+                                    }}</a>
                                 </li>
                             </ul>
                         </div>
@@ -70,8 +84,10 @@
                                 Are you sure you want to delete the API key for "Third wave coffee roasters"?
                             </p>
                             <div class="templete-btn">
-                                <button class="btn no-btn" (click)="modalRef.hide()">Cancel</button>
-                                <button class="btn add-btn ml-3" (click)="onConfirm(item.id)">Yes</button>
+                                <button class="btn no-btn" (click)="modalRef.hide()">{{ 'Cancel' | translate }}</button>
+                                <button class="btn add-btn ml-3" (click)="onConfirm(item.id)">
+                                    {{ 'Yes' | translate }}
+                                </button>
                             </div>
                         </div>
                     </ng-template>
