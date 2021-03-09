@@ -127,7 +127,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
-                    <tr>
+                    <tr (click)="redirectToEdit(rowData)">
                         <td
                             *ngFor="let col of columns"
                             [ngSwitch]="col.field"
@@ -161,20 +161,17 @@
                             }"
                         >
                             <span *ngSwitchCase="'roast_batch_name'" class="">
-                                <span
-                                    class="d-none d-sm-none d-md-inline-block truncate-roasted"
-                                    (click)="redirectToEdit(rowData)"
-                                >
+                                <span class="d-none d-sm-none d-md-inline-block truncate-roasted">
                                     {{ rowData['roast_batch_name'] | titlecase }}
                                 </span>
 
                                 <div class="d-block d-sm-block d-md-none row m-0 pb-4">
                                     <div class="borderCard">
                                         <div class="d-flex bgCard">
-                                            <span class="fnt-muli fnt-700 width-90" (click)="redirectToEdit(rowData)">{{
+                                            <span class="fnt-muli fnt-700 width-90">{{
                                                 rowData[col.field] | titlecase
                                             }}</span>
-                                            <span class="">
+                                            <span (click)="menuClicked()" class="">
                                                 <a
                                                     class="menu-arrow"
                                                     [popover]="poplistTemplate"
@@ -204,7 +201,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="col-12 row p-3 m-0 mobileCard" (click)="redirectToEdit(rowData)">
+                                    <div class="col-12 row p-3 m-0 mobileCard">
                                         <div class="cardBottom p-0 w-100">
                                             <div class="mobileCardBody pt-0">
                                                 <div class="pb-1">
@@ -250,10 +247,8 @@
                             </span>
                             <span *ngSwitchCase="'actions'" class="">
                                 <span>
-                                    <a class="fnt-muli fnt-14 fnt-700 view-det" (click)="redirectToEdit(rowData)"
-                                        >View details</a
-                                    >
-                                    <span class="float-right">
+                                    <a class="fnt-muli fnt-14 fnt-700 view-det">View details</a>
+                                    <span class="float-right" (click)="menuClicked()">
                                         <a
                                             class="menu-arrow"
                                             [popover]="poplistTemplate"
@@ -279,18 +274,14 @@
                                     </span>
                                 </span>
                             </span>
-                            <span *ngSwitchCase="'created_at'" class="" (click)="redirectToEdit(rowData)">
+                            <span *ngSwitchCase="'created_at'" class="">
                                 <span>{{ rowData[col.field] | date: 'dd MMM y' }}</span>
                             </span>
-                            <span
-                                *ngSwitchCase="'roasting_profile_quantity'"
-                                class=""
-                                (click)="redirectToEdit(rowData)"
-                            >
+                            <span *ngSwitchCase="'roasting_profile_quantity'" class="">
                                 <span>{{ rowData[col.field] }} {{ rowData['roasting_profile_unit'] }}</span>
                             </span>
 
-                            <span *ngSwitchDefault (click)="redirectToEdit(rowData)">
+                            <span *ngSwitchDefault>
                                 <span>{{ rowData[col.field] }}</span>
                             </span>
                         </td>

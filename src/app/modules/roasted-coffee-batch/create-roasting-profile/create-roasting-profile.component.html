@@ -57,8 +57,20 @@
                 <input type="text" placeholder="Enter a number" formControlName="temperature" pInputText />
                 <small *ngIf="roastingForm.controls['temperature'].errors?.required" class="p-error"> Required </small>
             </div>
+            <div
+                class="d-flex d-sm-flex d-md-flex d-lg-none d-xl-none -col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100 mar-top"
+            >
+                <label>Machine type<span class="star">*</span></label>
+                <input
+                    type="text"
+                    placeholder="Enter machine name or model"
+                    formControlName="machine_type"
+                    pInputText
+                />
+                <small *ngIf="roastingForm.controls['machine_type'].errors?.required" class="p-error"> Required </small>
+            </div>
         </div>
-        <div class="row gutter-16 gutter-lg-24">
+        <div class="row d-none d-sm-none d-md-none d-lg-flex d-xl-flexgutter-16 gutter-lg-24">
             <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100 mar-top">
                 <label>Machine type<span class="star">*</span></label>
                 <input
