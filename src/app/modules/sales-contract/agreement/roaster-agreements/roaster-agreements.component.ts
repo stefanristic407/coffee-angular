@@ -8,6 +8,8 @@ import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 import { RoasterserviceService } from '@services';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmComponent } from '@shared';
 
 @Component({
     selector: 'app-roaster-agreements',
@@ -41,6 +43,7 @@ export class RoasterAgreementsComponent implements OnInit {
         public toastrService: ToastrService,
         public roasteryProfileService: RoasteryProfileService,
         public globals: GlobalsService,
+        public dialogSrv: DialogService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
     }
@@ -181,23 +184,30 @@ export class RoasterAgreementsComponent implements OnInit {
     // Function Name: Delete Modal
     // Description: This function helps to capture indiviual agreement id to delete a agrement
 
-    onOpenDeleteModal() {
-        this.displayDeleteModal = true;
-    }
-
-    // Function Name: Delete Agreement
-    // Description: This function helps to delete a agrement
-
-    deleteAgreement(item: any) {
-        // tslint:disable-next-line: deprecation
-        this.roasterService.deleteAgreement(this.roasterId, this.customerType, item).subscribe((res: any) => {
-            if (res.success) {
-                this.displayDeleteModal = false;
-                this.toastrService.success('The Selected agreement deleted successfully!');
-                this.getAgreements();
-            } else {
-                this.toastrService.error('Error while deleting the agreement');
-            }
-        });
+    onOpenDeleteModal(item) {
+        // this.displayDeleteModal = true;
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'delete',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            // tslint:disable-next-line: deprecation
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    // tslint:disable-next-line: deprecation
+                    this.roasterService.deleteAgreement(this.roasterId, this.customerType, item).subscribe((res: any) => {
+                        if (res.success) {
+                            // this.displayDeleteModal = false;
+                            this.toastrService.success('The Selected agreement deleted successfully!');
+                            this.getAgreements();
+                        } else {
+                            this.toastrService.error('Error while deleting the agreement');
+                        }
+                    });
+                }
+            });
     }
 }
