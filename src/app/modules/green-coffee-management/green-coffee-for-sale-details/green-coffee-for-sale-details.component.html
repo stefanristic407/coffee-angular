@@ -21,15 +21,6 @@
                             </div>
                             <div class="text-white pull-right">
                                 <button
-                                    *ngIf="!saleInformation"
-                                    class="btn-raised"
-                                    routerLink="/green-coffee-management/coffee-sale"
-                                    [queryParams]="{ orderId: orderDetails?.id }"
-                                >
-                                    Mark for sale
-                                </button>
-                                <button
-                                    *ngIf="saleInformation"
                                     class="btn-raised"
                                     routerLink="/green-coffee-management/lot-sale"
                                     [queryParams]="{ orderId: orderDetails?.id }"
@@ -44,15 +35,6 @@
                             </h2>
                             <div class="col-sm-12">
                                 <button
-                                    *ngIf="!saleInformation"
-                                    class="btn-raised w-100"
-                                    routerLink="/green-coffee-management/coffee-sale"
-                                    [queryParams]="{ orderId: orderDetails?.id }"
-                                >
-                                    Mark for sale
-                                </button>
-                                <button
-                                    *ngIf="saleInformation"
                                     class="btn-raised w-100"
                                     routerLink="/green-coffee-management/lot-sale"
                                     [queryParams]="{ orderId: orderDetails?.id }"
@@ -172,7 +154,7 @@
                                 <div *ngIf="orderDetails" class="col-12 border-class">
                                     <p-tabView styleClass=" mt-1 pb-md-2" [(activeIndex)]="selectedTab">
                                         <p-tabPanel header="{{ globals.languageJson?.green_coffee_details }}">
-                                            <div class="col-lg-12 px-1 mt-4 mt-md-3">
+                                            <div class="col-lg-12 px-1 px-md-0 mt-4 mt-md-3">
                                                 <div class="estate-focus">
                                                     <ul class="clearfix">
                                                         <li>
@@ -282,22 +264,28 @@
                                             </div>
                                         </p-tabPanel>
                                         <p-tabPanel header="{{ globals.languageJson?.roaster_notes }}">
-                                            <div class="col-lg-12 px-1">
-                                                <div class="roaster-notes">
+                                            <div class="col-lg-12 px-1 px-md-0 mt-4 mt-md-3">
+                                                <div class="estate-focus">
                                                     <ul class="clearfix">
                                                         <li *ngFor="let notes of roasterNotes">
                                                             <div class="real-estate d-flex">
-                                                                <div class="p-photo col-1">
+                                                                <div class="p-photo">
                                                                     <img class="img-procured" [src]="notes?.dp_thumb" />
                                                                 </div>
-                                                                <div class="col-11">
-                                                                    <p class="fnt-14 fnt-muli fnt-700 text-clr334">
+                                                                <div class="px-2">
+                                                                    <p
+                                                                        class="fnt-14 fnt-muli fnt-600 text-clr334 mb-3 w-100"
+                                                                    >
                                                                         {{ notes?.first_name }}&nbsp;{{
                                                                             notes?.last_name
                                                                         }}&nbsp;&#8226;&nbsp;
-                                                                        {{ notes?.created_at | date: 'd MMMM y' }}
+                                                                        <span class="dateAt">{{
+                                                                            notes?.created_at | date: 'd MMMM y'
+                                                                        }}</span>
                                                                     </p>
-                                                                    <p class="fnt-14 fnt-muli fnt-400 text-clr588">
+                                                                    <p
+                                                                        class="fnt-14 fnt-muli fnt-normal text-clr588 w-100 notes"
+                                                                    >
                                                                         {{ notes?.comment }}
                                                                     </p>
                                                                 </div>
@@ -321,7 +309,8 @@
                                                         {{ orderDetails['cupping_at'] | date: 'dd MMM, yyyy' }}
                                                     </h6>
                                                     <p class="text-clr334 fnt-600 fnt-14 mb-0">
-                                                        <span class="text-clr588 fnt-600 fnt-14 pr-md-3 mr-md-1"
+                                                        <span
+                                                            class="text-clr588 fnt-600 fnt-14 pr-md-3 mr-md-1 text-head"
                                                             >Cup Score :</span
                                                         >
                                                         {{ orderDetails.cup_score ? orderDetails.cup_score : 'NA' }}

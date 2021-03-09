@@ -245,7 +245,7 @@
                 </div>
             </section>
             <section class="mt-lg-3" [formGroup]="lotSaleForm" (ngSubmit)="onSave()" novalidate>
-                <div class="row w-100 border-bottom-gray pb-3 mx-0">
+                <div class="row w-100 border-bottom-gray pb-4 pb-md-3 mx-0">
                     <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9 px-0 pt-lg-3">
                         <h1 class="text-clr334 fnt-16 fnt-md-18 fnt-bold">
                             {{ globals.languageJson?.sale_information }}
@@ -254,17 +254,18 @@
                             Manage the price, quantity & delivery charges of coffee marked for sale
                         </div>
                     </div>
-                    <div *ngIf="!showDropdown" class="col-sm-12 col-md-3 col-lg-3 col-xl-3 current-s-bg webMobPage">
+                    <div
+                        *ngIf="!showDropdown"
+                        class="col-sm-12 col-md-3 col-lg-3 col-xl-3 current-s-bg webMobPage mt-48"
+                    >
                         <p class="fnt-14 fnt-muli fnt-400 text-clr334 m-0">Current status</p>
                         <span class="fnt-14 fnt-700 fnt-muli text-clr334">{{ statusLabel }}</span>
-                        <span *ngIf="!readOnlyMode" class="text-brown float-right" (click)="showDropdown = true"
-                            ><a>Change status</a>
-                        </span>
+                        <span class="text-brown float-right" (click)="showDropdown = true"><a>Change status</a> </span>
                     </div>
 
                     <div
                         *ngIf="showDropdown"
-                        class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100 current-s-bg d-inline webMobPage"
+                        class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100 current-s-bg d-inline webMobPage mt-48"
                     >
                         <p-dropdown
                             [options]="stockTypeArray"
@@ -289,7 +290,7 @@
                             </p>
                             <p class="fnt-14 fnt-muli fnt-600 text-clr588 m-0">Current status</p>
                             <span class="fnt-md-18 fnt-bold fnt-muli text-clr334">{{ statusLabel }}</span>
-                            <span *ngIf="!readOnlyMode" class="text-brown float-right" (click)="showDropdown = true"
+                            <span class="text-brown float-right" (click)="showDropdown = true"
                                 ><a>Change status</a>
                             </span>
                         </div>
@@ -328,16 +329,13 @@
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
                         <label>Selling price<span class="star">*</span>(in USD)</label>
-                        <div class="input-group weightInputGroupDiv">
-                            <input
-                                type="number"
-                                class="weightInputDiv"
+
+                        <div class="p-inputgroup custom-addon dropdownClass">
+                            <p-inputNumber
                                 formControlName="price"
                                 placeholder="Enter the selling price"
-                                pInputText
-                            />
-
-                            <div class="input-group-append groupPadding">
+                            ></p-inputNumber>
+                            <span class="p-inputgroup-addon">
                                 <p-dropdown
                                     [options]="priceTypeArray"
                                     optionLabel="label"
@@ -352,7 +350,7 @@
                                     optionValue="value"
                                 >
                                 </p-dropdown>
-                            </div>
+                            </span>
                         </div>
                         <small
                             *ngIf="
@@ -368,17 +366,14 @@
                 <div class="row gutter-16 gutter-lg-24">
                     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
                         <label>Quantity for sale<span class="star">*</span></label>
-                        <div class="input-group weightInputGroupDiv">
-                            <input
-                                type="number"
-                                class="weightInputDiv"
+
+                        <div class="p-inputgroup custom-addon dropdownClass">
+                            <p-inputNumber
                                 formControlName="quantity_count"
                                 placeholder="Enter a number"
-                                pInputText
-                                (input)="changeQuantity()"
-                            />
-
-                            <div class="input-group-append groupPadding">
+                                (onInput)="changeQuantity($event)"
+                            ></p-inputNumber>
+                            <span class="p-inputgroup-addon">
                                 <p-dropdown
                                     [options]="quantityUnitArray"
                                     optionLabel="label"
@@ -394,17 +389,17 @@
                                     (onChange)="quantityTypeChange()"
                                 >
                                 </p-dropdown>
-                            </div>
+                            </span>
+                            <small
+                                *ngIf="
+                                    lotSaleForm.controls['quantity_count'].errors?.required &&
+                                    lotSaleForm.controls['quantity_type'].errors?.required
+                                "
+                                class="p-error"
+                            >
+                                Required
+                            </small>
                         </div>
-                        <small
-                            *ngIf="
-                                lotSaleForm.controls['quantity_count'].errors?.required &&
-                                lotSaleForm.controls['quantity_type'].errors?.required
-                            "
-                            class="p-error"
-                        >
-                            Required
-                        </small>
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
                         <label>Remaining quantity</label>
@@ -412,16 +407,13 @@
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
                         <label>Minimum order quantity<span class="star">*</span></label>
-                        <div class="input-group weightInputGroupDiv">
-                            <input
-                                type="number"
-                                class="weightInputDiv"
+
+                        <div class="p-inputgroup custom-addon dropdownClass">
+                            <p-inputNumber
                                 formControlName="minimum_order_quantity_count"
                                 placeholder="Enter a number"
-                                pInputText
-                            />
-
-                            <div class="input-group-append groupPadding">
+                            ></p-inputNumber>
+                            <span class="p-inputgroup-addon">
                                 <p-dropdown
                                     [options]="quantityUnitArray"
                                     optionLabel="label"
@@ -436,7 +428,7 @@
                                     optionValue="value"
                                 >
                                 </p-dropdown>
-                            </div>
+                            </span>
                         </div>
                         <small
                             *ngIf="
@@ -450,16 +442,10 @@
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
                         <label>Weight / bag<span class="star">*</span></label>
-                        <div class="input-group weightInputGroupDiv">
-                            <input
-                                type="number"
-                                class="weightInputDiv"
-                                formControlName="quantity"
-                                placeholder="Enter a number"
-                                pInputText
-                            />
 
-                            <div class="input-group-append groupPadding">
+                        <div class="p-inputgroup custom-addon dropdownClass">
+                            <p-inputNumber formControlName="quantity" placeholder="Enter a number"></p-inputNumber>
+                            <span class="p-inputgroup-addon">
                                 <p-dropdown
                                     [options]="weightTypeArray"
                                     optionLabel="label"
@@ -474,7 +460,7 @@
                                     optionValue="value"
                                 >
                                 </p-dropdown>
-                            </div>
+                            </span>
                         </div>
                         <small
                             *ngIf="
