@@ -36,7 +36,7 @@ export class PieAreaChartComponent implements OnInit, OnChanges {
                         fontSize: '12px',
                         fontFamily: 'Muli',
                     },
-                    formatter: '{b}: {c}%',
+                    formatter: '{b}: {d}%',
                 },
                 labelLine: {
                     show: false,
