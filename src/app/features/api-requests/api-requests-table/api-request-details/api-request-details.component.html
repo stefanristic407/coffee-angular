@@ -7,19 +7,19 @@
             <span id="title-breadcrumb-1" class="sr-only"></span>
             <ul class="bread-nav">
                 <li class="b-cum">
-                    <a class="b-cum" routerLink="/">Home</a
+                    <a class="b-cum" routerLink="/">{{ globals.languageJson?.home }}</a
                     ><span class="padl-r" aria-hidden="true">
                         <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
                     </span>
                 </li>
-                <li class="b-cum c-pink">API Requests</li>
+                <li class="b-cum c-pink">{{ globals.languageJson?.api_request }}</li>
             </ul>
         </nav>
 
         <div class="request-details">
-            <h4 class="fnt-16 fnt-md-18 fnt-muli fnt-700 text-clr334">Request details</h4>
+            <h4 class="fnt-18 fnt-muli fnt-700 text-clr334">{{ globals.languageJson?.request_details }}</h4>
             <p class="fnt-14 fnt-muli fnt-400 text-clr588">
-                Accept, reject API key requests by customers and generate API keys.
+                {{ 'Accept, reject API key requests by customers and generate API keys.' | translate }}
             </p>
         </div>
 
@@ -27,20 +27,22 @@
             <div class="col-md-7 col-12 table-responsive mt-4 p-0">
                 <div class="express__delivery">
                     <div class="delivery__head">
-                        <p class="m-0 fnt-14 fnt-muli fnt-700 black">API Key Generation Request</p>
+                        <p class="m-0 fnt-14 fnt-muli fnt-700 black">{{ 'API Key Generation Request' | translate }}</p>
                     </div>
                     <div class="delivery__body">
                         <div class="w-100" *ngIf="apikeyStatus != 'DELETED'">
                             <div class="float-left key-activate-block">
                                 <p class="m-0 fnt-14 fnt-muli fnt-700 black">
-                                    Key activated on
+                                    {{ 'Key activated on' | translate }}
                                     {{
                                         initialStatus == 'GENERATED'
                                             ? (requestDetailData?.requested_at | date: 'MMMM y')
                                             : (requestDetailData?.created_at | date: 'MMMM y')
                                     }}
                                 </p>
-                                <p class="view-order m-0 pt-16 cursor-pointer" (click)="delete()">Delete Key</p>
+                                <p class="view-order m-0 pt-16 cursor-pointer" (click)="delete()">
+                                    {{ 'Delete Key' | translate }}
+                                </p>
                             </div>
 
                             <div class="float-right">
@@ -53,7 +55,7 @@
                                         [ngClass]="btnToggle ? 'active_default' : 'active disable_default'"
                                         id="activeStatus"
                                     >
-                                        Active
+                                        {{ 'Active' | translate }}
                                     </div>
                                     <div
                                         class="btn btn-group__item"
@@ -61,7 +63,7 @@
                                         [ngClass]="!btnToggle ? 'active_default active' : 'disable_default'"
                                         id="disableStatus"
                                     >
-                                        Pause
+                                        {{ 'Pause' | translate }}
                                     </div>
                                 </div>
                             </div>
@@ -71,23 +73,33 @@
                             <tbody>
                                 <tr>
                                     <td class="pl-16">
-                                        <span class="list-ques float-left text-clr588"> Requested by </span>
+                                        <span class="list-ques float-left text-clr588">
+                                            {{ 'Requested by' | translate }}
+                                        </span>
                                     </td>
                                     <td>
-                                        <span class="list-answ float-right"> {{ requestDetailData?.org_name }} </span>
+                                        <span class="list-answ float-right">
+                                            {{ requestDetailData?.org_name }}
+                                        </span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="pl-16">
-                                        <span class="list-ques float-left text-clr588"> Customer Type </span>
+                                        <span class="list-ques float-left text-clr588">
+                                            {{ 'Customer Type' | translate }}
+                                        </span>
                                     </td>
                                     <td>
-                                        <span class="list-answ float-right"> {{ requestDetailData?.org_type }} </span>
+                                        <span class="list-answ float-right">
+                                            {{ requestDetailData?.org_type }}
+                                        </span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="pl-16">
-                                        <span class="list-ques float-left text-clr588"> Requested on </span>
+                                        <span class="list-ques float-left text-clr588">
+                                            {{ 'Requested on' | translate }}
+                                        </span>
                                     </td>
                                     <td>
                                         <span class="list-answ float-right">
@@ -108,13 +120,16 @@
 
         <div class="note-heading" *ngIf="apikeyStatus == 'DELETED'">
             <div>
-                <p class="fnt-14 fnt-muli fnt-700 text-clr334">NOTE :</p>
+                <p class="fnt-14 fnt-muli fnt-700 text-clr334">{{ 'NOTE :' | translate }}</p>
             </div>
 
             <div class="col-md-6 pl-8">
                 <p class="fnt-14 fnt-muli fnt-700 text-clr588 m-0">
-                    Confirming the request will grant the customer to all the coffee stories for their orders and all
-                    the marketing material.
+                    {{
+                        'Confirming the request will grant the customer to all the coffee stories for their orders and all
+                    the marketing material.'
+                            | translate
+                    }}
                 </p>
             </div>
         </div>
@@ -122,7 +137,10 @@
         <div class="d-flex" *ngIf="apikeyStatus == 'DELETED'">
             <div class="generate-border col-md-7 col-12">
                 <p class="fnt-14 fnt-muli fnt-700 text-clr334 col-8 float-left m-0 p-0">
-                    Confirm the API Key generation request, to allow the customer to access coffee story.
+                    {{
+                        'Confirm the API Key generation request, to allow the customer to access coffee story.'
+                            | translate
+                    }}
                 </p>
                 <button
                     type="submit"
@@ -135,7 +153,7 @@
                         *ngIf="resetButtonValue === 'Generating Key…'"
                         src="assets/images/btn-loader.svg"
                     />
-                    {{ resetButtonValue }}
+                    {{ resetButtonValue | translate }}
                 </button>
             </div>
         </div>
@@ -144,9 +162,10 @@
         <div class="d-flex pt-32" *ngIf="apikeyStatus == 'GENERATED'">
             <div class="generate-border col-md-7 col-12">
                 <p class="fnt-14 fnt-muli fnt-700 text-clr334 col-8 float-left m-0 p-0">
-                    <span><img class="mr-2" src="assets/images/correct.png" alt="" /> </span> The API key is generated!
+                    <span><img class="mr-2" src="assets/images/correct.png" alt="" /> </span>
+                    {{ 'The API key is generated!' | translate }}
                 </p>
-                <button class="save float-right" (click)="notify()">Notify now</button>
+                <button class="save float-right" (click)="notify()">{{ 'Notify now' | translate }}</button>
             </div>
         </div>
 
@@ -213,8 +232,8 @@
             Are you sure you want to Pause API key access for "Third wave coffee roasters"?
         </p>
         <div class="templete-btn">
-            <button class="btn no-btn" (click)="modalRef.hide()">Cancel</button>
-            <button class="btn add-btn ml-3" (click)="confirmPauseKey()">Yes</button>
+            <button class="btn no-btn" (click)="modalRef.hide()">{{ 'Cancel' | translate }}</button>
+            <button class="btn add-btn ml-3" (click)="confirmPauseKey()">{{ 'Yes' | translate }}</button>
         </div>
     </div>
 </ng-template>
