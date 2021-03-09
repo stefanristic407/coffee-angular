@@ -1,4 +1,5 @@
 export interface RoasterDetails {
+    id: number;
     ownerName: string;
     companyImageThumbnailUrl: string;
     rating: number;

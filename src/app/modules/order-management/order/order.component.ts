@@ -15,11 +15,19 @@ export class OrderComponent extends DestroyableComponent implements OnInit {
     readonly OrderType = OrderType;
     readonly OrderStatus = OrderStatus;
 
-    roaster$ = this.ordersService.roasterDetails$;
+    roaster$ = this.ordersService.estateDetails$;
 
     orderId: number;
     organizationType: OrgType;
     orderDetails: OrderDetails;
+
+    get needConfirmation(): boolean {
+        return (
+            this.organizationType === OrgType.MICRO_ROASTER &&
+            this.orderDetails &&
+            this.orderDetails.status === OrderStatus.Placed
+        );
+    }
 
     constructor(private route: ActivatedRoute, private ordersService: OrdersService) {
         super();

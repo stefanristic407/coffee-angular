@@ -28,7 +28,7 @@ export class OrdersService extends ApiService {
     private readonly orderDetailsSubject = new BehaviorSubject<OrderDetails>(null);
     private readonly recentActivitiesSubject = new BehaviorSubject<RecentActivity[]>([]);
     private readonly bulkDetailsSubject = new BehaviorSubject<BulkDetails>(null);
-    private readonly roasterDetailsSubject = new BehaviorSubject<RoasterDetails>(null);
+    private readonly estateDetailsSubject = new BehaviorSubject<RoasterDetails>(null);
     private readonly documentsSubject = new BehaviorSubject<OrderDocument[]>([]);
     private readonly ordersSubjects = {
         [OrgType.ROASTER]: new BehaviorSubject<ApiResponse<OrderSummary[]>>(null),
@@ -55,8 +55,8 @@ export class OrdersService extends ApiService {
         return this.bulkDetailsSubject.asObservable();
     }
 
-    get roasterDetails$(): Observable<RoasterDetails> {
-        return this.roasterDetailsSubject.asObservable();
+    get estateDetails$(): Observable<RoasterDetails> {
+        return this.estateDetailsSubject.asObservable();
     }
 
     get documents$(): Observable<OrderDocument[]> {
@@ -121,26 +121,26 @@ export class OrdersService extends ApiService {
                 this.loadActivities(orderId, orgType);
                 this.loadBulkDetails(details.harvestId, orgType);
                 this.loadCuppingScore(details.harvestId, orgType);
-                this.loadRoasterDetails(details.roasterId, orgType);
+                this.loadEstateDetails(details.estateId);
                 this.loadDocuments(orgType, 1, 5, rewrite);
             }
         });
     }
 
     confirmOrder(orderId: number, details?: ConfirmRejectOrderDetails): Observable<ApiResponse<any>> {
-        return this.post(this.url, `orders/${orderId}/confirm`, 'PUT', details);
+        return this.postWithOrg(this.url, `mr-orders/${orderId}/confirm`, 'PUT', details);
     }
 
     rejectOrder(orderId: number, details?: ConfirmRejectOrderDetails): Observable<ApiResponse<any>> {
-        return this.post(this.url, `orders/${orderId}/reject`, 'PUT', details);
+        return this.postWithOrg(this.url, `mr-orders/${orderId}/reject`, 'PUT', details);
     }
 
     updatePaymentVerify(orderId: number): Observable<ApiResponse<any>> {
-        return this.post(this.url, `orders/${orderId}/payment/verify`, 'PUT');
+        return this.post(this.url, `mr-orders/${orderId}/payment/verify`, 'PUT');
     }
 
     updatePaymentAfterDelivery(orderId: number): Observable<ApiResponse<any>> {
-        return this.post(this.url, `orders/${orderId}/payment/after-delivery`, 'PUT');
+        return this.post(this.url, `mr-orders/${orderId}/payment/after-delivery`, 'PUT');
     }
 
     updateOrderDetails(details: OrderDetails): void {
@@ -178,7 +178,7 @@ export class OrdersService extends ApiService {
     }
 
     getCuppingReportUrl(harvestId: number): Observable<string> {
-        return this.post(this.url, `/general/harvests/${harvestId}/cupping-report`, 'GET').pipe(
+        return this.post(this.url, `general/harvests/${harvestId}/cupping-report`, 'GET').pipe(
             map((res) => {
                 if (res.success) {
                     return res.result.url;
@@ -200,7 +200,7 @@ export class OrdersService extends ApiService {
     }
 
     private loadBulkDetails(harvestId: number, orgType: OrgType): void {
-        this.post(this.url, `availability/gc/${harvestId}`, 'GET').subscribe((response) => {
+        this.post(this.url, `general/availability/gc/${harvestId}`, 'GET').subscribe((response) => {
             if (response.success) {
                 const details: BulkDetails = {
                     flavours: response.result.flavours,
@@ -220,16 +220,16 @@ export class OrdersService extends ApiService {
         });
     }
 
-    private loadRoasterDetails(roasterId: number, orgType: OrgType): void {
-        this.post(this.url, `/general/ro/${roasterId}/profile/`, 'GET').subscribe((response) => {
+    private loadEstateDetails(id: number): void {
+        this.post(this.url, `general/es/${id}/profile/`, 'GET').subscribe((response) => {
             if (response.success) {
-                this.roasterDetailsSubject.next(toCamelCase<RoasterDetails>(response.result));
+                this.estateDetailsSubject.next(toCamelCase<RoasterDetails>(response.result));
             }
         });
     }
 
     private loadCuppingScore(harvestId: number, orgType: OrgType): void {
-        this.post(this.url, `/general/harvests/${harvestId}/cupping-scores`, 'GET').subscribe((response) => {
+        this.post(this.url, `general/harvests/${harvestId}/cupping-scores`, 'GET').subscribe((response) => {
             if (response.success) {
                 this.cuppingScoreSubject.next(response.result.map((x) => toCamelCase<CuppingScore>(x)));
             }

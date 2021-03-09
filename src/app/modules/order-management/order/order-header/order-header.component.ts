@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { OrderStatus, OrderType } from '@enums';
+import { OrderStatus, OrderType, OrgType } from '@enums';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -10,11 +10,12 @@ import { MenuItem } from 'primeng/api';
 export class OrderHeaderComponent implements OnInit {
     readonly OrderTypes = OrderType;
     readonly OrderStatus = OrderStatus;
+    readonly OrgTypes = OrgType;
 
     breadcrumbs: MenuItem[] = [];
 
     @Input() orderId: number;
-    @Input() organizationType: string;
+    @Input() organizationType: OrgType;
     @Input() orderType: OrderType;
     @Input() createdAt: Date;
     @Input() statusPaid = true;

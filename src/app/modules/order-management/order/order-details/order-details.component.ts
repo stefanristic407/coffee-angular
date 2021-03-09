@@ -22,14 +22,13 @@ export class OrderDetailsComponent extends DestroyableComponent implements OnIni
     @Input() orderId: number;
     @Input() orgType: OrgType;
     @Input() order: OrderDetails;
+    @Input() needConfirmation = false;
 
     constructor(private orderService: OrdersService, public globals: GlobalsService) {
         super();
     }
 
     ngOnInit(): void {
-        this.orderService.roasterDetails$
-            .pipe(takeUntil(this.unsubscribeAll$))
-            .subscribe((res) => (this.roaster = res));
+        this.orderService.estateDetails$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((res) => (this.roaster = res));
     }
 }

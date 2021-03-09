@@ -382,3 +382,14 @@ span.star {
         }
     }
 }
+
+.navigation-link {
+    font-weight: bold;
+    text-decoration: none !important;
+    color: $brown-color !important;
+    cursor: pointer !important;
+
+    &:hover {
+        text-decoration: underline !important;
+    }
+}

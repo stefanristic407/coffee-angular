@@ -48,20 +48,23 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     }
 
     get isGraded(): boolean {
-        return this.order && this.order.status === 'GRADED';
+        return this.order && this.order.status === OrderStatus.Graded;
     }
 
     get showTextBlock(): boolean {
+        if (!this.order || !this.order.status) {
+            return false;
+        }
+
         return (
             this.order &&
             this.order.status &&
-            ((this.order.orderType === OrderType.Sample && this.order.status.toUpperCase() === 'RECEIVED') ||
-                this.isGraded)
+            ((this.order.orderType === OrderType.Sample && this.order.status === OrderStatus.Received) || this.isGraded)
         );
     }
 
     get receivedDate(): string {
-        const receivedActivity = this.activities.reverse().find((x) => x.status.toUpperCase() === 'RECEIVED');
+        const receivedActivity = this.activities.reverse().find((x) => x.status.toUpperCase() === OrderStatus.Received);
         if (receivedActivity) {
             return receivedActivity.created_at;
         }
@@ -91,7 +94,7 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
 
     getStatusDate(point: LabelValue): string {
         const activity = this.getLatestActivity(point);
-        return point.value !== 'HARVEST_READY' && activity ? activity.created_at : '';
+        return point.value !== OrderStatus.HarvestReady && activity ? activity.created_at : '';
     }
 
     leaveFeedback(): void {

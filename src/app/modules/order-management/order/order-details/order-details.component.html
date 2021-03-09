@@ -1,4 +1,4 @@
-<ng-container *ngIf="order?.status !== OrderStatus.Placed; else confirmationDetails">
+<ng-container *ngIf="!needConfirmation; else confirmationDetails">
     <div class="border-ebebeb border-mobile tabs mx-0 pr-0 mt-3 mt-md-0 mb-4 mb-md-0">
         <p-tabView [(activeIndex)]="selectedTab">
             <p-tabPanel [header]="'order_details' | translate">

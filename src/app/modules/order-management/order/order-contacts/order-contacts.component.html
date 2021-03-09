@@ -3,9 +3,8 @@
 
     <div class="d-none d-md-block">
         <div class="d-flex mt-4 justify-content-between">
-            <div class="fnt-18 font-bold text-black334">{{ 'roaster_details' | translate }}</div>
-            <!-- TODO: view-order - make generic class -->
-            <a class="view-order cursor-pointer">{{ 'view_details' | translate }}</a>
+            <div class="fnt-18 font-bold text-black334">{{ 'estate_details' | translate }}</div>
+            <a class="navigation-link" [routerLink]="['/sourcing/estate-details', roaster.id]">{{ 'view_details' | translate }}</a>
         </div>
 
         <app-roaster-details [ownerName]="roaster?.ownerName" [rating]="roaster?.rating"

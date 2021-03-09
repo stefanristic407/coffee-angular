@@ -41,13 +41,12 @@
   </tr>
 
   <tr>
-    <!-- TODO: Add translation -->
-    <td><span class="list-que"> {{ 'ICO' | translate }}: </span></td>
+    <td><span class="list-que"> {{ 'ico' | translate | uppercase}}: </span></td>
     <td><span class="list-ans"> {{ (bulk?.icoNumber | strReplace : '_' : ' ' | titlecase) || '-' }} </span></td>
   </tr>
 </table>
 
 <p class="pb-md-2 mb-0 mt-5 mt-md-0">
   <!-- TODO: Add translation -->
-  <a class="procedure">View availability details</a>
+  <a class="navigation-link">View availability details</a>
 </p>

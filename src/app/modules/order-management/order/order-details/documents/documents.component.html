@@ -8,7 +8,7 @@
             <div>
                 <div class="btn-stroked-muted cursor-pointer p-2" (click)="downloadAll()">
                     <img class="svg" src="assets/images/download-icon.svg" />
-                    <span class="estate-message pl-2">Download all</span>
+                    <span class="estate-message pl-2">{{ 'download_all' | translate }}</span>
                 </div>
             </div>
         </div>
@@ -72,9 +72,7 @@
             </ng-template>
 
             <ng-template pTemplate="summary">
-                <!-- TODO: translation -->
-                <div *ngIf="showLoadMore" class="text-center mt-1"><span class="procedure" (click)="loadMore()">Load
-                        more</span>
+                <div *ngIf="showLoadMore" class="text-center mt-1"><span class="navigation-link" (click)="loadMore()">{{ 'load_more' | translate }}</span>
                 </div>
             </ng-template>
         </p-table>

@@ -18,6 +18,7 @@ export interface OrderDetails {
     notes?: string;
     orderReference?: string;
     orderType?: OrderType;
+    type?: OrderType;
     origin: string;
     paymentAfterDelivery: boolean;
     paymentStatus: string;
@@ -29,6 +30,7 @@ export interface OrderDetails {
     receiptUrl: string;
     roAssigneeId?: number;
     roasterId: number;
+    microRoasterId: number;
     roasterName: string;
     roasterOwner: string;
     roasterProfileImageThumbnailUrl: string;

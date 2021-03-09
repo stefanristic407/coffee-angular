@@ -3,7 +3,7 @@
         <span class="fnt-500 text-muted">{{ 'lot_id' | translate }}</span>
         <span class="fnt-600 text-black334">
             <div>{{lot?.lotId}}</div>
-            <div class="view-order cursor-pointer font-bold">{{ 'view_lot_details' | translate }}</div>
+            <div class="navigation-link">{{ 'view_lot_details' | translate }}</div>
         </span>
     </div>
     <div class="d-flex d-md-none flex-row w-100">
@@ -19,7 +19,7 @@
         <span class="fnt-600 text-black334">{{ quantity || '-' }}</span>
     </div>
     <div class="d-flex flex-row flex-md-column w-100">
-        <span class="fnt-500 text-muted">Rate per {{ quantityType }}</span>
+        <span class="fnt-500 text-muted">{{ 'rate_per' | translate }} {{ quantityType }}</span>
         <span class="fnt-600 text-black334">{{ lot?.quantity ? ((lot?.price / lot?.quantity) | currency: 'USD') : '-' }}</span>
     </div>
     <div class="d-flex flex-row flex-md-column w-100">
