@@ -1,4 +1,4 @@
-export interface RoasterDetails {
+export interface OrganizationDetails {
     id: number;
     ownerName: string;
     companyImageThumbnailUrl: string;

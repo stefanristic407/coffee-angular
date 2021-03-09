@@ -1,8 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DestroyableComponent } from '@base-components';
-import { OrgType } from '@enums';
 import { OrderDocument } from '@models';
-import { OrdersService } from '@services';
+import { OrderManagementService } from '@services';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -17,9 +16,7 @@ export class DocumentsComponent extends DestroyableComponent implements OnInit {
     owners: any[] = [];
     owner: any = {};
 
-    @Input() orgType: OrgType;
-
-    constructor(private orderService: OrdersService) {
+    constructor(private orderService: OrderManagementService) {
         super();
     }
 
@@ -35,7 +32,7 @@ export class DocumentsComponent extends DestroyableComponent implements OnInit {
     }
 
     loadMore(): void {
-        this.orderService.loadDocuments(this.orgType, ++this.page);
+        this.orderService.loadDocuments(++this.page);
     }
 
     downloadFile(document: OrderDocument): void {

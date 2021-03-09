@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DestroyableComponent } from '@base-components';
 import { OrderStatus, OrderType, OrgType } from '@enums';
-import { OrderDetails, RoasterDetails } from '@models';
-import { GlobalsService, OrdersService } from '@services';
+import { OrderDetails, OrganizationDetails } from '@models';
+import { GlobalsService, OrderManagementService } from '@services';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -15,7 +15,7 @@ export class OrderDetailsComponent extends DestroyableComponent implements OnIni
     readonly OrderStatus = OrderStatus;
     readonly bulk$ = this.orderService.bulkDetails$;
 
-    roaster: RoasterDetails;
+    roaster: OrganizationDetails;
     showDetails = true;
     selectedTab = 0;
 
@@ -24,7 +24,7 @@ export class OrderDetailsComponent extends DestroyableComponent implements OnIni
     @Input() order: OrderDetails;
     @Input() needConfirmation = false;
 
-    constructor(private orderService: OrdersService, public globals: GlobalsService) {
+    constructor(private orderService: OrderManagementService, public globals: GlobalsService) {
         super();
     }
 

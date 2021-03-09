@@ -5,7 +5,7 @@
                 <app-lot-details [lot]="order"></app-lot-details>
             </p-tabPanel>
             <p-tabPanel [header]="'documents' | translate" *ngIf="order?.orderType === OrderType.Booked">
-                <app-documents [orgType]="orgType"></app-documents>
+                <app-documents></app-documents>
             </p-tabPanel>
             <p-tabPanel [header]="'grade_info' | translate">
                 <app-grade-info [harvestId]="order?.harvestId"></app-grade-info>

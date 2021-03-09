@@ -1,11 +1,4 @@
-export * from './api/acl.service';
-export * from './api/file.service';
-export * from './api/dashboard.service';
-export * from './api/general.service';
-export * from './api/roaster.service';
-export * from './api/user-original.service';
-export * from './api/user.service';
-export * from './api/your.service';
+export * from './api';
 
 export * from './agro/agro.service';
 export * from './global/globals.service';
@@ -14,6 +7,6 @@ export * from './socket/socket.service';
 export * from './common.service';
 export * from './chat/chat-handler.service';
 export * from './chat/chat-util.service';
-export * from './orders.service';
+export * from './order-management.service';
 export * from './resize.service';
 export * from './prime-table/prime-table.service';
