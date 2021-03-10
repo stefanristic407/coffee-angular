@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { RoasteryProfileService } from '@services';
+import { RoasteryProfileService } from '../roastery-profile.service';
 import { UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -87,7 +87,7 @@ export class AboutRoasteryComponent implements OnInit {
         { name: 'lb', value: 'lb' },
     ];
     roasterUsersOptions?: any[];
-
+    aboutForm: FormGroup;
     constructor(
         public roasteryProfileService: RoasteryProfileService,
         public userService: UserserviceService,
@@ -95,6 +95,7 @@ export class AboutRoasteryComponent implements OnInit {
         private toastrService: ToastrService,
         public globals: GlobalsService,
         public roasterService: RoasterserviceService,
+        private fb: FormBuilder,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.userId = this.cookieService.get('user_id');
@@ -106,6 +107,31 @@ export class AboutRoasteryComponent implements OnInit {
         this.getBrands();
         this.language();
         this.getRoasterUsers();
+        this.initialForm();
+    }
+
+    initialForm() {
+        this.aboutForm = this.fb.group({
+            name: [this.roasteryProfileService.name, Validators.compose([Validators.required])],
+            foundedIn: [this.roasteryProfileService.foundedIn, Validators.compose([Validators.required])],
+            summary: [
+                this.roasteryProfileService.summary,
+                Validators.compose([Validators.required, Validators.maxLength(200)]),
+            ],
+            employeeNos: [this.roasteryProfileService.employeeNos, Validators.compose([Validators.required])],
+            employeeAvg: [this.roasteryProfileService.employeeAvg, Validators.compose([Validators.required])],
+            femaleNum: [this.roasteryProfileService.femaleNum, Validators.compose([Validators.required])],
+            maleNum: [this.roasteryProfileService.maleNum, Validators.compose([Validators.required])],
+            companyDetailsPublic: [
+                this.roasteryProfileService.companyDetailsPublic,
+                Validators.compose([Validators.required]),
+            ],
+            vatNos: [this.roasteryProfileService.vatNos, Validators.compose([Validators.required])],
+            cmpyRid: [this.roasteryProfileService.cmpyRid, Validators.compose([Validators.required])],
+            capacity: [this.roasteryProfileService.capacity, Validators.compose([Validators.required])],
+            kgs: [this.roasteryProfileService.kgs, Validators.compose([Validators.required])],
+            capabilities: [this.roasteryProfileService.capabilities, Validators.compose([Validators.required])],
+        });
     }
 
     language() {

@@ -2,9 +2,9 @@ import { UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { YourServicesService } from '@services';
 import { Component, OnInit } from '@angular/core';
-import { RoasteryProfileService } from '@services';
 import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
+import { RoasteryProfileService } from '../roastery-profile.service';
 
 @Component({
     selector: 'app-sewn-virtual-tour',
