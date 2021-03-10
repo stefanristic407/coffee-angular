@@ -30,8 +30,6 @@ import { OrderSupportFaqsComponent } from './dispute-system/order-support-faqs/o
 import { RaiseTicketFormComponent } from './dispute-system/raise-ticket-form/raise-ticket-form.component';
 import { RaisedTicketComponent } from './dispute-system/raised-ticket/raised-ticket.component';
 import { SelectAnOrderComponent } from './dispute-system/select-an-order/select-an-order.component';
-import { ReviewRatingsComponent } from './review-ratings/review-ratings.component';
-import { RatingComponent } from './rating/rating.component';
 import { MicroRoasterComponent } from './dispute-system/micro-roaster/micro-roaster.component';
 import { HorecaComponent } from './dispute-system/horeca/horeca.component';
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
@@ -98,8 +96,6 @@ import { AssignUserComponent } from './assign-user/assign-user.component';
         RaiseTicketFormComponent,
         RaisedTicketComponent,
         SelectAnOrderComponent,
-        ReviewRatingsComponent,
-        RatingComponent,
         MicroRoasterComponent,
         HorecaComponent,
         EstateComponent,
