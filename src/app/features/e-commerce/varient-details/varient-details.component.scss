@@ -187,6 +187,13 @@
 .drop-margin {
     margin: 4px;
 }
+::ng-deep .sewn-form-field .dropdownClass .p-inputgroup-addon {
+    padding: 5px !important;
+}
+::ng-deep .p-inputgroup-addon .p-dropdown .p-inputtext {
+    position: relative;
+    bottom: 4px;
+}
 @media screen and (max-width: 1024px) {
     .add-image-flex {
         display: flex;
