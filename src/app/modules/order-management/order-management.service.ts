@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
     ApiResponse,
@@ -26,7 +25,7 @@ import {
 @Injectable({
     providedIn: 'root',
 })
-export class OrderManagementService extends ApiService {
+export class OrderManagementService {
     private readonly orderDetailsSubject = new BehaviorSubject<OrderDetails>(null);
     private readonly recentActivitiesSubject = new BehaviorSubject<RecentActivity[]>([]);
     private readonly bulkDetailsSubject = new BehaviorSubject<BulkDetails>(null);
@@ -41,16 +40,13 @@ export class OrderManagementService extends ApiService {
     private orderId: number;
 
     constructor(
-        protected http: HttpClient,
         protected cookieSrv: CookieService,
         private availabilitySrv: AvailabilityService,
         private brandProfileSrc: BrandProfileService,
         private cuppingSrv: GeneralCuppingService,
         private orderSrv: OrderService,
         private purchaseSrv: PurchaseService,
-    ) {
-        super(cookieSrv, http);
-    }
+    ) {}
 
     get orderDetails$(): Observable<OrderDetails> {
         return this.orderDetailsSubject.asObservable();
