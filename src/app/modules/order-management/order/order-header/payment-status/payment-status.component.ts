@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ResizeableComponent } from '@base-components';
 import { GroupedRecentActivity, OrderDetails } from '@models';
-import { OrderManagementService, ResizeService } from '@services';
+import { ResizeService } from '@services';
+import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { ToastrService } from 'ngx-toastr';
 import { takeUntil } from 'rxjs/operators';
 

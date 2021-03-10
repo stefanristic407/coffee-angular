@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DestroyableComponent } from '@base-components';
 import { OrderStatus, OrderType, OrgType } from '@enums';
 import { OrderDetails } from '@models';
-import { OrderManagementService } from '@services';
+import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

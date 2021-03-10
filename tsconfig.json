@@ -15,6 +15,7 @@
         "paths": {
             "@app/*": ["src/app/*"],
             "@components": ["src/app/components/index"],
+            "@modules/*": ["src/app/modules/*"],
             "@env/*": ["src/environments/*"],
             "@shared": ["src/app/shared/index"],
             "@base-components": ["src/core/base-components/index"],

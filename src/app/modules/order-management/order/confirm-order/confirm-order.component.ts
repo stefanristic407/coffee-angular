@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { DestroyableComponent } from '@base-components';
 import { OrgType } from '@enums';
-import { OrderManagementService } from '@services';
+import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { ToastrService } from 'ngx-toastr';
 import { takeUntil } from 'rxjs/operators';
 

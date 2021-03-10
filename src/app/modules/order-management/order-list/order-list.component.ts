@@ -1,7 +1,8 @@
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CommonService, OrderManagementService, ResizeService } from '@services';
+import { CommonService, ResizeService } from '@services';
+import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { LazyLoadEvent, MenuItem } from 'primeng/api';
 import { ApiResponse, LabelValue, OrderSummary, PageInfo } from '@models';
 import { ORDER_STATUS_ITEMS, ORDER_TYPE_ITEMS } from '@constants';

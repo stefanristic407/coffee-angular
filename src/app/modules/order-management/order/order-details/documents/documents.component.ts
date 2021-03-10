@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DestroyableComponent } from '@base-components';
 import { OrderDocument } from '@models';
-import { OrderManagementService } from '@services';
+import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

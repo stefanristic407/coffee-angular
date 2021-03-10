@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
 import { OrderStatus, OrderType } from '@enums';
 import { LabelValue, OrderDetails, RecentActivity } from '@models';
-import { OrderManagementService, ResizeService } from '@services';
+import { ResizeService } from '@services';
+import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

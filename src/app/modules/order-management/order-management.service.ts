@@ -21,7 +21,7 @@ import {
     GeneralCuppingService,
     OrderService,
     PurchaseService,
-} from './api';
+} from '@services';
 
 @Injectable({
     providedIn: 'root',
