@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { RoasterserviceService } from '@services';
 import { ApiRequestService } from 'src/core/services/api/api-request.service';
 import { GlobalsService } from '@services';
+import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'app-api-request-details',
@@ -13,6 +14,7 @@ import { GlobalsService } from '@services';
     styleUrls: ['./api-request-details.component.scss'],
 })
 export class ApiRequestDetailsComponent implements OnInit {
+    breadCrumbItem: MenuItem[] = [];
     loader = true;
     termStatus: any;
     btnToggle = true;
@@ -60,6 +62,20 @@ export class ApiRequestDetailsComponent implements OnInit {
         } else {
             this.viewRoDetails();
         }
+        this.supplyBreadCrumb();
+    }
+
+    supplyBreadCrumb(): void {
+        const obj1: MenuItem = {
+            label: this.globals.languageJson?.home,
+            routerLink: '/',
+        };
+        const obj2: MenuItem = {
+            label: this.globals.languageJson?.api_request,
+            routerLink: 'features/api-request',
+        };
+        this.breadCrumbItem.push(obj1);
+        this.breadCrumbItem.push(obj2);
     }
 
     getGeneratedRoKeys() {

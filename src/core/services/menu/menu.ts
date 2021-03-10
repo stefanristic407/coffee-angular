@@ -45,7 +45,7 @@ export const menuItems = [
     new Menu(51, 'Sales', './', null, null, null, false, 5, []),
     new Menu(52, 'Sales Contracts', '/sales-contract', null, null, null, false, 5, []),
     new Menu(53, 'Sales Tool', '/features/agreement', null, null, null, false, 5, []),
-    new Menu(53, 'API Requests', '/features/api-requests-list', null, null, null, false, 5, []),
+    new Menu(53, 'API Requests', '/api-requests-list', null, null, null, false, 5, []),
 
     new Menu(7, 'Brand & Experience', null, null, null, null, true, 0, []),
     new Menu(71, 'Brand Profile Management', '/brand-profile', null, null, null, false, 7, []),

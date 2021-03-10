@@ -73,7 +73,7 @@ export class ApiKeyRequestsComponent implements OnInit {
                 status: encodeURIComponent(item.status),
             },
         };
-        this.router.navigate(['/features/api-requests-list/api-request-details'], navigationExtras);
+        this.router.navigate(['/api-requests-list/api-request-details'], navigationExtras);
     }
     getApiRequestData() {
         const data = {

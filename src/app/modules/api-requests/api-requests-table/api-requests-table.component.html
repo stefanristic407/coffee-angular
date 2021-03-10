@@ -7,19 +7,10 @@
 
 <div *ngIf="greenActive == 1">
     <section>
-        <div class="bg-fff coffee-exp">
-            <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
-                <span class="sr-only"></span>
-                <ul class="bread-nav pl-48">
-                    <li class="b-cum">
-                        <a class="b-cum" routerLink="/">{{ globals.languageJson?.home }}</a
-                        ><span class="padl-r" aria-hidden="true"
-                            ><img class="group-img" src="/assets/images/arrow-1.png" alt="" />
-                        </span>
-                    </li>
-                    <li class="b-cum c-pink">{{ globals.languageJson?.api_request }}</li>
-                </ul>
-            </nav>
+        <div class="bg-fff request-table-container">
+            <div class="bread-crumb">
+                <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
+            </div>
             <section class="estate-orders-heading">
                 <div class="row justify-content-between align-items-center">
                     <div class="col-lg-8 col-md-4">

@@ -279,12 +279,6 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'api-requests-list',
-                loadChildren: () =>
-                    import('./api-requests/api-requests-table/api-request.module').then((m) => m.ApiRequestModule),
-                canActivate: [AuthGuard],
-            },
-            {
                 path: 'confirm-preorder-lot',
                 component: ConfirmPreorderLotComponent,
                 canActivate: [AuthGuard],
