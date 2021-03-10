@@ -6,4 +6,4 @@ export * from './order-details.model';
 export * from './order-document.model';
 export * from './order-summary.model';
 export * from './recent-activity.model';
-export * from './roaster-details.model';
+export * from './organization-details.model';

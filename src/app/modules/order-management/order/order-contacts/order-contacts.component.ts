@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { OrderDetails, RoasterDetails } from '@models';
+import { OrderDetails, OrganizationDetails } from '@models';
 import { CommonService } from '@services';
 
 @Component({
@@ -9,7 +9,7 @@ import { CommonService } from '@services';
 })
 export class OrderContactsComponent {
     @Input() order: OrderDetails;
-    @Input() roaster: RoasterDetails;
+    @Input() roaster: OrganizationDetails;
 
     constructor(public commonService: CommonService) {}
 }

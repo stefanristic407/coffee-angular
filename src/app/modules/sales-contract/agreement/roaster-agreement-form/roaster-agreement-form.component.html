@@ -1,13 +1,10 @@
 <div class="custom-padding">
     <div class="d-flex flex-column">
-        <a [routerLink]="['/sales-contract']" class="mobile-farm"
-            ><img src="assets/images/back-arrow1.svg" /><span
-                class="back-text fnt-16 fnt-700 fnt-Muli ml-2 pl-1 text-clr60b"
-                >Back</span
-            ></a
-        >
+        <div class="w-100 pb-3 mobile-farm">
+            <a class="back-page" routerLink="/sales-contract"> {{ 'back' | translate }}</a>
+        </div>
         <h4 class="fnt-18 fnt-muli fnt-700 text-clr334 mt-3 mb-3 mobile-farm">
-            {{ globals.languageJson?.upload_new_agreement }}
+            {{ 'upload_new_agreement' | translate }}
         </h4>
     </div>
     <form>
@@ -44,7 +41,7 @@
 
             <div class="pb-md-2 sewn-form-field w-50 btn-width">
                 <label class="fnt-16 fnt-muli ft-bold mb-md-3"
-                    >{{ globals.languageJson?.select_customer }} <span class="star-mark">*</span>
+                    >{{ 'select_customer' | translate }} <span class="star-mark">*</span>
                 </label>
                 <p-dropdown
                     [options]="modalDropdownList"
@@ -67,41 +64,39 @@
             <div class="mb-0">
                 <div class="col-12 px-0">
                     <h4 class="fnt-16 fnt-700 fnt-muli text-clr334 mb-0">
-                        {{ globals.languageJson?.upload }}
+                        {{ 'upload' | translate }}
                     </h4>
                     <span class="d-block fnt-14 fnt-500 fnt-muli text-clr334 text-clr588 mb-1">
-                        {{ globals.languageJson?.please_upload_document }}</span
+                        {{ 'please_upload_document' | translate }}</span
                     >
                     <div class="d-flex foot-section mb-2 mb-md-4 mt-2 mt-md-3 pb-md-1">
                         <div>
-                            <label *ngIf="!isUpdate" class="share-bor d-inline-block">
+                            <label *ngIf="!isUpdate" class="btn-trans-icon upload-icon">
                                 <input
                                     class="file-input"
                                     accept="application/pdf"
                                     type="file"
                                     (change)="uploadFile($event)"
-                                /><img class="dwnd-img" src="assets/images/group-6.svg" alt="upload-icon" />
-                                <span class="share-txt"> {{ globals.languageJson?.upload }} </span>
+                                />
+                                {{ 'upload' | translate }}
                             </label>
                             <span *ngIf="!isUpdate" class="value-name pl-3">{{ fileNameValue }}</span>
-                            <label *ngIf="isUpdate" class="share-bor d-inline-block">
+                            <label *ngIf="isUpdate" class="btn-trans-icon upload-icon">
                                 <input
                                     class="file-input"
                                     accept="application/pdf"
                                     type="file"
                                     (change)="reUploadFile($event)"
-                                /><img class="dwnd-img" src="assets/images/group-6.svg" alt="upload-icon" />
-                                <span class="share-txt"> {{ globals.languageJson?.upload }} </span>
+                                />
+                                {{ 'upload' | translate }}
                             </label>
-                            <span *ngIf="isUpdate" class="value-name pl-3">{{
-                                fileNameValue ? fileNameValue : reFileNameValue
-                            }}</span>
+                            <span *ngIf="isUpdate" class="value-name pl-3">{{ fileNameValue || reFileNameValue }}</span>
                         </div>
                         <div class="align-btn">
                             <div *ngIf="!isUpdate">
                                 <button
                                     type="button"
-                                    class="btn-raised fnt-14 fnt-700 fnt-muli btn-width"
+                                    class="btn-raised btn-width"
                                     (click)="uploadAgreement()"
                                     [disabled]="
                                         uploadButtonValue === 'Uploading' ||

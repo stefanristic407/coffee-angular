@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DestroyableComponent } from '@base-components';
 import { OrderStatus, OrderType, OrgType } from '@enums';
 import { OrderDetails } from '@models';
-import { OrdersService } from '@services';
+import { OrderManagementService } from '@services';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -29,7 +29,7 @@ export class OrderComponent extends DestroyableComponent implements OnInit {
         );
     }
 
-    constructor(private route: ActivatedRoute, private ordersService: OrdersService) {
+    constructor(private route: ActivatedRoute, private ordersService: OrderManagementService) {
         super();
     }
 

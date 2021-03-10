@@ -2,7 +2,7 @@ import { AgmGeocoder } from '@agm/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { DestroyableComponent } from '@base-components';
 import { Address, OrderDetails } from '@models';
-import { OrdersService, CommonService } from '@services';
+import { OrderManagementService, CommonService } from '@services';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -19,7 +19,7 @@ export class DeliveryAddressComponent extends DestroyableComponent implements On
 
     constructor(
         private geoCoder: AgmGeocoder,
-        private orderService: OrdersService,
+        private orderService: OrderManagementService,
         public commonService: CommonService,
     ) {
         super();

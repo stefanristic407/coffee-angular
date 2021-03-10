@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
 import { OrderStatus, OrderType } from '@enums';
 import { LabelValue, OrderDetails, RecentActivity } from '@models';
-import { OrdersService, ResizeService } from '@services';
+import { OrderManagementService, ResizeService } from '@services';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -70,7 +70,11 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
         }
     }
 
-    constructor(private router: Router, private orderService: OrdersService, protected resizeService: ResizeService) {
+    constructor(
+        private router: Router,
+        private orderService: OrderManagementService,
+        protected resizeService: ResizeService,
+    ) {
         super(resizeService);
     }
 

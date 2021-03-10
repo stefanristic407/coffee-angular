@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DestroyableComponent } from '@base-components';
 import { CuppingScore } from '@models';
-import { OrdersService } from '@services';
+import { OrderManagementService } from '@services';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -14,7 +14,7 @@ export class GradeInfoComponent extends DestroyableComponent implements OnInit {
 
     cuppingScore: CuppingScore[] = [];
 
-    constructor(private orderService: OrdersService) {
+    constructor(private orderService: OrderManagementService) {
         super();
     }
 

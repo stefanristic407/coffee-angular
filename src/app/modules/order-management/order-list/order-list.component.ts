@@ -1,7 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CommonService, OrdersService, ResizeService } from '@services';
+import { CommonService, OrderManagementService, ResizeService } from '@services';
 import { LazyLoadEvent, MenuItem } from 'primeng/api';
 import { ApiResponse, LabelValue, OrderSummary, PageInfo } from '@models';
 import { ORDER_STATUS_ITEMS, ORDER_TYPE_ITEMS } from '@constants';
@@ -68,7 +68,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private route: ActivatedRoute,
-        private orderService: OrdersService,
+        private orderService: OrderManagementService,
         protected resizeService: ResizeService,
         public commonService: CommonService,
     ) {

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ResizeableComponent } from '@base-components';
 import { GroupedRecentActivity, OrderDetails } from '@models';
-import { OrdersService, ResizeService } from '@services';
+import { OrderManagementService, ResizeService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { takeUntil } from 'rxjs/operators';
 
@@ -21,7 +21,7 @@ export class PaymentStatusComponent extends ResizeableComponent implements OnIni
     constructor(
         private toastrService: ToastrService,
         protected resizeService: ResizeService,
-        private ordersService: OrdersService,
+        private ordersService: OrderManagementService,
     ) {
         super(resizeService);
     }
