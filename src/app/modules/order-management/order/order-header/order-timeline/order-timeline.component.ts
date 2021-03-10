@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
 import { OrderStatus, OrderType, OrgType } from '@enums';
 import { LabelValue, OrderDetails, RecentActivity } from '@models';
@@ -19,6 +18,7 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     activities: RecentActivity[] = [];
     order: OrderDetails;
     accordionOpened = true;
+    receivedDate: string;
 
     @Input() invoiceUrl: string;
     @Input() orgType: OrgType;
@@ -58,18 +58,7 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
         return this.order && this.order.status && this.order.status === OrderStatus.Received;
     }
 
-    get receivedDate(): string {
-        const receivedActivity = this.activities.reverse().find((x) => x.status.toUpperCase() === OrderStatus.Received);
-        if (receivedActivity) {
-            return receivedActivity.created_at;
-        }
-    }
-
-    constructor(
-        private router: Router,
-        private orderService: OrderManagementService,
-        protected resizeService: ResizeService,
-    ) {
+    constructor(private orderService: OrderManagementService, protected resizeService: ResizeService) {
         super(resizeService);
     }
 
@@ -82,6 +71,12 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
         this.orderService.recentActivities$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((data) => {
             if (data) {
                 this.activities = data;
+                const receivedActivity = this.activities
+                    .reverse()
+                    .find((x) => x.status.toUpperCase() === OrderStatus.Received);
+                if (receivedActivity) {
+                    this.receivedDate = receivedActivity.created_at;
+                }
             }
         });
     }

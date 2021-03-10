@@ -51,4 +51,10 @@
     .p-accordion-content {
         max-width: 350px;
     }
+
+    .p-accordion-tab:not(.p-accordion-tab-active) {
+        @media all and (max-width: 767px) {
+            margin-bottom: 0.75rem !important;
+        }
+    }
 }
