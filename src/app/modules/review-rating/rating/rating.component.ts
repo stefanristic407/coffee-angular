@@ -126,9 +126,12 @@ export class RatingComponent implements OnInit {
                     if (res.success) {
                         this.toastrService.success('Rate and Review of order submitted successfully');
                     } else if (!res.success) {
-                        if (res.messages.order_id === 'not_found') {
+                        if (res.messages.order_id && res.messages.order_id.find((element) => element === 'not_found')) {
                             this.toastrService.error('Order Id not found.');
-                        } else if (res.messages.review.find((element) => element === 'already_exists')) {
+                        } else if (
+                            res.messages.review &&
+                            res.messages.review.find((element) => element === 'already_exists')
+                        ) {
                             this.toastrService.error('Review already exists.');
                         }
                     } else {
