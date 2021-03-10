@@ -16,7 +16,7 @@ export class FileService extends ApiService {
 
     // Delete the folder details
     createFolder(body: any) {
-        return this.postWithOrg(this.url, `file-manager/folders`, 'POST', null, body);
+        return this.postWithOrg(this.url, `file-manager/folders`, 'POST', body);
     }
     // Delete the folder details
     deleteFolder(id: any) {
@@ -26,12 +26,12 @@ export class FileService extends ApiService {
     // ------------ Farmlink File share ------------
     // Share the file/folder access to user
     shareFileFolder(fileId: any, body: any) {
-        return this.postWithOrg(this.url, `file-manager/${fileId}/share`, 'POST', null, body);
+        return this.postWithOrg(this.url, `file-manager/${fileId}/share`, 'POST', body);
     }
 
     // Update the file/folder access to user
     updatePermission(fileId: any, body: any) {
-        return this.postWithOrg(this.url, `file-manager/${fileId}/permission`, 'PUT', null, body);
+        return this.postWithOrg(this.url, `file-manager/${fileId}/permission`, 'PUT', body);
     }
 
     // Get the shared user details by file/folder ID
@@ -71,18 +71,21 @@ export class FileService extends ApiService {
     }
     // List all files/folders under My files section
     getFilesandFolders(query?: object) {
-        return this.postWithOrg(this.url, `file-manager/my-files`, 'GET', query);
+        const params = this.serializeParams(query);
+        return this.postWithOrg(this.url, `file-manager/my-files?${params}`, 'GET');
     }
     // List all file/folders shared with me
     getSharedFilesandFolders(query?: object) {
-        return this.postWithOrg(this.url, `file-manager/shared`, 'GET', query);
+        const params = this.serializeParams(query);
+        return this.postWithOrg(this.url, `file-manager/shared?${params}`, 'GET');
     }
     // List all pinned file/folders for quick access
     getPinnedFilesandFolders(query?: object) {
-        return this.postWithOrg(this.url, `file-manager/pinned`, 'GET', query);
+        const params = this.serializeParams(query);
+        return this.postWithOrg(this.url, `file-manager/pinned?${params}`, 'GET');
     }
     // Map files with order_id
     mapOrder(id: any, body: any) {
-        return this.postWithOrg(this.url, `file-manager/${id}/order-mapping`, 'POST', null, body);
+        return this.postWithOrg(this.url, `file-manager/${id}/order-mapping`, 'POST', body);
     }
 }

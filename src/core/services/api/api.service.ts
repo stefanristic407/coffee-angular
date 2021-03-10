@@ -25,14 +25,8 @@ export class ApiService {
         this.putfileuploadUrl = `${environment.apiURL}/${this.orgType}/putfilesfolders`;
     }
 
-    protected post(
-        url: string,
-        apiCall: string,
-        method: HttpMethod = '',
-        query?: object,
-        data?: object,
-    ): Observable<ApiResponse<any>> {
-        const dto = this.getDto(apiCall, method, query, data);
+    protected post(url: string, apiCall: string, method: HttpMethod = '', data?: object): Observable<ApiResponse<any>> {
+        const dto = this.getDto(apiCall, method, data);
 
         return this.http.post<ApiResponse<any>>(`${url}`, dto);
     }
@@ -41,10 +35,9 @@ export class ApiService {
         url: string,
         apiCall: string,
         method: HttpMethod = '',
-        query?: object,
         data?: object,
     ): Observable<ApiResponse<any>> {
-        const dto = this.getDtoWithOrg(apiCall, method, query, data);
+        const dto = this.getDtoWithOrg(apiCall, method, data);
 
         return this.http.post<ApiResponse<any>>(`${url}`, dto);
     }
@@ -53,18 +46,17 @@ export class ApiService {
         url: string,
         apiCall: string,
         method: HttpMethod = '',
-        query?: object,
         data?: object,
     ): Observable<ApiResponse<any>> {
-        const dto = this.getDtoWithOrg(apiCall, method, query, data);
+        const dto = this.getDtoWithOrg(apiCall, method, data);
 
         return this.http.put<ApiResponse<any>>(`${url}`, dto);
     }
 
-    protected getDtoWithOrg(apiCall: string, method: string, query?: object, data?: object): RequestDto {
+    protected getDtoWithOrg(apiCall: string, method: string, data?: object): RequestDto {
         const orgId = this.cookieSrv.get('roaster_id');
         const dto: RequestDto = {
-            api_call: `/${this.orgType}/${orgId}/${apiCall}${query ? '?' + this.serializeParams(query) : ''}`,
+            api_call: `/${this.orgType}/${orgId}/${apiCall}`,
             method,
             token: this.cookieSrv.get('Auth'),
         };
@@ -74,9 +66,9 @@ export class ApiService {
         return dto;
     }
 
-    protected getDto(apiCall: string, method: string, query?: object, data?: object): RequestDto {
+    protected getDto(apiCall: string, method: string, data?: object): RequestDto {
         const dto: RequestDto = {
-            api_call: `/${apiCall}${query ? '?' + this.serializeParams(query) : ''}`,
+            api_call: `/${apiCall}`,
             method,
             token: this.cookieSrv.get('Auth'),
         };
