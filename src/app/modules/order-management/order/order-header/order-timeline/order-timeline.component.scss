@@ -87,3 +87,9 @@ $icon-size: 34px;
 .invoice-block {
     margin-top: -36px;
 }
+
+.sm {
+    @media all and (max-width: 767px) {
+        width: 100%;
+    }
+}

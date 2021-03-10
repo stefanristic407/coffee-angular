@@ -55,15 +55,7 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     }
 
     get showTextBlock(): boolean {
-        if (!this.order || !this.order.status) {
-            return false;
-        }
-
-        return (
-            this.order &&
-            this.order.status &&
-            ((this.order.orderType === OrderType.Sample && this.order.status === OrderStatus.Received) || this.isGraded)
-        );
+        return this.order && this.order.status && this.order.status === OrderStatus.Received;
     }
 
     get receivedDate(): string {

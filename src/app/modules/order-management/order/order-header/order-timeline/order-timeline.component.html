@@ -77,82 +77,32 @@
     </p-accordion>
 </ng-template>
 
-<ng-container *ngIf="order && showTextBlock">
-    <ng-container [ngSwitch]="order.orderType">
-        <div class="in-order mt-4 confirm-shippment" *ngSwitchCase="OrderTypes.Sample">
-            <div class="row">
-                <div class="col-lg-9 col-md-8 col-sm-12 d-flex px-2 px-md-3">
-                    <div class="img-block d-none d-md-block">
-                        <span class="circle-image"> <img src="assets/images/timeline-check-active.svg" /></span>
+<ng-container *ngIf="order && showTextBlock && (order.orderType === OrderTypes.Sample || order.orderType == OrderTypes.Booked)">
+    <div class="in-order mt-4 confirm-shippment">
+        <div class="row">
+            <div class="col-lg-9 col-md-8 col-sm-12 d-flex px-2 px-md-3">
+                <div class="img-block d-none d-md-block">
+                    <span class="circle-image">
+                        <img src="assets/images/timeline-check-active.svg" />
+                    </span>
+                </div>
+                <div class="ml-md-3">
+                    <h4 class="fnt-md-26 fnt-sm-18 text-clr334 fnt-play">
+                        {{ 'received_on' | translate }} {{ receivedDate | date: 'd MMMM y' }}
+                    </h4>
+                    <div class="fnt-md-16 fnt-sm-12 text-clr5d pt-2">
+                        {{ 'you_have_successfully_received' | translate }}<br>
+                        {{ 'please_rate_and_review' | translate }}
                     </div>
-                    <div class="txt-block">
-                        <h4 class="fnt-26 text-clr334 fnt-sm-18 fnt-play">Received on {{ receivedDate | date: 'd MMMM y' }}</h4>
-                        <div class="fnt-16 fnt-sm-12 text-clr5d pt-2">
-                            Wohoo! You have successfully recieved the bulk you ordered.
-                        </div>
-                        <div class="fnt-16 fnt-sm-12 text-clr5d">
-                            Please Rate and Review the customer to help us expand as a transparent
-                            community!
-                        </div>
-                        <button type="submit" class="btn-raised sm mt-3" [routerLink]="[orderId | orderRatingLink: orgType]">
-                            Leave a feedback!
-                        </button>
-                        <button type="submit" class="btn-raised pull-right w-100 text-center mt-2 d-md-none"
-                            (click)="openInvoice()">
-                            {{ 'order_invoice' | translate }}
-                        </button>
-                    </div>
+                    <button type="submit" class="btn-raised sm mt-4" [routerLink]="[orderId | orderRatingLink: orgType]">
+                        {{ 'leave_a_feedback' | translate }}
+                    </button>
+                    <button type="submit" class="btn-raised pull-right w-100 text-center mt-2 d-md-none"
+                        (click)="openInvoice()">
+                        {{ 'order_invoice' | translate }}
+                    </button>
                 </div>
             </div>
         </div>
-
-        <div class="in-order mt-5 confirm-shippment" *ngSwitchCase="OrderTypes.Prebook">
-            <div class="row">
-                <div class="col-lg-9 col-md-8 col-sm-12 d-flex px-2 px-md-3">
-                    <div class="col-md-12">
-                        <h4 class="fnt-26 text-clr334 fnt-play">Waiting for a confirmation from Roaster</h4>
-                        <div class="fnt-16 fnt-sm-12 text-clr5d pt-2">
-                            The roaster will review the grade report and confirm the order.
-                        </div>
-                        <button type="submit" class="btn-raised sm mt-3" [routerLink]="[orderId | orderRatingLink: orgType]">
-                            Leave a feedback!
-                        </button>
-                        <button type="submit" class="btn-raised pull-right w-100 text-center mt-2 d-md-none"
-                            (click)="openInvoice()">
-                            {{ 'order_invoice' | translate }}
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="in-order mt-4 confirm-shippment" *ngSwitchCase="OrderTypes.Booked">
-            <div class="row">
-                <div class="col-lg-9 col-md-8 col-sm-12 d-flex px-2 px-md-3">
-                    <div class="img-block d-none d-md-block">
-                        <span class="circle-image">
-                            <img src="assets/images/timeline-check-active.png" />
-                        </span>
-                    </div>
-                    <div class="txt-block">
-                        <h4 class="fnt-26 fnt-sm-18 text-clr334 fnt-play">
-                            Received on {{ receivedDate | date: 'd MMMM y' }}
-                        </h4>
-                        <div class="fnt-16 fnt-sm-12 text-clr5d pt-2">
-                            Wohoo! You have successfully recieved the bulk you ordered.<br>
-                            Please Rate and Review the customer to help us expand as a transparent
-                            community!
-                        </div>
-                        <button type="submit" class="btn-raised sm mt-4" [routerLink]="[orderId | orderRatingLink: orgType]">
-                            Leave a feedback!
-                        </button>
-                        <button type="submit" class="btn-raised pull-right w-100 text-center mt-2 d-md-none"
-                            (click)="openInvoice()">
-                            {{ 'order_invoice' | translate }}
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </ng-container>
+    </div>
 </ng-container>
