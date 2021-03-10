@@ -2,7 +2,7 @@
     <p class="w-100 fnt-18 fnt-600 mb-2 mb-md-3 text-clr334">{{ 'recent_activity' | translate }}</p>
     <p-accordion [multiple]="true">
         <ng-container *ngFor="let day of recentActivityList; let lastDay = last">
-            <p-accordionTab class="d-block my-md-0" [class.my-3]="!tab.selected" #tab [selected]="true">
+            <p-accordionTab class="d-block my-md-0" #tab [selected]="true">
                 <ng-template pTemplate="header">
                     <p class="w-100 activity-date fnt-16 fnt-sm-12 fnt-600 mb-3 mb-md-4">
                         {{ day.date | date: 'EEEE, d MMM yyyy' }}

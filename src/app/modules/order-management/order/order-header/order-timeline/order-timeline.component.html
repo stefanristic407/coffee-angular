@@ -94,7 +94,7 @@
                         {{ 'you_have_successfully_received' | translate }}<br>
                         {{ 'please_rate_and_review' | translate }}
                     </div>
-                    <button type="submit" class="btn-raised sm mt-4" [routerLink]="[orderId | orderRatingLink: orgType]">
+                    <button type="submit" class="btn-raised sm mt-4" *ngIf="orderId && orgType" [routerLink]="orderId | orderRatingLink: orgType">
                         {{ 'leave_a_feedback' | translate }}
                     </button>
                     <button type="submit" class="btn-raised pull-right w-100 text-center mt-2 d-md-none"
