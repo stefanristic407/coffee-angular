@@ -194,6 +194,16 @@
     position: relative;
     bottom: 4px;
 }
+@media (min-width: 768px) and (max-width: 1024px) {
+    .setDefaultPro {
+        position: relative;
+        bottom: 2rem;
+    }
+    .hidePro {
+        position: absolute;
+    }
+}
+
 @media screen and (max-width: 1024px) {
     .add-image-flex {
         display: flex;
@@ -209,6 +219,7 @@
         border: 1px dashed #d6d6d6;
         margin-top: 22px !important;
         margin-bottom: 24px !important;
+        width: 100%;
     }
     .weight-pos {
         position: relative;
