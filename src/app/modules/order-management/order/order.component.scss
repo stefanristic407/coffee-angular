@@ -1,0 +1,40 @@
+.chat-div {
+    width: 98% !important;
+
+    .stricky-order {
+        position: fixed;
+        right: 10%;
+        bottom: 0px;
+        z-index: 99;
+        width: 23%;
+    }
+
+    .chat-btn {
+        border-radius: 8px 8px 0px 0px !important;
+        box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08);
+        background-color: #333333;
+        font-family: Muli;
+        font-size: 14px;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #ffffff;
+        text-align: left;
+    }
+
+    .chat-indicator {
+        color: #24be46;
+    }
+}
+
+@media all and (min-width: 992px) {
+    .address-col {
+        max-width: 414px;
+    }
+
+    .recent-activity-col {
+        max-width: 564px;
+    }
+}

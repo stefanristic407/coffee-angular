@@ -1,0 +1,101 @@
+@import '../../../../../../theme/styles/variables';
+
+.grade-container {
+    @media all and (min-width: 992px) {
+        min-height: 422px;
+    }
+
+    .limited-width-text {
+        max-width: 470px;
+    }
+}
+
+.progress-bar-tooltip {
+    padding: 6rem 3rem 0rem 2rem;
+
+    @media only screen and (max-width: 640px) {
+        padding: 6rem 3rem 0rem 2rem;
+        overflow-x: scroll;
+    }
+}
+
+.order-tracking {
+    text-align: left;
+    width: 16%;
+    position: relative;
+    display: block;
+}
+
+.order-tracking .is-complete {
+    display: block;
+    position: relative;
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    border: solid 2px $muted-text-color;
+    background-color: $white;
+    margin: 0;
+    transition: background 0.25s linear;
+    -webkit-transition: background 0.25s linear;
+    z-index: 2;
+    top: 5%;
+}
+
+.order-tracking.completed .is-complete {
+    border-color: $general-text-color;
+    border-width: 2px;
+    background-color: $general-text-color;
+
+    &.in-progress {
+        border-color: $muted-text-color;
+        background-color: $white;
+    }
+}
+
+.order-tracking::before {
+    content: '';
+    display: block;
+    height: 2px;
+    width: calc(100%);
+    background-color: $muted-text-color;
+    top: 13px;
+    position: absolute;
+    z-index: 0;
+    left: 1%;
+    border: none !important;
+}
+
+.tooltips {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted $black;
+}
+
+.tooltips .cup-score {
+    width: 100%;
+    border-radius: 0px;
+    position: absolute;
+    bottom: 2.7rem;
+    margin-bottom: 0%;
+    font-weight: 600;
+}
+
+.tooltips .score-text {
+    width: 250px;
+    border-radius: 0px;
+    position: absolute;
+    bottom: 1.5rem;
+    margin-bottom: 0%;
+}
+
+.mixups-track {
+    width: 33.3%;
+}
+
+.mixups-tabs .order-tracking::before {
+    left: calc(-90%);
+}
+
+.order-tracking.completed:before {
+    background-color: $muted-text-color;
+}

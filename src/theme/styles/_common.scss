@@ -1,5 +1,49 @@
 @import 'variables';
 
+.recent-time {
+    tr {
+        border-bottom: 1px solid #dddddd;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    td {
+        font-family: $general-font-family;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: $general-text-color;
+        padding: 1rem 1rem 1rem 0rem;
+        width: 50%;
+    }
+
+    .list-que {
+        font-family: $general-font-family;
+        font-size: 14px;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: $muted-text-color;
+    }
+
+    .list-ans {
+        font-family: $general-font-family;
+        font-size: 14px;
+        font-weight: 600 !important;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: $general-text-color;
+    }
+}
+
 .main-block {
     background-color: #fff;
     border-radius: 4px;
@@ -337,4 +381,19 @@ span.star {
             }
         }
     }
+}
+
+.navigation-link {
+    font-weight: bold;
+    text-decoration: none !important;
+    color: $brown-color !important;
+    cursor: pointer !important;
+
+    &:hover {
+        text-decoration: underline !important;
+    }
+}
+
+.flex-1 {
+    flex: 1;
 }

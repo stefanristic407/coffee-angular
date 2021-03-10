@@ -96,6 +96,9 @@ import { PhoneNumberComponent } from './components/phone-number/phone-number.com
 import { ReviewSummaryComponent } from './components/review-summary/review-summary.component';
 import { ReviewsComponent } from './components/reviews/reviews.component';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { ArrayFilterPipe } from './pipes/array-filter.pipe';
+import { StringReplacePipe } from './pipes/string-replace.pipe';
+import { AccordionModule } from 'primeng/accordion';
 
 import { SewnDirectMessageComponent } from './components/chat/sewn-direct-message/sewn-direct-message.component';
 import { SewnOrderChatComponent } from './components/chat/sewn-order-chat/sewn-order-chat.component';
@@ -149,6 +152,7 @@ const THIRDMODULES = [
     MatVideoModule,
     Ng2TelInputModule,
     ProgressBarModule,
+    AccordionModule,
 ];
 // #endregion
 
@@ -188,6 +192,7 @@ const COMPONENTS = [
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 const DIRECTIVES = [WordLimitDirective, RatingDirective, LifecyclehookDirective];
 const PIPES = [
+    ArrayFilterPipe,
     CountryPipe,
     EstateBrandLinkPipe,
     FileIconPipe,
@@ -199,6 +204,7 @@ const PIPES = [
     OrderRatingLinkPipe,
     OrderLinkPipe,
     OrgTypePipe,
+    StringReplacePipe,
     WordCountPipe,
     SearchFilterPipe,
 ];

@@ -1,5 +1,12 @@
 @import 'variables';
 
+@mixin btn-icon($top: 7px, $left: 11px, $width: 17px, $height: 17px) {
+    top: $top;
+    left: $left;
+    width: $width;
+    height: $height;
+}
+
 .btn-raised,
 .btn-stroked {
     display: inline-block;
@@ -98,31 +105,19 @@
         background-size: contain;
     }
     &.upload-icon::before {
-        top: 7px;
-        left: 11px;
-        width: 17px;
-        height: 17px;
+        @include btn-icon();
         background-image: url('/assets/images/upload-black.svg');
     }
     &.plus-icon::before {
-        top: 10px;
-        left: 13px;
-        width: 13px;
-        height: 13px;
+        @include btn-icon(10px, 13px, 13px, 13px);
         background-image: url('/assets/images/region-plus.svg');
     }
     &.zoom-icon::before {
-        top: 7px;
-        left: 11px;
-        width: 17px;
-        height: 17px;
+        @include btn-icon();
         background-image: url('/assets/images/zoom.svg');
     }
     &.share-icon::before {
-        top: 7px;
-        left: 11px;
-        width: 17px;
-        height: 17px;
+        @include btn-icon();
         background-image: url('/assets/images/share-icon.svg');
     }
 }

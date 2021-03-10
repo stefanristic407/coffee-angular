@@ -36,6 +36,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from '@services';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
     declarations: [
@@ -71,6 +72,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         }),
         TypeaheadModule.forRoot(),
         SharedModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyAacYaKLrRdDZDzrQ5QAdNFMj9nQ2PgweU',
+        }),
     ],
     providers: [
         {
