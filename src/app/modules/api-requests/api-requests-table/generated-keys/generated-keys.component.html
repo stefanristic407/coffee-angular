@@ -2,7 +2,7 @@
     <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
     <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
 </div>
-<div class="mb-2 mt-4" *ngIf="!loader">
+<div class="mb-2 mt-4 generted-key-container" *ngIf="!loader">
     <p-table [value]="generatedKeyData" [lazy]="true" (onLazyLoad)="getData($event)">
         <ng-template pTemplate="header">
             <tr>

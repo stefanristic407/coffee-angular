@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { GlobalsService } from '@services';
+import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'app-api-requests-table',
@@ -9,6 +10,7 @@ import { GlobalsService } from '@services';
     styleUrls: ['./api-requests-table.component.scss'],
 })
 export class ApiRequestsTableComponent implements OnInit {
+    breadCrumbItem: MenuItem[] = [];
     showDateRange: any;
     @ViewChild('calendar')
     calendar: any;
@@ -38,6 +40,20 @@ export class ApiRequestsTableComponent implements OnInit {
 
     ngOnInit(): void {
         this.language();
+        this.supplyBreadCrumb();
+    }
+
+    supplyBreadCrumb(): void {
+        const obj1: MenuItem = {
+            label: this.globals.languageJson?.home,
+            routerLink: '/',
+        };
+        const obj2: MenuItem = {
+            label: this.globals.languageJson?.api_request,
+            routerLink: 'features/api-request',
+        };
+        this.breadCrumbItem.push(obj1);
+        this.breadCrumbItem.push(obj2);
     }
 
     ngAfterViewInit() {

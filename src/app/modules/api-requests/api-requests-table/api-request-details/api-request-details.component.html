@@ -2,20 +2,10 @@
     <div *ngIf="loader">
         <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
     </div>
-    <div class="bg-fff" *ngIf="!loader">
-        <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1web-sec">
-            <span id="title-breadcrumb-1" class="sr-only"></span>
-            <ul class="bread-nav">
-                <li class="b-cum">
-                    <a class="b-cum" routerLink="/">{{ globals.languageJson?.home }}</a
-                    ><span class="padl-r" aria-hidden="true">
-                        <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
-                    </span>
-                </li>
-                <li class="b-cum c-pink">{{ globals.languageJson?.api_request }}</li>
-            </ul>
-        </nav>
-
+    <div class="api-request-detail-container" *ngIf="!loader">
+        <div class="breadCrumb-block">
+            <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
+        </div>
         <div class="request-details">
             <h4 class="fnt-18 fnt-muli fnt-700 text-clr334">{{ globals.languageJson?.request_details }}</h4>
             <p class="fnt-14 fnt-muli fnt-400 text-clr588">
@@ -189,7 +179,7 @@
         </div>
 
         <div class="d-flex pt-16" *ngIf="apikeyStatus == 'paused'">
-            <div class="col-md-7 col-12">
+            <div class="col-md-7 col-12 p-0">
                 <p class="fnt-14 fnt-muli fnt-700 text-clr334 float-left m-0">
                     The customer can send a key access reactivation request. When you get the request, activate the key
                     access.
@@ -205,35 +195,35 @@
                 </p>
             </div>
         </div>
+
+        <ng-template #deletetemplate>
+            <div class="templete-modal-body text-center" *ngIf="!isDeletedApiKey">
+                <p class="fnt-14 fnt-muli fnt-700 text-clr334 m-0">
+                    Are you sure you want to delete the API key for "Third wave coffee roasters"?
+                </p>
+                <div class="templete-btn">
+                    <button class="btn btn-stroked" (click)="modalRef.hide()">Cancel</button>
+                    <button class="btn btn-raised ml-3" (click)="onConfirm()">Yes</button>
+                </div>
+            </div>
+
+            <div class="delete-confirmation-modal-body text-center mb-2" *ngIf="isDeletedApiKey">
+                <p class="fnt-14 fnt-muli fnt-700 text-clr334 float-left m-0">
+                    <span><img class="mr-2" src="assets/images/correct.png" alt="" /> </span> The Api Key Is Deleted.
+                </p>
+            </div>
+        </ng-template>
+
+        <ng-template #pausetemplate>
+            <div class="templete-modal-body text-center">
+                <p class="fnt-14 fnt-muli fnt-700 text-clr334 m-0">
+                    Are you sure you want to Pause API key access for "Third wave coffee roasters"?
+                </p>
+                <div class="templete-btn">
+                    <button class="btn btn-stroked" (click)="modalRef.hide()">{{ 'Cancel' | translate }}</button>
+                    <button class="btn btn-raised ml-3" (click)="confirmPauseKey()">{{ 'Yes' | translate }}</button>
+                </div>
+            </div>
+        </ng-template>
     </div>
 </section>
-
-<ng-template #deletetemplate>
-    <div class="delete-template-modal-body text-center" *ngIf="!isDeletedApiKey">
-        <p class="fnt-14 fnt-muli fnt-700 text-clr334 m-0">
-            Are you sure you want to delete the API key for "Third wave coffee roasters"?
-        </p>
-        <div class="templete-btn">
-            <button class="btn btn-stroked" (click)="modalRef.hide()">Cancel</button>
-            <button class="btn btn-raised ml-3" (click)="onConfirm()">Yes</button>
-        </div>
-    </div>
-
-    <div class="delete-confirmation-modal-body text-center mb-2" *ngIf="isDeletedApiKey">
-        <p class="fnt-14 fnt-muli fnt-700 text-clr334 float-left m-0">
-            <span><img class="mr-2" src="assets/images/correct.png" alt="" /> </span> The Api Key Is Deleted.
-        </p>
-    </div>
-</ng-template>
-
-<ng-template #pausetemplate>
-    <div class="pause-templete-modal-body text-center">
-        <p class="fnt-14 fnt-muli fnt-700 text-clr334 m-0">
-            Are you sure you want to Pause API key access for "Third wave coffee roasters"?
-        </p>
-        <div class="templete-btn">
-            <button class="btn btn-stroked" (click)="modalRef.hide()">{{ 'Cancel' | translate }}</button>
-            <button class="btn btn-raised ml-3" (click)="confirmPauseKey()">{{ 'Yes' | translate }}</button>
-        </div>
-    </div>
-</ng-template>

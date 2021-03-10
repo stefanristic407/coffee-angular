@@ -65,6 +65,13 @@ export const routes: Routes = [
                 loadChildren: () => import('./modules/file-share/file-share.module').then((m) => m.FileShareModule),
             },
             {
+                path: 'api-requests-list',
+                loadChildren: () =>
+                    import('./modules/api-requests/api-requests-table/api-request.module').then(
+                        (m) => m.ApiRequestModule,
+                    ),
+            },
+            {
                 path: 'green-coffee-management',
                 loadChildren: () =>
                     import('./modules/green-coffee-management/green-coffee-management.module').then(
