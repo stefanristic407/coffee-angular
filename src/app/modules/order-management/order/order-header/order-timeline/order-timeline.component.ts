@@ -22,7 +22,7 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
 
     @Input() invoiceUrl: string;
     @Input() orgType: OrgType;
-    @Input() orderId: number;
+    @Input() orderId: string;
 
     get statusLabel(): string {
         if (!this.order) {
