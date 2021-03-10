@@ -78,16 +78,20 @@ export class AboutRoasteryComponent implements OnInit {
     };
     addBtn = true;
     assignRow = false;
-    // showDelete : boolean = false;
     assignButtonValue = 'Add Contact';
     brands: any;
-    @ViewChild('roasterImage') roasterImage;
+    @ViewChild('roasterImage', { static: true }) roasterImage;
+
     kgsOptions = [
         { name: 'kg', value: 'kg' },
         { name: 'lb', value: 'lb' },
     ];
+
     roasterUsersOptions?: any[];
     aboutForm: FormGroup;
+    isSaveMode: boolean;
+    isEditMode: boolean;
+
     constructor(
         public roasteryProfileService: RoasteryProfileService,
         public userService: UserserviceService,
@@ -108,30 +112,56 @@ export class AboutRoasteryComponent implements OnInit {
         this.language();
         this.getRoasterUsers();
         this.initialForm();
+        this.detectMode();
+    }
+
+    detectMode() {
+        this.roasteryProfileService.saveMode$.subscribe((res: boolean) => {
+            this.isSaveMode = res;
+            if (res) {
+                this.setFormValue();
+            }
+        });
+        this.roasteryProfileService.editMode$.subscribe((res: boolean) => {
+            this.isEditMode = res;
+        });
     }
 
     initialForm() {
         this.aboutForm = this.fb.group({
-            name: [this.roasteryProfileService.name, Validators.compose([Validators.required])],
-            foundedIn: [this.roasteryProfileService.foundedIn, Validators.compose([Validators.required])],
-            summary: [
-                this.roasteryProfileService.summary,
-                Validators.compose([Validators.required, Validators.maxLength(200)]),
-            ],
-            employeeNos: [this.roasteryProfileService.employeeNos, Validators.compose([Validators.required])],
-            employeeAvg: [this.roasteryProfileService.employeeAvg, Validators.compose([Validators.required])],
-            femaleNum: [this.roasteryProfileService.femaleNum, Validators.compose([Validators.required])],
-            maleNum: [this.roasteryProfileService.maleNum, Validators.compose([Validators.required])],
-            companyDetailsPublic: [
-                this.roasteryProfileService.companyDetailsPublic,
-                Validators.compose([Validators.required]),
-            ],
-            vatNos: [this.roasteryProfileService.vatNos, Validators.compose([Validators.required])],
-            cmpyRid: [this.roasteryProfileService.cmpyRid, Validators.compose([Validators.required])],
-            capacity: [this.roasteryProfileService.capacity, Validators.compose([Validators.required])],
-            kgs: [this.roasteryProfileService.kgs, Validators.compose([Validators.required])],
-            capabilities: [this.roasteryProfileService.capabilities, Validators.compose([Validators.required])],
+            owner_name: ['', Validators.compose([Validators.required])],
+            founded_on: ['', Validators.compose([Validators.required])],
+            description: ['', Validators.compose([Validators.required, Validators.maxLength(200)])],
+            total_employees: [null, Validators.compose([Validators.required])],
+            avg_employee_age: [null, Validators.compose([Validators.required])],
+            female_employee_count: ['', Validators.compose([Validators.required])],
+            male_employee_count: ['', Validators.compose([Validators.required])],
+            company_details_public: [false, Validators.compose([Validators.required])],
+            vat_number: ['', Validators.compose([Validators.required])],
+            registration_id: ['', Validators.compose([Validators.required])],
+            capacity: ['', Validators.compose([Validators.required])],
+            capacity_unit: ['', Validators.compose([Validators.required])],
+            capabilities: ['', Validators.compose([Validators.required])],
         });
+    }
+
+    setFormValue() {
+        const formValue = {
+            owner_name: this.roasteryProfileService.roasteryProfileData.owner_name,
+            founded_on: this.roasteryProfileService.roasteryProfileData.founded_on,
+            description: this.roasteryProfileService.roasteryProfileData.description,
+            total_employees: this.roasteryProfileService.roasteryProfileData.total_employees,
+            avg_employee_age: this.roasteryProfileService.roasteryProfileData.avg_employee_age,
+            female_employee_count: this.roasteryProfileService.roasteryProfileData.female_employee_count,
+            male_employee_count: this.roasteryProfileService.roasteryProfileData.male_employee_count,
+            company_details_public: this.roasteryProfileService.roasteryProfileData.company_details_public,
+            vat_number: this.roasteryProfileService.roasteryProfileData.vat_number,
+            registration_id: this.roasteryProfileService.roasteryProfileData.registration_id,
+            capacity: this.roasteryProfileService.roasteryProfileData.capacity,
+            capacity_unit: this.roasteryProfileService.roasteryProfileData.capacity_unit,
+            capabilities: this.roasteryProfileService.roasteryProfileData.capabilities,
+        };
+        this.aboutForm.setValue(formValue);
     }
 
     language() {

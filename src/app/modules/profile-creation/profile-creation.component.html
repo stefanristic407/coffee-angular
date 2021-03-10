@@ -1,7 +1,11 @@
 <div class="bg-fff pl-lg-5 pr-lg-5 pt-lg-45 pb-lg-325 p-md-3">
     <div class="w-100 d-flex justify-content-between mb-3">
         <div class="d-none d-md-block">
-            <p-breadcrumb [model]="items"></p-breadcrumb>
+            <p-breadcrumb [model]="breadItems">
+                <ng-template pTemplate="item" let-item let-i="index">
+                    {{ item.label | translate }}
+                </ng-template>
+            </p-breadcrumb>
         </div>
         <div class="d-none d-md-block">
             <button
@@ -9,7 +13,7 @@
                 type="button"
                 class="cancel-butn mr-2 fnt-14"
                 label="{{ 'cancel' | translate }}"
-                *ngIf="roasteryProfileService.savemode"
+                *ngIf="isSaveMode"
                 (click)="roasteryProfileService.preview()"
             ></button>
             <button
@@ -18,7 +22,7 @@
                 class="btn-normal fnt-14"
                 [disabled]="roasteryProfileService.isSaving"
                 label="{{ 'save' | translate }}"
-                *ngIf="roasteryProfileService.savemode"
+                *ngIf="isSaveMode"
                 (click)="roasteryProfileService.saveRoasterProfile()"
             ></button>
             <button
@@ -26,7 +30,7 @@
                 type="button"
                 class="btn-normal fnt-14"
                 label="{{ 'edit' | translate }}"
-                *ngIf="roasteryProfileService.editmode"
+                *ngIf="isEditMode"
                 (click)="roasteryProfileService.editRoasterProfile()"
             ></button>
         </div>
@@ -38,14 +42,14 @@
         <div class="profile-header-details position-relative">
             <img
                 class="cover-image-profile-banner w-100"
-                *ngIf="roasteryProfileService.savemode && roasteryProfileService.bannerUrl"
-                [src]="roasteryProfileService.bannerUrl"
+                *ngIf="isSaveMode && roasteryProfileService.roasteryProfileData?.banner_url"
+                [src]="roasteryProfileService.roasteryProfileData?.banner_url"
                 height="160"
             />
 
             <div
                 class="cover-pic text-center"
-                *ngIf="roasteryProfileService.savemode && !roasteryProfileService.bannerUrl"
+                *ngIf="isSaveMode && !roasteryProfileService.roasteryProfileData?.banner_url"
                 (click)="bannerFileInput.click()"
             >
                 <img class="plus-circle" src="assets/images/plus-circle.svg" />
@@ -62,20 +66,20 @@
 
             <img
                 class="cover-image-profile-banner w-100"
-                *ngIf="roasteryProfileService.editmode && !roasteryProfileService.bannerUrl"
+                *ngIf="isEditMode && !roasteryProfileService.roasteryProfileData?.banner_url"
                 src="assets/images/blank.png"
                 height="160"
             />
             <img
                 class="cover-image-profile-banner w-100"
-                *ngIf="roasteryProfileService.editmode && roasteryProfileService.bannerUrl"
-                [src]="roasteryProfileService.bannerUrl"
+                *ngIf="isEditMode && roasteryProfileService.roasteryProfileData?.banner_url"
+                [src]="roasteryProfileService.roasteryProfileData?.banner_url"
                 height="160"
             />
 
             <div class="edit-btn-group d-flex">
                 <button
-                    *ngIf="roasteryProfileService.savemode && roasteryProfileService.bannerUrl"
+                    *ngIf="isSaveMode && roasteryProfileService.roasteryProfileData?.banner_url"
                     class="btn-normal fnt-14 d-none d-lg-flex mr-2"
                     (click)="bannerFileInput.click()"
                     pButton
@@ -85,7 +89,7 @@
                     pButton
                     icon="pi pi-trash"
                     iconPos="left"
-                    *ngIf="roasteryProfileService.savemode && roasteryProfileService.bannerUrl"
+                    *ngIf="isSaveMode && roasteryProfileService.roasteryProfileData?.banner_url"
                     class="fnt-14 btn-trans-nb d-none d-lg-flex"
                     (click)="roasteryProfileService.handleDeleteBannerImage()"
                     label="{{ 'delete' | translate }}"
@@ -95,7 +99,7 @@
         <div class="profile-description-container">
             <div class="profile-avatar" [ngClass]="{ 'br-main': !profilePhotoService.croppedImage }">
                 <img [src]="profilePhotoService.croppedImage" class="avatar-img" />
-                <a class="change-avatar-btn" *ngIf="roasteryProfileService.savemode" (click)="showModalDialog()">
+                <a class="change-avatar-btn" *ngIf="isSaveMode" (click)="showModalDialog()">
                     <img src="assets/images/camera.svg" class="camera-pic" />
                 </a>
             </div>
@@ -104,39 +108,36 @@
             </div>
 
             <div class="profile-metadata-container pl-3 pr-3 pb-3 p-md-0">
-                <p
-                    class="fnt-18 font-bold text-clr334 d-none d-md-block m-0 pt-4"
-                    *ngIf="roasteryProfileService.editmode"
+                <p class="fnt-18 font-bold text-clr334 d-none d-md-block m-0 pt-4" *ngIf="isEditMode">
+                    {{ roasteryProfileService.roasteryProfileData?.company_name }}
+                </p>
+                <a
+                    class="uparrow-link d-md-none font-16"
+                    href="{{ roasteryProfileService.roasteryProfileData?.website }}"
+                    target="blank"
+                    >{{ roasteryProfileService.roasteryProfileData?.company_name }}</a
                 >
-                    {{ roasteryProfileService.name }}
+                <form [formGroup]="subProfileForm" *ngIf="isSaveMode">
+                    <input
+                        pInputText
+                        type="text"
+                        class="p-3 fnt-14-normal text-clr334 font-bold w-100"
+                        formControlName="company_name"
+                        style="margin-top: 11px"
+                    />
+                    <input
+                        class="p-3 fnt-14-normal text-clr588 font-bold w-100 mt-2"
+                        type="text"
+                        pInputText
+                        placeholder="www.royalcoffee.az.com"
+                        formControlName="website"
+                        style="margin-top: 10px"
+                    />
+                </form>
+                <p class="fnt-14-normal text-clr588 mt-2" *ngIf="isEditMode">
+                    {{ roasteryProfileService.roasteryProfileData?.website }}
                 </p>
-                <a class="uparrow-link d-md-none font-16" href="{{ roasteryProfileService.website }}" target="blank">{{
-                    roasteryProfileService.name
-                }}</a>
-                <input
-                    pInputText
-                    type="text"
-                    *ngIf="roasteryProfileService.savemode"
-                    class="p-3 fnt-14-normal text-clr334 font-bold w-100"
-                    [(ngModel)]="roasteryProfileService.name"
-                    style="margin-top: 11px"
-                    name="name"
-                />
-                <input
-                    id="company-website"
-                    class="p-3 fnt-14-normal text-clr588 font-bold w-100 mt-2"
-                    *ngIf="roasteryProfileService.savemode"
-                    type="text"
-                    pInputText
-                    placeholder="www.royalcoffee.az.com/"
-                    [(ngModel)]="roasteryProfileService.website"
-                    style="margin-top: 10px"
-                    name="website"
-                />
-                <p class="fnt-14-normal text-clr588 mt-2" *ngIf="roasteryProfileService.editmode">
-                    {{ roasteryProfileService.website }}
-                </p>
-                <a target="blank" href="{{ roasteryProfileService.website }}" #link hidden></a>
+                <a target="blank" href="{{ roasteryProfileService.roasteryProfileData?.website }}" #link hidden></a>
             </div>
         </div>
     </div>
@@ -144,19 +145,23 @@
 
 <div class="bg-fff p-lg-5 pl-md-3 pr-md-3 pb-md-3 pt-md-4 mt-md-3">
     <div class="responsive-tabMenu">
-        <p-tabMenu [model]="menuItems"></p-tabMenu>
+        <p-tabMenu [model]="menuItems">
+            <ng-template pTemplate="item" let-item let-i="index">
+                {{ item.label | translate }}
+            </ng-template>
+        </p-tabMenu>
     </div>
     <div class="m-2 mt-md-3 ml-md-0 mr-md-0 mb-md-0">
         <router-outlet></router-outlet>
     </div>
     <div class="mobile-farm farm-stricky col-12">
-        <div class="row" *ngIf="roasteryProfileService.savemode">
+        <div class="row" *ngIf="isSaveMode">
             <div class="col-6">
                 <button
                     type="button"
                     pButton
                     class="cancel-butn w-100 mb-3"
-                    [label]="globals.languageJson?.preview"
+                    label="{{ 'preview' | translate }}"
                     (click)="roasteryProfileService.preview()"
                 ></button>
             </div>
@@ -165,19 +170,19 @@
                     type="button"
                     pButton
                     class="cancel-butn w-100 mb-3"
-                    [label]="globals.languageJson?.save"
+                    label="{{ 'save' | translate }}"
                     (click)="roasteryProfileService.saveRoasterProfile()"
                 ></button>
             </div>
         </div>
         <button
             type="button"
+            pButton
             class="cancel-butn w-100 mb-3"
-            *ngIf="roasteryProfileService.editmode"
+            *ngIf="isEditMode"
+            label="{{ 'go_back_edit' | translate }}"
             (click)="roasteryProfileService.editRoasterProfile()"
-        >
-            {{ globals.languageJson?.go_back_edit }}
-        </button>
+        ></button>
     </div>
 </div>
 
@@ -193,10 +198,10 @@
     <app-sewn-profile-photo></app-sewn-profile-photo>
     <p-footer>
         <button type="button" id="change-pic" class="btn-normal fnt-14" (click)="showModalDialog()">
-            {{ globals.languageJson?.change_photo }}
+            {{ 'change_photo' | translate }}
         </button>
         <button type="button" id="save-pic" class="btn-normal fnt-14" (click)="profilePhotoService.saveProfilePic()">
-            {{ globals.languageJson?.save_photo }}
+            {{ 'save_photo' | translate }}
         </button>
     </p-footer>
 </p-dialog>

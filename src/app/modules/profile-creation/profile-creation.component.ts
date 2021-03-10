@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
-import { ProfilePhotoService } from '@services';
-import { RoasteryProfileService } from '@services';
+import { ProfilePhotoService } from './profile-photo/profile-photo.service';
+import { RoasteryProfileService } from './roastery-profile.service';
 import { GlobalsService } from '@services';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-profile-creation',
@@ -12,33 +12,58 @@ import { GlobalsService } from '@services';
 })
 export class ProfileCreationComponent implements OnInit {
     @ViewChild('image', { static: true }) image;
-    roasteryActive: any = 0;
-    menuItems: any[];
-    items = [{ label: 'Home', routerLink: '/' }, { label: 'Roaster Profile' }];
+    menuItems = [
+        {
+            label: 'about_roastery',
+            routerLink: '/roastery-profile/about_roastery',
+        },
+        { label: 'virtual_tour', routerLink: '/roastery-profile/virtual_tour' },
+        { label: 'contact', routerLink: '/roastery-profile/contact' },
+        { label: 'reviews', routerLink: '/roastery-profile/reviews' },
+    ];
+    breadItems = [{ label: 'home', routerLink: '/' }, { label: 'roaster_profile' }];
+    isSaveMode: boolean;
+    isEditMode: boolean;
+
+    subProfileForm: FormGroup;
 
     constructor(
-        private router: Router,
         private toastrService: ToastrService,
         public profilePhotoService: ProfilePhotoService,
         public roasteryProfileService: RoasteryProfileService,
         public globals: GlobalsService,
+        private fb: FormBuilder,
     ) {}
 
     ngOnInit(): void {
-        this.language();
+        this.detectMode();
+        this.initialForm();
     }
 
-    language() {
-        this.roasteryActive++;
-        this.menuItems = [
-            {
-                label: this.globals.languageJson?.about_roastery,
-                routerLink: '/roastery-profile/about_roastery',
-            },
-            { label: this.globals.languageJson?.virtual_tour, routerLink: '/roastery-profile/virtual_tour' },
-            { label: this.globals.languageJson?.contact, routerLink: '/roastery-profile/contact' },
-            { label: this.globals.languageJson?.reviews, routerLink: '/roastery-profile/reviews' },
-        ];
+    initialForm() {
+        this.subProfileForm = this.fb.group({
+            company_name: ['', Validators.compose([Validators.required])],
+            website: [''],
+        });
+    }
+
+    detectMode() {
+        this.roasteryProfileService.saveMode$.subscribe((res: boolean) => {
+            this.isSaveMode = res;
+            if (res) {
+                this.setFormValue();
+            }
+        });
+        this.roasteryProfileService.editMode$.subscribe((res: boolean) => {
+            this.isEditMode = res;
+        });
+    }
+
+    setFormValue() {
+        this.subProfileForm.controls.company_name.setValue(
+            this.roasteryProfileService.roasteryProfileData.company_name,
+        );
+        this.subProfileForm.controls.website.setValue(this.roasteryProfileService.roasteryProfileData.website);
     }
 
     //  Function Name : Profile Image function.
