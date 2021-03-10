@@ -18,7 +18,7 @@ export class BrandProfileService extends ApiService {
     }
 
     getEstateProfile(estateId: number): Observable<OrganizationDetails> {
-        return this.post(this.url, `${this.endpoint}/${estateId}/profile/`, 'GET').pipe(
+        return this.post(this.orgPostUrl, `${this.endpoint}/${estateId}/profile/`, 'GET').pipe(
             map((response) => {
                 if (response.success) {
                     return toCamelCase<OrganizationDetails>(response.result);

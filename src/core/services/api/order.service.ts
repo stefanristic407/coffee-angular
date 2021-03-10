@@ -18,7 +18,7 @@ export class OrderService extends ApiService {
     getOrderDocuments(orderId: number, page = 1, perPage = 5): Observable<OrderDocument[]> {
         const params = this.serializeParams({ page, per_page: perPage });
 
-        return this.postWithOrg(this.url, `orders/${orderId}/documents?${params}`).pipe(
+        return this.postWithOrg(this.orgPostUrl, `orders/${orderId}/documents?${params}`).pipe(
             map((response) => {
                 if (response.success && response.result) {
                     return response.result.map((x) => toCamelCase<OrderDocument[]>(x));

@@ -19,7 +19,7 @@ export class GeneralCuppingService extends ApiService {
     }
 
     getCuppingReportUrl(harvestId: number): Observable<string> {
-        return this.post(this.url, `${this.endpoint}/${harvestId}/cupping-report`, 'GET').pipe(
+        return this.post(this.orgPostUrl, `${this.endpoint}/${harvestId}/cupping-report`, 'GET').pipe(
             map((res) => {
                 if (res.success) {
                     return res.result.url;
@@ -31,7 +31,7 @@ export class GeneralCuppingService extends ApiService {
     }
 
     getCuppingScores(harvestId: number, orgType: OrgType): Observable<CuppingScore[]> {
-        return this.post(this.url, `${this.endpoint}/${harvestId}/cupping-scores`, 'GET').pipe(
+        return this.post(this.orgPostUrl, `${this.endpoint}/${harvestId}/cupping-scores`, 'GET').pipe(
             map((response) => {
                 if (response.success) {
                     return response.result.map((x) => toCamelCase<CuppingScore>(x));

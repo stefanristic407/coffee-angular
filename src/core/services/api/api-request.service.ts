@@ -51,19 +51,19 @@ export class ApiRequestService extends ApiService {
     }
     // Enable the API key by RO
     enableRoApiKey(roasterData: any): Observable<any> {
-        return this.postWithOrg(this.url, `api-keys/${roasterData.api_key_id}/enable`, 'PUT');
+        return this.postWithOrg(this.orgPostUrl, `api-keys/${roasterData.api_key_id}/enable`, 'PUT');
     }
     // Notify customer about the API key by RO
     disableRoApiKey(roasterData: any): Observable<any> {
-        return this.postWithOrg(this.url, `api-keys/${roasterData.api_key_id}/disable`, 'PUT');
+        return this.postWithOrg(this.orgPostUrl, `api-keys/${roasterData.api_key_id}/disable`, 'PUT');
     }
     // Delete the API key by RO
     deleteRoApiKey(roasterData: any): Observable<any> {
-        return this.postWithOrg(this.url, `api-keys/${roasterData.api_key_id}`, 'DELETE');
+        return this.postWithOrg(this.orgPostUrl, `api-keys/${roasterData.api_key_id}`, 'DELETE');
     }
     // Notify customer about the API key by RO
     notifyRoCustomer(roasterData: any): Observable<any> {
-        return this.postWithOrg(this.url, `api-keys/${roasterData.api_key_id}/notify`, 'POST');
+        return this.postWithOrg(this.orgPostUrl, `api-keys/${roasterData.api_key_id}/notify`, 'POST');
     }
 
     // get list of api keys request for RO

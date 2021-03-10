@@ -17,7 +17,7 @@ export class AvailabilityService extends ApiService {
     }
 
     getAvailabilityDetails(harvestId: number): Observable<BulkDetails> {
-        return this.post(this.url, `general/${this.endpoint}/${harvestId}`, 'GET').pipe(
+        return this.post(this.orgPostUrl, `general/${this.endpoint}/${harvestId}`, 'GET').pipe(
             map((response) => {
                 if (response.success) {
                     const details: BulkDetails = {

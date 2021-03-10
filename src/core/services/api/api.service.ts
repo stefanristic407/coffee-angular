@@ -10,19 +10,23 @@ type HttpMethod = '' | 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 export class ApiService {
     protected orgType: string;
-    protected url: string;
-    protected putUrl: string;
+    protected postUrl: string;
     protected deleteUrl: string;
-    protected fileuploadUrl: string;
-    protected putfileuploadUrl: string;
+    protected orgPostUrl: string;
+    protected orgPutUrl: string;
+    protected orgDeleteUrl: string;
+    protected fileUploadUrl: string;
+    protected putFileUploadUrl: string;
 
     constructor(protected cookieSrv: CookieService, protected http: HttpClient) {
         this.orgType = 'ro';
-        this.url = `${environment.apiURL}/${this.orgType}/api`;
-        this.putUrl = `${environment.apiURL}/${this.orgType}/putapi`;
-        this.deleteUrl = `${environment.apiURL}/${this.orgType}/deleteapi`;
-        this.fileuploadUrl = `${environment.apiURL}/${this.orgType}/filesfolders`;
-        this.putfileuploadUrl = `${environment.apiURL}/${this.orgType}/putfilesfolders`;
+        this.postUrl = `${environment.apiURL}/api`;
+        this.deleteUrl = `${environment.apiURL}/deleteapi`;
+        this.orgPostUrl = `${environment.apiURL}/${this.orgType}/api`;
+        this.orgPutUrl = `${environment.apiURL}/${this.orgType}/putapi`;
+        this.orgDeleteUrl = `${environment.apiURL}/${this.orgType}/deleteapi`;
+        this.fileUploadUrl = `${environment.apiURL}/${this.orgType}/filesfolders`;
+        this.putFileUploadUrl = `${environment.apiURL}/${this.orgType}/putfilesfolders`;
     }
 
     protected post(url: string, apiCall: string, method: HttpMethod = '', data?: object): Observable<ApiResponse<any>> {

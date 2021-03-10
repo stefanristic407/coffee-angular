@@ -28,7 +28,7 @@ export class PurchaseService extends ApiService {
     }
 
     getOrderDetailsById(orderId: number, orgType: OrgType): Observable<OrderDetails> {
-        return this.postWithOrg(this.url, `${this.getOrgEndpoint(orgType)}/${orderId}`, 'GET').pipe(
+        return this.postWithOrg(this.orgPostUrl, `${this.getOrgEndpoint(orgType)}/${orderId}`, 'GET').pipe(
             map((response) => {
                 if (response.success && response.result.id) {
                     const details = toCamelCase<OrderDetails>(response.result);
@@ -59,7 +59,7 @@ export class PurchaseService extends ApiService {
 
     getOrders(orgType: OrgType, options: any): Observable<ApiResponse<OrderSummary[]>> {
         const params = this.serializeParams(options);
-        return this.postWithOrg(this.url, `${this.getOrgEndpoint(orgType)}?${params}`, 'GET').pipe(
+        return this.postWithOrg(this.orgPostUrl, `${this.getOrgEndpoint(orgType)}?${params}`, 'GET').pipe(
             map((res) => {
                 if (res.success) {
                     res.result = res.result || [];
@@ -78,7 +78,7 @@ export class PurchaseService extends ApiService {
     }
 
     getRecentActivity(orderId: number, orgType: OrgType): Observable<RecentActivity[]> {
-        return this.postWithOrg(this.url, `${this.getOrgEndpoint(orgType)}/${orderId}/events`, 'GET').pipe(
+        return this.postWithOrg(this.orgPostUrl, `${this.getOrgEndpoint(orgType)}/${orderId}/events`, 'GET').pipe(
             map((response) => {
                 return response.success ? response.result : [];
             }),
@@ -97,23 +97,27 @@ export class PurchaseService extends ApiService {
         };
         const params = this.serializeParams(paramsObj);
 
-        return this.postWithOrg(this.url, `${this.getOrgEndpoint(orgType)}/export/${exportType}?${params}`, 'GET');
+        return this.postWithOrg(
+            this.orgPostUrl,
+            `${this.getOrgEndpoint(orgType)}/export/${exportType}?${params}`,
+            'GET',
+        );
     }
 
     confirmOrder(orderId: number, details?: ConfirmRejectOrderDetails): Observable<ApiResponse<any>> {
-        return this.postWithOrg(this.url, `mr-${this.endpoint}/${orderId}/confirm`, 'PUT', details);
+        return this.postWithOrg(this.orgPostUrl, `mr-${this.endpoint}/${orderId}/confirm`, 'PUT', details);
     }
 
     rejectOrder(orderId: number, details?: ConfirmRejectOrderDetails): Observable<ApiResponse<any>> {
-        return this.postWithOrg(this.url, `mr-${this.endpoint}/${orderId}/reject`, 'PUT', details);
+        return this.postWithOrg(this.orgPostUrl, `mr-${this.endpoint}/${orderId}/reject`, 'PUT', details);
     }
 
     updatePaymentVerify(orderId: number): Observable<ApiResponse<any>> {
-        return this.post(this.url, `mr-${this.endpoint}/${orderId}/payment/verify`, 'PUT');
+        return this.post(this.orgPostUrl, `mr-${this.endpoint}/${orderId}/payment/verify`, 'PUT');
     }
 
     updatePaymentAfterDelivery(orderId: number): Observable<ApiResponse<any>> {
-        return this.post(this.url, `mr-${this.endpoint}/${orderId}/payment/after-delivery`, 'PUT');
+        return this.post(this.orgPostUrl, `mr-${this.endpoint}/${orderId}/payment/after-delivery`, 'PUT');
     }
 
     private getLabel(labels: LabelValue[], value: any): string {

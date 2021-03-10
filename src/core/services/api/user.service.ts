@@ -16,12 +16,12 @@ export class UserService extends ApiService {
 
     // View user profile
     getUserProfile() {
-        return this.postWithOrg(this.url, `users/profile`, 'GET');
+        return this.postWithOrg(this.orgPostUrl, `users/profile`, 'GET');
     }
 
     // ------------ Privacy & Terms ------------
     // Profile - Privacy and terms status
     getPrivacyTerms() {
-        return this.post(this.url, `users/privacy-terms`, 'GET');
+        return this.post(this.orgPostUrl, `users/privacy-terms`, 'GET');
     }
 }

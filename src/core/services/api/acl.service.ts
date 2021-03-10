@@ -16,6 +16,6 @@ export class AclService extends ApiService {
 
     // List of all permissions of user (duplicates removed)
     getUserPermissions() {
-        return this.postWithOrg(this.url, `users/permissions`, 'GET');
+        return this.postWithOrg(this.orgPostUrl, `users/permissions`, 'GET');
     }
 }
