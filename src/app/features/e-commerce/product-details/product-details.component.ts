@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, QueryList, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GlobalsService, RoasterserviceService } from '@services';
+import { GlobalsService, RoasterserviceService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
@@ -49,6 +49,7 @@ export class ProductDetailsComponent implements OnInit {
     @ViewChildren(VarientDetailsComponent) varientComponent: QueryList<VarientDetailsComponent>;
     currentVariant = 0;
     allCrates = [];
+    roastLevelArray: any = [];
     constructor(
         public globals: GlobalsService,
         private fb: FormBuilder,
@@ -57,6 +58,8 @@ export class ProductDetailsComponent implements OnInit {
         private toasterService: ToastrService,
         private route: ActivatedRoute,
         private router: Router,
+        private roasterService: RoasterserviceService,
+        private userService: UserserviceService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
     }
@@ -83,6 +86,13 @@ export class ProductDetailsComponent implements OnInit {
         this.boughtArray = [
             { label: 'Yes', value: true },
             { label: 'No', value: false },
+        ];
+        this.roastLevelArray = [
+            { label: 'Light', value: 1 },
+            { label: 'Light Medium', value: 2 },
+            { label: 'Medium', value: 3 },
+            { label: 'Medium Dark', value: 4 },
+            { label: 'Dark', value: 5 },
         ];
         this.brewingMethodArray = [
             { label: 'Pour Over', value: 'pour-over' },
@@ -163,11 +173,13 @@ export class ProductDetailsComponent implements OnInit {
                         const coffeeBatchID = getVariant[0].weight_variants[0].rc_batch_id;
                         const getBatchDetails = this.roastedBatches.find((ele) => ele.id === coffeeBatchID);
                         const varient: any = {};
-                        (varient.varient_name = 'Varient ' + (this.varients.length + 1)),
-                            this.roastedFields.forEach((ele) => {
-                                const getValue = getBatchDetails[ele] ? getBatchDetails[ele] : '';
-                                varient[ele] = getValue;
-                            });
+                        if (getBatchDetails) {
+                            (varient.varient_name = 'Varient ' + (this.varients.length + 1)),
+                                this.roastedFields.forEach((ele) => {
+                                    const getValue = getBatchDetails[ele] ? getBatchDetails[ele] : '';
+                                    varient[ele] = getValue;
+                                });
+                        }
                         varient.rc_batch_id = coffeeBatchID;
                         varient.weight_variants = getVariant[0].weight_variants;
                         varient.roaster_recommendation = getVariant[0].variant_details.roaster_recommendation;
@@ -184,10 +196,16 @@ export class ProductDetailsComponent implements OnInit {
                                 this.allCrates.push(getCrate);
                             }
                         });
-                        const flavour_profile = getBatchDetails.flavour_profile;
-                        variantForm.controls.flavour_profile.setValue(flavour_profile);
-                        variantForm.controls.weight_variants.setValue(weight_variants);
+                        if (getBatchDetails) {
+                            const flavour_profile = getBatchDetails.flavour_profile;
+                            variantForm.controls.flavour_profile.setValue(flavour_profile);
+                            variantForm.controls.weight_variants.setValue(weight_variants);
+                        }
                         this.varients.push(variantForm);
+                        if (getBatchDetails) {
+                            this.getRoastingProfile(increment, getBatchDetails.roasting_profile_id);
+                            this.getOrderDetails(increment, getBatchDetails.order_id);
+                        }
                         increment++;
                     }
                     this.crates = this.productForm.get('crates') as FormArray;
@@ -235,10 +253,14 @@ export class ProductDetailsComponent implements OnInit {
         if (getVarient && getVarient.value) {
             const selectedID = getVarient.value.rc_batch_id;
             const getBatchDetails = this.roastedBatches.find((ele) => ele.id === selectedID);
-            this.roastedFields.forEach((ele) => {
-                const getValue = getBatchDetails[ele] ? getBatchDetails[ele] : '';
-                getVarient['controls'][ele].setValue(getValue);
-            });
+            if (getBatchDetails) {
+                this.getRoastingProfile(idx, getBatchDetails.roasting_profile_id);
+                this.getOrderDetails(idx, getBatchDetails.order_id);
+                this.roastedFields.forEach((ele) => {
+                    const getValue = getBatchDetails[ele] ? getBatchDetails[ele] : '';
+                    getVarient['controls'][ele].setValue(getValue);
+                });
+            }
         }
     }
     createEmptyVarient() {
@@ -509,5 +531,34 @@ export class ProductDetailsComponent implements OnInit {
         this.variantTypeArray.push({ label: '', value: 'button' });
         this.currentVariant = this.variantTypeArray.length - 2;
         console.log(this.currentVariant);
+    }
+    getRoastingProfile(idx, profileID) {
+        this.varients = this.productForm.get('varients') as FormArray;
+        const getVarient = this.varients.controls[idx];
+        getVarient['controls'].roast_level.setValue('');
+        getVarient['controls'].roast_time.setValue('');
+        this.userService.getRoastingProfileDetail(this.roasterId, profileID).subscribe((res) => {
+            if (res && res.result) {
+                const level = this.roastLevelArray.find((ele) => ele.value === res.result.roast_level);
+                if (level) {
+                    getVarient['controls'].roast_level.setValue(level.label);
+                }
+                getVarient['controls'].roast_time.setValue(res.result.roast_duration);
+            }
+        });
+    }
+    getOrderDetails(idx, orderID) {
+        this.varients = this.productForm.get('varients') as FormArray;
+        const getVarient = this.varients.controls[idx];
+        getVarient['controls'].origin.setValue('');
+        getVarient['controls'].region.setValue('');
+        getVarient['controls'].harvest_year.setValue('');
+        this.roasterService.getViewOrderDetails(this.roasterId, orderID).subscribe((res) => {
+            if (res && res.result) {
+                getVarient['controls'].origin.setValue(res.result.origin);
+                getVarient['controls'].region.setValue(res.result.region);
+                getVarient['controls'].harvest_year.setValue(res.result.harvest_date);
+            }
+        });
     }
 }
