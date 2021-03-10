@@ -28,7 +28,7 @@ export class PurchaseService extends ApiService {
     }
 
     getOrderDetailsById(orderId: number, orgType: OrgType): Observable<OrderDetails> {
-        return this.postWithOrg(this.url, `${this.getOrgEndpoint(orgType)}orders/${orderId}`, 'GET').pipe(
+        return this.postWithOrg(this.url, `${this.getOrgEndpoint(orgType)}/${orderId}`, 'GET').pipe(
             map((response) => {
                 if (response.success && response.result.id) {
                     const details = toCamelCase<OrderDetails>(response.result);
