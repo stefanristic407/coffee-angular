@@ -1,0 +1,28 @@
+<div class="main-block">
+    <div class="mb-3 mb-md-4">
+        <a class="back-page" [routerLink]="orgType | orderLink: orderId:orderType:orderStatus">
+            {{ globals.languageJson?.return_to_order }}
+        </a>
+
+        <h4 class="fnt-16 fnt-md-18 fnt-md-18 lh-normal fnt-bold text-clr334 pt-3 mb-0 d-md-block d-none">
+            {{ ownerName }} reviews
+        </h4>
+    </div>
+
+    <ng-container *ngIf="reviews; else empty">
+        <div class="row gutter-8 gutter-md-16">
+            <div class="col-lg-4 col-md-12">
+                <div class="mx-n2 mx-md-0">
+                    <app-review-summary [summary]="summary"></app-review-summary>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12 mt-3 mt-lg-0">
+                <app-reviews [reviews]="reviews" [average]="average"></app-reviews>
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+<ng-template #empty>
+    <app-empty title="No data available"></app-empty>
+</ng-template>

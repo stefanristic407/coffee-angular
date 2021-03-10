@@ -23,6 +23,11 @@ export const routes: Routes = [
                     import('./modules/order-management/order-management.module').then((m) => m.OrderManagementModule),
             },
             {
+                path: 'review-rating',
+                loadChildren: () =>
+                    import('./modules/review-rating/review-rating.module').then((m) => m.ReviewRatingModule),
+            },
+            {
                 path: 'ordermanagement',
                 loadChildren: () =>
                     import('./ordermanagement/ordermanagement.module').then((m) => m.OrdermanagementModule),
