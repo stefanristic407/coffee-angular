@@ -2,10 +2,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { OrgType } from '@enums';
 
 @Pipe({
-    name: 'orderLink',
+    name: 'ratingLink',
 })
-export class OrderLinkPipe implements PipeTransform {
+export class RatingLinkPipe implements PipeTransform {
     transform(orgType: OrgType, orderId: number): string {
-        return `/orders/${orgType}/${orderId}`;
+        return `/review-rating/rating/${orgType}/${orderId}`;
     }
 }

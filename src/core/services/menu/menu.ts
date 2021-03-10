@@ -7,7 +7,7 @@ export const menuItems = [
     new Menu(22, 'Quality Control', '/features/green-grading', null, null, null, false, 2, []),
 
     new Menu(3, 'order_management', null, null, null, null, true, 0, ['sourcing-management']),
-    new Menu(31, 'Purchase Orders Estates', '/orders/ro', null, null, null, false, 3, []),
+    new Menu(31, 'Purchase Orders Estates', '/orders/es', null, null, null, false, 3, []),
     new Menu(32, 'Orders & Requests by Micro Roasters', '/orders/mr', null, null, null, false, 3, []),
     // new Menu(33, 'Customer Sales Orders', '/ordermanagement/microroaster-orders', null, null, null, false, 3, []),
 

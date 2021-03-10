@@ -6,6 +6,6 @@ import { OrgType } from '@enums';
 })
 export class ReviewLinkPipe implements PipeTransform {
     transform(orgType: OrgType, orderId: number): string {
-        return `/review-ratings/review/${orgType}/${orderId}`;
+        return `/review-rating/review/${orgType}/${orderId}`;
     }
 }

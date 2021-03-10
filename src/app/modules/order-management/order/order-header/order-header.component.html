@@ -32,7 +32,8 @@
                             </div>
                         </div>
                     </div>
-                    <app-order-timeline *ngIf="!isConfirmationMode" [invoiceUrl]="invoiceUrl"></app-order-timeline>
+                    <app-order-timeline *ngIf="!isConfirmationMode"
+                        [invoiceUrl]="invoiceUrl" [orgType]="organizationType" [orderId]="orderId"></app-order-timeline>
                 </section>
                 <app-payment-status [orderId]="orderId"
                     *ngIf="!statusPaid && !isConfirmationMode && organizationType === OrgTypes.MICRO_ROASTER">

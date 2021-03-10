@@ -7,8 +7,10 @@
             <a class="navigation-link" [routerLink]="['/sourcing/estate-details', roaster?.id]">{{ 'view_details' | translate }}</a>
         </div>
 
-        <app-roaster-details [ownerName]="roaster?.ownerName" [rating]="roaster?.rating"
-            [companyImageThumbnailUrl]="roaster?.companyImageThumbnailUrl"></app-roaster-details>
+        <app-roaster-details *ngIf="order"
+            [ownerName]="roaster?.ownerName" [rating]="roaster?.rating"
+            [companyImageThumbnailUrl]="roaster?.companyImageThumbnailUrl"
+            [orgType]="orgType" [orderId]="order.id"></app-roaster-details>
 
         <table class="mt-3">
             <tr>

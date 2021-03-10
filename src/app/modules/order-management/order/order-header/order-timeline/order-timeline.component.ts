@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
-import { OrderStatus, OrderType } from '@enums';
+import { OrderStatus, OrderType, OrgType } from '@enums';
 import { LabelValue, OrderDetails, RecentActivity } from '@models';
 import { ResizeService } from '@services';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
@@ -21,6 +21,8 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     accordionOpened = true;
 
     @Input() invoiceUrl: string;
+    @Input() orgType: OrgType;
+    @Input() orderId: number;
 
     get statusLabel(): string {
         if (!this.order) {
@@ -100,10 +102,6 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     getStatusDate(point: LabelValue): string {
         const activity = this.getLatestActivity(point);
         return point.value !== OrderStatus.HarvestReady && activity ? activity.created_at : '';
-    }
-
-    leaveFeedback(): void {
-        this.router.navigate(['/ordermanagement/rating']);
     }
 
     openInvoice(): void {

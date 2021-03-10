@@ -50,7 +50,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     });
 
     loading = false;
-    organizationType = OrgType.ROASTER;
+    organizationType = OrgType.ESTATE;
     orders: OrderSummary[] = [];
     pageInfo: PageInfo = { page: 1, per_page: 10, total_count: 0 };
     queryParams: any = {};
@@ -59,11 +59,11 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     @ViewChild('ordersTable') ordersTable: Table;
 
     get customerPropertyName(): string {
-        return this.organizationType === OrgType.ROASTER ? 'estate_name' : 'micro_roaster_name';
+        return this.organizationType === OrgType.ESTATE ? 'estate_name' : 'micro_roaster_name';
     }
 
     get customerPropertyNameCamelCase(): string {
-        return this.organizationType === OrgType.ROASTER ? 'estateName' : 'microRoasterName';
+        return this.organizationType === OrgType.ESTATE ? 'estateName' : 'microRoasterName';
     }
 
     constructor(

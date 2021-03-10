@@ -13,7 +13,7 @@
             <div class="col-lg col-md-12 px-0 px-md-0 pb-2 pl-lg-2 pr-lg-0 mixups-tabs--pd0 address-col">
                 <app-confirm-order *ngIf="needConfirmation" [orderId]="orderId"
                     [orgType]="organizationType"></app-confirm-order>
-                <app-order-contacts *ngIf="!needConfirmation" [order]="orderDetails"
+                <app-order-contacts *ngIf="!needConfirmation" [order]="orderDetails" [orgType]="organizationType"
                     [roaster]="roaster$ | async"></app-order-contacts>
             </div>
         </div>

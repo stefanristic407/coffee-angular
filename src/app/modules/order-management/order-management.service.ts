@@ -14,7 +14,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { OrgType } from '@enums';
 import {
-    ApiService,
     AvailabilityService,
     BrandProfileService,
     GeneralCuppingService,
@@ -32,7 +31,7 @@ export class OrderManagementService {
     private readonly estateDetailsSubject = new BehaviorSubject<OrganizationDetails>(null);
     private readonly documentsSubject = new BehaviorSubject<OrderDocument[]>([]);
     private readonly ordersSubjects = {
-        [OrgType.ROASTER]: new BehaviorSubject<ApiResponse<OrderSummary[]>>(null),
+        [OrgType.ESTATE]: new BehaviorSubject<ApiResponse<OrderSummary[]>>(null),
         [OrgType.MICRO_ROASTER]: new BehaviorSubject<ApiResponse<OrderSummary[]>>(null),
     };
     private readonly cuppingScoreSubject = new BehaviorSubject<CuppingScore[]>([]);

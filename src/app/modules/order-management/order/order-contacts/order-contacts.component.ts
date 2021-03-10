@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { OrderDetails, OrganizationDetails } from '@models';
 import { CommonService } from '@services';
+import { OrgType } from '@enums';
 
 @Component({
     selector: 'app-order-contacts',
@@ -10,6 +11,7 @@ import { CommonService } from '@services';
 export class OrderContactsComponent {
     @Input() order: OrderDetails;
     @Input() roaster: OrganizationDetails;
+    @Input() orgType: OrgType;
 
     constructor(public commonService: CommonService) {}
 }

@@ -86,8 +86,7 @@
                         <span class="circle-image"> <img src="assets/images/timeline-check-active.svg" /></span>
                     </div>
                     <div class="txt-block">
-                        <h4 class="fnt-26 text-clr334 fnt-sm-18 fnt-play">Received on {{ receivedDate | date: 'd MMMM
-                            y' }}</h4>
+                        <h4 class="fnt-26 text-clr334 fnt-sm-18 fnt-play">Received on {{ receivedDate | date: 'd MMMM y' }}</h4>
                         <div class="fnt-16 fnt-sm-12 text-clr5d pt-2">
                             Wohoo! You have successfully recieved the bulk you ordered.
                         </div>
@@ -95,8 +94,9 @@
                             Please Rate and Review the customer to help us expand as a transparent
                             community!
                         </div>
-                        <button type="submit" class="btn-raised sm mt-3" (click)="leaveFeedback()">Leave a
-                            feedback!</button>
+                        <button type="submit" class="btn-raised sm mt-3" [routerLink]="[orgType | ratingLink: orderId]">
+                            Leave a feedback!
+                        </button>
                         <button type="submit" class="btn-raised pull-right w-100 text-center mt-2 d-md-none"
                             (click)="openInvoice()">
                             {{ 'order_invoice' | translate }}
@@ -114,7 +114,7 @@
                         <div class="fnt-16 fnt-sm-12 text-clr5d pt-2">
                             The roaster will review the grade report and confirm the order.
                         </div>
-                        <button type="submit" class="btn-raised sm mt-3" (click)="leaveFeedback()">
+                        <button type="submit" class="btn-raised sm mt-3" [routerLink]="[orgType | ratingLink: orderId]">
                             Leave a feedback!
                         </button>
                         <button type="submit" class="btn-raised pull-right w-100 text-center mt-2 d-md-none"
@@ -143,7 +143,7 @@
                             Please Rate and Review the customer to help us expand as a transparent
                             community!
                         </div>
-                        <button type="submit" class="btn-raised sm mt-4" (click)="leaveFeedback()">
+                        <button type="submit" class="btn-raised sm mt-4" [routerLink]="[orgType | ratingLink: orderId]">
                             Leave a feedback!
                         </button>
                         <button type="submit" class="btn-raised pull-right w-100 text-center mt-2 d-md-none"
