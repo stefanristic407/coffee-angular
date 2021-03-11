@@ -31,6 +31,12 @@
                                 </button>
                             </div>
                         </div>
+                        <div class="row" *ngIf="orderType === OrderTypes.Prebook">
+                            <div class="col-12 p-0 mb-2 text-clr-invalid fnt-12">
+                                <span class="font-bold">{{ 'note' | translate }}</span>
+                                <span class="fnt-400">{{ 'lot_has_been_prebooked' | translate }}</span>
+                            </div>
+                        </div>
                     </div>
                     <app-order-timeline *ngIf="!isConfirmationMode"
                         [invoiceUrl]="invoiceUrl" [orgType]="organizationType" [orderId]="orderId"></app-order-timeline>

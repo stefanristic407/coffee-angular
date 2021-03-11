@@ -20,6 +20,7 @@ import { DeliveryAddressComponent } from './order-contacts/delivery-address/deli
 import { ConfirmOrderComponent } from './confirm-order/confirm-order.component';
 import { AgmCoreModule } from '@agm/core';
 import { RoasterDetailsComponent } from './order-contacts/roaster-details/roaster-details.component';
+import { CreateReferenceNumberComponent } from './create-reference-number/create-reference-number.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule, AgmCoreModule, SharedModule, OrderRoutingModule],
@@ -40,6 +41,7 @@ import { RoasterDetailsComponent } from './order-contacts/roaster-details/roaste
         DeliveryAddressComponent,
         ConfirmOrderComponent,
         RoasterDetailsComponent,
+        CreateReferenceNumberComponent,
     ],
 })
 export class OrderModule {}

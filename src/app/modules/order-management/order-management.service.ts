@@ -112,6 +112,10 @@ export class OrderManagementService {
         return this.cuppingSrv.getCuppingReportUrl(harvestId);
     }
 
+    createReferenceNumber(orderId: number, referenceNumber: string): Observable<ApiResponse<any>> {
+        return this.purchaseSrv.updateOrderDetails(orderId, { order_reference: referenceNumber });
+    }
+
     downloadOrders(
         orgType: OrgType,
         exportType: string,
