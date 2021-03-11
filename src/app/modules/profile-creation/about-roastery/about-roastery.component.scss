@@ -87,16 +87,11 @@ hr {
 }
 
 .list-item {
-    border: none;
-    font-size: 14px;
-    font-weight: 600;
-    color: #747588;
-}
-
-.list-item:hover {
-    color: #232334;
-    font-weight: 600;
-    background-color: #f8f8f8;
+    &:hover {
+        color: #232334;
+        font-weight: 600;
+        background-color: #f8f8f8;
+    }
 }
 
 .pointer-item {
@@ -113,71 +108,7 @@ hr {
     height: 90px;
 }
 
-.brand-content {
-    font-size: 14px;
-    font-weight: 600;
-    color: #232334;
-    word-wrap: break-word;
-}
-
 /* contacts view port Desktop view */
-
-.p-gal img {
-    width: 100%;
-}
-
-.profile-des h4 {
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    margin-top: 12px;
-    color: #232334;
-    font-family: Muli;
-}
-
-.profile-des h6 {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 500;
-    color: #747588;
-}
-
-.employer h2 {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 22px;
-    color: #232334;
-    font-family: Muli;
-}
-
-input[type='number']::-webkit-inner-spin-button {
-    display: none;
-}
-
-:host ::ng-deep .ui-inputswitch.ui-inputswitch-checked .ui-inputswitch-slider:before {
-    background-color: #24be46 !important;
-}
-
-:host ::ng-deep .ui-inputswitch .ui-inputswitch-slider:before {
-    background-color: #999999 !important;
-}
-
-:host ::ng-deep .ui-inputswitch.ui-inputswitch-checked .ui-inputswitch-slider {
-    background-color: #d3f2da !important;
-}
-
-:host ::ng-deep .ui-inputswitch .ui-inputswitch-slider {
-    background-color: #dddddd !important;
-}
-
-:host ::ng-deep .ui-inputswitch .ui-inputswitch-focus {
-    box-shadow: none !important;
-    outline: none !important;
-}
-
-.private-pad-7 {
-    margin-left: 7rem;
-}
 
 .add-partner {
     cursor: pointer;

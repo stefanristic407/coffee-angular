@@ -11,7 +11,7 @@
             <div class="row cursor-pointer mobile-tabs-gallary p-3 p-md-1">
                 <a
                     class="col-lg-4 col-md-6 col-sm-6 col-6 position-relative p-1 p-md-25 d-flex d-md-none text-decoration-none"
-                    *ngIf="roasteryProfileService.addMediaDiv"
+                    *ngIf="isSaveMode"
                 >
                     <div
                         class="bg-f8 h-100 w-100 d-flex align-items-center justify-content-center br-main br-4 text-center"
@@ -35,7 +35,7 @@
                     *ngFor="let mediaItem of tourMedias"
                 >
                     <div
-                        *ngIf="roasteryProfileService.addMediaDiv"
+                        *ngIf="isSaveMode"
                         class="media-delete-button bg-white justify-content-center align-items-center d-flex"
                         (click)="handleRemoveMediaFile(mediaItem.id)"
                     >
@@ -63,7 +63,7 @@
 
                 <a
                     class="col-lg-4 col-md-6 col-sm-6 col-6 position-relative p-1 p-md-25 d-none d-md-flex"
-                    *ngIf="roasteryProfileService.addMediaDiv"
+                    *ngIf="isSaveMode"
                 >
                     <div
                         class="bg-f8 h-100 w-100 d-flex align-items-center justify-content-center br-main br-4 text-center"
@@ -80,6 +80,4 @@
     </div>
 </div>
 
-<div *ngIf="!isLoading && !tourMedias.length && !roasteryProfileService.addMediaDiv" class="py-5 text-center">
-    No data to display
-</div>
+<div *ngIf="!isLoading && !tourMedias.length && !isSaveMode" class="py-5 text-center">No data to display</div>
