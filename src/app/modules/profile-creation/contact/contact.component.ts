@@ -92,7 +92,7 @@ export class ContactComponent implements OnInit {
             ig_profile: this.roasteryProfileService.roasteryProfileData.ig_profile,
         };
 
-        this.contactForm.setValue(formValue);
+        this.contactForm.patchValue(formValue);
     }
 
     isControlHasError(controlName: string, validationType: string): boolean {
