@@ -10,14 +10,6 @@ import { Country } from '@models';
     styleUrls: ['./contact.component.scss'],
 })
 export class ContactComponent implements OnInit {
-    nameError: string;
-    emailError: string;
-    phoneError: string;
-    countryError: string;
-    addressError: string;
-    cityError: string;
-    appLanguage?: any;
-
     contactForm: FormGroup;
     isSaveMode: boolean;
     countryList = COUNTRY_LIST;
@@ -26,14 +18,7 @@ export class ContactComponent implements OnInit {
         private fb: FormBuilder,
         public roasteryProfileService: RoasteryProfileService,
         public globals: GlobalsService,
-    ) {
-        this.nameError = '';
-        this.emailError = '';
-        this.phoneError = '';
-        this.countryError = '';
-        this.addressError = '';
-        this.cityError = '';
-    }
+    ) {}
 
     ngOnInit(): void {
         this.initialForm();
@@ -54,21 +39,33 @@ export class ContactComponent implements OnInit {
             email: ['', Validators.compose([Validators.required, Validators.email])],
             phone: ['', Validators.compose([Validators.required])],
             country: ['', Validators.compose([Validators.required])],
-            state: ['', Validators.compose([Validators.required])],
+            state: [''],
             address_line1: ['', Validators.compose([Validators.required])],
             address_line2: ['', Validators.compose([Validators.required])],
             city: ['', Validators.compose([Validators.required])],
-            zipcode: ['', Validators.compose([Validators.required])],
-            fb_profile: ['', Validators.compose([Validators.required])],
-            ig_profile: ['', Validators.compose([Validators.required])],
+            zipcode: [''],
+            fb_profile: [''],
+            ig_profile: [''],
         });
 
         this.contactForm.controls.country.valueChanges.subscribe((updatedCountry: any) => {
             this.countryList.forEach((countryItem: Country) => {
                 if (countryItem.isoCode === updatedCountry.toUpperCase()) {
-                    this.cityList = countryItem.cities;
+                    this.cityList = [];
+                    countryItem.cities.map((stateItem: string) => {
+                        this.cityList.push({
+                            name: stateItem,
+                            value: stateItem,
+                        });
+                    });
                 }
             });
+        });
+
+        this.contactForm.valueChanges.subscribe((changedData: any) => {
+            console.log('value changed: ', this.contactForm.invalid, changedData);
+            this.roasteryProfileService.contactFormInvalid = this.contactForm.invalid;
+            this.roasteryProfileService.editProfileData(changedData);
         });
     }
 
@@ -103,11 +100,5 @@ export class ContactComponent implements OnInit {
 
         const result = control.hasError(validationType) && (control.dirty || control.touched);
         return result;
-    }
-
-    telInputObject(obj: any): void {
-        if (this.roasteryProfileService.roasteryProfileData.phone) {
-            obj.setNumber(this.roasteryProfileService.roasteryProfileData.phone);
-        }
     }
 }

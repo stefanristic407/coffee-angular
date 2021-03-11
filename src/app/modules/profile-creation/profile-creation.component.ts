@@ -45,6 +45,10 @@ export class ProfileCreationComponent implements OnInit {
             company_name: ['', Validators.compose([Validators.required])],
             website: [''],
         });
+        this.subProfileForm.valueChanges.subscribe((changedData: any) => {
+            this.roasteryProfileService.mainSubFormInvalid = this.subProfileForm.invalid;
+            this.roasteryProfileService.editProfileData(changedData);
+        });
     }
 
     detectMode() {
@@ -79,5 +83,15 @@ export class ProfileCreationComponent implements OnInit {
                 }
             }
         }
+    }
+
+    isControlHasError(controlName: string, validationType: string): boolean {
+        const control = this.subProfileForm.controls[controlName];
+        if (!control) {
+            return false;
+        }
+
+        const result = control.hasError(validationType) && (control.dirty || control.touched);
+        return result;
     }
 }
