@@ -6,10 +6,8 @@
     </div>
     <div [formGroup]="productForm" (ngSubmit)="onSave()" novalidate>
         <div class="row gutter-16 gutter-lg-24 productDiv">
-            <div class="col-12 col-sm-12 col-md-6 d-flex align-items-center borderBottom">
-                <span class="fnt-16 fnt-md-18 fnt-700 fnt-muli black w-100" [ngClass]="{ productLineDiv: productID }"
-                    >Add a new product</span
-                >
+            <div class="col-12 col-sm-12 col-md-6 d-flex align-items-center">
+                <span class="fnt-16 fnt-md-18 fnt-700 fnt-muli black w-100 productLineDiv">Add a new product</span>
             </div>
             <div *ngIf="productID" class="col-12 col-sm-12 col-md-6 d-none d-sm-none d-md-block">
                 <div class="float-right">
@@ -366,12 +364,12 @@
         >
             <div [formGroupName]="i" class="row mt-2">
                 <div class="col-3 col-sm-3 col-md-4 col-lg-4 col-xl-2 sewn-form-field w-100 pr-0">
-                    <label class="text-nowrap">Box value<span class="star">*</span></label>
+                    <label class="text-nowrap">Box value</label>
                     <input type="text" placeholder="" readonly formControlName="boxField" pInputText />
                 </div>
                 <div class="equal-operators">=</div>
                 <div class="col-3 col-sm-3 col-md-4 col-lg-4 col-xl-2 sewn-form-field w-100 pl-0 pr-0">
-                    <label>Weight<span class="star">*</span></label>
+                    <label>Weight</label>
                     <input type="text" readonly placeholder="" formControlName="weight_name" pInputText />
                 </div>
                 <div class="equal-operators pl-2 pr-2">x</div>
