@@ -131,7 +131,7 @@ export class AboutRoasteryComponent implements OnInit {
         this.aboutForm = this.fb.group({
             owner_name: ['', Validators.compose([Validators.required])],
             founded_on: ['', Validators.compose([Validators.required])],
-            description: ['', Validators.compose([Validators.required, Validators.maxLength(200)])],
+            description: ['', Validators.compose([Validators.maxLength(200)])],
             total_employees: [null, Validators.compose([Validators.required])],
             avg_employee_age: [null, Validators.compose([Validators.required])],
             female_employee_count: ['', Validators.compose([Validators.required])],
@@ -322,5 +322,15 @@ export class AboutRoasteryComponent implements OnInit {
 
     public deleteRow(index) {
         this.brandProfile.splice(index, 1);
+    }
+
+    isControlHasError(controlName: string, validationType: string): boolean {
+        const control = this.aboutForm.controls[controlName];
+        if (!control) {
+            return false;
+        }
+
+        const result = control.hasError(validationType) && (control.dirty || control.touched);
+        return result;
     }
 }

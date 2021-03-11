@@ -95,9 +95,19 @@ export class ContactComponent implements OnInit {
         this.contactForm.setValue(formValue);
     }
 
+    isControlHasError(controlName: string, validationType: string): boolean {
+        const control = this.contactForm.controls[controlName];
+        if (!control) {
+            return false;
+        }
+
+        const result = control.hasError(validationType) && (control.dirty || control.touched);
+        return result;
+    }
+
     telInputObject(obj: any): void {
-        if (this.roasteryProfileService.phoneno) {
-            obj.setNumber(this.roasteryProfileService.phoneno);
+        if (this.roasteryProfileService.roasteryProfileData.phone) {
+            obj.setNumber(this.roasteryProfileService.roasteryProfileData.phone);
         }
     }
 }

@@ -20,7 +20,12 @@
                                     formControlName="email"
                                     placeholder="Roastery email"
                                 />
-                                <div class="emailError" *ngIf="emailError">
+                                <div
+                                    class="emailError"
+                                    *ngIf="
+                                        isControlHasError('email', 'required') || isControlHasError('email', 'email')
+                                    "
+                                >
                                     {{ emailError }}
                                 </div>
                             </div>
@@ -41,7 +46,7 @@
                                     (intlTelInputObject)="telInputObject($event)"
                                     required
                                 />
-                                <div class="phoneError" *ngIf="phoneError">
+                                <div class="phoneError" *ngIf="isControlHasError('phone', 'required')">
                                     {{ phoneError }}
                                 </div>
                             </div>
@@ -63,7 +68,7 @@
                                     optionValue="isoCode"
                                 >
                                 </p-dropdown>
-                                <div class="countryError" *ngIf="countryError">
+                                <div class="countryError" *ngIf="isControlHasError('country', 'required')">
                                     {{ countryError }}
                                 </div>
                             </div>
@@ -94,7 +99,7 @@
                                     type="text"
                                     placeholder="Line 1"
                                 />
-                                <div class="addressError" *ngIf="addressError">
+                                <div class="addressError" *ngIf="isControlHasError('address_line1', 'required')">
                                     {{ addressError }}
                                 </div>
                             </div>
@@ -124,7 +129,7 @@
                                     formControlName="city"
                                     placeholder="City"
                                 />
-                                <div class="cityError" *ngIf="cityError">
+                                <div class="cityError" *ngIf="isControlHasError('city', 'required')">
                                     {{ cityError }}
                                 </div>
                             </div>

@@ -30,7 +30,7 @@
                                     <p class="fnt-14 fnt-600 text-clr334" *ngIf="isEditMode">
                                         {{ roasteryProfileService.roasteryProfileData?.owner_name }}
                                     </p>
-                                    <div class="ownerNameError" *ngIf="ownerNameError">
+                                    <div class="ownerNameError" *ngIf="isControlHasError('owner_name', 'required')">
                                         {{ ownerNameError }}
                                     </div>
                                 </div>
@@ -55,7 +55,7 @@
                                     <p class="fnt-14 fnt-600 text-clr334" *ngIf="isEditMode">
                                         {{ roasteryProfileService.roasteryProfileData?.founded_on }}
                                     </p>
-                                    <div class="foundedInError" *ngIf="foundedInError">
+                                    <div class="foundedInError" *ngIf="isControlHasError('founded_on', 'required')">
                                         {{ foundedInError }}
                                     </div>
                                 </div>
@@ -75,6 +75,9 @@
                                         placeholder="Tell us and to our users about who you are as a company!"
                                     >
                                     </textarea>
+                                </div>
+                                <div *ngIf="isControlHasError('description', 'maxlength')">
+                                    <p class="m-0 fnt-12">Description length shouldn't be over 200 characters</p>
                                 </div>
                                 <div class="mb-3 col-md-12 mt-md-3 p-0" *ngIf="isEditMode">
                                     <label for="summary" class="mob-label">
@@ -114,7 +117,10 @@
                                         formControlName="total_employees"
                                         placeholder="Please enter no. of employees"
                                     />
-                                    <div class="employeeNoError" *ngIf="employeeNoError">
+                                    <div
+                                        class="employeeNoError"
+                                        *ngIf="isControlHasError('total_employees', 'required')"
+                                    >
                                         {{ employeeNoError }}
                                     </div>
                                 </div>
@@ -133,7 +139,10 @@
                                         formControlName="avg_employee_age"
                                         placeholder="Please enter employee avg. age"
                                     />
-                                    <div class="employeeAvgError" *ngIf="employeeAvgError">
+                                    <div
+                                        class="employeeAvgError"
+                                        *ngIf="isControlHasError('avg_employee_age', 'required')"
+                                    >
                                         {{ employeeAvgError }}
                                     </div>
                                 </div>
@@ -158,7 +167,10 @@
                                         formControlName="female_employee_count"
                                         placeholder="Please enter the number of female employees"
                                     />
-                                    <div class="femaleNumError" *ngIf="femaleNumError">
+                                    <div
+                                        class="femaleNumError"
+                                        *ngIf="isControlHasError('female_employee_count', 'required')"
+                                    >
                                         {{ femaleNumError }}
                                     </div>
                                 </div>
@@ -177,7 +189,10 @@
                                         formControlName="male_employee_count"
                                         placeholder="Please enter the number of male employees"
                                     />
-                                    <div class="maleNumError" *ngIf="maleNumError">
+                                    <div
+                                        class="maleNumError"
+                                        *ngIf="isControlHasError('male_employee_count', 'required')"
+                                    >
                                         {{ maleNumError }}
                                     </div>
                                 </div>
@@ -221,7 +236,7 @@
                                     <p class="fnt-14 fnt-600" *ngIf="isEditMode">
                                         {{ roasteryProfileService.roasteryProfileData?.vat_number }}
                                     </p>
-                                    <div class="vatNoError" *ngIf="vatNoError">
+                                    <div class="vatNoError" *ngIf="isControlHasError('vat_number', 'required')">
                                         {{ vatNoError }}
                                     </div>
                                 </div>
@@ -238,16 +253,14 @@
                                         formControlName="registration_id"
                                         placeholder="Please enter employee avg. age"
                                     />
-                                    <!-- <label *ngIf="isEditMode" for="cmpy_rid">Company registration ID<span class="star">*</span></label> -->
                                     <p class="fnt-14 fnt-600" *ngIf="isEditMode">
                                         {{ roasteryProfileService.roasteryProfileData?.registration_id }}
                                     </p>
-                                    <div class="cmpyRidError" *ngIf="cmpyRidError">
+                                    <div class="cmpyRidError" *ngIf="isControlHasError('registration_id', 'required')">
                                         {{ cmpyRidError }}
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="row mb-md-45"></div> -->
 
                             <hr class="d-none d-md-block" />
                             <div class="row mt-md-4 mb-4 ml-0 mr-0">
@@ -290,7 +303,7 @@
                                         formControlName="capacity_unit"
                                     >
                                     </p-dropdown>
-                                    <div class="capacityError" *ngIf="capacityError">
+                                    <div class="capacityError" *ngIf="isControlHasError('capacity', 'required')">
                                         {{ capacityError }}
                                     </div>
                                 </div>
@@ -310,7 +323,10 @@
                                         formControlName="capabilities"
                                         placeholder="Eg. Hand roasted, Blended, Mocha-Java"
                                     />
-                                    <div class="capabilitiesError" *ngIf="capabilitiesError">
+                                    <div
+                                        class="capabilitiesError"
+                                        *ngIf="isControlHasError('capabilities', 'required')"
+                                    >
                                         {{ capabilitiesError }}
                                     </div>
                                 </div>

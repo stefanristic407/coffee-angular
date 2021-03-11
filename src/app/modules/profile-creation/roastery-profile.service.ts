@@ -31,36 +31,10 @@ export class RoasteryProfileService {
 
     userId: string;
     roasterId: string;
-    summary: any;
-    foundedIn: any;
-    website: any;
-    name: any;
-    phoneno: any;
-    country: any;
-    state: any;
-    city: any;
-    zipcode: any;
-    email: any;
-    companyImageUrl: any;
-    instagram: any;
-    facebook: any;
-    address1: any;
-    address2: any;
-    countryName: any;
-    kgs: any = '';
-    capacity: any;
-    capabilities: string;
-    maleNum: any;
-    femaleNum: any;
-    employeeAvg: any;
-    employeeNos: any;
     roasterUsers: any = [];
     empName: any = '';
     roasterContacts: any = [];
     single: { name: string; value: any }[];
-    vatNos: any;
-    cmpyRid: any;
-    companyDetailsPublic: any = false;
     showDelete = false;
     bannerUrl?: string;
     bannerFile?: any;
@@ -103,39 +77,6 @@ export class RoasteryProfileService {
                             : 0,
                     },
                 ];
-
-                // this.profileInfo = result.result;
-                // this.summary = result.result.description;
-                // this.foundedIn = result.result.founded_on;
-                // this.website = result.result.website;
-                // this.name = result.result.name;
-                // this.phoneno = result.result.phone;
-                // this.country = result.result.country;
-                // const country = COUNTRY_LIST.find((con) => con.isoCode === this.country);
-                // this.countryName = country ? country.name : '';
-                // this.state = result.result.state;
-                // this.city = result.result.city;
-                // this.zipcode = result.result.zipcode;
-                // this.email = result.result.email;
-                // this.profilePhotoService.croppedImage = result.result.company_image_url;
-                // this.facebook = result.result.fb_profile;
-                // this.instagram = result.result.ig_profile;
-                // this.address1 = result.result.address_line1;
-                // this.address2 = result.result.address_line2;
-                // this.kgs = result.result.capacity_unit;
-                // this.maleNum = result.result.male_employee_count;
-                // this.femaleNum = result.result.female_employee_count;
-                // this.capacity = result.result.capacity;
-                // this.capabilities = result.result.capabilities;
-                // this.employeeNos = result.result.total_employees;
-                // this.employeeAvg = result.result.avg_employee_age;
-                // this.vatNos = result.result.vat_number;
-                // this.cmpyRid = result.result.registration_id;
-                // this.companyDetailsPublic = result.result.is_company_details_public;
-                // this.bannerFileId = result.result.banner_file_id;
-                // this.bannerUrl = result.result.banner_url;
-                // this.companyImageUrl = result.result.company_image_url;
-                // this.changeCountry(this.country);
             }
         });
 
@@ -209,33 +150,7 @@ export class RoasteryProfileService {
     }
 
     updateRoasterAccount(): void {
-        const data = {
-            description: this.summary,
-            state: this.state,
-            country: this.country,
-            city: this.city,
-            name: this.name,
-            website: this.website,
-            phone: this.phoneno.internationalNumber,
-            email: this.email,
-            founded_on: this.foundedIn,
-            zipcode: this.zipcode,
-            address_line1: this.address1,
-            adderss_line2: this.address2,
-            fb_profile: this.facebook,
-            ig_profile: this.instagram,
-            capacity: this.capacity,
-            capabilities: this.capabilities,
-            total_employees: this.employeeNos,
-            avg_employee_age: this.employeeAvg,
-            female_employee_count: this.femaleNum,
-            male_employee_count: this.maleNum,
-            vat_number: this.vatNos,
-            registration_id: this.cmpyRid,
-            capacity_unit: this.kgs,
-            is_company_details_public: this.companyDetailsPublic,
-            banner_file_id: this.bannerFileId || 0,
-        };
+        const data = this.roasteryProfileData;
         this.userService.updateRoasterAccount(this.roasterId, data).subscribe((response: any) => {
             if (response.success === true) {
                 console.log(response);
@@ -297,6 +212,7 @@ export class RoasteryProfileService {
     }
 
     handleBannerImageFile(inputElement: any) {
+        console.log('input file in serveice: ', inputElement);
         this.bannerFile = inputElement.files[0];
         if (!this.bannerFile) {
             return;
@@ -319,31 +235,23 @@ export class RoasteryProfileService {
     }
 
     handleDeleteBannerImage(): void {
-        console.log('banner file id ?????????????', this.bannerFileId);
+        console.log('banner file id ', this.bannerFileId);
         this.userService.deleteFile(this.roasterId, this.bannerFileId).subscribe((res) => {
-            console.log('remove banner file res >>>>>>>>>', res);
+            console.log('remove banner file res', res);
         });
     }
 
     editRoasterProfile() {
         this.isSaving = false;
-        // this.savemode = true;
         this.showDelete = true;
-        // this.editmode = false;
-        console.log('mode');
         this.editMode.next(false);
         this.saveMode.next(true);
     }
 
     preview() {
-        // if (this.phoneno?.internationalNumber) {
-        //     this.phoneno = this.phoneno.internationalNumber;
-        // }
-        // this.bannerUrl = this.profileInfo.banner_url;
-        // this.profilePhotoService.croppedImage = this.profileInfo.company_image_url;
+        this.bannerUrl = this.roasteryProfileData.banner_url;
+        this.profilePhotoService.croppedImage = this.roasteryProfileData.company_image_url;
         this.editMode.next(true);
         this.saveMode.next(false);
-        // this.savemode = false;
-        // this.editmode = true;
     }
 }
