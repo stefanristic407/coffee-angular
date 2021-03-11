@@ -4,7 +4,7 @@ export * from './availability.service';
 export * from './brand-profile.service';
 export * from './file.service';
 export * from './dashboard.service';
-export * from './email';
+export * from './email.service';
 export * from './general-cupping.service';
 export * from './general.service';
 export * from './order.service';

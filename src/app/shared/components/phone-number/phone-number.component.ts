@@ -27,7 +27,8 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor {
     writeValue(value: any): void {
         if (value) {
             this.phoneNumber = value;
-            if (this.phoneNumber) {
+            if (this.phoneNumber && this.inputObj) {
+                console.log(this.inputObj, this.phoneNumber);
                 this.inputObj.setNumber(this.phoneNumber);
             }
         }
