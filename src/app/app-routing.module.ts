@@ -28,11 +28,6 @@ export const routes: Routes = [
                     import('./modules/review-rating/review-rating.module').then((m) => m.ReviewRatingModule),
             },
             {
-                path: 'ordermanagement',
-                loadChildren: () =>
-                    import('./ordermanagement/ordermanagement.module').then((m) => m.OrdermanagementModule),
-            },
-            {
                 path: 'dispute-system',
                 loadChildren: () =>
                     import('./modules/dispute-system/dispute-system.module').then((m) => m.DisputeSystemModule),
