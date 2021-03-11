@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ApiRequestDetailsComponent } from './api-request-details/api-request-details.component';
-import { ApiRequestsTableComponent } from './api-requests-table.component';
+import { ApiRequestsTableComponent } from './api-requests.component';
 
 const routes: Routes = [
     {

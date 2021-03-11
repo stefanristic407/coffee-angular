@@ -1,0 +1,107 @@
+<div class="bg-fff request-table-container">
+    <div class="bread-crumb">
+        <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
+    </div>
+    <section class="estate-orders-heading">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-lg-8 col-md-4">
+                <h5 class="estate-order-title">{{ globals.languageJson?.api_request }}</h5>
+                <p class="Give-your-end-users">Accept, reject API key requests by customers and generate API keys.</p>
+            </div>
+            <div class="col-lg-4 col-md-8 text-right">
+                <div class="file-share-search">
+                    <img class="mr-1 mr-md-2" src="assets/images/search.svg" />
+                    <input
+                        class="fadout-search"
+                        type="search"
+                        #searchInput
+                        [(ngModel)]="apiKeySearch"
+                        placeholder="Search by request id or Customer Name "
+                        name="filesTerm"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <div class="header-details row justify-content-between align-items-center">
+            <div class="header-inner col-lg-9 col-md-6">
+                <p-dropdown
+                    [options]="FilterTypeList"
+                    optionLabel="org_type"
+                    optionValue="org_type"
+                    [(ngModel)]="customerType"
+                    scrollHeight="225px"
+                    [showClear]="true"
+                    placeholder="Customer Type"
+                    styleClass="round-border mr-2 {{ customerType ? 'highlight' : '' }}"
+                >
+                </p-dropdown>
+                <div class="d-inline border-order date-div col-sm-3" (click)="openCalendar($event)">
+                    <p class="d-inline filter-text">
+                        Date range &nbsp;
+                        <span *ngIf="showDateRange != ''">{{ showDateRange }}</span>
+                    </p>
+
+                    <a class="pointer-item">
+                        <p class="d-inline filter">
+                            <p-calendar
+                                #calendar
+                                styleClass="only-icon"
+                                [(ngModel)]="rangeDates"
+                                selectionMode="range"
+                                dateFormat="dd.mm.yy"
+                                [readonlyInput]="true"
+                                [showButtonBar]="true"
+                            ></p-calendar>
+                            &nbsp; <img src="assets/images/active-calender.png" alt="" />
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="d-inline">
+                    <p-dropdown
+                        [options]="displayArray"
+                        optionLabel="label"
+                        optionValue="value"
+                        [(ngModel)]="perPage"
+                        scrollHeight="225px"
+                        [showClear]="true"
+                        placeholder="Display"
+                        styleClass="round-border d-none d-sm-none d-md-flex float-right {{
+                            perPage ? 'highlight' : ''
+                        }}"
+                    >
+                    </p-dropdown>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="mixups-tabs mt-32 pr-3 col-lg-12 col-md-12">
+                <p-tabView styleClass="pb-3 pb-md-4" [(activeIndex)]="selectedTab" (onChange)="handleChange($event)">
+                    <p-tabPanel header="API Key Requests">
+                        <app-api-key-requests
+                            *ngIf="isApiRequestPage"
+                            [searchRequestId]="KeySearch"
+                            [filterData]="customerType"
+                            [dateRange]="rangeDates"
+                            [perPage]="perPage"
+                            (filterType)="setFilterData($event)"
+                        ></app-api-key-requests>
+                    </p-tabPanel>
+                    <p-tabPanel header="Generated Keys">
+                        <app-generated-keys
+                            *ngIf="!isApiRequestPage"
+                            [searchRequestId]="KeySearch"
+                            [filterData]="customerType"
+                            [dateRange]="rangeDates"
+                            [perPage]="perPage"
+                            (filterType)="setFilterData($event)"
+                        ></app-generated-keys>
+                    </p-tabPanel>
+                </p-tabView>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,12 +1,13 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { RoasterserviceService } from '@services';
 import { ApiRequestService } from 'src/core/services/api/api-request.service';
 import { GlobalsService } from '@services';
 import { MenuItem } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmComponent } from '@app/shared';
+import { AppKeyConfirmationComponent } from '@app/shared/components/app-key-confirmation/app-key-confirmation.component';
 
 @Component({
     selector: 'app-api-request-details',
@@ -18,7 +19,6 @@ export class ApiRequestDetailsComponent implements OnInit {
     loader = true;
     termStatus: any;
     btnToggle = true;
-    modalRef: BsModalRef;
     resetButtonValue: string;
     showStatus = true;
     isDeletedApiKey = false;
@@ -31,13 +31,12 @@ export class ApiRequestDetailsComponent implements OnInit {
     initialStatus = '';
 
     constructor(
-        private modalService: BsModalService,
-        private roasterserviceService: RoasterserviceService,
         private apiRequestService: ApiRequestService,
         public cookieService: CookieService,
         private toastrService: ToastrService,
         private route: ActivatedRoute,
         public globals: GlobalsService,
+        public dialogSrv: DialogService,
     ) {
         this.termStatus = '';
         this.roasterID = this.cookieService.get('roaster_id');
@@ -49,12 +48,6 @@ export class ApiRequestDetailsComponent implements OnInit {
         });
     }
 
-    @ViewChild('pausetemplate') private pausetemplate: any;
-    @ViewChild('deletetemplate') private deletetemplate: any;
-
-    openModal(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.show(template);
-    }
     ngOnInit(): void {
         this.resetButtonValue = 'Generate Key';
         if (this.apikeyStatus === 'GENERATED') {
@@ -149,7 +142,6 @@ export class ApiRequestDetailsComponent implements OnInit {
             if (res.success) {
                 this.apikeyStatus = 'paused';
                 this.toastrService.success('Key access has been paused');
-                this.modalRef.hide();
                 this.btnToggle = false;
             }
         });
@@ -175,7 +167,7 @@ export class ApiRequestDetailsComponent implements OnInit {
         }
     }
 
-    onConfirm() {
+    deleteKey() {
         const data = {
             roaster_id: this.roasterID,
             api_key_id: this.apiKeyId,
@@ -183,7 +175,6 @@ export class ApiRequestDetailsComponent implements OnInit {
         this.apiRequestService.deleteRoApiKey(data).subscribe((res) => {
             if (res.success) {
                 this.toastrService.error('Key has been delete');
-                this.modalRef.hide();
                 this.apikeyStatus = 'DELETED';
                 this.resetButtonValue = 'Generate Key';
                 this.isDeletedApiKey = true;
@@ -191,10 +182,37 @@ export class ApiRequestDetailsComponent implements OnInit {
         });
     }
 
-    delete() {
-        this.openModal(this.deletetemplate);
+    delete(): void {
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'delete',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                console.log('action--->>', action);
+                if (action === 'yes') {
+                    this.deleteKey();
+                }
+            });
     }
-    pause() {
-        this.openModal(this.pausetemplate);
+
+    pause(item: any) {
+        this.dialogSrv
+            .open(AppKeyConfirmationComponent, {
+                data: {
+                    orgName: item,
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                console.log('action--->>', action);
+                if (action === 'yes') {
+                    this.confirmPauseKey();
+                }
+            });
     }
 }
