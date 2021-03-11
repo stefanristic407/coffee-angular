@@ -4,7 +4,7 @@ import { RoasterserviceService } from '@services';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GlobalsService } from '@services';
-import { UserserviceService } from '@services';
+import { EmailService, UserserviceService } from '@services';
 
 @Component({
     selector: 'app-roaster-quick-setup',
@@ -39,6 +39,7 @@ export class RoasterQuickSetupComponent implements OnInit {
         private router: Router,
         private toastrService: ToastrService,
         public route: ActivatedRoute,
+        private emailService: EmailService,
         public userService: UserserviceService,
         public globals: GlobalsService,
     ) {
@@ -129,7 +130,7 @@ export class RoasterQuickSetupComponent implements OnInit {
                                         'https://qa-micro-roaster.sewnstaging.com/auth/setup?token=' +
                                         data['result'].token,
                                 };
-                                this.userService.sendUrlToEmail(body).subscribe((res) => {
+                                this.emailService.sendEmail(body).subscribe((res) => {
                                     if (res['status'] == '200 OK') {
                                         this.globals.userInvitesArray.push(element.email);
                                         this.resetButtonValue = 'Send Invites';
@@ -170,7 +171,7 @@ export class RoasterQuickSetupComponent implements OnInit {
                                         'https://qa-client-horeca.sewnstaging.com/auth/horeca-setup?token=' +
                                         data['result'].token,
                                 };
-                                this.userService.sendUrlToEmail(body).subscribe((res) => {
+                                this.emailService.sendEmail(body).subscribe((res) => {
                                     if (res['status'] == '200 OK') {
                                         this.globals.userInvitesArray.push(element.email);
                                         this.resetButtonValue = 'Send Invites';

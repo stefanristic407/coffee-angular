@@ -2,9 +2,9 @@ import { UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { YourServicesService } from '@services';
 import { Component, OnInit } from '@angular/core';
-import { RoasteryProfileService } from '@services';
 import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
+import { RoasteryProfileService } from '../roastery-profile.service';
 
 @Component({
     selector: 'app-sewn-virtual-tour',
@@ -15,6 +15,7 @@ export class VirtualTourComponent implements OnInit {
     tourMedias: any = [];
     roasterId: any;
     isLoading?: boolean;
+    isSaveMode: boolean;
 
     constructor(
         public roasteryProfileService: RoasteryProfileService,
@@ -26,8 +27,15 @@ export class VirtualTourComponent implements OnInit {
     ) {}
 
     async ngOnInit() {
-        this.getFiles();
         this.roasterId = this.cookieService.get('roaster_id');
+        this.getFiles();
+        this.detectMode();
+    }
+
+    detectMode() {
+        this.roasteryProfileService.saveMode$.subscribe((res: boolean) => {
+            this.isSaveMode = res;
+        });
     }
 
     getFiles() {
@@ -52,7 +60,6 @@ export class VirtualTourComponent implements OnInit {
     }
 
     handleRemoveMediaFile(id: number): void {
-        console.log('id >>>>>>>>>>>', id);
         this.tourMedias = this.tourMedias.filter((item) => item.id !== id);
         this.userService.deleteFile(this.roasterId, id).subscribe();
     }

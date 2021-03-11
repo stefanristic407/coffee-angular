@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
-import { UserserviceService } from '@services';
+import { EmailService, UserserviceService } from '@services';
 
 @Component({
     selector: 'app-send-recovery-email',
@@ -31,6 +31,7 @@ export class SendRecoveryEmailComponent implements OnInit {
         private router: Router,
         public globals: GlobalsService,
         public route: ActivatedRoute,
+        private emailService: EmailService,
         public userService: UserserviceService,
         private toastrService: ToastrService,
         private fb: FormBuilder,
@@ -268,7 +269,7 @@ export class SendRecoveryEmailComponent implements OnInit {
             senders: [this.userForm.controls.email.value],
             url: 'https://qa-roaster-portal.sewnstaging.com/#/auth/update-password',
         };
-        this.userService.sendUrlToEmail(body).subscribe(
+        this.emailService.sendEmail(body).subscribe(
             (res: any) => {
                 if (res.status === '200 OK') {
                     this.toastrService.success('Email has been sent successfully');

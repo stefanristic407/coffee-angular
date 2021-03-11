@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
-import { UserserviceService } from '@services';
-import { Router } from '@angular/router';
-import { rejects } from 'assert';
+import { EmailService } from '@services';
 
 @Component({
     selector: 'app-invite-friends',
@@ -23,8 +21,7 @@ export class InviteFriendsComponent implements OnInit {
         private fb: FormBuilder,
         private toastrService: ToastrService,
         private cookieService: CookieService,
-        private userService: UserserviceService,
-        private router: Router,
+        private emailService: EmailService,
     ) {}
 
     ngOnInit(): void {
@@ -55,7 +52,7 @@ export class InviteFriendsComponent implements OnInit {
                 };
                 promises.push(
                     new Promise((resolve, reject) => {
-                        return this.userService.sendUrlToEmail(postData).subscribe((res: any) => {
+                        return this.emailService.sendEmail(postData).subscribe((res: any) => {
                             if (res.status === '200 OK') {
                                 resolve(res);
                             } else {

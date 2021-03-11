@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { RoasteryProfileService } from '@services';
+import { RoasteryProfileService } from '../roastery-profile.service';
 import { UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -78,15 +78,19 @@ export class AboutRoasteryComponent implements OnInit {
     };
     addBtn = true;
     assignRow = false;
-    // showDelete : boolean = false;
     assignButtonValue = 'Add Contact';
     brands: any;
-    @ViewChild('roasterImage') roasterImage;
+    @ViewChild('roasterImage', { static: true }) roasterImage;
+
     kgsOptions = [
         { name: 'kg', value: 'kg' },
         { name: 'lb', value: 'lb' },
     ];
+
     roasterUsersOptions?: any[];
+    aboutForm: FormGroup;
+    isSaveMode: boolean;
+    isEditMode: boolean;
 
     constructor(
         public roasteryProfileService: RoasteryProfileService,
@@ -95,6 +99,7 @@ export class AboutRoasteryComponent implements OnInit {
         private toastrService: ToastrService,
         public globals: GlobalsService,
         public roasterService: RoasterserviceService,
+        private fb: FormBuilder,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.userId = this.cookieService.get('user_id');
@@ -106,6 +111,57 @@ export class AboutRoasteryComponent implements OnInit {
         this.getBrands();
         this.language();
         this.getRoasterUsers();
+        this.initialForm();
+        this.detectMode();
+    }
+
+    detectMode() {
+        this.roasteryProfileService.saveMode$.subscribe((res: boolean) => {
+            this.isSaveMode = res;
+            if (res) {
+                this.setFormValue();
+            }
+        });
+        this.roasteryProfileService.editMode$.subscribe((res: boolean) => {
+            this.isEditMode = res;
+        });
+    }
+
+    initialForm() {
+        this.aboutForm = this.fb.group({
+            owner_name: ['', Validators.compose([Validators.required])],
+            founded_on: ['', Validators.compose([Validators.required])],
+            description: ['', Validators.compose([Validators.maxLength(200)])],
+            total_employees: [null, Validators.compose([Validators.required])],
+            avg_employee_age: [null, Validators.compose([Validators.required])],
+            female_employee_count: ['', Validators.compose([Validators.required])],
+            male_employee_count: ['', Validators.compose([Validators.required])],
+            company_details_public: [false, Validators.compose([Validators.required])],
+            vat_number: ['', Validators.compose([Validators.required])],
+            registration_id: ['', Validators.compose([Validators.required])],
+            capacity: ['', Validators.compose([Validators.required])],
+            capacity_unit: ['', Validators.compose([Validators.required])],
+            capabilities: ['', Validators.compose([Validators.required])],
+        });
+    }
+
+    setFormValue() {
+        const formValue = {
+            owner_name: this.roasteryProfileService.roasteryProfileData.owner_name,
+            founded_on: this.roasteryProfileService.roasteryProfileData.founded_on,
+            description: this.roasteryProfileService.roasteryProfileData.description,
+            total_employees: this.roasteryProfileService.roasteryProfileData.total_employees,
+            avg_employee_age: this.roasteryProfileService.roasteryProfileData.avg_employee_age,
+            female_employee_count: this.roasteryProfileService.roasteryProfileData.female_employee_count,
+            male_employee_count: this.roasteryProfileService.roasteryProfileData.male_employee_count,
+            company_details_public: this.roasteryProfileService.roasteryProfileData.company_details_public,
+            vat_number: this.roasteryProfileService.roasteryProfileData.vat_number,
+            registration_id: this.roasteryProfileService.roasteryProfileData.registration_id,
+            capacity: this.roasteryProfileService.roasteryProfileData.capacity,
+            capacity_unit: this.roasteryProfileService.roasteryProfileData.capacity_unit,
+            capabilities: this.roasteryProfileService.roasteryProfileData.capabilities,
+        };
+        this.aboutForm.setValue(formValue);
     }
 
     language() {
@@ -266,5 +322,15 @@ export class AboutRoasteryComponent implements OnInit {
 
     public deleteRow(index) {
         this.brandProfile.splice(index, 1);
+    }
+
+    isControlHasError(controlName: string, validationType: string): boolean {
+        const control = this.aboutForm.controls[controlName];
+        if (!control) {
+            return false;
+        }
+
+        const result = control.hasError(validationType) && (control.dirty || control.touched);
+        return result;
     }
 }
