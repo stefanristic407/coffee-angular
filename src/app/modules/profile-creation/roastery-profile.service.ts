@@ -7,7 +7,7 @@ import { ProfilePhotoService } from './profile-photo/profile-photo.service';
 import { Router } from '@angular/router';
 import { COUNTRY_LIST } from '@constants';
 import { BehaviorSubject } from 'rxjs';
-import { RoasteryProfile } from './roastery-profile-model';
+import { OrganizationProfile } from '@models';
 @Injectable({
     providedIn: 'root',
 })
@@ -26,8 +26,8 @@ export class RoasteryProfileService {
     public mainSubFormInvalid: boolean;
     public aboutFormInvalid: boolean;
     public contactFormInvalid: boolean;
-    public toUpdateProfileData: RoasteryProfile;
-    public roasteryProfileData: RoasteryProfile;
+    public toUpdateProfileData: OrganizationProfile;
+    public roasteryProfileData: OrganizationProfile;
 
     cities: Array<any> = [];
 
@@ -162,7 +162,7 @@ export class RoasteryProfileService {
     }
 
     updateRoasterAccount(): void {
-        const data: RoasteryProfile = this.toUpdateProfileData;
+        const data: OrganizationProfile = this.toUpdateProfileData;
         // const data: RoasteryProfile = this.roasteryProfileData;
 
         console.log('to save data: ', data);

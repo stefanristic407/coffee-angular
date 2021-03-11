@@ -131,7 +131,7 @@ export class AboutRoasteryComponent implements OnInit {
         this.aboutForm = this.fb.group({
             owner_name: ['', Validators.compose([Validators.required])],
             founded_on: ['', Validators.compose([Validators.required])],
-            description: ['', Validators.compose([Validators.maxLength(200)])],
+            description: ['', Validators.compose([Validators.maxLength(20)])],
             total_employees: [null, Validators.compose([Validators.required])],
             avg_employee_age: [null, Validators.compose([Validators.required])],
             female_employee_count: ['', Validators.compose([Validators.required])],

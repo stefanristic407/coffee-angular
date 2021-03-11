@@ -7,14 +7,13 @@
             <form [formGroup]="aboutForm">
                 <div class="br-md-main br-4 p-lg-4 p-md-3">
                     <div class="row br-main br-md-none br-4 mt-3 m-0 p-3 p-md-0">
-                        <div class="form-group col-6 m-0 pl-0 pr-2">
+                        <div class="sewn-form-field col-6 m-0 pl-0 pr-2">
                             <label *ngIf="isSaveMode" for="owner_name">
                                 {{ 'owner_name' | translate }}<span class="star">*</span>
                             </label>
                             <input
                                 *ngIf="isSaveMode"
                                 pInputText
-                                class="p-3 w-100"
                                 id="owner_name"
                                 type="text"
                                 required
@@ -28,11 +27,11 @@
                             <p class="fnt-14 fnt-600 text-clr334" *ngIf="isEditMode">
                                 {{ roasteryProfileService.roasteryProfileData?.owner_name }}
                             </p>
-                            <div class="ownerNameError" *ngIf="isControlHasError('owner_name', 'required')">
-                                {{ ownerNameError }}
-                            </div>
+                            <small *ngIf="isControlHasError('owner_name', 'required')" class="p-error">
+                                {{ 'required' | translate }}
+                            </small>
                         </div>
-                        <div class="form-group col-6 m-0 pl-2 pr-0">
+                        <div class="sewn-form-field col-6 m-0 pl-2 pr-0">
                             <label *ngIf="isSaveMode" for="founded_in">
                                 {{ 'founded_in' | translate }}
                                 <span class="star">*</span>
@@ -41,8 +40,8 @@
                                 *ngIf="isSaveMode"
                                 id="founded_in"
                                 type="number"
+                                limit="4"
                                 pInputText
-                                class="w-100 p-3"
                                 name="founded_in"
                                 formControlName="founded_on"
                                 placeholder="Please enter founded year"
@@ -53,15 +52,20 @@
                             <p class="fnt-14 fnt-600 text-clr334" *ngIf="isEditMode">
                                 {{ roasteryProfileService.roasteryProfileData?.founded_on }}
                             </p>
-                            <div class="foundedInError" *ngIf="isControlHasError('founded_on', 'required')">
-                                {{ foundedInError }}
-                            </div>
+                            <small *ngIf="isControlHasError('founded_on', 'required')" class="p-error">
+                                {{ 'required' | translate }}
+                            </small>
                         </div>
                     </div>
 
                     <div class="row br-main br-md-none br-4 mt-3 mb-3 m-0 p-3 p-md-0">
-                        <div class="form-group col-md-12 mt-md-45 p-0" *ngIf="isSaveMode">
-                            <label for="summary">{{ 'roastery_summary' | translate }}</label>
+                        <div class="sewn-form-field col-md-12 mt-md-45 p-0" *ngIf="isSaveMode">
+                            <label for="summary"
+                                >{{ 'roastery_summary' | translate }}
+                                <span class="pull-right text-clr588">
+                                    {{ aboutForm.get('description').value.length }}/150 words
+                                </span>
+                            </label>
                             <textarea
                                 *ngIf="isSaveMode"
                                 pInputTextarea
@@ -73,9 +77,9 @@
                                 placeholder="Tell us and to our users about who you are as a company!"
                             >
                             </textarea>
-                        </div>
-                        <div *ngIf="isControlHasError('description', 'maxlength')">
-                            <p class="m-0 fnt-12">Description length shouldn't be over 200 characters</p>
+                            <small *ngIf="isControlHasError('description', 'maxlength')" class="p-error">
+                                Description length shouldn't be over 150 characters
+                            </small>
                         </div>
                         <div class="mb-3 col-md-12 mt-md-3 p-0" *ngIf="isEditMode">
                             <label for="summary" class="mob-label">
@@ -98,13 +102,12 @@
                     </div>
 
                     <div class="row mb-md-3" *ngIf="isSaveMode">
-                        <div class="form-group col-md-6 pr-2">
+                        <div class="sewn-form-field col-md-6 pr-2">
                             <label for="employee_nos">
                                 {{ 'total_number_employees' | translate }}
                                 <span class="star">*</span>
                             </label>
                             <input
-                                class="w-100 p-3"
                                 id="employee_nos"
                                 type="number"
                                 pInputText
@@ -113,17 +116,16 @@
                                 formControlName="total_employees"
                                 placeholder="Please enter no. of employees"
                             />
-                            <div class="employeeNoError" *ngIf="isControlHasError('total_employees', 'required')">
-                                {{ employeeNoError }}
-                            </div>
+                            <small class="p-error" *ngIf="isControlHasError('total_employees', 'required')">
+                                {{ 'required' | translate }}
+                            </small>
                         </div>
-                        <div class="form-group col-md-6 pl-2">
+                        <div class="sewn-form-field col-md-6 pl-2">
                             <label for="employee_avg">
                                 {{ 'average_employee_age' | translate }}
                                 <span class="star">*</span>
                             </label>
                             <input
-                                class="w-100 p-3"
                                 id="employee_avg"
                                 type="number"
                                 pInputText
@@ -132,9 +134,9 @@
                                 formControlName="avg_employee_age"
                                 placeholder="Please enter employee avg. age"
                             />
-                            <div class="employeeAvgError" *ngIf="isControlHasError('avg_employee_age', 'required')">
-                                {{ employeeAvgError }}
-                            </div>
+                            <small class="p-error" *ngIf="isControlHasError('avg_employee_age', 'required')">
+                                {{ 'required' | translate }}
+                            </small>
                         </div>
                     </div>
                     <span class="fnt-14 font-bold text-clr334" *ngIf="isSaveMode">
@@ -142,13 +144,12 @@
                         <span class="star">*</span>
                     </span>
                     <div class="row" *ngIf="isSaveMode">
-                        <div class="form-group col-md-6 pr-2">
+                        <div class="sewn-form-field col-md-6 pr-2">
                             <label for="female_num">
                                 {{ 'total_number_female_employees' | translate }}
                                 <span class="star">*</span>
                             </label>
                             <input
-                                class="w-100 p-3"
                                 id="female_num"
                                 pInputText
                                 type="number"
@@ -157,17 +158,16 @@
                                 formControlName="female_employee_count"
                                 placeholder="Please enter the number of female employees"
                             />
-                            <div class="femaleNumError" *ngIf="isControlHasError('female_employee_count', 'required')">
-                                {{ femaleNumError }}
-                            </div>
+                            <small class="p-error" *ngIf="isControlHasError('female_employee_count', 'required')">
+                                {{ 'required' | translate }}
+                            </small>
                         </div>
-                        <div class="form-group col-md-6 pl-2">
+                        <div class="sewn-form-field col-md-6 pl-2">
                             <label for="male_num">
                                 {{ 'total_number_male_employees' | translate }}
                                 <span class="star">*</span>
                             </label>
                             <input
-                                class="w-100 p-3"
                                 id="male_num"
                                 pInputText
                                 type="number"
@@ -176,9 +176,9 @@
                                 formControlName="male_employee_count"
                                 placeholder="Please enter the number of male employees"
                             />
-                            <div class="maleNumError" *ngIf="isControlHasError('male_employee_count', 'required')">
-                                {{ maleNumError }}
-                            </div>
+                            <small class="p-error" *ngIf="isControlHasError('male_employee_count', 'required')">
+                                {{ 'required' | translate }}
+                            </small>
                         </div>
                     </div>
 
@@ -204,10 +204,9 @@
                             ></p-inputSwitch>
                         </div>
 
-                        <div class="col-12 col-md-6 p-0 pr-md-2">
+                        <div class="sewn-form-field col-12 col-md-6 p-0 pr-md-2">
                             <label for="vat_nos">VAT number<span class="star">*</span></label>
                             <input
-                                class="w-100 p-3"
                                 *ngIf="isSaveMode"
                                 id="vat_nos"
                                 type="text"
@@ -220,14 +219,13 @@
                             <p class="fnt-14 fnt-600" *ngIf="isEditMode">
                                 {{ roasteryProfileService.roasteryProfileData?.vat_number }}
                             </p>
-                            <div class="vatNoError" *ngIf="isControlHasError('vat_number', 'required')">
-                                {{ vatNoError }}
-                            </div>
+                            <small class="p-error" *ngIf="isControlHasError('vat_number', 'required')">
+                                {{ 'required' | translate }}
+                            </small>
                         </div>
-                        <div class="col-12 col-md-6 p-0 pl-md-2">
+                        <div class="sewn-form-field col-12 col-md-6 p-0 pl-md-2">
                             <label for="cmpy_rid">Company registration ID<span class="star">*</span></label>
                             <input
-                                class="w-100 p-3"
                                 *ngIf="isSaveMode"
                                 id="cmpy_rid"
                                 pInputText
@@ -240,9 +238,9 @@
                             <p class="fnt-14 fnt-600" *ngIf="isEditMode">
                                 {{ roasteryProfileService.roasteryProfileData?.registration_id }}
                             </p>
-                            <div class="cmpyRidError" *ngIf="isControlHasError('registration_id', 'required')">
-                                {{ cmpyRidError }}
-                            </div>
+                            <small class="p-error" *ngIf="isControlHasError('registration_id', 'required')">
+                                {{ 'required' | translate }}
+                            </small>
                         </div>
                     </div>
 
@@ -262,13 +260,12 @@
                     </div>
 
                     <div class="row" *ngIf="isSaveMode">
-                        <div class="form-group col-md-6 pr-2 position-relative">
+                        <div class="sewn-form-field col-md-6 pr-2 position-relative">
                             <label for="capacity">
                                 {{ 'roaster_capacity' | translate }}
                                 <span class="star">*</span>
                             </label>
                             <input
-                                class="w-100 p-3"
                                 id="capacity"
                                 type="number"
                                 required
@@ -287,18 +284,17 @@
                                 formControlName="capacity_unit"
                             >
                             </p-dropdown>
-                            <div class="capacityError" *ngIf="isControlHasError('capacity', 'required')">
-                                {{ capacityError }}
-                            </div>
+                            <small class="p-error" *ngIf="isControlHasError('capacity', 'required')">
+                                {{ 'required' | translate }}
+                            </small>
                         </div>
 
-                        <div class="form-group col-md-6 pl-2">
+                        <div class="sewn-form-field col-md-6 pl-2">
                             <label for="capabilities">
                                 {{ 'capabilities' | translate }}
                                 <span class="star">*</span>
                             </label>
                             <input
-                                class="w-100 p-3"
                                 id="capabilities"
                                 type="text"
                                 pInputText
@@ -307,9 +303,9 @@
                                 formControlName="capabilities"
                                 placeholder="Eg. Hand roasted, Blended, Mocha-Java"
                             />
-                            <div class="capabilitiesError" *ngIf="isControlHasError('capabilities', 'required')">
-                                {{ capabilitiesError }}
-                            </div>
+                            <small class="p-error" *ngIf="isControlHasError('capabilities', 'required')">
+                                {{ 'required' | translate }}
+                            </small>
                         </div>
                     </div>
 
@@ -350,10 +346,9 @@
                     <div *ngIf="isSaveMode">
                         <div class="mt-2" *ngFor="let brand of brandProfile; let i = index">
                             <div class="row">
-                                <div class="form-group col-md-6 pr-2">
+                                <div class="sewn-form-field col-md-6 pr-2">
                                     <label> {{ 'brand_name' | translate }}<span class="star">*</span> </label>
                                     <input
-                                        class="w-100 p-3"
                                         type="text"
                                         required
                                         pInputText
@@ -366,11 +361,11 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-md-6">
+                                <div class="col-md-6">
                                     <p class="brand-mb">Brand Logo<span class="star">*</span></p>
                                     <button
                                         pButton
-                                        class="btn-file-upload mt-25"
+                                        class="btn-file-upload mt-2"
                                         (click)="roasterImage.click()"
                                         label="{{ 'upload' | translate }}"
                                     >
@@ -393,7 +388,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="form-group col-md-12 mt-3">
+                                <div class="sewn-form-field col-md-12 mt-3">
                                     <label
                                         >{{ 'short_description_brand' | translate }}<span class="star">*</span></label
                                     >
@@ -456,9 +451,8 @@
                             </div>
                         </div>
                         <div class="row" *ngFor="let role of roasteryProfileService.roasterContacts; let i = index">
-                            <div class="form-group col-md-6 mt-md-3 mb-0">
+                            <div class="sewn-form-field col-md-6 mt-md-3 mb-0">
                                 <input
-                                    class="w-100 p-3"
                                     type="text"
                                     pInputText
                                     required
@@ -473,7 +467,7 @@
                             </div>
                         </div>
                         <div class="row mt-3" *ngIf="assignRow">
-                            <div class="form-group col-md-6">
+                            <div class="sewn-form-field col-md-6">
                                 <label for="emp_name">{{ 'select_employee' | translate }}</label>
                                 <p-dropdown
                                     class="w-100"
