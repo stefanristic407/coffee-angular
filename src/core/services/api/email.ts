@@ -9,7 +9,7 @@ import { ApiService } from './api.service';
 })
 export class EmailService extends ApiService {
     constructor(protected cookieSrv: CookieService, protected http: HttpClient) {
-        super(http, cookieSrv);
+        super(cookieSrv, http);
     }
 
     sendEmail(body: any): Observable<any> {
