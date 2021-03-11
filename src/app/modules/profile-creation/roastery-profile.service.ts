@@ -23,9 +23,9 @@ export class RoasteryProfileService {
     public avatarImageChanged = new BehaviorSubject(null);
     public avatarImageChanged$ = this.avatarImageChanged.asObservable();
 
-    public mainSubFormInvalid: boolean;
-    public aboutFormInvalid: boolean;
-    public contactFormInvalid: boolean;
+    public mainSubFormInvalid = false;
+    public aboutFormInvalid = false;
+    public contactFormInvalid = false;
     public toUpdateProfileData: OrganizationProfile;
     public roasteryProfileData: OrganizationProfile;
 
@@ -143,6 +143,13 @@ export class RoasteryProfileService {
     }
 
     saveRoasterProfile() {
+        //      public mainSubFormInvalid: boolean;
+        // public aboutFormInvalid: boolean;
+        // public contactFormInvalid: boolean;
+        if (this.mainSubFormInvalid || this.aboutFormInvalid || this.contactFormInvalid) {
+            this.toastrService.error('Please fill all required fields');
+            return;
+        }
         this.isSaving = true;
         if (this.bannerFile) {
             this.userService.uploadFile(this.roasterId, this.bannerFile, 'Cover-Image').subscribe((res) => {
@@ -246,13 +253,13 @@ export class RoasteryProfileService {
 
         reader.onload = (event: any) => {
             this.bannerUrl = event.target.result;
-            // console.log('input file in serveice: ', this.bannerUrl);
         };
     }
 
     handleDeleteBannerImage(): void {
         console.log('banner file id ', this.bannerFileId);
         this.userService.deleteFile(this.roasterId, this.bannerFileId).subscribe((res) => {
+            this.toastrService.success('Deleted Banner Image');
             console.log('remove banner file res', res);
         });
     }
