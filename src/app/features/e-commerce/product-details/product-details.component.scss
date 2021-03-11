@@ -87,6 +87,10 @@
     .describePadding {
         margin-bottom: 0px;
     }
+
+    ::ng-deep .varientBox label.p-checkbox-label {
+        width: max-content;
+    }
 }
 @media screen and (max-width: 767px) {
     .weightVariantBtn {
@@ -123,6 +127,16 @@
     }
     .roasterDivText-area {
         height: 232px;
+    }
+    ::ng-deep .varientBox label.p-checkbox-label {
+        position: relative;
+        top: 0.35rem;
+    }
+}
+@media (max-width: 375px) {
+    ::ng-deep .varientBox label.p-checkbox-label {
+        position: relative;
+        top: 0.9rem;
     }
 }
 .addWeightDiv {

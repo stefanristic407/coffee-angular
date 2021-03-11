@@ -64,7 +64,7 @@
                 <div class="col-12 divSeperator w-100 ml-1 mt-4"></div>
             </div>
         </div>
-        <div class="row gutter-16 gutter-lg-24 mt-2">
+        <div class="row gutter-16 gutter-lg-24 mt-3 mt-md-2">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
                 <label>Product Name<span class="star">*</span></label>
                 <input type="text" placeholder="product name" formControlName="name" pInputText />
@@ -103,10 +103,10 @@
         </div>
         <div class="divSeperator"></div>
         <div class="row no-gutters mb-4">
-            <div class="col-12 mb-3">
+            <div class="col-12 mb-2 mb-md-3">
                 <span class="primary_txt fnt-14 fnt-md-16">Variants</span>
             </div>
-            <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 d-flex align-items-center">
+            <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 d-flex align-items-center mb-3 mb-md-0 varientBox">
                 <p-checkbox
                     formControlName="is_variants_included"
                     binary="true"
@@ -296,8 +296,8 @@
                             <div class="col-12 mb-3 mt-1">
                                 <span class="primary_txt fnt-14 fnt-md-16">Recommended brewing method</span>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-4 col-lg-5 col-xl-3 sewn-form-field w-100">
-                                <label>Select a brewing method<span class="star">*</span></label>
+                            <div class="col-6 col-sm-6 col-md-4 col-lg-5 col-xl-3 sewn-form-field w-100">
+                                <label class="text-nowrap">Select a brewing method<span class="star">*</span></label>
                                 <p-dropdown
                                     [options]="brewingMethodArray"
                                     optionLabel="label"
@@ -318,11 +318,20 @@
                                 </div>
                                 <input
                                     type="text"
+                                    class="d-none d-sm-none d-md-block d-lg-block d-xl-block"
                                     (keydown)="onPasteDescription('recommendation', i)"
                                     (input)="onPasteDescription('recommendation', i)"
                                     formControlName="roaster_recommendation"
                                     pInputText
                                 />
+                                <textarea
+                                    type="text"
+                                    class="descriptionText-area d-block d-sm-block d-md-none d-lg-none d-xl-none"
+                                    formControlName="roaster_recommendation"
+                                    (keydown)="onPasteDescription('recommendation', i)"
+                                    (input)="onPasteDescription('recommendation', i)"
+                                    pInputText
+                                ></textarea>
                                 <small
                                     *ngIf="varient['controls']['roaster_recommendation'].errors?.required"
                                     class="p-error"
@@ -357,7 +366,7 @@
         >
             <div [formGroupName]="i" class="row mt-2">
                 <div class="col-3 col-sm-3 col-md-4 col-lg-4 col-xl-2 sewn-form-field w-100 pr-0">
-                    <label>Box value<span class="star">*</span></label>
+                    <label class="text-nowrap">Box value<span class="star">*</span></label>
                     <input type="text" placeholder="" readonly formControlName="boxField" pInputText />
                 </div>
                 <div class="equal-operators">=</div>
