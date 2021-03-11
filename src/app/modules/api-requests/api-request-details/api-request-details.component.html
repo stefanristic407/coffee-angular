@@ -49,7 +49,7 @@
                                     </div>
                                     <div
                                         class="btn btn-group__item"
-                                        (click)="pause()"
+                                        (click)="pause(requestDetailData?.org_name)"
                                         [ngClass]="!btnToggle ? 'active_default active' : 'disable_default'"
                                         id="disableStatus"
                                     >
@@ -195,35 +195,5 @@
                 </p>
             </div>
         </div>
-
-        <ng-template #deletetemplate>
-            <div class="templete-modal-body text-center" *ngIf="!isDeletedApiKey">
-                <p class="fnt-14 fnt-muli fnt-700 text-clr334 m-0">
-                    Are you sure you want to delete the API key for "Third wave coffee roasters"?
-                </p>
-                <div class="templete-btn">
-                    <button class="btn btn-stroked" (click)="modalRef.hide()">Cancel</button>
-                    <button class="btn btn-raised ml-3" (click)="onConfirm()">Yes</button>
-                </div>
-            </div>
-
-            <div class="delete-confirmation-modal-body text-center mb-2" *ngIf="isDeletedApiKey">
-                <p class="fnt-14 fnt-muli fnt-700 text-clr334 float-left m-0">
-                    <span><img class="mr-2" src="assets/images/correct.png" alt="" /> </span> The Api Key Is Deleted.
-                </p>
-            </div>
-        </ng-template>
-
-        <ng-template #pausetemplate>
-            <div class="templete-modal-body text-center">
-                <p class="fnt-14 fnt-muli fnt-700 text-clr334 m-0">
-                    Are you sure you want to Pause API key access for "Third wave coffee roasters"?
-                </p>
-                <div class="templete-btn">
-                    <button class="btn btn-stroked" (click)="modalRef.hide()">{{ 'Cancel' | translate }}</button>
-                    <button class="btn btn-raised ml-3" (click)="confirmPauseKey()">{{ 'Yes' | translate }}</button>
-                </div>
-            </div>
-        </ng-template>
     </div>
 </section>

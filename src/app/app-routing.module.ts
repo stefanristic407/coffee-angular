@@ -61,10 +61,7 @@ export const routes: Routes = [
             },
             {
                 path: 'api-requests-list',
-                loadChildren: () =>
-                    import('./modules/api-requests/api-requests-table/api-request.module').then(
-                        (m) => m.ApiRequestModule,
-                    ),
+                loadChildren: () => import('./modules/api-requests/api-request.module').then((m) => m.ApiRequestModule),
             },
             {
                 path: 'green-coffee-management',

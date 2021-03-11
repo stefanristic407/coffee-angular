@@ -33,10 +33,6 @@
         padding-top: 16px;
     }
 
-    .delete-confirmation-modal-body {
-        padding: 99px 147px 117px 152px;
-    }
-
     th {
         font-family: Muli;
         font-size: 14px;
@@ -129,20 +125,5 @@
         background-color: #ffffff;
         color: #979797;
         @extend .active_class;
-    }
-}
-::ng-deep .modal-dialog {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    margin-top: 0;
-}
-
-.templete-modal-body {
-    position: relative;
-    padding: 67px 84px;
-    .templete-btn {
-        padding: 24px;
     }
 }
