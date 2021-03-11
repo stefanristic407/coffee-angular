@@ -1,3 +1,5 @@
+export * from './availability-details.model';
+export * from './availability-request.model';
 export * from './bulk-details.model';
 export * from './confirm-reject-order-details.model';
 export * from './cupping-score.model';

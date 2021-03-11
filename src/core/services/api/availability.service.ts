@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService } from './api.service';
+import { toCamelCase } from '@utils';
 
 @Injectable({
     providedIn: 'root',
@@ -14,6 +15,18 @@ export class AvailabilityService extends ApiService {
 
     constructor(protected cookieSrv: CookieService, protected http: HttpClient) {
         super(cookieSrv, http);
+    }
+
+    getAvailabilityList(): Observable<any[]> {
+        return this.postWithOrg(this.orgPostUrl, this.endpoint).pipe(
+            map((response) => {
+                if (response.success && response.result) {
+                    return response.result.map((x) => toCamelCase(x));
+                }
+
+                return [];
+            }),
+        );
     }
 
     getAvailabilityDetails(harvestId: number): Observable<BulkDetails> {

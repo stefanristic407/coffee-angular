@@ -9,6 +9,8 @@ import {
     RecentActivity,
     OrganizationDetails,
     ConfirmRejectOrderDetails,
+    LabelValue,
+    AvailabilityRequest,
 } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -19,7 +21,10 @@ import {
     GeneralCuppingService,
     OrderService,
     PurchaseService,
+    CommonService,
+    AvailabilityRequestService,
 } from '@services';
+import * as _ from 'lodash';
 
 @Injectable({
     providedIn: 'root',
@@ -35,6 +40,8 @@ export class OrderManagementService {
         [OrgType.MICRO_ROASTER]: new BehaviorSubject<ApiResponse<OrderSummary[]>>(null),
     };
     private readonly cuppingScoreSubject = new BehaviorSubject<CuppingScore[]>([]);
+    private readonly originListSubject = new BehaviorSubject<LabelValue[]>([]);
+    private readonly requestListSubject = new BehaviorSubject<ApiResponse<AvailabilityRequest[]>>(null);
 
     private orderId: number;
 
@@ -45,6 +52,8 @@ export class OrderManagementService {
         private cuppingSrv: GeneralCuppingService,
         private orderSrv: OrderService,
         private purchaseSrv: PurchaseService,
+        private commonSrv: CommonService,
+        private requestSrv: AvailabilityRequestService,
     ) {}
 
     get orderDetails$(): Observable<OrderDetails> {
@@ -69,6 +78,14 @@ export class OrderManagementService {
 
     get cuppingScore$(): Observable<CuppingScore[]> {
         return this.cuppingScoreSubject.asObservable();
+    }
+
+    get originList$(): Observable<LabelValue[]> {
+        return this.originListSubject.asObservable();
+    }
+
+    get requestList$(): Observable<ApiResponse<AvailabilityRequest[]>> {
+        return this.requestListSubject.asObservable();
     }
 
     getOrders(organizationType: OrgType): Observable<ApiResponse<OrderSummary[]>> {
@@ -104,9 +121,32 @@ export class OrderManagementService {
         return this.purchaseSrv.downloadOrders(orgType, exportType, dateFrom, dateTo);
     }
 
+    loadOrigins(): void {
+        this.availabilitySrv.getAvailabilityList().subscribe((availabilityList) => {
+            const origins = availabilityList.map((x) => (x.lot ? x.lot.country : '').toUpperCase()).filter((x) => x);
+
+            const labels = _.sortBy(_.uniq(origins))
+                .map((x) => {
+                    return {
+                        label: this.commonSrv.getCountryName(x),
+                        value: x,
+                    };
+                })
+                .filter((x) => x.label);
+
+            this.originListSubject.next(labels);
+        });
+    }
+
     loadOrders(organizationType: OrgType, options: any): void {
         this.purchaseSrv.getOrders(organizationType, options).subscribe({
             next: (result) => this.ordersSubjects[organizationType].next(result),
+        });
+    }
+
+    loadRequests(options: any): void {
+        this.requestSrv.getRequestList(options).subscribe({
+            next: (response) => this.requestListSubject.next(response),
         });
     }
 

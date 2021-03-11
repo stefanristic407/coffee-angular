@@ -1,0 +1,105 @@
+<p-table [class.table-mobile]="isMobile$ | async" class="mt-2" [value]="tableData" dataKey="id"
+    [rows]="rowsPerPage" [showCurrentPageReport]="false" [paginator]="true" [lazy]="true"
+    [loading]="loading" (onLazyLoad)="loadRequests($event)" [totalRecords]="pageInfo.total_count"
+    sortField="date_received"
+    styleClass="p-datatable-responsive-single p-datatable-tablet-scrollable p-datatable-custom-paginator">
+
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th pSortableColumn="micro_roaster_name">
+                <div class="d-flex">
+                    <span class="text-overflow-ellipsis">{{ 'requested_by' | translate }}</span>
+                    <p-sortIcon field="micro_roaster_name" ariaLabel="Activate to sort"
+                        ariaLabelDesc="Activate to sort in descending order"
+                        ariaLabelAsc="Activate to sort in ascending order">
+                    </p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="created_at">
+                <div class="d-flex">
+                    <span class="text-overflow-ellipsis">{{ 'date_requested' | translate }}</span>
+                    <p-sortIcon field="created_at" ariaLabel="Activate to sort"
+                        ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order">
+                    </p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="origin">
+                <div class="d-flex">
+                    <span class="text-overflow-ellipsis">{{ 'origin' | translate }}</span>
+                    <p-sortIcon field="origin" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order"
+                        ariaLabelAsc="Activate to sort in ascending order">
+                    </p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="estate_name">
+                <div class="d-flex">
+                    <span class="text-overflow-ellipsis">{{ 'estate_name' | translate }}</span>
+                    <p-sortIcon field="estate_name" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order"
+                        ariaLabelAsc="Activate to sort in ascending order">
+                    </p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="varieties">
+                <div class="d-flex">
+                    <span class="text-overflow-ellipsis">{{ 'variety' | translate }}</span>
+                    <p-sortIcon field="varieties" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order"
+                        ariaLabelAsc="Activate to sort in ascending order">
+                    </p-sortIcon>
+                </div>
+            </th>
+            
+            <th class="action-column text-center">
+                <span class="text-overflow-ellipsis">{{ 'action' | translate }}</span>
+            </th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-rowData>
+        <tr>
+            <td class="border-0">
+                <span class="d-none d-md-inline">{{ rowData.micro_roaster_name }}</span>
+                <!-- <div class="p-mobile-row-content border-ebebeb p-0">
+                    <div class="d-flex flex-column fnt-12">
+                        <div class="order-header d-flex justify-content-between px-3 py-1">
+                            <span class="fnt-14 font-bold text-clr334">
+                                {{ 'Order' | translate }} #{{ rowData.id }}
+                            </span>
+                            <span class="fnt-500" [ngClass]="rowData.type">&#9679;&nbsp;{{ rowData.type
+                                }}</span>
+                        </div>
+
+                        <div class="px-3">
+                            <div class="d-flex justify-content-between pt-2">
+                                <span class="text-clr334">{{ rowData.status }}</span>
+                                <span class="text-muted">{{ rowData.createdAt | date: 'd MMM yyyy' }}</span>
+                            </div>
+
+                            <div class="mobile-row py-2 d-flex">
+                                <span class="text-muted cell-header">{{ 'estate_name' | translate }}</span>
+                                <span class="text-clr334">{{ rowData.estateName }}</span>
+                            </div>
+                            <div class="mobile-row py-2 d-flex">
+                                <span class="text-muted cell-header">{{ 'origin' | translate }}</span>
+                                <span class="text-clr334">
+                                    {{ commonService.getCountryName(rowData.origin) }}
+                                </span>
+                            </div>
+                            <div class="py-2 d-flex">
+                                <span class="text-muted cell-header cell-header">{{ 'variety' | translate
+                                    }}</span>
+                                <span class="text-clr334">{{ rowData.varieties }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            </td>
+            <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.createdAt | date: 'd MMM yyyy' }}</td>
+            <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.origin }}</td>
+            <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.estateName }}</td>
+            <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.varieties }}</td>
+            <td class="d-none d-md-table-cell">
+                <a class="navigation-link">{{ 'view_details' | translate }}</a>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

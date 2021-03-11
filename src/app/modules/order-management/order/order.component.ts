@@ -36,7 +36,7 @@ export class OrderComponent extends DestroyableComponent implements OnInit {
     ngOnInit(): void {
         this.route.params.pipe(takeUntil(this.unsubscribeAll$)).subscribe((params) => {
             this.orderId = +params.id;
-            this.organizationType = params.organizationType;
+            this.organizationType = params.orgType;
             this.ordersService.loadOrderDetails(this.orderId, this.organizationType);
             this.ordersService.orderDetails$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((data) => {
                 this.orderDetails = data;
