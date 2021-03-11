@@ -462,7 +462,12 @@
                             <a (click)="certIndex = i; menu.toggle($event)">
                                 <img src="assets/images/menu-gray.svg" alt="menu" />
                             </a>
-                            <p-menu #menu [popup]="true" [model]="certMenuItems" styleClass="menu-actions"></p-menu>
+                            <p-menu
+                                #menu
+                                [popup]="true"
+                                [model]="certMenuItems"
+                                styleClass="left-menu-actions"
+                            ></p-menu>
                         </div>
                     </div>
                 </div>
