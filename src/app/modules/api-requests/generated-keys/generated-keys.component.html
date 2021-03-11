@@ -66,7 +66,7 @@
                                     }}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a class="pointer-item" (click)="deleteKey(); pop.hide()">{{
+                                    <a class="pointer-item" (click)="deleteKey(item.id); pop.hide()">{{
                                         globals.languageJson?.delete_key
                                     }}</a>
                                 </li>
@@ -76,21 +76,6 @@
                                     }}</a>
                                 </li>
                             </ul>
-                        </div>
-                    </ng-template>
-                    <ng-template #deletetemplate>
-                        <div class="delete-template-modal-body text-center">
-                            <p class="fnt-14 fnt-muli fnt-700 text-clr334 m-0">
-                                Are you sure you want to delete the API key for "Third wave coffee roasters"?
-                            </p>
-                            <div class="templete-btn">
-                                <button class="btn btn-stroked" (click)="modalRef.hide()">
-                                    {{ 'Cancel' | translate }}
-                                </button>
-                                <button class="btn btn-raised ml-3" (click)="onConfirm(item.id)">
-                                    {{ 'Yes' | translate }}
-                                </button>
-                            </div>
                         </div>
                     </ng-template>
                 </td>
@@ -106,12 +91,6 @@
 </div>
 
 <!-- no-data for Api Generated Keys -->
-<div class="row pt-5" *ngIf="!generatedKeyData?.length && !loader">
-    <div class="col-lg-12 col-md-12 no-data-sec">
-        <div class="text-center">
-            <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image" />
-            <h1 class="fnt-16 fnt-md-18 fnt-700 fnt-muli text-clr334">No data available</h1>
-        </div>
-    </div>
-</div>
-<!-- no-data for Api Generated Keys -->
+<ng-container *ngIf="!generatedKeyData?.length && !loader">
+    <app-empty title="No data available"></app-empty>
+</ng-container>

@@ -14,7 +14,7 @@ export class ApiKeyRequestsComponent implements OnInit {
     @Input() filterData;
     @Input() dateRange;
     @Input() perPage;
-    statusFilter: string = 'PENDING';
+    statusFilter = 'PENDING';
     @Output() filterType = new EventEmitter<any>();
     termStatus: any;
     showStatus = true;
@@ -32,15 +32,6 @@ export class ApiKeyRequestsComponent implements OnInit {
     requestData: any[] = [];
     sortOrder = '';
     sortType = '';
-
-    mainData: any[] = [
-        { requested_by: 'Third wave coffee roasters', customer_type: 'Micro-Roaster', date_requested: '24 Jan 2020' },
-        { requested_by: 'Home brew coffee', customer_type: 'Micro-Roaster', date_requested: '12 Jan 2020' },
-        { requested_by: 'La Barista', customer_type: 'HoReCa', date_requested: '13 Oct 2018' },
-        { requested_by: 'BRU coffee roastes', customer_type: 'Micro-Roaster', date_requested: '02 Dec 2019' },
-        { requested_by: 'Blue Tokai roasters', customer_type: 'HoReCa', date_requested: '02 Oct 2019' },
-        { requested_by: 'La Barista', customer_type: 'HoReCa', date_requested: '19 Sep 2019' },
-    ];
     constructor(
         public cookieService: CookieService,
         private apiRequestService: ApiRequestService,
@@ -79,8 +70,8 @@ export class ApiKeyRequestsComponent implements OnInit {
         const data = {
             roaster_id: this.roasterID,
             page: this.pageNumber,
-            per_page: this.perPage,
-            org_type: this.filterData,
+            per_page: this.perPage ? this.perPage : 10,
+            org_type: this.filterData ? this.filterData : '',
             status: this.statusFilter,
         };
         if (this.dateFrom && this.dateTo) {
