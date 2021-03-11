@@ -66,9 +66,21 @@ export class ContactComponent implements OnInit {
         this.contactForm.controls.country.valueChanges.subscribe((updatedCountry: any) => {
             this.countryList.forEach((countryItem: Country) => {
                 if (countryItem.isoCode === updatedCountry.toUpperCase()) {
-                    this.cityList = countryItem.cities;
+                    this.cityList = [];
+                    countryItem.cities.map((stateItem: string) => {
+                        this.cityList.push({
+                            name: stateItem,
+                            value: stateItem,
+                        });
+                    });
                 }
             });
+        });
+
+        this.contactForm.valueChanges.subscribe((changedData: any) => {
+            console.log('value changed: ', this.contactForm.invalid, changedData);
+            this.roasteryProfileService.contactFormInvalid = this.contactForm.invalid;
+            this.roasteryProfileService.editProfileData(changedData);
         });
     }
 
@@ -106,8 +118,16 @@ export class ContactComponent implements OnInit {
     }
 
     telInputObject(obj: any): void {
+        console.log('phone no: ', obj);
         if (this.roasteryProfileService.roasteryProfileData.phone) {
             obj.setNumber(this.roasteryProfileService.roasteryProfileData.phone);
         }
+    }
+
+    onCountryChange(event) {
+        console.log('country changed: ', event);
+    }
+    getNumber(event) {
+        console.log('getNumber changed: ', event);
     }
 }

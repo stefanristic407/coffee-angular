@@ -40,6 +40,8 @@
                             formControlName="phone"
                             id="phoneno"
                             (intlTelInputObject)="telInputObject($event)"
+                            (countryChange)="onCountryChange($event)"
+                            (ng2TelOutput)="getNumber($event)"
                             required
                         />
                         <div class="phoneError" *ngIf="isControlHasError('phone', 'required')">
@@ -73,11 +75,13 @@
                         <p-dropdown
                             id="state"
                             class="w-100"
-                            formControlName="state"
-                            [options]="cityList"
-                            styleClass="profile-dropdown"
-                            name="state"
                             required
+                            formControlName="state"
+                            name="state"
+                            [options]="cityList"
+                            optionLabel="name"
+                            optionValue="value"
+                            styleClass="profile-dropdown"
                         >
                         </p-dropdown>
                     </div>
