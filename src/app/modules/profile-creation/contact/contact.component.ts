@@ -104,7 +104,7 @@ export class ContactComponent implements OnInit {
             ig_profile: this.roasteryProfileService.roasteryProfileData.ig_profile,
         };
 
-        this.contactForm.setValue(formValue);
+        this.contactForm.patchValue(formValue);
     }
 
     isControlHasError(controlName: string, validationType: string): boolean {
@@ -115,19 +115,5 @@ export class ContactComponent implements OnInit {
 
         const result = control.hasError(validationType) && (control.dirty || control.touched);
         return result;
-    }
-
-    telInputObject(obj: any): void {
-        console.log('phone no: ', obj);
-        if (this.roasteryProfileService.roasteryProfileData.phone) {
-            obj.setNumber(this.roasteryProfileService.roasteryProfileData.phone);
-        }
-    }
-
-    onCountryChange(event) {
-        console.log('country changed: ', event);
-    }
-    getNumber(event) {
-        console.log('getNumber changed: ', event);
     }
 }

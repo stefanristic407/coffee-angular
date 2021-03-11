@@ -223,10 +223,10 @@
             </div>
         </div>
         <div class="row gutter-16 gutter-lg-24">
-            <div class="col-12 fnt-14 fnt-md-16 fnt-muli fnt-700 black mt-3 mb-3">Add Images</div>
+            <div class="col-12 fnt-14 fnt-md-16 fnt-muli fnt-700 black mt-3 mt-lg-4 mb-3">Add Images</div>
             <div class="col-12 add-image-flex d-flex d-sm-flex d-md-none d-lg-flex row gutter-16 gutter-lg-24">
                 <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
-                    <label>Upload Feature Image<span class="star">*</span></label>
+                    <label class="text-nowrap">Upload Feature Image<span class="star">*</span></label>
                     <div
                         *ngIf="
                             !weightForm['controls']['weights']['controls'][currentVarientIndex]['value']['fileDetails']
@@ -296,9 +296,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 add-image-flex">
+                <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 add-image-flex row gutter-16 gutter-lg-24">
                     <div
-                        class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 pl-0 pr-3 pr-lg-4 sewn-form-field w-100"
+                        class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 sewn-form-field w-100"
                         *ngFor="
                             let product_image of weightForm['controls']['weights']['controls'][currentVarientIndex][
                                 'value'
@@ -498,7 +498,7 @@
                 </div>
                 <!-- </div> -->
             </div>
-            <div class="col-12 col-12 mt-3 mb-lg-4">
+            <div class="col-12 col-12 mt-2 mb-lg-4">
                 <button type="button" (click)="uploadImages()" class="btn btn-stroked">Update</button>
             </div>
         </div>

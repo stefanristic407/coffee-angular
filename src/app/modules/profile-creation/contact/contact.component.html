@@ -30,23 +30,10 @@
                             {{ 'phone_number' | translate }}
                             <span class="star">*</span>
                         </label>
-                        <input
-                            type="text"
-                            class="w-100 pl-5 pt-3 pb-3"
-                            pInputText
-                            ng2TelInput
-                            placeholder="Enter your phone number"
-                            name="phoneno"
-                            formControlName="phone"
-                            id="phoneno"
-                            (intlTelInputObject)="telInputObject($event)"
-                            (countryChange)="onCountryChange($event)"
-                            (ng2TelOutput)="getNumber($event)"
-                            required
-                        />
-                        <div class="phoneError" *ngIf="isControlHasError('phone', 'required')">
-                            {{ phoneError }}
-                        </div>
+                        <app-phone-number formControlName="phone"></app-phone-number>
+                        <small *ngIf="contactForm.controls.phone.invalid" class="p-error d-block">
+                            Please enter valid phone number
+                        </small>
                     </div>
                 </div>
                 <div class="row">

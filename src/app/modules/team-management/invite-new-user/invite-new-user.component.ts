@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
-import { GlobalsService } from '@services';
+import { EmailService, GlobalsService } from '@services';
 import { RoasterserviceService, UserserviceService } from '@services';
 import { EditUserDetailsComponent } from '../edit-user-details/edit-user-details.component';
 
@@ -24,6 +24,7 @@ export class InviteNewUserComponent implements OnInit {
         public roasterService: RoasterserviceService,
         public cookieService: CookieService,
         private router: Router,
+        private emailService: EmailService,
         public globals: GlobalsService,
         public route: ActivatedRoute,
         public userService: UserserviceService,
@@ -96,7 +97,7 @@ export class InviteNewUserComponent implements OnInit {
                 .toPromise();
             if (assignRoleResponse && assignRoleResponse.success) {
                 const getEmailInput = this.getEmailInputBody(userInput);
-                const sendInviteEmail: any = await this.userService.sendUrlToEmail(getEmailInput).toPromise();
+                const sendInviteEmail: any = await this.emailService.sendEmail(getEmailInput).toPromise();
                 if (sendInviteEmail && sendInviteEmail.status === '200 OK') {
                     this.toastrService.success('Invite sent successfully');
                     return;
