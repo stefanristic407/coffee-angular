@@ -42,7 +42,13 @@
         <div class="profile-header-details position-relative">
             <img
                 class="cover-image-profile-banner w-100"
-                *ngIf="isSaveMode && roasteryProfileService.roasteryProfileData?.banner_url"
+                *ngIf="isSaveMode && roasteryProfileService.bannerUrl"
+                [src]="roasteryProfileService.bannerUrl"
+                height="160"
+            />
+            <img
+                class="cover-image-profile-banner w-100"
+                *ngIf="isSaveMode && !roasteryProfileService.bannerUrl"
                 [src]="roasteryProfileService.roasteryProfileData?.banner_url"
                 height="160"
             />
@@ -74,6 +80,7 @@
                 class="cover-image-profile-banner w-100"
                 *ngIf="isEditMode && roasteryProfileService.roasteryProfileData?.banner_url"
                 [src]="roasteryProfileService.roasteryProfileData?.banner_url"
+                alt="profile banner image"
                 height="160"
             />
 
@@ -118,21 +125,21 @@
                     >{{ roasteryProfileService.roasteryProfileData?.company_name }}</a
                 >
                 <form [formGroup]="subProfileForm" *ngIf="isSaveMode">
-                    <input
-                        pInputText
-                        type="text"
-                        class="p-3 fnt-14-normal text-clr334 font-bold w-100"
-                        formControlName="company_name"
-                        style="margin-top: 11px"
-                    />
-                    <input
-                        class="p-3 fnt-14-normal text-clr588 font-bold w-100 mt-2"
-                        type="text"
-                        pInputText
-                        placeholder="www.royalcoffee.az.com"
-                        formControlName="website"
-                        style="margin-top: 10px"
-                    />
+                    <div class="sewn-form-field w-100 mb-0">
+                        <input pInputText type="text" formControlName="company_name" style="margin-top: 11px" />
+                        <small *ngIf="isControlHasError('company_name', 'required')" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
+                    </div>
+                    <div class="sewn-form-field w-100">
+                        <input
+                            type="text"
+                            pInputText
+                            placeholder="www.royalcoffee.az.com"
+                            formControlName="website"
+                            style="margin-top: 10px"
+                        />
+                    </div>
                 </form>
                 <p class="fnt-14-normal text-clr588 mt-2" *ngIf="isEditMode">
                     {{ roasteryProfileService.roasteryProfileData?.website }}

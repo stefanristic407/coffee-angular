@@ -1,9 +1,6 @@
 @import '_variables.scss';
 .request-table-container {
-    padding: 32px 0;
-    .bread-crumb {
-        margin: 0 48px;
-    }
+    padding: 32px 48px;
     .mt-32 {
         margin-top: 32px;
     }
@@ -17,7 +14,7 @@
     }
 
     .estate-orders-heading {
-        margin: 24px 48px;
+        padding-top: 24px;
     }
 
     .estate-order-title {
@@ -72,7 +69,8 @@
         font-size: 14px;
         font-weight: normal;
         color: $muted-text-color;
-        padding: 5px 0px;
+        padding: 12px 0;
+        margin: 0;
     }
 
     .mixups-tabs {

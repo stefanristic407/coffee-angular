@@ -8,102 +8,97 @@
         </div>
         <div class="request-details">
             <h4 class="fnt-18 fnt-muli fnt-700 text-clr334">{{ globals.languageJson?.request_details }}</h4>
-            <p class="fnt-14 fnt-muli fnt-400 text-clr588">
+            <p class="fnt-14 fnt-muli fnt-400 text-clr588 m-0">
                 {{ 'Accept, reject API key requests by customers and generate API keys.' | translate }}
             </p>
         </div>
 
-        <div class="row m-0">
-            <div class="col-md-7 col-12 table-responsive mt-4 p-0">
-                <div class="express__delivery">
-                    <div class="delivery__head">
-                        <p class="m-0 fnt-14 fnt-muli fnt-700 black">{{ 'API Key Generation Request' | translate }}</p>
-                    </div>
-                    <div class="delivery__body">
-                        <div class="w-100" *ngIf="apikeyStatus != 'DELETED'">
-                            <div class="float-left key-activate-block">
-                                <p class="m-0 fnt-14 fnt-muli fnt-700 black">
-                                    {{ 'Key activated on' | translate }}
-                                    {{
-                                        initialStatus == 'GENERATED'
-                                            ? (requestDetailData?.requested_at | date: 'MMMM y')
-                                            : (requestDetailData?.created_at | date: 'MMMM y')
-                                    }}
-                                </p>
-                                <p class="view-order m-0 pt-16 cursor-pointer" (click)="delete()">
-                                    {{ 'Delete Key' | translate }}
-                                </p>
-                            </div>
+        <div class="col-md-7 col-12 table-responsive mt-40 p-0">
+            <div class="express__delivery">
+                <div class="delivery__head">
+                    <p class="m-0 fnt-14 fnt-muli fnt-700 black">{{ 'API Key Generation Request' | translate }}</p>
+                </div>
+                <div class="delivery__body">
+                    <div class="w-100" *ngIf="apikeyStatus != 'DELETED'">
+                        <div class="float-left key-activate-block">
+                            <p class="m-0 fnt-14 fnt-muli fnt-700 black">
+                                {{ 'Key activated on' | translate }}
+                                {{
+                                    initialStatus == 'GENERATED'
+                                        ? (requestDetailData?.requested_at | date: 'MMMM y')
+                                        : (requestDetailData?.created_at | date: 'MMMM y')
+                                }}
+                            </p>
+                            <p class="view-order m-0 pt-16 cursor-pointer" (click)="delete()">
+                                {{ 'Delete Key' | translate }}
+                            </p>
+                        </div>
 
-                            <div class="float-right">
+                        <div class="float-right">
+                            <div class="btn-group btn-toggle ml-auto pull-right active__main" (click)="activeStatus()">
                                 <div
-                                    class="btn-group btn-toggle ml-auto pull-right active__main"
-                                    (click)="activeStatus()"
+                                    class="btn btn-group__item"
+                                    [ngClass]="btnToggle ? 'active_default' : 'active disable_default'"
+                                    id="activeStatus"
                                 >
-                                    <div
-                                        class="btn btn-group__item"
-                                        [ngClass]="btnToggle ? 'active_default' : 'active disable_default'"
-                                        id="activeStatus"
-                                    >
-                                        {{ 'Active' | translate }}
-                                    </div>
-                                    <div
-                                        class="btn btn-group__item"
-                                        (click)="pause(requestDetailData?.org_name)"
-                                        [ngClass]="!btnToggle ? 'active_default active' : 'disable_default'"
-                                        id="disableStatus"
-                                    >
-                                        {{ 'Pause' | translate }}
-                                    </div>
+                                    {{ 'Active' | translate }}
+                                </div>
+                                <div
+                                    class="btn btn-group__item"
+                                    (click)="pause(requestDetailData?.org_name)"
+                                    [ngClass]="!btnToggle ? 'active_default active' : 'disable_default'"
+                                    id="disableStatus"
+                                >
+                                    {{ 'Pause' | translate }}
                                 </div>
                             </div>
                         </div>
-
-                        <table class="table lot-table">
-                            <tbody>
-                                <tr>
-                                    <td class="pl-16">
-                                        <span class="list-ques float-left text-clr588">
-                                            {{ 'Requested by' | translate }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="list-answ float-right">
-                                            {{ requestDetailData?.org_name }}
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="pl-16">
-                                        <span class="list-ques float-left text-clr588">
-                                            {{ 'Customer Type' | translate }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="list-answ float-right">
-                                            {{ requestDetailData?.org_type }}
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="pl-16">
-                                        <span class="list-ques float-left text-clr588">
-                                            {{ 'Requested on' | translate }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="list-answ float-right">
-                                            {{
-                                                initialStatus == 'GENERATED'
-                                                    ? (requestDetailData?.requested_at | date: 'MMMM y')
-                                                    : (requestDetailData?.created_at | date: 'MMMM y')
-                                            }}</span
-                                        >
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
+
+                    <table class="table lot-table">
+                        <tbody>
+                            <tr>
+                                <td class="pl-16">
+                                    <span class="list-ques float-left text-clr588">
+                                        {{ 'Requested by' | translate }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="list-answ float-right">
+                                        {{ requestDetailData?.org_name }}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pl-16">
+                                    <span class="list-ques float-left text-clr588">
+                                        {{ 'Customer Type' | translate }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="list-answ float-right">
+                                        {{ requestDetailData?.org_type }}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pl-16">
+                                    <span class="list-ques float-left text-clr588">
+                                        {{ 'Requested on' | translate }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="list-answ float-right">
+                                        {{
+                                            initialStatus == 'GENERATED'
+                                                ? (requestDetailData?.requested_at | date: 'MMMM y')
+                                                : (requestDetailData?.created_at | date: 'MMMM y')
+                                        }}</span
+                                    >
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

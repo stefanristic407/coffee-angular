@@ -29,22 +29,6 @@ export class AboutRoasteryComponent implements OnInit {
     // emp_title : string;
     empName = '';
     appLanguage?: any;
-    ownerNameError: string;
-    foundedInError: string;
-    employeeNoError: string;
-    employeeAvgError: string;
-    femaleNumError: string;
-    maleNumError: string;
-    capacityError: string;
-    kilogramsError: string;
-    capabilitiesError: string;
-    brandNameError: string;
-    brandLogoError: string;
-    shortDescError: string;
-    vatNoError: string;
-    cmpyRidError: string;
-    // empTitleError : string;
-    empNameError: string;
     roasterId: any;
     certificatesArray: any = [];
     userId: any;
@@ -131,7 +115,7 @@ export class AboutRoasteryComponent implements OnInit {
         this.aboutForm = this.fb.group({
             owner_name: ['', Validators.compose([Validators.required])],
             founded_on: ['', Validators.compose([Validators.required])],
-            description: ['', Validators.compose([Validators.maxLength(200)])],
+            description: ['', Validators.compose([Validators.maxLength(20)])],
             total_employees: [null, Validators.compose([Validators.required])],
             avg_employee_age: [null, Validators.compose([Validators.required])],
             female_employee_count: ['', Validators.compose([Validators.required])],
@@ -142,6 +126,12 @@ export class AboutRoasteryComponent implements OnInit {
             capacity: ['', Validators.compose([Validators.required])],
             capacity_unit: ['', Validators.compose([Validators.required])],
             capabilities: ['', Validators.compose([Validators.required])],
+        });
+
+        this.aboutForm.valueChanges.subscribe((changedData: any) => {
+            console.log('value changed: ', this.aboutForm.invalid);
+            this.roasteryProfileService.aboutFormInvalid = this.aboutForm.invalid;
+            this.roasteryProfileService.editProfileData(changedData);
         });
     }
 
