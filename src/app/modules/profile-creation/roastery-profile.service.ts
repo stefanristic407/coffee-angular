@@ -22,6 +22,9 @@ export class RoasteryProfileService {
     public saveMode = new BehaviorSubject(false);
     public saveMode$ = this.saveMode.asObservable();
 
+    public avatarImageChanged = new BehaviorSubject(null);
+    public avatarImageChanged$ = this.avatarImageChanged.asObservable();
+
     roasteryProfileData: RoasteryProfile;
 
     cities: Array<any> = [];

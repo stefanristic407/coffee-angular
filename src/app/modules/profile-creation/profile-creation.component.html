@@ -99,12 +99,12 @@
         <div class="profile-description-container">
             <div class="profile-avatar" [ngClass]="{ 'br-main': !profilePhotoService.croppedImage }">
                 <img [src]="profilePhotoService.croppedImage" class="avatar-img" />
-                <a class="change-avatar-btn" *ngIf="isSaveMode" (click)="showModalDialog()">
+                <a class="change-avatar-btn" *ngIf="isSaveMode" (click)="inputAvatarImage.click()">
                     <img src="assets/images/camera.svg" class="camera-pic" />
                 </a>
             </div>
             <div>
-                <input type="file" accept="image/*" hidden #image (change)="handleFile($event)" />
+                <input type="file" accept="image/*" hidden #inputAvatarImage (change)="handleFile($event)" />
             </div>
 
             <div class="profile-metadata-container pl-3 pr-3 pb-3 p-md-0">
@@ -188,19 +188,24 @@
 
 <p-dialog
     header="Edit Photo"
-    [(visible)]="profilePhotoService.displayModal"
+    [(visible)]="isShowAvatarModal"
     [modal]="true"
     [baseZIndex]="10000"
     [draggable]="false"
     [resizable]="false"
-    styleClass="no-padding"
+    styleClass="p-0"
 >
     <app-sewn-profile-photo></app-sewn-profile-photo>
     <p-footer>
-        <button type="button" id="change-pic" class="btn-normal fnt-14" (click)="showModalDialog()">
+        <button type="button" id="change-pic" class="btn-normal fnt-14" (click)="inputAvatarImage.click()">
             {{ 'change_photo' | translate }}
         </button>
-        <button type="button" id="save-pic" class="btn-normal fnt-14" (click)="profilePhotoService.saveProfilePic()">
+        <button
+            type="button"
+            id="save-pic"
+            class="btn-normal fnt-14"
+            (click)="profilePhotoService.saveProfilePic(); isShowAvatarModal = false"
+        >
             {{ 'save_photo' | translate }}
         </button>
     </p-footer>
