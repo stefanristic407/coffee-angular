@@ -42,7 +42,13 @@
         <div class="profile-header-details position-relative">
             <img
                 class="cover-image-profile-banner w-100"
-                *ngIf="isSaveMode && roasteryProfileService.roasteryProfileData?.banner_url"
+                *ngIf="isSaveMode && roasteryProfileService.bannerUrl"
+                [src]="roasteryProfileService.bannerUrl"
+                height="160"
+            />
+            <img
+                class="cover-image-profile-banner w-100"
+                *ngIf="isSaveMode && !roasteryProfileService.bannerUrl"
                 [src]="roasteryProfileService.roasteryProfileData?.banner_url"
                 height="160"
             />
@@ -74,6 +80,7 @@
                 class="cover-image-profile-banner w-100"
                 *ngIf="isEditMode && roasteryProfileService.roasteryProfileData?.banner_url"
                 [src]="roasteryProfileService.roasteryProfileData?.banner_url"
+                alt="profile banner image"
                 height="160"
             />
 

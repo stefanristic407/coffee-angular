@@ -143,6 +143,12 @@ export class AboutRoasteryComponent implements OnInit {
             capacity_unit: ['', Validators.compose([Validators.required])],
             capabilities: ['', Validators.compose([Validators.required])],
         });
+
+        this.aboutForm.valueChanges.subscribe((changedData: any) => {
+            console.log('value changed: ', this.aboutForm.invalid);
+            this.roasteryProfileService.aboutFormInvalid = this.aboutForm.invalid;
+            this.roasteryProfileService.editProfileData(changedData);
+        });
     }
 
     setFormValue() {

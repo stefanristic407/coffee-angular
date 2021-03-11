@@ -6,15 +6,13 @@ import { ToastrService } from 'ngx-toastr';
 import { ProfilePhotoService } from './profile-photo/profile-photo.service';
 import { Router } from '@angular/router';
 import { COUNTRY_LIST } from '@constants';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { RoasteryProfile } from './roastery-profile-model';
 @Injectable({
     providedIn: 'root',
 })
 export class RoasteryProfileService {
     countryList = [];
-    savemode = false;
-    editmode = true;
 
     public editMode = new BehaviorSubject(true);
     public editMode$ = this.editMode.asObservable();
@@ -25,7 +23,11 @@ export class RoasteryProfileService {
     public avatarImageChanged = new BehaviorSubject(null);
     public avatarImageChanged$ = this.avatarImageChanged.asObservable();
 
-    roasteryProfileData: RoasteryProfile;
+    public mainSubFormInvalid: boolean;
+    public aboutFormInvalid: boolean;
+    public contactFormInvalid: boolean;
+    public toUpdateProfileData: RoasteryProfile;
+    public roasteryProfileData: RoasteryProfile;
 
     cities: Array<any> = [];
 
@@ -56,11 +58,20 @@ export class RoasteryProfileService {
         this.countryList = COUNTRY_LIST;
     }
 
+    public editProfileData(subData: any) {
+        this.toUpdateProfileData = {
+            ...this.roasteryProfileData,
+            ...subData,
+        };
+    }
+
     roasterProfile() {
         this.userService.getRoasterAccount(this.roasterId).subscribe((result: any) => {
             if (result.success) {
                 console.log('roaster details: ', result);
                 this.roasteryProfileData = result.result;
+                this.toUpdateProfileData = result.result;
+
                 this.profilePhotoService.croppedImage = this.roasteryProfileData.company_image_url;
 
                 this.single = [
@@ -138,6 +149,7 @@ export class RoasteryProfileService {
                 console.log('banner file upload result >>>>>>', res);
                 if (res.success) {
                     this.bannerFileId = res.result.id;
+                    this.toUpdateProfileData.banner_file_id = res.result.id;
                     this.updateRoasterAccount();
                 } else {
                     this.isSaving = false;
@@ -150,7 +162,11 @@ export class RoasteryProfileService {
     }
 
     updateRoasterAccount(): void {
-        const data = this.roasteryProfileData;
+        const data: RoasteryProfile = this.toUpdateProfileData;
+        // const data: RoasteryProfile = this.roasteryProfileData;
+
+        console.log('to save data: ', data);
+
         this.userService.updateRoasterAccount(this.roasterId, data).subscribe((response: any) => {
             if (response.success === true) {
                 console.log(response);
@@ -160,8 +176,8 @@ export class RoasteryProfileService {
                 if (isBase64Valid === false) {
                     if (this.empName === '') {
                         this.toastrService.success('Roaster profile details updated successfully');
-                        this.savemode = false;
-                        this.editmode = true;
+                        this.saveMode.next(false);
+                        this.editMode.next(true);
                         this.empName = '';
                         this.roasterProfile();
                     } else {
@@ -191,8 +207,8 @@ export class RoasteryProfileService {
                         if (result.success) {
                             if (this.empName === '') {
                                 this.toastrService.success('Roaster profile details updated successfully');
-                                this.savemode = false;
-                                this.editmode = true;
+                                this.saveMode.next(false);
+                                this.editMode.next(true);
                                 this.empName = '';
                                 this.roasterProfile();
                             } else {
@@ -212,7 +228,6 @@ export class RoasteryProfileService {
     }
 
     handleBannerImageFile(inputElement: any) {
-        console.log('input file in serveice: ', inputElement);
         this.bannerFile = inputElement.files[0];
         if (!this.bannerFile) {
             return;
@@ -231,6 +246,7 @@ export class RoasteryProfileService {
 
         reader.onload = (event: any) => {
             this.bannerUrl = event.target.result;
+            // console.log('input file in serveice: ', this.bannerUrl);
         };
     }
 
