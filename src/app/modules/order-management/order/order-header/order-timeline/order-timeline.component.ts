@@ -12,7 +12,7 @@ import { takeUntil } from 'rxjs/operators';
     styleUrls: ['./order-timeline.component.scss'],
 })
 export class OrderTimelineComponent extends ResizeableComponent implements OnInit {
-    readonly OrderTypes = OrderType;
+    readonly OrgTypes = OrgType;
 
     timelinePoints: LabelValue[] = [];
     activities: RecentActivity[] = [];
@@ -55,7 +55,13 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     }
 
     get showTextBlock(): boolean {
-        return this.order && this.order.status && this.order.status === OrderStatus.Received;
+        return (
+            this.orgType === OrgType.ESTATE &&
+            this.order &&
+            this.order.status &&
+            this.order.status === OrderStatus.Received &&
+            (this.order.orderType === OrderType.Sample || this.order.orderType === OrderType.Booked)
+        );
     }
 
     constructor(private orderService: OrderManagementService, protected resizeService: ResizeService) {

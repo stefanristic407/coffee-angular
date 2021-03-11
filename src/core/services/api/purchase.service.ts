@@ -32,6 +32,7 @@ export class PurchaseService extends ApiService {
             map((response) => {
                 if (response.success && response.result.id) {
                     const details = toCamelCase<OrderDetails>(response.result);
+                    details.orderType = details.orderType || details.type;
 
                     details.uploadShow = true;
                     details.statusPending = true;
