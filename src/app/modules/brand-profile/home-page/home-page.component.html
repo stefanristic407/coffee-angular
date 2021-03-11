@@ -458,14 +458,15 @@
                         <a class="brown-cta" (click)="deleteCertificate(item.id)">Delete</a>
                     </div>
                     <div class="d-md-none">
-                        <a (click)="certIndex = i; menu.toggle($event)">
-                            <img src="assets/images/menu-gray.svg" alt="menu" />
-                        </a>
+                        <div class="position-relative">
+                            <a (click)="certIndex = i; menu.toggle($event)">
+                                <img src="assets/images/menu-gray.svg" alt="menu" />
+                            </a>
+                            <p-menu #menu [popup]="true" [model]="certMenuItems" styleClass="menu-actions"></p-menu>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </ng-template>
-
-<p-menu #menu [popup]="true" [model]="certMenuItems"></p-menu>
