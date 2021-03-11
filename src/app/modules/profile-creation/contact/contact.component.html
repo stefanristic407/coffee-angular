@@ -17,12 +17,14 @@
                             formControlName="email"
                             placeholder="Roastery email"
                         />
-                        <div
-                            class="emailError"
-                            *ngIf="isControlHasError('email', 'required') || isControlHasError('email', 'email')"
-                        >
-                            {{ emailError }}
-                        </div>
+
+                        <small *ngIf="isControlHasError('email', 'email')" class="p-error">
+                            {{ 'invalid' | translate }} {{ 'email' | translate }}
+                        </small>
+
+                        <small *ngIf="isControlHasError('email', 'required')" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
                     </div>
                     <div class="sewn-form-field col-md-6 col-12 mt-3">
                         <label for="phoneno" class="raise-label">
@@ -52,9 +54,9 @@
                             optionValue="isoCode"
                         >
                         </p-dropdown>
-                        <div class="countryError" *ngIf="isControlHasError('country', 'required')">
-                            {{ countryError }}
-                        </div>
+                        <small *ngIf="isControlHasError('country', 'required')" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
                     </div>
                     <div class="sewn-form-field col-md-6 mt-3">
                         <label for="state" class="d-block">{{ 'state' | translate }}</label>
@@ -84,9 +86,9 @@
                             type="text"
                             placeholder="Line 1"
                         />
-                        <div class="addressError" *ngIf="isControlHasError('address_line1', 'required')">
-                            {{ addressError }}
-                        </div>
+                        <small *ngIf="isControlHasError('address_line1', 'required')" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
                     </div>
                     <div class="sewn-form-field col-md-6 mt-0 mt-md-3">
                         <label for="address2" class="d-none d-md-block">&nbsp;</label>
@@ -112,9 +114,9 @@
                             formControlName="city"
                             placeholder="City"
                         />
-                        <div class="cityError" *ngIf="isControlHasError('city', 'required')">
-                            {{ cityError }}
-                        </div>
+                        <small *ngIf="isControlHasError('city', 'required')" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
                     </div>
                     <div class="sewn-form-field col-md-6 mt-3">
                         <label for="zipcode">{{ 'zipcode' | translate }}</label>
