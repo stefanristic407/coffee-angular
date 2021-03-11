@@ -23,7 +23,6 @@ export class UserserviceService {
     private certificatesURL = environment.apiURL + '/ro/certificates';
     private profileImageURL = environment.apiURL + '/ro/uploadfiles';
     private languageURL = environment.apiURL + '/language';
-    private sendEmailURL = environment.apiURL + '/sendemail';
     private inviteUrl = environment.apiURL + '/ro/inviteusers';
     private estateUrl = environment.apiURL + '/es/api';
     private fileUploadURL = environment.apiURL + '/ro/filesfolders';
@@ -500,10 +499,6 @@ export class UserserviceService {
         return this.http.post(this.roasterUrl, data);
     }
 
-    sendUrlToEmail(body: any) {
-        const data = body;
-        return this.http.post(this.sendEmailURL, data);
-    }
     getAvailableEstates(roasterId: any, queryParams = '') {
         const data = {
             api_call: `/ro/${roasterId}/estates/availability${queryParams}`,
