@@ -1,6 +1,5 @@
-import { UserserviceService } from '@services';
+import { FileService, UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { YourServicesService } from '@services';
 import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
@@ -20,7 +19,7 @@ export class VirtualTourComponent implements OnInit {
     constructor(
         public roasteryProfileService: RoasteryProfileService,
         public globals: GlobalsService,
-        private yourService: YourServicesService,
+        private fileService: FileService,
         private toasterService: ToastrService,
         private userService: UserserviceService,
         private cookieService: CookieService,
@@ -40,7 +39,7 @@ export class VirtualTourComponent implements OnInit {
 
     getFiles() {
         this.isLoading = true;
-        this.yourService.getMyFiles().subscribe((res) => {
+        this.fileService.getAllFiles({ file_module: 'Virtual-Tour', type_in: 'VIDEO,IMAGE' }).subscribe((res) => {
             if (res.success) {
                 this.isLoading = false;
                 this.tourMedias = res.result;
@@ -50,7 +49,7 @@ export class VirtualTourComponent implements OnInit {
     }
 
     addFile(data) {
-        this.yourService.addFile(data).subscribe((res) => {
+        this.fileService.uploadFiles(data).subscribe((res: any) => {
             if (res.success) {
                 this.getFiles();
             } else {
