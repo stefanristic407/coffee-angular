@@ -261,6 +261,16 @@ export class UserserviceService {
         return this.http.post(this.url, data);
     }
 
+    updatePrivacyTerms(body: any): Observable<any> {
+        const data = {
+            api_call: '/users/privacy-terms',
+            method: 'PUT',
+            token: this.cookieService.get('Auth'),
+            data: body,
+        };
+        return this.http.post(this.url, data);
+    }
+
     // API Function Name : Privacy Settings
     // API Description: This API call helps to get the Privacy policy terms.
 

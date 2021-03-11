@@ -1,0 +1,35 @@
+:host {
+    color: #232334;
+}
+
+::ng-deep .language-mat-menu .mat-menu-content {
+    height: 240px !important;
+    button {
+        font-family: Muli !important;
+    }
+}
+
+.language-panel {
+    font-size: 14px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 17px;
+    border: solid 1px #747588;
+    display: flex;
+    align-items: center;
+    height: 34px;
+    img {
+        margin-left: 3px;
+    }
+}
+
+.add-language-btn {
+    height: 34px;
+    border: solid 1px #747588 !important;
+    border-radius: 2px;
+    background-color: white;
+    font-size: 14px;
+    padding-left: 12px;
+    padding-right: 12px;
+    font-weight: 500 !important;
+}

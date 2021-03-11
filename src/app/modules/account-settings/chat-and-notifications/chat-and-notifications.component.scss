@@ -1,0 +1,22 @@
+:host {
+    color: #232334;
+}
+
+::ng-deep .no-outline .mat-form-field-outline-start,
+::ng-deep .no-outline .mat-form-field-outline-end {
+    border-color: transparent !important;
+}
+
+.no-outline {
+    width: 110px;
+}
+
+::ng-deep .chat-text-size-dropdown .p-dropdown {
+    border: 0 !important;
+    .p-dropdown-trigger {
+        padding-left: 8px;
+    }
+    .p-dropdown-label {
+        min-width: auto;
+    }
+}

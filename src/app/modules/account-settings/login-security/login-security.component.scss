@@ -1,0 +1,80 @@
+:host {
+    color: #232334;
+}
+
+.session-list {
+    padding: 16px 0;
+    .session-icon {
+        width: 32px;
+        height: 32px;
+    }
+    .session-title {
+        margin-bottom: 12px;
+    }
+}
+
+.login-title {
+    margin-bottom: 24px;
+}
+
+.login-history-title {
+    margin-top: 32px;
+}
+
+.set-up-password-description {
+    margin-bottom: 18px;
+}
+
+.password-field {
+    width: 474px;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.are-sure {
+    font-size: 28px;
+    font-weight: normal;
+    color: #020202;
+}
+
+.do-account {
+    font-size: 16px;
+    font-weight: normal;
+    color: #5d5d5d;
+}
+
+@media (max-width: 767px) {
+    .session-list {
+        .session-icon {
+            margin-top: -9px;
+            width: 24px;
+            height: 24px;
+        }
+        .session-title {
+            margin-bottom: 10px;
+        }
+        .session-date {
+            margin-bottom: 10px;
+        }
+        .logout {
+            margin-left: 32px;
+        }
+    }
+    .login-title {
+        margin-bottom: 20px;
+    }
+    .login-history-title {
+        margin-top: 24px;
+    }
+    .set-up-password-description {
+        margin-bottom: 30px;
+    }
+    .password-field {
+        width: 100%;
+    }
+    .change-password-btn {
+        width: 100%;
+    }
+}
