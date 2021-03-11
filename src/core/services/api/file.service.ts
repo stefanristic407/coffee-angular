@@ -20,7 +20,7 @@ export class FileService extends ApiService {
     }
     // Delete the folder details
     deleteFolder(id: any) {
-        return this.postWithOrg(this.deleteUrl, `file-manager/folders/${id}`, 'DELETE');
+        return this.postWithOrg(this.orgDeleteUrl, `file-manager/folders/${id}`, 'DELETE');
     }
 
     // ------------ Farmlink File share ------------
@@ -63,7 +63,7 @@ export class FileService extends ApiService {
     }
     // Delete the file details
     deleteFile(id: any) {
-        return this.postWithOrg(this.deleteUrl, `file-manager/files/${id}`, 'DELETE');
+        return this.postWithOrg(this.orgDeleteUrl, `file-manager/files/${id}`, 'DELETE');
     }
     // Pin the file/folder
     pinFileorFolder(id: any) {
@@ -71,7 +71,7 @@ export class FileService extends ApiService {
     }
     // Unpin the file/folder
     unpinFileorFolder(id: any) {
-        return this.postWithOrg(this.deleteUrl, `file-manager/${id}/pin`, 'DELETE');
+        return this.postWithOrg(this.orgDeleteUrl, `file-manager/${id}/pin`, 'DELETE');
     }
     // List all files/folders under My files section
     getFilesandFolders(query?: object) {
