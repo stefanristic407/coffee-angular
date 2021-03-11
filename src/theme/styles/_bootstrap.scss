@@ -133,6 +133,13 @@ $line-heights: (
     normal: normal,
 );
 
+// border radius
+$border-radiuses: (
+    2: 2px,
+    4: 4px,
+    8: 8px,
+);
+
 @each $breakpoint in map-keys($grid-breakpoints) {
     @include media-breakpoint-up($breakpoint) {
         $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
@@ -172,6 +179,11 @@ $line-heights: (
         @each $size, $value in $line-heights {
             .lh#{$infix}-#{$size} {
                 line-height: $value !important;
+            }
+        }
+        @each $size, $value in $border-radiuses {
+            .br#{$infix}-#{$size} {
+                border-radius: $value !important;
             }
         }
     }
