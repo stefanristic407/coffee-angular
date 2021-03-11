@@ -1,212 +1,197 @@
-<div class="row d-block" *ngIf="!roasteryProfileService.contactInfo">
+<div class="row d-block" *ngIf="isSaveMode">
     <div class="col-lg-12">
-        <div class="row p-2">
-            <div class="col-lg-8 p-2">
-                <div class="br-md-main br-4 p-md-4 p-2">
-                    <div class="row d-md-none">
-                        <div class="form-group col-md-6">
-                            <label for="name"
-                                >{{ 'name' | translate }}
-                                <span class="star">*</span>
-                            </label>
-                            <input
-                                class="w-100 p-3"
-                                id="name"
-                                type="text"
-                                pInputText
-                                required
-                                name="name"
-                                [(ngModel)]="roasteryProfileService.name"
-                                placeholder="Please enter the roastery name"
-                            />
-                            <div class="nameError" *ngIf="nameError">
-                                {{ nameError }}
+        <form [formGroup]="contactForm">
+            <div class="row p-2">
+                <div class="col-lg-8 p-2">
+                    <div class="br-md-main br-4 p-md-4 p-2">
+                        <div class="row">
+                            <div class="form-group col-md-6 col-12 mt-3">
+                                <label for="email">
+                                    {{ 'email_address' | translate }}
+                                    <span class="star">*</span></label
+                                >
+                                <input
+                                    class="w-100 p-3"
+                                    id="email"
+                                    type="email"
+                                    pInputText
+                                    required
+                                    name="email"
+                                    formControlName="email"
+                                    placeholder="Roastery email"
+                                />
+                                <div
+                                    class="emailError"
+                                    *ngIf="
+                                        isControlHasError('email', 'required') || isControlHasError('email', 'email')
+                                    "
+                                >
+                                    {{ emailError }}
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-12 mt-3">
+                                <label for="phoneno" class="raise-label">
+                                    {{ 'phone_number' | translate }}
+                                    <span class="star">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    class="w-100 pl-5 pt-3 pb-3"
+                                    pInputText
+                                    ng2TelInput
+                                    placeholder="Enter your phone number"
+                                    name="phoneno"
+                                    formControlName="phone"
+                                    id="phoneno"
+                                    (intlTelInputObject)="telInputObject($event)"
+                                    required
+                                />
+                                <div class="phoneError" *ngIf="isControlHasError('phone', 'required')">
+                                    {{ phoneError }}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6 col-12 mt-3">
-                            <label for="email">
-                                {{ 'email_address' | translate }}
-                                <span class="star">*</span></label
-                            >
-                            <input
-                                class="w-100 p-3"
-                                id="email"
-                                type="email"
-                                pInputText
-                                required
-                                name="email"
-                                [(ngModel)]="roasteryProfileService.email"
-                                placeholder="Roastery email"
-                            />
-                            <div class="emailError" *ngIf="emailError">
-                                {{ emailError }}
+                        <div class="row">
+                            <div class="form-group col-md-6 mt-3">
+                                <label for="country" class="d-block"
+                                    >{{ 'country' | translate }}<span class="star">*</span></label
+                                >
+                                <p-dropdown
+                                    id="country"
+                                    class="w-100"
+                                    required
+                                    formControlName="country"
+                                    name="country"
+                                    styleClass="profile-dropdown"
+                                    [options]="countryList"
+                                    optionLabel="name"
+                                    optionValue="isoCode"
+                                >
+                                </p-dropdown>
+                                <div class="countryError" *ngIf="isControlHasError('country', 'required')">
+                                    {{ countryError }}
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 mt-3">
+                                <label for="state" class="d-block">{{ 'state' | translate }}</label>
+                                <p-dropdown
+                                    id="state"
+                                    class="w-100"
+                                    formControlName="state"
+                                    [options]="cityList"
+                                    styleClass="profile-dropdown"
+                                    name="state"
+                                    required
+                                >
+                                </p-dropdown>
                             </div>
                         </div>
-                        <div class="form-group col-md-6 col-12 mt-3">
-                            <label for="phoneno" class="raise-label">
-                                {{ 'phone_number' | translate }}
-                                <span class="star">*</span>
-                            </label>
-                            <input
-                                type="text"
-                                class="w-100 pl-5 pt-3 pb-3"
-                                pInputText
-                                ng2TelInput
-                                placeholder="Enter your phone number"
-                                name="phoneno"
-                                [(ngModel)]="roasteryProfileService.phoneno"
-                                id="phoneno"
-                                (intlTelInputObject)="telInputObject($event)"
-                                required
-                            />
-                            <div class="phoneError" *ngIf="phoneError">
-                                {{ phoneError }}
+                        <div class="row">
+                            <div class="form-group col-md-6 mt-3">
+                                <label for="address1">{{ 'address' | translate }}<span class="star">*</span></label>
+                                <input
+                                    class="w-100 p-3"
+                                    pInputText
+                                    id="address1"
+                                    name="address1"
+                                    required
+                                    formControlName="address_line1"
+                                    type="text"
+                                    placeholder="Line 1"
+                                />
+                                <div class="addressError" *ngIf="isControlHasError('address_line1', 'required')">
+                                    {{ addressError }}
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 mt-0 mt-md-3">
+                                <label for="address2" class="d-none d-md-block">&nbsp;</label>
+                                <input
+                                    class="w-100 p-3"
+                                    id="address2"
+                                    name="address2"
+                                    pInputText
+                                    formControlName="address_line2"
+                                    type="text"
+                                    placeholder="Line 2"
+                                />
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6 mt-3">
-                            <label for="country" class="d-block"
-                                >{{ 'country' | translate }}<span class="star">*</span></label
-                            >
-                            <p-dropdown
-                                id="country"
-                                class="w-100"
-                                required
-                                [(ngModel)]="roasteryProfileService.country"
-                                name="country"
-                                styleClass="profile-dropdown"
-                                (ngModelChange)="roasteryProfileService.changeCountry(roasteryProfileService.country)"
-                                [options]="roasteryProfileService.countryList"
-                                optionLabel="name"
-                                optionValue="isoCode"
-                            >
-                            </p-dropdown>
-                            <div class="countryError" *ngIf="countryError">
-                                {{ countryError }}
+                        <div class="row">
+                            <div class="form-group col-md-6 mt-3">
+                                <label for="city">{{ 'city' | translate }}<span class="star">*</span></label>
+                                <input
+                                    class="w-100 p-3"
+                                    id="city"
+                                    type="text"
+                                    name="city"
+                                    pInputText
+                                    required
+                                    formControlName="city"
+                                    placeholder="City"
+                                />
+                                <div class="cityError" *ngIf="isControlHasError('city', 'required')">
+                                    {{ cityError }}
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group col-md-6 mt-3">
-                            <label for="state" class="d-block">{{ 'state' | translate }}</label>
-                            <p-dropdown
-                                id="state"
-                                class="w-100"
-                                [(ngModel)]="roasteryProfileService.state"
-                                [options]="roasteryProfileService.cities"
-                                styleClass="profile-dropdown"
-                                name="state"
-                                required
-                            >
-                            </p-dropdown>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6 mt-3">
-                            <label for="address1">{{ 'address' | translate }}<span class="star">*</span></label>
-                            <input
-                                class="w-100 p-3"
-                                pInputText
-                                id="address1"
-                                name="address1"
-                                required
-                                [(ngModel)]="roasteryProfileService.address1"
-                                type="text"
-                                placeholder="Line 1"
-                            />
-                            <div class="addressError" *ngIf="addressError">
-                                {{ addressError }}
+                            <div class="form-group col-md-6 mt-3">
+                                <label for="zipcode">{{ 'zipcode' | translate }}</label>
+                                <input
+                                    class="w-100 p-3"
+                                    id="zipcode"
+                                    name="zipcode"
+                                    type="text"
+                                    pInputText
+                                    formControlName="zipcode"
+                                    placeholder="eg:23134"
+                                />
                             </div>
-                        </div>
-                        <div class="form-group col-md-6 mt-0 mt-md-3">
-                            <label for="address2" class="d-none d-md-block">&nbsp;</label>
-                            <input
-                                class="w-100 p-3"
-                                id="address2"
-                                name="address2"
-                                pInputText
-                                [(ngModel)]="roasteryProfileService.address2"
-                                type="text"
-                                placeholder="Line 2"
-                            />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6 mt-3">
-                            <label for="city">{{ 'city' | translate }}<span class="star">*</span></label>
-                            <input
-                                class="w-100 p-3"
-                                id="city"
-                                type="text"
-                                name="city"
-                                pInputText
-                                required
-                                [(ngModel)]="roasteryProfileService.city"
-                                placeholder="City"
-                            />
-                            <div class="cityError" *ngIf="cityError">
-                                {{ cityError }}
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6 mt-3">
-                            <label for="zipcode">{{ 'zipcode' | translate }}</label>
-                            <input
-                                class="w-100 p-3"
-                                id="zipcode"
-                                name="zipcode"
-                                type="text"
-                                pInputText
-                                [(ngModel)]="roasteryProfileService.zipcode"
-                                placeholder="eg:23134"
-                            />
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-lg-4 p-md-2 p-0">
-                <div class="br-md-main br-4">
-                    <div class="header d-none d-md-block fnt-18 font-bold br-4 bg-f8 p-25 m-1">
-                        {{ 'social_media_channels' | translate }}
-                    </div>
-                    <div class="p-3">
-                        <div class="row">
-                            <div class="form-group col-md-12">
-                                <label for="facebook">{{ 'facebook_link' | translate }}</label>
-                                <input
-                                    class="w-100 p-3"
-                                    id="facebook"
-                                    type="text"
-                                    name="facebook"
-                                    pInputText
-                                    [(ngModel)]="roasteryProfileService.facebook"
-                                    placeholder="Add facebook URL"
-                                />
-                            </div>
+                <div class="col-lg-4 p-md-2 p-0">
+                    <div class="br-md-main br-4">
+                        <div class="header d-none d-md-block fnt-18 font-bold br-4 bg-f8 p-25 m-1">
+                            {{ 'social_media_channels' | translate }}
                         </div>
-                        <div class="row">
-                            <div class="form-group col-md-12">
-                                <label for="instagram">{{ 'instagram_link' | translate }}</label>
-                                <input
-                                    class="w-100 p-3"
-                                    id="instagram"
-                                    type="text"
-                                    name="instagram"
-                                    pInputText
-                                    [(ngModel)]="roasteryProfileService.instagram"
-                                    placeholder="Add instagram URL"
-                                />
+                        <div class="p-3">
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label for="facebook">{{ 'facebook_link' | translate }}</label>
+                                    <input
+                                        class="w-100 p-3"
+                                        id="facebook"
+                                        type="text"
+                                        name="facebook"
+                                        pInputText
+                                        formControlName="fb_profile"
+                                        placeholder="Add facebook URL"
+                                    />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label for="instagram">{{ 'instagram_link' | translate }}</label>
+                                    <input
+                                        class="w-100 p-3"
+                                        id="instagram"
+                                        type="text"
+                                        name="instagram"
+                                        pInputText
+                                        formControlName="ig_profile"
+                                        placeholder="Add instagram URL"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 
-<div class="row list-section" *ngIf="roasteryProfileService.contactInfo">
+<div class="row list-section" *ngIf="!isSaveMode">
     <div class="col-lg-12">
         <div class="br-main p-0 pl-md-475 pr-md-475 pt-md-3 br-4">
             <div class="col-lg-6 pl-0 pr-0">
@@ -219,7 +204,7 @@
                             {{ 'website' | translate }}
                         </td>
                         <td class="fnt-12 fnt-600 fnt-md-14 pt-0 text-clr588">
-                            {{ roasteryProfileService.website }}
+                            {{ roasteryProfileService.roasteryProfileData?.website }}
                         </td>
                     </tr>
                     <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
@@ -227,7 +212,7 @@
                             {{ 'email_address' | translate }}
                         </td>
                         <td class="fnt-12 fnt-600 fnt-md-14 pt-0 text-clr588">
-                            {{ roasteryProfileService.email }}
+                            {{ roasteryProfileService.roasteryProfileData?.email }}
                         </td>
                     </tr>
                     <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
@@ -235,7 +220,7 @@
                             {{ 'phone_number' | translate }}
                         </td>
                         <td class="fnt-12 fnt-600 fnt-md-14 pt-0 text-clr588">
-                            {{ roasteryProfileService.phoneno }}
+                            {{ roasteryProfileService.roasteryProfileData?.phone }}
                         </td>
                     </tr>
                     <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
@@ -243,7 +228,7 @@
                             {{ 'country' | translate }}
                         </td>
                         <td class="fnt-12 fnt-600 fnt-md-14 pt-0 text-clr588">
-                            {{ roasteryProfileService.countryName }}
+                            {{ globals.getCountryName(roasteryProfileService.roasteryProfileData?.country) }}
                         </td>
                     </tr>
                     <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
@@ -251,10 +236,10 @@
                             {{ 'address' | translate }}
                         </td>
                         <td class="fnt-12 fnt-600 fnt-md-14 pt-0 text-clr588">
-                            {{ roasteryProfileService.address1 }}
-                            {{ roasteryProfileService.address2 }}
-                            <p class="mb-0">{{ roasteryProfileService.state }}</p>
-                            <p class="mb-0">{{ roasteryProfileService.countryName }}</p>
+                            {{ roasteryProfileService.roasteryProfileData?.address_line1 }}
+                            {{ roasteryProfileService.roasteryProfileData?.address_line2 }}
+                            <p class="mb-0">{{ roasteryProfileService.roasteryProfileData?.city }}</p>
+                            <p class="mb-0">{{ roasteryProfileService.roasteryProfileData?.state }}</p>
                         </td>
                     </tr>
                     <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
@@ -262,7 +247,7 @@
                             {{ 'zipcode' | translate }}
                         </td>
                         <td class="fnt-12 fnt-600 fnt-md-14 pt-0 text-clr588">
-                            {{ roasteryProfileService.zipcode }}
+                            {{ roasteryProfileService.roasteryProfileData?.zipcode }}
                         </td>
                     </tr>
                     <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
@@ -270,7 +255,8 @@
                             {{ 'social_media' | translate }}
                         </td>
                         <td class="fnt-12 fnt-600 fnt-md-14 pt-0 text-clr588">
-                            {{ roasteryProfileService.facebook }} {{ roasteryProfileService.instagram }}
+                            {{ roasteryProfileService.roasteryProfileData?.fb_profile }}
+                            {{ roasteryProfileService.roasteryProfileData?.ig_profile }}
                         </td>
                     </tr>
                 </table>
