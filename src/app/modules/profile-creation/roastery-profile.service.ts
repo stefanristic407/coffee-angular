@@ -24,9 +24,7 @@ export class RoasteryProfileService {
 
     roasteryProfileData: RoasteryProfile;
 
-    cities: Array<any>;
-
-    contactInfo = true;
+    cities: Array<any> = [];
 
     userId: string;
     roasterId: string;
@@ -244,7 +242,6 @@ export class RoasteryProfileService {
                 if (isBase64Valid === false) {
                     if (this.empName === '') {
                         this.toastrService.success('Roaster profile details updated successfully');
-                        this.contactInfo = true;
                         this.savemode = false;
                         this.editmode = true;
                         this.empName = '';
@@ -276,7 +273,6 @@ export class RoasteryProfileService {
                         if (result.success) {
                             if (this.empName === '') {
                                 this.toastrService.success('Roaster profile details updated successfully');
-                                this.contactInfo = true;
                                 this.savemode = false;
                                 this.editmode = true;
                                 this.empName = '';
@@ -328,7 +324,6 @@ export class RoasteryProfileService {
 
     editRoasterProfile() {
         this.isSaving = false;
-        this.contactInfo = false;
         // this.savemode = true;
         this.showDelete = true;
         // this.editmode = false;
@@ -343,7 +338,6 @@ export class RoasteryProfileService {
         // }
         // this.bannerUrl = this.profileInfo.banner_url;
         // this.profilePhotoService.croppedImage = this.profileInfo.company_image_url;
-        // this.contactInfo = true;
         this.editMode.next(true);
         this.saveMode.next(false);
         // this.savemode = false;
