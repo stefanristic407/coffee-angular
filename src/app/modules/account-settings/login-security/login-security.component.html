@@ -7,9 +7,9 @@
 
             <div class="mb-4 d-block d-md-none">
                 <a
-                        href="javascript:void(0)"
-                        class="text-clr60b fnt-16 fnt-muli fnt-600 d-flex align-items-center"
-                        (click)="location.back()"
+                    href="javascript:void(0)"
+                    class="text-clr60b fnt-16 fnt-muli fnt-600 d-flex align-items-center"
+                    (click)="location.back()"
                 >
                     <img src="../../../../assets/images/back-arrow.svg" alt="20" class="mr-2" />
                     <span>{{ 'back' | translate }}</span>
@@ -50,18 +50,18 @@
                             <div class="d-flex">
                                 <div>
                                     <img
-                                            src="../../../../assets/images/icon-screen.svg"
-                                            alt="icon"
-                                            class="mr-2 session-icon"
+                                        src="../../../../assets/images/icon-screen.svg"
+                                        alt="icon"
+                                        class="mr-2 session-icon"
                                     />
                                 </div>
                                 <div>
                                     <div class="fnt-14 fnt-md-16 font-weight-normal session-title">
                                         Session
                                         <span
-                                                *ngIf="session.current_session"
-                                                class="custom-chip-container ml-1 text-nowrap"
-                                        >Current Session</span
+                                            *ngIf="session.current_session"
+                                            class="custom-chip-container ml-1 text-nowrap"
+                                            >Current Session</span
                                         >
                                     </div>
                                     <div class="text-clr588 fnt-12 fnt-md-13 session-date">
@@ -71,14 +71,14 @@
                             </div>
                             <div class="logout">
                                 <a
-                                        *ngIf="session.current_session"
-                                        (click)="userLogout()"
-                                        href="javascript:void(0)"
-                                        class="text-clr60b fnt-14 font-weight-bold"
-                                >Log out</a
+                                    *ngIf="session.current_session"
+                                    (click)="userLogout()"
+                                    href="javascript:void(0)"
+                                    class="text-clr60b fnt-14 font-weight-bold"
+                                    >Log out</a
                                 >
                                 <span *ngIf="!session.current_session" class="text-secondary cursor-not-allowed fnt-14"
-                                >Logged out</span
+                                    >Logged out</span
                                 >
                             </div>
                         </div>
@@ -107,9 +107,9 @@
 
         <div *ngIf="changePasswordMode">
             <a
-                    href="javascript:void(0)"
-                    class="text-clr60b fnt-16 fnt-muli d-flex align-items-center fnt-600 mb-4"
-                    (click)="changePasswordMode = false"
+                href="javascript:void(0)"
+                class="text-clr60b fnt-16 fnt-muli d-flex align-items-center fnt-600 mb-4"
+                (click)="changePasswordMode = false"
             >
                 <img src="../../../../assets/images/back-arrow.svg" alt="back" class="mr-2" />
                 <span>Back <span class="d-inline d-md-none">to login & security</span></span>
@@ -132,15 +132,15 @@
                             <div class="sewn-form-field d-block mb-0">
                                 <label class="fnt-14 text-clr588">{{
                                     'current_password' | translate | titlecase
-                                    }}</label>
+                                }}</label>
                                 <div class="mb-4 mb-lg-45">
                                     <input
-                                            class="password-field"
-                                            type="password"
-                                            pInputText
-                                            required
-                                            formControlName="currentPassword"
-                                            autocomplete="on"
+                                        class="password-field"
+                                        type="password"
+                                        pInputText
+                                        required
+                                        formControlName="currentPassword"
+                                        autocomplete="on"
                                     />
                                     <div *ngIf="form.controls.currentPassword.invalid" class="p-error">
                                         {{ getErrorMessage('currentPassword') }}
@@ -152,12 +152,12 @@
                                 <label class="fnt-14 text-clr588">{{ 'new_password' | translate | titlecase }}</label>
                                 <div class="mb-4 mb-lg-45">
                                     <input
-                                            class="password-field"
-                                            type="password"
-                                            pInputText
-                                            required
-                                            formControlName="newPassword"
-                                            autocomplete="on"
+                                        class="password-field"
+                                        type="password"
+                                        pInputText
+                                        required
+                                        formControlName="newPassword"
+                                        autocomplete="on"
                                     />
                                     <div *ngIf="form.controls.newPassword.invalid" class="p-error">
                                         {{ getErrorMessage('newPassword') }}
@@ -169,12 +169,12 @@
                                 <label class="fnt-14 text-clr588">{{ 're_enter_password' | translate }}</label>
                                 <div class="mb-4 mb-lg-45">
                                     <input
-                                            class="password-field"
-                                            type="password"
-                                            pInputText
-                                            required
-                                            formControlName="confirmPassword"
-                                            autocomplete="on"
+                                        class="password-field"
+                                        type="password"
+                                        pInputText
+                                        required
+                                        formControlName="confirmPassword"
+                                        autocomplete="on"
                                     />
                                     <div *ngIf="form.controls.confirmPassword.invalid" class="p-error">
                                         {{ getErrorMessage('confirmPassword') }}

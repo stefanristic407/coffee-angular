@@ -133,7 +133,7 @@ export class LoginSecurityComponent implements OnInit {
         } else if (this.form.controls[field].errors?.pattern) {
             return 'Password is weak';
         } else if (this.form.controls[field].errors?.noMatch) {
-            return 'Password doesn\'t match';
+            return "Password doesn't match";
         } else {
             return 'Unknown error';
         }

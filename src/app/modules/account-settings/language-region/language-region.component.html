@@ -6,9 +6,9 @@
 
         <div class="mb-4 d-block d-md-none">
             <a
-                    href="javascript:void(0)"
-                    class="text-clr60b fnt-16 fnt-muli fnt-600 d-flex align-items-center"
-                    (click)="location.back()"
+                href="javascript:void(0)"
+                class="text-clr60b fnt-16 fnt-muli fnt-600 d-flex align-items-center"
+                (click)="location.back()"
             >
                 <img src="../../../../assets/images/back-arrow.svg" alt="back" class="mr-2" />
                 <span>{{ 'back' | translate }}</span>
@@ -34,12 +34,12 @@
                     <div class="mt-2 mb-4 mb-md-45 sewn-form-field language-timezone-fields">
                         <label class="fnt-14 fnt-600">{{ 'language' | translate }}</label>
                         <p-dropdown
-                                [options]="applicationLanguages"
-                                class="w-100"
-                                [(ngModel)]="userInfo.language"
-                                (ngModelChange)="onChangeUserInfo()"
-                                optionLabel="name"
-                                optionValue="value"
+                            [options]="applicationLanguages"
+                            class="w-100"
+                            [(ngModel)]="userInfo.language"
+                            (ngModelChange)="onChangeUserInfo()"
+                            optionLabel="name"
+                            optionValue="value"
                         ></p-dropdown>
                         <div class="fnt-12 text-clr588 mt-2">
                             {{ 'choose_language' | translate }}
@@ -50,34 +50,34 @@
                         <label class="fnt-14 fnt-600">{{ 'add_language_label' | translate }}</label>
                         <div class="d-flex flex-row flex-wrap">
                             <button
-                                    type="button"
-                                    [matMenuTriggerFor]="profileMenu"
-                                    class="mr-4 mb-2 fnt-muli add-language-btn"
+                                type="button"
+                                [matMenuTriggerFor]="profileMenu"
+                                class="mr-4 mb-2 fnt-muli add-language-btn"
                             >
                                 <img src="../../../../assets/images/icon-add.svg" alt="icon" class="mr-2" />
                                 <span>{{ 'add_language' | translate }}</span>
                             </button>
                             <mat-menu class="language-mat-menu" #profileMenu="matMenu" xPosition="before">
                                 <button
-                                        type="button"
-                                        *ngFor="let language of languages"
-                                        mat-menu-item
-                                        (click)="handleAddConverseLanguage(language)"
+                                    type="button"
+                                    *ngFor="let language of languages"
+                                    mat-menu-item
+                                    (click)="handleAddConverseLanguage(language)"
                                 >
                                     {{ language.name }}
                                 </button>
                             </mat-menu>
 
                             <div
-                                    *ngFor="let converseLanguage of selectedConverseLanguages; let index = index"
-                                    class="language-panel mr-2 mb-2 d-flex justify-content-between"
+                                *ngFor="let converseLanguage of selectedConverseLanguages; let index = index"
+                                class="language-panel mr-2 mb-2 d-flex justify-content-between"
                             >
                                 <span class="text-clr588">{{ converseLanguage.name }}</span>
                                 <img
-                                        (click)="handleRemoveConverseLanguage(index)"
-                                        src="../../../../assets/images/icon-close.svg"
-                                        alt="icon"
-                                        class="cursor-pointer"
+                                    (click)="handleRemoveConverseLanguage(index)"
+                                    src="../../../../assets/images/icon-close.svg"
+                                    alt="icon"
+                                    class="cursor-pointer"
                                 />
                             </div>
                         </div>
@@ -91,13 +91,13 @@
                         <label class="fnt-14 fnt-600">{{ 'time_zone_title' | translate }}</label>
 
                         <p-dropdown
-                                [options]="timezones"
-                                class="w-100"
-                                [(ngModel)]="userInfo.timezone"
-                                (ngModelChange)="onChangeUserInfo()"
-                                placeholder="Select a timezone"
-                                optionLabel="label"
-                                optionValue="value"
+                            [options]="timezones"
+                            class="w-100"
+                            [(ngModel)]="userInfo.timezone"
+                            (ngModelChange)="onChangeUserInfo()"
+                            placeholder="Select a timezone"
+                            optionLabel="label"
+                            optionValue="value"
                         >
                         </p-dropdown>
                     </div>

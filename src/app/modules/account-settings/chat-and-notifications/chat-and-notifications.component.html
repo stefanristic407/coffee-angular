@@ -6,9 +6,9 @@
 
         <div class="mb-4 d-block d-md-none">
             <a
-                    href="javascript:void(0)"
-                    class="text-clr60b fnt-16 fnt-muli fnt-600 d-flex align-items-center"
-                    (click)="location.back()"
+                href="javascript:void(0)"
+                class="text-clr60b fnt-16 fnt-muli fnt-600 d-flex align-items-center"
+                (click)="location.back()"
             >
                 <img src="../../../../assets/images/back-arrow.svg" alt="back" class="mr-2" />
                 <span>{{ 'back' | translate }}</span>
@@ -43,9 +43,9 @@
                                 {{ 'hecters' | translate }}
                             </div>
                             <p-radioButton
-                                    value="hectares"
-                                    [(ngModel)]="preference.farm_size_unit"
-                                    (ngModelChange)="onChangeData()"
+                                value="hectares"
+                                [(ngModel)]="preference.farm_size_unit"
+                                (ngModelChange)="onChangeData()"
                             ></p-radioButton>
                         </div>
                     </div>
@@ -56,9 +56,9 @@
                                 {{ 'acres' | translate }}
                             </div>
                             <p-radioButton
-                                    value="acres"
-                                    [(ngModel)]="preference.farm_size_unit"
-                                    (ngModelChange)="onChangeData()"
+                                value="acres"
+                                [(ngModel)]="preference.farm_size_unit"
+                                (ngModelChange)="onChangeData()"
                             ></p-radioButton>
                         </div>
                     </div>
@@ -71,9 +71,9 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="fnt-14 fnt-md-16 mr-4">{{ 'pounds' | translate }} (lb)</div>
                             <p-radioButton
-                                    value="lb"
-                                    [(ngModel)]="preference.quantity_unit"
-                                    (ngModelChange)="onChangeData()"
+                                value="lb"
+                                [(ngModel)]="preference.quantity_unit"
+                                (ngModelChange)="onChangeData()"
                             ></p-radioButton>
                         </div>
                     </div>
@@ -82,9 +82,9 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="fnt-14 fnt-md-16 mr-4">{{ 'kilograms' | translate }} (Kg)</div>
                             <p-radioButton
-                                    value="kg"
-                                    [(ngModel)]="preference.quantity_unit"
-                                    (ngModelChange)="onChangeData()"
+                                value="kg"
+                                [(ngModel)]="preference.quantity_unit"
+                                (ngModelChange)="onChangeData()"
                             ></p-radioButton>
                         </div>
                     </div>
@@ -93,9 +93,9 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="fnt-14 fnt-md-16 mr-4">{{ 'tonnes' | translate }} (ton)</div>
                             <p-radioButton
-                                    value="ton"
-                                    [(ngModel)]="preference.quantity_unit"
-                                    (ngModelChange)="onChangeData()"
+                                value="ton"
+                                [(ngModel)]="preference.quantity_unit"
+                                (ngModelChange)="onChangeData()"
                             ></p-radioButton>
                         </div>
                     </div>
@@ -111,8 +111,8 @@
                             {{ 'read_recipient' | translate }}
                         </div>
                         <p-inputSwitch
-                                [(ngModel)]="preference.read_recipient"
-                                (ngModelChange)="onChangeData()"
+                            [(ngModel)]="preference.read_recipient"
+                            (ngModelChange)="onChangeData()"
                         ></p-inputSwitch>
                     </div>
                     <div class="text-clr588 fnt-14">
@@ -126,8 +126,8 @@
                             {{ 'enable_emoticons' | translate }}
                         </div>
                         <p-inputSwitch
-                                [(ngModel)]="preference.enable_emoticons"
-                                (ngModelChange)="onChangeData()"
+                            [(ngModel)]="preference.enable_emoticons"
+                            (ngModelChange)="onChangeData()"
                         ></p-inputSwitch>
                     </div>
                     <div class="text-clr588 fnt-14 mr-5">
@@ -142,12 +142,12 @@
                         </div>
                         <div>
                             <p-dropdown
-                                    [options]="textSizes"
-                                    class="chat-text-size-dropdown"
-                                    [(ngModel)]="preference.chat_text_size"
-                                    (ngModelChange)="onChangeData()"
-                                    optionLabel="label"
-                                    optionValue="value"
+                                [options]="textSizes"
+                                class="chat-text-size-dropdown"
+                                [(ngModel)]="preference.chat_text_size"
+                                (ngModelChange)="onChangeData()"
+                                optionLabel="label"
+                                optionValue="value"
                             ></p-dropdown>
                         </div>
                     </div>
@@ -163,8 +163,8 @@
                             {{ 'enable_notifications' | translate }}
                         </div>
                         <p-inputSwitch
-                                [(ngModel)]="preference.enable_desktop_notification"
-                                (ngModelChange)="onChangeData()"
+                            [(ngModel)]="preference.enable_desktop_notification"
+                            (ngModelChange)="onChangeData()"
                         ></p-inputSwitch>
                     </div>
                 </div>
@@ -175,8 +175,8 @@
                             {{ 'order_related_updates' | translate }}
                         </div>
                         <p-inputSwitch
-                                [(ngModel)]="preference.order_related_updates"
-                                (ngModelChange)="onChangeData()"
+                            [(ngModel)]="preference.order_related_updates"
+                            (ngModelChange)="onChangeData()"
                         ></p-inputSwitch>
                     </div>
                     <div class="text-clr588 fnt-14 mr-5 pr-lg-5">
@@ -190,8 +190,8 @@
                             {{ 'new_chat' | translate }}
                         </div>
                         <p-inputSwitch
-                                [(ngModel)]="preference.new_chat_notification"
-                                (ngModelChange)="onChangeData()"
+                            [(ngModel)]="preference.new_chat_notification"
+                            (ngModelChange)="onChangeData()"
                         ></p-inputSwitch>
                     </div>
                     <div class="text-clr588 fnt-14 mr-5">
@@ -205,8 +205,8 @@
                             {{ 'notification_sound' | translate }}
                         </div>
                         <p-inputSwitch
-                                [(ngModel)]="preference.notification_sound"
-                                (ngModelChange)="onChangeData()"
+                            [(ngModel)]="preference.notification_sound"
+                            (ngModelChange)="onChangeData()"
                         ></p-inputSwitch>
                     </div>
                     <div class="text-clr588 fnt-14 mr-5">

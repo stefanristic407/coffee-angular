@@ -6,9 +6,9 @@
 
         <div class="mb-4 d-block d-md-none">
             <a
-                    href="javascript:void(0)"
-                    class="text-clr60b fnt-16 fnt-muli fnt-600 d-flex align-items-center"
-                    (click)="location.back()"
+                href="javascript:void(0)"
+                class="text-clr60b fnt-16 fnt-muli fnt-600 d-flex align-items-center"
+                (click)="location.back()"
             >
                 <img src="../../../../assets/images/back-arrow.svg" alt="back" class="mr-2" />
                 <span>{{ 'back' | translate }}</span>
@@ -35,8 +35,8 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="fnt-14 fnt-md-16 mr-4">Accessing my account and it's details</div>
                         <p-inputSwitch
-                                [(ngModel)]="privacyTerms.access_account"
-                                (ngModelChange)="onChangeData()"
+                            [(ngModel)]="privacyTerms.access_account"
+                            (ngModelChange)="onChangeData()"
                         ></p-inputSwitch>
                     </div>
                 </div>
@@ -45,8 +45,8 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="fnt-14 fnt-md-16">Collecting my data</div>
                         <p-inputSwitch
-                                [(ngModel)]="privacyTerms.access_data"
-                                (ngModelChange)="onChangeData()"
+                            [(ngModel)]="privacyTerms.access_data"
+                            (ngModelChange)="onChangeData()"
                         ></p-inputSwitch>
                     </div>
                 </div>
@@ -55,8 +55,8 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="fnt-14 fnt-md-16">Accessing my chat</div>
                         <p-inputSwitch
-                                [(ngModel)]="privacyTerms.access_chat"
-                                (ngModelChange)="onChangeData()"
+                            [(ngModel)]="privacyTerms.access_chat"
+                            (ngModelChange)="onChangeData()"
                         ></p-inputSwitch>
                     </div>
                 </div>
@@ -67,8 +67,8 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="fnt-14 fnt-md-16">Cookies enabled</div>
                         <p-inputSwitch
-                                [(ngModel)]="privacyTerms.enable_cookies"
-                                (ngModelChange)="onChangeData()"
+                            [(ngModel)]="privacyTerms.enable_cookies"
+                            (ngModelChange)="onChangeData()"
                         ></p-inputSwitch>
                     </div>
                 </div>
