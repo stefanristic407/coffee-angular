@@ -39,6 +39,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { TabViewModule } from 'primeng/tabview';
 import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
@@ -49,6 +50,7 @@ import { LightboxModule } from 'ng-gallery/lightbox';
 import { MatVideoModule } from 'mat-video';
 import { Ng2TelInputModule } from 'ng2-tel-input';
 
+import { SearchFilterPipe } from './pipes/chat/search-filter.pipe';
 import { CountryPipe } from './pipes/country/country.pipe';
 import { EstateBrandLinkPipe } from './pipes/link/estate-brand-link.pipe';
 import { ProfileLinkPipe } from './pipes/link/profile-link.pipe';
@@ -64,7 +66,7 @@ import { WordCountPipe } from './pipes/word-count/word-count.pipe';
 
 import { RatingDirective } from './directives/rating.directive';
 import { WordLimitDirective } from './directives/word-limit.directive';
-import { LifecyclehookDirective } from './directives/lifecyclehook.directive';
+import { LifecyclehookDirective } from './directives/lifecyclehook/lifecyclehook.directive';
 
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { BlankComponent } from './components/blank/blank.component';
@@ -95,11 +97,8 @@ import { DayPickerComponent } from './components/day-picker/day-picker.component
 import { PhoneNumberComponent } from './components/phone-number/phone-number.component';
 import { ReviewSummaryComponent } from './components/review-summary/review-summary.component';
 import { ReviewsComponent } from './components/reviews/reviews.component';
-import { ProgressBarModule } from 'primeng/progressbar';
-
 import { SewnDirectMessageComponent } from './components/chat/sewn-direct-message/sewn-direct-message.component';
 import { SewnOrderChatComponent } from './components/chat/sewn-order-chat/sewn-order-chat.component';
-import { SearchFilterPipe } from './components/chat/sewn-direct-message/search-filter.pipe';
 
 // #region third libs
 const THIRDMODULES = [
