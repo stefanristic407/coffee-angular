@@ -127,6 +127,10 @@
     top: 0px !important;
 }
 
+:host ::ng-deep .p-tabview-nav {
+    border: 0;
+}
+
 @media (max-width: 480px) {
     .estate-orders {
         margin: 0.5rem 0px;
