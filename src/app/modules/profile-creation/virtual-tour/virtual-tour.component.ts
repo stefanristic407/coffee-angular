@@ -1,6 +1,5 @@
-import { UserserviceService } from '@services';
+import { FileService, UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { YourServicesService } from '@services';
 import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
@@ -13,21 +12,17 @@ import { RoasteryProfileService } from '../roastery-profile.service';
 })
 export class VirtualTourComponent implements OnInit {
     tourMedias: any = [];
-    roasterId: any;
     isLoading?: boolean;
     isSaveMode: boolean;
 
     constructor(
         public roasteryProfileService: RoasteryProfileService,
         public globals: GlobalsService,
-        private yourService: YourServicesService,
+        private fileService: FileService,
         private toasterService: ToastrService,
-        private userService: UserserviceService,
-        private cookieService: CookieService,
     ) {}
 
     async ngOnInit() {
-        this.roasterId = this.cookieService.get('roaster_id');
         this.getFiles();
         this.detectMode();
     }
@@ -40,7 +35,7 @@ export class VirtualTourComponent implements OnInit {
 
     getFiles() {
         this.isLoading = true;
-        this.yourService.getMyFiles().subscribe((res) => {
+        this.fileService.getAllFiles({ file_module: 'Virtual-Tour', type_in: 'VIDEO,IMAGE' }).subscribe((res) => {
             if (res.success) {
                 this.isLoading = false;
                 this.tourMedias = res.result;
@@ -50,7 +45,7 @@ export class VirtualTourComponent implements OnInit {
     }
 
     addFile(data) {
-        this.yourService.addFile(data).subscribe((res) => {
+        this.fileService.uploadFiles(data).subscribe((res: any) => {
             if (res.success) {
                 this.getFiles();
             } else {
@@ -61,7 +56,7 @@ export class VirtualTourComponent implements OnInit {
 
     handleRemoveMediaFile(id: number): void {
         this.tourMedias = this.tourMedias.filter((item) => item.id !== id);
-        this.userService.deleteFile(this.roasterId, id).subscribe();
+        this.fileService.deleteFile(id).subscribe();
     }
 
     handleFile(e) {

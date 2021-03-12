@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
-import { FileService } from '@services';
 import { FileShareService } from '../../file-share.service';
 import { FileType } from '@enums';
 
@@ -22,7 +21,6 @@ export class FileTableComponent implements OnInit {
     constructor(
         public dialogSrv: DialogService,
         public router: Router,
-        public fileSrv: FileService,
         public toastrService: ToastrService,
         public fileShareSrv: FileShareService,
         public globals: GlobalsService,

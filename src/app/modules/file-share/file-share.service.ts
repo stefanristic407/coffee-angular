@@ -180,9 +180,6 @@ export class FileShareService {
             formData.append('name', fileName);
             formData.append('file_module', 'File-Share');
             formData.append('parent_id', this.folderId);
-            this.roasterId = this.cookieService.get('roaster_id');
-            formData.append('api_call', '/ro/' + this.roasterId + '/file-manager/files');
-            formData.append('token', this.cookieService.get('Auth'));
             this.fileSrv.uploadFiles(formData).subscribe((res: any) => {
                 if (res.success) {
                     this.toastrService.success('The file ' + fileName + ' uploaded successfully');

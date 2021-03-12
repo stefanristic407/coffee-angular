@@ -20,9 +20,12 @@
             </div>
             <div class="btn-wrap">
                 <span class="fnt-12 lh-normal text-white fnt-bold">{{ item.url | fileName: 20 }}</span>
-                <a (click)="fileIndex = i; menu.toggle($event)">
-                    <img src="assets/images/menu.svg" alt="menu" />
-                </a>
+                <div class="position-relative">
+                    <a (click)="fileIndex = i; menu.toggle($event)">
+                        <img src="assets/images/menu.svg" alt="menu" />
+                    </a>
+                    <p-menu #menu [popup]="true" [model]="items" styleClass="left-menu-actions"></p-menu>
+                </div>
             </div>
         </div>
     </ng-container>
@@ -37,8 +40,6 @@
         </div>
     </label>
 </div>
-
-<p-menu #menu [popup]="true" [model]="items"></p-menu>
 
 <input
     #fileInput

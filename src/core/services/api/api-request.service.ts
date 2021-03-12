@@ -117,7 +117,7 @@ export class ApiRequestService extends ApiService {
         const data = {
             api_call: `/ro/${roasterData.roaster_id}/api-keys/requests/${roasterData.request_id}/generate`,
             token: this.cookieService.get('Auth'),
-            method: 'post',
+            method: 'POST',
         };
         return this.http.post(this.apiUrl, data);
     }

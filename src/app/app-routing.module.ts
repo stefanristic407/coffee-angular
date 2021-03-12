@@ -28,11 +28,6 @@ export const routes: Routes = [
                     import('./modules/review-rating/review-rating.module').then((m) => m.ReviewRatingModule),
             },
             {
-                path: 'ordermanagement',
-                loadChildren: () =>
-                    import('./ordermanagement/ordermanagement.module').then((m) => m.OrdermanagementModule),
-            },
-            {
                 path: 'dispute-system',
                 loadChildren: () =>
                     import('./modules/dispute-system/dispute-system.module').then((m) => m.DisputeSystemModule),
@@ -66,10 +61,7 @@ export const routes: Routes = [
             },
             {
                 path: 'api-requests-list',
-                loadChildren: () =>
-                    import('./modules/api-requests/api-requests-table/api-request.module').then(
-                        (m) => m.ApiRequestModule,
-                    ),
+                loadChildren: () => import('./modules/api-requests/api-request.module').then((m) => m.ApiRequestModule),
             },
             {
                 path: 'green-coffee-management',
