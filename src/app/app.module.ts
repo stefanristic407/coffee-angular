@@ -37,6 +37,7 @@ import { UserserviceService } from '@services';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
+import { getSaver, SAVER } from './modules/social-media/saver.provider';
 
 @NgModule({
     declarations: [
@@ -89,6 +90,7 @@ import { AgmCoreModule } from '@agm/core';
             deps: [UserserviceService],
         },
         AuthGuard,
+        { provide: SAVER, useFactory: getSaver },
     ],
     bootstrap: [AppComponent],
 })

@@ -90,7 +90,13 @@ export const routes: Routes = [
             },
             {
                 path: 'account-settings',
-                loadChildren: () => import('./modules/account-settings/account-settings.module').then((m) => m.AccountSettingsModule),
+                loadChildren: () =>
+                    import('./modules/account-settings/account-settings.module').then((m) => m.AccountSettingsModule),
+            },
+            {
+                path: 'social-media',
+                loadChildren: () =>
+                    import('./modules/social-media/social-media.module').then((m) => m.SocialMediaModule),
             },
         ],
     },
