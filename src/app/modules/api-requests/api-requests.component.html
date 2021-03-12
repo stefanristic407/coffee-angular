@@ -23,20 +23,10 @@
                     [(ngModel)]="customerType" scrollHeight="225px" [showClear]="true" placeholder="Customer Type"
                     styleClass="round-border mr-2 {{ customerType ? 'highlight' : '' }}">
                 </p-dropdown>
-                <div class="d-inline border-order date-div col-sm-3" (click)="openCalendar($event)">
-                    <p class="d-inline filter-text">
-                        Date range &nbsp;
-                        <span *ngIf="showDateRange != ''">{{ showDateRange }}</span>
-                    </p>
-
-                    <a class="pointer-item">
-                        <p class="d-inline filter">
-                            <p-calendar #calendar styleClass="only-icon" [(ngModel)]="rangeDates" selectionMode="range"
-                                dateFormat="dd.mm.yy" [readonlyInput]="true" [showButtonBar]="true"></p-calendar>
-                            &nbsp; <img src="assets/images/active-calender.png" alt="" />
-                        </p>
-                    </a>
-                </div>
+                <p-calendar styleClass="only-icon" [(ngModel)]="rangeDates" [showIcon]="true" selectionMode="range"
+                    dateFormat="dd.mm.yy" (onClose)="filterCall()" [readonlyInput]="true" [showButtonBar]="true"
+                    placeholder="{{ globals.languageJson?.date_range }}" styleClass="round-border">
+                </p-calendar>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="d-inline">
@@ -66,6 +56,8 @@
                             </p-tabPanel>
                         </p-tabView>
                     </div>
+                </p-tabView>
             </div>
+        </div>
     </section>
 </div>
