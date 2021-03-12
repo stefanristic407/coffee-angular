@@ -2,7 +2,7 @@
   <div class="pull-left font-bold text-clr334" [class.fnt-18]="!orderConfirmation" [class.fnt-14]="orderConfirmation">{{
     'delivery_address' | translate }}</div>
 </div>
-<div class="d-flex mt-1 addr-text" *ngIf="order?.shippingAddress">
+<div class="d-flex mt-1 text-clr588 fnt-14 fnt-500" *ngIf="order?.shippingAddress">
   {{ order.shippingAddress.addressLine1 }},
   {{ order.shippingAddress.addressLine2 }},
   {{ order.shippingAddress.zipcode }} -

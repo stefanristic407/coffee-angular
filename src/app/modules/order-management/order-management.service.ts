@@ -11,6 +11,8 @@ import {
     ConfirmRejectOrderDetails,
     LabelValue,
     AvailabilityRequest,
+    OrderNote,
+    UserProfile,
 } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -23,8 +25,10 @@ import {
     PurchaseService,
     CommonService,
     AvailabilityRequestService,
+    UserService,
 } from '@services';
 import * as _ from 'lodash';
+import { toCamelCase } from '@utils';
 
 @Injectable({
     providedIn: 'root',
@@ -42,18 +46,22 @@ export class OrderManagementService {
     private readonly cuppingScoreSubject = new BehaviorSubject<CuppingScore[]>([]);
     private readonly originListSubject = new BehaviorSubject<LabelValue[]>([]);
     private readonly requestListSubject = new BehaviorSubject<ApiResponse<AvailabilityRequest[]>>(null);
+    private readonly orderNotesSubject = new BehaviorSubject<OrderNote[]>([]);
+    // TODO: Move into user service as "current user profile" after refactoring
+    private readonly userProfileSubject = new BehaviorSubject<UserProfile>(null);
 
     private orderId: number;
 
     constructor(
         protected cookieSrv: CookieService,
         private availabilitySrv: AvailabilityService,
-        private brandProfileSrc: BrandProfileService,
+        private brandProfileSrv: BrandProfileService,
         private cuppingSrv: GeneralCuppingService,
         private orderSrv: OrderService,
         private purchaseSrv: PurchaseService,
         private commonSrv: CommonService,
         private requestSrv: AvailabilityRequestService,
+        private userSrv: UserService,
     ) {}
 
     get orderDetails$(): Observable<OrderDetails> {
@@ -88,6 +96,14 @@ export class OrderManagementService {
         return this.requestListSubject.asObservable();
     }
 
+    get orderNotes$(): Observable<OrderNote[]> {
+        return this.orderNotesSubject.asObservable();
+    }
+
+    get userProfile$(): Observable<UserProfile> {
+        return this.userProfileSubject.asObservable();
+    }
+
     getOrders(organizationType: OrgType): Observable<ApiResponse<OrderSummary[]>> {
         return this.ordersSubjects[organizationType].asObservable();
     }
@@ -114,6 +130,10 @@ export class OrderManagementService {
 
     createReferenceNumber(orderId: number, referenceNumber: string): Observable<ApiResponse<any>> {
         return this.purchaseSrv.updateOrderDetails(orderId, { order_reference: referenceNumber });
+    }
+
+    addOrderNote(orderId: number, note: string): Observable<ApiResponse<any>> {
+        return this.purchaseSrv.addOrderNote(orderId, note);
     }
 
     downloadOrders(
@@ -168,6 +188,8 @@ export class OrderManagementService {
                     this.loadCuppingScore(details.harvestId, orgType);
                     this.loadEstateDetails(details.estateId);
                     this.loadDocuments(1, 5, rewrite);
+                    this.loadOrderNotes(orderId);
+                    this.loadUserProfile();
                 }
             },
         });
@@ -193,6 +215,12 @@ export class OrderManagementService {
         });
     }
 
+    loadOrderNotes(orderId: number): void {
+        this.purchaseSrv.getOrderNotes(orderId).subscribe({
+            next: (result) => this.orderNotesSubject.next(result),
+        });
+    }
+
     private loadActivities(orderId: number, orgType: OrgType): void {
         this.purchaseSrv.getRecentActivity(orderId, orgType).subscribe({
             next: (result) => this.recentActivitiesSubject.next(result),
@@ -210,7 +238,7 @@ export class OrderManagementService {
     }
 
     private loadEstateDetails(id: number): void {
-        this.brandProfileSrc.getEstateProfile(id).subscribe({
+        this.brandProfileSrv.getEstateProfile(id).subscribe({
             next: (result) => this.estateDetailsSubject.next(result),
         });
     }
@@ -219,5 +247,24 @@ export class OrderManagementService {
         this.cuppingSrv.getCuppingScores(harvestId, orgType).subscribe({
             next: (result) => this.cuppingScoreSubject.next(result),
         });
+    }
+
+    private loadUserProfile(): void {
+        this.userSrv.getUserProfile().subscribe({
+            next: (res) => {
+                if (res.success) {
+                    this.userProfileSubject.next(toCamelCase<UserProfile>(res.result));
+                }
+            },
+        });
+
+        // this.cookieSrv.get('roaster_id')
+        // this.brandProfileSrc.getProfile(OrgType.ROASTER, +this.cookieSrv.get('roaster_id')).subscribe({
+        //     next: (res) => {
+        //         if (res) {
+        //             this.userProfileSubject.next(toCamelCase<OrganizationDetails>(res));
+        //         }
+        //     },
+        // });
     }
 }

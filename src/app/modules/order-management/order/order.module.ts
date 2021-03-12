@@ -21,6 +21,9 @@ import { ConfirmOrderComponent } from './confirm-order/confirm-order.component';
 import { AgmCoreModule } from '@agm/core';
 import { RoasterDetailsComponent } from './order-contacts/roaster-details/roaster-details.component';
 import { CreateReferenceNumberComponent } from './create-reference-number/create-reference-number.component';
+import { RoasterNotesComponent } from './roaster-notes/roaster-notes.component';
+import { AddNoteComponent } from './roaster-notes/add-note/add-note.component';
+import { NoteComponent } from './roaster-notes/note/note.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule, AgmCoreModule, SharedModule, OrderRoutingModule],
@@ -42,6 +45,9 @@ import { CreateReferenceNumberComponent } from './create-reference-number/create
         ConfirmOrderComponent,
         RoasterDetailsComponent,
         CreateReferenceNumberComponent,
+        RoasterNotesComponent,
+        AddNoteComponent,
+        NoteComponent,
     ],
 })
 export class OrderModule {}

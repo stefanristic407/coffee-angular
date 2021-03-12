@@ -8,4 +8,6 @@ export interface OrganizationDetails {
     state: string;
     zipcode: string;
     country: string;
+    companyNumber: string;
+    belongsTo: string;
 }

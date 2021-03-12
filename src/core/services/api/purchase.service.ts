@@ -8,6 +8,7 @@ import {
     OrderDetails,
     OrderSummary,
     RecentActivity,
+    OrderNote,
 } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
@@ -82,6 +83,18 @@ export class PurchaseService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `${this.getOrgEndpoint(orgType)}/${orderId}/events`, 'GET').pipe(
             map((response) => {
                 return response.success ? response.result : [];
+            }),
+        );
+    }
+
+    addOrderNote(orderId: number, note: string): Observable<ApiResponse<void>> {
+        return this.postWithOrg(this.orgPostUrl, `${this.endpoint}/${orderId}/notes`, 'POST', { notes: note });
+    }
+
+    getOrderNotes(orderId: number): Observable<OrderNote[]> {
+        return this.postWithOrg(this.orgPostUrl, `${this.endpoint}/${orderId}/notes`).pipe(
+            map((response) => {
+                return response.success && response.result ? response.result.map((x) => toCamelCase<OrderNote>(x)) : [];
             }),
         );
     }

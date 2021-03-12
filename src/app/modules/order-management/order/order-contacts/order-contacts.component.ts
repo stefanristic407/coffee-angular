@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { OrderDetails, OrganizationDetails } from '@models';
 import { CommonService } from '@services';
 import { OrgType } from '@enums';
@@ -7,6 +7,7 @@ import { OrgType } from '@enums';
     selector: 'app-order-contacts',
     templateUrl: './order-contacts.component.html',
     styleUrls: ['./order-contacts.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderContactsComponent {
     @Input() order: OrderDetails;
