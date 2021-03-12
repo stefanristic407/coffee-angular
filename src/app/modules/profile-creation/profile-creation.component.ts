@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ProfilePhotoService } from './profile-photo/profile-photo.service';
 import { RoasteryProfileService } from './roastery-profile.service';
@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     templateUrl: './profile-creation.component.html',
     styleUrls: ['./profile-creation.component.scss'],
 })
-export class ProfileCreationComponent implements OnInit {
+export class ProfileCreationComponent implements OnInit, OnDestroy {
     menuItems = [
         {
             label: 'about_roastery',
@@ -38,6 +38,11 @@ export class ProfileCreationComponent implements OnInit {
     ngOnInit(): void {
         this.detectMode();
         this.initialForm();
+    }
+
+    ngOnDestroy() {
+        this.roasteryProfileService.saveMode.next(false);
+        this.roasteryProfileService.editMode.next(true);
     }
 
     initialForm() {
