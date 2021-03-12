@@ -31,7 +31,7 @@
         <div *ngIf="!isLoading" class="row p-0 br-md-main round-4 p-md-45 mx-0 mb-4">
             <div class="col-lg-5 px-0 pb-lg-2">
                 <div>
-                    <div class="mt-2 mb-4 mb-md-45 sewn-form-field w-100">
+                    <div class="mt-2 mb-4 mb-md-45 sewn-form-field language-timezone-fields">
                         <label class="fnt-14 fnt-600">{{ 'language' | translate }}</label>
                         <p-dropdown
                                 [options]="applicationLanguages"
@@ -87,7 +87,7 @@
                         </div>
                     </div>
 
-                    <div class="sewn-form-field mb-0 w-100">
+                    <div class="sewn-form-field mb-0 language-timezone-fields">
                         <label class="fnt-14 fnt-600">{{ 'time_zone_title' | translate }}</label>
 
                         <p-dropdown

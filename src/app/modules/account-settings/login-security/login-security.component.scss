@@ -45,6 +45,12 @@
     color: #5d5d5d;
 }
 
+@media (max-width: 991px) {
+    .password-field {
+        width: 328px;
+    }
+}
+
 @media (max-width: 767px) {
     .session-list {
         .session-icon {
