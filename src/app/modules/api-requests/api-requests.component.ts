@@ -68,7 +68,7 @@ export class ApiRequestsTableComponent implements OnInit, AfterViewInit {
             .subscribe();
     }
 
-    openCalendar(event: any) {
+    filterCall() {
         this.calendar.showOverlay(this.calendar.inputfieldViewChild.nativeElement);
         event.stopPropagation();
     }
