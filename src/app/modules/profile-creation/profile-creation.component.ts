@@ -20,7 +20,7 @@ export class ProfileCreationComponent implements OnInit {
         { label: 'contact', routerLink: '/roastery-profile/contact' },
         { label: 'reviews', routerLink: '/roastery-profile/reviews' },
     ];
-    breadItems = [{ label: 'home', routerLink: '/' }, { label: 'roaster_profile' }];
+    breadItems = [{ label: 'home', routerLink: '/' }, { label: 'roastery_profile' }];
     isSaveMode: boolean;
     isEditMode: boolean;
 
