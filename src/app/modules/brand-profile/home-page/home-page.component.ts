@@ -202,7 +202,8 @@ export class HomePageComponent implements OnInit {
         });
     }
 
-    deleteCertificate(certificateId) {
+    deleteCertificate(certificate) {
+        console.log(certificate);
         this.dialogSrv
             .open(ConfirmComponent, {
                 data: {
@@ -214,7 +215,7 @@ export class HomePageComponent implements OnInit {
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
-                    this.roasterService.deleteCertificate(this.roasterId, certificateId).subscribe((res: any) => {
+                    this.roasterService.deleteCertificate(this.roasterId, certificate.id).subscribe((res: any) => {
                         if (res.success) {
                             this.toastrService.success('Certificate deleted successfully');
                             this.getCertificates();

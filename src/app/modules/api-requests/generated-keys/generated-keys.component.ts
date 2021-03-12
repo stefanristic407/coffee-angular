@@ -1,17 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from '@services';
+import { GlobalsService, ApiRequestService } from '@services';
 import * as moment from 'moment';
-import { ApiRequestService } from 'src/core/services/api/api-request.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmComponent } from '@app/shared';
 
 @Component({
     selector: 'app-generated-keys',
     templateUrl: './generated-keys.component.html',
     styleUrls: ['./generated-keys.component.scss'],
 })
-export class GeneratedKeysComponent implements OnInit {
+export class GeneratedKeysComponent implements OnInit, OnChanges {
     @Input() searchRequestId;
     @Input() filterData;
     @Input() dateRange;
@@ -22,7 +22,6 @@ export class GeneratedKeysComponent implements OnInit {
     termStatus: any;
     showStatus = true;
     paginationValue = false;
-    modalRef: BsModalRef;
     totalRecords = 0;
     rows = 10;
     dateFrom: any;
@@ -37,16 +36,15 @@ export class GeneratedKeysComponent implements OnInit {
 
     constructor(
         private toastrService: ToastrService,
-        private modalService: BsModalService,
         public cookieService: CookieService,
         private apiRequestService: ApiRequestService,
         public globals: GlobalsService,
+        public dialogSrv: DialogService,
     ) {
         this.termStatus = '';
         this.display = '10';
         this.roasterID = this.cookieService.get('roaster_id');
     }
-    @ViewChild('deletetemplate') private deletetemplate: any;
 
     ngOnChanges(): void {
         if (this.dateRange?.length) {
@@ -57,34 +55,27 @@ export class GeneratedKeysComponent implements OnInit {
             this.dateFrom = null;
             this.dateTo = null;
         }
-        console.log('date from-->>', this.dateFrom);
-        console.log('date To-->>', this.dateTo);
         this.getGeneratedRoKeys();
     }
 
     ngOnInit(): void {}
 
-    getData(event) {
-        this.sortOrder = event.sortOrder === 1 ? 'asc' : 'desc';
-        this.sortType = event.sortField;
-        console.log('event-->>>', event);
+    getTableData(event) {
         if (event.sortField) {
+            this.sortOrder = event.sortOrder === 1 ? 'asc' : 'desc';
+            this.sortType = event.sortField;
+            const currentPage = event.first / this.rows;
+            this.pageNumber = currentPage + 1;
             this.getGeneratedRoKeys();
         }
-    }
-
-    paginate(event) {
-        const page = event.page + 1;
-        this.pageNumber = event.page + 1;
-        this.getGeneratedRoKeys();
     }
 
     getGeneratedRoKeys() {
         const data = {
             roaster_id: this.roasterID,
             page: this.pageNumber,
-            per_page: this.perPage,
-            org_type: this.filterData,
+            per_page: this.perPage ? this.perPage : 10,
+            org_type: this.filterData ? this.filterData : '',
             query: this.searchRequestId,
         };
         if (this.dateFrom && this.dateTo) {
@@ -110,18 +101,13 @@ export class GeneratedKeysComponent implements OnInit {
                 this.filterType.emit(res.result);
                 this.totalRecords = res.result_info.total_count;
                 this.rows = res.result_info.per_page;
-                if (this.totalRecords < 10) {
-                    this.paginationValue = false;
-                } else {
+                if (this.totalRecords > 10) {
                     this.paginationValue = true;
+                } else {
+                    this.paginationValue = false;
                 }
-                console.log('generatedKeyData', this.generatedKeyData);
             }
         });
-    }
-
-    openModal(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.show(template);
     }
 
     resumeKey(item: any) {
@@ -150,8 +136,21 @@ export class GeneratedKeysComponent implements OnInit {
         });
     }
 
-    deleteKey() {
-        this.openModal(this.deletetemplate);
+    deleteKey(id: any) {
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'delete',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                console.log('action--->>', action);
+                if (action === 'yes') {
+                    this.onConfirm(id);
+                }
+            });
     }
 
     onConfirm(id: any) {
@@ -166,7 +165,6 @@ export class GeneratedKeysComponent implements OnInit {
                 const temp = JSON.parse(JSON.stringify(this.generatedKeyData));
                 temp.splice(index, 1);
                 this.generatedKeyData = temp;
-                this.modalRef.hide();
             }
         });
     }
@@ -177,7 +175,6 @@ export class GeneratedKeysComponent implements OnInit {
             api_key_id: id,
         };
         this.apiRequestService.notifyRoCustomer(data).subscribe((res) => {
-            console.log('res---<>>>', res);
             if (res.success) {
                 this.toastrService.success('Key has been reactivated!');
             }

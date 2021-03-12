@@ -3,7 +3,14 @@
     <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
 </div>
 <div class="mb-2 mt-4 generted-key-container" *ngIf="!loader">
-    <p-table [value]="generatedKeyData" [lazy]="true" (onLazyLoad)="getData($event)">
+    <p-table
+        [value]="generatedKeyData"
+        [lazy]="true"
+        (onLazyLoad)="getTableData($event)"
+        [paginator]="paginationValue"
+        [rows]="rows"
+        [totalRecords]="totalRecords"
+    >
         <ng-template pTemplate="header">
             <tr>
                 <th pSortableColumn="org_name">
@@ -32,7 +39,7 @@
                 <td>{{ item.generated_at | date: 'MMMM y' }}</td>
                 <td [ngClass]="item?.is_active ? 'active-status' : 'status-paused'">
                     <img *ngIf="item?.is_active" src="assets/images/active.svg" />
-                    <img *ngIf="!item?.is_active" src="assets/images/paused.svg" /><span class="pl-8">
+                    <img *ngIf="!item?.is_active" src="assets/images/paused.svg" /><span class="pl-2">
                         {{ item.is_active ? 'Active' : 'Paused' }}
                     </span>
                 </td>
@@ -66,7 +73,7 @@
                                     }}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a class="pointer-item" (click)="deleteKey(); pop.hide()">{{
+                                    <a class="pointer-item" (click)="deleteKey(item.id); pop.hide()">{{
                                         globals.languageJson?.delete_key
                                     }}</a>
                                 </li>
@@ -78,40 +85,13 @@
                             </ul>
                         </div>
                     </ng-template>
-                    <ng-template #deletetemplate>
-                        <div class="delete-template-modal-body text-center">
-                            <p class="fnt-14 fnt-muli fnt-700 text-clr334 m-0">
-                                Are you sure you want to delete the API key for "Third wave coffee roasters"?
-                            </p>
-                            <div class="templete-btn">
-                                <button class="btn btn-stroked" (click)="modalRef.hide()">
-                                    {{ 'Cancel' | translate }}
-                                </button>
-                                <button class="btn btn-raised ml-3" (click)="onConfirm(item.id)">
-                                    {{ 'Yes' | translate }}
-                                </button>
-                            </div>
-                        </div>
-                    </ng-template>
                 </td>
             </tr>
         </ng-template>
     </p-table>
-    <p-paginator
-        [rows]="rows"
-        [totalRecords]="totalRecords"
-        pageLinkSize="3"
-        *ngIf="paginationValue && generatedKeyData?.length"
-    ></p-paginator>
 </div>
 
 <!-- no-data for Api Generated Keys -->
-<div class="row pt-5" *ngIf="!generatedKeyData?.length && !loader">
-    <div class="col-lg-12 col-md-12 no-data-sec">
-        <div class="text-center">
-            <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image" />
-            <h1 class="fnt-16 fnt-md-18 fnt-700 fnt-muli text-clr334">No data available</h1>
-        </div>
-    </div>
-</div>
-<!-- no-data for Api Generated Keys -->
+<ng-container *ngIf="!generatedKeyData?.length && !loader">
+    <app-empty title="No data available"></app-empty>
+</ng-container>

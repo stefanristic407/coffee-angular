@@ -1,23 +1,23 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { GlobalsService } from '@services';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-    selector: 'app-api-requests-table',
-    templateUrl: './api-requests-table.component.html',
-    styleUrls: ['./api-requests-table.component.scss'],
+    selector: 'app-api-requests',
+    templateUrl: './api-requests.component.html',
+    styleUrls: ['./api-requests.component.scss'],
 })
-export class ApiRequestsTableComponent implements OnInit {
+export class ApiRequestsTableComponent implements OnInit, AfterViewInit {
     breadCrumbItem: MenuItem[] = [];
     showDateRange: any;
     @ViewChild('calendar')
     calendar: any;
     @ViewChild('searchInput') input: ElementRef;
     showDisplay = true;
-    customerType = '';
-    perPage: any;
+    customerType = null;
+    perPage = 10;
     rangeDates: any;
     appLanguage?: any = {};
     greenActive: any = 0;
@@ -27,20 +27,20 @@ export class ApiRequestsTableComponent implements OnInit {
     selectedTab = 0;
     FilterTypeList: any[] = [];
     isApiRequestPage = true;
-    customerTypeArray = [
-        { label: 'All', value: 'All' },
-        { label: 'Shipped', value: 'Shipped' },
-        { label: 'Payment', value: 'Payment' },
-        { label: 'Harvest Ready', value: 'Harvest Ready' },
-        { label: 'Received', value: 'Received' },
-    ];
-    constructor(public globals: GlobalsService) {
-        this.perPage = '10';
-    }
+    displayArray = [];
+    constructor(public globals: GlobalsService) {}
 
     ngOnInit(): void {
-        this.language();
         this.supplyBreadCrumb();
+        this.loadFilterValues();
+    }
+
+    loadFilterValues() {
+        this.displayArray = [
+            { label: '10', value: 10 },
+            { label: '20', value: 20 },
+            { label: '50', value: 50 },
+        ];
     }
 
     supplyBreadCrumb(): void {
@@ -68,40 +68,9 @@ export class ApiRequestsTableComponent implements OnInit {
             .subscribe();
     }
 
-    toggleDisplay() {
-        this.showDisplay = !this.showDisplay;
-        if (this.showDisplay === false) {
-            document.getElementById('display_id').style.border = '1px solid #30855c';
-        } else {
-            document.getElementById('display_id').style.border = '1px solid #d6d6d6';
-        }
-    }
-
-    setDisplay(displayData: any) {
-        this.perPage = displayData;
-    }
-
-    openCalendar(event: any) {
+    filterCall() {
         this.calendar.showOverlay(this.calendar.inputfieldViewChild.nativeElement);
         event.stopPropagation();
-    }
-
-    language() {
-        this.appLanguage = this.globals.languageJson;
-        this.greenActive++;
-    }
-
-    toggleStatus() {
-        this.showStatus = !this.showStatus;
-        if (this.showStatus === false) {
-            document.getElementById('status_id').style.border = '1px solid #30855c';
-        } else {
-            document.getElementById('status_id').style.border = '1px solid #d6d6d6';
-        }
-    }
-
-    customerTypeFilter(filterData: any) {
-        this.customerType = filterData;
     }
 
     setFilterData(event) {
@@ -112,7 +81,7 @@ export class ApiRequestsTableComponent implements OnInit {
         this.apiKeySearch = null;
         this.KeySearch = null;
         this.perPage = 10;
-        this.customerType = '';
+        this.customerType = null;
         if (event.index === 0) {
             this.isApiRequestPage = true;
         } else {

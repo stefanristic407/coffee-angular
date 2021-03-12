@@ -2,9 +2,11 @@
     padding: 32px 48px;
     border-radius: 4px;
     background-color: #ffffff;
+
     .breadCrumb-block {
         padding-bottom: 24px;
     }
+
     .note-heading {
         display: flex;
         padding: 16px 0 32px 0;
@@ -13,28 +15,13 @@
     .delivery__body .pl-16 {
         padding-left: 16px;
     }
+
     .delivery__body {
         padding-top: 25px;
     }
 
     .delivery__body .key-activate-block {
         padding: 0 0 16px 16px;
-    }
-
-    .pt-32 {
-        padding-top: 32px;
-    }
-
-    .pl-8 {
-        padding-left: 8px;
-    }
-
-    .pt-16 {
-        padding-top: 16px;
-    }
-
-    .delete-confirmation-modal-body {
-        padding: 99px 147px 117px 152px;
     }
 
     th {
@@ -67,6 +54,7 @@
         font-weight: 600;
         color: #232334;
     }
+
     .table {
         margin: 0 !important;
     }
@@ -129,20 +117,5 @@
         background-color: #ffffff;
         color: #979797;
         @extend .active_class;
-    }
-}
-::ng-deep .modal-dialog {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    margin-top: 0;
-}
-
-.templete-modal-body {
-    position: relative;
-    padding: 67px 84px;
-    .templete-btn {
-        padding: 24px;
     }
 }

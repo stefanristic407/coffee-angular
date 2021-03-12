@@ -10,7 +10,7 @@ export const routes: Routes = [
         component: LayoutComponent,
         children: [
             {
-                path: 'tes',
+                path: 'test',
                 loadChildren: () => import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
             },
             {
@@ -62,9 +62,7 @@ export const routes: Routes = [
             {
                 path: 'api-requests-list',
                 loadChildren: () =>
-                    import('./modules/api-requests/api-requests-table/api-request.module').then(
-                        (m) => m.ApiRequestModule,
-                    ),
+                    import('./modules/api-requests/api-requests.module').then((m) => m.ApiRequestModule),
             },
             {
                 path: 'green-coffee-management',

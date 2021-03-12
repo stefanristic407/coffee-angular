@@ -39,6 +39,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { TabViewModule } from 'primeng/tabview';
 import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
+import { DividerModule } from 'primeng/divider';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
@@ -104,6 +105,7 @@ import { SewnDirectMessageComponent } from './components/chat/sewn-direct-messag
 import { SewnOrderChatComponent } from './components/chat/sewn-order-chat/sewn-order-chat.component';
 import { SearchFilterPipe } from './components/chat/sewn-direct-message/search-filter.pipe';
 import { PieAreaChartComponent } from './components/pie-area-chart/pie-area-chart.component';
+import { AppKeyConfirmationComponent } from './components/app-key-confirmation/app-key-confirmation.component';
 
 // #region third libs
 const THIRDMODULES = [
@@ -153,6 +155,7 @@ const THIRDMODULES = [
     Ng2TelInputModule,
     ProgressBarModule,
     AccordionModule,
+    DividerModule,
 ];
 // #endregion
 
@@ -188,6 +191,7 @@ const COMPONENTS = [
     SewnDirectMessageComponent,
     SewnOrderChatComponent,
     PieAreaChartComponent,
+    AppKeyConfirmationComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 const DIRECTIVES = [WordLimitDirective, RatingDirective, LifecyclehookDirective];

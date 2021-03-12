@@ -4,19 +4,11 @@
             <div class="br-md-main br-4 p-md-4 p-2">
                 <div class="row">
                     <div class="sewn-form-field col-md-6 col-12 mt-3">
-                        <label for="email">
+                        <label>
                             {{ 'email_address' | translate }}
                             <span class="star">*</span></label
                         >
-                        <input
-                            id="email"
-                            type="email"
-                            pInputText
-                            required
-                            name="email"
-                            formControlName="email"
-                            placeholder="Roastery email"
-                        />
+                        <input type="email" pInputText formControlName="email" placeholder="Roastery email" />
 
                         <small *ngIf="isControlHasError('email', 'email')" class="p-error">
                             {{ 'invalid' | translate }} {{ 'email' | translate }}
@@ -27,7 +19,7 @@
                         </small>
                     </div>
                     <div class="sewn-form-field col-md-6 col-12 mt-3">
-                        <label for="phoneno" class="raise-label">
+                        <label>
                             {{ 'phone_number' | translate }}
                             <span class="star">*</span>
                         </label>
@@ -39,16 +31,9 @@
                 </div>
                 <div class="row">
                     <div class="sewn-form-field col-md-6 mt-3">
-                        <label for="country" class="d-block"
-                            >{{ 'country' | translate }}<span class="star">*</span></label
-                        >
+                        <label>{{ 'country' | translate }}<span class="star">*</span></label>
                         <p-dropdown
-                            id="country"
-                            class="w-100"
-                            required
                             formControlName="country"
-                            name="country"
-                            styleClass="profile-dropdown"
                             [options]="countryList"
                             optionLabel="name"
                             optionValue="isoCode"
@@ -59,75 +44,35 @@
                         </small>
                     </div>
                     <div class="sewn-form-field col-md-6 mt-3">
-                        <label for="state" class="d-block">{{ 'state' | translate }}</label>
-                        <p-dropdown
-                            id="state"
-                            class="w-100"
-                            required
-                            formControlName="state"
-                            name="state"
-                            [options]="cityList"
-                            optionLabel="name"
-                            optionValue="value"
-                            styleClass="profile-dropdown"
-                        >
+                        <label>{{ 'state' | translate }}</label>
+                        <p-dropdown formControlName="state" [options]="cityList" optionLabel="name" optionValue="value">
                         </p-dropdown>
                     </div>
                 </div>
                 <div class="row">
                     <div class="sewn-form-field col-md-6 mt-3">
-                        <label for="address1">{{ 'address' | translate }}<span class="star">*</span></label>
-                        <input
-                            pInputText
-                            id="address1"
-                            name="address1"
-                            required
-                            formControlName="address_line1"
-                            type="text"
-                            placeholder="Line 1"
-                        />
+                        <label>{{ 'address' | translate }}<span class="star">*</span></label>
+                        <input pInputText formControlName="address_line1" type="text" placeholder="Line 1" />
                         <small *ngIf="isControlHasError('address_line1', 'required')" class="p-error">
                             {{ 'required' | translate }}
                         </small>
                     </div>
                     <div class="sewn-form-field col-md-6 mt-0 mt-md-3">
-                        <label for="address2" class="d-none d-md-block">&nbsp;</label>
-                        <input
-                            id="address2"
-                            name="address2"
-                            pInputText
-                            formControlName="address_line2"
-                            type="text"
-                            placeholder="Line 2"
-                        />
+                        <label class="d-none d-md-block">&nbsp;</label>
+                        <input pInputText formControlName="address_line2" type="text" placeholder="Line 2" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="sewn-form-field col-md-6 mt-3">
-                        <label for="city">{{ 'city' | translate }}<span class="star">*</span></label>
-                        <input
-                            id="city"
-                            type="text"
-                            name="city"
-                            pInputText
-                            required
-                            formControlName="city"
-                            placeholder="City"
-                        />
+                        <label>{{ 'city' | translate }}<span class="star">*</span></label>
+                        <input type="text" pInputText formControlName="city" placeholder="City" />
                         <small *ngIf="isControlHasError('city', 'required')" class="p-error">
                             {{ 'required' | translate }}
                         </small>
                     </div>
                     <div class="sewn-form-field col-md-6 mt-3">
-                        <label for="zipcode">{{ 'zipcode' | translate }}</label>
-                        <input
-                            id="zipcode"
-                            name="zipcode"
-                            type="text"
-                            pInputText
-                            formControlName="zipcode"
-                            placeholder="eg:23134"
-                        />
+                        <label>{{ 'zipcode' | translate }}</label>
+                        <input type="text" pInputText formControlName="zipcode" placeholder="eg:23134" />
                     </div>
                 </div>
             </div>
@@ -141,24 +86,15 @@
                 <div class="p-3">
                     <div class="row">
                         <div class="sewn-form-field col-md-12">
-                            <label for="facebook">{{ 'facebook_link' | translate }}</label>
-                            <input
-                                id="facebook"
-                                type="text"
-                                name="facebook"
-                                pInputText
-                                formControlName="fb_profile"
-                                placeholder="Add facebook URL"
-                            />
+                            <label>{{ 'facebook_link' | translate }}</label>
+                            <input type="text" pInputText formControlName="fb_profile" placeholder="Add facebook URL" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="sewn-form-field col-md-12">
                             <label for="instagram">{{ 'instagram_link' | translate }}</label>
                             <input
-                                id="instagram"
                                 type="text"
-                                name="instagram"
                                 pInputText
                                 formControlName="ig_profile"
                                 placeholder="Add instagram URL"
@@ -208,7 +144,7 @@
                             {{ 'country' | translate }}
                         </td>
                         <td class="fnt-12 fnt-600 fnt-md-14 pt-0 text-clr588">
-                            {{ globals.getCountryName(roasteryProfileService.roasteryProfileData?.country) }}
+                            {{ roasteryProfileService.roasteryProfileData?.country | country }}
                         </td>
                     </tr>
                     <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
