@@ -36,21 +36,30 @@
 
                         <div class="float-right">
                             <div class="btn-group btn-toggle ml-auto pull-right active__main" (click)="activeStatus()">
-                                <div class="btn btn-group__item"
+                                <div
+                                    class="btn btn-group__item"
                                     [ngClass]="btnToggle ? 'active_default' : 'active disable_default'"
-                                    id="activeStatus">
+                                    id="activeStatus"
+                                >
                                     {{ 'active' | translate }}
                                 </div>
-                                <div class="btn-group btn-toggle ml-auto pull-right active__main"
-                                    (click)="activeStatus()">
-                                    <div class="btn btn-group__item"
+                                <div
+                                    class="btn-group btn-toggle ml-auto pull-right active__main"
+                                    (click)="activeStatus()"
+                                >
+                                    <div
+                                        class="btn btn-group__item"
                                         [ngClass]="btnToggle ? 'active_default' : 'active disable_default'"
-                                        id="activeStatus">
+                                        id="activeStatus"
+                                    >
                                         {{ 'Active' | translate }}
                                     </div>
-                                    <div class="btn btn-group__item" (click)="pause(requestDetailData?.org_name)"
+                                    <div
+                                        class="btn btn-group__item"
+                                        (click)="pause(requestDetailData?.org_name)"
                                         [ngClass]="!btnToggle ? 'active_default active' : 'disable_default'"
-                                        id="disableStatus">
+                                        id="disableStatus"
+                                    >
                                         {{ 'Pause' | translate }}
                                     </div>
                                 </div>
@@ -92,10 +101,11 @@
                                     <td>
                                         <span class="list-answ float-right">
                                             {{
-                                            initialStatus == 'GENERATED'
-                                                ? (requestDetailData?.requested_at | date: 'MMMM y')
-                                                : (requestDetailData?.created_at | date: 'MMMM y')
-                                        }}</span>
+                                                initialStatus == 'GENERATED'
+                                                    ? (requestDetailData?.requested_at | date: 'MMMM y')
+                                                    : (requestDetailData?.created_at | date: 'MMMM y')
+                                            }}</span
+                                        >
                                     </td>
                                 </tr>
                             </tbody>
@@ -121,10 +131,17 @@
                     <p class="fnt-14 fnt-muli fnt-700 text-clr334 col-8 float-left m-0 p-0">
                         {{ 'confirm_api_key_generation_request' | translate }}
                     </p>
-                    <button type="submit" class="save float-right" (click)="generateKey()"
-                        [disabled]="resetButtonValue === 'Generating Key…'">
-                        <img class="loader" *ngIf="resetButtonValue === 'Generating Key…'"
-                            src="assets/images/btn-loader.svg" />
+                    <button
+                        type="submit"
+                        class="save float-right"
+                        (click)="generateKey()"
+                        [disabled]="resetButtonValue === 'Generating Key…'"
+                    >
+                        <img
+                            class="loader"
+                            *ngIf="resetButtonValue === 'Generating Key…'"
+                            src="assets/images/btn-loader.svg"
+                        />
                         {{ resetButtonValue | translate }}
                     </button>
                 </div>
@@ -172,9 +189,10 @@
             <div class="d-flex pt-45" *ngIf="apikeyStatus == 'active'">
                 <div class="generate-border col-md-7 col-12">
                     <p class="fnt-14 fnt-muli fnt-700 text-clr334 float-left m-0">
-                        <span><img class="mr-2" src="assets/images/pause.png" alt="" />{{
-                            'api_key_reactivated' | translate
-                        }}
+                        <span
+                            ><img class="mr-2" src="assets/images/pause.png" alt="" />{{
+                                'api_key_reactivated' | translate
+                            }}
                         </span>
                     </p>
                 </div>
