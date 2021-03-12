@@ -88,6 +88,10 @@ export const routes: Routes = [
                 loadChildren: () =>
                     import('./modules/profile-creation/profile-creation.module').then((m) => m.ProfileCreationModule),
             },
+            {
+                path: 'account-settings',
+                loadChildren: () => import('./modules/account-settings/account-settings.module').then((m) => m.AccountSettingsModule),
+            },
         ],
     },
     { path: 'gate', component: GateComponent },

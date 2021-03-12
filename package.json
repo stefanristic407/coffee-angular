@@ -41,6 +41,7 @@
     "intl-tel-input": "^17.0.12",
     "mat-video": "^2.8.1",
     "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33",
     "ng-gallery": "^5.0.0-beta.2",
     "ng-otp-input": "^1.7.1",
     "ng-starrating": "^1.0.20",
