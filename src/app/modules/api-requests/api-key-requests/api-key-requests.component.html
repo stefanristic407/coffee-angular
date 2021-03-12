@@ -3,7 +3,14 @@
     <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
 </div>
 <div class="mb-2 mt-4" *ngIf="!loader">
-    <p-table [value]="requestData" [totalRecords]="100" [lazy]="true" (onLazyLoad)="getData($event)">
+    <p-table
+        [value]="requestData"
+        [lazy]="true"
+        (onLazyLoad)="getTableData($event)"
+        [paginator]="paginationValue"
+        [rows]="rows"
+        [totalRecords]="totalRecords"
+    >
         <ng-template pTemplate="header">
             <tr>
                 <th pSortableColumn="org_name">
@@ -18,24 +25,21 @@
                 <th>{{ globals.languageJson?.action }}</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template pTemplate="body" let-key>
             <tr>
-                <td>{{ product.org_name }}</td>
-                <td>{{ product.org_type }}</td>
-                <td>{{ product.created_at | date: 'MMMM y' }}</td>
-                <td class="view-order" (click)="viewRequestDetails(product)">
+                <td>{{ key.org_name }}</td>
+                <td>{{ key.org_type }}</td>
+                <td>{{ key.created_at | date: 'MMMM y' }}</td>
+                <td
+                    class="view-order"
+                    [routerLink]="['/api-requests-list/api-request-details']"
+                    [queryParams]="{ id: key.id, status: key.status }"
+                >
                     {{ globals.languageJson?.view_request }}
                 </td>
             </tr>
         </ng-template>
     </p-table>
-    <p-paginator
-        [rows]="rows"
-        [totalRecords]="totalRecords"
-        (onPageChange)="paginate($event)"
-        pageLinkSize="3"
-        *ngIf="paginationValue && requestData?.length"
-    ></p-paginator>
 </div>
 <!-- no-data for Api Request -->
 <ng-container *ngIf="!requestData?.length && !loader">

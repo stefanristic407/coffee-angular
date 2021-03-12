@@ -3,7 +3,14 @@
     <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
 </div>
 <div class="mb-2 mt-4 generted-key-container" *ngIf="!loader">
-    <p-table [value]="generatedKeyData" [lazy]="true" (onLazyLoad)="getData($event)">
+    <p-table
+        [value]="generatedKeyData"
+        [lazy]="true"
+        (onLazyLoad)="getTableData($event)"
+        [paginator]="paginationValue"
+        [rows]="rows"
+        [totalRecords]="totalRecords"
+    >
         <ng-template pTemplate="header">
             <tr>
                 <th pSortableColumn="org_name">
@@ -32,7 +39,7 @@
                 <td>{{ item.generated_at | date: 'MMMM y' }}</td>
                 <td [ngClass]="item?.is_active ? 'active-status' : 'status-paused'">
                     <img *ngIf="item?.is_active" src="assets/images/active.svg" />
-                    <img *ngIf="!item?.is_active" src="assets/images/paused.svg" /><span class="pl-8">
+                    <img *ngIf="!item?.is_active" src="assets/images/paused.svg" /><span class="pl-2">
                         {{ item.is_active ? 'Active' : 'Paused' }}
                     </span>
                 </td>
@@ -82,12 +89,6 @@
             </tr>
         </ng-template>
     </p-table>
-    <p-paginator
-        [rows]="rows"
-        [totalRecords]="totalRecords"
-        pageLinkSize="3"
-        *ngIf="paginationValue && generatedKeyData?.length"
-    ></p-paginator>
 </div>
 
 <!-- no-data for Api Generated Keys -->
