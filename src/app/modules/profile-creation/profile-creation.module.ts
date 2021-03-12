@@ -12,6 +12,7 @@ import { RatingModule } from 'primeng/rating';
 import { SharedModule } from '@shared';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ProfileCreationRoutingModule } from './profile-creation-routing.module';
+import { SetupLicenseComponent } from './setup-license/setup-license.component';
 
 @NgModule({
     declarations: [
@@ -21,6 +22,7 @@ import { ProfileCreationRoutingModule } from './profile-creation-routing.module'
         ProfilePhotoComponent,
         ReviewsComponent,
         VirtualTourComponent,
+        SetupLicenseComponent,
     ],
     imports: [
         CommonModule,
