@@ -50,12 +50,10 @@
         </div>
 
         <div class="row">
-            <<<<<<< HEAD <div class="mixups-tabs mt-32 pr-3 col-lg-12 col-md-12">
+            <div class="mixups-tabs mt-32 pr-3 col-lg-12 col-md-12">
                 <p-tabView styleClass="pb-3 pb-md-4" [(activeIndex)]="selectedTab" (onChange)="handleChange($event)">
-                    =======
                     <div class="mixups-tabs mt-45 pr-3 col-lg-12 col-md-12">
                         <p-tabView [(activeIndex)]="selectedTab" (onChange)="handleChange($event)">
-                            >>>>>>> akshay
                             <p-tabPanel header="API Key Requests">
                                 <app-api-key-requests *ngIf="isApiRequestPage" [searchRequestId]="KeySearch"
                                     [filterData]="customerType" [dateRange]="rangeDates" [perPage]="perPage"
@@ -68,6 +66,6 @@
                             </p-tabPanel>
                         </p-tabView>
                     </div>
-        </div>
+            </div>
     </section>
 </div>
