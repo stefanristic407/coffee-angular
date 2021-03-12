@@ -91,8 +91,13 @@ export const routes: Routes = [
                     import('./modules/profile-creation/profile-creation.module').then((m) => m.ProfileCreationModule),
             },
             {
+                path: 'social-media',
+                loadChildren: () =>
+                    import('./modules/social-media/social-media.module').then((m) => m.SocialMediaModule),
+            },
+            {
                 path: '',
-                redirectTo: 'roastery-profile',
+                redirectTo: 'social-media',
                 pathMatch: 'full',
             },
         ],

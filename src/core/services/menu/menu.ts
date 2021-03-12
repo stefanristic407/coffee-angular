@@ -52,7 +52,7 @@ export const menuItems = [
     new Menu(72, 'End-User Experience', '/features/coffee-experience', null, null, null, false, 7, []),
     new Menu(73, 'Education & Collaboration', '/file-share', null, null, null, false, 7, []),
     new Menu(74, 'The Coffee Lab', '/features/q-a-forum', null, null, null, false, 7, []),
-    new Menu(75, 'Social PR', '/features/social-media', null, null, null, false, 7, []),
+    new Menu(75, 'Social PR', '/social-media', null, null, null, false, 7, []),
 
     new Menu(8, 'Team Management', null, null, null, null, true, 0, [
         'acl-management',

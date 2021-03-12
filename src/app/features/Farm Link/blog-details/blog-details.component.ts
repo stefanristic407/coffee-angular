@@ -30,6 +30,6 @@ export class BlogDetailsComponent implements OnInit {
             },
         };
 
-        this.router.navigate(['/features/social-media'], navigationExtras);
+        this.router.navigate(['/social-media'], navigationExtras);
     }
 }
