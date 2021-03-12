@@ -587,30 +587,25 @@
                                 <ul class="list-data custom-popover">
                                     <li
                                         class="list-item fnt-14 fnt-600 text-clr588 br-none"
+                                        (click)="editCertificate($event, certificate); pop1.hide()"
                                         *ngIf="
                                             this.globals.checkItem('certificate-management') &&
                                             this.globals.permissions['certificate-management'].manage
                                         "
                                     >
-                                        <a
-                                            class="pointer-item"
-                                            (click)="editCertificate($event, certificate); pop1.hide()"
-                                        >
+                                        <a class="pointer-item">
                                             {{ 'edit' | translate }}
                                         </a>
                                     </li>
                                     <li
                                         class="list-item fnt-14 fnt-600 text-clr588 br-none"
+                                        (click)="deleteCertificate(certificate.id); pop1.hide()"
                                         *ngIf="
                                             this.globals.checkItem('certificate-management') &&
                                             this.globals.permissions['certificate-management'].manage
                                         "
                                     >
-                                        <a
-                                            class="pointer-item"
-                                            (click)="deleteCertificate(certificate.id); pop1.hide()"
-                                            >{{ 'delete' | translate }}</a
-                                        >
+                                        <a class="pointer-item">{{ 'delete' | translate }}</a>
                                     </li>
                                 </ul>
                             </div>

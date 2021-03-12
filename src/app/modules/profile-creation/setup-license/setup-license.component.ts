@@ -107,9 +107,9 @@ export class SetupLicenseComponent implements OnInit {
         this.userService.getCompanyCertificates(this.roasterId).subscribe((res: any) => {
             if (res.success) {
                 const editId = this.route.snapshot.params?.id || '';
-                console.log('edit id: ', editId);
+                this.certificationArray = res.result;
+                console.log('certificationArray: ', this.certificationArray);
                 if (editId) {
-                    this.certificationArray = res.result;
                     this.certificationArray.map((item, index) => {
                         if (item.id.toString() === editId) {
                             this.onEdit(index);
@@ -159,19 +159,15 @@ export class SetupLicenseComponent implements OnInit {
             });
         } else {
             const formData: FormData = new FormData();
-            const userId = this.cookieService.get('user_id');
             if (this.file) {
                 formData.append('file', this.file);
             }
-            formData.append('certificate_id', this.certificationArray[this.editingRowIndex].id);
-            formData.append('certificate_type_id', certification.id);
+            formData.append('certificate_type_id', this.certificationArray[this.editingRowIndex].certificate_type_id);
             formData.append('name', certification.type);
             formData.append('year', this.selectedCertificationYear.toString());
             formData.append(
                 'api_call',
-                `/ro/${this.roasterId}/users/${userId}/certificates/${
-                    this.certificationArray[this.editingRowIndex].id
-                }`,
+                `/ro/${this.roasterId}/certificates/${this.certificationArray[this.editingRowIndex].id}`,
             );
             formData.append('token', this.cookieService.get('Auth'));
             formData.append('method', 'PUT');

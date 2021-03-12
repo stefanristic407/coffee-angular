@@ -1,12 +1,10 @@
 <div class="bg-fff p-2 pl-lg-5 pr-lg-5 pt-lg-45 pb-lg-325 p-md-3">
     <div class="w-100 d-flex justify-content-between mb-45">
-        <div class="d-none d-md-block">
-            <p-breadcrumb [model]="breadItems">
-                <ng-template pTemplate="item" let-item let-i="index">
-                    {{ item.label | translate }}
-                </ng-template>
-            </p-breadcrumb>
-        </div>
+        <p-breadcrumb [model]="breadItems">
+            <ng-template pTemplate="item" let-item let-i="index">
+                {{ item.label | translate }}
+            </ng-template>
+        </p-breadcrumb>
     </div>
     <div class="p-0">
         <p class="fnt-18 fnt-muli mb-1 fnt-bold text-clr334 text-center text-md-left">License & certificates</p>
