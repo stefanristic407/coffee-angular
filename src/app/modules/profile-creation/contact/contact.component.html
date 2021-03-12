@@ -6,7 +6,8 @@
                     <div class="sewn-form-field col-md-6 col-12 mt-3">
                         <label>
                             {{ 'email_address' | translate }}
-                            <span class="star">*</span></label>
+                            <span class="star">*</span></label
+                        >
                         <input type="email" pInputText formControlName="email" placeholder="Roastery email" />
 
                         <small *ngIf="isControlHasError('email', 'email')" class="p-error">
@@ -31,8 +32,12 @@
                 <div class="row">
                     <div class="sewn-form-field col-md-6 mt-3">
                         <label>{{ 'country' | translate }}<span class="star">*</span></label>
-                        <p-dropdown formControlName="country" [options]="countryList" optionLabel="name"
-                            optionValue="isoCode">
+                        <p-dropdown
+                            formControlName="country"
+                            [options]="countryList"
+                            optionLabel="name"
+                            optionValue="isoCode"
+                        >
                         </p-dropdown>
                         <small *ngIf="isControlHasError('country', 'required')" class="p-error">
                             {{ 'required' | translate }}
@@ -88,8 +93,12 @@
                     <div class="row">
                         <div class="sewn-form-field col-md-12">
                             <label for="instagram">{{ 'instagram_link' | translate }}</label>
-                            <input type="text" pInputText formControlName="ig_profile"
-                                placeholder="Add instagram URL" />
+                            <input
+                                type="text"
+                                pInputText
+                                formControlName="ig_profile"
+                                placeholder="Add instagram URL"
+                            />
                         </div>
                     </div>
                 </div>

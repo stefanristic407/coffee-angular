@@ -1,9 +1,7 @@
 @import '_variables.scss';
+
 .request-table-container {
     padding: 32px 48px;
-    .mt-32 {
-        margin-top: 32px;
-    }
 
     .border-total {
         border-radius: 20px;
@@ -14,7 +12,7 @@
     }
 
     .estate-orders-heading {
-        padding-top: 24px;
+        margin: 24px 48px;
     }
 
     .estate-order-title {
@@ -64,22 +62,24 @@
         font-weight: 600;
         background-color: $primary-bg-color;
     }
+
     .Give-your-end-users {
         font-family: Muli;
         font-size: 14px;
         font-weight: normal;
         color: $muted-text-color;
-        padding: 12px 0;
-        margin: 0;
+        padding: 5px 0px;
     }
 
     .mixups-tabs {
         background-color: #ffffff;
         overflow: hidden;
     }
+
     .pointer-item {
         cursor: pointer;
     }
+
     .file-share-search input[type='search'] {
         outline: 0;
         border: 0;
@@ -104,9 +104,6 @@
         border: solid 1px $primary-border-color;
         background-color: #ffffff;
         padding: 5px 10px 5px 10px;
-    }
-    .pl-48 {
-        padding-left: 48px !important;
     }
 
     ul li {
@@ -149,11 +146,13 @@
     .bg-fff {
         padding: 1rem 0.7rem !important;
     }
+
     .Give-your-end-users {
         width: 98%;
         padding-bottom: 0rem;
         margin-bottom: 0;
     }
+
     .row {
         margin-right: -10px;
         margin-left: -10px;

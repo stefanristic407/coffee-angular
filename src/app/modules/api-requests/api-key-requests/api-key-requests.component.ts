@@ -1,15 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChange } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { GlobalsService } from '@services';
+import { GlobalsService, ApiRequestService } from '@services';
 import * as moment from 'moment';
-import { ApiRequestService } from 'src/core/services/api/api-request.service';
 @Component({
     selector: 'app-api-key-requests',
     templateUrl: './api-key-requests.component.html',
     styleUrls: ['./api-key-requests.component.scss'],
 })
-export class ApiKeyRequestsComponent implements OnInit {
+export class ApiKeyRequestsComponent implements OnInit, OnChanges {
     @Input() searchRequestId;
     @Input() filterData;
     @Input() dateRange;
@@ -42,8 +41,9 @@ export class ApiKeyRequestsComponent implements OnInit {
         this.display = '10';
         this.roasterID = this.cookieService.get('roaster_id');
     }
+    ngOnInit(): void {}
 
-    ngOnChanges(changes: SimpleChange): void {
+    ngOnChanges(): void {
         if (this.dateRange?.length) {
             const [dateFrom, dateTo] = this.dateRange;
             this.dateFrom = dateFrom;
@@ -55,17 +55,6 @@ export class ApiKeyRequestsComponent implements OnInit {
         this.getApiRequestData();
     }
 
-    ngOnInit(): void {}
-
-    viewRequestDetails(item: any) {
-        const navigationExtras: NavigationExtras = {
-            queryParams: {
-                id: encodeURIComponent(item.id),
-                status: encodeURIComponent(item.status),
-            },
-        };
-        this.router.navigate(['/api-requests-list/api-request-details'], navigationExtras);
-    }
     getApiRequestData() {
         const data = {
             roaster_id: this.roasterID,
@@ -97,25 +86,22 @@ export class ApiKeyRequestsComponent implements OnInit {
                 this.filterType.emit(res.result);
                 this.totalRecords = res.result_info.total_count;
                 this.rows = res.result_info.per_page;
-                if (this.totalRecords < 10) {
-                    this.paginationValue = false;
-                } else {
+                if (this.totalRecords > 10) {
                     this.paginationValue = true;
+                } else {
+                    this.paginationValue = false;
                 }
             }
         });
     }
 
-    getData(event) {
-        this.sortOrder = event.sortOrder === 1 ? 'asc' : 'desc';
-        this.sortType = event.sortField;
+    getTableData(event) {
         if (event.sortField) {
+            this.sortOrder = event.sortOrder === 1 ? 'asc' : 'desc';
+            this.sortType = event.sortField;
+            const currentPage = event.first / this.rows;
+            this.pageNumber = currentPage + 1;
             this.getApiRequestData();
         }
-    }
-
-    paginate(event) {
-        this.pageNumber = event.page + 1;
-        this.getApiRequestData();
     }
 }

@@ -1,9 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from '@services';
+import { GlobalsService, ApiRequestService } from '@services';
 import * as moment from 'moment';
-import { ApiRequestService } from 'src/core/services/api/api-request.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@app/shared';
 
@@ -12,7 +11,7 @@ import { ConfirmComponent } from '@app/shared';
     templateUrl: './generated-keys.component.html',
     styleUrls: ['./generated-keys.component.scss'],
 })
-export class GeneratedKeysComponent implements OnInit {
+export class GeneratedKeysComponent implements OnInit, OnChanges {
     @Input() searchRequestId;
     @Input() filterData;
     @Input() dateRange;
@@ -61,17 +60,14 @@ export class GeneratedKeysComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    getData(event) {
-        this.sortOrder = event.sortOrder === 1 ? 'asc' : 'desc';
-        this.sortType = event.sortField;
+    getTableData(event) {
         if (event.sortField) {
+            this.sortOrder = event.sortOrder === 1 ? 'asc' : 'desc';
+            this.sortType = event.sortField;
+            const currentPage = event.first / this.rows;
+            this.pageNumber = currentPage + 1;
             this.getGeneratedRoKeys();
         }
-    }
-
-    paginate(event) {
-        this.pageNumber = event.page + 1;
-        this.getGeneratedRoKeys();
     }
 
     getGeneratedRoKeys() {
@@ -105,10 +101,10 @@ export class GeneratedKeysComponent implements OnInit {
                 this.filterType.emit(res.result);
                 this.totalRecords = res.result_info.total_count;
                 this.rows = res.result_info.per_page;
-                if (this.totalRecords < 10) {
-                    this.paginationValue = false;
-                } else {
+                if (this.totalRecords > 10) {
                     this.paginationValue = true;
+                } else {
+                    this.paginationValue = false;
                 }
             }
         });
