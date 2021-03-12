@@ -17,10 +17,10 @@
             </div>
             <!-- <button type="button" (click)="showDialog()" icon="pi pi-info-circle" label="Show"></button> -->
             <section class="social-media">
-                <p class="social-head mt-3 mb-25">
+                <p class="fnt-18 font-bold text-clr334 mt-3 mb-25">
                     {{ globals.languageJson?.social_media_posts }}
                 </p>
-                <p class="social-para">{{ globals.languageJson?.get_your_media_text }}</p>
+                <p class="fnt-14 font-normal text-clr588">{{ globals.languageJson?.get_your_media_text }}</p>
                 <div class="col-lg-12 col-md-12 col-12">
                     <div class="row">
                         <div class="mt-1 mt-lg-3 col-lg-12 col-md-12 p-0">
@@ -36,10 +36,10 @@
                                                 (click)="imagesModal(imagetemplate, images)"
                                             >
                                                 <div
-                                                    class="social-post-farmlink__item position-relative square-container"
+                                                    class="social-post-farmlink__item w-100 h-100 position-relative square-container"
                                                 >
                                                     <img
-                                                        class="social-images br-4"
+                                                        class="w-100 h-100 cover-fill br-4"
                                                         src="{{ images.url }}"
                                                         alt="farm-images"
                                                     />
@@ -60,9 +60,9 @@
                                                 *ngFor="let videos of filteredVideosList"
                                                 (click)="videosModal(videotemplate, videos)"
                                             >
-                                                <div class="social-post-farmlink__item position-relative">
+                                                <div class="social-post-farmlink__item w-100 h-100 position-relative">
                                                     <img
-                                                        class="social-images"
+                                                        class="w-100 h-100 cover-fill"
                                                         src="assets/images/farm-video.png"
                                                         alt="farm"
                                                     />
@@ -247,7 +247,7 @@
                             (click)="modalRef.hide()"
                         >
                             <span aria-hidden="true">
-                                <i class="pi pi-times custom-close-icon"></i>
+                                <i class="pi pi-times custom-close-icon text-clr97 fnt-sm-600"></i>
                             </span>
                         </button>
                     </div>
@@ -261,33 +261,37 @@
                         <div class="w-100 d-none d-xl-block">
                             <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
                                 <span aria-hidden="true">
-                                    <i class="pi pi-times custom-close-icon"></i>
+                                    <i class="pi pi-times custom-close-icon text-clr97 fnt-sm-600"></i>
                                 </span>
                             </button>
                         </div>
                         <div class="m-0 mt-3 mt-md-4 m-xl-45">
-                            <h4 class="img-open-title mb-3">
+                            <h4 class="fnt-16 font-bold text-clr334 mb-3">
                                 {{ selectedImage.description }} &nbsp; @ {{ selectedImage.owner_name }}
                             </h4>
-                            <p class="img-open-para mb-4 mb-md-3125">#coffee #specialitycoffee #sewn</p>
-                            <div class="share-dwn">
-                                <span class="share-bor mr-3">
+                            <p class="fnt-14 fnt-600 text-clr588 mb-4 mb-md-3125">#coffee #specialitycoffee #sewn</p>
+                            <div class="d-flex">
+                                <span class="share-bor pt-2 pb-2 pl-25 pr-25 mr-3">
                                     <a
-                                        class="underline"
+                                        class="text-decoration-none d-flex"
                                         href="javascript:void(0);"
                                         [cdkCopyToClipboard]="selectedImage.url"
                                         (click)="copySuccessAlert()"
                                         ><img class="share-img" src="assets/images/share-img.svg" alt="farm" />
-                                        <span class="share-txt">
+                                        <span class="fnt-14 fnt-500 text-clr334">
                                             {{ globals.languageJson?.share }}
                                         </span>
                                     </a>
                                 </span>
 
-                                <span class="share-bor">
-                                    <a class="underline" href="javascript:void(0);" (click)="download(selectedImage)">
+                                <span class="share-bor pt-2 pb-2 pl-25 pr-25">
+                                    <a
+                                        class="text-decoration-none d-flex"
+                                        href="javascript:void(0);"
+                                        (click)="download(selectedImage)"
+                                    >
                                         <img class="share-img" src="assets/images/dwnd.svg" alt="farm" />
-                                        <span class="share-txt">
+                                        <span class="fnt-14 fnt-500 text-clr334">
                                             {{ globals.languageJson?.download_image }}
                                         </span>
                                     </a>
@@ -317,11 +321,14 @@
                             (click)="modalRef1.hide()"
                         >
                             <span aria-hidden="true">
-                                <i class="pi pi-times custom-close-icon"></i>
+                                <i class="pi pi-times custom-close-icon text-clr97 fnt-sm-600"></i>
                             </span>
                         </button>
                     </div>
-                    <div class="col-xl-5 col-12 p-0" (click)="videoPopup(popTemplate); modalRef1.hide()">
+                    <div
+                        class="col-xl-5 col-12 p-0 position-relative"
+                        (click)="videoPopup(popTemplate); modalRef1.hide()"
+                    >
                         <img class="w-100 fram-img" src="assets/images/farm-video.png" alt="farm" />
                         <img class="video-play cursor-pointer" src="assets/images/play-button.png" alt="farm" />
                     </div>
@@ -335,33 +342,37 @@
                                 (click)="modalRef1.hide()"
                             >
                                 <span aria-hidden="true">
-                                    <i class="pi pi-times custom-close-icon"></i>
+                                    <i class="pi pi-times custom-close-icon text-clr97 fnt-sm-600"></i>
                                 </span>
                             </button>
                         </div>
                         <div class="m-0 mt-3 mt-md-4 m-xl-45">
-                            <h4 class="img-open-title mb-3">
+                            <h4 class="fnt-16 font-bold text-clr334 mb-3">
                                 {{ selectedVideo.description }} &nbsp; @ {{ selectedVideo.owner_name }}
                             </h4>
-                            <p class="img-open-para mb-4 mb-md-3125">#coffee #specialitycoffee #sewn</p>
-                            <div class="share-dwn">
-                                <span class="share-bor mr-3">
+                            <p class="fnt-14 fnt-600 text-clr588 mb-4 mb-md-3125">#coffee #specialitycoffee #sewn</p>
+                            <div class="d-flex">
+                                <span class="share-bor pt-2 pb-2 pl-25 pr-25 mr-3">
                                     <a
-                                        class="underline"
+                                        class="text-decoration-none d-flex"
                                         href="javascript:void(0);"
                                         [cdkCopyToClipboard]="selectedVideo.url"
                                         (click)="copySuccessAlert()"
                                         ><img class="share-img" src="assets/images/share-img.svg" alt="farm" />
-                                        <span class="share-txt">
+                                        <span class="fnt-14 fnt-500 text-clr334">
                                             {{ globals.languageJson?.share }}
                                         </span>
                                     </a>
                                 </span>
 
-                                <span class="share-bor">
-                                    <a class="underline" href="javascript:void(0);" (click)="download(selectedVideo)">
+                                <span class="share-bor pt-2 pb-2 pl-25 pr-25">
+                                    <a
+                                        class="text-decoration-none d-flex"
+                                        href="javascript:void(0);"
+                                        (click)="download(selectedVideo)"
+                                    >
                                         <img class="share-img" src="assets/images/dwnd.svg" alt="farm" />
-                                        <span class="share-txt"> Download Video </span>
+                                        <span class="fnt-14 fnt-500 text-clr334"> Download Video </span>
                                     </a>
                                 </span>
                             </div>
