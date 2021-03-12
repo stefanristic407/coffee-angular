@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
-import { GlobalsService } from '@services';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -9,13 +8,11 @@ import { ToastrService } from 'ngx-toastr';
     styleUrls: ['./blog-details.component.scss'],
 })
 export class BlogDetailsComponent implements OnInit {
-    backValue: any;
     constructor(private router: Router, private toastrService: ToastrService) {}
 
     ngOnInit(): void {}
 
     back() {
-        this.backValue = true;
         this.router.navigateByUrl('/social-media/media/blogs');
     }
 
