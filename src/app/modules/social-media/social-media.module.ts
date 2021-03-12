@@ -5,7 +5,6 @@ import { SocialMediaComponent } from './social-media.component';
 import { ArticleBlogComponent } from './article-blog/article-blog.component';
 import { SharedModule } from '@app/shared';
 import { ClipboardModule } from '@angular/cdk/clipboard';
-import { getSaver, SAVER } from './saver.provider';
 import { BlogDetailsComponent } from './blog-details/blog-details.component';
 
 @NgModule({

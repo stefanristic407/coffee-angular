@@ -27,13 +27,11 @@ import { DataTablesModule } from 'angular-datatables';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-experience.component';
-import { SocialMediaPostsComponent } from './Farm Link/social-media-posts/social-media-posts.component';
 
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CofeeExpeienceDetailsComponent } from './Farm Link/cofee-expeience-details/cofee-expeience-details.component';
-import { BlogDetailsComponent } from './Farm Link/blog-details/blog-details.component';
 import { ProfileLicenseComponent } from './profile-edit/profile-license/profile-license.component';
 import { NotificationComponent } from './notification/notification.component';
 import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
@@ -103,10 +101,8 @@ import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/ro
         HelpComponent,
         LanguageRegionComponent,
         CoffeeExperienceComponent,
-        SocialMediaPostsComponent,
         ResetPasswordComponent,
         CofeeExpeienceDetailsComponent,
-        BlogDetailsComponent,
         ProfileLicenseComponent,
         NotificationComponent,
         RoasterOnboardComponent,
