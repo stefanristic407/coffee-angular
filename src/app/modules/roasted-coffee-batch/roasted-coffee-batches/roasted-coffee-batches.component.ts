@@ -28,7 +28,7 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
     selectedProfiles = [];
     popupDisplay = false;
     breadCrumbItem: MenuItem[] = [];
-
+    disableAction = false;
     ordId: any;
     breadItems = [
         { label: 'Home', routerLink: '/' },
@@ -147,17 +147,19 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
     }
 
     redirectToEdit(item) {
-        this.batchId = item.id;
-        this.globals.selected_order_id = item.order_id;
-        this.ordId = item.order_id;
+        if (!this.disableAction) {
+            this.batchId = item.id;
+            this.globals.selected_order_id = item.order_id;
+            this.ordId = item.order_id;
 
-        const navigationExtras: NavigationExtras = {
-            queryParams: {
-                batchId: this.batchId ? this.batchId : undefined,
-                ordId: this.ordId ? this.ordId : undefined,
-            },
-        };
-        this.router.navigate(['/roasted-coffee-batch/new-roasted-batch'], navigationExtras);
+            const navigationExtras: NavigationExtras = {
+                queryParams: {
+                    batchId: this.batchId ? this.batchId : undefined,
+                    ordId: this.ordId ? this.ordId : undefined,
+                },
+            };
+            this.router.navigate(['/roasted-coffee-batch/new-roasted-batch'], navigationExtras);
+        }
     }
 
     deleteRoastedBatch() {
@@ -179,6 +181,13 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
     }
     filterCall() {
         this.roasterCoffeeBatchsData();
+    }
+    menuClicked() {
+        // Stop propagation
+        this.disableAction = true;
+        setTimeout(() => {
+            this.disableAction = false;
+        }, 100);
     }
 
     openDeleteModal(deleteId: any) {

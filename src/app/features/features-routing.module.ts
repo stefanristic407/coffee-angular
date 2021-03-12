@@ -1,16 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@guards';
-import { ChatNotificationComponent } from './chat-notification/chat-notification.component';
 import { OnboardCustomersComponent } from './onboard-customers/onboard-customers.component';
 import { AddProductComponent } from './e-commerce/add-product/add-product.component';
 import { ProductsTableComponent } from './e-commerce/products-table/products-table.component';
 import { FDirectMessagingComponent } from './f-direct-messaging/f-direct-messaging.component';
-import { BlogDetailsComponent } from './Farm Link/blog-details/blog-details.component';
 import { CofeeExpeienceDetailsComponent } from './Farm Link/cofee-expeience-details/cofee-expeience-details.component';
 import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-experience.component';
 import { QAForumComponent } from './Farm Link/q-a-forum/q-a-forum.component';
-import { SocialMediaPostsComponent } from './Farm Link/social-media-posts/social-media-posts.component';
 import { FeaturesComponent } from './features.component';
 import { CuppingReportComponent } from './green-grading/cupping-report/cupping-report.component';
 import { CuppingServiceComponent } from './green-grading/cupping-report/cupping-service/cupping-service.component';
@@ -25,12 +22,8 @@ import { ProcessDetailsComponent } from './green-grading/process-details/process
 import { ServiceRequestedComponent } from './green-grading/service-requested/service-requested.component';
 import { ServiceRequestsComponent } from './green-grading/service-requests/service-requests.component';
 import { SourceGradingComponent } from './green-grading/source-grading/source-grading.component';
-import { HelpComponent } from './help/help.component';
-import { LanguageRegionComponent } from './language-region/language-region.component';
-import { LoginSecurityComponent } from './login-security/login-security.component';
 import { MyprofileComponent } from './myprofile/myprofile.component';
 import { NotificationComponent } from './notification/notification.component';
-import { PrivacySettingsComponent } from './privacy-settings/privacy-settings.component';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { RoasterCompleteSetupComponent } from './roaster-complete-setup/roaster-complete-setup.component';
@@ -38,22 +31,11 @@ import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.compo
 import { RoasterOnboardingComponent } from './roaster-onboarding/roaster-onboarding.component';
 import { RoasterQuickSetupComponent } from './roaster-quick-setup/roaster-quick-setup.component';
 import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/roastery-license.component';
-
-import { RoasteryProfileComponent } from './roastery-profile/roastery-profile.component';
-import { AboutRoasteryComponent } from './roastery-profile/about-roastery/about-roastery.component';
-import { VirtualTourComponent } from './roastery-profile/virtual-tour/virtual-tour.component';
-import { ContactComponent } from './roastery-profile/contact/contact.component';
-import { ReviewsComponent } from './roastery-profile/reviews/reviews.component';
-
-import { SettingsComponent } from './settings/settings.component';
 import { VatManagementComponent } from './vat-management/vat-management.component';
 import { BatchSelectAnOrderComponent } from './batch-select-an-order/batch-select-an-order.component';
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
 import { DefaultSettingComponent } from './Farm Link/coffee-experience/default-setting/default-setting.component';
 // tslint:disable-next-line: max-line-length
-import { ApiRequestsTableComponent } from './api-requests/api-requests-table/api-requests-table.component';
-import { ApiRequestDetailsComponent } from './api-requests/api-requests-table/api-request-details/api-request-details.component';
-import { GenerateKeyDetailsComponent } from './api-requests/api-requests-table/generate-key-details/generate-key-details.component';
 import { ConfirmPreorderLotComponent } from './confirm-preorder-lot/confirm-preorder-lot.component';
 import { OtherCuppingServiceComponent } from './green-grading/cupping-report/other-cupping-service/other-cupping-service.component';
 import { OtherGenerateReportComponent } from './green-grading/cupping-report/other-generate-report/other-generate-report.component';
@@ -96,36 +78,6 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'account-settings',
-                component: SettingsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'privacy-settings',
-                component: PrivacySettingsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'login-security',
-                component: LoginSecurityComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'preferences',
-                component: ChatNotificationComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'language-region',
-                component: LanguageRegionComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'help',
-                component: HelpComponent,
-                canActivate: [AuthGuard],
-            },
-            {
                 path: 'f-direct-messaging',
                 component: FDirectMessagingComponent,
                 canActivate: [AuthGuard],
@@ -136,11 +88,6 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'social-media',
-                component: SocialMediaPostsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
                 path: 'reset-password',
                 component: ResetPasswordComponent,
                 canActivate: [AuthGuard],
@@ -148,17 +95,6 @@ const routes: Routes = [
             {
                 path: 'coffee-details',
                 component: CofeeExpeienceDetailsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'blog-details',
-                component: BlogDetailsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'roastery-profile',
-                loadChildren: () =>
-                    import('./roastery-profile/roastery-profile.module').then((m) => m.RoasteryProfileModule),
                 canActivate: [AuthGuard],
             },
             {
@@ -291,21 +227,6 @@ const routes: Routes = [
             {
                 path: 'default-setting',
                 component: DefaultSettingComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'api-requests-list',
-                component: ApiRequestsTableComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'api-request-details',
-                component: ApiRequestDetailsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'generate-key-details',
-                component: GenerateKeyDetailsComponent,
                 canActivate: [AuthGuard],
             },
             {

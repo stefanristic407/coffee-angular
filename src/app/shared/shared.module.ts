@@ -40,6 +40,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { DividerModule } from 'primeng/divider';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
@@ -97,8 +98,14 @@ import { DayPickerComponent } from './components/day-picker/day-picker.component
 import { PhoneNumberComponent } from './components/phone-number/phone-number.component';
 import { ReviewSummaryComponent } from './components/review-summary/review-summary.component';
 import { ReviewsComponent } from './components/reviews/reviews.component';
+import { ArrayFilterPipe } from './pipes/array-filter.pipe';
+import { StringReplacePipe } from './pipes/string-replace.pipe';
+import { AccordionModule } from 'primeng/accordion';
+
 import { SewnDirectMessageComponent } from './components/chat/sewn-direct-message/sewn-direct-message.component';
 import { SewnOrderChatComponent } from './components/chat/sewn-order-chat/sewn-order-chat.component';
+import { PieAreaChartComponent } from './components/pie-area-chart/pie-area-chart.component';
+import { AppKeyConfirmationComponent } from './components/app-key-confirmation/app-key-confirmation.component';
 
 // #region third libs
 const THIRDMODULES = [
@@ -147,6 +154,8 @@ const THIRDMODULES = [
     MatVideoModule,
     Ng2TelInputModule,
     ProgressBarModule,
+    AccordionModule,
+    DividerModule,
 ];
 // #endregion
 
@@ -181,10 +190,13 @@ const COMPONENTS = [
     ReviewsComponent,
     SewnDirectMessageComponent,
     SewnOrderChatComponent,
+    PieAreaChartComponent,
+    AppKeyConfirmationComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 const DIRECTIVES = [WordLimitDirective, RatingDirective, LifecyclehookDirective];
 const PIPES = [
+    ArrayFilterPipe,
     CountryPipe,
     EstateBrandLinkPipe,
     FileIconPipe,
@@ -196,6 +208,7 @@ const PIPES = [
     OrderRatingLinkPipe,
     OrderLinkPipe,
     OrgTypePipe,
+    StringReplacePipe,
     WordCountPipe,
     SearchFilterPipe,
 ];

@@ -26,7 +26,11 @@
                 </div>
                 <ul class="header-profile-links ml-md-auto d-flex align-items-center p-15">
                     <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
-                        <a [routerLink]="['/team-management/team-members']" class="d-inline-block image-card">
+                        <a
+                            [routerLink]="['/team-management/team-members']"
+                            [queryParams]="{ roleID: 21, isAddMember: true }"
+                            class="d-inline-block image-card"
+                        >
                             <img class="img" src="assets/images/add.svg" />
                         </a>
                     </li>
@@ -145,7 +149,7 @@
                                                 >
                                                     <a
                                                         class="cursor-dots"
-                                                        [routerLink]="['/features/roastery-profile']"
+                                                        [routerLink]="['/roastery-profile']"
                                                         (click)="pop2.hide()"
                                                         >{{ 'roastery_profile' | translate }}</a
                                                     >
@@ -161,7 +165,7 @@
                                                 <li class="list-group-item">
                                                     <a
                                                         class="cursor-dots"
-                                                        [routerLink]="['/features/account-settings']"
+                                                        [routerLink]="['/account-settings']"
                                                         (click)="pop2.hide()"
                                                         >{{ 'account_settings' | translate }}</a
                                                     >
@@ -306,7 +310,7 @@
                                         <span class="text-capitalize">{{ 'my_profile' | translate }}</span>
                                     </a>
                                     <a
-                                        [routerLink]="['/features/roastery-profile']"
+                                        [routerLink]="['/roastery-profile']"
                                         class="ft-dropdown__link active d-flex clearfix align-items-center"
                                     >
                                         <div class="img float-left mr-2">

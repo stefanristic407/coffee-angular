@@ -5,7 +5,7 @@ import { RoasterserviceService } from '@services';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from '@services';
-import { RoasteryProfileService } from '../../roastery-profile/roastery-profile.service';
+import { RoasteryProfileService } from '@services';
 
 @Injectable({
     providedIn: 'root',

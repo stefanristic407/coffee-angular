@@ -1,0 +1,27 @@
+.generted-key-container {
+    .active-status {
+        color: #32a822 !important;
+    }
+
+    .status-paused {
+        color: #f23737 !important;
+    }
+}
+
+::ng-deep .popover-content ul li:hover {
+    background-color: #f8f8f8;
+}
+
+::ng-deep .p-paginator {
+    padding: 22px 0;
+    border: none;
+    background: transparent;
+}
+
+::ng-deep .modal-dialog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin-top: 0;
+}

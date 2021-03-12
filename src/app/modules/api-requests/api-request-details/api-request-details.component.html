@@ -1,0 +1,202 @@
+<section>
+    <div *ngIf="loader">
+        <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
+    </div>
+    <div class="api-request-detail-container" *ngIf="!loader">
+        <div class="breadCrumb-block">
+            <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
+        </div>
+        <div class="request-details">
+            <h4 class="fnt-18 fnt-muli fnt-700 text-clr334">{{ globals.languageJson?.request_details }}</h4>
+            <p class="fnt-14 fnt-muli fnt-400 text-clr588 m-0">
+                {{ 'api_key_details' | translate }}
+            </p>
+        </div>
+
+        <div class="col-md-7 col-12 table-responsive mt-475 p-0">
+            <div class="express__delivery">
+                <div class="delivery__head">
+                    <p class="m-0 fnt-14 fnt-muli fnt-700 black">{{ 'key_generation_request' | translate }}</p>
+                </div>
+                <div class="delivery__body">
+                    <div class="w-100" *ngIf="apikeyStatus != 'DELETED'">
+                        <div class="float-left key-activate-block">
+                            <p class="m-0 fnt-14 fnt-muli fnt-700 black">
+                                {{ 'key_activated_on' | translate }}
+                                {{
+                                    initialStatus == 'GENERATED'
+                                        ? (requestDetailData?.requested_at | date: 'MMMM y')
+                                        : (requestDetailData?.created_at | date: 'MMMM y')
+                                }}
+                            </p>
+                            <p class="view-order m-0 pt-3 cursor-pointer" (click)="delete()">
+                                {{ 'delete_key' | translate }}
+                            </p>
+                        </div>
+
+                        <div class="float-right">
+                            <div class="btn-group btn-toggle ml-auto pull-right active__main" (click)="activeStatus()">
+                                <div
+                                    class="btn btn-group__item"
+                                    [ngClass]="btnToggle ? 'active_default' : 'active disable_default'"
+                                    id="activeStatus"
+                                >
+                                    {{ 'active' | translate }}
+                                </div>
+                                <div
+                                    class="btn-group btn-toggle ml-auto pull-right active__main"
+                                    (click)="activeStatus()"
+                                >
+                                    <div
+                                        class="btn btn-group__item"
+                                        [ngClass]="btnToggle ? 'active_default' : 'active disable_default'"
+                                        id="activeStatus"
+                                    >
+                                        {{ 'Active' | translate }}
+                                    </div>
+                                    <div
+                                        class="btn btn-group__item"
+                                        (click)="pause(requestDetailData?.org_name)"
+                                        [ngClass]="!btnToggle ? 'active_default active' : 'disable_default'"
+                                        id="disableStatus"
+                                    >
+                                        {{ 'Pause' | translate }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <table class="table lot-table">
+                            <tbody>
+                                <tr>
+                                    <td class="pl-16">
+                                        <span class="list-ques float-left text-clr588">
+                                            {{ 'requested_by' | translate }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="list-answ float-right">
+                                            {{ requestDetailData?.org_name }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-16">
+                                        <span class="list-ques float-left text-clr588">
+                                            {{ 'customer_type' | translate }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="list-answ float-right">
+                                            {{ requestDetailData?.org_type }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-16">
+                                        <span class="list-ques float-left text-clr588">
+                                            {{ 'requested_on' | translate }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="list-answ float-right">
+                                            {{
+                                                initialStatus == 'GENERATED'
+                                                    ? (requestDetailData?.requested_at | date: 'MMMM y')
+                                                    : (requestDetailData?.created_at | date: 'MMMM y')
+                                            }}</span
+                                        >
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-heading" *ngIf="apikeyStatus == 'DELETED'">
+                <div>
+                    <p class="fnt-14 fnt-muli fnt-700 text-clr334">{{ 'note' | translate }}</p>
+                </div>
+
+                <div class="col-md-6 pl-2">
+                    <p class="fnt-14 fnt-muli fnt-700 text-clr588 m-0">
+                        {{ 'api_key_confirmation' | translate }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="d-flex" *ngIf="apikeyStatus == 'DELETED'">
+                <div class="generate-border col-md-7 col-12">
+                    <p class="fnt-14 fnt-muli fnt-700 text-clr334 col-8 float-left m-0 p-0">
+                        {{ 'confirm_api_key_generation_request' | translate }}
+                    </p>
+                    <button
+                        type="submit"
+                        class="save float-right"
+                        (click)="generateKey()"
+                        [disabled]="resetButtonValue === 'Generating Key…'"
+                    >
+                        <img
+                            class="loader"
+                            *ngIf="resetButtonValue === 'Generating Key…'"
+                            src="assets/images/btn-loader.svg"
+                        />
+                        {{ resetButtonValue | translate }}
+                    </button>
+                </div>
+            </div>
+
+            <!-- API key is generated -->
+            <div class="d-flex pt-45" *ngIf="apikeyStatus == 'GENERATED'">
+                <div class="generate-border col-md-7 col-12">
+                    <p class="fnt-14 fnt-muli fnt-700 text-clr334 col-8 float-left m-0 p-0">
+                        <span><img class="mr-2" src="assets/images/correct.png" alt="" /> </span>
+                        {{ 'api_key_generated' | translate }}
+                    </p>
+                    <button class="save float-right" (click)="notify()">{{ 'notify_now' | translate }}</button>
+                </div>
+            </div>
+
+            <!-- The API key is generated and the customer is notified!-->
+            <div class="d-flex pt-3" *ngIf="apikeyStatus == 'Notified'">
+                <div class="generate-border col-md-7 col-12">
+                    <p class="fnt-14 fnt-muli fnt-700 text-clr334 float-left m-0">
+                        <span><img class="mr-2" src="assets/images/correct.png" alt="" /> </span>
+                        {{ 'customer_notified' | translate }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- pause-->
+            <div class="d-flex pt-45" *ngIf="apikeyStatus == 'paused'">
+                <div class="generate-border col-md-7 col-12">
+                    <p class="fnt-14 fnt-muli fnt-700 text-clr334 float-left m-0">
+                        <span><img class="mr-2" src="assets/images/pause.png" alt="" /> </span>
+                        {{ 'api_key_paused' | translate }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="d-flex pt-3" *ngIf="apikeyStatus == 'paused'">
+                <div class="col-md-7 col-12 p-0">
+                    <p class="fnt-14 fnt-muli fnt-700 text-clr334 float-left m-0">
+                        {{ 'api_key_activated' | translate }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="d-flex pt-45" *ngIf="apikeyStatus == 'active'">
+                <div class="generate-border col-md-7 col-12">
+                    <p class="fnt-14 fnt-muli fnt-700 text-clr334 float-left m-0">
+                        <span
+                            ><img class="mr-2" src="assets/images/pause.png" alt="" />{{
+                                'api_key_reactivated' | translate
+                            }}
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

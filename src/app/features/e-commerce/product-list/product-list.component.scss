@@ -95,6 +95,7 @@
     .mobileCardBody {
         border-bottom: 1px dashed #d6d6d6;
         padding: 1rem 0px;
+        display: flex;
     }
     :host ::ng-deep .productListTable .p-datatable-tbody > tr > .cardBottom {
         margin-bottom: 14px;

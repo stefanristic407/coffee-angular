@@ -151,11 +151,11 @@
 
                     <span *ngSwitchCase="'status'" [routerLink]="onEdit(rowData)">
                         <span *ngIf="!primeTableService.isMobileView">
-                            {{ rowData[col.field] | titlecase }}
+                            {{ formatStatus(rowData[col.field]) | titlecase }}
                         </span>
                         <div class="d-flex">
                             <span *ngIf="primeTableService.isMobileView" class="mobile-heading w-50">
-                                {{ rowData[col.field] | titlecase }}
+                                {{ formatStatus(rowData[col.field]) | titlecase }}
                             </span>
                             <span
                                 *ngIf="!primeTableService.isMobileView; else mobile_name"

@@ -1,0 +1,47 @@
+<div *ngIf="loader">
+    <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
+    <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
+</div>
+<div class="mb-2 mt-4" *ngIf="!loader">
+    <p-table
+        [value]="requestData"
+        [lazy]="true"
+        (onLazyLoad)="getTableData($event)"
+        [paginator]="paginationValue"
+        [rows]="rows"
+        [totalRecords]="totalRecords"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="org_name">
+                    {{ globals.languageJson?.requested_by }}<p-sortIcon field="org_name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="org_type">
+                    {{ globals.languageJson?.customer_type }}<p-sortIcon field="org_type"></p-sortIcon>
+                </th>
+                <th pSortableColumn="created_at">
+                    {{ globals.languageJson?.date_request }}<p-sortIcon field="created_at"></p-sortIcon>
+                </th>
+                <th>{{ globals.languageJson?.action }}</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-key>
+            <tr>
+                <td>{{ key.org_name }}</td>
+                <td>{{ key.org_type }}</td>
+                <td>{{ key.created_at | date: 'MMMM y' }}</td>
+                <td
+                    class="view-order"
+                    [routerLink]="['/api-requests-list/api-request-details']"
+                    [queryParams]="{ id: key.id, status: key.status }"
+                >
+                    {{ globals.languageJson?.view_request }}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<!-- no-data for Api Request -->
+<ng-container *ngIf="!requestData?.length && !loader">
+    <app-empty title="No data available"></app-empty>
+</ng-container>

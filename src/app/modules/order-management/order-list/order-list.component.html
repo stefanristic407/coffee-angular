@@ -1,0 +1,268 @@
+<div class="bg-fff py-2 py-md-4 py-lg-45 px-2 px-md-3 px-lg-5">
+    <div class="row no-gutters">
+        <div class="col-12 px-2 py-2">
+            <p-breadcrumb [model]="items"></p-breadcrumb>
+        </div>
+    </div>
+
+    <div class="row no-gutters mt-2 px-2" [formGroup]="searchForm">
+        <div class="col-12 col-md-4 px-0 d-flex align-items-center">
+            <h4 class="fnt-18 font-bold text-clr334 m-0">{{ 'my_orders' | translate }}</h4>
+        </div>
+        <div class="col-12 col-md-8 search-export px-0 mt-25">
+            <div class="d-flex justify-content-end search-bar">
+                <span class="p-input-icon-left custom-search w-100">
+                    <input pInputText
+                        class="w-100 h-100 border-rounded-left-md-0 pt-2 pb-2 {{ searchForm.get('search_query').value ? 'highlight' : '' }}"
+                        type="text" placeholder="Search by order id, {{ customerPropertyName | strReplace: '_': ' ' }}"
+                        formControlName="search_query" />
+                </span>
+                <button type="submit" class="btn-raised ml-2 d-none d-lg-block"
+                    (click)="displayExportDialog = !displayExportDialog">
+                    {{ 'export' | translate }}
+                </button>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between w-100 col-12 px-0 mt-3">
+            <div class="d-flex">
+                <p-dropdown [showClear]="true" [options]="orderTypeItems" optionLabel="label" optionValue="value"
+                    placeholder="Type of order" class="round-border mr-25"
+                    [styleClass]="'round-border mb-25 mb-md-4' + (queryParams.order_type ? ' highlight' : '')"
+                    scrollHeight="225px" formControlName="order_type">
+                </p-dropdown>
+                <p-dropdown [showClear]="true" [options]="statusItems" optionLabel="label" optionValue="value"
+                    placeholder="Status" class="round-border" placeholder="Status"
+                    [styleClass]="'round-border mb-25 mb-md-4' + (queryParams.status ? ' highlight' : '')"
+                    scrollHeight="225px" formControlName="status"></p-dropdown>
+            </div>
+            <div class="d-none d-md-flex">
+                <p-dropdown [options]="displayOptions" formControlName="per_page" optionLabel="label"
+                    optionValue="value" placeholder="Display" styleClass="round-border" placeholder="Display">
+                    <ng-template pTemplate="selectedItem">
+                        <span class="text-muted" [innerHTML]="'Display ' + searchForm.get('per_page').value"></span>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+        </div>
+    </div>
+
+    <div class="row no-gutters">
+        <div class="col-12 p-1">
+            <p-table #ordersTable [class.table-mobile]="isMobile$ | async" class="mt-2" [value]="orders"
+                dataKey="id" [rows]="this.searchForm.get('per_page').value"
+                [showCurrentPageReport]="false" [paginator]="true" [lazy]="true" [loading]="loading"
+                (onLazyLoad)="loadOrders($event)" [totalRecords]="pageInfo.total_count" sortField="date_received"
+                styleClass="p-datatable-responsive-single p-datatable-tablet-scrollable p-datatable-custom-paginator">
+
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th class="id-column" pSortableColumn="id">
+                            <div class="d-flex">
+                                <span class="text-overflow-ellipsis">{{ 'order_id' | translate }}</span>
+                                <p-sortIcon
+                                    field="id"
+                                    ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"
+                                >
+                                </p-sortIcon>
+                            </div>
+                        </th>
+                        <th [pSortableColumn]="customerPropertyName">
+                            <div class="d-flex">
+                                <span class="text-overflow-ellipsis">{{ customerPropertyName | translate }}</span>
+                                <p-sortIcon
+                                    [field]="customerPropertyName"
+                                    ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"
+                                >
+                                </p-sortIcon>
+                            </div>
+                        </th>
+                        <th pSortableColumn="date_received">
+                            <div class="d-flex">
+                                <span class="text-overflow-ellipsis">{{ 'date_ordered' | translate }}</span>
+                                <p-sortIcon
+                                    field="date_received"
+                                    ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"
+                                >
+                                </p-sortIcon>
+                            </div>
+                        </th>
+                        <th pSortableColumn="varieties">
+                            <div class="d-flex">
+                                <span class="text-overflow-ellipsis">{{ 'variety' | translate }}</span>
+                                <p-sortIcon
+                                    field="varieties"
+                                    ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"
+                                >
+                                </p-sortIcon>
+                            </div>
+                        </th>
+                        <th pSortableColumn="price">
+                            <div class="d-flex">
+                                <span class="text-overflow-ellipsis">{{ 'price' | translate }}</span>
+                                <p-sortIcon
+                                    field="price"
+                                    ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"
+                                >
+                                </p-sortIcon>
+                            </div>
+                        </th>
+                        <th pSortableColumn="quantity">
+                            <div class="d-flex">
+                                <span class="text-overflow-ellipsis">{{ 'quantity' | translate }}</span>
+                                <p-sortIcon
+                                    field="quantity"
+                                    ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"
+                                >
+                                </p-sortIcon>
+                            </div>
+                        </th>
+                        <th pSortableColumn="type">
+                            <div class="d-flex">
+                                <span class="text-overflow-ellipsis">{{ 'type' | translate }}</span>
+                                <p-sortIcon
+                                    field="type"
+                                    ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"
+                                >
+                                </p-sortIcon>
+                            </div>
+                        </th>
+                        <th pSortableColumn="status">
+                            <div class="d-flex">
+                                <span class="text-overflow-ellipsis">{{ 'status' | translate }}</span>
+                                <p-sortIcon
+                                    field="status"
+                                    ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"
+                                >
+                                </p-sortIcon>
+                            </div>
+                        </th>
+                        <th pSortableColumn="cup_score">
+                            <div class="d-flex">
+                                <span class="text-overflow-ellipsis">{{ 'cup_score' | translate }}</span>
+                                <p-sortIcon
+                                    field="cup_score"
+                                    ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"
+                                >
+                                </p-sortIcon>
+                            </div>
+                        </th>
+                        <th class="action-column text-center">
+                            <span class="text-overflow-ellipsis">{{ 'action' | translate }}</span>
+                        </th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-rowData>
+                    <tr>
+                        <td class="border-0">
+                            <span class="d-none d-md-inline">{{ rowData.id }}</span>
+                            <div class="p-mobile-row-content border-ebebeb p-0" [routerLink]="organizationType | orderLink: rowData.id">
+                                <div class="d-flex flex-column fnt-12">
+                                    <div class="order-header d-flex justify-content-between px-3 py-1">
+                                        <span class="fnt-14 font-bold text-clr334">
+                                            {{ 'Order' | translate }} #{{ rowData.id }}
+                                        </span>
+                                        <span class="fnt-500" [ngClass]="rowData.type">&#9679;&nbsp;{{ rowData.type
+                                            }}</span>
+                                    </div>
+
+                                    <div class="px-3">
+                                        <div class="d-flex justify-content-between pt-2">
+                                            <span class="text-clr334">{{ rowData.status }}</span>
+                                            <span class="text-muted">{{ rowData.createdAt | date: 'd MMM yyyy' }}</span>
+                                        </div>
+
+                                        <div class="mobile-row py-2 d-flex">
+                                            <span class="text-muted cell-header">{{ customerPropertyName | translate }}</span>
+                                            <span class="text-clr334">{{ rowData[customerPropertyNameCamelCase] }}</span>
+                                        </div>
+                                        <div class="mobile-row py-2 d-flex">
+                                            <span class="text-muted cell-header">{{ 'origin' | translate }}</span>
+                                            <span class="text-clr334">{{ commonService.getCountryName(rowData.origin)
+                                                }}</span>
+                                        </div>
+                                        <div class="py-2 d-flex">
+                                            <span class="text-muted cell-header cell-header">{{ 'variety' | translate
+                                                }}</span>
+                                            <span class="text-clr334">{{ rowData.varieties }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData[customerPropertyNameCamelCase] }}</td>
+                        <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.createdAt | date: 'd MMM yyyy' }}</td>
+                        <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.varieties }}</td>
+                        <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ (rowData.price || rowData.totalPrice) | currency: 'USD' }}
+                        </td>
+                        <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.quantity ? rowData.quantity
+                            + ' ' + rowData.quantityType : '-' }}</td>
+                        <td class="d-none d-md-table-cell text-overflow-ellipsis">
+                            <span class="fnt-14 fnt-600" [ngClass]="rowData.type">&#9679;&nbsp;{{ rowData.type }}</span>
+                        </td>
+                        <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.status }}</td>
+                        <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.cupScore }}</td>
+                        <td class="d-none d-md-table-cell"><a class="view-order"
+                                [routerLink]="organizationType | orderLink: rowData.id">{{ 'view_order' | translate }}</a></td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+
+<form class="export-dialog" id="export-dialog" [formGroup]="exportForm">
+    <p-dialog header="Export orders" [(visible)]="displayExportDialog" [style]="{ width: '431px' }" [baseZIndex]="10000"
+        [modal]="true" styleClass="export-p-dialog" [contentStyle]="{ overflow: 'visible' }">
+        <div class="d-flex flex-column bd-highlight mb-3 pt-2" id="calendar-div">
+            <div class=""><span class="text-clr588">Select start and end date for the order</span></div>
+
+            <div class="d-flex flex-row bd-highlight mb-3 pt-1">
+                <p-calendar class="mr-2 w-100" formControlName="from_date" [maxDate]="exportForm.get('to_date').value" [showIcon]="true"
+                    dateFormat="dd.mm.yy" [readonlyInput]="true" [showButtonBar]="true" placeholder="Select start date"
+                    styleClass="w-100 p-calendar-w-btn round-border single-calendar mr-3 export-calendar {{ exportForm.get('from_date').value ? 'highlight' : '' }}">
+                </p-calendar>
+                <p-calendar class="ml-2 w-100" formControlName="to_date" [minDate]="exportForm.get('from_date').value" [showIcon]="true"
+                    dateFormat="dd.mm.yy" [readonlyInput]="true" [showButtonBar]="true" placeholder="Select end date"
+                    styleClass="w-100 p-calendar-w-btn round-border single-calendar ml-0 export-calendar {{ exportForm.get('to_date').value ? 'highlight' : '' }}">
+                </p-calendar>
+            </div>
+            <div class="pt-3"><span class="text-clr588">Export Format</span></div>
+            <div class="pt-1">
+                <span class="w-100 general-text">Select the format you want your orders</span>
+            </div>
+            <div class="pt-3">
+                <p-radioButton label="PDF" value="pdf" formControlName="export_type"></p-radioButton>
+                <p-radioButton class="ml-3" label="CSV" value="csv" formControlName="export_type"></p-radioButton>
+            </div>
+        </div>
+
+        <ng-template pTemplate="footer">
+            <button class="btn-stroked" type="button" (click)="displayExportDialog = !displayExportDialog">
+                Cancel
+            </button>
+
+            <button class="btn-raised" type="button" (click)="downloadOrderClicked()">Download order</button>
+        </ng-template>
+    </p-dialog>
+</form>

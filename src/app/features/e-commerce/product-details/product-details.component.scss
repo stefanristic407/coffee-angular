@@ -19,9 +19,9 @@
 }
 .addNewWeightDiv {
     border: 1px solid #747588;
-    padding: 4px 8px;
+    padding: 6px 12px;
     height: 34px;
-    border-radius: 2px;
+    border-radius: 4px;
 }
 .descriptionText-area {
     height: 5.25rem;
@@ -80,7 +80,16 @@
     }
     .variant-pos {
         position: relative;
-        top: 37px;
+        top: 45px;
+    }
+}
+@media (min-width: 768px) and (max-width: 1240px) {
+    .describePadding {
+        margin-bottom: 0px;
+    }
+
+    ::ng-deep .varientBox label.p-checkbox-label {
+        width: max-content;
     }
 }
 @media screen and (max-width: 767px) {
@@ -89,6 +98,7 @@
         color: #30855c;
         padding: 0.5rem 2rem;
         display: flex;
+        border-radius: 4px;
         align-items: center;
         justify-content: center;
     }
@@ -118,7 +128,15 @@
     .roasterDivText-area {
         height: 232px;
     }
-    .variant-pos {
+    ::ng-deep .varientBox label.p-checkbox-label {
+        position: relative;
+        top: 0.35rem;
+    }
+}
+@media (max-width: 375px) {
+    ::ng-deep .varientBox label.p-checkbox-label {
+        position: relative;
+        top: 0.9rem;
     }
 }
 .addWeightDiv {

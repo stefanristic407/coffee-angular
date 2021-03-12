@@ -1,0 +1,143 @@
+.ownerNameError,
+.foundedInError,
+.phoneError,
+.countryError,
+.addressError,
+.cityError {
+    color: #d50000;
+}
+
+.btn-file-upload {
+    background: transparent;
+    font-size: 14px;
+    color: #747588;
+    line-height: normal;
+    padding: 7px 12px;
+    border: 1px solid #a6a6a6;
+    &:hover {
+        border: 1px solid #a6a6a6 !important;
+    }
+}
+
+.header {
+    height: 50px;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    padding: 0.75rem;
+}
+
+hr {
+    border: 1px dashed #d6d6d6 !important;
+}
+
+.border-right {
+    border-right: 1px solid #d6d6d6;
+}
+
+.star {
+    color: #ff1e5a;
+}
+
+.add-text {
+    color: #80460b;
+}
+
+.brand-tag {
+    cursor: pointer;
+}
+
+.brand-tag:hover {
+    text-decoration: underline !important;
+}
+
+.img-estate {
+    width: 32px;
+    height: 32px;
+}
+
+.details-list {
+    list-style: none;
+    margin-left: 1.5rem;
+}
+
+.border-div {
+    border-bottom: 1px dashed #d6d6d6;
+}
+
+/**********popover*******/
+
+.list-data li {
+    width: auto !important;
+    padding: 10px 3rem 10px 10px !important;
+}
+
+.list-data {
+    margin-bottom: 0%;
+}
+
+::ng-deep .popover-body {
+    padding: 0.25rem 0.25rem !important;
+}
+
+::ng-deep .popover {
+    border: none !important;
+    border-radius: 6px !important;
+    box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
+    background-color: #ffffff;
+}
+
+.list-item {
+    &:hover {
+        color: #232334;
+        font-weight: 600;
+        background-color: #f8f8f8;
+    }
+}
+
+.pointer-item {
+    cursor: pointer;
+}
+
+.brand-image {
+    height: 90px;
+    width: 90px;
+    border-radius: 100%;
+}
+
+.brand-meta-container {
+    height: 90px;
+}
+
+/* contacts view port Desktop view */
+
+.add-partner {
+    cursor: pointer;
+    color: #80460b;
+}
+
+.unit-dropdown {
+    position: absolute;
+    bottom: 5px;
+    right: 13px;
+}
+
+::ng-deep .unit-dropdown {
+    .p-dropdown {
+        height: 42px;
+        min-width: 87px;
+        background: #f8f8f8;
+        border: none;
+    }
+}
+
+.custom-chart-container {
+    height: 235px;
+    width: 235px;
+    margin: auto;
+    margin-top: -72px;
+    margin-bottom: 60px;
+}
+
+.menu-arrow {
+    height: 18px;
+}

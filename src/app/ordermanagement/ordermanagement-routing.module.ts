@@ -14,8 +14,6 @@ import { OrderSupportFaqsComponent } from './dispute-system/order-support-faqs/o
 import { RaisedTicketComponent } from './dispute-system/raised-ticket/raised-ticket.component';
 import { RaiseTicketFormComponent } from './dispute-system/raise-ticket-form/raise-ticket-form.component';
 import { SelectAnOrderComponent } from './dispute-system/select-an-order/select-an-order.component';
-import { ReviewRatingsComponent } from './review-ratings/review-ratings.component';
-import { RatingComponent } from './rating/rating.component';
 import { FacilitatorOrdersComponent } from './facilitator-orders/facilitator-orders.component';
 import { RoasterOrdersComponent } from './roaster-orders/roaster-orders.component';
 import { OrderChatComponent } from './order-sample/order-chat/order-chat.component';
@@ -113,16 +111,6 @@ const routes: Routes = [
             {
                 path: 'select-order',
                 component: SelectAnOrderComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'review-ratings/:orgType/:orderId',
-                component: ReviewRatingsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'rating/:orgType/:orderId',
-                component: RatingComponent,
                 canActivate: [AuthGuard],
             },
 

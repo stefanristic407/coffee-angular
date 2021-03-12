@@ -18,9 +18,14 @@ export const routes: Routes = [
                 loadChildren: () => import('./features/features.module').then((m) => m.FeaturesModule),
             },
             {
-                path: 'ordermanagement',
+                path: 'orders',
                 loadChildren: () =>
-                    import('./ordermanagement/ordermanagement.module').then((m) => m.OrdermanagementModule),
+                    import('./modules/order-management/order-management.module').then((m) => m.OrderManagementModule),
+            },
+            {
+                path: 'review-rating',
+                loadChildren: () =>
+                    import('./modules/review-rating/review-rating.module').then((m) => m.ReviewRatingModule),
             },
             {
                 path: 'dispute-system',
@@ -55,6 +60,11 @@ export const routes: Routes = [
                 loadChildren: () => import('./modules/file-share/file-share.module').then((m) => m.FileShareModule),
             },
             {
+                path: 'api-requests-list',
+                loadChildren: () =>
+                    import('./modules/api-requests/api-requests.module').then((m) => m.ApiRequestModule),
+            },
+            {
                 path: 'green-coffee-management',
                 loadChildren: () =>
                     import('./modules/green-coffee-management/green-coffee-management.module').then(
@@ -72,6 +82,21 @@ export const routes: Routes = [
                 path: 'sales-contract',
                 loadChildren: () =>
                     import('./modules/sales-contract/sales-contract.module').then((m) => m.SalesContractModule),
+            },
+            {
+                path: 'roastery-profile',
+                loadChildren: () =>
+                    import('./modules/profile-creation/profile-creation.module').then((m) => m.ProfileCreationModule),
+            },
+            {
+                path: 'account-settings',
+                loadChildren: () =>
+                    import('./modules/account-settings/account-settings.module').then((m) => m.AccountSettingsModule),
+            },
+            {
+                path: 'social-media',
+                loadChildren: () =>
+                    import('./modules/social-media/social-media.module').then((m) => m.SocialMediaModule),
             },
         ],
     },

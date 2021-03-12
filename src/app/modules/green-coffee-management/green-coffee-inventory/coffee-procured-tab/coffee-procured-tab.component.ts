@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild, HostListener, AfterViewInit, After
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
-import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
+import { RoasteryProfileService } from '@services';
 import { NavigationExtras, Router } from '@angular/router';
 import { PrimeTableService } from '@services';
 import { FormGroup, FormBuilder } from '@angular/forms';

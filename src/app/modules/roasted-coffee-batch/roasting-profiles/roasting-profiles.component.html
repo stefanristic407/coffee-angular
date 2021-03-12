@@ -37,7 +37,7 @@
                     name="search"
                     class="search-raised w-100 ml-0"
                     formControlName="searchField"
-                    placeholder="{{ globals.languageJson?.search_name_role }}"
+                    placeholder="Search by roast name"
                 />
             </div>
         </div>
@@ -59,10 +59,10 @@
             <div [formGroup]="searchForm" class="d-none d-sm-none d-md-block col-6">
                 <input
                     type="text"
-                    name="Search"
+                    name="search"
                     class="search-raised pull-right"
                     formControlName="searchField"
-                    placeholder="Search"
+                    placeholder="Search by roast name"
                 />
             </div>
         </div>
@@ -101,7 +101,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
-                    <tr>
+                    <tr (click)="redirectToEdit(rowData['id'])">
                         <td
                             *ngFor="let col of columns"
                             [ngSwitch]="col.field"
@@ -126,22 +126,17 @@
                             }"
                         >
                             <span *ngSwitchCase="'roast_profile_name'" class="">
-                                <span
-                                    class="d-none d-sm-none d-md-inline-block"
-                                    (click)="redirectToEdit(rowData['id'])"
-                                >
+                                <span class="d-none d-sm-none d-md-inline-block">
                                     {{ rowData['roast_profile_name'] | titlecase }}
                                 </span>
 
                                 <div class="d-block d-sm-block d-md-none row m-0 pb-4">
                                     <div class="borderRoastedCard">
                                         <div class="d-flex bgRoastedCard">
-                                            <span
-                                                class="fnt-muli fnt-600 width-90"
-                                                (click)="redirectToEdit(rowData['id'])"
-                                                >{{ rowData[col.field] | titlecase }}</span
-                                            >
-                                            <span class="">
+                                            <span class="fnt-muli fnt-600 width-90">{{
+                                                rowData[col.field] | titlecase
+                                            }}</span>
+                                            <span class="" (click)="menuClicked()">
                                                 <a
                                                     class="menu-arrow"
                                                     [popover]="poplistTemplate"
@@ -171,7 +166,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="col-12 row p-3 m-0 mobileCard" (click)="redirectToEdit(rowData['id'])">
+                                    <div class="col-12 row p-3 m-0 mobileCard">
                                         <div class="cardBottom p-0 w-100">
                                             <div class="mobileCardBody pt-0">
                                                 <div class="d-flex">
@@ -200,10 +195,8 @@
                             </span>
                             <span *ngSwitchCase="'actions'" class="">
                                 <span>
-                                    <a class="fnt-muli fnt-14 fnt-700 view-det" (click)="redirectToEdit(rowData['id'])"
-                                        >View details</a
-                                    >
-                                    <span>
+                                    <a class="fnt-muli fnt-14 fnt-700 view-det">View details</a>
+                                    <span (click)="menuClicked()">
                                         <a
                                             class="menu-arrow"
                                             [popover]="poplistTemplate"
@@ -211,7 +204,11 @@
                                             [outsideClick]="true"
                                             #pop="bs-popover"
                                         >
-                                            <img class="ellipse-image pl-3" src="assets/images/kebab-menu.svg" alt="" />
+                                            <img
+                                                class="ellipse-image ml-lg-3 pl-3"
+                                                src="assets/images/kebab-menu.svg"
+                                                alt=""
+                                            />
                                         </a>
                                         <ng-template #poplistTemplate>
                                             <div id="popover-mobile-content">
@@ -229,16 +226,16 @@
                                     </span>
                                 </span>
                             </span>
-                            <span *ngSwitchCase="'roast_level'" class="" (click)="redirectToEdit(rowData['id'])">
+                            <span *ngSwitchCase="'roast_level'" class="">
                                 <span>{{ getRoastLevel(rowData[col.field]) }}</span>
                             </span>
-                            <span *ngSwitchCase="'temperature'" class="" (click)="redirectToEdit(rowData['id'])">
+                            <span *ngSwitchCase="'temperature'" class="">
                                 <span>{{ rowData[col.field] }}°C</span>
                             </span>
-                            <span *ngSwitchCase="'roast_duration'" class="" (click)="redirectToEdit(rowData['id'])">
+                            <span *ngSwitchCase="'roast_duration'" class="">
                                 <span>{{ rowData[col.field] }} min</span>
                             </span>
-                            <span *ngSwitchDefault (click)="redirectToEdit(rowData['id'])">
+                            <span *ngSwitchDefault>
                                 <span>{{ rowData[col.field] }}</span>
                             </span>
                         </td>

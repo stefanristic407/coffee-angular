@@ -1,0 +1,68 @@
+@import '../../../theme/styles/variables';
+
+:host {
+    color: #232334;
+}
+
+.account-setting-panel {
+    border-radius: 2px;
+    border: solid 1px #ebebeb;
+    padding: 28px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    line-height: normal;
+    color: $general-text-color;
+    text-align: center;
+    font-weight: 600;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+        box-shadow 0.15s ease-in-out !important;
+    .cta-arrow-hover {
+        display: none;
+    }
+    .cta-arrow {
+        display: inline;
+    }
+    &:hover {
+        border: solid 1px #30855c;
+        box-shadow: 0 22px 54px -10px hsla(0, 0%, 87.5%, 0.5);
+        .cta-arrow-hover {
+            display: inline;
+        }
+        .cta-arrow {
+            display: none;
+        }
+    }
+}
+
+.account-setting-panel-mobile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 2px;
+    padding: 12.5px 12.8px;
+    margin-bottom: 16px;
+    font-weight: 600;
+    color: #232334;
+    cursor: pointer;
+}
+
+.pl-10px {
+    padding-left: 10px;
+}
+
+.pr-10px {
+    padding-right: 10px;
+}
+
+.row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+@media (max-width: 991px) {
+    .account-setting-panel {
+        padding: 28px 27px;
+    }
+}

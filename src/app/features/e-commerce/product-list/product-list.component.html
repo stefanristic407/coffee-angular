@@ -120,7 +120,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-columns="columns">
-                <tr>
+                <tr (click)="redirectToEdit(rowData)">
                     <td class="d-none d-sm-none d-md-table-cell">
                         <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
                     </td>
@@ -170,7 +170,7 @@
                             </div>
                             <div class="d-block d-sm-block d-md-none row m-0 br-4 br-main e-comm-pad4">
                                 <div class="col-12 borderCard p-3">
-                                    <span>{{ rowData[col.field] | titlecase }}</span>
+                                    <span>{{ rowData['status'] | titlecase }}</span>
                                     <span class="float-right"
                                         ><img src="assets/images/star-1.png" alt="" /><span class="pl-2">{{
                                             rowData['rating']
@@ -216,12 +216,8 @@
                                 </div>
                                 <div class="col-12 editDiv">
                                     <span>
-                                        <a
-                                            class="fnt-muli editBtn"
-                                            [routerLink]="['/features/new-product/' + rowData['id']]"
-                                            >{{ globals.languageJson?.edit_product }}</a
-                                        >
-                                        <span class="float-right">
+                                        <a class="fnt-muli editBtn">{{ globals.languageJson?.edit_product }}</a>
+                                        <span class="float-right" (click)="menuClicked()">
                                             <a
                                                 class="menu-arrow"
                                                 [popover]="poplistTemplate"
@@ -255,10 +251,8 @@
                         </span>
                         <span *ngSwitchCase="'actions'" class="">
                             <span>
-                                <a class="fnt-muli editBtn" [routerLink]="['/features/new-product/' + rowData['id']]">{{
-                                    globals.languageJson?.edit_product
-                                }}</a>
-                                <span class="float-right">
+                                <a class="fnt-muli editBtn">{{ globals.languageJson?.edit_product }}</a>
+                                <span class="float-right" (click)="menuClicked()">
                                     <a
                                         class="menu-arrow"
                                         [popover]="poplistTemplate"

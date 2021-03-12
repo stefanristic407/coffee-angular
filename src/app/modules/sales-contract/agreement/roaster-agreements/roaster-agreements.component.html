@@ -13,11 +13,10 @@
             ></p-dropdown>
         </div>
         <div class="web-farm">
-            <div class="float-right" data-toggle="modal" data-target="#uploadfolder">
-                <label class="upload-btn" (click)="onUploadModalOpen()">
-                    <img class="dwnd-img" src="assets/images/group-6.svg" alt="upload-icon" />
-                    <span class="upload-name">&nbsp; Upload </span>
-                </label>
+            <div class="float-right">
+                <div class="btn-trans-icon upload-icon" (click)="onUploadModalOpen()">
+                    {{ 'upload' | translate }}
+                </div>
             </div>
         </div>
     </div>
@@ -71,20 +70,16 @@
                             <div id="popover-mobile-content">
                                 <ul class="list-group custom-popover">
                                     <li class="list-group-item">
-                                        <a
-                                            class="pointer-item"
-                                            (click)="pop.hide(); onUpdateModal(item.id)"
-                                            data-toggle="modal"
-                                            data-target="#uploadfolder"
-                                            >{{ globals.languageJson?.update }}</a
-                                        >
+                                        <a class="pointer-item" (click)="pop.hide(); onUpdateModal(item.id)">{{
+                                            globals.languageJson?.update
+                                        }}</a>
                                     </li>
                                     <li class="list-group-item">
                                         <a
                                             class="pointer-item"
-                                            (click)="pop.hide(); deleteAgreementId = item.id"
-                                            data-toggle="modal"
-                                            data-target="#deletemodal"
+                                            (click)="
+                                                pop.hide(); deleteAgreementId = item.id; onOpenDeleteModal(item.id)
+                                            "
                                             >{{ globals.languageJson?.delete }}</a
                                         >
                                     </li>
@@ -130,9 +125,11 @@
                                                 <li class="list-group-item">
                                                     <a
                                                         class="pointer-item"
-                                                        (click)="pop.hide(); deleteAgreementId = data.id"
-                                                        data-toggle="modal"
-                                                        data-target="#deletemodal"
+                                                        (click)="
+                                                            pop.hide();
+                                                            onOpenDeleteModal(data.id);
+                                                            deleteAgreementId = data.id
+                                                        "
                                                         >{{ globals.languageJson?.delete }}</a
                                                     >
                                                 </li>
@@ -173,53 +170,29 @@
     </div>
 </section>
 
-<div
-    class="modal fade"
-    id="uploadfolder"
-    tabindex="-1"
-    role="dialog"
-    data-backdrop="static"
-    data-keyboard="false"
-    aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true"
+<!-- Upload and Update Modal -->
+<p-dialog
+    *ngIf="displayAddEditModal"
+    [(visible)]="displayAddEditModal"
+    [style]="{ width: '41.375rem' }"
+    [baseZIndex]="10000"
+    [closable]="false"
 >
-    <div class="modal-dialog modal-dialog-centered modal-dialog-lg modal-large" role="document">
-        <app-roaster-agreement-form
-            class="w-100"
-            [isUpdate]="isUpdate"
-            [customerType]="customerType"
-            [selectedItemId]="selectedItemId"
-            (getAgreements)="getAgreements($event)"
-        >
-        </app-roaster-agreement-form>
-    </div>
-</div>
-
-<div
-    class="modal fade"
-    id="deletemodal"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true"
->
-    <div class="modal-dialog modal-dialog-centered modal-small" role="document">
-        <div class="modal-content">
-            <div class="modal-body mt-5 mb-5 text-center fnt-muli">
-                <div><img src="assets/images/delete-role.svg" alt="" /></div>
-                <div class="fnt-muli fnt-16 fnt-md-18 fnt-normal delete__text mt-3">
-                    <p class="oh-noh pb-3 mb-0">Oh noh :(</p>
-                    <p class="mb-0">You sure you really want to delete this?</p>
-                </div>
-                <div class="mt-5">
-                    <button class="btn-stroked btn-padding" id="dismissDeleteModal" data-dismiss="modal">
-                        {{ globals.languageJson?.cancel }}
-                    </button>
-                    <button class="btn-raised btn-padding ml-3" (click)="deleteAgreement(deleteAgreementId)">
-                        {{ globals.languageJson?.delete }}
-                    </button>
-                </div>
-            </div>
+    <ng-template pTemplate="header">
+        <div class="d-flex justify-content-between w-100">
+            <h4 class="fnt-18 fnt-muli fnt-700 text-clr334">{{ globals.languageJson?.upload_new_agreement }}</h4>
+            <a (click)="onUpdateModalClose()" style="cursor: pointer">
+                <i class="pi pi-times fnt-24 text-clr97"></i>
+            </a>
         </div>
-    </div>
-</div>
+    </ng-template>
+    <app-roaster-agreement-form
+        class="w-100"
+        [isUpdate]="isUpdate"
+        [customerType]="customerType"
+        [selectedItemId]="selectedItemId"
+        (closeModal)="onUpdateModalClose($event)"
+        (getAgreements)="getAgreements($event)"
+    >
+    </app-roaster-agreement-form>
+</p-dialog>

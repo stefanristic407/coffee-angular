@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from '@services';
 import { CustomerServiceService } from '../customer-service.service';
-import { UserserviceService } from '@services';
+import { EmailService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,6 +19,7 @@ export class DiscountEditComponent implements OnInit {
         public globals: GlobalsService,
         public customerService: CustomerServiceService,
         public userService: UserserviceService,
+        private emailService: EmailService,
         public cookieService: CookieService,
         private toastrService: ToastrService,
         public route: ActivatedRoute,
@@ -51,7 +52,7 @@ export class DiscountEditComponent implements OnInit {
                             senders: [this.customerService.pendingEmail],
                             url: 'https://qa-micro-roaster.sewnstaging.com/auth/setup?token=' + data['result'].token,
                         };
-                        this.userService.sendUrlToEmail(body).subscribe((res) => {
+                        this.emailService.sendEmail(body).subscribe((res) => {
                             if (res['status'] == '200 OK') {
                                 //   this.globals.userInvitesArray.push(this.customerService.pendingEmail);
                                 //   this.resetButtonValue = "Send Invites";
@@ -91,7 +92,7 @@ export class DiscountEditComponent implements OnInit {
                                 'https://qa-client-horeca.sewnstaging.com/auth/horeca-setup?token=' +
                                 data['result'].token,
                         };
-                        this.userService.sendUrlToEmail(body).subscribe((res) => {
+                        this.emailService.sendEmail(body).subscribe((res) => {
                             if (res['status'] == '200 OK') {
                                 // this.resetButtonValue = "Send Invites";
                                 this.toastrService.success('Email has been sent successfully');

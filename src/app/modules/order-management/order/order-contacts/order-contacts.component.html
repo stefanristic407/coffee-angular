@@ -1,0 +1,30 @@
+<div class="border-ebebeb pb-md-3 pb-lg-4 px-3 px-md-4 p-lg-4">
+    <app-delivery-address></app-delivery-address>
+
+    <div class="d-none d-md-block">
+        <div class="d-flex mt-4 justify-content-between">
+            <div class="fnt-18 font-bold text-clr334">{{ 'estate_details' | translate }}</div>
+            <a *ngIf="roaster" class="navigation-link" [routerLink]="['/sourcing/estate-details', roaster.id]">
+                {{ 'view_details' | translate }}
+            </a>
+        </div>
+
+        <app-roaster-details *ngIf="order"
+            [ownerName]="roaster?.ownerName" [rating]="roaster?.rating"
+            [companyImageThumbnailUrl]="roaster?.companyImageThumbnailUrl"
+            [orgType]="orgType" [orderId]="order.id"></app-roaster-details>
+
+        <table class="mt-3">
+            <tr>
+                <td><span class="fnt-14">{{ 'address' | translate }}&nbsp;: </span></td>
+                <td>
+                    <span class="text-clr334 fnt-16 fnt-600">{{ roaster?.addressLine1 }},
+                        {{ roaster?.addressLine2 }},
+                        {{ roaster?.zipcode }} -
+                        {{ commonService.getCountryName(roaster?.country) }}
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

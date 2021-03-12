@@ -10,29 +10,29 @@ type HttpMethod = '' | 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 export class ApiService {
     protected orgType: string;
-    protected url: string;
-    protected putUrl: string;
+    protected postUrl: string;
     protected deleteUrl: string;
-    protected fileuploadUrl: string;
-    protected putfileuploadUrl: string;
+    protected orgPostUrl: string;
+    protected orgPutUrl: string;
+    protected orgDeleteUrl: string;
+    protected fileUploadUrl: string;
+    protected putFileUploadUrl: string;
+    protected sendEmailUrl: string;
 
     constructor(protected cookieSrv: CookieService, protected http: HttpClient) {
         this.orgType = 'ro';
-        this.url = `${environment.apiURL}/${this.orgType}/api`;
-        this.putUrl = `${environment.apiURL}/${this.orgType}/putapi`;
-        this.deleteUrl = `${environment.apiURL}/${this.orgType}/deleteapi`;
-        this.fileuploadUrl = `${environment.apiURL}/${this.orgType}/filesfolders`;
-        this.putfileuploadUrl = `${environment.apiURL}/${this.orgType}/putfilesfolders`;
+        this.postUrl = `${environment.apiURL}/api`;
+        this.deleteUrl = `${environment.apiURL}/deleteapi`;
+        this.orgPostUrl = `${environment.apiURL}/${this.orgType}/api`;
+        this.orgPutUrl = `${environment.apiURL}/${this.orgType}/putapi`;
+        this.orgDeleteUrl = `${environment.apiURL}/${this.orgType}/deleteapi`;
+        this.fileUploadUrl = `${environment.apiURL}/${this.orgType}/filesfolders`;
+        this.putFileUploadUrl = `${environment.apiURL}/${this.orgType}/putfilesfolders`;
+        this.sendEmailUrl = `${environment.apiURL}/sendemail`;
     }
 
-    protected post(
-        url: string,
-        apiCall: string,
-        method: HttpMethod = '',
-        query?: object,
-        data?: object,
-    ): Observable<ApiResponse<any>> {
-        const dto = this.getDto(apiCall, method, query, data);
+    protected post(url: string, apiCall: string, method: HttpMethod = '', data?: object): Observable<ApiResponse<any>> {
+        const dto = this.getDto(apiCall, method, data);
 
         return this.http.post<ApiResponse<any>>(`${url}`, dto);
     }
@@ -41,10 +41,9 @@ export class ApiService {
         url: string,
         apiCall: string,
         method: HttpMethod = '',
-        query?: object,
         data?: object,
     ): Observable<ApiResponse<any>> {
-        const dto = this.getDtoWithOrg(apiCall, method, query, data);
+        const dto = this.getDtoWithOrg(apiCall, method, data);
 
         return this.http.post<ApiResponse<any>>(`${url}`, dto);
     }
@@ -53,18 +52,17 @@ export class ApiService {
         url: string,
         apiCall: string,
         method: HttpMethod = '',
-        query?: object,
         data?: object,
     ): Observable<ApiResponse<any>> {
-        const dto = this.getDtoWithOrg(apiCall, method, query, data);
+        const dto = this.getDtoWithOrg(apiCall, method, data);
 
         return this.http.put<ApiResponse<any>>(`${url}`, dto);
     }
 
-    protected getDtoWithOrg(apiCall: string, method: string, query?: object, data?: object): RequestDto {
+    protected getDtoWithOrg(apiCall: string, method: string, data?: object): RequestDto {
         const orgId = this.cookieSrv.get('roaster_id');
         const dto: RequestDto = {
-            api_call: `/${this.orgType}/${orgId}/${apiCall}${query ? '?' + this.serializeParams(query) : ''}`,
+            api_call: `/${this.orgType}/${orgId}/${apiCall}`,
             method,
             token: this.cookieSrv.get('Auth'),
         };
@@ -74,9 +72,9 @@ export class ApiService {
         return dto;
     }
 
-    protected getDto(apiCall: string, method: string, query?: object, data?: object): RequestDto {
+    protected getDto(apiCall: string, method: string, data?: object): RequestDto {
         const dto: RequestDto = {
-            api_call: `/${apiCall}${query ? '?' + this.serializeParams(query) : ''}`,
+            api_call: `/${apiCall}`,
             method,
             token: this.cookieSrv.get('Auth'),
         };
