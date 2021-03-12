@@ -109,7 +109,7 @@ export class SocialMediaComponent implements OnInit {
             default:
                 break;
         }
-        this.router.navigateByUrl(`social-media/${this.mediaType}`);
+        this.router.navigateByUrl(`social-media/media/${this.mediaType}`);
     }
 
     filterCall() {
