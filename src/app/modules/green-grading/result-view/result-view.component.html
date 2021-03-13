@@ -1,0 +1,83 @@
+<div class="d-flex flex-wrap flex-row-reverse flex-md-column flex-lg-row-reverse">
+    <div class="d-flex flex-wrap d-lg-block col-lg-3 col-12 pl-0 pl-lg-3 pt-0 pb-1 view-content-wrapper">
+        <div class="col-lg-12 col-md-4 col-12 p-0 mb-1 mb-lg-3 view__info" *ngIf="selectedCuppingVersion">
+            <p-dropdown
+                [options]="cuppingReports"
+                [(ngModel)]="selectedCuppingVersion"
+                optionLabel="version"
+                styleClass="no-border full-width"
+                (onChange)="onSelectVersion($event)"
+            >
+                <ng-template pTemplate="selectedItem">
+                    <div *ngIf="selectedCuppingVersion">
+                        <div class="fnt-18 fnt-muli fnt-bold text-clr334">
+                            Cupping {{ selectedCuppingVersion.version }}.0
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template let-cuppingVersion pTemplate="item">
+                    <div class="">
+                        <div>Cupping {{ cuppingVersion.version }}.0</div>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+        </div>
+        <div class="col-lg-12 col-md-4 col-12 mt-2 mt-md-0 mb-1 mb-lg-3 view__info">
+            <div class="view_head">View</div>
+            <div class="view_body">
+                <div class="d-flex">
+                    <p-radioButton
+                        class="compare-radio"
+                        name="type"
+                        label="Compare categories"
+                        [value]="true"
+                        [(ngModel)]="type"
+                    >
+                    </p-radioButton>
+                </div>
+                <div class="d-flex pt-3">
+                    <p-radioButton
+                        class="compare-radio"
+                        name="type"
+                        label="Compare final scores"
+                        [value]="false"
+                        [(ngModel)]="type"
+                    >
+                    </p-radioButton>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="col-lg-12 col-md-3 col-12 mt-2 mt-md-0 mb-1 view__info"
+            *ngIf="!type && evaluatorsList && evaluatorsList.length > 1"
+        >
+            <div class="view_body">
+                <h4>{{ avgScore }}</h4>
+                <p>Average score</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9 col-12 mt-3 mt-lg-0 p-0">
+        <div class="col-12 p-3 results__info">
+            <div class="d-flex justify-content-between flex-column flex-md-row results__head">
+                <div class="d-lg-block fnt-18 fnt-16 fnt-muli fnt-bold text-clr334">Results</div>
+                <div class="d-flex">
+                    <div class="ml-0 ml-md-2 mr-4 pt-2 pt-md-0" *ngFor="let item of evaluatorsList; let i = index">
+                        <span class="view_process_color" [ngStyle]="{ background: colors[i].background }"></span
+                        ><span class="fnt-16 fnt-muli fnt-500 text-clr334 pl-2">{{ item.evaluator_name }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3 scroll_chart">
+                <!-- <div class="col-lg-12 col-12 p-0"> -->
+                <canvas
+                    baseChart
+                    [datasets]="type ? bubbleData : scoreData"
+                    [options]="type ? chartOptions : scoreChartOptions"
+                    chartType="bubble"
+                ></canvas>
+            </div>
+        </div>
+    </div>
+</div>

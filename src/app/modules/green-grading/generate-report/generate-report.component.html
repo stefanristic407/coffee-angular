@@ -1,0 +1,98 @@
+<section class="sewn-container tab-mob-generate-pad prime-grid">
+    <div class="container-fulid px-md-0">
+        <div class="row">
+            <div class="col-lg-2 col-12 tab-mob-scroll">
+                <div
+                    class="nav flex-row flex-lg-column nav-pills tab-titles h-100"
+                    id="v-pills-tab"
+                    role="tablist"
+                    aria-orientation="vertical"
+                >
+                    <a class="nav-link nav-title-wrapper">
+                        <span class="fnt-16 fnt-muli fnt-700 text-clr588">Samples </span>
+                    </a>
+                    <a
+                        class="nav-link nav-item__link"
+                        [ngClass]="{ active: selectedRequestIndex === i }"
+                        id="v-pills-messages-tab"
+                        data-toggle="pill"
+                        href="#v-pills-messages"
+                        role="tab"
+                        aria-controls="v-pills-messages"
+                        aria-selected="false"
+                        *ngFor="let item of generateReportService.serviceRequestsList; let i = index"
+                        (click)="gradeReport(i)"
+                    >
+                        <div class="d-flex flex-column flex-lg-row">
+                            <p class="sid-text">OID</p>
+                            <p class="sid-value" *ngIf="item.gc_order_id">
+                                {{ item.gc_order_id }}
+                            </p>
+                            <p class="sid-value" *ngIf="item.external_sample_id">
+                                {{ item.external_sample_id }}
+                            </p>
+                        </div>
+                        <p class="origin-text">{{ generateReportService.getCountryName(item.origin) }}</p>
+                    </a>
+                    <div class="add-another">
+                        <span class="pi pi-plus pr-1 mb-1"></span>
+                        <span class="pl-2" (click)="addBtnClick()">Add another</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-10 col-12 mt-md-0 tab-pad-report">
+                <div class="tab-pad-wrapper">
+                    <app-generate-coffee-grading
+                        *ngIf="!showProcessDetail && currentScreen == 'screen1'"
+                        [fromQueryParam]="fromQueryParam"
+                        [cuppingDetails]="cuppingDetails"
+                        (next)="goNext($event)"
+                        (showDetail)="onShowDetail()"
+                    >
+                    </app-generate-coffee-grading>
+
+                    <app-generate-green-coffee
+                        *ngIf="!showProcessDetail && currentScreen == 'screen2'"
+                        [fromQueryParam]="fromQueryParam"
+                        [cuppingDetails]="cuppingDetails"
+                        (next)="goNext($event)"
+                        (showDetail)="onShowDetail()"
+                    >
+                    </app-generate-green-coffee>
+
+                    <app-generate-my-sample
+                        *ngIf="!showProcessDetail && currentScreen == 'screen3'"
+                        [fromQueryParam]="fromQueryParam"
+                        [cuppingDetails]="cuppingDetails"
+                        (next)="goNext($event)"
+                        (showDetail)="onShowDetail()"
+                    >
+                    </app-generate-my-sample>
+
+                    <app-generate-cupping-results
+                        *ngIf="!showProcessDetail && currentScreen == 'screen4'"
+                        [fromQueryParam]="fromQueryParam"
+                        [cuppingDetails]="cuppingDetails"
+                        (next)="goNext($event)"
+                        (showDetail)="onShowDetail()"
+                    >
+                    </app-generate-cupping-results>
+                    <app-generate-cupping-report
+                        *ngIf="!showProcessDetail && currentScreen == 'screen5'"
+                        [fromQueryParam]="fromQueryParam"
+                        [selectedCuppingId]="selectedCuppingId"
+                        [cuppingDetails]="cuppingDetails"
+                        (next)="goNext($event)"
+                        (showDetail)="onShowDetail()"
+                    >
+                    </app-generate-cupping-report>
+                    <app-process-details
+                        *ngIf="showProcessDetail"
+                        [harvestId]="cuppingDetails.harvest_id"
+                        (back)="returnBack()"
+                    ></app-process-details>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

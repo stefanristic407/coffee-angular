@@ -98,6 +98,11 @@ export const routes: Routes = [
                 loadChildren: () =>
                     import('./modules/social-media/social-media.module').then((m) => m.SocialMediaModule),
             },
+            {
+                path: 'green-grading',
+                loadChildren: () =>
+                    import('./modules/green-grading/green-grading.module').then((m) => m.GreenGradingModule),
+            },
         ],
     },
     { path: 'gate', component: GateComponent },
