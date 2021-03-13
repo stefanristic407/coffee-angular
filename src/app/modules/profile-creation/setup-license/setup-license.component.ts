@@ -163,6 +163,7 @@ export class SetupLicenseComponent implements OnInit {
                 formData.append('file', this.file);
             }
             formData.append('certificate_type_id', this.certificationArray[this.editingRowIndex].certificate_type_id);
+            formData.append('certificate_id', this.certificationArray[this.editingRowIndex].id);
             formData.append('name', certification.type);
             formData.append('year', this.selectedCertificationYear.toString());
             formData.append(
@@ -179,7 +180,6 @@ export class SetupLicenseComponent implements OnInit {
                         certificate_type_id: certification.id,
                         certificate_type: certification.type,
                         year: this.selectedCertificationYear,
-                        // public_url: res.result.url,
                     };
                 }
                 this.selectedCertification = null;
