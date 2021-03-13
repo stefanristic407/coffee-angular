@@ -97,4 +97,10 @@ label {
             }
         }
     }
+    p-cellEditor {
+        width: 50%;
+        @media (min-width: 768px) {
+            width: 100%;
+        }
+    }
 }
