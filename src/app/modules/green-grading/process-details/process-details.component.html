@@ -1,0 +1,37 @@
+<section class="total-section">
+    <div class="back-page pb-45" (click)="backRequests()">
+        <a> <span>Back</span> </a>
+    </div>
+    <span class="request-title-text">Process details</span>
+    <div class="d-flex flex-wrap mt-3">
+        <div class="col-lg-6 col-12 p-0 pr-lg-2">
+            <div class="process_info">
+                <ul class="clearfix">
+                    <li *ngFor="let col of col1">
+                        <label class="fnt-muli fnt-14 fnt-500 text-clr588 lh-normal col-6 col-md-5 p-0 m-0 pr-1">
+                            {{ col.label }}
+                            <span *ngIf="col.star" class="mill-star">*</span>
+                        </label>
+                        <p class="fnt-muli fnt-14 fnt-600 text-clr334 lh-normal col-6 col-md-7 p-0 m-0 pl-1">
+                            {{ dataList.wet[col.key] }} {{ col.isPercent ? '%' : '' }}
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-6 col-12 mt-lg-0 mt-3 p-0 pl-lg-2">
+            <div class="process_info">
+                <ul class="clearfix">
+                    <li *ngFor="let col of col2">
+                        <label class="fnt-muli fnt-14 fnt-500 text-clr588 lh-normal col-6 col-md-5 p-0 m-0 pr-1">
+                            {{ col.label }} <span *ngIf="col.star" class="mill-star">*</span>
+                        </label>
+                        <p class="fnt-muli fnt-14 fnt-600 text-clr334 lh-normal col-6 col-md-7 p-0 m-0 pl-1">
+                            {{ dataList.dry[col.key] }} {{ col.isPercent ? '%' : '' }}
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

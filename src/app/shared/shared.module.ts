@@ -90,6 +90,8 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
+import { ChartsModule } from 'ng2-charts';
+
 import { HorizontalBarComponent } from './components/horizontal-bar/horizontal-bar.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { TimeRangeComponent } from './components/time-range/time-range.component';
@@ -155,6 +157,7 @@ const THIRDMODULES = [
     ProgressBarModule,
     AccordionModule,
     DividerModule,
+    ChartsModule,
 ];
 // #endregion
 

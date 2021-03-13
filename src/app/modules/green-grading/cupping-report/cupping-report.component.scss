@@ -1,0 +1,40 @@
+.green_grading_cont {
+    h1 {
+        font-size: 18px;
+    }
+}
+
+.table-responsive {
+    overflow: visible;
+}
+
+.pointer-item {
+    cursor: pointer;
+}
+
+.search-input {
+    @media (max-width: 767px) {
+        width: 100%;
+
+        .p-inputtext {
+            width: 100%;
+        }
+    }
+}
+
+::ng-deep {
+    .p-tabview.p-tabview-report {
+        .p-tabview-nav li .p-tabview-nav-link {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .p-tabview-panels {
+            padding: 1.5rem 0;
+
+            @media (max-width: 991px) and (min-width: 768) {
+                padding: 1rem 0;
+            }
+        }
+    }
+}

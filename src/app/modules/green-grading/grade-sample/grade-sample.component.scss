@@ -1,0 +1,100 @@
+.green_grading_cont {
+    h1 {
+        font-size: 18px;
+    }
+}
+
+.table-container {
+    margin-bottom: 32px;
+    @media (max-width: 767px) {
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+hr {
+    background-color: #ebebeb;
+    margin: 1.5rem 0;
+}
+
+.text-data {
+    margin-bottom: 22px;
+
+    @media (max-width: 767px) {
+        font-size: 14px;
+    }
+}
+
+.star {
+    color: #d50000;
+}
+
+label {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #232334;
+}
+
+.id-text {
+    font-family: Muli;
+    font-size: 11px;
+    font-weight: 600;
+    color: #747588;
+}
+
+.form-control {
+    height: 46px;
+}
+
+.bg-fff {
+    padding-bottom: 10rem;
+}
+
+.green-button {
+    @media (max-width: 767px) {
+        width: 100%;
+    }
+}
+
+.generate-next {
+    @media (max-width: 767px) {
+        width: 100%;
+    }
+}
+
+.divide-line {
+    height: 1px;
+    border: solid 1px #ebebeb;
+    background-color: #ffffff;
+}
+
+.fill-list {
+    label {
+        @media (max-width: 767px) {
+            font-size: 12px;
+        }
+    }
+
+    input {
+        @media (min-width: 768px) {
+            padding: 15px 1rem;
+        }
+    }
+}
+
+::ng-deep {
+    .p-dropdown.p-countries-dropdown {
+        .p-dropdown-panel {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        @media (min-width: 767px) {
+            .p-inputtext {
+                padding: 15px 1rem;
+            }
+        }
+    }
+}
