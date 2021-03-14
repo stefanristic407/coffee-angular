@@ -62,8 +62,8 @@
                     >
                 </td>
                 <td>
-                    <span *ngFor="let cert of item.certificates | slice: 0:2">
-                        <img class="cert-image ml-3" [src]="cert.type_id | certificateImg" />
+                    <span *ngFor="let cert of item.certificates | slice: 0:2; index as certIdx">
+                        <img class="cert-image" [class.ml-3]="certIdx" [src]="cert.type_id | certificateImg" />
                     </span>
                 </td>
             </tr>
