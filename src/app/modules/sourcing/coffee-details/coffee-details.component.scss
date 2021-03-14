@@ -29,18 +29,6 @@
     }
 }
 
-.btn-wrap {
-    display: flex;
-    @media (max-width: 767px) {
-        div {
-            width: 50%;
-            button {
-                width: 100%;
-            }
-        }
-    }
-}
-
 .cert-img {
     height: 24px;
     width: auto;

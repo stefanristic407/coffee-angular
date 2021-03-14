@@ -1,4 +1,4 @@
-<div *ngIf="(sourcingSrv.viewMode$ | async) === 'grid'; else tableView" class="row gutter-26">
+<div *ngIf="(sourcingSrv.viewMode$ | async) === 'grid'; else tableView">
     <ng-container *ngIf="isLoaded; else mainLoader">
         <div *ngIf="coffeedata?.length; else empty" class="row gutter-26">
             <div *ngFor="let item of coffeedata" class="col-12 col-md-6 col-lg-4 card-wrap">
