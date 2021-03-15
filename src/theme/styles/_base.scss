@@ -398,11 +398,11 @@ input[type='number'] {
 }
 
 .br-sm-main {
-    @media (max-width: 767px) {
-        border: 1px solid $secondary-border-color;
-    }
     @media (min-width: 768px) {
         border: none;
+    }
+    @media (max-width: 767px) {
+        border: 1px solid $secondary-border-color;
     }
 }
 

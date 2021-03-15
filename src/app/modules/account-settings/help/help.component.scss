@@ -1,0 +1,45 @@
+:host {
+    color: #232334;
+}
+
+.custom-accordion {
+    .accordion-item {
+        border-bottom: 1px dashed #cccccc;
+        .title {
+            position: relative;
+            z-index: 10;
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+
+            img {
+                transition: all 0.3s ease-out;
+            }
+        }
+        .content {
+            display: none;
+            padding-bottom: 15px;
+            transition: all 0.3s ease-out;
+        }
+    }
+
+    .accordion-item.active {
+        .title img {
+            transform: rotate(180deg);
+            transition: all 0.3s ease-out;
+        }
+
+        .content {
+            display: block;
+            transition: all 0.3s ease-out;
+        }
+    }
+
+    .accordion-item.no-last-border-bottom {
+        &:last-child {
+            border-width: 0;
+        }
+    }
+}

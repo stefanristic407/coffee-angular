@@ -315,13 +315,7 @@
                 </div>
                 <!-- Mobile Carousel -->
                 <div class="col-lg-4 col-md-6 col-12 cursor-pointer d-md-none">
-                    <p-carousel
-                        [value]="sourcing.otherGreenList"
-                        [numVisible]="1"
-                        [numScroll]="1"
-                        [circular]="true"
-                        [autoplayInterval]="3000"
-                    >
+                    <p-carousel [value]="sourcing.otherGreenList" [numVisible]="1" [numScroll]="1" [circular]="true">
                         <ng-template let-item pTemplate="item">
                             <div routerLink="/sourcing/coffee-details/{{ item.estate.id }}/{{ item.harvest_id }}">
                                 <app-harvest-card [data]="item"></app-harvest-card>
@@ -335,25 +329,25 @@
 </section>
 
 <ng-template #btnGroup>
-    <div class="btn-wrap">
-        <div class="pr-2 pr-md-1">
+    <div class="row gutter-16 gutter-md-12">
+        <div class="col-6 col-md-auto">
             <button
-                class="btn-stroked px-3"
+                class="btn-stroked w-100"
                 routerLink="/sourcing/order-gc-sample"
                 [queryParams]="{ gc_id: sourcing.harvestId }"
             >
                 Order sample
             </button>
         </div>
-        <div class="pl-2">
-            <button
-                class="btn-raised"
+        <div class="col-6 col-md-auto">
+            <a
+                class="btn-raised w-100"
                 routerLink="/sourcing/buy-gc"
                 [queryParams]="{ gc_id: sourcing.harvestId }"
                 *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage"
             >
                 Buy
-            </button>
+            </a>
         </div>
     </div>
 </ng-template>

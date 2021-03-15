@@ -1,15 +1,15 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { GlobalsService } from '@services';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-    selector: 'api-requests',
+    selector: 'app-api-requests',
     templateUrl: './api-requests.component.html',
     styleUrls: ['./api-requests.component.scss'],
 })
-export class ApiRequestsTableComponent implements OnInit {
+export class ApiRequestsTableComponent implements OnInit, AfterViewInit {
     breadCrumbItem: MenuItem[] = [];
     showDateRange: any;
     @ViewChild('calendar')
@@ -68,7 +68,7 @@ export class ApiRequestsTableComponent implements OnInit {
             .subscribe();
     }
 
-    openCalendar(event: any) {
+    filterCall() {
         this.calendar.showOverlay(this.calendar.inputfieldViewChild.nativeElement);
         event.stopPropagation();
     }

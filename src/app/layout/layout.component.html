@@ -26,7 +26,11 @@
                 </div>
                 <ul class="header-profile-links ml-md-auto d-flex align-items-center p-15">
                     <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
-                        <a [routerLink]="['/team-management/team-members']" class="d-inline-block image-card">
+                        <a
+                            [routerLink]="['/team-management/team-members']"
+                            [queryParams]="{ roleID: 21, isAddMember: true }"
+                            class="d-inline-block image-card"
+                        >
                             <img class="img" src="assets/images/add.svg" />
                         </a>
                     </li>
@@ -161,7 +165,7 @@
                                                 <li class="list-group-item">
                                                     <a
                                                         class="cursor-dots"
-                                                        [routerLink]="['/features/account-settings']"
+                                                        [routerLink]="['/account-settings']"
                                                         (click)="pop2.hide()"
                                                         >{{ 'account_settings' | translate }}</a
                                                     >

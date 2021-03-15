@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -84,6 +85,7 @@ export class AboutRoasteryComponent implements OnInit {
         public globals: GlobalsService,
         public roasterService: RoasterserviceService,
         private fb: FormBuilder,
+        private router: Router,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.userId = this.cookieService.get('user_id');
@@ -232,19 +234,18 @@ export class AboutRoasteryComponent implements OnInit {
 
     editCertificate(event, certificates: any) {
         console.log('button clicked', certificates.name);
+        this.router.navigateByUrl(`/roastery-profile/certificate/${certificates.id}`);
     }
 
     deleteCertificate(certificateId: any) {
-        if (confirm('Please confirm! you want to delete?') === true) {
-            this.userService.deleteCompanyCertificate(this.roasterId, certificateId).subscribe((response: any) => {
-                if (response.success) {
-                    this.toastrService.success('The selected Certificate has been successfully deleted');
-                    this.getCertificates();
-                } else {
-                    this.toastrService.error('Something went wrong while deleting the certificate');
-                }
-            });
-        }
+        this.userService.deleteCompanyCertificate(this.roasterId, certificateId).subscribe((response: any) => {
+            if (response.success) {
+                this.toastrService.success('The selected Certificate has been successfully deleted');
+                this.getCertificates();
+            } else {
+                this.toastrService.error('Something went wrong while deleting the certificate');
+            }
+        });
     }
 
     onSelect(data): void {

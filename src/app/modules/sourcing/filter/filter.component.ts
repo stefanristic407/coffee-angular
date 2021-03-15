@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { SourcingService } from '../sourcing.service';
-import { GlobalsService } from '@services';
+import { GlobalsService, ResizeService } from '@services';
+import { ResizeableComponent } from '@base-components';
 
 @Component({
     selector: 'app-filter',
     templateUrl: './filter.component.html',
     styleUrls: ['./filter.component.scss'],
 })
-export class FilterComponent implements OnInit {
+export class FilterComponent extends ResizeableComponent implements OnInit {
     queryParams: any;
     limitFlavour = true;
-    maxFlavour = 20;
     listingStatusItems = [
         { label: 'At Estate', value: 'ESTATE' },
         { label: 'At mill', value: 'MILL' },
@@ -23,14 +23,14 @@ export class FilterComponent implements OnInit {
         public ref: DynamicDialogRef,
         public config: DynamicDialogConfig,
         public globals: GlobalsService,
+        protected resizeService: ResizeService,
         public sourcingSrv: SourcingService,
-    ) {}
+    ) {
+        super(resizeService);
+    }
 
     ngOnInit(): void {
         this.queryParams = { ...this.sourcingSrv.queryParams.getValue() };
-        if (this.globals.device === 'mobile') {
-            this.maxFlavour = 8;
-        }
     }
 
     filterCall() {
@@ -39,7 +39,7 @@ export class FilterComponent implements OnInit {
     }
 
     clear() {
-        this.sourcingSrv.clearQueryParams();
+        this.sourcingSrv.queryParams.next({ ...this.sourcingSrv.queryParams.getValue(), ...this.queryParams });
         this.close();
     }
 

@@ -2,9 +2,11 @@
     padding: 32px 48px;
     border-radius: 4px;
     background-color: #ffffff;
+
     .breadCrumb-block {
         padding-bottom: 24px;
     }
+
     .note-heading {
         display: flex;
         padding: 16px 0 32px 0;
@@ -13,24 +15,13 @@
     .delivery__body .pl-16 {
         padding-left: 16px;
     }
+
     .delivery__body {
         padding-top: 25px;
     }
 
     .delivery__body .key-activate-block {
         padding: 0 0 16px 16px;
-    }
-
-    .pt-32 {
-        padding-top: 32px;
-    }
-
-    .pl-8 {
-        padding-left: 8px;
-    }
-
-    .pt-16 {
-        padding-top: 16px;
     }
 
     th {
@@ -63,6 +54,7 @@
         font-weight: 600;
         color: #232334;
     }
+
     .table {
         margin: 0 !important;
     }

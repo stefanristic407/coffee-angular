@@ -61,7 +61,8 @@ export const routes: Routes = [
             },
             {
                 path: 'api-requests-list',
-                loadChildren: () => import('./modules/api-requests/api-request.module').then((m) => m.ApiRequestModule),
+                loadChildren: () =>
+                    import('./modules/api-requests/api-requests.module').then((m) => m.ApiRequestModule),
             },
             {
                 path: 'green-coffee-management',
@@ -86,6 +87,16 @@ export const routes: Routes = [
                 path: 'roastery-profile',
                 loadChildren: () =>
                     import('./modules/profile-creation/profile-creation.module').then((m) => m.ProfileCreationModule),
+            },
+            {
+                path: 'account-settings',
+                loadChildren: () =>
+                    import('./modules/account-settings/account-settings.module').then((m) => m.AccountSettingsModule),
+            },
+            {
+                path: 'social-media',
+                loadChildren: () =>
+                    import('./modules/social-media/social-media.module').then((m) => m.SocialMediaModule),
             },
         ],
     },

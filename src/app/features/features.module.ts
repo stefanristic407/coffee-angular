@@ -6,34 +6,25 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-
-import { ChatNotificationComponent } from './chat-notification/chat-notification.component';
 import { OnboardCustomersComponent } from './onboard-customers/onboard-customers.component';
 import { FeaturesRoutingModule } from './features-routing.module';
 import { FeaturesComponent } from './features.component';
-import { HelpComponent } from './help/help.component';
-import { LoginSecurityComponent } from './login-security/login-security.component';
 import { MyprofileComponent } from './myprofile/myprofile.component';
-import { PrivacySettingsComponent } from './privacy-settings/privacy-settings.component';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 import { ProfilePicComponent } from './profile-edit/profile-pic/profile-pic.component';
 import { RoasterCompleteSetupComponent } from './roaster-complete-setup/roaster-complete-setup.component';
 import { RoasterOnboardingComponent } from './roaster-onboarding/roaster-onboarding.component';
 import { RoasterQuickSetupComponent } from './roaster-quick-setup/roaster-quick-setup.component';
-import { SettingsComponent } from './settings/settings.component';
-import { LanguageRegionComponent } from './language-region/language-region.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { DataTablesModule } from 'angular-datatables';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-experience.component';
-import { SocialMediaPostsComponent } from './Farm Link/social-media-posts/social-media-posts.component';
 
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CofeeExpeienceDetailsComponent } from './Farm Link/cofee-expeience-details/cofee-expeience-details.component';
-import { BlogDetailsComponent } from './Farm Link/blog-details/blog-details.component';
 import { ProfileLicenseComponent } from './profile-edit/profile-license/profile-license.component';
 import { NotificationComponent } from './notification/notification.component';
 import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
@@ -96,17 +87,9 @@ import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/ro
         MyprofileComponent,
         ProfileEditComponent,
         ProfilePicComponent,
-        SettingsComponent,
-        PrivacySettingsComponent,
-        LoginSecurityComponent,
-        ChatNotificationComponent,
-        HelpComponent,
-        LanguageRegionComponent,
         CoffeeExperienceComponent,
-        SocialMediaPostsComponent,
         ResetPasswordComponent,
         CofeeExpeienceDetailsComponent,
-        BlogDetailsComponent,
         ProfileLicenseComponent,
         NotificationComponent,
         RoasterOnboardComponent,
