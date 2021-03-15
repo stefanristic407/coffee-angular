@@ -27,7 +27,7 @@
 }
 
 hr {
-    border: 1px dashed #d6d6d6 !important;
+    border-top: 1px dashed #d6d6d6 !important;
 }
 
 .border-right {
@@ -140,4 +140,8 @@ hr {
 
 .menu-arrow {
     height: 18px;
+}
+
+.add-contact-group {
+    padding-top: 0.1rem !important;
 }

@@ -92,9 +92,9 @@
                     </div>
                     <hr class="d-none d-lg-block" *ngIf="isSaveMode" />
 
-                    <div class="row" *ngIf="isSaveMode">
+                    <div class="row mt-md-45" *ngIf="isSaveMode">
                         <div class="col-12 mb-45">
-                            <p class="fnt-18 font-bold text-clr334 w-100">
+                            <p class="fnt-18 font-bold text-clr334 w-100 mb-1">
                                 {{ 'employee_details' | translate }}
                             </p>
                             <p class="fnt-14 fnt-600 text-clr588 w-100 m-0">{{ 'give_overview_text' | translate }}.</p>
@@ -189,9 +189,9 @@
                     <!-- company details -->
 
                     <hr class="d-none d-lg-block" />
-                    <div class="row br-main br-md-none br-4 mt-md-4 mb-4 m-0 p-3 p-md-0">
+                    <div class="row br-main br-md-none br-4 mt-md-45 mb-4 m-0 p-3 p-md-0">
                         <div class="col-9 mb-3 mb-md-45 p-0">
-                            <p class="fnt-18 font-bold text-clr334 w-100">Company details</p>
+                            <p class="fnt-18 font-bold text-clr334 w-100 mb-1">Company details</p>
                             <p class="fnt-14 fnt-600 text-clr588 w-100 m-0">
                                 Enter your VAT and customer ID for billing purposes
                             </p>
@@ -245,9 +245,9 @@
                     </div>
 
                     <hr class="d-none d-md-block" />
-                    <div class="row mt-md-4 mb-4 ml-0 mr-0">
+                    <div class="row mt-md-45 mb-4 ml-0 mr-0">
                         <div class="col-12 pl-2 pr-2 p-md-0">
-                            <p class="fnt-18 font-bold text-clr334 w-100">
+                            <p class="fnt-18 font-bold text-clr334 w-100 mb-1">
                                 {{ 'roastery_capabilities' | translate }}
                             </p>
                             <p class="fnt-14 fnt-600 text-clr588 w-100 m-0" *ngIf="isSaveMode">
@@ -335,7 +335,7 @@
 
                     <div class="row mt-md-45 mb-md-45">
                         <div class="col-12">
-                            <p class="fnt-18 font-bold text-clr334 w-100 mt-2 mt-md-0">
+                            <p class="fnt-18 font-bold text-clr334 w-100 mt-2 mt-md-0 mb-1">
                                 {{ 'brands' | translate }}
                             </p>
                             <p class="fnt-14 fnt-600 text-clr588 w-100 m-0" *ngIf="isSaveMode">
@@ -436,7 +436,7 @@
                     <div class="" *ngIf="isSaveMode">
                         <div class="row mt-45 mb-md-45 mb-0">
                             <div class="col-12">
-                                <p class="fnt-18 font-bold text-clr334 w-100">
+                                <p class="fnt-18 font-bold text-clr334 w-100 mb-1">
                                     {{ 'contacts' | translate }}<span class="star">*</span>
                                 </p>
                                 <p class="fnt-14 fnt-600 text-clr588 w-100 m-0 mb-0">
@@ -445,7 +445,7 @@
                             </div>
                         </div>
                         <div class="row" *ngFor="let role of roasteryProfileService.roasterContacts; let i = index">
-                            <div class="sewn-form-field col-md-6 mt-md-3 mb-0">
+                            <div class="sewn-form-field col-md-6 mb-0">
                                 <input
                                     type="text"
                                     pInputText
@@ -454,7 +454,13 @@
                                     [ngModelOptions]="{ standalone: true }"
                                 />
                             </div>
-                            <div class="add-partner mt-3 col-md-6" *ngIf="roasteryProfileService.showDelete">
+                            <div
+                                class="add-partner mt-3 col-md-6"
+                                *ngIf="
+                                    roasteryProfileService.showDelete &&
+                                    roasteryProfileService.roasterContacts.length > 1
+                                "
+                            >
                                 <a class="ml-2 custom-link" href="javascript:void(0);" (click)="removeContact(role.id)">
                                     {{ 'remove' | translate }} {{ 'contact' | translate }}
                                 </a>
@@ -469,12 +475,12 @@
                                     name="emp_name"
                                     [options]="roasterUsersOptions"
                                     optionLabel="name"
-                                    optionValue="'value"
+                                    optionValue="value"
                                     [ngModelOptions]="{ standalone: true }"
                                     [(ngModel)]="roasteryProfileService.empName"
                                 ></p-dropdown>
                             </div>
-                            <div class="col-12 col-md-6 mt-4 pt-1">
+                            <div class="col-12 col-md-6 mt-md-4 add-contact-group">
                                 <button
                                     type="submit"
                                     pButton
@@ -501,7 +507,7 @@
 
                     <div class="d-block" *ngIf="isEditMode">
                         <div class="employer mt-4 d-none d-md-block">
-                            <p class="fnt-18 font-bold text-clr334 w-100">{{ 'contacts' | translate }}</p>
+                            <p class="fnt-18 font-bold text-clr334 w-100 mb-1">{{ 'contacts' | translate }}</p>
                             <p class="fnt-14 fnt-600 text-clr588 w-100 m-0 mb-4">
                                 {{ 'list_down_top_employees' | translate }}
                             </p>

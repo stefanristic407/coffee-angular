@@ -10,7 +10,7 @@ export const routes: Routes = [
         component: LayoutComponent,
         children: [
             {
-                path: '',
+                path: 'sdfas',
                 loadChildren: () => import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
             },
             {
@@ -97,6 +97,11 @@ export const routes: Routes = [
                 path: 'social-media',
                 loadChildren: () =>
                     import('./modules/social-media/social-media.module').then((m) => m.SocialMediaModule),
+            },
+            {
+                path: '',
+                redirectTo: 'roastery-profile',
+                pathMatch: 'full',
             },
         ],
     },

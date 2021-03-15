@@ -27,9 +27,7 @@ export class AboutRoasteryComponent implements OnInit {
     employeeNos: any;
     brandName: string;
     shortFescr: string;
-    // emp_title : string;
     empName = '';
-    appLanguage?: any;
     roasterId: any;
     certificatesArray: any = [];
     userId: any;
@@ -65,6 +63,7 @@ export class AboutRoasteryComponent implements OnInit {
     assignRow = false;
     assignButtonValue = 'Add Contact';
     brands: any;
+    chartData: any;
     @ViewChild('roasterImage', { static: true }) roasterImage;
 
     kgsOptions = [
@@ -95,7 +94,6 @@ export class AboutRoasteryComponent implements OnInit {
         this.getCertificates();
         this.roasteryProfileService.getcontactList();
         this.getBrands();
-        this.language();
         this.getRoasterUsers();
         this.initialForm();
         this.detectMode();
@@ -106,6 +104,23 @@ export class AboutRoasteryComponent implements OnInit {
             this.isSaveMode = res;
             if (res) {
                 this.setFormValue();
+            } else {
+                this.chartData = [
+                    {
+                        name: 'Female',
+                        value: this.roasteryProfileService.roasteryProfileData
+                            ? this.roasteryProfileService.roasteryProfileData.female_employee_count
+                            : 0,
+                    },
+                    {
+                        name: 'Male',
+                        value: this.roasteryProfileService.roasteryProfileData
+                            ? this.roasteryProfileService.roasteryProfileData.male_employee_count
+                            : 0,
+                    },
+                ];
+
+                this.roasteryProfileService.single = this.chartData;
             }
         });
         this.roasteryProfileService.editMode$.subscribe((res: boolean) => {
@@ -117,7 +132,7 @@ export class AboutRoasteryComponent implements OnInit {
         this.aboutForm = this.fb.group({
             owner_name: ['', Validators.compose([Validators.required])],
             founded_on: ['', Validators.compose([Validators.required])],
-            description: ['', Validators.compose([Validators.maxLength(20)])],
+            description: ['', Validators.compose([Validators.maxLength(150)])],
             total_employees: [null, Validators.compose([Validators.required])],
             avg_employee_age: [null, Validators.compose([Validators.required])],
             female_employee_count: ['', Validators.compose([Validators.required])],
@@ -131,9 +146,21 @@ export class AboutRoasteryComponent implements OnInit {
         });
 
         this.aboutForm.valueChanges.subscribe((changedData: any) => {
-            console.log('value changed: ', this.aboutForm.invalid);
             this.roasteryProfileService.aboutFormInvalid = this.aboutForm.invalid;
             this.roasteryProfileService.editProfileData(changedData);
+            if (this.chartData) {
+                this.chartData = [
+                    {
+                        name: 'Female',
+                        value: changedData.female_employee_count,
+                    },
+                    {
+                        name: 'Male',
+                        value: changedData.male_employee_count,
+                    },
+                ];
+                this.roasteryProfileService.single = this.chartData;
+            }
         });
     }
 
@@ -154,10 +181,8 @@ export class AboutRoasteryComponent implements OnInit {
             capabilities: this.roasteryProfileService.roasteryProfileData.capabilities,
         };
         this.aboutForm.setValue(formValue);
-    }
 
-    language() {
-        this.appLanguage = this.globals.languageJson;
+        this.chartData = this.roasteryProfileService.single;
     }
 
     getRoasterUsers() {
