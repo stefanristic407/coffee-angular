@@ -235,18 +235,9 @@
                                     <div class="col-md-6 pl-md-25">
                                         <div class="mb-4 mb-md-45 sewn-form-field w-100">
                                             <label class="fnt-14 text-clr588">Phone number</label>
-                                            <div class="w-100">
-                                                <input
-                                                    type="text"
-                                                    ng2TelInput
-                                                    class="phone-number-input w-100"
-                                                    formControlName="phone"
-                                                    (ng2TelOutput)="getPhoneNumber($event)"
-                                                    (intlTelInputObject)="telInputObject($event)"
-                                                />
-                                            </div>
+                                            <app-phone-number formControlName="phone"></app-phone-number>
                                             <div *ngIf="form.controls.phone.invalid" class="p-error">
-                                                Invalid Number
+                                                Please enter valid phone number
                                             </div>
                                         </div>
                                     </div>

@@ -27,7 +27,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         { name: 'Female', value: 'female' },
         { name: 'Other', value: 'other' },
     ];
-    phoneNumber?: any;
     profilePictureSavedEvent$?: Subscription;
     roasterId: any;
     userId: any;
@@ -73,7 +72,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             this.isLoading = false;
             this.profileInfo = res.result;
             this.previewUrl = this.profileInfo.profile_image_url;
-            this.phoneNumber = this.profileInfo.phone;
             this.setFormFields();
         });
     }
@@ -83,6 +81,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         this.form.controls.lastName.setValue(this.profileInfo.lastname);
         this.form.controls.aboutMe.setValue(this.profileInfo.about_me);
         this.form.controls.email.setValue(this.profileInfo.email);
+        this.form.controls.phone.setValue(this.profileInfo.phone);
         this.form.controls.gender.setValue(this.profileInfo.gender || 'male');
         this.form.controls.birthday.setValue(new Date(this.profileInfo.date_of_birth));
     }
@@ -152,16 +151,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         });
     }
 
-    getPhoneNumber(phoneNumber: string): void {
-        this.phoneNumber = phoneNumber;
-    }
-
-    telInputObject(obj: any): void {
-        if (this.phoneNumber) {
-            obj.setNumber(this.phoneNumber);
-        }
-    }
-
     handleSubmit(): void {
         this.form.markAllAsTouched();
         if (this.form.invalid) {
@@ -175,7 +164,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         userInfo.firstname = this.form.controls.firstName.value;
         userInfo.lastname = this.form.controls.lastName.value;
         userInfo.about_me = this.form.controls.aboutMe.value;
-        userInfo.phone = this.phoneNumber;
+        userInfo.phone = this.form.controls.phone.value;
         userInfo.gender = this.form.controls.gender.value;
         userInfo.date_of_birth = formatDate(this.form.controls.birthday.value, 'yyyy-MM-dd', 'en-US');
 
@@ -205,6 +194,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         } else {
             this.isUpdatingProfile = true;
             this.userOriginalService.updateRoasterProfile(this.roasterId, userInfo).subscribe((res: any) => {
+                console.log('profile update result >>>>>>>>', res);
                 if (res.success) {
                     this.handleProfileUpdateSuccess();
                 } else {
