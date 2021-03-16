@@ -337,7 +337,7 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
                 this.confirmGenerate = false;
                 if (res.success === true) {
                     this.toastrService.success('The Report has been updated.');
-                    this.router.navigate(['/green-grading/green-coffee-orders']);
+                    this.next.emit({ screen: 'screen5', selectedCuppingId: this.cuppingReportId });
                 } else {
                     this.toastrService.error('Error while updating the report');
                 }

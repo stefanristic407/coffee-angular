@@ -108,28 +108,40 @@
 
 ::ng-deep {
     .p-accordion.p-cuppings-accordion {
-        p-accordiontab .p-accordion-tab {
-            @media (max-width: 767px) {
-                border-radius: 2px;
-                border: solid 1px #ebebeb;
-                margin-bottom: 0.75rem;
+        p-accordiontab {
+            &:last-child {
+                .p-accordion-tab .p-accordion-header {
+                    &:not(.p-highlight):not(.p-disabled):hover .p-accordion-header-link,
+                    .p-accordion-header-link {
+                        border-bottom: none !important;
+                    }
+                }
+            }
+            .p-accordion-tab {
+                @media (max-width: 767px) {
+                    border-radius: 2px !important;
+                    border: solid 1px #ebebeb !important;
+                    margin-bottom: 0.75rem !important;
+                }
             }
         }
 
         .p-accordion-content {
-            border: none;
+            border: none !important;
+            padding: 0.571rem 1rem !important;
         }
 
         .p-accordion-header:not(.p-disabled).p-highlight {
             &:hover .p-accordion-header-link,
             .p-accordion-header-link {
-                border: none;
-                background: #ffffff;
-                color: #747588;
-                flex-direction: row-reverse;
+                border: none !important;
+                background: #ffffff !important;
+                color: #747588 !important;
+                flex-direction: row-reverse !important;
+                text-decoration: none !important;
 
                 &:focus {
-                    box-shadow: none;
+                    box-shadow: none !important;
                 }
 
                 @media (max-width: 767px) {
@@ -143,30 +155,31 @@
         .p-accordion-header {
             &:not(.p-highlight):not(.p-disabled):hover .p-accordion-header-link,
             .p-accordion-header-link {
-                border: none;
-                background: #ffffff;
-                color: #747588;
-                border-bottom: 1px dashed #d6d6d6;
-                flex-direction: row-reverse;
-                padding: 1.125rem 0;
+                border: none !important;
+                background: #ffffff !important;
+                color: #747588 !important;
+                border-bottom: 1px dashed #d6d6d6 !important;
+                flex-direction: row-reverse !important;
+                padding: 1.125rem 0 !important;
+                text-decoration: none !important;
 
                 &:focus {
                     box-shadow: none !important;
                 }
 
                 @media (max-width: 991px) {
-                    align-items: flex-start;
+                    align-items: flex-start !important;
                 }
 
                 @media (max-width: 767px) {
-                    padding: 0;
-                    border-bottom: 0;
+                    padding: 0 !important;
+                    border-bottom: 0 !important;
 
                     .p-accordion-toggle-icon {
-                        height: 53px;
-                        border-bottom: solid 1.5px #ebebeb;
-                        display: flex;
-                        align-items: center;
+                        height: 55px !important;
+                        border-bottom: solid 1.5px #ebebeb !important;
+                        display: flex !important;
+                        align-items: center !important;
                     }
 
                     .bottom-dash {

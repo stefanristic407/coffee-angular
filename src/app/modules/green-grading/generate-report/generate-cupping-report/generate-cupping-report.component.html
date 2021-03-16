@@ -6,7 +6,7 @@
     </div>
     <div class="d-flex justify-content-between">
         <span class="request-title-text">Generate Report</span>
-        <button type="submit" class="green-button btn-stroked d-none d-lg-block" (click)="reGrade()">
+        <button type="submit" class="green-button btn-stroked w-100 mb-2 d-block d-md-none" (click)="reGrade()">
             Re-grade sample
         </button>
     </div>
@@ -109,15 +109,6 @@
                 icon="pi pi-download"
                 iconPos="left"
                 (click)="downloadReport()"
-            ></button>
-            <button
-                pButton
-                *ngIf="fromQueryParam === 'ServiceRequest'"
-                class="p-button-outlined mt-3 mt-md-0"
-                label="Upload report"
-                icon="pi pi-upload"
-                iconPos="left"
-                (click)="uploadReport()"
             ></button>
         </div>
     </div>
