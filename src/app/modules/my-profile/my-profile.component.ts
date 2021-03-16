@@ -27,7 +27,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         { name: 'Female', value: 'female' },
         { name: 'Other', value: 'other' },
     ];
-    // breadcrumbItems = [{ label: 'Home', routerLink: '/dashboard' }, { label: 'My profile' }];
     phoneNumber?: any;
     profilePictureSavedEvent$?: Subscription;
     roasterId: any;
@@ -164,7 +163,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     }
 
     handleSubmit(): void {
-        console.log('submitting....');
         this.form.markAllAsTouched();
         if (this.form.invalid) {
             console.log('invalid');
@@ -188,10 +186,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             formData.append('file', this.file);
             formData.append('api_call', '/ro/' + this.roasterId + '/users/' + this.userId + '/profile-image');
             formData.append('token', this.cookieService.get('Auth'));
-            console.log(
-                'api_call for upload image >>>>>>>>>>>>',
-                '/ro/' + this.roasterId + '/users/' + this.userId + '/profile-image',
-            );
             this.userOriginalService.uploadProfileImage(formData).subscribe((res: any) => {
                 console.log('upload image result >>>>>>>>>', res);
                 if (res.success) {
@@ -200,7 +194,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
                     this.toastr.error('Failed to upload profile image.');
                 }
                 this.userOriginalService.updateRoasterProfile(this.roasterId, userInfo).subscribe((res2: any) => {
-                    console.log('update profile result >>>>>>>>>', res2);
                     if (res2.success) {
                         this.handleProfileUpdateSuccess();
                     } else {
@@ -212,7 +205,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         } else {
             this.isUpdatingProfile = true;
             this.userOriginalService.updateRoasterProfile(this.roasterId, userInfo).subscribe((res: any) => {
-                console.log('update profile result >>>>>>>>>', res);
                 if (res.success) {
                     this.handleProfileUpdateSuccess();
                 } else {
