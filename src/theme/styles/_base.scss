@@ -399,10 +399,10 @@ input[type='number'] {
 
 .br-sm-main {
     @media (min-width: 768px) {
-        border: none;
+        border: 1px solid $secondary-border-color;
     }
     @media (max-width: 767px) {
-        border: 1px solid $secondary-border-color;
+        border: none;
     }
 }
 
