@@ -38,3 +38,7 @@
     animation: custom-progress-spinner-dash 1.5s ease-in-out infinite,
         custom-progress-spinner-color 6s ease-in-out infinite !important;
 }
+
+.p-progressbar .p-progressbar-value {
+    background: $primary-color;
+}
