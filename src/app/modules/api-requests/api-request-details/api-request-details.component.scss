@@ -134,6 +134,13 @@
         }
     }
 
+    @media screen and (max-width: 475px) {
+        .key-active {
+            float: left !important;
+            padding: 0 16px 16px 16px;
+        }
+    }
+
     @media screen and (max-width: 767px) {
         .generate-border {
             flex-direction: column;
@@ -144,9 +151,9 @@
             }
         }
         .key-active {
-            float: left !important;
             padding: 0 16px 16px 16px;
         }
+
         padding: 16.5px 16px;
         .mobile-delete-key {
             display: block;
