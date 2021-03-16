@@ -340,17 +340,15 @@ export class CuppingServiceComponent implements OnInit {
                         const value = dataItem ? dataItem[label.field] : '';
                         let additionalValue = '';
                         if (label.field === 'fragrance_score') {
-                            additionalValue =
-                                dataItem && dataItem.acidity_intensity
-                                    ? `(D:${dataItem.fragrance_dry}, B:${dataItem.fragrance_break})`
-                                    : '';
+                            additionalValue = dataItem
+                                ? `(D:${dataItem.fragrance_dry}, B:${dataItem.fragrance_break})`
+                                : '';
                         }
                         if (label.field === 'acidity_score') {
-                            additionalValue =
-                                dataItem && dataItem.acidity_intensity ? `(${dataItem.acidity_intensity})` : '';
+                            additionalValue = dataItem ? `(${dataItem.acidity_intensity})` : '';
                         }
                         if (label.field === 'body_score') {
-                            additionalValue = dataItem && dataItem.body_level ? `(${dataItem.body_level})` : '';
+                            additionalValue = dataItem ? `(${dataItem.body_level})` : '';
                         }
                         tempRow.push(`${value}${additionalValue}`);
                     }

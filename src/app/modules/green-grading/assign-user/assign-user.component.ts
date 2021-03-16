@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService, RoasterserviceService } from '@services';
+import { GlobalsService, RoasterserviceService, GreenGradingService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { LazyLoadEvent } from 'primeng/api';
 
@@ -46,6 +46,7 @@ export class AssignUserComponent implements OnInit {
         public globals: GlobalsService,
         private cookieService: CookieService,
         private roasterService: RoasterserviceService,
+        private greenGradingService: GreenGradingService,
         private toaster: ToastrService,
         private router: Router,
         private route: ActivatedRoute,
@@ -145,5 +146,13 @@ export class AssignUserComponent implements OnInit {
         }
     }
 
-    onClickAssign() {}
+    onClickAssign() {
+        this.greenGradingService.assignUser(this.orderId, this.selectedUser.id).subscribe((res) => {
+            if (res.success === true) {
+                this.toaster.success('Successfully assigned');
+            } else {
+                this.toaster.error('This user cannot be assigned to request');
+            }
+        });
+    }
 }

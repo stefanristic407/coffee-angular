@@ -43,13 +43,9 @@ export class GenerateCuppingReportComponent implements OnInit, OnChanges {
         } else if (this.fromQueryParam === 'SampleRequest') {
             this.sampleRequestId = this.cuppingDetails.external_sample_id;
         }
-        if (this.selectedCuppingId) {
-            this.cuppingReportId = this.selectedCuppingId;
-            this.getEvaluatorData(this.selectedCuppingId);
-        } else {
-            this.cuppingReportId = this.cuppingDetails.cupping_report_id;
-            this.getCupReports();
-        }
+        this.selectedCuppingId = this.cuppingDetails.cupping_report_id;
+        this.cuppingReportId = this.selectedCuppingId;
+        this.getEvaluatorData(this.selectedCuppingId);
         this.singleCuppingData();
     }
 
@@ -133,20 +129,6 @@ export class GenerateCuppingReportComponent implements OnInit, OnChanges {
         }
     }
 
-    uploadReport() {
-        const ids = this.evaluatorArray[this.cuppingReportId].map((item: any) => item.evaluator_id);
-        const data = {
-            status: 'COMPLETED',
-            evaluator_ids: ids,
-        };
-        this.greenGradingService.updateStatus(this.roasterId, this.cuppingReportId, data).subscribe((res: any) => {
-            if (res.success === true) {
-                this.toastrService.success('The Report has been updated.');
-            } else {
-                this.toastrService.error('Error while updating the report');
-            }
-        });
-    }
     downloadFile(item: any) {
         const a = document.createElement('a');
         a.href = item;

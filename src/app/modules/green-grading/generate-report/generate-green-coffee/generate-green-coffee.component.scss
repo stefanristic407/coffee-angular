@@ -50,7 +50,9 @@
                 background-color: #f8f8f8;
                 padding: 12px 20px;
                 display: flex;
-                width: calc(100% - 70px);
+                & > div {
+                    width: calc(100% - 70px);
+                }
             }
 
             ul {
@@ -167,6 +169,9 @@
             }
             .p-inputtext {
                 padding: 15px 16px;
+            }
+            .p-dropdown-trigger {
+                padding-left: 4px;
             }
         }
         &.p-cuppings-dropdown {

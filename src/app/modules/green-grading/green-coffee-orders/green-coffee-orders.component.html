@@ -125,8 +125,14 @@
                                             <span class="prime-table-label w-50">
                                                 {{ col.header }} {{ rowData[col.field] }}
                                             </span>
-                                            <span [ngClass]="rowData.order_type">
-                                                &#9679;&nbsp;{{ rowData.order_type }}
+                                            <span class="fnt-14" [ngClass]="rowData.order_type">
+                                                &#9679;&nbsp;{{
+                                                    rowData[col.field] === 'GC_ORDER'
+                                                        ? 'Booked'
+                                                        : rowData[col.field] === 'GC_ORDER_SAMPLE'
+                                                        ? 'Sample'
+                                                        : 'Prebook'
+                                                }}
                                             </span>
                                             <p-tableCheckbox [value]="rowData" style="margin-left: auto">
                                             </p-tableCheckbox>
