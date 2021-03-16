@@ -34,13 +34,11 @@ export class RoasteryProfileService {
     userId: string;
     roasterId: string;
     roasterUsers: any = [];
-    empName: any = '';
     roasterContacts: any = [];
     single: { name: string; value: any }[];
     showDelete = false;
     bannerUrl?: string;
     bannerFile?: any;
-    bannerFileId?: any;
     profileInfo?: any;
     isSaving?: boolean;
 
@@ -155,7 +153,6 @@ export class RoasteryProfileService {
             this.userService.uploadFile(this.roasterId, this.bannerFile, 'Cover-Image').subscribe((res) => {
                 console.log('banner file upload result >>>>>>', res);
                 if (res.success) {
-                    this.bannerFileId = res.result.id;
                     this.toUpdateProfileData.banner_file_id = res.result.id;
                     this.updateRoasterAccount();
                 } else {
@@ -181,45 +178,28 @@ export class RoasteryProfileService {
                 const isBase64Valid = base64Rejex.test(this.profilePhotoService.croppedImage); // base64Data is the base64 string
 
                 if (isBase64Valid === false) {
-                    if (this.empName === '') {
-                        this.toastrService.success('Roaster profile details updated successfully');
-                        this.saveMode.next(false);
-                        this.editMode.next(true);
-                        this.empName = '';
-                        this.roasterProfile();
-                    } else {
-                        const contactData = {
-                            user_id: parseInt(this.empName, 10),
-                        };
-                    }
+                    this.toastrService.success('Roaster profile details updated successfully');
+                    this.saveMode.next(false);
+                    this.editMode.next(true);
+                    this.roasterProfile();
                 } else {
                     console.log('entering here');
                     const ImageURL = this.profilePhotoService.croppedImage;
-                    // Split the base64 string in data and contentType
                     const block = ImageURL.split(';');
-                    // Get the content type of the image
-                    const contentType = block[0].split(':')[1]; // In this case "image/gif"
-                    // get the real base64 content of the file
-                    const realData = block[1].split(',')[1]; // In this case "R0lGODlhPQBEAPeoAJosM...."
-
+                    const contentType = block[0].split(':')[1];
+                    const realData = block[1].split(',')[1];
                     // Convert it to a blob to upload
                     const blob = this.b64toBlob(realData, contentType, 0);
-
                     const formData: FormData = new FormData();
                     formData.append('file', blob);
                     formData.append('api_call', '/ro/' + this.roasterId + '/company-image');
                     formData.append('token', this.cookieService.get('Auth'));
                     this.userService.uploadProfileImage(formData).subscribe((result: any) => {
-                        console.log(result);
                         if (result.success) {
-                            if (this.empName === '') {
-                                this.toastrService.success('Roaster profile details updated successfully');
-                                this.saveMode.next(false);
-                                this.editMode.next(true);
-                                this.empName = '';
-                                this.roasterProfile();
-                            } else {
-                            }
+                            this.toastrService.success('Roaster profile details updated successfully');
+                            this.saveMode.next(false);
+                            this.editMode.next(true);
+                            this.roasterProfile();
                         } else {
                             console.log(result);
                             this.isSaving = false;
@@ -257,8 +237,9 @@ export class RoasteryProfileService {
     }
 
     handleDeleteBannerImage(): void {
-        console.log('banner file id ', this.bannerFileId);
-        this.userService.deleteFile(this.roasterId, this.bannerFileId).subscribe((res) => {
+        // this.toUpdateProfileData.banner_file_id = 0;
+        // this.toUpdateProfileData.banner_url = '';
+        this.userService.deleteFile(this.roasterId, this.roasteryProfileData.banner_file_id).subscribe((res) => {
             this.toastrService.success('Deleted Banner Image');
             console.log('remove banner file res', res);
         });

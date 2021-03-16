@@ -27,9 +27,7 @@ export class AboutRoasteryComponent implements OnInit {
     employeeNos: any;
     brandName: string;
     shortFescr: string;
-    // emp_title : string;
     empName = '';
-    appLanguage?: any;
     roasterId: any;
     certificatesArray: any = [];
     userId: any;
@@ -50,21 +48,12 @@ export class AboutRoasteryComponent implements OnInit {
             contactid: '',
         },
     ];
-    brandProfile = [
-        {
-            name: '',
-            logo: '',
-            short_descr: '',
-        },
-    ];
-    brand = {
-        name: '',
-        description: '',
-    };
     addBtn = true;
     assignRow = false;
     assignButtonValue = 'Add Contact';
-    brands: any;
+    brands = [];
+    filteredBrands = [];
+    chartData: any;
     @ViewChild('roasterImage', { static: true }) roasterImage;
 
     kgsOptions = [
@@ -74,8 +63,18 @@ export class AboutRoasteryComponent implements OnInit {
 
     roasterUsersOptions?: any[];
     aboutForm: FormGroup;
+    brandForm: FormGroup;
+
     isSaveMode: boolean;
     isEditMode: boolean;
+    employeeId: any;
+
+    isAddBrandMode = false;
+    isEditBrandMode = false;
+
+    brandFile: any;
+    toEditBrand: any;
+    brandImageUrl = 'assets/images/default-brand.png';
 
     constructor(
         public roasteryProfileService: RoasteryProfileService,
@@ -95,9 +94,9 @@ export class AboutRoasteryComponent implements OnInit {
         this.getCertificates();
         this.roasteryProfileService.getcontactList();
         this.getBrands();
-        this.language();
         this.getRoasterUsers();
         this.initialForm();
+
         this.detectMode();
     }
 
@@ -106,6 +105,23 @@ export class AboutRoasteryComponent implements OnInit {
             this.isSaveMode = res;
             if (res) {
                 this.setFormValue();
+            } else {
+                this.chartData = [
+                    {
+                        name: 'Female',
+                        value: this.roasteryProfileService.roasteryProfileData
+                            ? this.roasteryProfileService.roasteryProfileData.female_employee_count
+                            : 0,
+                    },
+                    {
+                        name: 'Male',
+                        value: this.roasteryProfileService.roasteryProfileData
+                            ? this.roasteryProfileService.roasteryProfileData.male_employee_count
+                            : 0,
+                    },
+                ];
+
+                this.roasteryProfileService.single = this.chartData;
             }
         });
         this.roasteryProfileService.editMode$.subscribe((res: boolean) => {
@@ -117,7 +133,7 @@ export class AboutRoasteryComponent implements OnInit {
         this.aboutForm = this.fb.group({
             owner_name: ['', Validators.compose([Validators.required])],
             founded_on: ['', Validators.compose([Validators.required])],
-            description: ['', Validators.compose([Validators.maxLength(20)])],
+            description: ['', Validators.compose([Validators.maxLength(150)])],
             total_employees: [null, Validators.compose([Validators.required])],
             avg_employee_age: [null, Validators.compose([Validators.required])],
             female_employee_count: ['', Validators.compose([Validators.required])],
@@ -131,9 +147,26 @@ export class AboutRoasteryComponent implements OnInit {
         });
 
         this.aboutForm.valueChanges.subscribe((changedData: any) => {
-            console.log('value changed: ', this.aboutForm.invalid);
             this.roasteryProfileService.aboutFormInvalid = this.aboutForm.invalid;
             this.roasteryProfileService.editProfileData(changedData);
+            if (this.chartData) {
+                this.chartData = [
+                    {
+                        name: 'Female',
+                        value: changedData.female_employee_count,
+                    },
+                    {
+                        name: 'Male',
+                        value: changedData.male_employee_count,
+                    },
+                ];
+                this.roasteryProfileService.single = this.chartData;
+            }
+        });
+
+        this.brandForm = this.fb.group({
+            name: ['', Validators.compose([Validators.required])],
+            description: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
         });
     }
 
@@ -154,10 +187,8 @@ export class AboutRoasteryComponent implements OnInit {
             capabilities: this.roasteryProfileService.roasteryProfileData.capabilities,
         };
         this.aboutForm.setValue(formValue);
-    }
 
-    language() {
-        this.appLanguage = this.globals.languageJson;
+        this.chartData = this.roasteryProfileService.single;
     }
 
     getRoasterUsers() {
@@ -173,30 +204,7 @@ export class AboutRoasteryComponent implements OnInit {
         });
     }
 
-    addNewBrand(file, brand) {
-        const data: FormData = new FormData();
-        data.append('name', brand.name);
-        data.append('description', brand.short_descr);
-        data.append('file', file);
-        data.append('api_call', `/ro/${this.roasterId}/brands`);
-        data.append('token', this.cookieService.get('Auth'));
-        this.roasterService.addRoasterBrand(data).subscribe((res) => {
-            this.getBrands();
-        });
-    }
-
-    getBrands() {
-        this.roasterService.getRoasterBrands(this.roasterId).subscribe((res) => {
-            this.brands = res.success ? res.result : [];
-        });
-    }
-
-    handleRoasterFile(e, brand) {
-        if (!brand.name || !brand.short_descr) {
-            this.toastrService.error('Please add brand details');
-            e.target.file = '';
-            return;
-        }
+    handleRoasterFile(e) {
         if (e.target.files.length > 0) {
             for (let i = 0; i <= e.target.files.length - 1; i++) {
                 const fsize = e.target.files.item(i).size;
@@ -206,7 +214,13 @@ export class AboutRoasteryComponent implements OnInit {
                     this.toastrService.error('File too big, please select a file smaller than 2mb');
                 } else {
                     console.log('Coming here');
-                    this.addNewBrand(e.target.files[0], brand);
+                    this.brandFile = e.target.files[0];
+                    const reader = new FileReader();
+                    reader.readAsDataURL(this.brandFile);
+                    reader.onload = (event: any) => {
+                        this.brandImageUrl = event.target.result;
+                    };
+                    // this.addNewBrand(e.target.files[0], brand);
                 }
             }
         }
@@ -221,14 +235,6 @@ export class AboutRoasteryComponent implements OnInit {
                     this.toastrService.error('Error in loading Roaster Certificates');
                 }
             });
-        }
-    }
-
-    onKeyPress(event: any) {
-        if (event.target.value === '') {
-            document.getElementById(event.target.id).style.border = '1px solid #D50000';
-        } else {
-            document.getElementById(event.target.id).style.border = '1px solid #d6d6d6';
         }
     }
 
@@ -262,7 +268,7 @@ export class AboutRoasteryComponent implements OnInit {
 
     addContact() {
         const contactData = {
-            user_id: parseInt(this.roasteryProfileService.empName, 10),
+            user_id: this.employeeId,
         };
         this.assignButtonValue = 'Adding';
         this.roasterService.addRoasterContacts(this.roasterId, contactData).subscribe((result: any) => {
@@ -270,7 +276,6 @@ export class AboutRoasteryComponent implements OnInit {
                 this.assignButtonValue = 'Add Contact';
                 this.toastrService.success('Contact has been added.');
                 this.roasteryProfileService.getcontactList();
-                this.roasteryProfileService.empName = '';
                 this.assignRow = false;
                 this.addBtn = true;
                 this.roasteryProfileService.showDelete = true;
@@ -303,20 +308,123 @@ export class AboutRoasteryComponent implements OnInit {
         });
     }
 
-    public addBrandProfile() {
-        this.brandProfile.push({
-            name: '',
-            logo: '',
-            short_descr: '',
+    editBrand(brand) {
+        console.log('brand data to delete: ', brand);
+        this.toEditBrand = brand;
+        this.brandImageUrl = brand.url;
+        const formValue = {
+            name: brand.name,
+            description: brand.description,
+        };
+        console.log('brand data to edit: ', formValue);
+        this.brandForm.setValue(formValue);
+        this.isEditBrandMode = true;
+        this.filteredBrands = this.brands.filter((item) => {
+            return item.id !== brand.id;
         });
     }
 
-    public deleteRow(index) {
-        this.brandProfile.splice(index, 1);
+    addBrandProfileMode() {
+        this.brandForm = this.fb.group({
+            name: ['', Validators.compose([Validators.required])],
+            description: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
+        });
+        this.isAddBrandMode = true;
+    }
+
+    addNewBrand() {
+        console.log('added brand: ');
+        if (this.brandForm.invalid || !this.brandFile) {
+            const controls = this.brandForm.controls;
+            if (this.brandForm.invalid) {
+                Object.keys(controls).forEach((controlName) => controls[controlName].markAsTouched());
+                return;
+            }
+            this.toastrService.error('Please add brand details');
+            return;
+        }
+        const data: FormData = new FormData();
+        data.append('name', this.brandForm.controls.name.value);
+        data.append('description', this.brandForm.controls.description.value);
+        data.append('file', this.brandFile);
+        data.append('api_call', `/ro/${this.roasterId}/brands`);
+        data.append('token', this.cookieService.get('Auth'));
+        this.roasterService.addRoasterBrand(data).subscribe((res) => {
+            this.cancelAddBrand();
+            this.getBrands();
+        });
+    }
+
+    updateBrandProfile() {
+        const controls = this.brandForm.controls;
+        if (this.brandForm.invalid) {
+            Object.keys(controls).forEach((controlName) => controls[controlName].markAsTouched());
+            return;
+        }
+        const data: FormData = new FormData();
+        data.append('name', this.brandForm.controls.name.value);
+        data.append('description', this.brandForm.controls.description.value);
+        if (this.brandFile) {
+            data.append('file', this.brandFile);
+        }
+        data.append('api_call', `/ro/${this.roasterId}/brands/${this.toEditBrand.id}`);
+        data.append('token', this.cookieService.get('Auth'));
+        data.append('method', 'PUT');
+        this.roasterService.updateRoasterBrand(data).subscribe((res) => {
+            this.cancelAddBrand();
+            this.getBrands();
+        });
+    }
+
+    deleteBrand() {
+        this.roasterService.deleteRoasterBrand(this.toEditBrand.id).subscribe((res: any) => {
+            this.brands = this.brands.filter((item: any) => {
+                return item.id !== this.toEditBrand.id;
+            });
+            this.toastrService.success('Brand is deleted successfully');
+            this.isEditBrandMode = false;
+            this.cancelAddBrand();
+        });
+    }
+
+    cancelAddBrand() {
+        this.brandForm.setValue({
+            name: '',
+            description: '',
+        });
+        this.brandFile = null;
+        this.isAddBrandMode = false;
+        this.isEditBrandMode = false;
+        this.filteredBrands = this.brands;
+        this.brandImageUrl = 'assets/images/default-brand.png';
+    }
+
+    deleteBrandImage() {
+        this.brandImageUrl = 'assets/images/default-brand.png';
+        if (this.brandFile) {
+            this.brandFile = null;
+        }
+    }
+
+    getBrands() {
+        this.roasterService.getRoasterBrands(this.roasterId).subscribe((res) => {
+            this.brands = res.success ? res.result : [];
+            this.filteredBrands = this.brands;
+        });
     }
 
     isControlHasError(controlName: string, validationType: string): boolean {
         const control = this.aboutForm.controls[controlName];
+        if (!control) {
+            return false;
+        }
+
+        const result = control.hasError(validationType) && (control.dirty || control.touched);
+        return result;
+    }
+
+    isBrandControlHasError(controlName: string, validationType: string): boolean {
+        const control = this.brandForm.controls[controlName];
         if (!control) {
             return false;
         }

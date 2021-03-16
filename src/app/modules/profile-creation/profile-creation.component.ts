@@ -20,7 +20,7 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
         { label: 'contact', routerLink: '/roastery-profile/contact' },
         { label: 'reviews', routerLink: '/roastery-profile/reviews' },
     ];
-    breadItems = [{ label: 'home', routerLink: '/' }, { label: 'roastery_profile' }];
+    breadItems = [{ label: 'home', routerLink: '/' }, { label: 'Roastery Profile' }];
     isSaveMode: boolean;
     isEditMode: boolean;
 
