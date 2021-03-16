@@ -71,6 +71,9 @@
     margin-top: 2rem;
     margin-bottom: 1.5rem;
 }
+.boxCrateWidth {
+    width: 205px !important;
+}
 
 @media screen and (max-width: 1100px) {
     .divSeperator {
@@ -131,6 +134,9 @@
     ::ng-deep .varientBox label.p-checkbox-label {
         position: relative;
         top: 0.35rem;
+    }
+    .boxCrateWidth {
+        width: 100px !important;
     }
 }
 @media (max-width: 375px) {

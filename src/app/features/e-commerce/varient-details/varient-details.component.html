@@ -214,7 +214,13 @@
                 <div
                     class="col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1 sewn-form-field pl-md-0 pl-lg-2 checkBoxDiv mb-3"
                 >
-                    <span class="fnt-700 editBtn cursor-pointer delBtn" (click)="deleteGrindVariant(i)"> Delete </span>
+                    <span
+                        class="fnt-700 editBtn cursor-pointer delBtn"
+                        *ngIf="i > 0 || displayDelete"
+                        (click)="deleteGrindVariant(i)"
+                    >
+                        Delete
+                    </span>
                 </div>
                 <div class="divSeperator d-lg-none d-md-block d-sm-block d-block mx-md-2"></div>
                 <div *ngIf="isLast" class="col-12 mt-md-0 mt-1 mb-1">
@@ -300,9 +306,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 add-image-flex row gutter-16 gutter-lg-24">
+                <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 add-image-flex gutter-16 gutter-lg-24 px-1">
                     <div
-                        class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 sewn-form-field w-100"
+                        class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 sewn-form-field w-100 pl-2 pr-2 pr-lg-3"
                         *ngFor="
                             let product_image of weightForm['controls']['weights']['controls'][currentVarientIndex][
                                 'value'

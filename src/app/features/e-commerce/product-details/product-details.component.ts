@@ -27,6 +27,7 @@ export class ProductDetailsComponent implements OnInit {
     variantTypeArray: any = [];
     productDescriptionLength = 0;
     recommendationTextLength = 0;
+    recipeTextLength = 0;
     roastedFields = [
         'roaster_ref_no',
         'batch_ref_no',
@@ -50,6 +51,7 @@ export class ProductDetailsComponent implements OnInit {
     currentVariant = 0;
     allCrates = [];
     roastLevelArray: any = [];
+    productName: any = '';
     constructor(
         public globals: GlobalsService,
         private fb: FormBuilder,
@@ -163,6 +165,7 @@ export class ProductDetailsComponent implements OnInit {
                         const getValue = productDetails[ele];
                         this.productForm.controls[ele].setValue(getValue);
                     });
+                    this.productName = productDetails.name;
                     this.varients = this.productForm.get('varients') as FormArray;
                     this.varients.removeAt(0);
                     let increment = 0;
@@ -370,6 +373,20 @@ export class ProductDetailsComponent implements OnInit {
                 this.productForm.controls.varients['controls'][idx].controls.roaster_recommendation.setValue(
                     updatedString,
                 );
+            }
+        } else if (flag === 'recipes') {
+            const getValue = this.productForm.controls.varients['controls'][idx].controls.recipes.value;
+            const value = getValue.split(/\s+/);
+            const wordlimit = getValue ? 50 - value.length : 50;
+            this.recipeTextLength = value.length;
+            if (wordlimit <= 0) {
+                value.splice(50);
+                let updatedString = '';
+                value.forEach((ele) => {
+                    updatedString = updatedString + ' ' + ele;
+                });
+                this.recipeTextLength = 50;
+                this.productForm.controls.varients['controls'][idx].controls.recipes.setValue(updatedString);
             }
         }
     }
