@@ -51,7 +51,6 @@ export class PieAreaChartComponent implements OnInit, OnChanges {
     ngOnInit(): void {}
 
     ngOnChanges(changes: SimpleChanges) {
-        console.log('area chart changed: ', this.results);
         this.barEchart = echarts.init(this.pieAreaChart.nativeElement);
         this.chartOption.series[0].data = this.results;
         this.barEchart.setOption(this.chartOption);

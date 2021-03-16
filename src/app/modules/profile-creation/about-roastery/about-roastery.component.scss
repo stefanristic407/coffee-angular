@@ -145,3 +145,57 @@ hr {
 .add-contact-group {
     padding-top: 0.1rem !important;
 }
+
+.brand-item-container {
+    display: flex;
+    justify-content: space-between;
+    .brand-item {
+        width: 100%;
+    }
+}
+.add-brand-section {
+    display: flex;
+    justify-content: space-between;
+    .add-brand-data {
+        width: 100%;
+        display: flex;
+
+        .profile-avatar {
+            position: relative;
+            .avatar-img {
+                height: 90px;
+                width: 90px;
+                border-radius: 50%;
+            }
+            .change-avatar-btn {
+                position: absolute;
+                bottom: 0px;
+                right: 0px;
+            }
+        }
+
+        .brand-name {
+            width: 100%;
+            input {
+                max-width: 345px;
+                width: 100%;
+            }
+        }
+
+        .btn-delete-avatar {
+            background-color: transparent;
+            border: none;
+            color: #3d8462;
+            padding: 8px 12px;
+        }
+    }
+    .add-brand-btns {
+        min-height: 34px;
+    }
+}
+
+.sewn-form-field {
+    label {
+        color: #747588;
+    }
+}

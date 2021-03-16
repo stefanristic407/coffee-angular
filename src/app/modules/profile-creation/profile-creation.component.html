@@ -7,7 +7,7 @@
                 </ng-template>
             </p-breadcrumb>
         </div>
-        <div class="d-none d-md-block">
+        <div class="d-none d-lg-block">
             <button
                 pButton
                 type="button"
@@ -36,9 +36,44 @@
         </div>
     </div>
     <div class="p-0">
-        <p class="fnt-18 fnt-muli mb-0 mb-3 fnt-bold text-clr334 text-center text-md-left">
-            {{ 'roastery_profile' | translate }}
-        </p>
+        <div class="d-flex justify-content-between">
+            <div class="w-100 text-center text-md-left">
+                <p *ngIf="isSaveMode" class="fnt-18 fnt-muli mb-0 mb-3 fnt-bold text-clr334 text-center text-md-left">
+                    {{ subProfileForm.controls.company_name.value }}
+                </p>
+                <p *ngIf="!isSaveMode" class="fnt-18 fnt-muli mb-0 mb-3 fnt-bold text-clr334 text-center text-md-left">
+                    {{ roasteryProfileService.roasteryProfileData?.company_name }}
+                </p>
+            </div>
+            <div class="d-none d-md-flex d-lg-none mb-3">
+                <button
+                    pButton
+                    type="button"
+                    class="cancel-butn mr-2 fnt-14"
+                    label="{{ 'cancel' | translate }}"
+                    *ngIf="isSaveMode"
+                    (click)="roasteryProfileService.preview()"
+                ></button>
+                <button
+                    pButton
+                    type="button"
+                    class="btn-normal fnt-14"
+                    [disabled]="roasteryProfileService.isSaving"
+                    label="{{ 'save' | translate }}"
+                    *ngIf="isSaveMode"
+                    (click)="roasteryProfileService.saveRoasterProfile()"
+                ></button>
+                <button
+                    pButton
+                    type="button"
+                    class="btn-normal fnt-14"
+                    label="{{ 'edit' | translate }}"
+                    *ngIf="isEditMode"
+                    (click)="roasteryProfileService.editRoasterProfile()"
+                ></button>
+            </div>
+        </div>
+
         <div class="profile-header-details position-relative">
             <img
                 class="cover-image-profile-banner w-100"
@@ -87,7 +122,7 @@
             <div class="edit-btn-group d-flex">
                 <button
                     *ngIf="isSaveMode && roasteryProfileService.roasteryProfileData?.banner_url"
-                    class="btn-normal fnt-14 d-none d-lg-flex mr-2"
+                    class="btn-normal fnt-14 d-none d-md-flex mr-2"
                     (click)="bannerFileInput.click()"
                     pButton
                     label="{{ 'replace_image' | translate }}"
@@ -97,7 +132,7 @@
                     icon="pi pi-trash"
                     iconPos="left"
                     *ngIf="isSaveMode && roasteryProfileService.roasteryProfileData?.banner_url"
-                    class="fnt-14 btn-trans-nb d-none d-lg-flex"
+                    class="fnt-14 btn-trans-nb d-none d-md-flex"
                     (click)="roasteryProfileService.handleDeleteBannerImage()"
                     label="{{ 'delete' | translate }}"
                 ></button>
@@ -152,7 +187,7 @@
 
 <div class="bg-fff p-lg-5 pl-md-3 pr-md-3 pb-md-3 pt-md-4 mt-md-3">
     <div class="responsive-tabMenu">
-        <p-tabMenu [model]="menuItems">
+        <p-tabMenu [model]="menuItems" styleClas="profile-tabmenu" class="profile-tabmenu">
             <ng-template pTemplate="item" let-item let-i="index">
                 {{ item.label | translate }}
             </ng-template>

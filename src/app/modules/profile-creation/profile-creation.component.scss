@@ -80,3 +80,18 @@
         }
     }
 }
+
+::ng-deep .profile-tabmenu {
+    .p-tabmenu-nav {
+        flex-wrap: inherit !important;
+        overflow-x: scroll;
+        li {
+            a {
+                white-space: nowrap !important;
+            }
+        }
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}

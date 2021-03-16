@@ -251,6 +251,21 @@ export class RoasterserviceService {
         return this.http.post(this.uploadBrandsUrl, data);
     }
 
+    updateRoasterBrand(data: any): Observable<any> {
+        return this.http.post(this.url, data);
+    }
+
+    deleteRoasterBrand(brandId: string): Observable<any> {
+        const roasterId = this.cookieService.get('roaster_id');
+        const token = this.cookieService.get('Auth');
+        const data = {
+            method: 'DELETE',
+            api_call: `/ro/${roasterId}/brands/${brandId}`,
+            token,
+        };
+        return this.http.post(this.url, data);
+    }
+
     // Get all reviews posted by organization
     getRoasterReviews(roasterId: any, queryParams = {}): Observable<any> {
         const data = {
