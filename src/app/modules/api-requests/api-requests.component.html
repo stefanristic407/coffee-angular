@@ -2,20 +2,20 @@
     <div class="bread-crumb">
         <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
     </div>
-    <section class="estate-orders-heading">
+    <section class="api-request-heading">
         <div class="row justify-content-between align-items-center">
-            <div class="col-lg-8 col-md-4">
+            <div class="col-lg-8 col-md-4 p-0">
                 <h5 class="estate-order-title m-0">{{ globals.languageJson?.api_request }}</h5>
                 <p class="Give-your-end-users">{{ 'api_key_details' | translate }}</p>
             </div>
-            <div class="col-lg-4 col-md-8 text-right">
+            <div class="col-lg-4 col-md-8 text-right p-0">
                 <div class="custom-search">
                     <input
                         type="text"
                         pInputText
                         #searchInput
                         [(ngModel)]="apiKeySearch"
-                        placeholder="Search by request id or Customer Name"
+                        placeholder="Search by Name, Role"
                         class="{{ apiKeySearch ? 'highlight' : '' }}"
                         class="w-100"
                     />
@@ -24,7 +24,7 @@
         </div>
 
         <div class="header-details row justify-content-between align-items-center">
-            <div class="header-inner col-lg-9 col-md-6">
+            <div class="header-inner col-lg-9 col-md-6 p-0">
                 <p-dropdown
                     [options]="FilterTypeList"
                     optionLabel="org_type"
@@ -50,7 +50,7 @@
                 >
                 </p-calendar>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-3 col-md-6 p-0">
                 <div class="d-inline">
                     <p-dropdown
                         [options]="displayArray"
@@ -69,9 +69,9 @@
             </div>
         </div>
 
-        <div class="mixups-tabs mt-32">
+        <div class="api-requests-tabs mt-32">
             <p-tabView styleClass="pb-3 pb-md-4" [(activeIndex)]="selectedTab" (onChange)="handleChange($event)">
-                <div class="mixups-tabs mt-45">
+                <div class="api-requests-tabs mt-45">
                     <p-tabView [(activeIndex)]="selectedTab" (onChange)="handleChange($event)">
                         <p-tabPanel header="API Key Requests">
                             <app-api-key-requests

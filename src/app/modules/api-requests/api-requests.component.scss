@@ -3,6 +3,9 @@
 .request-table-container {
     padding: 32px 48px;
 
+    .row {
+        margin: 0;
+    }
     .border-total {
         border-radius: 20px;
         border: solid 1px $primary-border-color;
@@ -11,7 +14,7 @@
         margin-right: 12px;
     }
 
-    .estate-orders-heading {
+    .api-request-heading {
         margin: 24px 0;
     }
 
@@ -71,7 +74,7 @@
         padding-top: 0.75rem;
     }
 
-    .mixups-tabs {
+    .api-requests {
         background-color: #ffffff;
         overflow: hidden;
     }
@@ -131,6 +134,34 @@
     border: 0;
 }
 
+@media screen and (max-width: 767px) {
+    .bg-fff {
+        padding: 16.5px 16px;
+    }
+    .Give-your-end-users {
+        padding-bottom: 24px;
+        margin: 0;
+    }
+    .header-inner {
+        display: flex;
+        align-items: center;
+    }
+    .custom-search {
+        margin-bottom: 16px;
+    }
+}
+
+@media (max-width: 360px) {
+    .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        ::ng-deep .p-calendar {
+            width: 165px;
+            margin-top: 16px;
+        }
+    }
+}
+
 @media (max-width: 480px) {
     .estate-orders {
         margin: 0.5rem 0px;
@@ -142,23 +173,5 @@
 @media (min-width: 1400px) {
     .container {
         max-width: 1240px !important;
-    }
-}
-
-/*  media query Fram Link */
-@media (max-width: 767px) {
-    .bg-fff {
-        padding: 1rem 0.7rem !important;
-    }
-
-    .Give-your-end-users {
-        width: 98%;
-        padding-bottom: 0rem;
-        margin-bottom: 0;
-    }
-
-    .row {
-        margin-right: -10px;
-        margin-left: -10px;
     }
 }
