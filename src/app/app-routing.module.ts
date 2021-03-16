@@ -98,6 +98,10 @@ export const routes: Routes = [
                 loadChildren: () =>
                     import('./modules/social-media/social-media.module').then((m) => m.SocialMediaModule),
             },
+            {
+                path: 'my-profile',
+                loadChildren: () => import('./modules/my-profile/my-profile.module').then((m) => m.MyProfileModule),
+            },
         ],
     },
     { path: 'gate', component: GateComponent },
