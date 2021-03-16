@@ -28,7 +28,8 @@ import { SearchPanelComponent } from '@components';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { ErrorIntercept } from './modules/error-module/error.interceptor';
+
+import { ErrorInterceptor } from '@interceptors';
 
 import 'hammerjs';
 import { AuthGuard } from '@guards';
@@ -80,7 +81,7 @@ import { getSaver, SAVER } from './modules/social-media/saver.provider';
     providers: [
         {
             provide: HTTP_INTERCEPTORS,
-            useClass: ErrorIntercept,
+            useClass: ErrorInterceptor,
             multi: true,
         },
         {
