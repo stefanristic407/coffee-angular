@@ -6,6 +6,6 @@ import { environment } from '@env/environment';
 })
 export class EstateBrandLinkPipe implements PipeTransform {
     transform(slug: string, page: string = ''): string {
-        return `${environment.estateBrandProfileUrl}/${slug}/${page}`;
+        return `${environment.estateBrandProfileUrl}/${slug ? slug + '/' : ''}/${page}`;
     }
 }
