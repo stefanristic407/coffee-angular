@@ -32,3 +32,12 @@
 .PREBOOK_LOT {
     color: #7c6be8;
 }
+
+@media (min-width: 768px) {
+    .table-container {
+        overflow-x: auto;
+        .table-responsive {
+            min-width: 864px;
+        }
+    }
+}

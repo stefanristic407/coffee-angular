@@ -53,7 +53,7 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'assign-user/:order-id',
+                path: 'assign-user/:order_id',
                 component: AssignUserComponent,
                 canActivate: [AuthGuard],
             },

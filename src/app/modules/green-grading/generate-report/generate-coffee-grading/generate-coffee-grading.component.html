@@ -16,7 +16,7 @@
         >
         </app-estate-info>
     </div>
-    <div class="d-flex flex-wrap mt-4">
+    <div class="d-flex flex-wrap mt-3 mt-md-4">
         <div class="col-lg-6 col-12 p-0 pr-lg-2">
             <app-category-view
                 [categoryData]="dataObj"
@@ -27,7 +27,7 @@
                 (handleDefectsChange)="handleDefectsChange($event)"
             >
             </app-category-view>
-            <div class="category-wrapper">
+            <div class="category-wrapper d-none d-lg-block">
                 <div class="category__body">
                     <div class="category-inputs d-flex flex-wrap align-items-center">
                         <label class="categ-label col-4">Moisture content</label>
@@ -107,6 +107,62 @@
                         (focus)="$event.target.select()"
                         [(ngModel)]="totalDefects"
                     />
+                </div>
+            </div>
+        </div>
+        <div class="category-wrapper d-block d-lg-none mb-3 mt-0 mt-md-3">
+            <div class="category__body">
+                <div class="category-inputs d-flex flex-wrap align-items-center">
+                    <label class="categ-label col-4">Moisture content</label>
+                    <span class="col-8 p-0 p-input-icon-right">
+                        <span class="text-clr334 fnt-14 fnt-600 right-icon">%</span>
+                        <input
+                            type="number"
+                            class="category-value"
+                            (focus)="$event.target.select()"
+                            placeholder="Type a number"
+                            [(ngModel)]="moistureContent"
+                        />
+                    </span>
+                </div>
+                <div class="category-inputs d-flex flex-wrap align-items-center">
+                    <label class="categ-label col-4">Water Activity</label>
+                    <span class="col-8 p-0 p-input-icon-right">
+                        <span class="text-clr334 fnt-14 fnt-600 right-icon">aw</span>
+                        <input
+                            type="number"
+                            name=""
+                            id=""
+                            class="category-value"
+                            (focus)="$event.target.select()"
+                            [(ngModel)]="waterActivity"
+                        />
+                    </span>
+                </div>
+                <div class="category-inputs d-flex flex-wrap align-items-center">
+                    <label class="categ-label col-4">Odor</label>
+                    <div class="col-8 p-0">
+                        <input
+                            type="text"
+                            name=""
+                            id=""
+                            (focus)="$event.target.select()"
+                            class="category-value"
+                            [(ngModel)]="odor"
+                        />
+                    </div>
+                </div>
+                <div class="d-flex flex-wrap pt-2 md-pt-4">
+                    <label class="categ-label col-12 col-md-4">Color</label>
+                    <div class="col-12 col-md-8 px-0 d-flex flex-wrap">
+                        <span class="p-field-checkbox pb-3 pr-2 pr-lg-3" *ngFor="let color of colorList">
+                            <p-checkbox name="colors" [value]="color.value" [(ngModel)]="totalColors" inputId="sf">
+                            </p-checkbox>
+                            <label class="fnt-14 fnt-600 mb-0 fnt-muli text-clr334 text-nowrap" for="sf">
+                                {{ color.label }}
+                            </label>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>

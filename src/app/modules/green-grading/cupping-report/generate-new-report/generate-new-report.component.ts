@@ -5,6 +5,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { GenerateReportService } from '../../generate-report/generate-report.service';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmComponent } from '@shared';
 
 @Component({
     selector: 'app-generate-new-report',
@@ -22,7 +24,6 @@ export class GenerateNewReportComponent implements OnInit {
     filterEval: any = [];
     evalDataList: any = [];
     showProcessDetail = false;
-    confirmGenerate = false;
     title = 'Generate Report';
     generateStep = 0;
 
@@ -33,6 +34,7 @@ export class GenerateNewReportComponent implements OnInit {
         private toastrService: ToastrService,
         public generateReportService: GenerateReportService,
         private greenGradingService: GreenGradingService,
+        public dialogSrv: DialogService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.route.queryParams.subscribe((params) => {
@@ -98,17 +100,28 @@ export class GenerateNewReportComponent implements OnInit {
     }
 
     generateReport() {
-        this.confirmGenerate = true;
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    title: 'Are you sure want to generate the report',
+                    desp: 'Once generated, no changes can be made to the report',
+                    type: 'confirm',
+                    noButton: 'No',
+                    yesButton: 'Yes, Generate report',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.goOtherGenerate();
+                }
+            });
     }
 
     goOtherGenerate() {
         this.generateStep = 1;
         this.title = 'Generated Report';
-        this.confirmGenerate = false;
-    }
-
-    closeConfirmModal() {
-        this.confirmGenerate = false;
     }
 
     downloadFile(item: any) {
@@ -120,20 +133,6 @@ export class GenerateNewReportComponent implements OnInit {
         // document.body.appendChild(a);
         a.click();
         // document.body.removeChild(a);
-    }
-
-    uploadReport() {
-        const data = {
-            status: 'COMPLETED',
-            evaluator_ids: this.filterEval.map((item) => item.evaluator_id),
-        };
-        this.greenGradingService.updateStatus(this.roasterId, this.cuppingReportId, data).subscribe((res: any) => {
-            if (res.success === true) {
-                this.toastrService.success('The Report has been updated.');
-            } else {
-                this.toastrService.error('Error while updating the report');
-            }
-        });
     }
 
     downloadReport() {
