@@ -114,14 +114,14 @@ export class ResultViewComponent implements OnInit, OnChanges {
                             display: false,
                         },
                         ticks: {
-                            callback: function (value, index, values) {
+                            callback: (value, index, values) => {
                                 return self.type ? self.labels[index].label.split(/\n/) : '';
                             },
                             stepSize: 1,
                             autoSkip: false,
                             fontColor: '#747588',
                             fontSize: 10,
-                            fontFamily: "'Muli', 'sans-serif'",
+                            fontFamily: `'Muli', 'sans-serif'`,
                         },
                     },
                 ],
@@ -139,7 +139,7 @@ export class ResultViewComponent implements OnInit, OnChanges {
                             padding: 12,
                             fontColor: '#747588',
                             fontSize: 14,
-                            fontFamily: "'Muli', 'sans-serif'",
+                            fontFamily: `'Muli', 'sans-serif'`,
                             min: 0,
                             max: self.type ? 10 : 100,
                             beginAtZero: true,
@@ -163,14 +163,14 @@ export class ResultViewComponent implements OnInit, OnChanges {
                             display: false,
                         },
                         ticks: {
-                            callback: function (value, index, values) {
+                            callback: (value, index, values) => {
                                 return self.type ? self.labels[index].label : '';
                             },
                             stepSize: 1,
                             autoSkip: false,
                             fontColor: '#747588',
                             fontSize: 10,
-                            fontFamily: "'Muli', 'sans-serif'",
+                            fontFamily: `'Muli', 'sans-serif'`,
                         },
                     },
                 ],
@@ -188,7 +188,7 @@ export class ResultViewComponent implements OnInit, OnChanges {
                             padding: 12,
                             fontColor: '#747588',
                             fontSize: 14,
-                            fontFamily: "'Muli', 'sans-serif'",
+                            fontFamily: `'Muli', 'sans-serif'`,
                         },
                     },
                 ],
