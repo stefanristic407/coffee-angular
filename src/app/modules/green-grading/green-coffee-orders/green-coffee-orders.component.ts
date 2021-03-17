@@ -61,7 +61,7 @@ export class GreenCoffeeOrdersComponent implements OnInit {
             this.isMobileView = true;
             this.tableColumns = [
                 {
-                    field: 'cupping_report_id',
+                    field: 'order_id',
                     header: 'Order ID',
                     sortable: false,
                 },
