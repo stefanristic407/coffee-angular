@@ -66,14 +66,14 @@ export class HoReCaComponent implements OnInit {
     }
 
     shareDetails(size: any) {
-        if (size.status == 'PENDING') {
+        if (size.status === 'PENDING') {
             this.customerService.emailId = size.email;
             // this.customerService.headerValue="HoReCa";
             this.customerService.pendingHorecaDetails();
             this.router.navigate(['/people/pending-details']);
         } else {
             this.itemId = size.id;
-            let navigationExtras: NavigationExtras = {
+            const navigationExtras: NavigationExtras = {
                 queryParams: {
                     itemId: encodeURIComponent(this.itemId),
                 },

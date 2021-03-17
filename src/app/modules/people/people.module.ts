@@ -23,6 +23,10 @@ import { DiscountEditComponent } from './customer-management/discount-edit/disco
 import { PermissionErrorComponent } from './permission-error/permission-error.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CustomerManagementTableComponent } from './customer-management/customer-management-table/customer-management-table.component';
+import { DetailsUserComponent } from './customer-management/details-user/details-user.component';
+import { DetailsDiscountComponent } from './customer-management/details-discount/details-discount.component';
+import { DetailsCustomerStatusComponent } from './customer-management/details-customer-status/details-customer-status.component';
+import { ImportantContactsComponent } from './customer-management/important-contacts/important-contacts.component';
 
 @NgModule({
     declarations: [
@@ -37,6 +41,10 @@ import { CustomerManagementTableComponent } from './customer-management/customer
         DiscountEditComponent,
         PermissionErrorComponent,
         CustomerManagementTableComponent,
+        DetailsUserComponent,
+        DetailsDiscountComponent,
+        DetailsCustomerStatusComponent,
+        ImportantContactsComponent,
     ],
     imports: [
         CommonModule,

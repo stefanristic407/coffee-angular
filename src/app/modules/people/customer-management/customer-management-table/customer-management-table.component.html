@@ -6,7 +6,7 @@
     >
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="name_customer" class="pl-4 ml-3 cust-width">
+                <th pSortableColumn="name_customer" class="pl-4 ml-3">
                     {{
                         customerType === 'micro-roasters'
                             ? globals.languageJson?.name_customer
@@ -45,7 +45,7 @@
                 <td class="fnt-14">
                     <span *ngIf="item.status === 'PENDING'">{{ item.status }}</span>
                     <span *ngIf="item.status === 'ACTIVE'" class="active"><li>Active</li></span>
-                    <span *ngIf="item.status === 'DISABLED'" class="disabled"><li>Disabled</li></span>
+                    <span *ngIf="item.status === 'INACTIVE'" class="disabled"><li>Disabled</li></span>
                 </td>
                 <td class="fnt-14">{{ item.discount_percentage }}</td>
                 <td class="fnt-14">

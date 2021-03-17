@@ -1,0 +1,58 @@
+<section class="royal-cofee">
+    <div class="d-flex justify-content-between">
+        <div class="d-flex">
+            <div class="d-flex">
+                <div class="mr-3">
+                    <img
+                        class="ft-roastry-profile"
+                        *ngIf="customerService.company_image_url == ''"
+                        src="assets/images/ft-roastry-profile.png"
+                    />
+                    <img
+                        class="ft-roastry-profile"
+                        *ngIf="customerService.company_image_url != ''"
+                        src="{{ customerService.company_image_url }}"
+                    />
+                </div>
+
+                <div class="">
+                    <p class="m-0">
+                        <span
+                            class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
+                            *ngIf="customerService.company_name != ''"
+                        >
+                            {{ customerService.company_name }}</span
+                        >
+                    </p>
+                    <p class="m-0">
+                        <span
+                            class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
+                            *ngIf="customerService.company_name == ''"
+                        >
+                            -</span
+                        >
+                    </p>
+                    <p class="fnt-16 fnt-md-18 fnt-600 fnt-muli text-clr588 m-0">
+                        <span> Owned by {{ customerService.owner_name }} </span>
+                        <span> .Founded in {{ customerService.founded_on }}</span>
+                    </p>
+                    <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli text-clr55c">
+                        <span> Admin: </span> <span>{{ customerService.admin_name }} </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <div class="message-customer">
+                <span class="btn-stroked mr-3 px-4">
+                    <img src="assets/images/message-icon.svg" alt="Message" class="message-icon" />
+                    <span class="estate-message pl-1">Message</span></span
+                >
+
+                <button class="btn-raised" (click)="customerService.horecaStimulatedLogin(customerService.horecaId)">
+                    Simulated Login
+                </button>
+            </div>
+        </div>
+    </div>
+</section>

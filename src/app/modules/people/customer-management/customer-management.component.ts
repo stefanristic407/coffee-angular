@@ -19,7 +19,7 @@ export class CustomerManagementComponent implements OnInit {
     statusList: any = [
         { label: 'All', value: '' },
         { label: 'Active', value: 'active' },
-        { label: 'Disabled', value: 'disabled' },
+        { label: 'Inactive', value: 'inactive' },
         { label: 'Pending', value: 'pending' },
     ];
     roasterId: string;

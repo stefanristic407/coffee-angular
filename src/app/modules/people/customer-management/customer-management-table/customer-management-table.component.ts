@@ -17,6 +17,7 @@ export class CustomerManagementTableComponent implements OnInit {
     @Input() searchTerm = '';
     @Input() sortedMainData: any;
     @Input() customerType: any;
+    itemId: any;
 
     constructor(
         public router: Router,
@@ -38,16 +39,31 @@ export class CustomerManagementTableComponent implements OnInit {
     shareDetails(size: any) {
         if (size.status === 'PENDING') {
             this.customer.emailId = size.email;
-            this.customer.pendingMrDetails();
+            if (this.customerType === 'micro-roasters') {
+                this.customer.pendingMrDetails();
+            } else {
+                this.customer.pendingHorecaDetails();
+            }
+
             this.router.navigate(['/people/pending-details']);
         } else {
-            this.folderId = size.id;
-            const navigationExtras: NavigationExtras = {
-                queryParams: {
-                    folderId: encodeURIComponent(this.folderId),
-                },
-            };
-            this.router.navigate(['/people/micro-roaster-details'], navigationExtras);
+            if (this.customerType === 'micro-roasters') {
+                this.folderId = size.id;
+                const navigationExtras: NavigationExtras = {
+                    queryParams: {
+                        folderId: encodeURIComponent(this.folderId),
+                    },
+                };
+                this.router.navigate(['/people/micro-roaster-details'], navigationExtras);
+            } else {
+                this.itemId = size.id;
+                const navigationExtras: NavigationExtras = {
+                    queryParams: {
+                        itemId: encodeURIComponent(this.itemId),
+                    },
+                };
+                this.router.navigate(['/people/horeca-details'], navigationExtras);
+            }
         }
     }
 }

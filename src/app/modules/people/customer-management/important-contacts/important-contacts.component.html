@@ -1,0 +1,43 @@
+<section class="imp-contact">
+    <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli black" *ngIf="hrContacts != null">Important Contacts</p>
+    <div class="row meet-our-team-list">
+        <div class="col-12 col-md-4 col-lg-2 meet-our-team-list__item" *ngFor="let contact of hrContacts">
+            <div class="team-img">
+                <img *ngIf="contact.profile_image_url == ''" src="assets/images/team-1.png" class="team-images" />
+                <img
+                    *ngIf="contact.profile_image_url != ''"
+                    src="{{ contact.profile_image_url }}"
+                    class="team-images"
+                />
+            </div>
+            <div class="team-des">
+                <p class="fnt-muli fnt-14 fnt-md-16 fnt-700 text-clr334 m-0">{{ contact.name | titlecase }}</p>
+                <p class="fnt-muli fnt-12 fnt-md-14 fnt-500 text-clr00 m-0">{{ contact.roles[0] }}</p>
+            </div>
+            <div class="msg-team mt-2">
+                <img src="assets/images/message-icon.svg" class="d-inline-block" /><span
+                    class="pl-1 d-inline-block fnt-muli fnt-12 fnt-md-14 fnt-500 text-clr334"
+                    >Message</span
+                >
+            </div>
+        </div>
+
+        <!-- <div class="col-12 col-md-4 col-lg-2 meet-our-team-list__item">
+                <div class="team-img"><img src="assets/images/team-2.png" class="team-images"></div>
+                <div class="team-des">
+                    <p class="fnt-muli fnt-14 fnt-md-16 fnt-700 text-clr334 m-0">Hannah morris</p>
+                    <p class="fnt-muli fnt-12 fnt-md-14 fnt-500 text-clr00 m-0">Cupping manager</p>
+                </div>
+                <div class="msg-team mt-2"><img src="assets/images/message-icon.svg" class="d-inline-block"><span class="pl-1 d-inline-block fnt-muli fnt-12 fnt-md-14 fnt-500 text-clr334">Message</span></div>
+            </div>
+
+            <div class="col-12 col-md-4 col-lg-2 meet-our-team-list__item">
+                <div class="team-img"><img src="assets/images/team-3.png" class="team-images"></div>
+                <div class="team-des">
+                    <p class="fnt-muli fnt-14 fnt-md-16 fnt-700 text-clr334 m-0">Hannah morris</p>
+                    <p class="fnt-muli fnt-12 fnt-md-14 fnt-500 text-clr00 m-0">Cupping manager</p>
+                </div>
+                <div class="msg-team mt-2"><img src="assets/images/message-icon.svg" class="d-inline-block"><span class="pl-1 d-inline-block fnt-muli fnt-12 fnt-md-14 fnt-500 text-clr334">Message</span></div>
+            </div> -->
+    </div>
+</section>

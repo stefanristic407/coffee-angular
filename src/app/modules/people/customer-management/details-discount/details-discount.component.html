@@ -1,0 +1,54 @@
+<section class="discount-sec">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-md-6 col-12 discount-border" id="edithoreca-discount">
+                <div class="row">
+                    <div class="col-9">
+                        <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli black">Discount %</p>
+                        <p class="fnt-14 fnt-400 fnt-muli black">
+                            Please enter the discount % you would be provident this customer. The price would be changed
+                            on the e-commerce shop accordingly
+                        </p>
+                    </div>
+
+                    <div class="col-3">
+                        <p class="fnt-40 fnt-bold fnt-muli black m-0">{{ customerService.discount_percentage }}%</p>
+                        <p class="fnt-16 fnt-md-18 fnt-600 fnt-muli text-clr588 m-0">Discount</p>
+                        <p (click)="editHorecaDiscount()" class="pointer-hand">
+                            <span
+                                ><img src="assets/images/edit-horeca.svg" alt="edit-horeca" class="edit-horeca" />
+                            </span>
+                            <span class="fnt-14 fnt-700 fnt-muli text-clr55c"> Edit </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-12 discount-border" id="savehoreca-discount">
+                <div class="row">
+                    <div class="col-9">
+                        <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli black">
+                            Please enter the discount % you would be provident this customer.
+                        </p>
+                        <input
+                            type="text"
+                            name="search"
+                            class="col-6 search"
+                            placeholder="Eg:28"
+                            [(ngModel)]="customerService.discount_percentage"
+                        />
+                        <span class="main-bag fnt-14 fnt-700 fnt-muli black">%</span>
+                        <span class="ml-3">
+                            <button class="fnt-14 fnt-muli fnt-normal update-now" (click)="saveHorecaDiscount()">
+                                Save
+                            </button></span
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-12 discount-border customer-status-width">
+                <app-details-customer-status></app-details-customer-status>
+            </div>
+        </div>
+    </div>
+</section>
