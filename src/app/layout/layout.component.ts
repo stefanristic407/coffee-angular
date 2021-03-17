@@ -251,10 +251,6 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         window.scrollTo(0, 0);
     }
 
-    openMessagePanel() {
-        this.chat.showChatPanel();
-    }
-
     closeMessagePanel() {
         this.chat.closeChatPanel();
     }
