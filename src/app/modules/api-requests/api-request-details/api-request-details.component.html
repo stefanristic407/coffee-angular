@@ -22,8 +22,8 @@
                     </p>
                 </div>
                 <div class="delivery__body">
-                    <div class="w-100" *ngIf="apikeyStatus != 'DELETED'">
-                        <div class="float-left key-activate-block">
+                    <div class="w-100">
+                        <div class="float-left key-activate-block" *ngIf="apikeyStatus == 'GENERATED'">
                             <p class="m-0 fnt-14 fnt-muli fnt-700 black">
                                 {{ 'key_activated_on' | translate }}
                                 {{
@@ -37,7 +37,7 @@
                             </p>
                         </div>
 
-                        <div class="float-right key-active">
+                        <div class="float-right key-active" *ngIf="apikeyStatus == 'GENERATED'">
                             <div class="btn-group btn-toggle ml-auto pull-right active__main" (click)="activeStatus()">
                                 <div
                                     class="btn btn-group__item"
@@ -111,7 +111,7 @@
                 </div>
 
                 <div class="pl-2">
-                    <p class="fnt-14 fnt-muli fnt-700 text-clr588 m-0">
+                    <p class="fnt-14 fnt-muli fnt-500 text-clr588 m-0">
                         {{ 'api_key_confirmation' | translate }}
                     </p>
                 </div>

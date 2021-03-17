@@ -2,7 +2,7 @@
     <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
     <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
 </div>
-<div class="mb-2 mt-4" *ngIf="!loader">
+<div class="mb-2 mt-4 api-request-table" *ngIf="!loader">
     <p-table
         [value]="requestData"
         [lazy]="true"
@@ -27,7 +27,10 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-key>
-            <tr>
+            <tr
+                [routerLink]="['/api-requests-list/api-request-details']"
+                [queryParams]="{ id: key.id, status: key.status }"
+            >
                 <td class="border-0">
                     <div class="p-mobile-row-content border-ebebeb p-0">
                         <div class="d-flex flex-column fnt-12">

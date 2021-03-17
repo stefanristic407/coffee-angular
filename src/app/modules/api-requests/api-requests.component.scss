@@ -131,16 +131,21 @@
 }
 
 :host ::ng-deep .p-tabview-nav {
-    border: 0;
+    border: none;
+}
+::ng-deep .p-tabview-panels {
+    ul {
+        border-bottom: 1px solid #d6d6d6 !important;
+    }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1024px) {
     .bg-fff {
-        padding: 16.5px 16px;
+        padding: 24px 15px;
     }
-    .Give-your-end-users {
-        padding-bottom: 24px;
-        margin: 0;
+    .heading {
+        flex-direction: column;
+        align-items: flex-start !important;
     }
     .header-inner {
         display: flex;
@@ -148,6 +153,16 @@
     }
     .custom-search {
         margin-bottom: 16px;
+    }
+    .Give-your-end-users {
+        padding-bottom: 24px;
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .bg-fff {
+        padding: 16.5px 16px;
     }
 }
 

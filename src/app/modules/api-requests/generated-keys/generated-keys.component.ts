@@ -16,7 +16,6 @@ export class GeneratedKeysComponent implements OnInit, OnChanges {
     @Input() filterData;
     @Input() dateRange;
     @Input() perPage;
-    @Output() filterType = new EventEmitter<any>();
     sortOrder = '';
     sortType = '';
     termStatus: any;
@@ -98,7 +97,6 @@ export class GeneratedKeysComponent implements OnInit, OnChanges {
             if (res.success) {
                 this.loader = false;
                 this.generatedKeyData = res.result;
-                this.filterType.emit(res.result);
                 this.totalRecords = res.result_info.total_count;
                 this.rows = res.result_info.per_page;
                 if (this.totalRecords > 10) {
