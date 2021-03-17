@@ -315,13 +315,7 @@
                 </div>
                 <!-- Mobile Carousel -->
                 <div class="col-lg-4 col-md-6 col-12 cursor-pointer d-md-none">
-                    <p-carousel
-                        [value]="sourcing.otherGreenList"
-                        [numVisible]="1"
-                        [numScroll]="1"
-                        [circular]="true"
-                        [autoplayInterval]="3000"
-                    >
+                    <p-carousel [value]="sourcing.otherGreenList" [numVisible]="1" [numScroll]="1" [circular]="true">
                         <ng-template let-item pTemplate="item">
                             <div routerLink="/sourcing/coffee-details/{{ item.estate.id }}/{{ item.harvest_id }}">
                                 <app-harvest-card [data]="item"></app-harvest-card>

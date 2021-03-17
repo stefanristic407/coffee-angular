@@ -65,7 +65,7 @@
         class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9"
         [formGroup]="weightForm['controls']['weights']['controls'][currentVarientIndex]"
     >
-        <div class="row gutter-16 gutter-lg-24 mt-sm-3 mt-md-3 mt-lg-0">
+        <div class="row gutter-16 gutter-lg-16 mt-sm-3 mt-md-3 mt-lg-0">
             <div class="col-12 mt-4 mb-4 d-flex d-sm-flex d-md-none">
                 <div class="col-6 pl-0">
                     <p-checkbox formControlName="is_default_product" binary="true" label="Set as default product">
@@ -102,7 +102,7 @@
                     </small>
                 </div>
             </div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 sewn-form-field w-100 pl-lg-0">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 sewn-form-field w-100">
                 <label>Status<span class="star">*</span></label>
                 <p-dropdown
                     [options]="statusArray"
@@ -123,7 +123,9 @@
                 </small>
             </div>
             <div class="divSeperator d-lg-none d-md-none d-md-none d-sm-block d-block"></div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-6 col-xl-6 pl-0 d-none d-sm-none d-md-flex mb-4 align-items-end">
+            <div
+                class="col-6 col-sm-6 col-md-4 col-lg-6 col-xl-6 pl-0 d-none d-sm-none d-md-flex mb-4 pl-lg-2 align-items-end"
+            >
                 <p-checkbox formControlName="is_public" binary="true" class="mr-4 hidePro" label="Hide product">
                 </p-checkbox>
                 <p-checkbox
@@ -145,7 +147,7 @@
                 last as isLast
             "
         >
-            <div [formGroupName]="i" class="row gutter-16 gutter-lg-24 mt-2">
+            <div [formGroupName]="i" class="row gutter-16 gutter-lg-16 mt-2">
                 <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 sewn-form-field w-100 mb-4 mb-lg-3">
                     <label>Price<span class="star">*</span></label>
                     <div class="weightInputGroupDiv d-flex">
@@ -164,7 +166,7 @@
                     </div>
                 </div>
                 <div
-                    class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 sewn-form-field w-100 pl-lg-0 mb-4 mb-lg-3 mr-sm-0 mr-md-4 mr-lg-0"
+                    class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 sewn-form-field w-100 mb-4 mb-lg-3 mr-sm-0 mr-md-4 mr-lg-0"
                 >
                     <label>Grind<span class="star">*</span></label>
                     <p-dropdown
@@ -179,7 +181,7 @@
                         Required
                     </small>
                 </div>
-                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 sewn-form-field w-100 pl-lg-0 mb-4 mb-lg-3">
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 sewn-form-field w-100 mb-4 mb-lg-3">
                     <label>Stock Available<span class="star">*</span></label>
 
                     <div class="p-inputgroup custom-addon dropdownClass">
@@ -202,15 +204,23 @@
                         </small>
                     </div>
                 </div>
-                <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2 sewn-form-field w-100 pl-lg-0 mb-4 mb-lg-3">
+                <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2 sewn-form-field w-100 mb-4 mb-lg-3">
                     <label>SKU number<span class="star">*</span></label>
                     <input type="text" formControlName="sku_number" pInputText />
                     <small *ngIf="grind_varient['controls']['sku_number'].errors?.required" class="p-error">
                         Required
                     </small>
                 </div>
-                <div class="col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1 sewn-form-field pl-md-0 checkBoxDiv mb-3">
-                    <span class="fnt-700 editBtn cursor-pointer delBtn" (click)="deleteGrindVariant(i)"> Delete </span>
+                <div
+                    class="col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1 sewn-form-field pl-md-0 pl-lg-2 checkBoxDiv mb-3"
+                >
+                    <span
+                        class="fnt-700 editBtn cursor-pointer delBtn"
+                        *ngIf="i > 0 || displayDelete"
+                        (click)="deleteGrindVariant(i)"
+                    >
+                        Delete
+                    </span>
                 </div>
                 <div class="divSeperator d-lg-none d-md-block d-sm-block d-block mx-md-2"></div>
                 <div *ngIf="isLast" class="col-12 mt-md-0 mt-1 mb-1">
@@ -296,9 +306,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 add-image-flex row gutter-16 gutter-lg-24">
+                <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 add-image-flex gutter-16 gutter-lg-24 px-1">
                     <div
-                        class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 sewn-form-field w-100"
+                        class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 sewn-form-field w-100 pl-2 pr-2 pr-lg-3"
                         *ngFor="
                             let product_image of weightForm['controls']['weights']['controls'][currentVarientIndex][
                                 'value'

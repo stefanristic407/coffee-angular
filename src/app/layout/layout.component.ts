@@ -1,4 +1,4 @@
-import { SocketService, ChatHandlerService } from '@services';
+import { SocketService, ChatHandlerService, CommonService } from '@services';
 import { AfterViewInit, Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
@@ -19,7 +19,7 @@ import { DestroyableComponent } from '@base-components';
     styleUrls: ['./layout.component.scss'],
     providers: [MenuService],
 })
-export class LayoutComponent extends DestroyableComponent implements OnInit, AfterViewInit {
+export class LayoutComponent extends DestroyableComponent implements OnInit, AfterViewInit, OnDestroy {
     menuItems: any[];
     userName: string;
     selected: string;
@@ -40,6 +40,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     readNotification: any;
 
     activeLink: 'DASHBOARD' | 'MESSAGES' | 'NOTIFICATIONS' | 'PROFILES' | 'UNSET' = 'UNSET';
+    profileUpdateEvent$?: Subscription;
 
     constructor(
         private elementRef: ElementRef,
@@ -53,6 +54,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         public chat: ChatHandlerService,
         public menuService: MenuService,
         private socket: SocketService,
+        private commonService: CommonService,
     ) {
         super();
         this.translateService.addLangs(this.supportLanguages);
@@ -67,6 +69,9 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     }
 
     ngOnInit(): void {
+        this.profileUpdateEvent$ = this.commonService.profileUpdateEvent.subscribe((profileInfo: any) => {
+            this.handleProfileUpdateEvent(profileInfo);
+        });
         this.socket.initSocketService(); // Enable socket service
         this.chat.isOpen.pipe(takeUntil(this.unsubscribeAll$)).subscribe((x) => {
             if (x) {
@@ -145,6 +150,11 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         });
 
         this.getNotificationList();
+    }
+
+    handleProfileUpdateEvent(profileInfo: any) {
+        this.userName = profileInfo.firstname + ' ' + profileInfo.lastname;
+        this.profilePic = profileInfo.profile_image_thumb_url;
     }
 
     refreshMenuItems() {
@@ -266,5 +276,9 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     openSideNav() {
         $('.sidenav-mb').addClass('open');
         $('.sidenav-mb__content').addClass('open');
+    }
+
+    ngOnDestroy(): void {
+        this.profileUpdateEvent$?.unsubscribe();
     }
 }

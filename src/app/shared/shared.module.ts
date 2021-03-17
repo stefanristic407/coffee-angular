@@ -83,7 +83,6 @@ import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { MediaComponent } from './components/media/media.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
 import { ReadMoreComponent } from './components/read-more/read-more.component';
-import { UploaderComponent } from './components/uploader/uploader.component';
 
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { BlogCardComponent } from './components/blog-card/blog-card.component';
@@ -177,7 +176,6 @@ const COMPONENTS = [
     MediaComponent,
     VideoPlayerComponent,
     ReadMoreComponent,
-    UploaderComponent,
     LoadingComponent,
     LineChartComponent,
     TimeRangeComponent,

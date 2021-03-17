@@ -10,6 +10,7 @@
         [paginator]="paginationValue"
         [rows]="rows"
         [totalRecords]="totalRecords"
+        styleClass="p-datatable-responsive-single p-datatable-tablet-scrollable p-datatable-custom-paginator"
     >
         <ng-template pTemplate="header">
             <tr>
@@ -33,17 +34,102 @@
         </ng-template>
         <ng-template pTemplate="body" let-item>
             <tr>
-                <td>{{ item.org_name }}</td>
-                <td>{{ item.org_type }}</td>
-                <td>{{ item.requested_at | date: 'MMMM y' }}</td>
-                <td>{{ item.generated_at | date: 'MMMM y' }}</td>
-                <td [ngClass]="item?.is_active ? 'active-status' : 'status-paused'">
+                <td class="border-0">
+                    <div class="p-mobile-row-content border-ebebeb p-0">
+                        <div class="d-flex flex-column fnt-12">
+                            <div class="api-request-header d-flex justify-content-between px-2 py-25">
+                                <span class="fnt-14 font-bold text-clr334">
+                                    {{ item.org_name }} &nbsp;
+                                    <span [ngClass]="item?.is_active ? 'active-status' : 'status-paused'">
+                                        <img *ngIf="item?.is_active" src="assets/images/active.svg" />
+                                        <img *ngIf="!item?.is_active" src="assets/images/paused.svg" /><span
+                                            class="pl-2"
+                                        >
+                                            {{ item.is_active ? 'Active' : 'Paused' }}
+                                        </span>
+                                    </span>
+                                </span>
+                                <a
+                                    class="menu-arrow"
+                                    [popover]="!item.is_active ? resumeAccessTemplate : poplistTemplate"
+                                    placement="left"
+                                    [outsideClick]="true"
+                                    #pop="bs-popover"
+                                >
+                                    <p class="m-0">
+                                        <img class="ellipse-image" src="assets/images/ellipses.png" alt="" />
+                                    </p>
+                                </a>
+                                <ng-template #resumeAccessTemplate>
+                                    <div id="popover-mobile-content">
+                                        <ul class="list-group custom-popover">
+                                            <li class="list-group-item">
+                                                <a class="pointer-item" (click)="resumeKey(item); pop.hide()"
+                                                    >{{ globals.languageJson?.resume_access_and_notify_customer }}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </ng-template>
+                                <ng-template #poplistTemplate>
+                                    <div id="popover-mobile-content">
+                                        <ul class="list-group custom-popover">
+                                            <li class="list-group-item">
+                                                <a class="pointer-item" (click)="pauseKey(item); pop.hide()">{{
+                                                    globals.languageJson?.pause_key_access
+                                                }}</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <a class="pointer-item" (click)="deleteKey(item.id); pop.hide()">{{
+                                                    globals.languageJson?.delete_key
+                                                }}</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <a class="pointer-item" (click)="notifyCustomer(item.id); pop.hide()">{{
+                                                    globals.languageJson?.notify_customer
+                                                }}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </ng-template>
+                            </div>
+                            <div class="px-3">
+                                <div class="mobile-row py-3 d-flex">
+                                    <span class="text-muted cell-header">{{
+                                        globals.languageJson?.key_generated_on
+                                    }}</span>
+                                    <span class="text-clr334">{{ item.generated_at | date: 'MMMM y' }}</span>
+                                </div>
+                                <div class="mobile-row py-3 d-flex">
+                                    <span class="text-muted cell-header fnt-14">{{
+                                        globals.languageJson?.customer_type
+                                    }}</span>
+                                    <span class="text-clr334 fnt-14">{{ item.org_type }}</span>
+                                </div>
+                                <div class="py-3 d-flex">
+                                    <span class="text-muted cell-header cell-header fnt-14">{{
+                                        globals.languageJson?.date_requested
+                                    }}</span>
+                                    <span class="text-clr334 fnt-14">{{ item.requested_at | date: 'MMMM y' }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="d-none d-md-inline">{{ item.org_name }} </span>
+                </td>
+                <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ item.org_type }}</td>
+                <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ item.requested_at | date: 'MMMM y' }}</td>
+                <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ item.generated_at | date: 'MMMM y' }}</td>
+                <td
+                    [ngClass]="item?.is_active ? 'active-status' : 'status-paused'"
+                    class="d-none d-md-table-cell text-overflow-ellipsis"
+                >
                     <img *ngIf="item?.is_active" src="assets/images/active.svg" />
                     <img *ngIf="!item?.is_active" src="assets/images/paused.svg" /><span class="pl-2">
                         {{ item.is_active ? 'Active' : 'Paused' }}
                     </span>
                 </td>
-                <td>
+                <td class="d-none d-md-table-cell text-overflow-ellipsis">
                     <a
                         class="menu-arrow"
                         [popover]="!item.is_active ? resumeAccessTemplate : poplistTemplate"

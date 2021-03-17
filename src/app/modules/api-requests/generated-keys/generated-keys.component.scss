@@ -1,3 +1,4 @@
+@import '../../../../theme/styles/variables';
 .generted-key-container {
     .active-status {
         color: #32a822 !important;
@@ -16,6 +17,26 @@
     padding: 22px 0;
     border: none;
     background: transparent;
+}
+
+.mobile-row {
+    border-bottom: 1px dashed $primary-border-color;
+}
+
+.api-request-header {
+    background-color: #f8f8f8;
+}
+
+.cell-header {
+    width: 40%;
+}
+
+@media screen and (max-width: 767px) {
+    .menu-arrow {
+        p {
+            padding-right: 10px;
+        }
+    }
 }
 
 ::ng-deep .modal-dialog {

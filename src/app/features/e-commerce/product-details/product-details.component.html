@@ -7,7 +7,12 @@
     <div [formGroup]="productForm" (ngSubmit)="onSave()" novalidate>
         <div class="row gutter-16 gutter-lg-24 productDiv">
             <div class="col-12 col-sm-12 col-md-6 d-flex align-items-center">
-                <span class="fnt-16 fnt-md-18 fnt-700 fnt-muli black w-100 productLineDiv">Add a new product</span>
+                <span class="fnt-16 fnt-md-18 fnt-700 fnt-muli black w-100 productLineDiv" *ngIf="productName === ''"
+                    >Add a new product</span
+                >
+                <span class="fnt-16 fnt-md-18 fnt-700 fnt-muli black w-100 productLineDiv" *ngIf="productName !== ''">{{
+                    productName | titlecase
+                }}</span>
             </div>
             <div *ngIf="productID" class="col-12 col-sm-12 col-md-6 d-none d-sm-none d-md-block">
                 <div class="float-right">
@@ -278,7 +283,7 @@
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 sewn-form-field w-100">
                                 <div>
                                     <label>Recipes</label>
-                                    <label class="float-right limitFont">0/50 words</label>
+                                    <label class="float-right limitFont">{{ recipeTextLength }}/50 words</label>
                                 </div>
 
                                 <textarea
@@ -286,6 +291,8 @@
                                     class="roasterDivText-area"
                                     placeholder=""
                                     formControlName="recipes"
+                                    (keydown)="onPasteDescription('recipes', i)"
+                                    (input)="onPasteDescription('recipes', i)"
                                     pInputText
                                 ></textarea>
                             </div>
@@ -363,19 +370,19 @@
             class="mt-4"
         >
             <div [formGroupName]="i" class="row mt-2">
-                <div class="col-3 col-sm-3 col-md-4 col-lg-4 col-xl-2 sewn-form-field w-100 pr-0">
+                <div class="sewn-form-field w-100 pr-0 boxCrateWidth ml-3">
                     <label class="text-nowrap">Box value</label>
                     <input type="text" placeholder="" readonly formControlName="boxField" pInputText />
                 </div>
                 <div class="equal-operators">=</div>
-                <div class="col-3 col-sm-3 col-md-4 col-lg-4 col-xl-2 sewn-form-field w-100 pl-0 pr-0">
+                <div class="sewn-form-field w-100 pl-0 pr-0 boxCrateWidth">
                     <label>Weight</label>
                     <input type="text" readonly placeholder="" formControlName="weight_name" pInputText />
                 </div>
                 <div class="equal-operators pl-2 pr-2">x</div>
-                <div class="col-4 col-sm-4 col-md-3 col-lg-3 col-xl-2 sewn-form-field w-100 pl-0">
-                    <label class="d-none d-sm-none d-md-block">Number of bags</label>
-                    <label class="d-block d-sm-block d-md-none">No. of bags</label>
+                <div class="sewn-form-field w-100 pl-0 boxCrateWidth">
+                    <label class="d-none d-sm-none d-md-block">Number of bags<span class="star">*</span></label>
+                    <label class="d-block d-sm-block d-md-none">No. of bags<span class="star">*</span></label>
                     <input type="number" placeholder="" formControlName="crate_capacity" pInputText />
                     <small *ngIf="box.controls['crate_capacity'].errors?.required" class="p-error"> Required </small>
                 </div>
@@ -384,7 +391,7 @@
         <div class="divSeperator"></div>
         <div class="row gutter-16 gutter-lg-24 mt-4">
             <div class="col-12 mb-3"><span class="primary_txt fnt-14 fnt-md-16">VAT Details</span><br /></div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-6 col-xl-3 sewn-form-field w-100">
                 <label>Select VAT trasaction type<span class="star">*</span></label>
                 <p-dropdown
                     [options]="vatSettings"
@@ -398,7 +405,7 @@
                     Required
                 </small>
             </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100 pl-md-4">
                 <label class="fnt-14 fnt-600 fnt-muli txt-clr-554"
                     >Is the product price inclusive of VAT<span class="star">*</span></label
                 >
