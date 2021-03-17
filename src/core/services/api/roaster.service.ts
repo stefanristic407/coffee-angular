@@ -21,7 +21,7 @@ export class RoasterserviceService {
     private fileuploadUrl = environment.apiURL + '/ro/filesfolders';
     private putfileuploadUrl = environment.apiURL + '/ro/putfilesfolders';
     private encryptionKey = 'sewen_secrete_key';
-    private uploadBrandsUrl = environment.apiURL + '/ro/uploadBrands';
+    private brandUrl = environment.apiURL + '/ro/brands';
 
     // private url = "https://fed-api.sewnstaging.com/ro/api";
     // private deleteUrl = "https://fed-api.sewnstaging.com/ro/deleteapi";
@@ -248,11 +248,11 @@ export class RoasterserviceService {
     }
 
     addRoasterBrand(data: any): Observable<any> {
-        return this.http.post(this.uploadBrandsUrl, data);
+        return this.http.post(this.brandUrl, data);
     }
 
     updateRoasterBrand(data: any): Observable<any> {
-        return this.http.post(this.url, data);
+        return this.http.post(this.brandUrl, data);
     }
 
     deleteRoasterBrand(brandId: string): Observable<any> {

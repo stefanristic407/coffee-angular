@@ -1,40 +1,19 @@
 <div class="form-container">
-    <div class="row pl-2 pr-2">
-        <div class="col-md-7 pl-2 pr-2 pb-3 d-none d-md-block d-lg-none">
+    <div class="row pl-2 pr-2 mt-4">
+        <div class="col-md-12 pl-2 pr-2 pb-3 d-none d-md-block d-lg-none">
             <ng-template *ngTemplateOutlet="rightSidePanel"></ng-template>
         </div>
         <div class="col-lg-8 col-12 pt-0 pl-2 pr-2">
             <div class="border-md-main br-4 p-lg-4 p-md-3">
                 <form [formGroup]="aboutForm">
-                    <div class="row border-md-main border-md-none br-4 mt-3 m-0 p-0 p-md-0">
-                        <div class="sewn-form-field col-12 col-md-6 m-0 pl-0 pr-0 pr-md-2">
-                            <label *ngIf="isSaveMode" for="owner_name">
-                                {{ 'owner_name' | translate }}<span class="star">*</span>
-                            </label>
-                            <input
-                                *ngIf="isSaveMode"
-                                pInputText
-                                id="owner_name"
-                                type="text"
-                                required
-                                name="owner_name"
-                                formControlName="owner_name"
-                                placeholder="Please enter owner name"
-                            />
-                            <label *ngIf="isEditMode" for="owner_name" class="d-block">
-                                {{ 'owner_name' | translate }}
-                            </label>
-                            <p class="fnt-14 fnt-600 text-clr334" *ngIf="isEditMode">
-                                {{ roasteryProfileService.roasteryProfileData?.owner_name }}
-                            </p>
-                            <small *ngIf="isControlHasError('owner_name', 'required')" class="p-error">
-                                {{ 'required' | translate }}
-                            </small>
-                        </div>
-                        <div class="sewn-form-field col-12 col-md-6 m-0 pl-0 pl-md-2 pr-0 pt-3 pt-md-0">
-                            <label *ngIf="isSaveMode" for="founded_in">
+                    <div class="row border-md-main border-md-none br-6 mt-3 m-0 p-0 p-md-0 mr-2 ml-2">
+                        <div
+                            class="sewn-form-field col-md-6 m-0 pl-0 pr-md-2 pr-0 pt-0 pt-md-0"
+                            [ngClass]="[isSaveMode ? 'col-12' : 'col-6']"
+                        >
+                            <label class="fnt-12 fnt-md-14" for="founded_in">
                                 {{ 'founded_in' | translate }}
-                                <span class="star">*</span>
+                                <span class="star" *ngIf="isSaveMode">*</span>
                             </label>
                             <input
                                 *ngIf="isSaveMode"
@@ -46,23 +25,45 @@
                                 formControlName="founded_on"
                                 placeholder="Please enter founded year"
                             />
-                            <label *ngIf="isEditMode" for="founded_in" class="d-block">
-                                {{ 'founded_in' | translate }}
-                            </label>
-                            <p class="fnt-14 fnt-600 text-clr334" *ngIf="isEditMode">
+                            <p class="fnt-14 fnt-600 text-clr334 mb-1" *ngIf="isEditMode">
                                 {{ roasteryProfileService.roasteryProfileData?.founded_on }}
                             </p>
                             <small *ngIf="isControlHasError('founded_on', 'required')" class="p-error">
                                 {{ 'required' | translate }}
                             </small>
                         </div>
+
+                        <div
+                            class="sewn-form-field col-md-6 m-0 pl-0 pr-0 pl-md-2"
+                            [ngClass]="[isSaveMode ? 'col-12' : 'col-6']"
+                        >
+                            <label class="fnt-12 fnt-md-14" for="owner_name">
+                                {{ 'owner_name' | translate }}<span class="star" *ngIf="isSaveMode">*</span>
+                            </label>
+                            <input
+                                *ngIf="isSaveMode"
+                                pInputText
+                                id="owner_name"
+                                type="text"
+                                required
+                                name="owner_name"
+                                formControlName="owner_name"
+                                placeholder="Please enter owner name"
+                            />
+                            <p class="fnt-14 fnt-600 text-clr334 mb-1" *ngIf="isEditMode">
+                                {{ roasteryProfileService.roasteryProfileData?.owner_name }}
+                            </p>
+                            <small *ngIf="isControlHasError('owner_name', 'required')" class="p-error">
+                                {{ 'required' | translate }}
+                            </small>
+                        </div>
                     </div>
 
-                    <div class="row border-md-main border-md-none br-4 mt-3 mb-3 m-0 p-0 p-md-0">
-                        <div class="sewn-form-field col-md-12 mt-md-45 p-0" *ngIf="isSaveMode">
-                            <label for="summary"
+                    <div class="row border-md-main border-md-none br-4 mt-3 mb-4 m-0 p-0 p-md-0 mr-2 ml-2">
+                        <div class="sewn-form-field col-md-12 mt-md-45 p-0">
+                            <label class="fnt-12 fnt-md-14" for="summary"
                                 >{{ 'roastery_summary' | translate }}
-                                <span class="pull-right text-clr588">
+                                <span class="pull-right text-clr588" *ngIf="isSaveMode">
                                     {{ aboutForm.get('description').value.length }}/150 words
                                 </span>
                             </label>
@@ -80,12 +81,7 @@
                             <small *ngIf="isControlHasError('description', 'maxlength')" class="p-error">
                                 Description length shouldn't be over 150 characters
                             </small>
-                        </div>
-                        <div class="mb-3 col-md-12 mt-md-3 p-0" *ngIf="isEditMode">
-                            <label for="summary" class="mob-label">
-                                {{ 'roastery_summary' | translate }}
-                            </label>
-                            <p class="fnt-14 fnt-600 mob-fnt-14 text-clr334" *ngIf="isEditMode">
+                            <p class="fnt-14 fnt-600 text-clr334" *ngIf="isEditMode">
                                 {{ roasteryProfileService.roasteryProfileData?.description }}
                             </p>
                         </div>
@@ -182,17 +178,17 @@
                         </div>
                     </div>
 
-                    <div class="d-block d-md-none mb-3">
+                    <div class="d-block d-md-none mb-4">
                         <ng-template *ngTemplateOutlet="rightSidePanel"></ng-template>
                     </div>
 
                     <!-- company details -->
 
                     <hr class="d-none d-lg-block" />
-                    <div class="row border-md-main border-md-none br-4 mt-md-45 mb-4 m-0 p-0 p-md-0">
+                    <div class="row border-md-main border-md-none br-4 mt-md-45 mb-2 m-0 p-0 pl-2 pr-2 p-md-0">
                         <div class="col-9 mb-3 mb-md-45 p-0">
                             <p class="fnt-18 font-bold text-clr334 w-100 mb-1">Company details</p>
-                            <p class="fnt-14 fnt-600 text-clr588 w-100 m-0">
+                            <p class="fnt-14 fnt-600 text-clr588 w-100 m-0" *ngIf="isSaveMode">
                                 Enter your VAT and customer ID for billing purposes
                             </p>
                         </div>
@@ -204,8 +200,10 @@
                             ></p-inputSwitch>
                         </div>
 
-                        <div class="sewn-form-field col-12 col-md-6 p-0 pr-md-2">
-                            <label for="vat_nos">VAT number<span class="star">*</span></label>
+                        <div class="sewn-form-field col-md-6 p-0 pr-md-2" [ngClass]="[isSaveMode ? 'col-12' : 'col-6']">
+                            <label class="fnt-12 fnt-md-14" for="vat_nos"
+                                >VAT number<span class="star" *ngIf="isSaveMode">*</span></label
+                            >
                             <input
                                 *ngIf="isSaveMode"
                                 id="vat_nos"
@@ -216,15 +214,17 @@
                                 formControlName="vat_number"
                                 placeholder="Please VAT Number"
                             />
-                            <p class="fnt-14 fnt-600" *ngIf="isEditMode">
+                            <p class="fnt-14 fnt-600 text-clr334 mb-0" *ngIf="isEditMode">
                                 {{ roasteryProfileService.roasteryProfileData?.vat_number }}
                             </p>
                             <small class="p-error" *ngIf="isControlHasError('vat_number', 'required')">
                                 {{ 'required' | translate }}
                             </small>
                         </div>
-                        <div class="sewn-form-field col-12 col-md-6 p-0 pl-md-2">
-                            <label for="cmpy_rid">Company registration ID<span class="star">*</span></label>
+                        <div class="sewn-form-field col-md-6 p-0 pl-md-2" [ngClass]="[isSaveMode ? 'col-12' : 'col-6']">
+                            <label for="cmpy_rid" class="fnt-12 fnt-md-14"
+                                >Company registration ID<span class="star" *ngIf="isSaveMode">*</span></label
+                            >
                             <input
                                 *ngIf="isSaveMode"
                                 id="cmpy_rid"
@@ -235,7 +235,7 @@
                                 formControlName="registration_id"
                                 placeholder="Please enter employee avg. age"
                             />
-                            <p class="fnt-14 fnt-600" *ngIf="isEditMode">
+                            <p class="fnt-14 fnt-600 text-clr334 mb-0" *ngIf="isEditMode">
                                 {{ roasteryProfileService.roasteryProfileData?.registration_id }}
                             </p>
                             <small class="p-error" *ngIf="isControlHasError('registration_id', 'required')">
@@ -334,7 +334,7 @@
                 <!-- Brand Profile -->
 
                 <form [formGroup]="brandForm">
-                    <div class="row mt-md-45 mb-md-45">
+                    <div class="row mt-md-45 mb-4 mb-md-45">
                         <div class="col-12">
                             <p class="fnt-18 font-bold text-clr334 w-100 mt-2 mt-md-0 mb-1">
                                 {{ 'brands' | translate }}
@@ -571,14 +571,14 @@
                 </div>
 
                 <div class="d-block" *ngIf="isEditMode">
-                    <div class="employer mt-4 d-none d-md-block">
+                    <div class="employer mt-4">
                         <p class="fnt-18 font-bold text-clr334 w-100 mb-1">{{ 'contacts' | translate }}</p>
                         <p class="fnt-14 fnt-600 text-clr588 w-100 m-0 mb-4">
                             {{ 'list_down_top_employees' | translate }}
                         </p>
-                        <div class="row">
+                        <div class="row p-0">
                             <div
-                                class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2"
+                                class="col-lg-3 col-md-3 col-sm-6 col-6 mb-2 pl-3 pr-3"
                                 *ngFor="let contact of roasteryProfileService.roasterContacts"
                             >
                                 <div class="employ-profile">
@@ -589,19 +589,15 @@
                                         />
                                     </div>
                                     <div class="profile-des">
-                                        <p class="fnt-16 font-bold mb-1 mt-25 text-clr334">
+                                        <p class="fnt-16 font-bold mb-1 mt-3 text-clr334">
                                             {{ contact.name | titlecase }}
                                         </p>
-                                        <p class="fnt-14 fnt-500 text-clr588">
+                                        <p class="fnt-14 fnt-500 text-clr588 mb-0">
                                             {{ contact.roles[0] || '-' }}
                                         </p>
                                     </div>
-                                    <div class="mt-2">
-                                        <button
-                                            pButton
-                                            class="btn-file-upload mt-25"
-                                            label="{{ 'message' | translate }}"
-                                        >
+                                    <div class="mt-3 mt-lg-45">
+                                        <button pButton class="btn-file-upload" label="{{ 'message' | translate }}">
                                             <img class="mr-2" src="assets/images/message-icon.svg" alt="message icon" />
                                         </button>
                                     </div>
@@ -619,109 +615,116 @@
 </div>
 
 <ng-template #rightSidePanel>
-    <div
-        class="border-main br-4 p-0"
-        *ngIf="this.globals.checkItem('certificate-list') || this.globals.checkItem('certificate-management')"
-    >
-        <div class="header fnt-18 font-bold text-clr334 m-1">{{ 'awards_and_certificates' | translate }}</div>
-        <div class="row mt-3 m-0" *ngFor="let certificate of certificatesArray">
-            <div class="col-12">
-                <div class="w-100 certification-item-container border-div d-flex justify-content-between">
-                    <div class="certification-item-metadata d-flex">
-                        <img class="img-estate" src="assets/images/certificate.svg" alt="User" />
-                        <div class="certification-description ml-2">
-                            <ul>
-                                <li class="fnt-14-normal fnt-600 text-clr334">{{ certificate.name }}</li>
-                                <li class="fnt-14-normal fnt-600 text-clr588">
-                                    {{ certificate.year }}
-                                </li>
-                            </ul>
+    <div class="row m-0">
+        <div class="col-12 col-md-6 col-lg-12 p-0 pl-md-0 pr-md-2 p-lg-0">
+            <div
+                class="border-main br-4 p-0"
+                *ngIf="this.globals.checkItem('certificate-list') || this.globals.checkItem('certificate-management')"
+            >
+                <div class="header fnt-18 font-bold text-clr334 m-1">{{ 'awards_and_certificates' | translate }}</div>
+                <div class="row mt-3 m-0" *ngFor="let certificate of certificatesArray">
+                    <div class="col-12">
+                        <div class="w-100 certification-item-container border-div d-flex justify-content-between">
+                            <div class="certification-item-metadata d-flex">
+                                <img class="img-estate" src="assets/images/certificate.svg" alt="User" />
+                                <div class="certification-description ml-2">
+                                    <ul>
+                                        <li class="fnt-14-normal fnt-600 text-clr334">{{ certificate.name }}</li>
+                                        <li class="fnt-14-normal fnt-600 text-clr588">
+                                            {{ certificate.year }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="certificaion-action d-flex">
+                                <a
+                                    class="menu-arrow"
+                                    [popover]="listTemplate"
+                                    placement="bottom"
+                                    [outsideClick]="true"
+                                    #pop1="bs-popover"
+                                >
+                                    <img class="message-icon" src="assets/images/ellipses.png" alt="Message" />
+                                </a>
+                                <ng-template #listTemplate id="{{ certificate.id }}">
+                                    <div id="popover-mobile-content">
+                                        <ul class="list-data custom-popover">
+                                            <li
+                                                class="list-item fnt-14 fnt-600 text-clr588 border-none"
+                                                (click)="editCertificate($event, certificate); pop1.hide()"
+                                                *ngIf="
+                                                    this.globals.checkItem('certificate-management') &&
+                                                    this.globals.permissions['certificate-management'].manage
+                                                "
+                                            >
+                                                <a class="pointer-item">
+                                                    {{ 'edit' | translate }}
+                                                </a>
+                                            </li>
+                                            <li
+                                                class="list-item fnt-14 fnt-600 text-clr588 border-none"
+                                                (click)="deleteCertificate(certificate.id); pop1.hide()"
+                                                *ngIf="
+                                                    this.globals.checkItem('certificate-management') &&
+                                                    this.globals.permissions['certificate-management'].manage
+                                                "
+                                            >
+                                                <a class="pointer-item">{{ 'delete' | translate }}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </ng-template>
+                            </div>
                         </div>
                     </div>
-                    <div class="certificaion-action d-flex">
-                        <a
-                            class="menu-arrow"
-                            [popover]="listTemplate"
-                            placement="bottom"
-                            [outsideClick]="true"
-                            #pop1="bs-popover"
-                        >
-                            <img class="message-icon" src="assets/images/ellipses.png" alt="Message" />
-                        </a>
-                        <ng-template #listTemplate id="{{ certificate.id }}">
-                            <div id="popover-mobile-content">
-                                <ul class="list-data custom-popover">
-                                    <li
-                                        class="list-item fnt-14 fnt-600 text-clr588 border-none"
-                                        (click)="editCertificate($event, certificate); pop1.hide()"
-                                        *ngIf="
-                                            this.globals.checkItem('certificate-management') &&
-                                            this.globals.permissions['certificate-management'].manage
-                                        "
-                                    >
-                                        <a class="pointer-item">
-                                            {{ 'edit' | translate }}
-                                        </a>
-                                    </li>
-                                    <li
-                                        class="list-item fnt-14 fnt-600 text-clr588 border-none"
-                                        (click)="deleteCertificate(certificate.id); pop1.hide()"
-                                        *ngIf="
-                                            this.globals.checkItem('certificate-management') &&
-                                            this.globals.permissions['certificate-management'].manage
-                                        "
-                                    >
-                                        <a class="pointer-item">{{ 'delete' | translate }}</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </ng-template>
-                    </div>
                 </div>
-            </div>
-        </div>
-        <div
-            class="add-brand-div p-4"
-            *ngIf="
-                this.globals.checkItem('certificate-management') &&
-                this.globals.permissions['certificate-management'].manage
-            "
-        >
-            <a class="brand-tag add-link" routerLink="/roastery-profile/certificate">
-                <span class="add-text ml-4">{{ 'add_another_certificate' | translate }}</span>
-            </a>
-        </div>
-    </div>
-    <div class="border-main br-4 mt-3 p-0 d-none d-lg-block">
-        <div class="header fnt-18 font-bold text-clr334 m-1">{{ 'employee_details' | translate }}</div>
-        <div class="w-100">
-            <div class="d-flex employee-details-container pt-45 pb-45 pl-4 pr-4">
-                <div class="w-50 border-right">
-                    <p class="m-0 fnt-32 font-bold text-clr334">
-                        {{ roasteryProfileService.roasteryProfileData?.total_employees }}
-                    </p>
-                    <p class="mt-2 mb-0 fnt-18 font-600 text-clr588">{{ 'total_employees' | translate }}</p>
-                </div>
-                <div class="w-50 pl-45">
-                    <p class="m-0 fnt-32 font-bold text-clr334">
-                        {{ roasteryProfileService.roasteryProfileData?.avg_employee_age }}
-                    </p>
-                    <p class="mt-2 mb-0 fnt-18 font-600 text-clr588">{{ 'average_age' | translate }}</p>
+                <div
+                    class="add-brand-div p-25 p-md-4"
+                    *ngIf="
+                        this.globals.checkItem('certificate-management') &&
+                        this.globals.permissions['certificate-management'].manage
+                    "
+                >
+                    <a class="brand-tag add-link" routerLink="/roastery-profile/certificate">
+                        <span class="add-text ml-4">{{ 'add_another_certificate' | translate }}</span>
+                    </a>
                 </div>
             </div>
         </div>
 
-        <div class="w-100">
-            <div
-                *ngIf="
-                    this.roasteryProfileService.roasteryProfileData?.male_employee_count == null &&
-                    this.roasteryProfileService.roasteryProfileData?.female_employee_count == null
-                "
-            >
-                <p class="fnt-18 font-bold text-center">{{ 'no_data_display' | translate }}</p>
-            </div>
-            <div class="custom-chart-container">
-                <app-pie-area-chart [results]="roasteryProfileService.single"></app-pie-area-chart>
+        <div class="col-12 col-md-6 col-lg-12 p-0 pl-md-2 pr-md-0 p-lg-0">
+            <div class="border-main br-4 mt-3 mt-md-0 mt-lg-3 p-0">
+                <div class="header fnt-18 font-bold text-clr334 m-1">{{ 'employee_details' | translate }}</div>
+                <div class="w-100">
+                    <div class="d-flex employee-details-container pt-45 pb-45 pl-4 pr-4">
+                        <div class="w-50 border-right">
+                            <p class="m-0 fnt-32 font-bold text-clr334">
+                                {{ roasteryProfileService.roasteryProfileData?.total_employees }}
+                            </p>
+                            <p class="mt-2 mb-0 fnt-18 font-600 text-clr588">{{ 'total_employees' | translate }}</p>
+                        </div>
+                        <div class="w-50 pl-45">
+                            <p class="m-0 fnt-32 font-bold text-clr334">
+                                {{ roasteryProfileService.roasteryProfileData?.avg_employee_age }}
+                            </p>
+                            <p class="mt-2 mb-0 fnt-18 font-600 text-clr588">{{ 'average_age' | translate }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-100">
+                    <div
+                        *ngIf="
+                            this.roasteryProfileService.roasteryProfileData?.male_employee_count == null &&
+                            this.roasteryProfileService.roasteryProfileData?.female_employee_count == null
+                        "
+                    >
+                        <p class="fnt-18 font-bold text-center">{{ 'no_data_display' | translate }}</p>
+                    </div>
+                    <div class="custom-chart-container">
+                        <app-pie-area-chart [results]="roasteryProfileService.single"></app-pie-area-chart>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
