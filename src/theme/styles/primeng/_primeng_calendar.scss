@@ -1,8 +1,3 @@
-// Custom Theming for Prime Ng
-
-@import '../variables';
-
-// Calendar
 .p-calendar {
     border: 1px solid $primary-border-color;
     border-radius: 3px;
@@ -16,6 +11,10 @@
 }
 .round-border.p-calendar {
     border-radius: 20px;
+}
+.single-calendar {
+    display: inline-block;
+    width: 136px;
 }
 .p-calendar .p-inputtext {
     border: none;
