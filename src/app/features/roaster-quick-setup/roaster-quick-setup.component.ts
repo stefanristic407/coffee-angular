@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from '@services';
-import { Toast, ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GlobalsService } from '@services';
 import { EmailService, UserserviceService } from '@services';
@@ -12,26 +12,18 @@ import { EmailService, UserserviceService } from '@services';
     styleUrls: ['./roaster-quick-setup.component.css'],
 })
 export class RoasterQuickSetupComponent implements OnInit {
-    add_member_name: any;
-    add_member_email: any;
-    add_member_type: any = '';
     appLanguage?: any;
-    roaster_id: any;
+    roasterId: any;
     inviteActive: any = 0;
     headerValue: string;
-    email: any;
-    name: any;
-    type: any;
-    resetButtonValue: any = 'Send Invites';
-
-    addUser = [
-        {
-            name: '',
-            email: '',
-            type: '',
-        },
+    sendInviteButton: any = 'Send Invites';
+    companyTypeList = [
+        { label: 'Hotel', value: 'Hotel' },
+        { label: 'Cafe', value: 'Cafe' },
+        { label: 'Restaurant', value: 'Restaurant' },
+        { label: 'Bar', value: 'Bar' },
     ];
-    usersArray: any = [];
+    addUser = [{ name: '', email: '', type: '' }];
 
     constructor(
         public roasterService: RoasterserviceService,
@@ -43,22 +35,16 @@ export class RoasterQuickSetupComponent implements OnInit {
         public userService: UserserviceService,
         public globals: GlobalsService,
     ) {
-        this.roaster_id = this.cookieService.get('roaster_id');
+        this.roasterId = this.cookieService.get('roasterId');
     }
 
     ngOnInit(): void {
-        if (this.cookieService.get('Auth') == '') {
+        if (this.cookieService.get('Auth') === '') {
             this.router.navigate(['/auth/login']);
         }
-        this.headerValue = decodeURIComponent(this.route.snapshot.queryParams['buttonValue']);
+        this.headerValue = decodeURIComponent(this.route.snapshot.queryParams.buttonValue);
         this.appLanguage = this.globals.languageJson;
-
-        // this.language();
     }
-    // language(){
-    //   this.appLanguage = this.globals.languageJson;
-    //   this.inviteActive++;
-    // }
 
     public addNewRow() {
         this.addUser.push({
@@ -76,7 +62,7 @@ export class RoasterQuickSetupComponent implements OnInit {
         // const email_variable = data[0].email;
         let flag = true;
 
-        if (this.headerValue == 'Micro-Roaster') {
+        if (this.headerValue === 'Micro-Roaster') {
             if (data && data.length) {
                 data.forEach((ele) => {
                     if (ele.name === '' || ele.email === '') {
@@ -86,7 +72,7 @@ export class RoasterQuickSetupComponent implements OnInit {
             }
         }
 
-        if (this.headerValue == 'HoReCa') {
+        if (this.headerValue === 'HoReCa') {
             if (data && data.length) {
                 data.forEach((ele) => {
                     if (ele.name === '' || ele.email === '' || ele.type === '') {
@@ -100,91 +86,90 @@ export class RoasterQuickSetupComponent implements OnInit {
     }
 
     sendInvite() {
-        this.resetButtonValue = 'Sending';
+        this.sendInviteButton = 'Sending';
 
         let flag = true;
-        var input = this.addUser;
+        const input = this.addUser;
         console.log(input);
         flag = this.validateInput(input);
 
-        console.log(this.add_member_email);
-        if (this.headerValue == 'Micro-Roaster') {
+        if (this.headerValue === 'Micro-Roaster') {
             this.globals.userInvitesArray = [];
             if (flag) {
                 this.addUser.forEach((element) => {
                     this.userService
-                        .sendMicroRoasterInvite(this.roaster_id, element.email, element.name)
-                        .subscribe((data) => {
-                            if (data['success'] == true) {
+                        .sendMicroRoasterInvite(this.roasterId, element.email, element.name)
+                        .subscribe((data: any) => {
+                            if (data.success) {
                                 // this.inviteSent = 1;
-                                console.log(data);
-                                console.log(
-                                    'https://qa-micro-roaster.sewnstaging.com/auth/setup?token=' + data['result'].token,
-                                );
-                                var body = {
+                                // console.log(data);
+                                // console.log(
+                                //     'https://qa-micro-roaster.sewnstaging.com/auth/setup?token=' + data['result'].token,
+                                // );
+                                const body = {
                                     name: element.name,
                                     portal: this.headerValue,
                                     content_type: 'invite_with_url',
                                     senders: [element.email],
                                     url:
                                         'https://qa-micro-roaster.sewnstaging.com/auth/setup?token=' +
-                                        data['result'].token,
+                                        data.result.token,
                                 };
                                 this.emailService.sendEmail(body).subscribe((res) => {
-                                    if (res['status'] == '200 OK') {
+                                    if (res.status === '200 OK') {
                                         this.globals.userInvitesArray.push(element.email);
-                                        this.resetButtonValue = 'Send Invites';
+                                        this.sendInviteButton = 'Send Invites';
                                         this.toastrService.success('Email has been sent successfully');
                                         this.router.navigate(['/features/success-mail']);
                                     } else {
-                                        this.resetButtonValue = 'Send Invites';
+                                        this.sendInviteButton = 'Send Invites';
                                         this.toastrService.error('Error while sending email to the User');
                                     }
                                 });
                             } else {
                                 console.log(data);
-                                this.resetButtonValue = 'Send Invites';
+                                this.sendInviteButton = 'Send Invites';
                                 this.toastrService.error('Error while sending email to the User');
                             }
                         });
                 });
             }
-        } else if (this.headerValue == 'HoReCa') {
+        } else if (this.headerValue === 'HoReCa') {
             this.globals.userInvitesArray = [];
             if (flag) {
                 this.addUser.forEach((element) => {
                     this.userService
-                        .sendHorecaInvite(this.roaster_id, element.email, element.name, element.type)
-                        .subscribe((data) => {
-                            if (data['success'] == true) {
+                        .sendHorecaInvite(this.roasterId, element.email, element.name, element.type)
+                        .subscribe((data: any) => {
+                            if (data.success) {
                                 console.log(data);
                                 console.log(
                                     'https://qa-client-horeca.sewnstaging.com/auth/horeca-setup?token=' +
-                                        data['result'].token,
+                                        data.result.token,
                                 );
-                                var body = {
+                                const body = {
                                     name: element.name,
                                     portal: this.headerValue,
                                     content_type: 'invite_with_url',
                                     senders: [element.email],
                                     url:
                                         'https://qa-client-horeca.sewnstaging.com/auth/horeca-setup?token=' +
-                                        data['result'].token,
+                                        data.result.token,
                                 };
                                 this.emailService.sendEmail(body).subscribe((res) => {
-                                    if (res['status'] == '200 OK') {
+                                    if (res.status === '200 OK') {
                                         this.globals.userInvitesArray.push(element.email);
-                                        this.resetButtonValue = 'Send Invites';
+                                        this.sendInviteButton = 'Send Invites';
                                         this.toastrService.success('Email has been sent successfully');
                                         this.router.navigate(['/features/success-mail']);
                                     } else {
-                                        this.resetButtonValue = 'Send Invites';
+                                        this.sendInviteButton = 'Send Invites';
                                         this.toastrService.error('Error while sending email to the User');
                                     }
                                 });
                             } else {
                                 console.log(data);
-                                this.resetButtonValue = 'Send Invites';
+                                this.sendInviteButton = 'Send Invites';
                                 this.toastrService.error('Error while sending email to the User');
                             }
                         });
