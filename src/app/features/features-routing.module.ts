@@ -9,19 +9,6 @@ import { CofeeExpeienceDetailsComponent } from './Farm Link/cofee-expeience-deta
 import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-experience.component';
 import { QAForumComponent } from './Farm Link/q-a-forum/q-a-forum.component';
 import { FeaturesComponent } from './features.component';
-import { CuppingReportComponent } from './green-grading/cupping-report/cupping-report.component';
-import { CuppingServiceComponent } from './green-grading/cupping-report/cupping-service/cupping-service.component';
-import { GenerateNewReportComponent } from './green-grading/cupping-report/generate-new-report/generate-new-report.component';
-import { CuppingResultsComponent } from './green-grading/cupping-results/cupping-results.component';
-import { GenerateReportComponent } from './green-grading/generate-report/generate-report.component';
-import { GradeSampleComponent } from './green-grading/grade-sample/grade-sample.component';
-import { GradeServiceComponent } from './green-grading/grade-service/grade-service.component';
-import { GreenCoffeeGradingComponent } from './green-grading/green-coffee-grading/green-coffee-grading.component';
-import { GreenGradingComponent } from './green-grading/green-grading/green-grading.component';
-import { ProcessDetailsComponent } from './green-grading/process-details/process-details.component';
-import { ServiceRequestedComponent } from './green-grading/service-requested/service-requested.component';
-import { ServiceRequestsComponent } from './green-grading/service-requests/service-requests.component';
-import { SourceGradingComponent } from './green-grading/source-grading/source-grading.component';
 import { MyprofileComponent } from './myprofile/myprofile.component';
 import { NotificationComponent } from './notification/notification.component';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
@@ -37,8 +24,6 @@ import { SuccessfulPageComponent } from './successful-page/successful-page.compo
 import { DefaultSettingComponent } from './Farm Link/coffee-experience/default-setting/default-setting.component';
 // tslint:disable-next-line: max-line-length
 import { ConfirmPreorderLotComponent } from './confirm-preorder-lot/confirm-preorder-lot.component';
-import { OtherCuppingServiceComponent } from './green-grading/cupping-report/other-cupping-service/other-cupping-service.component';
-import { OtherGenerateReportComponent } from './green-grading/cupping-report/other-generate-report/other-generate-report.component';
 import { ProductListComponent } from './e-commerce/product-list/product-list.component';
 import { ProductDetailsComponent } from './e-commerce/product-details/product-details.component';
 
@@ -140,71 +125,6 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'cupping-reports',
-                component: CuppingReportComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'cupping-service',
-                component: CuppingServiceComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'generate-new-report',
-                component: GenerateNewReportComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'cupping-results',
-                component: CuppingResultsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'generate-report',
-                component: GenerateReportComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'grade-sample',
-                component: GradeSampleComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'grade-service',
-                component: GradeServiceComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'service-request',
-                component: ServiceRequestsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'green-coffee-grading',
-                component: GreenCoffeeGradingComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'green-grading',
-                component: GreenGradingComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'source-grading',
-                component: SourceGradingComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'service-requested',
-                component: ServiceRequestedComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'process-details',
-                component: ProcessDetailsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
                 path: 'vat-management',
                 component: VatManagementComponent,
                 canActivate: [AuthGuard],
@@ -232,16 +152,6 @@ const routes: Routes = [
             {
                 path: 'confirm-preorder-lot',
                 component: ConfirmPreorderLotComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'other-cupping-service',
-                component: OtherCuppingServiceComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'other-generate-report',
-                component: OtherGenerateReportComponent,
                 canActivate: [AuthGuard],
             },
             {

@@ -103,6 +103,11 @@ export const routes: Routes = [
                 redirectTo: 'roastery-profile',
                 pathMatch: 'full',
             },
+            {
+                path: 'green-grading',
+                loadChildren: () =>
+                    import('./modules/green-grading/green-grading.module').then((m) => m.GreenGradingModule),
+            },
         ],
     },
     { path: 'gate', component: GateComponent },

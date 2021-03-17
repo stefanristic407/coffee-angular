@@ -1,0 +1,101 @@
+<section class="total-section prime-grid">
+    <div class="back-page pb-45" (click)="goBack()">
+        <a>
+            <span>Back</span>
+        </a>
+    </div>
+    <span class="request-title-text">Green coffee grading</span>
+    <div style="margin-top: 18px">
+        <app-estate-info
+            [cuppingDetails]="cuppingDetails"
+            [evaluatorName]="evaluatorName"
+            (showDetail)="showDetail.emit()"
+        ></app-estate-info>
+    </div>
+    <div class="d-flex flex-wrap mt-4 p-0 cupping_select_wrapper cupping_wrapper">
+        <div class="p-0 pr-md-3 mb-4 mb-md-0" style="flex: 1">
+            <p class="mt-0 mb-2 select-cupping-title fnt-muli fnt-14 fnt-600 text-clr334">Select type of cupping</p>
+            <p-dropdown
+                [options]="cuppingItems"
+                [(ngModel)]="cupping"
+                placeholder="Select type of cupping"
+                styleClass="p-cuppings-dropdown"
+                optionLabel="name"
+            ></p-dropdown>
+        </div>
+        <div class="sample-size-wrapper p-0">
+            <p class="mt-0 mb-2 select-cupping-title fnt-muli fnt-14 fnt-600 text-clr334">
+                Sample Size<span class="star">*</span>
+            </p>
+            <div class="p-inputgroup">
+                <input type="number" pInputText [(ngModel)]="sampleSize" class="sampleSize" />
+                <p-dropdown
+                    [options]="sampleUnitList"
+                    [(ngModel)]="sampleSizeUnit"
+                    styleClass="p-dropdown-sampleUnit"
+                    optionLabel="value"
+                    optionValue="value"
+                >
+                </p-dropdown>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4 p-0 evaluators__table cupping_wrapper">
+        <p>Evaluators</p>
+        <div class="evaluator_table_body">
+            <div class="eval_heading">
+                <label class="fnt-muli fnt-14 fnt-600 text-clr588 mb-0 w-50">Name</label>
+                <label class="fnt-muli fnt-14 fnt-600 text-clr588 mb-0 w-50">Role</label>
+            </div>
+            <ul class="mb-0">
+                <li *ngFor="let item of evaluatorsListArray; let i = index">
+                    <div class="eval_info">
+                        <p *ngIf="item">
+                            {{ i + 1 }}. {{ item.evaluator_name }} <span *ngIf="item.is_primary == true">(You)</span>
+                        </p>
+                        <p *ngIf="item">{{ item.evaluator_type }}</p>
+                    </div>
+                    <span class="delete_btn" *ngIf="i != 0" (click)="deleteEvaluatorData(item.evaluator_id)">
+                        <i class="pi pi-trash"></i>
+                        <span class="pl-2 fnt-muli text-clr334 fnt-600 d-none d-md-block">Delete</span>
+                    </span>
+                </li>
+                <li *ngIf="inputBoxShow">
+                    <div class="d-flex col-12 p-0">
+                        <div style="flex: 1; padding-right: 12px">
+                            <p-autoComplete
+                                [(ngModel)]="selectedValue"
+                                class="float-left px-0 typeBox"
+                                [suggestions]="filteredUsers"
+                                (completeMethod)="filterUsers($event)"
+                                styleClass="p-autocomplete-evaluator"
+                                placeholder="Enter name or email"
+                                field="firstname"
+                                [minLength]="1"
+                            >
+                            </p-autoComplete>
+                        </div>
+                        <div>
+                            <button class="green-button btn-raised" type="button" (click)="addEvaluators()">Add</button>
+                            <button class="green-button btn-stroked ml-2" type="button" (click)="cancelEvaluators()">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </li>
+                <li *ngIf="addBtnShow">
+                    <span class="cursor-pointer">
+                        <span class="pi pi-plus fnt-14 fnt-bold text-clr60b pr-1"></span>
+                        <span class="fnt-muli fnt-14 fnt-bold text-clr60b pl-2" (click)="addBtnClick()"
+                            >Add and invite evaluators</span
+                        >
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="button-wrapper mt-4 pt-2 pt-md-4">
+        <button type="submit" class="green-button btn-stroked mr-0 mr-md-3" (click)="cancel()">Cancel</button>
+        <button type="submit" class="green-button btn-raised mb-2 mb-md-0" (click)="goNext()">Start Cupping</button>
+    </div>
+</section>

@@ -18,7 +18,7 @@ export class ApiRequestService extends ApiService {
     // List of API keys for RO
     getGeneratedRoKeys(roasterData: any): Observable<any> {
         const params = this.serializeParams(roasterData);
-        return this.postWithOrg(this.apiUrl, `api-keys?page=${params}`, 'GET');
+        return this.postWithOrg(this.apiUrl, `api-keys?${params}`, 'GET');
     }
     // Enable the API key by RO
     enableRoApiKey(roasterData: any): Observable<any> {
@@ -40,7 +40,7 @@ export class ApiRequestService extends ApiService {
     // get list of api keys request for RO
     getApiKeysForRo(roasterData: any): Observable<any> {
         const params = this.serializeParams(roasterData);
-        return this.postWithOrg(this.apiUrl, `api-keys/requests?page=${params}`, 'GET');
+        return this.postWithOrg(this.apiUrl, `api-keys/requests?${params}`, 'GET');
     }
 
     // View API keys request details for RO

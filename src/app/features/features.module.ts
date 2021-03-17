@@ -31,27 +31,6 @@ import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.compo
 
 import { AddProductComponent } from './e-commerce/add-product/add-product.component';
 import { ProductsTableComponent } from './e-commerce/products-table/products-table.component';
-import { CuppingReportComponent } from './green-grading/cupping-report/cupping-report.component';
-import { CuppingServiceComponent } from './green-grading/cupping-report/cupping-service/cupping-service.component';
-import { GenerateNewReportComponent } from './green-grading/cupping-report/generate-new-report/generate-new-report.component';
-import { ServiceReportsComponent } from './green-grading/cupping-report/service-reports/service-reports.component';
-import { OtherReportsComponent } from './green-grading/cupping-report/other-reports/other-reports.component';
-import { CuppingResultsComponent } from './green-grading/cupping-results/cupping-results.component';
-import { GenerateReportComponent } from './green-grading/generate-report/generate-report.component';
-import { GenerateCoffeeGradingComponent } from './green-grading/generate-report/generate-coffee-grading/generate-coffee-grading.component';
-import { GenerateCuppingReportComponent } from './green-grading/generate-report/generate-cupping-report/generate-cupping-report.component';
-import { GenerateCuppingResultsComponent } from './green-grading/generate-report/generate-cupping-results/generate-cupping-results.component';
-import { GenerateGreenCoffeeComponent } from './green-grading/generate-report/generate-green-coffee/generate-green-coffee.component';
-import { GenerateMySampleComponent } from './green-grading/generate-report/generate-my-sample/generate-my-sample.component';
-import { GradeMySampleComponent } from './green-grading/grade-my-sample/grade-my-sample.component';
-import { GradeSampleComponent } from './green-grading/grade-sample/grade-sample.component';
-import { GradeServiceComponent } from './green-grading/grade-service/grade-service.component';
-import { GreenCoffeeGradingComponent } from './green-grading/green-coffee-grading/green-coffee-grading.component';
-import { GreenGradingComponent } from './green-grading/green-grading/green-grading.component';
-import { ServiceRequestsComponent } from './green-grading/service-requests/service-requests.component';
-import { SourceGradingComponent } from './green-grading/source-grading/source-grading.component';
-import { ServiceRequestedComponent } from './green-grading/service-requested/service-requested.component';
-import { ProcessDetailsComponent } from './green-grading/process-details/process-details.component';
 import { VatManagementComponent } from './vat-management/vat-management.component';
 import { VatDetailsComponent } from './vat-management/vat-details/vat-details.component';
 import { QAForumComponent } from './Farm Link/q-a-forum/q-a-forum.component';
@@ -66,8 +45,6 @@ import { HorecaOrdersComponent } from './Farm Link/coffee-experience/horeca-orde
 import { DefaultSettingComponent } from './Farm Link/coffee-experience/default-setting/default-setting.component';
 // tslint:disable-next-line: max-line-length
 import { ConfirmPreorderLotComponent } from './confirm-preorder-lot/confirm-preorder-lot.component';
-import { OtherCuppingServiceComponent } from './green-grading/cupping-report/other-cupping-service/other-cupping-service.component';
-import { OtherGenerateReportComponent } from './green-grading/cupping-report/other-generate-report/other-generate-report.component';
 import { ProductListComponent } from './e-commerce/product-list/product-list.component';
 import { ProductDetailsComponent } from './e-commerce/product-details/product-details.component';
 import { VarientDetailsComponent } from './e-commerce/varient-details/varient-details.component';
@@ -95,27 +72,6 @@ import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/ro
         RoasterOnboardComponent,
         AddProductComponent,
         ProductsTableComponent,
-        CuppingReportComponent,
-        CuppingServiceComponent,
-        GenerateNewReportComponent,
-        ServiceReportsComponent,
-        OtherReportsComponent,
-        CuppingResultsComponent,
-        GenerateReportComponent,
-        GenerateCoffeeGradingComponent,
-        GenerateCuppingReportComponent,
-        GenerateCuppingResultsComponent,
-        GenerateGreenCoffeeComponent,
-        GenerateMySampleComponent,
-        GradeMySampleComponent,
-        GradeSampleComponent,
-        GradeServiceComponent,
-        GreenCoffeeGradingComponent,
-        GreenGradingComponent,
-        ServiceRequestsComponent,
-        SourceGradingComponent,
-        ServiceRequestedComponent,
-        ProcessDetailsComponent,
         VatManagementComponent,
         VatDetailsComponent,
         QAForumComponent,
@@ -129,8 +85,6 @@ import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/ro
         HorecaOrdersComponent,
         DefaultSettingComponent,
         ConfirmPreorderLotComponent,
-        OtherCuppingServiceComponent,
-        OtherGenerateReportComponent,
         ProductListComponent,
         ProductDetailsComponent,
         VarientDetailsComponent,

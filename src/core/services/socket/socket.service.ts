@@ -72,6 +72,9 @@ export class SocketService implements OnDestroy {
                         this.directMessageReceive.next(WSMessage);
                     } else if (WSMessage.origin === SocketMessageOrigin.ORDER_CHAT) {
                         this.orderChatReceive.next(WSMessage);
+                    } else {
+                        this.directMessageReceive.next(WSMessage);
+                        this.orderChatReceive.next(WSMessage);
                     }
                 }
                 // console.log('WEBSOCKET::Receiving ...', WSMessage);

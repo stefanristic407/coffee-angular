@@ -155,7 +155,7 @@
             </div>
         </div>
         <div class="profile-description-container">
-            <div class="profile-avatar" [ngClass]="{ 'br-main': !profilePhotoService.croppedImage }">
+            <div class="profile-avatar" [ngClass]="{ 'border-main': !profilePhotoService.croppedImage }">
                 <img [src]="profilePhotoService.croppedImage" class="avatar-img" />
                 <a class="change-avatar-btn" *ngIf="isSaveMode" (click)="inputAvatarImage.click()">
                     <img src="assets/images/camera.svg" class="camera-pic" />

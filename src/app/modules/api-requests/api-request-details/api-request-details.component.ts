@@ -49,10 +49,10 @@ export class ApiRequestDetailsComponent implements OnInit {
 
     ngOnInit(): void {
         this.resetButtonValue = 'Generate Key';
-        if (this.apikeyStatus === 'GENERATED') {
-            this.getGeneratedRoKeys();
-        } else {
+        if (this.apikeyStatus === 'PENDING') {
             this.viewRoDetails();
+        } else {
+            this.getGeneratedRoKeys();
         }
         this.supplyBreadCrumb();
     }

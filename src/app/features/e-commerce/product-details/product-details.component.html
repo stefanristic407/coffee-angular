@@ -154,7 +154,7 @@
                 </ng-template>
             </p-dropdown>
         </div>
-        <div [ngClass]="{ isProductOption: !productForm['value']['is_variants_included'] }">
+        <div class="pt-md-4 pt-lg-0" [ngClass]="{ isProductOption: !productForm['value']['is_variants_included'] }">
             <p-tabView [(activeIndex)]="currentVariant">
                 <p-tabPanel
                     formArrayName="varients"
@@ -207,8 +207,8 @@
                                 <input type="text" readonly formControlName="roast_time" pInputText />
                             </div>
                         </div>
-                        <div class="row gutter-16 gutter-lg-24 mt-2 e-comm-border-top pl-0 pr-0">
-                            <div class="col-12 mb-3 mt-3">
+                        <div class="row gutter-16 gutter-lg-24 mt-lg-2 e-comm-border-top pl-0 pr-0">
+                            <div class="col-12 mb-3 mt-3 mt-md-0">
                                 <span class="primary_txt fnt-14 fnt-md-16">Estate Details</span>
                             </div>
                             <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
