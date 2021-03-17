@@ -1517,4 +1517,14 @@ export class UserserviceService {
         data['token'] = this.cookieService.get('Auth');
         return this.http.post(this.roasterUrl, data);
     }
+
+    deleteBanner(roasterId: any): Observable<any> {
+        const token = this.cookieService.get('Auth');
+        const data = {
+            api_call: `/ro/${roasterId}/profile/banner`,
+            method: 'DELETE',
+            token,
+        };
+        return this.http.post(this.roasterUrl, data);
+    }
 }

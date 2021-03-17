@@ -7,6 +7,12 @@
     .status-paused {
         color: #f23737 !important;
     }
+
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        th {
+            width: 250px;
+        }
+    }
 }
 
 ::ng-deep .popover-content ul li:hover {

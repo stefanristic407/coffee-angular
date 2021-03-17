@@ -1,15 +1,26 @@
 <div class="bg-fff request-table-container">
     <div class="bread-crumb">
         <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
+        <div class="custom-search Search-tab-view">
+            <input
+                type="text"
+                pInputText
+                #searchInput
+                [(ngModel)]="apiKeySearch"
+                placeholder="Search by Name, Role"
+                class="{{ apiKeySearch ? 'highlight' : '' }}"
+                class="w-100"
+            />
+        </div>
     </div>
     <section class="api-request-heading">
-        <div class="row justify-content-between align-items-center">
-            <div class="col-lg-8 col-md-4 p-0">
+        <div class="row justify-content-between align-items-center heading">
+            <div class="col-lg-8 col-md-8 p-0">
                 <h5 class="estate-order-title m-0">{{ globals.languageJson?.api_request }}</h5>
                 <p class="Give-your-end-users">{{ 'api_key_details' | translate }}</p>
             </div>
             <div class="col-lg-4 col-md-8 text-right p-0">
-                <div class="custom-search">
+                <div class="custom-search Search">
                     <input
                         type="text"
                         pInputText
@@ -28,7 +39,7 @@
                 <p-dropdown
                     [options]="FilterTypeList"
                     optionLabel="org_type"
-                    optionValue="org_type"
+                    optionValue="value"
                     [(ngModel)]="customerType"
                     scrollHeight="225px"
                     [showClear]="true"
@@ -80,7 +91,6 @@
                                 [filterData]="customerType"
                                 [dateRange]="rangeDates"
                                 [perPage]="perPage"
-                                (filterType)="setFilterData($event)"
                             ></app-api-key-requests>
                         </p-tabPanel>
                         <p-tabPanel header="Generated Keys">
@@ -90,7 +100,6 @@
                                 [filterData]="customerType"
                                 [dateRange]="rangeDates"
                                 [perPage]="perPage"
-                                (filterType)="setFilterData($event)"
                             ></app-generated-keys>
                         </p-tabPanel>
                     </p-tabView>

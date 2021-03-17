@@ -64,10 +64,15 @@ export class ApiRequestDetailsComponent implements OnInit {
         };
         const obj2: MenuItem = {
             label: this.globals.languageJson?.api_request,
-            routerLink: 'features/api-request',
+            routerLink: '/api-requests-list',
+        };
+        const obj3: MenuItem = {
+            label: this.globals.languageJson?.api_request_details,
+            routerLink: '/api-requests-list/api-request-details',
         };
         this.breadCrumbItem.push(obj1);
         this.breadCrumbItem.push(obj2);
+        this.breadCrumbItem.push(obj3);
     }
 
     getGeneratedRoKeys() {

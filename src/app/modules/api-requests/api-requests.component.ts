@@ -25,7 +25,10 @@ export class ApiRequestsTableComponent implements OnInit, AfterViewInit {
     apiKeySearch = '';
     KeySearch = '';
     selectedTab = 0;
-    FilterTypeList: any[] = [];
+    FilterTypeList: any[] = [
+        { org_type: 'Micro roaster', value: 'mr' },
+        { org_type: 'horeca', value: 'hrc' },
+    ];
     isApiRequestPage = true;
     displayArray = [];
     constructor(public globals: GlobalsService) {}
@@ -71,10 +74,6 @@ export class ApiRequestsTableComponent implements OnInit, AfterViewInit {
     filterCall() {
         this.calendar.showOverlay(this.calendar.inputfieldViewChild.nativeElement);
         event.stopPropagation();
-    }
-
-    setFilterData(event) {
-        this.FilterTypeList = event;
     }
 
     handleChange(event: any) {
