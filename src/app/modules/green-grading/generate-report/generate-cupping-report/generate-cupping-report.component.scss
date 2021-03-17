@@ -1,0 +1,246 @@
+/* grade */
+
+.color-text {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+    padding-left: 30px;
+}
+
+.cupping-report {
+    padding: 0.25rem 2.5rem;
+    margin: 1.5rem 0rem;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+
+    .header-wrapper {
+        padding-right: 3.75rem;
+        flex: 1;
+    }
+
+    .average_score_value {
+        font-family: Muli;
+        font-size: 2rem;
+        font-weight: 800;
+        color: #232334;
+        padding-bottom: 2px;
+        margin-bottom: 0;
+        line-height: normal;
+    }
+
+    .average_score_label {
+        font-family: Muli;
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #747588;
+        margin-bottom: 0;
+    }
+
+    .generate_date {
+        padding-left: 0.875rem;
+    }
+
+    @media (max-width: 991px) {
+        padding: 0 2.5rem;
+
+        .header-wrapper {
+            padding-right: 1.5rem;
+        }
+    }
+
+    @media (max-width: 767px) {
+        border: none;
+        padding: 0;
+
+        .header-wrapper {
+            padding-right: 0;
+            flex-direction: column;
+            align-items: flex-start;
+
+            & > div {
+                width: 100%;
+            }
+        }
+
+        .average_score_value {
+            font-size: 1.5rem;
+        }
+
+        .average_score_label {
+            font-size: 1rem;
+        }
+
+        .generate_date {
+            padding: 0.875rem 0 0.75rem 1rem;
+        }
+
+        .bottom-dash {
+            margin-left: 14px;
+            border-bottom: 1px dashed #d6d6d6;
+        }
+    }
+}
+
+.single-cupping-report {
+    @media (max-width: 767px) {
+        border: solid 1px #d6d6d6 !important;
+    }
+}
+
+.button-wrapper {
+    .p-button-outlined {
+        border: solid 1px #747588;
+        color: #232334;
+        font-family: Muli;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    @media (max-width: 767px) {
+        width: 100%;
+
+        .p-button-outlined {
+            width: 100%;
+        }
+    }
+}
+
+::ng-deep {
+    .p-accordion.p-cuppings-accordion {
+        p-accordiontab {
+            &:last-child {
+                .p-accordion-tab .p-accordion-header {
+                    &:not(.p-highlight):not(.p-disabled):hover .p-accordion-header-link,
+                    .p-accordion-header-link {
+                        border-bottom: none !important;
+                    }
+                }
+            }
+            .p-accordion-tab {
+                @media (max-width: 767px) {
+                    border-radius: 2px !important;
+                    border: solid 1px #ebebeb !important;
+                    margin-bottom: 0.75rem !important;
+                }
+            }
+        }
+
+        .p-accordion-content {
+            border: none !important;
+            padding: 0.571rem 1rem !important;
+        }
+
+        .p-accordion-header:not(.p-disabled).p-highlight {
+            &:hover .p-accordion-header-link,
+            .p-accordion-header-link {
+                border: none !important;
+                background: #ffffff !important;
+                color: #747588 !important;
+                flex-direction: row-reverse !important;
+                text-decoration: none !important;
+
+                &:focus {
+                    box-shadow: none !important;
+                }
+
+                @media (max-width: 767px) {
+                    .bottom-dash {
+                        display: block !important;
+                    }
+                }
+            }
+        }
+
+        .p-accordion-header {
+            &:not(.p-highlight):not(.p-disabled):hover .p-accordion-header-link,
+            .p-accordion-header-link {
+                border: none !important;
+                background: #ffffff !important;
+                color: #747588 !important;
+                border-bottom: 1px dashed #d6d6d6 !important;
+                flex-direction: row-reverse !important;
+                padding: 1.125rem 0 !important;
+                text-decoration: none !important;
+
+                &:focus {
+                    box-shadow: none !important;
+                }
+
+                @media (max-width: 991px) {
+                    align-items: flex-start !important;
+                }
+
+                @media (max-width: 767px) {
+                    padding: 0 !important;
+                    border-bottom: 0 !important;
+
+                    .p-accordion-toggle-icon {
+                        height: 55px !important;
+                        border-bottom: solid 1.5px #ebebeb !important;
+                        display: flex !important;
+                        align-items: center !important;
+                    }
+
+                    .bottom-dash {
+                        display: none !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .p-radiobutton.p-cuppings-radiobutton {
+        font-family: Muli;
+        font-size: 14px;
+        font-weight: 500;
+        color: #232334;
+
+        .p-radiobutton-box {
+            width: 18px;
+            height: 18px;
+            background: #ffffff;
+            border-color: #747588;
+
+            .p-radiobutton-icon {
+                width: 12px;
+                height: 12px;
+            }
+
+            &.p-highlight,
+            &.p-highlight:hover {
+                border-color: #30855c !important;
+                background: #ffffff !important;
+                box-shadow: none !important;
+
+                .p-radiobutton-icon {
+                    background-color: #30855c;
+                }
+            }
+        }
+    }
+
+    .p-field-radiobutton {
+        margin-bottom: 0;
+        margin-left: -1rem;
+
+        & > label {
+            margin-bottom: 0;
+            color: #232334;
+            font-family: Muli;
+            font-size: 1.125rem;
+            font-weight: bold;
+        }
+
+        @media (max-width: 767px) {
+            margin-left: 0;
+            width: 100%;
+            padding: 1rem;
+            border-bottom: solid 1.5px #ebebeb;
+
+            & > label {
+                font-size: 0.875rem;
+            }
+        }
+    }
+}

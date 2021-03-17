@@ -1,0 +1,135 @@
+<section class="total-section prime-grid">
+    <div class="back-page pb-45" (click)="goBack()">
+        <a>
+            <span>Back</span>
+        </a>
+    </div>
+    <app-result-view
+        [data]="tableRecords"
+        [evaluatorsList]="evaluatorsList"
+        [cuppingReports]="cuppingReports"
+        [selectedCuppingVersion]="selectedCuppingVersion"
+        (handleSelectCupping)="handleSelectCupping($event)"
+    >
+    </app-result-view>
+    <div class="evaluators-title">Select evaluators to include in your report</div>
+    <div class="col-12 p-0 table-responsive border__cupping">
+        <p-table
+            #myTable
+            [class.table-mobile]="isMobileView"
+            [value]="tableRecords"
+            [columns]="allColumns"
+            [(selection)]="selectedEvaluators"
+            dataKey="id"
+            [responsive]="isMobileView"
+            *ngIf="!isMobileView"
+            styleClass="p-datatable-evaluators"
+        >
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col [style.width]="'30px'" *ngIf="!isMobileView && tableRecords.length > 1" />
+                    <col *ngFor="let col of columns" [style.width]="col.width ? col.width + 'px' : 'unset'" />
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th style="width: 30px" *ngIf="!isMobileView && tableRecords.length > 1">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th
+                        *ngFor="let col of columns"
+                        class="ellipsis"
+                        [pSortableColumn]="col.sortable === true ? col.field : null"
+                    >
+                        <span class="primeng-table-header">{{ col.header }}</span>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr>
+                    <td *ngIf="!isMobileView && tableRecords.length > 1">
+                        <p-tableCheckbox [value]="rowData.evaluator_id"></p-tableCheckbox>
+                    </td>
+                    <td *ngFor="let col of columns" [ngSwitch]="col.field">
+                        <span class="d-flex" *ngSwitchCase="'fragrance_score'">
+                            {{ rowData[col.field] }}
+                            <span class="text-clr588 ml-1"
+                                >(D:{{ rowData.fragrance_dry }}, B:{{ rowData.fragrance_break }})</span
+                            >
+                        </span>
+                        <span class="d-flex" *ngSwitchCase="'acidity_score'">
+                            {{ rowData[col.field] }}
+                            <span class="text-clr588 ml-1">({{ rowData.acidity_intensity }})</span>
+                        </span>
+                        <span class="d-flex" *ngSwitchCase="'body_score'">
+                            {{ rowData[col.field] }}
+                            <span class="text-clr588 ml-1">({{ rowData.body_level }})</span>
+                        </span>
+                        <span *ngSwitchDefault>
+                            {{ rowData[col.field] }}
+                        </span>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+        <p-table
+            #mobileTable
+            [value]="mobileTableData"
+            [columns]="evaluatorsList"
+            dataKey="id"
+            styleClass="p-datatable-evaluators-mobile"
+            *ngIf="isMobileView"
+        >
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col [style.width]="'110px'" />
+                    <col *ngFor="let col of columns" [style.width]="'100px'" />
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th></th>
+                    <th *ngFor="let col of columns; let i = index">
+                        <div class="mobile-header-cell">
+                            <p-checkbox
+                                name="group1"
+                                [value]="col.evaluator_id"
+                                [(ngModel)]="selectedEvaluators"
+                                [inputId]="i"
+                                *ngIf="columns.length > 1"
+                            >
+                            </p-checkbox>
+                            <span class="primeng-table-header ml-2">{{ col.evaluator_name }}</span>
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr>
+                    <td *ngFor="let colValue of rowData">
+                        {{ colValue }}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="d-flex justify-content-between flex-column flex-md-row pt-5 pt-md-4">
+        <button type="submit" class="green-button btn-stroked btn order-1 order-md-0" (click)="reGrade()">
+            Re-grade sample
+        </button>
+        <div class="d-flex flex-column flex-md-row">
+            <button
+                *ngIf="evaluatorsList && evaluatorsList.length > 1"
+                type="submit"
+                class="green-button btn-stroked btn mr-2 order-1 order-md-0"
+                (click)="save()"
+            >
+                Save as draft
+            </button>
+            <button type="submit" class="green-button btn-raised btn" (click)="onConfirmGenerate()">
+                Generate Report
+            </button>
+        </div>
+    </div>
+</section>

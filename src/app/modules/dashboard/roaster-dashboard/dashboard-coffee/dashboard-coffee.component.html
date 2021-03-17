@@ -4,7 +4,10 @@
         <a class="arrow-link" routerLink="/ordermanagement/myorders">See all orders</a>
     </div>
 
-    <div *ngIf="stock && stock.stock_stats; else blank" class="pt-md-3 pb-md-3 pl-md-4 pr-md-4 p-lg-4 br-md-main br-4">
+    <div
+        *ngIf="stock && stock.stock_stats; else blank"
+        class="pt-md-3 pb-md-3 pl-md-4 pr-md-4 p-lg-4 border-md-main br-4"
+    >
         <div class="row">
             <div
                 animateOnScroll
@@ -64,7 +67,7 @@
                             class="order-wrap"
                             [ngClass]="{ 'mt-4': i !== 0 }"
                         >
-                            <div class="main-content br-4 br-main" (click)="goToOrderDetails(item)">
+                            <div class="main-content br-4 border-main" (click)="goToOrderDetails(item)">
                                 <div class="row m-0 order-card-item order-card-header bg-f8">
                                     <div class="col-6 p-0">
                                         <p class="fnt-14 fnt-bold m-0 text-clr334 d-inline-block">
@@ -129,7 +132,7 @@
     </div>
 
     <ng-template #blank>
-        <div class="p-md-3 br-main br-4">
+        <div class="p-md-3 border-main br-4">
             <div class="flex-fill d-flex flex-column justify-content-center align-items-center text-center px-4 py-5">
                 <img class="mb-3" src="assets/images/leaf-active.svg" alt="" />
                 <p class="fnt-14 fnt-muli fnt-normal text-clr588 mb-4">
