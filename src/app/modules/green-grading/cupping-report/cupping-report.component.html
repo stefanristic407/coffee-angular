@@ -2,8 +2,7 @@
     <div class="bg-fff content-wrapper">
         <div class="d-flex flex-wrap justify-content-between pb-2 pb-md-0">
             <p-breadcrumb [model]="breadCrumbItems"></p-breadcrumb>
-            <span class="p-input-icon-left d-none d-lg-inline-block">
-                <i class="pi pi-search"></i>
+            <span class="custom-search d-none d-lg-inline-block">
                 <input
                     type="text"
                     pInputText
@@ -19,11 +18,11 @@
                     <h1 class="fnt-muli fnt-18 font-bold mb-2">{{ globals.languageJson?.my_cupping_reports }}</h1>
                     <h3 class="mb-0 pt-1">Select cupping type, add or edit evaluators before you start the cupping</h3>
                 </div>
-                <span class="p-input-icon-left search-input d-inline-block d-lg-none mt-3">
-                    <i class="pi pi-search"></i>
+                <span class="custom-search d-inline-block d-lg-none mt-3">
                     <input
                         type="text"
                         pInputText
+                        class="w-100"
                         placeholder="Search by order id, estate name"
                         [(ngModel)]="term"
                         (ngModelChange)="onFilter()"
@@ -185,7 +184,7 @@
                                                         pRipple
                                                         type="button"
                                                         (click)="viewPdf(rowData.url)"
-                                                        class="p-button-rounded p-button-outlined action-button mr-1"
+                                                        class="p-button-rounded p-button-outlined table-action-button mr-1"
                                                         label="View PDF"
                                                     ></button>
                                                     <button
@@ -194,7 +193,7 @@
                                                         type="button"
                                                         (click)="serviceReportLink(rowData)"
                                                         label="View table"
-                                                        class="p-button-rounded p-button-outlined action-button ml-1"
+                                                        class="p-button-rounded p-button-outlined table-action-button ml-1"
                                                     ></button>
                                                 </span>
                                                 <span *ngIf="!isMobileView" class="pl-3" [style.position]="'relative'">

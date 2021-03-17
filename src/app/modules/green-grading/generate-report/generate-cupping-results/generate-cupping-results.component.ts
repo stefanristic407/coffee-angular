@@ -3,6 +3,8 @@ import { GreenGradingService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmComponent } from '@shared';
 
 @Component({
     selector: 'app-generate-cupping-results',
@@ -79,7 +81,6 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
     singleCuppingDetails: any;
     cuppingReports: any[];
     selectedCuppingVersion: any;
-    confirmGenerate = false;
 
     @HostListener('window:resize', ['$event'])
     onResize(event?) {
@@ -91,6 +92,7 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
         private cookieService: CookieService,
         private greenGradingService: GreenGradingService,
         private router: Router,
+        public dialogSrv: DialogService,
     ) {
         this.type = true;
         this.roasterId = this.cookieService.get('roaster_id');
@@ -171,7 +173,7 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
     ngOnChanges() {
         this.cuppingReportId = this.cuppingDetails.cupping_report_id;
         if (this.fromQueryParam === 'ServiceRequest') {
-            this.serviceRequestId = this.cuppingDetails.gc_order_id;
+            this.serviceRequestId = this.cuppingDetails.order_id;
         } else if (this.fromQueryParam === 'SampleRequest') {
             this.sampleRequestId = this.cuppingDetails.external_sample_id;
         }
@@ -324,7 +326,23 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
     }
 
     onConfirmGenerate() {
-        this.confirmGenerate = true;
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    title: 'Are you sure want to generate the report',
+                    desp: 'Once generated, no changes can be made to the report',
+                    type: 'confirm',
+                    noButton: 'No',
+                    yesButton: 'Yes, Generate report',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.submit();
+                }
+            });
     }
 
     submit() {
@@ -334,7 +352,6 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
                 status: 'GENERATED',
             };
             this.greenGradingService.updateStatus(this.roasterId, this.cuppingReportId, data).subscribe((res: any) => {
-                this.confirmGenerate = false;
                 if (res.success === true) {
                     this.toastrService.success('The Report has been updated.');
                     this.next.emit({ screen: 'screen5', selectedCuppingId: this.cuppingReportId });
@@ -365,9 +382,5 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
                 this.toastrService.error('Error while updating the report');
             }
         });
-    }
-
-    closeConfirmModal() {
-        this.confirmGenerate = false;
     }
 }

@@ -133,25 +133,3 @@
         </div>
     </div>
 </section>
-
-<p-dialog
-    [(visible)]="confirmGenerate"
-    [closable]="false"
-    [modal]="true"
-    [draggable]="false"
-    [resizable]="false"
-    styleClass="p-dialog-confirm"
->
-    <div class="d-flex flex-column align-items-center confirm-body">
-        <img src="assets/images/alert-messaging.svg" />
-        <h1 class="fnt-bold fnt-play mt-4 text-center">
-            Are you sure <br />
-            want to generate the report
-        </h1>
-        <h4 class="fnt-14 fnt-normal fnt-muli mt-3">Once generated, no changes can be made to the report</h4>
-        <div class="d-flex flex-wrap justify-content-center mt-4 w-100">
-            <div class="green-button btn-stroked mr-2" (click)="closeConfirmModal()">No</div>
-            <div class="green-button btn-raised ml-md-1" tabindex="0" (click)="submit()">Yes, Generate report</div>
-        </div>
-    </div>
-</p-dialog>
