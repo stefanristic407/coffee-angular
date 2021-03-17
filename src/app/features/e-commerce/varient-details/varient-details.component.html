@@ -216,7 +216,7 @@
                 >
                     <span
                         class="fnt-700 editBtn cursor-pointer delBtn"
-                        *ngIf="i > 0 || displayDelete"
+                        *ngIf="i != 0 || !isLast"
                         (click)="deleteGrindVariant(i)"
                     >
                         Delete

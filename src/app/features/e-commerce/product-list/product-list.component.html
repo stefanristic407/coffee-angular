@@ -1,6 +1,6 @@
 <div class="main-block e-comm-catlog">
     <div class="row mb-3">
-        <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+        <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 breadCrumbDiv">
             <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
         </div>
         <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 d-none d-md-block">
@@ -21,8 +21,8 @@
             </button>
         </div>
     </div>
-    <div class="row mt-4">
-        <div [formGroup]="searchForm" class="d-block d-sm-block d-md-none col-12 mt-3">
+    <div class="row mt-3">
+        <div [formGroup]="searchForm" class="d-block d-sm-block d-md-none col-12 mt-0">
             <input
                 type="text"
                 name="search"
