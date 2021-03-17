@@ -15,11 +15,6 @@ import { RaisedTicketComponent } from './dispute-system/raised-ticket/raised-tic
 import { RaiseTicketFormComponent } from './dispute-system/raise-ticket-form/raise-ticket-form.component';
 import { SelectAnOrderComponent } from './dispute-system/select-an-order/select-an-order.component';
 import { FacilitatorOrdersComponent } from './facilitator-orders/facilitator-orders.component';
-import { RoasterOrdersComponent } from './roaster-orders/roaster-orders.component';
-import { OrderChatComponent } from './order-sample/order-chat/order-chat.component';
-import { PreOrderChatComponent } from './order-prebook/pre-order-chat/pre-order-chat.component';
-import { BookOrderChatComponent } from './order-booked/book-order-chat/book-order-chat.component';
-import { from } from 'rxjs';
 import { HorecaOrderDetailsComponent } from './e-commerce-order/horeca-order-details/horeca-order-details.component';
 import { HorecaOrdersComponent } from './e-commerce-order/horeca-orders/horeca-orders.component';
 import { HorecaOrderConfirmComponent } from './e-commerce-order/horeca-order-confirm/horeca-order-confirm.component';
@@ -113,26 +108,6 @@ const routes: Routes = [
                 component: SelectAnOrderComponent,
                 canActivate: [AuthGuard],
             },
-
-            /**
-             * These entries are kept for debugging purposes will be remove it later
-             */
-            // {
-            //     path: 'dep-order-chat',
-            //     component: OrderChatComponent,
-            //     canActivate: [AuthGuard],
-            // },
-            // {
-            //     path: 'dep-pre-order-chat',
-            //     component: PreOrderChatComponent,
-            //     canActivate: [AuthGuard],
-            // },
-            // {
-            //     path: 'dep-book-order-chat',
-            //     component: BookOrderChatComponent,
-            //     canActivate: [AuthGuard],
-            // },
-
             {
                 path: 'horeca-orders',
                 component: HorecaOrdersComponent,
