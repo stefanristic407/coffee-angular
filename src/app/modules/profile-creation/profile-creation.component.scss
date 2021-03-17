@@ -1,10 +1,17 @@
+@import '../../../theme/styles/variables';
 .profile-header-details {
-    border: 1px solid #d6d6d6;
     background: linear-gradient(#faf8f4, #ffffff);
-    border-radius: 4px;
     height: 160px;
+    .mv-change-icon {
+        position: absolute;
+        right: 12px;
+        top: 7px;
+    }
+
     @media screen and (max-width: 767px) {
         height: 109px;
+        border-bottom: 1px solid $primary-border-color;
+        border-top: 1px solid $primary-border-color;
     }
     .cover-pic {
         cursor: pointer;
@@ -12,13 +19,20 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        .plus-circle {
+            margin: auto;
+        }
+        @media screen and (max-width: 767px) {
+            top: 24px;
+            transform: translate(-50%, 0%);
+        }
     }
     .cover-image-profile-banner {
         height: 158px;
         width: 100%;
         object-fit: cover;
         @media screen and (max-width: 767px) {
-            height: 109px;
+            height: 107px;
         }
     }
 

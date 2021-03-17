@@ -74,7 +74,7 @@
             </div>
         </div>
 
-        <div class="profile-header-details position-relative">
+        <div class="profile-header-details br-md-main br-4 position-relative">
             <img
                 class="cover-image-profile-banner w-100"
                 *ngIf="isSaveMode && roasteryProfileService.bannerUrl"
@@ -84,19 +84,32 @@
             <img
                 class="cover-image-profile-banner w-100"
                 *ngIf="isSaveMode && !roasteryProfileService.bannerUrl"
-                [src]="roasteryProfileService.roasteryProfileData?.banner_url"
+                [src]="roasteryProfileService.roasteryProfileData?.banner_url || 'assets/images/blank.png'"
                 height="160"
             />
-
+            <img
+                class="camera mv-change-icon d-md-none"
+                *ngIf="isSaveMode"
+                (click)="bannerFileInput.click()"
+                src="assets/images/camera.svg"
+            />
             <div
                 class="cover-pic text-center"
-                *ngIf="isSaveMode && !roasteryProfileService.roasteryProfileData?.banner_url"
-                (click)="bannerFileInput.click()"
+                *ngIf="
+                    isSaveMode &&
+                    !roasteryProfileService.roasteryProfileData?.banner_url &&
+                    !roasteryProfileService.bannerUrl
+                "
             >
-                <img class="plus-circle" src="assets/images/plus-circle.svg" />
-                <img class="camera desk-view" src="assets/images/camera.svg" />
-                <p class="fnt-14 font-bold text-clr588 pt-2 m-0">{{ 'add_cover_image' | translate }}</p>
-                <p class="fnt-14 font-bold text-clr588 m-0">{{ 'dimension' | translate }} 1144 x 160</p>
+                <img
+                    class="d-none d-md-block plus-circle"
+                    src="assets/images/plus-circle.svg"
+                    (click)="bannerFileInput.click()"
+                />
+                <p class="fnt-12 fnt-md-14 font-bold text-clr588 pt-0 pt-md-2 mb-1">
+                    {{ 'add_cover_image' | translate }}
+                </p>
+                <p class="fnt-12 fnt-md-14 font-bold text-clr588 m-0">{{ 'dimension' | translate }} 1144 x 160</p>
             </div>
             <input
                 type="file"
@@ -121,7 +134,10 @@
 
             <div class="edit-btn-group d-flex">
                 <button
-                    *ngIf="isSaveMode && roasteryProfileService.roasteryProfileData?.banner_url"
+                    *ngIf="
+                        isSaveMode &&
+                        (roasteryProfileService.roasteryProfileData?.banner_url || roasteryProfileService.bannerUrl)
+                    "
                     class="btn-normal fnt-14 d-none d-md-flex mr-2"
                     (click)="bannerFileInput.click()"
                     pButton

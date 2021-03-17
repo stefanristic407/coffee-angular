@@ -109,10 +109,7 @@ export class RoasteryProfileService {
         });
     }
 
-    //  Function Name :Change Country.
-    // Description: This function helps to get the values of cities according to selcted country.
     changeCountry(count) {
-        console.log('changing country selection >>>>>>>>>>>>>>>', count);
         this.cities = COUNTRY_LIST.find((con) => con.isoCode === count).cities;
     }
 
@@ -141,9 +138,6 @@ export class RoasteryProfileService {
     }
 
     saveRoasterProfile() {
-        //      public mainSubFormInvalid: boolean;
-        // public aboutFormInvalid: boolean;
-        // public contactFormInvalid: boolean;
         if (this.mainSubFormInvalid || this.aboutFormInvalid || this.contactFormInvalid) {
             this.toastrService.error('Please fill all required fields');
             return;
@@ -151,7 +145,6 @@ export class RoasteryProfileService {
         this.isSaving = true;
         if (this.bannerFile) {
             this.userService.uploadFile(this.roasterId, this.bannerFile, 'Cover-Image').subscribe((res) => {
-                console.log('banner file upload result >>>>>>', res);
                 if (res.success) {
                     this.toUpdateProfileData.banner_file_id = res.result.id;
                     this.updateRoasterAccount();
@@ -167,10 +160,6 @@ export class RoasteryProfileService {
 
     updateRoasterAccount(): void {
         const data: OrganizationProfile = this.toUpdateProfileData;
-        // const data: RoasteryProfile = this.roasteryProfileData;
-
-        console.log('to save data: ', data);
-
         this.userService.updateRoasterAccount(this.roasterId, data).subscribe((response: any) => {
             if (response.success === true) {
                 console.log(response);
@@ -237,12 +226,17 @@ export class RoasteryProfileService {
     }
 
     handleDeleteBannerImage(): void {
-        // this.toUpdateProfileData.banner_file_id = 0;
-        // this.toUpdateProfileData.banner_url = '';
-        this.userService.deleteFile(this.roasterId, this.roasteryProfileData.banner_file_id).subscribe((res) => {
-            this.toastrService.success('Deleted Banner Image');
-            console.log('remove banner file res', res);
-        });
+        this.userService.deleteBanner(this.roasterId).subscribe(
+            (res) => {
+                this.toastrService.success('Deleted Banner Image');
+                this.roasteryProfileData.banner_file_id = 0;
+                this.roasteryProfileData.banner_url = '';
+                this.bannerUrl = '';
+            },
+            (error) => {
+                this.toastrService.error('Failed, Please try again later');
+            },
+        );
     }
 
     editRoasterProfile() {
