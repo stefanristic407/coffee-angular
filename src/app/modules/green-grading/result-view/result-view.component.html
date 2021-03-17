@@ -1,11 +1,14 @@
 <div class="d-flex flex-wrap flex-row-reverse flex-md-column flex-lg-row-reverse">
     <div class="d-flex flex-wrap d-lg-block col-lg-3 col-12 pl-0 pl-lg-3 pt-0 pb-1 view-content-wrapper">
-        <div class="col-lg-12 col-md-4 col-12 p-0 mb-1 mb-lg-3 view__info" *ngIf="selectedCuppingVersion">
+        <div
+            class="col-lg-12 col-md-4 col-12 p-0 mb-1 mb-lg-3 sewn-form-field view__info"
+            *ngIf="selectedCuppingVersion"
+        >
             <p-dropdown
                 [options]="cuppingReports"
                 [(ngModel)]="selectedCuppingVersion"
                 optionLabel="version"
-                styleClass="no-border full-width"
+                styleClass="no-border p-dropdown-cupping-version"
                 (onChange)="onSelectVersion($event)"
             >
                 <ng-template pTemplate="selectedItem">

@@ -2,8 +2,7 @@
     <div class="bg-fff content-wrapper">
         <div class="d-flex flex-wrap justify-content-between">
             <p-breadcrumb [model]="breadCrumbItems"></p-breadcrumb>
-            <span class="p-input-icon-left d-none d-lg-inline-block">
-                <i class="pi pi-search"></i>
+            <span class="custom-search d-none d-lg-inline-block">
                 <input
                     type="text"
                     pInputText
@@ -19,8 +18,7 @@
                     <h1 class="fnt-muli fnt-18 font-bold">Green coffee orders</h1>
                     <h3 class="mb-0">Select service(s) that you want to cup</h3>
                 </div>
-                <span class="p-input-icon-left d-inline-block d-lg-none mt-3 mt-md-0" style="height: fit-content">
-                    <i class="pi pi-search"></i>
+                <span class="custom-search d-inline-block d-lg-none mt-3 mt-md-0" style="height: fit-content">
                     <input
                         type="text"
                         class="w-100"
@@ -120,7 +118,7 @@
                                 </td>
 
                                 <td *ngFor="let col of columns" [ngSwitch]="col.field">
-                                    <span class="d-flex" *ngSwitchCase="'cupping_report_id'">
+                                    <span class="d-flex" *ngSwitchCase="'order_id'">
                                         <span *ngIf="isMobileView" class="d-flex w-100">
                                             <span class="prime-table-label w-50">
                                                 {{ col.header }} {{ rowData[col.field] }}
@@ -186,7 +184,7 @@
                                             <span
                                                 class="ellipsis navigation-link"
                                                 *ngIf="rowData[col.field] === 'Assigned'"
-                                                [routerLink]="'/green-grading/assign-user/' + rowData.gc_order_id"
+                                                [routerLink]="'/green-grading/assign-user/' + rowData.order_id"
                                             >
                                                 {{ rowData[col.field] }}
                                             </span>

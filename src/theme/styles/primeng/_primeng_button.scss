@@ -14,6 +14,6 @@
 .p-button-text {
     &:enabled:hover {
         color: $primary-color !important;
-        background: #ffffff !important;
+        background: transparent !important;
     }
 }

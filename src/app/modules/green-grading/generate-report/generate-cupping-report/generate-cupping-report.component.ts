@@ -39,7 +39,7 @@ export class GenerateCuppingReportComponent implements OnInit, OnChanges {
 
     ngOnChanges() {
         if (this.fromQueryParam === 'ServiceRequest') {
-            this.serviceRequestId = this.cuppingDetails.gc_order_id;
+            this.serviceRequestId = this.cuppingDetails.order_id;
         } else if (this.fromQueryParam === 'SampleRequest') {
             this.sampleRequestId = this.cuppingDetails.external_sample_id;
         }

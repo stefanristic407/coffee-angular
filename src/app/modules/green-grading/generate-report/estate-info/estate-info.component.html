@@ -4,7 +4,7 @@
             <div class="pull-left fnt-muli fnt-14 fnt-bold text-clr334">Sample Info</div>
             <div
                 class="ml-auto pull-right cursor-pointer d-none d-md-flex details-wrapper"
-                *ngIf="cuppingDetails?.gc_order_id"
+                *ngIf="cuppingDetails?.order_id"
                 (click)="routeToProcessDet()"
             >
                 <span class="fnt-muli fnt-12 fnt-bold text-clr60b">view process details</span>
@@ -17,14 +17,11 @@
                     <div>
                         <label
                             class="fnt-muli fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0"
-                            *ngIf="cuppingDetails?.gc_order_id"
+                            *ngIf="cuppingDetails?.order_id"
                             >Order ID:</label
                         >
-                        <p
-                            class="fnt-muli fnt-12 fnt-600 text-clr334 col-5 p-0 mb-0"
-                            *ngIf="cuppingDetails?.gc_order_id"
-                        >
-                            {{ cuppingDetails['gc_order_id'] }}
+                        <p class="fnt-muli fnt-12 fnt-600 text-clr334 col-5 p-0 mb-0" *ngIf="cuppingDetails?.order_id">
+                            {{ cuppingDetails['order_id'] }}
                         </p>
                         <label
                             class="fnt-muli fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0"

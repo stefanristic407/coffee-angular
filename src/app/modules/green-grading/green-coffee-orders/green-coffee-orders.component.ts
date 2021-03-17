@@ -86,7 +86,7 @@ export class GreenCoffeeOrdersComponent implements OnInit {
             this.isMobileView = false;
             this.tableColumns = [
                 {
-                    field: 'cupping_report_id',
+                    field: 'order_id',
                     header: 'Order ID',
                     sortable: false,
                     width: '90px',
@@ -142,7 +142,7 @@ export class GreenCoffeeOrdersComponent implements OnInit {
         const options = {
             page,
             per_page: this.displayRowCounts,
-            search_query: this.term,
+            query: this.term,
             order_type: this.selectedOrderType,
             sort_by: event?.sortField,
             sort_order: event?.sortOrder === 1 ? 'asc' : 'desc',
