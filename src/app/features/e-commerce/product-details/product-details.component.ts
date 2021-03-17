@@ -168,6 +168,7 @@ export class ProductDetailsComponent implements OnInit {
                     this.productName = productDetails.name;
                     this.varients = this.productForm.get('varients') as FormArray;
                     this.varients.removeAt(0);
+
                     let increment = 0;
                     this.allCrates = [];
                     // tslint:disable-next-line: forin
@@ -175,6 +176,17 @@ export class ProductDetailsComponent implements OnInit {
                         const getVariant = res.result.variants[key];
                         const coffeeBatchID = getVariant[0].weight_variants[0].rc_batch_id;
                         const getBatchDetails = this.roastedBatches.find((ele) => ele.id === coffeeBatchID);
+                        if (getBatchDetails === undefined) {
+                            this.varients.push(this.createEmptyVarient());
+                            const boxDetails = {
+                                modify: false,
+                                product_weight_variant_id: '_ghg005pti',
+                                unit: 'lb',
+                                value: 0,
+                            };
+                            this.onWeightCreate(boxDetails);
+                            return;
+                        }
                         const varient: any = {};
                         if (getBatchDetails) {
                             (varient.varient_name = 'Varient ' + (this.varients.length + 1)),
@@ -577,5 +589,8 @@ export class ProductDetailsComponent implements OnInit {
                 getVarient['controls'].harvest_year.setValue(res.result.harvest_date);
             }
         });
+    }
+    productNameValue(event: any) {
+        this.productName = event.target.value;
     }
 }
