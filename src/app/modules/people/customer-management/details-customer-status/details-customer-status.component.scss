@@ -1,3 +1,19 @@
+.active__main {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    padding: 6px;
+}
+
+.active_default {
+    background-color: #3d8462;
+    height: 30px;
+    padding: 4px 16px;
+    font-size: 14px;
+    color: #fff !important;
+    border-radius: 4px !important;
+    font-family: Muli;
+    font-weight: 600;
+}
 .bg-msg {
     border-radius: 2px;
     border: solid 1px #747588;
@@ -132,24 +148,6 @@
 
 .border-contact {
     border-right: solid 1px #ebebeb;
-}
-
-.active__main {
-    border-radius: 4px;
-    border: solid 1px #d6d6d6;
-    padding: 6px;
-    margin-right: 14px;
-}
-
-.active_default {
-    background-color: #3d8462;
-    height: 30px;
-    padding: 4px 16px;
-    font-size: 14px;
-    color: #fff !important;
-    border-radius: 4px !important;
-    font-family: Muli;
-    font-weight: 600;
 }
 
 .disable_default {

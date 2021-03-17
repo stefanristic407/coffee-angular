@@ -2,23 +2,23 @@
     <div class="col-12">
         <div class="row">
             <div class="col-md-6 col-12 discount-border" id="edithoreca-discount">
-                <div class="row">
-                    <div class="col-9">
+                <div class="d-flex justify-content-between">
+                    <div class="">
                         <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli black">Discount %</p>
-                        <p class="fnt-14 fnt-400 fnt-muli black">
+                        <p class="fnt-14 fnt-400 fnt-muli black mr-5 mb-0">
                             Please enter the discount % you would be provident this customer. The price would be changed
                             on the e-commerce shop accordingly
                         </p>
                     </div>
 
-                    <div class="col-3">
+                    <div class="text-right">
                         <p class="fnt-40 fnt-bold fnt-muli black m-0">{{ customerService.discount_percentage }}%</p>
                         <p class="fnt-16 fnt-md-18 fnt-600 fnt-muli text-clr588 m-0">Discount</p>
-                        <p (click)="editHorecaDiscount()" class="pointer-hand">
+                        <p (click)="editHorecaDiscount()" class="pointer-hand mb-0">
                             <span
                                 ><img src="assets/images/edit-horeca.svg" alt="edit-horeca" class="edit-horeca" />
                             </span>
-                            <span class="fnt-14 fnt-700 fnt-muli text-clr55c"> Edit </span>
+                            <span class="fnt-14 fnt-700 fnt-muli text-clr55c pl-1"> Edit </span>
                         </p>
                     </div>
                 </div>

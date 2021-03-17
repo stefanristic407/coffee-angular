@@ -13,7 +13,7 @@
 .estate-message {
     font-family: Muli;
     font-size: 12px;
-    font-weight: 500
+    font-weight: 500;
 }
 
 .update-now {
@@ -126,7 +126,7 @@
 }
 
 .certificates-inner {
-    padding: .5rem 1rem 2rem 1rem;
+    padding: 0.5rem 1rem 2rem 1rem;
     border-radius: 4px;
     background-color: #f8f8f8;
 }
@@ -190,7 +190,7 @@
     right: 53%;
 }
 
-@media (max-width:767px) {
+@media (max-width: 767px) {
     .ft-roastry-profile {
         width: 74px;
     }
@@ -239,7 +239,7 @@
 }
 
 .team-des {
-    margin-top: .5rem;
+    margin-top: 0.5rem;
 }
 
 .msg-team {
@@ -250,4 +250,13 @@
 }
 .pointer-hand:hover {
     text-decoration: underline;
+}
+
+.back-page {
+    font-size: 16px;
+    color: #80460b;
+    cursor: pointer;
+    font-family: Muli;
+    text-decoration: none;
+    font-weight: 600;
 }
