@@ -204,25 +204,36 @@ export class RoasteryProfileService {
     }
 
     handleBannerImageFile(inputElement: any) {
-        this.bannerFile = inputElement.files[0];
-        if (!this.bannerFile) {
+        const file = inputElement.files[0];
+        console.log('input images: ', file);
+        if (!file) {
             return;
         }
-        if (this.bannerFile.type.split('/')[0] !== 'image') {
+        if (file.type.split('/')[0] !== 'image') {
             return;
         }
-        if (this.bannerFile.size >= 2097152) {
+        if (file.size >= 2097152) {
             this.toastrService.error('File size is too big to upload');
             return;
         }
 
         const reader = new FileReader();
 
-        reader.readAsDataURL(this.bannerFile);
-
         reader.onload = (event: any) => {
-            this.bannerUrl = event.target.result;
+            const img = new Image();
+            img.onload = () => {
+                console.log('img.naturalWidth images: ', img.naturalWidth);
+
+                if (img.naturalWidth !== 1144 || img.naturalHeight !== 160) {
+                    this.toastrService.error(`Image should be 1144 x 160 size`);
+                } else {
+                    this.bannerFile = inputElement.files[0];
+                    this.bannerUrl = event.target.result;
+                }
+            };
+            img.src = window.URL.createObjectURL(file);
         };
+        reader.readAsDataURL(file);
     }
 
     handleDeleteBannerImage(): void {
