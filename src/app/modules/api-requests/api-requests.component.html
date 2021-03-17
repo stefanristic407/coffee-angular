@@ -1,6 +1,17 @@
 <div class="bg-fff request-table-container">
     <div class="bread-crumb">
         <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
+        <div class="custom-search Search-tab-view">
+            <input
+                type="text"
+                pInputText
+                #searchInput
+                [(ngModel)]="apiKeySearch"
+                placeholder="Search by Name, Role"
+                class="{{ apiKeySearch ? 'highlight' : '' }}"
+                class="w-100"
+            />
+        </div>
     </div>
     <section class="api-request-heading">
         <div class="row justify-content-between align-items-center heading">
@@ -9,7 +20,7 @@
                 <p class="Give-your-end-users">{{ 'api_key_details' | translate }}</p>
             </div>
             <div class="col-lg-4 col-md-8 text-right p-0">
-                <div class="custom-search">
+                <div class="custom-search Search">
                     <input
                         type="text"
                         pInputText

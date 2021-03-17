@@ -2,7 +2,7 @@
     <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
     <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
 </div>
-<div class="mb-2 mt-4 api-request-table" *ngIf="!loader">
+<div class="mt-4 api-request-table" *ngIf="!loader">
     <p-table
         [value]="requestData"
         [lazy]="true"
@@ -48,7 +48,9 @@
                                     <span class="text-muted cell-header fnt-14">{{
                                         globals.languageJson?.customer_type
                                     }}</span>
-                                    <span class="text-clr334 fnt-14">{{ key.org_type }}</span>
+                                    <span class="text-clr334 fnt-14">{{
+                                        key.org_type == 'hrc' ? 'horeca' : 'Micro roaster'
+                                    }}</span>
                                 </div>
                                 <div class="py-3 d-flex">
                                     <span class="text-muted cell-header cell-header fnt-14">{{
@@ -61,7 +63,9 @@
                     </div>
                     <span class="d-none d-md-inline">{{ key.org_name }} </span>
                 </td>
-                <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ key.org_type }}</td>
+                <td class="d-none d-md-table-cell text-overflow-ellipsis">
+                    {{ key.org_type == 'hrc' ? 'horeca' : 'Micro roaster' }}
+                </td>
                 <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ key.created_at | date: 'MMMM y' }}</td>
                 <td
                     class="view-order d-none d-md-table-cell text-overflow-ellipsis"

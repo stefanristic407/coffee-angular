@@ -15,7 +15,7 @@
     }
 
     .api-request-heading {
-        margin: 24px 0;
+        margin-top: 24px;
     }
 
     .estate-order-title {
@@ -139,10 +139,13 @@
     }
 }
 
+.Search-tab-view {
+    display: none;
+}
+.Search {
+    display: inherit;
+}
 @media screen and (max-width: 1024px) {
-    .bg-fff {
-        padding: 24px 15px;
-    }
     .heading {
         flex-direction: column;
         align-items: flex-start !important;
@@ -151,18 +154,49 @@
         display: flex;
         align-items: center;
     }
-    .custom-search {
-        margin-bottom: 16px;
-    }
+
     .Give-your-end-users {
         padding-bottom: 24px;
         margin: 0;
     }
 }
 
+::ng-deep .p-tabview {
+    padding: 0 !important;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .bg-fff {
+        padding: 24px 16px;
+    }
+    .request-table-container {
+        .api-request-heading {
+            margin-top: 6px;
+        }
+    }
+    .bread-crumb {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .Search-tab-view {
+        display: inherit;
+    }
+
+    .Search {
+        display: none;
+    }
+}
+
 @media screen and (max-width: 767px) {
+    .border-0 {
+        padding: 0 !important;
+    }
     .bg-fff {
         padding: 16.5px 16px;
+    }
+    .custom-search {
+        margin-bottom: 16px;
     }
 }
 

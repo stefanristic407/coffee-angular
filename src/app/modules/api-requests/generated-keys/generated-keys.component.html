@@ -104,7 +104,9 @@
                                     <span class="text-muted cell-header fnt-14">{{
                                         globals.languageJson?.customer_type
                                     }}</span>
-                                    <span class="text-clr334 fnt-14">{{ item.org_type }}</span>
+                                    <span class="text-clr334 fnt-14">{{
+                                        item.org_type == 'hrc' ? 'horeca' : 'Micro roaster'
+                                    }}</span>
                                 </div>
                                 <div class="py-3 d-flex">
                                     <span class="text-muted cell-header cell-header fnt-14">{{
@@ -117,7 +119,9 @@
                     </div>
                     <span class="d-none d-md-inline">{{ item.org_name }} </span>
                 </td>
-                <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ item.org_type }}</td>
+                <td class="d-none d-md-table-cell text-overflow-ellipsis">
+                    {{ item.org_type == 'hrc' ? 'horeca' : 'Micro roaster' }}
+                </td>
                 <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ item.requested_at | date: 'MMMM y' }}</td>
                 <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ item.generated_at | date: 'MMMM y' }}</td>
                 <td
