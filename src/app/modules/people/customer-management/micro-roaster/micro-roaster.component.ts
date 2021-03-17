@@ -20,10 +20,10 @@ export class MicroRoasterComponent implements OnInit {
     public mainData: any[];
     folderId: any;
     roasterId: any;
-    odd: boolean = false;
+    odd = false;
     appLanguage?: any;
     microActive: any = 0;
-    microRoasterWeb: string = 'https://qa-micro-roaster.sewnstaging.com';
+    microRoasterWeb = 'https://qa-micro-roaster.sewnstaging.com';
     emailId: any;
     constructor(
         public router: Router,
@@ -39,8 +39,8 @@ export class MicroRoasterComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        //Auth checking
-        if (this.cookieService.get('Auth') == '') {
+        // Auth checking
+        if (this.cookieService.get('Auth') === '') {
             this.router.navigate(['/auth/login']);
         }
         this.getMicroRoaster();
@@ -53,14 +53,14 @@ export class MicroRoasterComponent implements OnInit {
     }
 
     shareDetails(size: any) {
-        if (size.status == 'PENDING') {
+        if (size.status === 'PENDING') {
             this.customer.emailId = size.email;
             // this.customer.headerValue="Micro-Roaster";
             this.customer.pendingMrDetails();
             this.router.navigate(['/people/pending-details']);
         } else {
             this.folderId = size.id;
-            let navigationExtras: NavigationExtras = {
+            const navigationExtras: NavigationExtras = {
                 queryParams: {
                     folderId: encodeURIComponent(this.folderId),
                 },
@@ -71,14 +71,14 @@ export class MicroRoasterComponent implements OnInit {
     }
 
     getMicroRoaster() {
-        this.roasterService.getMicroRoasters(this.roasterId).subscribe((data) => {
-            if (data['success'] == true) {
-                if (data['result'] == null || data['result'].length == 0) {
+        this.roasterService.getMicroRoasters(this.roasterId).subscribe((getRoaster: any) => {
+            if (getRoaster.success === true) {
+                if (getRoaster.result == null || getRoaster.result.length === 0) {
                     this.odd = true;
                     this.toastrService.error('Table Data is empty');
                 } else {
                     this.odd = false;
-                    this.mainData = data['result'];
+                    this.mainData = getRoaster.result;
                 }
                 this.microActive++;
             } else {
@@ -104,8 +104,8 @@ export class MicroRoasterComponent implements OnInit {
         // }
     }
     deleteMicroRoaster(itemId: any) {
-        this.userService.deleteMicroRoaster(this.roasterId, itemId).subscribe((data) => {
-            if (data['success'] == true) {
+        this.userService.deleteMicroRoaster(this.roasterId, itemId).subscribe((deletedRoaster: any) => {
+            if (deletedRoaster.success === true) {
                 this.toastrService.success('Customer deleted sucessfully!');
                 this.getMicroRoaster();
             } else {
