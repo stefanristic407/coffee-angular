@@ -117,8 +117,7 @@
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
-.rectangle_username,
-.rectangle_useremail {
+.rectangle_username, .rectangle_useremail {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
     background-color: #ffffff;
@@ -127,7 +126,6 @@
 
 .add-partner span {
     color: #80460b;
-    text-decoration: underline;
     font-weight: bold;
 }
 
