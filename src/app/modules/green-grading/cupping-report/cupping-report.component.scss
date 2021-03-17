@@ -8,20 +8,6 @@
     overflow: visible;
 }
 
-.pointer-item {
-    cursor: pointer;
-}
-
-.search-input {
-    @media (max-width: 767px) {
-        width: 100%;
-
-        .p-inputtext {
-            width: 100%;
-        }
-    }
-}
-
 ::ng-deep {
     .p-tabview.p-tabview-report {
         .p-tabview-nav li .p-tabview-nav-link {
