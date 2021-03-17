@@ -201,8 +201,8 @@
     </div>
 </div>
 
-<div class="bg-fff p-lg-5 pl-md-3 pr-md-3 pb-md-3 pt-md-4 mt-md-3">
-    <div class="responsive-tabMenu">
+<div class="bg-fff pl-2 pr-2 p-lg-5 pl-md-3 pr-md-3 pb-md-3 pt-md-4 mt-md-3">
+    <div class="responsive-tabMenu pl-2 pr-2 pl-md-0 pr-md-0">
         <p-tabMenu [model]="menuItems" styleClas="profile-tabmenu" class="profile-tabmenu">
             <ng-template pTemplate="item" let-item let-i="index">
                 {{ item.label | translate }}
@@ -212,7 +212,7 @@
     <div class="m-2 mt-md-3 ml-md-0 mr-md-0 mb-md-0">
         <router-outlet></router-outlet>
     </div>
-    <div class="mobile-farm farm-stricky col-12">
+    <div class="mobile-farm col-12 pl-2 pr-2">
         <div class="row" *ngIf="isSaveMode">
             <div class="col-6">
                 <button
