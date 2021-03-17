@@ -11,9 +11,7 @@
                         selectedItemsLabel="{0} Origins"
                         [filter]="false"
                         (onChange)="filterCall()"
-                        styleClass="w-100 mb-3 mb-md-4 border-rounded-right-0 {{
-                            queryParams.origin?.length ? 'highlight' : ''
-                        }}"
+                        styleClass="w-100 mb-3 mb-md-4 br-right-0 {{ queryParams.origin?.length ? 'highlight' : '' }}"
                     >
                         <ng-template pTemplate="header">
                             <span
@@ -33,7 +31,7 @@
                         [filter]="false"
                         (onChange)="filterCall()"
                         scrollHeight="225px"
-                        styleClass="w-100 mb-3 mb-md-4 border-rounded-left-0 border-rounded-right-md-0 {{
+                        styleClass="w-100 mb-3 mb-md-4 br-left-0 br-right-md-0 {{
                             queryParams.species?.length ? 'highlight' : ''
                         }}"
                     >
@@ -53,7 +51,7 @@
                             [(ngModel)]="queryParams.name"
                             (change)="filterCall()"
                             placeholder="{{ globals.languageJson?.search_by_name }}"
-                            class="w-100 border-rounded-left-md-0 {{ queryParams.name ? 'highlight' : '' }}"
+                            class="w-100 br-left-md-0 {{ queryParams.name ? 'highlight' : '' }}"
                         />
                     </span>
                 </div>
