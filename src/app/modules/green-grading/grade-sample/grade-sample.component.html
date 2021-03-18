@@ -175,7 +175,7 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <span class="d-flex">
+                                    <span class="d-flex" [ngStyle]="{ overflow: editing ? 'unset' : 'hidden' }">
                                         <span *ngIf="isMobileView" class="prime-table-label w-50"> Origin </span>
                                         <p-cellEditor [style]="{ width: isMobileView ? '50%' : '100%' }">
                                             <ng-template pTemplate="input">

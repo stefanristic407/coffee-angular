@@ -50,7 +50,7 @@ export class GreenCoffeeOrdersComponent implements OnInit {
         this.breadCrumbItems = [
             { label: this.globals.languageJson?.home, routerLink: '/features/micro-roaster-dashboard' },
             { label: this.globals.languageJson?.green_grading, routerLink: '/green-grading' },
-            { label: this.globals.languageJson?.grade_service },
+            { label: 'Green coffee orders' },
         ];
         this.loadData();
         this.initializeTable();
@@ -167,6 +167,14 @@ export class GreenCoffeeOrdersComponent implements OnInit {
             };
 
             this.router.navigate(['/green-grading/generate-report'], navigationExtras);
+        }
+    }
+
+    selectRow(checkValue) {
+        if (checkValue) {
+            this.selectedRows = this.tableData.filter((value) => value.cupping_report_id);
+        } else {
+            this.selectedRows = [];
         }
     }
 }
