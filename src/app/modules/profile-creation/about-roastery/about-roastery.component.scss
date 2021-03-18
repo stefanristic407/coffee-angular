@@ -119,6 +119,9 @@ hr {
     position: absolute;
     bottom: 5px;
     right: 13px;
+    @media screen and (max-width: 767px) {
+        right: 19px !important;
+    }
 }
 
 ::ng-deep .unit-dropdown {
