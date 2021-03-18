@@ -159,8 +159,8 @@
 
                         <div *ngIf="isEditMode">
                             <form [formGroup]="form" (ngSubmit)="handleSubmit()">
-                                <div class="row">
-                                    <div class="col-md-6 pr-md-25">
+                                <div class="row gutter-24">
+                                    <div class="col-md-6">
                                         <label class="fnt-14 text-clr588" style="font-weight: 600"
                                             >First Name <span class="text-danger">*</span></label
                                         >
@@ -178,13 +178,13 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6 pl-md-25">
+                                    <div class="col-md-6">
                                         <label class="fnt-14 text-clr588"
                                             >Last Name <span class="text-danger">*</span></label
                                         >
                                         <div class="mb-4 mb-md-45 sewn-form-field w-100">
                                             <input
-                                                class="height-50px w-100"
+                                                class="w-100"
                                                 type="text"
                                                 pInputText
                                                 required
@@ -210,13 +210,13 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6 pr-md-25">
+                                    <div class="col-md-6">
                                         <label class="fnt-14 text-clr588"
                                             >Email address <span class="text-danger">*</span></label
                                         >
                                         <div class="mb-4 mb-md-45 sewn-form-field w-100">
                                             <input
-                                                class="height-50px w-100"
+                                                class="w-100"
                                                 type="text"
                                                 pInputText
                                                 required
@@ -232,7 +232,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6 pl-md-25">
+                                    <div class="col-md-6">
                                         <div class="mb-4 mb-md-45 sewn-form-field w-100">
                                             <label class="fnt-14 text-clr588">Phone number</label>
                                             <app-phone-number formControlName="phone"></app-phone-number>
@@ -242,12 +242,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6 pr-md-25">
+                                    <div class="col-md-6">
                                         <div class="mb-0 sewn-form-field w-100">
                                             <label class="fnt-14 text-clr588"
                                                 >Gender <span class="text-danger">*</span></label
                                             >
-                                            <div class="mb-45 mb-md-35">
+                                            <div class="mb-4 mb-md-45">
                                                 <p-dropdown
                                                     [options]="genders"
                                                     class="w-100"
@@ -262,10 +262,10 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6 pl-md-25">
+                                    <div class="col-md-6">
                                         <div class="mb-0 sewn-form-field w-100">
                                             <label class="fnt-14 text-clr588">Date of birth</label>
-                                            <div class="mb-4">
+                                            <div class="mb-4 mb-md-45">
                                                 <p-calendar
                                                     class="w-100 birthday-input"
                                                     [monthNavigator]="true"
@@ -279,6 +279,8 @@
                                     </div>
                                 </div>
                             </form>
+                            <div class="border-bottom-dashed-sub-secondary mb-4 mb-md-45"></div>
+                            <app-profile-certificates></app-profile-certificates>
                         </div>
                     </div>
                 </div>
@@ -360,13 +362,9 @@
 
             <div class="d-block d-md-none">
                 <div *ngIf="!isEditMode">
-                    <button
-                        (click)="isEditMode = true"
-                        pButton
-                        type="button"
-                        [label]="'edit_profile' | translate"
-                        class="btn-raised w-100"
-                    ></button>
+                    <button (click)="isEditMode = true" type="button" class="btn-raised w-100">
+                        {{ 'edit_profile' | translate }}
+                    </button>
                 </div>
                 <div *ngIf="isEditMode">
                     <div class="mb-3">
