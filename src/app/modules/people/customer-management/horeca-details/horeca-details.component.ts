@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
     selector: 'app-horeca-details',
     templateUrl: './horeca-details.component.html',
-    styleUrls: ['./horeca-details.component.css'],
+    styleUrls: ['./horeca-details.component.scss'],
 })
 export class HorecaDetailsComponent implements OnInit {
     appLanguage?: any;
@@ -40,40 +40,4 @@ export class HorecaDetailsComponent implements OnInit {
         });
         this.appLanguage = this.globals.languageJson;
     }
-
-    // editHorecaDiscount() {
-    //     document.getElementById('edithoreca-discount').style.display = 'none';
-    //     document.getElementById('savehoreca-discount').style.display = 'block';
-    // }
-
-    // saveHorecaDiscount() {
-    //     const discountData = {
-    //         discount_percentage: parseFloat(this.customerService.discount_percentage),
-    //     };
-    //     this.userService
-    //         .updateHorecaDiscount(this.roasterId, this.customerService.horecaId, discountData)
-    //         .subscribe((res: any) => {
-    //             if (res.success) {
-    //                 // this.customer.mrCustomerDetails();
-    //                 this.toastrService.success('Discount data updated sucessfully');
-    //             } else {
-    //                 this.toastrService.error('Error while updating discount data');
-    //             }
-    //         });
-    //     document.getElementById('edithoreca-discount').style.display = 'block';
-    //     document.getElementById('savehoreca-discount').style.display = 'none';
-    // }
-
-    // horecaEmployees() {
-    //     this.userService.getHorecaContacts(this.customerService.horecaId).subscribe((res: any) => {
-    //         if (res.success) {
-    //             this.hrContacts = res.result;
-    //             console.log(this.hrContacts);
-    //         } else {
-    //         }
-    //     });
-    // }
-    // ngAfterViewInit() {
-    //     document.getElementById('savehoreca-discount').style.display = 'none';
-    // }
 }

@@ -9,7 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 @Component({
     selector: 'app-micro-roaster-details',
     templateUrl: './micro-roaster-details.component.html',
-    styleUrls: ['./micro-roaster-details.component.css'],
+    styleUrls: ['./micro-roaster-details.component.scss'],
 })
 export class MicroRoasterDetailsComponent implements OnInit {
     appLanguage?: any;

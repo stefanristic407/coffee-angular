@@ -10,7 +10,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
     selector: 'app-roaster-quick-setup',
     templateUrl: './roaster-quick-setup.component.html',
-    styleUrls: ['./roaster-quick-setup.component.css'],
+    styleUrls: ['./roaster-quick-setup.component.scss'],
 })
 export class RoasterQuickSetupComponent implements OnInit {
     appLanguage?: any;

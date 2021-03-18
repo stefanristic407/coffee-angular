@@ -11,7 +11,7 @@ import { CustomerServiceService } from '../../customer-service.service';
 @Component({
     selector: 'app-horeca-table',
     templateUrl: './horeca-table.component.html',
-    styleUrls: ['./horeca-table.component.css'],
+    styleUrls: ['./horeca-table.component.scss'],
 })
 export class HorecaTableComponent implements OnInit {
     public mainData: any[] = [];
@@ -42,22 +42,6 @@ export class HorecaTableComponent implements OnInit {
         }
         this.estatetermOrigin = '';
         this.getHorecaTableData();
-    }
-
-    // Function Name : CheckAll
-    // Description: This function helps to check all roles of the role list.
-    checkAll(ev: any) {
-        if (this.odd!) {
-            this.mainData.forEach((x) => (x.state = ev.target.checked));
-        }
-    }
-
-    // Function Name : IsAllchecked
-    // Description: This function helps to check single role.
-    isAllChecked() {
-        if (this.odd!) {
-            return this.mainData.every((_) => _.state);
-        }
     }
 
     shareDetails(size: any) {

@@ -7,7 +7,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
     selector: 'app-customer-management',
     templateUrl: './customer-management.component.html',
-    styleUrls: ['./customer-management.component.css'],
+    styleUrls: ['./customer-management.component.scss'],
 })
 export class CustomerManagementComponent implements OnInit {
     appLanguage?: any;
