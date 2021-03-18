@@ -439,4 +439,8 @@ export class AboutRoasteryComponent implements OnInit {
         const result = control.hasError(validationType) && (control.dirty || control.touched);
         return result;
     }
+
+    setFormat($event) {
+        $event.target.value = null;
+    }
 }
