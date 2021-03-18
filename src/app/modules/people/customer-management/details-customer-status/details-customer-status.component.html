@@ -1,10 +1,13 @@
-<div class="d-flex justify-content-between">
-    <div class="">
+<div class="d-flex justify-content-between status-border">
+    <div class="web-farm">
         <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli black m-0">Customer Status</p>
         <p class="fnt-14 fnt-600 fnt-muli black">Manage their status on the platform</p>
     </div>
+    <div class="align-items-center d-flex mobile-farm">
+        <p class="fnt-14 fnt-md-18 fnt-700 fnt-muli black m-0">Customer Status</p>
+    </div>
 
-    <div class="">
+    <div class="active-button">
         <div
             class="btn-group btn-toggle ml-auto pull-right active__main"
             (click)="customerService.activeStatus('horeca')"

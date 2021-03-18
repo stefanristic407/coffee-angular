@@ -1,8 +1,8 @@
 <section class="royal-cofee">
-    <div class="d-flex justify-content-between">
-        <div class="d-flex">
-            <div class="d-flex">
-                <div class="mr-3">
+    <div class="user-main">
+        <div class="user">
+            <div class="users-profile">
+                <div class="user-image">
                     <img
                         class="ft-roastry-profile"
                         *ngIf="customerService.company_image_url == ''"
@@ -15,7 +15,7 @@
                     />
                 </div>
 
-                <div class="">
+                <div class="user-text web-farm">
                     <p class="m-0">
                         <span
                             class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
@@ -37,6 +37,32 @@
                         <span> .Founded in {{ customerService.founded_on }}</span>
                     </p>
                     <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli text-clr55c">
+                        <span> Admin: </span> <span>{{ customerService.admin_name }} </span>
+                    </p>
+                </div>
+                <div class="user-text mobile-farm">
+                    <p class="mt-3">
+                        <span
+                            class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
+                            *ngIf="customerService.company_name != ''"
+                        >
+                            {{ customerService.company_name }}</span
+                        >
+                    </p>
+                    <p class="">
+                        <span
+                            class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
+                            *ngIf="customerService.company_name == ''"
+                        >
+                            -</span
+                        >
+                    </p>
+                    <p class="fnt-14 fnt-md-18 fnt-600 fnt-muli text-clr588 d-flex justify-content-center">
+                        <span class="mr-3"> Owned by {{ customerService.owner_name }} </span>
+                        <li></li>
+                        <span>Founded in {{ customerService.founded_on }}</span>
+                    </p>
+                    <p class="fnt-14 fnt-md-18 fnt-700 fnt-muli text-clr55c pb-2">
                         <span> Admin: </span> <span>{{ customerService.admin_name }} </span>
                     </p>
                 </div>

@@ -18,3 +18,104 @@
     font-size: 14px;
     font-weight: 600;
 }
+
+.status-border {
+    @media (max-width: 480px) {
+        border-top: 1px dashed #d6d6d6;
+        border-bottom: 1px dashed #d6d6d6;
+    }
+}
+
+.estate-orders {
+    position: relative;
+}
+
+.row {
+    color: #232334 !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    font-family: 'Muli' !important;
+    border-bottom: none !important;
+}
+
+/**********popover*******/
+
+.list-group-item {
+    border: none;
+    font-family: 'Muli';
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+}
+
+.list-group-item:hover {
+    color: #232334;
+    font-weight: 600;
+    background-color: #f8f8f8;
+}
+
+.menu-arrow {
+    cursor: pointer;
+    position: relative;
+    top: 6px;
+}
+
+.cust-width {
+    width: 40%;
+}
+
+.file_url {
+    color: #232334 !important;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Muli';
+    text-decoration: none !important;
+}
+
+#sales-contract-popup popover-container {
+    border: 0 !important;
+}
+
+@media (min-width: 993px) and (max-width: 1279px) {
+    #sales-table .p-datatable table {
+        width: 115%;
+    }
+    #sales-table .p-datatable-wrapper {
+        overflow-x: auto;
+    }
+}
+@media (min-width: 768px) and (max-width: 992px) {
+    #sales-table .p-datatable table {
+        width: 170%;
+    }
+    #sales-table .p-datatable-wrapper {
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 767px) {
+    .estate-table {
+        margin: -1.5rem 0rem;
+    }
+    .mobile-ce p {
+        margin-bottom: 0rem !important;
+    }
+    .bg-f4f4 {
+        background: #f8f8f8;
+    }
+    .bor-bot-d6d6 {
+        border-bottom: 2px dashed #d6d6d6 !important;
+    }
+    .bor-ebe {
+        border: 1px solid #ebebeb;
+        border-radius: 4px;
+    }
+    .agreement-top {
+        margin-top: 2rem;
+    }
+}
+@media (max-width: 480px) {
+    .estate-orders {
+        margin: 1rem 0px;
+    }
+}

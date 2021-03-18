@@ -1,10 +1,15 @@
 .discount-sec {
-    margin: 1rem 0rem;
+    @media (min-width: 992px) {
+        margin: 1rem 0rem;
+    }
 }
 .discount-border {
     border-radius: 4px;
     border: solid 1px #ebebeb;
-    padding: 1.5rem;
+    padding: 1rem;
+    @media (min-width: 992px) {
+        padding: 1.5rem;
+    }
 }
 
 .bg-msg {

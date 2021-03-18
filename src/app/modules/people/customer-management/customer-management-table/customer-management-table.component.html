@@ -66,9 +66,9 @@
                         <div id="popover-mobile-content">
                             <ul class="list-group custom-popover">
                                 <!-- <li class="list-group-item"> <a class="pointer-item" (click)="pop.hide();">Download </a></li>
-                                        <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Pin</a></li>
-                                        <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Rename</a></li>
-                                        <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li> -->
+                                            <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Pin</a></li>
+                                            <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Rename</a></li>
+                                            <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li> -->
                                 <!-- <li class="list-group-item" *ngIf="item.status != 'PENDING'"><a class="pointer-item" (click)="deleteMicroRoaster(item.id);pop.hide();">Delete</a></li> -->
                                 <li class="list-group-item">
                                     <a class="pointer-item" (click)="pop.hide(); customer.stimulatedLogin(item.id)"
@@ -82,4 +82,96 @@
             </tr>
         </ng-template>
     </p-table>
+</div>
+
+<div class="estate-table pt-md-2 mobile-farm">
+    <div class="table-details mobile-farm">
+        <div class="table-responsive border-sourcetable agreement-top">
+            <div
+                class="col-12 mb-3 bor-ebe"
+                *ngFor="let data of sortedMainData | filter: searchTerm | filter: estatetermOrigin"
+            >
+                <div class="row">
+                    <div class="col-12 mobile-ce p-0">
+                        <div class="d-flex justify-content-between bg-f4f4 py-2 px-3">
+                            <div>
+                                <p class="black fnt-14">{{ data.name }}</p>
+                            </div>
+                            <!-- <div>
+                                    <a
+                                        [popover]="poplistTemplate"
+                                        placement="left"
+                                        [outsideClick]="true"
+                                        #pop="bs-popover"
+                                    >
+                                        <p><img src="assets/images/kebab-menu.svg" /></p>
+                                    </a>
+                                    <ng-template #poplistTemplate id="{{ data.id }}">
+                                        <div id="popover-mobile-content">
+                                            <ul class="list-group custom-popover">
+                                                <li class="list-group-item">
+                                                    <a
+                                                        class="pointer-item"
+                                                        [routerLink]="'/sales-contract/' + customerType + '/' + data.id"
+                                                        (click)="pop.hide(); onUpdateModal(data.id)"
+                                                        >{{ globals.languageJson?.update }}</a
+                                                    >
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <a
+                                                        class="pointer-item"
+                                                        (click)="
+                                                            pop.hide();
+                                                            onOpenDeleteModal(data.id);
+                                                            deleteAgreementId = data.id
+                                                        "
+                                                        >{{ globals.languageJson?.delete }}</a
+                                                    >
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </ng-template>
+                                </div> -->
+                        </div>
+                        <div class="bor-bot-d6d6 mx-3 py-3 row">
+                            <div class="col-5 p-0">
+                                <p class="light-eight fnt-12">Active users</p>
+                            </div>
+                            <div class="col-7 p-0">
+                                <p class="fnt-12">
+                                    {{ customerType === 'micro-roasters' ? data.total_employees : data.active_users }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bor-bot-d6d6 mx-3 py-3 row">
+                            <div class="col-5 p-0">
+                                <p class="light-eight fnt-12">Discount%</p>
+                            </div>
+                            <div class="col-7 p-0">
+                                <p class="fnt-12">{{ data.discount_percentage }}</p>
+                            </div>
+                        </div>
+                        <div class="row mx-3 mb-3 pt-3 bg-f4f4">
+                            <div class="col-5 p-0">
+                                <p class="black fnt-14">
+                                    <span *ngIf="data.status === 'PENDING'">{{ data.status }}</span>
+                                    <span *ngIf="data.status === 'ACTIVE'" class="active"><li>Active</li></span>
+                                    <span *ngIf="data.status === 'INACTIVE'" class="disabled"><li>Disabled</li></span>
+                                </p>
+                            </div>
+                            <div class="col-7 p-0">
+                                <p class="fnt-12">
+                                    Created on:{{
+                                        customerType === 'micro-roasters'
+                                            ? (data.founded_on | date: 'M/d/yy, h:mm a')
+                                            : (data.created_at | date: 'M/d/yy, h:mm a')
+                                    }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

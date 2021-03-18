@@ -1,9 +1,41 @@
 .royal-cofee {
     padding: 1.5rem 0rem 2.5rem 0rem;
-    .ft-roastry-profile {
+    .user-main {
         @media (min-width: 992px) {
-            width: 94px;
-            border-radius: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        .user {
+            @media (min-width: 992px) {
+                display: flex;
+            }
+            .users-profile {
+                @media (min-width: 992px) {
+                    display: flex;
+                }
+                .user-image {
+                    @media (max-width: 480px) {
+                        text-align: center;
+                    }
+                    @media (min-width: 992px) {
+                        margin-right: 1rem;
+                    }
+                    .ft-roastry-profile {
+                        width: 94px;
+                        border-radius: 100%;
+                    }
+                }
+                .user-text {
+                    @media (max-width: 480px) {
+                        text-align: center;
+                    }
+                }
+            }
+        }
+        .message-customer {
+            @media (max-width: 480px) {
+                text-align: center;
+            }
         }
     }
 }
