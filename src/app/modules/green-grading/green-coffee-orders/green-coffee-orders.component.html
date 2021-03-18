@@ -89,7 +89,7 @@
                         <ng-template pTemplate="header" let-columns>
                             <tr>
                                 <th style="width: 45px" *ngIf="!isMobileView">
-                                    <p-checkbox (click)="selectRow(e.checked)" #e></p-checkbox>
+                                    <p-checkbox (click)="selectRows(e.checked)" #e></p-checkbox>
                                 </th>
 
                                 <th
@@ -117,6 +117,7 @@
                                     <p-tableCheckbox
                                         [disabled]="!rowData.cupping_report_id"
                                         [value]="rowData"
+                                        (click)="selectRow(rowData.cupping_report_id)"
                                     ></p-tableCheckbox>
                                 </td>
 
@@ -138,6 +139,7 @@
                                             <p-tableCheckbox
                                                 [value]="rowData"
                                                 [disabled]="!rowData.cupping_report_id"
+                                                (click)="selectRow(rowData.cupping_report_id)"
                                                 style="margin-left: auto"
                                             >
                                             </p-tableCheckbox>

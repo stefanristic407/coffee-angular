@@ -5,6 +5,7 @@ import { GenerateReportService } from '../generate-report/generate-report.servic
 import { MenuItem, LazyLoadEvent } from 'primeng/api';
 import { LabelValue } from '@models';
 import { ORDER_TYPE_ITEMS } from '@constants';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-green-coffee-orders',
@@ -43,6 +44,7 @@ export class GreenCoffeeOrdersComponent implements OnInit {
         public globals: GlobalsService,
         public generateReportService: GenerateReportService,
         private greenGradingService: GreenGradingService,
+        private toastrService: ToastrService,
         private router: Router,
     ) {}
 
@@ -170,11 +172,17 @@ export class GreenCoffeeOrdersComponent implements OnInit {
         }
     }
 
-    selectRow(checkValue) {
+    selectRows(checkValue) {
         if (checkValue) {
             this.selectedRows = this.tableData.filter((value) => value.cupping_report_id);
         } else {
             this.selectedRows = [];
+        }
+    }
+
+    selectRow(cuppingReportId) {
+        if (!cuppingReportId) {
+            this.toastrService.error('Please assign user.');
         }
     }
 }
