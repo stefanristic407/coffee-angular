@@ -21,9 +21,7 @@
 }
 
 .team__total {
-    padding-left: 3rem;
-    padding-top: 1rem;
-    padding-right: 3rem;
+    padding-top: 1.5rem;
 }
 
 .add-team {
@@ -167,5 +165,16 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+    }
+    .team__total {
+        padding-top: 0rem !important;
+    }
+    .brd-d6d6 {
+        width: 90%;
+        border-bottom: 2px dashed #d6d6d6 !important;
+    }
+    .align-mob-btn {
+        display: flex !important;
+        flex-direction: column-reverse !important;
     }
 }

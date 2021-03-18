@@ -47,11 +47,7 @@ export class RoasterQuickSetupComponent implements OnInit {
         }
         this.headerValue = decodeURIComponent(this.route.snapshot.queryParams.buttonValue);
         this.appLanguage = this.globals.languageJson;
-        this.navItems = [
-            { label: this.globals.languageJson?.agreements },
-            { label: this.globals.languageJson?.people },
-            { label: 'Customer onboarding' },
-        ];
+        this.navItems = [{ label: this.globals.languageJson?.people }, { label: 'Customer onboarding' }];
         this.selectedNav = { label: this.globals.languageJson?.home, routerLink: '/' };
     }
 

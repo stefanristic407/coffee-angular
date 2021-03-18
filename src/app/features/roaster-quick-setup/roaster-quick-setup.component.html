@@ -5,24 +5,6 @@
                 <p-breadcrumb [model]="navItems" [home]="selectedNav"></p-breadcrumb>
             </div>
         </div>
-        <!-- <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
-            <span id="title-breadcrumb-1" class="sr-only"></span>
-            <ul class="bread-nav">
-                <li class="b-cum">
-                    <a class="b-cum" routerLink="/">{{ globals.languageJson?.home }}</a
-                    ><span class="padl-r" aria-hidden="true"
-                        ><img class="group-img" src="/assets/images/arrow-1.png" alt=""
-                    /></span>
-                </li>
-                <li class="b-cum">
-                    <a class="b-cum">{{ globals.languageJson?.people }}</a
-                    ><span class="padl-r" aria-hidden="true"
-                        ><img class="group-img" src="/assets/images/arrow-1.png" alt=""
-                    /></span>
-                </li>
-                <li class="b-cum c-pink">Customer onboarding</li>
-            </ul>
-        </nav> -->
         <section class="team__total d-md-block">
             <div class="row">
                 <div class="col-12">
@@ -34,7 +16,7 @@
                 <div class="col-lg-12 mt-0 mt-lg-4 source-cont">
                     <form class="form-container">
                         <div class="row" *ngFor="let add of addUser; let i = index">
-                            <div class="mobile-farm w-100">
+                            <div class="mobile-farm col-12">
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="add-team pb-3 mobile-farm">Invite {{ i + 1 }}</div>
@@ -46,7 +28,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="sewn-form-field p-0 px-lg-3 col-md-4 mt-md-1">
+                            <div class="sewn-form-field px-lg-3 col-md-4 mt-md-1">
                                 <label>{{ globals.languageJson?.name }}<span class="star">*</span></label>
                                 <input
                                     pInputText
@@ -57,7 +39,7 @@
                                     [ngModelOptions]="{ standalone: true }"
                                 />
                             </div>
-                            <div class="sewn-form-field p-0 px-lg-3 col-md-4 mt-md-1">
+                            <div class="sewn-form-field px-lg-3 col-md-4 mt-md-1">
                                 <label
                                     >{{ globals.languageJson?.enter_yoru_work_email }}<span class="star">*</span></label
                                 >
@@ -70,10 +52,7 @@
                                     [ngModelOptions]="{ standalone: true }"
                                 />
                             </div>
-                            <div
-                                class="sewn-form-field p-0 px-lg-3 col-md-3 mt-md-1"
-                                *ngIf="this.headerValue == 'HoReCa'"
-                            >
+                            <div class="sewn-form-field px-lg-3 col-md-3 mt-md-1" *ngIf="this.headerValue == 'HoReCa'">
                                 <label
                                     >{{ globals.languageJson?.enter_yoru_work_type }}<span class="star">*</span>
                                 </label>
@@ -90,22 +69,23 @@
                             <div *ngIf="i != 0" (click)="deleteRow(i)" class="web-farm">
                                 <div class="mt-4 delete-link cursor-pointer">Delete</div>
                             </div>
+                            <div *ngIf="addUser.length > 1" class="brd-d6d6 mobile-farm mt-2 mb-3 mx-auto"></div>
                         </div>
                         <div class="add-partner align-items-center">
                             <span class="ml-2 fnt-muli fnt-700 fnt-14" (click)="addNewRow()">+ Add another email</span>
                         </div>
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-12 align-mob-btn">
                                 <button
                                     type="submit"
-                                    class="btn-stroked mt-5 mb-5"
+                                    class="btn-stroked mb-lg-5 mt-3 mt-lg-5"
                                     routerLink="/features/onboard-customers"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
-                                    class="btn-raised ml-3"
+                                    class="btn-raised ml-lg-3 mt-lg-0 pt-lg-2 mt-4 pt-2"
                                     (click)="sendInvite()"
                                     [disabled]="sendInviteButton === 'Sending'"
                                 >
