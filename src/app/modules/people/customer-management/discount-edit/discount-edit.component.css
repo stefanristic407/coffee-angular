@@ -10,6 +10,12 @@
     padding: 3rem;
 }
 
+@media (max-width: 480px) {
+    .bg-fff {
+        padding: 1rem;
+    }
+}
+
 .discount-sec {
     margin: 1rem 0rem;
 }
@@ -81,5 +87,11 @@
     .customer-status-width {
         max-width: 100%;
         margin-left: 0%;
+    }
+}
+
+@media (max-width: 480px) {
+    .status-border {
+        border-bottom: 1px dashed #d6d6d6;
     }
 }

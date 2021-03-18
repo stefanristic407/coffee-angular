@@ -199,6 +199,10 @@
     position: absolute;
     top: 70%;
     right: 53%;
+    @media (max-width: 480px) {
+        top: 82.2%;
+        right: 39%;
+    }
 }
 .pointer {
     cursor: pointer;
