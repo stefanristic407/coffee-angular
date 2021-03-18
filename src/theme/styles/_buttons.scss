@@ -61,6 +61,7 @@
     }
 }
 
+<<<<<<< HEAD
 .btn-stroked-muted {
     @include btn-stroked($muted-text-color, $white, $dark-color);
 }
@@ -79,6 +80,24 @@
     &:hover {
         color: $white;
         background-color: $primary-color;
+=======
+.btn-raised.loading {
+    span {
+        padding-right: 20px;
+        position: relative;
+        &::after {
+            content: '';
+            position: absolute;
+            background-image: url(/assets/images/orange-loader.gif);
+            background-size: cover;
+            background-position: center;
+            top: 50%;
+            transform: translateY(-50%);
+            margin-left: 8px;
+            height: 16px;
+            width: 16px;
+        }
+>>>>>>> d12ecc9973c331de0410981c4b75a710b720b6b2
     }
 }
 
