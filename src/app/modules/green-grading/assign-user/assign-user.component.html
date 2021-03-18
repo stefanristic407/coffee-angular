@@ -1,0 +1,196 @@
+<section class="bg-white pt-2 px-3 px-lg-5 pb-3 pb-md-4 content-wrapper">
+    <div class="pt-3 pt-lg-4 d-flex flex-wrap justify-content-between">
+        <div class="back-page pb-45" routerLink="/green-grading/green-coffee-orders">
+            <a>
+                <span>Back</span>
+            </a>
+        </div>
+        <span class="p-input-icon-left d-none d-md-inline-block h-fit-content">
+            <i class="pi pi-search"></i>
+            <input
+                type="text"
+                class="w-100"
+                pInputText
+                placeholder="Search"
+                [(ngModel)]="keywords"
+                (ngModelChange)="loadData()"
+            />
+        </span>
+    </div>
+
+    <div class="header-wrapper">
+        <h4 class="fnt-18 fnt-muli fnt-bold text-clr334 lh-normal">Assign a User</h4>
+    </div>
+    <span class="p-input-icon-left d-inline-block d-md-none mb-4">
+        <i class="pi pi-search"></i>
+        <input
+            type="text"
+            class="w-100"
+            pInputText
+            placeholder="Search"
+            [(ngModel)]="keywords"
+            (ngModelChange)="loadData()"
+        />
+    </span>
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+        <div class="dropdown-wrapper">
+            <div class="dropdown-col">
+                <p-dropdown
+                    [options]="statusList"
+                    optionLabel="title"
+                    optionValue="value"
+                    [(ngModel)]="selectedStatus"
+                    [autoDisplayFirst]="false"
+                    [filter]="true"
+                    [showClear]="true"
+                    placeholder="Status"
+                    styleClass="p-dropdown-full-width round-border"
+                    (onChange)="loadData()"
+                ></p-dropdown>
+            </div>
+            <div class="dropdown-col">
+                <p-dropdown
+                    [options]="roleList"
+                    optionLabel="name"
+                    optionValue="id"
+                    [(ngModel)]="selectedRole"
+                    [autoDisplayFirst]="false"
+                    [filter]="true"
+                    [showClear]="true"
+                    placeholder="Role"
+                    styleClass="p-dropdown-full-width round-border"
+                    (onChange)="loadData()"
+                ></p-dropdown>
+            </div>
+        </div>
+        <button class="btn-raised mt-4 mt-md-0" (click)="onClickAssign()" *ngIf="selectedUser">Assign</button>
+    </div>
+    <div class="mt-4 mt-lg-45 table-container">
+        <div class="table-responsive">
+            <p-table
+                #myTable
+                [class.table-mobile]="isMobileView"
+                [value]="tableData"
+                [columns]="tableColumns"
+                dataKey="id"
+                [(selection)]="selectedUser"
+                [loading]="loading"
+                [responsive]="isMobileView"
+                [paginator]="totalCount > 10"
+                [rows]="10"
+                [lazy]="true"
+                [showCurrentPageReport]="true"
+                [totalRecords]="totalCount"
+                (onLazyLoad)="loadData($event)"
+                styleClass="p-table-service"
+            >
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th [style.width]="'50px'"></th>
+                        <th
+                            *ngFor="let col of columns"
+                            [pSortableColumn]="col.sortable === true ? col.field : null"
+                            [style.width]="col.width ? col.width : 'unset'"
+                        >
+                            <span class="primeng-table-header">{{ col.header }}</span>
+                            <p-sortIcon
+                                *ngIf="col.sortable === true"
+                                [field]="col.field"
+                                ariaLabel="Activate to sort"
+                                ariaLabelDesc="Activate to sort in descending order"
+                                ariaLabelAsc="Activate to sort in ascending order"
+                            >
+                            </p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr>
+                        <td *ngIf="!isMobileView">
+                            <p-tableRadioButton [value]="rowData"></p-tableRadioButton>
+                        </td>
+                        <td *ngFor="let col of columns" [ngSwitch]="col.field">
+                            <span *ngSwitchCase="'name'">
+                                <div
+                                    class="d-flex d-md-none justify-content-between align-items-center table-mobile-first-col"
+                                >
+                                    <div class="d-flex align-items-center">
+                                        <span class="fnt-bold">
+                                            {{ rowData['firstname'] }}&nbsp;{{ rowData['lastname'] }}
+                                        </span>
+                                        <span
+                                            class="circle-dot"
+                                            [ngStyle]="{
+                                                background: rowData['status'] === 'ACTIVE' ? '#649a2b' : '#747588'
+                                            }"
+                                        ></span>
+                                        <span
+                                            class="fnt-600"
+                                            [ngStyle]="{
+                                                color: rowData['status'] === 'ACTIVE' ? '#649a2b' : '#979797'
+                                            }"
+                                            >{{ rowData['status'] | strReplace: '_':' ' | titlecase }}</span
+                                        >
+                                    </div>
+                                    <span *ngIf="isMobileView">
+                                        <p-tableRadioButton [value]="rowData" class="p-radiobutton-assign-estate">
+                                        </p-tableRadioButton>
+                                    </span>
+                                </div>
+                                <span class="d-none d-md-block">
+                                    {{ rowData['firstname'] }}&nbsp;{{ rowData['lastname'] }}
+                                </span>
+                            </span>
+                            <span *ngSwitchCase="'last_login_at'">
+                                <div class="d-flex justify-content-between align-items-center px-3 px-md-0">
+                                    <span *ngIf="isMobileView" class="fnt-muli fnt-14 fnt-bold text-clr588">
+                                        {{ col['header'] }}
+                                    </span>
+
+                                    <span>
+                                        {{ rowData['last_login_at'] | date: 'dd/MM/yyyy' }}
+                                    </span>
+                                </div>
+                            </span>
+
+                            <span *ngSwitchCase="'status'">
+                                <div class="d-flex justify-content-between align-items-center px-3 px-md-0">
+                                    <span *ngIf="isMobileView" class="fnt-muli fnt-14 fnt-bold text-clr588">
+                                        {{ col['header'] }}
+                                    </span>
+                                    <div class="d-flex align-items-center">
+                                        <span
+                                            class="circle-dot"
+                                            [ngStyle]="{
+                                                background: rowData['status'] === 'ACTIVE' ? '#649a2b' : '#747588'
+                                            }"
+                                        ></span>
+                                        <span
+                                            [ngStyle]="{
+                                                color: rowData['status'] === 'ACTIVE' ? '#649a2b' : '#979797'
+                                            }"
+                                        >
+                                            {{ rowData[col.field] | strReplace: '_':' ' | titlecase }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </span>
+                            <span *ngSwitchDefault>
+                                <div class="d-flex justify-content-between align-items-center px-3 px-md-0">
+                                    <span *ngIf="isMobileView" class="fnt-muli fnt-14 fnt-bold text-clr588 col-6 p-0">
+                                        {{ col['header'] }}
+                                    </span>
+
+                                    <span class="ellipsis">
+                                        {{ rowData[col.field] }}
+                                    </span>
+                                </div>
+                            </span>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</section>

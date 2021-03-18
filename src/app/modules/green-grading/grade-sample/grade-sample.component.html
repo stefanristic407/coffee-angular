@@ -1,0 +1,351 @@
+<div class="sewn-container prime-grid">
+    <div class="bg-fff content-wrapper">
+        <div class="d-flex flex-wrap justify-content-between pb-2 pb-md-0">
+            <p-breadcrumb [model]="breadCrumbItems"></p-breadcrumb>
+            <span class="custom-search d-none d-md-inline-block">
+                <input
+                    type="text"
+                    pInputText
+                    placeholder="Search by order id, estate name"
+                    [(ngModel)]="term"
+                    (ngModelChange)="onFilter()"
+                />
+            </span>
+        </div>
+        <section class="grading__total pt-4 pt-lg-25">
+            <div class="d-flex flex-wrap justify-content-between flex-column flex-md-row">
+                <div class="green_grading_cont">
+                    <h1 class="fnt-muli fnt-18 font-bold mb-2">{{ globals.languageJson?.grade_sample }}</h1>
+                    <h3 class="mb-0 pt-1">Cup samples from your inventory</h3>
+                </div>
+            </div>
+            <div class="col-12 p-0 mt-3 d-none d-md-block" *ngIf="selectedRows.length">
+                <p-dropdown
+                    [options]="estateArray"
+                    [(ngModel)]="selectedEstateName"
+                    placeholder="Estate name"
+                    optionLabel="name"
+                    optionValue="name"
+                    styleClass="p-estate-dropdown"
+                    (onChange)="onFilter()"
+                >
+                </p-dropdown>
+                <p-dropdown
+                    [options]="statusArray"
+                    [(ngModel)]="selectedStatus"
+                    placeholder="Status"
+                    styleClass="p-status-dropdown"
+                    optionLabel="name"
+                    optionValue="name"
+                    (onChange)="onFilter()"
+                >
+                </p-dropdown>
+                <div *ngIf="selectedRows.length" class="d-flex justify-content-end float-right generate-next">
+                    <button class="green-button btn-raised" (click)="generateReportLink()">Next</button>
+                </div>
+            </div>
+            <div
+                *ngIf="selectedRows.length"
+                class="d-flex justify-content-end float-right generate-next d-block d-md-none mb-3 mb-md-2 mt-4 m-md-0"
+            >
+                <button class="green-button btn-raised" (click)="generateReportLink()">Next</button>
+            </div>
+            <div *ngIf="tableData.length" class="table-container mt-4">
+                <div class="table-responsive">
+                    <p-table
+                        #myTable
+                        [class.table-mobile]="isMobileView"
+                        [value]="tableData"
+                        [columns]="tableColumns"
+                        [(selection)]="selectedRows"
+                        dataKey="cupping_report_id"
+                        styleClass="p-table-estate"
+                        editMode="row"
+                        [loading]="loading"
+                        [responsive]="isMobileView"
+                    >
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th style="width: 78px" *ngIf="!isMobileView">
+                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                </th>
+
+                                <th
+                                    *ngFor="let col of columns"
+                                    [style.width]="col.width ? col.width : 'unset'"
+                                    [pSortableColumn]="col.sortable === true ? col.field : null"
+                                >
+                                    <span class="primeng-table-header">{{ col.header }}</span>
+                                    <p-sortIcon
+                                        *ngIf="col.sortable === true"
+                                        [field]="col.field"
+                                        ariaLabel="Activate to sort"
+                                        ariaLabelDesc="Activate to sort in descending order"
+                                        ariaLabelAsc="Activate to sort in ascending order"
+                                    >
+                                    </p-sortIcon>
+                                </th>
+                                <th [style.width]="'181px'"></th>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template
+                            pTemplate="body"
+                            let-rowData
+                            let-columns="columns"
+                            let-editing="editing"
+                            let-ri="rowIndex"
+                        >
+                            <tr [pEditableRow]="rowData">
+                                <td *ngIf="!isMobileView">
+                                    <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                                </td>
+
+                                <td>
+                                    <span class="d-flex">
+                                        <span *ngIf="isMobileView" class="d-flex w-100 align-items-center">
+                                            <span class="prime-table-label mr-3">
+                                                ID #{{ rowData['cupping_report_id'] }}
+                                            </span>
+                                            <button
+                                                *ngIf="!editing"
+                                                pButton
+                                                pRipple
+                                                type="button"
+                                                pInitEditableRow
+                                                label="Edit"
+                                                icon="pi pi-pencil"
+                                                (click)="onRowEditInit(rowData)"
+                                                class="fnt-12 fnt-600 p-button-text action-button mr-1"
+                                            ></button>
+                                            <button
+                                                *ngIf="editing"
+                                                pButton
+                                                pRipple
+                                                type="button"
+                                                pSaveEditableRow
+                                                icon="pi pi-check"
+                                                (click)="onRowEditSave(rowData)"
+                                                class="fnt-12 fnt-600 p-button-text p-button-success mr-1"
+                                            ></button>
+                                            <button
+                                                *ngIf="editing"
+                                                pButton
+                                                pRipple
+                                                type="button"
+                                                pCancelEditableRow
+                                                icon="pi pi-times"
+                                                (click)="onRowEditCancel(rowData, ri)"
+                                                class="fnt-12 fnt-600 p-button-text p-button-danger mr-1"
+                                            ></button>
+                                            <button
+                                                *ngIf="!editing"
+                                                pButton
+                                                pRipple
+                                                type="button"
+                                                icon="pi pi-trash"
+                                                label="Delete"
+                                                (click)="deleteSample(rowData)"
+                                                class="fnt-12 fnt-600 p-button-text action-button ml-2"
+                                            ></button>
+                                            <p-tableCheckbox [value]="rowData" style="margin-left: auto">
+                                            </p-tableCheckbox>
+                                        </span>
+                                        <span *ngIf="!isMobileView">
+                                            {{ rowData['cupping_report_id'] }}
+                                        </span>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="d-flex">
+                                        <span *ngIf="isMobileView" class="prime-table-label w-50"> Estate Name </span>
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input
+                                                    pInputText
+                                                    type="text"
+                                                    [(ngModel)]="rowData.estate_name"
+                                                    [style]="{ width: '100%' }"
+                                                />
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{ rowData.estate_name }}
+                                            </ng-template>
+                                        </p-cellEditor>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="d-flex" [ngStyle]="{ overflow: editing ? 'unset' : 'hidden' }">
+                                        <span *ngIf="isMobileView" class="prime-table-label w-50"> Origin </span>
+                                        <p-cellEditor [style]="{ width: isMobileView ? '50%' : '100%' }">
+                                            <ng-template pTemplate="input">
+                                                <p-dropdown
+                                                    [options]="countries"
+                                                    [(ngModel)]="rowData.origin"
+                                                    styleClass="p-countries-dropdown"
+                                                    optionLabel="name"
+                                                    optionValue="isoCode"
+                                                    [style]="{ width: '100%' }"
+                                                >
+                                                </p-dropdown>
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{ generateReportService.getCountryName(rowData.origin) }}
+                                            </ng-template>
+                                        </p-cellEditor>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="d-flex">
+                                        <span *ngIf="isMobileView" class="prime-table-label w-50"> Variety </span>
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input
+                                                    pInputText
+                                                    type="text"
+                                                    [(ngModel)]="rowData.variety"
+                                                    [style]="{ width: '100%' }"
+                                                />
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{ rowData.variety }}
+                                            </ng-template>
+                                        </p-cellEditor>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="d-flex id-t-sample">
+                                        <span *ngIf="isMobileView" class="prime-table-label w-50">
+                                            ID(Give your sample an ID)
+                                        </span>
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input
+                                                    pInputText
+                                                    type="text"
+                                                    [(ngModel)]="rowData.external_sample_id"
+                                                    [style]="{ width: '100%' }"
+                                                />
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{ rowData.external_sample_id }}
+                                            </ng-template>
+                                        </p-cellEditor>
+                                    </span>
+                                </td>
+                                <td class="d-md-flex align-items-center" *ngIf="!isMobileView">
+                                    <button
+                                        *ngIf="!editing"
+                                        pButton
+                                        pRipple
+                                        type="button"
+                                        pInitEditableRow
+                                        label="Edit"
+                                        icon="pi pi-pencil"
+                                        (click)="onRowEditInit(rowData)"
+                                        class="p-button-text action-button mr-1"
+                                    ></button>
+                                    <button
+                                        *ngIf="editing"
+                                        pButton
+                                        pRipple
+                                        type="button"
+                                        pSaveEditableRow
+                                        icon="pi pi-check"
+                                        (click)="onRowEditSave(rowData)"
+                                        class="p-button-text p-button-success mr-1"
+                                    ></button>
+                                    <button
+                                        *ngIf="editing"
+                                        pButton
+                                        pRipple
+                                        type="button"
+                                        pCancelEditableRow
+                                        icon="pi pi-times"
+                                        (click)="onRowEditCancel(rowData, ri)"
+                                        class="p-button-text p-button-danger mr-1"
+                                    ></button>
+                                    <div class="divide-action"></div>
+                                    <button
+                                        *ngIf="!editing"
+                                        pButton
+                                        pRipple
+                                        type="button"
+                                        icon="pi pi-trash"
+                                        label="Delete"
+                                        (click)="deleteSample(rowData)"
+                                        class="p-button-text action-button ml-1"
+                                    ></button>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+            <div
+                *ngIf="cuppingRequestList && cuppingRequestList.length"
+                class="divide-line my-4 d-block d-md-none"
+            ></div>
+            <hr *ngIf="!cuppingRequestList || !cuppingRequestList.length" />
+            <div class="col-lg-12 px-0">
+                <p class="fnt-muli fnt-16 fnt-bold text-clr334 text-data">
+                    Enter sample details<span class="star">*</span>
+                </p>
+            </div>
+            <div class="d-flex flex-wrap align-items-md-end fill-list">
+                <div class="d-flex flex-column col-12 col-md-6 col-lg-3 px-0 pr-md-2 pb-3">
+                    <label for="countries">Origin</label>
+                    <p-dropdown
+                        id="countries"
+                        [options]="countries"
+                        [(ngModel)]="gradeOrigin"
+                        placeholder="Please enter the origin"
+                        styleClass="p-countries-dropdown"
+                        [style]="{ width: '100%' }"
+                        optionLabel="name"
+                        optionValue="isoCode"
+                    >
+                    </p-dropdown>
+                </div>
+                <div class="d-flex flex-column col-12 col-md-6 col-lg-3 px-0 pr-lg-2 pl-md-1 pb-3">
+                    <label for="gradeEstate">Estate name</label>
+                    <input
+                        id="gradeEstate"
+                        type="text"
+                        pInputText
+                        [(ngModel)]="gradeEstate"
+                        placeholder="Please enter estate name"
+                    />
+                </div>
+                <div class="d-flex flex-column col-12 col-md-6 col-lg-3 px-0 pr-md-2 pl-lg-1 pb-3">
+                    <label for="species">Variety</label>
+                    <input
+                        id="species"
+                        type="text"
+                        pInputText
+                        [(ngModel)]="gradeSpecies"
+                        placeholder="Please enter a variety"
+                    />
+                </div>
+                <div class="d-flex flex-column col-12 col-md-6 col-lg-3 px-0 pr-lg-2 pl-md-1 pl-lg-0 pl-lg-1 pb-3">
+                    <label for="gradeId">
+                        ID
+                        <span class="fnt-muli fnt-10 fnt-600 text-clr588"
+                            >(Give your sample an ID to identify it quicker)</span
+                        >
+                    </label>
+                    <input
+                        id="gradeId"
+                        type="text"
+                        pInputText
+                        [(ngModel)]="gradeId"
+                        placeholder="Please enter your ID"
+                    />
+                </div>
+            </div>
+            <div class="col-12 p-0 mt-2 mt-md-3">
+                <button type="button" class="green-button btn-stroked" (click)="addExternalReport()">Add sample</button>
+            </div>
+        </section>
+    </div>
+</div>

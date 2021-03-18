@@ -107,6 +107,7 @@ export class VisitUsComponent implements OnInit {
 
     changeCountry() {
         if (this.infoForm.value.country) {
+            this.cities = [];
             this.globals.getCountry(this.infoForm.value.country).cities.forEach((element) => {
                 this.cities.push({ label: element, value: element });
             });

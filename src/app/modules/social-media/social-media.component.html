@@ -3,7 +3,7 @@
         <div class="bg-white pl-lg-5 pr-lg-5 pt-lg-45 pb-lg-5 pt-md-4 pb-md-4 pl-md-3 pr-md-3 p-3">
             <div class="d-md-flex justify-content-md-between">
                 <p-breadcrumb [model]="breadItems"></p-breadcrumb>
-                <form class="p-input-icon-left custom-search mt-3 mt-md-0 order-search">
+                <form class="custom-search mt-3 mt-md-0 order-search">
                     <input
                         type="text"
                         pInputText
@@ -59,7 +59,9 @@
                                                 *ngFor="let videos of filteredVideosList"
                                                 (click)="videosModal(videotemplate, videos)"
                                             >
-                                                <div class="social-post-farmlink__item w-100 h-100 position-relative">
+                                                <div
+                                                    class="social-post-farmlink__item w-100 h-100 position-relative square-container"
+                                                >
                                                     <img
                                                         class="w-100 h-100 cover-fill"
                                                         src="assets/images/farm-video.png"

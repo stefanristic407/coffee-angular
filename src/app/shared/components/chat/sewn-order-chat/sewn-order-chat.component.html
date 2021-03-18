@@ -4,7 +4,7 @@
             <!--Mesaage From-->
             <div *ngFor="let message of messageList; let last = last">
                 <div appLifecyclehook (viewChecked)="last && lastMessageRendered.next('done')">
-                    <div *ngIf="message.isActiveUser" class="main-message message-from">
+                    <div *ngIf="!message.isActiveUser" class="main-message message-from">
                         <div class="message-info">
                             <div class="message-info__body position-relative">
                                 <span class="live-time">{{ message.computed_date }}</span>
@@ -16,7 +16,7 @@
                     </div>
 
                     <!--Mesaage To-->
-                    <div *ngIf="!message.isActiveUser" class="main-message message-to">
+                    <div *ngIf="message.isActiveUser" class="main-message message-to">
                         <div class="message-info">
                             <div class="message-info__body position-relative">
                                 <span class="live-time">{{ message.computed_date }}</span>

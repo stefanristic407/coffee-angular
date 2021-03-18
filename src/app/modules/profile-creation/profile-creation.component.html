@@ -74,7 +74,7 @@
             </div>
         </div>
 
-        <div class="profile-header-details position-relative">
+        <div class="profile-header-details border-md-main br-4 position-relative">
             <img
                 class="cover-image-profile-banner w-100"
                 *ngIf="isSaveMode && roasteryProfileService.bannerUrl"
@@ -84,19 +84,32 @@
             <img
                 class="cover-image-profile-banner w-100"
                 *ngIf="isSaveMode && !roasteryProfileService.bannerUrl"
-                [src]="roasteryProfileService.roasteryProfileData?.banner_url"
+                [src]="roasteryProfileService.roasteryProfileData?.banner_url || 'assets/images/blank.png'"
                 height="160"
             />
-
+            <img
+                class="camera mv-change-icon d-md-none"
+                *ngIf="isSaveMode"
+                (click)="bannerFileInput.click()"
+                src="assets/images/camera.svg"
+            />
             <div
                 class="cover-pic text-center"
-                *ngIf="isSaveMode && !roasteryProfileService.roasteryProfileData?.banner_url"
-                (click)="bannerFileInput.click()"
+                *ngIf="
+                    isSaveMode &&
+                    !roasteryProfileService.roasteryProfileData?.banner_url &&
+                    !roasteryProfileService.bannerUrl
+                "
             >
-                <img class="plus-circle" src="assets/images/plus-circle.svg" />
-                <img class="camera desk-view" src="assets/images/camera.svg" />
-                <p class="fnt-14 font-bold text-clr588 pt-2 m-0">{{ 'add_cover_image' | translate }}</p>
-                <p class="fnt-14 font-bold text-clr588 m-0">{{ 'dimension' | translate }} 1144 x 160</p>
+                <img
+                    class="d-none d-md-block plus-circle"
+                    src="assets/images/plus-circle.svg"
+                    (click)="bannerFileInput.click()"
+                />
+                <p class="fnt-12 fnt-md-14 font-bold text-clr588 pt-0 pt-md-2 mb-1">
+                    {{ 'add_cover_image' | translate }}
+                </p>
+                <p class="fnt-12 fnt-md-14 font-bold text-clr588 m-0">{{ 'dimension' | translate }} 1144 x 160</p>
             </div>
             <input
                 type="file"
@@ -121,7 +134,10 @@
 
             <div class="edit-btn-group d-flex">
                 <button
-                    *ngIf="isSaveMode && roasteryProfileService.roasteryProfileData?.banner_url"
+                    *ngIf="
+                        isSaveMode &&
+                        (roasteryProfileService.roasteryProfileData?.banner_url || roasteryProfileService.bannerUrl)
+                    "
                     class="btn-normal fnt-14 d-none d-md-flex mr-2"
                     (click)="bannerFileInput.click()"
                     pButton
@@ -139,7 +155,7 @@
             </div>
         </div>
         <div class="profile-description-container">
-            <div class="profile-avatar" [ngClass]="{ 'br-main': !profilePhotoService.croppedImage }">
+            <div class="profile-avatar" [ngClass]="{ 'border-main': !profilePhotoService.croppedImage }">
                 <img [src]="profilePhotoService.croppedImage" class="avatar-img" />
                 <a class="change-avatar-btn" *ngIf="isSaveMode" (click)="inputAvatarImage.click()">
                     <img src="assets/images/camera.svg" class="camera-pic" />
@@ -185,8 +201,8 @@
     </div>
 </div>
 
-<div class="bg-fff p-lg-5 pl-md-3 pr-md-3 pb-md-3 pt-md-4 mt-md-3">
-    <div class="responsive-tabMenu">
+<div class="bg-fff pl-2 pr-2 p-lg-5 pl-md-3 pr-md-3 pb-md-3 pt-md-4 mt-md-3">
+    <div class="responsive-tabMenu pl-2 pr-2 pl-md-0 pr-md-0">
         <p-tabMenu [model]="menuItems" styleClas="profile-tabmenu" class="profile-tabmenu">
             <ng-template pTemplate="item" let-item let-i="index">
                 {{ item.label | translate }}
@@ -196,7 +212,7 @@
     <div class="m-2 mt-md-3 ml-md-0 mr-md-0 mb-md-0">
         <router-outlet></router-outlet>
     </div>
-    <div class="mobile-farm farm-stricky col-12">
+    <div class="mobile-farm col-12 pl-2 pr-2">
         <div class="row" *ngIf="isSaveMode">
             <div class="col-6">
                 <button

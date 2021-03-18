@@ -61,6 +61,9 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
             this.isSaveMode = res;
             if (res) {
                 this.setFormValue();
+            } else {
+                this.roasteryProfileService.bannerFile = null;
+                this.roasteryProfileService.bannerUrl = '';
             }
         });
         this.roasteryProfileService.editMode$.subscribe((res: boolean) => {

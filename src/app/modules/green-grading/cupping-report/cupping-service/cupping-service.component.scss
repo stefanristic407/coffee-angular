@@ -1,0 +1,187 @@
+.grading__total {
+    .border__cupping {
+        margin-top: 1.5rem;
+        overflow-x: auto;
+
+        @media screen and (max-width: 767px) {
+            border: none;
+            padding: 0;
+        }
+    }
+
+    .info-border-wrapper {
+        padding: 0.25rem;
+        border-radius: 4px;
+        border: solid 1px #d6d6d6;
+
+        .info-heading {
+            border-radius: 4px;
+            background-color: #f8f8f8;
+            padding: 0.875rem 0.75rem;
+            font-family: Muli;
+            font-size: 18px;
+            font-weight: bold;
+            line-height: normal;
+            color: #232334;
+
+            @media (max-width: 767px) {
+                font-size: 14px;
+                padding: 0.75rem;
+            }
+        }
+
+        .info-list {
+            padding: 0 0.75rem;
+
+            li {
+                border-bottom: solid 1px #d8d8d8;
+                padding: 1rem 0;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                label {
+                    color: #747588;
+                    width: 50%;
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        .info-view {
+            padding: 1.5rem 0.5rem;
+
+            label {
+                font-size: 12px;
+                font-weight: bold;
+                margin-bottom: 0.5rem;
+                color: #232334;
+                line-height: normal;
+            }
+
+            .descriptor {
+                border-radius: 12px;
+                border: solid 0.5px #747588;
+                background-color: #ffffff;
+                font-size: 12px;
+                font-weight: 600;
+                font-stretch: normal;
+                color: #747588;
+                line-height: 1;
+                padding: 0.25rem 0.5rem !important;
+                margin-right: 0.25rem;
+            }
+
+            .normal-text {
+                font-size: 12px;
+                font-weight: normal;
+                margin-top: 0.25rem;
+            }
+        }
+    }
+
+    .normal-text {
+        font-size: 14px;
+        font-weight: 600;
+        line-height: normal;
+        color: #232334;
+    }
+
+    .descriptor {
+        padding: 0.5rem 0 !important;
+
+        .normal-text {
+            border-radius: 17px;
+            border: solid 1px #747588;
+            background-color: #747588;
+            padding: 0.5rem;
+            color: #ffffff;
+            font-weight: 500;
+            margin-right: 0.25rem;
+        }
+    }
+
+    .dash-line {
+        width: 100%;
+        border-bottom: dashed 1px #d6d6d6;
+    }
+
+    @media screen and (max-width: 767px) {
+        .button-wrapper .green-button {
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+    }
+}
+
+::ng-deep {
+    .p-dialog.p-dialog-processdetails {
+        min-height: 100%;
+        width: 100%;
+
+        .p-dialog-header {
+            display: none;
+        }
+    }
+
+    .p-datatable.p-datatable-evaluators {
+        table tr {
+            td,
+            th {
+                font-size: 12px;
+            }
+        }
+    }
+
+    .p-datatable.p-datatable-evaluators-mobile {
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            border: solid 1px #ebebeb;
+
+            tr {
+                &:first-child {
+                    th:first-child {
+                        border-top-left-radius: 4px;
+                    }
+
+                    th:last-child {
+                        border-top-right-radius: 4px;
+                    }
+                }
+
+                &:last-child {
+                    td:first-child {
+                        border-bottom-left-radius: 4px;
+                    }
+
+                    td:last-child {
+                        border-bottom-right-radius: 4px;
+                    }
+
+                    td,
+                    th {
+                        border-bottom: none;
+                    }
+                }
+
+                td,
+                th {
+                    border-bottom: solid 1px #ebebeb;
+                    border-right: solid 1px #ebebeb;
+                    border-radius: 0;
+                    padding: 12px;
+
+                    &:last-child {
+                        border-right: 0;
+                    }
+
+                    .mobile-header-cell {
+                        display: flex;
+                    }
+                }
+            }
+        }
+    }
+}

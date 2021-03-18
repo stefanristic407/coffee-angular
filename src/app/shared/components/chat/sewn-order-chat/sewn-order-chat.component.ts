@@ -160,7 +160,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     processThreads(thread: ThreadListItem): ThreadListItem {
         const activeUser: ThreadMember[] = [];
         const targtedUserList: ThreadMember[] = [];
-        thread.members = thread.members.map((mem: any) => {
+        thread.members = (thread.members || []).map((mem: any) => {
             mem = { ...mem, ...mem.user } as ThreadListItem;
             mem = this.processThreadUser(mem);
             if (!mem.is_removed) {

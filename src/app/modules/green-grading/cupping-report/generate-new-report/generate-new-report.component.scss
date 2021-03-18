@@ -1,0 +1,145 @@
+.grading__total {
+    .cupping-report {
+        padding: 0rem 2.5rem;
+        border-radius: 4px;
+        border: solid 1px #d6d6d6;
+
+        .header-wrapper {
+            flex: 1;
+        }
+
+        .average-text {
+            text-align: right;
+        }
+
+        .average_score_value {
+            font-family: Muli;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #232334;
+            padding-bottom: 2px;
+            margin-bottom: 0;
+            padding-right: 82px;
+        }
+
+        .average_score_label {
+            font-family: Muli;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #747588;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 991px) {
+            padding: 0 2.5rem;
+        }
+
+        @media (max-width: 767px) {
+            padding: 0;
+
+            .header-wrapper {
+                padding-right: 0;
+                flex-direction: column;
+                align-items: flex-start;
+
+                & > div {
+                    width: 100%;
+                }
+            }
+
+            .average_score_value {
+                font-size: 1.5rem;
+            }
+
+            .average_score_label {
+                font-size: 1rem;
+            }
+
+            .generate_date {
+                padding: 0.875rem 0 0.75rem 1rem;
+            }
+
+            .bottom-dash {
+                border-bottom: 1px dashed #d6d6d6;
+            }
+        }
+    }
+}
+
+.button-wrapper {
+    .p-button-outlined {
+        border: solid 1px #747588;
+        color: #232334;
+        font-family: Muli;
+        font-size: 14px;
+        font-weight: 500 !important;
+    }
+}
+
+.p-field-radiobutton {
+    margin-bottom: 0;
+    margin-left: 0;
+
+    @media (max-width: 767px) {
+        margin-left: 0;
+        width: 100%;
+        padding: 1rem;
+        border-bottom: solid 1.5px #ebebeb;
+
+        & > label {
+            font-size: 14px;
+        }
+    }
+}
+
+::ng-deep {
+    .p-dialog-confirm {
+        @media (max-width: 575px) {
+            margin: 12px;
+        }
+
+        width: auto;
+        border-radius: 8px;
+
+        .p-dialog-header {
+            display: none;
+        }
+
+        .confirm-body {
+            padding: 40px 24px 40px 32px;
+
+            @media (min-width: 576px) {
+                padding: 34px 46px;
+            }
+
+            img {
+                width: 52px;
+            }
+
+            h1 {
+                font-size: 28px;
+                color: #020202;
+            }
+
+            h4 {
+                color: #747588;
+            }
+
+            .button-group {
+                // margin-top: 32px;
+            }
+
+            .p-dialog-mask-scrollblocker {
+                background-color: rgba(0, 0, 0, 0.8);
+            }
+        }
+    }
+    .p-dialog.p-dialog-processdetails {
+        min-height: 100%;
+        width: 100%;
+
+        .p-dialog-header {
+            display: none;
+        }
+    }
+}

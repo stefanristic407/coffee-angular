@@ -14,7 +14,6 @@ export class ApiKeyRequestsComponent implements OnInit, OnChanges {
     @Input() dateRange;
     @Input() perPage;
     statusFilter = 'PENDING';
-    @Output() filterType = new EventEmitter<any>();
     termStatus: any;
     showStatus = true;
     paginationValue = false;
@@ -83,7 +82,6 @@ export class ApiKeyRequestsComponent implements OnInit, OnChanges {
             if (res.success) {
                 this.loader = false;
                 this.requestData = res.result;
-                this.filterType.emit(res.result);
                 this.totalRecords = res.result_info.total_count;
                 this.rows = res.result_info.per_page;
                 if (this.totalRecords > 10) {

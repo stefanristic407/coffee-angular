@@ -3,6 +3,9 @@
 .request-table-container {
     padding: 32px 48px;
 
+    .row {
+        margin: 0;
+    }
     .border-total {
         border-radius: 20px;
         border: solid 1px $primary-border-color;
@@ -11,8 +14,8 @@
         margin-right: 12px;
     }
 
-    .estate-orders-heading {
-        margin: 24px 0;
+    .api-request-heading {
+        margin-top: 24px;
     }
 
     .estate-order-title {
@@ -71,7 +74,7 @@
         padding-top: 0.75rem;
     }
 
-    .mixups-tabs {
+    .api-requests {
         background-color: #ffffff;
         overflow: hidden;
     }
@@ -128,7 +131,84 @@
 }
 
 :host ::ng-deep .p-tabview-nav {
-    border: 0;
+    border: none;
+}
+::ng-deep .p-tabview-panels {
+    ul {
+        border-bottom: 1px solid #d6d6d6 !important;
+    }
+}
+
+.Search-tab-view {
+    display: none;
+}
+.Search {
+    display: inherit;
+}
+@media screen and (max-width: 1024px) {
+    .heading {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+    .header-inner {
+        display: flex;
+        align-items: center;
+    }
+
+    .Give-your-end-users {
+        padding-bottom: 24px;
+        margin: 0;
+    }
+}
+
+::ng-deep .p-tabview {
+    padding: 0 !important;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .bg-fff {
+        padding: 24px 16px;
+    }
+    .request-table-container {
+        .api-request-heading {
+            margin-top: 6px;
+        }
+    }
+    .bread-crumb {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .Search-tab-view {
+        display: inherit;
+    }
+
+    .Search {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .border-0 {
+        padding: 0 !important;
+    }
+    .bg-fff {
+        padding: 16.5px 16px;
+    }
+    .custom-search {
+        margin-bottom: 16px;
+    }
+}
+
+@media (max-width: 360px) {
+    .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        ::ng-deep .p-calendar {
+            width: 165px;
+            margin-top: 16px;
+        }
+    }
 }
 
 @media (max-width: 480px) {
@@ -142,23 +222,5 @@
 @media (min-width: 1400px) {
     .container {
         max-width: 1240px !important;
-    }
-}
-
-/*  media query Fram Link */
-@media (max-width: 767px) {
-    .bg-fff {
-        padding: 1rem 0.7rem !important;
-    }
-
-    .Give-your-end-users {
-        width: 98%;
-        padding-bottom: 0rem;
-        margin-bottom: 0;
-    }
-
-    .row {
-        margin-right: -10px;
-        margin-left: -10px;
     }
 }
