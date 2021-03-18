@@ -1,11 +1,12 @@
 @mixin btn-stroked($border-color, $background-color, $font-color) {
     display: inline-block;
-    padding: 10px 16px;
+    padding: 11px 16px;
     border-radius: 4px;
     border: solid 1px $border-color;
     font-family: $general-font-family;
     font-size: 14px;
     font-weight: bold;
+    line-height: 22px;
     color: $font-color;
     background-color: $background-color;
     text-align: center;
@@ -25,12 +26,13 @@
 
 .btn-raised {
     display: inline-block;
-    padding: 10px 16px;
+    padding: 11px 16px;
     border-radius: 4px;
     border: solid 1px $primary-color;
     font-family: $general-font-family;
     font-size: 14px;
     font-weight: bold;
+    line-height: 22px;
     color: $white;
     background-color: $primary-color;
     text-align: center;
