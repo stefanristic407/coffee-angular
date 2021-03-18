@@ -38,7 +38,7 @@ export class RoasterQuickSetupComponent implements OnInit {
         public userService: UserserviceService,
         public globals: GlobalsService,
     ) {
-        this.roasterId = this.cookieService.get('roasterId');
+        this.roasterId = this.cookieService.get('roaster_id');
     }
 
     ngOnInit(): void {

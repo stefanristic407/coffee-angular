@@ -14,8 +14,6 @@ import { PeopleRoutingModule } from './people-routing.module';
 import { PeopleComponent } from './people.component';
 
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
-import { MicroRoasterComponent } from './customer-management/micro-roaster/micro-roaster.component';
-import { HoReCaComponent } from './customer-management/ho-re-ca/ho-re-ca.component';
 import { MicroRoasterDetailsComponent } from './customer-management/micro-roaster-details/micro-roaster-details.component';
 import { HorecaDetailsComponent } from './customer-management/horeca-details/horeca-details.component';
 import { HorecaTableComponent } from './customer-management/horeca-details/horeca-table/horeca-table.component';
@@ -33,8 +31,6 @@ import { ImportantContactsComponent } from './customer-management/important-cont
         PeopleComponent,
         AddMembersComponent,
         CustomerManagementComponent,
-        MicroRoasterComponent,
-        HoReCaComponent,
         MicroRoasterDetailsComponent,
         HorecaDetailsComponent,
         HorecaTableComponent,
