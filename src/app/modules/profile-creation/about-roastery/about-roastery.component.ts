@@ -149,6 +149,12 @@ export class AboutRoasteryComponent implements OnInit {
 
         this.aboutForm.valueChanges.subscribe((changedData: any) => {
             this.roasteryProfileService.aboutFormInvalid = this.aboutForm.invalid;
+            if (changedData.total_employees !== changedData.female_employee_count + changedData.male_employee_count) {
+                this.roasteryProfileService.invalidSumEmployee = true;
+            } else {
+                this.roasteryProfileService.invalidSumEmployee = false;
+            }
+
             this.roasteryProfileService.editProfileData(changedData);
             if (this.chartData) {
                 this.chartData = [

@@ -29,6 +29,8 @@ export class RoasteryProfileService {
     public toUpdateProfileData: OrganizationProfile;
     public roasteryProfileData: OrganizationProfile;
 
+    public invalidSumEmployee = false;
+
     cities: Array<any> = [];
 
     userId: string;
@@ -140,8 +142,8 @@ export class RoasteryProfileService {
     }
 
     saveRoasterProfile() {
-        if (this.mainSubFormInvalid || this.aboutFormInvalid || this.contactFormInvalid) {
-            this.toastrService.error('Please fill all required fields');
+        if (this.mainSubFormInvalid || this.aboutFormInvalid || this.contactFormInvalid || this.invalidSumEmployee) {
+            this.toastrService.error('Please fill all correct values for required fields');
             return;
         }
         this.isSaving = true;
