@@ -1,0 +1,147 @@
+/* Style the input container */
+.search-input-container {
+  display: flex;
+  width: 303px;
+  height: 40px;
+  border: 1px solid #ebebeb;
+  border-radius: 3px !important;
+
+  img {
+    margin-left: 10px;
+    text-align: center;
+  }
+
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    border-width: 0;
+    font-family: Muli;
+    font-size: 16px;
+  }
+}
+
+.m-minus-55 {
+  margin-top: -55px;
+}
+
+:host ::ng-deep .ui-inputtext {
+  display: none !important;
+}
+
+.Give-your-end-users {
+  font-size: 14px;
+  font-weight: normal;
+  color: #747588;
+  width: 75%;
+  margin-bottom: 24px;
+}
+
+.estate-order-title {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: normal;
+  margin-bottom: 12px;
+  color: #232334;
+}
+
+.coffee-exp {
+  padding: 32px 48px;
+}
+
+::ng-deep .range-picker {
+  height: 43px !important;
+  width: 138px !important;
+}
+
+::ng-deep .p-inputwrapper-filled .range-picker {
+  width: auto !important;
+}
+
+.breadcrumb-container {
+  margin-bottom: 40px;
+}
+
+.table-filter-button-container {
+  margin-bottom: 32px;
+  height: 40px;
+  justify-content: space-between;
+}
+
+.order-container {
+  border-radius: 4px;
+  border: solid 1px #ebebeb;
+  margin-bottom: 16px;
+
+  .order-header {
+    padding: 5px 5px 5px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+    background-color: #f8f8f8;
+  }
+
+  .content-container {
+    display: flex;
+    padding: 15px 0;
+    margin: 0 15px;
+    border-bottom: 1px dashed #ebebeb;
+    font-size: 12px;
+    font-weight: 600;
+    .title {
+      width: 50%;
+      color: #747588;
+    }
+    .content {
+      width: 50%;
+      color: #232334;
+    }
+    &:last-child {
+      border-width: 0;
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .search-input-container {
+    width: 213px;
+  }
+  .coffee-exp {
+    padding: 24px 16px;
+  }
+  .table-filter-button-container {
+    margin-bottom: 24px;
+    justify-content: flex-start;
+
+    .range-filter-container {
+      margin-right: 12px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .Give-your-end-users {
+    font-size: 12px;
+    width: 100%;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .estate-order-title {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  .breadcrumb-container {
+    margin-bottom: 32px;
+  }
+  .default-settings {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  .table-filter-button-container {
+    margin-bottom: 16px;
+  }
+}
