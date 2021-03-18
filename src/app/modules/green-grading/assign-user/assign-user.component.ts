@@ -80,9 +80,9 @@ export class AssignUserComponent implements OnInit {
         setTimeout(() => (this.loading = true), 0); // To prevent expression has been checked error
         const options = {
             page,
-            name: this.keywords,
-            status: this.selectedStatus,
-            role_id: this.selectedRole,
+            name: this.keywords ?? '',
+            status: this.selectedStatus ?? '',
+            role_id: this.selectedRole ?? '',
             sort_by: event?.sortField === 'name' ? 'firstname' : event?.sortField,
             sort_order: event?.sortOrder === 1 ? 'asc' : 'desc',
         };

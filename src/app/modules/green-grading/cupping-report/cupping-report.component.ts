@@ -225,7 +225,7 @@ export class CuppingReportComponent implements OnInit {
     serviceReportLink(data: any) {
         const navigationExtras: NavigationExtras = {
             queryParams: {
-                serviceId: this.activeIndex === 0 ? data.service_id : data.external_sample_id,
+                serviceId: this.activeIndex === 0 ? data.gc_order_id : data.external_sample_id,
                 cuppingReportId: data.cupping_report_id,
                 requestType: this.activeIndex === 0 ? 'serviceRequest' : 'otherRequest',
             },

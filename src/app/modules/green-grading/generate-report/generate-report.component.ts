@@ -47,6 +47,7 @@ export class GenerateReportComponent implements OnInit {
         this.selectedRequestIndex = index;
         this.selectedCuppingId = null;
         this.cuppingDetails = this.generateReportService.serviceRequestsList[index];
+        this.currentScreen = this.cuppingDetails?.screen ?? 'screen1';
     }
 
     goNext(event) {
@@ -57,6 +58,7 @@ export class GenerateReportComponent implements OnInit {
             this.selectedCuppingId = event.selectedCuppingId;
             this.currentScreen = event.screen;
         }
+        this.cuppingDetails.screen = this.currentScreen;
     }
 
     returnBack() {

@@ -89,7 +89,7 @@
                         <ng-template pTemplate="header" let-columns>
                             <tr>
                                 <th style="width: 45px" *ngIf="!isMobileView">
-                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                    <p-checkbox (click)="selectRow(e.checked)" #e></p-checkbox>
                                 </th>
 
                                 <th
@@ -114,7 +114,10 @@
                         <ng-template pTemplate="body" let-rowData let-columns="columns">
                             <tr>
                                 <td *ngIf="!isMobileView">
-                                    <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                                    <p-tableCheckbox
+                                        [disabled]="!rowData.cupping_report_id"
+                                        [value]="rowData"
+                                    ></p-tableCheckbox>
                                 </td>
 
                                 <td *ngFor="let col of columns" [ngSwitch]="col.field">
@@ -132,7 +135,11 @@
                                                         : 'Prebook'
                                                 }}
                                             </span>
-                                            <p-tableCheckbox [value]="rowData" style="margin-left: auto">
+                                            <p-tableCheckbox
+                                                [value]="rowData"
+                                                [disabled]="!rowData.cupping_report_id"
+                                                style="margin-left: auto"
+                                            >
                                             </p-tableCheckbox>
                                         </span>
                                         <span *ngIf="!isMobileView">
@@ -183,12 +190,15 @@
 
                                             <span
                                                 class="ellipsis navigation-link"
-                                                *ngIf="rowData[col.field] === 'Assigned'"
+                                                *ngIf="rowData[col.field] === 'Assign' || !rowData.cupping_report_id"
                                                 [routerLink]="'/green-grading/assign-user/' + rowData.order_id"
                                             >
-                                                {{ rowData[col.field] }}
+                                                {{ rowData.cupping_report_id ? rowData[col.field] : 'Assign' }}
                                             </span>
-                                            <span class="ellipsis" *ngIf="rowData[col.field] !== 'Assigned'">
+                                            <span
+                                                class="ellipsis"
+                                                *ngIf="rowData[col.field] && rowData[col.field] !== 'Assign'"
+                                            >
                                                 {{ rowData[col.field] }}
                                             </span>
                                         </div>
