@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService, ApiRequestService } from '@services';
@@ -9,11 +9,11 @@ import { ConfirmComponent } from '@app/shared';
 import { AppKeyConfirmationComponent } from '@app/shared/components/app-key-confirmation/app-key-confirmation.component';
 
 @Component({
-    selector: 'app-api-request-details',
-    templateUrl: './api-request-details.component.html',
-    styleUrls: ['./api-request-details.component.scss'],
+    selector: 'app-generated-key-details',
+    templateUrl: './generated-key-details.component.html',
+    styleUrls: ['./generated-key-details.component.scss'],
 })
-export class ApiRequestDetailsComponent implements OnInit {
+export class GeneratedKeyDetailsComponent implements OnInit {
     breadCrumbItem: MenuItem[] = [];
     loader = true;
     termStatus: any;
@@ -27,7 +27,6 @@ export class ApiRequestDetailsComponent implements OnInit {
     requestDetailData: any;
     apiKeyId = '';
     apikeyStatus = '';
-    initialStatus = '';
 
     constructor(
         private apiRequestService: ApiRequestService,
@@ -36,24 +35,19 @@ export class ApiRequestDetailsComponent implements OnInit {
         private route: ActivatedRoute,
         public globals: GlobalsService,
         public dialogSrv: DialogService,
+        public router: Router,
     ) {
-        this.termStatus = '';
         this.roasterID = this.cookieService.get('roaster_id');
         this.route.queryParams.subscribe((params) => {
             const paramsData = JSON.parse(JSON.stringify(params));
             this.keyId = paramsData.id;
             this.apikeyStatus = paramsData.status;
-            this.initialStatus = paramsData.status;
         });
     }
 
     ngOnInit(): void {
         this.resetButtonValue = 'Generate Key';
-        if (this.apikeyStatus === 'PENDING') {
-            this.viewRoDetails();
-        } else {
-            this.getGeneratedRoKeys();
-        }
+        this.viewRoDetails();
         this.supplyBreadCrumb();
     }
 
@@ -67,35 +61,12 @@ export class ApiRequestDetailsComponent implements OnInit {
             routerLink: '/api-requests-list',
         };
         const obj3: MenuItem = {
-            label: this.globals.languageJson?.api_request_details,
-            routerLink: '/api-requests-list/api-request-details',
+            label: this.globals.languageJson?.generated_key,
+            routerLink: '/api-requests-list/generated-key-details',
         };
         this.breadCrumbItem.push(obj1);
         this.breadCrumbItem.push(obj2);
         this.breadCrumbItem.push(obj3);
-    }
-
-    getGeneratedRoKeys() {
-        const data = {
-            roaster_id: this.roasterID,
-            page: 1,
-            per_page: 10,
-            org_type: '',
-        };
-        this.apiRequestService.getGeneratedRoKeys(data).subscribe((res) => {
-            if (res.success) {
-                this.loader = false;
-                this.requestDetailData = res.result[0];
-                this.apiKeyId = res.result[0].id;
-                if (res.result[0].is_active) {
-                    this.btnToggle = true;
-                    this.apikeyStatus = 'active';
-                } else {
-                    this.btnToggle = false;
-                    this.apikeyStatus = 'paused';
-                }
-            }
-        });
     }
 
     viewRoDetails() {
@@ -103,36 +74,18 @@ export class ApiRequestDetailsComponent implements OnInit {
             roaster_id: this.roasterID,
             request_id: this.keyId,
         };
-        this.apiRequestService.getApiKeysRequestRo(data).subscribe((res) => {
+        this.apiRequestService.getGeneratedKeysDetails(data).subscribe((res) => {
             if (res.success) {
                 this.requestDetailData = res.result;
-                this.loader = false;
-            }
-        });
-    }
-
-    generateKey() {
-        this.resetButtonValue = 'Generating Key…';
-        const data = {
-            roaster_id: this.roasterID,
-            request_id: this.keyId,
-        };
-        this.apiRequestService.generateRoApiKey(data).subscribe((res) => {
-            if (res.success) {
-                this.apikeyStatus = 'GENERATED';
                 this.apiKeyId = res.result.id;
-            }
-        });
-    }
-
-    notify() {
-        const data = {
-            roaster_id: this.roasterID,
-            api_key_id: this.apiKeyId,
-        };
-        this.apiRequestService.notifyRoCustomer(data).subscribe((res) => {
-            if (res.success) {
-                this.apikeyStatus = 'Notified';
+                this.loader = false;
+                if (res.result.is_active) {
+                    this.btnToggle = true;
+                    this.apikeyStatus = 'active';
+                } else {
+                    this.btnToggle = false;
+                    this.apikeyStatus = 'paused';
+                }
             }
         });
     }
@@ -150,22 +103,7 @@ export class ApiRequestDetailsComponent implements OnInit {
             }
         });
     }
-
-    resumeKey() {
-        const data = {
-            roaster_id: this.roasterID,
-            api_key_id: this.apiKeyId,
-        };
-        this.apiRequestService.enableRoApiKey(data).subscribe((res) => {
-            if (res.success) {
-                this.apikeyStatus = 'active';
-                this.toastrService.success('Key access has been active');
-            }
-        });
-    }
-
     resume(item: any) {
-        console.log('item-->>', item);
         this.dialogSrv
             .open(AppKeyConfirmationComponent, {
                 data: {
@@ -181,6 +119,20 @@ export class ApiRequestDetailsComponent implements OnInit {
             });
     }
 
+    resumeKey() {
+        const data = {
+            roaster_id: this.roasterID,
+            api_key_id: this.apiKeyId,
+        };
+        this.apiRequestService.enableRoApiKey(data).subscribe((res) => {
+            if (res.success) {
+                this.btnToggle = true;
+                this.apikeyStatus = 'active';
+                this.toastrService.success('Key access has been active');
+            }
+        });
+    }
+
     deleteKey() {
         const data = {
             roaster_id: this.roasterID,
@@ -192,6 +144,12 @@ export class ApiRequestDetailsComponent implements OnInit {
                 this.apikeyStatus = 'DELETED';
                 this.resetButtonValue = 'Generate Key';
                 this.isDeletedApiKey = true;
+                const navigationExtras: NavigationExtras = {
+                    queryParams: {
+                        data: encodeURIComponent('generated-key'),
+                    },
+                };
+                this.router.navigate(['/api-requests-list'], navigationExtras);
             }
         });
     }

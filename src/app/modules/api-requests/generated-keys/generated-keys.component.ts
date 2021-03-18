@@ -5,6 +5,7 @@ import { GlobalsService, ApiRequestService } from '@services';
 import * as moment from 'moment';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@app/shared';
+import { AppKeyConfirmationComponent } from '@app/shared/components/app-key-confirmation/app-key-confirmation.component';
 
 @Component({
     selector: 'app-generated-keys',
@@ -119,6 +120,38 @@ export class GeneratedKeysComponent implements OnInit, OnChanges {
                 item.is_active = true;
             }
         });
+    }
+
+    resume(item: any) {
+        this.dialogSrv
+            .open(AppKeyConfirmationComponent, {
+                data: {
+                    orgName: item.org_name,
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.resumeKey(item);
+                }
+            });
+    }
+
+    pause(item: any) {
+        this.dialogSrv
+            .open(AppKeyConfirmationComponent, {
+                data: {
+                    orgName: item.org_name,
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.pauseKey(item);
+                }
+            });
     }
 
     pauseKey(item: any) {

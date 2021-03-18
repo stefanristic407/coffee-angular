@@ -23,13 +23,14 @@
                 <th pSortableColumn="requested_at">
                     {{ globals.languageJson?.date_requested }}<p-sortIcon field="requested_at"></p-sortIcon>
                 </th>
-                <th pSortableColumn="generated_at">
+                <th pSortableColumn="generated_at" style="width: 170px">
                     {{ globals.languageJson?.key_generated_on }}<p-sortIcon field="generated_at"></p-sortIcon>
                 </th>
                 <th pSortableColumn="is_active">
                     {{ globals.languageJson?.key_status }}<p-sortIcon field="is_active"></p-sortIcon>
                 </th>
                 <th>Action</th>
+                <th style="width: 20px"></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item>
@@ -38,7 +39,11 @@
                     <div class="p-mobile-row-content border-ebebeb p-0">
                         <div class="d-flex flex-column fnt-12">
                             <div class="api-request-header d-flex justify-content-between px-2 py-25">
-                                <span class="fnt-14 font-bold text-clr334">
+                                <span
+                                    class="fnt-14 font-bold text-clr334"
+                                    [routerLink]="['/api-requests-list/generated-key-details']"
+                                    [queryParams]="{ id: item.id, status: item.status }"
+                                >
                                     {{ item.org_name }} &nbsp;
                                     <span [ngClass]="item?.is_active ? 'active-status' : 'status-paused'">
                                         <img *ngIf="item?.is_active" src="assets/images/active.svg" />
@@ -51,43 +56,45 @@
                                 </span>
                                 <a
                                     class="menu-arrow"
-                                    [popover]="!item.is_active ? resumeAccessTemplate : poplistTemplate"
+                                    [popover]="!item.is_active ? resumeAccessTemplatemb : poplistTemplatemb"
                                     placement="left"
                                     [outsideClick]="true"
-                                    #pop="bs-popover"
+                                    #mbpop="bs-popover"
                                 >
                                     <p class="m-0">
                                         <img class="ellipse-image" src="assets/images/ellipses.png" alt="" />
                                     </p>
                                 </a>
-                                <ng-template #resumeAccessTemplate>
+                                <ng-template #resumeAccessTemplatemb>
                                     <div id="popover-mobile-content">
                                         <ul class="list-group custom-popover">
                                             <li class="list-group-item">
-                                                <a class="pointer-item" (click)="resumeKey(item); pop.hide()"
+                                                <a class="pointer-item" (click)="resume(item); mbpop.hide()"
                                                     >{{ globals.languageJson?.resume_access_and_notify_customer }}
                                                 </a>
                                             </li>
                                         </ul>
                                     </div>
                                 </ng-template>
-                                <ng-template #poplistTemplate>
+                                <ng-template #poplistTemplatemb>
                                     <div id="popover-mobile-content">
                                         <ul class="list-group custom-popover">
                                             <li class="list-group-item">
-                                                <a class="pointer-item" (click)="pauseKey(item); pop.hide()">{{
+                                                <a class="pointer-item" (click)="pause(item); mbpop.hide()">{{
                                                     globals.languageJson?.pause_key_access
                                                 }}</a>
                                             </li>
                                             <li class="list-group-item">
-                                                <a class="pointer-item" (click)="deleteKey(item.id); pop.hide()">{{
+                                                <a class="pointer-item" (click)="deleteKey(item.id); mbpop.hide()">{{
                                                     globals.languageJson?.delete_key
                                                 }}</a>
                                             </li>
                                             <li class="list-group-item">
-                                                <a class="pointer-item" (click)="notifyCustomer(item.id); pop.hide()">{{
-                                                    globals.languageJson?.notify_customer
-                                                }}</a>
+                                                <a
+                                                    class="pointer-item"
+                                                    (click)="notifyCustomer(item.id); mbpop.hide()"
+                                                    >{{ globals.languageJson?.notify_customer }}</a
+                                                >
                                             </li>
                                         </ul>
                                     </div>
@@ -137,7 +144,14 @@
                         {{ item.is_active ? 'Active' : 'Paused' }}
                     </span>
                 </td>
-                <td class="d-none d-md-table-cell text-overflow-ellipsis">
+                <td
+                    class="view-api-request d-none d-md-table-cell text-overflow-ellipsis"
+                    [routerLink]="['/api-requests-list/generated-key-details']"
+                    [queryParams]="{ id: item.id, status: item.status }"
+                >
+                    {{ globals.languageJson?.view_request }}
+                </td>
+                <td class="d-none d-md-table-cell text-overflow-ellipsis text-right">
                     <a
                         class="menu-arrow"
                         [popover]="!item.is_active ? resumeAccessTemplate : poplistTemplate"
@@ -151,7 +165,7 @@
                         <div id="popover-mobile-content">
                             <ul class="list-group custom-popover">
                                 <li class="list-group-item">
-                                    <a class="pointer-item" (click)="resumeKey(item); pop.hide()"
+                                    <a class="pointer-item" (click)="resume(item); pop.hide()"
                                         >{{ globals.languageJson?.resume_access_and_notify_customer }}
                                     </a>
                                 </li>
@@ -162,7 +176,7 @@
                         <div id="popover-mobile-content">
                             <ul class="list-group custom-popover">
                                 <li class="list-group-item">
-                                    <a class="pointer-item" (click)="pauseKey(item); pop.hide()">{{
+                                    <a class="pointer-item" (click)="pause(item); pop.hide()">{{
                                         globals.languageJson?.pause_key_access
                                     }}</a>
                                 </li>
