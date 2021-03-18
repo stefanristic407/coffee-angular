@@ -182,7 +182,9 @@ export class ProfileCertificatesComponent implements OnInit {
             formData.append('year', this.selectedCertificationYear.toString());
             formData.append(
                 'api_call',
-                `/ro/${this.roasterId}/certificates/${this.certificationArray[this.editingRowIndex].id}`,
+                `/ro/${this.roasterId}/users/${this.userId}/certificates/${
+                    this.certificationArray[this.editingRowIndex].id
+                }`,
             );
             formData.append('token', this.cookieService.get('Auth'));
             formData.append('method', 'PUT');
