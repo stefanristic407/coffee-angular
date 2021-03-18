@@ -64,11 +64,13 @@
                             <label class="fnt-12 fnt-md-14" for="summary"
                                 >{{ 'roastery_summary' | translate }}
                                 <span class="pull-right text-clr588" *ngIf="isSaveMode">
-                                    {{ aboutForm.get('description').value.length }}/150 words
+                                    {{ aboutForm.get('description').value | wordCount }}/150 words
                                 </span>
                             </label>
                             <textarea
                                 *ngIf="isSaveMode"
+                                appWordLimit
+                                [limit]="150"
                                 pInputTextarea
                                 class="w-100"
                                 id="summary"
@@ -78,8 +80,8 @@
                                 placeholder="Tell us and to our users about who you are as a company!"
                             >
                             </textarea>
-                            <small *ngIf="isControlHasError('description', 'maxlength')" class="p-error">
-                                Description length shouldn't be over 150 characters
+                            <small *ngIf="isControlHasError('description', 'maxWordCount')" class="p-error">
+                                Description shouldn't be over 150 words
                             </small>
                             <p class="fnt-14 fnt-600 text-clr334" *ngIf="isEditMode">
                                 {{ roasteryProfileService.roasteryProfileData?.description }}
@@ -438,11 +440,13 @@
                                     <label
                                         >{{ 'short_description_brand' | translate }}<span class="star">*</span>
                                         <span class="pull-right text-clr588">
-                                            {{ brandForm.controls.description.value.length }}/50 words
+                                            {{ brandForm.controls.description.value | wordCount }}/50 words
                                         </span>
                                     </label>
                                     <textarea
                                         class="w-100"
+                                        appWordLimit
+                                        [limit]="50"
                                         pInputTextarea
                                         rows="5"
                                         formControlName="description"
@@ -452,8 +456,11 @@
                                     <small *ngIf="isBrandControlHasError('description', 'required')" class="p-error">
                                         {{ 'required' | translate }}
                                     </small>
-                                    <small *ngIf="isBrandControlHasError('description', 'maxlength')" class="p-error">
-                                        Description shouldn't over 50 characters
+                                    <small
+                                        *ngIf="isBrandControlHasError('description', 'maxWordCount')"
+                                        class="p-error"
+                                    >
+                                        Description shouldn't over 50 words
                                     </small>
                                 </div>
                             </div>
