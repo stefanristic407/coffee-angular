@@ -1,11 +1,12 @@
 @mixin btn-stroked($border-color, $background-color, $font-color) {
     display: inline-block;
-    padding: 10px 16px;
+    padding: 11px 16px;
     border-radius: 4px;
     border: solid 1px $border-color;
     font-family: $general-font-family;
     font-size: 14px;
     font-weight: bold;
+    line-height: 22px;
     color: $font-color;
     background-color: $background-color;
     text-align: center;
@@ -25,12 +26,13 @@
 
 .btn-raised {
     display: inline-block;
-    padding: 10px 16px;
+    padding: 11px 16px;
     border-radius: 4px;
     border: solid 1px $primary-color;
     font-family: $general-font-family;
     font-size: 14px;
     font-weight: bold;
+    line-height: 22px;
     color: $white;
     background-color: $primary-color;
     text-align: center;
@@ -61,7 +63,6 @@
     }
 }
 
-<<<<<<< HEAD
 .btn-stroked-muted {
     @include btn-stroked($muted-text-color, $white, $dark-color);
 }
@@ -80,24 +81,6 @@
     &:hover {
         color: $white;
         background-color: $primary-color;
-=======
-.btn-raised.loading {
-    span {
-        padding-right: 20px;
-        position: relative;
-        &::after {
-            content: '';
-            position: absolute;
-            background-image: url(/assets/images/orange-loader.gif);
-            background-size: cover;
-            background-position: center;
-            top: 50%;
-            transform: translateY(-50%);
-            margin-left: 8px;
-            height: 16px;
-            width: 16px;
-        }
->>>>>>> d12ecc9973c331de0410981c4b75a710b720b6b2
     }
 }
 
