@@ -29,19 +29,18 @@
   display: none !important;
 }
 
-.Give-your-end-users {
+.give-your-end-users {
   font-size: 14px;
   font-weight: normal;
   color: #747588;
   width: 75%;
-  margin-bottom: 24px;
+  line-height: normal;
 }
 
 .estate-order-title {
   font-size: 18px;
   font-weight: bold;
   line-height: normal;
-  margin-bottom: 12px;
   color: #232334;
 }
 
@@ -107,6 +106,9 @@
 }
 
 @media (max-width: 991px) {
+  .give-your-end-users {
+    width: 95%;
+  }
   .search-input-container {
     width: 213px;
   }
@@ -124,22 +126,19 @@
 }
 
 @media (max-width: 767px) {
-  .Give-your-end-users {
+  .give-your-end-users {
     font-size: 12px;
     width: 100%;
     font-weight: 600;
-    margin-bottom: 12px;
   }
   .estate-order-title {
     font-size: 16px;
-    margin-bottom: 8px;
   }
   .breadcrumb-container {
     margin-bottom: 32px;
   }
-  .default-settings {
+  .default-settings-container, .default-settings {
     width: 100%;
-    margin-bottom: 16px;
   }
   .table-filter-button-container {
     margin-bottom: 16px;

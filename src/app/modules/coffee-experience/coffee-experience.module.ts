@@ -6,10 +6,11 @@ import { CoffeeExperienceComponent } from './coffee-experience.component';
 import { DefaultSettingsComponent } from './default-settings/default-settings.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@shared';
+import { OrdersTableComponent } from './orders-table/orders-table.component';
 
 
 @NgModule({
-    declarations: [CoffeeExperienceComponent, DefaultSettingsComponent],
+    declarations: [CoffeeExperienceComponent, DefaultSettingsComponent, OrdersTableComponent],
     imports: [
         CommonModule,
         CoffeeExperienceRoutingModule,

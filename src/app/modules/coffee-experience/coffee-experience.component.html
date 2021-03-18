@@ -4,9 +4,9 @@
             <div class="breadcrumb-container">
                 <p-breadcrumb [model]="items"></p-breadcrumb>
             </div>
-            <section class="estate-orders-heading">
+            <section>
                 <div class="d-flex justify-content-between">
-                    <div class="estate-order-title fnt-muli">{{ 'coffee_experience' | translate }}</div>
+                    <div class="estate-order-title fnt-muli mb-2 mb-md-0">{{ 'coffee_experience' | translate }}</div>
                     <div class="d-none d-md-block">
                         <div class="search-input-container m-minus-55">
                             <div class="d-flex align-items-center">
@@ -22,21 +22,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex flex-column flex-md-row justify-content-between">
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-end mb-3 mb-md-4 mb-lg-475">
                     <div>
-                        <p class="Give-your-end-users fnt-muli">
+                        <div class="give-your-end-users fnt-muli mb-3 mb-md-0">
                             Give your end users the coffee story experience they have been waiting for! Update and
                             personalise your story related to an order.
-                        </p>
-                    </div>
-                    <div>
-                        <div>
-                            <button
-                                    class="btn-raised text-nowrap default-settings px-4"
-                                    type="button"
-                                    routerLink="/features/default-settings"
-                            >Default settings</button>
                         </div>
+                    </div>
+                    <div class="default-settings-container">
+                        <button
+                                class="btn-raised text-nowrap default-settings px-4"
+                                type="button"
+                                routerLink="/features/default-settings"
+                        >Default settings</button>
                     </div>
                 </div>
                 <div class="d-block d-md-none">
@@ -56,6 +54,10 @@
             </section>
             <!-- table -->
             <section>
+                <p-tabMenu [model]="menuItems"></p-tabMenu>
+                <div class="mb-4">
+                    <router-outlet></router-outlet>
+                </div>
             </section>
         </div>
     </div>
