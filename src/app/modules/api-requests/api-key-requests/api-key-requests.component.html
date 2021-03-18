@@ -56,7 +56,7 @@
                                     <span class="text-muted cell-header cell-header fnt-14">{{
                                         globals.languageJson?.date_request
                                     }}</span>
-                                    <span class="text-clr334 fnt-14">{{ key.created_at | date: 'MMMM y' }}</span>
+                                    <span class="text-clr334 fnt-14">{{ key.created_at | date: 'MMM d, y' }}</span>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                 <td class="d-none d-md-table-cell text-overflow-ellipsis">
                     {{ key.org_type == 'hrc' ? 'horeca' : 'Micro roaster' }}
                 </td>
-                <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ key.created_at | date: 'MMMM y' }}</td>
+                <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ key.created_at | date: 'MMM d, y' }}</td>
                 <td
                     class="view-order d-none d-md-table-cell text-overflow-ellipsis"
                     [routerLink]="['/api-requests-list/api-request-details']"

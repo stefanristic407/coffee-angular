@@ -6,10 +6,17 @@
 
 .table-container {
     margin-bottom: 32px;
+    padding-top: 0 !important;
     @media (max-width: 767px) {
         border: none;
         padding: 0;
         margin: 0;
+    }
+    @media (min-width: 768px) {
+        overflow-x: auto;
+        .table-responsive {
+            min-width: 864px;
+        }
     }
 }
 

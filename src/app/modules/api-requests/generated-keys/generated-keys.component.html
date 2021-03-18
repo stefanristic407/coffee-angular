@@ -98,7 +98,7 @@
                                     <span class="text-muted cell-header">{{
                                         globals.languageJson?.key_generated_on
                                     }}</span>
-                                    <span class="text-clr334">{{ item.generated_at | date: 'MMMM y' }}</span>
+                                    <span class="text-clr334">{{ item.generated_at | date: 'MMM d, y' }}</span>
                                 </div>
                                 <div class="mobile-row py-3 d-flex">
                                     <span class="text-muted cell-header fnt-14">{{
@@ -112,7 +112,7 @@
                                     <span class="text-muted cell-header cell-header fnt-14">{{
                                         globals.languageJson?.date_requested
                                     }}</span>
-                                    <span class="text-clr334 fnt-14">{{ item.requested_at | date: 'MMMM y' }}</span>
+                                    <span class="text-clr334 fnt-14">{{ item.requested_at | date: 'MMM d, y' }}</span>
                                 </div>
                             </div>
                         </div>
@@ -122,8 +122,12 @@
                 <td class="d-none d-md-table-cell text-overflow-ellipsis">
                     {{ item.org_type == 'hrc' ? 'horeca' : 'Micro roaster' }}
                 </td>
-                <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ item.requested_at | date: 'MMMM y' }}</td>
-                <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ item.generated_at | date: 'MMMM y' }}</td>
+                <td class="d-none d-md-table-cell text-overflow-ellipsis">
+                    {{ item.requested_at | date: 'MMM d, y' }}
+                </td>
+                <td class="d-none d-md-table-cell text-overflow-ellipsis">
+                    {{ item.generated_at | date: 'MMM d, y' }}
+                </td>
                 <td
                     [ngClass]="item?.is_active ? 'active-status' : 'status-paused'"
                     class="d-none d-md-table-cell text-overflow-ellipsis"

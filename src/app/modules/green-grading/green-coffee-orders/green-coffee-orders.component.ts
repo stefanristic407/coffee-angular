@@ -5,6 +5,7 @@ import { GenerateReportService } from '../generate-report/generate-report.servic
 import { MenuItem, LazyLoadEvent } from 'primeng/api';
 import { LabelValue } from '@models';
 import { ORDER_TYPE_ITEMS } from '@constants';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-green-coffee-orders',
@@ -43,6 +44,7 @@ export class GreenCoffeeOrdersComponent implements OnInit {
         public globals: GlobalsService,
         public generateReportService: GenerateReportService,
         private greenGradingService: GreenGradingService,
+        private toastrService: ToastrService,
         private router: Router,
     ) {}
 
@@ -50,7 +52,7 @@ export class GreenCoffeeOrdersComponent implements OnInit {
         this.breadCrumbItems = [
             { label: this.globals.languageJson?.home, routerLink: '/features/micro-roaster-dashboard' },
             { label: this.globals.languageJson?.green_grading, routerLink: '/green-grading' },
-            { label: this.globals.languageJson?.grade_service },
+            { label: 'Green coffee orders' },
         ];
         this.loadData();
         this.initializeTable();
@@ -167,6 +169,20 @@ export class GreenCoffeeOrdersComponent implements OnInit {
             };
 
             this.router.navigate(['/green-grading/generate-report'], navigationExtras);
+        }
+    }
+
+    selectRows(checkValue) {
+        if (checkValue) {
+            this.selectedRows = this.tableData.filter((value) => value.cupping_report_id);
+        } else {
+            this.selectedRows = [];
+        }
+    }
+
+    selectRow(cuppingReportId) {
+        if (!cuppingReportId) {
+            this.toastrService.error('Please assign user.');
         }
     }
 }

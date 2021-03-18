@@ -28,8 +28,8 @@
                                 {{ 'key_activated_on' | translate }}
                                 {{
                                     initialStatus == 'GENERATED'
-                                        ? (requestDetailData?.requested_at | date: 'MMMM y')
-                                        : (requestDetailData?.created_at | date: 'MMMM y')
+                                        ? (requestDetailData?.requested_at | date: 'MMM d, y')
+                                        : (requestDetailData?.created_at | date: 'MMM d, y')
                                 }}
                             </p>
                             <p class="view-order m-0 pt-3 cursor-pointer delete-key" (click)="delete()">
@@ -93,8 +93,8 @@
                                         <span class="list-answ float-right">
                                             {{
                                                 initialStatus == 'GENERATED'
-                                                    ? (requestDetailData?.requested_at | date: 'MMMM y')
-                                                    : (requestDetailData?.created_at | date: 'MMMM y')
+                                                    ? (requestDetailData?.requested_at | date: 'MMM d, y')
+                                                    : (requestDetailData?.created_at | date: 'MMM d, y')
                                             }}</span
                                         >
                                     </td>
