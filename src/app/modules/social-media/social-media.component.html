@@ -1,0 +1,407 @@
+<section>
+    <div class="sewn-container">
+        <div class="bg-white pl-lg-5 pr-lg-5 pt-lg-45 pb-lg-5 pt-md-4 pb-md-4 pl-md-3 pr-md-3 p-3">
+            <div class="d-md-flex justify-content-md-between">
+                <p-breadcrumb [model]="breadItems"></p-breadcrumb>
+                <form class="custom-search mt-3 mt-md-0 order-search">
+                    <input
+                        type="text"
+                        pInputText
+                        [(ngModel)]="searchKey"
+                        (input)="filterCall()"
+                        placeholder="Search an order"
+                        [ngModelOptions]="{ standalone: true }"
+                        class="w-100 br-4"
+                    />
+                </form>
+            </div>
+            <section class="social-media">
+                <p class="fnt-18 font-bold text-clr334 mt-3 mb-25">
+                    {{ globals.languageJson?.social_media_posts }}
+                </p>
+                <p class="fnt-14 font-normal text-clr588">{{ globals.languageJson?.get_your_media_text }}</p>
+                <div class="col-lg-12 col-md-12 col-12">
+                    <div class="row">
+                        <div class="mt-1 mt-lg-3 col-lg-12 col-md-12 p-0">
+                            <p-tabView [(activeIndex)]="tabIndex" (onChange)="handleChange($event)">
+                                <p-tabPanel header="{{ globals.languageJson?.images }}">
+                                    <ng-template pTemplate="content">
+                                        <div
+                                            class="row cursor-pointer social-post-farmlink custom-media-container mt-2 mt-md-3"
+                                        >
+                                            <div
+                                                class="col-lg-4 col-md-6 col-sm-6 col-6 p-2"
+                                                *ngFor="let images of filteredImagesList"
+                                                (click)="imagesModal(imagetemplate, images)"
+                                            >
+                                                <div
+                                                    class="social-post-farmlink__item w-100 h-100 position-relative square-container"
+                                                >
+                                                    <img
+                                                        class="w-100 h-100 cover-fill br-4"
+                                                        src="{{ images.url }}"
+                                                        alt="farm-images"
+                                                    />
+                                                    <p class="mb-0 post-info">
+                                                        {{ images.description }} &nbsp; @
+                                                        {{ images.owner_name }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </p-tabPanel>
+                                <p-tabPanel header="{{ globals.languageJson?.videos }}">
+                                    <ng-template pTemplate="content">
+                                        <div class="row cursor-pointer custom-media-container mt-2 mt-md-3">
+                                            <a
+                                                class="col-lg-4 col-md-6 col-sm-6 col-6 p-2"
+                                                *ngFor="let videos of filteredVideosList"
+                                                (click)="videosModal(videotemplate, videos)"
+                                            >
+                                                <div
+                                                    class="social-post-farmlink__item w-100 h-100 position-relative square-container"
+                                                >
+                                                    <img
+                                                        class="w-100 h-100 cover-fill"
+                                                        src="assets/images/farm-video.png"
+                                                        alt="farm"
+                                                    />
+                                                    <img
+                                                        class="video-play"
+                                                        src="assets/images/play-button.png"
+                                                        alt="farm"
+                                                    />
+                                                    <p class="mb-0 post-info">{{ videos.description }}</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </ng-template>
+                                </p-tabPanel>
+                                <p-tabPanel header="{{ globals.languageJson?.blogs }}">
+                                    <ng-template pTemplate="content">
+                                        <div class="row cursor-pointer custom-media-container mt-2 mt-md-3">
+                                            <div
+                                                class="col-lg-4 col-md-6 col-sm-12 col-12 p-2"
+                                                routerLink="/social-media/blog-details"
+                                            >
+                                                <app-article-blog
+                                                    [articleDate]="'December 2019'"
+                                                    [title]="
+                                                        ' Coffee Trends in Latin America: Analysing PDG Español Data'
+                                                    "
+                                                    [description]="
+                                                        'From Colombia’s thriving coffee farms to Uruguay’s
+                                                    micro-roasters, Latin America has a diverse and constantly
+                                                    evolving..'
+                                                    "
+                                                    [articleUrl]="'/social-media/blog-details'"
+                                                    [articleImageUrl]="'assets/images/blog-1.png'"
+                                                ></app-article-blog>
+                                            </div>
+                                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 p-2">
+                                                <app-article-blog
+                                                    [articleDate]="'December 2019'"
+                                                    [title]="
+                                                        ' Coffee Trends in Latin America: Analysing PDG Español Data'
+                                                    "
+                                                    [description]="
+                                                        'From Colombia’s thriving coffee farms to Uruguay’s
+                                                micro-roasters, Latin America has a diverse and constantly
+                                                evolving..'
+                                                    "
+                                                    [articleUrl]="'/social-media/blog-details'"
+                                                    [articleImageUrl]="'assets/images/blog-2.png'"
+                                                ></app-article-blog>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 p-2">
+                                                <app-article-blog
+                                                    [articleDate]="'December 2019'"
+                                                    [title]="
+                                                        ' Coffee Trends in Latin America: Analysing PDG Español Data'
+                                                    "
+                                                    [description]="
+                                                        'From Colombia’s thriving coffee farms to Uruguay’s
+                                                micro-roasters, Latin America has a diverse and constantly
+                                                evolving..'
+                                                    "
+                                                    [articleUrl]="'/social-media/blog-details'"
+                                                    [articleImageUrl]="'assets/images/blog-2.png'"
+                                                ></app-article-blog>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 p-2">
+                                                <app-article-blog
+                                                    [articleDate]="'December 2019'"
+                                                    [title]="
+                                                        ' Coffee Trends in Latin America: Analysing PDG Español Data'
+                                                    "
+                                                    [description]="
+                                                        'From Colombia’s thriving coffee farms to Uruguay’s
+                                                micro-roasters, Latin America has a diverse and constantly
+                                                evolving..'
+                                                    "
+                                                    [articleUrl]="'/social-media/blog-details'"
+                                                    [articleImageUrl]="'assets/images/blog-3.png'"
+                                                ></app-article-blog>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 p-2">
+                                                <app-article-blog
+                                                    [articleDate]="'December 2019'"
+                                                    [title]="
+                                                        ' Coffee Trends in Latin America: Analysing PDG Español Data'
+                                                    "
+                                                    [description]="
+                                                        'From Colombia’s thriving coffee farms to Uruguay’s
+                                                micro-roasters, Latin America has a diverse and constantly
+                                                evolving..'
+                                                    "
+                                                    [articleUrl]="'/social-media/blog-details'"
+                                                    [articleImageUrl]="'assets/images/blog-3.png'"
+                                                ></app-article-blog>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 p-2">
+                                                <app-article-blog
+                                                    [articleDate]="'December 2019'"
+                                                    [title]="
+                                                        ' Coffee Trends in Latin America: Analysing PDG Español Data'
+                                                    "
+                                                    [description]="
+                                                        'From Colombia’s thriving coffee farms to Uruguay’s
+                                                micro-roasters, Latin America has a diverse and constantly
+                                                evolving..'
+                                                    "
+                                                    [articleUrl]="'/social-media/blog-details'"
+                                                    [articleImageUrl]="'assets/images/blog-3.png'"
+                                                ></app-article-blog>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 p-2">
+                                                <app-article-blog
+                                                    [articleDate]="'December 2019'"
+                                                    [title]="
+                                                        ' Coffee Trends in Latin America: Analysing PDG Español Data'
+                                                    "
+                                                    [description]="
+                                                        'From Colombia’s thriving coffee farms to Uruguay’s
+                                                micro-roasters, Latin America has a diverse and constantly
+                                                evolving..'
+                                                    "
+                                                    [articleUrl]="'/social-media/blog-details'"
+                                                    [articleImageUrl]="'assets/images/blog-3.png'"
+                                                ></app-article-blog>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 p-2">
+                                                <app-article-blog
+                                                    [articleDate]="'December 2019'"
+                                                    [title]="
+                                                        ' Coffee Trends in Latin America: Analysing PDG Español Data'
+                                                    "
+                                                    [description]="
+                                                        'From Colombia’s thriving coffee farms to Uruguay’s
+                                                micro-roasters, Latin America has a diverse and constantly
+                                                evolving..'
+                                                    "
+                                                    [articleUrl]="'/social-media/blog-details'"
+                                                    [articleImageUrl]="'assets/images/blog-3.png'"
+                                                ></app-article-blog>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 p-2">
+                                                <app-article-blog
+                                                    [articleDate]="'December 2019'"
+                                                    [title]="
+                                                        ' Coffee Trends in Latin America: Analysing PDG Español Data'
+                                                    "
+                                                    [description]="
+                                                        'From Colombia’s thriving coffee farms to Uruguay’s
+                                                micro-roasters, Latin America has a diverse and constantly
+                                                evolving..'
+                                                    "
+                                                    [articleUrl]="'/social-media/blog-details'"
+                                                    [articleImageUrl]="'assets/images/blog-3.png'"
+                                                ></app-article-blog>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </p-tabPanel>
+                            </p-tabView>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- image modal -->
+        <ng-template #imagetemplate>
+            <div class="modal-body text-center mt-0 p-0 p-md-45 p-lg-45">
+                <div class="row m-0">
+                    <div class="w-100 d-xl-none pt-25 pr-25 p-md-0">
+                        <button
+                            type="button"
+                            class="close pull-right mb-3 mb-sm-4"
+                            aria-label="Close"
+                            (click)="modalRef.hide()"
+                        >
+                            <span aria-hidden="true">
+                                <i class="pi pi-times custom-close-icon text-clr97 fnt-sm-600"></i>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="col-xl-5 col-12 p-0">
+                        <div class="modal-square-container">
+                            <img class="w-100 fram-img" src="{{ selectedImage.url }}" alt="farm-img" />
+                        </div>
+                    </div>
+
+                    <div class="col-xl-7 col-12 pl-3 pr-3 pb-4 p-md-0 text-left">
+                        <div class="w-100 d-none d-xl-block">
+                            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                                <span aria-hidden="true">
+                                    <i class="pi pi-times custom-close-icon text-clr97 fnt-sm-600"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="m-0 mt-3 mt-md-4 m-xl-45">
+                            <h4 class="fnt-16 font-bold text-clr334 mb-3">
+                                {{ selectedImage.description }} &nbsp; @ {{ selectedImage.owner_name }}
+                            </h4>
+                            <p class="fnt-14 fnt-600 text-clr588 mb-4 mb-md-3125">#coffee #specialitycoffee #sewn</p>
+                            <div class="d-flex">
+                                <span class="share-bor pt-2 pb-2 pl-25 pr-25 mr-3">
+                                    <a
+                                        class="text-decoration-none d-flex"
+                                        href="javascript:void(0);"
+                                        [cdkCopyToClipboard]="selectedImage.url"
+                                        (click)="copySuccessAlert()"
+                                        ><img class="share-img" src="assets/images/share-img.svg" alt="farm" />
+                                        <span class="fnt-14 fnt-500 text-clr334">
+                                            {{ globals.languageJson?.share }}
+                                        </span>
+                                    </a>
+                                </span>
+
+                                <span class="share-bor pt-2 pb-2 pl-25 pr-25">
+                                    <a
+                                        class="text-decoration-none d-flex"
+                                        href="javascript:void(0);"
+                                        (click)="download(selectedImage)"
+                                    >
+                                        <img class="share-img" src="assets/images/dwnd.svg" alt="farm" />
+                                        <span class="fnt-14 fnt-500 text-clr334">
+                                            {{ globals.languageJson?.download_image }}
+                                        </span>
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="mt-3" *ngIf="isDownload">
+                                <p-progressBar
+                                    [style]="{ height: '6px', width: '100%' }"
+                                    [value]="downloadStatus?.progress"
+                                ></p-progressBar>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <!-- end image modal -->
+
+        <ng-template #videotemplate>
+            <div class="modal-body text-center mt-0 p-0 p-md-45 p-lg-45">
+                <div class="row m-0">
+                    <div class="w-100 d-xl-none pt-25 pr-25 p-md-0">
+                        <button
+                            type="button"
+                            class="close pull-right mb-3 mb-sm-4"
+                            aria-label="Close"
+                            (click)="modalRef1.hide()"
+                        >
+                            <span aria-hidden="true">
+                                <i class="pi pi-times custom-close-icon text-clr97 fnt-sm-600"></i>
+                            </span>
+                        </button>
+                    </div>
+                    <div
+                        class="col-xl-5 col-12 p-0 position-relative"
+                        (click)="videoPopup(popTemplate); modalRef1.hide()"
+                    >
+                        <img class="w-100 fram-img" src="assets/images/farm-video.png" alt="farm" />
+                        <img class="video-play cursor-pointer" src="assets/images/play-button.png" alt="farm" />
+                    </div>
+
+                    <div class="col-xl-7 col-12 pl-3 pr-3 pb-4 p-md-0 text-left">
+                        <div class="w-100 d-none d-xl-block">
+                            <button
+                                type="button"
+                                class="close pull-right"
+                                aria-label="Close"
+                                (click)="modalRef1.hide()"
+                            >
+                                <span aria-hidden="true">
+                                    <i class="pi pi-times custom-close-icon text-clr97 fnt-sm-600"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="m-0 mt-3 mt-md-4 m-xl-45">
+                            <h4 class="fnt-16 font-bold text-clr334 mb-3">
+                                {{ selectedVideo.description }} &nbsp; @ {{ selectedVideo.owner_name }}
+                            </h4>
+                            <p class="fnt-14 fnt-600 text-clr588 mb-4 mb-md-3125">#coffee #specialitycoffee #sewn</p>
+                            <div class="d-flex">
+                                <span class="share-bor pt-2 pb-2 pl-25 pr-25 mr-3">
+                                    <a
+                                        class="text-decoration-none d-flex"
+                                        href="javascript:void(0);"
+                                        [cdkCopyToClipboard]="selectedVideo.url"
+                                        (click)="copySuccessAlert()"
+                                        ><img class="share-img" src="assets/images/share-img.svg" alt="farm" />
+                                        <span class="fnt-14 fnt-500 text-clr334">
+                                            {{ globals.languageJson?.share }}
+                                        </span>
+                                    </a>
+                                </span>
+
+                                <span class="share-bor pt-2 pb-2 pl-25 pr-25">
+                                    <a
+                                        class="text-decoration-none d-flex"
+                                        href="javascript:void(0);"
+                                        (click)="download(selectedVideo)"
+                                    >
+                                        <img class="share-img" src="assets/images/dwnd.svg" alt="farm" />
+                                        <span class="fnt-14 fnt-500 text-clr334"> Download Video </span>
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="mt-3" *ngIf="isDownload">
+                                <p-progressBar
+                                    [style]="{ height: '6px', width: '100%' }"
+                                    [value]="downloadStatus?.progress"
+                                ></p-progressBar>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template #popTemplate>
+            <div class="popup-video">
+                <div class="video-close" (click)="modalRef2.hide()">
+                    <span>&#x2715;</span>
+                </div>
+                <div class="modal-body video-section-modal p-0">
+                    <div>
+                        <video id="player" class="w-100" playsinline controls data-poster="/path/to/poster.jpg">
+                            <source [src]="selectedVideo.url" type="video/mp4" />
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</section>

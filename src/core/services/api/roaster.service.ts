@@ -21,7 +21,7 @@ export class RoasterserviceService {
     private fileuploadUrl = environment.apiURL + '/ro/filesfolders';
     private putfileuploadUrl = environment.apiURL + '/ro/putfilesfolders';
     private encryptionKey = 'sewen_secrete_key';
-    private uploadBrandsUrl = environment.apiURL + '/ro/uploadBrands';
+    private brandUrl = environment.apiURL + '/ro/brands';
 
     // private url = "https://fed-api.sewnstaging.com/ro/api";
     // private deleteUrl = "https://fed-api.sewnstaging.com/ro/deleteapi";
@@ -248,7 +248,22 @@ export class RoasterserviceService {
     }
 
     addRoasterBrand(data: any): Observable<any> {
-        return this.http.post(this.uploadBrandsUrl, data);
+        return this.http.post(this.brandUrl, data);
+    }
+
+    updateRoasterBrand(data: any): Observable<any> {
+        return this.http.post(this.brandUrl, data);
+    }
+
+    deleteRoasterBrand(brandId: string): Observable<any> {
+        const roasterId = this.cookieService.get('roaster_id');
+        const token = this.cookieService.get('Auth');
+        const data = {
+            method: 'DELETE',
+            api_call: `/ro/${roasterId}/brands/${brandId}`,
+            token,
+        };
+        return this.http.post(this.url, data);
     }
 
     // Get all reviews posted by organization

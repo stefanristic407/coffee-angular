@@ -11,8 +11,9 @@ import { LearnComponent } from './learn/learn.component';
 import { SustainabilityComponent } from './sustainability/sustainability.component';
 import { VisitUsComponent } from './visit-us/visit-us.component';
 import { FeaturedProductsComponent } from './featured-products/featured-products.component';
-import { BrandProfileHeaderComponent } from './brand-profile-header/brand-profile-header.component';
-import { BrandProfileFooterComponent } from './brand-profile-footer/brand-profile-footer.component';
+import { BrandProfileHeaderComponent } from './components/brand-profile-header/brand-profile-header.component';
+import { BrandProfileFooterComponent } from './components/brand-profile-footer/brand-profile-footer.component';
+import { UploaderComponent } from './components/uploader/uploader.component';
 
 @NgModule({
     declarations: [
@@ -25,6 +26,7 @@ import { BrandProfileFooterComponent } from './brand-profile-footer/brand-profil
         FeaturedProductsComponent,
         BrandProfileHeaderComponent,
         BrandProfileFooterComponent,
+        UploaderComponent,
     ],
     imports: [CommonModule, BrandProfileRoutingModule, SharedModule],
 })

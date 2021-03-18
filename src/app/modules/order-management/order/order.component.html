@@ -6,8 +6,12 @@
     [createdAt]="orderDetails?.createdAt"
     [invoiceUrl]="orderDetails?.invoiceUrl"
     [orderStatus]="orderDetails?.status"
+<<<<<<< HEAD
 >
 </app-order-header>
+=======
+></app-order-header>
+>>>>>>> origin/master
 
 <div class="row mt-3">
     <div class="col-12">
@@ -61,7 +65,11 @@
     <button
         type="button"
         class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
+<<<<<<< HEAD
         routerLink="/ordermanagement/order-chat"
+=======
+        [routerLink]="['/dispute-system/order-chat/', orderId]"
+>>>>>>> origin/master
         [queryParams]="{ id: orderId }"
     >
         Order #{{ orderId }} chat <span class="chat-indicator"> &#x25CF;</span

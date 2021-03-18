@@ -1,6 +1,6 @@
 <div *ngIf="(sourcingSrv.viewMode$ | async) === 'grid'; else tableView">
     <ng-container *ngIf="isLoaded; else mainLoader">
-        <div class="row gutter-26">
+        <div *ngIf="estateData?.length; else empty" class="row gutter-26">
             <div *ngFor="let item of estateData" class="col-12 col-md-6 col-lg-4 card-wrap">
                 <div class="cursor-pointer h-100" routerLink="/sourcing/estate-details/{{ item.estate_id }}">
                     <app-estate-card [data]="item"></app-estate-card>
@@ -12,6 +12,7 @@
         <app-loading></app-loading>
     </ng-template>
 </div>
+
 <ng-template #tableView>
     <p-table
         [value]="estateData"
@@ -61,11 +62,15 @@
                     >
                 </td>
                 <td>
-                    <span *ngFor="let cert of item.certificates | slice: 0:2">
-                        <img class="cert-image ml-3" [src]="cert.type_id | certificateImg" />
+                    <span *ngFor="let cert of item.certificates | slice: 0:2; index as certIdx">
+                        <img class="cert-image" [class.ml-3]="certIdx" [src]="cert.type_id | certificateImg" />
                     </span>
                 </td>
             </tr>
         </ng-template>
     </p-table>
+</ng-template>
+
+<ng-template #empty>
+    <app-empty title="No data available"></app-empty>
 </ng-template>

@@ -4,7 +4,7 @@ export const menuItems = [
     new Menu(1, 'dashboard', '/roaster-dashboard', null, null, null, false, 0, []),
     new Menu(2, 'sourcing', null, null, null, null, true, 0, ['sourcing-management']),
     new Menu(21, 'Green coffee sourcing', '/sourcing', null, null, null, false, 2, []),
-    new Menu(22, 'Quality Control', '/features/green-grading', null, null, null, false, 2, []),
+    new Menu(22, 'Quality Control', '/green-grading', null, null, null, false, 2, []),
 
     new Menu(3, 'order_management', null, null, null, null, true, 0, ['sourcing-management']),
     new Menu(31, 'Estate Orders', '/orders/es', null, null, null, false, 3, []),
@@ -52,7 +52,7 @@ export const menuItems = [
     new Menu(72, 'End-User Experience', '/features/coffee-experience', null, null, null, false, 7, []),
     new Menu(73, 'Education & Collaboration', '/file-share', null, null, null, false, 7, []),
     new Menu(74, 'The Coffee Lab', '/features/q-a-forum', null, null, null, false, 7, []),
-    new Menu(75, 'Social PR', '/features/social-media', null, null, null, false, 7, []),
+    new Menu(75, 'Social PR', '/social-media', null, null, null, false, 7, []),
 
     new Menu(8, 'Team Management', null, null, null, null, true, 0, [
         'acl-management',

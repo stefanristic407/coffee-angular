@@ -260,6 +260,16 @@ export class UserserviceService {
         return this.http.post(this.url, data);
     }
 
+    updatePrivacyTerms(body: any): Observable<any> {
+        const data = {
+            api_call: '/users/privacy-terms',
+            method: 'PUT',
+            token: this.cookieService.get('Auth'),
+            data: body,
+        };
+        return this.http.post(this.url, data);
+    }
+
     // API Function Name : Privacy Settings
     // API Description: This API call helps to get the Privacy policy terms.
 
@@ -1505,6 +1515,16 @@ export class UserserviceService {
         data['api_call'] = `/ro/${roasterId}/file-manager/files/${fileId}`;
         data['method'] = 'DELETE';
         data['token'] = this.cookieService.get('Auth');
+        return this.http.post(this.roasterUrl, data);
+    }
+
+    deleteBanner(roasterId: any): Observable<any> {
+        const token = this.cookieService.get('Auth');
+        const data = {
+            api_call: `/ro/${roasterId}/profile/banner`,
+            method: 'DELETE',
+            token,
+        };
         return this.http.post(this.roasterUrl, data);
     }
 }

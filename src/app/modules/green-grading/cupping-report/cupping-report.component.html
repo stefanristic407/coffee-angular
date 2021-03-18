@@ -1,0 +1,222 @@
+<div class="sewn-container prime-grid">
+    <div class="bg-fff content-wrapper">
+        <div class="d-flex flex-wrap justify-content-between pb-2 pb-md-0">
+            <p-breadcrumb [model]="breadCrumbItems"></p-breadcrumb>
+            <span class="custom-search d-none d-lg-inline-block">
+                <input
+                    type="text"
+                    pInputText
+                    placeholder="Search by order id, estate name"
+                    [(ngModel)]="term"
+                    (ngModelChange)="onFilter()"
+                />
+            </span>
+        </div>
+        <section class="grading__total pt-4 pt-lg-25">
+            <div class="d-flex flex-wrap justify-content-between flex-column flex-md-row">
+                <div class="green_grading_cont">
+                    <h1 class="fnt-muli fnt-18 font-bold mb-2">{{ globals.languageJson?.my_cupping_reports }}</h1>
+                    <h3 class="mb-0 pt-1">Select cupping type, add or edit evaluators before you start the cupping</h3>
+                </div>
+                <span class="custom-search d-inline-block d-lg-none mt-3">
+                    <input
+                        type="text"
+                        pInputText
+                        class="w-100"
+                        placeholder="Search by order id, estate name"
+                        [(ngModel)]="term"
+                        (ngModelChange)="onFilter()"
+                    />
+                </span>
+            </div>
+
+            <div class="col-12 p-0 mt-3">
+                <span class="mr-2">
+                    <p-dropdown
+                        *ngIf="activeIndex === 1"
+                        [options]="countries"
+                        [(ngModel)]="selectedOrigin"
+                        placeholder="Origin"
+                        optionLabel="name"
+                        optionValue="isoCode"
+                        [filter]="true"
+                        styleClass="round-border"
+                        [showClear]="true"
+                        (onChange)="onFilter()"
+                    >
+                    </p-dropdown>
+                    <p-dropdown
+                        *ngIf="activeIndex === 0"
+                        [options]="regions"
+                        [(ngModel)]="selectedRegion"
+                        placeholder="Region"
+                        styleClass="round-border"
+                        [group]="true"
+                        [showClear]="true"
+                        (onChange)="onFilter()"
+                    >
+                    </p-dropdown>
+                </span>
+                <span class="ml-1">
+                    <p-calendar
+                        [(ngModel)]="selectedDate"
+                        placeholder="Date"
+                        [showIcon]="true"
+                        inputId="icon"
+                        [showButtonBar]="true"
+                        dateFormat="yy-mm-dd"
+                        styleClass="round-border single-calendar"
+                        (onSelect)="onFilter()"
+                        (onClearClick)="onFilter()"
+                    >
+                    </p-calendar>
+                </span>
+            </div>
+            <div class="mt-3 mt-md-4">
+                <p-tabView (onChange)="handleTabChange($event)" styleClass="p-tabview-report">
+                    <p-tabPanel *ngFor="let header of ['Service Reports', 'Other Reports']" [header]="header">
+                        <div class="table-container">
+                            <div class="table-responsive">
+                                <p-table
+                                    #myTable
+                                    [class.table-mobile]="isMobileView"
+                                    [value]="tableData"
+                                    [columns]="tableColumns"
+                                    [(selection)]="selectedRows"
+                                    dataKey="cupping_report_id"
+                                    styleClass="p-table-estate"
+                                    [loading]="loading"
+                                    [responsive]="isMobileView"
+                                >
+                                    <ng-template pTemplate="header" let-columns>
+                                        <tr>
+                                            <th
+                                                *ngFor="let col of columns"
+                                                [style.width]="col.width ? col.width : 'unset'"
+                                                [pSortableColumn]="col.sortable === true ? col.field : null"
+                                            >
+                                                <span class="primeng-table-header">{{ col.header }}</span>
+                                                <p-sortIcon
+                                                    *ngIf="col.sortable === true"
+                                                    [field]="col.field"
+                                                    ariaLabel="Activate to sort"
+                                                    ariaLabelDesc="Activate to sort in descending order"
+                                                    ariaLabelAsc="Activate to sort in ascending order"
+                                                >
+                                                </p-sortIcon>
+                                            </th>
+                                            <th [style.width]="isMiddleView ? 'unset' : '17rem'">Action</th>
+                                        </tr>
+                                    </ng-template>
+
+                                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                        <tr>
+                                            <td *ngFor="let col of columns" [ngSwitch]="col.field">
+                                                <span class="d-flex" *ngSwitchCase="'cupping_report_id'">
+                                                    <span
+                                                        *ngIf="isMobileView"
+                                                        class="d-flex justify-content-between w-100"
+                                                    >
+                                                        <span class="prime-table-label w-50 d-flex align-items-center">
+                                                            <p class="mb-0">
+                                                                {{ col.header }} {{ rowData[col.field] }}
+                                                            </p>
+                                                        </span>
+                                                        <span class="d-flex align-items-center">
+                                                            <span>{{ rowData.average_score }}</span>
+                                                            <span [style.position]="'relative'">
+                                                                <p-menu
+                                                                    #menu
+                                                                    popup="popup"
+                                                                    [model]="getMenuItemsForItem(rowData)"
+                                                                >
+                                                                </p-menu>
+                                                                <button
+                                                                    pButton
+                                                                    pRipple
+                                                                    type="button"
+                                                                    (click)="menu.toggle($event)"
+                                                                    class="p-button-rounded p-button-text"
+                                                                    icon="pi pi-ellipsis-v"
+                                                                ></button>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                    <span *ngIf="!isMobileView">
+                                                        {{ rowData[col.field] }}
+                                                    </span>
+                                                </span>
+                                                <span class="d-flex" *ngSwitchCase="'evaluators'">
+                                                    <span *ngIf="isMobileView" class="prime-table-label w-50">
+                                                        {{ col.header }}
+                                                    </span>
+
+                                                    <span *ngFor="let eval of rowData.evaluators | slice: 0:1">
+                                                        {{ eval }}
+                                                    </span>
+                                                    <span *ngIf="rowData.evaluators.length > 1">
+                                                        +{{ rowData.evaluators.length - 1 }}more
+                                                    </span>
+                                                </span>
+                                                <span class="d-flex" *ngSwitchCase="'origin'">
+                                                    <span *ngIf="isMobileView" class="prime-table-label w-50">
+                                                        {{ col.header }}
+                                                    </span>
+
+                                                    <span>
+                                                        {{ generateReportService.getCountryName(rowData.origin) }}
+                                                    </span>
+                                                </span>
+                                                <span class="d-flex" *ngSwitchDefault>
+                                                    <span *ngIf="isMobileView" class="prime-table-label w-50">
+                                                        {{ col.header }}
+                                                    </span>
+
+                                                    <span>
+                                                        {{ rowData[col.field] }}
+                                                    </span>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span *ngIf="!isMiddleView" class="d-flex pull-left">
+                                                    <button
+                                                        pButton
+                                                        pRipple
+                                                        type="button"
+                                                        (click)="viewPdf(rowData.url)"
+                                                        class="p-button-rounded p-button-outlined table-action-button mr-1"
+                                                        label="View PDF"
+                                                    ></button>
+                                                    <button
+                                                        pButton
+                                                        pRipple
+                                                        type="button"
+                                                        (click)="serviceReportLink(rowData)"
+                                                        label="View table"
+                                                        class="p-button-rounded p-button-outlined table-action-button ml-1"
+                                                    ></button>
+                                                </span>
+                                                <span *ngIf="!isMobileView" class="pl-3" [style.position]="'relative'">
+                                                    <p-menu #menu popup="popup" [model]="getMenuItemsForItem(rowData)">
+                                                    </p-menu>
+                                                    <button
+                                                        pButton
+                                                        pRipple
+                                                        type="button"
+                                                        (click)="menu.toggle($event)"
+                                                        class="p-button-rounded p-button-text"
+                                                        icon="pi pi-ellipsis-v"
+                                                    ></button>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                            </div>
+                        </div>
+                    </p-tabPanel>
+                </p-tabView>
+            </div>
+        </section>
+    </div>
+</div>

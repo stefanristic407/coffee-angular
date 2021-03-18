@@ -37,6 +37,7 @@ export class VarientDetailsComponent implements OnInit {
         'grind_variant_id',
     ];
     weightVariantArray: any = [];
+    displayDelete = false;
     constructor(
         private fb: FormBuilder,
         private route: ActivatedRoute,
@@ -180,6 +181,7 @@ export class VarientDetailsComponent implements OnInit {
         this.createWeightVariantArray();
     }
     addNewGrindVarients(): void {
+        this.displayDelete = true;
         const weight = this.weightForm.get('weights') as FormArray;
         this.grind_variants = weight.controls[this.currentVarientIndex].get('grind_variants') as FormArray;
         this.grind_variants.push(this.createEmptyGrindVarient());

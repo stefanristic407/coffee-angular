@@ -1,0 +1,422 @@
+<div class="bg-fff py-3 py-md-4 py-lg-45 px-3 px-md-3 px-lg-5">
+    <div class="bg-white content-container">
+        <div class="mb-45 fnt-14 d-none d-md-block">
+            <p-breadcrumb [model]="breadcrumbItems"></p-breadcrumb>
+        </div>
+
+        <div class="mb-4 d-block d-md-none">
+            <a
+                href="javascript:void(0)"
+                class="text-clr60b fnt-16 fnt-muli fnt-600 d-flex align-items-center"
+                (click)="location.back()"
+            >
+                <img src="assets/images/back-arrow.svg" alt="20" class="mr-2" />
+                <span>{{ 'back' | translate }}</span>
+            </a>
+        </div>
+
+        <div data-aos="fade-up">
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="mb-2 mb-md-25 fnt-16 fnt-md-18 font-weight-bold line-height-normal">
+                        {{ 'my_profile' | translate }}
+                    </div>
+                    <div class="text-clr588 fnt-muli fnt-14 fnt-600 fnt-md-500">
+                        {{ 'enter_personal_detail_text' | translate }}
+                    </div>
+                </div>
+                <div
+                    class="col-md-6 mb-3 d-none d-md-flex align-items-center justify-content-start justify-content-md-end"
+                >
+                    <div *ngIf="!isEditMode">
+                        <button (click)="isEditMode = true" type="button" class="btn-raised px-4">
+                            {{ 'edit_profile' | translate }}
+                        </button>
+                    </div>
+                    <div *ngIf="isEditMode">
+                        <button (click)="handleCancel()" type="button" class="btn-stroked mr-2 px-4">
+                            {{ 'cancel' | translate }}
+                        </button>
+                        <button
+                            (click)="handleSubmit()"
+                            [disabled]="isUpdatingProfile"
+                            type="button"
+                            class="btn-raised px-4 ml-1"
+                        >
+                            {{ 'save' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="profileInfo">
+                <div class="col-md-6 col-lg-4 pr-md-2">
+                    <div class="d-none d-md-block" *ngIf="!isEditMode">
+                        <div class="avatar-name-container">
+                            <div>
+                                <img
+                                    *ngIf="!previewUrl"
+                                    src="assets/images/default-avatar.png"
+                                    alt="icon"
+                                    width="90"
+                                    height="90"
+                                />
+                                <img *ngIf="previewUrl" [src]="previewUrl" alt="icon" width="90" height="90" />
+                            </div>
+                            <div class="fnt-16 font-weight-bold profile-name">
+                                {{ profileInfo?.firstname + ' ' + profileInfo?.lastname }}
+                            </div>
+                        </div>
+                        <div class="py-4">
+                            <div class="px-0 px-md-3">
+                                <div class="d-flex align-items-center px-0 px-md-1">
+                                    <img class="mr-4" src="assets/images/icon-email.svg" alt="icon" />
+                                    <div class="w-100 py-3 border-bottom-dashed-primary">
+                                        {{ profileInfo?.email || 'Not provided' }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="px-0 px-md-3">
+                                <div class="d-flex align-items-center px-0 px-md-1">
+                                    <img class="mr-4" src="assets/images/icon-phone.svg" alt="icon" />
+                                    <div class="w-100 py-3 border-bottom-dashed-primary">
+                                        {{ profileInfo?.phone || 'Not provided' }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="px-0 px-md-3">
+                                <div class="d-flex align-items-center px-0 px-md-1">
+                                    <img class="mr-4" src="assets/images/icon-birthday.svg" alt="icon" />
+                                    <div class="w-100 py-3 border-bottom-dashed-primary">
+                                        {{ profileInfo?.date_of_birth || 'Not provided' }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="px-0 px-md-3">
+                                <div class="d-flex align-items-center px-0 px-md-1">
+                                    <img class="mr-4" src="assets/images/icon-gender.svg" alt="icon" />
+                                    <div class="w-100 py-3">
+                                        {{ profileInfo?.gender || 'Not provided' | titlecase }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="isEditMode">
+                        <div class="upload-picture-container">
+                            <div class="d-flex justify-content-center mb-3">
+                                <div class="position-relative">
+                                    <img
+                                        src="assets/images/icon-camera.svg"
+                                        alt="icon"
+                                        class="camera"
+                                        (click)="fileInput.click()"
+                                    />
+                                    <img
+                                        *ngIf="!previewUrl"
+                                        src="assets/images/default-avatar.png"
+                                        class="avatar"
+                                        alt="icon"
+                                        width="90"
+                                        height="90"
+                                    />
+                                    <img
+                                        *ngIf="previewUrl"
+                                        [src]="previewUrl"
+                                        class="avatar"
+                                        alt="icon"
+                                        width="90"
+                                        height="90"
+                                    />
+                                </div>
+                            </div>
+                            <div class="text-center fnt-16 font-weight-bold">
+                                {{ 'upload_your_picture' | translate }}
+                            </div>
+                            <div *ngIf="!profileInfo?.profile_image_url" class="text-clr588 text-center fnt-14 mt-2">
+                                {{ 'you_can_upload' | translate }}
+                            </div>
+                            <div *ngIf="avatarFileError" class="mt-2 text-danger text-center">
+                                {{ avatarFileError }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-8 pl-md-2">
+                    <div class="right-container">
+                        <div *ngIf="!isEditMode" class="d-none d-md-block">
+                            <div>
+                                <div class="fnt-18 font-weight-bold mb-2">About</div>
+                                <div class="text-clr588 fnt-14">
+                                    {{
+                                        profileInfo?.about_me ||
+                                            'Edit your profile to and tell us something about yourself'
+                                    }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="isEditMode">
+                            <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+                                <div class="row gutter-24">
+                                    <div class="col-md-6">
+                                        <label class="fnt-14 text-clr588" style="font-weight: 600"
+                                            >First Name <span class="text-danger">*</span></label
+                                        >
+                                        <div class="mb-4 mb-md-45 sewn-form-field w-100">
+                                            <input
+                                                class="w-100"
+                                                type="text"
+                                                pInputText
+                                                required
+                                                formControlName="firstName"
+                                            />
+                                            <div *ngIf="form.controls.firstName.invalid" class="p-error">
+                                                Required field
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="fnt-14 text-clr588"
+                                            >Last Name <span class="text-danger">*</span></label
+                                        >
+                                        <div class="mb-4 mb-md-45 sewn-form-field w-100">
+                                            <input
+                                                class="w-100"
+                                                type="text"
+                                                pInputText
+                                                required
+                                                formControlName="lastName"
+                                            />
+                                            <div *ngIf="form.controls.lastName.invalid" class="p-error">
+                                                Required field
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="mb-4 mb-md-45 sewn-form-field w-100">
+                                            <label class="fnt-14 text-clr588"
+                                                >Tell us a bit about yourself! (Optional)</label
+                                            >
+                                            <textarea
+                                                pInputTextarea
+                                                rows="3"
+                                                class="w-100 about-text-box"
+                                                formControlName="aboutMe"
+                                            ></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="fnt-14 text-clr588"
+                                            >Email address <span class="text-danger">*</span></label
+                                        >
+                                        <div class="mb-4 mb-md-45 sewn-form-field w-100">
+                                            <input
+                                                class="w-100"
+                                                type="text"
+                                                pInputText
+                                                required
+                                                formControlName="email"
+                                            />
+                                            <div *ngIf="form.controls.email.invalid" class="p-error">
+                                                {{
+                                                    form.controls.email.hasError('required')
+                                                        ? 'Required field'
+                                                        : 'Invalid email'
+                                                }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-4 mb-md-45 sewn-form-field w-100">
+                                            <label class="fnt-14 text-clr588">Phone number</label>
+                                            <app-phone-number formControlName="phone"></app-phone-number>
+                                            <div *ngIf="form.controls.phone.invalid" class="p-error">
+                                                Please enter valid phone number
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-0 sewn-form-field w-100">
+                                            <label class="fnt-14 text-clr588"
+                                                >Gender <span class="text-danger">*</span></label
+                                            >
+                                            <div class="mb-4 mb-md-45">
+                                                <p-dropdown
+                                                    [options]="genders"
+                                                    class="w-100"
+                                                    formControlName="gender"
+                                                    optionLabel="name"
+                                                    optionValue="value"
+                                                ></p-dropdown>
+                                                <div *ngIf="form.controls.gender.invalid" class="p-error">
+                                                    Required field
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-0 sewn-form-field w-100">
+                                            <label class="fnt-14 text-clr588">Date of birth</label>
+                                            <div class="mb-4 mb-md-45">
+                                                <p-calendar
+                                                    class="w-100 birthday-input"
+                                                    [monthNavigator]="true"
+                                                    [yearNavigator]="true"
+                                                    yearRange="2000:2030"
+                                                    [showIcon]="true"
+                                                    formControlName="birthday"
+                                                ></p-calendar>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="border-bottom-dashed-sub-secondary mb-4 mb-md-45"></div>
+                            <app-profile-certificates></app-profile-certificates>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Info Area for mobile start -->
+            <div class="d-block d-md-none" *ngIf="!isEditMode">
+                <div class="py-4 text-center border-top-dashed-primary border-bottom-dashed-primary">
+                    <div class="mb-2">
+                        <img
+                            *ngIf="!previewUrl"
+                            src="assets/images/default-avatar.png"
+                            class="rounded-circle"
+                            alt="icon"
+                            width="90"
+                            height="90"
+                        />
+                        <img
+                            *ngIf="previewUrl"
+                            [src]="previewUrl"
+                            class="rounded-circle"
+                            alt="icon"
+                            width="90"
+                            height="90"
+                        />
+                    </div>
+                    <div class="fnt-16 font-weight-bold profile-name">
+                        {{ profileInfo?.firstname + ' ' + profileInfo?.lastname }}
+                    </div>
+                </div>
+
+                <div class="py-4 text-clr588 border-bottom-dashed-primary">
+                    <div class="fnt-14 mb-2 font-weight-bold">About</div>
+                    <div class="fnt-14">
+                        {{ profileInfo?.about_me || 'Edit your profile to and tell us something about yourself' }}
+                    </div>
+                </div>
+
+                <div class="py-3">
+                    <div class="px-0 px-md-3">
+                        <div class="d-flex align-items-center px-0 px-md-1">
+                            <img class="mr-4" src="assets/images/icon-email.svg" alt="icon" />
+                            <div class="w-100 py-3 fnt-14 font-weight-bold">
+                                {{ profileInfo?.email || 'Not provided' }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-0 px-md-3">
+                        <div class="d-flex align-items-center px-0 px-md-1">
+                            <img class="mr-4" src="assets/images/icon-phone.svg" alt="icon" />
+                            <div class="w-100 py-3 fnt-14 font-weight-bold">
+                                {{ profileInfo?.phone || 'Not provided' }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-0 px-md-3">
+                        <div class="d-flex align-items-center px-0 px-md-1">
+                            <img class="mr-4" src="assets/images/icon-birthday.svg" alt="icon" />
+                            <div class="w-100 py-3 fnt-14 font-weight-bold">
+                                {{ profileInfo?.date_of_birth || 'Not provided' }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-0 px-md-3">
+                        <div class="d-flex align-items-center px-0 px-md-1">
+                            <img class="mr-4" src="assets/images/icon-gender.svg" alt="icon" />
+                            <div class="w-100 py-3 fnt-14 font-weight-bold">
+                                {{ profileInfo?.gender || 'Not provided' | titlecase }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Profile Info Area for mobile end -->
+
+            <div *ngIf="isLoading" class="border-main">
+                <app-loading></app-loading>
+            </div>
+
+            <div class="d-block d-md-none">
+                <div *ngIf="!isEditMode">
+                    <button (click)="isEditMode = true" type="button" class="btn-raised w-100">
+                        {{ 'edit_profile' | translate }}
+                    </button>
+                </div>
+                <div *ngIf="isEditMode">
+                    <div class="mb-3">
+                        <button
+                            (click)="handleSubmit()"
+                            [disabled]="isUpdatingProfile"
+                            type="button"
+                            class="btn-raised w-100"
+                        >
+                            {{ 'save_changes' | translate }}
+                        </button>
+                    </div>
+                    <div>
+                        <button (click)="handleCancel()" type="button" class="btn-stroked w-100">
+                            {{ 'cancel' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog
+    header="Edit Photo"
+    [visible]="myProfileService.displayCropImageDialog"
+    [modal]="true"
+    [style]="{ width: '50vw' }"
+    appendTo="body"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
+>
+    <p-header>
+        <div class="text-right">
+            <img
+                class="cursor-pointer"
+                src="assets/images/close.svg"
+                alt="close-image"
+                (click)="myProfileService.displayCropImageDialog = false"
+            />
+        </div>
+    </p-header>
+    <div class="px-4">
+        <app-image-crop-dialog></app-image-crop-dialog>
+    </div>
+    <ng-template pTemplate="footer">
+        <div class="text-right">
+            <button (click)="fileInput.click()" class="btn-stroked mr-3 px-4">Change Photo</button>
+            <button (click)="myProfileService.saveProfilePicture()" class="btn-raised px-4">Save Photo</button>
+        </div>
+    </ng-template>
+</p-dialog>
+
+<input hidden type="file" #fileInput (change)="onSelectFile($event)" />

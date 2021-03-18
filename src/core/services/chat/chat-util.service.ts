@@ -42,7 +42,15 @@ export class ChatUtilService {
     }
 
     public get ORGANIZATION_ID(): number | null {
-        return parseInt(this.cookieService.get('roaster_id'), 10) || null;
+        let idKey = '';
+        if (this.ORGANIZATION_TYPE === OrganizationType.ROASTER) {
+            idKey = 'roaster_id';
+        } else if (this.ORGANIZATION_TYPE === OrganizationType.ESTATE) {
+            idKey = 'estate_id';
+        } else if (this.ORGANIZATION_TYPE === OrganizationType.FACILITATOR) {
+            idKey = 'facilitator_id';
+        }
+        return parseInt(this.cookieService.get(idKey), 10) || null;
     }
     public get USER_ID(): number | null {
         return parseInt(this.cookieService.get('user_id'), 10) || null;

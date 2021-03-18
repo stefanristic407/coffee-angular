@@ -1,45 +1,36 @@
-// Custom Theming for Prime Ng
+// custom p-inputSwitch
 
-@import '../variables';
-
-.custom-input-switch {
-    width: 44px;
-    height: 24px;
+p-inputSwitch {
+    height: 25px;
 }
 
-.p-inputswitch-slider {
-    height: 24px;
-    width: 44px;
-    &:hover {
-        background: #d3f2da;
-    }
-}
-
-.p-inputswitch.p-focus .p-inputswitch-slider {
-    box-shadow: none !important;
-}
-
-.p-inputswitch .p-inputswitch-slider {
-    &:before {
-        left: 2px;
-    }
+.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before {
+    background: #32a822;
+    opacity: 1;
 }
 
 .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
-    background: #d3f2da;
-    height: 24px;
-    width: 44px;
-    &:hover {
-        background: #d3f2da;
-    }
-    &:before {
-        background: #32a822;
-        width: 20px;
-        height: 20px;
-        left: 2px;
-    }
+    background-color: #d3f2da !important;
 }
 
-.p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover .p-inputswitch-slider {
-    background: #d3f2da;
+.p-inputswitch:not(.p-disabled):hover .p-inputswitch-slider {
+    background-color: #dddddd;
+}
+
+.p-inputswitch-slider {
+    width: 44px;
+    height: 24px;
+}
+
+.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before {
+    left: 2px;
+}
+
+.p-inputswitch .p-inputswitch-slider:before {
+    background-color: #999999;
+    left: 2px;
+}
+
+.p-inputswitch .p-inputswitch-slider {
+    background-color: #dddddd;
 }

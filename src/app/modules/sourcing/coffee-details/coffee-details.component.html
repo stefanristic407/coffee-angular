@@ -36,7 +36,7 @@
         </div>
 
         <div class="">
-            <div class="br-md-main br-4 content-block">
+            <div class="border-md-main br-4 content-block">
                 <div class="row">
                     <div class="col-12 col-lg-5 col-md-5 left-block">
                         <div class="prodect-gal mb-4 mb-md-5">
@@ -55,7 +55,7 @@
                     </div>
                     <div class="col-12 col-lg-7 col-md-7 right-block">
                         <div class="mx-n2 mx-md-0">
-                            <div class="br-sm-main br-4 p-3 p-md-0">
+                            <div class="border-main border-md-none br-4 p-3 p-md-0">
                                 <div class="mb-2 mb-md-4">
                                     <a
                                         class="custom-link"
@@ -106,7 +106,7 @@
                                             <h3 class="mb-0">{{ sourcing.harvestDetail?.incoterm }}</h3>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-7 col-7 br-left">
+                                    <div class="col-lg-4 col-md-7 col-7 br">
                                         <div class="real-estate">
                                             <h6>{{ globals.languageJson?.available_quantity }} :</h6>
                                             <h3 class="mb-0">
@@ -117,7 +117,7 @@
                                             </h3>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3 col-md-4 col-6 d-none d-lg-block br-left">
+                                    <div class="col-lg-3 col-md-4 col-6 d-none d-lg-block br">
                                         <div class="real-estate">
                                             <h6>{{ globals.languageJson?.minimum_quantity }} :</h6>
                                             <h3 class="mb-0">
@@ -229,7 +229,7 @@
                                 </div>
                             </div>
 
-                            <div class="estate-focus with-last-border br-sm-main br-4 p-3 p-md-0">
+                            <div class="estate-focus with-last-border border-main border-md-none br-4 p-3 p-md-0">
                                 <h3 class="fnt-16 fnt-md-18 fnt-bold text-clr000">
                                     {{ globals.languageJson?.estate_details }}
                                 </h3>
@@ -315,13 +315,7 @@
                 </div>
                 <!-- Mobile Carousel -->
                 <div class="col-lg-4 col-md-6 col-12 cursor-pointer d-md-none">
-                    <p-carousel
-                        [value]="sourcing.otherGreenList"
-                        [numVisible]="1"
-                        [numScroll]="1"
-                        [circular]="true"
-                        [autoplayInterval]="3000"
-                    >
+                    <p-carousel [value]="sourcing.otherGreenList" [numVisible]="1" [numScroll]="1" [circular]="true">
                         <ng-template let-item pTemplate="item">
                             <div routerLink="/sourcing/coffee-details/{{ item.estate.id }}/{{ item.harvest_id }}">
                                 <app-harvest-card [data]="item"></app-harvest-card>
@@ -335,25 +329,25 @@
 </section>
 
 <ng-template #btnGroup>
-    <div class="btn-wrap">
-        <div class="pr-2 pr-md-1">
+    <div class="row gutter-16 gutter-md-12">
+        <div class="col-6 col-md-auto">
             <button
-                class="btn-stroked px-3"
+                class="btn-stroked w-100"
                 routerLink="/sourcing/order-gc-sample"
                 [queryParams]="{ gc_id: sourcing.harvestId }"
             >
                 Order sample
             </button>
         </div>
-        <div class="pl-2">
-            <button
-                class="btn-raised"
+        <div class="col-6 col-md-auto">
+            <a
+                class="btn-raised w-100"
                 routerLink="/sourcing/buy-gc"
                 [queryParams]="{ gc_id: sourcing.harvestId }"
                 *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage"
             >
                 Buy
-            </button>
+            </a>
         </div>
     </div>
 </ng-template>

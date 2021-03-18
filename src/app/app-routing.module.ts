@@ -28,11 +28,6 @@ export const routes: Routes = [
                     import('./modules/review-rating/review-rating.module').then((m) => m.ReviewRatingModule),
             },
             {
-                path: 'ordermanagement',
-                loadChildren: () =>
-                    import('./ordermanagement/ordermanagement.module').then((m) => m.OrdermanagementModule),
-            },
-            {
                 path: 'dispute-system',
                 loadChildren: () =>
                     import('./modules/dispute-system/dispute-system.module').then((m) => m.DisputeSystemModule),
@@ -67,9 +62,7 @@ export const routes: Routes = [
             {
                 path: 'api-requests-list',
                 loadChildren: () =>
-                    import('./modules/api-requests/api-requests-table/api-request.module').then(
-                        (m) => m.ApiRequestModule,
-                    ),
+                    import('./modules/api-requests/api-requests.module').then((m) => m.ApiRequestModule),
             },
             {
                 path: 'green-coffee-management',
@@ -94,6 +87,31 @@ export const routes: Routes = [
                 path: 'roastery-profile',
                 loadChildren: () =>
                     import('./modules/profile-creation/profile-creation.module').then((m) => m.ProfileCreationModule),
+            },
+            {
+                path: 'account-settings',
+                loadChildren: () =>
+                    import('./modules/account-settings/account-settings.module').then((m) => m.AccountSettingsModule),
+            },
+            {
+                path: 'social-media',
+                loadChildren: () =>
+                    import('./modules/social-media/social-media.module').then((m) => m.SocialMediaModule),
+            },
+            // {
+            //     path: '',
+            //     redirectTo: 'roastery-profile',
+            //     pathMatch: 'full',
+            // },
+            {
+                path: 'green-grading',
+                loadChildren: () =>
+                    import('./modules/green-grading/green-grading.module').then((m) => m.GreenGradingModule),
+            },
+            {
+                path: 'my-profile',
+                loadChildren: () =>
+                    import('./modules/my-profile/my-profile.module').then((m) => m.MyProfileModule),
             },
         ],
     },

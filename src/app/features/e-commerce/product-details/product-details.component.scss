@@ -71,6 +71,9 @@
     margin-top: 2rem;
     margin-bottom: 1.5rem;
 }
+.boxCrateWidth {
+    width: 205px !important;
+}
 
 @media screen and (max-width: 1100px) {
     .divSeperator {
@@ -80,7 +83,7 @@
     }
     .variant-pos {
         position: relative;
-        top: 45px;
+        top: 38px;
     }
 }
 @media (min-width: 768px) and (max-width: 1240px) {
@@ -110,7 +113,7 @@
     }
     .e-comm-border-top {
         border-top: 1px dashed #d6d6d6;
-        padding: 10px;
+        padding: 8px;
     }
     .divSeperator {
         border: 1px dashed #d6d6d6;
@@ -132,11 +135,17 @@
         position: relative;
         top: 0.35rem;
     }
+    .boxCrateWidth {
+        width: 100px !important;
+    }
 }
 @media (max-width: 375px) {
     ::ng-deep .varientBox label.p-checkbox-label {
         position: relative;
         top: 0.9rem;
+    }
+    .boxCrateWidth {
+        width: 85px !important;
     }
 }
 .addWeightDiv {

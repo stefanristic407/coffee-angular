@@ -50,7 +50,7 @@ export class EstateListComponent implements OnInit, OnDestroy {
         this.userService.getAvailableEstates(this.roasterId, queryStr).subscribe((res: any) => {
             this.isLoaded = true;
             if (res.success) {
-                this.estateData = [...res.result];
+                this.estateData = res.result;
             }
         });
     }

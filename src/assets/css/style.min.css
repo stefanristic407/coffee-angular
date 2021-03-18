@@ -13056,11 +13056,6 @@ li.b-cum {
     color: #ffffff;
 }
 
-.rounded-circle {
-    width: 31px;
-}
-
-
 /* .login-sec {
     background-image: url(../../assets/images/coffee_estate_bg.png);
     width: 100%;
@@ -18556,4 +18551,44 @@ button {
         display: -ms-inline-flexbox !important;
         display: inline-flex !important
     }
+}
+
+.border-top-dashed-primary {
+    border-top: 1px dashed #cccccc;
+}
+
+.border-bottom-dashed-primary {
+    border-bottom: 1px dashed #cccccc;
+}
+
+.border-top-dashed-sub-secondary {
+    border-top: 2px dashed #ebebeb;
+}
+
+.border-bottom-dashed-sub-secondary {
+    border-bottom: 2px dashed #ebebeb;
+}
+
+.custom-chip-container {
+    padding: 4px 15px;
+    border-radius: 13px;
+    border: solid 0.5px #747588;
+    font-size: 12px;
+    position: relative;
+}
+
+.custom-chip-container:before{
+    content: "";
+    position: absolute;
+    border: 2px solid #747588;
+    width: 3px;
+    height: 3px;
+    top: 10px;
+    z-index: 10;
+    left: 6px;
+    border-radius: 50%;
+}
+
+a.text-clr60b:hover {
+    color: #80460b;
 }

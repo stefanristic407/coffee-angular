@@ -1,0 +1,226 @@
+@import '_variables.scss';
+
+.request-table-container {
+    padding: 32px 48px;
+
+    .row {
+        margin: 0;
+    }
+    .border-total {
+        border-radius: 20px;
+        border: solid 1px $primary-border-color;
+        background-color: #ffffff;
+        padding: 10px 12px;
+        margin-right: 12px;
+    }
+
+    .api-request-heading {
+        margin-top: 24px;
+    }
+
+    .estate-order-title {
+        font-family: Muli;
+        font-size: 18px;
+        font-weight: bold;
+        color: $general-text-color;
+    }
+
+    .border-order {
+        border-radius: 20px;
+        border: solid 1px $primary-border-color;
+        background-color: #ffffff;
+        padding: 10px 12px;
+    }
+
+    .border-order:focus {
+        outline-color: 1px solid $primary-color;
+    }
+
+    .filter-text {
+        font-family: Muli;
+        font-size: 14px;
+        font-weight: 600;
+        color: $muted-text-color;
+    }
+
+    .filter {
+        font-family: 'Muli';
+        font-weight: 600;
+        color: $general-text-color;
+        font-size: 14px;
+    }
+
+    /**********popover*******/
+
+    .list-group-item {
+        border: none;
+        font-family: 'Muli';
+        font-size: 12px;
+        font-weight: 600;
+        color: $muted-text-color;
+    }
+
+    .list-group-item:hover {
+        color: $general-text-color;
+        font-weight: 600;
+        background-color: $primary-bg-color;
+    }
+
+    .Give-your-end-users {
+        font-family: Muli;
+        font-size: 14px;
+        font-weight: normal;
+        color: $muted-text-color;
+        padding-top: 0.75rem;
+    }
+
+    .api-requests {
+        background-color: #ffffff;
+        overflow: hidden;
+    }
+
+    .pointer-item {
+        cursor: pointer;
+    }
+
+    .file-share-search input[type='search'] {
+        outline: 0;
+        border: 0;
+        width: 235px;
+        background: none;
+        font-size: 12px;
+        font-weight: 600;
+        color: $general-text-color;
+        font-family: 'Muli', sans-serif;
+    }
+
+    .file-share-search input[type='search']::placeholder {
+        font-size: 12px;
+        font-weight: 600;
+        color: $muted-text-color;
+        font-family: 'Muli', sans-serif;
+    }
+
+    .file-share-search {
+        display: inline-block;
+        border-radius: 4px;
+        border: solid 1px $primary-border-color;
+        background-color: #ffffff;
+        padding: 5px 10px 5px 10px;
+    }
+
+    ul li {
+        list-style: none;
+    }
+}
+
+::ng-deep .popover-body {
+    padding: 0.25rem 0.25rem !important;
+}
+
+::ng-deep .popover {
+    border: none !important;
+    border-radius: 5px !important;
+    box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
+    background-color: #ffffff;
+    top: 4px !important;
+}
+
+::ng-deep .bs-popover-bottom .arrow:after {
+    top: 0px !important;
+}
+
+:host ::ng-deep .p-tabview-nav {
+    border: none;
+}
+::ng-deep .p-tabview-panels {
+    ul {
+        border-bottom: 1px solid #d6d6d6 !important;
+    }
+}
+
+.Search-tab-view {
+    display: none;
+}
+.Search {
+    display: inherit;
+}
+@media screen and (max-width: 1024px) {
+    .heading {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+    .header-inner {
+        display: flex;
+        align-items: center;
+    }
+
+    .Give-your-end-users {
+        padding-bottom: 24px;
+        margin: 0;
+    }
+}
+
+::ng-deep .p-tabview {
+    padding: 0 !important;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .bg-fff {
+        padding: 24px 16px;
+    }
+    .request-table-container {
+        .api-request-heading {
+            margin-top: 6px;
+        }
+    }
+    .bread-crumb {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .Search-tab-view {
+        display: inherit;
+    }
+
+    .Search {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .border-0 {
+        padding: 0 !important;
+    }
+    .bg-fff {
+        padding: 16.5px 16px;
+    }
+    .custom-search {
+        margin-bottom: 16px;
+    }
+}
+
+@media (max-width: 360px) {
+    .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        ::ng-deep .p-calendar {
+            width: 165px;
+            margin-top: 16px;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .estate-orders {
+        margin: 0.5rem 0px;
+    }
+}
+
+/*********************Tab Css **********************/
+
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1240px !important;
+    }
+}

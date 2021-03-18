@@ -6,15 +6,13 @@ import { ToastrService } from 'ngx-toastr';
 import { ProfilePhotoService } from './profile-photo/profile-photo.service';
 import { Router } from '@angular/router';
 import { COUNTRY_LIST } from '@constants';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { RoasteryProfile } from './roastery-profile-model';
+import { BehaviorSubject } from 'rxjs';
+import { OrganizationProfile } from '@models';
 @Injectable({
     providedIn: 'root',
 })
 export class RoasteryProfileService {
     countryList = [];
-    savemode = false;
-    editmode = true;
 
     public editMode = new BehaviorSubject(true);
     public editMode$ = this.editMode.asObservable();
@@ -25,20 +23,22 @@ export class RoasteryProfileService {
     public avatarImageChanged = new BehaviorSubject(null);
     public avatarImageChanged$ = this.avatarImageChanged.asObservable();
 
-    roasteryProfileData: RoasteryProfile;
+    public mainSubFormInvalid = false;
+    public aboutFormInvalid = false;
+    public contactFormInvalid = false;
+    public toUpdateProfileData: OrganizationProfile;
+    public roasteryProfileData: OrganizationProfile;
 
     cities: Array<any> = [];
 
     userId: string;
     roasterId: string;
     roasterUsers: any = [];
-    empName: any = '';
     roasterContacts: any = [];
     single: { name: string; value: any }[];
     showDelete = false;
     bannerUrl?: string;
     bannerFile?: any;
-    bannerFileId?: any;
     profileInfo?: any;
     isSaving?: boolean;
 
@@ -56,11 +56,20 @@ export class RoasteryProfileService {
         this.countryList = COUNTRY_LIST;
     }
 
+    public editProfileData(subData: any) {
+        this.toUpdateProfileData = {
+            ...this.roasteryProfileData,
+            ...subData,
+        };
+    }
+
     roasterProfile() {
         this.userService.getRoasterAccount(this.roasterId).subscribe((result: any) => {
             if (result.success) {
                 console.log('roaster details: ', result);
                 this.roasteryProfileData = result.result;
+                this.toUpdateProfileData = result.result;
+
                 this.profilePhotoService.croppedImage = this.roasteryProfileData.company_image_url;
 
                 this.single = [
@@ -100,10 +109,7 @@ export class RoasteryProfileService {
         });
     }
 
-    //  Function Name :Change Country.
-    // Description: This function helps to get the values of cities according to selcted country.
     changeCountry(count) {
-        console.log('changing country selection >>>>>>>>>>>>>>>', count);
         this.cities = COUNTRY_LIST.find((con) => con.isoCode === count).cities;
     }
 
@@ -132,12 +138,15 @@ export class RoasteryProfileService {
     }
 
     saveRoasterProfile() {
+        if (this.mainSubFormInvalid || this.aboutFormInvalid || this.contactFormInvalid) {
+            this.toastrService.error('Please fill all required fields');
+            return;
+        }
         this.isSaving = true;
         if (this.bannerFile) {
             this.userService.uploadFile(this.roasterId, this.bannerFile, 'Cover-Image').subscribe((res) => {
-                console.log('banner file upload result >>>>>>', res);
                 if (res.success) {
-                    this.bannerFileId = res.result.id;
+                    this.toUpdateProfileData.banner_file_id = res.result.id;
                     this.updateRoasterAccount();
                 } else {
                     this.isSaving = false;
@@ -150,7 +159,7 @@ export class RoasteryProfileService {
     }
 
     updateRoasterAccount(): void {
-        const data = this.roasteryProfileData;
+        const data: OrganizationProfile = this.toUpdateProfileData;
         this.userService.updateRoasterAccount(this.roasterId, data).subscribe((response: any) => {
             if (response.success === true) {
                 console.log(response);
@@ -158,45 +167,28 @@ export class RoasteryProfileService {
                 const isBase64Valid = base64Rejex.test(this.profilePhotoService.croppedImage); // base64Data is the base64 string
 
                 if (isBase64Valid === false) {
-                    if (this.empName === '') {
-                        this.toastrService.success('Roaster profile details updated successfully');
-                        this.savemode = false;
-                        this.editmode = true;
-                        this.empName = '';
-                        this.roasterProfile();
-                    } else {
-                        const contactData = {
-                            user_id: parseInt(this.empName, 10),
-                        };
-                    }
+                    this.toastrService.success('Roaster profile details updated successfully');
+                    this.saveMode.next(false);
+                    this.editMode.next(true);
+                    this.roasterProfile();
                 } else {
                     console.log('entering here');
                     const ImageURL = this.profilePhotoService.croppedImage;
-                    // Split the base64 string in data and contentType
                     const block = ImageURL.split(';');
-                    // Get the content type of the image
-                    const contentType = block[0].split(':')[1]; // In this case "image/gif"
-                    // get the real base64 content of the file
-                    const realData = block[1].split(',')[1]; // In this case "R0lGODlhPQBEAPeoAJosM...."
-
+                    const contentType = block[0].split(':')[1];
+                    const realData = block[1].split(',')[1];
                     // Convert it to a blob to upload
                     const blob = this.b64toBlob(realData, contentType, 0);
-
                     const formData: FormData = new FormData();
                     formData.append('file', blob);
                     formData.append('api_call', '/ro/' + this.roasterId + '/company-image');
                     formData.append('token', this.cookieService.get('Auth'));
                     this.userService.uploadProfileImage(formData).subscribe((result: any) => {
-                        console.log(result);
                         if (result.success) {
-                            if (this.empName === '') {
-                                this.toastrService.success('Roaster profile details updated successfully');
-                                this.savemode = false;
-                                this.editmode = true;
-                                this.empName = '';
-                                this.roasterProfile();
-                            } else {
-                            }
+                            this.toastrService.success('Roaster profile details updated successfully');
+                            this.saveMode.next(false);
+                            this.editMode.next(true);
+                            this.roasterProfile();
                         } else {
                             console.log(result);
                             this.isSaving = false;
@@ -212,33 +204,50 @@ export class RoasteryProfileService {
     }
 
     handleBannerImageFile(inputElement: any) {
-        console.log('input file in serveice: ', inputElement);
-        this.bannerFile = inputElement.files[0];
-        if (!this.bannerFile) {
+        const file = inputElement.files[0];
+        console.log('input images: ', file);
+        if (!file) {
             return;
         }
-        if (this.bannerFile.type.split('/')[0] !== 'image') {
+        if (file.type.split('/')[0] !== 'image') {
             return;
         }
-        if (this.bannerFile.size >= 2097152) {
+        if (file.size >= 2097152) {
             this.toastrService.error('File size is too big to upload');
             return;
         }
 
         const reader = new FileReader();
 
-        reader.readAsDataURL(this.bannerFile);
-
         reader.onload = (event: any) => {
-            this.bannerUrl = event.target.result;
+            const img = new Image();
+            img.onload = () => {
+                console.log('img.naturalWidth images: ', img.naturalWidth);
+
+                if (img.naturalWidth !== 1144 || img.naturalHeight !== 160) {
+                    this.toastrService.error(`Image should be 1144 x 160 size`);
+                } else {
+                    this.bannerFile = inputElement.files[0];
+                    this.bannerUrl = event.target.result;
+                }
+            };
+            img.src = window.URL.createObjectURL(file);
         };
+        reader.readAsDataURL(file);
     }
 
     handleDeleteBannerImage(): void {
-        console.log('banner file id ', this.bannerFileId);
-        this.userService.deleteFile(this.roasterId, this.bannerFileId).subscribe((res) => {
-            console.log('remove banner file res', res);
-        });
+        this.userService.deleteBanner(this.roasterId).subscribe(
+            (res) => {
+                this.toastrService.success('Deleted Banner Image');
+                this.roasteryProfileData.banner_file_id = 0;
+                this.roasteryProfileData.banner_url = '';
+                this.bannerUrl = '';
+            },
+            (error) => {
+                this.toastrService.error('Failed, Please try again later');
+            },
+        );
     }
 
     editRoasterProfile() {

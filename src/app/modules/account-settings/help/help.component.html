@@ -1,0 +1,71 @@
+<div class="bg-fff py-3 py-md-4 py-lg-45 px-3 px-md-3 px-lg-5">
+    <div class="bg-white content-container">
+        <div class="mb-45 fnt-14 d-none d-md-block">
+            <p-breadcrumb [model]="breadcrumbItems"></p-breadcrumb>
+        </div>
+
+        <div class="mb-4 d-block d-md-none">
+            <a
+                href="javascript:void(0)"
+                class="text-clr60b fnt-16 fnt-muli fnt-600 d-flex align-items-center"
+                (click)="location.back()"
+            >
+                <img src="../../../../assets/images/back-arrow.svg" alt="back" class="mr-2" />
+                <span>{{ 'back' | translate }}</span>
+            </a>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="mb-2 mb-md-25 fnt-16 fnt-md-18 font-weight-bold">
+                    {{ 'help' | translate }}
+                </div>
+                <div class="text-clr588 fnt-14 fnt-600 font-weight-md-normal">
+                    {{ 'help_text' | translate }}
+                </div>
+            </div>
+        </div>
+
+        <div class="d-block d-md-none mb-4 border-bottom-dashed-primary"></div>
+
+        <div class="row p-0 border-md-main round-4 p-md-45 mx-0 mb-4">
+            <div class="col-lg-6 px-0 pb-lg-2">
+                <div class="mb-2">
+                    <div class="fnt-16 fnt-md-18 font-weight-bold mt-0 mt-md-2 mb-1 mb-md-2">
+                        {{ 'help' | translate }}
+                    </div>
+
+                    <div class="custom-accordion">
+                        <div *ngFor="let item of helpData" class="accordion-item">
+                            <div class="title fnt-14 fnt-md-16" (click)="handleClickAccordionItem($event)">
+                                {{ item.title }}
+                                <img src="../../../../assets/images/icon-arrow-down.svg" alt="icon" />
+                            </div>
+                            <div class="content fnt-14 fnt-md-16">
+                                {{ item.content }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <div class="fnt-16 fnt-md-18 font-weight-bold mt-4 mt-md-45 mb-1 mb-md-2">
+                        {{ 'feedback' | translate }}
+                    </div>
+
+                    <div class="custom-accordion">
+                        <div *ngFor="let item of feedbackData" class="accordion-item no-last-border-bottom">
+                            <div class="title fnt-14 fnt-md-16" (click)="handleClickAccordionItem($event)">
+                                {{ item.title }}
+                                <img src="../../../../assets/images/icon-arrow-down.svg" alt="icon" />
+                            </div>
+                            <div class="content fnt-14 fnt-md-16">
+                                {{ item.content }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

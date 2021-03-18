@@ -8,8 +8,8 @@ import { CookieService } from 'ngx-cookie-service';
     providedIn: 'root',
 })
 export class FileService extends ApiService {
-    constructor(protected cookieSrv: CookieService, protected http: HttpClient) {
-        super(cookieSrv, http);
+    constructor(protected cookieService: CookieService, protected http: HttpClient) {
+        super(cookieService, http);
     }
 
     // ------------ Farmlink Folders ------------
@@ -20,7 +20,7 @@ export class FileService extends ApiService {
     }
     // Delete the folder details
     deleteFolder(id: any) {
-        return this.postWithOrg(this.deleteUrl, `file-manager/folders/${id}`, 'DELETE');
+        return this.postWithOrg(this.orgDeleteUrl, `file-manager/folders/${id}`, 'DELETE');
     }
 
     // ------------ Farmlink File share ------------
@@ -45,21 +45,25 @@ export class FileService extends ApiService {
         const httpOptions = {
             headers: new HttpHeaders({ Accept: 'application/json' }),
         };
+        const roasterId = this.cookieService.get('roaster_id');
+        formData.append('api_call', `/ro/${roasterId}/file-manager/files`);
+        formData.append('token', this.cookieService.get('Auth'));
+        formData.append('method', 'POST');
         return this.http.post(this.fileUploadUrl, formData, httpOptions);
     }
     // Update the file
     updateFile(fileId, formData: FormData) {
-        const orgId = this.cookieSrv.get('roaster_id');
+        const orgId = this.cookieService.get('roaster_id');
         const httpOptions = {
             headers: new HttpHeaders({ Accept: 'application/json' }),
         };
         formData.append('api_call', `/${this.orgType}/${orgId}/file-manager/files/${fileId}`);
-        formData.append('token', this.cookieSrv.get('Auth'));
+        formData.append('token', this.cookieService.get('Auth'));
         return this.http.post(this.putFileUploadUrl, formData, httpOptions);
     }
     // Delete the file details
     deleteFile(id: any) {
-        return this.postWithOrg(this.deleteUrl, `file-manager/files/${id}`, 'DELETE');
+        return this.postWithOrg(this.orgDeleteUrl, `file-manager/files/${id}`, 'DELETE');
     }
     // Pin the file/folder
     pinFileorFolder(id: any) {
@@ -67,7 +71,7 @@ export class FileService extends ApiService {
     }
     // Unpin the file/folder
     unpinFileorFolder(id: any) {
-        return this.postWithOrg(this.deleteUrl, `file-manager/${id}/pin`, 'DELETE');
+        return this.postWithOrg(this.orgDeleteUrl, `file-manager/${id}/pin`, 'DELETE');
     }
     // List all files/folders under My files section
     getFilesandFolders(query?: object) {
@@ -87,5 +91,10 @@ export class FileService extends ApiService {
     // Map files with order_id
     mapOrder(id: any, body: any) {
         return this.postWithOrg(this.orgPostUrl, `file-manager/${id}/order-mapping`, 'POST', body);
+    }
+    // List all files/folders under My files section
+    getAllFiles(query?: object) {
+        const params = this.serializeParams(query);
+        return this.postWithOrg(this.orgPostUrl, `file-manager/all-files?${params}`, 'GET');
     }
 }

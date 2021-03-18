@@ -28,7 +28,8 @@ import { SearchPanelComponent } from '@components';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { ErrorIntercept } from './modules/error-module/error.interceptor';
+
+import { ErrorInterceptor } from '@interceptors';
 
 import 'hammerjs';
 import { AuthGuard } from '@guards';
@@ -37,6 +38,7 @@ import { UserserviceService } from '@services';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
+import { getSaver, SAVER } from './modules/social-media/saver.provider';
 
 @NgModule({
     declarations: [
@@ -79,7 +81,7 @@ import { AgmCoreModule } from '@agm/core';
     providers: [
         {
             provide: HTTP_INTERCEPTORS,
-            useClass: ErrorIntercept,
+            useClass: ErrorInterceptor,
             multi: true,
         },
         {
@@ -89,6 +91,7 @@ import { AgmCoreModule } from '@agm/core';
             deps: [UserserviceService],
         },
         AuthGuard,
+        { provide: SAVER, useFactory: getSaver },
     ],
     bootstrap: [AppComponent],
 })

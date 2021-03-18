@@ -11,3 +11,4 @@ export * from './resize.service';
 export * from './prime-table/prime-table.service';
 export * from './roastery-profile/profile-photo.service';
 export * from './roastery-profile/roastery-profile.service';
+export * from './api/api-request.service';

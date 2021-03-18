@@ -28,13 +28,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="source-knowmore d-flex align-items-center justify-content-between mt-4 mt-md-0">
-                            <button class="btn-raised mr-md-25" (click)="chatWithEstate()">
-                                {{ globals.languageJson?.contact_us }}
-                            </button>
-                            <a class="btn-stroked" [href]="sourcing.estate?.slug | estateBrandLink" target="_blank">
-                                {{ globals.languageJson?.know_more }}
-                            </a>
+                        <div class="row gutter-16 gutter-md-12 mt-4 mt-md-0">
+                            <div class="col-6 col-md-auto">
+                                <button class="btn-raised w-100" (click)="chatWithEstate()">
+                                    {{ globals.languageJson?.contact_us }}
+                                </button>
+                            </div>
+                            <div class="col-6 col-md-auto">
+                                <a
+                                    class="btn-stroked w-100"
+                                    [href]="sourcing.estate?.slug | estateBrandLink"
+                                    target="_blank"
+                                >
+                                    {{ globals.languageJson?.know_more }}
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

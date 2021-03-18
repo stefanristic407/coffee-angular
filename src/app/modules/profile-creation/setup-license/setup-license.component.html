@@ -1,0 +1,130 @@
+<div class="bg-fff p-2 pl-lg-5 pr-lg-5 pt-lg-45 pb-lg-325 p-md-3">
+    <div class="w-100 d-flex justify-content-between mb-45">
+        <p-breadcrumb [model]="breadItems">
+            <ng-template pTemplate="item" let-item let-i="index">
+                {{ item.label | translate }}
+            </ng-template>
+        </p-breadcrumb>
+    </div>
+    <div class="p-0">
+        <p class="fnt-18 fnt-muli mb-1 fnt-bold text-clr334 text-center text-md-left">License & certificates</p>
+        <p class="fnt-14 fnt-600 txt-clr588 mb-0">
+            Please upload your certificates, if any. This helps in your profile getting more noticed.
+        </p>
+    </div>
+    <div class="license-content-wrapper">
+        <div class="pt-45 pt-md-5">
+            <ng-container
+                class="certification-item justify-content-between br-4 bg-f8 pt-0 pb-0 pl-3 pr-3 d-flex align-items-center mb-3 mb-md-4"
+                *ngFor="let certificationItem of certificationArray; let i = index"
+            >
+                <div
+                    class="certification-item justify-content-between br-4 bg-f8 pt-0 pb-0 pl-3 pr-3 d-flex align-items-center mb-3 mb-md-4"
+                    *ngIf="i !== editingRowIndex; else addAndEditTemplate"
+                >
+                    <div class="d-flex pt-2 pr-0 pb-2 pl-2 align-items-center">
+                        <img class="d-none d-lg-block mr-4" src="assets/images/reorder.svg" alt="certification" />
+                        <label class="fnt-muli fnt-600 fnt-14 txt-clr334 mb-0">{{
+                            certificationItem.certificate_type
+                        }}</label>
+                        <p-divider class="divider border-none" layout="vertical"></p-divider>
+                        <label class="fnt-muli fnt-600 fnt-14 txt-clr334 mb-0">{{ certificationItem.year }}</label>
+                    </div>
+                    <div class="d-flex pt-2 pr-0 pb-2 pl-2 align-items-center">
+                        <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr97 cursor-pointer" (click)="onEdit(i)">
+                            <i class="pi pi-pencil mr-2"></i>
+                            Edit
+                        </span>
+                        <p-divider class="divider border-none" layout="vertical"></p-divider>
+                        <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr97 cursor-pointer" (click)="onDelete(i)">
+                            <i class="pi pi-trash mr-2"></i>
+                            Delete
+                        </span>
+                    </div>
+                </div>
+            </ng-container>
+            <div class="mt-2" *ngIf="editingRowIndex === -1 || !certificationArray.length">
+                <ng-container *ngTemplateOutlet="addAndEditTemplate"></ng-container>
+                <div class="py-2 d-none d-md-block d-lg-none">
+                    <p-divider type="dashed"></p-divider>
+                </div>
+            </div>
+            <span class="fnt-muli fnt-14 fnt-bold text-clr60b cursor-pointer" (click)="onAdd()"
+                ><i class="pi pi-plus mr-25 fnt-bold fnt-14"></i>Add another certificate
+            </span>
+        </div>
+        <div class="py-2 py-lg-3">
+            <p-divider type="dashed"></p-divider>
+        </div>
+        <input #myFileInput type="file" class="d-none" (change)="onFileChange($event)" />
+    </div>
+
+    <ng-template #addAndEditTemplate>
+        <div class="d-flex flex-wrap flex-column flex-lg-row pb-3 pb-lg-0">
+            <div class="d-flex flex-wrap pr-lg-25 certification-wrapper">
+                <div class="p-0 pr-md-2 pr-lg-25 sewn-form-field mb-3 certification-name">
+                    <label class="fnt-muli fnt-600 fnt-14 txt-clr334 lh-normal mb-2"> Certification name </label>
+                    <p-dropdown
+                        [options]="certificateList"
+                        optionLabel="type"
+                        optionValue="id"
+                        [(ngModel)]="
+                            editingRowIndex < 0
+                                ? selectedCertification
+                                : certificationArray[editingRowIndex].certificate_type_id
+                        "
+                        styleClass="p-dropdown-full"
+                        placeholder="Enter certification name"
+                        [autoDisplayFirst]="false"
+                        (onChange)="onChangeType($event)"
+                    ></p-dropdown>
+                </div>
+                <div class="p-0 pl-md-2 pl-lg-25 sewn-form-field mb-3 certification-year">
+                    <label class="fnt-muli fnt-600 fnt-14 txt-clr334 lh-normal mb-2"> Year of certification </label>
+                    <p-dropdown
+                        [options]="yearList"
+                        optionLabel="label"
+                        optionValue="value"
+                        [(ngModel)]="
+                            editingRowIndex < 0 ? selectedCertificationYear : certificationArray[editingRowIndex].year
+                        "
+                        styleClass="p-dropdown-full"
+                        placeholder="Please select year"
+                        [autoDisplayFirst]="false"
+                        (onChange)="onChangeYear($event)"
+                    ></p-dropdown>
+                </div>
+            </div>
+            <div class="pl-lg-25">
+                <label class="fnt-muli fnt-600 fnt-14 txt-clr334 lh-normal mb-2"> Upload certificate </label>
+                <div
+                    class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between"
+                >
+                    <div class="file-name" *ngIf="file || certificationArray[editingRowIndex]?.public_url">
+                        <span class="fnt-muli fnt-600 fnt-14 text-clr588 lh-normal mb-0 text-overflow-ellipsis">
+                            {{ file?.name || certificationArray[editingRowIndex]?.public_url.split('/').pop() }}
+                        </span>
+                        <i class="pi pi-times fnt-14 text-clr588 ml-25 cursor-pointer" (click)="onRemoveFile()"></i>
+                    </div>
+                    <div
+                        class="fnt-14 fnt-muli fnt-500 lh-normal txt-clr334 mr-md-4 upload-button"
+                        (click)="onUpload()"
+                        *ngIf="!file && !certificationArray[editingRowIndex]?.public_url"
+                    >
+                        <i class="pi pi-upload fnt-14 mr-1"></i>
+                        Upload
+                    </div>
+                    <div class="d-flex flex-column flex-md-row button-wrapper align-items-center">
+                        <button class="btn-raised ml-md-4 mt-3 mt-md-0" (click)="onSave()">Save</button>
+                        <span
+                            class="txt-clr55c fnt-muli fnt-14 fnt-bold ml-md-3 mt-3 mt-md-0 cursor-pointer"
+                            (click)="onCancel()"
+                            *ngIf="editingRowIndex > -1"
+                            >Cancel</span
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>

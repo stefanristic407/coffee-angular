@@ -1,0 +1,294 @@
+import { Component, EventEmitter, OnChanges, Output, Input } from '@angular/core';
+import { GreenGradingService } from '@services';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
+@Component({
+    selector: 'app-generate-coffee-grading',
+    templateUrl: './generate-coffee-grading.component.html',
+    styleUrls: ['./generate-coffee-grading.component.scss'],
+})
+export class GenerateCoffeeGradingComponent implements OnChanges {
+    dataObj: { [key: string]: any } = {};
+    category1List = [
+        {
+            label: 'Full Black',
+            key1: 'full_black_no',
+            key2: 'full_black_eqv',
+        },
+        {
+            label: 'Full Sour',
+            key1: 'full_sour_no',
+            key2: 'full_sour_eqv',
+        },
+        {
+            label: 'Dried Cherry/Pod',
+            key1: 'dried_cherry_no',
+            key2: 'dried_cherry_eqv',
+        },
+        {
+            label: 'Fungus Damaged',
+            key1: 'fungus_damaged_no',
+            key2: 'fungus_damaged_eqv',
+        },
+        {
+            label: 'Foreign Matter',
+            key1: 'foreign_matter_no',
+            key2: 'foreign_matter_eqv',
+        },
+        {
+            label: 'Severe Insect Damage',
+            key1: 'severe_insect_damage_no',
+            key2: 'severe_insect_damage_eqv',
+        },
+    ];
+    category2List = [
+        {
+            label: 'Partial Black',
+            key1: 'partial_black_no',
+            key2: 'partial_black_eqv',
+        },
+        {
+            label: 'Partial Sour',
+            key1: 'partial_sour_no',
+            key2: 'partial_sour_eqv',
+        },
+        {
+            label: 'Parchment / Pergamino',
+            key1: 'parchment_no',
+            key2: 'parchment_eqv',
+        },
+        {
+            label: 'Floater',
+            key1: 'floater_no',
+            key2: 'floater_eqv',
+        },
+        {
+            label: 'Immature / Unripe',
+            key1: 'immature_no',
+            key2: 'immature_eqv',
+        },
+        {
+            label: 'Withered',
+            key1: 'withered_no',
+            key2: 'withered_eqv',
+        },
+        {
+            label: 'Shells',
+            key1: 'shells_no',
+            key2: 'shells_eqv',
+        },
+        {
+            label: 'Broken / Chipped/ Cut',
+            key1: 'brocken_chipped_no',
+            key2: 'brocken_chipped_eqv',
+        },
+        {
+            label: 'Hull/Husk',
+            key1: 'hull_husk_no',
+            key2: 'hull_husk_eqv',
+        },
+        {
+            label: 'Slight Insect Damage',
+            key1: 'slight_insect_damage_no',
+            key2: 'slight_insect_damage_eqv',
+        },
+    ];
+
+    category1Defects: any;
+    moistureContent: any;
+    waterActivity: any;
+    odor: any;
+    cat2Defects: any;
+    totalDefects: any;
+    totalColors: any = [];
+    colorList: any[] = [
+        {
+            label: 'Blue',
+            value: 'Blue',
+        },
+        {
+            label: 'Blue - Green',
+            value: 'Blue - Green',
+        },
+        {
+            label: 'Green',
+            value: 'Green',
+        },
+        {
+            label: 'Greenish',
+            value: 'Greenish',
+        },
+        {
+            label: 'Yellow - Green',
+            value: 'Yellow - Green',
+        },
+        {
+            label: 'Pale Yellow',
+            value: 'Pale Yellow',
+        },
+        {
+            label: 'Yellowish',
+            value: 'Yellowish',
+        },
+        {
+            label: 'Brownish',
+            value: 'Brownish',
+        },
+    ];
+
+    @Output() next = new EventEmitter<any>();
+    @Output() showDetail = new EventEmitter<any>();
+    @Input() cuppingDetails;
+    @Input() fromQueryParam;
+    roasterId: any;
+    cuppingId: any;
+    evaluatorData: any;
+    evaluatorName: any;
+    colorString: any;
+
+    constructor(
+        public greenGradingService: GreenGradingService,
+        public cookieService: CookieService,
+        private toastrService: ToastrService,
+        private router: Router,
+    ) {
+        this.roasterId = this.cookieService.get('roaster_id');
+    }
+
+    ngOnChanges(): void {
+        this.getEvaluatorData();
+        this.physicalDefectsList();
+    }
+
+    getEvaluatorData() {
+        this.cuppingId = this.cuppingDetails.cupping_report_id;
+        this.greenGradingService.getEvaluatorsList(this.roasterId, this.cuppingId).subscribe((res: any) => {
+            if (res.success === true) {
+                this.evaluatorData = res.result[0];
+                this.evaluatorName = this.evaluatorData.evaluator_name;
+            }
+        });
+    }
+
+    private validateInput() {
+        let flag = true;
+        if (
+            this.moistureContent === '' ||
+            this.waterActivity === '' ||
+            this.odor === '' ||
+            this.totalColors === '' ||
+            this.totalDefects === ''
+        ) {
+            flag = false;
+        }
+        return flag;
+    }
+
+    goNext() {
+        this.cuppingId = this.cuppingDetails.cupping_report_id;
+        const flag = this.validateInput();
+        if (flag) {
+            const data = {
+                total_category_one: this.category1Defects,
+                total_category_two: this.cat2Defects,
+                moisture_content: this.moistureContent,
+                water_activity: this.waterActivity,
+                odor: this.odor,
+                colors: this.totalColors.toString(),
+                total_green_defects: this.totalDefects,
+            };
+            for (const cat of this.category1List) {
+                data[cat.key1] = this.dataObj[cat.key1];
+                data[cat.key2] = this.dataObj[cat.key2];
+            }
+            for (const cat of this.category2List) {
+                data[cat.key1] = this.dataObj[cat.key1];
+                data[cat.key2] = this.dataObj[cat.key2];
+            }
+            this.greenGradingService.addPhysicalDefects(this.roasterId, this.cuppingId, data).subscribe((res: any) => {
+                if (res.success === true) {
+                    this.toastrService.success('Physical defects added/updated successfully');
+                    this.next.emit('screen2');
+                } else {
+                    this.toastrService.error('Error while adding/updating physical defects');
+                }
+            });
+        } else {
+            this.toastrService.error('Fields should not be empty.');
+        }
+    }
+
+    physicalDefectsList() {
+        this.cuppingId = this.cuppingDetails.cupping_report_id;
+        this.greenGradingService.getPhysicalDefectsList(this.roasterId, this.cuppingId).subscribe((res: any) => {
+            if (res.success === true) {
+                const defectsList = res.result;
+                for (const cat of this.category1List) {
+                    this.dataObj[cat.key1] = defectsList[cat.key1];
+                    this.dataObj[cat.key2] = defectsList[cat.key2];
+                }
+                for (const cat of this.category2List) {
+                    this.dataObj[cat.key1] = defectsList[cat.key1];
+                    this.dataObj[cat.key2] = defectsList[cat.key2];
+                }
+
+                this.category1Defects = defectsList.total_category_one;
+                this.cat2Defects = defectsList.total_category_two;
+                this.waterActivity = defectsList.water_activity;
+                this.odor = defectsList.odor;
+                this.totalColors = defectsList.colors.split(',');
+                this.totalDefects = defectsList.total_green_defects;
+                this.moistureContent = defectsList.moisture_content;
+            } else {
+                this.toastrService.error('Error while getting physical defects');
+                this.clear();
+            }
+        });
+    }
+
+    skip() {
+        this.next.emit('screen2');
+    }
+
+    clear() {
+        for (const cat of this.category1List) {
+            this.dataObj[cat.key1] = '';
+            this.dataObj[cat.key2] = '';
+        }
+        for (const cat of this.category2List) {
+            this.dataObj[cat.key1] = '';
+            this.dataObj[cat.key2] = '';
+        }
+        this.category1Defects = '';
+        this.moistureContent = '';
+        this.waterActivity = '';
+        this.odor = '';
+        this.totalColors = [];
+        this.cat2Defects = '';
+        this.totalDefects = '';
+    }
+
+    cancel() {
+        if (this.fromQueryParam === 'ServiceRequest') {
+            this.router.navigate(['/green-grading/green-coffee-orders']);
+        } else if (this.fromQueryParam === 'SampleRequest') {
+            this.router.navigate(['/green-grading/grade-sample']);
+        } else {
+            this.router.navigate(['/green-grading/green-coffee-orders']);
+        }
+    }
+
+    handleDefectsChange(event) {
+        if (event.index === '1') {
+            this.category1Defects = event.value;
+        } else {
+            this.cat2Defects = event.value;
+        }
+    }
+
+    handleChange(event) {
+        this.dataObj = event;
+    }
+}

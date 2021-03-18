@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ProfilePhotoService } from './profile-photo/profile-photo.service';
 import { RoasteryProfileService } from './roastery-profile.service';
@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     templateUrl: './profile-creation.component.html',
     styleUrls: ['./profile-creation.component.scss'],
 })
-export class ProfileCreationComponent implements OnInit {
+export class ProfileCreationComponent implements OnInit, OnDestroy {
     menuItems = [
         {
             label: 'about_roastery',
@@ -20,7 +20,7 @@ export class ProfileCreationComponent implements OnInit {
         { label: 'contact', routerLink: '/roastery-profile/contact' },
         { label: 'reviews', routerLink: '/roastery-profile/reviews' },
     ];
-    breadItems = [{ label: 'home', routerLink: '/' }, { label: 'roaster_profile' }];
+    breadItems = [{ label: 'home', routerLink: '/' }, { label: 'Roastery Profile' }];
     isSaveMode: boolean;
     isEditMode: boolean;
 
@@ -40,10 +40,19 @@ export class ProfileCreationComponent implements OnInit {
         this.initialForm();
     }
 
+    ngOnDestroy() {
+        this.roasteryProfileService.saveMode.next(false);
+        this.roasteryProfileService.editMode.next(true);
+    }
+
     initialForm() {
         this.subProfileForm = this.fb.group({
             company_name: ['', Validators.compose([Validators.required])],
             website: [''],
+        });
+        this.subProfileForm.valueChanges.subscribe((changedData: any) => {
+            this.roasteryProfileService.mainSubFormInvalid = this.subProfileForm.invalid;
+            this.roasteryProfileService.editProfileData(changedData);
         });
     }
 
@@ -52,6 +61,9 @@ export class ProfileCreationComponent implements OnInit {
             this.isSaveMode = res;
             if (res) {
                 this.setFormValue();
+            } else {
+                this.roasteryProfileService.bannerFile = null;
+                this.roasteryProfileService.bannerUrl = '';
             }
         });
         this.roasteryProfileService.editMode$.subscribe((res: boolean) => {
@@ -79,5 +91,15 @@ export class ProfileCreationComponent implements OnInit {
                 }
             }
         }
+    }
+
+    isControlHasError(controlName: string, validationType: string): boolean {
+        const control = this.subProfileForm.controls[controlName];
+        if (!control) {
+            return false;
+        }
+
+        const result = control.hasError(validationType) && (control.dirty || control.touched);
+        return result;
     }
 }
