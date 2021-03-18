@@ -2,44 +2,23 @@
     <img class="loader-gif-sub" src="/assets/images/loader.gif" />
 </div>
 <div *ngIf="customerActive == 1">
-    <div class="main">
-        <nav
-            role="navigation"
-            aria-labelledby="title-breadcrumb-1"
-            class="breadcrumb1 d-flex farm-breadcum justify-content-between"
-        >
-            <span id="title-breadcrumb-1" class="sr-only"></span>
-            <div>
-                <ul class="bread-nav">
-                    <li class="b-cum">
-                        <a class="b-cum" routerLink="/">{{ globals.languageJson?.home }}</a
-                        ><span class="padl-r" aria-hidden="true"
-                            ><img class="group-img" src="/assets/images/arrow-1.png" alt="" />
-                        </span>
-                    </li>
-
-                    <li class="b-cum">
-                        <a class="b-cum" routerLink="/people/customer-management">{{ globals.languageJson?.people }}</a
-                        ><span class="padl-r" aria-hidden="true">
-                            <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
-                        </span>
-                    </li>
-
-                    <li class="b-cum c-pink">{{ globals.languageJson?.customer_management }}</li>
-                </ul>
+    <div class="main-block">
+        <div class="row">
+            <div class="mb-4">
+                <p-breadcrumb [model]="navItems" [home]="selectedNav"></p-breadcrumb>
             </div>
-            <div class="col-md-6 col-lg-4 px-0 web-farm">
-                <span class="custom-search">
-                    <input
-                        type="text"
-                        pInputText
-                        class="w-100 {{ searchTerm ? 'highlight' : '' }}"
-                        [(ngModel)]="searchTerm"
-                        placeholder="{{ globals.languageJson?.search_name_role }}"
-                    />
-                </span>
-            </div>
-        </nav>
+        </div>
+        <div class="col-md-6 col-lg-4 px-0 web-farm">
+            <span class="custom-search">
+                <input
+                    type="text"
+                    pInputText
+                    class="w-100 {{ searchTerm ? 'highlight' : '' }}"
+                    [(ngModel)]="searchTerm"
+                    placeholder="{{ globals.languageJson?.search_name_role }}"
+                />
+            </span>
+        </div>
 
         <section class="social-media">
             <div class="col-lg-12 col-md-12 col-12 px-0">

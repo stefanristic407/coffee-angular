@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { GlobalsService, RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'app-customer-management',
@@ -26,6 +27,8 @@ export class CustomerManagementComponent implements OnInit {
     odd: boolean;
     horecaActive: any;
     customerType: string;
+    navItems: MenuItem[];
+    selectedNav: MenuItem;
 
     constructor(
         public globals: GlobalsService,
@@ -40,6 +43,8 @@ export class CustomerManagementComponent implements OnInit {
         this.customerType = 'micro-roasters';
         this.getMicroRoaster();
         this.language();
+        this.navItems = [{ label: this.globals.languageJson?.people }, { label: 'Customer onboarding' }];
+        this.selectedNav = { label: this.globals.languageJson?.home, routerLink: '/' };
     }
     language() {
         this.appLanguage = this.globals.languageJson;
