@@ -372,12 +372,17 @@
                                 <div
                                     class="sewn-form-field mb-45 brand-name"
                                     [ngClass]="[
-                                        brandImageUrl === 'assets/images/default-brand.png' ? 'col-6 pr-2' : 'col-12'
+                                        brandImageUrl === 'assets/images/default-brand.png'
+                                            ? 'col-12 col-md-6 pr-md-2'
+                                            : 'col-12'
                                     ]"
                                 >
+                                    <div class="d-md-none">
+                                        <ng-template *ngTemplateOutlet="brandButtonGroup"></ng-template>
+                                    </div>
                                     <div class="d-flex">
                                         <div
-                                            class="add-brand-data mr-45"
+                                            class="add-brand-data mr-3 mr-md-45"
                                             *ngIf="brandImageUrl !== 'assets/images/default-brand.png'"
                                         >
                                             <label>
@@ -399,7 +404,7 @@
                                                     pButton
                                                     icon="pi pi-trash"
                                                     iconPos="left"
-                                                    class="fnt-14 btn-delete-avatar d-none d-lg-flex"
+                                                    class="fnt-14 btn-delete-avatar"
                                                     (click)="deleteBrandImage()"
                                                     label="{{ 'delete' | translate }}"
                                                 ></button>
@@ -414,19 +419,22 @@
                                                 pInputText
                                                 formControlName="name"
                                                 placeholder="Please enter brand name"
-                                                style="max-width: 345px"
+                                                class="brand-name-input"
                                             />
                                             <small *ngIf="isBrandControlHasError('name', 'required')" class="p-error">
                                                 {{ 'required' | translate }}
                                             </small>
                                         </div>
-                                        <div *ngIf="brandImageUrl !== 'assets/images/default-brand.png'">
+                                        <div
+                                            *ngIf="brandImageUrl !== 'assets/images/default-brand.png'"
+                                            class="d-none d-md-block"
+                                        >
                                             <ng-template *ngTemplateOutlet="brandButtonGroup"></ng-template>
                                         </div>
                                     </div>
                                 </div>
                                 <div
-                                    class="col-6 pl-2 sewn-form-field mb-45"
+                                    class="col-12 col-md-6 pl-md-2 sewn-form-field mb-45"
                                     *ngIf="brandImageUrl === 'assets/images/default-brand.png'"
                                 >
                                     <label>
@@ -434,13 +442,15 @@
                                     </label>
                                     <div class="brand-button-group d-flex justify-content-between">
                                         <div
-                                            class="fnt-14 fnt-muli fnt-500 lh-normal txt-clr334 upload-button mt-2"
+                                            class="fnt-14 fnt-muli fnt-500 lh-normal txt-clr334 upload-button mt-md-2"
                                             (click)="roasterImage.click()"
                                         >
                                             <i class="pi pi-upload fnt-14 mr-1"></i>
                                             Upload
                                         </div>
-                                        <ng-template *ngTemplateOutlet="brandButtonGroup"></ng-template>
+                                        <div class="d-none d-md-flex">
+                                            <ng-template *ngTemplateOutlet="brandButtonGroup"></ng-template>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -632,7 +642,7 @@
 </div>
 
 <ng-template #brandButtonGroup>
-    <div class="add-brand-btns d-flex">
+    <div class="add-brand-btns d-flex float-right float-md-none">
         <a
             *ngIf="!isEditBrandMode"
             class="view-order cursor-pointer mr-3"

@@ -191,6 +191,16 @@ hr {
     min-height: 26px;
 }
 
+.brand-name-input {
+    max-width: 345px;
+    @media screen and (min-width: 768px) {
+        max-width: 310px;
+    }
+    @media screen and (max-width: 767px) {
+        max-width: none;
+    }
+}
+
 .brand-edit-btn {
     margin-left: 19px;
     margin-top: 10px;
