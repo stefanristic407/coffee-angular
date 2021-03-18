@@ -107,8 +107,14 @@
                 </td>
                 <td class="fnt-14">
                     <span *ngIf="item.status === 'PENDING'">{{ item.status }}</span>
-                    <span *ngIf="item.status === 'ACTIVE'" class="active"><li>Active</li></span>
-                    <span *ngIf="item.status === 'INACTIVE'" class="disabled"><li>Disabled</li></span>
+                    <span *ngIf="item.status === 'ACTIVE'" class="active d-flex"
+                        ><div class="active-dot"></div>
+                        Active</span
+                    >
+                    <span *ngIf="item.status === 'INACTIVE'" class="disabled d-flex"
+                        ><div class="disabled-dot"></div>
+                        Disabled</span
+                    >
                 </td>
                 <td class="fnt-14">
                     {{ item.active_users }}
@@ -430,8 +436,14 @@
                             <div class="col-12 pl-2">
                                 <p class="black fnt-14 pb-1">
                                     <span *ngIf="data.status === 'PENDING'">{{ data.status }}</span>
-                                    <span *ngIf="data.status === 'ACTIVE'" class="active"><li>Active</li></span>
-                                    <span *ngIf="data.status === 'INACTIVE'" class="disabled"><li>Disabled</li></span>
+                                    <span *ngIf="data.status === 'ACTIVE'" class="active d-flex"
+                                        ><div class="active-dot"></div>
+                                        Active</span
+                                    >
+                                    <span *ngIf="data.status === 'INACTIVE'" class="disabled d-flex"
+                                        ><div class="disabled-dot"></div>
+                                        Disabled</span
+                                    >
                                 </p>
                             </div>
                             <div class="col-12 pl-2">

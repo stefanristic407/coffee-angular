@@ -13,7 +13,7 @@
 .estate-message {
     font-family: Muli;
     font-size: 12px;
-    font-weight: 500
+    font-weight: 500;
 }
 
 .update-now {
@@ -77,8 +77,14 @@
 }
 
 .roster-cap {
-    padding: 2rem 1rem;
+    padding: 0.5rem 1rem;
     border-right: solid 1px #ebebeb;
+}
+
+.border-right {
+    margin-right: 2rem;
+    margin-left: 2rem;
+    border-right: 2px solid #d6d6d6 !important;
 }
 
 .flo-list {
@@ -119,7 +125,7 @@
 }
 
 .certificates-inner {
-    padding: .5rem 1rem 2rem 1rem;
+    padding: 0.5rem 1rem 2rem 1rem;
     border-radius: 4px;
     background-color: #f8f8f8;
 }
@@ -186,11 +192,11 @@
     top: 70%;
     right: 53%;
 }
-.pointer{
+.pointer {
     cursor: pointer;
 }
 
-@media (max-width:767px) {
+@media (max-width: 767px) {
     .ft-roastry-profile {
         width: 74px;
     }
@@ -234,7 +240,7 @@
 }
 
 .team-des {
-    margin-top: .5rem;
+    margin-top: 0.5rem;
 }
 
 .msg-team {
@@ -242,4 +248,205 @@
     padding: 4px 13px 6px;
     float: left;
     border-radius: 2px;
+}
+.imp-contact {
+    margin: 1rem 0rem;
+}
+
+.imp-contact-inner {
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
+    padding: 1rem;
+}
+
+.imp-contact,
+.discount-sec {
+    margin: 1rem 0rem;
+}
+
+.meet-our-team-list {
+    padding-bottom: 16px;
+}
+
+.team-images {
+    width: 100%;
+    height: 100%;
+}
+
+.team-des {
+    margin-top: 0.5rem;
+}
+
+.msg-team {
+    border: 1px solid #747588;
+    padding: 4px 13px 6px;
+    float: left;
+    border-radius: 2px;
+}
+
+.imp-contact {
+    @media (max-width: 480px) {
+        border-bottom: 2px solid #f8f8f8;
+        border-top: 2px solid #f8f8f8;
+    }
+}
+.team-images {
+    @media (max-width: 480px) {
+        width: 35px;
+        border-radius: 50%;
+    }
+}
+
+.status-border {
+    @media (max-width: 480px) {
+        border-bottom: 2px dashed #d6d6d6;
+    }
+}
+
+.status-border:last-child {
+    border-bottom: none;
+}
+
+.view-listing {
+    color: #8c5000 !important;
+    text-decoration: underline;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.active {
+    color: #649a2b;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.disabled {
+    color: #979797;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.active-dot {
+    width: 8px;
+    background-color: #649a2b;
+    border-radius: 100%;
+    height: 8px;
+    margin-right: 8px;
+    margin-top: 5px;
+}
+
+.disabled-dot {
+    width: 8px;
+    background-color: #979797;
+    border-radius: 100%;
+    height: 8px;
+    margin-right: 8px;
+    margin-top: 5px;
+}
+
+.status-border {
+    @media (max-width: 480px) {
+        border-top: 2px dashed #d6d6d6;
+        border-bottom: 2px dashed #d6d6d6;
+    }
+}
+
+.estate-orders {
+    position: relative;
+}
+
+.row {
+    color: #232334 !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    font-family: 'Muli' !important;
+    border-bottom: none !important;
+}
+
+/**********popover*******/
+
+.list-group-item {
+    border: none;
+    font-family: 'Muli';
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+}
+
+.list-group-item:hover {
+    color: #232334;
+    font-weight: 600;
+    background-color: #f8f8f8;
+}
+
+.menu-arrow {
+    cursor: pointer;
+    position: relative;
+    top: 6px;
+}
+
+.cust-width {
+    width: 40%;
+}
+
+.file_url {
+    color: #232334 !important;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Muli';
+    text-decoration: none !important;
+}
+
+#sales-contract-popup popover-container {
+    border: 0 !important;
+}
+
+@media (min-width: 993px) and (max-width: 1279px) {
+    #sales-table .p-datatable table {
+        width: 115%;
+    }
+    #sales-table .p-datatable-wrapper {
+        overflow-x: auto;
+    }
+}
+@media (min-width: 768px) and (max-width: 992px) {
+    #sales-table .p-datatable table {
+        width: 170%;
+    }
+    #sales-table .p-datatable-wrapper {
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 767px) {
+    .estate-table {
+        margin: -1.5rem 0rem;
+    }
+    .mobile-ce p {
+        margin-bottom: 0rem !important;
+    }
+    .bg-f4f4 {
+        background: #f8f8f8;
+    }
+    .bor-bot-d6d6 {
+        border-bottom: 2px dashed #d6d6d6 !important;
+    }
+    .bor-ebe {
+        border: 1px solid #ebebeb;
+        border-radius: 4px;
+    }
+    .agreement-top {
+        margin-top: 2rem;
+    }
+}
+@media (max-width: 480px) {
+    .estate-orders {
+        margin: 1rem 0px;
+    }
+    .name-header {
+        margin: 4px;
+        border-radius: 4px;
+    }
 }

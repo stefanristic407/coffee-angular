@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="user-text web-farm">
-                    <p class="m-0">
+                    <p class="">
                         <span
                             class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
                             *ngIf="customerService.company_name != ''"
@@ -24,7 +24,7 @@
                             {{ customerService.company_name }}</span
                         >
                     </p>
-                    <p class="m-0">
+                    <p class="">
                         <span
                             class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
                             *ngIf="customerService.company_name == ''"
@@ -32,9 +32,10 @@
                             -</span
                         >
                     </p>
-                    <p class="fnt-16 fnt-md-18 fnt-600 fnt-muli text-clr588 m-0">
-                        <span> Owned by {{ customerService.owner_name }} </span>
-                        <span> .Founded in {{ customerService.founded_on }}</span>
+                    <p class="fnt-16 fnt-md-18 fnt-600 fnt-muli text-clr588 mb-2 d-flex">
+                        <span class="mr-3"> Owned by {{ customerService.owner_name }} </span>
+                        <li></li>
+                        <span> Founded in {{ customerService.founded_on }}</span>
                     </p>
                     <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli text-clr55c">
                         <span> Admin: </span> <span>{{ customerService.admin_name }} </span>

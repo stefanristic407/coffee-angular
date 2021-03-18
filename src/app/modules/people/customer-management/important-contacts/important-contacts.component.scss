@@ -33,6 +33,12 @@
     border-radius: 2px;
 }
 
+.imp-contact {
+    @media (max-width: 480px) {
+        border-bottom: 2px solid #f8f8f8;
+        border-top: 2px solid #f8f8f8;
+    }
+}
 .team-images {
     @media (max-width: 480px) {
         width: 35px;
@@ -42,6 +48,10 @@
 
 .status-border {
     @media (max-width: 480px) {
-        border-bottom: 1px dashed #d6d6d6;
+        border-bottom: 2px dashed #d6d6d6;
     }
+}
+
+.status-border:last-child {
+    border-bottom: none;
 }

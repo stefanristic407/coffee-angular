@@ -20,7 +20,7 @@
 
             <div class="col-md-9 col-12 border-micro-roaster capacity-width mt-md-0 mt-3">
                 <div class="row">
-                    <div class="col-md-4 col-12">
+                    <div class="col-md-4 col-12 my-4">
                         <div class="roster-cap">
                             <p class="fnt-16 fnt-md-18 fnt-600 fnt-muli text-clr588">Roastery Capacity</p>
                             <p class="fnt-40 fnt-muli fnt-700 black">
@@ -50,18 +50,49 @@
 
     <!-- Certificates & Awards -->
     <section class="certificates">
-        <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli black">Certificates & Awards</p>
+        <div class="web-farm">
+            <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli black">Certificates & Awards</p>
 
-        <div class="col-12 certificates-inner mb-3" *ngFor="let certify of listData">
-            <p class="fnt-14 fnt-muli fnt-700 black pull-left m-0">
-                <span> {{ certify.name }} </span> <span> {{ certify.year }}</span>
-            </p>
-            <p class="pull-right m-0">
-                <span><img src="assets/images/view-certificate.svg" /> </span>
-                <span class="text-clr60b fnt-muli fnt-14 fnt-600 pointer" (click)="viewCertificate(certify)">
-                    View Certificate
-                </span>
-            </p>
+            <div class="col-12 certificates-inner mb-3" *ngFor="let certify of listData">
+                <p class="fnt-14 fnt-muli fnt-700 black pull-left m-0">
+                    <span class="mt-1"> {{ certify.name }} </span><span class="border-right my-5"></span
+                    ><span> {{ certify.year }}</span>
+                </p>
+                <p class="pull-right m-0">
+                    <span><img src="assets/images/view-certificate.svg" /> </span>
+                    <span class="text-clr60b fnt-muli fnt-14 fnt-600 pointer" (click)="viewCertificate(certify)">
+                        View Certificate
+                    </span>
+                </p>
+            </div>
+        </div>
+
+        <div class="pt-md-2 mobile-farm">
+            <div class="table-details mobile-farm">
+                <div class="table-responsive border-sourcetable agreement-top">
+                    <div class="col-12 mb-3 bor-ebe" *ngFor="let data of listData">
+                        <div class="row">
+                            <div class="col-12 mobile-ce p-0">
+                                <div class="d-flex justify-content-between bg-f4f4 py-2 px-3 name-header">
+                                    <div>
+                                        <p class="black fnt-14">Certificates & Awards</p>
+                                    </div>
+                                </div>
+                                <div class="status-border mx-3 py-3 row">
+                                    <div class="col-7 p-0">
+                                        <p class="fnt-14">
+                                            {{ data.name }}
+                                        </p>
+                                        <p class="fnt-14">
+                                            {{ data.year }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- <div class="col-12 certificates-inner">
