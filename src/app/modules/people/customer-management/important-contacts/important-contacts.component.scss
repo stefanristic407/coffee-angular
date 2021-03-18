@@ -32,3 +32,16 @@
     float: left;
     border-radius: 2px;
 }
+
+.team-images {
+    @media (max-width: 480px) {
+        width: 35px;
+        border-radius: 50%;
+    }
+}
+
+.status-border {
+    @media (max-width: 480px) {
+        border-bottom: 1px dashed #d6d6d6;
+    }
+}
