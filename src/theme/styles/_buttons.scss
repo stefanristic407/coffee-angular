@@ -41,21 +41,6 @@
     }
 }
 
-.btn-normal {
-    border-radius: 4px;
-    background-color: $primary-color;
-    border: none !important;
-    color: #ffffff;
-    cursor: pointer;
-    padding: 14px 24px;
-    &:hover {
-        box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-    }
-    &:focus {
-        outline: none !important;
-    }
-}
-
 .btn-trans-nb {
     background-color: transparent;
     border: none;
