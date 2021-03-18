@@ -153,22 +153,22 @@ export class AboutRoasteryComponent implements OnInit {
                 this.roasteryProfileService.invalidSumEmployee = true;
             } else {
                 this.roasteryProfileService.invalidSumEmployee = false;
+                if (this.chartData) {
+                    this.chartData = [
+                        {
+                            name: 'Female',
+                            value: changedData.female_employee_count ? changedData.female_employee_count : 0,
+                        },
+                        {
+                            name: 'Male',
+                            value: changedData.male_employee_count ? changedData.male_employee_count : 0,
+                        },
+                    ];
+                    this.roasteryProfileService.single = this.chartData;
+                }
             }
 
             this.roasteryProfileService.editProfileData(changedData);
-            if (this.chartData) {
-                this.chartData = [
-                    {
-                        name: 'Female',
-                        value: changedData.female_employee_count,
-                    },
-                    {
-                        name: 'Male',
-                        value: changedData.male_employee_count,
-                    },
-                ];
-                this.roasteryProfileService.single = this.chartData;
-            }
         });
 
         this.brandForm = this.fb.group({

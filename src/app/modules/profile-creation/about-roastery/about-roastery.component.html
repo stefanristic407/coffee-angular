@@ -159,9 +159,6 @@
                                 formControlName="female_employee_count"
                                 placeholder="Please enter the number of female employees"
                             />
-                            <small class="p-error" *ngIf="isControlHasError('female_employee_count', 'required')">
-                                {{ 'required' | translate }}
-                            </small>
                             <small class="p-error" *ngIf="roasteryProfileService.invalidSumEmployee">
                                 Please enter the correct no
                             </small>
@@ -180,9 +177,6 @@
                                 formControlName="male_employee_count"
                                 placeholder="Please enter the number of male employees"
                             />
-                            <small class="p-error" *ngIf="isControlHasError('male_employee_count', 'required')">
-                                {{ 'required' | translate }}
-                            </small>
                             <small class="p-error" *ngIf="roasteryProfileService.invalidSumEmployee">
                                 Please enter the correct no
                             </small>
