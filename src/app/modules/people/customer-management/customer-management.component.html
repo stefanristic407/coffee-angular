@@ -3,28 +3,28 @@
 </div>
 <div *ngIf="customerActive == 1">
     <div class="main-block">
-        <div class="row">
+        <div class="d-flex justify-content-between">
             <div class="mb-4">
                 <p-breadcrumb [model]="navItems" [home]="selectedNav"></p-breadcrumb>
             </div>
-        </div>
-        <div class="col-md-6 col-lg-4 px-0 web-farm">
-            <span class="custom-search">
-                <input
-                    type="text"
-                    pInputText
-                    class="w-100 {{ searchTerm ? 'highlight' : '' }}"
-                    [(ngModel)]="searchTerm"
-                    placeholder="{{ globals.languageJson?.search_name_role }}"
-                />
-            </span>
+            <div class="col-md-6 col-lg-4 px-0 web-farm">
+                <span class="custom-search">
+                    <input
+                        type="text"
+                        pInputText
+                        class="w-100 {{ searchTerm ? 'highlight' : '' }}"
+                        [(ngModel)]="searchTerm"
+                        placeholder="{{ globals.languageJson?.search_name_role }}"
+                    />
+                </span>
+            </div>
         </div>
 
         <section class="social-media">
             <div class="col-lg-12 col-md-12 col-12 px-0">
                 <h6 class="header mb-3">Customer Management</h6>
-                <div class="row d-flex justify-content-between mx-0">
-                    <div class="web-farm">
+                <div class="row mx-0 web-farm">
+                    <div class="d-flex justify-content-between w-100 web-farm">
                         <div>
                             <p-dropdown
                                 id="select-table-customer"

@@ -13,14 +13,14 @@
                         <img class="ft-roastry-profile" src="assets/images/ft-roastry-profile.png" />
                     </div>
                     <div class="col-9">
-                        <p class="m-0">
+                        <p>
                             <span
                                 class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
                                 *ngIf="customerService.pendingCompany != ''"
                                 >{{ customerService.pendingCompany }}</span
                             >
                         </p>
-                        <p class="m-0">
+                        <p>
                             <span
                                 class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
                                 *ngIf="customerService.pendingCompany == ''"
@@ -73,10 +73,10 @@
                         </div>
                         <div class="col-4">
                             <div class="message-customer">
-                                <p class="fnt-14 fnt-md-16 fnt-500 fnt-muli black pull-right mb-1">
+                                <p class="fnt-18 fnt-md-16 fnt-500 fnt-muli black pull-right mb-1">
                                     {{ customerService.pendingStatus }}
                                 </p>
-                                <span class="bg-msg pull-right">
+                                <span class="btn-stroked pull-right">
                                     <img src="assets/images/message-icon.svg" alt="Message" class="message-icon" />
                                     <span class="estate-message pl-1 black" (click)="resendInvite()"
                                         >Resend Invite</span
