@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { CommonService, GlobalsService, UserserviceService } from '@services';
+import { CommonService, GlobalsService, RoasterserviceService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { formatDate, Location } from '@angular/common';
 import { MyProfileService } from '@modules/my-profile/my-profile.service';
@@ -29,6 +29,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     ];
     profilePictureSavedEvent$?: Subscription;
     roasterId: any;
+    role: any;
     userId: any;
     breadcrumbItems: MenuItem[];
 
@@ -41,13 +42,14 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         private cookieService: CookieService,
         public myProfileService: MyProfileService,
         private commonService: CommonService,
+        private roasterService: RoasterserviceService,
     ) {
         this.form = this.formBuilder.group({
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
             aboutMe: [''],
             email: ['', [Validators.required, Validators.email]],
-            gender: ['', Validators.required],
+            role: [{ value: '', disabled: true }],
             phone: [''],
             birthday: [''],
         });
@@ -69,10 +71,17 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     getUserInfo(): void {
         this.isLoading = true;
         this.userOriginalService.getRoasterProfile(this.roasterId).subscribe((res: any) => {
-            this.isLoading = false;
             this.profileInfo = res.result;
             this.previewUrl = this.profileInfo.profile_image_url;
-            this.setFormFields();
+            this.roasterService.getUserBasedRoles(this.roasterId, this.profileInfo.id).subscribe((roleData: any) => {
+                this.isLoading = false;
+                if (roleData.success) {
+                    this.role = roleData.result[0].name;
+                } else {
+                    this.toastr.error('Error while fetching role');
+                }
+                this.setFormFields();
+            });
         });
     }
 
@@ -82,7 +91,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         this.form.controls.aboutMe.setValue(this.profileInfo.about_me);
         this.form.controls.email.setValue(this.profileInfo.email);
         this.form.controls.phone.setValue(this.profileInfo.phone);
-        this.form.controls.gender.setValue(this.profileInfo.gender || 'male');
+        this.form.controls.role.setValue(this.role);
         this.form.controls.birthday.setValue(new Date(this.profileInfo.date_of_birth));
     }
 
@@ -165,7 +174,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         userInfo.lastname = this.form.controls.lastName.value;
         userInfo.about_me = this.form.controls.aboutMe.value;
         userInfo.phone = this.form.controls.phone.value;
-        userInfo.gender = this.form.controls.gender.value;
         userInfo.date_of_birth = formatDate(this.form.controls.birthday.value, 'yyyy-MM-dd', 'en-US');
 
         if (this.file) {
