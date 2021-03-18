@@ -108,6 +108,11 @@ export const routes: Routes = [
                 loadChildren: () =>
                     import('./modules/green-grading/green-grading.module').then((m) => m.GreenGradingModule),
             },
+            {
+                path: 'my-profile',
+                loadChildren: () =>
+                    import('./modules/my-profile/my-profile.module').then((m) => m.MyProfileModule),
+            },
         ],
     },
     { path: 'gate', component: GateComponent },
