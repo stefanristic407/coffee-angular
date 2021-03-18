@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { CustomerServiceService } from '../customer-service.service';
 
@@ -9,6 +9,7 @@ import { CustomerServiceService } from '../customer-service.service';
 })
 export class DetailsCustomerStatusComponent implements OnInit {
     roasterId: any;
+    @Input() customerType: string;
     constructor(public customerService: CustomerServiceService, public cookieService: CookieService) {}
 
     ngOnInit(): void {}

@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GlobalsService } from '@services';
 import { EmailService, UserserviceService } from '@services';
+import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'app-roaster-quick-setup',
@@ -24,6 +25,8 @@ export class RoasterQuickSetupComponent implements OnInit {
         { label: 'Bar', value: 'Bar' },
     ];
     addUser = [{ name: '', email: '', type: '' }];
+    navItems: MenuItem[];
+    selectedNav: MenuItem;
 
     constructor(
         public roasterService: RoasterserviceService,
@@ -44,6 +47,12 @@ export class RoasterQuickSetupComponent implements OnInit {
         }
         this.headerValue = decodeURIComponent(this.route.snapshot.queryParams.buttonValue);
         this.appLanguage = this.globals.languageJson;
+        this.navItems = [
+            { label: this.globals.languageJson?.agreements },
+            { label: this.globals.languageJson?.people },
+            { label: 'Customer onboarding' },
+        ];
+        this.selectedNav = { label: this.globals.languageJson?.home, routerLink: '/' };
     }
 
     public addNewRow() {
