@@ -1,72 +1,3 @@
-.bg-msg {
-    border-radius: 2px;
-    border: solid 1px #747588;
-    color: #747588;
-    padding: 12px 24px;
-}
-
-.message-icon {
-    width: 14px;
-    height: 14px;
-}
-
-.estate-message {
-    font-family: Muli;
-    font-size: 12px;
-    font-weight: 500;
-}
-
-.update-now {
-    border-radius: 4px;
-    background-color: #30855c;
-    padding: 10px 24px;
-    color: #fff;
-    border: #30855c;
-    margin-left: 1rem;
-}
-
-.update-now:hover {
-    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-}
-
-.ft-roastry-profile {
-    width: 94px;
-    border-radius: 100%;
-}
-
-.royal-cofee {
-    padding: 1rem 0rem;
-}
-
-.bg-fff {
-    padding: 1rem 2rem 2rem 2rem;
-}
-
-.customer-border {
-    width: 100%;
-    padding: 1rem 1rem 3rem 1rem;
-    border-top: 1px solid #d6d6d6;
-    border-bottom: 1px solid #d6d6d6;
-}
-
-.active {
-    font-size: 12px;
-    font-weight: 600;
-    color: #ffffff;
-    border-radius: 4px;
-    background-color: #3d8462;
-    padding: 5px 10px;
-}
-
-.disable {
-    font-size: 12px;
-    font-weight: 600;
-    color: #979797;
-    border: solid 0.5px #3d8462;
-    background-color: #ffffff;
-    padding: 5px 10px;
-}
-
 .border-micro-roaster {
     border-radius: 4px;
     border: solid 1px #ebebeb;
@@ -119,8 +50,7 @@
     margin-left: 2%;
 }
 
-.certificates,
-.imp-contact {
+.certificates {
     margin: 1rem 0rem;
 }
 
@@ -128,69 +58,6 @@
     padding: 0.5rem 1rem 2rem 1rem;
     border-radius: 4px;
     background-color: #f8f8f8;
-}
-
-.imp-contact-inner {
-    border-radius: 4px;
-    border: solid 1px #ebebeb;
-    padding: 1rem;
-}
-
-.border-contact {
-    border-right: solid 1px #ebebeb;
-}
-
-.active__main {
-    border-radius: 4px;
-    border: solid 1px #d6d6d6;
-    padding: 6px;
-    margin-right: 14px;
-}
-
-.active_default {
-    background-color: #3d8462;
-    height: 30px;
-    padding: 4px 16px;
-    font-size: 14px;
-    color: #fff !important;
-    border-radius: 4px !important;
-    font-family: Muli;
-    font-weight: 600;
-}
-
-.disable_default {
-    background-color: #ffffff;
-    height: 30px;
-    padding: 4px 16px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #979797;
-    font-family: Muli;
-}
-
-.back-page a {
-    font-size: 16px;
-    color: #80460b;
-    cursor: pointer;
-    font-family: Muli;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.sim-pad {
-    padding-left: 5.6rem;
-}
-.search {
-    height: 44px;
-    border-radius: 4px;
-    border: solid 1px #d6d6d6;
-    background-color: #ffffff;
-    -webkit-appearence: none !important;
-}
-.main-bag {
-    position: absolute;
-    top: 70%;
-    right: 53%;
 }
 .pointer {
     cursor: pointer;
@@ -207,13 +74,9 @@
     .certificates-inner {
         padding: 1.5rem 1rem 4rem 1rem;
     }
-    .border-contact {
-        border-right: solid 0px #ebebeb;
-    }
 }
 
 .certificates,
-.imp-contact,
 .discount-sec {
     margin: 1rem 0rem;
 }
@@ -229,74 +92,6 @@
     margin-left: 2%;
 }
 
-.meet-our-team-list {
-    padding-top: 32px;
-    padding-bottom: 18px;
-}
-
-.team-images {
-    width: 100%;
-    height: 100%;
-}
-
-.team-des {
-    margin-top: 0.5rem;
-}
-
-.msg-team {
-    border: 1px solid #747588;
-    padding: 4px 13px 6px;
-    float: left;
-    border-radius: 2px;
-}
-.imp-contact {
-    margin: 1rem 0rem;
-}
-
-.imp-contact-inner {
-    border-radius: 4px;
-    border: solid 1px #ebebeb;
-    padding: 1rem;
-}
-
-.imp-contact,
-.discount-sec {
-    margin: 1rem 0rem;
-}
-
-.meet-our-team-list {
-    padding-bottom: 16px;
-}
-
-.team-images {
-    width: 100%;
-    height: 100%;
-}
-
-.team-des {
-    margin-top: 0.5rem;
-}
-
-.msg-team {
-    border: 1px solid #747588;
-    padding: 4px 13px 6px;
-    float: left;
-    border-radius: 2px;
-}
-
-.imp-contact {
-    @media (max-width: 480px) {
-        border-bottom: 2px solid #f8f8f8;
-        border-top: 2px solid #f8f8f8;
-    }
-}
-.team-images {
-    @media (max-width: 480px) {
-        width: 35px;
-        border-radius: 50%;
-    }
-}
-
 .status-border {
     @media (max-width: 480px) {
         border-bottom: 2px dashed #d6d6d6;
@@ -307,56 +102,12 @@
     border-bottom: none;
 }
 
-.view-listing {
-    color: #8c5000 !important;
-    text-decoration: underline;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.active {
-    color: #649a2b;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.disabled {
-    color: #979797;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.active-dot {
-    width: 8px;
-    background-color: #649a2b;
-    border-radius: 100%;
-    height: 8px;
-    margin-right: 8px;
-    margin-top: 5px;
-}
-
-.disabled-dot {
-    width: 8px;
-    background-color: #979797;
-    border-radius: 100%;
-    height: 8px;
-    margin-right: 8px;
-    margin-top: 5px;
-}
-
 .status-border {
     @media (max-width: 480px) {
         border-top: 2px dashed #d6d6d6;
         border-bottom: 2px dashed #d6d6d6;
     }
 }
-
-.estate-orders {
-    position: relative;
-}
-
 .row {
     color: #232334 !important;
     font-size: 14px !important;
@@ -365,65 +116,7 @@
     border-bottom: none !important;
 }
 
-/**********popover*******/
-
-.list-group-item {
-    border: none;
-    font-family: 'Muli';
-    font-size: 14px;
-    font-weight: 600;
-    color: #747588;
-}
-
-.list-group-item:hover {
-    color: #232334;
-    font-weight: 600;
-    background-color: #f8f8f8;
-}
-
-.menu-arrow {
-    cursor: pointer;
-    position: relative;
-    top: 6px;
-}
-
-.cust-width {
-    width: 40%;
-}
-
-.file_url {
-    color: #232334 !important;
-    font-size: 14px;
-    font-weight: 600;
-    font-family: 'Muli';
-    text-decoration: none !important;
-}
-
-#sales-contract-popup popover-container {
-    border: 0 !important;
-}
-
-@media (min-width: 993px) and (max-width: 1279px) {
-    #sales-table .p-datatable table {
-        width: 115%;
-    }
-    #sales-table .p-datatable-wrapper {
-        overflow-x: auto;
-    }
-}
-@media (min-width: 768px) and (max-width: 992px) {
-    #sales-table .p-datatable table {
-        width: 170%;
-    }
-    #sales-table .p-datatable-wrapper {
-        overflow-x: auto;
-    }
-}
-
 @media (max-width: 767px) {
-    .estate-table {
-        margin: -1.5rem 0rem;
-    }
     .mobile-ce p {
         margin-bottom: 0rem !important;
     }
@@ -442,9 +135,6 @@
     }
 }
 @media (max-width: 480px) {
-    .estate-orders {
-        margin: 1rem 0px;
-    }
     .name-header {
         margin: 4px;
         border-radius: 4px;
