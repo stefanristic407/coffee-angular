@@ -86,6 +86,8 @@ export class RoasteryProfileService {
                             : 0,
                     },
                 ];
+                this.saveMode.next(false);
+                this.editMode.next(true);
             }
         });
 
@@ -168,8 +170,7 @@ export class RoasteryProfileService {
 
                 if (isBase64Valid === false) {
                     this.toastrService.success('Roaster profile details updated successfully');
-                    this.saveMode.next(false);
-                    this.editMode.next(true);
+
                     this.roasterProfile();
                 } else {
                     console.log('entering here');
@@ -186,8 +187,6 @@ export class RoasteryProfileService {
                     this.userService.uploadProfileImage(formData).subscribe((result: any) => {
                         if (result.success) {
                             this.toastrService.success('Roaster profile details updated successfully');
-                            this.saveMode.next(false);
-                            this.editMode.next(true);
                             this.roasterProfile();
                         } else {
                             console.log(result);
@@ -237,17 +236,20 @@ export class RoasteryProfileService {
     }
 
     handleDeleteBannerImage(): void {
-        this.userService.deleteBanner(this.roasterId).subscribe(
-            (res) => {
-                this.toastrService.success('Deleted Banner Image');
-                this.roasteryProfileData.banner_file_id = 0;
-                this.roasteryProfileData.banner_url = '';
-                this.bannerUrl = '';
-            },
-            (error) => {
-                this.toastrService.error('Failed, Please try again later');
-            },
-        );
+        if (this.roasteryProfileData.banner_url && this.roasteryProfileData.banner_file_id !== 0) {
+            this.userService.deleteBanner(this.roasterId).subscribe(
+                (res) => {
+                    this.toastrService.success('Deleted Banner Image');
+                    this.roasteryProfileData.banner_file_id = 0;
+                    this.roasteryProfileData.banner_url = '';
+                    this.bannerUrl = '';
+                },
+                (error) => {
+                    this.toastrService.error('Failed, Please try again later');
+                },
+            );
+        }
+        this.bannerUrl = '';
     }
 
     editRoasterProfile() {

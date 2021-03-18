@@ -309,7 +309,7 @@
                         </div>
                     </div>
 
-                    <div class="row mb-4 mb-md-5" *ngIf="isEditMode">
+                    <div class="row mb-4 mb-md-425" *ngIf="isEditMode">
                         <div class="col-lg-12">
                             <div
                                 class="capability-container d-flex border-md-main br-4 p-2 pt-md-4 pb-md-1 pl-md-4 pr-md-4"
@@ -622,9 +622,12 @@
                 *ngIf="this.globals.checkItem('certificate-list') || this.globals.checkItem('certificate-management')"
             >
                 <div class="header fnt-18 font-bold text-clr334 m-1">{{ 'awards_and_certificates' | translate }}</div>
-                <div class="row mt-3 m-0" *ngFor="let certificate of certificatesArray">
+                <div class="row mt-3 m-0" *ngFor="let certificate of certificatesArray; let i = index">
                     <div class="col-12">
-                        <div class="w-100 certification-item-container border-div d-flex justify-content-between">
+                        <div
+                            class="w-100 certification-item-container d-flex justify-content-between"
+                            [ngClass]="{ 'border-div': i !== certificatesArray.length - 1 || isSaveMode }"
+                        >
                             <div class="certification-item-metadata d-flex">
                                 <img class="img-estate" src="assets/images/certificate.svg" alt="User" />
                                 <div class="certification-description ml-2">
@@ -639,6 +642,7 @@
                             <div class="certificaion-action d-flex">
                                 <a
                                     class="menu-arrow"
+                                    [ngClass]="{ 'd-none': !isSaveMode }"
                                     [popover]="listTemplate"
                                     placement="bottom"
                                     [outsideClick]="true"
@@ -682,7 +686,8 @@
                     class="add-brand-div p-25 p-md-4"
                     *ngIf="
                         this.globals.checkItem('certificate-management') &&
-                        this.globals.permissions['certificate-management'].manage
+                        this.globals.permissions['certificate-management'].manage &&
+                        isSaveMode
                     "
                 >
                     <a class="brand-tag add-link" routerLink="/roastery-profile/certificate">

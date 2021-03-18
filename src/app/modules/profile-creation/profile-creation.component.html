@@ -115,6 +115,7 @@
                 type="file"
                 hidden
                 #bannerFileInput
+                (click)="setFormat($event)"
                 (change)="roasteryProfileService.handleBannerImageFile($event.target)"
             />
 
@@ -147,7 +148,10 @@
                     pButton
                     icon="pi pi-trash"
                     iconPos="left"
-                    *ngIf="isSaveMode && roasteryProfileService.roasteryProfileData?.banner_url"
+                    *ngIf="
+                        isSaveMode &&
+                        (roasteryProfileService.roasteryProfileData?.banner_url || roasteryProfileService.bannerUrl)
+                    "
                     class="fnt-14 btn-trans-nb d-none d-md-flex"
                     (click)="roasteryProfileService.handleDeleteBannerImage()"
                     label="{{ 'delete' | translate }}"
