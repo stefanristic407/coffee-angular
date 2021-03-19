@@ -5,6 +5,9 @@
 
 .emp {
     padding: 2rem 1rem;
+    @media (max-width: 480px) {
+        padding: 1rem 0;
+    }
 }
 
 .roster-cap {
@@ -28,17 +31,20 @@
     font-size: 12px;
     padding: 3px 9px 1px 15px;
     font-weight: 600;
-    margin-right: 5px;
+    margin-right: 8px;
     color: #747588;
     position: relative;
     border-radius: 11.5px;
     border: solid 0.5px #747588;
-    margin-bottom: 5px;
+    margin-bottom: 12px;
 }
 
 .honey {
     padding: 2rem 1rem;
     display: grid;
+    @media (max-width: 480px) {
+        padding: 1rem 1rem 0.5rem 1rem;
+    }
 }
 
 .roaster-employee {
@@ -91,7 +97,7 @@
     max-width: 48%;
     margin-left: 2%;
 }
-
+.roster-border,
 .status-border {
     @media (max-width: 480px) {
         border-bottom: 2px dashed #d6d6d6;
@@ -102,12 +108,6 @@
     border-bottom: none;
 }
 
-.status-border {
-    @media (max-width: 480px) {
-        border-top: 2px dashed #d6d6d6;
-        border-bottom: 2px dashed #d6d6d6;
-    }
-}
 .row {
     color: #232334 !important;
     font-size: 14px !important;

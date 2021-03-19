@@ -14,14 +14,41 @@
             <div class="col-md-3 col-12 border-micro-roaster">
                 <div class="emp">
                     <p class="fnt-16 fnt-md-18 fnt-600 fnt-muli text-clr588">No. of employees</p>
-                    <p class="fnt-40 fnt-muli fnt-700 black">{{ customer.total_employees }}</p>
+                    <p class="fnt-40 fnt-muli fnt-700 black mb-0">{{ customer.total_employees }}</p>
                 </div>
             </div>
 
-            <div class="col-md-9 col-12 border-micro-roaster capacity-width mt-md-0 mt-3">
+            <div class="col-md-9 col-12 border-micro-roaster capacity-width mt-md-0 mt-3 web-farm">
                 <div class="row">
                     <div class="col-md-4 col-12 my-4">
                         <div class="roster-cap">
+                            <p class="fnt-16 fnt-md-18 fnt-600 fnt-muli text-clr588">Roastery Capacity</p>
+                            <p class="fnt-40 fnt-muli fnt-700 black">
+                                {{ customer.capacity }}&nbsp;{{ customer.capacity_unit }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="honey col-md-8 col-12">
+                        <div>
+                            <ul class="flo-list">
+                                <li>Honey-Roast</li>
+                                <li>Blended</li>
+                                <li>BlendeMocha-Java</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="fnt-14 fnt-md-16 fnt-500 fnt-muli black">
+                                We are know for our three main blends Café Blend, Mocha Java and Black Gold.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 col-12 border-micro-roaster capacity-width mt-md-0 mt-4 mobile-farm">
+                <div class="row">
+                    <div class="col-md-4 col-12 my-3">
+                        <div class="roster-border">
                             <p class="fnt-16 fnt-md-18 fnt-600 fnt-muli text-clr588">Roastery Capacity</p>
                             <p class="fnt-40 fnt-muli fnt-700 black">
                                 {{ customer.capacity }}&nbsp;{{ customer.capacity_unit }}
@@ -68,7 +95,7 @@
         </div>
 
         <div class="pt-md-2 mobile-farm">
-            <div class="table-details mobile-farm">
+            <div class="table-details">
                 <div class="table-responsive border-sourcetable agreement-top">
                     <div class="col-12 mb-3 bor-ebe" *ngFor="let data of listData">
                         <div class="row">
@@ -78,14 +105,19 @@
                                         <p class="black fnt-14">Certificates & Awards</p>
                                     </div>
                                 </div>
-                                <div class="status-border mx-3 py-3 row">
-                                    <div class="col-7 p-0">
-                                        <p class="fnt-14">
-                                            {{ data.name }}
-                                        </p>
-                                        <p class="fnt-14">
-                                            {{ data.year }}
-                                        </p>
+                                <div class="d-flex justify-content-between status-border">
+                                    <div class="status-border mx-3 py-3 row">
+                                        <div class="col-7 p-0">
+                                            <p class="fnt-14">
+                                                {{ data.name }}
+                                            </p>
+                                            <p class="fnt-14">
+                                                {{ data.year }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="align-content-center d-flex">
+                                        <img src="assets/images/kebab-menu.svg" />
                                     </div>
                                 </div>
                             </div>

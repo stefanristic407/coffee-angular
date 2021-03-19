@@ -69,16 +69,27 @@
                 </div>
             </div>
         </div>
-        <div class="">
+        <div class="web-farm">
             <div class="message-customer">
                 <span class="btn-stroked mr-3 px-4">
                     <img src="assets/images/message-icon.svg" alt="Message" class="message-icon" />
                     <span class="estate-message pl-1">Message</span></span
                 >
-
                 <button class="btn-raised" (click)="customerService.horecaStimulatedLogin(customerService.horecaId)">
                     Simulated Login
                 </button>
+            </div>
+        </div>
+        <div class="mobile-farm">
+            <div class="d-flex justify-content-between message-customer">
+                <button class="btn-raised" (click)="customerService.horecaStimulatedLogin(customerService.horecaId)">
+                    Simulated Login
+                </button>
+
+                <span class="btn-stroked btn-padding">
+                    <img src="assets/images/message-icon.svg" alt="Message" class="message-icon mr-2" />
+                    <span class="estate-message pl-1">Message</span></span
+                >
             </div>
         </div>
     </div>
