@@ -520,7 +520,7 @@
                 </div>
 
                 <div class="row" *ngIf="isSaveMode && !isAddBrandMode">
-                    <div class="col-12 mt-4 mt-md-2 mb-4 mb-md-4 text-center text-md-left">
+                    <div class="col-12 mt-4 mt-md-2 mb-4 mb-md-4 text-left">
                         <a class="add-link" href="javascript:void(0);" (click)="addBrandProfileMode()">
                             <span class="fnt-14 font-bold add-text ml-4">Add another brand</span>
                         </a>
@@ -548,7 +548,7 @@
                             />
                         </div>
                         <div
-                            class="add-partner mb-3 mb-md-0 mt-md-3 col-12 col-md-6 p-md-0 text-right text-md-left"
+                            class="add-partner mb-3 mb-md-0 mt-md-3 col-12 col-md-6 p-md-0 text-left"
                             *ngIf="
                                 roasteryProfileService.showDelete && roasteryProfileService.roasterContacts.length > 1
                             "
@@ -590,7 +590,7 @@
                             ></button>
                         </div>
                     </div>
-                    <div class="add-brand-div mt-3 mb-3 text-center text-md-left">
+                    <div class="add-brand-div mt-3 mb-3 text-left">
                         <a class="brand-tag add-link" (click)="showContact()">
                             <span class="add-text ml-4">{{ 'add_another_contact' | translate }}</span>
                         </a>
@@ -605,7 +605,7 @@
                         </p>
                         <div class="row p-0">
                             <div
-                                class="col-lg-3 col-md-3 col-sm-6 col-6 mb-2 pl-3 pr-3"
+                                class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3 pl-3 pr-3"
                                 *ngFor="let contact of roasteryProfileService.roasterContacts"
                             >
                                 <div class="employ-profile">

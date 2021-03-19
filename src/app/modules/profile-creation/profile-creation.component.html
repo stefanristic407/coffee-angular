@@ -221,7 +221,7 @@
     </div>
     <div class="mobile-farm col-12 pl-2 pr-2">
         <div class="row" *ngIf="isSaveMode">
-            <div class="col-6">
+            <div class="col-12">
                 <button
                     type="button"
                     pButton
@@ -230,7 +230,7 @@
                     (click)="roasteryProfileService.preview()"
                 ></button>
             </div>
-            <div class="col-6">
+            <div class="col-12">
                 <button
                     type="button"
                     pButton
@@ -245,7 +245,7 @@
             pButton
             class="cancel-butn w-100 mb-3"
             *ngIf="isEditMode"
-            label="{{ 'go_back_edit' | translate }}"
+            label="{{ 'edit' | translate }}"
             (click)="roasteryProfileService.editRoasterProfile()"
         ></button>
     </div>

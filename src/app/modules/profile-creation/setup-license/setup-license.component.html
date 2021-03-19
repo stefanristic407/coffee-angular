@@ -45,9 +45,6 @@
             </ng-container>
             <div class="mt-2" *ngIf="editingRowIndex === -1 || !certificationArray.length">
                 <ng-container *ngTemplateOutlet="addAndEditTemplate"></ng-container>
-                <div class="py-2 d-none d-md-block d-lg-none">
-                    <p-divider type="dashed"></p-divider>
-                </div>
             </div>
             <span class="fnt-muli fnt-14 fnt-bold text-clr60b cursor-pointer" (click)="onAdd()"
                 ><i class="pi pi-plus mr-25 fnt-bold fnt-14"></i>Add another certificate
@@ -55,6 +52,9 @@
         </div>
         <div class="py-2 py-lg-3">
             <p-divider type="dashed"></p-divider>
+        </div>
+        <div class="mt-1 mb-3 mb-md-5">
+            <button class="btn-stroked-transparent" routerLink="/roastery-profile/about_roastery">Cancel</button>
         </div>
         <input #myFileInput type="file" class="d-none" (change)="onFileChange($event)" />
     </div>
@@ -116,12 +116,13 @@
                     </div>
                     <div class="d-flex flex-column flex-md-row button-wrapper align-items-center">
                         <button class="btn-raised ml-md-4 mt-3 mt-md-0" (click)="onSave()">Save</button>
-                        <span
-                            class="txt-clr55c fnt-muli fnt-14 fnt-bold ml-md-3 mt-3 mt-md-0 cursor-pointer"
-                            (click)="onCancel()"
+                        <button
+                            class="btn-stroked-transparent ml-md-3"
                             *ngIf="editingRowIndex > -1"
-                            >Cancel</span
+                            (click)="onCancel()"
                         >
+                            Cancel
+                        </button>
                     </div>
                 </div>
             </div>
