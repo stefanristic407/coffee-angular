@@ -26,10 +26,10 @@
 }
 
 .main-bag {
-    position: absolute;
-    top: 70%;
-    right: 53%;
+    position: relative;
+    right: 7%;
     @media (max-width: 480px) {
+        position: absolute;
         top: 83%;
         right: 39%;
     }
