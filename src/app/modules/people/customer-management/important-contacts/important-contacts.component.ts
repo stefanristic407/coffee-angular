@@ -13,25 +13,21 @@ export class ImportantContactsComponent implements OnInit, OnChanges {
     constructor(public customerService: CustomerServiceService, private userService: UserserviceService) {}
     ngOnChanges(): void {
         this.horecaEmployees();
-        console.log(this.customerType);
     }
 
     ngOnInit(): void {}
 
     horecaEmployees() {
-        console.log(this.customerType);
         if (this.customerType === 'hrc') {
             this.userService.getHorecaContacts(this.customerService.horecaId).subscribe((res: any) => {
                 if (res.success) {
                     this.hrContacts = res.result;
-                    console.log(this.hrContacts + 'micro-roasters');
                 }
             });
         } else if (this.customerType === 'micro-roasters') {
             this.userService.getMicroroasterContacts(this.customerService.microId).subscribe((res: any) => {
                 if (res.success) {
                     this.hrContacts = res.result;
-                    console.log(this.hrContacts + 'hrc');
                 }
             });
         }
