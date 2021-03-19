@@ -6,6 +6,7 @@
     .breadCrumb-block {
         padding-bottom: 24px;
     }
+
     .note {
         white-space: pre;
     }
@@ -142,6 +143,7 @@
         .mobile-delete-key {
             display: none;
         }
+
         .delete-key {
             display: block;
         }
@@ -159,20 +161,34 @@
             flex-direction: column;
             align-items: center;
             align-items: initial;
+
             .save {
                 margin-top: 18px;
             }
         }
+
         .key-active {
             padding: 0 16px 16px 16px;
         }
 
         padding: 16.5px 16px;
+
         .mobile-delete-key {
             display: block;
         }
+
         .delete-key {
             display: none;
         }
+    }
+}
+
+@media (max-width: 991px) and (min-width: 769px) {
+    .api-request-detail-container {
+        padding: 24px 16px;
+    }
+
+    .w-70 {
+        width: 70%;
     }
 }
