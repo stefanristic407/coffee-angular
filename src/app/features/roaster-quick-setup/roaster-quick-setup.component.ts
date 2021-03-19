@@ -16,7 +16,6 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 export class RoasterQuickSetupComponent implements OnInit {
     appLanguage?: any;
     roasterId: any;
-    inviteActive: any = 0;
     headerValue: string;
     sendInviteButton: any = 'Send Invites';
     companyTypeList = [
@@ -25,9 +24,7 @@ export class RoasterQuickSetupComponent implements OnInit {
         { label: 'Restaurant', value: 'Restaurant' },
         { label: 'Bar', value: 'Bar' },
     ];
-    inviteFormGroup: FormGroup;
     inviteFormArray = new FormArray([]);
-    addUser = [{ name: '', email: '', type: '' }];
     navItems: MenuItem[];
     selectedNav: MenuItem;
 
@@ -74,6 +71,8 @@ export class RoasterQuickSetupComponent implements OnInit {
 
     removeRow(index: number): void {
         this.inviteFormArray.controls.splice(index, 1);
+        this.inviteFormArray.value.splice(index, 1);
+        this.inviteFormArray.updateValueAndValidity();
     }
 
     sendInvite() {
