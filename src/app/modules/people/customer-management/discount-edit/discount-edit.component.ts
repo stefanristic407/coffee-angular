@@ -51,17 +51,13 @@ export class DiscountEditComponent implements OnInit {
                         };
                         this.emailService.sendEmail(body).subscribe((res) => {
                             if (res.status === '200 OK') {
-                                //   this.globals.userInvitesArray.push(this.customerService.pendingEmail);
-                                //   this.resetButtonValue = "Send Invites";
                                 this.toastrService.success('Email has been sent successfully');
                                 this.router.navigate(['/people/customer-management']);
                             } else {
-                                //   this.resetButtonValue = "Send Invites";
                                 this.toastrService.error('Error while sending email to the User');
                             }
                         });
                     } else {
-                        // this.resetButtonValue = "Send Invites";
                         this.toastrService.error('Error while sending email to the User');
                     }
                 });
@@ -85,16 +81,13 @@ export class DiscountEditComponent implements OnInit {
                         };
                         this.emailService.sendEmail(body).subscribe((res) => {
                             if (res.status === '200 OK') {
-                                // this.resetButtonValue = "Send Invites";
                                 this.toastrService.success('Email has been sent successfully');
                                 this.router.navigate(['/people/customer-management']);
                             } else {
-                                // this.resetButtonValue = "Send Invites";
                                 this.toastrService.error('Error while sending email to the User');
                             }
                         });
                     } else {
-                        //   this.resetButtonValue = "Send Invites";
                         this.toastrService.error('Error while sending email to the User');
                     }
                 });

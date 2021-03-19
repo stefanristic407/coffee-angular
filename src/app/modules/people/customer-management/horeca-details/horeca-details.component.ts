@@ -27,7 +27,6 @@ export class HorecaDetailsComponent implements OnInit {
         this.route.queryParams.subscribe((params: any) => {
             this.customerService.horecaId = params.itemId;
             this.customerService.hrcCustomerDetails();
-            // this.horecaEmployees();
         });
         this.roasterId = this.cookieService.get('roaster_id');
     }

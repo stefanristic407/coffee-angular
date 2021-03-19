@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GlobalsService, RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -101,10 +101,8 @@ export class CustomerManagementComponent implements OnInit {
     filterStatus() {
         if (!this.selectedStatus || this.selectedStatus === 'All') {
             this.sortedMainData = this.mainData;
-            console.log(this.sortedMainData);
         } else {
             this.sortedMainData = this.mainData.filter((item) => item.status === this.selectedStatus.toUpperCase());
-            console.log(this.sortedMainData);
         }
     }
 }
