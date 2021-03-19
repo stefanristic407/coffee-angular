@@ -71,11 +71,6 @@
                     <ng-template #poplistTemplate id="{{ item.id }}">
                         <div id="popover-mobile-content">
                             <ul class="list-group custom-popover">
-                                <!-- <li class="list-group-item"> <a class="pointer-item" (click)="pop.hide();">Download </a></li>
-                                            <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Pin</a></li>
-                                            <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Rename</a></li>
-                                            <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li> -->
-                                <!-- <li class="list-group-item" *ngIf="item.status != 'PENDING'"><a class="pointer-item" (click)="deleteMicroRoaster(item.id);pop.hide();">Delete</a></li> -->
                                 <li class="list-group-item">
                                     <a class="pointer-item" (click)="pop.hide(); customer.stimulatedLogin(item.id)"
                                         >Simulated login</a

@@ -30,7 +30,6 @@ export class MicroRoasterDetailsComponent implements OnInit {
             this.customer.microId = params.folderId;
             this.customer.mrCustomerDetails();
             this.getCerificatesList();
-            // this.estateEmployees();
         });
         this.roasterId = this.cookieService.get('roaster_id');
     }
