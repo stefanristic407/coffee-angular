@@ -118,7 +118,7 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
                 { label: 'Order Confirmed', value: OrderStatus.Confirmed },
                 { label: 'Payment', value: OrderStatus.Payment },
                 { label: 'Harverst Ready', value: OrderStatus.HarvestReady },
-                { label: 'Confirmed', value: OrderStatus.Graded },
+                { label: 'Graded', value: OrderStatus.Graded },
             ];
         } else {
             this.timelinePoints = [
@@ -127,7 +127,7 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
                 { label: 'Payment', value: OrderStatus.Payment },
                 { label: 'Shipped', value: OrderStatus.Shipped },
                 { label: 'Received', value: OrderStatus.Received },
-                { label: 'Confirmed', value: OrderStatus.Graded },
+                { label: 'Confirm', value: OrderStatus.Graded },
             ];
         }
     }

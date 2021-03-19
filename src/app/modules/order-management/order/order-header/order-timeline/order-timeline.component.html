@@ -2,26 +2,34 @@
     <div class="transit-scoll overflow-hidden overflow-md-auto mt-md-4">
         <div class="transit-maxwidth main-order-tracking-mbVesrion">
             <div class="w-100 d-flex flex-column flex-md-row">
-                <div class="d-flex flex-column align-items-center order-tracking"
+                <div
+                    class="d-flex flex-column align-items-center order-tracking"
                     [class.completed]="index > currentPointIndex"
-                    *ngFor="let point of timelinePoints; let index = index; let last = last">
+                    *ngFor="let point of timelinePoints; let index = index; let last = last"
+                >
                     <span class="d-block is-complete"></span>
                     <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
-                        <p class="order-status fnt-13 font-bold text-clr334 mt-md-2 mb-1"
-                            [class.text-muted]="index > currentPointIndex">
-                            {{point.label}}
+                        <p
+                            class="order-status fnt-13 font-bold text-clr334 mt-md-2 mb-1"
+                            [class.text-muted]="index > currentPointIndex"
+                        >
+                            {{ point.label }}
                         </p>
 
                         <p class="view-order cursor-pointer mb-0" *ngIf="isPrebook && index === 3; else statusInfo">
                             {{ 'view_lot_status' | translate }}
                         </p>
                         <ng-template #statusInfo>
-                            <p class="mb-0 fnt-14 fnt-sm-12 text-muted font-bold d-lg-block d-md-none d-sm-block"
-                                *ngIf="index < 2">By :
+                            <p
+                                class="mb-0 fnt-14 fnt-sm-12 text-muted font-bold d-lg-block d-md-none d-sm-block"
+                                *ngIf="index < 2"
+                            >
+                                By :
                                 <span class="text-underline">{{ getStatusAuthor(point) }}</span>
                             </p>
-                            <p class="pt-1 fnt-12 d-lg-block d-md-none d-sm-block">{{ getStatusDate(point) |
-                                date : 'd MMMM y' }}</p>
+                            <p class="pt-1 fnt-12 d-lg-block d-md-none d-sm-block">
+                                {{ getStatusDate(point) | date: 'd MMMM y' }}
+                            </p>
                         </ng-template>
 
                         <ng-container *ngIf="last && isGraded">
@@ -30,7 +38,7 @@
                             </label>
                             <input hidden type="file" #upload />
                             <p class="order-datecolor mb-0" *ngIf="isGraded">
-                                {{ 'view_report' | translate}}
+                                {{ 'view_report' | translate }}
                             </p>
                         </ng-container>
                     </div>
@@ -49,8 +57,10 @@
                 </h4>
                 <ng-container *ngTemplateOutlet="timeline"></ng-container>
             </ng-container>
-            <div class="btn-div col-md-6 pl-0 pr-0 d-inline-block d-md-none mb-2"
-                [class.invoice-block]="accordionOpened">
+            <div
+                class="btn-div col-md-6 pl-0 pr-0 d-inline-block d-md-none mb-2"
+                [class.invoice-block]="accordionOpened"
+            >
                 <button type="submit" class="btn-raised pull-right w-100 text-center" (click)="openInvoice()">
                     {{ 'order_invoice' | translate }}
                 </button>
@@ -65,8 +75,11 @@
             <ng-template pTemplate="header">
                 <div class="w-100 fnt-play fnt-700 fnt-18 text-clr334 mb-4 mb-md-2">
                     <span>{{ statusLabel }}</span>
-                    <img class="pl-2 pt-2 mt-1 pull-right" src="assets/images/collapse-arrow.svg"
-                        *ngIf="!tab.selected" />
+                    <img
+                        class="pl-2 pt-2 mt-1 pull-right"
+                        src="assets/images/collapse-arrow.svg"
+                        *ngIf="!tab.selected"
+                    />
                     <img class="pl-2 pt-2 mt-1 pull-right" src="assets/images/expand-arrow.svg" *ngIf="tab.selected" />
                 </div>
             </ng-template>
@@ -91,14 +104,22 @@
                         {{ 'received_on' | translate }} {{ receivedDate | date: 'd MMMM y' }}
                     </h4>
                     <div class="fnt-md-16 fnt-sm-12 text-clr5d pt-2">
-                        {{ 'you_have_successfully_received' | translate }}<br>
+                        {{ 'you_have_successfully_received' | translate }}<br />
                         {{ 'please_rate_and_review' | translate }}
                     </div>
-                    <button type="submit" class="btn-raised sm mt-4" *ngIf="orderId && orgType" [routerLink]="orderId | orderRatingLink: orgType">
+                    <button
+                        type="submit"
+                        class="btn-raised sm mt-4"
+                        *ngIf="orderId && orgType"
+                        [routerLink]="orderId | orderRatingLink: orgType"
+                    >
                         {{ 'leave_a_feedback' | translate }}
                     </button>
-                    <button type="submit" class="btn-raised pull-right w-100 text-center mt-2 d-md-none"
-                        (click)="openInvoice()">
+                    <button
+                        type="submit"
+                        class="btn-raised pull-right w-100 text-center mt-2 d-md-none"
+                        (click)="openInvoice()"
+                    >
                         {{ 'order_invoice' | translate }}
                     </button>
                 </div>

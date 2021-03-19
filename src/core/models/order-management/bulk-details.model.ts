@@ -9,4 +9,6 @@ export interface BulkDetails {
     icoNumber: string;
     quantityCount: number;
     quantityType: string;
+    qualityGrade: number;
+    weight: number;
 }

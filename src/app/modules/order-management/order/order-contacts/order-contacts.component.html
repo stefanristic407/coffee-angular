@@ -1,4 +1,4 @@
-<div class="border-ebebeb pb-md-3 pb-lg-4 px-3 px-md-4 p-lg-4">
+<div class="border-ebebeb pb-md-3 pb-lg-4 px-3 px-md-4 p-lg-4 h-100">
     <app-delivery-address></app-delivery-address>
 
     <div class="d-none d-md-block">
@@ -9,10 +9,14 @@
             </a>
         </div>
 
-        <app-roaster-details *ngIf="order"
-            [ownerName]="roaster?.ownerName" [rating]="roaster?.rating"
+        <app-roaster-details
+            *ngIf="order"
+            [ownerName]="roaster?.ownerName"
+            [rating]="roaster?.rating"
             [companyImageThumbnailUrl]="roaster?.companyImageThumbnailUrl"
-            [orgType]="orgType" [orderId]="order.id"></app-roaster-details>
+            [orgType]="orgType"
+            [orderId]="order.id"
+        ></app-roaster-details>
 
         <div class="d-flex flex-column mt-3 fnt-14">
             <div class="d-flex border-top py-3">
@@ -26,9 +30,7 @@
             <div class="d-flex border-top py-3">
                 <div class="w-50 fnt-500 text-clr588">{{ 'address' | translate }}&nbsp;:</div>
                 <div class="w-50 fnt-600 text-clr334">
-                    {{ roaster?.addressLine1 }},
-                    {{ roaster?.addressLine2 }},
-                    {{ roaster?.zipcode }} -
+                    {{ roaster?.addressLine1 }}, {{ roaster?.addressLine2 }}, {{ roaster?.zipcode }} -
                     {{ commonService.getCountryName(roaster?.country) }}
                 </div>
             </div>

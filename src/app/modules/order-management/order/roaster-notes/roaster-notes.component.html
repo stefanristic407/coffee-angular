@@ -1,7 +1,7 @@
 <div class="p-3 px-md-4 py-md-45">
     <p class="w-100 fnt-18 fnt-600 mb-2 mb-md-3 text-clr334">{{ 'add_roaster_notes' | translate }}</p>
     <div class="w-100 mt-4">
-        <app-add-note [orderId]="orderId"></app-add-note>
+        <app-add-note [class.border-b-dashed]="notes.length" [orderId]="orderId"></app-add-note>
     </div>
     <div class="mt-4" *ngIf="notes.length">
         <div class="d-flex justify-content-between text-clr334 font-bold">

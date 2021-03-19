@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { OrderDetails } from '@models';
 import { CommonService } from '@services';
 import { trimCharRight } from '@utils';
+import { OrderType } from '@enums';
 
 @Component({
     selector: 'app-lot-details',
@@ -10,6 +11,8 @@ import { trimCharRight } from '@utils';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LotDetailsComponent {
+    readonly OrderType = OrderType;
+
     @Input() lot: OrderDetails;
 
     get quantity(): string {

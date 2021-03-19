@@ -44,6 +44,8 @@ export class AvailabilityService extends ApiService {
                         icoNumber: response.result.ico_number,
                         quantityCount: response.result.quantity_count,
                         quantityType: response.result.quantity_type,
+                        weight: response.result.dry_milling.gc_weight,
+                        qualityGrade: response.result.dry_milling.quality_grade,
                     };
 
                     return details;
