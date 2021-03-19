@@ -58,6 +58,18 @@
     color: $muted-text-color !important;
 }
 
+#popover-mobile-content {
+    .custom-popover {
+        border-bottom: none !important;
+    }
+}
+
+.list-group-item:hover {
+    .pointer-item {
+        color: $general-text-color !important;
+    }
+}
+
 @media screen and (max-width: 767px) {
     .menu-arrow {
         p {
