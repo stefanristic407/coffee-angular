@@ -24,6 +24,7 @@ import { CreateReferenceNumberComponent } from './create-reference-number/create
 import { RoasterNotesComponent } from './roaster-notes/roaster-notes.component';
 import { AddNoteComponent } from './roaster-notes/add-note/add-note.component';
 import { NoteComponent } from './roaster-notes/note/note.component';
+import { EditTrackingInfoComponent } from './order-header/edit-tracking-info/edit-tracking-info.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule, AgmCoreModule, SharedModule, OrderRoutingModule],
@@ -48,6 +49,7 @@ import { NoteComponent } from './roaster-notes/note/note.component';
         RoasterNotesComponent,
         AddNoteComponent,
         NoteComponent,
+        EditTrackingInfoComponent,
     ],
 })
 export class OrderModule {}

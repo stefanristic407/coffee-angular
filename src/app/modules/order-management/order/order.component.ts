@@ -33,6 +33,10 @@ export class OrderComponent extends DestroyableComponent implements OnInit {
         return this.orderDetails && this.orderDetails.orderType === OrderType.Prebook;
     }
 
+    get isEstateOrder(): boolean {
+        return this.organizationType === OrgType.ESTATE;
+    }
+
     constructor(private route: ActivatedRoute, private ordersService: OrderManagementService) {
         super();
     }

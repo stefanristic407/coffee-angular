@@ -14,9 +14,9 @@ export class OrderPaymentStatusComponent {
 
     @Input() order: OrderDetails;
 
-    openReceipt(): void {
-        if (this.order && this.order.receiptUrl) {
-            window.open(this.order.receiptUrl, '_blank');
+    openLink(link: string): void {
+        if (link) {
+            window.open(link, '_blank');
         }
     }
 }

@@ -41,6 +41,8 @@ export interface OrderDetails {
     status: OrderStatus;
     userId?: number;
     varieties?: string;
+    shipmentDate: string;
+    trackingLink: string;
 
     uploadShow: boolean;
     receiptShow: boolean;

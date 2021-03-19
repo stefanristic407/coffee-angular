@@ -28,6 +28,7 @@ import {
     UserService,
 } from '@services';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 import { toCamelCase } from '@utils';
 
 @Injectable({
@@ -122,6 +123,14 @@ export class OrderManagementService {
 
     updatePaymentAfterDelivery(orderId: number): Observable<ApiResponse<any>> {
         return this.purchaseSrv.updatePaymentAfterDelivery(orderId);
+    }
+
+    updateShipmentDetails(orderId: number, trackingLink: string, shipmentDate: string): Observable<ApiResponse<any>> {
+        const payload = {
+            tracking_link: trackingLink,
+            shipment_date: moment(shipmentDate).format('yyyy-MM-DD'),
+        };
+        return this.purchaseSrv.updateShipmentDetails(orderId, payload);
     }
 
     getCuppingReportUrl(harvestId: number): Observable<string> {

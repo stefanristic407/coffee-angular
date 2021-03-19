@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { OrgType } from '@enums';
+import { OrgType, OrderStatus } from '@enums';
 import {
     ApiResponse,
     ConfirmRejectOrderDetails,
@@ -49,6 +49,7 @@ export class PurchaseService extends ApiService {
                         details.statusPaid = true;
                         details.statusPending = false;
                         details.paymentVerification = true;
+                        details.status = OrderStatus.Payment;
                     }
 
                     return details;
@@ -127,15 +128,19 @@ export class PurchaseService extends ApiService {
     }
 
     updatePaymentVerify(orderId: number): Observable<ApiResponse<any>> {
-        return this.post(this.orgPostUrl, `mr-${this.endpoint}/${orderId}/payment/verify`, 'PUT');
+        return this.postWithOrg(this.orgPostUrl, `mr-${this.endpoint}/${orderId}/payment/verify`, 'PUT');
     }
 
     updatePaymentAfterDelivery(orderId: number): Observable<ApiResponse<any>> {
-        return this.post(this.orgPostUrl, `mr-${this.endpoint}/${orderId}/payment/after-delivery`, 'PUT');
+        return this.postWithOrg(this.orgPostUrl, `mr-${this.endpoint}/${orderId}/payment/after-delivery`, 'PUT');
     }
 
     updateOrderDetails(orderId: number, details: any): Observable<ApiResponse<any>> {
         return this.postWithOrg(this.orgPostUrl, `${this.endpoint}/${orderId}`, 'PUT', details);
+    }
+
+    updateShipmentDetails(orderId: number, body: any): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `mr-${this.endpoint}/${orderId}/shipment`, 'PUT', body);
     }
 
     private getLabel(labels: LabelValue[], value: any): string {
