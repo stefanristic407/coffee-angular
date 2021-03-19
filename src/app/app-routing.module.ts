@@ -10,7 +10,7 @@ export const routes: Routes = [
         component: LayoutComponent,
         children: [
             {
-                path: 'test',
+                path: '',
                 loadChildren: () => import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
             },
             {
@@ -99,19 +99,13 @@ export const routes: Routes = [
                     import('./modules/social-media/social-media.module').then((m) => m.SocialMediaModule),
             },
             {
-                path: '',
-                redirectTo: 'roastery-profile',
-                pathMatch: 'full',
-            },
-            {
                 path: 'green-grading',
                 loadChildren: () =>
                     import('./modules/green-grading/green-grading.module').then((m) => m.GreenGradingModule),
             },
             {
                 path: 'my-profile',
-                loadChildren: () =>
-                    import('./modules/my-profile/my-profile.module').then((m) => m.MyProfileModule),
+                loadChildren: () => import('./modules/my-profile/my-profile.module').then((m) => m.MyProfileModule),
             },
         ],
     },
