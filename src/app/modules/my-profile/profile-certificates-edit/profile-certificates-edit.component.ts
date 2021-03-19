@@ -1,25 +1,24 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { GlobalsService, UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
-import { ConfirmComponent } from '@shared';
-import { DialogService } from 'primeng/dynamicdialog';
 import { ActivatedRoute } from '@angular/router';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmComponent } from '@shared';
 
 @Component({
-    selector: 'app-profile-certificates',
-    templateUrl: './profile-certificates.component.html',
-    styleUrls: ['./profile-certificates.component.scss'],
+    selector: 'app-profile-certificates-edit',
+    templateUrl: './profile-certificates-edit.component.html',
+    styleUrls: ['./profile-certificates-edit.component.scss'],
 })
-export class ProfileCertificatesComponent implements OnInit {
+export class ProfileCertificatesEditComponent implements OnInit {
     @ViewChild('myFileInput') myFileInput: ElementRef;
     roasterId: any;
     userId: any;
-    public certificationArray: any = [];
+    @Input() certificationArray;
     file: File;
-    certificateList: any[];
     editingRowIndex = -1;
-    selectedCertification: any;
+    selectedCertificationName: any;
     selectedCertificationYear: number;
     yearList: any[] = [];
 
@@ -36,9 +35,6 @@ export class ProfileCertificatesComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getCertificateTypes();
-        this.getCertificates();
-
         const currentYear = new Date().getFullYear();
         for (let i = currentYear; i >= currentYear - 70; i--) {
             this.yearList = [
@@ -51,15 +47,7 @@ export class ProfileCertificatesComponent implements OnInit {
         }
     }
 
-    getCertificateTypes() {
-        this.userService.getCertificateTypes().subscribe((res: any) => {
-            if (res.success) {
-                this.certificateList = Object.values(res.result);
-            }
-        });
-    }
-
-    onFileChange(event) {
+    onFileChange(event): void {
         const files: FileList = event.target.files;
         if (files.length > 0) {
             const file = files[0];
@@ -74,13 +62,13 @@ export class ProfileCertificatesComponent implements OnInit {
         }
     }
 
-    onEdit(index) {
+    onEdit(index): void {
         this.editingRowIndex = index;
-        this.selectedCertification = this.certificationArray[index].certificate_type_id;
+        this.selectedCertificationName = this.certificationArray[index].name;
         this.selectedCertificationYear = this.certificationArray[index].year;
     }
 
-    onDelete(index) {
+    onDelete(index): void {
         this.dialogSrv
             .open(ConfirmComponent, {
                 data: {
@@ -107,39 +95,21 @@ export class ProfileCertificatesComponent implements OnInit {
             });
     }
 
-    onAdd() {
+    onAdd(): void {
         this.editingRowIndex = -1;
     }
 
-    onCancel() {
+    onCancel(): void {
         this.editingRowIndex = -2;
-        this.selectedCertification = null;
+        this.selectedCertificationName = null;
         this.selectedCertificationYear = null;
     }
 
-    getCertificates() {
-        this.userService.getCertificates(this.roasterId, this.userId).subscribe((res: any) => {
-            if (res.success) {
-                const editId = this.route.snapshot.params?.id || '';
-                this.certificationArray = res.result;
-                console.log('certificationArray: ', this.certificationArray);
-                if (editId) {
-                    this.certificationArray.map((item, index) => {
-                        if (item.id.toString() === editId) {
-                            this.onEdit(index);
-                        }
-                    });
-                }
-            }
-        });
-    }
-
-    onSave() {
-        if (!this.selectedCertification || !this.selectedCertificationYear) {
+    onSave(): void {
+        if (!this.selectedCertificationName || !this.selectedCertificationYear) {
             this.toastrService.error('Please fill all required fields.');
             return;
         }
-        const certification = this.certificateList.find((item) => item.id === this.selectedCertification);
         if (this.editingRowIndex === -1) {
             if (!this.file) {
                 this.toastrService.error('Please fill all required fields.');
@@ -147,25 +117,27 @@ export class ProfileCertificatesComponent implements OnInit {
             }
             const formData: FormData = new FormData();
             formData.append('file', this.file);
-            formData.append('certificate_type_id', certification.id);
-            formData.append('name', certification.type);
+            formData.append('name', this.selectedCertificationName);
             formData.append('year', this.selectedCertificationYear.toString());
             formData.append('api_call', `/ro/${this.roasterId}/users/${this.userId}/certificates`);
             formData.append('token', this.cookieService.get('Auth'));
             formData.append('method', 'POST');
+            console.log('api call >>>>>', `/ro/${this.roasterId}/users/${this.userId}/certificates`);
+            console.log('selectedCertificationName >>>>>', this.selectedCertificationName);
             this.userService.uploadCertificate(formData).subscribe((res: any) => {
                 if (res.success) {
                     this.toastrService.success('Certificates has been added Successfully');
                     const newRow = {
                         id: res.result.id,
-                        certificate_type_id: certification.id,
-                        certificate_type: certification.type,
+                        certificate_type_id: null,
+                        name: this.selectedCertificationName,
+                        certificate_type: '',
                         year: this.selectedCertificationYear,
                         public_url: res.result.url,
                     };
                     this.certificationArray.push(newRow);
                 }
-                this.selectedCertification = null;
+                this.selectedCertificationName = null;
                 this.selectedCertificationYear = null;
                 this.editingRowIndex = -2;
                 this.file = null;
@@ -176,9 +148,8 @@ export class ProfileCertificatesComponent implements OnInit {
             if (this.file) {
                 formData.append('file', this.file);
             }
-            formData.append('certificate_type_id', this.certificationArray[this.editingRowIndex].certificate_type_id);
             formData.append('certificate_id', this.certificationArray[this.editingRowIndex].id);
-            formData.append('name', certification.type);
+            formData.append('name', this.selectedCertificationName);
             formData.append('year', this.selectedCertificationYear.toString());
             formData.append(
                 'api_call',
@@ -193,12 +164,12 @@ export class ProfileCertificatesComponent implements OnInit {
                     this.toastrService.success('Certificates has been updated Successfully');
                     this.certificationArray[this.editingRowIndex] = {
                         ...this.certificationArray[this.editingRowIndex],
-                        certificate_type_id: certification.id,
-                        certificate_type: certification.type,
+                        name: this.selectedCertificationName,
+                        certificate_type: '',
                         year: this.selectedCertificationYear,
                     };
                 }
-                this.selectedCertification = null;
+                this.selectedCertificationName = null;
                 this.selectedCertificationYear = null;
                 this.editingRowIndex = -2;
                 this.file = null;
@@ -207,19 +178,15 @@ export class ProfileCertificatesComponent implements OnInit {
         }
     }
 
-    onChangeType(event) {
-        this.selectedCertification = event.value;
-    }
-
-    onChangeYear(event) {
+    onChangeYear(event): void {
         this.selectedCertificationYear = event.value;
     }
 
-    onUpload() {
+    onUpload(): void {
         this.myFileInput.nativeElement.click();
     }
 
-    onRemoveFile() {
+    onRemoveFile(): void {
         this.file = null;
         this.myFileInput.nativeElement.value = '';
         if (this.editingRowIndex > -1) {
