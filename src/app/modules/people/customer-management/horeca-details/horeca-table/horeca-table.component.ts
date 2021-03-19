@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { DataTableDirective, DataTablesModule } from 'angular-datatables';
@@ -12,6 +12,7 @@ import { CustomerServiceService } from '../../customer-service.service';
     selector: 'app-horeca-table',
     templateUrl: './horeca-table.component.html',
     styleUrls: ['./horeca-table.component.scss'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class HorecaTableComponent implements OnInit {
     public mainData: any[] = [];

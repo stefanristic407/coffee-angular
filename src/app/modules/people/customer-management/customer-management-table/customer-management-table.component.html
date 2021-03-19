@@ -1,6 +1,6 @@
 <div class="estate-table web-farm pt-4">
     <p-table
-        id="sales-table"
+        id="customer-table"
         [value]="sortedMainData | filter: searchTerm | filter: estatetermOrigin"
         sortMode="multiple"
     >
@@ -58,7 +58,7 @@
                     {{ customerType === 'micro-roasters' ? item.total_employees : item.active_users }}
                 </td>
                 <td class="view-listing" (click)="shareDetails(item)">View Details</td>
-                <td id="sales-contract-popup">
+                <td id="customer-contract-popup">
                     <a
                         class="menu-arrow"
                         [popover]="poplistTemplate"

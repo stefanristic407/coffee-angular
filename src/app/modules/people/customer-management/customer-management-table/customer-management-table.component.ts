@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { CustomerServiceService } from '../customer-service.service';
@@ -8,6 +8,7 @@ import { NavigationExtras, Router } from '@angular/router';
     selector: 'app-customer-management-table',
     templateUrl: './customer-management-table.component.html',
     styleUrls: ['./customer-management-table.component.scss'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class CustomerManagementTableComponent implements OnInit {
     estatetermOrigin: any;
