@@ -1,16 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { GlobalsService } from '@services';
 import { DataTableDirective } from 'angular-datatables';
-import { ToastrService } from 'ngx-toastr';
+import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 import { formatDate } from '@angular/common';
 
 @Component({
-  selector: 'app-orders-table',
-  templateUrl: './orders-table.component.html',
-  styleUrls: ['./orders-table.component.scss']
+  selector: 'app-estate-orders-table',
+  templateUrl: './estate-orders-table.component.html',
+  styleUrls: ['./estate-orders-table.component.scss']
 })
-export class OrdersTableComponent implements OnInit {
+export class EstateOrdersTableComponent implements OnInit {
   showStatus = true;
   showDisplay = true;
   appLanguage?: any;
@@ -51,54 +51,57 @@ export class OrdersTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.appLanguage = this.globals.languageJson;
-    this.getMrOrdersData();
+    this.getOrdersData();
     this.tableColumns = [
       {
         field: 'id',
         header: 'Order ID',
         sortable: false,
-        width: 13,
       },
       {
-        field: 'product_name',
-        header: 'Product name',
+        field: 'estate_name',
+        header: 'Estate name',
         sortable: false,
-        width: 17,
+      },
+      {
+        field: 'origin',
+        header: 'Origin',
+        sortable: false,
       },
       {
         field: 'created_at',
-        header: 'Date Ordered',
+        header: 'Date ordered',
         sortable: false,
-        width: 15,
       },
       {
-        field: 'variety',
+        field: 'date_received',
+        header: 'Date received',
+        sortable: false,
+      },
+      {
+        field: 'varieties',
         header: 'Variety',
         sortable: false,
-        width: 13,
       },
       {
         field: 'quantity',
         header: 'Quantity',
         sortable: false,
-        width: 13,
       },
       {
-        field: 'cupping_score',
+        field: 'cup_score',
         header: 'Cupping score',
         sortable: false,
-        width: 15,
       },
       {
         field: '',
         header: 'Action',
         sortable: false,
-        width: 14,
       },
     ];
   }
 
-  getMrOrdersData() {
+  getOrdersData() {
     this.loading = true;
     let queryParams;
     queryParams = `?status=RECEIVED&order_type=GC_ORDER&page=${this.pageNumber}&per_page=${this.filterDisplay}`;
@@ -121,14 +124,14 @@ export class OrdersTableComponent implements OnInit {
 
   filterDate() {
     if (this.rangeDates[0] && this.rangeDates[1]) {
-      this.getMrOrdersData();
+      this.getOrdersData();
     }
   }
 
   onChangeSearchQuery(e) {
     if (e.keyCode === 13) {
       e.preventDefault();
-      this.getMrOrdersData();
+      this.getOrdersData();
     }
   }
 }

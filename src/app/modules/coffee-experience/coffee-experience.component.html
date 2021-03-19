@@ -1,65 +1,61 @@
-<section>
-    <div class="container sewn-container section-head-pad">
-        <div class="bg-fff coffee-exp">
-            <div class="breadcrumb-container">
-                <p-breadcrumb [model]="items"></p-breadcrumb>
-            </div>
-            <section>
-                <div class="d-flex justify-content-between">
-                    <div class="estate-order-title fnt-muli mb-2 mb-md-0">{{ 'coffee_experience' | translate }}</div>
-                    <div class="d-none d-md-block">
-                        <div class="search-input-container m-minus-55">
-                            <div class="d-flex align-items-center">
-                                <img src="assets/images/icons-header-search.svg" alt="search" width="27" height="27" />
-                            </div>
-                            <input
-                                    (keypress)="onChangeSearchQuery($event)"
-                                    [(ngModel)]="searchQuery"
-                                    class="input-field"
-                                    type="text"
-                                    placeholder="Search"
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex flex-column flex-md-row justify-content-between align-items-end mb-3 mb-md-4 mb-lg-475">
-                    <div>
-                        <div class="give-your-end-users fnt-muli mb-3 mb-md-0">
-                            Give your end users the coffee story experience they have been waiting for! Update and
-                            personalise your story related to an order.
-                        </div>
-                    </div>
-                    <div class="default-settings-container">
-                        <button
-                                class="btn-raised text-nowrap default-settings px-4"
-                                type="button"
-                                routerLink="/features/default-settings"
-                        >Default settings</button>
-                    </div>
-                </div>
-                <div class="d-block d-md-none">
-                    <div class="search-input-container w-100 mb-3">
-                        <div class="d-flex align-items-center">
-                            <img src="assets/images/icons-header-search.svg" alt="search" width="27" height="27" />
-                        </div>
-                        <input
-                                (keypress)="onChangeSearchQuery($event)"
-                                [(ngModel)]="searchQuery"
-                                class="input-field"
-                                type="text"
-                                placeholder="Search by order id, estate name"
-                        />
-                    </div>
-                </div>
-            </section>
-            <!-- table -->
-            <section>
-                <p-tabMenu [model]="menuItems"></p-tabMenu>
-                <div class="mb-4">
-                    <router-outlet></router-outlet>
-                </div>
-            </section>
-        </div>
+<div class="bg-fff py-3 py-md-4 py-lg-45 px-3 px-md-3 px-lg-5">
+    <div class="breadcrumb-container">
+        <p-breadcrumb [model]="items"></p-breadcrumb>
     </div>
-</section>
+    <section>
+        <div class="d-flex justify-content-between">
+            <div class="estate-order-title fnt-muli mb-2 mb-md-0">{{ 'coffee_experience' | translate }}</div>
+            <div class="d-none d-md-block">
+                <div class="search-input-container m-minus-55">
+                    <div class="d-flex align-items-center">
+                        <img src="assets/images/icons-header-search.svg" alt="search" width="27" height="27" />
+                    </div>
+                    <input
+                            (keypress)="onChangeSearchQuery($event)"
+                            [(ngModel)]="searchQuery"
+                            class="input-field"
+                            type="text"
+                            placeholder="Search"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-end mb-3 mb-md-4 mb-lg-475">
+            <div>
+                <div class="give-your-end-users fnt-muli mb-3 mb-md-0">
+                    Give your end users the coffee story experience they have been waiting for! Update and
+                    personalise your story related to an order.
+                </div>
+            </div>
+            <div class="default-settings-container">
+                <button
+                        class="btn-raised text-nowrap default-settings px-4"
+                        type="button"
+                        routerLink="/features/default-settings"
+                >Default settings</button>
+            </div>
+        </div>
+        <div class="d-block d-md-none">
+            <div class="search-input-container w-100 mb-3">
+                <div class="d-flex align-items-center">
+                    <img src="assets/images/icons-header-search.svg" alt="search" width="27" height="27" />
+                </div>
+                <input
+                        (keypress)="onChangeSearchQuery($event)"
+                        [(ngModel)]="searchQuery"
+                        class="input-field"
+                        type="text"
+                        placeholder="Search by order id, estate name"
+                />
+            </div>
+        </div>
+    </section>
+    <!-- table -->
+    <section>
+        <p-tabMenu [model]="menuItems"></p-tabMenu>
+        <div class="mt-4">
+            <router-outlet></router-outlet>
+        </div>
+    </section>
+</div>
 

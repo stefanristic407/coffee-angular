@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { CoffeeExperienceComponent } from './coffee-experience.component';
-import { OrdersTableComponent } from '@modules/coffee-experience/orders-table/orders-table.component';
+import { EstateOrdersTableComponent } from '@modules/coffee-experience/estate-orders-table/estate-orders-table.component';
+import { MicroRoasterOrdersTableComponent } from '@modules/coffee-experience/micro-roaster-orders-table/micro-roaster-orders-table.component';
+import { HorecaOrdersTableComponent } from '@modules/coffee-experience/horeca-orders-table/horeca-orders-table.component';
 
 const routes: Routes = [
     {
@@ -16,18 +18,15 @@ const routes: Routes = [
             },
             {
                 path: 'estate',
-                component: OrdersTableComponent,
-                data: {type: 'estate'}
+                component: EstateOrdersTableComponent,
             },
             {
                 path: 'micro-roaster',
-                component: OrdersTableComponent,
-                data: {type: 'micro-roaster'}
+                component: MicroRoasterOrdersTableComponent,
             },
             {
                 path: 'horeca',
-                component: OrdersTableComponent,
-                data: {type: 'horeca'}
+                component: HorecaOrdersTableComponent,
             },
         ],
     },
