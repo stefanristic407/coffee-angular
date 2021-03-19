@@ -6,10 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
     styleUrls: ['./profile-certificates-view.component.scss'],
 })
 export class ProfileCertificatesViewComponent implements OnInit {
-    roasterId: any;
-    userId: any;
     @Input() certificationArray;
-    isLoading?: boolean;
 
     constructor() {}
 
