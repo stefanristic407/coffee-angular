@@ -32,11 +32,6 @@ export class HorecaDetailsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        $('.btn-toggle').click(() => {
-            $(this).find('.btn').toggleClass('active');
-            $(this).find('.btn').toggleClass('active_default');
-            $(this).find('.btn').toggleClass('disable_default');
-        });
         this.appLanguage = this.globals.languageJson;
     }
 }

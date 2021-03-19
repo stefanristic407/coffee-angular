@@ -6,21 +6,12 @@
     </div>
 
     <div class="active-button">
-        <div class="btn-group btn-toggle ml-auto pull-right active__main" (click)="onBtnAction()">
-            <div
-                class="btn btn-group__item"
-                [ngClass]="customerService.btnToggle ? 'active_default' : 'active disable_default'"
-                id="activeStatus"
-            >
-                Active
-            </div>
-            <div
-                class="btn btn-group__item"
-                [ngClass]="!customerService.btnToggle ? 'active_default active' : 'disable_default'"
-                id="disableStatus"
-            >
-                Disable
-            </div>
-        </div>
+        <p-selectButton
+            [options]="isPublicOptions"
+            [(ngModel)]="isPublic"
+            optionLabel="label"
+            (onChange)="onBtnAction()"
+        >
+        </p-selectButton>
     </div>
 </div>

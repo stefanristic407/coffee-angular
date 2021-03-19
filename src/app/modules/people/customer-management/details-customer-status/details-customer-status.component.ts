@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { CustomerServiceService } from '../customer-service.service';
 
@@ -7,10 +7,19 @@ import { CustomerServiceService } from '../customer-service.service';
     templateUrl: './details-customer-status.component.html',
     styleUrls: ['./details-customer-status.component.scss'],
 })
-export class DetailsCustomerStatusComponent implements OnInit {
+export class DetailsCustomerStatusComponent implements OnInit, OnChanges {
+    isPublicOptions: any[] = [
+        { label: 'Active', value: true },
+        { label: 'Disable', value: false },
+    ];
+    isPublic: any;
     roasterId: any;
     @Input() customerType: string;
     constructor(public customerService: CustomerServiceService, public cookieService: CookieService) {}
+
+    ngOnChanges(): void {
+        this.isPublic = this.isPublicOptions.find((element) => element.value === this.customerService.btnToggle);
+    }
 
     ngOnInit(): void {}
 

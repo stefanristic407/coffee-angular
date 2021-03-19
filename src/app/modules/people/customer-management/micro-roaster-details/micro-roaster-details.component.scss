@@ -98,13 +98,13 @@
     margin-left: 2%;
 }
 .roster-border,
-.status-border {
+.micro-border {
     @media (max-width: 480px) {
         border-bottom: 2px dashed #d6d6d6;
     }
 }
 
-.status-border:last-child {
+.micro-border:last-child {
     border-bottom: none;
 }
 
