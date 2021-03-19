@@ -26,8 +26,8 @@ export class DetailsDiscountComponent implements OnInit, AfterViewInit {
     ngOnInit(): void {}
 
     editHorecaDiscount() {
-        document.getElementById('edit-discount').style.display = 'none';
-        document.getElementById('save-discount').style.display = 'block';
+        document.getElementById('edithoreca-discount').style.display = 'none';
+        document.getElementById('savehoreca-discount').style.display = 'block';
     }
 
     saveHorecaDiscount() {
@@ -57,11 +57,11 @@ export class DetailsDiscountComponent implements OnInit, AfterViewInit {
                     }
                 });
             document.getElementById('edithoreca-discount').style.display = 'block';
-            document.getElementById('save-discount').style.display = 'none';
+            document.getElementById('savehoreca-discount').style.display = 'none';
         }
     }
 
     ngAfterViewInit() {
-        document.getElementById('save-discount').style.display = 'none';
+        document.getElementById('savehoreca-discount').style.display = 'none';
     }
 }
