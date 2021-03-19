@@ -139,6 +139,11 @@
         @extend .active_class;
     }
 
+    
+    .w-70 {
+        width: 70%;
+    }
+
     @media (min-width: 768px) {
         .mobile-delete-key {
             display: none;
@@ -180,15 +185,15 @@
         .delete-key {
             display: none;
         }
+        
+    .w-70 {
+        width: 100%;
+    }
     }
 }
 
-@media (max-width: 991px) and (min-width: 769px) {
+@media (max-width: 991px) {
     .api-request-detail-container {
         padding: 24px 16px;
-    }
-
-    .w-70 {
-        width: 70%;
     }
 }
