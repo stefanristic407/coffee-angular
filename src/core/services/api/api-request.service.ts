@@ -53,6 +53,15 @@ export class ApiRequestService extends ApiService {
         return this.http.post(this.apiUrl, data);
     }
 
+    getGeneratedKeysDetails(roasterData: any): Observable<any> {
+        const data = {
+            api_call: `/ro/${roasterData.roaster_id}/api-keys/${roasterData.request_id}`,
+            token: this.cookieService.get('Auth'),
+            method: 'GET',
+        };
+        return this.http.post(this.apiUrl, data);
+    }
+
     // Generate API key for the request by RO
     generateRoApiKey(roasterData: any): Observable<any> {
         const data = {

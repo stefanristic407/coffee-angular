@@ -19,7 +19,7 @@
             <button
                 pButton
                 type="button"
-                class="btn-normal fnt-14"
+                class="btn-raised"
                 [disabled]="roasteryProfileService.isSaving"
                 label="{{ 'save' | translate }}"
                 *ngIf="isSaveMode"
@@ -28,7 +28,7 @@
             <button
                 pButton
                 type="button"
-                class="btn-normal fnt-14"
+                class="btn-raised"
                 label="{{ 'edit' | translate }}"
                 *ngIf="isEditMode"
                 (click)="roasteryProfileService.editRoasterProfile()"
@@ -57,7 +57,7 @@
                 <button
                     pButton
                     type="button"
-                    class="btn-normal fnt-14"
+                    class="btn-raised"
                     [disabled]="roasteryProfileService.isSaving"
                     label="{{ 'save' | translate }}"
                     *ngIf="isSaveMode"
@@ -66,7 +66,7 @@
                 <button
                     pButton
                     type="button"
-                    class="btn-normal fnt-14"
+                    class="btn-raised"
                     label="{{ 'edit' | translate }}"
                     *ngIf="isEditMode"
                     (click)="roasteryProfileService.editRoasterProfile()"
@@ -115,6 +115,7 @@
                 type="file"
                 hidden
                 #bannerFileInput
+                (click)="setFormat($event)"
                 (change)="roasteryProfileService.handleBannerImageFile($event.target)"
             />
 
@@ -138,7 +139,7 @@
                         isSaveMode &&
                         (roasteryProfileService.roasteryProfileData?.banner_url || roasteryProfileService.bannerUrl)
                     "
-                    class="btn-normal fnt-14 d-none d-md-flex mr-2"
+                    class="btn-raised d-none d-md-flex mr-2"
                     (click)="bannerFileInput.click()"
                     pButton
                     label="{{ 'replace_image' | translate }}"
@@ -147,7 +148,10 @@
                     pButton
                     icon="pi pi-trash"
                     iconPos="left"
-                    *ngIf="isSaveMode && roasteryProfileService.roasteryProfileData?.banner_url"
+                    *ngIf="
+                        isSaveMode &&
+                        (roasteryProfileService.roasteryProfileData?.banner_url || roasteryProfileService.bannerUrl)
+                    "
                     class="fnt-14 btn-trans-nb d-none d-md-flex"
                     (click)="roasteryProfileService.handleDeleteBannerImage()"
                     label="{{ 'delete' | translate }}"
@@ -255,13 +259,13 @@
 >
     <app-sewn-profile-photo></app-sewn-profile-photo>
     <p-footer>
-        <button type="button" id="change-pic" class="btn-normal fnt-14" (click)="inputAvatarImage.click()">
+        <button type="button" id="change-pic" class="btn-raised" (click)="inputAvatarImage.click()">
             {{ 'change_photo' | translate }}
         </button>
         <button
             type="button"
             id="save-pic"
-            class="btn-normal fnt-14"
+            class="btn-raised"
             (click)="profilePhotoService.saveProfilePic(); isShowAvatarModal = false"
         >
             {{ 'save_photo' | translate }}

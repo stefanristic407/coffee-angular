@@ -102,4 +102,8 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
         const result = control.hasError(validationType) && (control.dirty || control.touched);
         return result;
     }
+
+    setFormat($event) {
+        $event.target.value = null;
+    }
 }

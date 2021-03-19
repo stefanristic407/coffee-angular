@@ -117,6 +117,12 @@
     padding-left: 0;
 }
 
+@media (max-width: 991px) {
+    .upload-picture-container {
+        padding: 44px 14px;
+    }
+}
+
 @media (max-width: 767px) {
     .upload-picture-container {
         border-left-width: 0;

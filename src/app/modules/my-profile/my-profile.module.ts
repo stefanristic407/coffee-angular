@@ -6,10 +6,16 @@ import { MyProfileComponent } from './my-profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@shared';
 import { ImageCropDialogComponent } from './image-crop-dialog/image-crop-dialog.component';
-import { ProfileCertificatesComponent } from './profile-certificates/profile-certificates.component';
+import { ProfileCertificatesEditComponent } from './profile-certificates-edit/profile-certificates-edit.component';
+import { ProfileCertificatesViewComponent } from './profile-certificates-view/profile-certificates-view.component';
 
 @NgModule({
-    declarations: [MyProfileComponent, ImageCropDialogComponent, ProfileCertificatesComponent],
+    declarations: [
+        MyProfileComponent,
+        ImageCropDialogComponent,
+        ProfileCertificatesEditComponent,
+        ProfileCertificatesViewComponent,
+    ],
     imports: [CommonModule, MyProfileRoutingModule, ReactiveFormsModule, SharedModule],
 })
 export class MyProfileModule {}

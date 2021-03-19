@@ -14,27 +14,33 @@ import { PeopleRoutingModule } from './people-routing.module';
 import { PeopleComponent } from './people.component';
 
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
-import { MicroRoasterComponent } from './customer-management/micro-roaster/micro-roaster.component';
-import { HoReCaComponent } from './customer-management/ho-re-ca/ho-re-ca.component';
 import { MicroRoasterDetailsComponent } from './customer-management/micro-roaster-details/micro-roaster-details.component';
 import { HorecaDetailsComponent } from './customer-management/horeca-details/horeca-details.component';
 import { HorecaTableComponent } from './customer-management/horeca-details/horeca-table/horeca-table.component';
 import { DiscountEditComponent } from './customer-management/discount-edit/discount-edit.component';
 import { PermissionErrorComponent } from './permission-error/permission-error.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { CustomerManagementTableComponent } from './customer-management/customer-management-table/customer-management-table.component';
+import { DetailsUserComponent } from './customer-management/details-user/details-user.component';
+import { DetailsDiscountComponent } from './customer-management/details-discount/details-discount.component';
+import { DetailsCustomerStatusComponent } from './customer-management/details-customer-status/details-customer-status.component';
+import { ImportantContactsComponent } from './customer-management/important-contacts/important-contacts.component';
 
 @NgModule({
     declarations: [
         PeopleComponent,
         AddMembersComponent,
         CustomerManagementComponent,
-        MicroRoasterComponent,
-        HoReCaComponent,
         MicroRoasterDetailsComponent,
         HorecaDetailsComponent,
         HorecaTableComponent,
         DiscountEditComponent,
         PermissionErrorComponent,
+        CustomerManagementTableComponent,
+        DetailsUserComponent,
+        DetailsDiscountComponent,
+        DetailsCustomerStatusComponent,
+        ImportantContactsComponent,
     ],
     imports: [
         CommonModule,

@@ -119,6 +119,9 @@ hr {
     position: absolute;
     bottom: 5px;
     right: 13px;
+    @media screen and (max-width: 767px) {
+        right: 19px !important;
+    }
 }
 
 ::ng-deep .unit-dropdown {
@@ -153,49 +156,71 @@ hr {
         width: 100%;
     }
 }
-.add-brand-section {
-    display: flex;
-    justify-content: space-between;
-    .add-brand-data {
+
+.add-brand-data {
+    .profile-avatar {
+        position: relative;
+        .avatar-img {
+            height: 90px;
+            width: 90px;
+            border-radius: 50%;
+        }
+        .change-avatar-btn {
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+        }
+    }
+
+    .brand-name {
         width: 100%;
-        display: flex;
-
-        .profile-avatar {
-            position: relative;
-            .avatar-img {
-                height: 90px;
-                width: 90px;
-                border-radius: 50%;
-            }
-            .change-avatar-btn {
-                position: absolute;
-                bottom: 0px;
-                right: 0px;
-            }
-        }
-
-        .brand-name {
+        input {
+            max-width: 345px;
             width: 100%;
-            input {
-                max-width: 345px;
-                width: 100%;
-            }
         }
+    }
 
-        .btn-delete-avatar {
-            background-color: transparent;
-            border: none;
-            color: #3d8462;
-            padding: 8px 12px;
-        }
+    .btn-delete-avatar {
+        background-color: transparent;
+        border: none;
+        color: #3d8462;
+        padding: 8px 12px 0 12px;
     }
-    .add-brand-btns {
-        min-height: 34px;
+}
+.add-brand-btns {
+    min-height: 26px;
+}
+
+.brand-name-input {
+    max-width: 345px;
+    @media screen and (min-width: 768px) {
+        max-width: 310px;
     }
+    @media screen and (max-width: 767px) {
+        max-width: none;
+    }
+}
+
+.brand-edit-btn {
+    margin-left: 19px;
+    margin-top: 10px;
 }
 
 .sewn-form-field {
     label {
         color: #747588;
     }
+}
+
+.profile-des {
+    p {
+        white-space: nowrap;
+    }
+}
+
+.upload-button {
+    padding: 8px 12px;
+    border-radius: 2px;
+    border: solid 1px #747588;
+    cursor: pointer;
 }

@@ -21,7 +21,7 @@
                         {{ 'delete_key' | translate }}
                     </p>
                 </div>
-                <div class="delivery__body">
+                <div [class.delivery__body]="apikeyStatus === 'GENERATED'">
                     <div class="w-100">
                         <div class="float-left key-activate-block" *ngIf="apikeyStatus == 'GENERATED'">
                             <p class="m-0 fnt-14 fnt-muli fnt-700 black">
@@ -38,9 +38,10 @@
                         </div>
 
                         <div class="float-right key-active" *ngIf="apikeyStatus == 'GENERATED'">
-                            <div class="btn-group btn-toggle ml-auto pull-right active__main" (click)="activeStatus()">
+                            <div class="btn-group btn-toggle ml-auto pull-right active__main">
                                 <div
                                     class="btn btn-group__item"
+                                    (click)="resume(requestDetailData?.org_name)"
                                     [ngClass]="btnToggle ? 'active_default' : 'active disable_default'"
                                     id="activeStatus"
                                 >
@@ -59,7 +60,7 @@
 
                         <table class="table lot-table">
                             <tbody>
-                                <tr>
+                                <tr [class.border-none]="apikeyStatus === 'PENDING'">
                                     <td class="pl-16">
                                         <span class="list-ques float-left text-clr588">
                                             {{ 'requested_by' | translate }}
@@ -84,7 +85,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="pl-16">
+                                    <td class="pl-16 pb-45">
                                         <span class="list-ques float-left text-clr588">
                                             {{ 'requested_on' | translate }}
                                         </span>
@@ -119,7 +120,7 @@
 
             <div class="d-flex" *ngIf="apikeyStatus == 'PENDING'">
                 <div class="generate-border col-12">
-                    <p class="fnt-14 fnt-muli fnt-700 text-clr334 col-8 float-left m-0 p-0">
+                    <p class="fnt-14 fnt-muli fnt-700 text-clr334 w-70 float-left m-0 p-0">
                         {{ 'confirm_api_key_generation_request' | translate }}
                     </p>
                     <button

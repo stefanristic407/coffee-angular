@@ -164,11 +164,21 @@ export class ApiRequestDetailsComponent implements OnInit {
         });
     }
 
-    activeStatus() {
-        this.btnToggle = true;
-        if (this.btnToggle === true) {
-            this.resumeKey();
-        }
+    resume(item: any) {
+        console.log('item-->>', item);
+        this.dialogSrv
+            .open(AppKeyConfirmationComponent, {
+                data: {
+                    orgName: item,
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.resumeKey();
+                }
+            });
     }
 
     deleteKey() {

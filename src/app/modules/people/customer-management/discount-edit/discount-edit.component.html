@@ -1,28 +1,26 @@
 <div class="bg-fff">
-    <div class="col-lg-12 mb-3">
+    <div class="col-lg-12 mb-3 px-0">
         <div class="back-page w-100">
-            <a class="back-href fnt-500" routerLink="/people/customer-management"
-                ><img class="back-arrow-butn mr-2" src="assets/images/back-arrow1.svg" /> Back
-            </a>
+            <a class="back-href fnt-500" routerLink="/people/customer-management">Back </a>
         </div>
     </div>
     <!-- Royal coffee roasters company -->
     <section class="royal-cofee">
-        <div class="row">
+        <div class="row web-farm">
             <div class="col-md-8 col-12">
                 <div class="row">
                     <div class="col-md-2 col-3">
                         <img class="ft-roastry-profile" src="assets/images/ft-roastry-profile.png" />
                     </div>
-                    <div class="col-9">
-                        <p class="m-0">
+                    <div class="col-9 mt-2 pt-1">
+                        <p>
                             <span
                                 class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
                                 *ngIf="customerService.pendingCompany != ''"
                                 >{{ customerService.pendingCompany }}</span
                             >
                         </p>
-                        <p class="m-0">
+                        <p>
                             <span
                                 class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
                                 *ngIf="customerService.pendingCompany == ''"
@@ -30,6 +28,32 @@
                             >
                         </p>
                         <p class="fnt-14 fnt-700 fnt-muli black fnt-normal">{{ customerService.pendingEmail }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-farm">
+            <div class="">
+                <div class="">
+                    <div class="d-flex justify-content-center">
+                        <img class="ft-roastry-profile" src="assets/images/ft-roastry-profile.png" />
+                    </div>
+                    <div class="text-center pt-4">
+                        <p class="mb-2">
+                            <span
+                                class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
+                                *ngIf="customerService.pendingCompany != ''"
+                                >{{ customerService.pendingCompany }}</span
+                            >
+                        </p>
+                        <p class="mb-2">
+                            <span
+                                class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
+                                *ngIf="customerService.pendingCompany == ''"
+                                >-</span
+                            >
+                        </p>
+                        <p class="fnt-14 fnt-700 fnt-muli black fnt-normal m-0">{{ customerService.pendingEmail }}</p>
                     </div>
                 </div>
             </div>
@@ -42,19 +66,38 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-md-6 col-12 discount-border">
-                    <div class="row">
+                    <div class="row web-farm">
                         <div class="col-8">
                             <p class="fnt-14 fnt-md-16 fnt-bold fnt-muli black m-0">Customer Status</p>
                             <p class="fnt-14 fnt-md-16 fnt-bold fnt-muli black">Manage their status on the platform</p>
                         </div>
                         <div class="col-4">
                             <div class="message-customer">
-                                <p class="fnt-14 fnt-md-16 fnt-500 fnt-muli black pull-right mb-1">
+                                <p class="fnt-18 fnt-md-16 fnt-500 fnt-muli black pull-right mb-1">
                                     {{ customerService.pendingStatus }}
                                 </p>
-                                <span class="bg-msg pull-right">
+                                <span class="btn-stroked pull-right">
                                     <img src="assets/images/message-icon.svg" alt="Message" class="message-icon" />
                                     <span class="estate-message pl-1 black" (click)="resendInvite()"
+                                        >Resend Invite</span
+                                    >
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mobile-farm mx-0">
+                        <div class="col-12 pending-border px-0">
+                            <p class="fnt-16 fnt-md-16 fnt-bold fnt-muli black mb-2">Customer Status</p>
+                            <p class="fnt-14 fnt-md-14 fnt-bold fnt-muli black">Manage their status on the platform</p>
+                        </div>
+                        <div class="col-12 px-0">
+                            <div class="message-customer">
+                                <p class="fnt-16 fnt-md-16 fnt-500 fnt-muli black pt-3 mb-1">
+                                    {{ customerService.pendingStatus }}
+                                </p>
+                                <span class="btn-stroked d-flex justify-content-center mt-3 w-100">
+                                    <img src="assets/images/message-icon.svg" alt="Message" class="message-icon" />
+                                    <span class="fnt-14 estate-message pl-1 black" (click)="resendInvite()"
                                         >Resend Invite</span
                                     >
                                 </span>

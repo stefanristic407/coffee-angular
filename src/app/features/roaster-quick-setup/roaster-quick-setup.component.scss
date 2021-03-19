@@ -1,0 +1,58 @@
+.team__total {
+    padding-top: 1.5rem;
+}
+
+.add-team {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #232334;
+}
+
+.star {
+    color: #ff1e5a;
+}
+
+.add-partner span {
+    color: #80460b;
+    font-weight: bold;
+}
+
+.add-partner {
+    cursor: pointer;
+}
+
+.invite-setup {
+    margin-bottom: 2.2rem;
+}
+
+.delete-link {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    font-stretch: normal;
+    text-decoration: underline;
+    color: #80460b;
+}
+
+@media (max-width: 480px) {
+    .invite-setup {
+        margin-bottom: 1.5rem;
+    }
+    .align-invite {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .team__total {
+        padding-top: 0rem !important;
+    }
+    .brd-d6d6 {
+        width: 90%;
+        border-bottom: 2px dashed #d6d6d6 !important;
+    }
+    .align-mob-btn {
+        display: flex !important;
+        flex-direction: column-reverse !important;
+    }
+}

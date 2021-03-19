@@ -74,7 +74,7 @@
                     type="text"
                     placeholder="product name"
                     formControlName="name"
-                    (blur)="productNameValue($event)"
+                    (input)="productNameValue($event)"
                     pInputText
                 />
                 <small *ngIf="productForm.controls['name'].errors?.required" class="p-error"> Required </small>
@@ -125,11 +125,11 @@
             </div>
             <div
                 *ngIf="productForm['value']['is_variants_included']"
-                class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 d-none d-sm-none d-md-block"
+                class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 d-none d-sm-none d-md-block"
             >
-                <div class="pull-right addNewWeightDiv variant-pos">
+                <div class="pull-right addNewWeightDiv variant-pos leftPos">
                     <img class="mb-1" src="assets/images/add_grey.svg" />
-                    <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer" (click)="addNewVarients()">
+                    <span class="ml-2 fnt-muli fnt-700 fnt-14 text-clr334 cursor-pointer" (click)="addNewVarients()">
                         Add a new variant
                     </span>
                 </div>

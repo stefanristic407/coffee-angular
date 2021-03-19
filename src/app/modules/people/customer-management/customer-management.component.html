@@ -2,163 +2,104 @@
     <img class="loader-gif-sub" src="/assets/images/loader.gif" />
 </div>
 <div *ngIf="customerActive == 1">
-    <div class="bg-fff">
-        <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
-            <span id="title-breadcrumb-1" class="sr-only"></span>
-            <ul class="bread-nav">
-                <li class="b-cum">
-                    <a class="b-cum" routerLink="/">{{ globals.languageJson?.home }}</a
-                    ><span class="padl-r" aria-hidden="true"
-                        ><img class="group-img" src="/assets/images/arrow-1.png" alt="" />
-                    </span>
-                </li>
-
-                <li class="b-cum">
-                    <a class="b-cum" routerLink="/people/customer-management">{{ globals.languageJson?.people }}</a
-                    ><span class="padl-r" aria-hidden="true">
-                        <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
-                    </span>
-                </li>
-
-                <li class="b-cum c-pink">{{ globals.languageJson?.customer_management }}</li>
-                <div class="pull-right">
-                    <button type="submit" class="btn btn-succes cancel_member" routerLink="/features/onboard-customers">
-                        Invite new customer
-                    </button>
-                </div>
-            </ul>
-        </nav>
+    <div class="main-block">
+        <div class="d-flex justify-content-between">
+            <div class="mb-4">
+                <p-breadcrumb [model]="navItems" [home]="selectedNav"></p-breadcrumb>
+            </div>
+            <div class="col-md-6 col-lg-4 px-0 web-farm">
+                <span class="custom-search">
+                    <input
+                        type="text"
+                        pInputText
+                        class="w-100 {{ searchTerm ? 'highlight' : '' }}"
+                        [(ngModel)]="searchTerm"
+                        placeholder="{{ globals.languageJson?.search_name_role }}"
+                    />
+                </span>
+            </div>
+        </div>
 
         <section class="social-media">
-            <div class="col-lg-12 col-md-12 col-12">
-                <h6 class="header my-4">Customer Management</h6>
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="d-inline border-total status-div col-sm-6" id="status_id">
-                            <p class="d-inline filter-text" *ngIf="termStatus == ''">
-                                {{ globals.languageJson?.status }}&nbsp;
-                            </p>
-                            <a
-                                class="pointer-item"
-                                [popover]="allTemplate"
-                                placement="bottom"
-                                container="body"
-                                #pop2="bs-popover"
-                            >
-                                <p class="d-inline filter" *ngIf="termStatus == ''" (click)="toggleStatus()">
-                                    &nbsp;
-                                    <img
-                                        src="{{
-                                            showVar ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'
-                                        }}"
-                                    />
-                                </p>
-                            </a>
-                            <a
-                                class="pointer-item"
-                                [popover]="allTemplate"
-                                placement="bottom"
-                                container="body"
-                                #pop="bs-popover"
-                            >
-                                <p class="d-inline filter" *ngIf="termStatus != ''" (click)="toggleStatus()">
-                                    {{ termStatus }}&nbsp;
-                                    <img
-                                        src="{{
-                                            showVar ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'
-                                        }}"
-                                    />
-                                </p>
-                            </a>
+            <div class="col-lg-12 col-md-12 col-12 px-0">
+                <h6 class="fnt-muli fnt-bold fnt-18 text-clr334 mb-3">Customer Management</h6>
+                <div class="row mx-0 web-farm">
+                    <div class="d-flex justify-content-between w-100 web-farm">
+                        <div>
+                            <p-dropdown
+                                id="select-table-customer"
+                                [options]="statusList"
+                                [(ngModel)]="selectedStatus"
+                                scrollHeight="225px"
+                                (onChange)="filterStatus()"
+                                [showClear]="true"
+                                placeholder="Status"
+                                styleClass="round-border mr-25 mb-25 mb-md-4"
+                            ></p-dropdown>
                         </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 search-div">
-                        <input
-                            type="text"
-                            name="search"
-                            class="search-raised pull-right"
-                            [(ngModel)]="term"
-                            placeholder="{{ globals.languageJson?.search_name_role }}"
-                        />
+                        <div>
+                            <button type="submit" class="btn-raised" routerLink="/features/onboard-customers">
+                                Invite new customer
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="mixups-tabs mt-3 pr-3 col-lg-12 col-md-12">
-                        <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
-                            <li class="nav-item">
-                                <a
-                                    class="nav-link active"
-                                    id="pills-land-lots-tab"
-                                    data-toggle="pill"
-                                    href="#pills-land-lots"
-                                    role="tab"
-                                    aria-controls="pills-home"
-                                    aria-selected="true"
-                                    >{{ globals.languageJson?.micro_roasters }}</a
-                                >
-                            </li>
-
-                            <li class="nav-item">
-                                <a
-                                    class="nav-link"
-                                    id="pills-batch-status-tab"
-                                    data-toggle="pill"
-                                    href="#pills-batch-status"
-                                    role="tab"
-                                    aria-controls="pills-profile"
-                                    aria-selected="false"
-                                    >{{ globals.languageJson?.horeca }}</a
-                                >
-                            </li>
-                        </ul>
-
-                        <div class="tab-content mt-md-4" id="pills-tabContent">
-                            <div
-                                class="tab-pane fade show active"
-                                id="pills-land-lots"
-                                role="tabpanel"
-                                aria-labelledby="pills-land-lots-tab"
-                            >
-                                <app-micro-roaster> </app-micro-roaster>
-                            </div>
-
-                            <div
-                                class="tab-pane fade"
-                                id="pills-batch-status"
-                                role="tabpanel"
-                                aria-labelledby="pills-batch-status-tab"
-                            >
-                                <app-ho-re-ca> </app-ho-re-ca>
-                            </div>
-                        </div>
+                <div class="mobile-farm">
+                    <div>
+                        <button type="submit" class="btn-raised w-100" routerLink="/features/onboard-customers">
+                            Invite new customer
+                        </button>
                     </div>
+
+                    <div class="mx-2 pt-4">
+                        <span class="custom-search">
+                            <input
+                                type="text"
+                                pInputText
+                                class="w-100 {{ searchTerm ? 'highlight' : '' }}"
+                                [(ngModel)]="searchTerm"
+                                placeholder="{{ globals.languageJson?.search_name_role }}"
+                            />
+                        </span>
+                    </div>
+
+                    <div class="mx-2 pt-3 pb-2">
+                        <p-dropdown
+                            id="select-table-customer"
+                            [options]="statusList"
+                            [(ngModel)]="selectedStatus"
+                            scrollHeight="225px"
+                            (onChange)="filterStatus()"
+                            [showClear]="true"
+                            placeholder="Status"
+                            styleClass="round-border mr-25 mb-25 mb-md-4"
+                        ></p-dropdown>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 px-0" id="agreements-nav">
+                    <p-tabView class="toggle" (onChange)="onTabChange($event)">
+                        <p-tabPanel header="{{ globals.languageJson?.micro_roasters }}">
+                            <app-customer-management-table
+                                *ngIf="customerType === 'micro-roasters'"
+                                [searchTerm]="searchTerm"
+                                [sortedMainData]="sortedMainData"
+                                [customerType]="customerType"
+                            >
+                            </app-customer-management-table>
+                        </p-tabPanel>
+                        <p-tabPanel header="{{ globals.languageJson?.horeca }}">
+                            <app-customer-management-table
+                                *ngIf="customerType === 'hrc'"
+                                [searchTerm]="searchTerm"
+                                [sortedMainData]="sortedMainData"
+                                [customerType]="customerType"
+                            >
+                            </app-customer-management-table>
+                        </p-tabPanel>
+                    </p-tabView>
                 </div>
             </div>
         </section>
     </div>
-
-    <ng-template #allTemplate>
-        <div id="status-content">
-            <ul class="list-group">
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="setStatus(''); pop.hide(); pop2.hide(); toggleStatus()">All</a>
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="setStatus('Active'); pop.hide(); pop2.hide(); toggleStatus()"
-                        >Active</a
-                    >
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="setStatus('Inactive'); pop.hide(); pop2.hide(); toggleStatus()"
-                        >Inactive</a
-                    >
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="setStatus('Pending'); pop.hide(); pop2.hide(); toggleStatus()"
-                        >Pending</a
-                    >
-                </li>
-            </ul>
-        </div>
-    </ng-template>
 </div>

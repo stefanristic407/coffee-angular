@@ -1,0 +1,66 @@
+<section class="pt-3">
+    <div class="web-farm">
+        <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli black" *ngIf="hrContacts != null">Important Contacts</p>
+        <div class="row meet-our-team-list">
+            <div class="col-12 col-md-4 col-lg-2 meet-our-team-list__item" *ngFor="let contact of hrContacts">
+                <div class="team-img">
+                    <img *ngIf="contact.profile_image_url == ''" src="assets/images/team-1.png" class="team-images" />
+                    <img
+                        *ngIf="contact.profile_image_url != ''"
+                        src="{{ contact.profile_image_url }}"
+                        class="team-images"
+                    />
+                </div>
+                <div class="team-des">
+                    <p class="fnt-muli fnt-14 fnt-md-16 fnt-700 text-clr334 m-0">{{ contact.name | titlecase }}</p>
+                    <p class="fnt-muli fnt-12 fnt-md-14 fnt-500 text-clr00 m-0">{{ contact.roles[0] }}</p>
+                </div>
+                <div class="msg-team mt-2">
+                    <img src="assets/images/message-icon.svg" class="d-inline-block" /><span
+                        class="pl-1 d-inline-block fnt-muli fnt-12 fnt-md-14 fnt-500 text-clr334"
+                        >Message</span
+                    >
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="hrContacts != null" class="imp-contact mobile-farm">
+        <div class="top-cont">
+            <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli black pt-4">Top Contacts</p>
+            <div class="meet-our-team-list">
+                <div
+                    class="justify-content-between d-flex meet-our-team-list__item const-border"
+                    *ngFor="let contact of hrContacts"
+                >
+                    <div class="d-flex py-3">
+                        <div class="">
+                            <div class="team-img mr-3">
+                                <img
+                                    *ngIf="contact.profile_image_url == ''"
+                                    src="assets/images/team-1.png"
+                                    class="team-images"
+                                />
+                                <img
+                                    *ngIf="contact.profile_image_url != ''"
+                                    src="{{ contact.profile_image_url }}"
+                                    class="team-images"
+                                />
+                            </div>
+                        </div>
+                        <div class="">
+                            <p class="fnt-muli fnt-14 fnt-md-16 fnt-700 text-clr334 mb-1">
+                                {{ contact.name | titlecase }}
+                            </p>
+                            <p class="fnt-muli fnt-12 fnt-md-14 fnt-500 text-clr00 mb-1">{{ contact.roles[0] }}</p>
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <img src="assets/images/message-icon.svg" class="d-inline-block mr-1" /><span
+                            class="pl-1 d-inline-block fnt-muli fnt-12 fnt-md-14 fnt-500 text-clr334"
+                        ></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
