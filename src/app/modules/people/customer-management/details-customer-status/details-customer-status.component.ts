@@ -8,17 +8,17 @@ import { CustomerServiceService } from '../customer-service.service';
     styleUrls: ['./details-customer-status.component.scss'],
 })
 export class DetailsCustomerStatusComponent implements OnInit, OnChanges {
-    isPublicOptions: any[] = [
+    isStatusOptions: any[] = [
         { label: 'Active', value: true },
         { label: 'Disable', value: false },
     ];
-    isPublic: any;
+    isStatus: any;
     roasterId: any;
     @Input() customerType: string;
     constructor(public customerService: CustomerServiceService, public cookieService: CookieService) {}
 
     ngOnChanges(): void {
-        this.isPublic = this.isPublicOptions.find((element) => element.value === this.customerService.btnToggle);
+        this.isStatus = this.isStatusOptions.find((element) => element.value === this.customerService.btnToggle);
     }
 
     ngOnInit(): void {}

@@ -24,9 +24,9 @@
             </div>
         </div>
     </div>
-    <div class="imp-contact mobile-farm">
+    <div *ngIf="hrContacts != null" class="imp-contact mobile-farm">
         <div class="top-cont">
-            <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli black" *ngIf="hrContacts != null">Top Contacts</p>
+            <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli black pt-4">Top Contacts</p>
             <div class="meet-our-team-list">
                 <div
                     class="justify-content-between d-flex meet-our-team-list__item const-border"
