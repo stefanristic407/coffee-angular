@@ -18,7 +18,7 @@ export class DetailsCustomerStatusComponent implements OnInit, OnChanges {
     constructor(public customerService: CustomerServiceService, public cookieService: CookieService) {}
 
     ngOnChanges(): void {
-        this.isPublic = this.isPublicOptions.find((element) => element.value !== this.customerService.btnToggle);
+        this.isPublic = this.isPublicOptions.find((element) => element.value === this.customerService.btnToggle);
     }
 
     ngOnInit(): void {}
