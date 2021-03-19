@@ -11,4 +11,8 @@ export class ProfileCertificatesViewComponent implements OnInit {
     constructor() {}
 
     ngOnInit(): void {}
+
+    onClickCertificate(certificate: any): void {
+        window.open(certificate.public_url, '_blank');
+    }
 }

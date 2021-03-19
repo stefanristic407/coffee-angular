@@ -110,6 +110,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             } else {
                 this.toastr.error('Error while fetching certificates');
             }
+            console.log('certificates >>>>>>>>', res);
             this.checkApiCompletion();
         });
     }
