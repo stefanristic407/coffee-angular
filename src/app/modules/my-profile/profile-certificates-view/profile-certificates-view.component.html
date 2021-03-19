@@ -1,6 +1,10 @@
 <div *ngIf="certificationArray.length">
     <div class="fnt-muli fnt-600 fnt-14 text-clr588 certificates-title">Certificates</div>
-    <div class="certificate-item mt-3" *ngFor="let certificate of certificationArray">
+    <div
+        class="certificate-item mt-3"
+        *ngFor="let certificate of certificationArray"
+        (click)="onClickCertificate(certificate)"
+    >
         <div class="text-clr334 fnt-muli fnt-14 fnt-600">{{ certificate.name }}</div>
         <div class="vertical-divider mx-25"></div>
         <div class="text-clr334 fnt-muli fnt-14 fnt-600">{{ certificate.year }}</div>
