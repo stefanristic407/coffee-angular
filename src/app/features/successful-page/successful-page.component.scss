@@ -3,11 +3,14 @@
     font-weight: bold;
     color: #232334;
 }
+.align-btn {
+    margin-top: 1.5rem;
+}
 
 .successful-text {
     font-size: 32px !important;
     color: #232334 !important;
-    margin-bottom: 7% !important;
+    margin-bottom: 3% !important;
     font-weight: normal !important;
 }
 
@@ -29,7 +32,6 @@
         margin-right: 0 !important;
     }
     .align-btn {
-        margin-top: 1.5rem;
         width: 100% !important;
     }
 }

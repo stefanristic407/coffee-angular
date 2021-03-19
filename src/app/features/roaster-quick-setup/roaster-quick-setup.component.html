@@ -15,14 +15,14 @@
             <div class="row">
                 <div class="col-lg-12 mt-0 mt-lg-4 source-cont">
                     <form class="form-container">
-                        <div class="row" *ngFor="let add of addUser; let i = index">
+                        <div class="row" *ngFor="let invite of inviteFormArray.controls; let i = index">
                             <div class="mobile-farm col-12">
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="add-team pb-3 mobile-farm">Invite {{ i + 1 }}</div>
                                     </div>
                                     <div class="col-6">
-                                        <div *ngIf="i != 0" (click)="deleteRow(i)" class="float-right">
+                                        <div *ngIf="i != 0" (click)="removeRow(i)" class="float-right">
                                             <div class="mt-2 delete-link cursor-pointer">Delete</div>
                                         </div>
                                     </div>
@@ -34,9 +34,8 @@
                                     pInputText
                                     class="w-100 border-rounded-left-md-0"
                                     placeholder="Enter your Full Name"
-                                    [(ngModel)]="add.name"
+                                    [formControl]="invite.controls.name"
                                     type="text"
-                                    [ngModelOptions]="{ standalone: true }"
                                 />
                             </div>
                             <div class="sewn-form-field px-lg-3 col-md-4 mt-md-1">
@@ -48,8 +47,7 @@
                                     class="w-100 border-rounded-left-md-0"
                                     type="email"
                                     placeholder="you@example.com"
-                                    [(ngModel)]="add.email"
-                                    [ngModelOptions]="{ standalone: true }"
+                                    [formControl]="invite.controls.email"
                                 />
                             </div>
                             <div class="sewn-form-field px-lg-3 col-md-3 mt-md-1" *ngIf="this.headerValue == 'HoReCa'">
@@ -58,15 +56,14 @@
                                 </label>
                                 <p-dropdown
                                     [options]="companyTypeList"
-                                    [(ngModel)]="add.type"
+                                    [formControl]="invite.controls.type"
                                     [style]="{ width: '100%' }"
-                                    [ngModelOptions]="{ standalone: true }"
                                     placeholder="Company Type"
                                 >
                                 </p-dropdown>
                             </div>
 
-                            <div *ngIf="i != 0" (click)="deleteRow(i)" class="web-farm">
+                            <div *ngIf="i != 0" (click)="removeRow(i)" class="web-farm">
                                 <div class="cursor-pointer delete-link mt-5 pt-3">Delete</div>
                             </div>
                             <div *ngIf="addUser.length > 1" class="brd-d6d6 mobile-farm mt-2 mb-3 mx-auto"></div>
@@ -87,7 +84,7 @@
                                     type="submit"
                                     class="btn-raised ml-lg-3 mt-lg-0 pt-lg-2 mt-4 pt-2"
                                     (click)="sendInvite()"
-                                    [disabled]="sendInviteButton === 'Sending'"
+                                    [disabled]="inviteFormArray.invalid || sendInviteButton === 'Sending'"
                                 >
                                     {{ sendInviteButton
                                     }}<img
