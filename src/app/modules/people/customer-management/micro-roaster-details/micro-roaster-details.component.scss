@@ -61,7 +61,7 @@
 }
 
 .certificates-inner {
-    padding: 0.5rem 1rem 2rem 1rem;
+    padding: 0.5rem 1rem 1.6rem 1rem;
     border-radius: 4px;
     background-color: #f8f8f8;
 }
@@ -139,4 +139,40 @@
         margin: 4px;
         border-radius: 4px;
     }
+}
+
+/**********popover*******/
+
+.list-group-item {
+    border: none;
+    font-family: 'Muli';
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+}
+
+.list-group-item:hover {
+    color: #232334;
+    font-weight: 600;
+    background-color: #f8f8f8;
+}
+
+.menu-arrow {
+    cursor: pointer;
+}
+
+.cust-width {
+    width: 40%;
+}
+
+.file_url {
+    color: #232334 !important;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Muli';
+    text-decoration: none !important;
+}
+
+#sales-contract-popup popover-container {
+    border: 0 !important;
 }

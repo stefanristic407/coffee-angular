@@ -35,10 +35,20 @@
 
 .imp-contact {
     @media (max-width: 480px) {
-        border-bottom: 2px solid #f8f8f8;
-        border-top: 2px solid #f8f8f8;
+        border-bottom: 2px solid #ebebeb;
+        border-top: 2px solid #ebebeb;
+        margin-left: -16px;
+        margin-right: -16px;
     }
 }
+
+.top-cont {
+    @media (max-width: 480px) {
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+}
+
 .team-images {
     @media (max-width: 480px) {
         width: 35px;

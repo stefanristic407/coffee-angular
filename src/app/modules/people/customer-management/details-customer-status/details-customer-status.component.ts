@@ -13,4 +13,12 @@ export class DetailsCustomerStatusComponent implements OnInit {
     constructor(public customerService: CustomerServiceService, public cookieService: CookieService) {}
 
     ngOnInit(): void {}
+
+    onBtnAction(): void {
+        if (this.customerType === 'hrc') {
+            this.customerService.activeStatus('horeca');
+        } else if (this.customerType === 'micro-roasters') {
+            this.customerService.activeStatus('micro-roaster');
+        }
+    }
 }
