@@ -44,27 +44,6 @@ export class MicroRoasterDetailsComponent implements OnInit {
         this.appLanguage = this.globals.languageJson;
     }
 
-    // editDiscount() {
-    //     document.getElementById('edit-discount').style.display = 'none';
-    //     document.getElementById('save-discount').style.display = 'block';
-    // }
-
-    // saveDiscount() {
-    //     var discountData = {
-    //         discount_percentage: parseFloat(this.customer.discount_percentage),
-    //     };
-    //     this.userService.updateMicroDiscount(this.roasterId, this.customer.microId, discountData).subscribe((res) => {
-    //         if (res['success'] == true) {
-    //             // this.customer.mrCustomerDetails();
-    //             this.toastrService.success('Discount data updated sucessfully');
-    //         } else {
-    //             this.toastrService.error('Error while updating discount data');
-    //         }
-    //     });
-    //     document.getElementById('edit-discount').style.display = 'block';
-    //     document.getElementById('save-discount').style.display = 'none';
-    // }
-
     getCerificatesList() {
         this.userService.getMicroroasterCertificates(this.customer.microId).subscribe((res: any) => {
             if (res.success) {
@@ -82,16 +61,4 @@ export class MicroRoasterDetailsComponent implements OnInit {
         a.click();
         document.body.removeChild(a);
     }
-    // estateEmployees() {
-    //     this.userService.getMicroroasterContacts(this.customer.microId).subscribe((res: any) => {
-    //         if (res.success) {
-    //             this.mrContacts = res.result;
-    //             console.log(this.mrContacts);
-    //         }
-    //     });
-    // }
-
-    // ngAfterViewInit() {
-    //     document.getElementById('save-discount').style.display = 'none';
-    // }
 }
