@@ -6,6 +6,7 @@
     .row {
         margin: 0;
     }
+
     .border-total {
         border-radius: 20px;
         border: solid 1px $primary-border-color;
@@ -133,6 +134,7 @@
 :host ::ng-deep .p-tabview-nav {
     border: none;
 }
+
 ::ng-deep .p-tabview-panels {
     ul {
         border-bottom: 1px solid #d6d6d6 !important;
@@ -142,14 +144,17 @@
 .Search-tab-view {
     display: none;
 }
+
 .Search {
     display: inherit;
 }
+
 @media screen and (max-width: 1024px) {
     .heading {
         flex-direction: column;
         align-items: flex-start !important;
     }
+
     .header-inner {
         display: flex;
         align-items: center;
@@ -169,11 +174,13 @@
     .bg-fff {
         padding: 24px 16px;
     }
+
     .request-table-container {
         .api-request-heading {
             margin-top: 6px;
         }
     }
+
     .bread-crumb {
         display: flex;
         justify-content: space-between;
@@ -192,9 +199,11 @@
     .border-0 {
         padding: 0 !important;
     }
+
     .bg-fff {
         padding: 16.5px 16px;
     }
+
     .custom-search {
         margin-bottom: 16px;
     }
@@ -204,6 +213,7 @@
     .header-inner {
         flex-direction: column;
         align-items: flex-start;
+
         ::ng-deep .p-calendar {
             width: 165px;
             margin-top: 16px;

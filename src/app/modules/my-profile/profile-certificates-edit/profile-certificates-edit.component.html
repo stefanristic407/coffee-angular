@@ -6,7 +6,7 @@
                 *ngIf="i !== editingRowIndex; else addAndEditTemplate"
             >
                 <div class="d-flex align-items-center">
-                    <div class="fnt-muli fnt-600 fnt-14 text-clr334">{{ certificationItem.certificate_type }}</div>
+                    <div class="fnt-muli fnt-600 fnt-14 text-clr334">{{ certificationItem.name }}</div>
                     <div class="vertical-divider mx-3"></div>
                     <div class="fnt-muli fnt-600 fnt-14 text-clr334">{{ certificationItem.year }}</div>
                 </div>
@@ -47,20 +47,13 @@
         <div class="col-md-6">
             <div class="mb-4 mb-md-45 sewn-form-field w-100">
                 <label class="fnt-14 text-clr588 fnt-muli"> Certification name </label>
-                <p-dropdown
-                    [options]="certificateList"
-                    optionLabel="type"
-                    optionValue="id"
-                    [(ngModel)]="
-                        editingRowIndex < 0
-                            ? selectedCertification
-                            : certificationArray[editingRowIndex].certificate_type_id
-                    "
-                    styleClass="p-dropdown-full"
-                    placeholder="Enter certification name"
-                    [autoDisplayFirst]="false"
-                    (onChange)="onChangeType($event)"
-                ></p-dropdown>
+                <input
+                    class="w-100"
+                    type="text"
+                    pInputText
+                    placeholder="Please type certificate name"
+                    [(ngModel)]="selectedCertificationName"
+                />
             </div>
         </div>
         <div class="col-md-6">

@@ -1,4 +1,5 @@
 @import '../../../../theme/styles/variables';
+
 ::ng-deep .p-datatable .p-paginator-bottom {
     padding: 22px 0;
 }
@@ -11,6 +12,8 @@
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
     .api-request-table {
+        overflow: scroll;
+
         th {
             width: 250px;
         }
@@ -34,13 +37,16 @@
 .cell-header {
     width: 40%;
 }
+
 .view-order {
     font-family: Muli !important;
     font-size: 14px !important;
     font-weight: bold !important;
     color: #80460b !important;
+
     &:hover {
         text-decoration: underline !important;
     }
+
     cursor: pointer !important;
 }

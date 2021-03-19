@@ -7,6 +7,7 @@ import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { maxWordCountValidator } from '@utils';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -133,7 +134,7 @@ export class AboutRoasteryComponent implements OnInit {
         this.aboutForm = this.fb.group({
             owner_name: ['', Validators.compose([Validators.required])],
             founded_on: ['', Validators.compose([Validators.required])],
-            description: ['', Validators.compose([Validators.maxLength(150)])],
+            description: ['', Validators.compose([maxWordCountValidator(150)])],
             total_employees: [null, Validators.compose([Validators.required])],
             avg_employee_age: [null, Validators.compose([Validators.required])],
             female_employee_count: ['', Validators.compose([Validators.required])],
@@ -148,25 +149,31 @@ export class AboutRoasteryComponent implements OnInit {
 
         this.aboutForm.valueChanges.subscribe((changedData: any) => {
             this.roasteryProfileService.aboutFormInvalid = this.aboutForm.invalid;
-            this.roasteryProfileService.editProfileData(changedData);
-            if (this.chartData) {
-                this.chartData = [
-                    {
-                        name: 'Female',
-                        value: changedData.female_employee_count,
-                    },
-                    {
-                        name: 'Male',
-                        value: changedData.male_employee_count,
-                    },
-                ];
-                this.roasteryProfileService.single = this.chartData;
+            if (changedData.total_employees !== changedData.female_employee_count + changedData.male_employee_count) {
+                this.roasteryProfileService.invalidSumEmployee = true;
+            } else {
+                this.roasteryProfileService.invalidSumEmployee = false;
+                if (this.chartData) {
+                    this.chartData = [
+                        {
+                            name: 'Female',
+                            value: changedData.female_employee_count ? changedData.female_employee_count : 0,
+                        },
+                        {
+                            name: 'Male',
+                            value: changedData.male_employee_count ? changedData.male_employee_count : 0,
+                        },
+                    ];
+                    this.roasteryProfileService.single = this.chartData;
+                }
             }
+
+            this.roasteryProfileService.editProfileData(changedData);
         });
 
         this.brandForm = this.fb.group({
             name: ['', Validators.compose([Validators.required])],
-            description: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
+            description: ['', Validators.compose([Validators.required, maxWordCountValidator(50)])],
         });
     }
 
@@ -327,7 +334,7 @@ export class AboutRoasteryComponent implements OnInit {
     addBrandProfileMode() {
         this.brandForm = this.fb.group({
             name: ['', Validators.compose([Validators.required])],
-            description: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
+            description: ['', Validators.compose([Validators.required, maxWordCountValidator(50)])],
         });
         this.isAddBrandMode = true;
     }
@@ -431,5 +438,9 @@ export class AboutRoasteryComponent implements OnInit {
 
         const result = control.hasError(validationType) && (control.dirty || control.touched);
         return result;
+    }
+
+    setFormat($event) {
+        $event.target.value = null;
     }
 }
