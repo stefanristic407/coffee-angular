@@ -345,7 +345,14 @@
                     <hr />
                 </form>
                 <!-- Brand Profile -->
-
+                <input
+                    type="file"
+                    class="file-inpt"
+                    hidden
+                    #brandImageInput
+                    (click)="setFormat($event)"
+                    (change)="handleRoasterFile($event)"
+                />
                 <form [formGroup]="brandForm">
                     <div class="row mt-md-45 mb-4 mb-md-45">
                         <div class="col-12">
@@ -360,15 +367,6 @@
                     <div *ngIf="isSaveMode">
                         <div class="mt-2" *ngIf="isAddBrandMode || isEditBrandMode">
                             <div class="row">
-                                <input
-                                    type="file"
-                                    class="file-inpt"
-                                    hidden
-                                    #roasterImage
-                                    (click)="setFormat($event)"
-                                    (change)="handleRoasterFile($event)"
-                                />
-
                                 <div
                                     class="sewn-form-field mb-45 brand-name"
                                     [ngClass]="[
@@ -394,7 +392,7 @@
                                                 <a
                                                     class="change-avatar-btn"
                                                     *ngIf="isSaveMode"
-                                                    (click)="roasterImage.click()"
+                                                    (click)="brandImageInput.click()"
                                                 >
                                                     <img src="assets/images/camera.svg" class="camera-pic" />
                                                 </a>
@@ -443,7 +441,7 @@
                                     <div class="brand-button-group d-flex justify-content-between">
                                         <div
                                             class="fnt-14 fnt-muli fnt-500 lh-normal txt-clr334 upload-button mt-md-2"
-                                            (click)="roasterImage.click()"
+                                            (click)="brandImageInput.click()"
                                         >
                                             <i class="pi pi-upload fnt-14 mr-1"></i>
                                             Upload
@@ -485,15 +483,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" *ngIf="!isAddBrandMode">
-                            <div class="col-12 mt-4 mt-md-0 mb-4 mb-md-45 text-center text-md-left">
-                                <a class="add-link" href="javascript:void(0);" (click)="addBrandProfileMode()">
-                                    <span class="fnt-14 font-bold add-text ml-4">{{
-                                        'add_another_contact' | translate
-                                    }}</span>
-                                </a>
-                            </div>
-                        </div>
                     </div>
                 </form>
 
@@ -517,7 +506,7 @@
                                 </p>
                             </div>
                         </div>
-                        <div *ngIf="isSaveMode" class="brand-edit-btn">
+                        <div class="brand-edit-btn" [ngClass]="{ 'visiblity-hidden': !isSaveMode }">
                             <a class="view-order cursor-pointer" (click)="editBrand(brand)">
                                 {{ 'edit' | translate }}
                             </a>
@@ -526,6 +515,14 @@
 
                     <div *ngIf="!brands?.length" class="text-center p-2">
                         <span> No brands found.</span>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="isSaveMode && !isAddBrandMode">
+                    <div class="col-12 mt-4 mt-md-0 mb-4 mb-md-45 text-center text-md-left">
+                        <a class="add-link" href="javascript:void(0);" (click)="addBrandProfileMode()">
+                            <span class="fnt-14 font-bold add-text ml-4">Add another brand</span>
+                        </a>
                     </div>
                 </div>
 
@@ -705,7 +702,7 @@
                                     class="menu-arrow"
                                     [ngClass]="{ 'd-none': !isSaveMode }"
                                     [popover]="listTemplate"
-                                    placement="bottom"
+                                    placement="left"
                                     [outsideClick]="true"
                                     #pop1="bs-popover"
                                 >
@@ -798,3 +795,49 @@
         </div>
     </div>
 </ng-template>
+
+<p-dialog
+    header="Edit Photo"
+    [(visible)]="isShowBrandImageModal"
+    [modal]="true"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
+    styleClass="p-0"
+>
+    <div class="image-crop-div">
+        <div class="img-pos-div" style="max-height: 80vh">
+            <image-cropper
+                style="max-height: 60vh"
+                [imageChangedEvent]="imageChangedEvent"
+                [maintainAspectRatio]="true"
+                [containWithinAspectRatio]="false"
+                [aspectRatio]="1 / 1"
+                [resizeToWidth]="256"
+                [resizeToHeight]="256"
+                [cropperMinWidth]="128"
+                [onlyScaleDown]="false"
+                [roundCropper]="true"
+                [canvasRotation]="canvasRotation"
+                [transform]="transform"
+                [autoCrop]="false"
+                [style.display]="showCropper ? null : 'none'"
+                format="png"
+                (imageCropped)="imageCropped($event)"
+                (imageLoaded)="imageLoaded()"
+                (loadImageFailed)="loadImageFailed()"
+            ></image-cropper>
+        </div>
+        <div class="zoom-div w-100">
+            <div class="slider-div mt-3">
+                <p-slider [min]="1" [max]="5" [step]="0.1" [(ngModel)]="scale" (onChange)="zoom()"></p-slider>
+            </div>
+        </div>
+    </div>
+    <p-footer>
+        <button type="button" id="change-pic" class="btn-raised" (click)="selectBrandImage()">
+            {{ 'change_photo' | translate }}
+        </button>
+        <button type="button" id="save-pic" class="btn-raised" (click)="cropImage()">Crop Image</button>
+    </p-footer>
+</p-dialog>
