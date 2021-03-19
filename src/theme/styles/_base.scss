@@ -522,7 +522,7 @@ input[type='number'] {
 
 .hover-underline {
     &:hover {
-        text-decoration: underline;
+        text-decoration: underline !important;
     }
 }
 
