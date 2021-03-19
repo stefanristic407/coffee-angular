@@ -12,9 +12,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SetupLicenseComponent implements OnInit {
     breadItems = [
-        { label: 'home', routerLink: '/' },
-        { label: 'roastery_profile', routerLink: '/roastery-profile' },
-        { label: 'add_certificate' },
+        { label: 'Home', routerLink: '/' },
+        { label: 'Roaster Profile', routerLink: '/roastery-profile' },
+        { label: 'Add certificate' },
     ];
 
     @ViewChild('myFileInput') myFileInput: ElementRef;

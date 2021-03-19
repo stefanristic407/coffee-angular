@@ -11,7 +11,7 @@
                             class="sewn-form-field col-md-6 m-0 pl-0 pr-md-2 pr-0 pt-0 pt-md-0"
                             [ngClass]="[isSaveMode ? 'col-12' : 'col-6']"
                         >
-                            <label class="fnt-12 fnt-md-14" for="founded_in">
+                            <label [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12']" for="founded_in">
                                 {{ 'founded_in' | translate }}
                                 <span class="star" *ngIf="isSaveMode">*</span>
                             </label>
@@ -35,9 +35,9 @@
 
                         <div
                             class="sewn-form-field col-md-6 mt-md-0 mb-0 pl-0 pr-0 pl-md-2"
-                            [ngClass]="[isSaveMode ? 'col-12 mt-45' : 'col-6 mt-0']"
+                            [ngClass]="[isSaveMode ? 'col-12 mt-3' : 'col-6 mt-0']"
                         >
-                            <label class="fnt-12 fnt-md-14" for="owner_name">
+                            <label [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12']" for="owner_name">
                                 {{ 'owner_name' | translate }}<span class="star" *ngIf="isSaveMode">*</span>
                             </label>
                             <input
@@ -60,10 +60,10 @@
                     </div>
 
                     <div
-                        class="row border-md-main border-md-none br-4 mb-45 m-0 mt-45 mt-md-0 p-0 p-md-0 mr-md-0 ml-md-0"
+                        class="row border-md-main border-md-none br-4 mb-3 mb-md-45 m-0 mt-3 mt-md-0 p-0 p-md-0 mr-md-0 ml-md-0"
                     >
                         <div class="sewn-form-field col-md-12 mt-md-45 p-0 mb-0">
-                            <label class="fnt-12 fnt-md-14" for="summary"
+                            <label [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12']" for="summary"
                                 >{{ 'roastery_summary' | translate }}
                                 <span class="pull-right text-clr588" *ngIf="isSaveMode">
                                     {{ aboutForm.get('description').value | wordCount }}/150 words
@@ -90,10 +90,10 @@
                             </p>
                         </div>
                     </div>
-                    <hr class="d-none d-md-block" *ngIf="isSaveMode" />
+                    <hr class="mb-4 mt-4" *ngIf="isSaveMode" />
 
                     <div class="row mt-md-45" *ngIf="isSaveMode">
-                        <div class="col-12 mb-45">
+                        <div class="col-12 mb-3 mb-md-45">
                             <p class="fnt-18 font-bold text-clr334 w-100 mb-1">
                                 {{ 'employee_details' | translate }}
                             </p>
@@ -102,7 +102,7 @@
                     </div>
 
                     <div class="row mb-md-3" *ngIf="isSaveMode">
-                        <div class="sewn-form-field col-12 col-md-6 pr-md-2 mb-4">
+                        <div class="sewn-form-field col-12 col-md-6 pr-md-2 mb-3 mb-md-4">
                             <label for="employee_nos">
                                 {{ 'total_number_employees' | translate }}
                                 <span class="star">*</span>
@@ -123,7 +123,7 @@
                                 Please enter the correct no
                             </small>
                         </div>
-                        <div class="sewn-form-field col-12 col-md-6 pl-md-2 mb-4">
+                        <div class="sewn-form-field col-12 col-md-6 pl-md-2 mb-3 mb-md-4">
                             <label for="employee_avg">
                                 {{ 'average_employee_age' | translate }}
                                 <span class="star">*</span>
@@ -147,7 +147,7 @@
                         <span class="star">*</span>
                     </span>
                     <div class="row" *ngIf="isSaveMode">
-                        <div class="sewn-form-field col-12 col-md-6 pr-md-2 mb-4">
+                        <div class="sewn-form-field col-12 col-md-6 pr-md-2 mb-3 mb-md-4">
                             <label for="female_num">
                                 {{ 'total_number_female_employees' | translate }}
                                 <span class="star">*</span>
@@ -165,7 +165,7 @@
                                 Please enter the correct no
                             </small>
                         </div>
-                        <div class="sewn-form-field col-12 col-md-6 pl-md-2 mb-4">
+                        <div class="sewn-form-field col-12 col-md-6 pl-md-2 mb-3 mb-md-4">
                             <label for="male_num">
                                 {{ 'total_number_male_employees' | translate }}
                                 <span class="star">*</span>
@@ -185,7 +185,7 @@
                         </div>
                     </div>
 
-                    <div class="d-block d-md-none mb-4">
+                    <div class="d-block d-md-none mb-3 mb-md-4">
                         <ng-template *ngTemplateOutlet="rightSidePanel"></ng-template>
                     </div>
 
@@ -208,10 +208,10 @@
                         </div>
 
                         <div
-                            class="sewn-form-field col-md-6 p-0 pr-md-2 mb-4"
+                            class="sewn-form-field col-md-6 p-0 pr-md-2 mb-3 mb-md-4"
                             [ngClass]="[isSaveMode ? 'col-12' : 'col-6']"
                         >
-                            <label class="fnt-12 fnt-md-14" for="vat_nos"
+                            <label [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12']" for="vat_nos"
                                 >VAT number<span class="star" *ngIf="isSaveMode">*</span></label
                             >
                             <input
@@ -232,10 +232,10 @@
                             </small>
                         </div>
                         <div
-                            class="sewn-form-field col-md-6 p-0 pl-md-2 mb-4"
+                            class="sewn-form-field col-md-6 p-0 pl-md-2 mb-0 mb-md-4"
                             [ngClass]="[isSaveMode ? 'col-12' : 'col-6']"
                         >
-                            <label for="cmpy_rid" class="fnt-12 fnt-md-14"
+                            <label for="cmpy_rid" [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12']"
                                 >Company registration ID<span class="star" *ngIf="isSaveMode">*</span></label
                             >
                             <input
@@ -257,8 +257,9 @@
                         </div>
                     </div>
 
-                    <hr class="d-none d-md-block" />
-                    <div class="row mt-md-45 mb-4 ml-0 mr-0">
+                    <hr class="mt-4 mb-4 mt-md-3" />
+
+                    <div class="row mt-md-45 mb-3 mb-md-4 ml-0 mr-0">
                         <div class="col-12 p-0">
                             <p class="fnt-18 font-bold text-clr334 w-100 mb-1">
                                 {{ 'roastery_capabilities' | translate }}
@@ -273,7 +274,7 @@
                     </div>
 
                     <div class="row" *ngIf="isSaveMode">
-                        <div class="sewn-form-field col-12 col-md-6 pr-md-2 mb-4 position-relative">
+                        <div class="sewn-form-field col-12 col-md-6 pr-md-2 mb-3 mb-md-4 position-relative">
                             <label for="capacity">
                                 {{ 'roaster_capacity' | translate }}
                                 <span class="star">*</span>
@@ -342,10 +343,17 @@
                         </div>
                     </div>
 
-                    <hr />
+                    <hr class="mt-2 mb-2" />
                 </form>
                 <!-- Brand Profile -->
-
+                <input
+                    type="file"
+                    class="file-inpt"
+                    hidden
+                    #brandImageInput
+                    (click)="setFormat($event)"
+                    (change)="handleRoasterFile($event)"
+                />
                 <form [formGroup]="brandForm">
                     <div class="row mt-md-45 mb-4 mb-md-45">
                         <div class="col-12">
@@ -360,15 +368,6 @@
                     <div *ngIf="isSaveMode">
                         <div class="mt-2" *ngIf="isAddBrandMode || isEditBrandMode">
                             <div class="row">
-                                <input
-                                    type="file"
-                                    class="file-inpt"
-                                    hidden
-                                    #roasterImage
-                                    (click)="setFormat($event)"
-                                    (change)="handleRoasterFile($event)"
-                                />
-
                                 <div
                                     class="sewn-form-field mb-45 brand-name"
                                     [ngClass]="[
@@ -394,7 +393,7 @@
                                                 <a
                                                     class="change-avatar-btn"
                                                     *ngIf="isSaveMode"
-                                                    (click)="roasterImage.click()"
+                                                    (click)="brandImageInput.click()"
                                                 >
                                                     <img src="assets/images/camera.svg" class="camera-pic" />
                                                 </a>
@@ -443,7 +442,7 @@
                                     <div class="brand-button-group d-flex justify-content-between">
                                         <div
                                             class="fnt-14 fnt-muli fnt-500 lh-normal txt-clr334 upload-button mt-md-2"
-                                            (click)="roasterImage.click()"
+                                            (click)="brandImageInput.click()"
                                         >
                                             <i class="pi pi-upload fnt-14 mr-1"></i>
                                             Upload
@@ -485,15 +484,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" *ngIf="!isAddBrandMode">
-                            <div class="col-12 mt-4 mt-md-0 mb-4 mb-md-45 text-center text-md-left">
-                                <a class="add-link" href="javascript:void(0);" (click)="addBrandProfileMode()">
-                                    <span class="fnt-14 font-bold add-text ml-4">{{
-                                        'add_another_contact' | translate
-                                    }}</span>
-                                </a>
-                            </div>
-                        </div>
                     </div>
                 </form>
 
@@ -517,8 +507,8 @@
                                 </p>
                             </div>
                         </div>
-                        <div *ngIf="isSaveMode" class="brand-edit-btn">
-                            <a class="view-order cursor-pointer" (click)="editBrand(brand)">
+                        <div class="brand-edit-btn" [ngClass]="{ 'visiblity-hidden': !isSaveMode }">
+                            <a class="view-order cursor-pointer hover-underline" (click)="editBrand(brand)">
                                 {{ 'edit' | translate }}
                             </a>
                         </div>
@@ -529,9 +519,17 @@
                     </div>
                 </div>
 
-                <hr class="mt-475" />
+                <div class="row" *ngIf="isSaveMode && !isAddBrandMode">
+                    <div class="col-12 mt-4 mt-md-2 mb-4 mb-md-4 text-left">
+                        <a class="add-link" href="javascript:void(0);" (click)="addBrandProfileMode()">
+                            <span class="fnt-14 font-bold add-text ml-4">Add another brand</span>
+                        </a>
+                    </div>
+                </div>
+
+                <hr class="mt-0 mb-0" />
                 <div class="" *ngIf="isSaveMode">
-                    <div class="row mt-45 mb-md-45 mb-4">
+                    <div class="row mt-3 mb-md-4 mb-3">
                         <div class="col-12">
                             <p class="fnt-18 font-bold text-clr334 w-100 mb-1">
                                 {{ 'contacts' | translate }}<span class="star">*</span>
@@ -550,12 +548,12 @@
                             />
                         </div>
                         <div
-                            class="add-partner mb-3 mb-md-0 mt-md-3 col-12 col-md-6 p-md-0 text-right text-md-left"
+                            class="add-partner mb-3 mb-md-0 mt-md-3 col-12 col-md-6 p-md-0 text-left"
                             *ngIf="
                                 roasteryProfileService.showDelete && roasteryProfileService.roasterContacts.length > 1
                             "
                         >
-                            <a class="ml-2 custom-link" href="javascript:void(0);" (click)="removeContact(role.id)">
+                            <a class="ml-2 brown-cta" href="javascript:void(0);" (click)="removeContact(role.id)">
                                 {{ 'remove' | translate }} {{ 'contact' | translate }}
                             </a>
                         </div>
@@ -574,11 +572,11 @@
                                 [(ngModel)]="employeeId"
                             ></p-dropdown>
                         </div>
-                        <div class="col-12 col-md-6 mt-md-4 add-contact-group">
+                        <div class="col-12 col-md-6 mt-md-4 p-md-0 add-contact-group">
                             <button
                                 type="submit"
                                 pButton
-                                class="btn-raised mr-2"
+                                class="btn-raised ml-md-2 mr-2"
                                 [label]="assignButtonValue"
                                 [disabled]="assignButtonValue === 'Adding'"
                                 (click)="addContact()"
@@ -586,13 +584,13 @@
                             <button
                                 pButton
                                 type="submit"
-                                class="cancel-butn"
+                                class="btn-stroked-transparent"
                                 (click)="cancelAssign()"
                                 [label]="'cancel' | translate"
                             ></button>
                         </div>
                     </div>
-                    <div class="add-brand-div mt-3 mb-3 text-center text-md-left">
+                    <div class="add-brand-div mt-3 mb-3 text-left">
                         <a class="brand-tag add-link" (click)="showContact()">
                             <span class="add-text ml-4">{{ 'add_another_contact' | translate }}</span>
                         </a>
@@ -607,7 +605,7 @@
                         </p>
                         <div class="row p-0">
                             <div
-                                class="col-lg-3 col-md-3 col-sm-6 col-6 mb-2 pl-3 pr-3"
+                                class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3 pl-3 pr-3"
                                 *ngFor="let contact of roasteryProfileService.roasterContacts"
                             >
                                 <div class="employ-profile">
@@ -705,7 +703,7 @@
                                     class="menu-arrow"
                                     [ngClass]="{ 'd-none': !isSaveMode }"
                                     [popover]="listTemplate"
-                                    placement="bottom"
+                                    placement="left"
                                     [outsideClick]="true"
                                     #pop1="bs-popover"
                                 >
@@ -758,10 +756,7 @@
             </div>
         </div>
 
-        <div
-            class="col-12 col-md-6 col-lg-12 p-0 pl-md-2 pr-md-0 p-lg-0"
-            [ngClass]="{ 'd-none d-md-block': isSaveMode }"
-        >
+        <div class="col-12 col-md-6 col-lg-12 p-0 pl-md-2 pr-md-0 p-lg-0">
             <div class="border-main br-4 mt-3 mt-md-0 mt-lg-3 p-0">
                 <div class="header fnt-18 font-bold text-clr334 m-1">{{ 'employee_details' | translate }}</div>
                 <div class="w-100">
@@ -798,3 +793,49 @@
         </div>
     </div>
 </ng-template>
+
+<p-dialog
+    header="Edit Photo"
+    [(visible)]="isShowBrandImageModal"
+    [modal]="true"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
+    styleClass="p-0"
+>
+    <div class="image-crop-div">
+        <div class="img-pos-div" style="max-height: 80vh">
+            <image-cropper
+                style="max-height: 60vh"
+                [imageChangedEvent]="imageChangedEvent"
+                [maintainAspectRatio]="true"
+                [containWithinAspectRatio]="false"
+                [aspectRatio]="1 / 1"
+                [resizeToWidth]="256"
+                [resizeToHeight]="256"
+                [cropperMinWidth]="128"
+                [onlyScaleDown]="false"
+                [roundCropper]="true"
+                [canvasRotation]="canvasRotation"
+                [transform]="transform"
+                [autoCrop]="false"
+                [style.display]="showCropper ? null : 'none'"
+                format="png"
+                (imageCropped)="imageCropped($event)"
+                (imageLoaded)="imageLoaded()"
+                (loadImageFailed)="loadImageFailed()"
+            ></image-cropper>
+        </div>
+        <div class="zoom-div w-100">
+            <div class="slider-div mt-3">
+                <p-slider [min]="1" [max]="5" [step]="0.1" [(ngModel)]="scale" (onChange)="zoom()"></p-slider>
+            </div>
+        </div>
+    </div>
+    <p-footer>
+        <button type="button" id="change-pic" class="btn-raised" (click)="selectBrandImage()">
+            {{ 'change_photo' | translate }}
+        </button>
+        <button type="button" id="save-pic" class="btn-raised" (click)="cropImage()">Crop Image</button>
+    </p-footer>
+</p-dialog>

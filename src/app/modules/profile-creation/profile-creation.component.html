@@ -38,10 +38,10 @@
     <div class="p-0">
         <div class="d-flex justify-content-between">
             <div class="w-100 text-center text-md-left">
-                <p *ngIf="isSaveMode" class="fnt-18 fnt-muli mb-0 mb-3 fnt-bold text-clr334 text-center text-md-left">
+                <p *ngIf="isSaveMode" class="fnt-16 fnt-md-18 mb-0 mb-3 fnt-bold text-clr334 text-center text-md-left">
                     {{ subProfileForm.controls.company_name.value }}
                 </p>
-                <p *ngIf="!isSaveMode" class="fnt-18 fnt-muli mb-0 mb-3 fnt-bold text-clr334 text-center text-md-left">
+                <p *ngIf="!isSaveMode" class="fnt-16 fnt-md-18 mb-0 mb-3 fnt-bold text-clr334 text-center text-md-left">
                     {{ roasteryProfileService.roasteryProfileData?.company_name }}
                 </p>
             </div>
@@ -174,7 +174,7 @@
                     {{ roasteryProfileService.roasteryProfileData?.company_name }}
                 </p>
                 <a
-                    class="uparrow-link d-md-none font-16"
+                    class="d-md-none font-16 text-clr334 font-bold"
                     href="{{ roasteryProfileService.roasteryProfileData?.website }}"
                     target="blank"
                     >{{ roasteryProfileService.roasteryProfileData?.company_name }}</a
@@ -196,7 +196,10 @@
                         />
                     </div>
                 </form>
-                <p class="fnt-14-normal text-clr588 mt-2" *ngIf="isEditMode">
+                <p class="fnt-14 text-clr334 mt-2 font-bold d-md-none underline" *ngIf="isEditMode">
+                    {{ roasteryProfileService.roasteryProfileData?.website }}
+                </p>
+                <p class="fnt-14 text-clr588 mt-2 font-bold d-none d-md-block" *ngIf="isEditMode">
                     {{ roasteryProfileService.roasteryProfileData?.website }}
                 </p>
                 <a target="blank" href="{{ roasteryProfileService.roasteryProfileData?.website }}" #link hidden></a>
@@ -218,7 +221,7 @@
     </div>
     <div class="mobile-farm col-12 pl-2 pr-2">
         <div class="row" *ngIf="isSaveMode">
-            <div class="col-6">
+            <div class="col-12">
                 <button
                     type="button"
                     pButton
@@ -227,7 +230,7 @@
                     (click)="roasteryProfileService.preview()"
                 ></button>
             </div>
-            <div class="col-6">
+            <div class="col-12">
                 <button
                     type="button"
                     pButton
@@ -242,7 +245,7 @@
             pButton
             class="cancel-butn w-100 mb-3"
             *ngIf="isEditMode"
-            label="{{ 'go_back_edit' | translate }}"
+            label="{{ 'edit' | translate }}"
             (click)="roasteryProfileService.editRoasterProfile()"
         ></button>
     </div>
