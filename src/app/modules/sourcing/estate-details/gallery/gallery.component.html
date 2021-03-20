@@ -1,7 +1,7 @@
 <div class="pt-3 pt-md-25 pt-lg-45 px-3 px-md-0">
     <ng-container *ngIf="sourcing.estateGalleryImages?.length; else empty">
-        <div class="row gutter-8 gutter-md-26 card-block">
-            <div class="col-6 col-lg-4 card-wrap" *ngFor="let item of sourcing.estateGalleryImages">
+        <div class="row gutter-8 gutter-md-26 v-gutter-8 v-gutter-md-26">
+            <div class="col-6 col-lg-4" *ngFor="let item of sourcing.estateGalleryImages">
                 <div class="square">
                     <div class="content br-4 overflow-hidden">
                         <app-media [url]="item.url"></app-media>
