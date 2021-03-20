@@ -1,0 +1,150 @@
+<div class="estate-table web-farm pt-4">
+    <p-table
+        id="customer-table"
+        [value]="sortedMainData | filter: searchTerm | filter: estatetermOrigin"
+        sortMode="multiple"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="name_customer" class="pl-4 ml-3">
+                    {{
+                        customerType === 'micro-roasters'
+                            ? globals.languageJson?.name_customer
+                            : globals.languageJson?.horeca_name
+                    }}
+                    <p-sortIcon field="name_customer"> </p-sortIcon>
+                </th>
+                <th pSortableColumn="created_on">
+                    {{ globals.languageJson?.created_on }} <p-sortIcon field="created_on"> </p-sortIcon>
+                </th>
+                <th pSortableColumn="status">
+                    {{ globals.languageJson?.status }} <p-sortIcon field="status"></p-sortIcon>
+                </th>
+                <th pSortableColumn="discount_percentage">
+                    Discount % <p-sortIcon field="discount_percentage"></p-sortIcon>
+                </th>
+                <th pSortableColumn="active_users">
+                    {{ globals.languageJson?.active_users }} <p-sortIcon field="active_users"> </p-sortIcon>
+                </th>
+                <th pSortableColumn="actions">
+                    {{ globals.languageJson?.actions }} <p-sortIcon field="actions"> </p-sortIcon>
+                </th>
+                <th style="width: 5%"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr>
+                <td class="fnt-14">{{ item.name }}</td>
+                <td class="fnt-14">
+                    {{
+                        customerType === 'micro-roasters'
+                            ? (item.founded_on | date: 'M/d/yy, h:mm a')
+                            : (item.created_at | date: 'M/d/yy, h:mm a')
+                    }}
+                </td>
+                <td class="fnt-14">
+                    <span *ngIf="item.status === 'PENDING'">{{ item.status }}</span>
+                    <span *ngIf="item.status === 'ACTIVE'" class="active d-flex"
+                        ><div class="active-dot"></div>
+                        Active</span
+                    >
+                    <span *ngIf="item.status === 'INACTIVE'" class="disabled d-flex"
+                        ><div class="disabled-dot"></div>
+                        Disabled</span
+                    >
+                </td>
+                <td class="fnt-14">{{ item.discount_percentage }}</td>
+                <td class="fnt-14">
+                    {{ customerType === 'micro-roasters' ? item.total_employees : item.active_users }}
+                </td>
+                <td class="view-listing" (click)="shareDetails(item)">View Details</td>
+                <td id="customer-contract-popup">
+                    <a
+                        class="menu-arrow"
+                        [popover]="poplistTemplate"
+                        placement="left"
+                        [outsideClick]="true"
+                        #pop="bs-popover"
+                    >
+                        <p><img class="ellipse-image" src="assets/images/more-opns-file.png" alt="" /></p>
+                    </a>
+                    <ng-template #poplistTemplate id="{{ item.id }}">
+                        <div id="popover-mobile-content">
+                            <ul class="list-group custom-popover">
+                                <li class="list-group-item">
+                                    <a class="pointer-item" (click)="pop.hide(); customer.stimulatedLogin(item.id)"
+                                        >Simulated login</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </ng-template>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<div class="estate-table pt-md-2 mobile-farm">
+    <div class="table-details mobile-farm">
+        <div class="table-responsive border-sourcetable agreement-top">
+            <div
+                class="col-12 mb-3 bor-ebe"
+                *ngFor="let data of sortedMainData | filter: searchTerm | filter: estatetermOrigin"
+            >
+                <div class="row" (click)="shareDetails(data)">
+                    <div class="col-12 mobile-ce p-0">
+                        <div class="d-flex justify-content-between bg-f4f4 py-2 px-3 name-header">
+                            <div>
+                                <p class="black fnt-14">{{ data.name }}</p>
+                            </div>
+                        </div>
+                        <div class="bor-bot-d6d6 mx-3 py-3 row">
+                            <div class="col-5 p-0">
+                                <p class="light-eight fnt-14">Active users</p>
+                            </div>
+                            <div class="col-7 p-0">
+                                <p class="fnt-14">
+                                    {{ customerType === 'micro-roasters' ? data.total_employees : data.active_users }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bor-bot-d6d6 mx-3 py-3 row">
+                            <div class="col-5 p-0">
+                                <p class="light-eight fnt-14">Discount%</p>
+                            </div>
+                            <div class="col-7 p-0">
+                                <p class="fnt-14">{{ data.discount_percentage }}</p>
+                            </div>
+                        </div>
+                        <div class="row mx-3 mb-3 br-4 pt-3 bg-f4f4 mt-2">
+                            <div class="col-12 pl-2">
+                                <p class="black fnt-14 pb-1">
+                                    <span *ngIf="data.status === 'PENDING'">{{ data.status }}</span>
+                                    <span *ngIf="data.status === 'ACTIVE'" class="active d-flex"
+                                        ><div class="active-dot"></div>
+                                        Active</span
+                                    >
+                                    <span *ngIf="data.status === 'INACTIVE'" class="disabled d-flex"
+                                        ><div class="disabled-dot"></div>
+                                        Disabled</span
+                                    >
+                                </p>
+                            </div>
+                            <div class="col-12 pl-2">
+                                <p class="fnt-12 pb-2">
+                                    <span class="light-eight fnt-12">Created on : </span
+                                    >{{
+                                        customerType === 'micro-roasters'
+                                            ? (data.founded_on | date: 'M/d/yy, h:mm a')
+                                            : (data.created_at | date: 'M/d/yy, h:mm a')
+                                    }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

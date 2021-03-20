@@ -1,0 +1,41 @@
+.discount-sec {
+    margin: 1rem 0rem;
+    @media (min-width: 992px) {
+        margin: 1rem 0rem;
+    }
+}
+.discount-border {
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
+    padding: 1rem;
+    @media (min-width: 992px) {
+        padding: 1.5rem;
+    }
+}
+.edit-border {
+    @media (max-width: 480px) {
+        border-top: 2px dashed #d6d6d6;
+    }
+}
+
+.border-contact {
+    border-right: solid 1px #ebebeb;
+    @media (max-width: 767px) {
+        border-right: solid 0px #ebebeb;
+    }
+}
+
+.main-bag {
+    position: relative;
+    right: 7%;
+    @media (max-width: 480px) {
+        position: absolute;
+        top: 83%;
+        right: 39%;
+    }
+}
+
+.customer-status-width {
+    max-width: 48%;
+    margin-left: 2%;
+}

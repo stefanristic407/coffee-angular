@@ -7,7 +7,20 @@
 }
 
 .bg-fff {
-    padding: 1rem 2rem 2rem 2rem;
+    padding: 3rem;
+}
+.message-icon {
+    width: 14px;
+    height: 14px;
+}
+
+@media (max-width: 480px) {
+    .bg-fff {
+        padding: 1rem;
+    }
+    .discount-sec {
+        margin: 0rem;
+    }
 }
 
 .discount-sec {
@@ -66,7 +79,7 @@
 .estate-message {
     font-family: Muli;
     font-size: 14px;
-    font-weight: 500
+    font-weight: 500;
 }
 
 .back-page a {
@@ -77,9 +90,15 @@
     text-decoration: none;
     font-weight: 600;
 }
-@media (max-width:767px) {
+@media (max-width: 767px) {
     .customer-status-width {
         max-width: 100%;
         margin-left: 0%;
+    }
+}
+
+@media (max-width: 480px) {
+    .pending-border {
+        border-bottom: 2px dashed #d6d6d6;
     }
 }
