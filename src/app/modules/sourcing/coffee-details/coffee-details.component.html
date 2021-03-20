@@ -1,7 +1,7 @@
 <section *ngIf="isLoaded; else loading">
     <div class="main-block">
         <div class="w-100 pb-3">
-            <a class="back-page" routerLink="/sourcing/coffee-list"> {{ globals.languageJson?.back }}</a>
+            <a class="back-page" routerLink="/sourcing/coffee-list"> {{ 'back' | translate }}</a>
         </div>
         <div class="solid-divider d-md-none mx-n3"></div>
 
@@ -10,7 +10,7 @@
                 <div class="d-flex align-items-center">
                     <div class="d-inline-block mr-2 pr-1">
                         <app-avatar
-                            [size]="globals.device === 'mobile' ? 48 : 54"
+                            [size]="(isMobile$ | async) ? 48 : 54"
                             [src]="sourcing.harvestDetail?.estate_profile_image_thumbnail_url"
                             [name]="sourcing.harvestDetail?.estate_name"
                         ></app-avatar>
@@ -36,15 +36,29 @@
         </div>
 
         <div class="">
-            <div class="border-md-main br-4 content-block">
+            <div class="border-lg-main br-4 content-block">
                 <div class="row">
-                    <div class="col-12 col-lg-5 col-md-5 left-block">
-                        <div class="prodect-gal mb-4 mb-md-5">
-                            <gallery id="basic-test" class="bg-white" [items]="items" gallerize></gallery>
+                    <div class="col-lg-5 left-block">
+                        <div class="d-flex justify-content-center">
+                            <div class="prodect-gal w-100 mb-4 mb-md-5">
+                                <gallery
+                                    *ngIf="sourcing.harvestDetail?.images?.length; else noImages"
+                                    class="bg-white gallery-wrap"
+                                    [items]="items"
+                                    [thumbHeight]="(isMobile$ | async) ? 66 : 64"
+                                    [thumbWidth]="(isMobile$ | async) ? 73 : 103"
+                                    gallerize
+                                ></gallery>
+                                <ng-template #noImages>
+                                    <div class="no-image">
+                                        <img src="assets/images/empty.svg" alt="Empty" class="empty" />
+                                    </div>
+                                </ng-template>
+                            </div>
                         </div>
-                        <div class="certify-green d-none d-md-block" *ngIf="sourcing.availableCertify != ''">
+                        <div class="certify-green d-none d-lg-block" *ngIf="sourcing.availableCertify != ''">
                             <h5 class="fnt-16 fnt-md-18 fnt-bold text-clr000">Certificates</h5>
-                            <div class="pt-3 d-none d-md-block">
+                            <div class="pt-3">
                                 <img
                                     *ngFor="let cert of sourcing.availableCertify"
                                     [src]="cert.certificate_type_id | certificateImg"
@@ -53,24 +67,24 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-7 col-md-7 right-block">
+                    <div class="col-lg-7 right-block">
                         <div class="mx-n2 mx-md-0">
-                            <div class="border-main border-md-none br-4 p-3 p-md-0">
-                                <div class="mb-2 mb-md-4">
+                            <div class="border-main border-lg-0 br-4 p-3 p-lg-0">
+                                <div class="mb-2 mb-md-3 mb-lg-4">
                                     <a
-                                        class="custom-link"
+                                        class="custom-link fnt-14"
                                         routerLink="/sourcing/lot-details/{{ sourcing.harvestDetail?.estateId }}/{{
                                             sourcing.harvestDetail?.lot_id
                                         }}"
                                     >
-                                        {{ globals.languageJson?.lot_id }} - {{ sourcing.harvestDetail?.lot_id }}
+                                        {{ 'lot_id' | translate }} - {{ sourcing.harvestDetail?.lot_id }}
                                     </a>
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <h2 class="fnt-16 fnt-md-18 fnt-bold text-clr334 mb-1">
                                         {{ sourcing.harvestDetail?.name }}
                                     </h2>
-                                    <div class="d-md-none d-flex">
+                                    <div class="d-lg-none d-flex">
                                         <img
                                             *ngFor="let cert of sourcing.availableCertify"
                                             [src]="cert.certificate_type_id | certificateImg"
@@ -91,25 +105,25 @@
                                 </p>
 
                                 <div class="row mt-lg-5 mt-4">
-                                    <div class="col-lg-3 col-md-5 col-5">
+                                    <div class="col-lg-3 col-md-3 col-5">
                                         <div class="real-estate p-prices">
-                                            <h6>{{ globals.languageJson?.price }} :</h6>
-                                            <h3 class="mb-0">
+                                            <h6>{{ 'price' | translate }} :</h6>
+                                            <h3 class="ellipsis mb-0">
                                                 {{ sourcing.harvestDetail?.price_unit
                                                 }}{{ sourcing.harvestDetail?.price }} USD / kg
                                             </h3>
                                         </div>
                                     </div>
-                                    <div class="col-lg-2 col-md-4 col-6 d-none d-lg-block">
+                                    <div class="col-lg-2 col-md-2 col-6 d-none d-md-block">
                                         <div class="real-estate">
                                             <h6>Inco :</h6>
                                             <h3 class="mb-0">{{ sourcing.harvestDetail?.incoterm }}</h3>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-7 col-7 br">
+                                    <div class="col-lg-4 col-md-4 col-7 border-left-primary">
                                         <div class="real-estate">
-                                            <h6>{{ globals.languageJson?.available_quantity }} :</h6>
-                                            <h3 class="mb-0">
+                                            <h6>{{ 'available_quantity' | translate }} :</h6>
+                                            <h3 class="ellipsis mb-0">
                                                 {{ sourcing.harvestDetail?.quantity_count }}
                                                 {{ sourcing.harvestDetail?.quantity_type }} of
                                                 {{ sourcing.harvestDetail?.quantity
@@ -117,9 +131,9 @@
                                             </h3>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3 col-md-4 col-6 d-none d-lg-block br">
+                                    <div class="col-lg-3 col-md-3 col-6 d-none d-md-block border-left-primary">
                                         <div class="real-estate">
-                                            <h6>{{ globals.languageJson?.minimum_quantity }} :</h6>
+                                            <h6>{{ 'minimum_quantity' | translate }} :</h6>
                                             <h3 class="mb-0">
                                                 {{ sourcing.harvestDetail?.initial_quantity
                                                 }}{{ sourcing.harvestDetail?.quantity_type }}
@@ -134,7 +148,7 @@
                                             <div class="real-estate mt-0">
                                                 <h6 class="mt-0">12 Feb, 2020</h6>
                                                 <h3>
-                                                    {{ globals.languageJson?.cup_score }} :
+                                                    {{ 'cup_score' | translate }} :
                                                     {{ sourcing.harvestDetail?.cupping?.cup_score }}
                                                 </h3>
                                             </div>
@@ -143,7 +157,7 @@
                                             <div class="real-estate d-flex mt-3 mt-md-0">
                                                 <div class="mr-2 mr-md-3">
                                                     <app-avatar
-                                                        [size]="globals.device === 'mobile' ? 32 : 40"
+                                                        [size]="(isMobile$ | async) ? 32 : 40"
                                                         [src]="sourcing.harvestDetail?.cupping?.evaluator_dp_thumb"
                                                         [name]="sourcing.harvestDetail?.cupping?.evaluator_name"
                                                     ></app-avatar>
@@ -157,7 +171,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-sm-6 mt-2 text-left text-md-right">
-                                            <a class="custom-link">{{ globals.languageJson?.view_report }} </a>
+                                            <a class="custom-link">{{ 'view_report' | translate }} </a>
                                         </div>
                                     </div>
                                 </div>
@@ -167,12 +181,12 @@
                                 </div>
                             </div>
 
-                            <div class="px-3 p-md-0">
-                                <div class="col-md-10 px-0 row gutter-8 gutter-md-16 mt-md-5 mt-4 mb-4 mb-md-5">
-                                    <div class="col-6 col-lg-4 mb-45 pb-md-2">
+                            <div class="px-3 p-lg-0">
+                                <div class="col-lg-10 px-0 row gutter-8 gutter-md-16 mt-md-5 mt-4 mb-4 mb-md-5">
+                                    <div class="col-6 col-md-4 col-lg-4 mb-45 pb-md-2">
                                         <div class="real-estate">
                                             <img src="assets/images/varient.svg" />
-                                            <h6>{{ globals.languageJson?.species }}</h6>
+                                            <h6>{{ 'species' | translate }}</h6>
                                             <h3 class="elipsis">
                                                 {{ sourcing.harvestDetail?.species.split(',')[0] || 'NA' }}
                                                 {{
@@ -183,10 +197,10 @@
                                             </h3>
                                         </div>
                                     </div>
-                                    <div class="col-6 col-lg-4 mb-45 pb-md-2">
+                                    <div class="col-6 col-md-4 col-lg-4 mb-45 pb-md-2">
                                         <div class="real-estate">
                                             <img src="assets/images/estate.svg" />
-                                            <h6>{{ globals.languageJson?.variety }}</h6>
+                                            <h6>{{ 'variety' | translate }}</h6>
                                             <h3>
                                                 {{ sourcing.harvestDetail?.varieties.split(',')[0] || 'NA' }}
                                                 {{
@@ -198,24 +212,24 @@
                                             </h3>
                                         </div>
                                     </div>
-                                    <div class="col-6 col-lg-4 mb-45 pb-md-2">
+                                    <div class="col-6 col-md-4 col-lg-4 mb-45 pb-md-2">
                                         <div class="real-estate">
                                             <img src="assets/images/harveaster.svg" />
                                             <h6>Harvest Month</h6>
                                             <h3>{{ sourcing.harvestDetail?.harvest_date | date: 'MMMM, y' }}</h3>
                                         </div>
                                     </div>
-                                    <div class="col-6 col-lg-4">
+                                    <div class="col-6 col-md-4 col-lg-4">
                                         <div class="real-estate">
                                             <img src="assets/images/flavour-image.svg" />
-                                            <h6>{{ globals.languageJson?.flavour_profile }}</h6>
+                                            <h6>{{ 'flavour_profile' | translate }}</h6>
                                             <h3 *ngIf="sourcing.harvestDetail?.flavours != null">
                                                 {{ sourcing.harvestDetail?.flavours }}
                                             </h3>
                                             <h3 *ngIf="sourcing.harvestDetail?.flavours == null">NA</h3>
                                         </div>
                                     </div>
-                                    <div class="col-6 col-lg-4">
+                                    <div class="col-6 col-md-4 col-lg-4">
                                         <div class="real-estate">
                                             <img src="assets/images/altitute.svg" />
                                             <h6>Altitude range</h6>
@@ -229,9 +243,9 @@
                                 </div>
                             </div>
 
-                            <div class="estate-focus with-last-border border-main border-md-none br-4 p-3 p-md-0">
+                            <div class="estate-focus with-last-border border-main border-lg-0 br-4 p-3 p-lg-0">
                                 <h3 class="fnt-16 fnt-md-18 fnt-bold text-clr000">
-                                    {{ globals.languageJson?.estate_details }}
+                                    {{ 'estate_details' | translate }}
                                 </h3>
                                 <ul class="clearfix">
                                     <li>
@@ -300,7 +314,7 @@
     <div class="bg-white br-4 pl-2 px-md-3 px-lg-5 py-3 py-lg-4 mt-4">
         <div class="px-0">
             <div class="fnt-16 fnt-md-18 fnt-bold text-clr000 mt-lg-2 mb-3 mb-lg-4">
-                {{ globals.languageJson?.estates_other_green_coffee }}
+                {{ 'estates_other_green_coffee' | translate }}
             </div>
             <div
                 *ngIf="sourcing.otherGreenList && sourcing.otherGreenList.length; else noOtherCoffee"
@@ -353,12 +367,7 @@
 </ng-template>
 
 <ng-template #loading>
-    <div class="total-loader">
-        <div>
-            <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
-            <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
-        </div>
-    </div>
+    <app-loading></app-loading>
 </ng-template>
 
 <ng-template #noOtherCoffee>
