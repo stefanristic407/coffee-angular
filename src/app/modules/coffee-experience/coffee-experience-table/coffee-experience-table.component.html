@@ -1,0 +1,189 @@
+<div class="d-flex justify-content-between mt-4">
+    <div class="d-flex">
+        <div>
+            <p-dropdown
+                scrollHeight="225px"
+                (onChange)="filterOrigin()"
+                [showClear]="true"
+                [options]="originData"
+                [(ngModel)]="selectedOrigin"
+                placeholder="Origin"
+                styleClass="round-border mr-25 mb-2"
+            ></p-dropdown>
+        </div>
+        <div>
+            <p-calendar
+                [(ngModel)]="rangeDates"
+                (onSelect)="filterDate()"
+                [showIcon]="true"
+                dateFormat="dd.mm.yy"
+                [readonlyInput]="true"
+                [showButtonBar]="true"
+                selectionMode="range"
+                yearRange="2000:2030"
+                placeholder="Date range"
+                styleClass="round-border range-picker"
+            ></p-calendar>
+        </div>
+    </div>
+    <div class="web-farm">
+        <p-dropdown
+            [options]="displayItems"
+            [(ngModel)]="filterDisplay"
+            (onChange)="getOrdersData()"
+            scrollHeight="225px"
+            placeholder="Display"
+            [autoDisplayFirst]="false"
+            styleClass="round-border {{ filterDisplay ? 'highlight' : '' }}"
+        ></p-dropdown>
+    </div>
+</div>
+
+<div class="estate-table web-farm pt-4">
+    <p-table class="coffee-experience-table" [value]="filteredCoffeeData" sortMode="multiple">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="order_id" class="order">
+                    {{ globals.languageJson?.order_id }}<p-sortIcon field="order_id"> </p-sortIcon>
+                </th>
+                <th pSortableColumn="estate_name">
+                    {{
+                        customerType !== 'hrc' ? globals.languageJson?.estate_name : globals.languageJson?.name_customer
+                    }}
+                    <p-sortIcon field="estate_name"> </p-sortIcon>
+                </th>
+                <th *ngIf="customerType === 'estate'" pSortableColumn="origin" class="variety">
+                    {{ globals.languageJson?.origin }}<p-sortIcon field="origin"> </p-sortIcon>
+                </th>
+                <th *ngIf="customerType !== 'estate'" pSortableColumn="product_name">
+                    {{ globals.languageJson?.product_name }}<p-sortIcon field="product_name"></p-sortIcon>
+                </th>
+
+                <th pSortableColumn="date_ordered">
+                    {{ globals.languageJson?.date_ordered }}<p-sortIcon field="date_ordered"></p-sortIcon>
+                </th>
+                <th *ngIf="customerType === 'estate'" pSortableColumn="date_recieved">
+                    Date recieved<p-sortIcon field="date_recieved"></p-sortIcon>
+                </th>
+                <th *ngIf="customerType !== 'hrc'" pSortableColumn="variety" class="variety">
+                    {{ globals.languageJson?.variety }}<p-sortIcon field="variety"></p-sortIcon>
+                </th>
+                <th *ngIf="customerType === 'hrc'" pSortableColumn="roast_level">
+                    {{ globals.languageJson?.roast_level }}<p-sortIcon field="roast_level"></p-sortIcon>
+                </th>
+                <th pSortableColumn="quantity" class="quantity">
+                    {{ globals.languageJson?.quantity }}<p-sortIcon field="quantity"> </p-sortIcon>
+                </th>
+                <th *ngIf="customerType !== 'hrc'" pSortableColumn="cupping_score">
+                    {{ globals.languageJson?.cupping_score }}<p-sortIcon field="cupping_score"> </p-sortIcon>
+                </th>
+                <th pSortableColumn="actions" class="order">
+                    {{ globals.languageJson?.actions }}<p-sortIcon field="actions"> </p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr>
+                <td class="fnt-14">{{ customerType === 'hrc' ? item.order_id : item.id }}</td>
+                <td class="fnt-14">{{ customerType === 'hrc' ? item.horeca_name : item.estate_name }}</td>
+                <td *ngIf="customerType === 'estate'" class="fnt-14">{{ getCountryName(item.origin) }}</td>
+                <td class="fnt-14">
+                    {{ customerType === 'estate' ? (item.created_at | date: 'mediumDate') : item.product_name }}
+                </td>
+                <td *ngIf="customerType !== 'estate'" class="fnt-14">
+                    {{
+                        customerType !== 'hrc'
+                            ? (item.created_at | date: 'mediumDate')
+                            : (item.order_date | date: 'mediumDate')
+                    }}
+                </td>
+                <td *ngIf="customerType === 'estate'" class="fnt-14">
+                    {{ item.date_received | date: 'mediumDate' }}
+                </td>
+                <td *ngIf="customerType !== 'hrc'" class="fnt-14">{{ item.varieties }}</td>
+                <td *ngIf="customerType === 'hrc'" class="fnt-14">{{ item.roast_level }}</td>
+                <td class="fnt-14">{{ item.quantity }}</td>
+                <td *ngIf="customerType !== 'hrc'" class="fnt-14">{{ item.cup_score }}</td>
+
+                <td class="view-listing">View Details</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<div class="pt-md-2 mobile-farm">
+    <div class="table-details mobile-farm">
+        <div class="table-responsive border-sourcetable agreement-top">
+            <div class="col-12 mb-3 bor-ebe" *ngFor="let item of coffeeExperienceData">
+                <div class="row">
+                    <div class="col-12 mobile-ce p-0">
+                        <div class="d-flex justify-content-between bg-f4f4 py-2 px-3 name-header">
+                            <div>
+                                <p class="black fnt-14">
+                                    Order #{{ customerType === 'hrc' ? item.order_id : item.id }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bor-bot-d6d6 mx-3 py-3 row">
+                            <div class="col-5 p-0">
+                                <p class="light-eight fnt-14">
+                                    {{
+                                        customerType !== 'hrc'
+                                            ? globals.languageJson?.estate_name
+                                            : globals.languageJson?.name_customer
+                                    }}
+                                </p>
+                            </div>
+                            <div class="col-7 p-0">
+                                <p class="fnt-14">
+                                    {{ customerType === 'hrc' ? item.horeca_name : item.estate_name }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bor-bot-d6d6 mx-3 py-3 row">
+                            <div class="col-5 p-0">
+                                <p class="light-eight fnt-14">{{ globals.languageJson?.origin }}</p>
+                            </div>
+                            <div class="col-7 p-0">
+                                <p class="fnt-14">{{ getCountryName(item.origin) }}</p>
+                            </div>
+                        </div>
+                        <div class="bor-bot-d6d6 mx-3 py-3 row">
+                            <div class="col-5 p-0">
+                                <p class="light-eight fnt-14">Date recieved</p>
+                            </div>
+                            <div class="col-7 p-0">
+                                <p class="fnt-14">{{ item.date_received | date: 'mediumDate' }}</p>
+                            </div>
+                        </div>
+                        <!-- <div class="row mx-3 mb-3 br-4 pt-3 bg-f4f4 mt-2">
+                            <div class="col-12 pl-2">
+                                <p class="black fnt-14 pb-1">
+                                    <span *ngIf="data.status === 'PENDING'">{{ data.status }}</span>
+                                    <span *ngIf="data.status === 'ACTIVE'" class="active d-flex"
+                                        ><div class="active-dot"></div>
+                                        Active</span
+                                    >
+                                    <span *ngIf="data.status === 'INACTIVE'" class="disabled d-flex"
+                                        ><div class="disabled-dot"></div>
+                                        Disabled</span
+                                    >
+                                </p>
+                            </div>
+                            <div class="col-12 pl-2">
+                                <p class="fnt-12 pb-2">
+                                    <span class="light-eight fnt-12">Created on : </span
+                                    >{{
+                                        customerType === 'micro-roasters'
+                                            ? (data.founded_on | date: 'mediumDate')
+                                            : (data.created_at | date: 'mediumDate')
+                                    }}
+                                </p>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

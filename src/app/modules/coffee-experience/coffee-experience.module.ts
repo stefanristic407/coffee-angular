@@ -9,17 +9,17 @@ import { SharedModule } from '@shared';
 import { EstateOrdersTableComponent } from './estate-orders-table/estate-orders-table.component';
 import { MicroRoasterOrdersTableComponent } from './micro-roaster-orders-table/micro-roaster-orders-table.component';
 import { HorecaOrdersTableComponent } from './horeca-orders-table/horeca-orders-table.component';
-
+import { CoffeeExperienceTableComponent } from './coffee-experience-table/coffee-experience-table.component';
 
 @NgModule({
-    declarations: [CoffeeExperienceComponent, DefaultSettingsComponent, EstateOrdersTableComponent, MicroRoasterOrdersTableComponent, HorecaOrdersTableComponent],
-    imports: [
-        CommonModule,
-        CoffeeExperienceRoutingModule,
-        ReactiveFormsModule,
-        FormsModule,
-        SharedModule
+    declarations: [
+        CoffeeExperienceComponent,
+        DefaultSettingsComponent,
+        EstateOrdersTableComponent,
+        MicroRoasterOrdersTableComponent,
+        HorecaOrdersTableComponent,
+        CoffeeExperienceTableComponent,
     ],
+    imports: [CommonModule, CoffeeExperienceRoutingModule, ReactiveFormsModule, FormsModule, SharedModule],
 })
-export class CoffeeExperienceModule {
-}
+export class CoffeeExperienceModule {}
