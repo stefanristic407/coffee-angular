@@ -116,7 +116,7 @@
                             *ngIf="orderId && orgType"
                             [routerLink]="orderId | orderRatingLink: orgType"
                         >
-                            {{ 'leave_a_feedback' | translate }}
+                            {{ ((isReviewed$ | async) ? 'view_feedback' : 'leave_a_feedback') | translate }}
                         </button>
                         <button
                             type="button"

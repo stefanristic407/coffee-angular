@@ -14,6 +14,8 @@ import { takeUntil } from 'rxjs/operators';
 export class OrderTimelineComponent extends ResizeableComponent implements OnInit {
     readonly OrgTypes = OrgType;
 
+    readonly isReviewed$ = this.orderService.isReviewed$;
+
     timelinePoints: LabelValue[] = [];
     activities: RecentActivity[] = [];
     order: OrderDetails;

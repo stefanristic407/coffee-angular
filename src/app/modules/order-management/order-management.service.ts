@@ -28,6 +28,7 @@ import {
     AvailabilityRequestService,
     UserService,
     LotsService,
+    ReviewsService,
 } from '@services';
 import * as _ from 'lodash';
 import * as moment from 'moment';
@@ -52,6 +53,7 @@ export class OrderManagementService {
     // TODO: Move into user service as "current user profile" after refactoring
     private readonly userProfileSubject = new BehaviorSubject<UserProfile>(null);
     private readonly lotDetailsSubject = new BehaviorSubject<LotDetails>(null);
+    private readonly isReviewedSubject = new BehaviorSubject(false);
 
     private orderId: number;
 
@@ -66,6 +68,7 @@ export class OrderManagementService {
         private requestSrv: AvailabilityRequestService,
         private userSrv: UserService,
         private lotsSrv: LotsService,
+        private reviewSrv: ReviewsService,
     ) {}
 
     get orderDetails$(): Observable<OrderDetails> {
@@ -110,6 +113,10 @@ export class OrderManagementService {
 
     get lotDetails$(): Observable<LotDetails> {
         return this.lotDetailsSubject.asObservable();
+    }
+
+    get isReviewed$(): Observable<boolean> {
+        return this.isReviewedSubject.asObservable();
     }
 
     getOrders(organizationType: OrgType): Observable<ApiResponse<OrderSummary[]>> {
@@ -206,6 +213,7 @@ export class OrderManagementService {
                     this.loadDocuments(1, 5, rewrite);
                     this.loadOrderNotes(orderId);
                     this.loadUserProfile();
+                    this.checkReviews(orderId, orgType);
 
                     if (details.order_type === OrderType.Prebook) {
                         this.loadLotDetails(details.estate_id, details.lot_id);
@@ -286,6 +294,12 @@ export class OrderManagementService {
                     this.lotDetailsSubject.next(res);
                 }
             },
+        });
+    }
+
+    private checkReviews(orderId: number, orgType: OrgType) {
+        this.reviewSrv.getOrderReviews(orderId, orgType).subscribe({
+            next: (res) => this.isReviewedSubject.next(res.length > 0),
         });
     }
 }
