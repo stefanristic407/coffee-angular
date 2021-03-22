@@ -193,9 +193,9 @@ export class OrderManagementService {
                     this.orderDetailsSubject.next(details);
 
                     this.loadActivities(orderId, orgType);
-                    this.loadBulkDetails(details.harvestId);
-                    this.loadCuppingScore(details.harvestId, orgType);
-                    this.loadEstateDetails(details.estateId);
+                    this.loadBulkDetails(details.harvest_id);
+                    this.loadCuppingScore(details.harvest_id, orgType);
+                    this.loadEstateDetails(details.estate_id);
                     this.loadDocuments(1, 5, rewrite);
                     this.loadOrderNotes(orderId);
                     this.loadUserProfile();
@@ -262,18 +262,9 @@ export class OrderManagementService {
         this.userSrv.getUserProfile().subscribe({
             next: (res) => {
                 if (res.success) {
-                    this.userProfileSubject.next(toCamelCase<UserProfile>(res.result));
+                    this.userProfileSubject.next(res.result);
                 }
             },
         });
-
-        // this.cookieSrv.get('roaster_id')
-        // this.brandProfileSrc.getProfile(OrgType.ROASTER, +this.cookieSrv.get('roaster_id')).subscribe({
-        //     next: (res) => {
-        //         if (res) {
-        //             this.userProfileSubject.next(toCamelCase<OrganizationDetails>(res));
-        //         }
-        //     },
-        // });
     }
 }

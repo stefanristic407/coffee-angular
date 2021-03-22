@@ -1,10 +1,10 @@
 export interface OrderNote {
     id: number;
     userId: number;
-    firstName: string;
-    lastName: string;
+    first_name: string;
+    last_name: string;
     dp: string;
-    dpThumb: string;
+    dp_thumb: string;
     comment: string;
-    createdAt: string;
+    created_at: string;
 }

@@ -1,14 +1,13 @@
 <div class="d-flex">
-  <div class="pull-left font-bold text-clr334" [class.fnt-18]="!orderConfirmation" [class.fnt-14]="orderConfirmation">{{
-    'delivery_address' | translate }}</div>
+    <div class="pull-left font-bold text-clr334" [class.fnt-18]="!orderConfirmation" [class.fnt-14]="orderConfirmation">
+        {{ 'delivery_address' | translate }}
+    </div>
 </div>
-<div class="d-flex mt-1 text-clr588 fnt-14 fnt-500" *ngIf="order?.shippingAddress">
-  {{ order.shippingAddress.addressLine1 }},
-  {{ order.shippingAddress.addressLine2 }},
-  {{ order.shippingAddress.zipcode }} -
-  {{ order.shippingAddress.state }},
-  {{ commonService.getCountryName(order.shippingAddress.country) }}
+<div class="d-flex mt-1 text-clr588 fnt-14 fnt-500" *ngIf="order?.shipping_address">
+    {{ order.shipping_address.address_line1 }}, {{ order.shipping_address.address_line2 }},
+    {{ order.shipping_address.zipcode }} - {{ order.shipping_address.state }},
+    {{ commonService.getCountryName(order.shipping_address.country) }}
 </div>
 <div class="d-flex-column mt-3">
-  <agm-map [latitude]="latitude" [longitude]="longitude"></agm-map>
+    <agm-map [latitude]="latitude" [longitude]="longitude"></agm-map>
 </div>

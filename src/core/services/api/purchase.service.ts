@@ -32,7 +32,7 @@ export class PurchaseService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `${this.getOrgEndpoint(orgType)}/${orderId}`, 'GET').pipe(
             map((response) => {
                 if (response.success && response.result.id) {
-                    const details = toCamelCase<OrderDetails>(response.result);
+                    const details = response.result;
                     details.orderType = details.orderType || details.type;
 
                     details.uploadShow = true;
@@ -66,13 +66,11 @@ export class PurchaseService extends ApiService {
             map((res) => {
                 if (res.success) {
                     res.result = res.result || [];
-                    const arr = res.result
-                        .map((x) => toCamelCase<OrderSummary>(x))
-                        .map((x) => ({
-                            ...x,
-                            status: this.getLabel(ORDER_STATUS_ITEMS, x.status),
-                            type: this.getLabel(ORDER_TYPE_ITEMS, x.type),
-                        }));
+                    const arr = res.result.map((x) => ({
+                        ...x,
+                        status: this.getLabel(ORDER_STATUS_ITEMS, x.status),
+                        type: this.getLabel(ORDER_TYPE_ITEMS, x.type),
+                    }));
 
                     return { ...res, result: arr };
                 }
@@ -95,7 +93,7 @@ export class PurchaseService extends ApiService {
     getOrderNotes(orderId: number): Observable<OrderNote[]> {
         return this.postWithOrg(this.orgPostUrl, `${this.endpoint}/${orderId}/notes`).pipe(
             map((response) => {
-                return response.success && response.result ? response.result.map((x) => toCamelCase<OrderNote>(x)) : [];
+                return response.success && response.result ? response.result : [];
             }),
         );
     }

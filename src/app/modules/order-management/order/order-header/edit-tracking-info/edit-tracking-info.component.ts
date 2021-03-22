@@ -33,8 +33,8 @@ export class EditTrackingInfoComponent extends ResizeableComponent implements On
         this.ordersService.orderDetails$.pipe(takeUntil(this.unsubscribeAll$)).subscribe({
             next: (order) => {
                 if (order) {
-                    this.shippingDate = order.shipmentDate ? new Date(order.shipmentDate) : '';
-                    this.trackingUrl = order.trackingLink;
+                    this.shippingDate = order.shipment_date ? new Date(order.shipment_date) : '';
+                    this.trackingUrl = order.tracking_link;
                 }
             },
         });

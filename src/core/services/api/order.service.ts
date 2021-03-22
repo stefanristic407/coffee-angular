@@ -21,7 +21,7 @@ export class OrderService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `orders/${orderId}/documents?${params}`).pipe(
             map((response) => {
                 if (response.success && response.result) {
-                    return response.result.map((x) => toCamelCase<OrderDocument[]>(x));
+                    return response.result;
                 }
 
                 return [];

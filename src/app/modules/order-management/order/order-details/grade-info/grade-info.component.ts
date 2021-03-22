@@ -22,11 +22,11 @@ export class GradeInfoComponent extends DestroyableComponent implements OnInit {
         this.orderService.cuppingScore$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((res) => {
             if (res.length === 1) {
                 res.push({
-                    cuppingDate: null,
-                    evaluatorName: null,
-                    evaluatorType: 'Roaster',
-                    finalScore: null,
-                    totalScore: null,
+                    cupping_date: null,
+                    evaluator_name: null,
+                    evaluator_type: 'Roaster',
+                    final_score: null,
+                    total_score: null,
                 });
 
                 this.cuppingScore = res;

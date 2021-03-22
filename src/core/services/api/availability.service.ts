@@ -21,7 +21,7 @@ export class AvailabilityService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, this.endpoint).pipe(
             map((response) => {
                 if (response.success && response.result) {
-                    return response.result.map((x) => toCamelCase(x));
+                    return response.result;
                 }
 
                 return [];

@@ -1,10 +1,10 @@
 <app-order-header
     [orderId]="orderId"
     [organizationType]="organizationType"
-    [orderType]="orderDetails?.orderType || orderDetails?.type"
-    [statusPaid]="orderDetails?.statusPaid"
-    [createdAt]="orderDetails?.createdAt"
-    [invoiceUrl]="orderDetails?.invoiceUrl"
+    [orderType]="orderDetails?.order_type || orderDetails?.type"
+    [statusPaid]="orderDetails?.status_paid"
+    [createdAt]="orderDetails?.created_at"
+    [invoiceUrl]="orderDetails?.invoice_url"
     [orderStatus]="orderDetails?.status"
 >
 </app-order-header>
@@ -37,7 +37,7 @@
                     </app-order-contacts>
                     <app-create-reference-number
                         class="mt-3"
-                        [refNumber]="orderDetails?.orderReference"
+                        [refNumber]="orderDetails?.order_reference"
                         [orderId]="orderId"
                         *ngIf="!isPrebook && isEstateOrder"
                     ></app-create-reference-number>

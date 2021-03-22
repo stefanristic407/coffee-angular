@@ -22,7 +22,7 @@ export class BrandProfileService extends ApiService {
         return this.post(this.orgPostUrl, `${this.endpoint}/${estateId}/profile/`, 'GET').pipe(
             map((response) => {
                 if (response.success) {
-                    return toCamelCase<OrganizationDetails>(response.result);
+                    return response.result;
                 }
 
                 return null;
@@ -34,7 +34,7 @@ export class BrandProfileService extends ApiService {
         return this.post(this.orgPostUrl, `general/${orgType}/${orgId}/profile`, 'GET').pipe(
             map((response) => {
                 if (response.success) {
-                    return toCamelCase<OrganizationDetails>(response.result);
+                    return response.result;
                 }
                 return null;
             }),

@@ -29,8 +29,8 @@ export class DeliveryAddressComponent extends DestroyableComponent implements On
     ngOnInit(): void {
         this.orderService.orderDetails$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((details) => {
             this.order = details;
-            if (this.order && this.order.shippingAddress) {
-                const address = this.getAddressLine(this.order.shippingAddress);
+            if (this.order && this.order.shipping_address) {
+                const address = this.getAddressLine(this.order.shipping_address);
                 this.geoCoder
                     .geocode({ address })
                     .pipe(takeUntil(this.unsubscribeAll$))
@@ -44,6 +44,6 @@ export class DeliveryAddressComponent extends DestroyableComponent implements On
 
     private getAddressLine(address: Address): string {
         const country = this.commonService.getCountryName(address.country);
-        return `${country} ${address.zipcode} ${address.state} ${address.addressLine1} ${address.addressLine2}`;
+        return `${country} ${address.zipcode} ${address.state} ${address.address_line1} ${address.address_line2}`;
     }
 }

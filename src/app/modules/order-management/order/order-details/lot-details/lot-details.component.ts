@@ -17,15 +17,15 @@ export class LotDetailsComponent {
 
     get quantity(): string {
         if (this.lot && this.lot.quantity) {
-            return `${this.lot.quantity} ${this.lot.quantityType}`;
+            return `${this.lot.quantity} ${this.lot.quantity_type}`;
         }
 
         return '';
     }
 
     get quantityType(): string {
-        if (this.lot && this.lot.quantityType) {
-            return trimCharRight(this.lot.quantityType, 's'); // TODO
+        if (this.lot && this.lot.quantity_type) {
+            return trimCharRight(this.lot.quantity_type, 's'); // TODO
         }
 
         return 'KG';

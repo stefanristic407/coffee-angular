@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ApiService } from './api.service';
-import { environment } from '@env/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
-import { ApiResponse } from '@models';
+import { ApiResponse, UserProfile } from '@models';
 
 @Injectable({
     providedIn: 'root',
@@ -17,7 +16,7 @@ export class UserService extends ApiService {
     // ------------ USER ------------
 
     // View user profile
-    getUserProfile() {
+    getUserProfile(): Observable<ApiResponse<UserProfile>> {
         return this.postWithOrg(this.orgPostUrl, `users/profile`, 'GET');
     }
 

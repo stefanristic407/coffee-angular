@@ -25,7 +25,7 @@ export class DocumentsComponent extends DestroyableComponent implements OnInit {
             this.showLoadMore = this.documents.length === documents.length;
             this.documents = documents;
             this.owners = this.documents
-                .map((x) => x.fileOwner)
+                .map((x) => x.file_owner)
                 .filter((val, index, arr) => val && arr.indexOf(val) === index)
                 .map((x) => ({ label: x, value: x }));
         });

@@ -30,7 +30,7 @@ export class OrderComponent extends DestroyableComponent implements OnInit {
     }
 
     get isPrebook(): boolean {
-        return this.orderDetails && this.orderDetails.orderType === OrderType.Prebook;
+        return this.orderDetails && this.orderDetails.order_type === OrderType.Prebook;
     }
 
     get isEstateOrder(): boolean {

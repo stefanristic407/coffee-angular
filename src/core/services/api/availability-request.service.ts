@@ -25,7 +25,7 @@ export class AvailabilityRequestService extends ApiService {
                 if (response.success && response.result) {
                     return {
                         ...response,
-                        result: response.result.map((x) => toCamelCase<AvailabilityRequest>(x)),
+                        result: response.result,
                     };
                 }
 
@@ -38,7 +38,7 @@ export class AvailabilityRequestService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `${this.endpoint}/${id}`).pipe(
             map((response) => {
                 if (response.success) {
-                    return toCamelCase<AvailabilityRequest>(response.result);
+                    return response.result;
                 }
 
                 return null;
