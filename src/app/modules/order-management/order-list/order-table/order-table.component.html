@@ -128,7 +128,7 @@
             </th>
             <th pSortableColumn="quantity">
                 <div class="d-flex">
-                    <span class="text-overflow-ellipsis">{{ 'quantity' | translate }}</span>
+                    <span class="text-overflow-ellipsis">{{ 'roaster_reference_no' | translate }}</span>
                     <p-sortIcon
                         field="quantity"
                         ariaLabel="Activate to sort"
@@ -227,7 +227,7 @@
                 {{ rowData.price || rowData.total_price | currency: 'USD' }}
             </td>
             <td class="d-none d-md-table-cell text-overflow-ellipsis">
-                {{ rowData.quantity ? rowData.quantity + ' ' + rowData.quantity_type : '-' }}
+                {{ rowData.order_reference || '-' }}
             </td>
             <td class="d-none d-md-table-cell text-overflow-ellipsis">
                 <span class="fnt-14 fnt-600" [ngClass]="rowData.type">&#9679;&nbsp;{{ rowData.type }}</span>
