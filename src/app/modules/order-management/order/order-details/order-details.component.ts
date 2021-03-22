@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DestroyableComponent } from '@base-components';
+import { DestroyableComponent, ResizeableComponent } from '@base-components';
 import { OrderStatus, OrderType, OrgType } from '@enums';
 import { OrderDetails, OrganizationDetails } from '@models';
-import { GlobalsService } from '@services';
+import { GlobalsService, ResizeService } from '@services';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { takeUntil } from 'rxjs/operators';
 
@@ -11,7 +11,7 @@ import { takeUntil } from 'rxjs/operators';
     templateUrl: './order-details.component.html',
     styleUrls: ['./order-details.component.scss'],
 })
-export class OrderDetailsComponent extends DestroyableComponent implements OnInit {
+export class OrderDetailsComponent extends ResizeableComponent implements OnInit {
     readonly OrderType = OrderType;
     readonly OrderStatus = OrderStatus;
     readonly bulk$ = this.orderService.bulkDetails$;
@@ -25,8 +25,12 @@ export class OrderDetailsComponent extends DestroyableComponent implements OnIni
     @Input() order: OrderDetails;
     @Input() needConfirmation = false;
 
-    constructor(private orderService: OrderManagementService, public globals: GlobalsService) {
-        super();
+    constructor(
+        private resizeSrv: ResizeService,
+        private orderService: OrderManagementService,
+        public globals: GlobalsService,
+    ) {
+        super(resizeSrv);
     }
 
     ngOnInit(): void {

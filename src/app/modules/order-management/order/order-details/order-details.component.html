@@ -16,7 +16,12 @@
             class="have-a-problem"
             *ngIf="globals.permissions['sourcing-management'] && globals.permissions['sourcing-management'].manage"
         >
-            <button type="button" class="btn-raised" [routerLink]="['/dispute-system/order-support-faq', orderId]">
+            <button
+                type="button"
+                class="btn-raised"
+                [routerLink]="['/dispute-system/order-support-faq', orderId]"
+                *ngIf="(isMobile$ | async) && selectedTab === 0"
+            >
                 {{ 'have_a_problem' | translate }}
             </button>
         </div>

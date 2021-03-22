@@ -1,9 +1,16 @@
 <div class="row m-0 pr-md-4">
     <div class="col-12 px-0 mb-1">
         <div class="d-flex justify-content-between">
-            <p-dropdown placeholder="Added by" [showClear]="true" [options]="owners" [(ngModel)]="owner.name"
-                styleClass="round-border mr-25 mb-25 mb-md-4 {{ owner.name ? 'highlight' : '' }}" scrollHeight="225px"
-                optionLabel="label" optionValue="value"></p-dropdown>
+            <p-dropdown
+                placeholder="Added by"
+                [showClear]="true"
+                [options]="owners"
+                [(ngModel)]="owner.name"
+                styleClass="round-border mr-25 mb-25 mb-md-4 {{ owner.name ? 'highlight' : '' }}"
+                scrollHeight="225px"
+                optionLabel="label"
+                optionValue="value"
+            ></p-dropdown>
 
             <div>
                 <div class="btn-trans-icon cursor-pointer p-2" (click)="downloadAll()">
@@ -14,11 +21,13 @@
         </div>
     </div>
     <div class="col-12 px-0">
-        <p-table [value]="documents | arrayFilter: owner.name: 'fileOwner'"
-            styleClass="p-datatable-responsive-single border-none">
+        <p-table
+            [value]="documents | arrayFilter: owner.name:'fileOwner'"
+            styleClass="p-datatable-responsive-single border-none"
+        >
             <ng-template pTemplate="header">
                 <tr>
-                    <th pSortableColumn>{{ 'Document Name' | translate }}</th>
+                    <th class="card-column" pSortableColumn>{{ 'Document Name' | translate }}</th>
                     <th class="w-20" pSortableColumn>{{ 'date_added' | translate }}</th>
                     <th class="w-20" pSortableColumn>{{ 'owner' | translate }}</th>
                     <th class="w-action-column text-center">{{ 'action' | translate }}</th>
@@ -27,26 +36,30 @@
 
             <ng-template pTemplate="body" let-document>
                 <tr>
-                    <td class="text-overflow-ellipsis border-0">
+                    <td class="text-overflow-ellipsis border-0 card-column">
                         <span class="d-none d-md-inline">{{ document.name }}</span>
                         <div class="p-mobile-row-content">
-                            <div class="d-flex ">
+                            <div class="d-flex">
                                 <div class="d-flex flex-column w-100">
-                                    <div class="fnt-14 font-bold text-clr334">{{ document.name }}</div>
-                                    <div class="fnt-12">
-                                        <span class="text-muted">{{'owner' | translate}}:</span>&nbsp;
-                                        <span class="text-clr334">{{ document.fileOwner }}</span>
+                                    <div class="fnt-14 font-bold text-clr334 mb-1 mt-2">{{ document.name }}</div>
+                                    <div class="fnt-12 my-2">
+                                        <span class="text-clr588">{{ 'owner' | translate }}:</span>&nbsp;
+                                        <span class="text-clr334 font-bold">{{ document.file_owner }}</span>
                                     </div>
-                                    <div class="fnt-12">
-                                        <span class="text-muted">{{'date_added' | translate}}:</span>&nbsp;
-                                        <span class="text-clr334">{{ document.dateAdded | date: 'dd/MM/yyyy' }}</span>
+                                    <div class="fnt-12 mt-2">
+                                        <span class="text-clr588">{{ 'added_on' | translate }}:</span>&nbsp;
+                                        <span class="text-clr334">{{ document.date_added | date: 'dd/MM/yyyy' }}</span>
                                     </div>
                                 </div>
 
                                 <div class="download-icon-cell d-flex align-items-center">
-                                    <span class="ml-auto mr-auto" (click)="downloadFile(document)"><img class="pr-2"
+                                    <span class="ml-auto mr-auto" (click)="downloadFile(document)"
+                                        ><img
+                                            class="pr-2"
                                             *ngIf="document.mime == 'image/jpeg' || document.mime == 'image/png'"
-                                            src="assets/images/pdf-doc.svg" alt="download-icon" /></span>
+                                            src="assets/images/pdf.svg"
+                                            alt="download-icon"
+                                    /></span>
                                 </div>
                             </div>
                         </div>
@@ -58,9 +71,13 @@
                         {{ document.fileOwner }}
                     </td>
                     <td class="d-none d-md-table-cell px-0 text-center">
-                        <span (click)="downloadFile(document)"><img class="pr-2"
+                        <span (click)="downloadFile(document)"
+                            ><img
+                                class="pr-2"
                                 *ngIf="document.mime == 'image/jpeg' || document.mime == 'image/png'"
-                                src="assets/images/pdf.svg" alt="download-icon" /></span>
+                                src="assets/images/pdf.svg"
+                                alt="download-icon"
+                        /></span>
                     </td>
                 </tr>
             </ng-template>
