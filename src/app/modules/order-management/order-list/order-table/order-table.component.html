@@ -128,7 +128,7 @@
             </th>
             <th pSortableColumn="quantity">
                 <div class="d-flex">
-                    <span class="text-overflow-ellipsis">{{ 'quantity' | translate }}</span>
+                    <span class="text-overflow-ellipsis">{{ 'roaster_reference_no' | translate }}</span>
                     <p-sortIcon
                         field="quantity"
                         ariaLabel="Activate to sort"
@@ -174,7 +174,7 @@
                 <span class="d-none d-md-inline">{{ rowData.id }}</span>
                 <div class="p-mobile-row-content border-ebebeb p-0" [routerLink]="orgType | orderLink: rowData.id">
                     <div class="d-flex flex-column fnt-12">
-                        <div class="order-header d-flex justify-content-between px-3 py-1">
+                        <div class="order-header d-flex justify-content-between px-3 py-2">
                             <span class="fnt-14 font-bold text-clr334">
                                 {{ 'Order' | translate }} #{{ rowData.id }}
                             </span>
@@ -182,24 +182,30 @@
                         </div>
 
                         <div class="px-3">
-                            <div class="d-flex justify-content-between pt-2">
+                            <div class="d-flex justify-content-between pt-25">
                                 <span class="text-clr334">{{ rowData.status }}</span>
-                                <span class="text-muted">{{ rowData.created_at | date: 'd MMM yyyy' }}</span>
+                                <span class="text-muted">{{ rowData.created_at | date: 'dd/MM/yyyy' }}</span>
                             </div>
 
-                            <div class="mobile-row py-2 d-flex">
+                            <div class="mobile-row py-25 d-flex">
                                 <span class="text-muted cell-header">{{ 'estate_name' | translate }}</span>
                                 <span class="text-clr334">{{ rowData.estate_name }}</span>
                             </div>
-                            <div class="mobile-row py-2 d-flex">
+                            <div class="mobile-row py-25 d-flex">
                                 <span class="text-muted cell-header">{{ 'origin' | translate }}</span>
                                 <span class="text-clr334">
                                     {{ commonService.getCountryName(rowData.origin) }}
                                 </span>
                             </div>
-                            <div class="py-2 d-flex">
+                            <div class="mobile-row py-25 d-flex">
                                 <span class="text-muted cell-header cell-header">{{ 'variety' | translate }}</span>
                                 <span class="text-clr334">{{ rowData.varieties }}</span>
+                            </div>
+                            <div class="py-25 d-flex">
+                                <span class="text-muted cell-header">{{ 'roaster_reference_no' | translate }}</span>
+                                <span class="text-clr334">
+                                    {{ rowData.orderRefence }}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -227,7 +233,7 @@
                 {{ rowData.price || rowData.total_price | currency: 'USD' }}
             </td>
             <td class="d-none d-md-table-cell text-overflow-ellipsis">
-                {{ rowData.quantity ? rowData.quantity + ' ' + rowData.quantity_type : '-' }}
+                {{ rowData.order_reference || '-' }}
             </td>
             <td class="d-none d-md-table-cell text-overflow-ellipsis">
                 <span class="fnt-14 fnt-600" [ngClass]="rowData.type">&#9679;&nbsp;{{ rowData.type }}</span>

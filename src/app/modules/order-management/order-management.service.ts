@@ -13,10 +13,12 @@ import {
     AvailabilityRequest,
     OrderNote,
     UserProfile,
+    LotDetails,
+    Address,
 } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { OrgType } from '@enums';
+import { OrgType, OrderType } from '@enums';
 import {
     AvailabilityService,
     BrandProfileService,
@@ -26,10 +28,11 @@ import {
     CommonService,
     AvailabilityRequestService,
     UserService,
+    LotsService,
+    ReviewsService,
 } from '@services';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import { toCamelCase } from '@utils';
 
 @Injectable({
     providedIn: 'root',
@@ -50,6 +53,8 @@ export class OrderManagementService {
     private readonly orderNotesSubject = new BehaviorSubject<OrderNote[]>([]);
     // TODO: Move into user service as "current user profile" after refactoring
     private readonly userProfileSubject = new BehaviorSubject<UserProfile>(null);
+    private readonly lotDetailsSubject = new BehaviorSubject<LotDetails>(null);
+    private readonly isReviewedSubject = new BehaviorSubject(false);
 
     private orderId: number;
 
@@ -63,6 +68,8 @@ export class OrderManagementService {
         private commonSrv: CommonService,
         private requestSrv: AvailabilityRequestService,
         private userSrv: UserService,
+        private lotsSrv: LotsService,
+        private reviewSrv: ReviewsService,
     ) {}
 
     get orderDetails$(): Observable<OrderDetails> {
@@ -105,6 +112,14 @@ export class OrderManagementService {
         return this.userProfileSubject.asObservable();
     }
 
+    get lotDetails$(): Observable<LotDetails> {
+        return this.lotDetailsSubject.asObservable();
+    }
+
+    get isReviewed$(): Observable<boolean> {
+        return this.isReviewedSubject.asObservable();
+    }
+
     getOrders(organizationType: OrgType): Observable<ApiResponse<OrderSummary[]>> {
         return this.ordersSubjects[organizationType].asObservable();
     }
@@ -131,6 +146,10 @@ export class OrderManagementService {
             shipment_date: moment(shipmentDate).format('yyyy-MM-DD'),
         };
         return this.purchaseSrv.updateShipmentDetails(orderId, payload);
+    }
+
+    updateShippingAddress(orderId: number, shippingAddress: Address): Observable<ApiResponse<any>> {
+        return this.purchaseSrv.updateOrderDetails(orderId, { shipping_address: shippingAddress });
     }
 
     getCuppingReportUrl(harvestId: number): Observable<string> {
@@ -183,7 +202,7 @@ export class OrderManagementService {
         });
     }
 
-    loadOrderDetails(orderId: number, orgType: OrgType): void {
+    loadOrderDetails(orderId: number, orgType: OrgType, skipAdditionalDetails = false): void {
         const rewrite = this.orderId !== orderId;
         this.orderId = orderId;
 
@@ -192,13 +211,20 @@ export class OrderManagementService {
                 if (details) {
                     this.orderDetailsSubject.next(details);
 
-                    this.loadActivities(orderId, orgType);
-                    this.loadBulkDetails(details.harvest_id);
-                    this.loadCuppingScore(details.harvest_id, orgType);
-                    this.loadEstateDetails(details.estate_id);
-                    this.loadDocuments(1, 5, rewrite);
-                    this.loadOrderNotes(orderId);
-                    this.loadUserProfile();
+                    if (!skipAdditionalDetails) {
+                        this.loadActivities(orderId, orgType);
+                        this.loadBulkDetails(details.harvest_id);
+                        this.loadCuppingScore(details.harvest_id, orgType);
+                        this.loadEstateDetails(details.estate_id);
+                        this.loadDocuments(1, 5, rewrite);
+                        this.loadOrderNotes(orderId);
+                        this.loadUserProfile();
+                        this.checkReviews(orderId, orgType);
+
+                        if (details.order_type === OrderType.Prebook) {
+                            this.loadLotDetails(details.estate_id, details.lot_id);
+                        }
+                    }
                 }
             },
         });
@@ -265,6 +291,22 @@ export class OrderManagementService {
                     this.userProfileSubject.next(res.result);
                 }
             },
+        });
+    }
+
+    private loadLotDetails(estateId: number, lotId: number): void {
+        this.lotsSrv.getLotDetails(estateId, lotId).subscribe({
+            next: (res) => {
+                if (res) {
+                    this.lotDetailsSubject.next(res);
+                }
+            },
+        });
+    }
+
+    private checkReviews(orderId: number, orgType: OrgType) {
+        this.reviewSrv.getOrderReviews(orderId, orgType).subscribe({
+            next: (res) => this.isReviewedSubject.next(res.length > 0),
         });
     }
 }

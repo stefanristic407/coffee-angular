@@ -87,10 +87,19 @@ hr {
 }
 
 .list-item {
+    border: none;
+    font-family: 'Muli';
+    font-size: 14px;
+    font-weight: 600 !important;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #747588;
     &:hover {
-        color: #232334;
-        font-weight: 600;
-        background-color: #f8f8f8;
+        color: #232334 !important;
+        font-weight: 600 !important;
+        background-color: #f8f8f8 !important;
     }
 }
 

@@ -15,7 +15,8 @@ export class OrderComponent extends DestroyableComponent implements OnInit {
     readonly OrderType = OrderType;
     readonly OrderStatus = OrderStatus;
 
-    roaster$ = this.ordersService.estateDetails$;
+    readonly roaster$ = this.ordersService.estateDetails$;
+    readonly lotDetails$ = this.ordersService.lotDetails$;
 
     orderId: number;
     organizationType: OrgType;

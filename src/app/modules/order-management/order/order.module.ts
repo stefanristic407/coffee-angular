@@ -25,6 +25,7 @@ import { RoasterNotesComponent } from './roaster-notes/roaster-notes.component';
 import { AddNoteComponent } from './roaster-notes/add-note/add-note.component';
 import { NoteComponent } from './roaster-notes/note/note.component';
 import { EditTrackingInfoComponent } from './order-header/edit-tracking-info/edit-tracking-info.component';
+import { ShippingAddressEditorComponent } from './shipping-address-editor/shipping-address-editor.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule, AgmCoreModule, SharedModule, OrderRoutingModule],
@@ -50,6 +51,7 @@ import { EditTrackingInfoComponent } from './order-header/edit-tracking-info/edi
         AddNoteComponent,
         NoteComponent,
         EditTrackingInfoComponent,
+        ShippingAddressEditorComponent,
     ],
 })
 export class OrderModule {}

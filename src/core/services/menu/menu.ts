@@ -7,8 +7,8 @@ export const menuItems = [
     new Menu(22, 'Quality Control', '/green-grading', null, null, null, false, 2, []),
 
     new Menu(3, 'order_management', null, null, null, null, true, 0, ['sourcing-management']),
-    new Menu(31, 'Estate Orders', '/orders/es', null, null, null, false, 3, []),
-    new Menu(32, 'Micro Roaster Orders', '/orders/mr', null, null, null, false, 3, []),
+    new Menu(31, 'Purchased orders of Estates', '/orders/es', null, null, null, false, 3, []),
+    new Menu(32, 'Orders & Requests by Micro Roasters', '/orders/mr', null, null, null, false, 3, []),
     new Menu(33, 'Customer Sales Orders', '', null, null, null, false, 3, []), // external link, TBD
 
     new Menu(4, 'Inventory', null, null, null, null, true, 0, [

@@ -1,6 +1,14 @@
-<div class="d-flex">
-    <div class="pull-left font-bold text-clr334" [class.fnt-18]="!orderConfirmation" [class.fnt-14]="orderConfirmation">
+<div class="d-flex justify-content-between">
+    <div class="font-bold text-clr334" [class.fnt-18]="!orderConfirmation" [class.fnt-14]="orderConfirmation">
         {{ 'delivery_address' | translate }}
+    </div>
+    <div
+        class="font-bold text-clr55c cursor-pointer"
+        [routerLink]="['/orders', orgType, order?.id, 'edit']"
+        *ngIf="orgType === OrgType.ESTATE"
+    >
+        <img class="mb-1" src="assets/images/icon-edit.svg" />
+        <span class="ml-1">{{ 'edit' | translate }}</span>
     </div>
 </div>
 <div class="d-flex mt-1 text-clr588 fnt-14 fnt-500" *ngIf="order?.shipping_address">

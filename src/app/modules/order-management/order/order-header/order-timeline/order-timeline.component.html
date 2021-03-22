@@ -48,7 +48,7 @@
     </div>
 </ng-template>
 
-<div class="in-order mt-3 pb-lg-2" *ngIf="!showTextBlock">
+<div class="in-order mt-3 pb-lg-2 br-4" *ngIf="!showTextBlock">
     <div class="row">
         <div class="col-12 col-md-12">
             <ng-container *ngIf="(isMobile$ | async) !== true; else mobileTimeline">
@@ -91,30 +91,43 @@
 </ng-template>
 
 <ng-container *ngIf="order && showTextBlock">
-    <div class="in-order mt-4 confirm-shippment">
+    <div class="in-order mt-4 confirm-shippment br-4">
         <div class="row">
-            <div class="col-lg-9 col-md-8 col-sm-12 d-flex px-2 px-md-3">
+            <div class="col-12 d-flex px-2 px-md-3">
                 <div class="img-block d-none d-md-block">
                     <span class="circle-image">
                         <img src="assets/images/timeline-check-active.svg" />
                     </span>
                 </div>
-                <div class="ml-md-3">
-                    <h4 class="fnt-md-26 fnt-sm-18 text-clr334 fnt-play">
-                        {{ 'received_on' | translate }} {{ receivedDate | date: 'd MMMM y' }}
-                    </h4>
-                    <div class="fnt-md-16 fnt-sm-12 text-clr5d pt-2">
-                        {{ 'you_have_successfully_received' | translate }}<br />
-                        {{ 'please_rate_and_review' | translate }}
+                <div class="w-100 ml-md-3 d-flex flex-column flex-md-row justify-content-between">
+                    <div class="d-flex flex-column">
+                        <h4 class="fnt-md-26 fnt-sm-18 text-clr334 fnt-play">
+                            {{ 'received_on' | translate }} {{ receivedDate | date: 'd MMMM y' }}
+                        </h4>
+                        <div class="fnt-md-16 fnt-sm-12 text-clr5d pt-2 fnt-500">
+                            {{ 'you_have_successfully_received' | translate }}<br />
+                            {{ 'please_rate_and_review' | translate }}
+                        </div>
                     </div>
-                    <button
-                        type="submit"
-                        class="btn-raised sm mt-4"
-                        *ngIf="orderId && orgType"
-                        [routerLink]="orderId | orderRatingLink: orgType"
-                    >
-                        {{ 'leave_a_feedback' | translate }}
-                    </button>
+                    <div class="d-flex flex-column justify-content-between h-100">
+                        <button
+                            type="submit"
+                            class="btn-raised sm"
+                            *ngIf="orderId && orgType"
+                            [routerLink]="orderId | orderRatingLink: orgType"
+                        >
+                            {{ ((isReviewed$ | async) ? 'view_feedback' : 'leave_a_feedback') | translate }}
+                        </button>
+                        <button
+                            type="button"
+                            class="btn-stroked sm my-3"
+                            *ngIf="orderId && orgType === OrgTypes.ESTATE"
+                            routerLink="/sourcing/estate-list"
+                        >
+                            {{ 'brose_other_estates' | translate }}
+                        </button>
+                    </div>
+
                     <button
                         type="submit"
                         class="btn-raised pull-right w-100 text-center mt-2 d-md-none"

@@ -1,0 +1,127 @@
+<div class="bg-white container-fluid px-lg-5 py-lg-4" [formGroup]="editorForm">
+    <div class="row mb-2">
+        <div class="col">
+            <p-breadcrumb [model]="breadcrumbs"></p-breadcrumb>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col">
+            <div class="text-clr334 fnt-18 font-bold">{{ 'shipping_address' | translate | titlecase }}</div>
+        </div>
+    </div>
+
+    <div class="row mt-45">
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="d-flex flex-column">
+                <div class="mt-2 mt-md-0 text-clr588 fnt-14">
+                    {{ 'country' | translate }}<span class="text-clr-e5a">*</span>
+                </div>
+                <div class="mt-2">
+                    <p-dropdown
+                        [showClear]="true"
+                        [options]="countries"
+                        optionLabel="label"
+                        optionValue="value"
+                        placeholder="{{ 'country' | translate }}"
+                        [styleClass]="'w-100 py-1' + (editorForm.get('country').value ? ' highlight' : '')"
+                        scrollHeight="225px"
+                        formControlName="country"
+                    ></p-dropdown>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="d-flex flex-column">
+                <div class="mt-2 mt-md-0 text-clr588 fnt-14">{{ 'state' | translate }}</div>
+                <div class="mt-2">
+                    <input
+                        type="text"
+                        class="w-100 br-4 p-3"
+                        [class.highlight]="editorForm.get('state').value"
+                        placeholder="{{ 'state' | translate }}"
+                        pInputText
+                        formControlName="state"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-45">
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="d-flex flex-column">
+                <div class="mt-2 mt-md-0 text-clr588 fnt-14">
+                    {{ 'address' | translate }}<span class="text-clr-e5a">*</span>
+                </div>
+                <div class="mt-2">
+                    <input
+                        type="text"
+                        class="w-100 br-4 p-3"
+                        [class.highlight]="editorForm.get('address_line1').value"
+                        placeholder="{{ 'address_line1' | translate }}"
+                        pInputText
+                        formControlName="address_line1"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="d-flex flex-column">
+                <div class="text-clr588 fnt-14">&nbsp;</div>
+                <div class="mt-2">
+                    <input
+                        type="text"
+                        class="w-100 br-4 p-3"
+                        [class.highlight]="editorForm.get('address_line2').value"
+                        placeholder="{{ 'address_line2' | translate }}"
+                        pInputText
+                        formControlName="address_line2"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-45 mb-2">
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="d-flex flex-column">
+                <div class="mt-2 mt-md-0 text-clr588 fnt-14">
+                    {{ 'city' | translate }}<span class="text-clr-e5a">*</span>
+                </div>
+                <div class="mt-2">
+                    <input
+                        type="text"
+                        class="w-100 br-4 p-3"
+                        [class.highlight]="editorForm.get('city').value"
+                        placeholder="{{ 'city' | translate }}"
+                        pInputText
+                        formControlName="city"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="d-flex flex-column">
+                <div class="mt-2 mt-md-0 text-clr588 fnt-14">{{ 'zipcode' | translate }}</div>
+                <div class="mt-2">
+                    <input
+                        type="text"
+                        class="w-100 br-4 p-3"
+                        [class.highlight]="editorForm.get('zipcode').value"
+                        placeholder="{{ 'zipcode' | translate }}"
+                        pInputText
+                        formControlName="zipcode"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-45">
+        <div class="col">
+            <button class="btn-stroked" [routerLink]="['/orders', orgType, orderId]">{{ 'cancel' | translate }}</button>
+            <button class="btn-raised ml-3" (click)="save()">{{ 'save' | translate }}</button>
+        </div>
+    </div>
+</div>

@@ -1,11 +1,19 @@
-.w-20 {
-    width: 20%;
+@media all and (min-width: 768px) {
+    .w-20 {
+        width: 20%;
+    }
+
+    .w-action-column {
+        width: 120px;
+    }
 }
 
-.w-action-column {
-    width: 120px;
-}
+@media all and (max-width: 767px) {
+    .card-column {
+        min-width: 100%;
+    }
 
-.download-icon-cell {
-    width: 32px;
+    .download-icon-cell {
+        width: 32px;
+    }
 }

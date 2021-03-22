@@ -1,6 +1,12 @@
 <div class="fnt-14 fnt-600 text-clr334">{{ 'create_order_reference_number' | translate }}</div>
 <div class="d-flex mt-4">
-    <input #input pInputText type="text" class="w-100 mr-2 br-4 p-3" [readonly]="refNumber"
-        placeholder="{{ 'create_unique_reference_number' | translate }}" [ngModel]="refNumber" />
-    <button class="btn-raised px-4" [disabled]="!input.value || refNumber" (click)="save(input.value)">{{ 'save' | translate }}</button>
+    <input
+        #input
+        pInputText
+        type="text"
+        class="w-100 mr-2 br-4 p-3"
+        placeholder="{{ 'create_unique_reference_number' | translate }}"
+        [ngModel]="refNumber"
+    />
+    <button class="btn-raised px-4" (click)="save(input.value)">{{ 'save' | translate }}</button>
 </div>
