@@ -19,6 +19,7 @@ export class OrderDetailsComponent extends ResizeableComponent implements OnInit
     roaster: OrganizationDetails;
     showDetails = true;
     selectedTab = 0;
+    isMobile = true;
 
     @Input() orderId: number;
     @Input() orgType: OrgType;
@@ -34,6 +35,9 @@ export class OrderDetailsComponent extends ResizeableComponent implements OnInit
     }
 
     ngOnInit(): void {
-        this.orderService.estateDetails$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((res) => (this.roaster = res));
+        this.orderService.estateDetails$
+            .pipe(takeUntil(this.unsubscribeAll$))
+            .subscribe({ next: (res) => (this.roaster = res) });
+        this.isMobile$.pipe(takeUntil(this.unsubscribeAll$)).subscribe({ next: (res) => (this.isMobile = res) });
     }
 }
