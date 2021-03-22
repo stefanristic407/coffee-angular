@@ -111,6 +111,7 @@
 .delBtn {
     position: relative;
     top: -16px;
+    left: 75px;
 }
 ::ng-deep .isWeightTab .p-tabview .p-tabview-nav {
     display: flex;
@@ -194,6 +195,26 @@
     position: relative;
     bottom: 4px;
 }
+
+.productWeightDiv {
+    width: 200px;
+    margin-right: 12px;
+}
+
+.inputFieldBox {
+    width: 203px !important;
+}
+
+.imagePaddingDiv {
+    margin-right: -105px;
+    margin-left: -12px;
+}
+
+.imagesDiv,
+.productImagesDiv {
+    width: 212px;
+}
+
 @media (min-width: 768px) and (max-width: 1024px) {
     .setDefaultPro {
         position: relative;
@@ -201,6 +222,17 @@
     }
     .hidePro {
         position: absolute;
+    }
+    .delBtn {
+        left: 0px;
+    }
+    .imagePaddingDiv {
+        width: 100%;
+        margin-right: -8px;
+        margin-left: -8px;
+    }
+    .inputFieldBox {
+        width: 213px !important;
     }
 }
 
@@ -254,5 +286,21 @@
     .delBtn {
         position: relative;
         top: 6px;
+        left: 0px;
+    }
+    .inputFieldBox {
+        width: 100% !important;
+    }
+
+    .imagePaddingDiv {
+        margin-right: -12px;
+        margin-left: -12px;
+    }
+
+    .imagesDiv {
+        width: 300px;
+    }
+    .productImagesDiv {
+        width: 132px;
     }
 }
