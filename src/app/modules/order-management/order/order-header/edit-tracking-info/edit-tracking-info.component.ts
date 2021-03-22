@@ -3,7 +3,6 @@ import { ToastrService } from 'ngx-toastr';
 import { ResizeService } from '@services';
 import { OrderManagementService } from '@app/modules/order-management/order-management.service';
 import { ResizeableComponent } from '@base-components';
-import { OrderDetails } from '@models';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
