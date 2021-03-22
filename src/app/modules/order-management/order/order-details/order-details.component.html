@@ -1,5 +1,5 @@
 <ng-container *ngIf="!needConfirmation; else confirmationDetails">
-    <div class="w-100 h-100 border-ebebeb border-mobile tabs mx-0 pr-0 mt-3 mt-md-0 mb-4 mb-md-0">
+    <div class="w-100 h-100 border-ebebeb border-mobile tabs mx-0 pr-0 mt-3 mt-md-0 mb-2 mb-md-0">
         <p-tabView styleClass="mt-2" [(activeIndex)]="selectedTab">
             <p-tabPanel [header]="'order_details' | translate">
                 <app-lot-details [lot]="order"></app-lot-details>
@@ -31,7 +31,7 @@
                 </app-availability-details>
             </div>
 
-            <div class="col-lg-5 col-md-5 col-sm-12 pl-lg-4 mt-3 mt-md-0 payment-status-content mb-15">
+            <div class="col-lg-5 col-md-5 col-sm-12 pl-lg-4 mt-3 mt-md-0 payment-status-content mb-2">
                 <app-order-payment-status [order]="order"></app-order-payment-status>
             </div>
         </div>
