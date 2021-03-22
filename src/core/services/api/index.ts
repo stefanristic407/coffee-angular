@@ -8,6 +8,7 @@ export * from './dashboard.service';
 export * from './email.service';
 export * from './general-cupping.service';
 export * from './general.service';
+export * from './lots.service';
 export * from './order.service';
 export * from './purchase.service';
 export * from './roaster.service';

@@ -13,10 +13,11 @@ import {
     AvailabilityRequest,
     OrderNote,
     UserProfile,
+    LotDetails,
 } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { OrgType } from '@enums';
+import { OrgType, OrderType } from '@enums';
 import {
     AvailabilityService,
     BrandProfileService,
@@ -26,10 +27,10 @@ import {
     CommonService,
     AvailabilityRequestService,
     UserService,
+    LotsService,
 } from '@services';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import { toCamelCase } from '@utils';
 
 @Injectable({
     providedIn: 'root',
@@ -50,6 +51,7 @@ export class OrderManagementService {
     private readonly orderNotesSubject = new BehaviorSubject<OrderNote[]>([]);
     // TODO: Move into user service as "current user profile" after refactoring
     private readonly userProfileSubject = new BehaviorSubject<UserProfile>(null);
+    private readonly lotDetailsSubject = new BehaviorSubject<LotDetails>(null);
 
     private orderId: number;
 
@@ -63,6 +65,7 @@ export class OrderManagementService {
         private commonSrv: CommonService,
         private requestSrv: AvailabilityRequestService,
         private userSrv: UserService,
+        private lotsSrv: LotsService,
     ) {}
 
     get orderDetails$(): Observable<OrderDetails> {
@@ -103,6 +106,10 @@ export class OrderManagementService {
 
     get userProfile$(): Observable<UserProfile> {
         return this.userProfileSubject.asObservable();
+    }
+
+    get lotDetails$(): Observable<LotDetails> {
+        return this.lotDetailsSubject.asObservable();
     }
 
     getOrders(organizationType: OrgType): Observable<ApiResponse<OrderSummary[]>> {
@@ -199,6 +206,10 @@ export class OrderManagementService {
                     this.loadDocuments(1, 5, rewrite);
                     this.loadOrderNotes(orderId);
                     this.loadUserProfile();
+
+                    if (details.order_type === OrderType.Prebook) {
+                        this.loadLotDetails(details.estate_id, details.lot_id);
+                    }
                 }
             },
         });
@@ -263,6 +274,16 @@ export class OrderManagementService {
             next: (res) => {
                 if (res.success) {
                     this.userProfileSubject.next(res.result);
+                }
+            },
+        });
+    }
+
+    private loadLotDetails(estateId: number, lotId: number): void {
+        this.lotsSrv.getLotDetails(estateId, lotId).subscribe({
+            next: (res) => {
+                if (res) {
+                    this.lotDetailsSubject.next(res);
                 }
             },
         });

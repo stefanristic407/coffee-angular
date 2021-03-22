@@ -48,6 +48,9 @@
 </div>
 
 <div class="row no-gutters mt-4 bg-white px-md-3 p-2 px-md-0 px-lg-5 py-md-4" *ngIf="!needConfirmation">
+    <div class="col-12 mb-3" *ngIf="isPrebook">
+        <app-remote-sensoring [polygonId]="(lotDetails$ | async)?.polygon_id"> </app-remote-sensoring>
+    </div>
     <div class="col-12 col-lg-6 br-4 pb-3 pb-lg-0 pr-lg-2" *ngIf="!isPrebook && isEstateOrder">
         <div class="p-2 p-md-0 border-ebebeb">
             <app-roaster-notes [orderId]="orderId"></app-roaster-notes>
