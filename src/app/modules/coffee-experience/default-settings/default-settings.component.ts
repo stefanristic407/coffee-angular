@@ -184,7 +184,7 @@ export class DefaultSettingsComponent implements OnInit {
             if (response.success) {
                 this.setPageData(response);
             } else {
-                // this.toastrService.error('Error while getting the Default settings of the Roaster');
+                this.toastrService.error('Error while getting the Default settings of the Roaster');
             }
         });
     }
@@ -245,7 +245,6 @@ export class DefaultSettingsComponent implements OnInit {
         reader.readAsDataURL(file);
 
         reader.onload = (event: any) => {
-            // this[parameter + 'Url'] = event.target.result;
             if (parameter === 'fileVideo') {
                 this.isVideoPreviewPanel = true;
                 this.defaultDetails.video_url = event.target.result;

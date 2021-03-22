@@ -1,4 +1,3 @@
-/* Style the input container */
 .search-input-container {
     display: flex;
     width: 303px;
@@ -19,10 +18,6 @@
         font-family: Muli;
         font-size: 16px;
     }
-}
-
-.m-minus-55 {
-    margin-top: -55px;
 }
 
 :host ::ng-deep .ui-inputtext {
@@ -61,12 +56,6 @@
     margin-bottom: 40px;
 }
 
-.table-filter-button-container {
-    margin-bottom: 32px;
-    height: 40px;
-    justify-content: space-between;
-}
-
 @media (max-width: 991px) {
     .give-your-end-users {
         width: 95%;
@@ -76,14 +65,6 @@
     }
     .coffee-exp {
         padding: 24px 16px;
-    }
-    .table-filter-button-container {
-        margin-bottom: 24px;
-        justify-content: flex-start;
-
-        .range-filter-container {
-            margin-right: 12px;
-        }
     }
 }
 
@@ -102,9 +83,6 @@
     .default-settings-container,
     .default-settings {
         width: 100%;
-    }
-    .table-filter-button-container {
-        margin-bottom: 16px;
     }
 }
 @media (max-width: 480px) {
