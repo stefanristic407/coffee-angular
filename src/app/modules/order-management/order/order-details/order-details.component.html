@@ -1,22 +1,27 @@
 <ng-container *ngIf="!needConfirmation; else confirmationDetails">
-    <div class="border-ebebeb border-mobile tabs mx-0 pr-0 mt-3 mt-md-0 mb-4 mb-md-0">
+    <div class="w-100 h-100 border-ebebeb border-mobile tabs mx-0 pr-0 mt-3 mt-md-0 mb-2 mb-md-0">
         <p-tabView styleClass="mt-2" [(activeIndex)]="selectedTab">
             <p-tabPanel [header]="'order_details' | translate">
                 <app-lot-details [lot]="order"></app-lot-details>
             </p-tabPanel>
-            <p-tabPanel [header]="'documents' | translate" *ngIf="order?.orderType === OrderType.Booked">
+            <p-tabPanel [header]="'documents' | translate" *ngIf="order?.order_type === OrderType.Booked">
                 <app-documents></app-documents>
             </p-tabPanel>
             <p-tabPanel [header]="'grade_info' | translate">
-                <app-grade-info [harvestId]="order?.harvestId"></app-grade-info>
+                <app-grade-info [harvestId]="order?.harvest_id"></app-grade-info>
             </p-tabPanel>
         </p-tabView>
 
-        <div class="have-a-problem" *ngIf="
-          globals.permissions['sourcing-management'] &&
-          globals.permissions['sourcing-management'].manage
-      ">
-            <button type="button" class="btn-raised">
+        <div
+            class="have-a-problem"
+            *ngIf="globals.permissions['sourcing-management'] && globals.permissions['sourcing-management'].manage"
+        >
+            <button
+                type="button"
+                class="btn-raised"
+                [routerLink]="['/dispute-system/order-support-faq', orderId]"
+                *ngIf="order?.status !== OrderStatus.Received && (!isMobile || (isMobile && selectedTab === 0))"
+            >
                 {{ 'have_a_problem' | translate }}
             </button>
         </div>
@@ -25,13 +30,13 @@
     <div class="border-ebebeb m-0 mt-md-3" *ngIf="selectedTab === 0">
         <div class="row pb-md-7 flex-column-reverse flex-md-row">
             <div class="col-lg-7 col-md-7 col-sm-12 pr-lg-5 bulk-details-content">
-                <app-bulk-details *ngIf="order?.orderType === OrderType.Prebook" [bulk]="bulk$ | async">
+                <app-bulk-details *ngIf="order?.order_type === OrderType.Prebook" [bulk]="bulk$ | async">
                 </app-bulk-details>
-                <app-availability-details *ngIf="order?.orderType !== OrderType.Prebook" [bulk]="bulk$ | async">
+                <app-availability-details *ngIf="order?.order_type !== OrderType.Prebook" [bulk]="bulk$ | async">
                 </app-availability-details>
             </div>
 
-            <div class="col-lg-5 col-md-5 col-sm-12 pl-lg-4 mt-3 mt-md-0 payment-status-content mb-15">
+            <div class="col-lg-5 col-md-5 col-sm-12 pl-lg-4 mt-3 mt-md-0 payment-status-content mb-2">
                 <app-order-payment-status [order]="order"></app-order-payment-status>
             </div>
         </div>
@@ -40,14 +45,17 @@
 
 <ng-template #confirmationDetails>
     <div class="border-ebebeb pr-0">
-        <div class="fnt-bold fnt-18 text-clr334">{{ 'order_details' | translate}}</div>
+        <div class="fnt-bold fnt-18 text-clr334">{{ 'order_details' | translate }}</div>
         <app-lot-details [lot]="order"></app-lot-details>
     </div>
 
     <div class="border-ebebeb mt-3">
         <div class="fnt-bold fnt-18 text-clr334">{{ 'delivery_details' | translate }}</div>
-        <app-roaster-details [ownerName]="roaster?.ownerName" [rating]="roaster?.rating"
-            [companyImageThumbnailUrl]="roaster?.companyImageThumbnailUrl"></app-roaster-details>
+        <app-roaster-details
+            [ownerName]="roaster?.owner_name"
+            [rating]="roaster?.rating"
+            [companyImageThumbnailUrl]="roaster?.company_image_thumbnail_url"
+        ></app-roaster-details>
         <app-delivery-address [orderConfirmation]="true"></app-delivery-address>
     </div>
 </ng-template>

@@ -9,17 +9,30 @@ import {
     RecentActivity,
     OrganizationDetails,
     ConfirmRejectOrderDetails,
+    LabelValue,
+    AvailabilityRequest,
+    OrderNote,
+    UserProfile,
+    LotDetails,
+    Address,
 } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { OrgType } from '@enums';
+import { OrgType, OrderType } from '@enums';
 import {
     AvailabilityService,
     BrandProfileService,
     GeneralCuppingService,
     OrderService,
     PurchaseService,
+    CommonService,
+    AvailabilityRequestService,
+    UserService,
+    LotsService,
+    ReviewsService,
 } from '@services';
+import * as _ from 'lodash';
+import * as moment from 'moment';
 
 @Injectable({
     providedIn: 'root',
@@ -35,16 +48,28 @@ export class OrderManagementService {
         [OrgType.MICRO_ROASTER]: new BehaviorSubject<ApiResponse<OrderSummary[]>>(null),
     };
     private readonly cuppingScoreSubject = new BehaviorSubject<CuppingScore[]>([]);
+    private readonly originListSubject = new BehaviorSubject<LabelValue[]>([]);
+    private readonly requestListSubject = new BehaviorSubject<ApiResponse<AvailabilityRequest[]>>(null);
+    private readonly orderNotesSubject = new BehaviorSubject<OrderNote[]>([]);
+    // TODO: Move into user service as "current user profile" after refactoring
+    private readonly userProfileSubject = new BehaviorSubject<UserProfile>(null);
+    private readonly lotDetailsSubject = new BehaviorSubject<LotDetails>(null);
+    private readonly isReviewedSubject = new BehaviorSubject(false);
 
     private orderId: number;
 
     constructor(
         protected cookieSrv: CookieService,
         private availabilitySrv: AvailabilityService,
-        private brandProfileSrc: BrandProfileService,
+        private brandProfileSrv: BrandProfileService,
         private cuppingSrv: GeneralCuppingService,
         private orderSrv: OrderService,
         private purchaseSrv: PurchaseService,
+        private commonSrv: CommonService,
+        private requestSrv: AvailabilityRequestService,
+        private userSrv: UserService,
+        private lotsSrv: LotsService,
+        private reviewSrv: ReviewsService,
     ) {}
 
     get orderDetails$(): Observable<OrderDetails> {
@@ -71,6 +96,30 @@ export class OrderManagementService {
         return this.cuppingScoreSubject.asObservable();
     }
 
+    get originList$(): Observable<LabelValue[]> {
+        return this.originListSubject.asObservable();
+    }
+
+    get requestList$(): Observable<ApiResponse<AvailabilityRequest[]>> {
+        return this.requestListSubject.asObservable();
+    }
+
+    get orderNotes$(): Observable<OrderNote[]> {
+        return this.orderNotesSubject.asObservable();
+    }
+
+    get userProfile$(): Observable<UserProfile> {
+        return this.userProfileSubject.asObservable();
+    }
+
+    get lotDetails$(): Observable<LotDetails> {
+        return this.lotDetailsSubject.asObservable();
+    }
+
+    get isReviewed$(): Observable<boolean> {
+        return this.isReviewedSubject.asObservable();
+    }
+
     getOrders(organizationType: OrgType): Observable<ApiResponse<OrderSummary[]>> {
         return this.ordersSubjects[organizationType].asObservable();
     }
@@ -91,8 +140,28 @@ export class OrderManagementService {
         return this.purchaseSrv.updatePaymentAfterDelivery(orderId);
     }
 
+    updateShipmentDetails(orderId: number, trackingLink: string, shipmentDate: string): Observable<ApiResponse<any>> {
+        const payload = {
+            tracking_link: trackingLink,
+            shipment_date: moment(shipmentDate).format('yyyy-MM-DD'),
+        };
+        return this.purchaseSrv.updateShipmentDetails(orderId, payload);
+    }
+
+    updateShippingAddress(orderId: number, shippingAddress: Address): Observable<ApiResponse<any>> {
+        return this.purchaseSrv.updateOrderDetails(orderId, { shipping_address: shippingAddress });
+    }
+
     getCuppingReportUrl(harvestId: number): Observable<string> {
         return this.cuppingSrv.getCuppingReportUrl(harvestId);
+    }
+
+    createReferenceNumber(orderId: number, referenceNumber: string): Observable<ApiResponse<any>> {
+        return this.purchaseSrv.updateOrderDetails(orderId, { order_reference: referenceNumber });
+    }
+
+    addOrderNote(orderId: number, note: string): Observable<ApiResponse<any>> {
+        return this.purchaseSrv.addOrderNote(orderId, note);
     }
 
     downloadOrders(
@@ -104,13 +173,36 @@ export class OrderManagementService {
         return this.purchaseSrv.downloadOrders(orgType, exportType, dateFrom, dateTo);
     }
 
+    loadOrigins(): void {
+        this.availabilitySrv.getAvailabilityList().subscribe((availabilityList) => {
+            const origins = availabilityList.map((x) => (x.lot ? x.lot.country : '').toUpperCase()).filter((x) => x);
+
+            const labels = _.sortBy(_.uniq(origins))
+                .map((x) => {
+                    return {
+                        label: this.commonSrv.getCountryName(x),
+                        value: x,
+                    };
+                })
+                .filter((x) => x.label);
+
+            this.originListSubject.next(labels);
+        });
+    }
+
     loadOrders(organizationType: OrgType, options: any): void {
         this.purchaseSrv.getOrders(organizationType, options).subscribe({
             next: (result) => this.ordersSubjects[organizationType].next(result),
         });
     }
 
-    loadOrderDetails(orderId: number, orgType: OrgType): void {
+    loadRequests(options: any): void {
+        this.requestSrv.getRequestList(options).subscribe({
+            next: (response) => this.requestListSubject.next(response),
+        });
+    }
+
+    loadOrderDetails(orderId: number, orgType: OrgType, skipAdditionalDetails = false): void {
         const rewrite = this.orderId !== orderId;
         this.orderId = orderId;
 
@@ -119,11 +211,20 @@ export class OrderManagementService {
                 if (details) {
                     this.orderDetailsSubject.next(details);
 
-                    this.loadActivities(orderId, orgType);
-                    this.loadBulkDetails(details.harvestId);
-                    this.loadCuppingScore(details.harvestId, orgType);
-                    this.loadEstateDetails(details.estateId);
-                    this.loadDocuments(1, 5, rewrite);
+                    if (!skipAdditionalDetails) {
+                        this.loadActivities(orderId, orgType);
+                        this.loadBulkDetails(details.harvest_id);
+                        this.loadCuppingScore(details.harvest_id, orgType);
+                        this.loadEstateDetails(details.estate_id);
+                        this.loadDocuments(1, 5, rewrite);
+                        this.loadOrderNotes(orderId);
+                        this.loadUserProfile();
+                        this.checkReviews(orderId, orgType);
+
+                        if (details.order_type === OrderType.Prebook) {
+                            this.loadLotDetails(details.estate_id, details.lot_id);
+                        }
+                    }
                 }
             },
         });
@@ -149,6 +250,12 @@ export class OrderManagementService {
         });
     }
 
+    loadOrderNotes(orderId: number): void {
+        this.purchaseSrv.getOrderNotes(orderId).subscribe({
+            next: (result) => this.orderNotesSubject.next(result),
+        });
+    }
+
     private loadActivities(orderId: number, orgType: OrgType): void {
         this.purchaseSrv.getRecentActivity(orderId, orgType).subscribe({
             next: (result) => this.recentActivitiesSubject.next(result),
@@ -166,7 +273,7 @@ export class OrderManagementService {
     }
 
     private loadEstateDetails(id: number): void {
-        this.brandProfileSrc.getEstateProfile(id).subscribe({
+        this.brandProfileSrv.getEstateProfile(id).subscribe({
             next: (result) => this.estateDetailsSubject.next(result),
         });
     }
@@ -174,6 +281,32 @@ export class OrderManagementService {
     private loadCuppingScore(harvestId: number, orgType: OrgType): void {
         this.cuppingSrv.getCuppingScores(harvestId, orgType).subscribe({
             next: (result) => this.cuppingScoreSubject.next(result),
+        });
+    }
+
+    private loadUserProfile(): void {
+        this.userSrv.getUserProfile().subscribe({
+            next: (res) => {
+                if (res.success) {
+                    this.userProfileSubject.next(res.result);
+                }
+            },
+        });
+    }
+
+    private loadLotDetails(estateId: number, lotId: number): void {
+        this.lotsSrv.getLotDetails(estateId, lotId).subscribe({
+            next: (res) => {
+                if (res) {
+                    this.lotDetailsSubject.next(res);
+                }
+            },
+        });
+    }
+
+    private checkReviews(orderId: number, orgType: OrgType) {
+        this.reviewSrv.getOrderReviews(orderId, orgType).subscribe({
+            next: (res) => this.isReviewedSubject.next(res.length > 0),
         });
     }
 }

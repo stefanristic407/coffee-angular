@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { COUNTRY_LIST, CONTINIENT_LIST } from '@constants';
+import { LabelValue, Country } from '../models/common';
 
 @Injectable({
     providedIn: 'root',
@@ -11,9 +12,16 @@ export class CommonService {
         this.profileUpdateEvent = new EventEmitter<any>();
     }
 
+    getCountryList(): LabelValue[] {
+        return COUNTRY_LIST.map((x) => ({
+            label: x.name,
+            value: x.isoCode,
+        }));
+    }
+
     getCountryName(isoCode: string): string {
         if (isoCode) {
-            const country = COUNTRY_LIST.find((c) => c.isoCode === isoCode.toUpperCase());
+            const country = this.findCountry(isoCode);
             if (country) {
                 return country.name;
             }
@@ -30,5 +38,9 @@ export class CommonService {
         }
 
         return '';
+    }
+
+    private findCountry(countryCode: string): Country {
+        return COUNTRY_LIST.find((x) => x.isoCode === countryCode.toUpperCase());
     }
 }

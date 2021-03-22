@@ -87,10 +87,19 @@ hr {
 }
 
 .list-item {
+    border: none;
+    font-family: 'Muli';
+    font-size: 14px;
+    font-weight: 600 !important;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #747588;
     &:hover {
-        color: #232334;
-        font-weight: 600;
-        background-color: #f8f8f8;
+        color: #232334 !important;
+        font-weight: 600 !important;
+        background-color: #f8f8f8 !important;
     }
 }
 
@@ -142,7 +151,10 @@ hr {
 }
 
 .menu-arrow {
-    height: 18px;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    margin-right: -10px;
 }
 
 .add-contact-group {
@@ -223,4 +235,13 @@ hr {
     border-radius: 2px;
     border: solid 1px #747588;
     cursor: pointer;
+}
+
+.visiblity-hidden {
+    visibility: hidden;
+}
+
+.slider-div {
+    width: 80%;
+    margin: auto;
 }

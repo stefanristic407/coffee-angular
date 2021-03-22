@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { RoasteryProfileService } from '../roastery-profile.service';
 import { UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
@@ -8,6 +8,7 @@ import { RoasterserviceService } from '@services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { maxWordCountValidator } from '@utils';
+import { ImageCroppedEvent, ImageCropperComponent, ImageTransform } from 'ngx-image-cropper';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -15,7 +16,7 @@ import { maxWordCountValidator } from '@utils';
     templateUrl: './about-roastery.component.html',
     styleUrls: ['./about-roastery.component.scss'],
 })
-export class AboutRoasteryComponent implements OnInit {
+export class AboutRoasteryComponent implements OnInit, AfterViewInit {
     ownerName?: string;
     foundedIn?: any;
     summary: string;
@@ -55,7 +56,7 @@ export class AboutRoasteryComponent implements OnInit {
     brands = [];
     filteredBrands = [];
     chartData: any;
-    @ViewChild('roasterImage', { static: true }) roasterImage;
+    @ViewChild('brandImageInput', { static: true }) brandImageInput: ElementRef;
 
     kgsOptions = [
         { name: 'kg', value: 'kg' },
@@ -76,6 +77,18 @@ export class AboutRoasteryComponent implements OnInit {
     brandFile: any;
     toEditBrand: any;
     brandImageUrl = 'assets/images/default-brand.png';
+
+    // brand cropped image relative values
+    isShowBrandImageModal = false;
+    canvasRotation = 0;
+    rotation = 0;
+    scale = 1;
+    showCropper = false;
+    containWithinAspectRatio = false;
+    transform: ImageTransform = {};
+    imageChangedEvent: any = '';
+    @ViewChild(ImageCropperComponent, { static: false })
+    imageCropper: ImageCropperComponent;
 
     constructor(
         public roasteryProfileService: RoasteryProfileService,
@@ -211,28 +224,6 @@ export class AboutRoasteryComponent implements OnInit {
         });
     }
 
-    handleRoasterFile(e) {
-        if (e.target.files.length > 0) {
-            for (let i = 0; i <= e.target.files.length - 1; i++) {
-                const fsize = e.target.files.item(i).size;
-                const file = Math.round(fsize / 1024);
-                // The size of the file.
-                if (file >= 2048) {
-                    this.toastrService.error('File too big, please select a file smaller than 2mb');
-                } else {
-                    console.log('Coming here');
-                    this.brandFile = e.target.files[0];
-                    const reader = new FileReader();
-                    reader.readAsDataURL(this.brandFile);
-                    reader.onload = (event: any) => {
-                        this.brandImageUrl = event.target.result;
-                    };
-                    // this.addNewBrand(e.target.files[0], brand);
-                }
-            }
-        }
-    }
-
     getCertificates() {
         if (this.globals.checkItem('certificate-list') || this.globals.checkItem('certificate-management')) {
             this.userService.getCompanyCertificates(this.roasterId).subscribe((result: any) => {
@@ -326,9 +317,10 @@ export class AboutRoasteryComponent implements OnInit {
         console.log('brand data to edit: ', formValue);
         this.brandForm.setValue(formValue);
         this.isEditBrandMode = true;
-        this.filteredBrands = this.brands.filter((item) => {
-            return item.id !== brand.id;
-        });
+        this.isAddBrandMode = false;
+        // this.filteredBrands = this.brands.filter((item) => {
+        //     return item.id !== brand.id;
+        // });
     }
 
     addBrandProfileMode() {
@@ -337,6 +329,7 @@ export class AboutRoasteryComponent implements OnInit {
             description: ['', Validators.compose([Validators.required, maxWordCountValidator(50)])],
         });
         this.isAddBrandMode = true;
+        this.isEditBrandMode = false;
     }
 
     addNewBrand() {
@@ -442,5 +435,85 @@ export class AboutRoasteryComponent implements OnInit {
 
     setFormat($event) {
         $event.target.value = null;
+    }
+
+    handleRoasterFile(e) {
+        if (e.target.files.length > 0) {
+            for (let i = 0; i <= e.target.files.length - 1; i++) {
+                const fsize = e.target.files.item(i).size;
+                const file = Math.round(fsize / 1024);
+                if (file >= 2048) {
+                    this.toastrService.error('File too big, please select a file smaller than 2mb');
+                } else {
+                    if (e.target.files[0].type.split('/')[0] !== 'image') {
+                        this.toastrService.error('Please select image file');
+                        return;
+                    }
+                    this.isShowBrandImageModal = true;
+                    this.imageChangedEvent = e;
+                }
+            }
+        }
+    }
+
+    ngAfterViewInit(): void {
+        console.log('this.brandImageInput: ', this.brandImageInput);
+    }
+
+    cropImage() {
+        this.imageCropper.crop();
+        this.isShowBrandImageModal = false;
+    }
+
+    imageCropped(event: ImageCroppedEvent) {
+        this.brandImageUrl = event.base64;
+        const block = this.brandImageUrl.split(';');
+        const contentType = block[0].split(':')[1];
+        const realData = block[1].split(',')[1];
+        this.brandFile = this.b64toBlob(realData, contentType, 0);
+    }
+
+    b64toBlob(b64Data, contentType, sliceSize) {
+        contentType = contentType || '';
+        sliceSize = sliceSize || 512;
+
+        const byteCharacters = atob(b64Data);
+        const byteArrays = [];
+
+        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+            const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+            const byteNumbers = new Array(slice.length);
+            for (let i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+
+            const byteArray = new Uint8Array(byteNumbers);
+
+            byteArrays.push(byteArray);
+        }
+
+        const blob = new Blob(byteArrays, { type: contentType });
+        return blob;
+    }
+
+    imageLoaded() {
+        this.showCropper = true;
+        console.log('Image loaded');
+    }
+
+    loadImageFailed() {
+        console.log('Load failed');
+    }
+
+    zoom() {
+        this.transform = {
+            ...this.transform,
+            scale: this.scale,
+        };
+    }
+
+    selectBrandImage() {
+        this.brandImageInput.nativeElement.click();
     }
 }

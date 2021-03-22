@@ -108,6 +108,9 @@
             display: none;
         }
     }
+    .p-menuitem-link {
+        margin: 0px !important;
+    }
 }
 
 .btn-trans-nb {
@@ -115,4 +118,8 @@
     border: none;
     color: #ffffff;
     padding: 11px 24px;
+}
+
+.underline {
+    text-decoration: underline !important;
 }

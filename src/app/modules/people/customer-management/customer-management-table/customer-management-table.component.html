@@ -34,15 +34,15 @@
         </ng-template>
         <ng-template pTemplate="body" let-item>
             <tr>
-                <td class="fnt-14">{{ item.name }}</td>
-                <td class="fnt-14">
+                <td class="fnt-14" (click)="shareDetails(item)">{{ item.name }}</td>
+                <td class="fnt-14" (click)="shareDetails(item)">
                     {{
                         customerType === 'micro-roasters'
                             ? (item.founded_on | date: 'M/d/yy, h:mm a')
                             : (item.created_at | date: 'M/d/yy, h:mm a')
                     }}
                 </td>
-                <td class="fnt-14">
+                <td class="fnt-14" (click)="shareDetails(item)">
                     <span *ngIf="item.status === 'PENDING'">{{ item.status }}</span>
                     <span *ngIf="item.status === 'ACTIVE'" class="active d-flex"
                         ><div class="active-dot"></div>
@@ -53,8 +53,8 @@
                         Disabled</span
                     >
                 </td>
-                <td class="fnt-14">{{ item.discount_percentage }}</td>
-                <td class="fnt-14">
+                <td class="fnt-14" (click)="shareDetails(item)">{{ item.discount_percentage }}</td>
+                <td class="fnt-14" (click)="shareDetails(item)">
                     {{ customerType === 'micro-roasters' ? item.total_employees : item.active_users }}
                 </td>
                 <td class="view-listing" (click)="shareDetails(item)">View Details</td>
@@ -66,7 +66,7 @@
                         [outsideClick]="true"
                         #pop="bs-popover"
                     >
-                        <p><img class="ellipse-image" src="assets/images/more-opns-file.png" alt="" /></p>
+                        <p><img src="assets/images/kebab-menu.svg" alt="" /></p>
                     </a>
                     <ng-template #poplistTemplate id="{{ item.id }}">
                         <div id="popover-mobile-content">
@@ -117,7 +117,7 @@
                                 <p class="fnt-14">{{ data.discount_percentage }}</p>
                             </div>
                         </div>
-                        <div class="row mx-3 mb-3 br-4 pt-3 bg-f4f4 mt-2">
+                        <div class="row bg-f4f4 br-4 mb-3 mt-2 mx-3 py-2">
                             <div class="col-12 pl-2">
                                 <p class="black fnt-14 pb-1">
                                     <span *ngIf="data.status === 'PENDING'">{{ data.status }}</span>

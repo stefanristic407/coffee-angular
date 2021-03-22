@@ -53,10 +53,7 @@ export class HorecaTableComponent implements OnInit {
                     itemId: encodeURIComponent(this.itemId),
                 },
             };
-
             this.router.navigate(['/people/horeca-details'], navigationExtras);
-        } else {
-            console.log(size);
         }
     }
 

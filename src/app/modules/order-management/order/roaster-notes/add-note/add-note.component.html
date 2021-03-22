@@ -1,0 +1,20 @@
+<div class="d-flex w-100">
+    <div class="d-flex align-items-center mr-2">
+        <app-avatar [src]="userProfile?.profileImageThumbUrl" [name]="userProfile?.firstName"></app-avatar>
+    </div>
+    <div class="w-100 ml-2">
+        <input
+            pInputText
+            type="text"
+            class="w-100 mr-2 br-4 p-3"
+            placeholder="{{ 'add_note_placeholder' | translate }}"
+            [(ngModel)]="note"
+        />
+    </div>
+</div>
+
+<div class="d-flex justify-content-end mt-3">
+    <button class="btn-trans-icon bg-white br-4 ccursor-pointer p-3 add-btn" (click)="addNote()">
+        {{ 'add_note' | translate }}
+    </button>
+</div>

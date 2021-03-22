@@ -5,6 +5,7 @@ import { Address, OrderDetails } from '@models';
 import { CommonService } from '@services';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { takeUntil } from 'rxjs/operators';
+import { OrgType } from '@enums';
 
 @Component({
     selector: 'app-delivery-address',
@@ -12,11 +13,14 @@ import { takeUntil } from 'rxjs/operators';
     styleUrls: ['./delivery-address.component.scss'],
 })
 export class DeliveryAddressComponent extends DestroyableComponent implements OnInit {
+    readonly OrgType = OrgType;
+
     order: OrderDetails;
     latitude: number;
     longitude: number;
 
     @Input() orderConfirmation = false;
+    @Input() orgType: OrgType;
 
     constructor(
         private geoCoder: AgmGeocoder,
@@ -29,8 +33,8 @@ export class DeliveryAddressComponent extends DestroyableComponent implements On
     ngOnInit(): void {
         this.orderService.orderDetails$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((details) => {
             this.order = details;
-            if (this.order && this.order.shippingAddress) {
-                const address = this.getAddressLine(this.order.shippingAddress);
+            if (this.order && this.order.shipping_address) {
+                const address = this.getAddressLine(this.order.shipping_address);
                 this.geoCoder
                     .geocode({ address })
                     .pipe(takeUntil(this.unsubscribeAll$))
@@ -44,6 +48,6 @@ export class DeliveryAddressComponent extends DestroyableComponent implements On
 
     private getAddressLine(address: Address): string {
         const country = this.commonService.getCountryName(address.country);
-        return `${country} ${address.zipcode} ${address.state} ${address.addressLine1} ${address.addressLine2}`;
+        return `${country} ${address.zipcode} ${address.state} ${address.address_line1} ${address.address_line2}`;
     }
 }

@@ -15,7 +15,8 @@ export class OrderComponent extends DestroyableComponent implements OnInit {
     readonly OrderType = OrderType;
     readonly OrderStatus = OrderStatus;
 
-    roaster$ = this.ordersService.estateDetails$;
+    readonly roaster$ = this.ordersService.estateDetails$;
+    readonly lotDetails$ = this.ordersService.lotDetails$;
 
     orderId: number;
     organizationType: OrgType;
@@ -29,6 +30,14 @@ export class OrderComponent extends DestroyableComponent implements OnInit {
         );
     }
 
+    get isPrebook(): boolean {
+        return this.orderDetails && this.orderDetails.order_type === OrderType.Prebook;
+    }
+
+    get isEstateOrder(): boolean {
+        return this.organizationType === OrgType.ESTATE;
+    }
+
     constructor(private route: ActivatedRoute, private ordersService: OrderManagementService) {
         super();
     }
@@ -36,7 +45,7 @@ export class OrderComponent extends DestroyableComponent implements OnInit {
     ngOnInit(): void {
         this.route.params.pipe(takeUntil(this.unsubscribeAll$)).subscribe((params) => {
             this.orderId = +params.id;
-            this.organizationType = params.organizationType;
+            this.organizationType = params.orgType;
             this.ordersService.loadOrderDetails(this.orderId, this.organizationType);
             this.ordersService.orderDetails$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((data) => {
                 this.orderDetails = data;

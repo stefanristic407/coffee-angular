@@ -1,7 +1,7 @@
 export interface OrderDocument {
-    dateAdded: string;
-    fileModule: string;
-    fileOwner: string;
+    date_added: string;
+    file_module: string;
+    file_owner: string;
     id: number;
     mime: string;
     name: string;

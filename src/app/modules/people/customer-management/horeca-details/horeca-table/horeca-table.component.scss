@@ -11,12 +11,8 @@
 .list-group-item {
     border: none;
     font-family: 'Muli';
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #747588;
 }
 
@@ -24,6 +20,10 @@
     color: #232334;
     font-weight: 600;
     background-color: #f8f8f8;
+}
+
+#customer-contract-popup popover-container {
+    border: 0 !important;
 }
 
 .menu-arrow {
@@ -84,12 +84,19 @@ ul li {
 }
 
 .view-listing {
-    color: #8c5000 !important;
-    text-decoration: underline;
-    font-weight: bold;
+    color: #80460b !important;
+    font-weight: bold !important;
     cursor: pointer;
     font-size: 14px;
-    font-weight: bold;
+}
+
+.view-listing:hover {
+    cursor: pointer;
+    text-decoration: underline !important;
+}
+
+#horeca-contract-popup popover-container {
+    border: 0 !important;
 }
 
 .active {

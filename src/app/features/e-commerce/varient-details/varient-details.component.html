@@ -9,7 +9,7 @@
         </div>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 d-none d-sm-none d-md-none d-lg-block">
+    <div class="d-none d-sm-none d-md-none d-lg-block productWeightDiv">
         <div
             class="nav flex-column nav-pills weightDiv"
             *ngFor="let weight of this.weightForm['value']['weights']; let i = index"
@@ -78,7 +78,7 @@
             <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 sewn-form-field w-100">
                 <label>Weight<span class="star">*</span></label>
 
-                <div class="p-inputgroup custom-addon dropdownClass">
+                <div class="p-inputgroup custom-addon dropdownClass inputFieldBox">
                     <p-inputNumber formControlName="weight" (onInput)="onWeightChange($event)"></p-inputNumber>
                     <span class="p-inputgroup-addon">
                         <p-dropdown
@@ -111,6 +111,7 @@
                     [style]="{ width: '100%' }"
                     formControlName="status"
                     optionValue="value"
+                    class="inputFieldBox"
                 ></p-dropdown>
                 <small
                     *ngIf="
@@ -124,7 +125,7 @@
             </div>
             <div class="divSeperator d-lg-none d-md-none d-md-none d-sm-block d-block"></div>
             <div
-                class="col-6 col-sm-6 col-md-4 col-lg-6 col-xl-6 pl-0 d-none d-sm-none d-md-flex mb-4 pl-lg-2 align-items-end"
+                class="col-6 col-sm-6 col-md-4 col-lg-6 col-xl-6 d-none d-sm-none d-md-flex mb-4 pl-lg-2 align-items-end"
             >
                 <p-checkbox formControlName="is_public" binary="true" class="mr-4 hidePro" label="Hide product">
                 </p-checkbox>
@@ -150,7 +151,7 @@
             <div [formGroupName]="i" class="row gutter-16 gutter-lg-16 mt-2">
                 <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 sewn-form-field w-100 mb-4 mb-lg-3">
                     <label>Price<span class="star">*</span></label>
-                    <div class="weightInputGroupDiv d-flex">
+                    <div class="weightInputGroupDiv d-flex inputFieldBox">
                         <div class="daysInputDiv">
                             <span>$</span>
                         </div>
@@ -176,6 +177,7 @@
                         [style]="{ width: '100%' }"
                         formControlName="grind"
                         optionValue="value"
+                        class="inputFieldBox"
                     ></p-dropdown>
                     <small *ngIf="grind_varient['controls']['grind'].errors?.required" class="p-error">
                         Required
@@ -184,7 +186,7 @@
                 <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 sewn-form-field w-100 mb-4 mb-lg-3">
                     <label>Stock Available<span class="star">*</span></label>
 
-                    <div class="p-inputgroup custom-addon dropdownClass">
+                    <div class="p-inputgroup custom-addon dropdownClass inputFieldBox">
                         <p-inputNumber formControlName="available_quantity"></p-inputNumber>
                         <span class="p-inputgroup-addon">
                             <p-dropdown
@@ -206,7 +208,7 @@
                 </div>
                 <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2 sewn-form-field w-100 mb-4 mb-lg-3">
                     <label>SKU number<span class="star">*</span></label>
-                    <input type="text" formControlName="sku_number" pInputText />
+                    <input type="text" formControlName="sku_number" class="inputFieldBox" pInputText />
                     <small *ngIf="grind_varient['controls']['sku_number'].errors?.required" class="p-error">
                         Required
                     </small>
@@ -232,7 +234,7 @@
                 <div class="divSeperator d-lg-none d-md-none d-md-none d-sm-block d-block"></div>
             </div>
         </div>
-        <div class="row gutter-16 gutter-lg-24">
+        <div class="row gutter-16 gutter-lg-24 imagePaddingDiv">
             <div class="col-12 fnt-14 fnt-md-16 fnt-muli fnt-700 black mt-3 mt-lg-4 mb-3">Add Images</div>
             <div class="col-12 add-image-flex d-flex d-sm-flex d-md-none d-lg-flex row gutter-16 gutter-lg-24">
                 <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
@@ -241,7 +243,7 @@
                         *ngIf="
                             !weightForm['controls']['weights']['controls'][currentVarientIndex]['value']['fileDetails']
                         "
-                        class="addImageContainer d-flex align-items-center justify-content-center"
+                        class="addImageContainer d-flex align-items-center justify-content-center imagesDiv"
                     >
                         <label class="d-flex align-items-center justify-content-center pointer-item">
                             <input
@@ -264,7 +266,7 @@
                         *ngIf="
                             weightForm['controls']['weights']['controls'][currentVarientIndex]['value']['fileDetails']
                         "
-                        class="addImageContainer imageContainer"
+                        class="addImageContainer imageContainer imagesDiv"
                     >
                         <div>
                             <img
@@ -319,7 +321,7 @@
                         <label>Product images<span class="star">*</span></label>
                         <div
                             *ngIf="!product_image['fileDetails']"
-                            class="addImageContainer d-flex align-items-center justify-content-center"
+                            class="addImageContainer d-flex align-items-center justify-content-center productImagesDiv"
                         >
                             <label class="d-flex align-items-center justify-content-center pointer-item">
                                 <input
@@ -337,7 +339,10 @@
                                 </div>
                             </label>
                         </div>
-                        <div *ngIf="product_image['fileDetails']" class="addImageContainer imageContainer">
+                        <div
+                            *ngIf="product_image['fileDetails']"
+                            class="addImageContainer imageContainer productImagesDiv"
+                        >
                             <div>
                                 <img [src]="product_image['fileDetails']['image_url']" alt="" class="uploadImg" />
                             </div>
@@ -508,7 +513,7 @@
                 </div>
                 <!-- </div> -->
             </div>
-            <div class="col-12 col-12 mt-2 mb-lg-4">
+            <div class="col-12 col-12 mt-lg-2 mt-3 mb-lg-4">
                 <button type="button" (click)="uploadImages()" class="btn btn-stroked">Update</button>
             </div>
         </div>

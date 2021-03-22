@@ -10,35 +10,30 @@
 }
 
 .star {
-    color: #ff1e5a;
+    color: #d50000;
 }
 
 .add-partner span {
     color: #80460b;
     font-weight: bold;
-}
-
-.add-partner {
     cursor: pointer;
 }
 
-.invite-setup {
-    margin-bottom: 2.2rem;
+.add-partner span:hover {
+    cursor: pointer;
+    text-decoration: underline !important;
 }
 
 .delete-link {
-    font-family: Muli;
+    font-family: 'Muli';
     font-size: 14px;
     font-weight: bold;
-    font-stretch: normal;
-    text-decoration: underline;
     color: #80460b;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 @media (max-width: 480px) {
-    .invite-setup {
-        margin-bottom: 1.5rem;
-    }
     .align-invite {
         display: flex;
         flex-direction: row;

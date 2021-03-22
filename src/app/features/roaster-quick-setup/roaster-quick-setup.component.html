@@ -9,7 +9,9 @@
             <div class="row">
                 <div class="col-12">
                     <div class="add-team">Invite {{ this.headerValue }}</div>
-                    <div class="invite-setup pt-2 pt-lg-0">Invite your customers to the platform for setup</div>
+                    <div class="fnt-14 fnt-normal mb-4 pt-2 pt-lg-0 text-clr588">
+                        Invite your customers to the platform for setup
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -23,12 +25,12 @@
                                     </div>
                                     <div class="col-6">
                                         <div *ngIf="i != 0" (click)="removeRow(i)" class="float-right">
-                                            <div class="mt-2 delete-link cursor-pointer">Delete</div>
+                                            <div class="mt-2 delete-link">Delete</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="sewn-form-field px-lg-3 col-md-4 mt-md-1">
+                            <div class="sewn-form-field pr-3 col-md-4 mt-md-1">
                                 <label>{{ globals.languageJson?.name }}<span class="star">*</span></label>
                                 <input
                                     pInputText
@@ -38,7 +40,7 @@
                                     type="text"
                                 />
                             </div>
-                            <div class="sewn-form-field px-lg-3 col-md-4 mt-md-1">
+                            <div class="sewn-form-field pl-lg-2 pr-3 col-md-4 mt-md-1">
                                 <label
                                     >{{ globals.languageJson?.enter_yoru_work_email }}<span class="star">*</span></label
                                 >
@@ -50,7 +52,10 @@
                                     [formControl]="invite.controls.email"
                                 />
                             </div>
-                            <div class="sewn-form-field px-lg-3 col-md-3 mt-md-1" *ngIf="this.headerValue == 'HoReCa'">
+                            <div
+                                class="sewn-form-field pl-lg-2 pr-3 col-md-3 mt-md-1"
+                                *ngIf="this.headerValue == 'HoReCa'"
+                            >
                                 <label
                                     >{{ globals.languageJson?.enter_yoru_work_type }}<span class="star">*</span>
                                 </label>
@@ -63,8 +68,8 @@
                                 </p-dropdown>
                             </div>
 
-                            <div *ngIf="i != 0" (click)="removeRow(i)" class="web-farm">
-                                <div class="cursor-pointer delete-link mt-5 pt-3">Delete</div>
+                            <div *ngIf="i != 0" (click)="removeRow(i)" class="web-farm pl-2">
+                                <div class="delete-link mt-5 pt-3">Delete</div>
                             </div>
                             <div
                                 *ngIf="inviteFormArray.length > 1"
@@ -72,7 +77,7 @@
                             ></div>
                         </div>
                         <div class="add-partner align-items-center">
-                            <span class="ml-2 fnt-muli fnt-700 fnt-14" (click)="addNewRow()">+ Add another email</span>
+                            <span class="fnt-14 fnt-700 fnt-muli ml-1" (click)="addNewRow()">+ Add another email</span>
                         </div>
                         <div class="row">
                             <div class="col-12 align-mob-btn">
@@ -85,7 +90,7 @@
                                 </button>
                                 <button
                                     type="submit"
-                                    class="btn-raised ml-lg-3 mt-lg-0 pt-lg-2 mt-4 pt-2"
+                                    class="btn-raised ml-lg-3 mt-lg-0 pt-lg-2 ml-md-3 mt-4 pt-2"
                                     (click)="sendInvite()"
                                     [disabled]="inviteFormArray.invalid || sendInviteButton === 'Sending'"
                                 >

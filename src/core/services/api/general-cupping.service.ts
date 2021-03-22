@@ -34,7 +34,7 @@ export class GeneralCuppingService extends ApiService {
         return this.post(this.orgPostUrl, `${this.endpoint}/${harvestId}/cupping-scores`, 'GET').pipe(
             map((response) => {
                 if (response.success) {
-                    return response.result.map((x) => toCamelCase<CuppingScore>(x));
+                    return response.result;
                 }
 
                 return [];
