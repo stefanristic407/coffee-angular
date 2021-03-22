@@ -10,6 +10,7 @@ import { EstateOrdersTableComponent } from './estate-orders-table/estate-orders-
 import { MicroRoasterOrdersTableComponent } from './micro-roaster-orders-table/micro-roaster-orders-table.component';
 import { HorecaOrdersTableComponent } from './horeca-orders-table/horeca-orders-table.component';
 import { CoffeeExperienceTableComponent } from './coffee-experience-table/coffee-experience-table.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
     declarations: [
@@ -20,6 +21,13 @@ import { CoffeeExperienceTableComponent } from './coffee-experience-table/coffee
         HorecaOrdersTableComponent,
         CoffeeExperienceTableComponent,
     ],
-    imports: [CommonModule, CoffeeExperienceRoutingModule, ReactiveFormsModule, FormsModule, SharedModule],
+    imports: [
+        CommonModule,
+        CoffeeExperienceRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        SharedModule,
+        Ng2SearchPipeModule,
+    ],
 })
 export class CoffeeExperienceModule {}

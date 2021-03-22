@@ -15,7 +15,7 @@ export class CoffeeExperienceComponent implements OnInit {
         { label: 'Farm link' },
         { label: 'The Coffee Experience' },
     ];
-    searchQuery = '';
+    searchTerm: any;
     customerType = 'estate';
     coffeeExperienceData: any;
     roasterId: string;

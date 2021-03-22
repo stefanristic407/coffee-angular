@@ -15,9 +15,9 @@ import { CookieService } from 'ngx-cookie-service';
 export class CoffeeExperienceTableComponent implements OnInit, OnChanges {
     estatetermOrigin: any;
     appLanguage?: any;
-    folderId: any;
+    orderId: any;
 
-    @Input() searchQuery = '';
+    @Input() searchTerm = '';
     @Input() coffeeExperienceData = [];
     @Input() customerType: any;
     itemId: any;
@@ -34,7 +34,6 @@ export class CoffeeExperienceTableComponent implements OnInit, OnChanges {
         { label: 'The Coffee Experience' },
     ];
     originData = [
-        { label: 'All', value: '' },
         { label: 'India', value: 'IN' },
         { label: 'USA', value: 'US' },
     ];
@@ -81,7 +80,7 @@ export class CoffeeExperienceTableComponent implements OnInit, OnChanges {
         }
     }
     filterOrigin() {
-        if (this.selectedOrigin === '') {
+        if (!this.selectedOrigin) {
             this.filteredCoffeeData = this.coffeeExperienceData;
         } else {
             this.filteredCoffeeData = this.coffeeExperienceData.filter((item) => item.origin === this.selectedOrigin);
@@ -103,5 +102,16 @@ export class CoffeeExperienceTableComponent implements OnInit, OnChanges {
 
     language() {
         this.appLanguage = this.globals.languageJson;
+    }
+
+    shareDetails(size: any) {
+        console.log(size);
+        this.orderId = size.id;
+        const navigationExtras: NavigationExtras = {
+            queryParams: {
+                orderId: encodeURIComponent(this.orderId),
+            },
+        };
+        this.router.navigate(['/coffee-experience/default-settings'], navigationExtras);
     }
 }

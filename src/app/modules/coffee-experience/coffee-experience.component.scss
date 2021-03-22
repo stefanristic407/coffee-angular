@@ -1,108 +1,117 @@
 /* Style the input container */
 .search-input-container {
-  display: flex;
-  width: 303px;
-  height: 40px;
-  border: 1px solid #ebebeb;
-  border-radius: 3px !important;
+    display: flex;
+    width: 303px;
+    height: 40px;
+    border: 1px solid #ebebeb;
+    border-radius: 3px !important;
 
-  img {
-    margin-left: 10px;
-    text-align: center;
-  }
+    img {
+        margin-left: 10px;
+        text-align: center;
+    }
 
-  .input-field {
-    width: 100%;
-    padding: 10px;
-    outline: none;
-    border-width: 0;
-    font-family: Muli;
-    font-size: 16px;
-  }
+    .input-field {
+        width: 100%;
+        padding: 10px;
+        outline: none;
+        border-width: 0;
+        font-family: Muli;
+        font-size: 16px;
+    }
 }
 
 .m-minus-55 {
-  margin-top: -55px;
+    margin-top: -55px;
 }
 
 :host ::ng-deep .ui-inputtext {
-  display: none !important;
+    display: none !important;
 }
 
 .give-your-end-users {
-  font-size: 14px;
-  font-weight: normal;
-  color: #747588;
-  width: 75%;
-  line-height: normal;
+    font-size: 14px;
+    font-weight: normal;
+    color: #747588;
+    width: 75%;
+    line-height: normal;
 }
 
 .estate-order-title {
-  font-size: 18px;
-  font-weight: bold;
-  line-height: normal;
-  color: #232334;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: normal;
+    color: #232334;
 }
 
 .coffee-exp {
-  padding: 32px 48px;
+    padding: 32px 48px;
 }
 
 ::ng-deep .range-picker {
-  height: 43px !important;
-  width: 138px !important;
+    height: 43px !important;
+    width: 138px !important;
 }
 
 ::ng-deep .p-inputwrapper-filled .range-picker {
-  width: auto !important;
+    width: auto !important;
 }
 
 .breadcrumb-container {
-  margin-bottom: 40px;
+    margin-bottom: 40px;
 }
 
 .table-filter-button-container {
-  margin-bottom: 32px;
-  height: 40px;
-  justify-content: space-between;
+    margin-bottom: 32px;
+    height: 40px;
+    justify-content: space-between;
 }
 
 @media (max-width: 991px) {
-  .give-your-end-users {
-    width: 95%;
-  }
-  .search-input-container {
-    width: 213px;
-  }
-  .coffee-exp {
-    padding: 24px 16px;
-  }
-  .table-filter-button-container {
-    margin-bottom: 24px;
-    justify-content: flex-start;
-
-    .range-filter-container {
-      margin-right: 12px;
+    .give-your-end-users {
+        width: 95%;
     }
-  }
+    .search-input-container {
+        width: 213px;
+    }
+    .coffee-exp {
+        padding: 24px 16px;
+    }
+    .table-filter-button-container {
+        margin-bottom: 24px;
+        justify-content: flex-start;
+
+        .range-filter-container {
+            margin-right: 12px;
+        }
+    }
 }
 
 @media (max-width: 767px) {
-  .give-your-end-users {
-    font-size: 12px;
-    width: 100%;
-    font-weight: 600;
-  }
-  .estate-order-title {
-    font-size: 16px;
-  }
-  .breadcrumb-container {
-    margin-bottom: 32px;
-  }
-  .default-settings-container, .default-settings {
-    width: 100%;
-  }
-  .table-filter-button-container {
-    margin-bottom: 16px;
-  }
+    .give-your-end-users {
+        font-size: 12px;
+        width: 100%;
+        font-weight: 600;
+    }
+    .estate-order-title {
+        font-size: 16px;
+    }
+    .breadcrumb-container {
+        margin-bottom: 32px;
+    }
+    .default-settings-container,
+    .default-settings {
+        width: 100%;
+    }
+    .table-filter-button-container {
+        margin-bottom: 16px;
+    }
+}
+@media (max-width: 480px) {
+    .p-tabview .p-tabview-nav li {
+        margin-right: 3rem;
+    }
+    .p-inputtext {
+        border: none;
+    }
 }

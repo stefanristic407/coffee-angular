@@ -1,10 +1,11 @@
 .view-listing {
-    color: #8c5000 !important;
-    text-decoration: underline;
-    font-weight: bold;
+    color: #80460b !important;
     cursor: pointer;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: bold !important;
+}
+.view-listing:hover {
+    text-decoration: underline;
 }
 
 .active {

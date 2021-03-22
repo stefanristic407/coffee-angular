@@ -8,8 +8,8 @@
                 <input
                     type="text"
                     pInputText
-                    class="w-100 {{ searchQuery ? 'highlight' : '' }}"
-                    [(ngModel)]="searchQuery"
+                    class="w-100 {{ searchTerm ? 'highlight' : '' }}"
+                    [(ngModel)]="searchTerm"
                     placeholder="{{ globals.languageJson?.search_name_role }}"
                 />
             </span>
@@ -30,7 +30,7 @@
                 <button
                     class="btn-raised text-nowrap default-settings px-4"
                     type="button"
-                    routerLink="/features/default-settings"
+                    routerLink="./default-settings"
                 >
                     Default settings
                 </button>
@@ -42,9 +42,9 @@
                     <img src="assets/images/icons-header-search.svg" alt="search" width="27" height="27" />
                 </div>
                 <input
-                    [(ngModel)]="searchQuery"
+                    [(ngModel)]="searchTerm"
                     pInputText
-                    class="w-100 {{ searchQuery ? 'highlight' : '' }}"
+                    class="w-100 {{ searchTerm ? 'highlight' : '' }}"
                     type="text"
                     placeholder="Search by order id, estate name"
                 />
@@ -53,12 +53,12 @@
     </section>
     <!-- table -->
     <section>
-        <div class="col-lg-12 col-md-12 px-0">
+        <div class="col-lg-12 col-md-12 px-0 mobile-taggle">
             <p-tabView class="toggle" (onChange)="onTabChange($event)">
                 <p-tabPanel header="Estate orders">
                     <app-coffee-experience-table
                         *ngIf="customerType === 'estate'"
-                        [searchQuery]="searchQuery"
+                        [searchTerm]="searchTerm"
                         [coffeeExperienceData]="coffeeExperienceData"
                         [customerType]="customerType"
                     >
@@ -67,7 +67,7 @@
                 <p-tabPanel header="Micro Roaster orders">
                     <app-coffee-experience-table
                         *ngIf="customerType === 'micro-roasters'"
-                        [searchQuery]="searchQuery"
+                        [searchTerm]="searchTerm"
                         [coffeeExperienceData]="coffeeExperienceData"
                         [customerType]="customerType"
                     >
@@ -76,7 +76,7 @@
                 <p-tabPanel header="HoReCa orders">
                     <app-coffee-experience-table
                         *ngIf="customerType === 'hrc'"
-                        [searchQuery]="searchQuery"
+                        [searchTerm]="searchTerm"
                         [coffeeExperienceData]="coffeeExperienceData"
                         [customerType]="customerType"
                     >

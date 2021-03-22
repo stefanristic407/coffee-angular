@@ -40,7 +40,11 @@
 </div>
 
 <div class="estate-table web-farm pt-4">
-    <p-table class="coffee-experience-table" [value]="filteredCoffeeData" sortMode="multiple">
+    <p-table
+        class="coffee-experience-table"
+        [value]="filteredCoffeeData | filter: searchTerm | filter: estatetermOrigin"
+        sortMode="multiple"
+    >
         <ng-template pTemplate="header">
             <tr>
                 <th pSortableColumn="order_id" class="order">
@@ -105,7 +109,30 @@
                 <td class="fnt-14">{{ item.quantity }}</td>
                 <td *ngIf="customerType !== 'hrc'" class="fnt-14">{{ item.cup_score }}</td>
 
-                <td class="view-listing">View Details</td>
+                <td
+                    *ngIf="customerType === 'estate'"
+                    class="view-listing"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ estate_id: item.id }"
+                >
+                    View Details
+                </td>
+                <td
+                    *ngIf="customerType === 'micro-roasters'"
+                    class="view-listing"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ micro_roasters_id: item.id }"
+                >
+                    View Details
+                </td>
+                <td
+                    *ngIf="customerType === 'hrc'"
+                    class="view-listing"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ hrc_id: item.order_id }"
+                >
+                    View Details
+                </td>
             </tr>
         </ng-template>
     </p-table>
@@ -114,7 +141,7 @@
 <div class="pt-md-2 mobile-farm">
     <div class="table-details mobile-farm">
         <div class="table-responsive border-sourcetable agreement-top">
-            <div class="col-12 mb-3 bor-ebe" *ngFor="let item of coffeeExperienceData">
+            <div class="col-12 mb-3 bor-ebe" *ngFor="let item of filteredCoffeeData">
                 <div class="row">
                     <div class="col-12 mobile-ce p-0">
                         <div class="d-flex justify-content-between bg-f4f4 py-2 px-3 name-header">
