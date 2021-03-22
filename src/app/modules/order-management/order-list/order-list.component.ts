@@ -23,11 +23,8 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     readonly statusItems = ORDER_STATUS_ITEMS;
     readonly orderTypeItems = ORDER_TYPE_ITEMS;
     readonly OrgType = OrgType;
-    readonly items: MenuItem[] = [
-        { label: 'Home', routerLink: '/features/welcome-aboard' },
-        { label: 'Order Management' }, // Do we need this item while we have no page for it?
-        { label: 'My Orders' },
-    ];
+
+    items: MenuItem[] = [];
 
     readonly displayOptions: LabelValue[] = [
         { label: '5', value: 5 },
@@ -83,6 +80,17 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
 
         this.route.params.pipe(takeUntil(this.unsubscribeAll$)).subscribe((params) => {
             this.organizationType = params.orgType;
+
+            this.items = [
+                { label: 'Home', routerLink: '/features/welcome-aboard' },
+                { label: 'Order Management' }, // Do we need this item while we have no page for it?
+                {
+                    label:
+                        this.organizationType === OrgType.ESTATE
+                            ? 'Purchased orders of Estates'
+                            : 'Orders & Requests by Micro Roasters',
+                },
+            ];
         });
 
         this.searchForm.valueChanges.pipe(takeUntil(this.unsubscribeAll$)).subscribe((value) => {

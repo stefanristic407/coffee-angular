@@ -7,7 +7,9 @@
 
     <div class="row no-gutters mt-2 px-2" [formGroup]="searchForm">
         <div class="col-12 col-md-4 px-0 d-flex align-items-center">
-            <h4 class="fnt-18 font-bold text-clr334 m-0">{{ 'my_orders' | translate }}</h4>
+            <h4 class="fnt-18 font-bold text-clr334 m-0">
+                {{ (organizationType === OrgType.ESTATE ? 'orders_of_estates' : 'orders_by_mr') | translate }}
+            </h4>
         </div>
         <div class="col-12 col-md-8 search-export px-0 mt-25">
             <div class="d-flex justify-content-end search-bar">
