@@ -317,9 +317,10 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
         console.log('brand data to edit: ', formValue);
         this.brandForm.setValue(formValue);
         this.isEditBrandMode = true;
-        this.filteredBrands = this.brands.filter((item) => {
-            return item.id !== brand.id;
-        });
+        this.isAddBrandMode = false;
+        // this.filteredBrands = this.brands.filter((item) => {
+        //     return item.id !== brand.id;
+        // });
     }
 
     addBrandProfileMode() {
@@ -328,6 +329,7 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
             description: ['', Validators.compose([Validators.required, maxWordCountValidator(50)])],
         });
         this.isAddBrandMode = true;
+        this.isEditBrandMode = false;
     }
 
     addNewBrand() {
