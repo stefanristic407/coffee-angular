@@ -36,19 +36,16 @@
                 </button>
             </div>
         </div>
-        <div class="d-block d-md-none">
-            <div class="search-input-container w-100 mb-3">
-                <div class="d-flex align-items-center">
-                    <img src="assets/images/icons-header-search.svg" alt="search" width="27" height="27" />
-                </div>
+        <div class="d-block d-md-none mb-3">
+            <span class="custom-search mobile-bord">
                 <input
-                    [(ngModel)]="searchTerm"
-                    pInputText
-                    class="w-100 {{ searchTerm ? 'highlight' : '' }}"
                     type="text"
-                    placeholder="Search by order id, estate name"
+                    pInputText
+                    class="w-100 {{ searchTerm ? 'highlight' : '' }} "
+                    [(ngModel)]="searchTerm"
+                    placeholder="{{ globals.languageJson?.search_name_role }}"
                 />
-            </div>
+            </span>
         </div>
     </section>
     <!-- table -->

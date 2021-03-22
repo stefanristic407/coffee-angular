@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { GlobalsService, RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'app-coffee-experience',
     templateUrl: './coffee-experience.component.html',
     styleUrls: ['./coffee-experience.component.scss'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class CoffeeExperienceComponent implements OnInit {
     items = [
