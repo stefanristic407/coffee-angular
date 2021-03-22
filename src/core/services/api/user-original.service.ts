@@ -1137,7 +1137,7 @@ export class UserserviceService {
     }
     getHrcOrdersCoffeeExperience(roaster_id: any, order_id: any) {
         const data = {
-            api_call: `/ro/${roaster_id}/hr-orders/${order_id}/coffee-experience`,
+            api_call: `/ro/${roaster_id}/hrc-orders/${order_id}/coffee-experience`,
             method: 'GET',
             token: this.cookieService.get('Auth'),
         };

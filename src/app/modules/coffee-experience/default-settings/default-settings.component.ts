@@ -56,25 +56,20 @@ export class DefaultSettingsComponent implements OnInit {
         private route: ActivatedRoute,
         public location: Location,
     ) {
-        console.log(this.orderID);
         this.roasterId = this.cookieService.get('roaster_id');
         this.setMenuItems();
     }
 
     ngOnInit(): void {
         this.language();
-        this.handleSaveData();
         if (this.isCoffeeDetailsPage) {
             if (this.route.snapshot.queryParams.estate_id) {
                 this.orderID = decodeURIComponent(this.route.snapshot.queryParams.estate_id);
             } else if (this.route.snapshot.queryParams.micro_roasters_id) {
                 this.orderID = decodeURIComponent(this.route.snapshot.queryParams.micro_roasters_id);
-                this.getMrOrdersCoffeeExperience();
             } else if (this.route.snapshot.queryParams.hrc_id) {
                 this.orderID = decodeURIComponent(this.route.snapshot.queryParams.hrc_id);
-                this.getHrcOrdersCoffeeExperience();
             }
-            console.log('getting orderID >>>>>>>>>>', this.orderID);
             this.getOrderExperience();
         } else {
             this.getDefaultSetting();
@@ -165,30 +160,27 @@ export class DefaultSettingsComponent implements OnInit {
     }
 
     getOrderExperience() {
-        this.userService.getMrOrdersCoffeeExperience(this.roasterId, this.orderID).subscribe((response: any) => {
-            console.log('getOrderExperience >>>>>>>>>>>', this.roasterId, this.orderID, response);
-            if (response.success) {
-                this.setPageData(response);
-            } else {
-                this.getDefaultSetting();
-            }
-        });
-    }
-
-    getMrOrdersCoffeeExperience() {
-        this.userService.getMrOrdersCoffeeExperience(this.roasterId, this.orderID).subscribe((res: any) => {
-            console.log(res);
-        });
-    }
-    getHrcOrdersCoffeeExperience() {
-        this.userService.getHrcOrdersCoffeeExperience(this.roasterId, this.orderID).subscribe((res: any) => {
-            console.log(res);
-        });
+        if (this.route.snapshot.queryParams.micro_roasters_id) {
+            this.userService.getMrOrdersCoffeeExperience(this.roasterId, this.orderID).subscribe((response: any) => {
+                if (response.success) {
+                    this.setPageData(response);
+                } else {
+                    this.getDefaultSetting();
+                }
+            });
+        } else if (this.route.snapshot.queryParams.hrc_id) {
+            this.userService.getHrcOrdersCoffeeExperience(this.roasterId, this.orderID).subscribe((response: any) => {
+                if (response.success) {
+                    this.setPageData(response);
+                } else {
+                    this.getDefaultSetting();
+                }
+            });
+        }
     }
 
     getDefaultSetting() {
         this.userService.getDefaultCoffeeExperience(this.roasterId).subscribe((response: any) => {
-            console.log('get default setting response >>>>>>>>>>>', this.roasterId, response);
             if (response.success) {
                 this.setPageData(response);
             } else {
@@ -243,7 +235,6 @@ export class DefaultSettingsComponent implements OnInit {
     }
 
     onChooseFile(target: any, parameter: string) {
-        console.log('changing >>>>>', target.files);
         const file = target.files[0];
         if (!file) {
             return;
@@ -303,7 +294,6 @@ export class DefaultSettingsComponent implements OnInit {
         if (this.fileImage) {
             this.userService.uploadFile(this.roasterId, this.fileImage, 'Coffee-Story').subscribe(
                 (res: any) => {
-                    console.log('file upload result >>>>>>', res);
                     this.fileImageId = res.result?.id;
                     this.filesCount++;
                     if (this.filesCount === this.totalFilesNumber) {
@@ -337,12 +327,24 @@ export class DefaultSettingsComponent implements OnInit {
             image_id: this.fileImageId || this.defaultDetails.image_id,
             video_id: this.fileVideoId || this.defaultDetails.video_id,
         };
-        console.log('image and video id >>>', this.fileImageId, this.fileVideoId);
-        console.log('save data >>>>>>>>>', data);
-        if (this.isCoffeeDetailsPage) {
+        if (this.route.snapshot.queryParams.micro_roasters_id) {
+            this.userService.postMrOrdersCoffeeExperience(this.roasterId, this.orderID, data).subscribe(
+                (res: any) => {
+                    this.isSaving = false;
+                    if (res.success) {
+                        this.handleAfterSuccess();
+                    } else {
+                        this.toastrService.error('Error while saving the details');
+                    }
+                },
+                (err) => {
+                    this.isSaving = false;
+                    this.toastrService.error('Error while saving the details');
+                },
+            );
+        } else if (this.route.snapshot.queryParams.hrc_id) {
             this.userService.postHrcOrdersCoffeeExperience(this.roasterId, this.orderID, data).subscribe(
                 (res: any) => {
-                    console.log('details page save result >>>>>>>>>>', res);
                     this.isSaving = false;
                     if (res.success) {
                         this.handleAfterSuccess();
@@ -356,21 +358,20 @@ export class DefaultSettingsComponent implements OnInit {
                 },
             );
         } else {
-            // this.userService.postDefaultSetting(this.roasterId, data).subscribe(
-            //     (res: any) => {
-            //         console.log('save default setting result >>>', res);
-            //         this.isSaving = false;
-            //         if (res.success) {
-            //             this.handleAfterSuccess();
-            //         } else {
-            //             this.toastrService.error('Error while saving the details');
-            //         }
-            //     },
-            //     (err) => {
-            //         this.isSaving = false;
-            //         this.toastrService.error('Error while saving the details');
-            //     },
-            // );
+            this.userService.postDefaultCoffeeExperienceDetail(this.roasterId, data).subscribe(
+                (res: any) => {
+                    this.isSaving = false;
+                    if (res.success) {
+                        this.handleAfterSuccess();
+                    } else {
+                        this.toastrService.error('Error while saving the details');
+                    }
+                },
+                (err) => {
+                    this.isSaving = false;
+                    this.toastrService.error('Error while saving the details');
+                },
+            );
         }
     }
 
