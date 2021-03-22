@@ -14,6 +14,7 @@ import {
     OrderNote,
     UserProfile,
     LotDetails,
+    Address,
 } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -147,6 +148,10 @@ export class OrderManagementService {
         return this.purchaseSrv.updateShipmentDetails(orderId, payload);
     }
 
+    updateShippingAddress(orderId: number, shippingAddress: Address): Observable<ApiResponse<any>> {
+        return this.purchaseSrv.updateOrderDetails(orderId, { shipping_address: shippingAddress });
+    }
+
     getCuppingReportUrl(harvestId: number): Observable<string> {
         return this.cuppingSrv.getCuppingReportUrl(harvestId);
     }
@@ -197,7 +202,7 @@ export class OrderManagementService {
         });
     }
 
-    loadOrderDetails(orderId: number, orgType: OrgType): void {
+    loadOrderDetails(orderId: number, orgType: OrgType, skipAdditionalDetails = false): void {
         const rewrite = this.orderId !== orderId;
         this.orderId = orderId;
 
@@ -206,17 +211,19 @@ export class OrderManagementService {
                 if (details) {
                     this.orderDetailsSubject.next(details);
 
-                    this.loadActivities(orderId, orgType);
-                    this.loadBulkDetails(details.harvest_id);
-                    this.loadCuppingScore(details.harvest_id, orgType);
-                    this.loadEstateDetails(details.estate_id);
-                    this.loadDocuments(1, 5, rewrite);
-                    this.loadOrderNotes(orderId);
-                    this.loadUserProfile();
-                    this.checkReviews(orderId, orgType);
+                    if (!skipAdditionalDetails) {
+                        this.loadActivities(orderId, orgType);
+                        this.loadBulkDetails(details.harvest_id);
+                        this.loadCuppingScore(details.harvest_id, orgType);
+                        this.loadEstateDetails(details.estate_id);
+                        this.loadDocuments(1, 5, rewrite);
+                        this.loadOrderNotes(orderId);
+                        this.loadUserProfile();
+                        this.checkReviews(orderId, orgType);
 
-                    if (details.order_type === OrderType.Prebook) {
-                        this.loadLotDetails(details.estate_id, details.lot_id);
+                        if (details.order_type === OrderType.Prebook) {
+                            this.loadLotDetails(details.estate_id, details.lot_id);
+                        }
                     }
                 }
             },
