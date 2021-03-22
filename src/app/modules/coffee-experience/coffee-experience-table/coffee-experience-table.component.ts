@@ -2,7 +2,7 @@ import { formatDate, NumberFormatStyle } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CustomerServiceService } from '@app/modules/people/customer-management/customer-service.service';
-import { GlobalsService, RoasteryProfileService } from '@services';
+import { GlobalsService } from '@services';
 import { DataTableDirective } from 'angular-datatables';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -58,7 +58,6 @@ export class CoffeeExperienceTableComponent implements OnInit, OnChanges {
         public router: Router,
         public globals: GlobalsService,
         public cookieService: CookieService,
-        public roasteryProfileService: RoasteryProfileService,
         public customer: CustomerServiceService,
     ) {}
     ngOnChanges(): void {
@@ -93,11 +92,6 @@ export class CoffeeExperienceTableComponent implements OnInit, OnChanges {
         } else {
             this.filteredCoffeeData = this.coffeeExperienceData.slice(0, this.filterDisplay);
         }
-    }
-
-    getCountryName(code: any): void {
-        const country = this.roasteryProfileService.countryList.find((con) => con.isoCode === code);
-        return country ? country.name : '';
     }
 
     language() {

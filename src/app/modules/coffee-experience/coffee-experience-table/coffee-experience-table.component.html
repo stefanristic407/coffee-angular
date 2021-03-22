@@ -48,41 +48,41 @@
         <ng-template pTemplate="header">
             <tr>
                 <th pSortableColumn="order_id" class="order">
-                    {{ globals.languageJson?.order_id }}<p-sortIcon field="order_id"> </p-sortIcon>
+                    {{ 'order_id' | translate }}<p-sortIcon field="order_id"> </p-sortIcon>
                 </th>
                 <th pSortableColumn="estate_name">
                     {{
-                        customerType !== 'hrc' ? globals.languageJson?.estate_name : globals.languageJson?.name_customer
+                        customerType !== 'hrc' ? 'estate_name' | translate : 'name_customer' | translate
                     }}
                     <p-sortIcon field="estate_name"> </p-sortIcon>
                 </th>
                 <th *ngIf="customerType === 'estate'" pSortableColumn="origin" class="variety">
-                    {{ globals.languageJson?.origin }}<p-sortIcon field="origin"> </p-sortIcon>
+                    {{ 'origin' | translate }}<p-sortIcon field="origin"> </p-sortIcon>
                 </th>
                 <th *ngIf="customerType !== 'estate'" pSortableColumn="product_name">
-                    {{ globals.languageJson?.product_name }}<p-sortIcon field="product_name"></p-sortIcon>
+                    {{ 'product_name' | translate }}<p-sortIcon field="product_name"></p-sortIcon>
                 </th>
 
                 <th pSortableColumn="date_ordered">
-                    {{ globals.languageJson?.date_ordered }}<p-sortIcon field="date_ordered"></p-sortIcon>
+                    {{ 'date_ordered' | translate }}<p-sortIcon field="date_ordered"></p-sortIcon>
                 </th>
                 <th *ngIf="customerType === 'estate'" pSortableColumn="date_recieved">
                     Date recieved<p-sortIcon field="date_recieved"></p-sortIcon>
                 </th>
                 <th *ngIf="customerType !== 'hrc'" pSortableColumn="variety" class="variety">
-                    {{ globals.languageJson?.variety }}<p-sortIcon field="variety"></p-sortIcon>
+                    {{ 'variety' | translate }}<p-sortIcon field="variety"></p-sortIcon>
                 </th>
                 <th *ngIf="customerType === 'hrc'" pSortableColumn="roast_level">
-                    {{ globals.languageJson?.roast_level }}<p-sortIcon field="roast_level"></p-sortIcon>
+                    {{ 'roast_level' | translate }}<p-sortIcon field="roast_level"></p-sortIcon>
                 </th>
                 <th pSortableColumn="quantity" class="quantity">
-                    {{ globals.languageJson?.quantity }}<p-sortIcon field="quantity"> </p-sortIcon>
+                    {{ 'quantity' | translate }}<p-sortIcon field="quantity"> </p-sortIcon>
                 </th>
                 <th *ngIf="customerType !== 'hrc'" pSortableColumn="cupping_score">
-                    {{ globals.languageJson?.cupping_score }}<p-sortIcon field="cupping_score"> </p-sortIcon>
+                    {{ 'cupping_score' | translate }}<p-sortIcon field="cupping_score"> </p-sortIcon>
                 </th>
                 <th pSortableColumn="actions" class="order">
-                    {{ globals.languageJson?.actions }}<p-sortIcon field="actions"> </p-sortIcon>
+                    {{ 'actions' | translate }}<p-sortIcon field="actions"> </p-sortIcon>
                 </th>
             </tr>
         </ng-template>
@@ -156,8 +156,8 @@
                                 <p class="light-eight fnt-14">
                                     {{
                                         customerType !== 'hrc'
-                                            ? globals.languageJson?.estate_name
-                                            : globals.languageJson?.name_customer
+                                            ? ('estate_name' | translate)
+                                            : ('name_customer' | translate)
                                     }}
                                 </p>
                             </div>
@@ -169,10 +169,10 @@
                         </div>
                         <div class="bor-bot-d6d6 mx-3 py-3 row">
                             <div class="col-5 p-0">
-                                <p class="light-eight fnt-14">{{ globals.languageJson?.origin }}</p>
+                                <p class="light-eight fnt-14">{{ 'origin' | translate }}</p>
                             </div>
                             <div class="col-7 p-0">
-                                <p class="fnt-14">{{ getCountryName(item.origin) }}</p>
+                                <p class="fnt-14">{{ item.origin | country }}</p>
                             </div>
                         </div>
                         <div class="bor-bot-d6d6 mx-3 py-3 row">
