@@ -34,15 +34,15 @@
         </ng-template>
         <ng-template pTemplate="body" let-item>
             <tr>
-                <td class="fnt-14">{{ item.name }}</td>
-                <td class="fnt-14">
+                <td class="fnt-14" (click)="shareDetails(item)">{{ item.name }}</td>
+                <td class="fnt-14" (click)="shareDetails(item)">
                     {{
                         customerType === 'micro-roasters'
                             ? (item.founded_on | date: 'M/d/yy, h:mm a')
                             : (item.created_at | date: 'M/d/yy, h:mm a')
                     }}
                 </td>
-                <td class="fnt-14">
+                <td class="fnt-14" (click)="shareDetails(item)">
                     <span *ngIf="item.status === 'PENDING'">{{ item.status }}</span>
                     <span *ngIf="item.status === 'ACTIVE'" class="active d-flex"
                         ><div class="active-dot"></div>
@@ -53,8 +53,8 @@
                         Disabled</span
                     >
                 </td>
-                <td class="fnt-14">{{ item.discount_percentage }}</td>
-                <td class="fnt-14">
+                <td class="fnt-14" (click)="shareDetails(item)">{{ item.discount_percentage }}</td>
+                <td class="fnt-14" (click)="shareDetails(item)">
                     {{ customerType === 'micro-roasters' ? item.total_employees : item.active_users }}
                 </td>
                 <td class="view-listing" (click)="shareDetails(item)">View Details</td>

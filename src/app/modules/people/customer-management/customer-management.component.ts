@@ -18,7 +18,6 @@ export class CustomerManagementComponent implements OnInit {
     sortedMainData: any;
     mainData: any;
     statusList: any = [
-        { label: 'All', value: '' },
         { label: 'Active', value: 'active' },
         { label: 'Inactive', value: 'inactive' },
         { label: 'Pending', value: 'pending' },
@@ -99,7 +98,7 @@ export class CustomerManagementComponent implements OnInit {
     }
 
     filterStatus() {
-        if (!this.selectedStatus || this.selectedStatus === 'All') {
+        if (!this.selectedStatus) {
             this.sortedMainData = this.mainData;
         } else {
             this.sortedMainData = this.mainData.filter((item) => item.status === this.selectedStatus.toUpperCase());
