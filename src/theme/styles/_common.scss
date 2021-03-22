@@ -483,3 +483,7 @@ span.star {
 .h-fit-content {
     height: fit-content;
 }
+
+.border-bottom-dashed {
+    border-bottom: 1px dashed $primary-border-color;
+}
