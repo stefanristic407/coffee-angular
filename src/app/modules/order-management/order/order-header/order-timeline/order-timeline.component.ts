@@ -47,7 +47,7 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     }
 
     get isPrebook(): boolean {
-        return this.order && this.order.orderType === OrderType.Prebook;
+        return this.order && this.order.order_type === OrderType.Prebook;
     }
 
     get isGraded(): boolean {
@@ -60,7 +60,7 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
             this.order &&
             this.order.status &&
             this.order.status === OrderStatus.Received &&
-            (this.order.orderType === OrderType.Sample || this.order.orderType === OrderType.Booked)
+            (this.order.order_type === OrderType.Sample || this.order.order_type === OrderType.Booked)
         );
     }
 
@@ -112,13 +112,13 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     }
 
     private updateTimelinePoints(): void {
-        if (this.order && this.order.orderType === OrderType.Prebook) {
+        if (this.order && this.order.order_type === OrderType.Prebook) {
             this.timelinePoints = [
                 { label: 'Order Placed', value: OrderStatus.Placed },
                 { label: 'Order Confirmed', value: OrderStatus.Confirmed },
                 { label: 'Payment', value: OrderStatus.Payment },
                 { label: 'Harverst Ready', value: OrderStatus.HarvestReady },
-                { label: 'Confirmed', value: OrderStatus.Graded },
+                { label: 'Graded', value: OrderStatus.Graded },
             ];
         } else {
             this.timelinePoints = [
@@ -127,7 +127,7 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
                 { label: 'Payment', value: OrderStatus.Payment },
                 { label: 'Shipped', value: OrderStatus.Shipped },
                 { label: 'Received', value: OrderStatus.Received },
-                { label: 'Confirmed', value: OrderStatus.Graded },
+                { label: 'Confirm', value: OrderStatus.Graded },
             ];
         }
     }

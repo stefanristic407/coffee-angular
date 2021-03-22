@@ -1,18 +1,20 @@
 <app-order-header
     [orderId]="orderId"
     [organizationType]="organizationType"
-    [orderType]="orderDetails?.orderType || orderDetails?.type"
-    [statusPaid]="orderDetails?.statusPaid"
-    [createdAt]="orderDetails?.createdAt"
-    [invoiceUrl]="orderDetails?.invoiceUrl"
+    [orderType]="orderDetails?.order_type || orderDetails?.type"
+    [statusPaid]="orderDetails?.status_paid"
+    [createdAt]="orderDetails?.created_at"
+    [invoiceUrl]="orderDetails?.invoice_url"
     [orderStatus]="orderDetails?.status"
-></app-order-header>
+>
+</app-order-header>
 
 <div class="row mt-3">
     <div class="col-12">
         <div class="bg-white d-lg-flex br-4 px-2 p-md-3 px-lg-5 py-lg-45">
             <div class="mixups-tabs col mb-md-3 mb-lg-0 px-0 pr-lg-2 mixups-tabs--pd0">
                 <app-order-details
+                    class="d-lg-flex flex-column w-100 h-100"
                     [orderId]="orderId"
                     [orgType]="organizationType"
                     [order]="orderDetails"
@@ -21,29 +23,39 @@
                 </app-order-details>
             </div>
 
-            <div class="col-lg col-md-12 px-0 px-md-0 pb-2 pl-lg-2 pr-lg-0 mixups-tabs--pd0 address-col">
-                <app-confirm-order
-                    *ngIf="needConfirmation"
-                    [orderId]="orderId"
-                    [orgType]="organizationType"
-                ></app-confirm-order>
-                <app-order-contacts
-                    *ngIf="!needConfirmation"
-                    [order]="orderDetails"
-                    [orgType]="organizationType"
-                    [roaster]="roaster$ | async"
-                ></app-order-contacts>
+            <div class="col-lg col-md-12 px-0 px-md-0 pb-2 pb-lg-0 pl-lg-2 pr-lg-0 mixups-tabs--pd0 address-col">
+                <app-confirm-order *ngIf="needConfirmation" [orderId]="orderId" [orgType]="organizationType">
+                </app-confirm-order>
+                <div class="d-lg-flex flex-column w-100 h-100" *ngIf="!needConfirmation">
+                    <app-order-contacts
+                        class="h-100"
+                        [class.d-flex-column]="isPrebook"
+                        [order]="orderDetails"
+                        [orgType]="organizationType"
+                        [roaster]="roaster$ | async"
+                    >
+                    </app-order-contacts>
+                    <app-create-reference-number
+                        class="mt-3"
+                        [refNumber]="orderDetails?.order_reference"
+                        [orderId]="orderId"
+                        *ngIf="!isPrebook && isEstateOrder"
+                    ></app-create-reference-number>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row mt-4">
-    <div class="col-12">
-        <div class="bg-white br-4 px-md-3 py-md-4 pl-lg-5 pr-lg-5" *ngIf="!needConfirmation">
-            <div class="col border-ebebeb p-2 p-md-0 recent-activity-col">
-                <app-recent-acitivity [orderId]="orderId"></app-recent-acitivity>
-            </div>
+<div class="row no-gutters mt-4 bg-white px-md-3 p-2 px-md-0 px-lg-5 py-md-4" *ngIf="!needConfirmation">
+    <div class="col-12 col-lg-6 br-4 pb-3 pb-lg-0 pr-lg-2" *ngIf="!isPrebook && isEstateOrder">
+        <div class="p-2 p-md-0 border-ebebeb">
+            <app-roaster-notes [orderId]="orderId"></app-roaster-notes>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6 br-4" [class.pl-lg-2]="!isPrebook && isEstateOrder">
+        <div class="p-2 p-md-0 border-ebebeb">
+            <app-recent-acitivity [orderId]="orderId"></app-recent-acitivity>
         </div>
     </div>
 </div>

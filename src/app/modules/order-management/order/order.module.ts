@@ -20,6 +20,11 @@ import { DeliveryAddressComponent } from './order-contacts/delivery-address/deli
 import { ConfirmOrderComponent } from './confirm-order/confirm-order.component';
 import { AgmCoreModule } from '@agm/core';
 import { RoasterDetailsComponent } from './order-contacts/roaster-details/roaster-details.component';
+import { CreateReferenceNumberComponent } from './create-reference-number/create-reference-number.component';
+import { RoasterNotesComponent } from './roaster-notes/roaster-notes.component';
+import { AddNoteComponent } from './roaster-notes/add-note/add-note.component';
+import { NoteComponent } from './roaster-notes/note/note.component';
+import { EditTrackingInfoComponent } from './order-header/edit-tracking-info/edit-tracking-info.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule, AgmCoreModule, SharedModule, OrderRoutingModule],
@@ -40,6 +45,11 @@ import { RoasterDetailsComponent } from './order-contacts/roaster-details/roaste
         DeliveryAddressComponent,
         ConfirmOrderComponent,
         RoasterDetailsComponent,
+        CreateReferenceNumberComponent,
+        RoasterNotesComponent,
+        AddNoteComponent,
+        NoteComponent,
+        EditTrackingInfoComponent,
     ],
 })
 export class OrderModule {}

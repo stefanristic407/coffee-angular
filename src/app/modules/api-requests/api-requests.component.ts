@@ -3,6 +3,7 @@ import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { GlobalsService } from '@services';
 import { MenuItem } from 'primeng/api';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-api-requests',
@@ -31,7 +32,15 @@ export class ApiRequestsTableComponent implements OnInit, AfterViewInit {
     ];
     isApiRequestPage = true;
     displayArray = [];
-    constructor(public globals: GlobalsService) {}
+    constructor(public globals: GlobalsService, private route: ActivatedRoute) {
+        this.route.queryParams.subscribe((params) => {
+            const paramsData = JSON.parse(JSON.stringify(params));
+            if (paramsData.data === 'generated-key') {
+                this.selectedTab = 1;
+                this.isApiRequestPage = false;
+            }
+        });
+    }
 
     ngOnInit(): void {
         this.supplyBreadCrumb();

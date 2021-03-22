@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { OrderDetails } from '@models';
+import { OrderType } from '@enums';
 
 @Component({
     selector: 'app-order-payment-status',
@@ -9,11 +10,13 @@ import { OrderDetails } from '@models';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderPaymentStatusComponent {
+    readonly OrderTypes = OrderType;
+
     @Input() order: OrderDetails;
 
-    openReceipt(): void {
-        if (this.order && this.order.receiptUrl) {
-            window.open(this.order.receiptUrl, '_blank');
+    openLink(link: string): void {
+        if (link) {
+            window.open(link, '_blank');
         }
     }
 }

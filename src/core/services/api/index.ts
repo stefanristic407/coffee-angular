@@ -1,5 +1,6 @@
 export * from './acl.service';
 export * from './api.service';
+export * from './availability-request.service';
 export * from './availability.service';
 export * from './brand-profile.service';
 export * from './file.service';

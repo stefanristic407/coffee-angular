@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { OrgType } from '@enums';
+import { OrgType, OrderStatus } from '@enums';
 import {
     ApiResponse,
     ConfirmRejectOrderDetails,
@@ -8,6 +8,7 @@ import {
     OrderDetails,
     OrderSummary,
     RecentActivity,
+    OrderNote,
 } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
@@ -31,7 +32,7 @@ export class PurchaseService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `${this.getOrgEndpoint(orgType)}/${orderId}`, 'GET').pipe(
             map((response) => {
                 if (response.success && response.result.id) {
-                    const details = toCamelCase<OrderDetails>(response.result);
+                    const details = response.result;
                     details.orderType = details.orderType || details.type;
 
                     details.uploadShow = true;
@@ -48,6 +49,7 @@ export class PurchaseService extends ApiService {
                         details.statusPaid = true;
                         details.statusPending = false;
                         details.paymentVerification = true;
+                        details.status = OrderStatus.Payment;
                     }
 
                     return details;
@@ -64,13 +66,11 @@ export class PurchaseService extends ApiService {
             map((res) => {
                 if (res.success) {
                     res.result = res.result || [];
-                    const arr = res.result
-                        .map((x) => toCamelCase<OrderSummary>(x))
-                        .map((x) => ({
-                            ...x,
-                            status: this.getLabel(ORDER_STATUS_ITEMS, x.status),
-                            type: this.getLabel(ORDER_TYPE_ITEMS, x.type),
-                        }));
+                    const arr = res.result.map((x) => ({
+                        ...x,
+                        status: this.getLabel(ORDER_STATUS_ITEMS, x.status),
+                        type: this.getLabel(ORDER_TYPE_ITEMS, x.type),
+                    }));
 
                     return { ...res, result: arr };
                 }
@@ -82,6 +82,18 @@ export class PurchaseService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `${this.getOrgEndpoint(orgType)}/${orderId}/events`, 'GET').pipe(
             map((response) => {
                 return response.success ? response.result : [];
+            }),
+        );
+    }
+
+    addOrderNote(orderId: number, note: string): Observable<ApiResponse<void>> {
+        return this.postWithOrg(this.orgPostUrl, `${this.endpoint}/${orderId}/notes`, 'POST', { notes: note });
+    }
+
+    getOrderNotes(orderId: number): Observable<OrderNote[]> {
+        return this.postWithOrg(this.orgPostUrl, `${this.endpoint}/${orderId}/notes`).pipe(
+            map((response) => {
+                return response.success && response.result ? response.result : [];
             }),
         );
     }
@@ -114,11 +126,19 @@ export class PurchaseService extends ApiService {
     }
 
     updatePaymentVerify(orderId: number): Observable<ApiResponse<any>> {
-        return this.post(this.orgPostUrl, `mr-${this.endpoint}/${orderId}/payment/verify`, 'PUT');
+        return this.postWithOrg(this.orgPostUrl, `mr-${this.endpoint}/${orderId}/payment/verify`, 'PUT');
     }
 
     updatePaymentAfterDelivery(orderId: number): Observable<ApiResponse<any>> {
-        return this.post(this.orgPostUrl, `mr-${this.endpoint}/${orderId}/payment/after-delivery`, 'PUT');
+        return this.postWithOrg(this.orgPostUrl, `mr-${this.endpoint}/${orderId}/payment/after-delivery`, 'PUT');
+    }
+
+    updateOrderDetails(orderId: number, details: any): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `${this.endpoint}/${orderId}`, 'PUT', details);
+    }
+
+    updateShipmentDetails(orderId: number, body: any): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `mr-${this.endpoint}/${orderId}/shipment`, 'PUT', body);
     }
 
     private getLabel(labels: LabelValue[], value: any): string {

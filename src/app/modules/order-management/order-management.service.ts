@@ -9,6 +9,10 @@ import {
     RecentActivity,
     OrganizationDetails,
     ConfirmRejectOrderDetails,
+    LabelValue,
+    AvailabilityRequest,
+    OrderNote,
+    UserProfile,
 } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -19,7 +23,13 @@ import {
     GeneralCuppingService,
     OrderService,
     PurchaseService,
+    CommonService,
+    AvailabilityRequestService,
+    UserService,
 } from '@services';
+import * as _ from 'lodash';
+import * as moment from 'moment';
+import { toCamelCase } from '@utils';
 
 @Injectable({
     providedIn: 'root',
@@ -35,16 +45,24 @@ export class OrderManagementService {
         [OrgType.MICRO_ROASTER]: new BehaviorSubject<ApiResponse<OrderSummary[]>>(null),
     };
     private readonly cuppingScoreSubject = new BehaviorSubject<CuppingScore[]>([]);
+    private readonly originListSubject = new BehaviorSubject<LabelValue[]>([]);
+    private readonly requestListSubject = new BehaviorSubject<ApiResponse<AvailabilityRequest[]>>(null);
+    private readonly orderNotesSubject = new BehaviorSubject<OrderNote[]>([]);
+    // TODO: Move into user service as "current user profile" after refactoring
+    private readonly userProfileSubject = new BehaviorSubject<UserProfile>(null);
 
     private orderId: number;
 
     constructor(
         protected cookieSrv: CookieService,
         private availabilitySrv: AvailabilityService,
-        private brandProfileSrc: BrandProfileService,
+        private brandProfileSrv: BrandProfileService,
         private cuppingSrv: GeneralCuppingService,
         private orderSrv: OrderService,
         private purchaseSrv: PurchaseService,
+        private commonSrv: CommonService,
+        private requestSrv: AvailabilityRequestService,
+        private userSrv: UserService,
     ) {}
 
     get orderDetails$(): Observable<OrderDetails> {
@@ -71,6 +89,22 @@ export class OrderManagementService {
         return this.cuppingScoreSubject.asObservable();
     }
 
+    get originList$(): Observable<LabelValue[]> {
+        return this.originListSubject.asObservable();
+    }
+
+    get requestList$(): Observable<ApiResponse<AvailabilityRequest[]>> {
+        return this.requestListSubject.asObservable();
+    }
+
+    get orderNotes$(): Observable<OrderNote[]> {
+        return this.orderNotesSubject.asObservable();
+    }
+
+    get userProfile$(): Observable<UserProfile> {
+        return this.userProfileSubject.asObservable();
+    }
+
     getOrders(organizationType: OrgType): Observable<ApiResponse<OrderSummary[]>> {
         return this.ordersSubjects[organizationType].asObservable();
     }
@@ -91,8 +125,24 @@ export class OrderManagementService {
         return this.purchaseSrv.updatePaymentAfterDelivery(orderId);
     }
 
+    updateShipmentDetails(orderId: number, trackingLink: string, shipmentDate: string): Observable<ApiResponse<any>> {
+        const payload = {
+            tracking_link: trackingLink,
+            shipment_date: moment(shipmentDate).format('yyyy-MM-DD'),
+        };
+        return this.purchaseSrv.updateShipmentDetails(orderId, payload);
+    }
+
     getCuppingReportUrl(harvestId: number): Observable<string> {
         return this.cuppingSrv.getCuppingReportUrl(harvestId);
+    }
+
+    createReferenceNumber(orderId: number, referenceNumber: string): Observable<ApiResponse<any>> {
+        return this.purchaseSrv.updateOrderDetails(orderId, { order_reference: referenceNumber });
+    }
+
+    addOrderNote(orderId: number, note: string): Observable<ApiResponse<any>> {
+        return this.purchaseSrv.addOrderNote(orderId, note);
     }
 
     downloadOrders(
@@ -104,9 +154,32 @@ export class OrderManagementService {
         return this.purchaseSrv.downloadOrders(orgType, exportType, dateFrom, dateTo);
     }
 
+    loadOrigins(): void {
+        this.availabilitySrv.getAvailabilityList().subscribe((availabilityList) => {
+            const origins = availabilityList.map((x) => (x.lot ? x.lot.country : '').toUpperCase()).filter((x) => x);
+
+            const labels = _.sortBy(_.uniq(origins))
+                .map((x) => {
+                    return {
+                        label: this.commonSrv.getCountryName(x),
+                        value: x,
+                    };
+                })
+                .filter((x) => x.label);
+
+            this.originListSubject.next(labels);
+        });
+    }
+
     loadOrders(organizationType: OrgType, options: any): void {
         this.purchaseSrv.getOrders(organizationType, options).subscribe({
             next: (result) => this.ordersSubjects[organizationType].next(result),
+        });
+    }
+
+    loadRequests(options: any): void {
+        this.requestSrv.getRequestList(options).subscribe({
+            next: (response) => this.requestListSubject.next(response),
         });
     }
 
@@ -120,10 +193,12 @@ export class OrderManagementService {
                     this.orderDetailsSubject.next(details);
 
                     this.loadActivities(orderId, orgType);
-                    this.loadBulkDetails(details.harvestId);
-                    this.loadCuppingScore(details.harvestId, orgType);
-                    this.loadEstateDetails(details.estateId);
+                    this.loadBulkDetails(details.harvest_id);
+                    this.loadCuppingScore(details.harvest_id, orgType);
+                    this.loadEstateDetails(details.estate_id);
                     this.loadDocuments(1, 5, rewrite);
+                    this.loadOrderNotes(orderId);
+                    this.loadUserProfile();
                 }
             },
         });
@@ -149,6 +224,12 @@ export class OrderManagementService {
         });
     }
 
+    loadOrderNotes(orderId: number): void {
+        this.purchaseSrv.getOrderNotes(orderId).subscribe({
+            next: (result) => this.orderNotesSubject.next(result),
+        });
+    }
+
     private loadActivities(orderId: number, orgType: OrgType): void {
         this.purchaseSrv.getRecentActivity(orderId, orgType).subscribe({
             next: (result) => this.recentActivitiesSubject.next(result),
@@ -166,7 +247,7 @@ export class OrderManagementService {
     }
 
     private loadEstateDetails(id: number): void {
-        this.brandProfileSrc.getEstateProfile(id).subscribe({
+        this.brandProfileSrv.getEstateProfile(id).subscribe({
             next: (result) => this.estateDetailsSubject.next(result),
         });
     }
@@ -174,6 +255,16 @@ export class OrderManagementService {
     private loadCuppingScore(harvestId: number, orgType: OrgType): void {
         this.cuppingSrv.getCuppingScores(harvestId, orgType).subscribe({
             next: (result) => this.cuppingScoreSubject.next(result),
+        });
+    }
+
+    private loadUserProfile(): void {
+        this.userSrv.getUserProfile().subscribe({
+            next: (res) => {
+                if (res.success) {
+                    this.userProfileSubject.next(res.result);
+                }
+            },
         });
     }
 }

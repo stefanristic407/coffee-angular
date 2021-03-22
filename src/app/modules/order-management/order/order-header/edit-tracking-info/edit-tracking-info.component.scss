@@ -1,0 +1,23 @@
+:host {
+    @media all and (min-width: 768px) {
+        margin-top: 10px;
+    }
+
+    @media all and (min-width: 992px) {
+        margin-top: 32px;
+    }
+
+    .payment-container {
+        padding: 10px 24px;
+        border-radius: 4px;
+        border: solid 1px #ebebeb;
+
+        @media all and (max-width: 767px) {
+            padding: 16px;
+        }
+    }
+
+    .no-text-wrap {
+        white-space: nowrap;
+    }
+}

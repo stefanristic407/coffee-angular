@@ -1,11 +1,13 @@
 export interface OrganizationDetails {
     id: number;
-    ownerName: string;
-    companyImageThumbnailUrl: string;
+    owner_name: string;
+    company_image_thumbnail_url: string;
     rating: number;
-    addressLine1: string;
-    addressLine2: string;
+    address_line1: string;
+    address_line2: string;
     state: string;
     zipcode: string;
     country: string;
+    company_number: string;
+    belongs_to: string;
 }

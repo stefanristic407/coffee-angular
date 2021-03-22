@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '@app/shared';
 import { DataTablesModule } from 'angular-datatables';
 import { PaginatorModule } from 'primeng/paginator';
+import { GeneratedKeyDetailsComponent } from './generated-key-details/generated-key-details.component';
 
 @NgModule({
     declarations: [
@@ -17,6 +18,7 @@ import { PaginatorModule } from 'primeng/paginator';
         ApiKeyRequestsComponent,
         GeneratedKeysComponent,
         ApiRequestDetailsComponent,
+        GeneratedKeyDetailsComponent,
     ],
     imports: [CommonModule, ApiRequestRoutingModule, PaginatorModule, MatIconModule, DataTablesModule, SharedModule],
 })

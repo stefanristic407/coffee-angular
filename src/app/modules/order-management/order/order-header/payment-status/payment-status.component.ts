@@ -38,9 +38,9 @@ export class PaymentStatusComponent extends ResizeableComponent implements OnIni
             if (data.success) {
                 this.toastrService.success('Payment has been verified!');
                 this.paymentStatus = 'VERIFIED';
-                this.orderDetails.statusPaid = true;
-                this.orderDetails.statusPending = false;
-                this.orderDetails.receiptShow = true;
+                this.orderDetails.status_paid = true;
+                this.orderDetails.status_pending = false;
+                this.orderDetails.receipt_show = true;
                 this.ordersService.updateOrderDetails(this.orderDetails);
             } else {
                 this.toastrService.error('Error while verifying the payment');
@@ -52,7 +52,7 @@ export class PaymentStatusComponent extends ResizeableComponent implements OnIni
         this.ordersService.updatePaymentAfterDelivery(this.orderId).subscribe((data) => {
             if (data.success) {
                 this.toastrService.success('Payment after delivering the order!');
-                this.orderDetails.paymentAfterDelivery = true;
+                this.orderDetails.payment_after_delivery = true;
                 this.ordersService.updateOrderDetails(this.orderDetails);
             } else {
                 this.toastrService.error('Error while verifying the payment after delivery');

@@ -6,12 +6,12 @@
         <div class="col-lg-8 col-12 pt-0 pl-2 pr-2">
             <div class="border-md-main br-4 p-lg-4 p-md-3">
                 <form [formGroup]="aboutForm">
-                    <div class="row border-md-main border-md-none br-6 mt-3 m-0 p-0 p-md-0 mr-2 ml-2">
+                    <div class="row border-md-main border-md-none br-6 mt-3 m-0 p-0 p-md-0 mr-md-0 ml-md-0">
                         <div
                             class="sewn-form-field col-md-6 m-0 pl-0 pr-md-2 pr-0 pt-0 pt-md-0"
                             [ngClass]="[isSaveMode ? 'col-12' : 'col-6']"
                         >
-                            <label class="fnt-12 fnt-md-14" for="founded_in">
+                            <label [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12']" for="founded_in">
                                 {{ 'founded_in' | translate }}
                                 <span class="star" *ngIf="isSaveMode">*</span>
                             </label>
@@ -34,10 +34,10 @@
                         </div>
 
                         <div
-                            class="sewn-form-field col-md-6 m-0 pl-0 pr-0 pl-md-2"
-                            [ngClass]="[isSaveMode ? 'col-12' : 'col-6']"
+                            class="sewn-form-field col-md-6 mt-md-0 mb-0 pl-0 pr-0 pl-md-2"
+                            [ngClass]="[isSaveMode ? 'col-12 mt-3' : 'col-6 mt-0']"
                         >
-                            <label class="fnt-12 fnt-md-14" for="owner_name">
+                            <label [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12']" for="owner_name">
                                 {{ 'owner_name' | translate }}<span class="star" *ngIf="isSaveMode">*</span>
                             </label>
                             <input
@@ -59,16 +59,20 @@
                         </div>
                     </div>
 
-                    <div class="row border-md-main border-md-none br-4 mt-3 mb-4 m-0 p-0 p-md-0 mr-2 ml-2">
-                        <div class="sewn-form-field col-md-12 mt-md-45 p-0">
-                            <label class="fnt-12 fnt-md-14" for="summary"
+                    <div
+                        class="row border-md-main border-md-none br-4 mb-3 mb-md-45 m-0 mt-3 mt-md-0 p-0 p-md-0 mr-md-0 ml-md-0"
+                    >
+                        <div class="sewn-form-field col-md-12 mt-md-45 p-0 mb-0">
+                            <label [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12']" for="summary"
                                 >{{ 'roastery_summary' | translate }}
                                 <span class="pull-right text-clr588" *ngIf="isSaveMode">
-                                    {{ aboutForm.get('description').value.length }}/150 words
+                                    {{ aboutForm.get('description').value | wordCount }}/150 words
                                 </span>
                             </label>
                             <textarea
                                 *ngIf="isSaveMode"
+                                appWordLimit
+                                [limit]="150"
                                 pInputTextarea
                                 class="w-100"
                                 id="summary"
@@ -78,18 +82,18 @@
                                 placeholder="Tell us and to our users about who you are as a company!"
                             >
                             </textarea>
-                            <small *ngIf="isControlHasError('description', 'maxlength')" class="p-error">
-                                Description length shouldn't be over 150 characters
+                            <small *ngIf="isControlHasError('description', 'maxWordCount')" class="p-error">
+                                Description shouldn't be over 150 words
                             </small>
                             <p class="fnt-14 fnt-600 text-clr334" *ngIf="isEditMode">
                                 {{ roasteryProfileService.roasteryProfileData?.description }}
                             </p>
                         </div>
                     </div>
-                    <hr class="d-none d-lg-block" *ngIf="isSaveMode" />
+                    <hr class="mb-4 mt-4" *ngIf="isSaveMode" />
 
                     <div class="row mt-md-45" *ngIf="isSaveMode">
-                        <div class="col-12 mb-45">
+                        <div class="col-12 mb-3 mb-md-45">
                             <p class="fnt-18 font-bold text-clr334 w-100 mb-1">
                                 {{ 'employee_details' | translate }}
                             </p>
@@ -98,7 +102,7 @@
                     </div>
 
                     <div class="row mb-md-3" *ngIf="isSaveMode">
-                        <div class="sewn-form-field col-12 col-md-6 pr-md-2">
+                        <div class="sewn-form-field col-12 col-md-6 pr-md-2 mb-3 mb-md-4">
                             <label for="employee_nos">
                                 {{ 'total_number_employees' | translate }}
                                 <span class="star">*</span>
@@ -115,8 +119,11 @@
                             <small class="p-error" *ngIf="isControlHasError('total_employees', 'required')">
                                 {{ 'required' | translate }}
                             </small>
+                            <small class="p-error" *ngIf="roasteryProfileService.invalidSumEmployee">
+                                Please enter the correct no
+                            </small>
                         </div>
-                        <div class="sewn-form-field col-12 col-md-6 pl-md-2">
+                        <div class="sewn-form-field col-12 col-md-6 pl-md-2 mb-3 mb-md-4">
                             <label for="employee_avg">
                                 {{ 'average_employee_age' | translate }}
                                 <span class="star">*</span>
@@ -140,7 +147,7 @@
                         <span class="star">*</span>
                     </span>
                     <div class="row" *ngIf="isSaveMode">
-                        <div class="sewn-form-field col-12 col-md-6 pr-md-2">
+                        <div class="sewn-form-field col-12 col-md-6 pr-md-2 mb-3 mb-md-4">
                             <label for="female_num">
                                 {{ 'total_number_female_employees' | translate }}
                                 <span class="star">*</span>
@@ -154,11 +161,11 @@
                                 formControlName="female_employee_count"
                                 placeholder="Please enter the number of female employees"
                             />
-                            <small class="p-error" *ngIf="isControlHasError('female_employee_count', 'required')">
-                                {{ 'required' | translate }}
+                            <small class="p-error" *ngIf="roasteryProfileService.invalidSumEmployee">
+                                Please enter the correct no
                             </small>
                         </div>
-                        <div class="sewn-form-field col-12 col-md-6 pl-md-2">
+                        <div class="sewn-form-field col-12 col-md-6 pl-md-2 mb-3 mb-md-4">
                             <label for="male_num">
                                 {{ 'total_number_male_employees' | translate }}
                                 <span class="star">*</span>
@@ -172,20 +179,20 @@
                                 formControlName="male_employee_count"
                                 placeholder="Please enter the number of male employees"
                             />
-                            <small class="p-error" *ngIf="isControlHasError('male_employee_count', 'required')">
-                                {{ 'required' | translate }}
+                            <small class="p-error" *ngIf="roasteryProfileService.invalidSumEmployee">
+                                Please enter the correct no
                             </small>
                         </div>
                     </div>
 
-                    <div class="d-block d-md-none mb-4">
+                    <div class="d-block d-md-none mb-3 mb-md-4">
                         <ng-template *ngTemplateOutlet="rightSidePanel"></ng-template>
                     </div>
 
                     <!-- company details -->
 
                     <hr class="d-none d-lg-block" />
-                    <div class="row border-md-main border-md-none br-4 mt-md-45 mb-2 m-0 p-0 pl-2 pr-2 p-md-0">
+                    <div class="row border-md-main border-md-none br-4 mt-md-45 mb-2 m-0 p-0 p-md-0">
                         <div class="col-9 mb-3 mb-md-45 p-0">
                             <p class="fnt-18 font-bold text-clr334 w-100 mb-1">Company details</p>
                             <p class="fnt-14 fnt-600 text-clr588 w-100 m-0" *ngIf="isSaveMode">
@@ -200,8 +207,11 @@
                             ></p-inputSwitch>
                         </div>
 
-                        <div class="sewn-form-field col-md-6 p-0 pr-md-2" [ngClass]="[isSaveMode ? 'col-12' : 'col-6']">
-                            <label class="fnt-12 fnt-md-14" for="vat_nos"
+                        <div
+                            class="sewn-form-field col-md-6 p-0 pr-md-2 mb-3 mb-md-4"
+                            [ngClass]="[isSaveMode ? 'col-12' : 'col-6']"
+                        >
+                            <label [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12']" for="vat_nos"
                                 >VAT number<span class="star" *ngIf="isSaveMode">*</span></label
                             >
                             <input
@@ -221,8 +231,11 @@
                                 {{ 'required' | translate }}
                             </small>
                         </div>
-                        <div class="sewn-form-field col-md-6 p-0 pl-md-2" [ngClass]="[isSaveMode ? 'col-12' : 'col-6']">
-                            <label for="cmpy_rid" class="fnt-12 fnt-md-14"
+                        <div
+                            class="sewn-form-field col-md-6 p-0 pl-md-2 mb-0 mb-md-4"
+                            [ngClass]="[isSaveMode ? 'col-12' : 'col-6']"
+                        >
+                            <label for="cmpy_rid" [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12']"
                                 >Company registration ID<span class="star" *ngIf="isSaveMode">*</span></label
                             >
                             <input
@@ -244,9 +257,10 @@
                         </div>
                     </div>
 
-                    <hr class="d-none d-md-block" />
-                    <div class="row mt-md-45 mb-4 ml-0 mr-0">
-                        <div class="col-12 pl-2 pr-2 p-md-0">
+                    <hr class="mt-4 mb-4 mt-md-3" />
+
+                    <div class="row mt-md-45 mb-3 mb-md-4 ml-0 mr-0">
+                        <div class="col-12 p-0">
                             <p class="fnt-18 font-bold text-clr334 w-100 mb-1">
                                 {{ 'roastery_capabilities' | translate }}
                             </p>
@@ -260,7 +274,7 @@
                     </div>
 
                     <div class="row" *ngIf="isSaveMode">
-                        <div class="sewn-form-field col-12 col-md-6 pr-md-2 position-relative">
+                        <div class="sewn-form-field col-12 col-md-6 pr-md-2 mb-3 mb-md-4 position-relative">
                             <label for="capacity">
                                 {{ 'roaster_capacity' | translate }}
                                 <span class="star">*</span>
@@ -309,7 +323,7 @@
                         </div>
                     </div>
 
-                    <div class="row mb-4 mb-md-5" *ngIf="isEditMode">
+                    <div class="row mb-4 mb-md-425" *ngIf="isEditMode">
                         <div class="col-lg-12">
                             <div
                                 class="capability-container d-flex border-md-main br-4 p-2 pt-md-4 pb-md-1 pl-md-4 pr-md-4"
@@ -329,10 +343,17 @@
                         </div>
                     </div>
 
-                    <hr />
+                    <hr class="mt-2 mb-2" />
                 </form>
                 <!-- Brand Profile -->
-
+                <input
+                    type="file"
+                    class="file-inpt"
+                    hidden
+                    #brandImageInput
+                    (click)="setFormat($event)"
+                    (change)="handleRoasterFile($event)"
+                />
                 <form [formGroup]="brandForm">
                     <div class="row mt-md-45 mb-4 mb-md-45">
                         <div class="col-12">
@@ -347,9 +368,22 @@
                     <div *ngIf="isSaveMode">
                         <div class="mt-2" *ngIf="isAddBrandMode || isEditBrandMode">
                             <div class="row">
-                                <div class="col-12 add-brand-section">
-                                    <div class="add-brand-data">
-                                        <div class="sewn-form-field mr-45">
+                                <div
+                                    class="sewn-form-field mb-45 brand-name"
+                                    [ngClass]="[
+                                        brandImageUrl === 'assets/images/default-brand.png'
+                                            ? 'col-12 col-md-6 pr-md-2'
+                                            : 'col-12'
+                                    ]"
+                                >
+                                    <div class="d-md-none">
+                                        <ng-template *ngTemplateOutlet="brandButtonGroup"></ng-template>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div
+                                            class="add-brand-data mr-3 mr-md-45"
+                                            *ngIf="brandImageUrl !== 'assets/images/default-brand.png'"
+                                        >
                                             <label>
                                                 {{ 'brand' | translate }} {{ 'logo' | translate
                                                 }}<span class="star">*</span>
@@ -359,31 +393,24 @@
                                                 <a
                                                     class="change-avatar-btn"
                                                     *ngIf="isSaveMode"
-                                                    (click)="roasterImage.click()"
+                                                    (click)="brandImageInput.click()"
                                                 >
                                                     <img src="assets/images/camera.svg" class="camera-pic" />
                                                 </a>
-                                                <input
-                                                    type="file"
-                                                    class="file-inpt"
-                                                    hidden
-                                                    #roasterImage
-                                                    (change)="handleRoasterFile($event)"
-                                                />
                                             </div>
                                             <div class="add-brand-btns">
                                                 <button
-                                                    *ngIf="brandImageUrl !== 'assets/images/default-brand.png'"
                                                     pButton
                                                     icon="pi pi-trash"
                                                     iconPos="left"
-                                                    class="fnt-14 btn-delete-avatar d-none d-lg-flex"
+                                                    class="fnt-14 btn-delete-avatar"
                                                     (click)="deleteBrandImage()"
                                                     label="{{ 'delete' | translate }}"
                                                 ></button>
                                             </div>
                                         </div>
-                                        <div class="sewn-form-field brand-name pr-2">
+
+                                        <div class="sewn-form-field mb-0 w-100">
                                             <label> {{ 'brand_name' | translate }}<span class="star">*</span> </label>
                                             <input
                                                 type="text"
@@ -391,44 +418,38 @@
                                                 pInputText
                                                 formControlName="name"
                                                 placeholder="Please enter brand name"
+                                                class="brand-name-input"
                                             />
                                             <small *ngIf="isBrandControlHasError('name', 'required')" class="p-error">
                                                 {{ 'required' | translate }}
                                             </small>
                                         </div>
+                                        <div
+                                            *ngIf="brandImageUrl !== 'assets/images/default-brand.png'"
+                                            class="d-none d-md-block"
+                                        >
+                                            <ng-template *ngTemplateOutlet="brandButtonGroup"></ng-template>
+                                        </div>
                                     </div>
-                                    <div class="add-brand-btns d-flex">
-                                        <a
-                                            *ngIf="!isEditBrandMode"
-                                            class="view-order cursor-pointer mr-2"
-                                            href="javascript:void(0);"
-                                            (click)="addNewBrand()"
+                                </div>
+                                <div
+                                    class="col-12 col-md-6 pl-md-2 sewn-form-field mb-45"
+                                    *ngIf="brandImageUrl === 'assets/images/default-brand.png'"
+                                >
+                                    <label>
+                                        {{ 'brand' | translate }} {{ 'logo' | translate }}<span class="star">*</span>
+                                    </label>
+                                    <div class="brand-button-group d-flex justify-content-between">
+                                        <div
+                                            class="fnt-14 fnt-muli fnt-500 lh-normal txt-clr334 upload-button mt-md-2"
+                                            (click)="brandImageInput.click()"
                                         >
-                                            {{ 'save' | translate }}
-                                        </a>
-                                        <a
-                                            *ngIf="isEditBrandMode"
-                                            class="view-order cursor-pointer mr-2"
-                                            href="javascript:void(0);"
-                                            (click)="updateBrandProfile()"
-                                        >
-                                            {{ 'save' | translate }}
-                                        </a>
-                                        <a
-                                            *ngIf="isEditBrandMode"
-                                            class="view-order cursor-pointer mr-2"
-                                            href="javascript:void(0);"
-                                            (click)="deleteBrand()"
-                                        >
-                                            {{ 'delete' | translate }}
-                                        </a>
-                                        <a
-                                            class="view-order cursor-pointer"
-                                            href="javascript:void(0);"
-                                            (click)="cancelAddBrand()"
-                                        >
-                                            {{ 'cancel' | translate }}
-                                        </a>
+                                            <i class="pi pi-upload fnt-14 mr-1"></i>
+                                            Upload
+                                        </div>
+                                        <div class="d-none d-md-flex">
+                                            <ng-template *ngTemplateOutlet="brandButtonGroup"></ng-template>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -438,11 +459,13 @@
                                     <label
                                         >{{ 'short_description_brand' | translate }}<span class="star">*</span>
                                         <span class="pull-right text-clr588">
-                                            {{ brandForm.controls.description.value.length }}/50 words
+                                            {{ brandForm.controls.description.value | wordCount }}/50 words
                                         </span>
                                     </label>
                                     <textarea
                                         class="w-100"
+                                        appWordLimit
+                                        [limit]="50"
                                         pInputTextarea
                                         rows="5"
                                         formControlName="description"
@@ -452,23 +475,19 @@
                                     <small *ngIf="isBrandControlHasError('description', 'required')" class="p-error">
                                         {{ 'required' | translate }}
                                     </small>
-                                    <small *ngIf="isBrandControlHasError('description', 'maxlength')" class="p-error">
-                                        Description shouldn't over 50 characters
+                                    <small
+                                        *ngIf="isBrandControlHasError('description', 'maxWordCount')"
+                                        class="p-error"
+                                    >
+                                        Description shouldn't over 50 words
                                     </small>
                                 </div>
                             </div>
                         </div>
-                        <div class="row" *ngIf="!isAddBrandMode">
-                            <div class="col-12 mt-4 mt-md-0 mb-4 mb-md-45 text-center text-md-left">
-                                <a class="add-link" href="javascript:void(0);" (click)="addBrandProfileMode()">
-                                    <span class="fnt-14 font-bold add-text ml-4">{{
-                                        'add_another_contact' | translate
-                                    }}</span>
-                                </a>
-                            </div>
-                        </div>
                     </div>
                 </form>
+
+                <hr class="mt-2 mb-4 mb-md-45" *ngIf="isSaveMode && isAddBrandMode" />
 
                 <div class="mb-3" *ngFor="let brand of filteredBrands">
                     <div class="brand-item-container">
@@ -488,8 +507,8 @@
                                 </p>
                             </div>
                         </div>
-                        <div *ngIf="isSaveMode">
-                            <a class="view-order cursor-pointer" (click)="editBrand(brand)">
+                        <div class="brand-edit-btn" [ngClass]="{ 'visiblity-hidden': !isSaveMode }">
+                            <a class="view-order cursor-pointer hover-underline" (click)="editBrand(brand)">
                                 {{ 'edit' | translate }}
                             </a>
                         </div>
@@ -500,9 +519,17 @@
                     </div>
                 </div>
 
-                <hr class="mt-45" />
+                <div class="row" *ngIf="isSaveMode && !isAddBrandMode">
+                    <div class="col-12 mt-4 mt-md-2 mb-4 mb-md-4 text-left">
+                        <a class="add-link" href="javascript:void(0);" (click)="addBrandProfileMode()">
+                            <span class="fnt-14 font-bold add-text ml-4">Add another brand</span>
+                        </a>
+                    </div>
+                </div>
+
+                <hr class="mt-0 mb-0" />
                 <div class="" *ngIf="isSaveMode">
-                    <div class="row mt-45 mb-md-45 mb-0">
+                    <div class="row mt-3 mb-md-4 mb-3">
                         <div class="col-12">
                             <p class="fnt-18 font-bold text-clr334 w-100 mb-1">
                                 {{ 'contacts' | translate }}<span class="star">*</span>
@@ -511,7 +538,7 @@
                         </div>
                     </div>
                     <div class="row mb-1" *ngFor="let role of roasteryProfileService.roasterContacts; let i = index">
-                        <div class="sewn-form-field col-md-6 mb-0">
+                        <div class="sewn-form-field col-md-6 mb-3 mb-md-3">
                             <input
                                 type="text"
                                 pInputText
@@ -521,12 +548,12 @@
                             />
                         </div>
                         <div
-                            class="add-partner mb-3 mb-md-0 mt-md-3 col-12 col-md-6 text-right"
+                            class="add-partner mb-3 mb-md-0 mt-md-3 col-12 col-md-6 p-md-0 text-left"
                             *ngIf="
                                 roasteryProfileService.showDelete && roasteryProfileService.roasterContacts.length > 1
                             "
                         >
-                            <a class="ml-2 custom-link" href="javascript:void(0);" (click)="removeContact(role.id)">
+                            <a class="ml-2 brown-cta" href="javascript:void(0);" (click)="removeContact(role.id)">
                                 {{ 'remove' | translate }} {{ 'contact' | translate }}
                             </a>
                         </div>
@@ -545,11 +572,11 @@
                                 [(ngModel)]="employeeId"
                             ></p-dropdown>
                         </div>
-                        <div class="col-12 col-md-6 mt-md-4 add-contact-group">
+                        <div class="col-12 col-md-6 mt-md-4 p-md-0 add-contact-group">
                             <button
                                 type="submit"
                                 pButton
-                                class="btn-normal mr-2"
+                                class="btn-raised ml-md-2 mr-2"
                                 [label]="assignButtonValue"
                                 [disabled]="assignButtonValue === 'Adding'"
                                 (click)="addContact()"
@@ -557,13 +584,13 @@
                             <button
                                 pButton
                                 type="submit"
-                                class="cancel-butn"
+                                class="btn-stroked-transparent"
                                 (click)="cancelAssign()"
                                 [label]="'cancel' | translate"
                             ></button>
                         </div>
                     </div>
-                    <div class="add-brand-div mt-3 mb-3 text-center text-md-left">
+                    <div class="add-brand-div mt-3 mb-3 text-left">
                         <a class="brand-tag add-link" (click)="showContact()">
                             <span class="add-text ml-4">{{ 'add_another_contact' | translate }}</span>
                         </a>
@@ -578,7 +605,7 @@
                         </p>
                         <div class="row p-0">
                             <div
-                                class="col-lg-3 col-md-3 col-sm-6 col-6 mb-2 pl-3 pr-3"
+                                class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3 pl-3 pr-3"
                                 *ngFor="let contact of roasteryProfileService.roasterContacts"
                             >
                                 <div class="employ-profile">
@@ -614,6 +641,38 @@
     </div>
 </div>
 
+<ng-template #brandButtonGroup>
+    <div class="add-brand-btns d-flex float-right float-md-none">
+        <a
+            *ngIf="!isEditBrandMode"
+            class="view-order cursor-pointer mr-3"
+            href="javascript:void(0);"
+            (click)="addNewBrand()"
+        >
+            {{ 'save' | translate }}
+        </a>
+        <a
+            *ngIf="isEditBrandMode"
+            class="view-order cursor-pointer mr-3"
+            href="javascript:void(0);"
+            (click)="updateBrandProfile()"
+        >
+            {{ 'save' | translate }}
+        </a>
+        <a
+            *ngIf="isEditBrandMode"
+            class="view-order cursor-pointer mr-3"
+            href="javascript:void(0);"
+            (click)="deleteBrand()"
+        >
+            {{ 'delete' | translate }}
+        </a>
+        <a class="view-order cursor-pointer" href="javascript:void(0);" (click)="cancelAddBrand()">
+            {{ 'cancel' | translate }}
+        </a>
+    </div>
+</ng-template>
+
 <ng-template #rightSidePanel>
     <div class="row m-0">
         <div class="col-12 col-md-6 col-lg-12 p-0 pl-md-0 pr-md-2 p-lg-0">
@@ -622,9 +681,12 @@
                 *ngIf="this.globals.checkItem('certificate-list') || this.globals.checkItem('certificate-management')"
             >
                 <div class="header fnt-18 font-bold text-clr334 m-1">{{ 'awards_and_certificates' | translate }}</div>
-                <div class="row mt-3 m-0" *ngFor="let certificate of certificatesArray">
+                <div class="row mt-3 m-0" *ngFor="let certificate of certificatesArray; let i = index">
                     <div class="col-12">
-                        <div class="w-100 certification-item-container border-div d-flex justify-content-between">
+                        <div
+                            class="w-100 certification-item-container d-flex justify-content-between"
+                            [ngClass]="{ 'border-div': i !== certificatesArray.length - 1 || isSaveMode }"
+                        >
                             <div class="certification-item-metadata d-flex">
                                 <img class="img-estate" src="assets/images/certificate.svg" alt="User" />
                                 <div class="certification-description ml-2">
@@ -639,8 +701,9 @@
                             <div class="certificaion-action d-flex">
                                 <a
                                     class="menu-arrow"
+                                    [ngClass]="{ 'd-none': !isSaveMode }"
                                     [popover]="listTemplate"
-                                    placement="bottom"
+                                    placement="left"
                                     [outsideClick]="true"
                                     #pop1="bs-popover"
                                 >
@@ -682,7 +745,8 @@
                     class="add-brand-div p-25 p-md-4"
                     *ngIf="
                         this.globals.checkItem('certificate-management') &&
-                        this.globals.permissions['certificate-management'].manage
+                        this.globals.permissions['certificate-management'].manage &&
+                        isSaveMode
                     "
                 >
                     <a class="brand-tag add-link" routerLink="/roastery-profile/certificate">
@@ -729,3 +793,49 @@
         </div>
     </div>
 </ng-template>
+
+<p-dialog
+    header="Edit Photo"
+    [(visible)]="isShowBrandImageModal"
+    [modal]="true"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
+    styleClass="p-0"
+>
+    <div class="image-crop-div">
+        <div class="img-pos-div" style="max-height: 80vh">
+            <image-cropper
+                style="max-height: 60vh"
+                [imageChangedEvent]="imageChangedEvent"
+                [maintainAspectRatio]="true"
+                [containWithinAspectRatio]="false"
+                [aspectRatio]="1 / 1"
+                [resizeToWidth]="256"
+                [resizeToHeight]="256"
+                [cropperMinWidth]="128"
+                [onlyScaleDown]="false"
+                [roundCropper]="true"
+                [canvasRotation]="canvasRotation"
+                [transform]="transform"
+                [autoCrop]="false"
+                [style.display]="showCropper ? null : 'none'"
+                format="png"
+                (imageCropped)="imageCropped($event)"
+                (imageLoaded)="imageLoaded()"
+                (loadImageFailed)="loadImageFailed()"
+            ></image-cropper>
+        </div>
+        <div class="zoom-div w-100">
+            <div class="slider-div mt-3">
+                <p-slider [min]="1" [max]="5" [step]="0.1" [(ngModel)]="scale" (onChange)="zoom()"></p-slider>
+            </div>
+        </div>
+    </div>
+    <p-footer>
+        <button type="button" id="change-pic" class="btn-raised" (click)="selectBrandImage()">
+            {{ 'change_photo' | translate }}
+        </button>
+        <button type="button" id="save-pic" class="btn-raised" (click)="cropImage()">Crop Image</button>
+    </p-footer>
+</p-dialog>

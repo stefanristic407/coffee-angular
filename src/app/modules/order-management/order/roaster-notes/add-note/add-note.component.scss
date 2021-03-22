@@ -1,0 +1,10 @@
+@import '../../../../../../theme/styles/variables';
+
+:host {
+    display: block;
+    padding-bottom: 24px;
+
+    .add-btn {
+        border-color: $muted-text-color;
+    }
+}

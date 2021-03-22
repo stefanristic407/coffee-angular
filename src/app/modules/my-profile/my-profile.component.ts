@@ -32,6 +32,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     role: any;
     userId: any;
     breadcrumbItems: MenuItem[];
+    certificationArray: any[] = [];
+    apiCount = 0;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -46,7 +48,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     ) {
         this.form = this.formBuilder.group({
             firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
             aboutMe: [''],
             email: ['', [Validators.required, Validators.email]],
             role: [{ value: '', disabled: true }],
@@ -70,24 +71,60 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
     getUserInfo(): void {
         this.isLoading = true;
+        this.apiCount = 0;
+        this.getRoasterProfile();
+        this.getCertificates();
+    }
+
+    getRoasterProfile(): void {
         this.userOriginalService.getRoasterProfile(this.roasterId).subscribe((res: any) => {
-            this.profileInfo = res.result;
-            this.previewUrl = this.profileInfo.profile_image_url;
-            this.roasterService.getUserBasedRoles(this.roasterId, this.profileInfo.id).subscribe((roleData: any) => {
-                this.isLoading = false;
-                if (roleData.success) {
-                    this.role = roleData.result[0].name;
-                } else {
-                    this.toastr.error('Error while fetching role');
-                }
-                this.setFormFields();
-            });
+            this.apiCount += 1;
+            if (res.success) {
+                this.profileInfo = res.result;
+                this.previewUrl = this.profileInfo.profile_image_url;
+            } else {
+                this.toastr.error('Error while fetching profile');
+            }
+            this.getUserBasedRoles();
+            this.checkApiCompletion();
         });
+    }
+
+    getUserBasedRoles(): void {
+        this.roasterService.getUserBasedRoles(this.roasterId, this.profileInfo.id).subscribe((res: any) => {
+            this.apiCount += 1;
+            if (res.success) {
+                this.role = res.result[0].name;
+            } else {
+                this.toastr.error('Error while fetching role');
+            }
+            this.checkApiCompletion();
+        });
+    }
+
+    getCertificates(): void {
+        this.userOriginalService.getCertificates(this.roasterId, this.userId).subscribe((res: any) => {
+            this.apiCount += 1;
+            if (res.success) {
+                this.certificationArray = res.result;
+            } else {
+                this.toastr.error('Error while fetching certificates');
+            }
+            console.log('certificates >>>>>>>>', res);
+            this.checkApiCompletion();
+        });
+    }
+
+    checkApiCompletion(): void {
+        if (this.apiCount === 3) {
+            this.isLoading = false;
+            this.setFormFields();
+            this.apiCount = 0;
+        }
     }
 
     setFormFields(): void {
         this.form.controls.firstName.setValue(this.profileInfo.firstname);
-        this.form.controls.lastName.setValue(this.profileInfo.lastname);
         this.form.controls.aboutMe.setValue(this.profileInfo.about_me);
         this.form.controls.email.setValue(this.profileInfo.email);
         this.form.controls.phone.setValue(this.profileInfo.phone);
@@ -146,8 +183,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
     handleCancel(): void {
         this.previewUrl = this.profileInfo.profile_image_url;
-        this.setFormFields();
         this.isEditMode = false;
+        this.getUserInfo();
     }
 
     handleProfileUpdateSuccess(): void {
@@ -156,6 +193,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             this.profileInfo = res.result;
             this.isEditMode = false;
             this.commonService.profileUpdateEvent.emit(this.profileInfo);
+            this.apiCount = 2;
+            this.getCertificates();
             this.toastr.success('Successfully saved');
         });
     }
@@ -171,7 +210,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
         userInfo.email = this.form.controls.email.value;
         userInfo.firstname = this.form.controls.firstName.value;
-        userInfo.lastname = this.form.controls.lastName.value;
+        userInfo.lastname = '';
         userInfo.about_me = this.form.controls.aboutMe.value;
         userInfo.phone = this.form.controls.phone.value;
         userInfo.date_of_birth = formatDate(this.form.controls.birthday.value, 'yyyy-MM-dd', 'en-US');

@@ -6,6 +6,7 @@
     .breadCrumb-block {
         padding-bottom: 24px;
     }
+
     .note {
         white-space: pre;
     }
@@ -46,8 +47,8 @@
     }
 
     .table tbody td {
-        padding-top: 17px;
-        padding-bottom: 17px;
+        padding-top: 24px;
+        padding-bottom: 15px;
     }
 
     .table th,
@@ -79,6 +80,15 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+    }
+
+    .border-none {
+        border-top: none !important;
+    }
+
+    .key-border {
+        border-bottom: 1px dashed #dddddd;
+        border-top: 1px dashed #dddddd;
     }
 
     .lot-table tr,
@@ -129,10 +139,15 @@
         @extend .active_class;
     }
 
+    .w-70 {
+        width: 70%;
+    }
+
     @media (min-width: 768px) {
         .mobile-delete-key {
             display: none;
         }
+
         .delete-key {
             display: block;
         }
@@ -150,20 +165,32 @@
             flex-direction: column;
             align-items: center;
             align-items: initial;
+
             .save {
                 margin-top: 18px;
             }
         }
+
         .key-active {
             padding: 0 16px 16px 16px;
         }
 
-        padding: 16.5px 16px;
         .mobile-delete-key {
             display: block;
         }
+
         .delete-key {
             display: none;
         }
+
+        .w-70 {
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .api-request-detail-container {
+        padding: 24px 16px;
     }
 }

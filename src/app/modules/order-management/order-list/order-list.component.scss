@@ -1,5 +1,23 @@
 @import '../../../../theme/styles/variables';
 
+::ng-deep {
+    .p-calendar {
+        input {
+            background: none;
+        }
+    }
+
+    .p-datepicker-buttonbar {
+        .p-button-label {
+            color: $brown-color;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
 @media all and (min-width: 768px) {
     .search-bar {
         position: relative;
@@ -11,61 +29,6 @@
     }
 }
 
-@media all and (max-width: 767px) {
-    .border {
-        border: 0 !important;
-    }
-}
-
-.Sample {
-    color: #f19634;
-}
-
-.Pre-Booked {
-    color: #7c6be8;
-}
-
-.Booked {
-    color: #649a2b;
-}
-
-.checkbox-column {
-    max-width: 64px;
-}
-
-.id-column {
-    max-width: 75px;
-}
-
-.action-column {
-    max-width: 104px;
-}
-
-::ng-deep {
-    .p-datatable .p-datatable-thead > tr > th,
-    .p-datatable .p-datatable-tbody > tr > td {
-        padding: 1.25rem 0.1rem;
-    }
-
-    @media all and (max-width: 767px) {
-        .p-datatable .p-datatable-tbody > tr {
-            border: 0;
-        }
-    }
-
-    .p-sortable-column-icon {
-        margin-left: 0 !important;
-    }
-}
-
 .order-header {
     background-color: #f8f8f8;
-}
-
-.mobile-row {
-    border-bottom: 1px dashed $primary-border-color;
-}
-
-.cell-header {
-    width: 40%;
 }

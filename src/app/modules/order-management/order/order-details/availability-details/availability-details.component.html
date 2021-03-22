@@ -1,50 +1,86 @@
 <h4 class="fnt-18 font-bold text-clr334">{{ 'availability_details' | translate }}</h4>
 
 <table class="recent-time w-100 mb-2">
-  <tr>
-    <td><span class="list-que"> {{ 'flavour_profile' | translate }}: </span></td>
-    <td><span class="list-ans">{{ (bulk?.flavours | strReplace : '_' : ' ' | titlecase) || '-' }}</span></td>
-  </tr>
-  <tr>
-    <td><span class="list-que"> {{ 'listing_status' | translate }}: </span></td>
-    <td><span class="list-ans">{{ (bulk?.listingStatus | strReplace : '_' : ' ' | titlecase) || '-' }}</span></td>
-  </tr>
-  <tr>
-    <td><span class="list-que"> {{ 'processing' | translate }}: </span></td>
-    <td><span class="list-ans">{{ (bulk?.processingTypes | strReplace : '_' : ' ' | titlecase) || '-' }}</span></td>
-  </tr>
+    <tr>
+        <td>
+            <span class="list-que"> {{ 'flavour_profile' | translate }}: </span>
+        </td>
+        <td>
+            <span class="list-ans">{{ (bulk?.flavours | strReplace: '_':' ' | titlecase) || '-' }}</span>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <span class="list-que"> {{ 'listing_status' | translate }}: </span>
+        </td>
+        <td>
+            <span class="list-ans">{{ (bulk?.listingStatus | strReplace: '_':' ' | titlecase) || '-' }}</span>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <span class="list-que"> {{ 'processing' | translate }}: </span>
+        </td>
+        <td>
+            <span class="list-ans">{{ (bulk?.processingTypes | strReplace: '_':' ' | titlecase) || '-' }}</span>
+        </td>
+    </tr>
 
-  <tr>
-    <td><span class="list-que"> {{ 'type' | translate }}: </span></td>
-    <td><span class="list-ans"> {{ (bulk?.type | strReplace : '_' : ' ' | titlecase) }} </span></td>
-  </tr>
+    <tr>
+        <td>
+            <span class="list-que"> {{ 'type' | translate }}: </span>
+        </td>
+        <td>
+            <span class="list-ans"> {{ bulk?.type | strReplace: '_':' ' | titlecase }} </span>
+        </td>
+    </tr>
 
-  <tr>
-    <td><span class="list-que"> {{ 'species' | translate }}: </span></td>
-    <td><span class="list-ans"> {{ (bulk?.species | strReplace : '_' : ' ' | titlecase) }} </span></td>
-  </tr>
+    <tr>
+        <td>
+            <span class="list-que"> {{ 'species' | translate }}: </span>
+        </td>
+        <td>
+            <span class="list-ans"> {{ bulk?.species | strReplace: '_':' ' | titlecase }} </span>
+        </td>
+    </tr>
 
-  <tr>
-    <td><span class="list-que"> {{ 'quality' | translate }} {{ 'grade' | translate }}: </span></td>
-    <td><span class="list-ans"> - </span></td>
-  </tr>
+    <tr>
+        <td>
+            <span class="list-que"> {{ 'quality_grade' | translate }}: </span>
+        </td>
+        <td>
+            <span class="list-ans"> {{ bulk?.qualityGrade }} </span>
+        </td>
+    </tr>
 
-  <tr>
-    <td><span class="list-que"> {{ 'packaging' | translate }}: </span></td>
-    <td><span class="list-ans"> {{ (bulk?.packaging | strReplace : '_' : ' ' | titlecase) || '-' }} </span></td>
-  </tr>
+    <tr>
+        <td>
+            <span class="list-que"> {{ 'packaging' | translate }}: </span>
+        </td>
+        <td>
+            <span class="list-ans"> {{ (bulk?.packaging | strReplace: '_':' ' | titlecase) || '-' }} </span>
+        </td>
+    </tr>
 
-  <tr>
-    <td><span class="list-que"> {{ 'water_activity' | translate }}: </span></td>
-    <td><span class="list-ans"> {{ (bulk?.waterActivity | strReplace : '_' : ' ' | titlecase) || '-' }} </span></td>
-  </tr>
+    <tr>
+        <td>
+            <span class="list-que"> {{ 'water_activity' | translate }}: </span>
+        </td>
+        <td>
+            <span class="list-ans"> {{ (bulk?.waterActivity | strReplace: '_':' ' | titlecase) || '-' }} </span>
+        </td>
+    </tr>
 
-  <tr>
-    <td class="border-0"><span class="list-que"> {{ 'ico' | translate | uppercase}}: </span></td>
-    <td class="border-0"><span class="list-ans"> {{ (bulk?.icoNumber | strReplace : '_' : ' ' | titlecase) || '-' }} </span></td>
-  </tr>
+    <tr>
+        <td class="border-0">
+            <span class="list-que"> {{ 'ico' | translate | uppercase }}: </span>
+        </td>
+        <td class="border-0">
+            <span class="list-ans"> {{ (bulk?.icoNumber | strReplace: '_':' ' | titlecase) || '-' }} </span>
+        </td>
+    </tr>
 </table>
 
 <p class="pb-md-2 mb-0 mt-5 mt-md-3">
-  <a class="navigation-link">{{ 'view_availability_details' | translate }}</a>
+    <a class="navigation-link">{{ 'view_availability_details' | translate }}</a>
 </p>
