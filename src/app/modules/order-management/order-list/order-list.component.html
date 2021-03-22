@@ -44,7 +44,7 @@
                     [showToggleAll]="false"
                     [showHeader]="false"
                     [maxSelectedLabels]="1"
-                    [styleClass]="'round-border mb-25 mb-md-4' + (queryParams.origin ? ' highlight' : '')"
+                    [styleClass]="'round-border mb-25 mb-md-3 mb-lg-4' + (queryParams.origin ? ' highlight' : '')"
                     scrollHeight="225px"
                     formControlName="origin"
                 >
@@ -61,7 +61,7 @@
                     optionValue="value"
                     placeholder="Type of order"
                     class="mr-25"
-                    [styleClass]="'round-border mb-25 mb-md-4' + (queryParams.order_type ? ' highlight' : '')"
+                    [styleClass]="'round-border mb-25 mb-md-3 mb-lg-4' + (queryParams.order_type ? ' highlight' : '')"
                     scrollHeight="225px"
                     formControlName="order_type"
                 >
@@ -73,7 +73,7 @@
                     optionValue="value"
                     placeholder="Status"
                     class="mr-25"
-                    [styleClass]="'round-border mb-25 mb-md-4' + (queryParams.status ? ' highlight' : '')"
+                    [styleClass]="'round-border mb-25 mb-md-3 mb-lg-4' + (queryParams.status ? ' highlight' : '')"
                     scrollHeight="225px"
                     formControlName="status"
                 ></p-dropdown>
@@ -84,7 +84,7 @@
                     formControlName="dates"
                     [showButtonBar]="true"
                     [styleClass]="
-                        'round-border mb-25 mb-md-4' +
+                        'round-border mb-25 mb-md-3 mb-lg-4' +
                         (queryParams.start_date || queryParams.end_date ? ' highlight' : '')
                     "
                 >
