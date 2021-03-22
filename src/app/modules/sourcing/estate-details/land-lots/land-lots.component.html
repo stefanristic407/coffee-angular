@@ -1,4 +1,4 @@
-<div class="pt-3 pt-md-45">
+<div class="pt-3 pt-md-25 pt-lg-45">
     <ng-container *ngIf="sourcing.estateLots?.length; else empty">
         <div *ngIf="globals.device !== 'mobile'">
             <p-table [value]="sourcing.estateLots" [autoLayout]="true">
@@ -43,7 +43,7 @@
             </p-table>
         </div>
 
-        <div *ngIf="globals.device === 'mobile'" class="px-3">
+        <div *ngIf="globals.device === 'mobile'" class="px-2">
             <div *ngFor="let item of sourcing.estateLots">
                 <div class="border-main br-4 mb-4">
                     <div class="p-3">

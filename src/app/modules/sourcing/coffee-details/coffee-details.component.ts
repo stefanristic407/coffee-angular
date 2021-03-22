@@ -3,32 +3,31 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from '@services';
-import { UserserviceService } from '@services';
-import { RoasterserviceService } from '@services';
+import { GlobalsService, ResizeService } from '@services';
 import { SourcingService } from '../sourcing.service';
+import { ResizeableComponent } from '@base-components';
 
 @Component({
     selector: 'app-coffee-details',
     templateUrl: './coffee-details.component.html',
     styleUrls: ['./coffee-details.component.scss'],
 })
-export class CoffeeDetailsComponent implements OnInit {
+export class CoffeeDetailsComponent extends ResizeableComponent implements OnInit {
     items: GalleryItem[];
     isLoaded = false;
     brandProfileEstateWeb = 'https://qa-brand-profile.sewnstaging.com/estatebrandprofile/green-coffee';
 
     constructor(
+        private route: ActivatedRoute,
         private router: Router,
         public gallery: Gallery,
         public lightbox: Lightbox,
-        public globals: GlobalsService,
-        private route: ActivatedRoute,
-        public sourcing: SourcingService,
         private toastrService: ToastrService,
-        public userService: UserserviceService,
-        private roasterService: RoasterserviceService,
+        public globals: GlobalsService,
+        protected resizeService: ResizeService,
+        public sourcing: SourcingService,
     ) {
+        super(resizeService);
         this.route.paramMap.subscribe((params) => {
             if (params.has('harvestId') && params.has('estateId')) {
                 this.sourcing.harvestId = params.get('harvestId');
@@ -45,6 +44,7 @@ export class CoffeeDetailsComponent implements OnInit {
         this.brandProfileEstateWeb = `https://qa-brand-profile.sewnstaging.com/estate/estate-${this.sourcing.estateId}/estatebrandprofile/green-coffee`;
         this.sourcing.polygonId = '';
         this.sourcing.harvestDetail = null;
+        this.sourcing.estate = null;
         this.sourcing.lot = null;
         new Promise((resolve, reject) => this.sourcing.availableDetailList(resolve, reject))
             .then(() => {
@@ -55,6 +55,7 @@ export class CoffeeDetailsComponent implements OnInit {
                 this.toastrService.error('Error while retrieving data');
                 this.router.navigateByUrl('/sourcing/coffee-list');
             });
+        this.sourcing.estateDetailList();
         this.sourcing.otherAvailableCoffee();
         this.sourcing.getEachGreenCertify();
     }

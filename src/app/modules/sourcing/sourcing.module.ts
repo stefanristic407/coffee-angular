@@ -23,7 +23,7 @@ import { AboutComponent } from './estate-details/about/about.component';
 import { EstateCardComponent } from './estate-card/estate-card.component';
 import { HarvestCardComponent } from './harvest-card/harvest-card.component';
 import { GreenCoffeeComponent } from './estate-details/green-coffee/green-coffee.component';
-import { GallaryComponent } from './estate-details/gallary/gallary.component';
+import { GalleryComponent } from './estate-details/gallery/gallery.component';
 import { WhyUsComponent } from './estate-details/why-us/why-us.component';
 import { FilterComponent } from './filter/filter.component';
 
@@ -44,7 +44,7 @@ import { FilterComponent } from './filter/filter.component';
         EstateCardComponent,
         HarvestCardComponent,
         GreenCoffeeComponent,
-        GallaryComponent,
+        GalleryComponent,
         WhyUsComponent,
         FilterComponent,
     ],
