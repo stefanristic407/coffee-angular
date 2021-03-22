@@ -304,8 +304,10 @@ span.star {
 .editBtn {
     font-weight: bold;
     color: #80460b !important;
-    text-decoration: underline !important;
     cursor: pointer;
+    &:hover {
+        text-decoration: underline !important;
+    }
 }
 .deleteModal {
     width: 450px;

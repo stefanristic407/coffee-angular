@@ -738,7 +738,7 @@
             <p class="fnt-16 fnt-md-18 fnt-muli fnt-700 black">Boxes details</p>
             <p class="fnt-14 fnt-muli fnt-600 black">Add values per crate to let your customer know</p>
             <div class="row" *ngFor="let carte of product.crates">
-                <div class="farm-input col-3 col-sm-2 col-md-2 col-md-2 col-lg-2 col-xl-2">
+                <div class="farm-input col-sm-12 col-md-2 col-md-2 col-lg-2 col-xl-2">
                     <label>Box value</label>
                     <input
                         readonly
@@ -750,12 +750,12 @@
                     />
                 </div>
                 <div class="equal-operators pl-8 pr-2">=</div>
-                <div class="farm-input col-2 col-sm-2 col-md-2 col-md-2 col-lg-2 col-xl-1 p-0 pl-0 pr-0">
+                <div class="farm-input col-sm-6 col-md-2 col-md-2 col-lg-2 col-xl-1 p-0 pl-0 pr-0">
                     <label>Weight</label>
                     <input type="number" [(ngModel)]="carte.weight" class="form-control" placeholder="" />
                 </div>
                 <div class="equal-operators pl-2 pr-2">x</div>
-                <div class="farm-input col-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 pl-0">
+                <div class="farm-input col-sm-6 col-md-3 col-lg-2 col-xl-2 pl-0">
                     <label>Number of bags</label>
                     <input type="number" [(ngModel)]="carte.crate_capacity" class="form-control" placeholder="" />
                 </div>

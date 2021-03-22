@@ -180,6 +180,9 @@ export class VarientDetailsComponent implements OnInit {
         weight.controls[this.currentVarientIndex + 1]['controls'].product_images.setValue(this.setProductImages([]));
         this.createWeightVariantArray();
     }
+    deleteWeightVarient(index) {
+        this.weights.removeAt(index);
+    }
     addNewGrindVarients(): void {
         this.displayDelete = true;
         const weight = this.weightForm.get('weights') as FormArray;
