@@ -42,7 +42,7 @@
                     {{ item.active_users }}
                 </td>
                 <td class="view-listing" (click)="shareDetails(item)">View Details</td>
-                <td>
+                <td id="horeca-contract-popup">
                     <a
                         class="menu-arrow"
                         [popover]="poplistTemplate"
@@ -50,13 +50,16 @@
                         [outsideClick]="true"
                         #pop="bs-popover"
                     >
-                        <p><img class="ellipse-image" src="assets/images/more-opns-file.png" alt="" /></p>
+                        <p><img src="assets/images/kebab-menu.svg" alt="" /></p>
                     </a>
                     <ng-template #poplistTemplate id="{{ item.id }}">
                         <div id="popover-mobile-content">
                             <ul class="list-group custom-popover">
                                 <li class="list-group-item">
-                                    <a class="pointer-item" (click)="pop.hide()">Delete</a>
+                                    <a class="pointer-item" (click)="pop.hide()">View customer</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a class="pointer-item" (click)="pop.hide()">Simulate login</a>
                                 </li>
                             </ul>
                         </div>

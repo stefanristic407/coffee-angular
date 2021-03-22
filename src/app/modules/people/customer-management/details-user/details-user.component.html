@@ -32,7 +32,7 @@
                             -</span
                         >
                     </p>
-                    <p class="fnt-16 fnt-md-18 fnt-600 fnt-muli text-clr588 mb-2 d-flex">
+                    <p class="fnt-16 fnt-md-18 fnt-600 fnt-muli text-clr588 mb-2 d-flex align-text">
                         <span class="mr-3"> Owned by {{ customerService.owner_name }} </span>
                         <li></li>
                         <span> Founded in {{ customerService.founded_on }}</span>
@@ -71,7 +71,7 @@
         </div>
         <div class="web-farm">
             <div class="message-customer">
-                <span class="btn-stroked mr-3 px-4">
+                <span class="message-btn mr-3">
                     <img src="assets/images/message-icon.svg" alt="Message" class="message-icon mr-2" />
                     <span class="estate-message pl-1">Message</span></span
                 >
@@ -81,12 +81,15 @@
             </div>
         </div>
         <div class="mobile-farm">
-            <div class="d-flex justify-content-between message-customer">
-                <button class="btn-raised" (click)="customerService.horecaStimulatedLogin(customerService.horecaId)">
+            <div class="d-flex message-customer">
+                <button
+                    class="btn-raised mr-3"
+                    (click)="customerService.horecaStimulatedLogin(customerService.horecaId)"
+                >
                     Simulated Login
                 </button>
 
-                <span class="btn-stroked btn-padding">
+                <span class="message-btn w-50">
                     <img src="assets/images/message-icon.svg" alt="Message" class="message-icon mr-2" />
                     <span class="estate-message pl-1">Message</span></span
                 >

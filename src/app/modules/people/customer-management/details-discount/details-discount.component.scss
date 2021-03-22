@@ -39,3 +39,12 @@
     max-width: 48%;
     margin-left: 2%;
 }
+
+.pointer-hand {
+    cursor: pointer;
+    text-decoration: none;
+}
+.pointer-hand:hover {
+    text-decoration: underline !important;
+    text-decoration-color: #30855c !important;
+}

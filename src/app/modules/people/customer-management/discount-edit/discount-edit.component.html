@@ -72,11 +72,11 @@
                             <p class="fnt-14 fnt-md-16 fnt-bold fnt-muli black">Manage their status on the platform</p>
                         </div>
                         <div class="col-4">
-                            <div class="message-customer">
-                                <p class="fnt-18 fnt-md-16 fnt-500 fnt-muli black pull-right mb-1">
+                            <div class="d-flex flex-column">
+                                <p class="black fnt-18 fnt-500 fnt-md-16 fnt-muli mb-1 pull-right text-right">
                                     {{ customerService.pendingStatus }}
                                 </p>
-                                <span class="btn-stroked pull-right">
+                                <span class="resend-btn">
                                     <img src="assets/images/message-icon.svg" alt="Message" class="message-icon" />
                                     <span class="estate-message pl-1 black" (click)="resendInvite()"
                                         >Resend Invite</span
@@ -91,11 +91,11 @@
                             <p class="fnt-14 fnt-md-14 fnt-bold fnt-muli black">Manage their status on the platform</p>
                         </div>
                         <div class="col-12 px-0">
-                            <div class="message-customer">
-                                <p class="fnt-16 fnt-md-16 fnt-500 fnt-muli black pt-3 mb-1">
+                            <div class="d-flex flex-column">
+                                <p class="black fnt-16 fnt-500 fnt-md-16 fnt-muli mb-3 pt-3">
                                     {{ customerService.pendingStatus }}
                                 </p>
-                                <span class="btn-stroked d-flex justify-content-center mt-3 w-100">
+                                <span class="resend-btn w-100">
                                     <img src="assets/images/message-icon.svg" alt="Message" class="message-icon" />
                                     <span class="fnt-14 estate-message pl-1 black" (click)="resendInvite()"
                                         >Resend Invite</span
