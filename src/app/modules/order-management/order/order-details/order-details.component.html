@@ -16,7 +16,7 @@
             class="have-a-problem"
             *ngIf="globals.permissions['sourcing-management'] && globals.permissions['sourcing-management'].manage"
         >
-            <button type="button" class="btn-raised">
+            <button type="button" class="btn-raised" [routerLink]="['/dispute-system/order-support-faq', orderId]">
                 {{ 'have_a_problem' | translate }}
             </button>
         </div>
