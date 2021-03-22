@@ -5,6 +5,9 @@
         margin-left: -16px;
         margin-right: -16px;
     }
+    @media (max-width: 768px) {
+        flex-direction: column !important;
+    }
 }
 
 .active-button {
