@@ -15207,15 +15207,6 @@ button:focus {
     display: none;
 }
 
-.conversatio-body__messages .live-time {
-    float: right;
-    /* display: block;
-    margin: auto 0 0 auto;
-    position: absolute;
-    right: 0;
-    bottom: calc(-100% + 10px);
-    width: 100px; */
-}
 
 .dispute-order .send-message {
     opacity: 1 !important;
@@ -15477,104 +15468,6 @@ button:focus {
     margin-left: auto;
 }
 
-.main-message__profile {
-    text-align: left !important;
-    display: inline-block;
-    min-width: 250px;
-    width: 100%;
-}
-
-.main-message__profile .status {
-    transform: translateY(-2px);
-}
-
-.main-message__profile .img {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.main-message__profile img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.message-from .message-info__body {
-    /* background-color: #eeeeee; */
-    border-radius: 4px;
-}
-
-.message-to .message-info__body {
-    background-color: #f2e2c5;
-    border-radius: 4px;
-    /* padding: 5px; */
-}
-
-.message-text {
-    padding: 2px 5px;
-    font-size: 12px;
-    line-height: 22px;
-    font-weight: 600;
-    color: #232334;
-    border-radius: 4px;
-    margin-bottom: 0;
-    display: inline-block;
-}
-
-.message-info__body {
-    margin-top: 5px;
-    margin-left: 30px;
-}
-
-.message-to .message-info {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-end;
-    position: relative;
-    width: 100%;
-}
-
-.conversatio-body__messages .messag-form {
-    text-align: left !important;
-}
-
-.conversatio-body__messages .messag-to {
-    text-align: right !important;
-}
-
-.message-info__img {
-    width: 100%;
-    height: auto;
-}
-
-.message-info__img img {
-    width: 100%;
-    height: 100%;
-    ;
-}
-
-.message-to .profile-name {
-    display: none;
-    opacity: 0;
-    visibility: hidden;
-}
-
-.message-to .img {
-    display: none;
-    opacity: 0;
-    visibility: hidden;
-}
-
-.main-message {
-    margin-bottom: 20px;
-}
-
-
-/* .main-message .messag-form {
-    text-align: left !important;
-} */
 
 
 @media (min-width: 768px) {
@@ -15658,25 +15551,7 @@ button:focus {
         display: none;
         opacity: 0;
         visibility: hidden;
-    }
-    .main-message__profile .img {
-        width: 25px;
-        height: 25px;
-    }
-    .message-text {
-        padding: 8px;
-        font-size: 14px;
-        line-height: 24px;
-        display: inline-block;
-    }
-    .message-info__body {
-        margin-left: 35px;
-        display: inline-block;
-    }
-    .message-info {
-        max-width: 85%;
-        min-width: 85%;
-    }
+    }  
 }
 
 @media (min-width: 992px) {
@@ -15765,25 +15640,13 @@ button:focus {
         width: 35px;
         height: 35px;
     }
-    .message-text {
-        padding: 8px;
-    }
-    .message-info__body {
-        margin-left: 45px;
-    }
+   
 }
 
 .order-chat {
     background-color: #FFFFFF;
 }
 
-.main-message.message-from {
-    text-align: left !important;
-}
-
-.main-message.message-to {
-    text-align: right !important;
-}
 
 
 /* dispute system order-chat css ends here*/
@@ -18323,14 +18186,7 @@ button {
     height: 16px;
 }
 
-.live-time {
-    font-size: 12px;
-    line-height: 22px;
-    font-weight: 600;
-    color: #979797;
-    /* margin: -30px 0px 0px 0px !important; */
-    text-align: right;
-}
+
 
 .message-text {
     float: left;

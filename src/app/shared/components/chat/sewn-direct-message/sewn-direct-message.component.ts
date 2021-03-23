@@ -1,6 +1,7 @@
+import { ToastrService } from 'ngx-toastr';
 /* tslint:disable no-string-literal */
 import { debounce, first, filter } from 'rxjs/operators';
-import { Subscription, fromEvent, interval, Subject } from 'rxjs';
+import { Subscription, fromEvent, interval, Subject, concat } from 'rxjs';
 import { Component, OnInit, OnDestroy, AfterViewInit, Renderer2, ElementRef } from '@angular/core';
 import { UserserviceService, SocketService, ChatHandlerService, ChatUtilService, GlobalsService } from '@services';
 
@@ -64,7 +65,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     public userSearchPanelRendered = new Subject();
     public threadFinderReturned = new Subject();
     public chatVisibilityRendered = new Subject<boolean>();
-
+    public notificationState = false;
+    public contextMenuOpen = false;
     constructor(
         public globals: GlobalsService,
         private render: Renderer2,
@@ -73,6 +75,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         public chatService: ChatHandlerService,
         private userService: UserserviceService,
         private chatUtil: ChatUtilService,
+        private toast: ToastrService,
     ) {}
 
     ngOnInit(): void {
@@ -82,6 +85,37 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             }
         });
         this.SM['ChatHandlerService'] = this.chatService.chatSubject.subscribe(this.chatServiceRequestHandling);
+    }
+
+    toggleMenu() {
+        this.contextMenuOpen = !this.contextMenuOpen;
+        if (this.contextMenuOpen) {
+            this.listenBodyClickMenuClose();
+        } else {
+            if (this.SM['bodyClickMenuClose'] && this.SM['bodyClickMenuClose'].unsubscribe) {
+                this.SM['bodyClickMenuClose'].unsubscribe();
+            }
+        }
+    }
+
+    listenBodyClickMenuClose() {
+        if (this.SM['bodyClickMenuClose'] && this.SM['bodyClickMenuClose'].unsubscribe) {
+            this.SM['bodyClickMenuClose'].unsubscribe();
+        }
+        this.SM['bodyClickMenuClose'] = fromEvent(document.body, 'mousedown').subscribe((event: any) => {
+            if (event.target && this.elRef.nativeElement) {
+                const target = event.target as HTMLElement;
+                const menuPanel = this.elRef.nativeElement.querySelector('[data-element="context-menu-panel"]');
+                if (target && menuPanel) {
+                    const closest = target.closest('[data-element="context-menu-panel"]');
+                    if (target !== menuPanel && closest !== menuPanel) {
+                        this.contextMenuOpen = false;
+                    }
+                }
+            } else {
+                console.log('Event target not found');
+            }
+        });
     }
 
     ngAfterViewInit() {
@@ -923,6 +957,13 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
     closeUserInfoPanel() {
         this.selectedUser = null;
+    }
+
+    noOperation(event) {
+        event.preventDefault();
+        this.toast.error('The action is not availble', 'Unavailable action', {
+            timeOut: 500,
+        });
     }
 
     openPanel() {

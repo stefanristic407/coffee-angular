@@ -4,7 +4,6 @@ import { AuthGuard } from '@guards';
 import { OnboardCustomersComponent } from './onboard-customers/onboard-customers.component';
 import { AddProductComponent } from './e-commerce/add-product/add-product.component';
 import { ProductsTableComponent } from './e-commerce/products-table/products-table.component';
-import { FDirectMessagingComponent } from './f-direct-messaging/f-direct-messaging.component';
 import { CofeeExpeienceDetailsComponent } from './Farm Link/cofee-expeience-details/cofee-expeience-details.component';
 import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-experience.component';
 import { QAForumComponent } from './Farm Link/q-a-forum/q-a-forum.component';
@@ -60,11 +59,6 @@ const routes: Routes = [
             {
                 path: 'profile-edit',
                 component: ProfileEditComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'f-direct-messaging',
-                component: FDirectMessagingComponent,
                 canActivate: [AuthGuard],
             },
             {

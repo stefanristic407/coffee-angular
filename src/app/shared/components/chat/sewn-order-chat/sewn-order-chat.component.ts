@@ -23,6 +23,7 @@ import {
 } from '@models';
 import { ThreadType, ThreadActivityType, ChatMessageType } from '@enums';
 import { ChatHandlerService, GlobalsService, SocketService, ChatUtilService } from '@services';
+
 const badwordsRegExp = require('badwords/regexp') as RegExp;
 @Component({
     selector: 'app-sewn-order-chat',
@@ -76,22 +77,20 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
             this.SM.WSSubscription.unsubscribe();
         }
         this.SM.WSSubscription = this.socket.orderChatReceive.subscribe((WSmsg: WSResponse<unknown>) => {
-            if (this.TIMESTAMP_MAP[WSmsg.type] === WSmsg.timestamp) {
-                if (WSmsg.type === ChatMessageType.threads) {
-                    // this.handleThreadsResponse(WSmsg as WSResponse<ThreadListItem[]>);
-                } else if (WSmsg.type === ChatMessageType.unread) {
-                    // this.handleUnReadResponse(WSmsg as WSResponse<null>);
-                } else if (WSmsg.type === ChatMessageType.users) {
-                    // this.handleUserDetailResponse(WSmsg as WSResponse<ResponseUserStatus[]>);
-                } else if (WSmsg.type === ChatMessageType.history) {
-                    this.handleThreadHistory(WSmsg as WSResponse<ChatMessage[]>);
-                } else if (WSmsg.type === ChatMessageType.message) {
-                    this.handleIncomingMessages(WSmsg as WSResponse<IncomingChatMessage>);
-                } else if (WSmsg.type === ChatMessageType.getCreate) {
-                    // this.handleFindThreadRequest(WSmsg as WSResponse<ThreadListItem[]>);
-                } else if (WSmsg.type === ChatMessageType.thread) {
-                    this.handleRequestedThreadDetails(WSmsg as WSResponse<ThreadListItem>);
-                }
+            if (WSmsg.type === ChatMessageType.threads) {
+                // this.handleThreadsResponse(WSmsg as WSResponse<ThreadListItem[]>);
+            } else if (WSmsg.type === ChatMessageType.unread) {
+                // this.handleUnReadResponse(WSmsg as WSResponse<null>);
+            } else if (WSmsg.type === ChatMessageType.users) {
+                // this.handleUserDetailResponse(WSmsg as WSResponse<ResponseUserStatus[]>);
+            } else if (WSmsg.type === ChatMessageType.history) {
+                this.handleThreadHistory(WSmsg as WSResponse<ChatMessage[]>);
+            } else if (WSmsg.type === ChatMessageType.message) {
+                this.handleIncomingMessages(WSmsg as WSResponse<IncomingChatMessage>);
+            } else if (WSmsg.type === ChatMessageType.getCreate) {
+                // this.handleFindThreadRequest(WSmsg as WSResponse<ThreadListItem[]>);
+            } else if (WSmsg.type === ChatMessageType.thread) {
+                this.handleRequestedThreadDetails(WSmsg as WSResponse<ThreadListItem>);
             }
         });
     }
@@ -235,9 +234,28 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
             this.messageList = WSmsg.data
                 .filter((x) => x.activity_type === ThreadActivityType.message && x.content.trim() !== '')
                 .reverse();
-            this.messageList.forEach((message) => {
-                this.processChatMessages(message, this.threadDetails);
-            });
+
+            // this.messageList.forEach((message) => {
+            //     this.processChatMessages(message, this.threadDetails);
+            // });
+            for (let index = 0, len = this.messageList.length; index < len; index++) {
+                this.messageList[index] = this.processChatMessages(this.messageList[index], this.threadDetails);
+                const prevMessage = this.messageList[index - 1];
+                const activeMessage = this.messageList[index];
+                if (!activeMessage.isActiveUser) {
+                    if (prevMessage) {
+                        activeMessage.showUserBadge = !(
+                            prevMessage.computed_author?.user_id === activeMessage.computed_author?.user_id &&
+                            prevMessage.computed_author?.org_id === activeMessage.computed_author?.org_id &&
+                            prevMessage.computed_author?.org_type === activeMessage.computed_author?.org_type
+                        );
+                    } else {
+                        activeMessage.showUserBadge = true;
+                    }
+                } else {
+                    activeMessage.showUserBadge = false;
+                }
+            }
             const lastMessage = this.messageList[this.messageList.length - 1];
             if (lastMessage) {
                 this.sendReadToken(lastMessage.id);
@@ -266,6 +284,20 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                 this.SM.lastRender = this.lastMessageRendered.pipe(first()).subscribe((x) => {
                     this.scrollbottom();
                 });
+                const lastMessage = this.messageList[this.messageList.length - 1];
+                if (!message.isActiveUser) {
+                    if (lastMessage) {
+                        message.showUserBadge = !(
+                            lastMessage.computed_author?.user_id === message.computed_author?.user_id &&
+                            lastMessage.computed_author?.org_id === message.computed_author?.org_id &&
+                            lastMessage.computed_author?.org_type === message.computed_author?.org_type
+                        );
+                    } else {
+                        message.showUserBadge = true;
+                    }
+                } else {
+                    message.showUserBadge = false;
+                }
                 this.messageList.push(message);
                 this.sendReadToken(message.id);
             } else {
@@ -285,6 +317,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
         } else {
             console.log('Error: nable to find message owner');
         }
+        return message;
     }
     processThreadUser(threadUser: ThreadMember) {
         threadUser.last_seen = threadUser.last_seen || '';
@@ -292,6 +325,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
         threadUser.computed_organization_name = this.chatUtil.getOrganization(threadUser.org_type);
         threadUser.computed_fullname = threadUser.first_name + ' ' + threadUser.last_name;
         threadUser.computed_profile_dp = this.chatUtil.getProfileImageBgStyle(threadUser.profile_pic);
+        threadUser.computed_profile_direct_url = this.chatUtil.getProfileImageDirectURL(threadUser.profile_pic);
         return threadUser;
     }
 

@@ -15,7 +15,6 @@ import { CoffeeListComponent } from './coffee-list/coffee-list.component';
 import { CoffeeDetailsComponent } from './coffee-details/coffee-details.component';
 import { AvailableConfirmOrderComponent } from './coffee-details/available-confirm-order/available-confirm-order.component';
 import { EstateDetailsComponent } from './estate-details/estate-details.component';
-import { SourcingOrderChatComponent } from './estate-details/sourcing-order-chat/sourcing-order-chat.component';
 import { OverviewRatingsComponent } from './estate-details/overview-ratings/overview-ratings.component';
 import { LandLotsComponent } from './estate-details/land-lots/land-lots.component';
 import { OverviewComponent } from './estate-details/overview/overview.component';
@@ -36,7 +35,6 @@ import { FilterComponent } from './filter/filter.component';
         CoffeeDetailsComponent,
         AvailableConfirmOrderComponent,
         EstateDetailsComponent,
-        SourcingOrderChatComponent,
         OverviewRatingsComponent,
         LandLotsComponent,
         OverviewComponent,
