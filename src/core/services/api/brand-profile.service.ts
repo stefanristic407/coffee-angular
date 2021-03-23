@@ -6,7 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService } from './api.service';
-import { OrgType } from '@enums';
+import { OrganizationType } from '@enums';
 
 @Injectable({
     providedIn: 'root',
@@ -30,7 +30,7 @@ export class BrandProfileService extends ApiService {
         );
     }
 
-    getProfile(orgType: OrgType, orgId: number): Observable<OrganizationDetails> {
+    getProfile(orgType: OrganizationType, orgId: number): Observable<OrganizationDetails> {
         return this.post(this.orgPostUrl, `general/${orgType}/${orgId}/profile`, 'GET').pipe(
             map((response) => {
                 if (response.success) {

@@ -1,26 +1,26 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { OrgType } from '@enums';
+import { OrganizationType } from '@enums';
 import { environment } from '@env/environment';
 
 @Pipe({
     name: 'profileLink',
 })
 export class ProfileLinkPipe implements PipeTransform {
-    transform(orgType: OrgType, orgId: number): string {
+    transform(orgType: OrganizationType, orgId: number): string {
         switch (orgType) {
-            case OrgType.ESTATE: {
+            case OrganizationType.ESTATE: {
                 return `${environment.estatesWeb}/features/estate-profile/${orgId}`;
             }
-            case OrgType.FACILITATOR: {
+            case OrganizationType.FACILITATOR: {
                 return `${environment.facilitatorWeb}/features/facilitator-profile/${orgId}`;
             }
-            case OrgType.ROASTER: {
+            case OrganizationType.ROASTER: {
                 return `${environment.roasterWeb}/features/roastery-profile/${orgId}`;
             }
-            case OrgType.MICRO_ROASTER: {
+            case OrganizationType.MICRO_ROASTER: {
                 return `${environment.microRoasterWeb}/features/roastery-profile/${orgId}`;
             }
-            case OrgType.HORECA: {
+            case OrganizationType.HORECA: {
                 return `${environment.horecaWeb}/features/roastery-profile/${orgId}`;
             }
         }

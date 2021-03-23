@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { OrderStatus, OrderType, OrgType } from '@enums';
+import { OrderStatus, OrderType, OrganizationType } from '@enums';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -10,12 +10,12 @@ import { MenuItem } from 'primeng/api';
 export class OrderHeaderComponent implements OnInit {
     readonly OrderTypes = OrderType;
     readonly OrderStatus = OrderStatus;
-    readonly OrgTypes = OrgType;
+    readonly OrgTypes = OrganizationType;
 
     breadcrumbs: MenuItem[] = [];
 
     @Input() orderId: number;
-    @Input() organizationType: OrgType;
+    @Input() organizationType: OrganizationType;
     @Input() orderType: OrderType;
     @Input() createdAt: Date;
     @Input() statusPaid = true;
@@ -45,7 +45,7 @@ export class OrderHeaderComponent implements OnInit {
     }
 
     get isConfirmationMode(): boolean {
-        return this.organizationType === OrgType.MICRO_ROASTER && this.orderStatus === OrderStatus.Placed;
+        return this.organizationType === OrganizationType.MICRO_ROASTER && this.orderStatus === OrderStatus.Placed;
     }
 
     ngOnInit(): void {

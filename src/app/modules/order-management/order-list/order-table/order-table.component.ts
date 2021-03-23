@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { OrgType } from '@enums';
+import { OrganizationType } from '@enums';
 import { CommonService, ResizeService } from '@services';
 import { DataTableComponent } from '@base-components';
 import { OrderSummary } from '@models';
@@ -15,9 +15,9 @@ import { Table } from 'primeng/table/table';
     styleUrls: ['./order-table.component.scss'],
 })
 export class OrderTableComponent extends DataTableComponent<OrderSummary> implements OnInit {
-    readonly OrgTypes = OrgType;
+    readonly OrgTypes = OrganizationType;
 
-    orgType: OrgType;
+    orgType: OrganizationType;
 
     @ViewChild('ordersTable') ordersTable: Table;
 

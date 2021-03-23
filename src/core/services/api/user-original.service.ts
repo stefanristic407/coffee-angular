@@ -8,7 +8,7 @@ import { SocketService } from '../socket/socket.service';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from 'src/environments/environment';
 import { map, tap } from 'rxjs/operators';
-import { OrgType } from '@enums';
+import { OrganizationType } from '@enums';
 
 @Injectable({
     providedIn: 'root',
@@ -1027,7 +1027,7 @@ export class UserserviceService {
         return this.http.put(this.putUrl, data).pipe(map((res) => res));
     }
     // List reviews received for an organization
-    getReviews(orgId: any, orgType: OrgType, params = '') {
+    getReviews(orgId: any, orgType: OrganizationType, params = '') {
         const data = {
             api_call: `/general/${orgType}/${orgId}/reviews/?${params}`,
             method: 'GET',
@@ -1036,7 +1036,7 @@ export class UserserviceService {
         return this.http.post(this.roasterUrl, data);
     }
     // Get review summary received for an organization
-    getReviewsSummary(orgId: any, orgType = OrgType.ROASTER) {
+    getReviewsSummary(orgId: any, orgType = OrganizationType.ROASTER) {
         const data = {
             api_call: `/general/${orgType}/${orgId}/reviews-summary`,
             method: 'GET',

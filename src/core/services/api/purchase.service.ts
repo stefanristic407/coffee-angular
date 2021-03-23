@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { OrgType, OrderStatus } from '@enums';
+import { OrganizationType, OrderStatus } from '@enums';
 import {
     ApiResponse,
     ConfirmRejectOrderDetails,
@@ -28,7 +28,7 @@ export class PurchaseService extends ApiService {
         super(cookieSrv, http);
     }
 
-    getOrderDetailsById(orderId: number, orgType: OrgType): Observable<OrderDetails> {
+    getOrderDetailsById(orderId: number, orgType: OrganizationType): Observable<OrderDetails> {
         return this.postWithOrg(this.orgPostUrl, `${this.getOrgEndpoint(orgType)}/${orderId}`, 'GET').pipe(
             map((response) => {
                 if (response.success && response.result.id) {
@@ -60,7 +60,7 @@ export class PurchaseService extends ApiService {
         );
     }
 
-    getOrders(orgType: OrgType, options: any): Observable<ApiResponse<OrderSummary[]>> {
+    getOrders(orgType: OrganizationType, options: any): Observable<ApiResponse<OrderSummary[]>> {
         const params = this.serializeParams(options);
         return this.postWithOrg(this.orgPostUrl, `${this.getOrgEndpoint(orgType)}?${params}`, 'GET').pipe(
             map((res) => {
@@ -78,7 +78,7 @@ export class PurchaseService extends ApiService {
         );
     }
 
-    getRecentActivity(orderId: number, orgType: OrgType): Observable<RecentActivity[]> {
+    getRecentActivity(orderId: number, orgType: OrganizationType): Observable<RecentActivity[]> {
         return this.postWithOrg(this.orgPostUrl, `${this.getOrgEndpoint(orgType)}/${orderId}/events`, 'GET').pipe(
             map((response) => {
                 return response.success ? response.result : [];
@@ -99,7 +99,7 @@ export class PurchaseService extends ApiService {
     }
 
     downloadOrders(
-        orgType: OrgType,
+        orgType: OrganizationType,
         exportType: string,
         dateFrom: string,
         dateTo: string,
@@ -146,7 +146,7 @@ export class PurchaseService extends ApiService {
         return label ? label.label : '';
     }
 
-    private getOrgEndpoint(orgType: OrgType): string {
-        return orgType === OrgType.MICRO_ROASTER ? `mr-${this.endpoint}` : this.endpoint;
+    private getOrgEndpoint(orgType: OrganizationType): string {
+        return orgType === OrganizationType.MICRO_ROASTER ? `mr-${this.endpoint}` : this.endpoint;
     }
 }
