@@ -745,6 +745,13 @@ export class RoasterserviceService {
         data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
+    getHorecaTableDetails(roaster_id: any, hrc_id) {
+        const data = { api_call: '', token: '', method: '' };
+        data.api_call = `/ro/${roaster_id}/hrc/${hrc_id}`;
+        data.token = this.cookieService.get('Auth');
+        data.method = 'GET';
+        return this.http.post(this.url, data);
+    }
     getMrOrders(roaster_id: any) {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/mr-orders';

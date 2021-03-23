@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="user-text web-farm">
-                    <p class="">
+                    <p class="text-lg-left text-md-center">
                         <span
                             class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
                             *ngIf="customerService.company_name != ''"
@@ -24,7 +24,7 @@
                             {{ customerService.company_name }}</span
                         >
                     </p>
-                    <p class="">
+                    <p class="text-lg-left text-md-center">
                         <span
                             class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
                             *ngIf="customerService.company_name == ''"
@@ -32,12 +32,12 @@
                             -</span
                         >
                     </p>
-                    <p class="fnt-16 fnt-md-18 fnt-600 fnt-muli text-clr588 mb-2 d-flex align-text">
+                    <p class="d-flex fnt-16 fnt-600 fnt-md-18 fnt-muli justify-content-md-center mb-2 text-clr588">
                         <span class="mr-3"> Owned by {{ customerService.owner_name }} </span>
                         <li></li>
                         <span> Founded in {{ customerService.founded_on }}</span>
                     </p>
-                    <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli text-clr55c">
+                    <p class="fnt-16 fnt-700 fnt-md-18 fnt-muli text-clr55c text-lg-left text-md-center">
                         <span> Admin: </span> <span>{{ customerService.admin_name }} </span>
                     </p>
                 </div>
