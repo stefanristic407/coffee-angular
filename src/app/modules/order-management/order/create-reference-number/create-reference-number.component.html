@@ -1,30 +1,34 @@
-<div class="fnt-14 fnt-600 text-clr334" *ngIf="!refNumber">
-    {{ 'create_order_reference_number' | translate }}
-</div>
-<div class="d-flex" [class.mt-4]="!refNumber" *ngIf="editMode || !refNumber">
-    <input
-        #input
-        pInputText
-        type="text"
-        class="w-100 mr-2 br-4 p-3"
-        placeholder="{{ 'create_unique_reference_number' | translate }}"
-        [ngModel]="refNumber"
-    />
-    <button class="btn-raised px-4" (click)="save(input.value)">{{ 'save' | translate }}</button>
-</div>
+<ng-container *ngIf="!refNumber || editMode; else refNoInfo">
+    <div class="fnt-14 fnt-600 text-clr334">
+        {{ 'create_order_reference_number' | translate }}
+    </div>
+    <div class="d-flex mt-4">
+        <input
+            #input
+            pInputText
+            type="text"
+            class="w-100 mr-2 br-4 p-3"
+            placeholder="{{ 'create_unique_reference_number' | translate }}"
+            [ngModel]="refNumber"
+        />
+        <button class="btn-raised px-4" (click)="save(input.value)">{{ 'save' | translate }}</button>
+    </div>
+</ng-container>
 
-<div class="w-100 pr-3" *ngIf="refNumber && !editMode">
-    <div class="d-flex justify-content-between border-bottom-dashed pb-3">
-        <div>
-            <img width="20" height="20" src="assets/images/timeline-check-active.svg" />
-            <span class="ml-3 fnt-14 font-bold text-clr334">{{ 'ref_no_created' | translate }}!</span>
+<ng-template #refNoInfo>
+    <div class="w-100 pr-3">
+        <div class="d-flex justify-content-between border-bottom-dashed pb-3">
+            <div>
+                <img width="20" height="20" src="assets/images/timeline-check-active.svg" />
+                <span class="ml-3 fnt-14 font-bold text-clr334">{{ 'ref_no_created' | translate }}!</span>
+            </div>
+            <div class="navigation-link" (click)="editMode = true">
+                {{ 'edit' | translate }}
+            </div>
         </div>
-        <div class="navigation-link" (click)="editMode = true">
-            {{ 'edit' | translate }}
+        <div class="d-flex pt-3">
+            <div class="w-50 fnt-500 text-clr588">{{ 'order_reference_number' | translate }} :</div>
+            <div class="w-50 font-bold text-clr334">{{ refNumber }}</div>
         </div>
     </div>
-    <div class="d-flex pt-3">
-        <div class="w-50 fnt-500 text-clr588">{{ 'order_reference_number' | translate }} :</div>
-        <div class="w-50 font-bold text-clr334">{{ refNumber }}</div>
-    </div>
-</div>
+</ng-template>
