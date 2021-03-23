@@ -29,6 +29,12 @@
 .roasterDivText-area {
     height: 7.62rem;
 }
+
+@media (min-width: 768px) {
+    .sewn-form-field {
+        margin-bottom: 1rem !important;
+    }
+}
 .flavour-item {
     padding: 8px 16px;
     border-radius: 17px;

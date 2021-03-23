@@ -65,7 +65,7 @@
         class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9"
         [formGroup]="weightForm['controls']['weights']['controls'][currentVarientIndex]"
     >
-        <div class="row gutter-16 gutter-lg-16 mt-sm-3 mt-md-3 mt-lg-0">
+        <div class="row gutter-16 gutter-lg-16 mt-sm-3 mt-md-3 mt-lg-0" style="position: relative">
             <div class="col-12 mt-4 mb-4 d-flex d-sm-flex d-md-none">
                 <div class="col-6 pl-0">
                     <p-checkbox formControlName="is_default_product" binary="true" label="Set as default product">
@@ -134,18 +134,12 @@
                     label="Set as default product"
                 >
                 </p-checkbox>
-                <!-- <span
-                    class="fnt-700 editBtn cursor-pointer delBtn d-flex align-items-center"
-                    (click)="deleteWeightVarient(currentVarientIndex)"
-                >
-                    <img src="assets/images/delete-varient.svg" alt="delete" /> Delete
-                </span> -->
             </div>
             <span
-                class="fnt-700 editBtn cursor-pointer delBtn d-flex align-items-center"
+                class="fnt-700 editBtn delete-weight-varient cursor-pointer align-items-center"
                 (click)="deleteWeightVarient(currentVarientIndex)"
             >
-                <img src="assets/images/delete-varient.svg" alt="delete" /> Delete
+                <img src="assets/images/delete-varient.svg" alt="delete" /> Delete Weight Varient
             </span>
         </div>
         <div

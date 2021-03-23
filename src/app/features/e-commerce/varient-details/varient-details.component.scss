@@ -68,6 +68,13 @@
     padding: 6px 4px 2px 8px;
     border-radius: 2px;
 }
+.delete-weight-varient {
+    position: absolute;
+    right: 0;
+    color: #80460b !important;
+    cursor: pointer;
+    text-decoration: underline !important;
+}
 .imageLabel label {
     font-family: 'Muli';
     font-size: 14px;
@@ -260,6 +267,13 @@
 }
 
 @media screen and (max-width: 767px) {
+    .delete-weight-varient {
+        position: inherit;
+        right: 0;
+        color: #80460b !important;
+        cursor: pointer;
+        text-decoration: underline !important;
+    }
     .addImageContainer {
         width: auto;
         text-align: center;

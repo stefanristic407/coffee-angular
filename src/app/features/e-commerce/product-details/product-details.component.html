@@ -119,6 +119,7 @@
                 <p-checkbox
                     formControlName="is_variants_included"
                     binary="true"
+                    (onChange)="createTypeVariantArray()"
                     label="If this product has options like roasted coffee batch, flavour profile, availability etc."
                 >
                 </p-checkbox>
@@ -245,7 +246,7 @@
                                 <input type="text" readonly formControlName="harvest_year" pInputText />
                             </div>
                         </div>
-                        <div class="row gutter-16 gutter-lg-24 mt-2 e-comm-border-top pl-0 pr-0">
+                        <div class="row gutter-16 gutter-lg-24 e-comm-border-top pl-0 pr-0">
                             <div class="col-12 mb-3 mt-3 mt-md-0">
                                 <span class="primary_txt fnt-14 fnt-md-16">Tasting notes</span>
                             </div>
@@ -270,11 +271,11 @@
                                 <input type="text" readonly formControlName="processing" pInputText />
                             </div>
                         </div>
-                        <div class="row gutter-16 gutter-lg-24 mt-2 e-comm-border-top">
+                        <div class="row gutter-16 gutter-lg-24 e-comm-border-top">
                             <div
                                 class="col-12 col-sm-12 col-md-12 sewn-form-field w-100 pl-md-2 pr-md-3 pl-0 pr-0 mb-0 mt-2"
                             >
-                                <label>Flavour profile</label>
+                                <label class="m-0">Flavour profile</label>
                                 <div>
                                     <span
                                         class="flavour-item d-inline-block"
@@ -285,7 +286,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row gutter-16 gutter-lg-24 mt-md-2 mt-1">
+                        <div class="row gutter-16 gutter-lg-24">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 sewn-form-field w-100">
                                 <label>Roaster notes</label>
                                 <textarea
@@ -314,8 +315,8 @@
                                 ></textarea>
                             </div>
                         </div>
-                        <div class="row gutter-16 gutter-lg-24 mt-2 e-comm-border-top pl-0 pr-0 pt-3">
-                            <div class="col-12 mb-3 mt-1">
+                        <div class="row gutter-16 gutter-lg-24 e-comm-border-top pl-0 pr-0 pt-2">
+                            <div class="col-12 mb-3">
                                 <span class="primary_txt fnt-14 fnt-md-16">Recommended brewing method</span>
                             </div>
                             <div class="col-sm-12 col-md-4 col-lg-5 col-xl-3 sewn-form-field w-100">

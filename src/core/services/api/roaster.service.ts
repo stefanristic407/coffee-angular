@@ -629,6 +629,7 @@ export class RoasterserviceService {
         const data = {};
         data['api_call'] = '/ro/' + roaster_id + '/products?' + this.serlialise(postData);
         data['token'] = this.cookieService.get('Auth');
+        data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
     getProductDetails(roaster_id: any, productId: any): Observable<any> {
