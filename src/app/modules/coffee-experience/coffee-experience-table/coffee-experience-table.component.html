@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between mt-4">
     <div class="d-flex">
-        <div>
+        <div *ngIf="customerType === 'estate'">
             <p-dropdown
                 scrollHeight="225px"
                 (onChange)="filterOrigin()"
@@ -13,15 +13,16 @@
         </div>
         <div>
             <p-calendar
+                styleClass="only-icon"
                 [(ngModel)]="rangeDates"
                 (onSelect)="filterDate()"
+                (onClearClick)="closeCalendar($event)"
                 [showIcon]="true"
                 dateFormat="dd.mm.yy"
                 [readonlyInput]="true"
                 [showButtonBar]="true"
                 selectionMode="range"
-                yearRange="2000:2030"
-                placeholder="Date range"
+                placeholder="{{ 'date_range' | translate }}"
                 styleClass="round-border range-picker"
             ></p-calendar>
         </div>
@@ -140,7 +141,7 @@
     </p-table>
 </div>
 
-<div class="pt-md-2 mobile-farm">
+<div class="pt-md-2 mobile-farm agreement-x">
     <div class="table-details mobile-farm">
         <div class="table-responsive border-sourcetable agreement-top">
             <div class="col-12 mb-3 bor-ebe" *ngFor="let item of filteredCoffeeData">
@@ -151,6 +152,43 @@
                                 <p class="black fnt-14">
                                     Order #{{ customerType === 'hrc' ? item.order_id : item.id }}
                                 </p>
+                            </div>
+                            <div>
+                                <a [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
+                                    <p><img src="assets/images/kebab-menu.svg" /></p>
+                                </a>
+                                <ng-template
+                                    #poplistTemplate
+                                    id="{{ customerType === 'hrc' ? item.order_id : item.id }}"
+                                >
+                                    <div id="popover-mobile-content">
+                                        <ul class="list-group custom-popover">
+                                            <li class="list-group-item">
+                                                <a
+                                                    *ngIf="customerType === 'estate'"
+                                                    class="view-listing"
+                                                    routerLink="/coffee-experience/coffee-details/"
+                                                    [queryParams]="{ estate_id: item.id }"
+                                                    >View Details</a
+                                                >
+                                                <a
+                                                    *ngIf="customerType === 'micro-roasters'"
+                                                    class="view-listing"
+                                                    routerLink="/coffee-experience/coffee-details/"
+                                                    [queryParams]="{ micro_roasters_id: item.id }"
+                                                    >View Details</a
+                                                >
+                                                <a
+                                                    *ngIf="customerType === 'hrc'"
+                                                    class="view-listing"
+                                                    routerLink="/coffee-experience/coffee-details/"
+                                                    [queryParams]="{ hrc_id: item.order_id }"
+                                                    >View Details</a
+                                                >
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </ng-template>
                             </div>
                         </div>
                         <div class="bor-bot-d6d6 mx-3 py-3 row">
