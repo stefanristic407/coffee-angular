@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { GlobalsService, RoasterserviceService, UserserviceService } from '@services';
-import { OrgType, OrderType, OrderStatus } from '@enums';
+import { OrganizationType, OrderType, OrderStatus } from '@enums';
 
 @Component({
     selector: 'app-review-ratings',
@@ -11,7 +11,7 @@ import { OrgType, OrderType, OrderStatus } from '@enums';
 })
 export class ReviewRatingsComponent implements OnInit {
     roasterId: any;
-    orgType: OrgType;
+    orgType: OrganizationType;
     orgId: number;
     ownerName: string;
     orderId: number;
@@ -32,7 +32,7 @@ export class ReviewRatingsComponent implements OnInit {
         this.roasterId = this.cookieService.get('roaster_id');
         this.route.paramMap.subscribe((params) => {
             if (params.has('orgType') && params.has('orderId')) {
-                this.orgType = params.get('orgType') as OrgType;
+                this.orgType = params.get('orgType') as OrganizationType;
                 this.orderId = +params.get('orderId');
                 this.getData();
             }
@@ -44,12 +44,12 @@ export class ReviewRatingsComponent implements OnInit {
     getData() {
         this.roasterSrv.getViewOrderDetails(this.roasterId, this.orderId, this.orgType).subscribe((res: any) => {
             if (res.success) {
-                if (this.orgType === OrgType.ESTATE) {
+                if (this.orgType === OrganizationType.ESTATE) {
                     this.orgId = res.result.estate_id;
                     this.ownerName = res.result.estate_owner;
                     this.orderType = res.result.order_type;
                     this.orderStatus = res.result.status;
-                } else if (this.orgType === OrgType.MICRO_ROASTER) {
+                } else if (this.orgType === OrganizationType.MICRO_ROASTER) {
                     this.orgId = res.result.micro_roaster_id;
                     this.ownerName = res.result.micro_roaster_name;
                     this.orderType = res.result.type;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OrgType } from '@enums';
+import { OrganizationType } from '@enums';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DestroyableComponent } from '@base-components';
 import { takeUntil } from 'rxjs/operators';
@@ -18,7 +18,7 @@ export class ShippingAddressEditorComponent extends DestroyableComponent impleme
     readonly countries = this.commonSrv.getCountryList();
     readonly editorForm: FormGroup = this.fb.group({
         country: this.fb.control('', [Validators.required]),
-        state: this.fb.control(''),
+        state: this.fb.control('', [Validators.required]),
         address_line1: this.fb.control('', [Validators.required]),
         address_line2: this.fb.control(''),
         city: this.fb.control('', [Validators.required]),
@@ -26,7 +26,7 @@ export class ShippingAddressEditorComponent extends DestroyableComponent impleme
     });
 
     orderId: number;
-    orgType: OrgType;
+    orgType: OrganizationType;
     breadcrumbs: MenuItem[];
 
     constructor(
@@ -61,7 +61,7 @@ export class ShippingAddressEditorComponent extends DestroyableComponent impleme
 
                 this.breadcrumbs = [
                     { label: 'Home', routerLink: '/' },
-                    { label: 'Order Management' },
+                    { label: 'Order Management', routerLink: `/orders/${this.orgType}` },
                     { label: `Order #${this.orderId}`, routerLink: `/orders/${this.orgType}/${this.orderId}` },
                     { label: 'Edit' },
                 ];

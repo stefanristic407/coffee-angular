@@ -10,4 +10,5 @@ export interface OrganizationDetails {
     country: string;
     company_number: string;
     belongs_to: string;
+    admin_id: number;
 }

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DestroyableComponent, ResizeableComponent } from '@base-components';
-import { OrderStatus, OrderType, OrgType } from '@enums';
+import { OrderStatus, OrderType, OrganizationType } from '@enums';
 import { OrderDetails, OrganizationDetails } from '@models';
 import { GlobalsService, ResizeService } from '@services';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
@@ -22,7 +22,7 @@ export class OrderDetailsComponent extends ResizeableComponent implements OnInit
     isMobile = true;
 
     @Input() orderId: number;
-    @Input() orgType: OrgType;
+    @Input() orgType: OrganizationType;
     @Input() order: OrderDetails;
     @Input() needConfirmation = false;
 

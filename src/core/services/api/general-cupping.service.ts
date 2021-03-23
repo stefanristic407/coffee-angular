@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { OrgType } from '@enums';
+import { OrganizationType } from '@enums';
 import { CuppingScore } from '@models';
 import { toCamelCase } from '@utils';
 import { CookieService } from 'ngx-cookie-service';
@@ -30,7 +30,7 @@ export class GeneralCuppingService extends ApiService {
         );
     }
 
-    getCuppingScores(harvestId: number, orgType: OrgType): Observable<CuppingScore[]> {
+    getCuppingScores(harvestId: number, orgType: OrganizationType): Observable<CuppingScore[]> {
         return this.post(this.orgPostUrl, `${this.endpoint}/${harvestId}/cupping-scores`, 'GET').pipe(
             map((response) => {
                 if (response.success) {

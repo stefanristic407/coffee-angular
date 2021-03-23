@@ -2,7 +2,7 @@
     <div class="main-block">
         <div class="row">
             <div class="col-12 mb-3 mb-lg-4 pb-2 pb-lg-2">
-                <a class="back-page" (click)="location.back()"> {{ 'back' | translate }}</a>
+                <a class="back-page" routerLink="/people/customer-management"> {{ 'back' | translate }}</a>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-12 onboard-section">
                 <h1 class="title">Onboard Customers</h1>
@@ -14,7 +14,7 @@
                             routerLink="/features/roaster-quick-setup"
                             [queryParams]="{ buttonValue: 'Micro-Roaster' }"
                         >
-                            <img class="logo-img float-left" src="assets/images/roaster.svg" />
+                            <img class="logo-img float-left" src="assets/images/group-19.svg" />
                             <span class="roaster">Micro-Roaster</span>
                             <img class="icon-img float-right" src="assets/images/cta-arrow.svg" /><img
                                 class="icon-img-filled float-right"

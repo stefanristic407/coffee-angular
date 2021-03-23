@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { DestroyableComponent } from '@base-components';
-import { OrgType } from '@enums';
+import { OrganizationType } from '@enums';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { ToastrService } from 'ngx-toastr';
 import { takeUntil } from 'rxjs/operators';
@@ -16,7 +16,7 @@ export class ConfirmOrderComponent extends DestroyableComponent {
     rejectMode = false;
 
     @Input() orderId = 0;
-    @Input() orgType: OrgType;
+    @Input() orgType: OrganizationType;
 
     constructor(private toastrService: ToastrService, private orderService: OrderManagementService) {
         super();

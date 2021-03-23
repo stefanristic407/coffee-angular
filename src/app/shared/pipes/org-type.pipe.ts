@@ -1,17 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { OrgType } from '@enums';
+import { OrganizationType } from '@enums';
 
 @Pipe({
     name: 'orgType',
 })
 export class OrgTypePipe implements PipeTransform {
-    transform(orgType: OrgType): string {
+    transform(orgType: OrganizationType): string {
         const organizations = {
-            [OrgType.ESTATE]: 'Estate',
-            [OrgType.FACILITATOR]: 'Facilitaor',
-            [OrgType.HORECA]: 'Horeca',
-            [OrgType.MICRO_ROASTER]: 'Micro Roaster',
-            [OrgType.ROASTER]: 'Roaster',
+            [OrganizationType.ESTATE]: 'Estate',
+            [OrganizationType.FACILITATOR]: 'Facilitaor',
+            [OrganizationType.HORECA]: 'Horeca',
+            [OrganizationType.MICRO_ROASTER]: 'Micro Roaster',
+            [OrganizationType.ROASTER]: 'Roaster',
         };
         return organizations[orgType];
     }

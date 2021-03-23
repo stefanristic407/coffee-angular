@@ -575,6 +575,7 @@ export class RoasterserviceService {
         data['api_call'] = '/ro/' + roaster_id + '/micro-roasters';
         // data['params'] = params;
         data['token'] = this.cookieService.get('Auth');
+        data['method'] = 'GET';
         //  const params = new HttpParams().append( 'file_module', fileModule )
         // console.log(data);
         return this.http.post(this.url, data);
@@ -584,6 +585,7 @@ export class RoasterserviceService {
         data['api_call'] = '/ro/' + roaster_id + '/hrc';
         // data['params'] = params;
         data['token'] = this.cookieService.get('Auth');
+        data['method'] = 'GET';
         //  const params = new HttpParams().append( 'file_module', fileModule )
         // console.log(data);
         return this.http.post(this.url, data);
@@ -758,6 +760,13 @@ export class RoasterserviceService {
         data['api_call'] = `/ro/${roaster_id}/hrc/${hrc_id}/partners`;
         data['token'] = this.cookieService.get('Auth');
         data['method'] = 'GET';
+        return this.http.post(this.url, data);
+    }
+    getHorecaTableDetails(roaster_id: any, hrc_id) {
+        const data = { api_call: '', token: '', method: '' };
+        data.api_call = `/ro/${roaster_id}/hrc/${hrc_id}`;
+        data.token = this.cookieService.get('Auth');
+        data.method = 'GET';
         return this.http.post(this.url, data);
     }
     getMrOrders(roaster_id: any) {

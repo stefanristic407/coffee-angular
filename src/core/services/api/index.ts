@@ -1,4 +1,5 @@
 export * from './acl.service';
+export * from './addresses.service';
 export * from './api.service';
 export * from './availability-request.service';
 export * from './availability.service';
