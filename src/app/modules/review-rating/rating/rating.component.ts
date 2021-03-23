@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService, RoasterserviceService, UserserviceService } from '@services';
-import { OrgType, OrderType, OrderStatus } from '@enums';
+import { OrganizationType, OrderType, OrderStatus } from '@enums';
 
 @Component({
     selector: 'app-rating',
@@ -13,7 +13,7 @@ import { OrgType, OrderType, OrderStatus } from '@enums';
 })
 export class RatingComponent implements OnInit {
     roasterId: any;
-    orgType: OrgType;
+    orgType: OrganizationType;
     orgId: number;
     orderId: number;
     orderType: OrderType;
@@ -39,7 +39,7 @@ export class RatingComponent implements OnInit {
         this.roasterId = this.cookieService.get('roaster_id');
         this.route.paramMap.subscribe((params) => {
             if (params.has('orgType') && params.has('orderId')) {
-                this.orgType = params.get('orgType') as OrgType;
+                this.orgType = params.get('orgType') as OrganizationType;
                 this.orderId = +params.get('orderId');
                 this.getData();
                 this.getReview();
@@ -59,12 +59,12 @@ export class RatingComponent implements OnInit {
     getData() {
         this.roasterSrv.getViewOrderDetails(this.roasterId, this.orderId, this.orgType).subscribe((res: any) => {
             if (res.success) {
-                if (this.orgType === OrgType.ESTATE) {
+                if (this.orgType === OrganizationType.ESTATE) {
                     this.orgId = res.result.estate_id;
                     this.orderType = res.result.order_type;
                     this.orderStatus = res.result.status;
                     this.getEstate(res.result.estate_id);
-                } else if (this.orgType === OrgType.MICRO_ROASTER) {
+                } else if (this.orgType === OrganizationType.MICRO_ROASTER) {
                     this.orgId = res.result.micro_roaster_id;
                     this.orderType = res.result.type;
                     this.orderStatus = res.result.status;
@@ -100,9 +100,9 @@ export class RatingComponent implements OnInit {
 
     getReview() {
         let queryIdStr = '';
-        if (this.orgType === OrgType.ESTATE) {
+        if (this.orgType === OrganizationType.ESTATE) {
             queryIdStr = 'gc_order_id';
-        } else if (this.orgType === OrgType.MICRO_ROASTER) {
+        } else if (this.orgType === OrganizationType.MICRO_ROASTER) {
             queryIdStr = 'mr_gc_order_id';
         }
         this.roasterSrv.getRoasterReviews(this.roasterId, { [queryIdStr]: this.orderId }).subscribe((res: any) => {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DestroyableComponent } from '@base-components';
-import { OrderStatus, OrderType, OrgType } from '@enums';
+import { OrderStatus, OrderType, OrganizationType } from '@enums';
 import { OrderDetails } from '@models';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { takeUntil } from 'rxjs/operators';
@@ -19,12 +19,12 @@ export class OrderComponent extends DestroyableComponent implements OnInit {
     readonly lotDetails$ = this.ordersService.lotDetails$;
 
     orderId: number;
-    organizationType: OrgType;
+    organizationType: OrganizationType;
     orderDetails: OrderDetails;
 
     get needConfirmation(): boolean {
         return (
-            this.organizationType === OrgType.MICRO_ROASTER &&
+            this.organizationType === OrganizationType.MICRO_ROASTER &&
             this.orderDetails &&
             this.orderDetails.status === OrderStatus.Placed
         );
@@ -35,7 +35,7 @@ export class OrderComponent extends DestroyableComponent implements OnInit {
     }
 
     get isEstateOrder(): boolean {
-        return this.organizationType === OrgType.ESTATE;
+        return this.organizationType === OrganizationType.ESTATE;
     }
 
     constructor(private route: ActivatedRoute, private ordersService: OrderManagementService) {

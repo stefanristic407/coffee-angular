@@ -5,7 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService } from './api.service';
-import { OrgType } from '@enums';
+import { OrganizationType } from '@enums';
 
 @Injectable({
     providedIn: 'root',
@@ -15,11 +15,11 @@ export class ReviewsService extends ApiService {
         super(cookieSrv, http);
     }
 
-    getOrderReviews(orderId: number, orgType: OrgType): Observable<Review[]> {
+    getOrderReviews(orderId: number, orgType: OrganizationType): Observable<Review[]> {
         const params: any = {};
-        if (orgType === OrgType.ESTATE) {
+        if (orgType === OrganizationType.ESTATE) {
             params.gc_order_id = orderId;
-        } else if (orgType === OrgType.MICRO_ROASTER) {
+        } else if (orgType === OrganizationType.MICRO_ROASTER) {
             params.mr_gc_order_id = orderId;
         }
 

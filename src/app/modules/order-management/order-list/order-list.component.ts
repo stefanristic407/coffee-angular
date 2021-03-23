@@ -7,7 +7,7 @@ import { ApiResponse, LabelValue } from '@models';
 import { ORDER_STATUS_ITEMS, ORDER_TYPE_ITEMS } from '@constants';
 import { ResizeableComponent } from '@base-components';
 import { takeUntil } from 'rxjs/operators';
-import { OrgType } from '@enums';
+import { OrganizationType } from '@enums';
 import { OrderTableComponent } from './order-table/order-table.component';
 import * as moment from 'moment';
 import { ActivatedRoute } from '@angular/router';
@@ -22,7 +22,7 @@ import { RequestTableComponent } from './request-table/request-table.component';
 export class OrderListComponent extends ResizeableComponent implements OnInit {
     readonly statusItems = ORDER_STATUS_ITEMS;
     readonly orderTypeItems = ORDER_TYPE_ITEMS;
-    readonly OrgType = OrgType;
+    readonly OrgType = OrganizationType;
 
     items: MenuItem[] = [];
 
@@ -54,7 +54,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     readonly origins$ = this.orderService.originList$.pipe(takeUntil(this.unsubscribeAll$));
 
     activeIndex = 0;
-    organizationType = OrgType.ESTATE;
+    organizationType = OrganizationType.ESTATE;
     queryParams: any = {};
     displayExportDialog = false;
 
@@ -62,7 +62,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     @ViewChild('requestTable') requestTable: RequestTableComponent;
 
     get customerPropertyName(): string {
-        return this.organizationType === OrgType.ESTATE ? 'estate_name' : 'micro_roaster_name';
+        return this.organizationType === OrganizationType.ESTATE ? 'estate_name' : 'micro_roaster_name';
     }
 
     constructor(
@@ -86,7 +86,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
                 { label: 'Order Management' }, // Do we need this item while we have no page for it?
                 {
                     label:
-                        this.organizationType === OrgType.ESTATE
+                        this.organizationType === OrganizationType.ESTATE
                             ? 'Purchased orders of Estates'
                             : 'Orders & Requests by Micro Roasters',
                 },

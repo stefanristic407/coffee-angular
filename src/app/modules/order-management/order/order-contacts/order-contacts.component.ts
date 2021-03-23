@@ -1,7 +1,7 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { OrderDetails, OrganizationDetails } from '@models';
 import { CommonService } from '@services';
-import { OrgType } from '@enums';
+import { OrganizationType } from '@enums';
 
 @Component({
     selector: 'app-order-contacts',
@@ -12,7 +12,7 @@ import { OrgType } from '@enums';
 export class OrderContactsComponent {
     @Input() order: OrderDetails;
     @Input() roaster: OrganizationDetails;
-    @Input() orgType: OrgType;
+    @Input() orgType: OrganizationType;
 
     constructor(public commonService: CommonService) {}
 }

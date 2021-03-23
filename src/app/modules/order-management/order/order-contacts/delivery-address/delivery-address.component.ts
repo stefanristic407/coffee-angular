@@ -5,7 +5,7 @@ import { Address, OrderDetails } from '@models';
 import { CommonService } from '@services';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { takeUntil } from 'rxjs/operators';
-import { OrgType } from '@enums';
+import { OrganizationType } from '@enums';
 
 @Component({
     selector: 'app-delivery-address',
@@ -13,14 +13,14 @@ import { OrgType } from '@enums';
     styleUrls: ['./delivery-address.component.scss'],
 })
 export class DeliveryAddressComponent extends DestroyableComponent implements OnInit {
-    readonly OrgType = OrgType;
+    readonly OrgType = OrganizationType;
 
     order: OrderDetails;
     latitude: number;
     longitude: number;
 
     @Input() orderConfirmation = false;
-    @Input() orgType: OrgType;
+    @Input() orgType: OrganizationType;
 
     constructor(
         private geoCoder: AgmGeocoder,

@@ -250,17 +250,29 @@ export class ProductDetailsComponent implements OnInit {
         this.varients.push(this.createEmptyVarient());
         this.createTypeVariantArray();
     }
+    removeVarient(index: any) {
+        this.varients.removeAt(index);
+    }
     supplyBreadCrumb(): void {
         const obj1: MenuItem = {
             label: this.globals.languageJson?.home,
             routerLink: '/',
         };
         const obj2: MenuItem = {
-            label: this.globals.languageJson?.products,
-            routerLink: 'features/product-list',
+            label: 'Inventory',
+        };
+        const obj3: MenuItem = {
+            label: 'product calatlog',
+            routerLink: '/features/products-list',
+        };
+        const obj4: MenuItem = {
+            label: 'Product',
+            routerLink: '/',
         };
         this.breadCrumbItem.push(obj1);
         this.breadCrumbItem.push(obj2);
+        this.breadCrumbItem.push(obj3);
+        this.breadCrumbItem.push(obj4);
     }
     onBatchChange(idx) {
         this.varients = this.productForm.get('varients') as FormArray;

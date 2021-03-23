@@ -11,6 +11,8 @@ export class CreateReferenceNumberComponent {
     @Input() refNumber: string;
     @Input() orderId: number;
 
+    editMode = false;
+
     constructor(private toasterSrv: ToastrService, private orderService: OrderManagementService) {}
 
     save(val: string): void {
@@ -18,6 +20,7 @@ export class CreateReferenceNumberComponent {
         if (trimmedVal) {
             this.orderService.createReferenceNumber(this.orderId, trimmedVal).subscribe((res) => {
                 if (res.success) {
+                    this.editMode = false;
                     this.refNumber = trimmedVal;
                     this.toasterSrv.success('Order reference number has been updated.');
                 }

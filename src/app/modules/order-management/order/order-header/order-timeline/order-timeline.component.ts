@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ResizeableComponent } from '@base-components';
-import { OrderStatus, OrderType, OrgType } from '@enums';
+import { OrderStatus, OrderType, OrganizationType } from '@enums';
 import { LabelValue, OrderDetails, RecentActivity } from '@models';
 import { ResizeService } from '@services';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
@@ -12,7 +12,7 @@ import { takeUntil } from 'rxjs/operators';
     styleUrls: ['./order-timeline.component.scss'],
 })
 export class OrderTimelineComponent extends ResizeableComponent implements OnInit {
-    readonly OrgTypes = OrgType;
+    readonly OrgTypes = OrganizationType;
 
     readonly isReviewed$ = this.orderService.isReviewed$;
 
@@ -23,7 +23,7 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     receivedDate: string;
 
     @Input() invoiceUrl: string;
-    @Input() orgType: OrgType;
+    @Input() orgType: OrganizationType;
     @Input() orderId: string;
 
     get statusLabel(): string {
@@ -58,7 +58,7 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
 
     get showTextBlock(): boolean {
         return (
-            this.orgType === OrgType.ESTATE &&
+            this.orgType === OrganizationType.ESTATE &&
             this.order &&
             this.order.status &&
             this.order.status === OrderStatus.Received &&

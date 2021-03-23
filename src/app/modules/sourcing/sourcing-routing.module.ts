@@ -9,7 +9,6 @@ import { CoffeeListComponent } from './coffee-list/coffee-list.component';
 import { CoffeeDetailsComponent } from './coffee-details/coffee-details.component';
 import { AvailableConfirmOrderComponent } from './coffee-details/available-confirm-order/available-confirm-order.component';
 import { EstateDetailsComponent } from './estate-details/estate-details.component';
-import { SourcingOrderChatComponent } from './estate-details/sourcing-order-chat/sourcing-order-chat.component';
 
 const routes: Routes = [
     {
@@ -49,11 +48,6 @@ const routes: Routes = [
         component: AvailableConfirmOrderComponent,
         canActivate: [AuthGuard],
         data: { orderType: 'preBooked' },
-    },
-    {
-        path: 'sourcing-chat',
-        component: SourcingOrderChatComponent,
-        canActivate: [AuthGuard],
     },
 ];
 

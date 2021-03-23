@@ -665,6 +665,20 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
 
+    getCoffeeExperienceOrders(roaster_id: any, orderType: string) {
+        let data: any = {};
+        const postData = null;
+        if (orderType == 'estate') {
+            data.api_call = '/ro/' + roaster_id + '/orders?' + this.serlialise(postData);
+        } else if (orderType == 'micro-roasters') {
+            data.api_call = '/ro/' + roaster_id + '/mr-orders?' + this.serlialise(postData);
+        } else if (orderType == 'hrc') {
+            data.api_call = '/ro/' + roaster_id + '/hrc-orders?' + this.serlialise(postData);
+        }
+        data.token = this.cookieService.get('Auth');
+        return this.http.post(this.url, data);
+    }
+
     getRaisedTicketData(roaster_id: any, orderType?, postData?) {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/disputes?' + this.serlialise(postData);

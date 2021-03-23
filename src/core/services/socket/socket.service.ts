@@ -22,15 +22,21 @@ export class SocketService implements OnDestroy {
     public orderChatSent = new Subject<WSRequest<unknown>>();
     public orderChatReceive = new Subject<WSResponse<unknown>>();
 
-    public authenticationState = new BehaviorSubject<'INIT' | 'IP' | 'FAIL' | 'SUCCESS'>('IP');
-    public socketState = new BehaviorSubject<'INIT' | 'IP' | 'CONNECTED' | 'FAILED' | 'CLOSED'>('IP');
+    public authenticationState = new BehaviorSubject<'INIT' | 'IP' | 'FAIL' | 'SUCCESS'>('INIT');
+    public socketState = new BehaviorSubject<'INIT' | 'IP' | 'CONNECTED' | 'FAILED' | 'CLOSED'>('INIT');
 
     constructor(private cookieService: CookieService, private chatUtil: ChatUtilService) {
         this.initSocketService();
     }
 
     public initSocketService() {
-        if (this.socketState.value !== 'CONNECTED' && this.token && this.chatUtil.ORGANIZATION_ID) {
+        console.log('SOCKET SERVICE INT CALLED');
+        if (
+            !(this.socketState.value === 'CONNECTED' || this.socketState.value === 'IP') &&
+            this.token &&
+            this.chatUtil.ORGANIZATION_ID
+        ) {
+            console.log('SOCKET INT IP');
             this.destorySocket(true); // Cleanup
             this.authenticationState.next('IP');
             this.socketState.next('IP');
@@ -39,11 +45,12 @@ export class SocketService implements OnDestroy {
                 openObserver: {
                     next: () => {
                         this.socketState.next('CONNECTED');
+                        console.log('SOCKET CONNECTED');
                     },
                 },
                 closeObserver: {
-                    next: () => {
-                        console.log('SOCKET CLOSED');
+                    next: (err) => {
+                        console.log('SOCKET CLOSED', err);
                         this.socketState.next('CLOSED');
                         this.authenticationState.next('INIT');
                     },

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddMembersComponent } from './add-members/add-members.component';
 import { PeopleComponent } from './people.component';
-import { PDirectMessagingComponent } from './p-direct-messaging/p-direct-messaging.component';
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
 import { MicroRoasterDetailsComponent } from './customer-management/micro-roaster-details/micro-roaster-details.component';
 import { HorecaDetailsComponent } from './customer-management/horeca-details/horeca-details.component';
@@ -18,11 +17,6 @@ const routes: Routes = [
             {
                 path: 'add-members',
                 component: AddMembersComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'p-direct-messaging',
-                component: PDirectMessagingComponent,
                 canActivate: [AuthGuard],
             },
             {

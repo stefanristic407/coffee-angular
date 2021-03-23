@@ -18,7 +18,7 @@ import {
 } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { OrgType, OrderType } from '@enums';
+import { OrganizationType, OrderType } from '@enums';
 import {
     AvailabilityService,
     BrandProfileService,
@@ -44,8 +44,8 @@ export class OrderManagementService {
     private readonly estateDetailsSubject = new BehaviorSubject<OrganizationDetails>(null);
     private readonly documentsSubject = new BehaviorSubject<OrderDocument[]>([]);
     private readonly ordersSubjects = {
-        [OrgType.ESTATE]: new BehaviorSubject<ApiResponse<OrderSummary[]>>(null),
-        [OrgType.MICRO_ROASTER]: new BehaviorSubject<ApiResponse<OrderSummary[]>>(null),
+        [OrganizationType.ESTATE]: new BehaviorSubject<ApiResponse<OrderSummary[]>>(null),
+        [OrganizationType.MICRO_ROASTER]: new BehaviorSubject<ApiResponse<OrderSummary[]>>(null),
     };
     private readonly cuppingScoreSubject = new BehaviorSubject<CuppingScore[]>([]);
     private readonly originListSubject = new BehaviorSubject<LabelValue[]>([]);
@@ -120,7 +120,7 @@ export class OrderManagementService {
         return this.isReviewedSubject.asObservable();
     }
 
-    getOrders(organizationType: OrgType): Observable<ApiResponse<OrderSummary[]>> {
+    getOrders(organizationType: OrganizationType): Observable<ApiResponse<OrderSummary[]>> {
         return this.ordersSubjects[organizationType].asObservable();
     }
 
@@ -165,7 +165,7 @@ export class OrderManagementService {
     }
 
     downloadOrders(
-        orgType: OrgType,
+        orgType: OrganizationType,
         exportType: string,
         dateFrom: string,
         dateTo: string,
@@ -190,7 +190,7 @@ export class OrderManagementService {
         });
     }
 
-    loadOrders(organizationType: OrgType, options: any): void {
+    loadOrders(organizationType: OrganizationType, options: any): void {
         this.purchaseSrv.getOrders(organizationType, options).subscribe({
             next: (result) => this.ordersSubjects[organizationType].next(result),
         });
@@ -202,7 +202,7 @@ export class OrderManagementService {
         });
     }
 
-    loadOrderDetails(orderId: number, orgType: OrgType, skipAdditionalDetails = false): void {
+    loadOrderDetails(orderId: number, orgType: OrganizationType, skipAdditionalDetails = false): void {
         const rewrite = this.orderId !== orderId;
         this.orderId = orderId;
 
@@ -256,7 +256,7 @@ export class OrderManagementService {
         });
     }
 
-    private loadActivities(orderId: number, orgType: OrgType): void {
+    private loadActivities(orderId: number, orgType: OrganizationType): void {
         this.purchaseSrv.getRecentActivity(orderId, orgType).subscribe({
             next: (result) => this.recentActivitiesSubject.next(result),
         });
@@ -278,7 +278,7 @@ export class OrderManagementService {
         });
     }
 
-    private loadCuppingScore(harvestId: number, orgType: OrgType): void {
+    private loadCuppingScore(harvestId: number, orgType: OrganizationType): void {
         this.cuppingSrv.getCuppingScores(harvestId, orgType).subscribe({
             next: (result) => this.cuppingScoreSubject.next(result),
         });
@@ -304,7 +304,7 @@ export class OrderManagementService {
         });
     }
 
-    private checkReviews(orderId: number, orgType: OrgType) {
+    private checkReviews(orderId: number, orgType: OrganizationType) {
         this.reviewSrv.getOrderReviews(orderId, orgType).subscribe({
             next: (res) => this.isReviewedSubject.next(res.length > 0),
         });

@@ -120,11 +120,18 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         this.getLoggedInUserRoles();
 
         $(window).scroll(() => {
-            if ($(window).scrollTop() + $(window).height() === $(document).height()) {
-                $('.sectin-footer-mb').css({
-                    opacity: '0',
-                    'pointer-events': 'none',
-                });
+            if (!this.chat.isOpen.value) {
+                if ($(window).scrollTop() + $(window).height() === $(document).height()) {
+                    $('.sectin-footer-mb').css({
+                        opacity: '0',
+                        'pointer-events': 'none',
+                    });
+                } else {
+                    $('.sectin-footer-mb').css({
+                        opacity: '1',
+                        'pointer-events': 'all',
+                    });
+                }
             } else {
                 $('.sectin-footer-mb').css({
                     opacity: '1',
@@ -279,6 +286,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     }
 
     ngOnDestroy(): void {
+        this.socket.destorySocket();
         this.profileUpdateEvent$?.unsubscribe();
     }
 }

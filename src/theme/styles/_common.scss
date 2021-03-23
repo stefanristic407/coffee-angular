@@ -304,8 +304,8 @@ span.star {
 .editBtn {
     font-weight: bold;
     color: #80460b !important;
-    text-decoration: underline !important;
     cursor: pointer;
+    text-decoration: underline !important;
 }
 .deleteModal {
     width: 450px;
@@ -482,4 +482,8 @@ span.star {
 
 .h-fit-content {
     height: fit-content;
+}
+
+.border-bottom-dashed {
+    border-bottom: 1px dashed $primary-border-color;
 }

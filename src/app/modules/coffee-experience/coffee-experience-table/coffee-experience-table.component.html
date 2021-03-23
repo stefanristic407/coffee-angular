@@ -1,0 +1,193 @@
+<div class="d-flex justify-content-between mt-4">
+    <div class="d-flex">
+        <div>
+            <p-dropdown
+                scrollHeight="225px"
+                (onChange)="filterOrigin()"
+                [showClear]="true"
+                [options]="originData"
+                [(ngModel)]="selectedOrigin"
+                placeholder="Origin"
+                styleClass="round-border mr-25 mb-2"
+            ></p-dropdown>
+        </div>
+        <div>
+            <p-calendar
+                [(ngModel)]="rangeDates"
+                (onSelect)="filterDate()"
+                [showIcon]="true"
+                dateFormat="dd.mm.yy"
+                [readonlyInput]="true"
+                [showButtonBar]="true"
+                selectionMode="range"
+                yearRange="2000:2030"
+                placeholder="Date range"
+                styleClass="round-border range-picker"
+            ></p-calendar>
+        </div>
+    </div>
+    <div class="web-farm">
+        <p-dropdown
+            [options]="displayItems"
+            [(ngModel)]="filterDisplay"
+            (onChange)="getOrdersData()"
+            scrollHeight="225px"
+            placeholder="Display"
+            [autoDisplayFirst]="false"
+            styleClass="round-border {{ filterDisplay ? 'highlight' : '' }}"
+        ></p-dropdown>
+    </div>
+</div>
+
+<div class="estate-table web-farm pt-4">
+    <p-table
+        class="coffee-experience-table"
+        [value]="filteredCoffeeData | filter: searchTerm | filter: estatetermOrigin"
+        sortMode="multiple"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="order_id" class="order">
+                    {{ 'order_id' | translate }}<p-sortIcon field="order_id"> </p-sortIcon>
+                </th>
+                <th *ngIf="customerType === 'estate'" pSortableColumn="estate_name">
+                    {{ 'estate_name' | translate }}
+                    <p-sortIcon field="estate_name"> </p-sortIcon>
+                </th>
+                <th *ngIf="customerType !== 'estate'" pSortableColumn="name_customer">
+                    {{ 'name_customer' | translate }}
+                    <p-sortIcon field="name_customer"> </p-sortIcon>
+                </th>
+                <th *ngIf="customerType === 'estate'" pSortableColumn="origin" class="variety">
+                    {{ 'origin' | translate }}<p-sortIcon field="origin"> </p-sortIcon>
+                </th>
+                <th *ngIf="customerType !== 'estate'" pSortableColumn="product_name">
+                    {{ 'product_name' | translate }}<p-sortIcon field="product_name"></p-sortIcon>
+                </th>
+
+                <th pSortableColumn="date_ordered">
+                    {{ 'date_ordered' | translate }}<p-sortIcon field="date_ordered"></p-sortIcon>
+                </th>
+                <th *ngIf="customerType === 'estate'" pSortableColumn="date_recieved">
+                    Date recieved<p-sortIcon field="date_recieved"></p-sortIcon>
+                </th>
+                <th *ngIf="customerType !== 'hrc'" pSortableColumn="variety" class="variety">
+                    {{ 'variety' | translate }}<p-sortIcon field="variety"></p-sortIcon>
+                </th>
+                <th *ngIf="customerType === 'hrc'" pSortableColumn="roast_level">
+                    {{ 'roast_level' | translate }}<p-sortIcon field="roast_level"></p-sortIcon>
+                </th>
+                <th pSortableColumn="quantity" class="quantity">
+                    {{ 'quantity' | translate }}<p-sortIcon field="quantity"> </p-sortIcon>
+                </th>
+                <th *ngIf="customerType !== 'hrc'" pSortableColumn="cupping_score">
+                    {{ 'cupping_score' | translate }}<p-sortIcon field="cupping_score"> </p-sortIcon>
+                </th>
+                <th pSortableColumn="actions" class="order">
+                    {{ 'actions' | translate }}<p-sortIcon field="actions"> </p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr>
+                <td class="fnt-14">{{ customerType === 'hrc' ? item.order_id : item.id }}</td>
+                <td class="fnt-14">{{ customerType === 'hrc' ? item.horeca_name : item.estate_name }}</td>
+                <td *ngIf="customerType === 'estate'" class="fnt-14">{{ item.origin | country }}</td>
+                <td class="fnt-14">
+                    {{ customerType === 'estate' ? (item.created_at | date: 'mediumDate') : item.product_name }}
+                </td>
+                <td *ngIf="customerType !== 'estate'" class="fnt-14">
+                    {{
+                        customerType !== 'hrc'
+                            ? (item.created_at | date: 'mediumDate')
+                            : (item.order_date | date: 'mediumDate')
+                    }}
+                </td>
+                <td *ngIf="customerType === 'estate'" class="fnt-14">
+                    {{ item.date_received | date: 'mediumDate' }}
+                </td>
+                <td *ngIf="customerType !== 'hrc'" class="fnt-14">{{ item.varieties }}</td>
+                <td *ngIf="customerType === 'hrc'" class="fnt-14">{{ item.roast_level }}</td>
+                <td class="fnt-14">{{ item.quantity }}</td>
+                <td *ngIf="customerType !== 'hrc'" class="fnt-14">{{ item.cup_score }}</td>
+
+                <td
+                    *ngIf="customerType === 'estate'"
+                    class="view-listing"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ estate_id: item.id }"
+                >
+                    View Details
+                </td>
+                <td
+                    *ngIf="customerType === 'micro-roasters'"
+                    class="view-listing"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ micro_roasters_id: item.id }"
+                >
+                    View Details
+                </td>
+                <td
+                    *ngIf="customerType === 'hrc'"
+                    class="view-listing"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ hrc_id: item.order_id }"
+                >
+                    View Details
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<div class="pt-md-2 mobile-farm">
+    <div class="table-details mobile-farm">
+        <div class="table-responsive border-sourcetable agreement-top">
+            <div class="col-12 mb-3 bor-ebe" *ngFor="let item of filteredCoffeeData">
+                <div class="row">
+                    <div class="col-12 mobile-ce p-0">
+                        <div class="d-flex justify-content-between bg-f4f4 py-2 px-3 name-header">
+                            <div>
+                                <p class="black fnt-14">
+                                    Order #{{ customerType === 'hrc' ? item.order_id : item.id }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bor-bot-d6d6 mx-3 py-3 row">
+                            <div class="col-5 p-0">
+                                <p class="light-eight fnt-14">
+                                    {{
+                                        customerType !== 'hrc'
+                                            ? ('estate_name' | translate)
+                                            : ('name_customer' | translate)
+                                    }}
+                                </p>
+                            </div>
+                            <div class="col-7 p-0">
+                                <p class="fnt-14">
+                                    {{ customerType === 'hrc' ? item.horeca_name : item.estate_name }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bor-bot-d6d6 mx-3 py-3 row">
+                            <div class="col-5 p-0">
+                                <p class="light-eight fnt-14">{{ 'origin' | translate }}</p>
+                            </div>
+                            <div class="col-7 p-0">
+                                <p class="fnt-14">{{ item.origin | country }}</p>
+                            </div>
+                        </div>
+                        <div class="bor-bot-d6d6 mx-3 py-3 row">
+                            <div class="col-5 p-0">
+                                <p class="light-eight fnt-14">Date recieved</p>
+                            </div>
+                            <div class="col-7 p-0">
+                                <p class="fnt-14">{{ item.date_received | date: 'mediumDate' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

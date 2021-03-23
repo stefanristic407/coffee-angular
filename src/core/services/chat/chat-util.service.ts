@@ -81,6 +81,13 @@ export class ChatUtilService {
             return `url(assets/images/profile.svg)`; // Placeholder image
         }
     }
+    getProfileImageDirectURL(profileImageUrl: string) {
+        if (profileImageUrl) {
+            return profileImageUrl;
+        } else {
+            return 'assets/images/profile.svg';
+        }
+    }
     public playNotificationSound(type: 'INCOMING' | 'OUTGOING') {
         if (type === 'INCOMING') {
             this.incomingAudioPlayer.pause();

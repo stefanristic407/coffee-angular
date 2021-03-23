@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OrgType } from '@enums';
+import { OrganizationType } from '@enums';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DestroyableComponent } from '@base-components';
 import { takeUntil } from 'rxjs/operators';
@@ -26,7 +26,7 @@ export class ShippingAddressEditorComponent extends DestroyableComponent impleme
     });
 
     orderId: number;
-    orgType: OrgType;
+    orgType: OrganizationType;
     breadcrumbs: MenuItem[];
 
     constructor(

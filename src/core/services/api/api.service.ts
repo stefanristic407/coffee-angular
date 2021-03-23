@@ -40,7 +40,7 @@ export class ApiService {
     protected postWithOrg(
         url: string,
         apiCall: string,
-        method: HttpMethod = '',
+        method: HttpMethod = 'GET',
         data?: object,
     ): Observable<ApiResponse<any>> {
         const dto = this.getDtoWithOrg(apiCall, method, data);

@@ -16,15 +16,6 @@
     overflow: hidden;
 }
 
-@media (max-width: 767px) {
-    .chat {
-        width: 100% !important;
-        top: 0;
-        height: 100vh;
-        z-index: 99;
-    }
-}
-
 /* @media (min-width: 768px) {
     .chat {
         width: 720px;
@@ -115,7 +106,7 @@
 }
 .expand-active {
     .messag-form {
-        padding: 10px 34px;
+        padding: 10px 16px;
         .chat-inputs {
             padding: 5px 10px !important;
             display: flex;
@@ -217,6 +208,18 @@
 .chat-accounts__name {
     height: calc(100% - 130px);
     overflow-y: auto;
+
+    background-color: #fff;
+    position: relative;
+}
+
+.list-container-panel {
+    position: relative;
+    margin: 0px 16px;
+    background-color: #fff;
+    min-height: calc(100% - 16px);
+    border-radius: 5px;
+    padding: 0px 12px 16px 16px;
 }
 
 .chat-accounts__name::-webkit-scrollbar {
@@ -258,11 +261,11 @@
 }
 
 .chat-accounts__head {
-    padding: 15px 25px;
+    padding: 15px 16px 15px 25px;
     position: relative;
 }
 .thread-block {
-    padding: 22px 17px 0px 32px;
+    padding-top: 20px;
     &.activate_account {
         background-color: #f8f8f8;
         .chat-profile {
@@ -272,7 +275,7 @@
 }
 
 .user-list-padding {
-    padding: 0px 30px;
+    padding: 0px 24px;
 }
 
 .chat-accounts__body {
@@ -289,7 +292,7 @@
 }
 
 .search-account__input {
-    width: 85%;
+    width: calc(100% - 35px);
     outline: 0;
     float: right;
     border: 0;
@@ -297,12 +300,20 @@
     position: relative;
 }
 
-.search-account {
-    border-radius: 4px;
-    border: solid 1px #d6d6d6;
-    background-color: #ffffff;
-    padding: 5px;
-    margin: 10px 25px 10px 25px;
+.search-contianer {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 100%;
+    height: 54px;
+    position: relative;
+    .search-account {
+        border-radius: 4px;
+        border: solid 1px #d6d6d6;
+        background-color: #fff;
+        padding: 3px 0px;
+        width: calc(100% - 50px);
+    }
 }
 
 .search-account__input::placeholder {
@@ -356,15 +367,17 @@
 }
 
 .chat-profile {
-    width: 83%;
+    width: calc(100% - 60px);
     float: right;
     border-bottom: 1px solid #dedede;
-    padding: 0 0 15px 5px;
+    padding: 0 0 16px 5px;
 }
 
 .account {
-    margin-top: 8px;
     cursor: pointer;
+    &.account-margin-top {
+        margin-top: 16px;
+    }
 }
 
 .chat-profile__time {
@@ -419,8 +432,8 @@
 }
 
 .profile-pic {
-    width: 35px;
-    height: 35px;
+    width: 39px;
+    height: 39px;
     border-radius: 50%;
     object-fit: cover;
     position: relative;
@@ -453,7 +466,7 @@
     height: 100%;
 }
 .profile-pic__item.bg-profile {
-    background-image: url(~/images/profile.svg~);
+    background-image: url(~/images/profile.svg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -585,6 +598,14 @@
     margin: 0;
     text-align: right;
 }
+// .live-time {
+//     font-size: 12px;
+//     line-height: 22px;
+//     font-weight: 600;
+//     color: #979797;
+//     margin: -30px 0px 0px 0px !important;
+//     text-align: right;
+// }
 
 .live-time span {
     margin-left: 4px;
@@ -660,6 +681,9 @@
     border-radius: 4px;
     background-color: #30855c;
     cursor: pointer;
+    img.send-icon-primary {
+        margin-top: -2.5px;
+    }
 }
 
 .send-message__btn:hover {
@@ -681,12 +705,12 @@
 
 .message-from {
     text-align: left;
-    padding: 10px;
+    padding: 4px 10px;
 }
 
 .message-to {
     text-align: right;
-    padding: 10px;
+    padding: 4px 10px;
 }
 
 .message-from__text {
@@ -715,7 +739,7 @@
 
 .message-body {
     text-align: right;
-    padding: 10px;
+    padding: 16px 12px;
     border-radius: 4px;
     background-color: #f2e2c5;
     display: inline-block;
@@ -723,7 +747,7 @@
 
 .message-body-from {
     text-align: left;
-    padding: 10px;
+    padding: 16px 12px;
     border-radius: 4px;
     background-color: #eeeeee;
     display: inline-block;
@@ -808,7 +832,8 @@
 .bg-user-dp {
     width: 100%;
     height: 100%;
-    background-image: url(~/images/profile.svg~);
+    background-image: url(~/assets/images/profile.svg);
+    background-color: #eee;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -819,10 +844,16 @@
     cursor: pointer;
 }
 
-.back-to-conversation span {
-    display: inline-block;
-    padding-right: 25px;
-    margin-left: 5px;
+.back-to-conversation {
+    img {
+        margin-top: -3px;
+    }
+
+    span {
+        display: inline-block;
+        padding-right: 25px;
+        margin-left: 12px;
+    }
 }
 
 .account-setting__profile {
@@ -830,6 +861,7 @@
     border-radius: 6px;
     display: flex;
     padding: 20px;
+    padding-bottom: 32px;
 }
 
 .account-setting__profile::before {
@@ -844,7 +876,9 @@
     border-radius: 6px;
     /* z-index: -1; */
 }
-
+.account-setting-option__item {
+    cursor: pointer;
+}
 .account-setting__profile .set-profile {
     width: 80px;
     height: 80px;
@@ -875,10 +909,16 @@
     color: #747588;
     font-weight: 600;
     display: block;
-    margin: 15px 0px;
+    margin: 15px 0px 0px 0px;
 }
 
 @media (max-width: 767px) {
+    .chat {
+        width: 100% !important;
+        top: 0;
+        height: 100vh;
+        z-index: 99;
+    }
     .chat-control__expand {
         display: none !important;
         opacity: 0 !important;
@@ -888,6 +928,17 @@
         display: block;
         margin: 0;
         padding: 0;
+    }
+
+    .search-contianer {
+        background-color: #f8f8f8;
+    }
+    .chat-accounts__name {
+        background-color: #dedede;
+    }
+    .list-container-panel {
+        margin-top: 16px;
+        padding-top: 16px;
     }
 }
 
@@ -957,7 +1008,7 @@
         height: 36px;
     }
     .chat-profile {
-        width: 85%;
+        width: calc(100% - 60px);
     }
 }
 
@@ -1028,10 +1079,12 @@
     transform: rotate(180deg);
 }
 
-.chat-seeting:hover .chat-seeting__items {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: all;
+.chat-seeting {
+    &.active {
+        .chat-seeting__items {
+            display: block;
+        }
+    }
 }
 
 .chat-seeting__items {
@@ -1043,9 +1096,7 @@
     box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
     background-color: #ffffff;
     z-index: 99;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+    display: none;
 }
 
 .chat-seeting__content .list-group-item:hover {
