@@ -50,11 +50,13 @@
                 <th pSortableColumn="order_id" class="order">
                     {{ 'order_id' | translate }}<p-sortIcon field="order_id"> </p-sortIcon>
                 </th>
-                <th pSortableColumn="estate_name">
-                    {{
-                        customerType !== 'hrc' ? 'estate_name' | translate : 'name_customer' | translate
-                    }}
+                <th *ngIf="customerType === 'estate'" pSortableColumn="estate_name">
+                    {{ 'estate_name' | translate }}
                     <p-sortIcon field="estate_name"> </p-sortIcon>
+                </th>
+                <th *ngIf="customerType !== 'estate'" pSortableColumn="name_customer">
+                    {{ 'name_customer' | translate }}
+                    <p-sortIcon field="name_customer"> </p-sortIcon>
                 </th>
                 <th *ngIf="customerType === 'estate'" pSortableColumn="origin" class="variety">
                     {{ 'origin' | translate }}<p-sortIcon field="origin"> </p-sortIcon>
@@ -90,7 +92,7 @@
             <tr>
                 <td class="fnt-14">{{ customerType === 'hrc' ? item.order_id : item.id }}</td>
                 <td class="fnt-14">{{ customerType === 'hrc' ? item.horeca_name : item.estate_name }}</td>
-                <td *ngIf="customerType === 'estate'" class="fnt-14">{{ getCountryName(item.origin) }}</td>
+                <td *ngIf="customerType === 'estate'" class="fnt-14">{{ item.origin | country }}</td>
                 <td class="fnt-14">
                     {{ customerType === 'estate' ? (item.created_at | date: 'mediumDate') : item.product_name }}
                 </td>
