@@ -46,6 +46,7 @@ export class CoffeeExperienceComponent implements OnInit {
     }
 
     getEstateOrders() {
+        this.coffeeExperienceData = [];
         this.coffeeExperienceOrders
             .getCoffeeExperienceOrders(this.roasterId, this.customerType)
             .subscribe((res: any) => {

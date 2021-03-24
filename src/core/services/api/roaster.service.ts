@@ -629,6 +629,7 @@ export class RoasterserviceService {
         const data = {};
         data['api_call'] = '/ro/' + roaster_id + '/products?' + this.serlialise(postData);
         data['token'] = this.cookieService.get('Auth');
+        data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
     getProductDetails(roaster_id: any, productId: any): Observable<any> {
@@ -677,6 +678,7 @@ export class RoasterserviceService {
         } else if (orderType == 'hrc') {
             data.api_call = '/ro/' + roaster_id + '/hrc-orders?' + this.serlialise(postData);
         }
+        data.method = 'GET';
         data.token = this.cookieService.get('Auth');
         return this.http.post(this.url, data);
     }
@@ -1199,6 +1201,20 @@ export class RoasterserviceService {
     }
 
     // Delete certificate.
+    addCertificate(roaster_id: any, fileData: any) {
+        const data = {
+            api_call: `/ro/${roaster_id}/certificates/`,
+            method: 'POST',
+            token: this.cookieService.get('Auth'),
+            data: {
+                file: fileData,
+                certificate_type_id: 1234,
+                year: 2021,
+            },
+        };
+        return this.http.post(this.url, data);
+    }
+
     deleteCertificate(roaster_id: any, certificateId: any) {
         const data = {
             api_call: `/ro/${roaster_id}/certificates/${certificateId}`,
