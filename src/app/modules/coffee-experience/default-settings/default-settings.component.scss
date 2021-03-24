@@ -575,3 +575,9 @@ label {
         align-items: center;
     }
 }
+
+@media (min-width: 320px) and (min-width: 480px) {
+    .mob-view {
+        margin-bottom: -40px;
+    }
+}
