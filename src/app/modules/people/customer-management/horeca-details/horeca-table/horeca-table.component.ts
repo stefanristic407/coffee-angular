@@ -61,6 +61,7 @@ export class HorecaTableComponent implements OnInit {
                 this.customerService.discount_percentage = res.result.discount_percentage;
                 this.customerService.status = res.result.status;
                 this.customerService.company_image_url = res.result.company_image_url;
+                // document.getElementById('showTable').style.display = 'none';
                 this.router.navigate(['/people/horeca-details'], navigationExtras);
             });
         }

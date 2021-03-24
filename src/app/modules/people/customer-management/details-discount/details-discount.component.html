@@ -73,20 +73,22 @@
                         <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli black">
                             Please enter the discount % you would be provident this customer.
                         </p>
-                        <div class="sewn-form-field mb-0">
-                            <input
-                                type="text"
-                                pInputText
-                                name="search"
-                                class="search w-100"
-                                placeholder="Eg:28"
-                                [(ngModel)]="customerService.discount_percentage"
-                            />
+                        <div class="d-flex">
+                            <div class="sewn-form-field mb-0">
+                                <input
+                                    type="text"
+                                    pInputText
+                                    name="search"
+                                    class="search w-100"
+                                    placeholder="Eg:28"
+                                    [(ngModel)]="customerService.discount_percentage"
+                                />
+                            </div>
+                            <span class="main-bag fnt-14 fnt-700 fnt-muli black">%</span>
+                            <span class="ml-2">
+                                <button class="btn-raised" (click)="saveHorecaDiscount()">Save</button></span
+                            >
                         </div>
-                        <span class="main-bag fnt-14 fnt-700 fnt-muli black">%</span>
-                        <span class="ml-2">
-                            <button class="btn-raised" (click)="saveHorecaDiscount()">Save</button></span
-                        >
                     </div>
                 </div>
             </div>
