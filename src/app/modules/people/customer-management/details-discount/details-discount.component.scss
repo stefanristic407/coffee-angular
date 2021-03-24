@@ -29,9 +29,9 @@
     position: relative;
     right: 7%;
     @media (max-width: 480px) {
-        position: absolute;
-        top: 83%;
-        right: 39%;
+        position: relative;
+        top: 15px;
+        right: 10%;
     }
 }
 

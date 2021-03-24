@@ -1,7 +1,7 @@
 <div class="main-block">
     <div class="col-lg-12 mb-3 px-0">
         <div class="w-100">
-            <a class="back-page" routerLink="/people/customer-management">Back </a>
+            <a class="back-page" (click)="location.back()">Back </a>
         </div>
     </div>
 
@@ -11,10 +11,5 @@
 
     <app-important-contacts [customerType]="'hrc'"></app-important-contacts>
 
-    <section class="discount-sec">
-        <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli black">Partners on-boarded by HoReCa</p>
-        <div class="col-12 px-0">
-            <app-horeca-table> </app-horeca-table>
-        </div>
-    </section>
+    <app-horeca-table *ngIf="showTable === '1'"> </app-horeca-table>
 </div>

@@ -8,7 +8,7 @@
         <section class="team__total d-md-block">
             <div class="row">
                 <div class="col-12">
-                    <div class="add-team">Invite {{ this.headerValue }}</div>
+                    <div class="add-team">Invite {{ headerValue }}</div>
                     <div class="fnt-14 fnt-normal mb-4 pt-2 pt-lg-0 text-clr588">
                         Invite your customers to the platform for setup
                     </div>
@@ -30,7 +30,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="sewn-form-field pr-3 col-md-4 mt-md-1">
+                            <div
+                                class="sewn-form-field pr-3 mt-md-1"
+                                [ngClass]="[headerValue === 'HoReCa' ? 'col-md-4' : 'col-md-5']"
+                            >
                                 <label>{{ globals.languageJson?.name }}<span class="star">*</span></label>
                                 <input
                                     pInputText
@@ -40,7 +43,10 @@
                                     type="text"
                                 />
                             </div>
-                            <div class="sewn-form-field pl-lg-2 pr-3 col-md-4 mt-md-1">
+                            <div
+                                class="sewn-form-field pl-lg-2 pr-3 mt-md-1"
+                                [ngClass]="[headerValue === 'HoReCa' ? 'col-md-4' : 'col-md-5']"
+                            >
                                 <label
                                     >{{ globals.languageJson?.enter_yoru_work_email }}<span class="star">*</span></label
                                 >
@@ -52,10 +58,7 @@
                                     [formControl]="invite.controls.email"
                                 />
                             </div>
-                            <div
-                                class="sewn-form-field pl-lg-2 pr-3 col-md-3 mt-md-1"
-                                *ngIf="this.headerValue == 'HoReCa'"
-                            >
+                            <div class="sewn-form-field pl-lg-2 pr-3 col-md-3 mt-md-1" *ngIf="headerValue == 'HoReCa'">
                                 <label
                                     >{{ globals.languageJson?.enter_yoru_work_type }}<span class="star">*</span>
                                 </label>

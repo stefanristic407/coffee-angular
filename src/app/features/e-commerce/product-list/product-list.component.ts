@@ -24,6 +24,7 @@ export class ProductListComponent implements OnInit {
     priceFilter;
     termSearch = '';
     showPrice = false;
+    paginationValue = false;
     tableColumns = [];
     tableValue = [];
     totalCount = 0;
@@ -37,6 +38,10 @@ export class ProductListComponent implements OnInit {
     searchForm: FormGroup;
     popupDisplay = false;
     disableAction = false;
+    perPage = 10;
+    pageNumber = 1;
+    rows = 10;
+    originDataFilter: any[] = [];
 
     constructor(
         public dialogSrv: DialogService,
@@ -114,6 +119,12 @@ export class ProductListComponent implements OnInit {
                 sortable: false,
                 width: 15,
             },
+            {
+                field: '',
+                header: '',
+                sortable: false,
+                width: 5,
+            },
         ];
         this.supplyBreadCrumb();
     }
@@ -143,6 +154,12 @@ export class ProductListComponent implements OnInit {
         this.breadCrumbItem.push(obj2);
         this.breadCrumbItem.push(obj3);
     }
+
+    getTableDataPaginate(event) {
+        const currentPage = event.first / this.rows;
+        this.pageNumber = currentPage + 1;
+        this.getTableData();
+    }
     getTableData(event?) {
         const postData: any = {};
         postData.origin = this.originFilter ? this.originFilter : '';
@@ -152,12 +169,23 @@ export class ProductListComponent implements OnInit {
         }
         postData.status = this.statusFilter ? this.statusFilter : '';
         postData.name = this.termSearch ? this.termSearch : '';
-        postData.per_page = 100;
+        postData.per_page = this.perPage;
+        postData.page = this.pageNumber;
         this.tableValue = [];
         this.roasterService.getSelectProductDetails(this.roasterID, postData).subscribe(
             (data: any) => {
                 if (data.success) {
+                    if (data.result && data.result.length) {
+                        this.setOriginData(data.result);
+                    }
                     this.tableValue = data.result;
+                    this.totalCount = data.result_info.total_count;
+                    this.rows = data.result_info.per_page;
+                    if (this.totalCount > 10) {
+                        this.paginationValue = true;
+                    } else {
+                        this.paginationValue = false;
+                    }
                 } else {
                     this.toastrService.error('Error while getting the agreement list!');
                 }
@@ -166,6 +194,21 @@ export class ProductListComponent implements OnInit {
                 this.toastrService.error('Error while getting the agreement list!');
             },
         );
+    }
+    setOriginData(data: any) {
+        const temp = [];
+        this.originArray.map((item) => {
+            data.map((itemj) => {
+                if (item.isoCode === itemj.origin) {
+                    temp.push(item);
+                }
+            });
+        });
+        this.originDataFilter = this.removeDuplicateData(temp);
+    }
+
+    removeDuplicateData(data) {
+        return [...new Set(data)];
     }
     filterCall() {
         this.getTableData();
