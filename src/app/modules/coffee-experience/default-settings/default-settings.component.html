@@ -10,9 +10,37 @@
             <section class="section-farmlink">
                 <div class="main-block">
                     <div class="row">
-                        <div class="col-12 d-flex no-block align-items-center">
+                        <div class="col-12 d-flex no-block tab-nav-btn">
                             <div class="breadcrumb-container d-none d-md-block">
                                 <p-breadcrumb [model]="items"></p-breadcrumb>
+                            </div>
+                            <div class="col-12 col-md-4 col-lg-3 butn-prev-save butn-prev-save--desktop tabView">
+                                <button
+                                    *ngIf="isEditableMode"
+                                    type="button"
+                                    class="btn-stroked cancel-btn px-4"
+                                    (click)="onCancel()"
+                                >
+                                    {{ 'cancel' | translate }}
+                                </button>
+                                <button
+                                    *ngIf="isEditableMode"
+                                    type="button"
+                                    class="btn-raised px-4"
+                                    [disabled]="isSaving"
+                                    (click)="onSave()"
+                                >
+                                    {{ 'save' | translate }}
+                                </button>
+                                <button
+                                    *ngIf="!isEditableMode && estateBtn"
+                                    type="button"
+                                    class="btn-raised px-4"
+                                    [disabled]="isSaving"
+                                    (click)="isEditableMode = true"
+                                >
+                                    {{ 'edit' | translate }}
+                                </button>
                             </div>
                             <div class="mb-4 d-block d-md-none">
                                 <a class="back-page fnt-500" (click)="location.back()"> {{ 'back' | translate }}</a>
@@ -21,8 +49,17 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <div class="align-items-start">
-                                <div class="d-inline-block col-sm-12 col-md-8 col-lg-9 px-0">
+                            <div class="tabView">
+                                <div class="page-title">
+                                    {{ isCoffeeDetailsPage ? 'Order #' + orderId : 'Default Settings' }}
+                                </div>
+                                <div class="page-description">
+                                    Set your default settings for your coffee expereice page. these would be used when
+                                    you haven’t updated details for the order related coffee experience page
+                                </div>
+                            </div>
+                            <div class="web-view">
+                                <div class="d-inline-block col-sm-12 col-md-8 col-lg-9 px-0 hideTabView">
                                     <div class="page-title">
                                         {{ isCoffeeDetailsPage ? 'Order #' + orderId : 'Default Settings' }}
                                     </div>
@@ -31,7 +68,9 @@
                                         when you haven’t updated details for the order related coffee experience page
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-4 col-lg-3 butn-prev-save butn-prev-save--desktop">
+                                <div
+                                    class="col-12 col-md-4 col-lg-3 butn-prev-save butn-prev-save--desktop hideTabView"
+                                >
                                     <button
                                         *ngIf="isEditableMode"
                                         type="button"
@@ -415,48 +454,60 @@
                                     </div>
                                     <!--Share your story-->
                                     <div *ngIf="isCoffeeDetailsPage" class="form-section__inputs">
-                                        <div class="roastery-fields">
-                                            <h4 class="fnt-16 fnt-700 fnt-muli text-clr334">
-                                                {{ 'share_your_story' | translate }}
-                                            </h4>
-                                            <div class="copy-link">
-                                                <label class="fnt-14 fnt-600 fnt-muli text-clr588">
-                                                    {{ 'share_story_text' | translate }}
-                                                </label>
-                                                <div
-                                                    class="copy-link__value d-flex d-md-column d-lg-row flex-wrap align-items-center"
-                                                >
-                                                    <input type="text" [value]="coffeeExperienceLink" readonly />
-                                                    <button (click)="handleCopyCoffeeExperienceLink()">
-                                                        {{ 'copy_link' | translate }}
-                                                    </button>
+                                        <div class="roastery-fields tab">
+                                            <div class="tab-width">
+                                                <h4 class="fnt-16 fnt-700 fnt-muli text-clr334 tab-bottom-margin">
+                                                    {{ 'share_your_story' | translate }}
+                                                </h4>
+                                                <div class="copy-link">
+                                                    <label class="fnt-14 fnt-600 fnt-muli text-clr588">
+                                                        {{ 'share_story_text' | translate }}
+                                                    </label>
+                                                    <div
+                                                        class="copy-link__value d-flex d-md-column d-lg-row flex-wrap align-items-center"
+                                                    >
+                                                        <input
+                                                            class="tab-input"
+                                                            type="text"
+                                                            [value]="coffeeExperienceLink"
+                                                            readonly
+                                                        />
+                                                        <button
+                                                            class="tab-btn"
+                                                            (click)="handleCopyCoffeeExperienceLink()"
+                                                        >
+                                                            {{ 'copy_link' | translate }}
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="scan-qr-link text-center">
-                                                <span
-                                                    class="d-inline-block mx-auto fnt-12 fnt-600 fnt-muli text-clr334 mb-3 mt-3 mt-md-0 mb-lg-4 text-capitalize"
-                                                    >or</span
-                                                >
-                                                <p
-                                                    class="text-md-left fnt-14 fnt-600 fnt-muli text-clr334 mb-3 mb-lg-4"
-                                                >
-                                                    {{ 'scan_download_text' | translate }}
-                                                </p>
-                                                <div class="text-center">
-                                                    <img class="img-fluid" src="assets/images/qr.PNG" />
-                                                    <div class="download-qr-link">
-                                                        <a
-                                                            class="download-qr-link__file d-inline-flex align-items-center"
-                                                            href="assets/images/dwnd.png"
-                                                            download
-                                                        >
-                                                            <img src="assets/images/dwnd.png" />
-                                                            <span
-                                                                class="text-capitalize mb-0 ml-2 fnt-14 fnt-500 fnt-muli text-clr334"
+                                            <div class="tab-width-right">
+                                                <div class="scan-qr-link text-center">
+                                                    <span
+                                                        class="d-inline-block mx-auto fnt-12 fnt-600 fnt-muli text-clr334 mb-3 mt-3 mt-md-0 mb-lg-4 text-capitalize hideTabView"
+                                                        >or</span
+                                                    >
+                                                    <p
+                                                        class="text-md-left fnt-14 fnt-600 fnt-muli text-clr334 mb-3 mb-lg-4 tab-bottom-margin"
+                                                    >
+                                                        {{ 'scan_download_text' | translate }}
+                                                    </p>
+                                                    <div class="text-center">
+                                                        <img class="img-fluid" src="assets/images/qr.PNG" />
+                                                        <div class="download-qr-link">
+                                                            <a
+                                                                class="download-qr-link__file d-inline-flex align-items-center"
+                                                                href="assets/images/dwnd.png"
+                                                                download
                                                             >
-                                                                {{ 'download' | translate }}
-                                                            </span>
-                                                        </a>
+                                                                <img src="assets/images/dwnd.png" />
+                                                                <span
+                                                                    class="text-capitalize mb-0 ml-2 fnt-14 fnt-500 fnt-muli text-clr334"
+                                                                >
+                                                                    {{ 'download' | translate }}
+                                                                </span>
+                                                            </a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

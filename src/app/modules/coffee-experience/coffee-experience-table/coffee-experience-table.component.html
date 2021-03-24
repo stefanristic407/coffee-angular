@@ -273,24 +273,23 @@
                                             <li class="list-group-item">
                                                 <a
                                                     *ngIf="customerType === 'estate'"
-                                                    class="view-listing"
-                                                    routerLink="/coffee-experience/coffee-details/"
-                                                    [queryParams]="{ estate_id: item.id }"
+                                                    class="light-eight fnt-14"
+                                                    (click)="viewDetails()"
                                                     >View Details</a
                                                 >
                                                 <a
                                                     *ngIf="customerType === 'micro-roasters'"
-                                                    class="view-listing"
+                                                    class="light-eight fnt-14"
                                                     routerLink="/coffee-experience/coffee-details/"
                                                     [queryParams]="{ micro_roasters_id: item.id }"
-                                                    >View Details</a
+                                                    >Update Details</a
                                                 >
                                                 <a
                                                     *ngIf="customerType === 'hrc'"
-                                                    class="view-listing"
+                                                    class="light-eight fnt-14"
                                                     routerLink="/coffee-experience/coffee-details/"
                                                     [queryParams]="{ hrc_id: item.order_id }"
-                                                    >View Details</a
+                                                    >Update Details</a
                                                 >
                                             </li>
                                         </ul>
