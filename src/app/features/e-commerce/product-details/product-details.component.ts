@@ -253,6 +253,11 @@ export class ProductDetailsComponent implements OnInit {
     removeVarient(index: any) {
         this.varients.removeAt(index);
     }
+    removeVarientDrop(index: any) {
+        this.variantTypeArray.splice(index, 1);
+        this.varients.removeAt(index);
+        this.currentVariant = this.currentVariant - 1;
+    }
     supplyBreadCrumb(): void {
         const obj1: MenuItem = {
             label: this.globals.languageJson?.home,
@@ -326,6 +331,9 @@ export class ProductDetailsComponent implements OnInit {
             product_weight_variant_id: '',
             crate_capacity: ['', Validators.compose([Validators.required])],
         });
+    }
+    onWeightDelete(event) {
+        this.crates.removeAt(event);
     }
     onWeightCreate(event) {
         this.crates = this.productForm.get('crates') as FormArray;

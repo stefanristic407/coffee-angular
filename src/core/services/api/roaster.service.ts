@@ -636,6 +636,7 @@ export class RoasterserviceService {
         var data = {};
         data['api_call'] = `/ro/${roaster_id}/products/${productId}`;
         data['token'] = this.cookieService.get('Auth');
+        data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
 
@@ -789,6 +790,7 @@ export class RoasterserviceService {
             data['api_call'] = '/ro/' + roaster_id + '/mr-orders/' + order_id;
         }
         data['token'] = this.cookieService.get('Auth');
+        data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
 
