@@ -1,7 +1,8 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { UserserviceService } from '@services';
+import { ChatHandlerService, UserserviceService } from '@services';
 import { CustomerServiceService } from '../customer-service.service';
-
+import { OrganizationType } from '@enums';
+import { CookieService } from 'ngx-cookie-service';
 @Component({
     selector: 'app-important-contacts',
     templateUrl: './important-contacts.component.html',
@@ -10,7 +11,12 @@ import { CustomerServiceService } from '../customer-service.service';
 export class ImportantContactsComponent implements OnInit, OnChanges {
     @Input() customerType: any;
     hrContacts: any;
-    constructor(public customerService: CustomerServiceService, private userService: UserserviceService) {}
+    constructor(
+        public customerService: CustomerServiceService,
+        private userService: UserserviceService,
+        private chatHandler: ChatHandlerService,
+        private cookieService: CookieService,
+    ) {}
     ngOnChanges(): void {
         this.horecaEmployees();
     }
@@ -31,5 +37,13 @@ export class ImportantContactsComponent implements OnInit, OnChanges {
                 }
             });
         }
+    }
+
+    openChat(userId: number): void {
+        this.chatHandler.openChatThread({
+            user_id: userId,
+            org_type: OrganizationType.ESTATE,
+            org_id: parseInt(this.cookieService.get('roaster_id'), 10),
+        });
     }
 }
