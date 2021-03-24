@@ -61,7 +61,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-12 col-lg-8 order-1 order-md-2 order-lg-1">
+                                <div class="col-sm-12 col-lg-8 order-1 order-md-2 order-lg-1 hideTabView">
                                     <div
                                         class="border-0-input border-top-dashed-d6 border-btm-dashed-d6 form-container"
                                     >
@@ -201,6 +201,88 @@
                                                 </div>
                                                 <div *ngIf="!certificateDetails.length" class="text-center">
                                                     No certificates to display
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-8 order-1 order-md-2 order-lg-1 px-0 tabView">
+                                        <div
+                                            class="border-0-input border-top-dashed-d6 border-btm-dashed-d6 form-container"
+                                        >
+                                            <div class="input-container">
+                                                <div class="col-12 col-md-5 px-0">
+                                                    <div class="sewn-form-field mb-0">
+                                                        <div>
+                                                            <label>Roastery website</label>
+                                                        </div>
+                                                        <input
+                                                            *ngIf="isEditableMode"
+                                                            pInputText
+                                                            [(ngModel)]="defaultDetails.website"
+                                                            class="roastery-website-input border"
+                                                            type="text"
+                                                            pInputText
+                                                        />
+                                                        <div class="no-editable-text" *ngIf="!isEditableMode">
+                                                            {{ defaultDetails.website }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-container">
+                                                <div class="col-12 px-0">
+                                                    <div>
+                                                        <label>A short description about the Roastery</label>
+                                                    </div>
+                                                    <div class="sewn-form-field w-100 mb-0" *ngIf="isEditableMode">
+                                                        <textarea
+                                                            class="w-100 border"
+                                                            [ngClass]="{
+                                                                'ng-invalid': isSent && !defaultDetails.description
+                                                            }"
+                                                            rows="5"
+                                                            cols="50"
+                                                            pInputTextarea
+                                                            [(ngModel)]="defaultDetails.description"
+                                                        ></textarea>
+                                                        <small
+                                                            *ngIf="isSent && !defaultDetails.description"
+                                                            class="p-error"
+                                                        >
+                                                            Required
+                                                        </small>
+                                                    </div>
+                                                    <div class="no-editable-text" *ngIf="!isEditableMode">
+                                                        {{ defaultDetails.description }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="roastery-fields">
+                                                <div class="roastery-tags">
+                                                    <div class="col-12 px-0">
+                                                        <label>{{ 'select_tags' | translate }}(max 5)</label>
+                                                        <div
+                                                            class="roastery-tags__checkboxes"
+                                                            [ngClass]="{ 'p-0 border-0': !isEditableMode }"
+                                                        >
+                                                            <label
+                                                                *ngFor="let item of tagOptionList; let index = index"
+                                                                class="custom-label"
+                                                                [ngClass]="item.select ? 'active' : ''"
+                                                            >
+                                                                <input
+                                                                    class="custom-label__inputs"
+                                                                    type="checkbox"
+                                                                    (change)="onChangeTag(index)"
+                                                                />
+                                                                <span
+                                                                    class="custom-raotary-tags"
+                                                                    [ngClass]="{ 'mt-2': !isEditableMode }"
+                                                                    >{{ item.label }}</span
+                                                                >
+                                                            </label>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

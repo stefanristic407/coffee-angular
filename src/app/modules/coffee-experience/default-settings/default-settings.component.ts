@@ -4,7 +4,7 @@ import { UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { MenuItem } from 'primeng/api';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
@@ -48,6 +48,7 @@ export class DefaultSettingsComponent implements OnInit {
     estateBtn = true;
 
     constructor(
+        public router: Router,
         public globals: GlobalsService,
         private userService: UserserviceService,
         private toastrService: ToastrService,
@@ -61,12 +62,16 @@ export class DefaultSettingsComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.route.queryParams.subscribe((params: any) => {
+            if (params.edit) {
+                this.estateBtn = false;
+            } else {
+                this.estateBtn = true;
+            }
+        });
+
         this.language();
-        if (this.route.snapshot.queryParams.estate_id) {
-            this.estateBtn = false;
-        } else {
-            this.estateBtn = true;
-        }
+
         if (this.isCoffeeDetailsPage) {
             if (this.route.snapshot.queryParams.estate_id) {
                 this.orderId = decodeURIComponent(this.route.snapshot.queryParams.estate_id);

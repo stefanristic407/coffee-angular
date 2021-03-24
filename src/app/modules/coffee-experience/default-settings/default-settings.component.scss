@@ -443,6 +443,14 @@ label {
     color: #232334;
 }
 
+@media (min-width: 992px) {
+    .tabView {
+        display: none;
+    }
+    .hideTabView {
+        display: block;
+    }
+}
 @media (max-width: 991px) {
     .media-container {
         width: 50%;
@@ -463,6 +471,12 @@ label {
     }
     .certificates-container {
         width: 50%;
+    }
+    .tabView {
+        display: block;
+    }
+    .hideTabView {
+        display: none;
     }
 }
 
@@ -501,5 +515,11 @@ label {
     .certificates-container {
         width: 100%;
         margin-bottom: 16px !important;
+    }
+    .tabView {
+        display: none;
+    }
+    .hideTabView {
+        display: block;
     }
 }

@@ -50,7 +50,6 @@ export class CoffeeExperienceComponent implements OnInit {
         this.coffeeExperienceOrders
             .getCoffeeExperienceOrders(this.roasterId, this.customerType)
             .subscribe((res: any) => {
-                console.log(res);
                 if (res.success) {
                     this.coffeeExperienceData = res.result;
                 } else {
