@@ -5,4 +5,6 @@ export interface Address {
     country: string;
     state: string;
     zipcode: string;
+    id?: number;
+    type?: string;
 }

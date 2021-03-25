@@ -575,6 +575,7 @@ export class RoasterserviceService {
         data['api_call'] = '/ro/' + roaster_id + '/micro-roasters';
         // data['params'] = params;
         data['token'] = this.cookieService.get('Auth');
+        data['method'] = 'GET';
         //  const params = new HttpParams().append( 'file_module', fileModule )
         // console.log(data);
         return this.http.post(this.url, data);
@@ -584,6 +585,7 @@ export class RoasterserviceService {
         data['api_call'] = '/ro/' + roaster_id + '/hrc';
         // data['params'] = params;
         data['token'] = this.cookieService.get('Auth');
+        data['method'] = 'GET';
         //  const params = new HttpParams().append( 'file_module', fileModule )
         // console.log(data);
         return this.http.post(this.url, data);
@@ -627,12 +629,14 @@ export class RoasterserviceService {
         const data = {};
         data['api_call'] = '/ro/' + roaster_id + '/products?' + this.serlialise(postData);
         data['token'] = this.cookieService.get('Auth');
+        data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
     getProductDetails(roaster_id: any, productId: any): Observable<any> {
         var data = {};
         data['api_call'] = `/ro/${roaster_id}/products/${productId}`;
         data['token'] = this.cookieService.get('Auth');
+        data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
 
@@ -675,6 +679,7 @@ export class RoasterserviceService {
         } else if (orderType == 'hrc') {
             data.api_call = '/ro/' + roaster_id + '/hrc-orders?' + this.serlialise(postData);
         }
+        data.method = 'GET';
         data.token = this.cookieService.get('Auth');
         return this.http.post(this.url, data);
     }
@@ -759,6 +764,13 @@ export class RoasterserviceService {
         data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
+    getHorecaTableDetails(roaster_id: any, hrc_id) {
+        const data = { api_call: '', token: '', method: '' };
+        data.api_call = `/ro/${roaster_id}/hrc/${hrc_id}`;
+        data.token = this.cookieService.get('Auth');
+        data.method = 'GET';
+        return this.http.post(this.url, data);
+    }
     getMrOrders(roaster_id: any) {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/mr-orders';
@@ -778,6 +790,7 @@ export class RoasterserviceService {
             data['api_call'] = '/ro/' + roaster_id + '/mr-orders/' + order_id;
         }
         data['token'] = this.cookieService.get('Auth');
+        data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
 
@@ -1190,6 +1203,20 @@ export class RoasterserviceService {
     }
 
     // Delete certificate.
+    addCertificate(roaster_id: any, fileData: any) {
+        const data = {
+            api_call: `/ro/${roaster_id}/certificates/`,
+            method: 'POST',
+            token: this.cookieService.get('Auth'),
+            data: {
+                file: fileData,
+                certificate_type_id: 1234,
+                year: 2021,
+            },
+        };
+        return this.http.post(this.url, data);
+    }
+
     deleteCertificate(roaster_id: any, certificateId: any) {
         const data = {
             api_call: `/ro/${roaster_id}/certificates/${certificateId}`,

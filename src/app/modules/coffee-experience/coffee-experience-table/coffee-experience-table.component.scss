@@ -20,6 +20,15 @@
     border: none !important;
 }
 
+::ng-deep .range-picker {
+    height: 43px !important;
+    width: 138px !important;
+}
+
+::ng-deep .p-inputwrapper-filled .range-picker {
+    width: auto !important;
+}
+
 @media (min-width: 1280px) {
     .order {
         width: 120px;
@@ -29,6 +38,10 @@
     }
     .variety {
         width: 100px;
+    }
+
+    .update-details {
+        width: 136 !important;
     }
 }
 @media (min-width: 993px) and (max-width: 1279px) {
@@ -41,7 +54,7 @@
 }
 @media (min-width: 768px) and (max-width: 992px) {
     .coffee-experience-table .p-datatable table {
-        width: 170%;
+        width: 200%;
     }
     .coffee-experience-table .p-datatable-wrapper {
         overflow-x: auto;
@@ -73,6 +86,13 @@
     .name-header {
         margin: 4px;
         border-radius: 4px;
+    }
+    .agreement-top {
+        margin-top: 0.5rem;
+    }
+    .agreement-x {
+        margin-right: -8px;
+        margin-left: -8px;
     }
 }
 

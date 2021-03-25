@@ -4,6 +4,21 @@
     background-color: #ffffff;
     padding: 10px 12px;
 }
+
+.editBtn-product {
+    font-weight: bold;
+    color: #80460b !important;
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline !important;
+    }
+}
+
+.ellipse-image {
+    position: relative;
+    right: 10px;
+}
+
 .search-raised {
     height: 38px;
     background-color: #fff;
@@ -53,7 +68,7 @@
 .list-group-item {
     border: none;
     font-family: 'Muli';
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600 !important;
     font-stretch: normal;
     font-style: normal;

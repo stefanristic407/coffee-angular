@@ -2,9 +2,10 @@ import { formatDate, NumberFormatStyle } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CustomerServiceService } from '@app/modules/people/customer-management/customer-service.service';
-import { GlobalsService } from '@services';
+import { GlobalsService, RoasterserviceService } from '@services';
 import { DataTableDirective } from 'angular-datatables';
 import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-coffee-experience-table',
@@ -20,23 +21,14 @@ export class CoffeeExperienceTableComponent implements OnInit, OnChanges {
     @Input() searchTerm = '';
     @Input() coffeeExperienceData = [];
     @Input() customerType: any;
-    itemId: any;
-    showStatus = true;
-    showDisplay = true;
-    filterDisplay: number;
     rangeDates: any;
-    pageNumber = 1;
     selectedOrigin: string;
-    loading?: boolean;
     items = [
         { label: 'Home', routerLink: '/features/welcome-aboard' },
         { label: 'Farm link' },
         { label: 'The Coffee Experience' },
     ];
-    originData = [
-        { label: 'India', value: 'IN' },
-        { label: 'USA', value: 'US' },
-    ];
+    originData = [];
     displayItems = [
         { label: 'All', value: '' },
         { label: 'Display 10', value: 10 },
@@ -44,40 +36,42 @@ export class CoffeeExperienceTableComponent implements OnInit, OnChanges {
         { label: 'Display 25', value: 25 },
         { label: 'Display 50', value: 50 },
     ];
-    @ViewChild(DataTableDirective, { static: false })
-    datatableElement: DataTableDirective;
-    showDateRange: any;
-    @ViewChild('calendar') calendar: any;
-    mainData: any[] = [];
-    mrData: any[] = [];
     roasterId: any;
-    tableColumns: any[];
     filteredCoffeeData: any[];
+    filterDisplay: number;
 
     constructor(
         public router: Router,
         public globals: GlobalsService,
         public cookieService: CookieService,
+        public toastrService: ToastrService,
         public customer: CustomerServiceService,
+        private roasterService: RoasterserviceService,
     ) {}
+
     ngOnChanges(): void {
         if (this.coffeeExperienceData) {
             this.filteredCoffeeData = this.coffeeExperienceData;
+            const origin = this.coffeeExperienceData.map((res) => {
+                if (res.origin) {
+                    return res.origin.toUpperCase();
+                }
+            });
+            this.originData = [...new Set(origin)];
+            this.originData = this.originData.map((item) => {
+                const transformItem = { label: '', value: '' };
+                transformItem.label = item;
+                transformItem.value = item;
+                return transformItem;
+            });
         }
     }
 
     ngOnInit(): void {
-        this.coffeeExperienceData = [];
         this.estatetermOrigin = '';
         this.language();
-        this.getOrdersData();
     }
 
-    filterDate() {
-        if (this.rangeDates[0] && this.rangeDates[1]) {
-            this.getOrdersData();
-        }
-    }
     filterOrigin() {
         if (!this.selectedOrigin) {
             this.filteredCoffeeData = this.coffeeExperienceData;
@@ -98,12 +92,53 @@ export class CoffeeExperienceTableComponent implements OnInit, OnChanges {
         this.appLanguage = this.globals.languageJson;
     }
 
-    shareDetails(size: any) {
-        console.log(size);
-        this.orderId = size.id;
+    filterDate() {
+        const startDate = new Date(this.rangeDates[0]);
+        const endDate = new Date(this.rangeDates[1]);
+        if (this.rangeDates[0] && this.rangeDates[1]) {
+            if (startDate.getTime() === endDate.getTime()) {
+                this.filteredCoffeeData = this.coffeeExperienceData.filter((res) => {
+                    let dataDate;
+                    if (this.customerType === 'hrc') {
+                        dataDate = new Date(res.order_date);
+                    } else {
+                        dataDate = new Date(res.created_at);
+                    }
+                    if (
+                        startDate.getDate() + '/' + (startDate.getMonth() + 1) + '/' + startDate.getFullYear() ===
+                        dataDate.getDate() + '/' + (dataDate.getMonth() + 1) + '/' + dataDate.getFullYear()
+                    ) {
+                        return res;
+                    }
+                });
+            } else {
+                this.filteredCoffeeData = this.coffeeExperienceData.filter((res) => {
+                    let dataDate;
+                    if (this.customerType === 'hrc') {
+                        dataDate = new Date(res.order_date);
+                    } else {
+                        dataDate = new Date(res.created_at);
+                    }
+                    if (dataDate >= startDate && dataDate <= endDate) {
+                        return res;
+                    }
+                });
+            }
+        } else {
+            this.filteredCoffeeData = this.coffeeExperienceData;
+        }
+    }
+
+    closeCalendar(value: any) {
+        if (value) {
+            this.filteredCoffeeData = this.coffeeExperienceData;
+        }
+    }
+
+    viewDetails() {
         const navigationExtras: NavigationExtras = {
             queryParams: {
-                orderId: encodeURIComponent(this.orderId),
+                edit: 1,
             },
         };
         this.router.navigate(['/coffee-experience/default-settings'], navigationExtras);

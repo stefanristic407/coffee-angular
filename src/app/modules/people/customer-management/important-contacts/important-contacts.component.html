@@ -1,8 +1,8 @@
-<section class="pt-2">
+<section class="pt-md-2 pt-lg-2">
     <div class="web-farm">
         <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli black" *ngIf="hrContacts != null">Important Contacts</p>
         <div class="row meet-our-team-list">
-            <div class="col-12 col-md-4 col-lg-2 meet-our-team-list__item" *ngFor="let contact of hrContacts">
+            <div class="col-12 col-md-4 col-lg-2 meet-our-team-list__item pl-md-1" *ngFor="let contact of hrContacts">
                 <div class="team-img">
                     <img *ngIf="contact.profile_image_url == ''" src="assets/images/team-1.png" class="team-images" />
                     <img
@@ -13,13 +13,13 @@
                 </div>
                 <div class="team-des">
                     <p class="fnt-muli fnt-14 fnt-md-16 fnt-700 text-clr334 m-0">{{ contact.name | titlecase }}</p>
-                    <p class="fnt-muli fnt-12 fnt-md-14 fnt-500 text-clr00 m-0">{{ contact.roles[0] }}</p>
+                    <p class="fnt-muli fnt-12 fnt-md-14 fnt-500 text-clr00 m-0 mt-1">{{ contact.roles[0] }}</p>
                 </div>
-                <div class="msg-team mt-2">
-                    <img src="assets/images/message-icon.svg" class="d-inline-block" /><span
-                        class="pl-1 d-inline-block fnt-muli fnt-12 fnt-md-14 fnt-500 text-clr334"
-                        >Message</span
-                    >
+                <div class="mt-3">
+                    <span class="btn-trans-icon br-4 cursor-pointer p-2" (click)="openChat(contact.user_id)">
+                        <img class="svg" src="assets/images/message-icon.svg" />
+                        <span class="estate-message pl-2">{{ 'message' | translate }}</span>
+                    </span>
                 </div>
             </div>
         </div>
@@ -32,7 +32,7 @@
                     class="justify-content-between d-flex meet-our-team-list__item const-border"
                     *ngFor="let contact of hrContacts"
                 >
-                    <div class="d-flex py-3">
+                    <div class="d-flex py-2">
                         <div class="">
                             <div class="team-img mr-3">
                                 <img
@@ -54,7 +54,7 @@
                             <p class="fnt-muli fnt-12 fnt-md-14 fnt-500 text-clr00 mb-1">{{ contact.roles[0] }}</p>
                         </div>
                     </div>
-                    <div class="pt-3">
+                    <div class="pt-3" (click)="openChat(contact.user_id)">
                         <img src="assets/images/message-icon.svg" class="d-inline-block mr-1" /><span
                             class="pl-1 d-inline-block fnt-muli fnt-12 fnt-md-14 fnt-500 text-clr334"
                         ></span>

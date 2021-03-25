@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GlobalsService } from '@services';
+import { GlobalsService, RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { MenuItem } from 'primeng/api';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
@@ -27,8 +27,6 @@ export class DefaultSettingsComponent implements OnInit {
     };
     tagOptionList: any = [];
     certificateDetails: any = [];
-    imageDetails: any;
-    videoDetails: any;
     isSent = false;
     fileImage: any;
     fileVideo: any;
@@ -44,16 +42,19 @@ export class DefaultSettingsComponent implements OnInit {
     isImagePreviewPanel = false;
     isVideoPreviewPanel = false;
     coffeeExperienceLink = 'https://sewn.com/coffee-experience';
-    orderID?: any;
+    orderId: any;
     items = [];
     isEditableMode = false;
+    estateBtn = true;
 
     constructor(
+        public router: Router,
         public globals: GlobalsService,
         private userService: UserserviceService,
         private toastrService: ToastrService,
         public cookieService: CookieService,
         private route: ActivatedRoute,
+        private roasterService: RoasterserviceService,
         public location: Location,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
@@ -61,14 +62,23 @@ export class DefaultSettingsComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.route.queryParams.subscribe((params: any) => {
+            if (params.edit) {
+                this.estateBtn = false;
+            } else {
+                this.estateBtn = true;
+            }
+        });
+
         this.language();
+
         if (this.isCoffeeDetailsPage) {
             if (this.route.snapshot.queryParams.estate_id) {
-                this.orderID = decodeURIComponent(this.route.snapshot.queryParams.estate_id);
+                this.orderId = decodeURIComponent(this.route.snapshot.queryParams.estate_id);
             } else if (this.route.snapshot.queryParams.micro_roasters_id) {
-                this.orderID = decodeURIComponent(this.route.snapshot.queryParams.micro_roasters_id);
+                this.orderId = decodeURIComponent(this.route.snapshot.queryParams.micro_roasters_id);
             } else if (this.route.snapshot.queryParams.hrc_id) {
-                this.orderID = decodeURIComponent(this.route.snapshot.queryParams.hrc_id);
+                this.orderId = decodeURIComponent(this.route.snapshot.queryParams.hrc_id);
             }
             this.getOrderExperience();
         } else {
@@ -89,8 +99,15 @@ export class DefaultSettingsComponent implements OnInit {
             { label: 'Home', routerLink: '/features/welcome-aboard' },
             { label: 'Farm link' },
             { label: 'The Coffee Experience', routerLink: '/coffee-experience' },
-            { label: this.isCoffeeDetailsPage ? 'Order #' + this.orderID : 'Default Settings' },
+            { label: this.isCoffeeDetailsPage ? 'Order #' + this.orderId : 'Default Settings' },
         ];
+        this.defaultDetails = {
+            description: '',
+            website: '',
+            tags: [],
+            video_id: 0,
+            image_id: 0,
+        };
         this.getGeneralRoasterCertificates();
     }
 
@@ -161,7 +178,7 @@ export class DefaultSettingsComponent implements OnInit {
 
     getOrderExperience() {
         if (this.route.snapshot.queryParams.micro_roasters_id) {
-            this.userService.getMrOrdersCoffeeExperience(this.roasterId, this.orderID).subscribe((response: any) => {
+            this.userService.getMrOrdersCoffeeExperience(this.roasterId, this.orderId).subscribe((response: any) => {
                 if (response.success) {
                     this.setPageData(response);
                 } else {
@@ -169,7 +186,7 @@ export class DefaultSettingsComponent implements OnInit {
                 }
             });
         } else if (this.route.snapshot.queryParams.hrc_id) {
-            this.userService.getHrcOrdersCoffeeExperience(this.roasterId, this.orderID).subscribe((response: any) => {
+            this.userService.getHrcOrdersCoffeeExperience(this.roasterId, this.orderId).subscribe((response: any) => {
                 if (response.success) {
                     this.setPageData(response);
                 } else {
@@ -257,7 +274,6 @@ export class DefaultSettingsComponent implements OnInit {
 
     onCancel(): void {
         this.isEditableMode = false;
-        this.getDefaultSetting();
     }
 
     onSave() {
@@ -327,7 +343,7 @@ export class DefaultSettingsComponent implements OnInit {
             video_id: this.fileVideoId || this.defaultDetails.video_id,
         };
         if (this.route.snapshot.queryParams.micro_roasters_id) {
-            this.userService.postMrOrdersCoffeeExperience(this.roasterId, this.orderID, data).subscribe(
+            this.userService.postMrOrdersCoffeeExperience(this.roasterId, this.orderId, data).subscribe(
                 (res: any) => {
                     this.isSaving = false;
                     if (res.success) {
@@ -342,7 +358,7 @@ export class DefaultSettingsComponent implements OnInit {
                 },
             );
         } else if (this.route.snapshot.queryParams.hrc_id) {
-            this.userService.postHrcOrdersCoffeeExperience(this.roasterId, this.orderID, data).subscribe(
+            this.userService.postHrcOrdersCoffeeExperience(this.roasterId, this.orderId, data).subscribe(
                 (res: any) => {
                     this.isSaving = false;
                     if (res.success) {
@@ -391,5 +407,11 @@ export class DefaultSettingsComponent implements OnInit {
         textArea.select();
         document.execCommand('Copy');
         textArea.remove();
+    }
+
+    deleteCertificate(item) {
+        this.roasterService.deleteCertificate(this.roasterId, item).subscribe((del: any) => {
+            this.toastrService.success('Certificates deleted successfully');
+        });
     }
 }

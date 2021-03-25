@@ -700,6 +700,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             this.SM['lastRender'] = this.lastMessageRendered.pipe(first()).subscribe((x) => {
                 this.chatBodyHeightAdjust();
             });
+        } else {
+            this.toast.warning('Please enter a valid text and sent', 'Uanble to sent', { timeOut: 800 });
         }
     }
 

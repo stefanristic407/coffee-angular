@@ -6,13 +6,41 @@
 </div>
 <div *ngIf="coffeeDetailsActive == 1">
     <section>
-        <div class="container section-head-pad">
+        <div>
             <section class="section-farmlink">
                 <div class="main-block">
                     <div class="row">
-                        <div class="col-12 d-flex no-block align-items-center">
+                        <div class="col-12 d-flex no-block tab-nav-btn">
                             <div class="breadcrumb-container d-none d-md-block">
                                 <p-breadcrumb [model]="items"></p-breadcrumb>
+                            </div>
+                            <div class="col-12 col-md-4 col-lg-3 butn-prev-save butn-prev-save--desktop tabView">
+                                <button
+                                    *ngIf="isEditableMode"
+                                    type="button"
+                                    class="btn-stroked cancel-btn px-4"
+                                    (click)="onCancel()"
+                                >
+                                    {{ 'cancel' | translate }}
+                                </button>
+                                <button
+                                    *ngIf="isEditableMode"
+                                    type="button"
+                                    class="btn-raised px-4"
+                                    [disabled]="isSaving"
+                                    (click)="onSave()"
+                                >
+                                    {{ 'save' | translate }}
+                                </button>
+                                <button
+                                    *ngIf="!isEditableMode && estateBtn"
+                                    type="button"
+                                    class="btn-raised px-4"
+                                    [disabled]="isSaving"
+                                    (click)="isEditableMode = true"
+                                >
+                                    {{ 'edit' | translate }}
+                                </button>
                             </div>
                             <div class="mb-4 d-block d-md-none">
                                 <a class="back-page fnt-500" (click)="location.back()"> {{ 'back' | translate }}</a>
@@ -21,17 +49,28 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <div class="align-items-start">
-                                <div class="d-inline-block col-sm-12 col-md-8 col-lg-9 px-0">
+                            <div class="tabView">
+                                <div class="page-title">
+                                    {{ isCoffeeDetailsPage ? 'Order #' + orderId : 'Default Settings' }}
+                                </div>
+                                <div class="page-description">
+                                    Set your default settings for your coffee expereice page. these would be used when
+                                    you haven’t updated details for the order related coffee experience page
+                                </div>
+                            </div>
+                            <div class="web-view">
+                                <div class="d-inline-block col-sm-12 col-md-8 col-lg-9 px-0 hideTabView">
                                     <div class="page-title">
-                                        {{ isCoffeeDetailsPage ? 'Order #' + orderID : 'Default Settings' }}
+                                        {{ isCoffeeDetailsPage ? 'Order #' + orderId : 'Default Settings' }}
                                     </div>
                                     <div class="page-description">
                                         Set your default settings for your coffee expereice page. these would be used
                                         when you haven’t updated details for the order related coffee experience page
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-4 col-lg-3 butn-prev-save butn-prev-save--desktop">
+                                <div
+                                    class="col-12 col-md-4 col-lg-3 butn-prev-save butn-prev-save--desktop hideTabView mob-view"
+                                >
                                     <button
                                         *ngIf="isEditableMode"
                                         type="button"
@@ -50,7 +89,7 @@
                                         {{ 'save' | translate }}
                                     </button>
                                     <button
-                                        *ngIf="!isEditableMode"
+                                        *ngIf="!isEditableMode && estateBtn"
                                         type="button"
                                         class="btn-raised px-4"
                                         [disabled]="isSaving"
@@ -61,7 +100,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-12 col-lg-8 order-1 order-md-2 order-lg-1">
+                                <div class="col-sm-12 col-lg-8 order-1 order-md-2 order-lg-1 hideTabView">
                                     <div
                                         class="border-0-input border-top-dashed-d6 border-btm-dashed-d6 form-container"
                                     >
@@ -75,7 +114,7 @@
                                                         *ngIf="isEditableMode"
                                                         pInputText
                                                         [(ngModel)]="defaultDetails.website"
-                                                        class="roastery-website-input"
+                                                        class="roastery-website-input border"
                                                         type="text"
                                                         pInputText
                                                     />
@@ -92,7 +131,7 @@
                                                 </div>
                                                 <div class="sewn-form-field w-100 mb-0" *ngIf="isEditableMode">
                                                     <textarea
-                                                        class="w-100"
+                                                        class="w-100 border"
                                                         [ngClass]="{
                                                             'ng-invalid': isSent && !defaultDetails.description
                                                         }"
@@ -153,8 +192,7 @@
                                             <h5 class="fnt-14 fnt-muli fnt-700 text-clr334 mb-0">
                                                 {{ 'certificates' | translate }}
                                             </h5>
-                                            <label class="mb-0">
-                                                <input type="file" />
+                                            <label class="mb-0" routerLink="/roastery-profile/certificate">
                                                 <span class="fnt-muli fnt-700 d-inline-block">+</span>
                                             </label>
                                         </div>
@@ -179,7 +217,11 @@
                                                         >
                                                             {{ 'view' | translate }}
                                                         </button>
-                                                        <button class="fnt-muli fnt-14 fnt-700">
+                                                        <button
+                                                            *ngIf="estateBtn"
+                                                            class="fnt-muli fnt-14 fnt-700"
+                                                            (click)="deleteCertificate(item.id)"
+                                                        >
                                                             {{ 'delete' | translate }}
                                                         </button>
                                                     </div>
@@ -198,6 +240,88 @@
                                                 </div>
                                                 <div *ngIf="!certificateDetails.length" class="text-center">
                                                     No certificates to display
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-8 order-1 order-md-2 order-lg-1 px-0 tabView">
+                                        <div
+                                            class="border-0-input border-top-dashed-d6 border-btm-dashed-d6 form-container"
+                                        >
+                                            <div class="input-container">
+                                                <div class="col-12 col-md-5 px-0">
+                                                    <div class="sewn-form-field mb-0">
+                                                        <div>
+                                                            <label>Roastery website</label>
+                                                        </div>
+                                                        <input
+                                                            *ngIf="isEditableMode"
+                                                            pInputText
+                                                            [(ngModel)]="defaultDetails.website"
+                                                            class="roastery-website-input border"
+                                                            type="text"
+                                                            pInputText
+                                                        />
+                                                        <div class="no-editable-text" *ngIf="!isEditableMode">
+                                                            {{ defaultDetails.website }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-container">
+                                                <div class="col-12 px-0">
+                                                    <div>
+                                                        <label>A short description about the Roastery</label>
+                                                    </div>
+                                                    <div class="sewn-form-field w-100 mb-0" *ngIf="isEditableMode">
+                                                        <textarea
+                                                            class="w-100 border"
+                                                            [ngClass]="{
+                                                                'ng-invalid': isSent && !defaultDetails.description
+                                                            }"
+                                                            rows="5"
+                                                            cols="50"
+                                                            pInputTextarea
+                                                            [(ngModel)]="defaultDetails.description"
+                                                        ></textarea>
+                                                        <small
+                                                            *ngIf="isSent && !defaultDetails.description"
+                                                            class="p-error"
+                                                        >
+                                                            Required
+                                                        </small>
+                                                    </div>
+                                                    <div class="no-editable-text" *ngIf="!isEditableMode">
+                                                        {{ defaultDetails.description }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="roastery-fields">
+                                                <div class="roastery-tags">
+                                                    <div class="col-12 px-0">
+                                                        <label>{{ 'select_tags' | translate }}(max 5)</label>
+                                                        <div
+                                                            class="roastery-tags__checkboxes"
+                                                            [ngClass]="{ 'p-0 border-0': !isEditableMode }"
+                                                        >
+                                                            <label
+                                                                *ngFor="let item of tagOptionList; let index = index"
+                                                                class="custom-label"
+                                                                [ngClass]="item.select ? 'active' : ''"
+                                                            >
+                                                                <input
+                                                                    class="custom-label__inputs"
+                                                                    type="checkbox"
+                                                                    (change)="onChangeTag(index)"
+                                                                />
+                                                                <span
+                                                                    class="custom-raotary-tags"
+                                                                    [ngClass]="{ 'mt-2': !isEditableMode }"
+                                                                    >{{ item.label }}</span
+                                                                >
+                                                            </label>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -241,7 +365,7 @@
                                                                 <div
                                                                     class="d-flex flex-wrap align-items-center justify-content-center"
                                                                 >
-                                                                    <img src="assets/images/upload-icon.svg" />
+                                                                    <img src="assets/images/upload-black.svg" />
                                                                     <span
                                                                         class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 text-clr334"
                                                                     >
@@ -307,7 +431,7 @@
                                                                 <div
                                                                     class="d-flex flex-wrap align-items-center justify-content-center"
                                                                 >
-                                                                    <img src="assets/images/upload-icon.svg" />
+                                                                    <img src="assets/images/upload-black.svg" />
                                                                     <span
                                                                         class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 text-clr334"
                                                                         >{{ 'upload_an_video' | translate }}</span
@@ -330,48 +454,60 @@
                                     </div>
                                     <!--Share your story-->
                                     <div *ngIf="isCoffeeDetailsPage" class="form-section__inputs">
-                                        <div class="roastery-fields">
-                                            <h4 class="fnt-16 fnt-700 fnt-muli text-clr334">
-                                                {{ 'share_your_story' | translate }}
-                                            </h4>
-                                            <div class="copy-link">
-                                                <label class="fnt-14 fnt-600 fnt-muli text-clr588">
-                                                    {{ 'share_story_text' | translate }}
-                                                </label>
-                                                <div
-                                                    class="copy-link__value d-flex d-md-column d-lg-row flex-wrap align-items-center"
-                                                >
-                                                    <input type="text" [value]="coffeeExperienceLink" readonly />
-                                                    <button (click)="handleCopyCoffeeExperienceLink()">
-                                                        {{ 'copy_link' | translate }}
-                                                    </button>
+                                        <div class="roastery-fields tab">
+                                            <div class="tab-width">
+                                                <h4 class="fnt-16 fnt-700 fnt-muli text-clr334 tab-bottom-margin">
+                                                    {{ 'share_your_story' | translate }}
+                                                </h4>
+                                                <div class="copy-link">
+                                                    <label class="fnt-14 fnt-600 fnt-muli text-clr588">
+                                                        {{ 'share_story_text' | translate }}
+                                                    </label>
+                                                    <div
+                                                        class="copy-link__value d-flex d-md-column d-lg-row flex-wrap align-items-center"
+                                                    >
+                                                        <input
+                                                            class="tab-input"
+                                                            type="text"
+                                                            [value]="coffeeExperienceLink"
+                                                            readonly
+                                                        />
+                                                        <button
+                                                            class="tab-btn"
+                                                            (click)="handleCopyCoffeeExperienceLink()"
+                                                        >
+                                                            {{ 'copy_link' | translate }}
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="scan-qr-link text-center">
-                                                <span
-                                                    class="d-inline-block mx-auto fnt-12 fnt-600 fnt-muli text-clr334 mb-3 mt-3 mt-md-0 mb-lg-4 text-capitalize"
-                                                    >or</span
-                                                >
-                                                <p
-                                                    class="text-md-left fnt-14 fnt-600 fnt-muli text-clr334 mb-3 mb-lg-4"
-                                                >
-                                                    {{ 'scan_download_text' | translate }}
-                                                </p>
-                                                <div class="text-center">
-                                                    <img class="img-fluid" src="assets/images/qr.PNG" />
-                                                    <div class="download-qr-link">
-                                                        <a
-                                                            class="download-qr-link__file d-inline-flex align-items-center"
-                                                            href="assets/images/dwnd.png"
-                                                            download
-                                                        >
-                                                            <img src="assets/images/dwnd.png" />
-                                                            <span
-                                                                class="text-capitalize mb-0 ml-2 fnt-14 fnt-500 fnt-muli text-clr334"
+                                            <div class="tab-width-right">
+                                                <div class="scan-qr-link text-center">
+                                                    <span
+                                                        class="d-inline-block mx-auto fnt-12 fnt-600 fnt-muli text-clr334 mb-3 mt-3 mt-md-0 mb-lg-4 text-capitalize hideTabView"
+                                                        >or</span
+                                                    >
+                                                    <p
+                                                        class="text-md-left fnt-14 fnt-600 fnt-muli text-clr334 mb-3 mb-lg-4 tab-bottom-margin"
+                                                    >
+                                                        {{ 'scan_download_text' | translate }}
+                                                    </p>
+                                                    <div class="text-center">
+                                                        <img class="img-fluid" src="assets/images/qr.PNG" />
+                                                        <div class="download-qr-link">
+                                                            <a
+                                                                class="download-qr-link__file d-inline-flex align-items-center"
+                                                                href="assets/images/dwnd.png"
+                                                                download
                                                             >
-                                                                {{ 'download' | translate }}
-                                                            </span>
-                                                        </a>
+                                                                <img src="assets/images/dwnd.png" />
+                                                                <span
+                                                                    class="text-capitalize mb-0 ml-2 fnt-14 fnt-500 fnt-muli text-clr334"
+                                                                >
+                                                                    {{ 'download' | translate }}
+                                                                </span>
+                                                            </a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -391,7 +527,6 @@
                                                     type="button"
                                                     [disabled]="isSaving"
                                                     (click)="onSave()"
-                                                    routerLink="/features/coffee-experience"
                                                     [label]="'save' | translate"
                                                     class="btn-raised w-100"
                                                 ></button>
@@ -402,11 +537,10 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <div *ngIf="!isEditableMode">
+                                        <div *ngIf="estateBtn && !isEditableMode">
                                             <button
                                                 type="button"
                                                 (click)="isEditableMode = true"
-                                                routerLink="/features/coffee-experience"
                                                 class="btn-raised w-100"
                                             >
                                                 {{ 'edit' | translate }}

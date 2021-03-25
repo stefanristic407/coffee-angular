@@ -16,45 +16,33 @@
                 </div>
 
                 <div class="user-text web-farm">
-                    <p class="">
-                        <span
-                            class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
-                            *ngIf="customerService.company_name != ''"
-                        >
-                            {{ customerService.company_name }}</span
+                    <p class="text-lg-left text-md-center">
+                        <span class="fnt-16 fnt-md-18 fnt-muli fnt-700 black" *ngIf="customerService.name != ''">
+                            {{ customerService.name }}</span
                         >
                     </p>
-                    <p class="">
-                        <span
-                            class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
-                            *ngIf="customerService.company_name == ''"
-                        >
+                    <p class="text-lg-left text-md-center">
+                        <span class="fnt-16 fnt-md-18 fnt-muli fnt-700 black" *ngIf="customerService.name == ''">
                             -</span
                         >
                     </p>
-                    <p class="fnt-16 fnt-md-18 fnt-600 fnt-muli text-clr588 mb-2 d-flex align-text">
+                    <p class="d-flex fnt-16 fnt-600 fnt-md-18 fnt-muli justify-content-md-center mb-2 text-clr588">
                         <span class="mr-3"> Owned by {{ customerService.owner_name }} </span>
                         <li></li>
                         <span> Founded in {{ customerService.founded_on }}</span>
                     </p>
-                    <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli text-clr55c">
+                    <p class="fnt-16 fnt-700 fnt-md-18 fnt-muli text-clr55c text-lg-left text-md-center">
                         <span> Admin: </span> <span>{{ customerService.admin_name }} </span>
                     </p>
                 </div>
                 <div class="user-text mobile-farm">
                     <p class="mt-3">
-                        <span
-                            class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
-                            *ngIf="customerService.company_name != ''"
-                        >
-                            {{ customerService.company_name }}</span
+                        <span class="fnt-16 fnt-md-18 fnt-muli fnt-700 black" *ngIf="customerService.name != ''">
+                            {{ customerService.name }}</span
                         >
                     </p>
                     <p class="">
-                        <span
-                            class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
-                            *ngIf="customerService.company_name == ''"
-                        >
+                        <span class="fnt-16 fnt-md-18 fnt-muli fnt-700 black" *ngIf="customerService.name == ''">
                             -</span
                         >
                     </p>
@@ -70,15 +58,13 @@
             </div>
         </div>
         <div class="web-farm">
-            <div class="message-customer">
-                <span class="message-btn mr-3">
-                    <img src="assets/images/message-icon.svg" alt="Message" class="message-icon mr-2" />
-                    <span class="estate-message pl-1">Message</span></span
-                >
-                <button class="btn-raised" (click)="customerService.horecaStimulatedLogin(customerService.horecaId)">
-                    Simulated Login
-                </button>
-            </div>
+            <span class="btn-trans-icon br-4 cursor-pointer msg-padding" (click)="openChat()">
+                <img class="svg" src="assets/images/message-icon.svg" />
+                <span class="estate-message pl-2">{{ 'message' | translate }}</span>
+            </span>
+            <button class="btn-raised ml-3" (click)="customerService.horecaStimulatedLogin(customerService.horecaId)">
+                Simulated Login
+            </button>
         </div>
         <div class="mobile-farm">
             <div class="d-flex message-customer">
@@ -89,10 +75,10 @@
                     Simulated Login
                 </button>
 
-                <span class="message-btn w-50">
-                    <img src="assets/images/message-icon.svg" alt="Message" class="message-icon mr-2" />
-                    <span class="estate-message pl-1">Message</span></span
-                >
+                <span class="btn-trans-icon br-4 cursor-pointer p-3 w-50" (click)="openChat()">
+                    <img class="svg" src="assets/images/message-icon.svg" />
+                    <span class="estate-message pl-2">{{ 'message' | translate }}</span>
+                </span>
             </div>
         </div>
     </div>

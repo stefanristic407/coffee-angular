@@ -17,7 +17,7 @@ import {
     Address,
 } from '@models';
 import { CookieService } from 'ngx-cookie-service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { OrganizationType, OrderType } from '@enums';
 import {
     AvailabilityService,
@@ -30,9 +30,11 @@ import {
     UserService,
     LotsService,
     ReviewsService,
+    AddressesService,
 } from '@services';
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import { mergeMap } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
@@ -70,6 +72,7 @@ export class OrderManagementService {
         private userSrv: UserService,
         private lotsSrv: LotsService,
         private reviewSrv: ReviewsService,
+        private addressesSrv: AddressesService,
     ) {}
 
     get orderDetails$(): Observable<OrderDetails> {
@@ -148,8 +151,27 @@ export class OrderManagementService {
         return this.purchaseSrv.updateShipmentDetails(orderId, payload);
     }
 
-    updateShippingAddress(orderId: number, shippingAddress: Address): Observable<ApiResponse<any>> {
-        return this.purchaseSrv.updateOrderDetails(orderId, { shipping_address: shippingAddress });
+    updateShippingAddress(orderId: number, address: Address): Observable<ApiResponse<any>> {
+        return this.addressesSrv.getAddresses().pipe(
+            mergeMap((res) => {
+                if (res.success && res.result) {
+                    const shippingAddress = res.result.find((x) => x.type === 'shipping');
+                    if (shippingAddress) {
+                        address.id = shippingAddress.id;
+                        address.type = 'shipping';
+                        return this.addressesSrv.updateAddress(shippingAddress.id, address).pipe(
+                            mergeMap(() => {
+                                return this.purchaseSrv.updateOrderDetails(orderId, {
+                                    shipping_address_id: shippingAddress.id,
+                                });
+                            }),
+                        );
+                    }
+                } else {
+                    return of({ success: false, result: null, result_info: null });
+                }
+            }),
+        );
     }
 
     getCuppingReportUrl(harvestId: number): Observable<string> {

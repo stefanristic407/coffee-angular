@@ -33,7 +33,7 @@
         </div>
         <div class="col-12 col-sm-12 col-md-6 filterLayout">
             <p-dropdown
-                [options]="originArray"
+                [options]="originDataFilter"
                 optionLabel="name"
                 optionValue="isoCode"
                 [(ngModel)]="originFilter"
@@ -90,9 +90,10 @@
             [resizableColumns]="true"
             styleClass="ui-table-customers"
             [showCurrentPageReport]="false"
-            [paginator]="false"
+            [paginator]="paginationValue"
             [lazy]="true"
-            (onLazyLoad)="getTableData($event)"
+            [rows]="rows"
+            (onLazyLoad)="getTableDataPaginate($event)"
             [totalRecords]="totalCount"
             selectionMode="multiple"
             [responsive]="sharedService.isMobileView"
@@ -136,7 +137,8 @@
                                 col.field == 'weight' ||
                                 col.field == 'price' ||
                                 col.field == 'actions' ||
-                                col.field == 'roast_level',
+                                col.field == 'roast_level' ||
+                                col.field == '',
                             'd-sm-none':
                                 col.field == 'status' ||
                                 col.field == 'origin' ||
@@ -152,7 +154,8 @@
                                 col.field == 'weight' ||
                                 col.field == 'price' ||
                                 col.field == 'actions' ||
-                                col.field == 'roast_level',
+                                col.field == 'roast_level' ||
+                                col.field == '',
                             nameMobileHeader: col.field == 'name'
                         }"
                     >
@@ -216,7 +219,7 @@
                                 </div>
                                 <div class="col-12 editDiv">
                                     <span>
-                                        <a class="fnt-muli editBtn">{{ globals.languageJson?.edit_product }}</a>
+                                        <a class="fnt-muli editBtn-product">{{ globals.languageJson?.edit_product }}</a>
                                         <span class="float-right" (click)="menuClicked()">
                                             <a
                                                 class="menu-arrow"
@@ -251,8 +254,12 @@
                         </span>
                         <span *ngSwitchCase="'actions'" class="">
                             <span>
-                                <a class="fnt-muli editBtn">{{ globals.languageJson?.edit_product }}</a>
-                                <span class="float-right" (click)="menuClicked()">
+                                <a class="fnt-muli editBtn-product">{{ globals.languageJson?.edit_product }}</a>
+                            </span>
+                        </span>
+                        <span *ngSwitchCase="''">
+                            <span>
+                                <span (click)="menuClicked()">
                                     <a
                                         class="menu-arrow"
                                         [popover]="poplistTemplate"
@@ -260,7 +267,7 @@
                                         [outsideClick]="true"
                                         #pop="bs-popover"
                                     >
-                                        <img class="ellipse-image pl-3" src="assets/images/more-opns-file.png" alt="" />
+                                        <img class="ellipse-image" src="assets/images/more-opns-file.png" alt="" />
                                     </a>
                                     <ng-template #poplistTemplate>
                                         <div id="popover-mobile-content">

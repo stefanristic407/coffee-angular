@@ -61,6 +61,7 @@ export class CustomerManagementTableComponent implements OnInit {
                 const navigationExtras: NavigationExtras = {
                     queryParams: {
                         itemId: encodeURIComponent(this.itemId),
+                        showTable: 1,
                     },
                 };
                 this.router.navigate(['/people/horeca-details'], navigationExtras);

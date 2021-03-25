@@ -4,9 +4,10 @@
         border-bottom: 2px dashed #d6d6d6;
         margin-left: -16px;
         margin-right: -16px;
+        flex-direction: row !important;
     }
     @media (max-width: 768px) {
-        flex-direction: column !important;
+        flex-direction: column;
     }
 }
 

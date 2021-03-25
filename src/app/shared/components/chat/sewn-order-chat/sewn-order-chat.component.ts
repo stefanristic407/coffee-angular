@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { first } from 'rxjs/operators';
 import { Subscription, Subject } from 'rxjs';
 import {
@@ -62,6 +63,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
         private elRef: ElementRef,
         private chatUtil: ChatUtilService,
         private render: Renderer2,
+        private toast: ToastrService,
     ) {}
 
     ngOnInit(): void {
@@ -420,6 +422,8 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                 console.log('Last render chatInputHeightAdjust');
                 this.chatInputHeightAdjust(true);
             });
+        } else {
+            this.toast.warning('Please enter a valid text and sent', 'Uanble to sent', { timeOut: 800 });
         }
     }
 

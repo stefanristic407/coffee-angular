@@ -443,6 +443,21 @@ label {
     color: #232334;
 }
 
+@media (min-width: 992px) {
+    .tabView {
+        display: none;
+    }
+    .hideTabView {
+        display: block;
+    }
+    .tab-nav-btn {
+        align-items: center;
+    }
+    .web-view {
+        display: flex;
+        align-items: flex-start;
+    }
+}
 @media (max-width: 991px) {
     .media-container {
         width: 50%;
@@ -463,6 +478,54 @@ label {
     }
     .certificates-container {
         width: 50%;
+    }
+    .tabView {
+        display: block !important;
+    }
+    .hideTabView {
+        display: none !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .tab {
+        display: flex;
+    }
+    .tab-width {
+        width: 50%;
+    }
+    .tab-width-right {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+    }
+    .tab-btn {
+        width: 100%;
+        height: 45px;
+        border-radius: 0px !important;
+    }
+    .tab-input {
+        margin-bottom: 0 !important;
+        height: 45px;
+    }
+    .download-qr-link {
+        margin-top: 14px;
+        margin-bottom: 12px;
+    }
+    .page-description,
+    .media-container,
+    .form-container,
+    .tab-bottom-margin {
+        margin-bottom: 24px !important;
+    }
+    .contact-for-help__text {
+        padding-top: 16px !important;
+    }
+    .contact-for-help {
+        margin-bottom: -16px;
+    }
+    .tab-nav-btn {
+        justify-content: space-between;
     }
 }
 
@@ -501,5 +564,20 @@ label {
     .certificates-container {
         width: 100%;
         margin-bottom: 16px !important;
+    }
+    .tabView {
+        display: none !important;
+    }
+    .hideTabView {
+        display: block !important;
+    }
+    .tab-nav-btn {
+        align-items: center;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .mob-view {
+        margin-bottom: -40px !important;
     }
 }

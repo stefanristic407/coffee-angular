@@ -1,10 +1,9 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from '@services';
 import { ActivatedRoute } from '@angular/router';
 import { CustomerServiceService } from '../customer-service.service';
-import { UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
-import { ToastrService } from 'ngx-toastr';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-horeca-details',
@@ -14,18 +13,17 @@ import { ToastrService } from 'ngx-toastr';
 export class HorecaDetailsComponent implements OnInit {
     appLanguage?: any;
     roasterId: any;
-    hrContacts: any;
-
+    showTable = '';
     constructor(
         public globals: GlobalsService,
         private route: ActivatedRoute,
         public customerService: CustomerServiceService,
-        private userService: UserserviceService,
         public cookieService: CookieService,
-        private toastrService: ToastrService,
+        public location: Location,
     ) {
         this.route.queryParams.subscribe((params: any) => {
             this.customerService.horecaId = params.itemId;
+            this.showTable = params.showTable;
             this.customerService.hrcCustomerDetails();
         });
         this.roasterId = this.cookieService.get('roaster_id');
