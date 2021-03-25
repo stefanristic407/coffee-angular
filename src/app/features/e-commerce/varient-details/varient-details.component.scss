@@ -64,9 +64,17 @@
     color: #ffffff;
     position: absolute;
     bottom: 4px;
-    margin: 0px 0.5rem;
+    right: 4%;
     padding: 6px 4px 2px 8px;
     border-radius: 2px;
+}
+.weight-varient-array {
+    ::ng-deep .p-dropdown {
+        background: #f9f9f9;
+    }
+    ::ng-deep .p-dropdown .p-dropdown-label {
+        padding: 16px !important;
+    }
 }
 .delete-weight-varient {
     position: absolute;
@@ -223,6 +231,9 @@
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
+    .add-image-flex {
+        overflow: auto;
+    }
     .setDefaultPro {
         position: relative;
         bottom: 2rem;
@@ -243,10 +254,20 @@
     }
 }
 
+.delete-weight-varient-mb {
+    display: none;
+}
+
 @media screen and (max-width: 1024px) {
+    .delete-weight-varient {
+        display: none;
+    }
+    .upload-feature-image {
+        overflow: auto;
+        flex-wrap: nowrap;
+    }
     .add-image-flex {
         display: flex;
-        overflow: auto;
     }
     .addWeightDiv {
         border: 1px solid #747588;
@@ -256,7 +277,7 @@
     }
     .divSeperator {
         border: 1px dashed #d6d6d6;
-        margin-top: 22px !important;
+        margin-top: 24px !important;
         margin-bottom: 24px !important;
         width: 100%;
     }
@@ -267,6 +288,12 @@
 }
 
 @media screen and (max-width: 767px) {
+    .delete-weight-varient-mb {
+        display: inherit;
+    }
+    .delete-weight-varient {
+        display: none;
+    }
     .delete-weight-varient {
         position: inherit;
         right: 0;
@@ -311,9 +338,6 @@
         margin-left: -12px;
     }
 
-    .imagesDiv {
-        width: 300px;
-    }
     .productImagesDiv {
         width: 132px;
     }

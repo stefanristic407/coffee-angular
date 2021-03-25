@@ -134,4 +134,13 @@ export class CoffeeExperienceTableComponent implements OnInit, OnChanges {
             this.filteredCoffeeData = this.coffeeExperienceData;
         }
     }
+
+    viewDetails() {
+        const navigationExtras: NavigationExtras = {
+            queryParams: {
+                edit: 1,
+            },
+        };
+        this.router.navigate(['/coffee-experience/default-settings'], navigationExtras);
+    }
 }

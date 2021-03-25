@@ -84,49 +84,154 @@
                 <th *ngIf="customerType !== 'hrc'" pSortableColumn="cupping_score">
                     {{ 'cupping_score' | translate }}<p-sortIcon field="cupping_score"> </p-sortIcon>
                 </th>
-                <th pSortableColumn="actions" class="order">
+                <th
+                    pSortableColumn="actions"
+                    [ngClass]="{ order: customerType === 'estate', 'update-details': customerType !== 'estate' }"
+                >
                     {{ 'actions' | translate }}<p-sortIcon field="actions"> </p-sortIcon>
                 </th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item>
             <tr>
-                <td class="fnt-14">{{ customerType === 'hrc' ? item.order_id : item.id }}</td>
-                <td class="fnt-14">{{ customerType === 'hrc' ? item.horeca_name : item.estate_name }}</td>
-                <td *ngIf="customerType === 'estate'" class="fnt-14">{{ item.origin | country }}</td>
-                <td class="fnt-14">
-                    {{ customerType === 'estate' ? (item.created_at | date: 'mediumDate') : item.product_name }}
+                <td *ngIf="customerType === 'estate'" class="fnt-14" (click)="viewDetails()">
+                    {{ item.id }}
                 </td>
-                <td *ngIf="customerType !== 'estate'" class="fnt-14">
-                    {{
-                        customerType !== 'hrc'
-                            ? (item.created_at | date: 'mediumDate')
-                            : (item.order_date | date: 'mediumDate')
-                    }}
+                <td
+                    *ngIf="customerType === 'micro-roasters'"
+                    class="fnt-14"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ micro_roasters_id: item.id }"
+                >
+                    {{ item.id }}
                 </td>
-                <td *ngIf="customerType === 'estate'" class="fnt-14">
+                <td
+                    *ngIf="customerType === 'hrc'"
+                    class="fnt-14"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ hrc_id: item.order_id }"
+                >
+                    {{ item.order_id }}
+                </td>
+
+                <td *ngIf="customerType === 'estate'" class="fnt-14" (click)="viewDetails()">
+                    {{ item.estate_name }}
+                </td>
+                <td
+                    *ngIf="customerType === 'micro-roasters'"
+                    class="fnt-14"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ micro_roasters_id: item.id }"
+                >
+                    {{ item.estate_name }}
+                </td>
+                <td
+                    *ngIf="customerType === 'hrc'"
+                    class="fnt-14"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ hrc_id: item.order_id }"
+                >
+                    {{ item.horeca_name }}
+                </td>
+                <td *ngIf="customerType === 'estate'" class="fnt-14" (click)="viewDetails()">
+                    {{ item.origin | country }}
+                </td>
+                <td *ngIf="customerType === 'estate'" class="fnt-14" (click)="viewDetails()">
+                    {{ item.created_at | date: 'mediumDate' }}
+                </td>
+                <td
+                    *ngIf="customerType === 'micro-roasters'"
+                    class="fnt-14"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ micro_roasters_id: item.id }"
+                >
+                    {{ item.product_name }}
+                </td>
+                <td
+                    *ngIf="customerType === 'hrc'"
+                    class="fnt-14"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ hrc_id: item.order_id }"
+                >
+                    {{ item.product_name }}
+                </td>
+
+                <td *ngIf="customerType === 'estate'" class="fnt-14" (click)="viewDetails()">
                     {{ item.date_received | date: 'mediumDate' }}
                 </td>
-                <td *ngIf="customerType !== 'hrc'" class="fnt-14">{{ item.varieties }}</td>
-                <td *ngIf="customerType === 'hrc'" class="fnt-14">{{ item.roast_level }}</td>
-                <td class="fnt-14">{{ item.quantity }}</td>
-                <td *ngIf="customerType !== 'hrc'" class="fnt-14">{{ item.cup_score }}</td>
-
                 <td
-                    *ngIf="customerType === 'estate'"
-                    class="view-listing"
+                    *ngIf="customerType === 'micro-roasters'"
+                    class="fnt-14"
                     routerLink="/coffee-experience/coffee-details/"
-                    [queryParams]="{ estate_id: item.id }"
+                    [queryParams]="{ micro_roasters_id: item.id }"
                 >
-                    View Details
+                    {{ item.created_at | date: 'mediumDate' }}
                 </td>
+                <td
+                    *ngIf="customerType === 'hrc'"
+                    class="fnt-14"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ hrc_id: item.order_id }"
+                >
+                    {{ item.order_date | date: 'mediumDate' }}
+                </td>
+                <td *ngIf="customerType === 'estate'" class="fnt-14" (click)="viewDetails()">
+                    {{ item.varieties }}
+                </td>
+                <td
+                    *ngIf="customerType === 'micro-roasters'"
+                    class="fnt-14"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ micro_roasters_id: item.id }"
+                >
+                    {{ item.varieties }}
+                </td>
+                <td
+                    *ngIf="customerType === 'hrc'"
+                    class="fnt-14"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ hrc_id: item.order_id }"
+                >
+                    {{ item.roast_level }}
+                </td>
+
+                <td *ngIf="customerType === 'estate'" class="fnt-14" (click)="viewDetails()">{{ item.quantity }} kg</td>
+                <td
+                    *ngIf="customerType === 'micro-roasters'"
+                    class="fnt-14"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ micro_roasters_id: item.id }"
+                >
+                    {{ item.quantity }} kg
+                </td>
+                <td
+                    *ngIf="customerType === 'hrc'"
+                    class="fnt-14"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ hrc_id: item.order_id }"
+                >
+                    {{ item.quantity }} kg
+                </td>
+
+                <td *ngIf="customerType === 'estate'" class="fnt-14">
+                    {{ item.cup_score }}
+                </td>
+                <td
+                    *ngIf="customerType === 'micro-roasters'"
+                    class="fnt-14"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ micro_roasters_id: item.id }"
+                >
+                    {{ item.cup_score }}
+                </td>
+                <td *ngIf="customerType === 'estate'" class="view-listing" (click)="viewDetails()">View Details</td>
                 <td
                     *ngIf="customerType === 'micro-roasters'"
                     class="view-listing"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ micro_roasters_id: item.id }"
                 >
-                    View Details
+                    Update Details
                 </td>
                 <td
                     *ngIf="customerType === 'hrc'"
@@ -134,7 +239,7 @@
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ hrc_id: item.order_id }"
                 >
-                    View Details
+                    Update Details
                 </td>
             </tr>
         </ng-template>
@@ -166,24 +271,23 @@
                                             <li class="list-group-item">
                                                 <a
                                                     *ngIf="customerType === 'estate'"
-                                                    class="view-listing"
-                                                    routerLink="/coffee-experience/coffee-details/"
-                                                    [queryParams]="{ estate_id: item.id }"
+                                                    class="light-eight fnt-14"
+                                                    (click)="viewDetails()"
                                                     >View Details</a
                                                 >
                                                 <a
                                                     *ngIf="customerType === 'micro-roasters'"
-                                                    class="view-listing"
+                                                    class="light-eight fnt-14"
                                                     routerLink="/coffee-experience/coffee-details/"
                                                     [queryParams]="{ micro_roasters_id: item.id }"
-                                                    >View Details</a
+                                                    >Update Details</a
                                                 >
                                                 <a
                                                     *ngIf="customerType === 'hrc'"
-                                                    class="view-listing"
+                                                    class="light-eight fnt-14"
                                                     routerLink="/coffee-experience/coffee-details/"
                                                     [queryParams]="{ hrc_id: item.order_id }"
-                                                    >View Details</a
+                                                    >Update Details</a
                                                 >
                                             </li>
                                         </ul>

@@ -136,7 +136,10 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="productForm['value']['is_variants_included']" class="col-12 d-flex d-sm-flex d-md-none p-0">
+        <div
+            *ngIf="productForm['value']['is_variants_included']"
+            class="col-12 weight-varient-array d-flex d-sm-flex d-md-none p-0"
+        >
             <p-dropdown
                 [options]="variantTypeArray"
                 optionLabel="label"
@@ -160,6 +163,14 @@
                     </span>
                 </ng-template>
             </p-dropdown>
+        </div>
+        <div
+            class="col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1 delete-varient sewn-form-field pl-md-0 pl-lg-2 delete-weight-varient-mb checkBoxDiv"
+            *ngIf="productForm['value']['is_variants_included']"
+        >
+            <span class="fnt-700 editBtn cursor-pointer align-items-center" (click)="removeVarientDrop(currentVariant)">
+                Delete Varient
+            </span>
         </div>
         <div
             class="pt-lg-0"
@@ -316,7 +327,7 @@
                             </div>
                         </div>
                         <div class="row gutter-16 gutter-lg-24 e-comm-border-top pl-0 pr-0 pt-2">
-                            <div class="col-12 mb-3">
+                            <div class="col-12 mb-3 mt-3">
                                 <span class="primary_txt fnt-14 fnt-md-16">Recommended brewing method</span>
                             </div>
                             <div class="col-sm-12 col-md-4 col-lg-5 col-xl-3 sewn-form-field w-100">
@@ -370,6 +381,7 @@
                                     #cmp
                                     [varientDetails]="varient"
                                     (onWeightCreate)="onWeightCreate($event)"
+                                    (onWeightDelete)="onWeightDelete($event)"
                                 ></app-varient-details>
                             </div>
                         </div>

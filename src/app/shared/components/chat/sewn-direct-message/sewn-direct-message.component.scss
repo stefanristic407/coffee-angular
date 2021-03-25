@@ -141,7 +141,7 @@
     }
     .live-chat-message-body__text {
         width: calc(100% - 15px);
-        margin: 5px 0;
+        margin: 5px 10px;
     }
 }
 
@@ -754,9 +754,11 @@
 }
 .message-body .message-to__text {
     white-space: pre-line;
+    line-break: anywhere;
 }
 .message-body-from .message-to__from {
     white-space: pre-line;
+    line-break: anywhere;
 }
 
 .message-to__from span {
@@ -1156,6 +1158,10 @@
 .main-message__profile img {
     border-radius: 50%;
     display: block;
+    width: 39px;
+    height: 39px;
+    margin: 0 6px 0 0;
+    object-fit: contain;
 }
 .no-items-found {
     display: flex;
