@@ -1,7 +1,7 @@
 <div class="main-block">
-    <div class="row mb-3">
-        <div class="col-10">
-            <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
+    <div class="mb-3">
+        <div>
+            <p-breadcrumb [model]="breadCrumbItem" class="w-100"></p-breadcrumb>
         </div>
     </div>
     <div [formGroup]="productForm" (ngSubmit)="onSave()" novalidate>

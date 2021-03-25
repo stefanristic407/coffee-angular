@@ -267,7 +267,7 @@ export class ProductDetailsComponent implements OnInit {
             label: 'Inventory',
         };
         const obj3: MenuItem = {
-            label: 'product calatlog',
+            label: 'E-commerce catalog management',
             routerLink: '/features/products-list',
         };
         const obj4: MenuItem = {
