@@ -195,16 +195,14 @@
                     {{ item.roast_level }}
                 </td>
 
-                <td *ngIf="customerType === 'estate'" class="fnt-14" (click)="viewDetails()">
-                    {{ item.quantity }}
-                </td>
+                <td *ngIf="customerType === 'estate'" class="fnt-14" (click)="viewDetails()">{{ item.quantity }} kg</td>
                 <td
                     *ngIf="customerType === 'micro-roasters'"
                     class="fnt-14"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ micro_roasters_id: item.id }"
                 >
-                    {{ item.quantity }}
+                    {{ item.quantity }} kg
                 </td>
                 <td
                     *ngIf="customerType === 'hrc'"
@@ -212,7 +210,7 @@
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ hrc_id: item.order_id }"
                 >
-                    {{ item.quantity }}
+                    {{ item.quantity }} kg
                 </td>
 
                 <td *ngIf="customerType === 'estate'" class="fnt-14">
