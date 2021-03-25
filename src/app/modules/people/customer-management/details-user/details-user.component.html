@@ -58,16 +58,10 @@
             </div>
         </div>
         <div class="web-farm">
-            <span class="btn-trans-icon br-4 cursor-pointer p-2" (click)="openChat()">
+            <span class="btn-trans-icon br-4 cursor-pointer msg-padding" (click)="openChat()">
                 <img class="svg" src="assets/images/message-icon.svg" />
                 <span class="estate-message pl-2">{{ 'message' | translate }}</span>
             </span>
-            <!-- <div class="message-customer">
-                <span class="message-btn mr-3">
-                    <img src="assets/images/message-icon.svg" alt="Message" class="message-icon mr-2" />
-                    <span class="estate-message pl-1">Message</span></span
-                > 
-            </div> -->
             <button class="btn-raised ml-3" (click)="customerService.horecaStimulatedLogin(customerService.horecaId)">
                 Simulated Login
             </button>
@@ -81,10 +75,10 @@
                     Simulated Login
                 </button>
 
-                <span class="message-btn w-50">
-                    <img src="assets/images/message-icon.svg" alt="Message" class="message-icon mr-2" />
-                    <span class="estate-message pl-1">Message</span></span
-                >
+                <span class="btn-trans-icon br-4 cursor-pointer p-3 w-50" (click)="openChat()">
+                    <img class="svg" src="assets/images/message-icon.svg" />
+                    <span class="estate-message pl-2">{{ 'message' | translate }}</span>
+                </span>
             </div>
         </div>
     </div>

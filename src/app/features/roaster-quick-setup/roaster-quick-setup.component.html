@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                             <div
-                                class="sewn-form-field pr-3 mt-md-1"
+                                class="sewn-form-field pr-3 mt-md-1 pr-3"
                                 [ngClass]="[headerValue === 'HoReCa' ? 'col-md-4' : 'col-md-5']"
                             >
                                 <label>{{ globals.languageJson?.name }}<span class="star">*</span></label>
@@ -44,7 +44,7 @@
                                 />
                             </div>
                             <div
-                                class="sewn-form-field pl-lg-2 pr-3 mt-md-1"
+                                class="sewn-form-field pl-lg-2 pr-3 pl-md-0 mt-md-1"
                                 [ngClass]="[headerValue === 'HoReCa' ? 'col-md-4' : 'col-md-5']"
                             >
                                 <label
@@ -58,7 +58,10 @@
                                     [formControl]="invite.controls.email"
                                 />
                             </div>
-                            <div class="sewn-form-field pl-lg-2 pr-3 col-md-3 mt-md-1" *ngIf="headerValue == 'HoReCa'">
+                            <div
+                                class="sewn-form-field pl-lg-2 pr-3 pl-md-0 col-md-3 mt-md-1"
+                                *ngIf="headerValue == 'HoReCa'"
+                            >
                                 <label
                                     >{{ globals.languageJson?.enter_yoru_work_type }}<span class="star">*</span>
                                 </label>
@@ -71,7 +74,7 @@
                                 </p-dropdown>
                             </div>
 
-                            <div *ngIf="i != 0" (click)="removeRow(i)" class="web-farm pl-2">
+                            <div *ngIf="i != 0" (click)="removeRow(i)" class="web-farm">
                                 <div class="delete-link mt-5 pt-3">Delete</div>
                             </div>
                             <div
@@ -83,7 +86,7 @@
                             <span class="fnt-14 fnt-700 fnt-muli ml-1" (click)="addNewRow()">+ Add another email</span>
                         </div>
                         <div class="row">
-                            <div class="col-12 align-mob-btn">
+                            <div class="align-mob-btn col-12 mb-2 mb-md-4">
                                 <button
                                     type="submit"
                                     class="btn-stroked mb-lg-5 mt-3 mt-lg-5"

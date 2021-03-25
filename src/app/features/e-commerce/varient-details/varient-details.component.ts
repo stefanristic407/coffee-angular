@@ -27,6 +27,8 @@ export class VarientDetailsComponent implements OnInit {
     quantityTypeArray: any = '';
     // tslint:disable-next-line: no-output-on-prefix
     @Output() onWeightCreate = new EventEmitter<any>();
+    // tslint:disable-next-line: no-output-on-prefix
+    @Output() onWeightDelete = new EventEmitter<any>();
     weightFields = ['weight_unit', 'weight', 'status', 'is_public', 'is_default_product', 'product_weight_variant_id'];
     grindVariantFields = [
         'price',
@@ -175,13 +177,16 @@ export class VarientDetailsComponent implements OnInit {
     addNewWeights(): void {
         this.weights = this.weightForm.get('weights') as FormArray;
         this.weights.push(this.createEmptyWeights());
-        this.updateCrate(this.weights.length - 1);
         const weight = this.weightForm.get('weights') as FormArray;
         weight.controls[this.currentVarientIndex + 1]['controls'].product_images.setValue(this.setProductImages([]));
+        this.updateCrate(this.weights.length - 1);
         this.createWeightVariantArray();
     }
     deleteWeightVarient(index) {
         this.weights.removeAt(index);
+        this.onWeightDelete.emit(index);
+        this.weightVariantArray.splice(index, 1);
+        this.currentVarientIndex = this.currentVarientIndex - 1;
     }
     addNewGrindVarients(): void {
         this.displayDelete = true;
