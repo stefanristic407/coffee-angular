@@ -9,7 +9,6 @@ export const menuItems = [
     new Menu(3, 'order_management', null, null, null, null, true, 0, ['sourcing-management']),
     new Menu(31, 'Purchased orders of Estates', '/orders/es', null, null, null, false, 3, []),
     new Menu(32, 'Orders & Requests by Micro Roasters', '/orders/mr', null, null, null, false, 3, []),
-    new Menu(33, 'Customer Sales Orders', '', null, null, null, false, 3, []), // external link, TBD
 
     new Menu(4, 'Inventory', null, null, null, null, true, 0, [
         'coffee-management',
@@ -44,14 +43,12 @@ export const menuItems = [
     new Menu(5, 'Sales Management', null, null, null, null, true, 0, []),
     new Menu(51, 'Sales', './', null, null, null, false, 5, []),
     new Menu(52, 'Sales Contracts', '/sales-contract', null, null, null, false, 5, []),
-    new Menu(53, 'Sales Tool', '/features/agreement', null, null, null, false, 5, []),
     new Menu(53, 'API Requests', '/api-requests-list', null, null, null, false, 5, []),
 
     new Menu(7, 'Brand & Experience', null, null, null, null, true, 0, []),
     new Menu(71, 'Brand Profile Management', '/brand-profile', null, null, null, false, 7, []),
     new Menu(72, 'End-User Experience', '/coffee-experience', null, null, null, false, 7, []),
     new Menu(73, 'Education & Collaboration', '/file-share', null, null, null, false, 7, []),
-    new Menu(74, 'The Coffee Lab', '/features/q-a-forum', null, null, null, false, 7, []),
     new Menu(75, 'Social PR', '/social-media', null, null, null, false, 7, []),
 
     new Menu(8, 'Team Management', null, null, null, null, true, 0, [
