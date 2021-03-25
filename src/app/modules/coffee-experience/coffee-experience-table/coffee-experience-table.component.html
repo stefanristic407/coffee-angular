@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-between mt-4">
+<div class="d-flex justify-content-between filter">
     <div class="d-flex">
         <div *ngIf="customerType === 'estate'">
             <p-dropdown
@@ -40,7 +40,7 @@
     </div>
 </div>
 
-<div class="estate-table web-farm pt-4">
+<div class="estate-table web-farm pt-3">
     <p-table
         class="coffee-experience-table"
         [value]="filteredCoffeeData | filter: searchTerm | filter: estatetermOrigin"
@@ -297,34 +297,100 @@
                         </div>
                         <div class="bor-bot-d6d6 mx-3 py-3 row">
                             <div class="col-5 p-0">
-                                <p class="light-eight fnt-14">
-                                    {{
-                                        customerType !== 'hrc'
-                                            ? ('estate_name' | translate)
-                                            : ('name_customer' | translate)
-                                    }}
+                                <p class="light-eight fnt-14" *ngIf="customerType === 'estate'" (click)="viewDetails()">
+                                    {{ 'estate_name' | translate }}
+                                </p>
+                                <p
+                                    class="light-eight fnt-14"
+                                    *ngIf="customerType === 'micro-roasters'"
+                                    routerLink="/coffee-experience/coffee-details/"
+                                    [queryParams]="{ micro_roasters_id: item.id }"
+                                >
+                                    {{ 'name_customer' | translate }}
+                                </p>
+                                <p
+                                    class="light-eight fnt-14"
+                                    *ngIf="customerType === 'hrc'"
+                                    routerLink="/coffee-experience/coffee-details/"
+                                    [queryParams]="{ hrc_id: item.order_id }"
+                                >
+                                    {{ 'name_customer' | translate }}
                                 </p>
                             </div>
                             <div class="col-7 p-0">
-                                <p class="fnt-14">
-                                    {{ customerType === 'hrc' ? item.horeca_name : item.estate_name }}
+                                <p *ngIf="customerType === 'estate'" class="fnt-14" (click)="viewDetails()">
+                                    {{ item.estate_name }}
+                                </p>
+                                <p
+                                    *ngIf="customerType === 'micro-roasters'"
+                                    class="fnt-14"
+                                    routerLink="/coffee-experience/coffee-details/"
+                                    [queryParams]="{ micro_roasters_id: item.id }"
+                                >
+                                    {{ item.estate_name }}
+                                </p>
+                                <p
+                                    *ngIf="customerType === 'hrc'"
+                                    class="fnt-14"
+                                    routerLink="/coffee-experience/coffee-details/"
+                                    [queryParams]="{ hrc_id: item.order_id }"
+                                >
+                                    {{ item.horeca_name }}
+                                </p>
+                            </div>
+                        </div>
+                        <div *ngIf="customerType === 'estate'" class="bor-bot-d6d6 mx-3 py-3 row">
+                            <div class="col-5 p-0">
+                                <p class="light-eight fnt-14" (click)="viewDetails()">{{ 'origin' | translate }}</p>
+                            </div>
+                            <div class="col-7 p-0">
+                                <p class="fnt-14" (click)="viewDetails()">
+                                    {{ item.origin | country }}
                                 </p>
                             </div>
                         </div>
                         <div class="bor-bot-d6d6 mx-3 py-3 row">
                             <div class="col-5 p-0">
-                                <p class="light-eight fnt-14">{{ 'origin' | translate }}</p>
+                                <p class="light-eight fnt-14" *ngIf="customerType === 'estate'" (click)="viewDetails()">
+                                    Date recieved
+                                </p>
+                                <p
+                                    class="light-eight fnt-14"
+                                    *ngIf="customerType === 'micro-roasters'"
+                                    routerLink="/coffee-experience/coffee-details/"
+                                    [queryParams]="{ micro_roasters_id: item.id }"
+                                >
+                                    Order Date
+                                </p>
+                                <p
+                                    class="light-eight fnt-14"
+                                    *ngIf="customerType === 'hrc'"
+                                    routerLink="/coffee-experience/coffee-details/"
+                                    [queryParams]="{ hrc_id: item.order_id }"
+                                >
+                                    Order Date
+                                </p>
                             </div>
                             <div class="col-7 p-0">
-                                <p class="fnt-14">{{ item.origin | country }}</p>
-                            </div>
-                        </div>
-                        <div class="bor-bot-d6d6 mx-3 py-3 row">
-                            <div class="col-5 p-0">
-                                <p class="light-eight fnt-14">Date recieved</p>
-                            </div>
-                            <div class="col-7 p-0">
-                                <p class="fnt-14">{{ item.date_received | date: 'mediumDate' }}</p>
+                                <p *ngIf="customerType === 'estate'" class="fnt-14" (click)="viewDetails()">
+                                    {{ item.date_received | date: 'mediumDate' }}
+                                </p>
+                                <p
+                                    *ngIf="customerType === 'micro-roasters'"
+                                    class="fnt-14"
+                                    routerLink="/coffee-experience/coffee-details/"
+                                    [queryParams]="{ micro_roasters_id: item.id }"
+                                >
+                                    {{ item.created_at | date: 'mediumDate' }}
+                                </p>
+                                <p
+                                    *ngIf="customerType === 'hrc'"
+                                    class="fnt-14"
+                                    routerLink="/coffee-experience/coffee-details/"
+                                    [queryParams]="{ hrc_id: item.order_id }"
+                                >
+                                    {{ item.order_date | date: 'mediumDate' }}
+                                </p>
                             </div>
                         </div>
                     </div>
