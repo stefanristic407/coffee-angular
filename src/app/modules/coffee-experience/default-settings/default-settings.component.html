@@ -69,7 +69,7 @@
                                             <div class="col-12 col-md-5 px-0">
                                                 <div class="sewn-form-field mb-0">
                                                     <div>
-                                                        <label [ngClass]="{ 'text-clr588': isEditableMode }"
+                                                        <label [ngClass]="{ 'text-clr588': !isEditableMode }"
                                                             >Roastery website</label
                                                         >
                                                     </div>
@@ -83,7 +83,7 @@
                                                     />
                                                     <div
                                                         class="no-editable-text"
-                                                        [ngClass]="{ 'fnt-500': isEditableMode }"
+                                                        [ngClass]="{ 'fnt-500': !isEditableMode }"
                                                         *ngIf="!isEditableMode"
                                                     >
                                                         {{ defaultDetails.website }}
@@ -94,7 +94,7 @@
                                         <div class="input-container">
                                             <div class="col-12 px-0">
                                                 <div>
-                                                    <label [ngClass]="{ 'text-clr588': isEditableMode }"
+                                                    <label [ngClass]="{ 'text-clr588': !isEditableMode }"
                                                         >A short description about the Roastery<span
                                                             class="text-clr-e5a"
                                                             >*</span
@@ -127,7 +127,7 @@
                                         <div class="roastery-fields">
                                             <div class="roastery-tags">
                                                 <div class="col-12 px-0">
-                                                    <label [ngClass]="{ 'text-clr588': isEditableMode }"
+                                                    <label [ngClass]="{ 'text-clr588': !isEditableMode }"
                                                         >{{ 'select_tags' | translate }} (max 5)</label
                                                     >
                                                     <div
@@ -216,7 +216,7 @@
                                                 <div class="col-12 col-md-5 px-0">
                                                     <div class="sewn-form-field mb-0">
                                                         <div>
-                                                            <label [ngClass]="{ 'text-clr588': isEditableMode }"
+                                                            <label [ngClass]="{ 'text-clr588': !isEditableMode }"
                                                                 >Roastery website</label
                                                             >
                                                         </div>
@@ -241,7 +241,7 @@
                                             <div class="input-container">
                                                 <div class="col-12 px-0">
                                                     <div>
-                                                        <label [ngClass]="{ 'text-clr588': isEditableMode }"
+                                                        <label [ngClass]="{ 'text-clr588': !isEditableMode }"
                                                             >A short description about the Roastery</label
                                                         >
                                                     </div>
@@ -271,7 +271,7 @@
                                             <div class="roastery-fields">
                                                 <div class="roastery-tags">
                                                     <div class="col-12 px-0">
-                                                        <label [ngClass]="{ 'text-clr588': isEditableMode }"
+                                                        <label [ngClass]="{ 'text-clr588': !isEditableMode }"
                                                             >{{ 'select_tags' | translate }}(max 5)</label
                                                         >
                                                         <div

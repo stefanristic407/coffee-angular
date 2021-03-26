@@ -227,6 +227,8 @@
                 <td
                     *ngIf="customerType === 'estate'"
                     class="brown-cta fnt-bold ng-star-inserted"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ estate_id: item.id }"
                     (click)="viewDetails()"
                 >
                     View Details

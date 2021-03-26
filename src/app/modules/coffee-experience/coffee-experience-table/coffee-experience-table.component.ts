@@ -136,11 +136,11 @@ export class CoffeeExperienceTableComponent implements OnInit, OnChanges {
     }
 
     viewDetails() {
-        const navigationExtras: NavigationExtras = {
-            queryParams: {
-                edit: 1,
-            },
-        };
-        this.router.navigate(['/coffee-experience/default-settings'], navigationExtras);
+        // const navigationExtras: NavigationExtras = {
+        //     queryParams: {
+        //         edit: 1,
+        //     },
+        // };
+        // this.router.navigate(['/coffee-experience/default-settings'], navigationExtras);
     }
 }
