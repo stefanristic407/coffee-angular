@@ -144,11 +144,11 @@
                                         *ngIf="!message.isActiveUser"
                                     >
                                         <div *ngIf="message.showUserBadge" class="main-message__profile clearfix">
-                                            <div class="float-left img">
+                                            <div class="img">
                                                 <img [src]="message?.computed_author?.computed_profile_direct_url" />
                                             </div>
                                             <div class="profile-name">
-                                                <div class="float-left">
+                                                <div class="name-wrapper">
                                                     <h4 class="name">
                                                         {{ message?.computed_author?.computed_fullname }}
                                                     </h4>
@@ -376,7 +376,7 @@
                                                     *ngIf="message.showUserBadge"
                                                     class="main-message__profile clearfix"
                                                 >
-                                                    <div class="float-left img">
+                                                    <div class="img">
                                                         <img
                                                             [src]="
                                                                 message?.computed_author?.computed_profile_direct_url
@@ -384,7 +384,7 @@
                                                         />
                                                     </div>
                                                     <div class="profile-name">
-                                                        <div class="float-left">
+                                                        <div class="name-wrapper">
                                                             <h4 class="name">
                                                                 {{ message?.computed_author?.computed_fullname }}
                                                             </h4>
@@ -543,7 +543,7 @@
                             [ngClass]="{ active: !openedThread || (chatService.isExpand | async) }"
                         >
                             <ng-container *ngIf="chatService.userSearch | async">
-                                <div class="back-to-conversation user-list-padding" (click)="backToListFromUsers()">
+                                <div class="back-to-conversation back-to-margin-fix" (click)="backToListFromUsers()">
                                     <img src="assets/images/dm-back-arrow.svg" />
                                     <span>Back to Conversation list</span>
                                 </div>
