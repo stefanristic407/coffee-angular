@@ -70,10 +70,16 @@ export class RoleListComponent implements OnInit {
         this.supplyBreadCrumb();
         this.roasterId = this.cookieService.get('roaster_id');
     }
-    getTableData(): void {
+    getTableData(event?): void {
         this.tableValue = [];
         this.loader = true;
-        this.roasterService.getRoles(this.roasterId).subscribe(
+        const postData: any = {};
+        postData.per_page = 10;
+        if (event) {
+            const currentPage = event.first / 25;
+            postData.page = currentPage + 1;
+        }
+        this.roasterService.getRoles(this.roasterId, postData).subscribe(
             (res: any) => {
                 this.loader = false;
                 if (res.success === true) {

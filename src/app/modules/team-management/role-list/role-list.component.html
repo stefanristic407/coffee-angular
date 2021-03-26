@@ -40,7 +40,8 @@
             [resizableColumns]="true"
             styleClass="ui-table-customers"
             [showCurrentPageReport]="false"
-            [paginator]="false"
+            [paginator]="true"
+            [rows]="25"
             [lazy]="true"
             (onLazyLoad)="getTableData()"
             [totalRecords]="totalCount"
@@ -138,7 +139,7 @@
                             </div>
                         </span>
                         <span *ngSwitchCase="'actions'">
-                            <ng-container>
+                            <ng-container class="h-100">
                                 <a
                                     class="menu-arrow d-flex align-items-center h-100 ellipsisClass"
                                     [popover]="poplistTemplate"
