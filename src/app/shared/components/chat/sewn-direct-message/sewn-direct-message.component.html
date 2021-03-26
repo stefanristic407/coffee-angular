@@ -88,7 +88,9 @@
                                 *ngIf="openedThread"
                             >
                                 <a class="menu-arrow" (click)="toggleMenu()">
-                                    <p><img class="ellipse-image" src="assets/images/three-dots.svg" alt="" /></p>
+                                    <p class="kebab-menu-wrapper">
+                                        <img class="ellipse-image" src="assets/images/three-dots.svg" alt="" />
+                                    </p>
                                 </a>
 
                                 <div class="chat-seeting__items">
@@ -297,7 +299,7 @@
                                             *ngIf="openedThread"
                                         >
                                             <a class="menu-arrow" (click)="toggleMenu()">
-                                                <p>
+                                                <p class="kebab-menu-wrapper">
                                                     <img
                                                         class="ellipse-image"
                                                         src="assets/images/three-dots.svg"

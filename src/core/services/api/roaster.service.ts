@@ -33,9 +33,11 @@ export class RoasterserviceService {
     //API Description: This API calls helps to get all roles to the user.
 
     getRoles(id: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + id + '/roles';
-        data['token'] = this.cookieService.get('Auth');
+        const data = {
+            api_call: `/ro/${id}/roles`,
+            method: 'GET',
+            token: this.cookieService.get('Auth'),
+        };
         return this.http.post(this.url, data);
     }
 
@@ -43,11 +45,11 @@ export class RoasterserviceService {
     //API Description: This API calls helps to delete the role.
 
     deleteRoles(roaster_id: any, id: any) {
-        var data = {};
-        console.log(this.deleteUrl);
-        data['api_call'] = '/ro/' + roaster_id + '/roles/' + id;
-        data['token'] = this.cookieService.get('Auth');
-        console.log(data);
+        const data = {
+            api_call: `/ro/${roaster_id}/roles/${id}`,
+            token: this.cookieService.get('Auth'),
+            method: 'DELETE',
+        };
         return this.http.post(this.deleteUrl, data);
     }
 
@@ -55,9 +57,11 @@ export class RoasterserviceService {
     //API Description: This API calls helps to get the all Roaster user data.
 
     getRoasterUsers(id: any, postData?) {
-        var data = {};
-        data['api_call'] = '/ro/' + id + '/users?' + this.serlialise(postData);
-        data['token'] = this.cookieService.get('Auth');
+        const data = {
+            api_call: `/ro/${id}/users?${this.serlialise(postData)}`,
+            method: 'GET',
+            token: this.cookieService.get('Auth'),
+        };
         return this.http.post(this.url, data);
     }
     serlialise(obj) {
@@ -75,11 +79,13 @@ export class RoasterserviceService {
     //API Description: This API calls helps to create a role to the user.
 
     createRole(body: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + body.id + '/roles';
-        data['token'] = this.cookieService.get('Auth');
-        data['data'] = {
-            name: body.name,
+        const data = {
+            api_call: `/ro/${body.id}/roles`,
+            token: this.cookieService.get('Auth'),
+            data: {
+                name: body.name,
+            },
+            method: 'POST',
         };
         return this.http.post(this.url, data);
     }
@@ -88,9 +94,11 @@ export class RoasterserviceService {
     //API Description: This API calls helps to get the  permissions of the particular Roaster.
 
     getRoasterPermissions(id: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + id + '/permissions';
-        data['token'] = this.cookieService.get('Auth');
+        const data = {
+            api_call: `/ro/${id}/permissions`,
+            token: this.cookieService.get('Auth'),
+            method: 'GET',
+        };
         return this.http.post(this.url, data);
     }
 
@@ -98,9 +106,11 @@ export class RoasterserviceService {
     //API Description: This API calls helps to get the Role name of the Selected role.
 
     getRoasterRoleName(id: any, roaster_id: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/roles/' + id;
-        data['token'] = this.cookieService.get('Auth');
+        const data = {
+            api_call: `/ro/${roaster_id}/roles/${id}`,
+            token: this.cookieService.get('Auth'),
+            method: 'GET',
+        };
         return this.http.post(this.url, data);
     }
 
@@ -108,12 +118,13 @@ export class RoasterserviceService {
     //API Description: This API calls helps to Update role name.
 
     updateRoasterRoleName(body: any, roaster_id: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/roles/' + body.roleId;
-        data['token'] = this.cookieService.get('Auth');
-        data['method'] = 'PUT';
-        data['data'] = {
-            name: body.name,
+        const data = {
+            api_call: `/ro/${roaster_id}/roles/${body.roleId}`,
+            token: this.cookieService.get('Auth'),
+            method: 'PUT',
+            data: {
+                name: body.name,
+            },
         };
         return this.http.post(this.url, data);
     }
@@ -121,10 +132,12 @@ export class RoasterserviceService {
     //API Function Name : Role permissions
     //API Description: This API calls helps to get all permissions.
 
-    getRolePermissions(roaster_id: any, roleid: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/roles/' + roleid + '/permissions';
-        data['token'] = this.cookieService.get('Auth');
+    getRolePermissions(roaster_id: any, roleId: any) {
+        const data = {
+            api_call: `/ro/${roaster_id}/roles/${roleId}/permissions`,
+            token: this.cookieService.get('Auth'),
+            method: 'GET',
+        };
         return this.http.post(this.url, data);
     }
 
@@ -132,53 +145,60 @@ export class RoasterserviceService {
     //API Description: This API calls helps to assign role permissions to the user
 
     assignRolePermissions(body: any, roleId: any, roaster_id: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/roles/' + roleId + '/permissions';
-        data['token'] = this.cookieService.get('Auth');
-        data['data'] = body;
+        const data = {
+            api_call: `/ro/${roaster_id}/roles/${roleId}/permissions`,
+            token: this.cookieService.get('Auth'),
+            method: 'POST',
+            data: body,
+        };
         return this.http.post(this.url, data);
     }
 
     //API Function Name : Get User Roles
     //API Description: This API calls helps to get the roles of the selected user.
 
-    getUserBasedRoles(roaster_id: any, user_id: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/users/' + user_id + '/roles';
-        data['token'] = this.cookieService.get('Auth');
+    getUserBasedRoles(roaster_id: any, userId: any) {
+        const data = {
+            api_call: `/ro/${roaster_id}/users/${userId}/roles`,
+            token: this.cookieService.get('Auth'),
+            method: 'GET',
+        };
         return this.http.post(this.url, data);
     }
 
     //API Function Name : delete user
     //API Description: This API calls helps to delete the selected user.
 
-    deleteRoasterUser(roaster_id: any, user_id: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/users/' + user_id;
-        data['token'] = this.cookieService.get('Auth');
-        data['method'] = 'DELETE';
+    deleteRoasterUser(roaster_id: any, userId: any) {
+        const data = {
+            api_call: `/ro/${roaster_id}/users/${userId}`,
+            token: this.cookieService.get('Auth'),
+            method: 'DELETE',
+        };
         return this.http.post(this.url, data);
     }
 
     //API Function Name : Assign Role
     //API Description: This API calls helps to assign new role to the selected user.
 
-    assignUserBasedUserRoles(roaster_id: any, role_id: any, user_id: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/users/' + user_id + '/roles/' + role_id;
-        data['token'] = this.cookieService.get('Auth');
-        data['method'] = 'POST';
+    assignUserBasedUserRoles(roaster_id: any, roleId: any, userId: any) {
+        const data = {
+            api_call: `/ro/${roaster_id}/users/${userId}/roles/${roleId}`,
+            token: this.cookieService.get('Auth'),
+            method: 'POST',
+        };
         return this.http.post(this.url, data);
     }
 
     //API Function Name : Delete user role
     //API Description: This API calls helps to delete the role of the selected user
 
-    deleteRoasterUserRole(roaster_id: any, role_id: any, user_id: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/users/' + user_id + '/roles/' + role_id;
-        data['token'] = this.cookieService.get('Auth');
-        data['method'] = 'DELETE';
+    deleteRoasterUserRole(roaster_id: any, roleId: any, userId: any) {
+        const data = {
+            api_call: `/ro/${roaster_id}/users/${userId}/roles/${roleId}`,
+            token: this.cookieService.get('Auth'),
+            method: 'DELETE',
+        };
         return this.http.post(this.url, data);
     }
 
@@ -186,10 +206,11 @@ export class RoasterserviceService {
     //API Description: This API calls helps to Enable the selected user.
 
     enableAdminUser(roaster_id: any, enableUserId: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/users/' + enableUserId + '/enable';
-        data['method'] = 'PUT';
-        data['token'] = this.cookieService.get('Auth');
+        const data = {
+            api_call: `/ro/${roaster_id}/users/${enableUserId}/enable`,
+            token: this.cookieService.get('Auth'),
+            method: 'PUT',
+        };
         return this.http.put(this.putUrl, data);
     }
 
@@ -197,10 +218,11 @@ export class RoasterserviceService {
     //API Description: This API calls helps to Disable the selected user.
 
     disableAdminUsers(roaster_id: any, disableUserId: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/users/' + disableUserId + '/disable';
-        data['method'] = 'PUT';
-        data['token'] = this.cookieService.get('Auth');
+        const data = {
+            api_call: `/ro/${roaster_id}/users/${disableUserId}/disable`,
+            token: this.cookieService.get('Auth'),
+            method: 'PUT',
+        };
         return this.http.put(this.putUrl, data);
     }
 
@@ -208,9 +230,11 @@ export class RoasterserviceService {
     //API Description: This API calls helps to get the contacts of the Roaster.
 
     getRoasterContacts(roaster_id: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/users/top-contacts';
-        data['token'] = this.cookieService.get('Auth');
+        const data = {
+            api_call: `/ro/${roaster_id}/users/top-contacts`,
+            token: this.cookieService.get('Auth'),
+            method: 'GET',
+        };
         return this.http.post(this.url, data);
     }
 
@@ -218,11 +242,12 @@ export class RoasterserviceService {
     //API Description: This API calls helps to add contacts of the Roaster.
 
     addRoasterContacts(roaster_id: any, body: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/users/top-contacts';
-        data['method'] = 'POST';
-        data['token'] = this.cookieService.get('Auth');
-        data['data'] = body;
+        const data = {
+            api_call: `/ro/${roaster_id}/users/top-contacts`,
+            token: this.cookieService.get('Auth'),
+            method: 'POST',
+            data: body,
+        };
         return this.http.post(this.url, data);
     }
 
@@ -230,10 +255,11 @@ export class RoasterserviceService {
     //API Description: This API calls helps to add contacts of the Roaster.
 
     deleteRoasterContacts(roaster_id: any, contact_id: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/users/top-contacts/' + contact_id;
-        // data['method'] = "DELETE";
-        data['token'] = this.cookieService.get('Auth');
+        const data = {
+            api_call: `/ro/${roaster_id}/users/top-contacts/${contact_id}`,
+            token: this.cookieService.get('Auth'),
+            method: 'DELETE',
+        };
         return this.http.post(this.deleteUrl, data);
     }
 
@@ -241,9 +267,10 @@ export class RoasterserviceService {
     //API Description: This API calls helps to get the Brands of the Roaster.
 
     getRoasterBrands(roaster_id: any): Observable<any> {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/brands';
-        data['token'] = this.cookieService.get('Auth');
+        const data = {
+            api_call: `/ro/${roaster_id}/brands`,
+            token: this.cookieService.get('Auth'),
+        };
         return this.http.post(this.url, data);
     }
 
@@ -455,41 +482,42 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
 
-    //API Function Name : Get Agreements
-    //API Description: This API calls helps to get the agreements .
+    // API Function Name : Get Agreements
+    // API Description: This API calls helps to get the agreements .
     getAgreements(roaster_id: any, customer_type: any) {
-        // let params = new HttpParams();
-        // params = params.append('file_module', 'File-Share');
-        // params = params.append('type_in','VIDEO');
-        // params = params.append('parent_id', parentId)
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/' + customer_type + '/agreements';
-        // data['params'] = params;
-        data['token'] = this.cookieService.get('Auth');
-        //  const params = new HttpParams().append( 'file_module', fileModule )
-        console.log(data);
+        const data = { api_call: '', token: '', method: '' };
+        data.api_call = '/ro/' + roaster_id + '/' + customer_type + '/agreements';
+        data.token = this.cookieService.get('Auth');
+        data.method = 'GET';
         return this.http.post(this.url, data);
     }
 
-    //API Function Name : Upload Agreements
-    //API Description: This API calls helps to upload the agreements .
+    // API Function Name : Upload Agreements
+    // API Description: This API calls helps to upload the agreements.
+
     uploadAgreements(roaster_id: any, customer_type: any, body: any) {
-        // let params = new HttpParams();
-        // params = params.append('file_module', 'File-Share');
-        // params = params.append('type_in','VIDEO');
-        // params = params.append('parent_id', parentId)
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/' + customer_type + '/agreements';
-        // data['params'] = params;
-        data['token'] = this.cookieService.get('Auth');
-        data['data'] = body;
-        //  const params = new HttpParams().append( 'file_module', fileModule )
-        console.log(data);
+        const data = { api_call: '', token: '', method: '', data: '' };
+        data.api_call = '/ro/' + roaster_id + '/' + customer_type + '/agreements';
+        data.token = this.cookieService.get('Auth');
+        data.data = body;
+        data.method = 'POST';
         return this.http.post(this.url, data);
     }
 
-    //API Function Name : Update Agreements
-    //API Description: This API calls helps to update the agreements.
+    // API Function Name : Update Agreements
+    // API Description: This API calls helps to update the agreements.
+
+    updateAgreements(roaster_id: any, customer_type: any, id: any, body: any) {
+        const data = { api_call: '', token: '', method: '', data: '' };
+        data.api_call = '/ro/' + roaster_id + '/' + customer_type + '/agreements/' + id;
+        data.method = 'PUT';
+        data.token = this.cookieService.get('Auth');
+        data.data = body;
+        return this.http.post(this.url, data);
+    }
+
+    // API Function Name : Update Agreements
+    // API Description: This API calls helps to update the agreements.
 
     getAgreementValue(roaster_id: any, customer_type: any, id: any) {
         var data = {};
@@ -499,17 +527,6 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
 
-    //API Function Name : Update Agreements
-    //API Description: This API calls helps to update the agreements.
-
-    updateAgreements(roaster_id: any, customer_type: any, id: any, body: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/' + customer_type + '/agreements/' + id;
-        data['method'] = 'PUT';
-        data['token'] = this.cookieService.get('Auth');
-        data['data'] = body;
-        return this.http.post(this.url, data);
-    }
     //API Function Name : Delete Agreement
     //API Description: This API calls helps to Delete the Agreement.
 
@@ -581,23 +598,18 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
     getMicroRoastersHoreca(roaster_id: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/hrc';
-        // data['params'] = params;
-        data['token'] = this.cookieService.get('Auth');
-        data['method'] = 'GET';
-        //  const params = new HttpParams().append( 'file_module', fileModule )
-        // console.log(data);
+        const data = { api_call: '', token: '', method: '' };
+        data.api_call = '/ro/' + roaster_id + '/hrc';
+        data.token = this.cookieService.get('Auth');
+        data.method = 'GET';
         return this.http.post(this.url, data);
     }
 
     getMicroRoastersList(roaster_id: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/micro-roasters';
-        // data['params'] = params;
-        data['token'] = this.cookieService.get('Auth');
-        //  const params = new HttpParams().append( 'file_module', fileModule )
-        // console.log(data);
+        const data = { api_call: '', token: '', method: '' };
+        data.api_call = '/ro/' + roaster_id + '/micro-roasters';
+        data.token = this.cookieService.get('Auth');
+        data.method = 'GET';
         return this.http.post(this.url, data);
     }
 
@@ -660,12 +672,13 @@ export class RoasterserviceService {
     }
 
     getEstateOrders(roaster_id: any, postData = null, orderType = '') {
-        let data: any = {};
+        const data: any = {};
         data.api_call = '/ro/' + roaster_id + '/orders?' + this.serlialise(postData);
         if (orderType == 'MR') {
             data.api_call = '/ro/' + roaster_id + '/mr-orders?' + this.serlialise(postData);
         }
         data.token = this.cookieService.get('Auth');
+        data.method = 'GET';
         return this.http.post(this.url, data);
     }
 
