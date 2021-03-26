@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { GlobalsService, RoasterserviceService } from '@services';
+import { Component, OnInit } from '@angular/core';
+import { GlobalsService } from '@services';
 import { UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
@@ -54,7 +54,6 @@ export class DefaultSettingsComponent implements OnInit {
         private toastrService: ToastrService,
         public cookieService: CookieService,
         private route: ActivatedRoute,
-        private roasterService: RoasterserviceService,
         public location: Location,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
@@ -173,7 +172,17 @@ export class DefaultSettingsComponent implements OnInit {
     }
 
     getOrderExperience() {
-        if (this.route.snapshot.queryParams.micro_roasters_id) {
+        if (this.route.snapshot.queryParams.estate_id) {
+            this.userService
+                .getEstateOrdersCoffeeExperience(this.roasterId, this.orderId)
+                .subscribe((response: any) => {
+                    if (response.success) {
+                        this.setPageData(response);
+                    } else {
+                        this.getDefaultSetting();
+                    }
+                });
+        } else if (this.route.snapshot.queryParams.micro_roasters_id) {
             this.userService.getMrOrdersCoffeeExperience(this.roasterId, this.orderId).subscribe((response: any) => {
                 if (response.success) {
                     this.setPageData(response);

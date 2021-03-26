@@ -683,14 +683,16 @@ export class RoasterserviceService {
     }
 
     getCoffeeExperienceOrders(roaster_id: any, orderType: string) {
-        let data: any = {};
+        const data = { api_call: '', method: '', token: '' };
+        let params = new HttpParams();
+        params = params.append('status', 'RECEIVED');
         const postData = null;
-        if (orderType == 'estate') {
+        if (orderType === 'estate') {
             data.api_call = '/ro/' + roaster_id + '/orders?' + this.serlialise(postData);
-        } else if (orderType == 'micro-roasters') {
-            data.api_call = '/ro/' + roaster_id + '/mr-orders?' + this.serlialise(postData);
-        } else if (orderType == 'hrc') {
-            data.api_call = '/ro/' + roaster_id + '/hrc-orders?' + this.serlialise(postData);
+        } else if (orderType === 'micro-roasters') {
+            data.api_call = '/ro/' + roaster_id + '/mr-orders?' + this.serlialise(postData) + params;
+        } else if (orderType === 'hrc') {
+            data.api_call = '/ro/' + roaster_id + '/hrc-orders?' + this.serlialise(postData) + params;
         }
         data.method = 'GET';
         data.token = this.cookieService.get('Auth');
