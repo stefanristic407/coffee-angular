@@ -1118,6 +1118,14 @@ export class UserserviceService {
         };
         return this.http.post(this.roasterDeleteUrl, data);
     }
+    getEstateOrdersCoffeeExperience(roaster_id: any, order_id: any) {
+        const data = {
+            api_call: `/ro/${roaster_id}/orders/${order_id}`,
+            method: 'GET',
+            token: this.cookieService.get('Auth'),
+        };
+        return this.http.post(this.roasterUrl, data);
+    }
     getMrOrdersCoffeeExperience(roaster_id: any, order_id: any) {
         const data = {
             api_call: `/ro/${roaster_id}/mr-orders/${order_id}/coffee-experience`,

@@ -9,25 +9,23 @@ import * as CryptoJS from 'crypto-js';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
+import { ApiService } from './api.service';
 
 @Injectable({
     providedIn: 'root',
 })
-export class RoasterserviceService {
+export class RoasterserviceService extends ApiService {
     //API call URL's
     private url = environment.apiURL + '/ro/api';
-    private deleteUrl = environment.apiURL + '/ro/deleteapi';
     private putUrl = environment.apiURL + '/ro/putapi';
     private fileuploadUrl = environment.apiURL + '/ro/filesfolders';
     private putfileuploadUrl = environment.apiURL + '/ro/putfilesfolders';
     private encryptionKey = 'sewen_secrete_key';
     private brandUrl = environment.apiURL + '/ro/brands';
 
-    // private url = "https://fed-api.sewnstaging.com/ro/api";
-    // private deleteUrl = "https://fed-api.sewnstaging.com/ro/deleteapi";
-    // private putUrl = "https://fed-api.sewnstaging.com/ro/putapi";
-
-    constructor(private http: HttpClient, private cookieService: CookieService) {}
+    constructor(protected http: HttpClient, protected cookieService: CookieService) {
+        super(cookieService, http);
+    }
 
     //API Function Name : Role List
     //API Description: This API calls helps to get all roles to the user.
@@ -50,7 +48,7 @@ export class RoasterserviceService {
             token: this.cookieService.get('Auth'),
             method: 'DELETE',
         };
-        return this.http.post(this.deleteUrl, data);
+        return this.http.post(this.orgDeleteUrl, data);
     }
 
     //API Function Name : Roaster User Data
@@ -260,7 +258,7 @@ export class RoasterserviceService {
             token: this.cookieService.get('Auth'),
             method: 'DELETE',
         };
-        return this.http.post(this.deleteUrl, data);
+        return this.http.post(this.orgDeleteUrl, data);
     }
 
     //API Function Name : Get Brands
@@ -337,7 +335,7 @@ export class RoasterserviceService {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/file-manager/folders/' + id;
         data['token'] = this.cookieService.get('Auth');
-        return this.http.post(this.deleteUrl, data);
+        return this.http.post(this.orgDeleteUrl, data);
     }
 
     //API Function Name : Delete File
@@ -347,7 +345,7 @@ export class RoasterserviceService {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/file-manager/files/' + id;
         data['token'] = this.cookieService.get('Auth');
-        return this.http.post(this.deleteUrl, data);
+        return this.http.post(this.orgDeleteUrl, data);
     }
 
     //API Function Name : Get Shared Files/Folders
@@ -534,7 +532,7 @@ export class RoasterserviceService {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/' + customer_type + '/agreements/' + id;
         data['token'] = this.cookieService.get('Auth');
-        return this.http.post(this.deleteUrl, data);
+        return this.http.post(this.orgDeleteUrl, data);
     }
 
     //API Function Name : Get Users List
@@ -613,21 +611,14 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
 
-    getRoastingProfile(roaster_id: any, postData?): Observable<any> {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/roasting-profile?' + this.serlialise(postData);
-        // data['params'] = params;
-        data['token'] = this.cookieService.get('Auth');
-        //  const params = new HttpParams().append( 'file_module', fileModule )
-        console.log(data);
-        return this.http.post(this.url, data);
+    getRoastingProfile(postData?): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `roasting-profile?${this.serlialise(postData)}`);
     }
-    getRoasterCoffeeBatchs(roaster_id: any, postData?) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/roasted-batches?' + this.serlialise(postData);
-        data['token'] = this.cookieService.get('Auth');
-        return this.http.post(this.url, data);
+
+    getRoasterCoffeeBatchs(postData?) {
+        return this.postWithOrg(this.orgPostUrl, `roasted-batches?${this.serlialise(postData)}`);
     }
+
     getSelectOrderListTable(roaster_id: any) {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/roasted-batches';
@@ -683,14 +674,16 @@ export class RoasterserviceService {
     }
 
     getCoffeeExperienceOrders(roaster_id: any, orderType: string) {
-        let data: any = {};
+        const data = { api_call: '', method: '', token: '' };
+        let params = new HttpParams();
+        params = params.append('status', 'RECEIVED');
         const postData = null;
-        if (orderType == 'estate') {
+        if (orderType === 'estate') {
             data.api_call = '/ro/' + roaster_id + '/orders?' + this.serlialise(postData);
-        } else if (orderType == 'micro-roasters') {
-            data.api_call = '/ro/' + roaster_id + '/mr-orders?' + this.serlialise(postData);
-        } else if (orderType == 'hrc') {
-            data.api_call = '/ro/' + roaster_id + '/hrc-orders?' + this.serlialise(postData);
+        } else if (orderType === 'micro-roasters') {
+            data.api_call = '/ro/' + roaster_id + '/mr-orders?' + this.serlialise(postData) + params;
+        } else if (orderType === 'hrc') {
+            data.api_call = '/ro/' + roaster_id + '/hrc-orders?' + this.serlialise(postData) + params;
         }
         data.method = 'GET';
         data.token = this.cookieService.get('Auth');
@@ -832,7 +825,7 @@ export class RoasterserviceService {
         var data = {};
         data['api_call'] = `/ro/${roaster_id}/roasted-batches/${batch_id}`;
         data['token'] = this.cookieService.get('Auth');
-        return this.http.post(this.deleteUrl, data);
+        return this.http.post(this.orgDeleteUrl, data);
     }
     orderReceived(roaster_id: any, order_id: any) {
         const data = {};
@@ -875,7 +868,7 @@ export class RoasterserviceService {
         const data = {};
         data['api_call'] = `/ro/${roaster_id}/products/${productId}`;
         data['token'] = this.cookieService.get('Auth');
-        return this.http.post(this.deleteUrl, data);
+        return this.http.post(this.orgDeleteUrl, data);
     }
     updateProductDetails(roaster_id: any, productId: any, body: any): Observable<any> {
         const data = {};
