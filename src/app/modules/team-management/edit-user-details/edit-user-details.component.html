@@ -29,19 +29,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div
-                        *ngIf="isLast"
-                        class="col-12 d-none d-sm-none d-md-inline-flex align-items-center"
-                        style="margin-top: -0.5rem"
-                    >
-                        <img src="assets/images/add-partner.svg" />
-                        <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer" (click)="addUser()">
-                            {{ 'add_another_member' | translate }}
-                        </span>
+                <div
+                    class="d-none d-sm-none d-md-flex col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 p-0 align-items-center"
+                >
+                    <div class="fnt-muli ml-0 ml-md-2" *ngIf="i != 0 || !isLast">
+                        <span class="fnt-700 text-highlited cursor-pointer" (click)="deleteEmail(i)"> Delete </span>
                     </div>
                 </div>
             </div>
-        </form>
-    </div>
+            <div class="row">
+                <div
+                    *ngIf="isLast"
+                    class="col-12 d-none d-sm-none d-md-inline-flex align-items-center"
+                    style="margin-top: -0.5rem"
+                >
+                    <img src="assets/images/add-partner.svg" />
+                    <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer" (click)="addUser()">
+                        {{ 'add_another_member' | translate }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
