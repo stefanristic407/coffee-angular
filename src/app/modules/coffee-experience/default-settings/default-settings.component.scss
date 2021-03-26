@@ -443,6 +443,11 @@ label {
     color: #232334;
 }
 
+.download:hover {
+    color: #232334;
+    text-decoration: none;
+}
+
 @media (min-width: 992px) {
     .tabView {
         display: none;

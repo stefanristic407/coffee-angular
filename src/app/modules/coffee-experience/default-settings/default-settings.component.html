@@ -69,7 +69,9 @@
                                             <div class="col-12 col-md-5 px-0">
                                                 <div class="sewn-form-field mb-0">
                                                     <div>
-                                                        <label class="text-clr588">Roastery website</label>
+                                                        <label [ngClass]="{ 'text-clr588': isEditableMode }"
+                                                            >Roastery website</label
+                                                        >
                                                     </div>
                                                     <input
                                                         *ngIf="isEditableMode"
@@ -88,7 +90,7 @@
                                         <div class="input-container">
                                             <div class="col-12 px-0">
                                                 <div>
-                                                    <label
+                                                    <label [ngClass]="{ 'text-clr588': isEditableMode }"
                                                         >A short description about the Roastery<span
                                                             class="text-clr-e5a"
                                                             >*</span
@@ -208,7 +210,9 @@
                                                 <div class="col-12 col-md-5 px-0">
                                                     <div class="sewn-form-field mb-0">
                                                         <div>
-                                                            <label class="text-clr588">Roastery website</label>
+                                                            <label [ngClass]="{ 'text-clr588': isEditableMode }"
+                                                                >Roastery website</label
+                                                            >
                                                         </div>
                                                         <input
                                                             *ngIf="isEditableMode"
@@ -227,7 +231,9 @@
                                             <div class="input-container">
                                                 <div class="col-12 px-0">
                                                     <div>
-                                                        <label>A short description about the Roastery</label>
+                                                        <label [ngClass]="{ 'text-clr588': isEditableMode }"
+                                                            >A short description about the Roastery</label
+                                                        >
                                                     </div>
                                                     <div class="sewn-form-field w-100 mb-0" *ngIf="isEditableMode">
                                                         <textarea
@@ -453,7 +459,7 @@
                                                         <img class="img-fluid" src="assets/images/qr.PNG" />
                                                         <div class="download-qr-link d-flex justify-content-center">
                                                             <a
-                                                                class="btn-trans-icon px-3 d-inline-flex align-items-center"
+                                                                class="btn-trans-icon px-3 d-inline-flex align-items-center download"
                                                                 href="assets/images/dwnd.png"
                                                                 download
                                                             >
