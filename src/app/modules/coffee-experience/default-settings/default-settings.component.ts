@@ -102,8 +102,8 @@ export class DefaultSettingsComponent implements OnInit {
             { label: this.isCoffeeDetailsPage ? 'Order #' + this.orderId : 'Default Settings' },
         ];
         this.defaultDetails = {
-            description: '',
             website: '',
+            description: '',
             tags: [],
             video_id: 0,
             image_id: 0,
@@ -403,11 +403,5 @@ export class DefaultSettingsComponent implements OnInit {
         textArea.select();
         document.execCommand('Copy');
         textArea.remove();
-    }
-
-    deleteCertificate(item) {
-        this.roasterService.deleteCertificate(this.roasterId, item).subscribe((del: any) => {
-            this.toastrService.success('Certificates deleted successfully');
-        });
     }
 }
