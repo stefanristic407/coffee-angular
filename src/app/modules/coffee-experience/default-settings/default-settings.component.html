@@ -88,7 +88,12 @@
                                         <div class="input-container">
                                             <div class="col-12 px-0">
                                                 <div>
-                                                    <label>A short description about the Roastery</label>
+                                                    <label
+                                                        >A short description about the Roastery<span
+                                                            class="text-clr-e5a"
+                                                            >*</span
+                                                        ></label
+                                                    >
                                                 </div>
                                                 <div class="sewn-form-field w-100 mb-0" *ngIf="isEditableMode">
                                                     <textarea
@@ -105,7 +110,7 @@
                                                         *ngIf="isSent && !defaultDetails.description"
                                                         class="p-error"
                                                     >
-                                                        Required
+                                                        Description is required.
                                                     </small>
                                                 </div>
                                                 <div class="no-editable-text" *ngIf="!isEditableMode">
@@ -116,7 +121,7 @@
                                         <div class="roastery-fields">
                                             <div class="roastery-tags">
                                                 <div class="col-12 px-0">
-                                                    <label>{{ 'select_tags' | translate }}(max 5)</label>
+                                                    <label>{{ 'select_tags' | translate }} (max 5)</label>
                                                     <div
                                                         class="roastery-tags__checkboxes"
                                                         [ngClass]="{ 'p-0 border-0': !isEditableMode }"
@@ -174,23 +179,6 @@
                                                             (click)="viewCertificate(item)"
                                                         >
                                                             {{ 'view' | translate }}
-                                                        </button>
-                                                        <label
-                                                            *ngIf="isEditableMode"
-                                                            class="mb-0"
-                                                            routerLink="/roastery-profile/certificate"
-                                                        >
-                                                            <span
-                                                                class="fnt-muli border px-2 ml-25 py-1 fnt-700 d-inline-block"
-                                                                >+</span
-                                                            >
-                                                        </label>
-                                                        <button
-                                                            *ngIf="estateBtn && !isEditableMode"
-                                                            class="fnt-muli fnt-14 fnt-700"
-                                                            (click)="deleteCertificate(item.id)"
-                                                        >
-                                                            {{ 'delete' | translate }}
                                                         </button>
                                                     </div>
                                                     <div class="d-block d-md-none">
@@ -256,7 +244,7 @@
                                                             *ngIf="isSent && !defaultDetails.description"
                                                             class="p-error"
                                                         >
-                                                            Required
+                                                            Description is required.
                                                         </small>
                                                     </div>
                                                     <div class="no-editable-text" *ngIf="!isEditableMode">

@@ -224,10 +224,16 @@
                 >
                     {{ item.cup_score }}
                 </td>
-                <td *ngIf="customerType === 'estate'" class="view-listing" (click)="viewDetails()">View Details</td>
+                <td
+                    *ngIf="customerType === 'estate'"
+                    class="brown-cta fnt-bold ng-star-inserted"
+                    (click)="viewDetails()"
+                >
+                    View Details
+                </td>
                 <td
                     *ngIf="customerType === 'micro-roasters'"
-                    class="view-listing"
+                    class="brown-cta fnt-bold ng-star-inserted"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ micro_roasters_id: item.id }"
                 >
@@ -235,7 +241,7 @@
                 </td>
                 <td
                     *ngIf="customerType === 'hrc'"
-                    class="view-listing"
+                    class="brown-cta fnt-bold ng-star-inserted"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ hrc_id: item.order_id }"
                 >
