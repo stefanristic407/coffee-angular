@@ -273,6 +273,7 @@
         display: block;
     }
     .profile-name {
+        width: 100%;
         .name {
             margin: 0 0 2px;
             font-family: Muli;
@@ -294,6 +295,16 @@
             line-height: normal;
             letter-spacing: normal;
             color: #747588;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            .org-name {
+                display: inline-block;
+                margin-right: 10px;
+            }
+            .timestamp {
+                display: inline-block;
+            }
         }
     }
 }

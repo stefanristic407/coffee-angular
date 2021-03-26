@@ -17,13 +17,18 @@
                                     <h4 class="name">
                                         {{ message?.computed_author?.computed_fullname }}
                                     </h4>
-                                    <span class="status">{{
-                                        message?.computed_author?.computed_organization_name
-                                    }}</span>
+                                    <span class="status">
+                                        <span class="org-name">{{
+                                            message?.computed_author?.computed_organization_name
+                                        }}</span>
+                                        <span class="timestamp">{{ message.computed_date }}</span>
+                                    </span>
                                 </div>
                             </div>
                             <div class="message-info__body position-relative">
-                                <span class="live-time">{{ message.computed_date }}</span>
+                                <span *ngIf="!message.showUserBadge" class="live-time">{{
+                                    message.computed_date
+                                }}</span>
                                 <p class="message-text">
                                     {{ message.content }}
                                 </p>

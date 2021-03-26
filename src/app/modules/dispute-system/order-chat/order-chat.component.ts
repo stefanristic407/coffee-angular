@@ -15,7 +15,7 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
     roasterID: any;
     orderDetails: any;
     currentDisputeID: any;
-    isView = true;
+    isView = false;
     orderID: any;
     orderDisputes = [];
     threadList = [];

@@ -15,7 +15,7 @@
                     Mark as resolved
                 </button>
                 <button
-                    *ngIf="!currentDisputeID && orderDetails && orderDetails['status'] !== 'Received'"
+                    *ngIf="!currentDisputeID && orderDetails"
                     [routerLink]="['/dispute-system/order-support/', orderID]"
                     class="btn pull-right btn-raised"
                 >
