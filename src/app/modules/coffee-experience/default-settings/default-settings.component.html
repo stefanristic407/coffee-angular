@@ -81,7 +81,11 @@
                                                         type="text"
                                                         pInputText
                                                     />
-                                                    <div class="no-editable-text fnt-500" *ngIf="!isEditableMode">
+                                                    <div
+                                                        class="no-editable-text"
+                                                        [ngClass]="{ 'fnt-500': isEditableMode }"
+                                                        *ngIf="!isEditableMode"
+                                                    >
                                                         {{ defaultDetails.website }}
                                                     </div>
                                                 </div>
@@ -123,7 +127,9 @@
                                         <div class="roastery-fields">
                                             <div class="roastery-tags">
                                                 <div class="col-12 px-0">
-                                                    <label>{{ 'select_tags' | translate }} (max 5)</label>
+                                                    <label [ngClass]="{ 'text-clr588': isEditableMode }"
+                                                        >{{ 'select_tags' | translate }} (max 5)</label
+                                                    >
                                                     <div
                                                         class="roastery-tags__checkboxes"
                                                         [ngClass]="{ 'p-0 border-0': !isEditableMode }"
@@ -222,7 +228,11 @@
                                                             type="text"
                                                             pInputText
                                                         />
-                                                        <div class="no-editable-text fnt-500" *ngIf="!isEditableMode">
+                                                        <div
+                                                            class="no-editable-text"
+                                                            [ngClass]="{ 'fnt-500': isEditableMode }"
+                                                            *ngIf="!isEditableMode"
+                                                        >
                                                             {{ defaultDetails.website }}
                                                         </div>
                                                     </div>
@@ -261,7 +271,9 @@
                                             <div class="roastery-fields">
                                                 <div class="roastery-tags">
                                                     <div class="col-12 px-0">
-                                                        <label>{{ 'select_tags' | translate }}(max 5)</label>
+                                                        <label [ngClass]="{ 'text-clr588': isEditableMode }"
+                                                            >{{ 'select_tags' | translate }}(max 5)</label
+                                                        >
                                                         <div
                                                             class="roastery-tags__checkboxes"
                                                             [ngClass]="{ 'p-0 border-0': !isEditableMode }"
