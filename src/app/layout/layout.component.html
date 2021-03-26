@@ -330,7 +330,7 @@
 
 <div class="layout-wrap">
     <div class="container" *ngIf="loaded">
-        <div class="router-design">
+        <div class="router-design" [class]="{ 'pb-0': !showFooter() }">
             <ng-container *ngIf="loaded; else mainLoader">
                 <app-sewn-direct-message></app-sewn-direct-message>
                 <app-search-panel
