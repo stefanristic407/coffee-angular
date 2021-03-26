@@ -4,20 +4,22 @@
             <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
         </div>
         <div class="col-2">
-            <button type="submit" class="btn pull-right btn-raised d-md-block d-none" (click)="roleAdd()">
+            <button type="submit" class="btn pull-right btn-raised d-lg-block d-none" (click)="roleAdd()">
                 {{ btnValue }}
             </button>
         </div>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-6 p-0">
+            <div class="col-sm-12 col-md-6 col-lg-6 p-0 pr-md-2">
                 <div class="create-role">
-                    <span class="primary_txt">{{ globals.languageJson?.create_role }}</span>
+                    <span class="primary_txt fnt-16 fnt-md-18">{{ 'create_role' | translate }}</span>
                     <form [formGroup]="roleForm" (onSubmit)="roleAdd()" class="form-container">
-                        <div class="row rolePadding">
-                            <div class="col-md-10 sewn-form-field w-100">
-                                <label class="secondary_txt">{{ globals.languageJson?.give_your_role_a_name }}</label>
+                        <div class="row pt-3 pt-md-45">
+                            <div class="col-12 col-lg-10 sewn-form-field">
+                                <label class="fnt-14 fnt-muli fnt-600 lh-normal text-clr588">{{
+                                    'give_your_role_a_name' | translate
+                                }}</label>
                                 <input
                                     type="text"
                                     id="roleName"
@@ -33,31 +35,23 @@
                         </div>
                     </form>
                 </div>
+                <button
+                    class="btn-raised mt-3 d-none d-md-block d-lg-none"
+                    [disabled]="!roleForm.valid"
+                    (click)="roleAdd()"
+                >
+                    {{ btnValue }}
+                </button>
             </div>
 
-            <div class="col-sm-12 col-md-6 col-lg-6 p-0 permissionDiv">
+            <div class="col-sm-12 col-md-6 col-lg-6 p-0 pl-md-2 pt-3 pt-md-0">
                 <app-manage-permission [permissionList]="permissionList"></app-manage-permission>
             </div>
         </div>
     </div>
     <div class="col-12 d-block d-md-none mb-5">
-        <button type="submit" class="btn-raised mt-3 w-100" [disabled]="!roleForm.valid">
+        <button class="btn-raised mt-3 w-100" [disabled]="!roleForm.valid" (click)="roleAdd()">
             {{ btnValue }}
         </button>
     </div>
-    <p-dialog
-        [(visible)]="displayModal"
-        [modal]="true"
-        [baseZIndex]="10000"
-        [draggable]="false"
-        [resizable]="false"
-        styleClass="no-padding"
-    >
-        <div class="text-center">
-            <p class="fnt-muli black-semibold p-4">{{ globals.languageJson?.please_login_text }}!</p>
-            <button class="btn logout-btn create-role-btn mb-3" type="button" (click)="userLogout()">
-                {{ globals.languageJson?.logout }}
-            </button>
-        </div>
-    </p-dialog>
 </div>

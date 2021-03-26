@@ -6,13 +6,6 @@
         border: none !important;
     }
 }
-.searchContainer {
-    margin-top: 2rem;
-}
-.roleTxt-selector {
-    color: $primary-color;
-    cursor: pointer;
-}
 .ellipsisWidth {
     width: 5%;
 }
@@ -20,7 +13,7 @@
     background: #ffffff;
 }
 ::ng-deep .userTable .headerFilter .p-inputtext {
-    padding-left: 0px;
+    padding: 0px;
 }
 ::ng-deep .userTable .p-datatable-tbody > tr > .checkBoxClass {
     padding-left: 0px !important;
@@ -30,31 +23,8 @@
     padding: 0px !important;
     text-align: center;
 }
-.rolesHeader {
-    font-weight: 700;
-}
 .selectedRoleHeader {
     color: $primary-color;
-}
-.popupExpression_txt {
-    font-family: PlayfairDisplay;
-    font-size: 24px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: 0.4px;
-    color: #020202;
-}
-.popupMessage_txt {
-    font-family: PlayfairDisplay;
-    font-size: 16px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.5;
-    letter-spacing: normal;
-    color: #5d5d5d;
 }
 ::ng-deep .userTable .ui-column-filter {
     margin-bottom: 0px !important;
@@ -71,6 +41,9 @@
     background-color: transparent;
     border-width: 0;
     margin: 22px 0;
+}
+::ng-deep .userTable .p-datatable .p-paginator-bottom {
+    margin: 0;
 }
 ::ng-deep .userDialog .p-dialog-header {
     display: none;
@@ -95,18 +68,6 @@
 }
 .typeofStatus-disabled {
     color: #979797;
-}
-.content_list {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    color: #747588;
-    padding: 10px 0px 8px 3px;
-    cursor: pointer;
-    &:hover {
-        color: #232334;
-        background-color: #f8f8f8;
-    }
 }
 .rolesColumn {
     overflow: unset !important;
@@ -203,30 +164,6 @@
     color: #232334;
     font-size: 14px;
 }
-.border-total {
-    border-radius: 20px;
-    border: solid 1px #d6d6d6;
-    background-color: #ffffff;
-    padding: 10px 12px;
-}
-.search-raised {
-    width: 50%;
-    height: 38px;
-    background-color: #fff;
-    background: url(/assets/images/search-user.png) no-repeat scroll 11px 11px;
-    background-size: 16px 16px;
-    padding-left: 41px;
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: normal;
-    color: #232334;
-    border-radius: 4px;
-    border: solid 1px #d6d6d6;
-    background-color: #ffffff;
-}
-.pointer-item {
-    cursor: pointer;
-}
 .list-group-item {
     border: none;
     font-family: 'Muli';
@@ -242,9 +179,6 @@
         font-weight: 600 !important;
         background-color: #f8f8f8;
     }
-}
-.header-row {
-    border: none !important;
 }
 ::ng-deep .userTable .p-checkbox {
     margin-left: 0px;
@@ -295,7 +229,7 @@
     }
 
     :host ::ng-deep .p-checkbox .p-checkbox-box {
-        border-radius: 12px;
+        border-radius: 50%;
     }
     .table-container {
         border: 0px;
