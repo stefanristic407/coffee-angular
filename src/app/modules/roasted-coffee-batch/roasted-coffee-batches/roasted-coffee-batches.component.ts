@@ -132,7 +132,7 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
         postData.batch = this.termSearch ? this.termSearch : '';
         postData.per_page = 100;
         this.tableValue = [];
-        this.roasterService.getRoasterCoffeeBatchs(this.roasterId, postData).subscribe(
+        this.roasterService.getRoasterCoffeeBatchs(postData).subscribe(
             (data: any) => {
                 if (data.success) {
                     this.tableValue = data.result;

@@ -134,7 +134,7 @@ export class RoastingProfilesComponent implements OnInit {
         postData.search_query = this.termSearch ? this.termSearch : '';
         postData.per_page = 100;
         this.tableValue = [];
-        this.roasterService.getRoastingProfile(this.roasterId, postData).subscribe(
+        this.roasterService.getRoastingProfile(postData).subscribe(
             (data: any) => {
                 if (data.success) {
                     this.tableValue = data.result.reverse();

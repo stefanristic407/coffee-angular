@@ -144,7 +144,7 @@ export class NewRoastedBatchComponent implements OnInit {
     }
 
     getRoastingProfiles() {
-        this.roasterService.getRoastingProfile(this.roasterId).subscribe((data) => {
+        this.roasterService.getRoastingProfile().subscribe((data) => {
             if (data.success) {
                 this.roastingProfile = data.result;
                 this.roastingProfile.forEach((element) => {
