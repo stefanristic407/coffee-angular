@@ -215,11 +215,16 @@
 
 .list-container-panel {
     position: relative;
-    margin: 0px 16px;
+
     background-color: #fff;
     min-height: calc(100% - 16px);
     border-radius: 5px;
-    padding: 0px 12px 16px 16px;
+    padding: 0px;
+    margin: 0px;
+    .thread-block {
+        padding-right: 16px;
+        padding-left: 16px;
+    }
 }
 
 .chat-accounts__name::-webkit-scrollbar {
@@ -346,25 +351,25 @@
     color: #747588 !important;
 }
 
-.expand-active .last-seen {
-    display: inline-block;
-    visibility: visible;
-    margin-left: 10px;
-    padding-left: 5px;
-    position: relative;
-}
+// .expand-active .last-seen {
+//     display: inline-block;
+//     visibility: visible;
+//     margin-left: 10px;
+//     padding-left: 5px;
+//     position: relative;
+// }
 
-.expand-active .last-seen::before {
-    position: absolute;
-    content: '';
-    top: 50%;
-    left: -4px;
-    width: 1px;
-    height: 11px;
-    opacity: 0.6;
-    transform: translateY(-50%);
-    background-color: #747588;
-}
+// .expand-active .last-seen::before {
+//     position: absolute;
+//     content: '';
+//     top: 50%;
+//     left: -4px;
+//     width: 1px;
+//     height: 11px;
+//     opacity: 0.6;
+//     transform: translateY(-50%);
+//     background-color: #747588;
+// }
 
 .chat-profile {
     width: calc(100% - 60px);
@@ -408,6 +413,9 @@
     padding-right: 5px;
     width: 85%;
     display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .chat-messaged__total {
@@ -738,7 +746,7 @@
 }
 
 .message-body {
-    text-align: right;
+    text-align: left;
     padding: 16px 12px;
     border-radius: 4px;
     background-color: #f2e2c5;
@@ -889,8 +897,8 @@
     cursor: pointer;
 }
 .account-setting__profile .set-profile {
-    width: 80px;
-    height: 80px;
+    width: 96px;
+    height: 100px;
 }
 
 .account-setting__profile .set-profile img {
@@ -939,11 +947,11 @@
         opacity: 0 !important;
         visibility: hidden !important;
     }
-    .expand-active .last-seen {
-        display: block;
-        margin: 0;
-        padding: 0;
-    }
+    // .expand-active .last-seen {
+    //     display: block;
+    //     margin: 0;
+    //     padding: 0;
+    // }
 
     .search-contianer {
         background-color: #f8f8f8;
@@ -952,8 +960,12 @@
         background-color: #f1f1f1;
     }
     .list-container-panel {
-        margin-top: 16px;
-        padding-top: 16px;
+        padding: 16px 12px 16px 16px;
+        margin: 16px 16px;
+        .thread-block {
+            padding-right: 0px;
+            padding-left: 0px;
+        }
     }
 
     .messag-form {
@@ -983,17 +995,17 @@
     }
 }
 
-@media (max-width: 991px) {
-    .expand-active .last-seen {
-        display: block;
-        margin: 0;
-        padding: 0;
-    }
-    .expand-active .last-seen::before {
-        content: none;
-        display: none;
-    }
-}
+// @media (max-width: 991px) {
+//     .expand-active .last-seen {
+//         display: block;
+//         margin: 0;
+//         padding: 0;
+//     }
+//     .expand-active .last-seen::before {
+//         content: none;
+//         display: none;
+//     }
+// }
 .last-seen {
     display: none;
     visibility: hidden;
@@ -1194,13 +1206,25 @@
         margin-left: -40px;
     }
 }
-.main-message__profile img {
-    border-radius: 50%;
-    display: block;
-    width: 39px;
-    height: 39px;
-    margin: 0 6px 0 0;
-    object-fit: contain;
+.main-message__profile {
+    position: relative;
+    display: flex;
+    .img {
+        margin: 0 6px 0 0;
+        img {
+            border-radius: 50%;
+            display: block;
+            width: 39px;
+            height: 39px;
+            object-fit: contain;
+        }
+    }
+    .profile-name {
+        width: 100%;
+        .name-wrapper {
+            width: 100%;
+        }
+    }
 }
 .no-items-found {
     display: flex;
