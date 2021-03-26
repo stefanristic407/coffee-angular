@@ -1,11 +1,10 @@
 <div class="chat-page-wrapper">
     <div class="header-group">
-        <div class="row m-0 p-3 headerDiv containerDiv d-none d-sm-none d-md-flex">
-            <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8 d-flex align-items-center">
-                <div class="back-href cursor-pointer" (click)="onReturnOrder()">
-                    <img class="back-arrow-butn mr-2" src="assets/images/do-back-arrow.svg" />
-                    {{ globals.languageJson?.return_to_order }}
-                </div>
+        <div class="row m-0 p-3 headerDiv bg-white d-none d-md-flex">
+            <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8 d-flex align-items-center pl-0 pr-0 pl-lg-3 pr-lg-3">
+                <a class="back-page" href="javascript:void(0);" (click)="onReturnOrder()">
+                    {{ 'return_to_order' | translate }}
+                </a>
             </div>
             <div class="col-4">
                 <button
@@ -24,27 +23,34 @@
                 </button>
             </div>
         </div>
-        <div class="row m-0 p-3 headerDiv containerDiv d-flex d-sm-flex d-md-none">
-            <div class="back-href cursor-pointer" (click)="onReturnOrder()">
-                <img class="back-arrow-butn mr-2" src="assets/images/do-back-arrow.svg" />
-            </div>
+        <div class="row m-0 p-3 headerDiv bg-white d-flex d-md-none">
+            <a class="back-page" href="javascript:void(0);" (click)="onReturnOrder()"> </a>
+
             <div class="orderDiv">
-                <span *ngIf="!currentDisputeID" class="primary_txt">Order #{{ orderDetails?.id }}</span>
-                <span *ngIf="currentDisputeID" class="primary_txt">Ticket #{{ currentDisputeID }}</span>
+                <span *ngIf="!currentDisputeID" class="fnt-18 font-bold-700 text-clr334 nowrap"
+                    >Order #{{ orderDetails?.id }}</span
+                >
+                <span *ngIf="currentDisputeID" class="fnt-18 font-bold-700 text-clr334 nowrap"
+                    >Ticket #{{ currentDisputeID }}</span
+                >
                 <span class="fnt-12">{{ orderDetails?.order_type }}</span>
                 <span *ngIf="isView" class="text-highlited mt-4" (click)="isView = false">Close tickets</span>
                 <span *ngIf="!isView" class="text-highlited mt-4" (click)="isView = true">View tickets</span>
             </div>
             <div class="imgMobileDiv orderDiv">
-                <div *ngIf="threadUserList.length" class="pr-3 imgDiv">
-                    <span *ngFor="let user of threadUserList">
+                <div *ngIf="threadUserList.length" class="pr-3 imgDiv d-flex">
+                    <div
+                        *ngFor="let user of threadUserList; let i = index"
+                        [ngClass]="{ 'move-left': i !== 0 }"
+                        [ngStyle]="{ 'z-index': threadUserList.length - i }"
+                    >
                         <img
                             class="profileImg"
                             [pTooltip]="user.computed_fullname"
                             tooltipPosition="top"
                             [src]="user.profile_pic || 'assets/images/profile.svg'"
                         />
-                    </span>
+                    </div>
                 </div>
                 <span class="text-highlited mt-2" (click)="navigateAssignUser()"> Change assigned user</span>
                 <span *ngIf="currentDisputeID && showResolveBtn" class="text-highlited mt-2" (click)="markResolved()"
@@ -52,53 +58,58 @@
                 >
             </div>
         </div>
-        <div class="row m-0 p-3 headerDiv containerDiv d-none d-sm-none d-md-flex">
-            <div class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8 no-gutters d-flex align-items-center">
+        <div class="row m-0 p-3 headerDiv bg-white d-none d-md-flex">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8 no-gutters d-flex align-items-center p-0">
                 <div class="orderDiv pr-5">
-                    <span *ngIf="!currentDisputeID" class="primary_txt">Order #{{ orderDetails?.id }}</span>
-                    <span *ngIf="currentDisputeID" class="primary_txt">Ticket #{{ currentDisputeID }}</span>
+                    <span *ngIf="!currentDisputeID" class="fnt-18 font-bold-700 text-clr334 nowrap"
+                        >Order #{{ orderDetails?.id }}</span
+                    >
+                    <span *ngIf="currentDisputeID" class="fnt-18 font-bold-700 text-clr334 nowrap"
+                        >Ticket #{{ currentDisputeID }}</span
+                    >
                     <span class="statusLable fnt-12">Order Status - {{ orderDetails?.status }}</span>
                 </div>
-                <!-- <div *ngIf="orderDetails && orderDetails['images']" class="pr-3 imgDiv">
-                <span *ngFor="let user of orderDetails['images']">
-                    <img class="profileImg" [src]="user" />
-                </span>
-            </div> -->
-                <div *ngIf="threadUserList.length" class="pr-3 imgDiv">
-                    <span *ngFor="let user of threadUserList">
+                <div *ngIf="threadUserList.length" class="pr-3 imgDiv d-flex">
+                    <div
+                        *ngFor="let user of threadUserList; let i = index"
+                        [ngClass]="{ 'move-left': i !== 0 }"
+                        [ngStyle]="{ 'z-index': threadUserList.length - i }"
+                    >
                         <img
                             class="profileImg"
                             [pTooltip]="user.computed_fullname"
                             tooltipPosition="top"
                             [src]="user.profile_pic || 'assets/images/profile.svg'"
                         />
-                    </span>
+                    </div>
                 </div>
 
                 <div class="orderDiv pl-3">
-                    <span class="secondary_txt">{{ globals.languageJson?.order_type }}</span>
-                    <span class="orderLable">{{ orderDetails?.order_type }}</span>
+                    <p class="fnt-14 fnt-600 text-clr588 nowrap m-0">{{ 'order_type' | translate }}</p>
+                    <p class="fnt-14 font-bold text-clr334 m-0" style="margin-top: 2px !important">
+                        {{ orderDetails?.order_type }}&nbsp;
+                    </p>
                 </div>
             </div>
             <div
-                class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 no-gutters d-flex align-items-center justify-content-end"
+                class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 no-gutters d-flex align-items-center justify-content-end p-0"
             >
-                <span class="text-highlited pr-3" (click)="navigateAssignUser()"> Change assigned user</span>
+                <span class="text-highlited pr-3 pr-md-0" (click)="navigateAssignUser()"> Change assigned user</span>
                 <div class="seperatorClass"></div>
                 <span *ngIf="isView" class="text-highlited" (click)="isView = false">Close tickets</span>
                 <span *ngIf="!isView" class="text-highlited" (click)="isView = true">View tickets</span>
             </div>
         </div>
-        <div class="row m-0 containerDiv floting-containerDiv">
+        <div class="row m-0 bg-white floting-containerDiv">
             <div *ngIf="isView" class="order-ticket">
                 <div class="card-width" (click)="clickOrder()" [ngClass]="!currentDisputeID ? 'cardSelect' : ''">
-                    <div class="fnt-14 m-0" [ngClass]="!currentDisputeID ? 'selectedDataFont' : 'primary_label'">
+                    <div class="fnt-14 m-0" [ngClass]="!currentDisputeID ? 'selected-data-font' : 'primary-label'">
                         Order
                     </div>
-                    <div class="fnt-14" [ngClass]="!currentDisputeID ? 'selectedDataFont' : 'primary_label'">
+                    <div class="fnt-14" [ngClass]="!currentDisputeID ? 'selected-data-font' : 'primary-label'">
                         #{{ orderDetails?.id }}
                     </div>
-                    <div class="primary_label fnt-12 m-0 mb-3">
+                    <div class="primary-label fnt-12 m-0 mb-3">
                         {{ orderDetails?.created_at | date: 'h:mm a' }}
                     </div>
                 </div>
@@ -110,21 +121,23 @@
                 >
                     <div
                         class="fnt-14 m-0"
-                        [ngClass]="currentDisputeID == item.id ? 'selectedDataFont' : 'primary_label'"
+                        [ngClass]="currentDisputeID == item.id ? 'selected-data-font' : 'primary-label'"
                     >
                         Ticket #{{ item.id }}
                     </div>
                     <div
                         class="fnt-12 mb-3"
-                        [ngClass]="currentDisputeID == item.id ? 'selectedDataFont' : 'primary_label'"
+                        [ngClass]="currentDisputeID == item.id ? 'selected-data-font' : 'primary-sub-label'"
                     >
                         {{ item.dispute_type }}
                     </div>
                     <div
-                        class="ticket-num__status float-left"
+                        class="ticket-num-status float-left"
                         [ngClass]="currentDisputeID == item.id ? 'selectedFont' : ''"
                     >
-                        {{ item.dispute_status }}
+                        <p>
+                            {{ item.dispute_status }}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -134,7 +147,7 @@
     <div class="order-chat-wrapper" data-element="order-chat-wrapper">
         <div
             *ngIf="currentDispute && currentDispute['dispute_status'] !== 'Resolved'"
-            class="d-flex disputeDiv containerDiv row p-3"
+            class="d-flex disputeDiv bg-white row p-3"
         >
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 float-left">
                 <span><b>Dispute raised: </b></span>

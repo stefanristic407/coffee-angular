@@ -348,7 +348,11 @@
         text-align: right;
     }
 }
-
+.order-chat-resolved {
+    padding: 5px 10px !important;
+    display: flex;
+    color: #747588;
+}
 .message-to {
     justify-content: flex-end;
     .message-text {
@@ -357,7 +361,7 @@
         background-color: #f2e2c5;
     }
     .live-time {
-        text-align: left;
+        text-align: right;
         // transform: translate(0px, -20px);
     }
 }
