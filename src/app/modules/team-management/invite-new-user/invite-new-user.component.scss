@@ -22,20 +22,24 @@
         background-color: #f8f8f8;
     }
 }
-.content_list::ng-deep {
-    .ui-overlaypanel {
-        border: none !important;
-        border-radius: 6px !important;
-        box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
-        background-color: #ffffff;
-        margin-left: -9px;
-        &:before {
-            border-bottom-color: #fffafa !important;
+::ng-deep {
+    .p-overlaypanel {
+        &.p-overlaypanel-role {
+            border: none !important;
+            border-radius: 6px !important;
+            box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
+            background-color: #ffffff;
+            margin-left: -9px;
+            max-height: 500px;
+            overflow-y: auto;
+            &:before {
+                border-bottom-color: #fffafa !important;
+            }
         }
-    }
-    .ui-overlaypanel-shifted {
-        &:after {
-            right: 10.9em !important;
+        &.p-overlaypanel-flipped {
+            &:after {
+                right: 10.9em !important;
+            }
         }
     }
 }

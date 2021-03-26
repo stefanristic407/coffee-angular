@@ -1,8 +1,7 @@
 <div>
-    <div class="pt-4">
+    <div class="pt-0 pt-md-4">
         <form [formGroup]="userForm" novalidate>
             <div
-                class="mobileLableClass"
                 formArrayName="items"
                 *ngFor="let item of userForm.controls['items']['controls']; let i = index; last as isLast"
             >
@@ -33,10 +32,14 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div *ngIf="isLast" class="col-12 d-none d-sm-none d-md-inline-flex align-items-center mt-2">
+                    <div
+                        *ngIf="isLast"
+                        class="col-12 d-none d-sm-none d-md-inline-flex align-items-center"
+                        style="margin-top: -0.5rem"
+                    >
                         <img src="assets/images/add-partner.svg" />
                         <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer" (click)="addUser()">
-                            {{ globals.languageJson?.add_another_member }}
+                            {{ 'add_another_member' | translate }}
                         </span>
                     </div>
                 </div>

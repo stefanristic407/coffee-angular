@@ -5,7 +5,8 @@
     border-radius: 4px;
 }
 .contentDiv {
-    height: 37.56rem;
+    min-height: 37.56rem;
+    height: auto;
 }
 .inputPadding {
     margin-top: 3rem;
@@ -21,9 +22,6 @@
 }
 .removeRoleBtn {
     padding: 0px;
-}
-.userDiv {
-    width: 49.5rem;
 }
 .emailDiv {
     width: 20.5rem;
@@ -84,9 +82,6 @@
     .recoveryTablet {
         display: block !important;
     }
-    .contentDiv {
-        height: auto;
-    }
 }
 @media all and (max-width: 767px) {
     .editBorder {
@@ -94,17 +89,12 @@
         padding: 0px;
         border-radius: 4px;
     }
-    .userDiv {
-        padding: 0px;
-    }
     .inputPadding {
         margin-top: 1rem;
     }
     .removeRoleBtn {
         padding: 0px 15px;
-        margin-bottom: 0.5rem;
-    }
-    .contentDiv {
-        height: auto;
+        margin-bottom: 1rem;
+        margin-top: -8px;
     }
 }
