@@ -1,4 +1,4 @@
-<div class="bg-fff py-3 py-md-4 py-lg-45 px-3 px-md-3 px-lg-5">
+<div class="main-block">
     <div class="bg-white content-container">
         <div *ngIf="!changePasswordMode">
             <div class="mb-45 fnt-14 d-none d-md-block">
@@ -6,7 +6,7 @@
             </div>
 
             <div class="mb-4 d-block d-md-none">
-                <a href="javascript:void(0)" class="back-page" (click)="location.back()">
+                <a class="back-page" (click)="location.back()">
                     {{ 'back' | translate }}
                 </a>
             </div>
@@ -101,14 +101,11 @@
         </div>
 
         <div *ngIf="changePasswordMode">
-            <a
-                href="javascript:void(0)"
-                class="text-clr60b fnt-16 fnt-muli d-flex align-items-center fnt-600 mb-4"
-                (click)="changePasswordMode = false"
-            >
-                <img src="../../../../assets/images/back-arrow.svg" alt="back" class="mr-2" />
-                <span>Back <span class="d-inline d-md-none">to login & security</span></span>
-            </a>
+            <div class="mb-4">
+                <a class="back-page" (click)="changePasswordMode = false">
+                    <span>Back <span class="d-inline d-md-none">to login & security</span></span>
+                </a>
+            </div>
 
             <form [formGroup]="form" (ngSubmit)="handleSubmitPasswords()">
                 <div class="fnt-16 fnt-md-18 font-weight-bold mb-2 mb-md-25">
