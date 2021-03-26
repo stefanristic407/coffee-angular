@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasteryProfileService } from '../roastery-profile.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { MediaPreviewComponent } from '@app/modules/file-share/components/media-preview/media-preview.component';
 
 @Component({
     selector: 'app-sewn-virtual-tour',
@@ -20,6 +22,7 @@ export class VirtualTourComponent implements OnInit {
         public globals: GlobalsService,
         private fileService: FileService,
         private toasterService: ToastrService,
+        public dialogSrv: DialogService,
     ) {}
 
     async ngOnInit() {
@@ -80,5 +83,13 @@ export class VirtualTourComponent implements OnInit {
                 }
             }
         }
+    }
+
+    preview(item) {
+        this.dialogSrv.open(MediaPreviewComponent, {
+            data: { record: item },
+            showHeader: false,
+            styleClass: 'preview-dialog',
+        });
     }
 }
