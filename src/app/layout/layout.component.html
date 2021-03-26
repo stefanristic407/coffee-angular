@@ -242,10 +242,7 @@
                                 </div>
                             </a>
                         </li>
-                        <li
-                            class="footer-links__item"
-                            [ngClass]="{ active: activeLink === 'MESSAGES' }"
-                        >
+                        <li class="footer-links__item" [ngClass]="{ active: activeLink === 'MESSAGES' }">
                             <a class="d-inline-block" (click)="toggleMessagePanel()">
                                 <div class="d-flex flex-column align-items-center start-messaging">
                                     <img
@@ -348,7 +345,7 @@
             </ng-container>
         </div>
     </div>
-    <app-footer></app-footer>
+    <app-footer *ngIf="showFooter()"></app-footer>
 </div>
 
 <ng-template #mainLoader>
