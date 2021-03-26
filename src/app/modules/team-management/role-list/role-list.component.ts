@@ -2,10 +2,11 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
 import { GlobalsService, RoasterserviceService } from '@services';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmComponent } from '@shared';
 
 @Component({
     selector: 'app-role-list',
@@ -13,15 +14,13 @@ import { MenuItem } from 'primeng/api';
     styleUrls: ['./role-list.component.scss'],
 })
 export class RoleListComponent implements OnInit {
-    roasterID: any;
+    roasterId: any;
     breadCrumbItem: MenuItem[] = [];
     tableColumns: any = [];
     tableValue: any = [];
     tableSelected: any = [];
     totalCount = 0;
-    modalRef: BsModalRef;
-    deleteRoleID: any;
-    loader = false;
+    loader = true;
     constructor(
         public router: Router,
         private roasterService: RoasterserviceService,
@@ -29,7 +28,7 @@ export class RoleListComponent implements OnInit {
         private toastrService: ToastrService,
         public globals: GlobalsService,
         public sharedService: SharedServiceService,
-        private modalService: BsModalService,
+        public dialogSrv: DialogService,
     ) {}
 
     ngOnInit(): void {
@@ -53,7 +52,7 @@ export class RoleListComponent implements OnInit {
             {
                 field: 'add_user',
                 header: '',
-                width: 30,
+                width: 40,
             },
             {
                 field: 'actions',
@@ -69,12 +68,18 @@ export class RoleListComponent implements OnInit {
             this.router.navigate(['/people/permission-error']);
         }
         this.supplyBreadCrumb();
-        this.roasterID = this.cookieService.get('roaster_id');
+        this.roasterId = this.cookieService.get('roaster_id');
     }
-    getTableData(): void {
+    getTableData(event?): void {
         this.tableValue = [];
         this.loader = true;
-        this.roasterService.getRoles(this.roasterID).subscribe(
+        const postData: any = {};
+        postData.per_page = 10;
+        if (event) {
+            const currentPage = event.first / 25;
+            postData.page = currentPage + 1;
+        }
+        this.roasterService.getRoles(this.roasterId, postData).subscribe(
             (res: any) => {
                 this.loader = false;
                 if (res.success === true) {
@@ -113,15 +118,27 @@ export class RoleListComponent implements OnInit {
         };
         this.router.navigate(['/team-management/team-members'], navigationExtras);
     }
-    openDeleteModal(template1: TemplateRef<any>, deleteId: any): void {
-        const config = {
-            class: 'modal-dialog-centered deleteModal',
-        };
-        this.modalRef = this.modalService.show(template1, config);
-        this.deleteRoleID = deleteId;
+    openDeleteModal(deleteId: any): void {
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    title: 'Oh noh :(',
+                    desp: 'You sure you really want to delete this?',
+                    type: 'delete',
+                    noButton: 'Cancel',
+                    yesButton: 'Delete',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.deleteRole(deleteId);
+                }
+            });
     }
     deleteRole(id: any) {
-        this.roasterService.deleteRoles(this.roasterID, id).subscribe((data: any) => {
+        this.roasterService.deleteRoles(this.roasterId, id).subscribe((data: any) => {
             if (data.success === true) {
                 this.toastrService.success('Roles deleted successfully!');
                 this.getTableData();

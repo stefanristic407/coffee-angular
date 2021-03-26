@@ -14,4 +14,6 @@ export interface ChatMessage {
     computed_author: ThreadMember;
     showUserBadge: boolean;
     isActiveUser: boolean;
+    dateString?: string; // wil be null if same date as prev
+    showDateBadge?: boolean;
 }

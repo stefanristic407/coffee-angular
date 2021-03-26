@@ -10,24 +10,24 @@
                     class="btn pull-right btn-raised d-md-block d-none"
                     (click)="isEdit = !isEdit; updateForm()"
                 >
-                    {{ globals.languageJson?.edit }}
+                    {{ 'edit' | translate }}
                 </button>
                 <button
                     *ngIf="!isEdit"
                     class="btn pull-right btn-stroked d-md-block d-none mr-3"
-                    routerLink="//team-management/manage-role"
+                    routerLink="/team-management/team-members"
                 >
-                    {{ globals.languageJson?.cancel }}
+                    {{ 'cancel' | translate }}
                 </button>
                 <button *ngIf="isEdit" class="btn pull-right btn-raised d-md-block d-none" (click)="onSave()">
-                    {{ globals.languageJson?.save }}
+                    {{ 'save' | translate }}
                 </button>
                 <button
                     *ngIf="isEdit"
                     class="btn pull-right btn-stroked d-md-block d-none mr-3"
                     (click)="onEditCancel(); updateForm()"
                 >
-                    {{ globals.languageJson?.cancel }}
+                    {{ 'cancel' | translate }}
                 </button>
             </div>
         </div>
@@ -35,9 +35,9 @@
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-8 editBorder">
                 <div class="row p-0">
                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                        <span class="primary_txt">{{ globals.languageJson?.edit }}</span>
+                        <span class="primary_txt">{{ 'edit' | translate }}</span>
                         <div class="mt-2">
-                            <span class="greyText">{{ globals.languageJson?.account_activated }}</span
+                            <span class="greyText">{{ 'account_activated' | translate }}</span
                             >&nbsp;
                             <span *ngIf="userDetails && userDetails['last_activated']" class="dateFont">{{
                                 userDetails['last_activated'] | date: 'd MMM , y, h:mm
@@ -106,7 +106,10 @@
                             >
                             </p-dropdown>
                         </div>
-                        <div *ngIf="isEdit && statusToggle" class="d-md-flex col-3 align-items-center removeRoleBtn">
+                        <div
+                            *ngIf="isEdit && statusToggle"
+                            class="d-md-flex justify-content-center sewn-form-field removeRoleBtn"
+                        >
                             <div class="delete-wrap fnt-muli">
                                 <span class="fnt-700 text-highlited cursor-pointer" (click)="removeRole(i)">
                                     Remove role
@@ -117,7 +120,7 @@
                     <div class="d-block d-sm-block d-md-block mb-2 mt-2" *ngIf="isEdit && isLast && statusToggle">
                         <img src="assets/images/add-partner.svg" />
                         <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer" (click)="addRole()">
-                            {{ globals.languageJson?.assign_role }}
+                            {{ 'assign_role' | translate }}
                         </span>
                     </div>
                 </div>
@@ -144,32 +147,32 @@
                 </div>
                 <div class="d-block d-sm-block d-md-none">
                     <button *ngIf="!isEdit" class="btn btn-raised w-100" (click)="isEdit = !isEdit; updateForm()">
-                        {{ globals.languageJson?.edit }}
+                        {{ 'edit' | translate }}
                     </button>
                     <button
                         *ngIf="!isEdit"
                         class="btn btn-stroked w-100 mt-3"
-                        routerLink="//team-management/manage-role"
+                        routerLink="/team-management/team-members"
                     >
-                        {{ globals.languageJson?.cancel }}
+                        {{ 'cancel' | translate }}
                     </button>
                     <button *ngIf="isEdit" class="btn btn-raised w-100" (click)="onSave()">
-                        {{ globals.languageJson?.save }}
+                        {{ 'save' | translate }}
                     </button>
                     <button *ngIf="isEdit" class="btn btn-stroked w-100 mt-3" (click)="onEditCancel(); updateForm()">
-                        {{ globals.languageJson?.cancel }}
+                        {{ 'cancel' | translate }}
                     </button>
                 </div>
             </div>
             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 d-none d-sm-none d-md-block emailDiv recoveryDiv">
                 <div class="ml-3 h-100 containerBackground">
                     <div class="col-12 p-0 ml-3 p-3">
-                        <div class="primary_txt mb-1">{{ globals.languageJson?.recovery_email }}</div>
-                        <span class="greyText">{{ globals.languageJson?.recovery_link_desription }}. </span>
+                        <div class="primary_txt mb-1">{{ 'recovery_email' | translate }}</div>
+                        <span class="greyText">{{ 'recovery_link_desription' | translate }}. </span>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0 ml-3 p-3">
                         <button class="btn btn-stroked mt-2" (click)="sendMail()">
-                            {{ globals.languageJson?.send }}
+                            {{ 'send' | translate }}
                         </button>
                     </div>
                 </div>
@@ -177,12 +180,12 @@
             <div class="d-block d-sm-block d-md-none col-sm-12 col-md-12 col-lg-12 pt-4 recoveryTablet">
                 <div class="h-100 containerBackground">
                     <div class="col-12 p-3">
-                        <div class="primary_txt mb-1">{{ globals.languageJson?.recovery_email }}</div>
-                        <span class="greyText">{{ globals.languageJson?.recovery_link_desription }}. </span>
+                        <div class="primary_txt mb-1">{{ 'recovery_email' | translate }}</div>
+                        <span class="greyText">{{ 'recovery_link_desription' | translate }}. </span>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 p-3">
                         <button class="btn btn-stroked w-100 mt-2" (click)="sendMail()">
-                            {{ globals.languageJson?.send }}
+                            {{ 'send' | translate }}
                         </button>
                     </div>
                 </div>

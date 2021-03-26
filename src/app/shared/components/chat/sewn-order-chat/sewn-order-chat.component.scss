@@ -273,6 +273,7 @@
         display: block;
     }
     .profile-name {
+        width: 100%;
         .name {
             margin: 0 0 2px;
             font-family: Muli;
@@ -294,6 +295,16 @@
             line-height: normal;
             letter-spacing: normal;
             color: #747588;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            .org-name {
+                display: inline-block;
+                margin-right: 10px;
+            }
+            .timestamp {
+                display: inline-block;
+            }
         }
     }
 }
@@ -348,7 +359,11 @@
         text-align: right;
     }
 }
-
+.order-chat-resolved {
+    padding: 5px 10px !important;
+    display: flex;
+    color: #747588;
+}
 .message-to {
     justify-content: flex-end;
     .message-text {
@@ -357,7 +372,7 @@
         background-color: #f2e2c5;
     }
     .live-time {
-        text-align: left;
+        text-align: right;
         // transform: translate(0px, -20px);
     }
 }

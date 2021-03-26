@@ -6,4 +6,6 @@ export interface IncomingChatMessage extends ChatMessage {
     activity_member: ChatMessageMember;
     member: ChatMessageMember & { user: ThreadMember };
     thread_id: number;
+    dateString?: string; // wil be null if same date as prev
+    showDateBadge?: boolean;
 }

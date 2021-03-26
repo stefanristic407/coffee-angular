@@ -1,6 +1,6 @@
-import { ToastrService } from 'ngx-toastr';
 import { first } from 'rxjs/operators';
 import { Subscription, Subject } from 'rxjs';
+import * as moment from 'moment';
 import {
     Component,
     OnInit,
@@ -24,7 +24,7 @@ import {
 } from '@models';
 import { ThreadType, ThreadActivityType, ChatMessageType } from '@enums';
 import { ChatHandlerService, GlobalsService, SocketService, ChatUtilService } from '@services';
-
+import { TranslateModule } from '@ngx-translate/core';
 const badwordsRegExp = require('badwords/regexp') as RegExp;
 @Component({
     selector: 'app-sewn-order-chat',
@@ -53,7 +53,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     messageInputElement: HTMLTextAreaElement;
     chatMessageBodyElement: HTMLElement;
     lastMessageRendered = new Subject();
-
+    isClosedDispute = false;
     sentTokenDelayTimeOut = 0;
 
     constructor(
@@ -63,7 +63,6 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
         private elRef: ElementRef,
         private chatUtil: ChatUtilService,
         private render: Renderer2,
-        private toast: ToastrService,
     ) {}
 
     ngOnInit(): void {
@@ -110,11 +109,13 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
             // Checking if order dispute is available
             this.activeThreadId = this.orderDisputes.chat_thread_id;
             this.activeThreadType = 'DISPUTE';
+            this.isClosedDispute = this.orderDisputes.dispute_status === 'Resolved';
             this.openThread();
         } else if (this.orderThread && this.orderThread.thread_id) {
             // Checking for order thread
             this.activeThreadId = this.orderThread.thread_id;
             this.activeThreadType = 'ORDER';
+            this.isClosedDispute = false;
             this.openThread();
         } else {
             this.activeThreadId = null;
@@ -122,6 +123,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
             this.messageList = [];
             this.organizedMessages = [];
             this.threadDetails = null;
+            this.isClosedDispute = false;
             this.threadUsers.emit([]);
         }
     }
@@ -257,6 +259,11 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                 } else {
                     activeMessage.showUserBadge = false;
                 }
+                if (!prevMessage) {
+                    activeMessage.showDateBadge = true;
+                } else {
+                    activeMessage.showDateBadge = prevMessage.dateString !== activeMessage.dateString;
+                }
             }
             const lastMessage = this.messageList[this.messageList.length - 1];
             if (lastMessage) {
@@ -300,6 +307,11 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                 } else {
                     message.showUserBadge = false;
                 }
+                if (!lastMessage) {
+                    message.showDateBadge = true;
+                } else {
+                    message.showDateBadge = lastMessage.dateString !== message.dateString;
+                }
                 this.messageList.push(message);
                 this.sendReadToken(message.id);
             } else {
@@ -309,6 +321,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     processChatMessages(message: ChatMessage | IncomingChatMessage, thread: ThreadListItem) {
+        message.dateString = moment(message.created_at).format('Do MMM YYYY');
         message.computed_date = this.chatUtil.getReadableTime(message.updated_at || message.created_at);
         if (thread.computed_targetedUserList.find((tuser) => tuser.id === message.member.id)) {
             message.computed_author = thread.computed_targetedUser;
@@ -422,8 +435,6 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                 console.log('Last render chatInputHeightAdjust');
                 this.chatInputHeightAdjust(true);
             });
-        } else {
-            this.toast.warning('Please enter a valid text and sent', 'Uanble to sent', { timeOut: 800 });
         }
     }
 

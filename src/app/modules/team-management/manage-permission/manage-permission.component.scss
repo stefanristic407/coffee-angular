@@ -1,27 +1,26 @@
 .create-role {
-    padding: 1.3rem;
+    padding: 1.5rem 1.5rem 0.5rem;
     border-radius: 4px;
     border: solid 1px #d6d6d6;
 }
 
-:host ::ng-deep .create-role .p-tree-selectable {
+::ng-deep .create-role .p-tree-selectable {
     border: 0px;
     padding: 0px;
     padding-top: 1.5rem;
 }
-:host ::ng-deep .create-role .p-tree-container .p-checkbox-disabled {
+::ng-deep .create-role .p-tree-container .p-checkbox-disabled {
     display: none;
 }
-:host ::ng-deep .create-role .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight {
+::ng-deep .create-role .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight {
     background: #ffffff;
     color: #232334;
     box-shadow: none;
 }
-:host ::ng-deep .create-role .p-tree .p-tree-container .p-treenode .p-treenode-content:focus {
+::ng-deep .create-role .p-tree .p-tree-container .p-treenode .p-treenode-content:focus {
     box-shadow: none !important;
 }
-:host
-    ::ng-deep
+::ng-deep
     .create-role
     .p-tree
     .p-tree-container
@@ -29,17 +28,124 @@
     .p-treenode-content.p-treenode-selectable:not(.p-highlight):hover {
     background: #ffffff;
 }
+::ng-deep {
+    .p-tree {
+        .p-tree-filter-container {
+            margin-bottom: 16px;
+            .p-tree-filter {
+                padding: 15px 16px 15px 46px;
+            }
+            .p-tree-filter-icon {
+                left: 16px;
+                font-size: 18px;
+                margin-top: -9px;
+                font-weight: bold;
+                width: 30px;
+            }
+        }
+        .p-tree-container {
+            .p-treenode {
+                padding: 0;
+                .p-treenode-content {
+                    padding: 0;
+                    position: relative;
+                    .p-treenode-label {
+                        flex: 1;
+                        display: flex;
+                        border-top: solid 1px #d6d6d6;
+                        & > span {
+                            padding: 16px 0;
+                            line-height: normal;
+                            font-weight: 600;
+                            color: #232334;
+                        }
+                        @media screen and (max-width: 767px) {
+                            border-top-style: dashed;
+                        }
+                    }
+                    .p-tree-toggler {
+                        height: unset;
+                        justify-content: flex-start;
+                        margin-right: 0;
+                        &:hover {
+                            color: #232334 !important;
+                        }
+                        .pi-fw {
+                            width: 16px;
+                            height: 16px;
+                            &::before {
+                                font-size: 14px;
+                            }
+                            &.pi-chevron-right:before {
+                                content: '\e902';
+                            }
+                            &.pi-chevron-down:before {
+                                content: '\e903';
+                            }
+                        }
+                        @media screen and (max-width: 767px) {
+                            position: absolute;
+                            right: 0;
+                            width: 100%;
+                            height: 100%;
+                            justify-content: flex-end;
+                        }
+                    }
+                }
+                .p-treenode-children {
+                    padding: 0;
+                    .p-treenode-leaf {
+                        .p-treenode-label {
+                            border-top: none;
+                            & > span {
+                                padding: 0;
+                            }
+                        }
+                        .p-treenode-content {
+                            padding: 8px 0 !important;
+                            @media screen and (max-width: 767px) {
+                                padding: 14px 0 !important;
+                            }
+                        }
+                    }
+                    p-treenode:first-child {
+                        .p-treenode-content {
+                            padding-top: 8px !important;
+                        }
+                    }
+                    p-treenode:last-child {
+                        .p-treenode-content {
+                            padding-bottom: 16px !important;
+                        }
+                    }
+                }
+            }
+            p-treenode:first-child {
+                .p-treenode-label {
+                    border-top: none !important;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 991px) {
+    .create-role {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
+
 @media screen and (max-width: 767px) {
     .create-role {
         padding: 0;
         border: none;
     }
-    :host ::ng-deep .create-role .p-tree-selectable {
+    ::ng-deep .create-role .p-tree-selectable {
         border: 0px;
         padding: 0px;
-        padding-top: 1rem;
+        padding-top: 0.5rem;
     }
-    :host ::ng-deep .create-role .p-tree .p-tree-filter-container {
+    ::ng-deep .create-role .p-tree .p-tree-filter-container {
         display: none;
     }
 }

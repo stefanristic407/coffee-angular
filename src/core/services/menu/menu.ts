@@ -37,8 +37,9 @@ export const menuItems = [
         4,
         [],
     ),
-    new Menu(43, 'E-commerce Product Management', '/features/products-list', null, null, null, false, 4, []),
     new Menu(44, 'Product Settings', '/features/vat-management', null, null, null, false, 4, []),
+
+    new Menu(9, 'menu_ecommerce_management', '/features/products-list', null, null, null, false, 0, []),
 
     new Menu(5, 'Sales Management', null, null, null, null, true, 0, []),
     new Menu(51, 'Sales', './', null, null, null, false, 5, []),

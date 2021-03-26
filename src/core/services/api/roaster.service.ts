@@ -32,9 +32,9 @@ export class RoasterserviceService {
     //API Function Name : Role List
     //API Description: This API calls helps to get all roles to the user.
 
-    getRoles(id: any) {
+    getRoles(id: any, postData?) {
         const data = {
-            api_call: `/ro/${id}/roles`,
+            api_call: `/ro/${id}/roles?${this.serlialise(postData)}`,
             method: 'GET',
             token: this.cookieService.get('Auth'),
         };
