@@ -303,7 +303,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         thread.computed_createdAt = this.chatUtil.getReadableTime(thread.activity_created_at || '');
         thread.computed_thread_createdAt = this.chatUtil.getReadableTime(thread.created_at || '');
         thread.computed_lastActivityText =
-            thread.content.length > 100 ? thread.content.slice(0, 100) + '...' : thread.content;
+            thread.content.length > 60 ? thread.content.slice(0, 60) + '...' : thread.content;
         return thread;
     }
 
@@ -333,10 +333,16 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                             message.showUserBadge = true;
                         }
                         this.messageList.push(message);
-                        this.openedThread.computed_lastActivityText = message.content;
+                        let messagcontent = message.content || '';
+                        messagcontent = messagcontent.length > 60 ? messagcontent.slice(0, 60) + '...' : messagcontent;
+
+                        this.openedThread.computed_lastActivityText = messagcontent;
                         this.sendReadToken(message.id);
                     } else {
-                        inThread.computed_lastActivityText = message.content;
+                        let messagcontent = message.content || '';
+                        messagcontent = messagcontent.length > 60 ? messagcontent.slice(0, 60) + '...' : messagcontent;
+
+                        inThread.computed_lastActivityText = messagcontent;
                         if (!inThread.computed_mute && !message.isActiveUser) {
                             this.chatUtil.playNotificationSound('INCOMING');
                         }
@@ -386,7 +392,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             const lastMessage = this.messageList[this.messageList.length - 1];
             if (lastMessage) {
                 if (lastMessage && lastMessage.content) {
-                    this.openedThread.computed_lastActivityText = lastMessage.content;
+                    let messagcontent = lastMessage.content || '';
+                    messagcontent = messagcontent.length > 60 ? messagcontent.slice(0, 60) + '...' : messagcontent;
+                    this.openedThread.computed_lastActivityText = messagcontent;
                 }
                 this.sendReadToken(lastMessage.id);
             }
@@ -446,8 +454,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     handleFindThreadRequest(WSmsg: WSResponse<ThreadListItem[]>) {
         if (WSmsg.code === 200 || WSmsg.code === 201) {
-            let thread = WSmsg.data[0];
-            if (thread.type === ThreadType.normal) {
+            let thread = WSmsg.data.find((thrd) => thrd.type === ThreadType.normal);
+            if (thread && thread.type === ThreadType.normal) {
                 this.threadFinderReturned.next('done');
                 thread = this.processThreads(thread);
                 const existingThread = this.threadList.find((t) => t.id === thread.id);
@@ -593,7 +601,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         } else {
             this.render.setStyle(chatbodyExpand, 'height', `${chatBodyCalculatedHeight}px`);
         }
-        // this.chatBodyHeightAdjust();
+        this.chatBodyHeightAdjust();
     };
 
     chatBodyHeightAdjust() {
