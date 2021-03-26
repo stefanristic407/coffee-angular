@@ -687,12 +687,13 @@ export class RoasterserviceService {
     }
 
     getEstateOrders(roaster_id: any, postData = null, orderType = '') {
-        let data: any = {};
+        const data: any = {};
         data.api_call = '/ro/' + roaster_id + '/orders?' + this.serlialise(postData);
         if (orderType == 'MR') {
             data.api_call = '/ro/' + roaster_id + '/mr-orders?' + this.serlialise(postData);
         }
         data.token = this.cookieService.get('Auth');
+        data.method = 'GET';
         return this.http.post(this.url, data);
     }
 
