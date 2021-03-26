@@ -425,6 +425,10 @@ label {
     margin-bottom: 0px;
 }
 
+.roastery-uploads__image {
+    cursor: pointer;
+}
+
 .form-container {
     border-radius: 4px;
     border: solid 1px #ebebeb;
@@ -441,6 +445,11 @@ label {
 .no-editable-text {
     padding-bottom: 16px;
     color: #232334;
+}
+
+.download:hover {
+    color: #232334;
+    text-decoration: none;
 }
 
 @media (min-width: 992px) {

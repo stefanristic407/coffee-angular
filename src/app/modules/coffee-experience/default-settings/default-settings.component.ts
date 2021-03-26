@@ -294,6 +294,7 @@ export class DefaultSettingsComponent implements OnInit {
                     this.filesCount++;
                     if (this.filesCount === this.totalFilesNumber) {
                         this.handleSaveData();
+                        this.toastrService.success('Video update successfully');
                     }
                 },
                 () => {
@@ -309,6 +310,7 @@ export class DefaultSettingsComponent implements OnInit {
                     this.filesCount++;
                     if (this.filesCount === this.totalFilesNumber) {
                         this.handleSaveData();
+                        this.toastrService.success('Image update successfully');
                     }
                 },
                 () => {
