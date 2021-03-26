@@ -285,6 +285,10 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         $('.sidenav-mb__content').addClass('open');
     }
 
+    showFooter() {
+        return !this.router.url.includes('/dispute-system/order-chat/');
+    }
+
     ngOnDestroy(): void {
         this.socket.destorySocket();
         this.profileUpdateEvent$?.unsubscribe();
