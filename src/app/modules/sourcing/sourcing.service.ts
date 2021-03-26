@@ -15,6 +15,7 @@ export class SourcingService {
     roasterId: string;
 
     finalCertify: any;
+    certLoaded = false;
 
     // Lot data
     polygonId: string;
@@ -247,6 +248,7 @@ export class SourcingService {
         this.userService.getEstateCertificates().subscribe((res: any) => {
             if (res.success) {
                 this.finalCertify = res.result;
+                this.certLoaded = true;
             }
         });
     }
@@ -260,6 +262,6 @@ export class SourcingService {
     }
 
     getCertificateType(typeId) {
-        return this.finalCertify[typeId] || {};
+        return this.finalCertify ? this.finalCertify[typeId] : null;
     }
 }

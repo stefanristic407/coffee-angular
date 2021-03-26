@@ -9,17 +9,16 @@ import { CookieService } from 'ngx-cookie-service';
 import { environment } from 'src/environments/environment';
 import { map, tap } from 'rxjs/operators';
 import { OrganizationType } from '@enums';
+import { ApiService } from './api.service';
 
 @Injectable({
     providedIn: 'root',
 })
-export class UserserviceService {
+export class UserserviceService extends ApiService {
     // API call URL's
     private roasterUrl = environment.apiURL + '/ro/api';
-    private roasterDeleteUrl = environment.apiURL + '/ro/deleteapi';
     private putUrl = environment.apiURL + '/ro/putapi';
     private url = environment.apiURL + '/api';
-    private deleteUrl = environment.apiURL + '/deleteapi';
     private certificatesURL = environment.apiURL + '/ro/certificates';
     private profileImageURL = environment.apiURL + '/ro/uploadfiles';
     private languageURL = environment.apiURL + '/language';
@@ -27,13 +26,9 @@ export class UserserviceService {
     private estateUrl = environment.apiURL + '/es/api';
     private fileUploadURL = environment.apiURL + '/ro/filesfolders';
 
-    // private roasterUrl = "/ro/api";
-    // private roasterDeleteUrl = "https://fed-api.sewnstaging.com/ro/deleteapi";
-    // private putUrl = "https://fed-api.sewnstaging.com/ro/putapi";
-    // private url = "https://fed-api.sewnstaging.com/api";
-    // private deleteUrl = "https://fed-api.sewnstaging.com/deleteapi";
-
-    constructor(private http: HttpClient, public cookieService: CookieService, private socketService: SocketService) {}
+    constructor(protected http: HttpClient, public cookieService: CookieService, private socketService: SocketService) {
+        super(cookieService, http);
+    }
 
     // API Function Name : Roaster Login
     // API Description: This API calls helps to get the username and password of the user
@@ -321,7 +316,7 @@ export class UserserviceService {
             method: 'DELETE',
             token: this.cookieService.get('Auth'),
         };
-        return this.http.post(this.roasterDeleteUrl, data);
+        return this.http.post(this.orgDeleteUrl, data);
     }
 
     // API Function Name :Profile Image Delete
@@ -332,7 +327,7 @@ export class UserserviceService {
             api_call: '/ro/' + roasterId + '/users/' + userId + '/profile-image',
             token: this.cookieService.get('Auth'),
         };
-        return this.http.post(this.roasterDeleteUrl, data);
+        return this.http.post(this.orgDeleteUrl, data);
     }
 
     // API Function Name : Language Setting
@@ -381,7 +376,7 @@ export class UserserviceService {
             method: 'DELETE',
             token: this.cookieService.get('Auth'),
         };
-        return this.http.post(this.roasterDeleteUrl, data);
+        return this.http.post(this.orgDeleteUrl, data);
     }
 
     // API Function Name : Preferences Settings
@@ -616,12 +611,13 @@ export class UserserviceService {
     // API Function Name :  Flavour Profile
     // API Description: This API call helps get list of flavour profile.
     getFlavourProfile() {
-        const data = {
-            api_call: '/general/flavour-profile',
-            method: 'GET',
-            token: this.cookieService.get('Auth'),
-        };
-        return this.http.post(this.roasterUrl, data);
+        // const data = {
+        //     api_call: '/general/flavour-profile',
+        //     method: 'GET',
+        //     token: this.cookieService.get('Auth'),
+        // };
+        // return this.http.post(this.roasterUrl, data);
+        return this.post(this.postUrl, `general/flavour-profile`);
     }
     updateLearnDetails(roaster_id: any, body: any, slug: any) {
         const data = {
@@ -674,7 +670,7 @@ export class UserserviceService {
             method: 'DELETE',
             token: this.cookieService.get('Auth'),
         };
-        return this.http.post(this.roasterDeleteUrl, data);
+        return this.http.post(this.orgDeleteUrl, data);
     }
 
     getGreenCoffee(roaster_id: any, detailestateId: any) {
@@ -695,11 +691,7 @@ export class UserserviceService {
         return this.http.post(this.roasterUrl, data);
     }
     getEstateCertificates() {
-        const data = {
-            api_call: '/general/certificate-types/',
-            token: this.cookieService.get('Auth'),
-        };
-        return this.http.post(this.roasterUrl, data);
+        return this.post(this.postUrl, `general/certificate-types`);
     }
     updateRoastedBatchDetail(roaster_id: any, id: any, body: any): Observable<any> {
         const data = {
@@ -835,7 +827,7 @@ export class UserserviceService {
             method: 'DELETE',
             token: this.cookieService.get('Auth'),
         };
-        return this.http.post(this.roasterDeleteUrl, data);
+        return this.http.post(this.orgDeleteUrl, data);
     }
     getMicroroasterCertificates(micro_roaster_id: any) {
         const data = {
@@ -860,7 +852,7 @@ export class UserserviceService {
             method: 'DELETE',
             token: this.cookieService.get('Auth'),
         };
-        return this.http.post(this.roasterDeleteUrl, data);
+        return this.http.post(this.orgDeleteUrl, data);
     }
 
     addFAQ(roaster_id: any, body: any) {
@@ -1116,7 +1108,7 @@ export class UserserviceService {
             method: 'DELETE',
             token: this.cookieService.get('Auth'),
         };
-        return this.http.post(this.roasterDeleteUrl, data);
+        return this.http.post(this.orgDeleteUrl, data);
     }
     getEstateOrdersCoffeeExperience(roaster_id: any, order_id: any) {
         const data = {
