@@ -844,6 +844,10 @@
     padding-right: 26px;
     cursor: pointer;
     border-bottom: 1px solid #dedede;
+    &.back-to-margin-fix {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
 }
 
 .bg-user-dp {

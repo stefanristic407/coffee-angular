@@ -543,7 +543,7 @@
                             [ngClass]="{ active: !openedThread || (chatService.isExpand | async) }"
                         >
                             <ng-container *ngIf="chatService.userSearch | async">
-                                <div class="back-to-conversation user-list-padding" (click)="backToListFromUsers()">
+                                <div class="back-to-conversation back-to-margin-fix" (click)="backToListFromUsers()">
                                     <img src="assets/images/dm-back-arrow.svg" />
                                     <span>Back to Conversation list</span>
                                 </div>
