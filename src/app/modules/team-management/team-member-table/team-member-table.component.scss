@@ -186,9 +186,10 @@
 .table-container {
     margin: 1.5rem 0;
 }
-@media (max-width: 991px) {
+
+@media screen and (max-width: 991px) and (min-width: 768px) {
     .inviteBtn {
-        padding-top: 16px !important;
+        width: 234px;
     }
 }
 @media screen and (max-width: 767px) {

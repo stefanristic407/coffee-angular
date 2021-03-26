@@ -3,15 +3,6 @@
         <div class="col-10">
             <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
         </div>
-        <div class="col-2">
-            <button
-                type="submit"
-                class="btn pull-right btn-stroked d-md-block d-none"
-                routerLink="/team-management/manage-role"
-            >
-                {{ 'cancel' | translate }}
-            </button>
-        </div>
     </div>
     <div class="row">
         <div class="col-12">
@@ -42,41 +33,25 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
+        <div class="col-12">
             <app-edit-user-details></app-edit-user-details>
         </div>
     </div>
-    <div class="row">
-        <div class="d-none d-sm-none d-md-block col-md-4 col-12 mt-5">
-            <div class="d-flex flex-wrap">
-                <button
-                    (click)="onInvite()"
-                    [disabled]="!currentRoleID"
-                    class="btn-raised mb-3 w-mob-100 order-1 order-md-2"
-                >
-                    Send Invites
-                </button>
-            </div>
-        </div>
-        <div class="d-block d-sm-block d-md-none col-md-4 col-12 mt-3">
-            <div class="d-flex flex-wrap">
-                <button
-                    (click)="onInvite()"
-                    [disabled]="!currentRoleID"
-                    class="btn-raised mb-3 w-mob-100 order-1 order-md-2"
-                >
-                    Send Invites
-                </button>
-                <button
-                    routerLink="/team-management/manage-role"
-                    [disabled]="!currentRoleID"
-                    class="btn-stroked mb-3 w-mob-100 order-1 order-md-2"
-                >
-                    {{ 'cancel' | translate }}
-                </button>
-            </div>
+    <div class="mt-3 mt-md-5">
+        <div class="d-flex flex-column-reverse flex-md-row flex-wrap">
+            <button
+                routerLink="/team-management/manage-role"
+                [disabled]="!currentRoleID"
+                class="btn-stroked mb-3 w-mob-100 mr-md-25"
+            >
+                {{ 'cancel' | translate }}
+            </button>
+            <button (click)="onInvite()" [disabled]="!currentRoleID" class="btn-raised mb-3 w-mob-100">
+                Send Invites
+            </button>
         </div>
     </div>
+
     <p-overlayPanel #op [dismissable]="true" appendTo="body" styleClass="p-overlaypanel-role">
         <div class="overflow-popover">
             <ul class="custom-popover">

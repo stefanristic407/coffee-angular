@@ -5,15 +5,15 @@
                 formArrayName="items"
                 *ngFor="let item of userForm.controls['items']['controls']; let i = index; last as isLast"
             >
-                <div [formGroupName]="i" class="row">
-                    <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+                <div [formGroupName]="i" class="d-flex flex-wrap">
+                    <div class="invite-input pr-md-2 pr-lg-25">
                         <div class="sewn-form-field w-100">
                             <label>Name<span class="star">*</span></label>
                             <input type="text" placeholder="Enter your full name" formControlName="name" pInputText />
                             <small *ngIf="item['controls']['name'].errors?.required" class="p-error"> Required </small>
                         </div>
                     </div>
-                    <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+                    <div class="invite-input pl-md-2 pl-lg-25">
                         <div class="sewn-form-field w-100">
                             <label>Enter work e-mail address<span class="star">*</span></label>
                             <input type="text" placeholder="you@example.com" formControlName="email" pInputText />
@@ -23,10 +23,8 @@
                             >
                         </div>
                     </div>
-                    <div
-                        class="d-none d-sm-none d-md-flex col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 p-0 align-items-center"
-                    >
-                        <div class="fnt-muli ml-0 ml-md-2" *ngIf="i != 0 || !isLast">
+                    <div class="d-flex pl-md-25 pl-lg-4 align-items-center mb-3 mb-md-0">
+                        <div class="fnt-muli" *ngIf="i != 0 || !isLast">
                             <span class="fnt-700 text-highlited cursor-pointer" (click)="deleteEmail(i)"> Delete </span>
                         </div>
                     </div>
