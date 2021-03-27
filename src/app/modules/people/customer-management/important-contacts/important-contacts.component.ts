@@ -3,6 +3,7 @@ import { ChatHandlerService, UserserviceService } from '@services';
 import { CustomerServiceService } from '../customer-service.service';
 import { OrganizationType } from '@enums';
 import { CookieService } from 'ngx-cookie-service';
+import { ActivatedRoute } from '@angular/router';
 @Component({
     selector: 'app-important-contacts',
     templateUrl: './important-contacts.component.html',
@@ -11,12 +12,20 @@ import { CookieService } from 'ngx-cookie-service';
 export class ImportantContactsComponent implements OnInit, OnChanges {
     @Input() customerType: any;
     hrContacts: any;
+    orgType: any;
     constructor(
         public customerService: CustomerServiceService,
         private userService: UserserviceService,
         private chatHandler: ChatHandlerService,
         private cookieService: CookieService,
-    ) {}
+        private activatedRoute: ActivatedRoute,
+    ) {
+        if (this.activatedRoute.snapshot.routeConfig.path === 'micro-roaster-details') {
+            this.orgType = OrganizationType.MICRO_ROASTER;
+        } else if (this.activatedRoute.snapshot.routeConfig.path === 'horeca-details') {
+            this.orgType = OrganizationType.HORECA;
+        }
+    }
     ngOnChanges(): void {
         this.horecaEmployees();
     }
@@ -42,7 +51,7 @@ export class ImportantContactsComponent implements OnInit, OnChanges {
     openChat(userId: number): void {
         this.chatHandler.openChatThread({
             user_id: userId,
-            org_type: OrganizationType.ESTATE,
+            org_type: this.orgType,
             org_id: parseInt(this.cookieService.get('roaster_id'), 10),
         });
     }
