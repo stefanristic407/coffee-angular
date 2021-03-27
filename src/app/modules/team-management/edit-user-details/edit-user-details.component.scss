@@ -9,3 +9,13 @@
 .deleteBtn {
     margin-bottom: 1.375rem !important;
 }
+
+.invite-input {
+    width: 382px;
+    @media (max-width: 991px) {
+        width: 308px;
+    }
+    @media (max-width: 767px) {
+        width: 100%;
+    }
+}

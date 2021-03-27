@@ -7,6 +7,7 @@ import { MenuItem } from 'primeng/api';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { EmailService, UserserviceService } from '@services';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-send-recovery-email',
@@ -35,6 +36,7 @@ export class SendRecoveryEmailComponent implements OnInit {
         public userService: UserserviceService,
         private toastrService: ToastrService,
         private fb: FormBuilder,
+        public location: Location,
     ) {}
 
     ngOnInit(): void {

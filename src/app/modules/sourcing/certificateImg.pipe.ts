@@ -3,6 +3,7 @@ import { SourcingService } from './sourcing.service';
 
 @Pipe({
     name: 'certificateImg',
+    pure: false,
 })
 export class CertificateImgPipe implements PipeTransform {
     constructor(private sourcingSrv: SourcingService) {}

@@ -22,7 +22,7 @@
                 >
                     <div class="square">
                         <div class="content br-4 overflow-hidden">
-                            <div class="social-post-farmlink__item w-100 h-100 position-relative">
+                            <div class="social-post-farmlink__item w-100 h-100" (click)="preview(mediaItem)">
                                 <img
                                     class="social-images w-100 h-100 br-4"
                                     *ngIf="mediaItem.type === 'IMAGE'"
@@ -39,13 +39,13 @@
                                 <p class="mb-0 post-info fnt-16 fnt-600 pt-0 pb-0 pl-3">
                                     {{ mediaItem.description }}
                                 </p>
-                                <div
-                                    *ngIf="isSaveMode"
-                                    class="media-delete-button bg-white justify-content-center align-items-center d-flex"
-                                    (click)="handleRemoveMediaFile(mediaItem.id)"
-                                >
-                                    <img src="assets/images/delete-icon.svg" alt="delete" />
-                                </div>
+                            </div>
+                            <div
+                                *ngIf="isSaveMode"
+                                class="media-delete-button bg-white justify-content-center align-items-center d-flex"
+                                (click)="handleRemoveMediaFile(mediaItem.id)"
+                            >
+                                <img src="assets/images/delete-icon.svg" alt="delete" />
                             </div>
                         </div>
                     </div>

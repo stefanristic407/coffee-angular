@@ -207,7 +207,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
         console.log(this.roasterUsers);
         this.roasterUsers.forEach((ele) => {
             const findCurrentRoleID = ele.roles ? ele.roles.find((item) => item.id === this.currentRoleID) : undefined;
-            if ((this.isAddMember && !findCurrentRoleID) || (!this.isAddMember && findCurrentRoleID)) {
+            if (!findCurrentRoleID) {
                 this.tableValue.push(ele);
             }
         });
@@ -269,14 +269,16 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
     // Function Name : Edit Member
     // Description: This function helps to redirect to edit member page with user id as route params
     editMember(size: any) {
-        const userID = size;
-        const navigationExtras: NavigationExtras = {
-            queryParams: {
-                userID: encodeURIComponent(userID),
-            },
-        };
+        if (!this.isAddMember) {
+            const userID = size;
+            const navigationExtras: NavigationExtras = {
+                queryParams: {
+                    userID: encodeURIComponent(userID),
+                },
+            };
 
-        this.router.navigate(['/team-management/edit-members'], navigationExtras);
+            this.router.navigate(['/team-management/edit-members'], navigationExtras);
+        }
     }
     // Function Name : Open Modal
     // Description: This function helps to get the Role Id from user management page
