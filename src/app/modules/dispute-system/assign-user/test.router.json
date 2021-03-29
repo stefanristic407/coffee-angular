@@ -5,7 +5,7 @@
     },
     {
         "name": "Order Support",
-        "router": "/dispute-system/order-support"
+        "router": "/dispute-system/order-support/154"
     },
     {
         "name": "Order support FAQ",
@@ -13,7 +13,7 @@
     },
     {
         "name": "Rasied tickets Table",
-        "router": "/dispute-system/raised-tickets"
+        "router": "/dispute-system/raised-tickets/154"
     },
     {
         "name": "Select Order",
