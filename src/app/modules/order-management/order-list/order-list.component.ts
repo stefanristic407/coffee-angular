@@ -42,7 +42,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
         page: this.fb.control(1),
         per_page: this.fb.control(10),
         sort_by: this.fb.control('date_received'),
-        sort_order: this.fb.control('asc'),
+        sort_order: this.fb.control('desc'),
     });
 
     readonly exportForm = this.fb.group({
