@@ -692,12 +692,13 @@ export class RoasterserviceService extends ApiService {
     }
 
     getRaisedTicketData(roaster_id: any, orderType?, postData?) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/disputes?' + this.serlialise(postData);
-        if (orderType == 'MR') {
-            data['api_call'] = '/ro/' + roaster_id + '/micro_roasters/disputes?' + this.serlialise(postData);
+        const data: any = {};
+        data.api_call = '/ro/' + roaster_id + '/disputes?' + this.serlialise(postData);
+        if (orderType === 'MR') {
+            data.api_call = '/ro/' + roaster_id + '/micro_roasters/disputes?' + this.serlialise(postData);
         }
-        data['token'] = this.cookieService.get('Auth');
+        data.token = this.cookieService.get('Auth');
+        data.method = 'GET';
         return this.http.post(this.url, data);
     }
     // getEstateSelectAnOrderTableData(roaster_id: any) {

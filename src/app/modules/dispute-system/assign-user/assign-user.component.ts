@@ -18,6 +18,9 @@ export class AssignUserComponent implements OnInit {
     userList: any = [];
     disputeID = '';
     SERVICE_TYPE = OrderChatType.RO_ES;
+
+    public tempMenu: any = require('./test.router.json');
+
     constructor(
         private route: ActivatedRoute,
         private roasterService: RoasterserviceService,
@@ -33,6 +36,7 @@ export class AssignUserComponent implements OnInit {
             : undefined;
         this.roasterId = this.cookieService.get('roaster_id');
     }
+
     onSearch(event) {
         this.userDetails = undefined;
         if (event.query === '') {
@@ -55,9 +59,11 @@ export class AssignUserComponent implements OnInit {
             );
         }
     }
+
     onSelectUser(event) {
         this.userDetails = event;
     }
+
     onAssign() {
         const user = { user_id: this.userDetails.id };
         const assignID = this.disputeID ? this.disputeID : this.orderID;
@@ -81,5 +87,9 @@ export class AssignUserComponent implements OnInit {
                 console.log(err);
             },
         );
+    }
+
+    goToRouter(url) {
+        this.router.navigateByUrl(url);
     }
 }
