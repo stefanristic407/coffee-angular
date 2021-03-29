@@ -50,7 +50,7 @@
                                         {{ 'save' | translate }}
                                     </button>
                                     <button
-                                        *ngIf="!isEditableMode && estateBtn"
+                                        *ngIf="!isEditableMode && estateBtn && !route.snapshot.queryParams.estate_id"
                                         type="button"
                                         class="btn-raised px-4"
                                         [disabled]="isSaving"
@@ -417,6 +417,74 @@
                                                                         {{ 'choose_image_text' | translate }}
                                                                     </p>
                                                                     <div *ngIf="fileVideo" class="text-center">
+                                                                        <small>File attached</small>
+                                                                    </div>
+                                                                </div>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column flex-md-row flex-lg-column mb-3">
+                                        <div class="w-100">
+                                            <div
+                                                *ngIf="materialOnResponse"
+                                                class="existing-media-container material-line"
+                                            >
+                                                <div class="content-container">
+                                                    <i class="pi pi-cloud-download text-clr094 material-icon"></i>
+                                                    <div class="grey-gradient-container text-white">
+                                                        {{
+                                                            materialFileName
+                                                                ? materialFileName
+                                                                : ('download_zip' | translate)
+                                                        }}
+                                                        <span class="pull-right">
+                                                            <i
+                                                                class="pi pi-ellipsis-v cursor-pointer line-height-2"
+                                                                (click)="menu.toggle($event)"
+                                                            ></i>
+                                                            <p-menu
+                                                                #menu
+                                                                [popup]="true"
+                                                                [model]="materialMenuItems"
+                                                                appendTo="body"
+                                                            ></p-menu>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="materialOnRequest" class="roastery-upload-files">
+                                                <div class="roastery-fields">
+                                                    <div>
+                                                        <div
+                                                            class="roastery-uploads__image d-flex align-items-center justify-content-center"
+                                                        >
+                                                            <label class="mb-0">
+                                                                <input
+                                                                    type="file"
+                                                                    accept=".zip,.rar,.7zip"
+                                                                    (change)="uploadMarketingMaterial($event)"
+                                                                />
+                                                                <div
+                                                                    class="d-flex flex-wrap align-items-center justify-content-center"
+                                                                >
+                                                                    <img src="assets/images/upload-icon.png" />
+                                                                    <span
+                                                                        class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 text-clr334"
+                                                                    >
+                                                                        {{ 'marketing_material' | translate }}
+                                                                    </span>
+                                                                    <p
+                                                                        class="mb-0 d-block w-100 text-center mt-2 fnt-12 fnt-muli fnt-normal text-clr588"
+                                                                    >
+                                                                        Upload a folder containing all your high res
+                                                                        images, videos, intruction etc for use by your
+                                                                        customers
+                                                                    </p>
+                                                                    <div *ngIf="fileImage" class="text-center">
                                                                         <small>File attached</small>
                                                                     </div>
                                                                 </div>

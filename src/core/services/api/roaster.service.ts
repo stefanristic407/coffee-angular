@@ -431,6 +431,12 @@ export class RoasterserviceService extends ApiService {
         return this.http.post(this.fileuploadUrl, formData, httpOptions);
     }
 
+    // API Function Name : Upload Coffee Files API.
+    // API Description   : This API call helps to upload the Files.
+    uploadCoffeeFiles(formData: FormData): any {
+        return this.http.post(this.fileUploadUrl, formData);
+    }
+
     // Upload brand profile files
     uploadBrandProfile(file) {
         const roasterId = this.cookieService.get('roaster_id');

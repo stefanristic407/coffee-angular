@@ -451,6 +451,16 @@ label {
     color: #232334;
     text-decoration: none;
 }
+.material-line {
+    border-radius: 4px;
+    border: dashed 1px #dddddd;
+    text-align: center;
+    .material-icon {
+        font-size: 40px;
+        position: absolute;
+        top: 28px;
+    }
+}
 
 @media (min-width: 992px) {
     .tabView {

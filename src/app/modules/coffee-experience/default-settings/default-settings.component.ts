@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalsService } from '@services';
+import { GlobalsService, RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
@@ -34,11 +34,22 @@ export class DefaultSettingsComponent implements OnInit {
     totalFilesNumber = 0;
     fileVideoId?: number;
     fileImageId?: number;
+    files: any;
+    fileEvent: any;
+    fileName: string;
+    imageFileName: string | Blob;
+    materialFileName: any;
+    materialFileData: any;
+    materialId: any;
+    materialUrl: any;
+    materialOnResponse = false;
+    materialOnRequest = true;
     isFailedToSave?: boolean;
     isSaving?: boolean;
     imageMenuItems: MenuItem[];
     videoMenuItems: MenuItem[];
     certificateMenuItems: MenuItem[];
+    materialMenuItems: MenuItem[];
     isImagePreviewPanel = false;
     isVideoPreviewPanel = false;
     coffeeExperienceLink = 'https://sewn.com/coffee-experience';
@@ -53,8 +64,9 @@ export class DefaultSettingsComponent implements OnInit {
         private userService: UserserviceService,
         private toastrService: ToastrService,
         public cookieService: CookieService,
-        private route: ActivatedRoute,
+        public route: ActivatedRoute,
         public location: Location,
+        private roasterService: RoasterserviceService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.setMenuItems();
@@ -70,7 +82,7 @@ export class DefaultSettingsComponent implements OnInit {
         });
 
         this.language();
-
+        this.getMarketingMaterial();
         if (this.isCoffeeDetailsPage) {
             if (this.route.snapshot.queryParams.estate_id) {
                 this.orderId = decodeURIComponent(this.route.snapshot.queryParams.estate_id);
@@ -107,6 +119,14 @@ export class DefaultSettingsComponent implements OnInit {
             video_id: 0,
             image_id: 0,
         };
+        this.materialMenuItems = [
+            {
+                label: 'Download',
+                command: () => {
+                    this.downloadMaterialFile();
+                },
+            },
+        ];
         this.getGeneralRoasterCertificates();
     }
 
@@ -174,7 +194,7 @@ export class DefaultSettingsComponent implements OnInit {
     getOrderExperience() {
         if (this.route.snapshot.queryParams.estate_id) {
             this.userService
-                .getEstateOrdersCoffeeExperience(this.roasterId, this.orderId)
+                .getEstateOrdersCoffeeExperience(this.cookieService.get('estate_id'), this.orderId)
                 .subscribe((response: any) => {
                     if (response.success) {
                         this.setPageData(response);
@@ -233,6 +253,26 @@ export class DefaultSettingsComponent implements OnInit {
                 this.certificateDetails = response.result;
             } else {
                 this.toastrService.error('Error while getting certificates');
+            }
+        });
+    }
+
+    getMarketingMaterial() {
+        this.userService.getMarketingMaterials(this.roasterId).subscribe((response: any) => {
+            if (response.success) {
+                response.result = response.result.find(
+                    (item) =>
+                        item.mime === 'application/zip' ||
+                        item.mime === 'application/rar' ||
+                        item.mime === 'application/7zip',
+                );
+                this.materialUrl = response.result.url;
+                this.materialFileName = response.result.name;
+                this.materialOnRequest = false;
+                this.materialOnResponse = true;
+            } else {
+                this.materialOnRequest = true;
+                this.materialOnResponse = false;
             }
         });
     }
@@ -395,6 +435,32 @@ export class DefaultSettingsComponent implements OnInit {
                 },
             );
         }
+    }
+
+    uploadMarketingMaterial(event: any) {
+        this.files = event.target.files;
+        this.fileEvent = this.files;
+        this.materialFileName = this.files[0].name;
+        const fileList: FileList = this.fileEvent;
+        if (fileList.length > 0) {
+            const file: File = fileList[0];
+            this.userService.uploadFile(this.roasterId, file, 'marketing-materials').subscribe((result) => {
+                if (result.success) {
+                    this.toastrService.success('The file ' + this.materialFileName + ' uploaded successfully');
+                    this.materialFileData = result.result;
+                    this.materialId = result.result.id;
+                    this.materialUrl = result.result.url;
+                    this.materialOnResponse = true;
+                    this.materialOnRequest = false;
+                } else {
+                    this.toastrService.error('Error while uploading the file');
+                }
+            });
+        }
+    }
+
+    downloadMaterialFile() {
+        window.open(this.materialUrl);
     }
 
     handleAfterSuccess(): void {
