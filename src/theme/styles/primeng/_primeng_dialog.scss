@@ -1,8 +1,3 @@
-// Custom Theming for Prime Ng
-
-@import '../variables';
-
-// Dialog
 .p-dialog {
     background: $white;
     border: none;
@@ -48,8 +43,8 @@
     }
 
     .p-dialog-content {
-        padding-left: 0;
-        padding-right: 0;
+        padding: 0;
+        border-radius: 4px;
     }
 
     .p-dialog-footer {
