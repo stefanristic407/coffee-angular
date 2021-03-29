@@ -1,6 +1,6 @@
 import { ToastrService } from 'ngx-toastr';
 /* tslint:disable no-string-literal */
-import { debounce, first, filter, timeout } from 'rxjs/operators';
+import { debounce, first, filter } from 'rxjs/operators';
 import { Subscription, fromEvent, interval, Subject, timer } from 'rxjs';
 import { Component, OnInit, OnDestroy, AfterViewInit, Renderer2, ElementRef } from '@angular/core';
 import { UserserviceService, SocketService, ChatHandlerService, ChatUtilService, GlobalsService } from '@services';
