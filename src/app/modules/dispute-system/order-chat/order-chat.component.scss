@@ -13,9 +13,11 @@
     position: relative;
 }
 .imgDiv {
-    border-right: 1px solid #d6d6d6;
-    .move-left {
-        margin-left: -12px;
+    @media screen and (min-width: 576px) {
+        border-right: 1px solid #d6d6d6;
+        .move-left {
+            margin-left: -12px;
+        }
     }
 }
 .font-bold-700 {
