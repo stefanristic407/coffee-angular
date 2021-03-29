@@ -12,6 +12,7 @@
     (onLazyLoad)="loadOrders($event)"
     [totalRecords]="pageInfo.total_count"
     sortField="date_received"
+    sortOrder="-1"
     styleClass="p-datatable-responsive-single p-datatable-tablet-scrollable p-datatable-custom-paginator"
 >
     <ng-template pTemplate="header" let-columns>
