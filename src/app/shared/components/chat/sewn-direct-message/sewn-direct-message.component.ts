@@ -1,7 +1,7 @@
 import { ToastrService } from 'ngx-toastr';
 /* tslint:disable no-string-literal */
-import { debounce, first, filter } from 'rxjs/operators';
-import { Subscription, fromEvent, interval, Subject, concat } from 'rxjs';
+import { debounce, first, filter, timeout } from 'rxjs/operators';
+import { Subscription, fromEvent, interval, Subject, timer } from 'rxjs';
 import { Component, OnInit, OnDestroy, AfterViewInit, Renderer2, ElementRef } from '@angular/core';
 import { UserserviceService, SocketService, ChatHandlerService, ChatUtilService, GlobalsService } from '@services';
 
@@ -590,7 +590,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         this.render.setStyle(chat, 'height', `${chatBoxCalculatedHeight}px`);
         this.render.setStyle(chatBox, 'height', `${chatBodyCalculatedHeight}px`);
         this.render.setStyle(liveChat, 'height', `${panelHeight}px`);
-        this.render.setStyle(accountSetting, 'height', `${chatBodyCalculatedHeight}px`);
+        this.render.setStyle(accountSetting, 'height', `${panelHeight}px`);
         this.render.setStyle(accountBody, 'height', `${panelHeight}px`);
 
         if (window.innerWidth <= 767) {
@@ -619,7 +619,11 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         }
         if (this.chatMessageBodyElement && this.chatMessageFormElement && this.chatMessageHeadElement) {
             const diff = this.chatMessageFormElement.offsetHeight + this.chatMessageHeadElement.offsetHeight;
-            this.render.setStyle(this.chatMessageBodyElement, 'height', `calc( 100% - ${diff}px)`);
+            if (diff > 0) {
+                this.render.setStyle(this.chatMessageBodyElement, 'height', `calc( 100% - ${diff}px)`);
+            } else {
+                this.render.removeStyle(this.chatMessageBodyElement, 'height');
+            }
         }
     }
 
@@ -705,7 +709,11 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             if (this.SM['lastRender'] && this.SM['lastRender'].unsubscribe) {
                 this.SM['lastRender'].unsubscribe();
             }
+
             this.SM['lastRender'] = this.lastMessageRendered.pipe(first()).subscribe((x) => {
+                this.chatBodyHeightAdjust();
+            });
+            this.SM['timeoutTextSend'] = timer(600).subscribe((x) => {
                 this.chatBodyHeightAdjust();
             });
         } else {

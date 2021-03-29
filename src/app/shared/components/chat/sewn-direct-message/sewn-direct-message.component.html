@@ -111,10 +111,7 @@
                                         </li>
 
                                         <li class="list-group-item list-group-item__disabled">
-                                            <a class="pointer-item">{{ globals.languageJson?.mark_unread }}</a>
-                                        </li>
-                                        <li class="list-group-item list-group-item__disabled">
-                                            <a class="pointer-item">{{ globals.languageJson?.archive }}</a>
+                                            <a class="pointer-item">{{ globals.languageJson?.mark_read }}</a>
                                         </li>
                                         <li class="list-group-item list-group-item__disabled">
                                             <a class="pointer-item">{{ globals.languageJson?.report }}</a>
@@ -459,9 +456,14 @@
                         <div data-element="account-setting" class="account-setting" [ngClass]="{ open: selectedUser }">
                             <ng-container *ngIf="selectedUser">
                                 <div class="account-setting__back">
-                                    <div class="back-to-conversation" (click)="closeUserInfoPanel()">
+                                    <div class="back-to-conversation-account-setting" (click)="closeUserInfoPanel()">
                                         <img src="assets/images/dm-back-arrow.svg" />
-                                        <span>Back to Chat</span>
+                                        <span class="back-to-text" *ngIf="!(chatService.isExpand | async)">
+                                            Back to Chat</span
+                                        >
+                                        <span class="back-to-text" *ngIf="chatService.isExpand | async">
+                                            Back to Conversation list</span
+                                        >
                                     </div>
                                     <div class="account-setting__profile clearfix">
                                         <div class="set-profile">
@@ -543,12 +545,17 @@
                             [ngClass]="{ active: !openedThread || (chatService.isExpand | async) }"
                         >
                             <ng-container *ngIf="chatService.userSearch | async">
-                                <div class="back-to-conversation back-to-margin-fix" (click)="backToListFromUsers()">
+                                <div class="back-to-conversation" (click)="backToListFromUsers()">
                                     <img src="assets/images/dm-back-arrow.svg" />
-                                    <span>Back to Conversation list</span>
+                                    <span class="back-to-text" *ngIf="!(chatService.isExpand | async)">
+                                        Back to Chat</span
+                                    >
+                                    <span class="back-to-text" *ngIf="chatService.isExpand | async">
+                                        Back to Conversation list</span
+                                    >
                                 </div>
                                 <div class="search-contianer user-search">
-                                    <div class="search-account position-relative">
+                                    <div class="search-account position-relative user-search-account">
                                         <img src="assets/images/dm-search.svg" />
                                         <input
                                             [(ngModel)]="userSearchKeywords"
@@ -571,10 +578,10 @@
                                 <div class="chat-accounts__name">
                                     <!--User Search-->
                                     <ng-container *ngIf="!userSearchKeywords">
-                                        <div class="list-container-panel">
+                                        <div class="list-container-panel user-search-container">
                                             <span class="recent-tag">Recents</span>
                                             <div
-                                                class="clearfix account account-margin-top"
+                                                class="clearfix account account-margin-top userlist-item-account"
                                                 *ngFor="let user of recentUserList"
                                                 (click)="openThreadWithUser(user)"
                                             >
@@ -599,9 +606,9 @@
                                         </div>
                                     </ng-container>
                                     <ng-container *ngIf="userSearchKeywords">
-                                        <div class="list-container-panel">
+                                        <div class="list-container-panel user-search-container">
                                             <div
-                                                class="clearfix account account-margin-top"
+                                                class="clearfix account account-margin-top userlist-item-account"
                                                 *ngFor="let user of usersList"
                                                 (click)="openThreadWithUser(user)"
                                             >
