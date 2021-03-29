@@ -212,11 +212,12 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     onReturnOrder() {
-        const navigationExtras: NavigationExtras = {
-            queryParams: {
-                id: this.orderID,
-            },
-        };
-        this.router.navigate(['/ordermanagement/order-booked'], navigationExtras);
+        // const navigationExtras: NavigationExtras = {
+        //     queryParams: {
+        //         id: this.orderID,
+        //     },
+        // };
+        // this.router.navigate(['/orders/ro/' + this.orderID], navigationExtras);
+        this.router.navigateByUrl(`/orders/ro/${this.orderID}`);
     }
 }

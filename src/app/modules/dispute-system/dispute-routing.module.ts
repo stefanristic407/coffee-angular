@@ -49,9 +49,14 @@ const routes: Routes = [
                 component: RaiseTicketComponent,
                 canActivate: [AuthGuard],
             },
+            // {
+            //     path: '',
+            //     redirectTo: 'order-chat',
+            //     pathMatch: 'full',
+            // },
             {
                 path: '',
-                redirectTo: 'order-chat',
+                redirectTo: 'assign-user',
                 pathMatch: 'full',
             },
         ],

@@ -10,7 +10,7 @@ export const routes: Routes = [
         component: LayoutComponent,
         children: [
             {
-                path: '',
+                path: 'test',
                 loadChildren: () => import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
             },
             {
@@ -110,8 +110,11 @@ export const routes: Routes = [
             {
                 path: 'coffee-experience',
                 loadChildren: () =>
-                    import('./modules/coffee-experience/coffee-experience.module').then(m => m.CoffeeExperienceModule)
+                    import('./modules/coffee-experience/coffee-experience.module').then(
+                        (m) => m.CoffeeExperienceModule,
+                    ),
             },
+            { path: '', redirectTo: 'dispute-system', pathMatch: 'full' },
         ],
     },
     { path: 'gate', component: GateComponent },
