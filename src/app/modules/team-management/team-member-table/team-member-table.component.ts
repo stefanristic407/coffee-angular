@@ -42,6 +42,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
     popupDisplay = false;
     selectedUserID: any;
     popupDetails = { message: '', buttonName: '', showIcon: false };
+    assignedUsers = [];
     @ViewChild('input') input: ElementRef;
     constructor(
         public router: Router,
@@ -190,9 +191,8 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
                     }
                     if (this.isAddMember) {
                         this.filterSelectedRoleUser();
-                    } else {
-                        this.tableValue = this.roasterUsers;
                     }
+                    this.tableValue = this.roasterUsers;
                 } else {
                     this.toastrService.error('Unable to fetch users data');
                 }
@@ -203,12 +203,11 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
         );
     }
     filterSelectedRoleUser(): void {
-        this.tableValue = [];
-        console.log(this.roasterUsers);
+        this.assignedUsers = [];
         this.roasterUsers.forEach((ele) => {
             const findCurrentRoleID = ele.roles ? ele.roles.find((item) => item.id === this.currentRoleID) : undefined;
-            if (!findCurrentRoleID) {
-                this.tableValue.push(ele);
+            if (findCurrentRoleID) {
+                this.assignedUsers.push(ele.id);
             }
         });
     }
@@ -393,5 +392,28 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
                 }),
             )
             .subscribe();
+    }
+
+    selectRows(checkValue) {
+        this.selectedUsers = [];
+        if (checkValue) {
+            this.roasterUsers.forEach((ele) => {
+                const findCurrentRoleID = ele.roles
+                    ? ele.roles.find((item) => item.id === this.currentRoleID)
+                    : undefined;
+                if (!findCurrentRoleID) {
+                    this.selectedUsers.push(ele);
+                }
+            });
+        } else {
+            this.selectedUsers = [];
+        }
+    }
+
+    selectRow(userRoles) {
+        const findCurrentRoleID = userRoles ? userRoles.find((item) => item.id === this.currentRoleID) : undefined;
+        if (findCurrentRoleID) {
+            this.toastrService.error('This user has been already assigned.');
+        }
     }
 }
