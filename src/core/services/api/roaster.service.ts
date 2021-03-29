@@ -295,6 +295,7 @@ export class RoasterserviceService extends ApiService {
     getRoasterReviews(roasterId: any, queryParams = {}): Observable<any> {
         const data = {
             api_call: `/ro/${roasterId}/your-reviews?${this.serlialise(queryParams)}`,
+            method: 'GET',
             token: this.cookieService.get('Auth'),
         };
         return this.http.post(this.url, data);
