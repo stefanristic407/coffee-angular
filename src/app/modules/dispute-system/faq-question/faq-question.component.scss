@@ -63,12 +63,6 @@
 .text-highlited:hover {
     text-decoration: underline !important;
 }
-.back-href {
-    color: #80460b;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 600;
-}
 
 @media (max-width: 768px) {
     ::ng-deep .p-accordion-header .p-accordion-header-link .p-accordion-toggle-icon {
