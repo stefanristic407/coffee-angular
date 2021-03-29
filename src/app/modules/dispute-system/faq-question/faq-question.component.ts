@@ -52,7 +52,7 @@ export class FaqQuestionComponent implements OnInit {
         };
         const obj5: MenuItem = {
             label: 'Order Support',
-            routerLink: ['/dispute-system/order-support', this.orderID],
+            routerLink: [`/dispute-system/order-support${this.orderID}`],
         };
         const obj6: MenuItem = {
             label: this.buttonValue,
