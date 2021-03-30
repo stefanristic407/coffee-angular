@@ -440,6 +440,7 @@ label {
 .no-editable-text {
     padding-bottom: 16px;
     color: #232334;
+    font-weight: 500;
 }
 
 .download:hover {
@@ -471,13 +472,9 @@ label {
 @media (max-width: 991px) {
     .media-container {
         width: 33%;
-
-        &:first-child {
-            margin-right: 8px;
-        }
-
+        margin-right: 16px;
         &:last-child {
-            margin-left: 8px;
+            margin-right: 0;
         }
     }
     .input-container {
