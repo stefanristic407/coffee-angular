@@ -110,7 +110,9 @@ export const routes: Routes = [
             {
                 path: 'coffee-experience',
                 loadChildren: () =>
-                    import('./modules/coffee-experience/coffee-experience.module').then(m => m.CoffeeExperienceModule)
+                    import('./modules/coffee-experience/coffee-experience.module').then(
+                        (m) => m.CoffeeExperienceModule,
+                    ),
             },
         ],
     },

@@ -222,8 +222,8 @@
     padding: 0px;
     margin: 0px;
     .thread-block {
-        padding-right: 16px;
-        padding-left: 16px;
+        padding-right: 32px;
+        padding-left: 32px;
     }
 }
 
@@ -317,7 +317,10 @@
         border: solid 1px #d6d6d6;
         background-color: #fff;
         padding: 3px 0px;
-        width: calc(100% - 50px);
+        width: calc(100% - 64px);
+        &.user-search-account {
+            width: calc(100% - 48px);
+        }
     }
 }
 
@@ -383,6 +386,10 @@
     &.account-margin-top {
         margin-top: 16px;
     }
+    &.userlist-item-account {
+        margin-left: 24px;
+        margin-right: 24px;
+    }
 }
 
 .chat-profile__time {
@@ -406,7 +413,7 @@
 
 .chat-messaged__text {
     font-size: 14px;
-    line-height: 16px;
+    line-height: 20px;
     font-weight: 600;
     color: #232334;
     margin: 0;
@@ -589,7 +596,7 @@
 }
 
 .live-chat-message-body {
-    height: calc(100% - 191px);
+    height: calc(100% - 230px);
     overflow-y: auto;
     background-color: #f8f8f8;
 }
@@ -819,7 +826,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    top: 0px;
+    bottom: 0px;
     right: -100%;
     background-color: #ffffff;
     border-top: 1px solid #f8f8f8;
@@ -830,23 +837,37 @@
 .account-setting.open {
     right: 0 !important;
 }
+.back-to-conversation-account-setting {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+    color: #80460b;
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+    padding-left: 26px;
+    padding-right: 26px;
+    cursor: pointer;
+    margin-left: -26px;
+    margin-right: -26px;
+    .back-to-text {
+        margin-left: 12px;
+    }
+}
 
 .back-to-conversation {
     font-size: 14px;
     line-height: 20px;
     font-weight: 600;
     color: #80460b;
-    padding-bottom: 18px;
+    padding-bottom: 6px;
     margin-bottom: 10px;
-    margin-left: -26px;
-    margin-right: -26px;
     padding-left: 26px;
     padding-right: 26px;
     cursor: pointer;
-    border-bottom: 1px solid #dedede;
-    &.back-to-margin-fix {
-        margin-left: 0px;
-        margin-right: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    .back-to-text {
+        margin-left: 12px;
     }
 }
 
@@ -883,20 +904,11 @@
     display: flex;
     padding: 20px;
     padding-bottom: 32px;
+    height: 94px;
+    background-color: #faf8f4;
+    margin-bottom: 58px;
 }
 
-.account-setting__profile::before {
-    position: absolute;
-    content: '';
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: calc(100% - 35px);
-    background-color: #faf8f4;
-    padding: 20px;
-    border-radius: 6px;
-    /* z-index: -1; */
-}
 .account-setting-option__item {
     cursor: pointer;
 }
@@ -936,10 +948,19 @@
     color: #747588;
     font-weight: 600;
     display: block;
-    margin: 15px 0px 0px 0px;
+    margin: 15px 0px 0px 24px;
 }
 
 @media (max-width: 767px) {
+    .account {
+        &.userlist-item-account {
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+    }
+    .recent-tag {
+        margin: 0px 0px 0px 0px;
+    }
     .chat {
         width: 100% !important;
         top: 0;
@@ -963,12 +984,24 @@
     .chat-accounts__name {
         background-color: #f1f1f1;
     }
+    .live-chat-message-body {
+        height: calc(100% - 130px);
+    }
     .list-container-panel {
         padding: 16px 12px 16px 16px;
         margin: 16px 16px;
+        &.user-search-container {
+            margin: 16px 24px;
+            padding: 12px 12px 12px 12px;
+        }
         .thread-block {
             padding-right: 0px;
             padding-left: 0px;
+        }
+    }
+    .search-contianer {
+        .search-account {
+            width: calc(100% - 32px);
         }
     }
 
@@ -1207,7 +1240,8 @@
 .message-from {
     padding-left: 50px;
     .main-message__profile {
-        margin-left: -40px;
+        margin-left: -45px;
+        margin-top: 11px;
     }
 }
 .main-message__profile {

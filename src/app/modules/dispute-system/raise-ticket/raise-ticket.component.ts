@@ -49,7 +49,7 @@ export class RaiseTicketComponent implements OnInit {
         this.ticketForm = this.fb.group({
             orderID: [{ value: this.orderID, disabled: true }, Validators.compose([Validators.required])],
             dispute_type: [this.supportValue, Validators.compose([Validators.required])],
-            dispute_reason: [''],
+            dispute_reason: ['', Validators.compose([Validators.required])],
             description: ['', Validators.compose([Validators.required])],
             solution: [''],
             images: [],
@@ -112,20 +112,19 @@ export class RaiseTicketComponent implements OnInit {
     }
     supplyBreadCrumb(): void {
         const obj1: MenuItem = {
-            label: this.globals.languageJson?.home,
+            label: 'Home',
             routerLink: '/',
         };
         const obj2: MenuItem = {
             label: 'Order Management',
-            routerLink: 'ordermanagement/estate-orders',
         };
         const obj3: MenuItem = {
-            label: 'Estate Orders',
-            routerLink: 'ordermanagement/estate-orders',
+            label: 'Purchased order of estate',
+            routerLink: '/orders/es',
         };
         const obj4: MenuItem = {
             label: 'Order ' + this.orderID,
-            routerLink: '/ordermanagement/order-booked',
+            routerLink: [`/orders/ro/${this.orderID}`],
         };
         const obj5: MenuItem = {
             label: 'Order Support',

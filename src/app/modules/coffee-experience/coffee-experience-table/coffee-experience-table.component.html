@@ -94,7 +94,12 @@
         </ng-template>
         <ng-template pTemplate="body" let-item>
             <tr>
-                <td *ngIf="customerType === 'estate'" class="fnt-14" (click)="viewDetails()">
+                <td
+                    *ngIf="customerType === 'estate'"
+                    class="fnt-14"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ estate_id: item.id }"
+                >
                     {{ item.id }}
                 </td>
                 <td
@@ -114,7 +119,12 @@
                     {{ item.order_id }}
                 </td>
 
-                <td *ngIf="customerType === 'estate'" class="fnt-14" (click)="viewDetails()">
+                <td
+                    *ngIf="customerType === 'estate'"
+                    class="fnt-14"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ estate_id: item.id }"
+                >
                     {{ item.estate_name }}
                 </td>
                 <td
@@ -133,10 +143,20 @@
                 >
                     {{ item.horeca_name }}
                 </td>
-                <td *ngIf="customerType === 'estate'" class="fnt-14" (click)="viewDetails()">
+                <td
+                    *ngIf="customerType === 'estate'"
+                    class="fnt-14"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ estate_id: item.id }"
+                >
                     {{ item.origin | country }}
                 </td>
-                <td *ngIf="customerType === 'estate'" class="fnt-14" (click)="viewDetails()">
+                <td
+                    *ngIf="customerType === 'estate'"
+                    class="fnt-14"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ estate_id: item.id }"
+                >
                     {{ item.created_at | date: 'mediumDate' }}
                 </td>
                 <td
@@ -156,7 +176,12 @@
                     {{ item.product_name }}
                 </td>
 
-                <td *ngIf="customerType === 'estate'" class="fnt-14" (click)="viewDetails()">
+                <td
+                    *ngIf="customerType === 'estate'"
+                    class="fnt-14"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ estate_id: item.id }"
+                >
                     {{ item.date_received | date: 'mediumDate' }}
                 </td>
                 <td
@@ -175,7 +200,12 @@
                 >
                     {{ item.order_date | date: 'mediumDate' }}
                 </td>
-                <td *ngIf="customerType === 'estate'" class="fnt-14" (click)="viewDetails()">
+                <td
+                    *ngIf="customerType === 'estate'"
+                    class="fnt-14"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ estate_id: item.id }"
+                >
                     {{ item.varieties }}
                 </td>
                 <td
@@ -195,7 +225,14 @@
                     {{ item.roast_level }}
                 </td>
 
-                <td *ngIf="customerType === 'estate'" class="fnt-14" (click)="viewDetails()">{{ item.quantity }} kg</td>
+                <td
+                    *ngIf="customerType === 'estate'"
+                    class="fnt-14"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ estate_id: item.id }"
+                >
+                    {{ item.quantity }} kg
+                </td>
                 <td
                     *ngIf="customerType === 'micro-roasters'"
                     class="fnt-14"
@@ -213,7 +250,12 @@
                     {{ item.quantity }} kg
                 </td>
 
-                <td *ngIf="customerType === 'estate'" class="fnt-14">
+                <td
+                    *ngIf="customerType === 'estate'"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ estate_id: item.id }"
+                    class="fnt-14"
+                >
                     {{ item.cup_score }}
                 </td>
                 <td
@@ -229,7 +271,6 @@
                     class="brown-cta fnt-bold ng-star-inserted"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ estate_id: item.id }"
-                    (click)="viewDetails()"
                 >
                     View Details
                 </td>
@@ -280,7 +321,8 @@
                                                 <a
                                                     *ngIf="customerType === 'estate'"
                                                     class="light-eight fnt-14"
-                                                    (click)="viewDetails()"
+                                                    routerLink="/coffee-experience/coffee-details/"
+                                                    [queryParams]="{ estate_id: item.id }"
                                                     >View Details</a
                                                 >
                                                 <a
@@ -305,7 +347,12 @@
                         </div>
                         <div class="bor-bot-d6d6 mx-3 py-3 row">
                             <div class="col-5 p-0">
-                                <p class="light-eight fnt-14" *ngIf="customerType === 'estate'" (click)="viewDetails()">
+                                <p
+                                    class="light-eight fnt-14"
+                                    *ngIf="customerType === 'estate'"
+                                    routerLink="/coffee-experience/coffee-details/"
+                                    [queryParams]="{ estate_id: item.id }"
+                                >
                                     {{ 'estate_name' | translate }}
                                 </p>
                                 <p
@@ -326,7 +373,12 @@
                                 </p>
                             </div>
                             <div class="col-7 p-0">
-                                <p *ngIf="customerType === 'estate'" class="fnt-14" (click)="viewDetails()">
+                                <p
+                                    *ngIf="customerType === 'estate'"
+                                    class="fnt-14"
+                                    routerLink="/coffee-experience/coffee-details/"
+                                    [queryParams]="{ estate_id: item.id }"
+                                >
                                     {{ item.estate_name }}
                                 </p>
                                 <p
@@ -349,17 +401,32 @@
                         </div>
                         <div *ngIf="customerType === 'estate'" class="bor-bot-d6d6 mx-3 py-3 row">
                             <div class="col-5 p-0">
-                                <p class="light-eight fnt-14" (click)="viewDetails()">{{ 'origin' | translate }}</p>
+                                <p
+                                    class="light-eight fnt-14"
+                                    routerLink="/coffee-experience/coffee-details/"
+                                    [queryParams]="{ estate_id: item.id }"
+                                >
+                                    {{ 'origin' | translate }}
+                                </p>
                             </div>
                             <div class="col-7 p-0">
-                                <p class="fnt-14" (click)="viewDetails()">
+                                <p
+                                    class="fnt-14"
+                                    routerLink="/coffee-experience/coffee-details/"
+                                    [queryParams]="{ estate_id: item.id }"
+                                >
                                     {{ item.origin | country }}
                                 </p>
                             </div>
                         </div>
                         <div class="bor-bot-d6d6 mx-3 py-3 row">
                             <div class="col-5 p-0">
-                                <p class="light-eight fnt-14" *ngIf="customerType === 'estate'" (click)="viewDetails()">
+                                <p
+                                    class="light-eight fnt-14"
+                                    *ngIf="customerType === 'estate'"
+                                    routerLink="/coffee-experience/coffee-details/"
+                                    [queryParams]="{ estate_id: item.id }"
+                                >
                                     Date recieved
                                 </p>
                                 <p
@@ -380,7 +447,12 @@
                                 </p>
                             </div>
                             <div class="col-7 p-0">
-                                <p *ngIf="customerType === 'estate'" class="fnt-14" (click)="viewDetails()">
+                                <p
+                                    *ngIf="customerType === 'estate'"
+                                    class="fnt-14"
+                                    routerLink="/coffee-experience/coffee-details/"
+                                    [queryParams]="{ estate_id: item.id }"
+                                >
                                     {{ item.date_received | date: 'mediumDate' }}
                                 </p>
                                 <p

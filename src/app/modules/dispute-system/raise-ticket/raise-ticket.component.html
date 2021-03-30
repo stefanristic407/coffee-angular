@@ -88,6 +88,7 @@
                     formControlName="dispute_reason"
                     optionValue="value"
                 ></p-dropdown>
+                <small *ngIf="ticketForm.controls['dispute_reason'].errors?.required" class="p-error"> Required </small>
             </div>
             <div class="col-12 p-0 sewn-form-field">
                 <label>Describe your problem<span class="star">*</span></label>

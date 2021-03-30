@@ -155,7 +155,7 @@
             <ng-template pTemplate="header" let-columns>
                 <tr class="d-none d-sm-none d-md-table-row">
                     <th *ngIf="isAddMember" style="width: 5%; padding-right: 0.625rem !important" class="checkBoxClass">
-                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        <p-checkbox (click)="selectRows(e.checked)" #e></p-checkbox>
                     </th>
                     <th
                         *ngFor="let col of columns"
@@ -193,7 +193,11 @@
             <ng-template pTemplate="body" let-rowData let-columns="columns">
                 <tr class="cursor-pointer">
                     <td *ngIf="isAddMember" class="d-none d-sm-none d-md-table-cell checkBoxClass">
-                        <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                        <p-tableCheckbox
+                            [value]="rowData"
+                            [disabled]="assignedUsers.includes(rowData.id)"
+                            (click)="selectRow(rowData.roles)"
+                        ></p-tableCheckbox>
                     </td>
                     <td
                         *ngFor="let col of columns"
@@ -206,7 +210,8 @@
                             rolesColumn: col.field == 'roles',
                             nameMobileHeader: col.field == 'name',
                             emailMobileClass: col.field == 'email',
-                            mobileData: col.field !== 'name'
+                            mobileData: col.field !== 'name',
+                            'text-clrb7': assignedUsers.includes(rowData.id)
                         }"
                     >
                         <span *ngSwitchCase="'name'" class="" (click)="editMember(rowData.id)">
@@ -229,6 +234,8 @@
                                     *ngIf="isAddMember"
                                     class="float-right"
                                     [value]="rowData"
+                                    [disabled]="assignedUsers.includes(rowData.id)"
+                                    (click)="selectRow(rowData.roles)"
                                 ></p-tableCheckbox>
                                 <ng-container *ngIf="!isAddMember">
                                     <a

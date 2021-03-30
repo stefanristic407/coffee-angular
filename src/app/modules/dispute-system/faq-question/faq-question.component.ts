@@ -41,20 +41,18 @@ export class FaqQuestionComponent implements OnInit {
         };
         const obj2: MenuItem = {
             label: 'Order Management',
-            routerLink: '/ordermanagement/estate-orders',
         };
         const obj3: MenuItem = {
-            label: 'Estate Orders',
-            routerLink: '/ordermanagement/estate-orders]',
+            label: 'Purchased order of estate',
+            routerLink: '/orders/es',
         };
         const obj4: MenuItem = {
             label: 'Order ' + this.orderID,
-            queryParams: { id: this.orderID },
-            routerLink: ['/ordermanagement/order-booked'],
+            routerLink: [`/orders/ro/${this.orderID}`],
         };
         const obj5: MenuItem = {
             label: 'Order Support',
-            routerLink: ['/dispute-system/order-support', this.orderID],
+            routerLink: [`/dispute-system/order-support${this.orderID}`],
         };
         const obj6: MenuItem = {
             label: this.buttonValue,

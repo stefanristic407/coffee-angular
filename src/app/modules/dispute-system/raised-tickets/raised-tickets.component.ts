@@ -22,6 +22,7 @@ export class RaisedTicketsComponent implements OnInit {
     termSearch: any;
     roasterID: any;
     orderType: any;
+    orderID: any;
 
     constructor(
         public globals: GlobalsService,
@@ -41,7 +42,11 @@ export class RaisedTicketsComponent implements OnInit {
         if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
             this.sharedService.isMobileView = true;
         }
-        this.supplyBreadCrumb();
+
+        this.route.params.subscribe((params) => {
+            this.orderID = params.orderId ? params.orderId : '';
+            this.supplyBreadCrumb();
+        });
         this.searchForm = this.fb.group({
             searchField: new FormControl({ value: '' }),
         });
@@ -109,12 +114,12 @@ export class RaisedTicketsComponent implements OnInit {
     }
     supplyBreadCrumb(): void {
         const obj1: MenuItem = {
-            label: this.globals.languageJson?.home,
+            label: 'Home',
             routerLink: '/',
         };
         const obj2: MenuItem = {
-            label: 'Help & support',
-            routerLink: 'dispute-system/order-support',
+            label: 'Order Support',
+            routerLink: '/dispute-system/order-support/' + this.orderID,
         };
         const obj3: MenuItem = {
             label: 'Raised Tickets',

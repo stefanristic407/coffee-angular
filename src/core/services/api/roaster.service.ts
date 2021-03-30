@@ -431,6 +431,12 @@ export class RoasterserviceService extends ApiService {
         return this.http.post(this.fileuploadUrl, formData, httpOptions);
     }
 
+    // API Function Name : Upload Coffee Files API.
+    // API Description   : This API call helps to upload the Files.
+    uploadCoffeeFiles(formData: FormData): any {
+        return this.http.post(this.fileUploadUrl, formData);
+    }
+
     // Upload brand profile files
     uploadBrandProfile(file) {
         const roasterId = this.cookieService.get('roaster_id');
@@ -692,12 +698,13 @@ export class RoasterserviceService extends ApiService {
     }
 
     getRaisedTicketData(roaster_id: any, orderType?, postData?) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/disputes?' + this.serlialise(postData);
-        if (orderType == 'MR') {
-            data['api_call'] = '/ro/' + roaster_id + '/micro_roasters/disputes?' + this.serlialise(postData);
+        const data: any = {};
+        data.api_call = '/ro/' + roaster_id + '/disputes?' + this.serlialise(postData);
+        if (orderType === 'MR') {
+            data.api_call = '/ro/' + roaster_id + '/micro_roasters/disputes?' + this.serlialise(postData);
         }
-        data['token'] = this.cookieService.get('Auth');
+        data.token = this.cookieService.get('Auth');
+        data.method = 'GET';
         return this.http.post(this.url, data);
     }
     // getEstateSelectAnOrderTableData(roaster_id: any) {
