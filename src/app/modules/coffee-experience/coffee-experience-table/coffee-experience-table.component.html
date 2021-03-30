@@ -250,7 +250,12 @@
                     {{ item.quantity }} kg
                 </td>
 
-                <td *ngIf="customerType === 'estate'" class="fnt-14">
+                <td
+                    *ngIf="customerType === 'estate'"
+                    routerLink="/coffee-experience/coffee-details/"
+                    [queryParams]="{ estate_id: item.id }"
+                    class="fnt-14"
+                >
                     {{ item.cup_score }}
                 </td>
                 <td
