@@ -157,13 +157,9 @@
     border: 0;
     border-radius: 4px;
     background-color: #30855c;
-    padding: 5px 10px;
+    padding: 6px 10px;
     color: #ffffff;
     font-size: 12px;
-}
-
-.copy-link button {
-    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
 .download-qr-link {
@@ -224,10 +220,6 @@
     padding: 15px;
 }
 
-.copy-link input {
-    width: 100%;
-}
-
 .download-qr-link {
     margin-bottom: 25px;
 }
@@ -265,6 +257,9 @@
     }
     .contact-for-help__text {
         padding-top: 20px;
+    }
+    .copy-link input {
+        width: 100%;
     }
 }
 
@@ -475,7 +470,7 @@ label {
 }
 @media (max-width: 991px) {
     .media-container {
-        width: 50%;
+        width: 33%;
 
         &:first-child {
             margin-right: 8px;
@@ -594,5 +589,21 @@ label {
 @media (min-width: 320px) and (max-width: 480px) {
     .mob-view {
         margin-bottom: -40px !important;
+    }
+
+    .copy-link input {
+        width: 72% !important;
+
+        border-top-right-radius: 0px !important;
+        border-bottom-right-radius: 0px !important;
+    }
+    .copy-link button {
+        position: relative;
+        bottom: 8px;
+        border-top-left-radius: 0px !important;
+        border-bottom-left-radius: 0px !important;
+    }
+    .contact-for-help {
+        margin-bottom: -16px;
     }
 }

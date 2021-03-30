@@ -1,9 +1,7 @@
-import { formatDate, NumberFormatStyle } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { Component, Input, OnChanges, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 import { CustomerServiceService } from '@app/modules/people/customer-management/customer-service.service';
 import { GlobalsService, RoasterserviceService } from '@services';
-import { DataTableDirective } from 'angular-datatables';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -133,14 +131,5 @@ export class CoffeeExperienceTableComponent implements OnInit, OnChanges {
         if (value) {
             this.filteredCoffeeData = this.coffeeExperienceData;
         }
-    }
-
-    viewDetails() {
-        // const navigationExtras: NavigationExtras = {
-        //     queryParams: {
-        //         edit: 1,
-        //     },
-        // };
-        // this.router.navigate(['/coffee-experience/default-settings'], navigationExtras);
     }
 }

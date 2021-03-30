@@ -67,7 +67,7 @@
                                     >
                                         <div class="input-container">
                                             <div class="col-12 col-md-5 px-0">
-                                                <div class="sewn-form-field mb-0">
+                                                <div class="sewn-form-field mb-0 w-100">
                                                     <div>
                                                         <label [ngClass]="{ 'text-clr588': !isEditableMode }"
                                                             >Roastery website</label
@@ -214,7 +214,7 @@
                                         >
                                             <div class="input-container">
                                                 <div class="col-12 col-md-5 px-0">
-                                                    <div class="sewn-form-field mb-0">
+                                                    <div class="sewn-form-field mb-0 w-100">
                                                         <div>
                                                             <label [ngClass]="{ 'text-clr588': !isEditableMode }"
                                                                 >Roastery website</label
@@ -304,7 +304,7 @@
                                         <div class="media-container">
                                             <div *ngIf="isImagePreviewPanel" class="existing-media-container">
                                                 <div
-                                                    class="content-container"
+                                                    class="content-container br-4"
                                                     [style.backgroundImage]="'url(' + defaultDetails.image_url + ')'"
                                                 >
                                                     <div class="grey-gradient-container text-white">
@@ -333,7 +333,7 @@
                                                             <label class="mb-0">
                                                                 <input
                                                                     type="file"
-                                                                    [disabled]="!estateBtn"
+                                                                    [disabled]="!estateBtn || !isEditableMode"
                                                                     (change)="onChooseFile($event.target, 'fileImage')"
                                                                 />
                                                                 <div
@@ -362,7 +362,7 @@
                                         </div>
                                         <div class="media-container">
                                             <div *ngIf="isVideoPreviewPanel" class="existing-media-container">
-                                                <div class="content-container">
+                                                <div class="content-container br-4">
                                                     <img
                                                         (click)="video.paused ? video.play() : video.pause()"
                                                         src="assets/images/play-button.png"
@@ -400,7 +400,7 @@
                                                             <label class="mb-0">
                                                                 <input
                                                                     type="file"
-                                                                    [disabled]="!estateBtn"
+                                                                    [disabled]="!estateBtn || !isEditableMode"
                                                                     (change)="onChooseFile($event.target, 'fileVideo')"
                                                                 />
                                                                 <div
@@ -426,14 +426,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="d-flex flex-column flex-md-row flex-lg-column mb-3">
-                                        <div class="w-100">
+                                        <div class="media-container">
                                             <div
                                                 *ngIf="materialOnResponse"
                                                 class="existing-media-container material-line"
                                             >
-                                                <div class="content-container">
+                                                <div class="content-container br-4">
                                                     <i class="pi pi-cloud-download text-clr094 material-icon"></i>
                                                     <div class="grey-gradient-container text-white">
                                                         {{
@@ -464,7 +462,7 @@
                                                         >
                                                             <label class="mb-0">
                                                                 <input
-                                                                    type="file"
+                                                                    type="file || !isEditableMode "
                                                                     accept=".zip,.rar,.7zip"
                                                                     (change)="uploadMarketingMaterial($event)"
                                                                 />
@@ -495,6 +493,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <!--Share your story-->
                                     <div *ngIf="isCoffeeDetailsPage" class="form-section__inputs">
                                         <div class="roastery-fields tab">
@@ -578,8 +577,13 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <div *ngIf="estateBtn && !isEditableMode">
+                                        <div>
                                             <button
+                                                *ngIf="
+                                                    !isEditableMode &&
+                                                    estateBtn &&
+                                                    !route.snapshot.queryParams.estate_id
+                                                "
                                                 type="button"
                                                 (click)="isEditableMode = true"
                                                 class="btn-raised w-100"
