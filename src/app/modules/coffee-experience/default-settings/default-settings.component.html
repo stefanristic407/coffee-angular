@@ -441,7 +441,7 @@
                                                                 ? materialFileName
                                                                 : ('download_zip' | translate)
                                                         }}
-                                                        <span class="pull-right">
+                                                        <span class="pull-right" *ngIf="isEditableMode">
                                                             <i
                                                                 class="pi pi-ellipsis-v cursor-pointer line-height-2"
                                                                 (click)="menu.toggle($event)"
