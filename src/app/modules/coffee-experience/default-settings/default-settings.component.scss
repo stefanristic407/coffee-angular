@@ -408,7 +408,9 @@ label {
         height: 137px;
         background-size: cover;
         position: relative;
-
+        @media (min-width: 768px) and (max-width: 991px) {
+            height: 145px;
+        }
         video {
             object-fit: cover;
             height: 137px;
