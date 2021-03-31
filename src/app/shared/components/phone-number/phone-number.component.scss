@@ -49,9 +49,11 @@
     }
 }
 
-.phone-number-input.ng-invalid {
-    border: 1px solid $invalid-color !important;
-    &:hover {
-        border-color: $invalid-color !important;
+::ng-deep .ng-invalid.ng-dirty {
+    .phone-number-input {
+        border: 1px solid $error-border-color !important;
+        &:hover {
+            border-color: $error-border-color !important;
+        }
     }
 }
