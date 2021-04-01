@@ -111,6 +111,10 @@
         @include btn-icon();
         background-image: url('/assets/images/upload-black.svg');
     }
+    &.download-icon::before {
+        @include btn-icon();
+        background-image: url('/assets/images/dwnd.svg');
+    }
     &.plus-icon::before {
         @include btn-icon(10px, 13px, 13px, 13px);
         background-image: url('/assets/images/region-plus.svg');
