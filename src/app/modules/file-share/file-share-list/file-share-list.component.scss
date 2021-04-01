@@ -10,16 +10,17 @@
     border: dashed 1px rgba(128, 70, 11, 0.29);
     background: #faf8f4;
     @media (min-width: 768px) {
-        height: 200px;
-    }
-    @media (min-width: 992px) {
         height: 237px;
+        width: 271px;
     }
 
     .pin-quiker-file__upload {
         padding: 8px 12px;
         @media (min-width: 768px) {
-            padding: 16px 48px;
+            padding: 16px 0;
+        }
+        @media (min-width: 992px) {
+            padding: 16px 24px;
         }
         img {
             width: 24px;
@@ -28,7 +29,7 @@
             }
         }
         div {
-            max-width: 135px;
+            max-width: 168px;
             @media (min-width: 768px) {
                 max-width: 170px;
             }

@@ -118,14 +118,14 @@
         <ng-container *ngIf="!fileShareSrv.loading; else loading">
             <div class="pt-3 pt-md-0">
                 <div *ngIf="listType != 'video'" class="row gutter-20 v-gutter-16 v-gutter-md-20">
-                    <div class="col-md-4 col-lg-3" *ngFor="let item of fileShareSrv.mainData">
-                        <app-file-card [data]="item"></app-file-card>
+                    <div class="col-md-6 col-lg-3" *ngFor="let item of fileShareSrv.mainData">
+                        <app-file-card [data]="item" [stretch]="true"></app-file-card>
                     </div>
                 </div>
                 <div *ngIf="listType == 'video'" class="row no-wrap gutter-20 v-gutter-16 v-gutter-md-20">
-                    <div class="col-md-4 col-lg-3" *ngFor="let item of fileShareSrv.mainData">
+                    <div class="col-md-6 col-lg-3" *ngFor="let item of fileShareSrv.mainData">
                         <app-video-card *ngIf="item.type == 'VIDEO'" [data]="item"></app-video-card>
-                        <app-file-card *ngIf="item.type == 'FOLDER'" [data]="item"></app-file-card>
+                        <app-file-card *ngIf="item.type == 'FOLDER'" [data]="item" [stretch]="true"></app-file-card>
                     </div>
                 </div>
             </div>

@@ -10,6 +10,7 @@ import { FileShareService } from '../../file-share.service';
 export class FileCardComponent implements OnInit {
     @Input() data: any;
     @Input() showPin = false;
+    @Input() stretch = false;
 
     constructor(public fileShareSrv: FileShareService, public globals: GlobalsService) {}
 
