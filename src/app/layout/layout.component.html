@@ -81,10 +81,10 @@
                                                     Order Shipped!
                                                 </p>
                                                 <div class="notif-description">
-                                                    <P class="fnt-14 fnt-normal fnt-muli text-clr588 mb-2"
-                                                        >Your green coffee order placed with Finca La Pampa estate has
-                                                        been shipped</P
-                                                    >
+                                                    <p class="fnt-14 fnt-normal fnt-muli text-clr588 mb-2">
+                                                        Your green coffee order placed with Finca La Pampa estate has
+                                                        been shipped
+                                                    </p>
                                                 </div>
                                                 <p class="under-mark">Order #13213</p>
                                                 <p class="fnt-12 fnt-normal fnt-muli text-clr588 mb-2">2 hours ago</p>
@@ -100,10 +100,10 @@
                                                     Order Shipped!
                                                 </p>
                                                 <div class="notif-description active">
-                                                    <P class="fnt-14 fnt-normal fnt-muli text-clr588 mb-2"
-                                                        >Your green coffee order placed with Finca La Pampa estate has
-                                                        been shipped</P
-                                                    >
+                                                    <p class="fnt-14 fnt-normal fnt-muli text-clr588 mb-2">
+                                                        Your green coffee order placed with Finca La Pampa estate has
+                                                        been shipped
+                                                    </p>
                                                 </div>
                                                 <p class="under-mark">Order #13213</p>
                                                 <p class="fnt-12 fnt-normal fnt-muli text-clr588 mb-2">2 hours ago</p>
@@ -142,39 +142,30 @@
                                     </a>
                                     <ng-template #popTemplate>
                                         <div id="popover-mobile-content">
-                                            <ul class="list-group">
+                                            <ul class="menu-list bottom">
                                                 <li
-                                                    class="list-group-item"
                                                     *ngIf="this.globals.checkItem('settings-management')"
+                                                    [routerLink]="['/roastery-profile']"
+                                                    routerLinkActive="highlight"
+                                                    (click)="pop2.hide()"
                                                 >
-                                                    <a
-                                                        class="cursor-dots"
-                                                        [routerLink]="['/roastery-profile']"
-                                                        (click)="pop2.hide()"
-                                                        >{{ 'roastery_profile' | translate }}</a
-                                                    >
+                                                    {{ 'roastery_profile' | translate }}
                                                 </li>
-                                                <li class="list-group-item">
-                                                    <a
-                                                        class="cursor-dots"
-                                                        [routerLink]="['/my-profile']"
-                                                        (click)="pop2.hide()"
-                                                        >{{ 'my_profile' | translate }}
-                                                    </a>
+                                                <li
+                                                    [routerLink]="['/my-profile']"
+                                                    routerLinkActive="highlight"
+                                                    (click)="pop2.hide()"
+                                                >
+                                                    {{ 'my_profile' | translate }}
                                                 </li>
-                                                <li class="list-group-item">
-                                                    <a
-                                                        class="cursor-dots"
-                                                        [routerLink]="['/account-settings']"
-                                                        (click)="pop2.hide()"
-                                                        >{{ 'account_settings' | translate }}</a
-                                                    >
+                                                <li
+                                                    [routerLink]="['/account-settings']"
+                                                    routerLinkActive="highlight"
+                                                    (click)="pop2.hide()"
+                                                >
+                                                    {{ 'account_settings' | translate }}
                                                 </li>
-                                                <li class="list-group-item">
-                                                    <a class="cursor-dots" (click)="userLogout()"
-                                                        >{{ 'logout' | translate }}
-                                                    </a>
-                                                </li>
+                                                <li (click)="userLogout()">{{ 'logout' | translate }}</li>
                                             </ul>
                                         </div>
                                     </ng-template>
@@ -256,9 +247,7 @@
                                         src="assets/images/mess-active.svg"
                                     />
                                     <img class="active" src="assets/images/ft-icon-active-message.svg" />
-                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">
-                                        {{ 'messages' | translate }}
-                                    </p>
+                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">{{ 'messages' | translate }}</p>
                                 </div>
                             </a>
                         </li>
@@ -287,9 +276,7 @@
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/ft-icon-profile.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-profile.svg" />
-                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">
-                                        {{ 'profile' | translate }}
-                                    </p>
+                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">{{ 'profile' | translate }}</p>
                                 </div>
                             </a>
                             <div class="ft-dropdown">
