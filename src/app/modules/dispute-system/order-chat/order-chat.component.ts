@@ -26,6 +26,7 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
     roasterName: any;
     orderType: any;
     threadUserList = [];
+    disputeDivHeight = 0;
     orderChatWrapperEl: HTMLElement | null = null;
     headerEl: HTMLElement | null = null;
     private resizeEventSubscription: Subscription;
@@ -78,9 +79,21 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
             const height = Math.max(calculatedHeight, 400);
             this.render.setStyle(this.orderChatWrapperEl, 'height', `${height}px`);
         }
+        this.calculateDisputeDivHeight();
     };
     ngAfterViewInit() {
         this.viewPortSizeChanged();
+        this.calculateDisputeDivHeight();
+    }
+
+    calculateDisputeDivHeight() {
+        if (this.currentDispute && this.currentDispute.dispute_status !== 'Resolved') {
+            const disputeDiv = this.elRef.nativeElement.querySelector('[data-element="dispute-div"]');
+            this.disputeDivHeight = disputeDiv ? disputeDiv.offsetHeight || 0 : 0;
+            this.disputeDivHeight = this.disputeDivHeight + (window.innerWidth > 768 ? 24 : 16);
+        } else {
+            this.disputeDivHeight = 0;
+        }
     }
 
     ngOnDestroy() {
@@ -152,6 +165,9 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
     clickOrder() {
         this.currentDisputeID = '';
         this.currentDispute = null;
+        setTimeout(() => {
+            this.calculateDisputeDivHeight();
+        });
     }
     formatStatus(stringVal) {
         let formatVal = '';
@@ -166,6 +182,9 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
         this.showResolveBtn = item.dispute_status === 'Open' ? true : false;
         this.showEscalateBtn = item.escalated;
         this.currentDispute = item;
+        setTimeout(() => {
+            this.calculateDisputeDivHeight();
+        });
     }
     markResolved() {
         this.roasterService.markTicketasResolved(this.roasterID, this.currentDisputeID).subscribe(
@@ -192,6 +211,9 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
                     this.toasterService.success('Successfully escalated a dispute');
                     this.showEscalateBtn = true;
                     this.currentDispute.dispute_status = this.formatStatus('Resolved');
+                    setTimeout(() => {
+                        this.calculateDisputeDivHeight();
+                    }, 500);
                 }
             },
             (err) => {

@@ -10,6 +10,7 @@ export class ChatUtilService {
     public ORGANIZATION_TYPE = OrganizationType.ROASTER;
     private incomingAudioPlayer = new Audio('assets/sounds/msg-incoming.mp3');
     private outgoingAudioPlayer = new Audio('assets/sounds/msg-outgoing.mp3');
+    public DEFAULT_URL = 'assets/images/profile.svg';
     constructor(private cookieService: CookieService) {
         this.incomingAudioPlayer.load();
         this.outgoingAudioPlayer.load();
@@ -52,6 +53,14 @@ export class ChatUtilService {
         }
         return parseInt(this.cookieService.get(idKey), 10) || null;
     }
+    public get TOKEN(): string {
+        let userToken = this.cookieService.get('Auth')?.replace(/\r/g, '')?.split(/\n/)[0];
+        if (!userToken) {
+            console.error('User token parese error');
+            userToken = '';
+        }
+        return userToken;
+    }
     public get USER_ID(): number | null {
         return parseInt(this.cookieService.get('user_id'), 10) || null;
     }
@@ -78,14 +87,14 @@ export class ChatUtilService {
         if (profileImageUrl) {
             return `url(${profileImageUrl})`;
         } else {
-            return `url(assets/images/profile.svg)`; // Placeholder image
+            return `url(${this.DEFAULT_URL})`;
         }
     }
     getProfileImageDirectURL(profileImageUrl: string) {
         if (profileImageUrl) {
             return profileImageUrl;
         } else {
-            return 'assets/images/profile.svg';
+            return this.DEFAULT_URL;
         }
     }
     public playNotificationSound(type: 'INCOMING' | 'OUTGOING') {

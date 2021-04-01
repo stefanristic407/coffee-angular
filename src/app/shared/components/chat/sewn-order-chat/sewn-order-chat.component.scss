@@ -265,6 +265,7 @@
     justify-content: left;
     align-items: center;
     margin-bottom: 12px;
+    margin-left: -50px;
     img {
         width: 39px;
         height: 39px;
@@ -309,6 +310,7 @@
     }
 }
 .message-info {
+    padding-left: 50px;
     .live-time {
         font-family: Muli;
         font-size: 12px;
@@ -327,7 +329,7 @@
 .message-text {
     white-space: pre-wrap;
     padding: 2px 5px;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 22px;
     font-weight: 600;
     color: #232334;
@@ -377,12 +379,36 @@
     }
 }
 .conversatio-body__messages {
-    height: calc(100% - 115px);
+    position: relative;
+    height: calc(100% - 80px);
     padding: 25px 25px 10px 25px;
+    .dispute-raised-message {
+        margin: 12px 32px 32px 32px;
+        padding: 16px 24px 16px 16px;
+        background-color: #fff;
+        border-radius: 2px;
+        border: dashed 1px #d6d6d6;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .drm-content-section {
+            .drm-content-header {
+                display: block;
+                height: 18px;
+                margin: 0px 0px 8px 0px;
+                font-size: 14px;
+                font-weight: bold;
+                line-height: normal;
+                letter-spacing: normal;
+                color: #232334;
+            }
+        }
+    }
 }
 .conversatio-body {
     height: 100%;
     position: relative;
+    background-color: #f8f8f8;
 }
 .new-date {
     width: 100%;

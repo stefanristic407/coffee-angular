@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
-import { RoasterserviceService } from '@services';
+import { RoasterserviceService, SocketService, ChatUtilService } from '@services';
 import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
+import { ChatMessageType } from '@enums';
 
 @Component({
     selector: 'app-raised-tickets',
@@ -33,6 +34,8 @@ export class RaisedTicketsComponent implements OnInit {
         private toastrService: ToastrService,
         private roasterService: RoasterserviceService,
         public sharedService: SharedServiceService,
+        private socket: SocketService,
+        private chatUtil: ChatUtilService,
     ) {
         this.roasterID = this.cookieService.get('roaster_id');
     }
@@ -127,6 +130,38 @@ export class RaisedTicketsComponent implements OnInit {
         this.breadCrumbItem.push(obj1);
         this.breadCrumbItem.push(obj2);
         this.breadCrumbItem.push(obj3);
+    }
+
+    pushInfoTochatThread(disputeID, callback) {
+        this.roasterService.getOrderChatList(this.roasterID, this.orderID, this.orderType).subscribe(
+            (res: any) => {
+                console.log(res);
+                if (res.success && res.result) {
+                    const threadList = res.result;
+                    const orderThread = threadList.find((x) => x.thread_type === 'order');
+                    const timestamp = this.chatUtil.getTimeStamp();
+                    this.socket.orderChatEvents.next({
+                        type: ChatMessageType.message,
+                        timestamp,
+                        data: {
+                            thread_id: orderThread.thread_id,
+                            content: 'has raised dispute on the purchase of GC.  Please take appropriate action',
+                            meta_data: JSON.stringify({
+                                type: 'DISPUTE_RAISED',
+                                dispute_details: {
+                                    id: disputeID,
+                                },
+                            }),
+                        },
+                    });
+                }
+                callback();
+            },
+            (err) => {
+                callback();
+                console.log(err);
+            },
+        );
     }
     callMobileTicket(ticket) {
         if (this.sharedService.isMobileView) {

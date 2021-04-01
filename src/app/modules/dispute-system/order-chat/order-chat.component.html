@@ -148,6 +148,7 @@
         <div
             *ngIf="currentDispute && currentDispute['dispute_status'] !== 'Resolved'"
             class="d-flex disputeDiv bg-white row p-3"
+            data-element="dispute-div"
         >
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 float-left">
                 <span><b>Dispute raised: </b></span>
@@ -160,14 +161,14 @@
             </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                 <button
-                    *ngIf="currentDisputeID && !showEscalateBtn"
+                    *ngIf="currentDisputeID && showEscalateBtn"
                     class="btn btn-stroked float-right"
                     (click)="escalateTicket()"
                 >
                     <span class="track">Escalate</span>
                 </button>
                 <button
-                    *ngIf="currentDisputeID && showEscalateBtn"
+                    *ngIf="!(currentDisputeID && showEscalateBtn)"
                     class="btn btn-stroked float-right"
                     title="Already dispute has been escalated"
                 >
@@ -178,6 +179,7 @@
         <app-sewn-order-chat
             [orderThread]="orderThread"
             [orderDisputes]="currentDispute"
+            [disputeDivHeight]="disputeDivHeight"
             (threadUsers)="threadUserList = $event"
         ></app-sewn-order-chat>
     </div>
