@@ -122,8 +122,8 @@
         }
     }
     .live-chat-message-body__text {
-        width: calc(100% - 44px);
-        margin: 5px 22px;
+        width: calc(100% - 64px);
+        margin: 5px 32px;
     }
 }
 .collapse-chat {
@@ -140,8 +140,8 @@
         }
     }
     .live-chat-message-body__text {
-        width: calc(100% - 15px);
-        margin: 5px 10px;
+        width: calc(100% - 48px);
+        margin: 5px 24px;
     }
 }
 
@@ -297,6 +297,7 @@
 }
 
 .search-account__input {
+    padding-right: 30px;
     width: calc(100% - 35px);
     outline: 0;
     float: right;
@@ -720,7 +721,7 @@
 
 .message-from {
     text-align: left;
-    padding: 4px 10px;
+    padding: 10px 10px;
 }
 
 .message-to {
@@ -952,6 +953,13 @@
 }
 
 @media (max-width: 767px) {
+    .collapse-chat {
+        .live-chat-message-body__text {
+            width: calc(100% - 32px);
+            margin: 5px 16px;
+        }
+    }
+
     .account {
         &.userlist-item-account {
             margin-left: 0px;
@@ -1238,7 +1246,6 @@
     height: 12px;
 }
 .message-from {
-    padding-left: 50px;
     .main-message__profile {
         margin-left: -45px;
         margin-top: 11px;

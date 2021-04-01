@@ -21,7 +21,12 @@
             ></ng-container>
             <!--Remove expand mode-->
             <div class="chat-head" data-element="chat-head">
-                <button class="back-to-shrinkMode" (click)="closeExapndView()">
+                <button
+                    pTooltip="Back to collapse mode"
+                    tooltipPosition="top"
+                    class="back-to-shrinkMode"
+                    (click)="closeExapndView()"
+                >
                     <img src="assets/images/dm-back-arrow.svg" />
                 </button>
             </div>
@@ -140,21 +145,6 @@
                                         class="message-from live-chat-message-body__text"
                                         *ngIf="!message.isActiveUser"
                                     >
-                                        <div *ngIf="message.showUserBadge" class="main-message__profile clearfix">
-                                            <div class="img">
-                                                <img [src]="message?.computed_author?.computed_profile_direct_url" />
-                                            </div>
-                                            <div class="profile-name">
-                                                <div class="name-wrapper">
-                                                    <h4 class="name">
-                                                        {{ message?.computed_author?.computed_fullname }}
-                                                    </h4>
-                                                    <span class="status">{{
-                                                        message?.computed_author?.computed_organization_name
-                                                    }}</span>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <p class="live-time-from">{{ message.computed_date }}</p>
                                         <div class="message-body-from">
                                             <div class="message-to__from">
@@ -220,8 +210,16 @@
                             <!--Chat control-->
                             <div class="chat-control">
                                 <div class="chat-control__expand d-block" (click)="toggleExpandView()">
-                                    <img *ngIf="!(chatService.isExpand | async)" src="assets/images/dm-expand.svg" />
-                                    <img *ngIf="chatService.isExpand | async" src="assets/images/dm-collapse.svg" />
+                                    <img
+                            
+                                        *ngIf="!(chatService.isExpand | async)"
+                                        src="assets/images/dm-expand.svg"
+                                    />
+                                    <img
+                              
+                                        *ngIf="chatService.isExpand | async"
+                                        src="assets/images/dm-collapse.svg"
+                                    />
                                 </div>
                                 <div class="chat-control__close" (click)="closePanel()">
                                     <img src="assets/images/dm-chat-close.svg" />
@@ -369,28 +367,6 @@
                                                 class="message-from live-chat-message-body__text"
                                                 *ngIf="!message.isActiveUser"
                                             >
-                                                <div
-                                                    *ngIf="message.showUserBadge"
-                                                    class="main-message__profile clearfix"
-                                                >
-                                                    <div class="img">
-                                                        <img
-                                                            [src]="
-                                                                message?.computed_author?.computed_profile_direct_url
-                                                            "
-                                                        />
-                                                    </div>
-                                                    <div class="profile-name">
-                                                        <div class="name-wrapper">
-                                                            <h4 class="name">
-                                                                {{ message?.computed_author?.computed_fullname }}
-                                                            </h4>
-                                                            <span class="status">{{
-                                                                message?.computed_author?.computed_organization_name
-                                                            }}</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                                 <p class="live-time-from">{{ message.computed_date }}</p>
                                                 <div class="message-body-from">
                                                     <div class="message-to__from">
@@ -559,7 +535,7 @@
                                         <img src="assets/images/dm-search.svg" />
                                         <input
                                             [(ngModel)]="userSearchKeywords"
-                                            class="search-account__input"
+                                            class="search-account__input user-search-input"
                                             type="search"
                                             data-element="user-search-input"
                                             placeholder="Search users"
