@@ -8,6 +8,9 @@
         height: 237px;
         width: 271px;
     }
+    &.stretch {
+        width: 100%;
+    }
 }
 
 .quick-pinned-files__Image {
@@ -38,7 +41,7 @@
     pointer-events: all;
     cursor: pointer;
 
-    @media (min-width: 992px) {
+    @media (min-width: 768px) {
         width: 38px;
         height: 38px;
     }
