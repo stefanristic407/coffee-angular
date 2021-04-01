@@ -9,6 +9,7 @@ export interface ChatMessage {
     id: number;
     member: ChatMessageMember;
     meta_data: string;
+    meta: any;
     updated_at: string;
     computed_date: string;
     computed_author: ThreadMember;

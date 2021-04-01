@@ -20,6 +20,7 @@ export class SocketService implements OnDestroy {
     public directMessageReceive = new Subject<WSResponse<unknown>>();
 
     public orderChatSent = new Subject<WSRequest<unknown>>();
+    public orderChatEvents = new Subject<WSRequest<unknown>>();
     public orderChatReceive = new Subject<WSResponse<unknown>>();
 
     public authenticationState = new BehaviorSubject<'INIT' | 'IP' | 'FAIL' | 'SUCCESS'>('INIT');
@@ -33,7 +34,7 @@ export class SocketService implements OnDestroy {
         console.log('SOCKET SERVICE INT CALLED');
         if (
             !(this.socketState.value === 'CONNECTED' || this.socketState.value === 'IP') &&
-            this.token &&
+            this.chatUtil.TOKEN &&
             this.chatUtil.ORGANIZATION_ID
         ) {
             console.log('SOCKET INT IP');
@@ -86,11 +87,16 @@ export class SocketService implements OnDestroy {
                 }
                 // console.log('WEBSOCKET::Receiving ...', WSMessage);
             });
-            this.SM['chatSentSubscription'] = this.directMessageSent.subscribe((payload) => {
+            this.SM.chatSentSubscription = this.directMessageSent.subscribe((payload) => {
                 payload.origin = SocketMessageOrigin.DIRECT_MESSAGING;
                 this.WSSubject.next(payload);
             });
             this.SM.orderChatSentSubscription = this.orderChatSent.subscribe((payload) => {
+                // console.log('WEBSOCKET::Sending ...', payload);
+                payload.origin = SocketMessageOrigin.ORDER_CHAT;
+                this.WSSubject.next(payload);
+            });
+            this.SM.orderChatEventSubscription = this.orderChatEvents.subscribe((payload) => {
                 // console.log('WEBSOCKET::Sending ...', payload);
                 payload.origin = SocketMessageOrigin.ORDER_CHAT;
                 this.WSSubject.next(payload);
@@ -145,24 +151,12 @@ export class SocketService implements OnDestroy {
                 type: ChatMessageType.auth,
                 origin: SocketMessageOrigin.UTIL_AUTH,
                 data: {
-                    user_token: this.token,
+                    user_token: this.chatUtil.TOKEN,
                 },
             };
             this.WSSubject.next(payload);
         }
         return this.authenticationState.pipe(distinct());
-    }
-
-    get token(): string {
-        let userToken = this.cookieService.get('Auth')?.replace(/\r/g, '')?.split(/\n/)[0];
-        if (!userToken) {
-            console.error('User token parese error');
-            userToken = '';
-        }
-        return userToken;
-    }
-    get ORGANIZATION_ID(): number | null {
-        return parseInt(this.cookieService.get('roaster_id'), 10) || null;
     }
 
     ngOnDestroy() {

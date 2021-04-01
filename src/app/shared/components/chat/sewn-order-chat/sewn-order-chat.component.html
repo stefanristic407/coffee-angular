@@ -1,4 +1,4 @@
-<div class="conversatio-body">
+<div class="conversatio-body" [ngStyle]="disputeDivSpacingStyle">
     <ng-container *ngIf="threadDetails?.computed_activeUser?.user_id">
         <div class="conversatio-body__messages" data-element="live-chat-message-body">
             <div *ngFor="let message of messageList; let last = last">
@@ -9,41 +9,68 @@
                         <span class="new-date__bar"></span>
                     </div>
                     <!--Mesaage From-->
-                    <div *ngIf="!message.isActiveUser" class="main-message message-from">
-                        <div class="message-info">
-                            <div *ngIf="message.showUserBadge" class="main-message__profile clearfix">
-                                <img [src]="message?.computed_author?.computed_profile_direct_url" />
-                                <div class="profile-name">
-                                    <h4 class="name">
-                                        {{ message?.computed_author?.computed_fullname }}
-                                    </h4>
-                                    <span class="status">
-                                        <span class="org-name">{{
-                                            message?.computed_author?.computed_organization_name
-                                        }}</span>
-                                        <span class="timestamp">{{ message.computed_date }}</span>
-                                    </span>
+                    <ng-container *ngIf="message.meta.type === 'NORMAL'">
+                        <div *ngIf="!message.isActiveUser" class="main-message message-from">
+                            <div class="message-info">
+                                <div *ngIf="message.showUserBadge" class="main-message__profile clearfix">
+                                    <img
+                                        [src]="
+                                            message?.computed_author?.computed_profile_direct_url ||
+                                            chatUtil.DEFAULT_URL
+                                        "
+                                    />
+                                    <div class="profile-name">
+                                        <h4 class="name">
+                                            {{ message?.computed_author?.computed_fullname || 'Deleted User' }}
+                                        </h4>
+                                        <span class="status">
+                                            <span class="org-name">{{
+                                                message?.computed_author?.computed_organization_name ||
+                                                    'Unknown Organization'
+                                            }}</span>
+                                            <span class="timestamp">{{ message.computed_date }}</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="message-info__body position-relative">
+                                    <span *ngIf="!message.showUserBadge" class="live-time">{{
+                                        message.computed_date
+                                    }}</span>
+                                    <p class="message-text">
+                                        {{ message.content }}
+                                    </p>
                                 </div>
                             </div>
-                            <div class="message-info__body position-relative">
-                                <span *ngIf="!message.showUserBadge" class="live-time">{{
-                                    message.computed_date
-                                }}</span>
-                                <p class="message-text">
+                        </div>
+                        <!--Mesaage To-->
+                        <div *ngIf="message.isActiveUser" class="main-message message-to">
+                            <div class="message-info">
+                                <div class="message-info__body position-relative">
+                                    <span class="live-time">{{ message.computed_date }}</span>
+                                    <p class="message-text">{{ message.content }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="message.meta.type === 'DISPUTE_RAISED'">
+                        <div class="dispute-raised-message">
+                            <div class="drm-content-section">
+                                <div class="drm-content-header">Dispute raised :</div>
+                                <div class="drm-content-body">
+                                    {{ message?.computed_author?.computed_fullname || 'Deleted User' }}
                                     {{ message.content }}
-                                </p>
+                                </div>
+                            </div>
+                            <div class="drm-action-section">
+                                <button
+                                    class="drm-action-button btn-stroked-transparent"
+                                    (click)="viewDispute(message.meta)"
+                                >
+                                    View dispute
+                                </button>
                             </div>
                         </div>
-                    </div>
-                    <!--Mesaage To-->
-                    <div *ngIf="message.isActiveUser" class="main-message message-to">
-                        <div class="message-info">
-                            <div class="message-info__body position-relative">
-                                <span class="live-time">{{ message.computed_date }}</span>
-                                <p class="message-text">{{ message.content }}</p>
-                            </div>
-                        </div>
-                    </div>
+                    </ng-container>
                 </div>
             </div>
         </div>

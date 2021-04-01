@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { Subscription, Subject } from 'rxjs';
 import * as moment from 'moment';
@@ -34,8 +35,10 @@ const badwordsRegExp = require('badwords/regexp') as RegExp;
 export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     @Input() orderThread: OrderChatThreadListItem;
     @Input() orderDisputes: DisputeChatThreadListItem;
+    @Input() disputeDivHeight = 0;
     @Output() threadUsers: EventEmitter<ThreadMember[]> = new EventEmitter<ThreadMember[]>();
 
+    disputeDivSpacingStyle = { paddingTop: '0px' };
     messageList: ChatMessage[] = [];
     organizedMessages: any[] = [];
     threadDetails: ThreadListItem = null;
@@ -61,8 +64,9 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
         public chatService: ChatHandlerService,
         private socket: SocketService,
         private elRef: ElementRef,
-        private chatUtil: ChatUtilService,
+        public chatUtil: ChatUtilService,
         private render: Renderer2,
+        private router: Router,
     ) {}
 
     ngOnInit(): void {
@@ -71,6 +75,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                 this.initializeWebSocket();
             }
         });
+        this.setDisputeDivHeight();
     }
 
     initializeWebSocket() {
@@ -102,6 +107,17 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                 this.checkInputs();
             }
         });
+        if (changes.disputeDivHeight) {
+            this.setDisputeDivHeight();
+        }
+    }
+
+    setDisputeDivHeight() {
+        setTimeout(() => {
+            this.disputeDivSpacingStyle = {
+                paddingTop: `${this.disputeDivHeight || 0}px`,
+            };
+        }, 100);
     }
 
     checkInputs() {
@@ -323,6 +339,12 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     processChatMessages(message: ChatMessage | IncomingChatMessage, thread: ThreadListItem) {
         message.dateString = moment(message.created_at).format('Do MMM YYYY');
         message.computed_date = this.chatUtil.getReadableTime(message.updated_at || message.created_at);
+        const meta = { type: 'NORMAL' };
+        try {
+            message.meta = JSON.parse(message.meta_data) || meta;
+        } catch (e) {
+            message.meta = meta;
+        }
         if (thread.computed_targetedUserList.find((tuser) => tuser.id === message.member.id)) {
             message.computed_author = thread.computed_targetedUser;
             message.isActiveUser = false;
@@ -374,7 +396,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                     this.render.setStyle(
                         this.chatMessageBodyElement,
                         'height',
-                        `calc(100% - ${calculatedHeight + 80}px)`,
+                        `calc(100% - ${calculatedHeight + 45}px)`,
                     );
                 }
             } else {
@@ -463,6 +485,19 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
         }
         if (this.offensiveTimeout) {
             clearTimeout(this.offensiveTimeout);
+        }
+    }
+    viewDispute(chatMeta) {
+        if (chatMeta?.dispute_details?.id) {
+            const path = this.router.url.split('?')[0];
+            const navigationExtras: NavigationExtras = {
+                queryParams: {
+                    disputeID: chatMeta.dispute_details.id,
+                },
+            };
+            this.router.navigate([path], navigationExtras).then(() => {
+                window.location.href = window.location.href;
+            });
         }
     }
 }
