@@ -132,7 +132,7 @@ export class RaisedTicketsComponent implements OnInit {
         this.breadCrumbItem.push(obj3);
     }
 
-    pushInfoTochatThread(disputeID, callback) {
+    pushInfoTochatThread(disputeID, disputeReason, callback) {
         this.roasterService.getOrderChatList(this.roasterID, this.orderID, this.orderType).subscribe(
             (res: any) => {
                 console.log(res);
@@ -145,7 +145,9 @@ export class RaisedTicketsComponent implements OnInit {
                         timestamp,
                         data: {
                             thread_id: orderThread.thread_id,
-                            content: 'has raised dispute on the purchase of GC.  Please take appropriate action',
+                            content: `has raised dispute on the ${
+                                disputeReason === 'Others' ? 'some  reasons' : disputeReason
+                            } of GC.  Please take appropriate action`,
                             meta_data: JSON.stringify({
                                 type: 'DISPUTE_RAISED',
                                 dispute_details: {

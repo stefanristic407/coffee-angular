@@ -90,7 +90,7 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
         if (this.currentDispute && this.currentDispute.dispute_status !== 'Resolved') {
             const disputeDiv = this.elRef.nativeElement.querySelector('[data-element="dispute-div"]');
             this.disputeDivHeight = disputeDiv ? disputeDiv.offsetHeight || 0 : 0;
-            this.disputeDivHeight = this.disputeDivHeight + (window.innerWidth > 768 ? 24 : 16);
+            this.disputeDivHeight = this.disputeDivHeight + 10 + (window.innerWidth > 768 ? 24 : 16);
         } else {
             this.disputeDivHeight = 0;
         }

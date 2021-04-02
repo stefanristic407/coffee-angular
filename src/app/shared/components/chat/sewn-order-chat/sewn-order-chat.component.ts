@@ -56,7 +56,6 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     messageInputElement: HTMLTextAreaElement;
     chatMessageBodyElement: HTMLElement;
     lastMessageRendered = new Subject();
-    isClosedDispute = false;
     sentTokenDelayTimeOut = 0;
 
     constructor(
@@ -76,6 +75,9 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
             }
         });
         this.setDisputeDivHeight();
+    }
+    get isClosedDispute() {
+        return this.orderDisputes && this.orderDisputes.dispute_status === 'Resolved';
     }
 
     initializeWebSocket() {
@@ -125,13 +127,11 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
             // Checking if order dispute is available
             this.activeThreadId = this.orderDisputes.chat_thread_id;
             this.activeThreadType = 'DISPUTE';
-            this.isClosedDispute = this.orderDisputes.dispute_status === 'Resolved';
             this.openThread();
         } else if (this.orderThread && this.orderThread.thread_id) {
             // Checking for order thread
             this.activeThreadId = this.orderThread.thread_id;
             this.activeThreadType = 'ORDER';
-            this.isClosedDispute = false;
             this.openThread();
         } else {
             this.activeThreadId = null;
