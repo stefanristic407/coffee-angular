@@ -42,7 +42,7 @@
             <span class="fnt-12 lh-normal fnt-600 text-clr588">{{ data.type | titlecase }}</span>
         </div>
         <div class="">
-            <a class="d-none d-md-inline mr-25" [href]="data.url" target="_blank" [download]="data.name">
+            <a class="cursor-pointer d-none d-md-inline mr-25" (click)="fileShareSrv.downloadFile(data)">
                 <img class="img" *ngIf="data.type != 'FOLDER'" src="assets/images/download-gray.svg" />
             </a>
             <app-file-menu [data]="data"></app-file-menu>

@@ -5,7 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { FileService } from '@services';
-import { GlobalsService } from '@services';
+import { DownloadService, GlobalsService } from '@services';
+import { Download } from '@models';
 import { ConfirmComponent } from '@shared';
 import { Action, FileType } from '@enums';
 import { MediaPreviewComponent } from './components/media-preview/media-preview.component';
@@ -43,6 +44,7 @@ export class FileShareService {
         public globals: GlobalsService,
         public toastrService: ToastrService,
         public cookieService: CookieService,
+        public downloadService: DownloadService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.queryParams$.subscribe((params: any) => {
@@ -203,13 +205,16 @@ export class FileShareService {
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
-                    const a = document.createElement('a');
-                    a.href = item.url;
-                    a.download = item.name;
-                    a.target = '_blank';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
+                    this.downloadService.download(item.url, item.name, item.mime).subscribe(
+                        (res: Download) => {
+                            if (res.state === 'DONE') {
+                                this.toastrService.success('Downloaded successfully');
+                            }
+                        },
+                        (error) => {
+                            this.toastrService.error('Download failed');
+                        },
+                    );
                 }
             });
     }

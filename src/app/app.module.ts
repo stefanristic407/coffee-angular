@@ -38,7 +38,7 @@ import { UserserviceService } from '@services';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
-import { getSaver, SAVER } from './modules/social-media/saver.provider';
+import { getSaver, SAVER } from '@services';
 
 @NgModule({
     declarations: [
