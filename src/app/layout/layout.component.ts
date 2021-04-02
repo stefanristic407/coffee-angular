@@ -76,7 +76,11 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         this.chat.isOpen.pipe(takeUntil(this.unsubscribeAll$)).subscribe((x) => {
             if (x) {
                 this.activeLink = 'MESSAGES';
+                if (window.innerWidth <= 767) {
+                    document.body.style.overflow = 'hidden';
+                }
             } else {
+                document.body.style.overflow = '';
                 this.updateActiveLinkState();
             }
         });

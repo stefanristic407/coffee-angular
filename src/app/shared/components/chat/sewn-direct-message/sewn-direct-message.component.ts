@@ -735,10 +735,10 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.SM['userSearchInputEvents'] = fromEvent(userSearchInput, 'input')
                     .pipe(debounce(() => interval(500)))
                     .subscribe((event: InputEvent) => {
-                        this.userListLoading = true;
-                        this.usersList = [];
                         const searchQuery = this.userSearchKeywords.trim();
                         if (searchQuery) {
+                            this.userListLoading = true;
+                            this.usersList = [];
                             this.fetchUserList(searchQuery);
                         }
                     });
