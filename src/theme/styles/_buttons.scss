@@ -106,6 +106,7 @@
         position: absolute;
         background-position: center;
         background-size: contain;
+        background-repeat: no-repeat;
     }
     &.upload-icon::before {
         @include btn-icon();
