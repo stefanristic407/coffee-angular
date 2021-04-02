@@ -139,7 +139,6 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
             this.messageList = [];
             this.organizedMessages = [];
             this.threadDetails = null;
-            this.isClosedDispute = false;
             this.threadUsers.emit([]);
         }
     }
