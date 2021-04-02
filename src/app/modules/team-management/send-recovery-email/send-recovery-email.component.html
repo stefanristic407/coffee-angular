@@ -117,6 +117,12 @@
                             </div>
                         </div>
                     </div>
+                    <p-divider
+                        type="dashed"
+                        styleClass="mt-2 mb-4"
+                        class="d-block d-md-none"
+                        *ngIf="isEdit && isLast && statusToggle"
+                    ></p-divider>
                     <div class="d-block d-sm-block d-md-block mb-2 mt-2" *ngIf="isEdit && isLast && statusToggle">
                         <img src="assets/images/add-partner.svg" />
                         <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer" (click)="addRole()">
@@ -124,7 +130,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 d-block d-sm-block d-md-none p-0 mt-3 mb-3">
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 d-block d-sm-block d-md-none p-0 mt-3 mb-4">
                     <label class="d-block d-sm-block d-md-none">Status<span class="star">*</span></label>
                     <div class="btn-group toggleDiv" [ngClass]="{ disabledbutton: !isEdit }">
                         <div
