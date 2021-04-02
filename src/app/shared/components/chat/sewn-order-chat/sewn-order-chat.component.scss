@@ -264,7 +264,6 @@
     display: flex;
     justify-content: left;
     align-items: center;
-    margin-bottom: 12px;
     margin-left: -50px;
     img {
         width: 39px;
@@ -309,8 +308,12 @@
         }
     }
 }
+.main-message.message-from {
+    .message-info {
+        padding-left: 50px;
+    }
+}
 .message-info {
-    padding-left: 50px;
     .live-time {
         font-family: Muli;
         font-size: 12px;
@@ -327,6 +330,7 @@
     }
 }
 .message-text {
+    word-break: break-all;
     white-space: pre-wrap;
     padding: 2px 5px;
     font-size: 14px;
@@ -381,9 +385,9 @@
 .conversatio-body__messages {
     position: relative;
     height: calc(100% - 80px);
-    padding: 25px 25px 10px 25px;
+    padding: 25px 32px 10px 32px;
     .dispute-raised-message {
-        margin: 12px 32px 32px 32px;
+        margin-bottom: 12px;
         padding: 16px 24px 16px 16px;
         background-color: #fff;
         border-radius: 2px;
@@ -401,6 +405,21 @@
                 line-height: normal;
                 letter-spacing: normal;
                 color: #232334;
+            }
+            .drm-content-body {
+                font-family: Muli;
+                font-size: 14px;
+                font-weight: 600;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: normal;
+                letter-spacing: normal;
+                color: #747588;
+            }
+        }
+        .drm-action-section {
+            .drm-action-button {
+                //ee
             }
         }
     }
@@ -428,5 +447,12 @@
     .new-date__upadte {
         display: inline-block;
         padding: 5px 10px;
+    }
+}
+@media (max-width: 768px) {
+    .conversatio-body__messages {
+        position: relative;
+        height: calc(100% - 80px);
+        padding: 25px 16px 10px 16px;
     }
 }
