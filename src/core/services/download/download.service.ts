@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { download, Download } from './download';
+import { Download } from '@models';
+import { download } from './download';
 import { Saver, SAVER } from './saver.provider';
 
 @Injectable({

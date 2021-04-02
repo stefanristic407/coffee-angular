@@ -204,13 +204,17 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     getUserValue(resolve) {
         this.globals.permissionMethod();
         this.userService.getRoasterProfile(this.roasterId).subscribe((res: any) => {
-            this.userName = res.result.firstname + ' ' + res.result.lastname;
-            this.profilePic = res.result.profile_image_thumb_url;
-            const language = res.result.language === '' ? 'en' : res.result.language;
-            this.userService.getUserLanguageStrings(language).subscribe((resultLanguage) => {
-                this.globals.languageJson = resultLanguage;
+            if (res.success) {
+                this.userName = res.result.firstname + ' ' + res.result.lastname;
+                this.profilePic = res.result.profile_image_thumb_url;
+                const language = res.result.language === '' ? 'en' : res.result.language;
+                this.userService.getUserLanguageStrings(language).subscribe((resultLanguage) => {
+                    this.globals.languageJson = resultLanguage;
+                    resolve();
+                });
+            } else {
                 resolve();
-            });
+            }
         });
     }
 

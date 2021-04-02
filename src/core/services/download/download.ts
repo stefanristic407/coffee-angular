@@ -1,6 +1,7 @@
 import { HttpEvent, HttpEventType, HttpProgressEvent, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, scan, map, tap } from 'rxjs/operators';
+import { distinctUntilChanged, scan } from 'rxjs/operators';
+import { Download } from '@models';
 
 function isHttpResponse<T>(event: HttpEvent<T>): event is HttpResponse<T> {
     return event.type === HttpEventType.Response;
@@ -10,21 +11,14 @@ function isHttpProgressEvent(event: HttpEvent<unknown>): event is HttpProgressEv
     return event.type === HttpEventType.DownloadProgress || event.type === HttpEventType.UploadProgress;
 }
 
-export interface Download {
-    content: Blob | null;
-    progress: number;
-    state: 'PENDING' | 'IN_PROGRESS' | 'DONE';
-}
-
 export function download(saver?: (b: Blob) => void): (source: Observable<HttpEvent<Blob>>) => Observable<Download> {
     return (source: Observable<HttpEvent<Blob>>) =>
         source.pipe(
             scan(
-                // tslint:disable-next-line: no-shadowed-variable
-                (download: Download, event): Download => {
+                (res: Download, event): Download => {
                     if (isHttpProgressEvent(event)) {
                         return {
-                            progress: event.total ? Math.round((100 * event.loaded) / event.total) : download.progress,
+                            progress: event.total ? Math.round((100 * event.loaded) / event.total) : res.progress,
                             state: 'IN_PROGRESS',
                             content: null,
                         };
@@ -39,7 +33,7 @@ export function download(saver?: (b: Blob) => void): (source: Observable<HttpEve
                             content: event.body,
                         };
                     }
-                    return download;
+                    return res;
                 },
                 { state: 'PENDING', progress: 0, content: null },
             ),

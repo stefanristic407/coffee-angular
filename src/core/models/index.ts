@@ -1,4 +1,5 @@
 export * from './common';
+export * from './download';
 export * from './lots';
 export * from './menu/menu.model';
 export * from './message';

@@ -4,8 +4,8 @@ import { GlobalsService, UserserviceService } from '@services';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { Download } from './download';
-import { DownloadService } from './download.service';
+import { Download } from '@models';
+import { DownloadService } from '@services';
 
 @Component({
     selector: 'app-social-media',
