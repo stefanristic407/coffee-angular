@@ -1,5 +1,7 @@
+@import 'variables';
+
 .avatar {
-    background-color: #7b4c1f;
+    background-color: $brown-color;
     border-radius: 50%;
     display: flex;
     justify-content: center;
