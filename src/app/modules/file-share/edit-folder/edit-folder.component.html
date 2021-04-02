@@ -57,9 +57,14 @@
                         <div class="fnt-14 lh-normal fnt-500 text-clr588 mb-3 mb-4">
                             {{ 'link_your_files' | translate }}
                         </div>
-                        <span class="btn-trans-icon zoom-icon mr-3" (click)="showOrderPanel = true">
-                            {{ 'view_orders' | translate }}
-                        </span>
+                        <div class="d-flex align-items-center">
+                            <div *ngIf="selectedOrderId" class="fnt-600 text-clr55c mr-3">
+                                {{ 'order' | translate }} #{{ selectedOrderId }} {{ 'selected' | translate }}
+                            </div>
+                            <span class="btn-trans-icon zoom-icon mr-3" (click)="showOrderPanel = true">
+                                {{ 'view_orders' | translate }}
+                            </span>
+                        </div>
                     </div>
 
                     <form [formGroup]="shareForm" class="form-container">
