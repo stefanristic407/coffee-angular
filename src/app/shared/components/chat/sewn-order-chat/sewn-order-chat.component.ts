@@ -34,11 +34,12 @@ const badwordsRegExp = require('badwords/regexp') as RegExp;
 })
 export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     @Input() orderThread: OrderChatThreadListItem;
-    @Input() orderDisputes: DisputeChatThreadListItem;
-    @Input() disputeDivHeight = 0;
+    @Input() orderDisputes: any;
+    @Input() showEscalateBtn: boolean;
+    @Input() roasterName: string;
+    @Input() orderDetails: any;
     @Output() threadUsers: EventEmitter<ThreadMember[]> = new EventEmitter<ThreadMember[]>();
-
-    disputeDivSpacingStyle = { paddingTop: '0px' };
+    @Output() escalateTicket: EventEmitter<any> = new EventEmitter<any>();
     messageList: ChatMessage[] = [];
     organizedMessages: any[] = [];
     threadDetails: ThreadListItem = null;
@@ -74,8 +75,8 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                 this.initializeWebSocket();
             }
         });
-        this.setDisputeDivHeight();
     }
+
     get isClosedDispute() {
         return this.orderDisputes && this.orderDisputes.dispute_status === 'Resolved';
     }
@@ -109,17 +110,6 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                 this.checkInputs();
             }
         });
-        if (changes.disputeDivHeight) {
-            this.setDisputeDivHeight();
-        }
-    }
-
-    setDisputeDivHeight() {
-        setTimeout(() => {
-            this.disputeDivSpacingStyle = {
-                paddingTop: `${this.disputeDivHeight || 0}px`,
-            };
-        }, 100);
     }
 
     checkInputs() {
@@ -471,6 +461,9 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                 meta_data: '',
             },
         };
+    }
+    escalate() {
+        this.escalateTicket.emit();
     }
 
     ngOnDestroy() {

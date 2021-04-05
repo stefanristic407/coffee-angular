@@ -6,7 +6,12 @@
     width: 24px;
     height: 24px;
 }
-
+.disputeDiv {
+    margin: 10px 0px;
+    width: 100%;
+    border-radius: 2px;
+    border: dashed 1px #d6d6d6;
+}
 .ellyse-main {
     background-color: #fff;
     padding: 10px 15px 20px 15px;
@@ -382,6 +387,7 @@
         // transform: translate(0px, -20px);
     }
 }
+
 .conversatio-body__messages {
     position: relative;
     height: calc(100% - 80px);
@@ -395,7 +401,9 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        flex-wrap: wrap;
         .drm-content-section {
+            margin: 5px;
             .drm-content-header {
                 display: block;
                 height: 18px;
@@ -418,12 +426,26 @@
             }
         }
         .drm-action-section {
+            margin: 5px;
+            margin-bottom: 0px;
             .drm-action-button {
-                //ee
+                display: block;
+            }
+            .drm-action-link {
+                display: none;
+                color: #80460b;
+                font-size: 14px;
+                font-family: Muli;
+                font-size: 14px;
+                font-weight: bold;
+                text-align: right;
+                cursor: pointer;
+                text-decoration: underline;
             }
         }
     }
 }
+
 .conversatio-body {
     height: 100%;
     position: relative;
@@ -449,10 +471,35 @@
         padding: 5px 10px;
     }
 }
+@media (max-width: 777px) {
+    .conversatio-body__messages {
+        padding: 25px 16px 10px 16px;
+        .dispute-raised-message {
+            padding: 12px;
+
+            .drm-content-section {
+                .drm-content-header {
+                    font-size: 12px;
+                }
+                .drm-content-body {
+                    font-size: 12px;
+                }
+            }
+            .drm-action-section {
+                width: 100%;
+                .drm-action-button {
+                    display: none;
+                }
+                .drm-action-link {
+                    display: block;
+                }
+            }
+        }
+    }
+}
 @media (max-width: 768px) {
     .conversatio-body__messages {
         position: relative;
         height: calc(100% - 80px);
-        padding: 25px 16px 10px 16px;
     }
 }

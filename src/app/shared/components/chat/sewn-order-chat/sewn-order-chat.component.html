@@ -1,6 +1,45 @@
-<div class="conversatio-body" [ngStyle]="disputeDivSpacingStyle">
+<div class="conversatio-body">
     <ng-container *ngIf="threadDetails?.computed_activeUser?.user_id">
         <div class="conversatio-body__messages" data-element="live-chat-message-body">
+            <div
+                *ngIf="orderDisputes && orderDisputes['dispute_status'] !== 'Resolved'"
+                class="d-flex disputeDiv bg-white row p-3"
+            >
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 float-left">
+                    <span><b>Dispute raised: </b></span>
+                    <p *ngIf="roasterName">
+                        Roaster {{ roasterName }} has raised a dispute on the purchase of
+                        {{ orderDetails?.order_type }}. Please take appropriate action.
+                    </p>
+                    <span><b>Message: </b></span>
+                    <p>{{ orderDisputes?.message || 'NA' }}</p>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <button
+                        *ngIf="orderDisputes?.id && showEscalateBtn"
+                        class="btn btn-stroked float-right"
+                        (click)="escalate()"
+                    >
+                        <span class="track">Escalate</span>
+                    </button>
+                    <button
+                        *ngIf="!(orderDisputes?.id && showEscalateBtn)"
+                        class="btn btn-stroked float-right"
+                        title="Already dispute has been escalated"
+                    >
+                        <span class="track">Escalate</span>
+                    </button>
+                </div>
+            </div>
+            <div
+                *ngIf="orderDisputes && orderDisputes['dispute_status'] === 'Resolved'"
+                class="d-flex disputeDiv bg-white row p-3"
+            >
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <span><b>Dispute resolved! </b></span>
+                    <p>The dispute has been marked as resolved by the Roaster. Thank you</p>
+                </div>
+            </div>
             <div *ngFor="let message of messageList; let last = last">
                 <div appLifecyclehook (viewChecked)="last && lastMessageRendered.next('done')">
                     <div *ngIf="message.showDateBadge" class="new-date">
@@ -68,6 +107,7 @@
                                 >
                                     View dispute
                                 </button>
+                                <span (click)="viewDispute(message.meta)" class="drm-action-link"> View dispute </span>
                             </div>
                         </div>
                     </ng-container>

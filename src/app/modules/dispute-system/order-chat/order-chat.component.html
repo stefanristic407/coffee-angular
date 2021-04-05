@@ -145,42 +145,14 @@
     </div>
 
     <div class="order-chat-wrapper" data-element="order-chat-wrapper">
-        <div
-            *ngIf="currentDispute && currentDispute['dispute_status'] !== 'Resolved'"
-            class="d-flex disputeDiv bg-white row p-3"
-            data-element="dispute-div"
-        >
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 float-left">
-                <span><b>Dispute raised: </b></span>
-                <p *ngIf="roasterName">
-                    Roaster {{ roasterName }} has raised a dispute on the purchase of {{ orderDetails?.order_type }}.
-                    Please take appropriate action.
-                </p>
-                <span><b>Message: </b></span>
-                <p>{{ currentDispute.message ? currentDispute.message : 'NA' }}</p>
-            </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                <button
-                    *ngIf="currentDisputeID && showEscalateBtn"
-                    class="btn btn-stroked float-right"
-                    (click)="escalateTicket()"
-                >
-                    <span class="track">Escalate</span>
-                </button>
-                <button
-                    *ngIf="!(currentDisputeID && showEscalateBtn)"
-                    class="btn btn-stroked float-right"
-                    title="Already dispute has been escalated"
-                >
-                    <span class="track">Escalate</span>
-                </button>
-            </div>
-        </div>
         <app-sewn-order-chat
             [orderThread]="orderThread"
             [orderDisputes]="currentDispute"
-            [disputeDivHeight]="disputeDivHeight"
+            [showEscalateBtn]="showEscalateBtn"
+            [roasterName]="roasterName"
+            [orderDetails]="orderDetails"
             (threadUsers)="threadUserList = $event"
+            (escalateTicket)="escalateTicket()"
         ></app-sewn-order-chat>
     </div>
 </div>
