@@ -26,9 +26,9 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
     roasterName: any;
     orderType: any;
     threadUserList = [];
-    disputeDivHeight = 0;
     orderChatWrapperEl: HTMLElement | null = null;
     headerEl: HTMLElement | null = null;
+    footerEl: HTMLElement | null = null;
     private resizeEventSubscription: Subscription;
 
     constructor(
@@ -70,30 +70,25 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
         if (!this.headerEl) {
             this.headerEl = (document.querySelector('header') as HTMLElement) || null;
         }
+        if (!this.footerEl) {
+            this.footerEl = (document.querySelector('footer.sectin-footer-mb') as HTMLElement) || null;
+        }
 
         if (this.orderChatWrapperEl && this.headerEl) {
             const top = this.orderChatWrapperEl.offsetTop;
             const headerHeight = this.headerEl.offsetHeight;
+            let footerHeight = 0;
+            if (this.footerEl && window.innerWidth < 768) {
+                footerHeight = this.footerEl.offsetHeight;
+            }
             const viewPort = window.innerHeight;
-            const calculatedHeight = viewPort - (top + headerHeight + 30);
+            const calculatedHeight = viewPort - (top + headerHeight + 30 + footerHeight);
             const height = Math.max(calculatedHeight, 400);
             this.render.setStyle(this.orderChatWrapperEl, 'height', `${height}px`);
         }
-        this.calculateDisputeDivHeight();
     };
     ngAfterViewInit() {
         this.viewPortSizeChanged();
-        this.calculateDisputeDivHeight();
-    }
-
-    calculateDisputeDivHeight() {
-        if (this.currentDispute && this.currentDispute.dispute_status !== 'Resolved') {
-            const disputeDiv = this.elRef.nativeElement.querySelector('[data-element="dispute-div"]');
-            this.disputeDivHeight = disputeDiv ? disputeDiv.offsetHeight || 0 : 0;
-            this.disputeDivHeight = this.disputeDivHeight + 10 + (window.innerWidth > 768 ? 24 : 16);
-        } else {
-            this.disputeDivHeight = 0;
-        }
     }
 
     ngOnDestroy() {
@@ -165,9 +160,6 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
     clickOrder() {
         this.currentDisputeID = '';
         this.currentDispute = null;
-        setTimeout(() => {
-            this.calculateDisputeDivHeight();
-        });
     }
     formatStatus(stringVal) {
         let formatVal = '';
@@ -182,9 +174,6 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
         this.showResolveBtn = item.dispute_status === 'Open' ? true : false;
         this.showEscalateBtn = item.escalated;
         this.currentDispute = item;
-        setTimeout(() => {
-            this.calculateDisputeDivHeight();
-        });
     }
     markResolved() {
         this.roasterService.markTicketasResolved(this.roasterID, this.currentDisputeID).subscribe(
@@ -211,9 +200,6 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
                     this.toasterService.success('Successfully escalated a dispute');
                     this.showEscalateBtn = true;
                     this.currentDispute.dispute_status = this.formatStatus('Resolved');
-                    setTimeout(() => {
-                        this.calculateDisputeDivHeight();
-                    }, 500);
                 }
             },
             (err) => {

@@ -1,6 +1,6 @@
 import { SocketService, ChatHandlerService, CommonService } from '@services';
 import { AfterViewInit, Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, fromEvent, interval } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from '@services';
 import { NavigationEnd, Router } from '@angular/router';
@@ -9,7 +9,7 @@ declare var $: any;
 import { TranslateService } from '@ngx-translate/core';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
-import { filter, takeUntil } from 'rxjs/operators';
+import { filter, takeUntil, debounce } from 'rxjs/operators';
 import { MenuService } from '@services';
 import { DestroyableComponent } from '@base-components';
 
@@ -41,7 +41,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
 
     activeLink: 'DASHBOARD' | 'MESSAGES' | 'NOTIFICATIONS' | 'PROFILES' | 'UNSET' = 'UNSET';
     profileUpdateEvent$?: Subscription;
-
+    resizeEvent: Subscription;
     constructor(
         private elementRef: ElementRef,
         private cookieService: CookieService,
@@ -76,9 +76,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         this.chat.isOpen.pipe(takeUntil(this.unsubscribeAll$)).subscribe((x) => {
             if (x) {
                 this.activeLink = 'MESSAGES';
-                if (window.innerWidth <= 767) {
-                    document.body.style.overflow = 'hidden';
-                }
+                this.scrollFix();
             } else {
                 document.body.style.overflow = '';
                 this.updateActiveLinkState();
@@ -124,7 +122,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         this.getLoggedInUserRoles();
 
         $(window).scroll(() => {
-            if (!this.chat.isOpen.value) {
+            if (!this.chat.isOpen.value && this.showFooter()) {
                 if ($(window).scrollTop() + $(window).height() === $(document).height()) {
                     $('.sectin-footer-mb').css({
                         opacity: '0',
@@ -163,6 +161,24 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         this.getNotificationList();
     }
 
+    ngAfterViewInit() {
+        this.resizeEvent = fromEvent(window, 'resize')
+            .pipe(debounce(() => interval(500)))
+            .subscribe(this.viewPortSizeChanged);
+        this.viewPortSizeChanged();
+    }
+
+    viewPortSizeChanged = () => {
+        this.scrollFix();
+    };
+    scrollFix() {
+        if (window.innerWidth <= 767 && this.chat.isOpen.value) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    }
+
     handleProfileUpdateEvent(profileInfo: any) {
         this.userName = profileInfo.firstname + ' ' + profileInfo.lastname;
         this.profilePic = profileInfo.profile_image_thumb_url;
@@ -198,8 +214,6 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
             this.activeLink = 'UNSET';
         }
     }
-
-    ngAfterViewInit() {}
 
     getUserValue(resolve) {
         this.globals.permissionMethod();
@@ -298,6 +312,9 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     }
 
     ngOnDestroy(): void {
+        if (this.resizeEvent && this.resizeEvent.unsubscribe) {
+            this.resizeEvent.unsubscribe();
+        }
         this.socket.destorySocket();
         this.profileUpdateEvent$?.unsubscribe();
     }

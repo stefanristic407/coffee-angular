@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { RoasterserviceService } from '@services';
-import { GlobalsService } from '@services';
+import { GlobalsService, SocketService, ChatUtilService } from '@services';
 import { MenuItem } from 'primeng/api';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { ChatMessageType } from '@enums';
 
 @Component({
     selector: 'app-raise-ticket',
@@ -34,6 +35,8 @@ export class RaiseTicketComponent implements OnInit {
         public roasterService: RoasterserviceService,
         public cookieService: CookieService,
         private toastrService: ToastrService,
+        private socket: SocketService,
+        private chatUtil: ChatUtilService,
     ) {}
 
     ngOnInit(): void {
@@ -143,11 +146,13 @@ export class RaiseTicketComponent implements OnInit {
                     console.log(res);
                     if (res && res.success) {
                         this.disputeID = res.result.id;
-                        if (this.filesArray && this.filesArray.length > 0) {
-                            this.uploadFile();
-                        } else {
-                            this.redirectOrderChat();
-                        }
+                        this.pushInfoTochatThread(this.disputeID, obj.dispute_type, () => {
+                            if (this.filesArray && this.filesArray.length > 0) {
+                                this.uploadFile();
+                            } else {
+                                this.redirectOrderChat();
+                            }
+                        });
                     }
                 },
                 (err) => {
@@ -159,6 +164,40 @@ export class RaiseTicketComponent implements OnInit {
             this.ticketForm.markAllAsTouched();
             this.toastrService.error('Please fill the data');
         }
+    }
+    pushInfoTochatThread(disputeID, disputeReason, callback) {
+        this.roasterService.getOrderChatList(this.roasterID, this.orderID, this.orderType).subscribe(
+            (res: any) => {
+                console.log(res);
+                if (res.success && res.result) {
+                    const threadList = res.result;
+                    const orderThread = threadList.find((x) => x.thread_type === 'order');
+                    const timestamp = this.chatUtil.getTimeStamp();
+
+                    this.socket.orderChatEvents.next({
+                        type: ChatMessageType.message,
+                        timestamp,
+                        data: {
+                            thread_id: orderThread.thread_id,
+                            content: `has raised dispute on the ${
+                                disputeReason === 'Others' ? 'some  reasons' : disputeReason
+                            } of GC.  Please take appropriate action`,
+                            meta_data: JSON.stringify({
+                                type: 'DISPUTE_RAISED',
+                                dispute_details: {
+                                    id: disputeID,
+                                },
+                            }),
+                        },
+                    });
+                }
+                callback();
+            },
+            (err) => {
+                callback();
+                console.log(err);
+            },
+        );
     }
     documentUpload(event) {
         if (event.target.files) {
