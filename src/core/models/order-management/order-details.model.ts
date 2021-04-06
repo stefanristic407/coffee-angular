@@ -22,6 +22,7 @@ export interface OrderDetails {
     origin: string;
     payment_after_delivery: boolean;
     payment_status: string;
+    statusPaid: boolean;
     prebook_order_id?: number;
     price: number;
     quantity: number;

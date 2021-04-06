@@ -1,14 +1,26 @@
 <h4 class="fnt-18 fnt-sm-16 font-bold text-clr334">{{ 'payment_status' | translate }}</h4>
 <div class="w-100 mt-2 mt-md-3">
-    <p class="fnt-18 fnt-sm-16 fnt-500" *ngIf="order?.status_pending">{{ 'pending' | translate | uppercase }}</p>
-    <p class="fnt-18 fnt-sm-16 fnt-500" *ngIf="order?.status_paid">{{ 'paid' | translate | uppercase }}</p>
-    <div *ngIf="order?.receipt_show">
+    <p class="fnt-18 fnt-sm-16 fnt-500">{{ order?.payment_status | translate | uppercase }}</p>
+    <div *ngIf="order?.receipt_url">
         <div
             class="btn-trans-icon pl-2 br-4 mb-3 mb-md-2 fnt-14 fnt-sm-12 fnt-500"
             (click)="openLink(order?.receipt_url)"
         >
             <img src=" assets/images/view-reciept.svg" class="pr-2" />{{ 'view_receipt' | translate }}
         </div>
+    </div>
+    <div *ngIf="!order?.receipt_url">
+        <input
+            #fileInput
+            class="d-none"
+            type="file"
+            accept=".pdf,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            (change)="uploadReceipt($event)"
+        />
+        <span class="btn-trans-icon br-4 cursor-pointer p-2" (click)="fileInput.click()">
+            <img class="svg" src="assets/images/upload-icon.png" />
+            <span class="estate-message pl-2">{{ 'upload_receipt' | translate }}</span>
+        </span>
     </div>
     <div class="mt-25 mb-4" *ngIf="order?.order_type === OrderTypes.Prebook">
         <div class="p-0 text-clr-invalid fnt-12">

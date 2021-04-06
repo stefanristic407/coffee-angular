@@ -45,6 +45,7 @@
                         [invoiceUrl]="invoiceUrl"
                         [orgType]="organizationType"
                         [orderId]="orderId"
+                        [orderPaid]="statusPaid"
                     ></app-order-timeline>
                 </section>
                 <ng-container *ngIf="organizationType === OrgTypes.MICRO_ROASTER && !isConfirmationMode">
