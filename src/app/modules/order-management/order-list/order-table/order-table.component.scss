@@ -1,0 +1,52 @@
+@import '../../../../../theme/styles/variables';
+
+:host {
+    display: block;
+}
+
+::ng-deep {
+    .p-datatable .p-datatable-thead > tr > th,
+    .p-datatable .p-datatable-tbody > tr > td {
+        padding: 1.25rem 0.1rem;
+    }
+
+    @media all and (max-width: 767px) {
+        .p-datatable .p-datatable-tbody > tr {
+            border: 0;
+        }
+    }
+
+    .p-sortable-column-icon {
+        margin-left: 0 !important;
+    }
+}
+
+.mobile-row {
+    border-bottom: 1px dashed $primary-border-color;
+}
+
+.cell-header {
+    width: 40%;
+}
+
+@media all and (max-width: 767px) {
+    .border {
+        border: 0 !important;
+    }
+}
+
+.Sample {
+    color: #f19634;
+}
+
+.Pre-Booked {
+    color: #7c6be8;
+}
+
+.Booked {
+    color: #649a2b;
+}
+
+.order-header {
+    background-color: #f8f8f8;
+}

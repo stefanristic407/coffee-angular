@@ -1,0 +1,92 @@
+<div class="row m-0 pr-md-4">
+    <div class="col-12 px-0 mb-1">
+        <div class="d-flex justify-content-between">
+            <p-dropdown
+                placeholder="Added by"
+                [showClear]="true"
+                [options]="owners"
+                [(ngModel)]="owner.name"
+                styleClass="round-border mr-25 mb-25 mb-md-4 {{ owner.name ? 'highlight' : '' }}"
+                scrollHeight="225px"
+                optionLabel="label"
+                optionValue="value"
+            ></p-dropdown>
+
+            <div>
+                <div class="btn-trans-icon cursor-pointer p-2" (click)="downloadAll()">
+                    <img class="svg" src="assets/images/download-icon.svg" />
+                    <span class="estate-message pl-2">{{ 'download_all' | translate }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 px-0">
+        <p-table
+            [value]="documents | arrayFilter: owner.name:'fileOwner'"
+            styleClass="p-datatable-responsive-single border-none"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="card-column" pSortableColumn>{{ 'Document Name' | translate }}</th>
+                    <th class="w-20" pSortableColumn>{{ 'date_added' | translate }}</th>
+                    <th class="w-20" pSortableColumn>{{ 'owner' | translate }}</th>
+                    <th class="w-action-column text-center">{{ 'action' | translate }}</th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-document>
+                <tr>
+                    <td class="text-overflow-ellipsis border-0 card-column">
+                        <span class="d-none d-md-inline">{{ document.name }}</span>
+                        <div class="p-mobile-row-content">
+                            <div class="d-flex">
+                                <div class="d-flex flex-column w-100">
+                                    <div class="fnt-14 font-bold text-clr334 mb-1 mt-2">{{ document.name }}</div>
+                                    <div class="fnt-12 my-2">
+                                        <span class="text-clr588">{{ 'owner' | translate }}:</span>&nbsp;
+                                        <span class="text-clr334 font-bold">{{ document.file_owner }}</span>
+                                    </div>
+                                    <div class="fnt-12 mt-2">
+                                        <span class="text-clr588">{{ 'added_on' | translate }}:</span>&nbsp;
+                                        <span class="text-clr334">{{ document.date_added | date: 'dd/MM/yyyy' }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="download-icon-cell d-flex align-items-center">
+                                    <span class="ml-auto mr-auto" (click)="downloadFile(document)"
+                                        ><img
+                                            class="pr-2"
+                                            *ngIf="document.mime == 'image/jpeg' || document.mime == 'image/png'"
+                                            src="assets/images/pdf.svg"
+                                            alt="download-icon"
+                                    /></span>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="d-none d-md-table-cell">
+                        {{ document.dateAdded | date: 'd MMM y' }}
+                    </td>
+                    <td class="d-none d-md-table-cell text-overflow-ellipsis">
+                        {{ document.fileOwner }}
+                    </td>
+                    <td class="d-none d-md-table-cell px-0 text-center">
+                        <span (click)="downloadFile(document)"
+                            ><img
+                                class="pr-2"
+                                *ngIf="document.mime == 'image/jpeg' || document.mime == 'image/png'"
+                                src="assets/images/pdf.svg"
+                                alt="download-icon"
+                        /></span>
+                    </td>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="summary">
+                <div *ngIf="showLoadMore" class="text-center mt-1">
+                    <span class="navigation-link" (click)="loadMore()">{{ 'load_more' | translate }}</span>
+                </div>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

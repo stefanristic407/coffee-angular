@@ -1,0 +1,24 @@
+:host {
+    display: block;
+    padding: 0 24px 32px 24px;
+    border-radius: 4px;
+    background-color: #faf8f4;
+    color: #020202;
+
+    .confirm-header {
+        font-size: 28px;
+        font-family: PlayfairDisplay;
+        padding-top: 32px;
+    }
+
+    .available-quantity {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    .secondary-description {
+        font-size: 14px;
+        color: #747588;
+        line-height: 1.71;
+    }
+}

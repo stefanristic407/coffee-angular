@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60.1" height="60.1" viewBox="0 0 60.1 60.1">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #a88057;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-miterlimit: 10;
+        stroke-width: 2.5px;
+      }
+    </style>
+  </defs>
+  <g id="Group_14" data-name="Group 14" transform="translate(1.25 1.25)">
+    <circle id="Oval_Copy" data-name="Oval Copy" class="cls-1" cx="28.8" cy="28.8" r="28.8"/>
+    <path id="Path_12_Copy" data-name="Path 12 Copy" class="cls-1" d="M0,6.534,7.631,14.4,21.6,0" transform="translate(19 21.6)"/>
+  </g>
+</svg>

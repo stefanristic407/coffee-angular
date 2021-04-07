@@ -1,0 +1,278 @@
+<section>
+    <div class="main-block">
+        <app-brand-profile-header pageSlug="visit-us" (saveClick)="savePageData()"></app-brand-profile-header>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <form [formGroup]="infoForm" novalidate>
+                    <div class="border-main br-2 p-3 p-lg-4">
+                        <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-3">
+                            Banner<span class="star">*</span>
+                        </h4>
+                        <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
+                            Image/Video banner<span class="star">*</span>
+                        </p>
+                        <p class="fnt-12 fnt-md-14 lh-normal fnt-600 fnt-muli text-clr588 mb-2">
+                            Upload a banner cover about your roaster
+                        </p>
+                        <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 1440 x 465 px</p>
+
+                        <div class="w-100 sewn-form-field">
+                            <app-uploader formControlName="banner_file" [width]="1440" [height]="465"></app-uploader>
+                            <small *ngIf="infoForm.controls.banner_file.errors?.required" class="p-error">
+                                Please upload
+                            </small>
+                        </div>
+
+                        <div class="w-100 sewn-form-field mb-0">
+                            <label>
+                                Banner Title<span class="star">*</span>
+                                <span class="pull-right text-clr588">
+                                    {{ infoForm.get('banner_title').value | wordCount }}/15 words
+                                </span>
+                            </label>
+                            <input type="text" formControlName="banner_title" appWordLimit [limit]="15" pInputText />
+                            <small *ngIf="infoForm.controls.banner_title.errors?.required" class="p-error">
+                                Required
+                            </small>
+                            <small *ngIf="infoForm.controls.banner_title.errors?.maxWordCount" class="p-error">
+                                Please input 15 words
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="border-main br-2 mt-4 mt-lg-45 p-3 p-lg-4">
+                        <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">Contact Info</h4>
+                        <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4 mb-md-45">Your details to get in touch!</p>
+
+                        <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-3 mb-md-4">
+                            Address<span class="star">*</span>
+                        </h4>
+
+                        <div class="row gutter-16 gutter-lg-24">
+                            <div class="col-12 col-md-6 sewn-form-field">
+                                <label>Country<span class="star">*</span></label>
+                                <p-dropdown
+                                    [options]="COUNTRY_LIST"
+                                    optionLabel="name"
+                                    optionValue="isoCode"
+                                    formControlName="country"
+                                    (onChange)="changeCountry()"
+                                    placeholder="{{ globals.languageJson?.select_country }}"
+                                ></p-dropdown>
+                                <small *ngIf="infoForm.controls.country.errors?.required" class="p-error">
+                                    Please select your country
+                                </small>
+                            </div>
+                            <div class="col-12 col-md-6 sewn-form-field">
+                                <label>State</label>
+                                <p-dropdown
+                                    [options]="cities"
+                                    formControlName="state"
+                                    placeholder="{{ globals.languageJson?.select_state }}"
+                                ></p-dropdown>
+                            </div>
+                            <div class="col-12 col-md-6 sewn-form-field">
+                                <label>{{ globals.languageJson?.address }}<span class="star">*</span></label>
+                                <input
+                                    type="text"
+                                    placeholder="Please enter your e-mail address"
+                                    formControlName="address1"
+                                    pInputText
+                                    placeholder="Line 1"
+                                />
+                                <small *ngIf="infoForm.controls.address1.errors?.required" class="p-error">
+                                    Please enter address
+                                </small>
+                            </div>
+                            <div class="col-12 col-md-6 sewn-form-field">
+                                <label>{{ globals.languageJson?.address }}</label>
+                                <input type="text" placeholder="Line 2" formControlName="address2" pInputText />
+                            </div>
+                            <div class="col-12 col-md-3 sewn-form-field">
+                                <label>City<span class="star">*</span></label>
+                                <input
+                                    type="text"
+                                    placeholder="{{ globals.languageJson?.enter_city }}"
+                                    formControlName="city"
+                                    pInputText
+                                />
+                                <small *ngIf="infoForm.controls.city.errors?.required" class="p-error">
+                                    Please enter city
+                                </small>
+                            </div>
+                            <div class="col-12 col-md-3 sewn-form-field">
+                                <label>{{ globals.languageJson?.zipcode }}<span class="star">*</span></label>
+                                <input
+                                    type="text"
+                                    placeholder="{{ globals.languageJson?.zipcode }}"
+                                    formControlName="zip_code"
+                                    pInputText
+                                />
+                                <small *ngIf="infoForm.controls.zip_code.errors?.required" class="p-error">
+                                    Please enter zipcode
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="divider mb-4"></div>
+                        <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-3 mb-md-4">
+                            Contact details<span class="star">*</span>
+                        </h4>
+
+                        <div class="row gutter-16 gutter-lg-24">
+                            <div class="col-12 col-md-6 sewn-form-field">
+                                <label>Email Address<span class="star">*</span></label>
+                                <input
+                                    type="text"
+                                    placeholder="Roastery email"
+                                    formControlName="email"
+                                    pInputText
+                                    placeholder="Line 1"
+                                />
+                                <small *ngIf="infoForm.controls.email.errors?.required" class="p-error">
+                                    Please enter email
+                                </small>
+                                <small *ngIf="infoForm.controls.email.errors?.email" class="p-error">
+                                    Please enter valid email
+                                </small>
+                            </div>
+                            <div class="col-12 col-md-6 sewn-form-field">
+                                <label
+                                    >Phone Number<span class="star">*</span>
+                                    <span class="flag-icon flag-icon-gr"></span>
+                                </label>
+                                <app-phone-number formControlName="phone"></app-phone-number>
+                                <small *ngIf="infoForm.controls.phone.invalid" class="p-error d-block">
+                                    Please enter valid phone number
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="divider mb-4"></div>
+                        <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-3 mb-md-4">
+                            Store timings<span class="star">*</span>
+                        </h4>
+
+                        <div class="w-100">
+                            <div class="sewn-form-field col-md-6 px-0">
+                                <app-day-picker formControlName="store_open_days"></app-day-picker>
+                                <small *ngIf="infoForm.controls.store_open_days.errors?.required" class="p-error">
+                                    Please select the open days
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="sewn-form-field col-md-6 px-0 mb-0">
+                            <app-time-range formControlName="storeTime"></app-time-range>
+                            <small *ngIf="infoForm.controls.storeTime.errors?.required" class="p-error">
+                                Please select the time
+                            </small>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="border-main br-2 mt-4 mt-lg-45 p-3 p-lg-4">
+                    <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">FAQs</h4>
+                    <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-45 mb-md-5">
+                        Help your users solves questions faster
+                    </p>
+
+                    <div class="accordion mb-3" id="accordionExample" cdkDropList (cdkDropListDropped)="drop($event)">
+                        <div
+                            class="faq-card bg-white mb-4"
+                            *ngFor="let saveddata of savedFaqArray; let i = index"
+                            cdkDrag
+                            [cdkDragDisabled]="editQuestion"
+                        >
+                            <div class="d-md-flex align-items-start">
+                                <div class="flex-fill">
+                                    <div class="d-flex flex-wrap align-items-center" [id]="'heading' + i">
+                                        <div
+                                            class="question-wrap w-100 d-flex align-items-center border-main br-4 collapsed"
+                                            data-toggle="collapse"
+                                            [attr.data-target]="'#collapse' + i"
+                                            aria-expanded="true"
+                                            [attr.aria-controls]="'collapse' + i"
+                                        >
+                                            <div class="w-100 d-flex align-items-center overflow-hidden">
+                                                <img src="assets/images/menu-gray.svg" alt="move" class="move-icon" />
+                                                <h2 class="fnt-14 lh-normal fnt-600 text-clr588 ellipsis ml-md-1 mb-0">
+                                                    {{ saveddata.question }}
+                                                </h2>
+                                            </div>
+                                            <span class="pi pi-chevron-up float-right"></span>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        [id]="'collapse' + i"
+                                        class="collapse"
+                                        [attr.aria-labelledby]="'heading' + i"
+                                        data-parent="#accordionExample"
+                                    >
+                                        <div class="answer-wrap fnt-14 lh-normal fnt-600 text-clr334 border-main">
+                                            {{ saveddata.answer }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-wrap w-mob-100 d-flex justify-content-end">
+                                    <span class="brown-cta ml-3" (click)="refreshQuestionForm(i)"> Edit </span>
+                                    <span class="brown-cta ml-3" (click)="deleteFAQ(saveddata)"> Delete </span>
+                                </div>
+                            </div>
+                            <div *ngIf="selQuestion == i" class="mt-4">
+                                <ng-container *ngTemplateOutlet="faqForm; context: { faqIdx: i }"></ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="selQuestion == null">
+                        <ng-container *ngTemplateOutlet="faqForm; context: { faqIdx: null }"></ng-container>
+                    </div>
+                    <div class="divider mb-4"></div>
+                    <span class="brown-cta" (click)="refreshQuestionForm()"> + Add new question </span>
+                </div>
+            </div>
+        </div>
+
+        <app-brand-profile-footer pageSlug="visit-us" (saveClick)="savePageData()"></app-brand-profile-footer>
+    </div>
+</section>
+
+<ng-template #faqForm let-faqIdx="faqIdx">
+    <form *ngIf="editQuestion" [formGroup]="questionForm" class="form-container">
+        <div class="w-100 sewn-form-field mb-4">
+            <label>
+                Question<span class="star">*</span>
+                <span class="pull-right text-clr588">
+                    {{ questionForm.get('question').value | wordCount }}/15 words
+                </span>
+            </label>
+            <input type="text" formControlName="question" appWordLimit [limit]="15" pInputText />
+            <small *ngIf="questionForm.controls.question.errors?.required" class="p-error"> Required </small>
+            <small *ngIf="questionForm.controls.question.errors?.maxWordCount" class="p-error">
+                Please input 15 words
+            </small>
+        </div>
+
+        <div class="w-100 sewn-form-field mb-4">
+            <label>
+                Answer<span class="star">*</span>
+                <span class="pull-right text-clr588">
+                    {{ questionForm.get('answer').value | wordCount }}/100 words
+                </span>
+            </label>
+            <textarea formControlName="answer" rows="5" cols="50" appWordLimit [limit]="100" pInputTextarea></textarea>
+            <small *ngIf="questionForm.controls.answer.errors?.required" class="p-error"> Required </small>
+            <small *ngIf="questionForm.controls.answer.errors?.maxWordCount" class="p-error">
+                Please input 100 words
+            </small>
+        </div>
+        <div [class.mb-4]="faqIdx == null">
+            <button type="button" class="btn-stroked mr-25" (click)="editQuestion = false">Cancel</button>
+            <button type="button" class="btn-raised" (click)="saveQuestion()">
+                {{ faqIdx != null ? 'Save' : 'Add' }}
+            </button>
+        </div>
+    </form>
+</ng-template>

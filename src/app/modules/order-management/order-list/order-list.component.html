@@ -1,0 +1,195 @@
+<div class="bg-fff py-2 py-md-4 py-lg-45 px-2 px-md-3 px-lg-5">
+    <div class="row no-gutters">
+        <div class="col-12 px-2 py-2">
+            <p-breadcrumb [model]="items"></p-breadcrumb>
+        </div>
+    </div>
+
+    <div class="row no-gutters mt-2 px-2" [formGroup]="searchForm">
+        <div class="col-12 col-md-4 px-0 d-flex align-items-center">
+            <h4 class="fnt-18 font-bold text-clr334 m-0">
+                {{ (organizationType === OrgType.ESTATE ? 'orders_of_estates' : 'orders_by_mr') | translate }}
+            </h4>
+        </div>
+        <div class="col-12 col-md-8 search-export px-0 mt-25">
+            <div class="d-flex justify-content-end search-bar">
+                <span class="custom-search w-100">
+                    <input
+                        pInputText
+                        class="w-100 h-100 pt-2 pb-2 {{ searchForm.get('search_query').value ? 'highlight' : '' }}"
+                        type="text"
+                        placeholder="Search by order id, {{ customerPropertyName | strReplace: '_':' ' }}"
+                        formControlName="search_query"
+                    />
+                </span>
+                <button
+                    type="submit"
+                    class="btn-raised ml-2 d-none d-lg-block"
+                    (click)="displayExportDialog = !displayExportDialog"
+                >
+                    {{ 'export' | translate }}
+                </button>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between w-100 col-12 px-0 mt-3">
+            <div class="d-flex flex-wrap">
+                <p-multiSelect
+                    placeholder="Origin"
+                    optionLabel="label"
+                    optionValue="value"
+                    class="mr-25"
+                    [options]="origins$ | async"
+                    [filter]="false"
+                    [showToggleAll]="false"
+                    [showHeader]="false"
+                    [maxSelectedLabels]="1"
+                    [styleClass]="'round-border mb-25 mb-md-3 mb-lg-4' + (queryParams.origin ? ' highlight' : '')"
+                    scrollHeight="225px"
+                    formControlName="origin"
+                >
+                    <ng-template pTemplate="footer">
+                        <span class="d-block w-100 text-center my-2 navigation-link" (click)="resetOriginFilter()">
+                            {{ 'clear' | translate }}
+                        </span>
+                    </ng-template>
+                </p-multiSelect>
+                <p-dropdown
+                    [showClear]="true"
+                    [options]="orderTypeItems"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Type of order"
+                    class="mr-25"
+                    [styleClass]="'round-border mb-25 mb-md-3 mb-lg-4' + (queryParams.order_type ? ' highlight' : '')"
+                    scrollHeight="225px"
+                    formControlName="order_type"
+                >
+                </p-dropdown>
+                <p-dropdown
+                    [showClear]="true"
+                    [options]="statusItems"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Status"
+                    class="mr-25"
+                    [styleClass]="'round-border mb-25 mb-md-3 mb-lg-4' + (queryParams.status ? ' highlight' : '')"
+                    scrollHeight="225px"
+                    formControlName="status"
+                ></p-dropdown>
+                <p-calendar
+                    [readonlyInput]="true"
+                    placeholder="Date range"
+                    selectionMode="range"
+                    formControlName="dates"
+                    [showButtonBar]="true"
+                    [styleClass]="
+                        'round-border mb-25 mb-md-3 mb-lg-4' +
+                        (queryParams.start_date || queryParams.end_date ? ' highlight' : '')
+                    "
+                >
+                </p-calendar>
+            </div>
+            <div class="d-none d-md-flex">
+                <p-dropdown
+                    [options]="displayOptions"
+                    formControlName="per_page"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Display"
+                    styleClass="round-border"
+                    placeholder="Display"
+                >
+                    <ng-template pTemplate="selectedItem">
+                        <span class="text-muted" [innerHTML]="'Display ' + searchForm.get('per_page').value"></span>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+        </div>
+    </div>
+
+    <div class="row no-gutters">
+        <div class="col-12 p-1">
+            <app-order-table
+                *ngIf="organizationType === OrgType.ESTATE"
+                #appOrderTable
+                [searchOptions]="queryParams"
+            ></app-order-table>
+            <p-tabView
+                *ngIf="organizationType === OrgType.MICRO_ROASTER"
+                [(activeIndex)]="activeIndex"
+                (onChange)="resetFilter()"
+            >
+                <p-tabPanel [header]="'orders' | translate">
+                    <app-order-table #appOrderTable [searchOptions]="queryParams" class="mt-md-4"> </app-order-table>
+                </p-tabPanel>
+                <p-tabPanel [header]="'requests' | translate">
+                    <app-request-table #requestTable class="mt-md-4"></app-request-table>
+                </p-tabPanel>
+            </p-tabView>
+        </div>
+    </div>
+</div>
+
+<form class="export-dialog" id="export-dialog" [formGroup]="exportForm">
+    <p-dialog
+        header="Export orders"
+        [(visible)]="displayExportDialog"
+        [style]="{ width: '431px' }"
+        [baseZIndex]="10000"
+        [modal]="true"
+        styleClass="export-p-dialog"
+        [contentStyle]="{ overflow: 'visible' }"
+    >
+        <div class="d-flex flex-column bd-highlight mb-3 pt-2" id="calendar-div">
+            <div class=""><span class="text-clr588">Select start and end date for the order</span></div>
+
+            <div class="d-flex flex-row bd-highlight mb-3 pt-1">
+                <p-calendar
+                    class="mr-2 w-100"
+                    formControlName="from_date"
+                    [maxDate]="exportForm.get('to_date').value"
+                    [showIcon]="true"
+                    dateFormat="dd.mm.yy"
+                    [readonlyInput]="true"
+                    [showButtonBar]="true"
+                    placeholder="Select start date"
+                    styleClass="w-100 p-calendar-w-btn round-border single-calendar mr-3 export-calendar {{
+                        exportForm.get('from_date').value ? 'highlight' : ''
+                    }}"
+                >
+                </p-calendar>
+                <p-calendar
+                    class="ml-2 w-100"
+                    formControlName="to_date"
+                    [minDate]="exportForm.get('from_date').value"
+                    [showIcon]="true"
+                    dateFormat="dd.mm.yy"
+                    [readonlyInput]="true"
+                    [showButtonBar]="true"
+                    placeholder="Select end date"
+                    styleClass="w-100 p-calendar-w-btn round-border single-calendar ml-0 export-calendar {{
+                        exportForm.get('to_date').value ? 'highlight' : ''
+                    }}"
+                >
+                </p-calendar>
+            </div>
+            <div class="pt-3"><span class="text-clr588">Export Format</span></div>
+            <div class="pt-1">
+                <span class="w-100 general-text">Select the format you want your orders</span>
+            </div>
+            <div class="pt-3">
+                <p-radioButton label="PDF" value="pdf" formControlName="export_type"></p-radioButton>
+                <p-radioButton class="ml-3" label="CSV" value="csv" formControlName="export_type"></p-radioButton>
+            </div>
+        </div>
+
+        <ng-template pTemplate="footer">
+            <button class="btn-stroked" type="button" (click)="displayExportDialog = !displayExportDialog">
+                Cancel
+            </button>
+
+            <button class="btn-raised" type="button" (click)="downloadOrderClicked()">Download order</button>
+        </ng-template>
+    </p-dialog>
+</form>

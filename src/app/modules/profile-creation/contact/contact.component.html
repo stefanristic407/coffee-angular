@@ -1,0 +1,182 @@
+<form [formGroup]="contactForm" *ngIf="isSaveMode">
+    <div class="row p-2">
+        <div class="col-lg-8 p-2">
+            <div class="border-md-main br-4 p-md-4 p-2">
+                <div class="row">
+                    <div class="sewn-form-field col-md-6 col-12 mt-3">
+                        <label>
+                            {{ 'email_address' | translate }}
+                            <span class="star">*</span></label
+                        >
+                        <input type="email" pInputText formControlName="email" placeholder="Roastery email" />
+
+                        <small *ngIf="isControlHasError('email', 'email')" class="p-error">
+                            {{ 'invalid' | translate }} {{ 'email' | translate }}
+                        </small>
+
+                        <small *ngIf="isControlHasError('email', 'required')" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
+                    </div>
+                    <div class="sewn-form-field col-md-6 col-12 mt-3">
+                        <label>
+                            {{ 'phone_number' | translate }}
+                            <span class="star">*</span>
+                        </label>
+                        <app-phone-number formControlName="phone"></app-phone-number>
+                        <small *ngIf="contactForm.controls.phone.invalid" class="p-error d-block">
+                            Please enter valid phone number
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="sewn-form-field col-md-6 mt-3">
+                        <label>{{ 'country' | translate }}<span class="star">*</span></label>
+                        <p-dropdown
+                            formControlName="country"
+                            [options]="countryList"
+                            optionLabel="name"
+                            optionValue="isoCode"
+                        >
+                        </p-dropdown>
+                        <small *ngIf="isControlHasError('country', 'required')" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
+                    </div>
+                    <div class="sewn-form-field col-md-6 mt-3">
+                        <label>{{ 'state' | translate }}</label>
+                        <p-dropdown formControlName="state" [options]="cityList" optionLabel="name" optionValue="value">
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="sewn-form-field col-md-6 mt-3">
+                        <label>{{ 'address' | translate }}<span class="star">*</span></label>
+                        <input pInputText formControlName="address_line1" type="text" placeholder="Line 1" />
+                        <small *ngIf="isControlHasError('address_line1', 'required')" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
+                    </div>
+                    <div class="sewn-form-field col-md-6 mt-0 mt-md-3">
+                        <label class="d-none d-md-block">&nbsp;</label>
+                        <input pInputText formControlName="address_line2" type="text" placeholder="Line 2" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="sewn-form-field col-md-6 mt-3">
+                        <label>{{ 'city' | translate }}<span class="star">*</span></label>
+                        <input type="text" pInputText formControlName="city" placeholder="City" />
+                        <small *ngIf="isControlHasError('city', 'required')" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
+                    </div>
+                    <div class="sewn-form-field col-md-6 mt-3">
+                        <label>{{ 'zipcode' | translate }}</label>
+                        <input type="text" pInputText formControlName="zipcode" placeholder="eg:23134" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 p-md-2 p-0">
+            <div class="border-md-main br-4">
+                <div class="header d-none d-md-block fnt-18 font-bold br-4 bg-f8 p-25 m-1">
+                    {{ 'social_media_channels' | translate }}
+                </div>
+                <div class="p-3">
+                    <div class="row">
+                        <div class="sewn-form-field col-md-12">
+                            <label>{{ 'facebook_link' | translate }}</label>
+                            <input type="text" pInputText formControlName="fb_profile" placeholder="Add facebook URL" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="sewn-form-field col-md-12">
+                            <label for="instagram">{{ 'instagram_link' | translate }}</label>
+                            <input
+                                type="text"
+                                pInputText
+                                formControlName="ig_profile"
+                                placeholder="Add instagram URL"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="row list-section mt-4" *ngIf="!isSaveMode">
+    <div class="col-lg-12">
+        <div class="border-main p-0 pl-md-475 pr-md-475 pt-md-3 br-4">
+            <div class="col-lg-6 pl-0 pr-0">
+                <h3 class="cont-info bg-f8 fnt-16 font-bold text-clr334 pt-25 pl-3 pr-3 d-md-none mb-0 pb-25">
+                    {{ 'contact_info' | translate }}
+                </h3>
+                <table class="pl-3 pr-3 p-md-0 d-block">
+                    <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
+                        <td class="fnt-12 fnt-600 fnt-md-14 pt-0 text-clr588">
+                            {{ 'website' | translate }}
+                        </td>
+                        <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
+                            {{ roasteryProfileService.roasteryProfileData?.website }}
+                        </td>
+                    </tr>
+                    <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
+                        <td class="fnt-12 fnt-600 fnt-md-14 pt-0 text-clr588">
+                            {{ 'email_address' | translate }}
+                        </td>
+                        <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
+                            {{ roasteryProfileService.roasteryProfileData?.email }}
+                        </td>
+                    </tr>
+                    <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
+                        <td class="fnt-12 fnt-600 fnt-md-14 pt-0 text-clr588">
+                            {{ 'phone_number' | translate }}
+                        </td>
+                        <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
+                            {{ roasteryProfileService.roasteryProfileData?.phone }}
+                        </td>
+                    </tr>
+                    <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
+                        <td class="fnt-12 fnt-600 fnt-md-14 pt-0 text-clr588">
+                            {{ 'country' | translate }}
+                        </td>
+                        <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
+                            {{ roasteryProfileService.roasteryProfileData?.country | country }}
+                        </td>
+                    </tr>
+                    <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
+                        <td class="fnt-12 fnt-600 fnt-md-14 pt-0 text-clr588">
+                            {{ 'address' | translate }}
+                        </td>
+                        <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
+                            {{ roasteryProfileService.roasteryProfileData?.address_line1 }}
+                            {{ roasteryProfileService.roasteryProfileData?.address_line2 }}
+                            <p class="mb-0">{{ roasteryProfileService.roasteryProfileData?.city }}</p>
+                            <p class="mb-0">{{ roasteryProfileService.roasteryProfileData?.state }}</p>
+                        </td>
+                    </tr>
+                    <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
+                        <td class="fnt-12 fnt-600 fnt-md-14 pt-0 text-clr588">
+                            {{ 'zipcode' | translate }}
+                        </td>
+                        <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
+                            {{ roasteryProfileService.roasteryProfileData?.zipcode }}
+                        </td>
+                    </tr>
+                    <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
+                        <td class="fnt-12 fnt-600 fnt-md-14 pt-0 text-clr588">
+                            {{ 'social_media' | translate }}
+                        </td>
+                        <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
+                            <p class="mb-0">{{ roasteryProfileService.roasteryProfileData?.fb_profile }}</p>
+                            <p class="mb-0">{{ roasteryProfileService.roasteryProfileData?.ig_profile }}</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { timeStamp } from 'console';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from 'src/services/globals.service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { GlobalsService } from '@services';
+import { RoasterserviceService } from '@services';
 
 @Component({
     selector: 'app-add-product',
@@ -41,6 +41,7 @@ export class AddProductComponent implements OnInit {
         purchase_type: '',
         discount_eligibility: false,
         discount_amount: 0,
+        bought_platform: 'Yes',
         discount_type: '',
         is_price_including_vat: true,
         discount_applicable_to: '',

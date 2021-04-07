@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AgroService } from 'src/services/agro.service';
+import { AgroService } from '@services';
 import * as moment from 'moment';
 import * as _ from 'underscore';
 
@@ -51,14 +51,13 @@ export class ImageMapComponent implements OnInit {
     constructor(public agroSrv: AgroService) {}
 
     ngOnInit(): void {
-        this.changeWeatherType(0);
+        this.changeWeatherType();
         this.bounds = this.calcTileBounds();
         this.getPolygon();
         this.getData();
     }
 
-    changeWeatherType(value) {
-        this.selType = value;
+    changeWeatherType() {
         this.makeData();
     }
 

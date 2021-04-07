@@ -1,0 +1,10 @@
+<div>
+    <div class="vertical-bar">
+        <div #verticalChart echarts [options]="verticalChartOption" style="width: 100%"></div>
+    </div>
+    <div class="horizontal-bar">
+        <div *ngFor="let item of horizontalData">
+            <app-horizontal-bar [item]="item"></app-horizontal-bar>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+<section>
+    <div class="main-block">
+        <div class="d-flex justify-content-between align-items-start mb-45 mb-md-3">
+            <p-breadcrumb [model]="breadItems"></p-breadcrumb>
+            <span class="custom-search d-none d-md-block">
+                <input
+                    type="text"
+                    pInputText
+                    [(ngModel)]="queryParams.search"
+                    (keyup)="filterCall()"
+                    [placeholder]="'search_files' | translate"
+                    class="w-100 {{ fileShareSrv.filesTerm ? 'highlight' : '' }}"
+                />
+            </span>
+        </div>
+        <div>
+            <h1 class="fnt-16 fnt-md-18 lh-normal fnt-700 text-clr334 mb-1 mb-md-4">
+                {{ 'file_share' | translate }}
+            </h1>
+            <div class="fnt-12 fnt-md-16 lh-normal fnt-600 text-clr588 mb-3 mb-lg-4">
+                {{ 'pinned_items' | translate }}
+            </div>
+
+            <!--Quick pin files-->
+            <div class="d-flex flex-wrap flex-md-nowrap gutter-12 gutter-md-20 mb-md-3 mb-lg-4">
+                <div *ngIf="showQuicker" class="w-mob-100 mb-25 mb-md-0 mr-md-35">
+                    <div class="pin-quiker-files position-relative text-md-center d-flex align-items-center">
+                        <div class="w-100 h-100 d-flex justify-content-md-center align-items-md-center">
+                            <div class="pin-quiker-file__upload d-flex d-md-block">
+                                <img class="mb-0 mb-md-3" src="assets/images/pin-brown.svg" />
+                                <div class="fnt-12 fnt-md-16 lh-normal fnt-600 text-clr334 pl-25 pl-md-0">
+                                    {{ 'pin_your_files' | translate }}
+                                </div>
+                            </div>
+                            <img class="close-file" src="assets/images/close.svg" (click)="showQuicker = false" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-mob-100 row gutter-12 gutter-md-20 flex-nowrap overflow-auto">
+                    <div *ngFor="let item of fileShareSrv.pinnedData" class="col-auto">
+                        <app-file-card [data]="item" [showPin]="true"></app-file-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="mt-45 mt-md-5 pt-md-25">
+                <p-tabMenu [model]="menuItems"></p-tabMenu>
+            </div>
+            <ng-container *ngTemplateOutlet="btnWrap"></ng-container>
+            <div class="mb-4 content-block">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</section>
+
+<ng-template #btnWrap>
+    <div class="mt-4 mb-4 mb-lg-45">
+        <label class="btn-trans-icon upload-icon mr-25 mb-0">
+            <input type="file" (change)="fileShareSrv.uploadFile($event)" />
+            <span> {{ 'upload' | translate }} </span>
+        </label>
+        <span class="btn-trans-icon plus-icon" routerLink="/file-share/create-folder/{{ fileShareSrv.folderId }}">
+            <span> {{ 'create_new_folder' | translate }} </span>
+        </span>
+    </div>
+</ng-template>

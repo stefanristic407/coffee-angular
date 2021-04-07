@@ -1,0 +1,198 @@
+<section class="estate-orders">
+    <div class="d-flex justify-content-between mt-4 pt-2">
+        <div>
+            <p-dropdown
+                id="select-table-customer"
+                [options]="newList"
+                [(ngModel)]="selectedCustomers"
+                scrollHeight="225px"
+                (onChange)="filterAgrements()"
+                [showClear]="true"
+                placeholder="Select customer"
+                styleClass="round-border mr-25 mb-25 mb-md-4"
+            ></p-dropdown>
+        </div>
+        <div class="web-farm">
+            <div class="float-right">
+                <div class="btn-trans-icon upload-icon" (click)="onUploadModalOpen()">
+                    {{ 'upload' | translate }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="estate-table web-farm">
+        <p-table
+            id="sales-table"
+            [value]="sortedMainData | filter: searchTerm | filter: estatetermOrigin"
+            sortMode="multiple"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="file_name" class="pl-4 ml-3 cust-width">
+                        {{ globals.languageJson?.files }} <p-sortIcon field="file_name"> </p-sortIcon>
+                    </th>
+                    <th pSortableColumn="created_at">
+                        {{ globals.languageJson?.added_on }} <p-sortIcon field="created_at"> </p-sortIcon>
+                    </th>
+                    <th pSortableColumn="customer_name">
+                        {{ globals.languageJson?.customer_name }} <p-sortIcon field="customer_name"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="origin">
+                        {{ globals.languageJson?.origin }} <p-sortIcon field="origin"> </p-sortIcon>
+                    </th>
+                    <th style="width: 5%"></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td class="pl-4 ml-3">
+                        <a href="{{ item.file_url }}" target="_blank" class="file_url">
+                            <div>
+                                <img class="file-icon pr-2" src="assets/images/pdf.svg" alt="upload-icon" />
+                                {{ item.file_name }}
+                            </div>
+                        </a>
+                    </td>
+                    <td class="fnt-14">{{ item.created_at | date: 'M/d/yy, h:mm a' }}</td>
+                    <td class="fnt-14">{{ item.customer_name }}</td>
+                    <td class="fnt-14">{{ getCountryName(item.origin) }}</td>
+                    <td id="sales-contract-popup">
+                        <a
+                            class="menu-arrow"
+                            [popover]="poplistTemplate"
+                            placement="left"
+                            [outsideClick]="true"
+                            #pop="bs-popover"
+                        >
+                            <p><img src="assets/images/kebab-menu.svg" /></p>
+                        </a>
+                        <ng-template #poplistTemplate id="{{ item.id }}">
+                            <div id="popover-mobile-content">
+                                <ul class="list-group custom-popover">
+                                    <li class="list-group-item">
+                                        <a class="pointer-item" (click)="pop.hide(); onUpdateModal(item.id)">{{
+                                            globals.languageJson?.update
+                                        }}</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a
+                                            class="pointer-item"
+                                            (click)="
+                                                pop.hide(); deleteAgreementId = item.id; onOpenDeleteModal(item.id)
+                                            "
+                                            >{{ globals.languageJson?.delete }}</a
+                                        >
+                                    </li>
+                                </ul>
+                            </div>
+                        </ng-template>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div class="estate-table pt-md-2 mobile-farm">
+        <div class="table-details mobile-farm">
+            <div class="table-responsive border-sourcetable agreement-top">
+                <div class="col-12 mb-3 bor-ebe" *ngFor="let data of sortedMainData | filter: customerMob">
+                    <div class="row">
+                        <div class="col-12 mobile-ce p-0">
+                            <div class="d-flex justify-content-between bg-f4f4 py-2 px-3">
+                                <div>
+                                    <p class="black fnt-14">{{ data.file_name }}</p>
+                                </div>
+                                <div>
+                                    <a
+                                        [popover]="poplistTemplate"
+                                        placement="left"
+                                        [outsideClick]="true"
+                                        #pop="bs-popover"
+                                    >
+                                        <p><img src="assets/images/kebab-menu.svg" /></p>
+                                    </a>
+                                    <ng-template #poplistTemplate id="{{ data.id }}">
+                                        <div id="popover-mobile-content">
+                                            <ul class="list-group custom-popover">
+                                                <li class="list-group-item">
+                                                    <a
+                                                        class="pointer-item"
+                                                        [routerLink]="'/sales-contract/' + customerType + '/' + data.id"
+                                                        (click)="pop.hide(); onUpdateModal(data.id)"
+                                                        >{{ globals.languageJson?.update }}</a
+                                                    >
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <a
+                                                        class="pointer-item"
+                                                        (click)="
+                                                            pop.hide();
+                                                            onOpenDeleteModal(data.id);
+                                                            deleteAgreementId = data.id
+                                                        "
+                                                        >{{ globals.languageJson?.delete }}</a
+                                                    >
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </ng-template>
+                                </div>
+                            </div>
+                            <div class="bor-bot-d6d6 mx-3 py-3 row">
+                                <div class="col-5 p-0">
+                                    <p class="light-eight fnt-12">Customer name</p>
+                                </div>
+                                <div class="col-7 p-0">
+                                    <p class="fnt-12">{{ data.customer_name }}</p>
+                                </div>
+                            </div>
+                            <div class="bor-bot-d6d6 mx-3 py-3 row">
+                                <div class="col-5 p-0">
+                                    <p class="light-eight fnt-12">Origin</p>
+                                </div>
+                                <div class="col-7 p-0">
+                                    <p class="fnt-12">{{ getCountryName(data.origin) }}</p>
+                                </div>
+                            </div>
+                            <div class="row mx-3 mb-3 pt-3">
+                                <div class="col-5 p-0">
+                                    <p class="light-eight fnt-12">Date added</p>
+                                </div>
+                                <div class="col-7 p-0">
+                                    <p class="fnt-12">{{ data.created_at | date: 'M/d/yy, h:mma' }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Upload and Update Modal -->
+<p-dialog
+    *ngIf="displayAddEditModal"
+    [(visible)]="displayAddEditModal"
+    [style]="{ width: '41.375rem' }"
+    [baseZIndex]="10000"
+    [closable]="false"
+>
+    <ng-template pTemplate="header">
+        <div class="d-flex justify-content-between w-100">
+            <h4 class="fnt-18 fnt-muli fnt-700 text-clr334">{{ globals.languageJson?.upload_new_agreement }}</h4>
+            <a (click)="onUpdateModalClose()" style="cursor: pointer">
+                <i class="pi pi-times fnt-24 text-clr97"></i>
+            </a>
+        </div>
+    </ng-template>
+    <app-roaster-agreement-form
+        class="w-100"
+        [isUpdate]="isUpdate"
+        [customerType]="customerType"
+        [selectedItemId]="selectedItemId"
+        (closeModal)="onUpdateModalClose($event)"
+        (getAgreements)="getAgreements($event)"
+    >
+    </app-roaster-agreement-form>
+</p-dialog>

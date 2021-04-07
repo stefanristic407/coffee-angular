@@ -1,0 +1,44 @@
+@import '../../../../../theme/styles/variables';
+
+:host {
+    display: block;
+
+    @media all and (max-width: 767px) {
+        padding-top: 8px;
+    }
+
+    .border-ebebeb {
+        padding-top: 32px;
+
+        &.tabs {
+            padding-top: 37px;
+            padding-right: 16px !important;
+        }
+
+        &.border-mobile {
+            @media all and (max-width: 767px) {
+                border: solid 1px $secondary-border-color !important;
+            }
+        }
+    }
+
+    .have-a-problem {
+        position: absolute;
+        right: 19px;
+        top: 13px;
+
+        @media all and (max-width: 767px) {
+            position: static !important;
+            display: inline-block;
+            width: 100%;
+
+            button {
+                width: 100%;
+            }
+        }
+    }
+
+    ::ng-deep .p-tabview-panel {
+        padding-top: 1.5rem;
+    }
+}

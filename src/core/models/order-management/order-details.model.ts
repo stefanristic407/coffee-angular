@@ -1,0 +1,56 @@
+import { OrderStatus, OrderType } from '@enums';
+import { Address } from '../common';
+
+export interface OrderDetails {
+    billing_address?: Address;
+    created_at: string;
+    es_assignee_id?: number;
+    estate_id: number;
+    estate_name: string;
+    estate_owner: string;
+    estate_profile_image_thumbnail_url: string;
+    harvest_date?: string;
+    harvest_id: number;
+    id?: number;
+    invoice_url: string;
+    is_fully_serviced_delivery?: boolean;
+    lot_id: number;
+    notes?: string;
+    order_reference?: string;
+    order_type?: OrderType;
+    type?: OrderType;
+    origin: string;
+    payment_after_delivery: boolean;
+    payment_status: string;
+    statusPaid: boolean;
+    prebook_order_id?: number;
+    price: number;
+    quantity: number;
+    quantity_count?: number;
+    quantity_type: string;
+    receipt_url: string;
+    ro_assignee_id?: number;
+    roaster_id: number;
+    micro_roaster_id: number;
+    roaster_name: string;
+    roaster_owner: string;
+    roaster_profile_image_thumbnail_url: string;
+    sample_order_id?: number;
+    shipping_address: Address;
+    shipping_price?: number;
+    species?: string;
+    status: OrderStatus;
+    user_id?: number;
+    varieties?: string;
+    shipment_date: string;
+    tracking_link: string;
+
+    upload_show: boolean;
+    receipt_show: boolean;
+    status_paid: boolean;
+    status_pending: boolean;
+    shipment_status: boolean;
+    payment_verification?: boolean;
+    before_grade_complete: boolean;
+    after_grade_complete: boolean;
+}

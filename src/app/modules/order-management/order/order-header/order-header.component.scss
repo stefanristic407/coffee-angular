@@ -1,0 +1,15 @@
+.order__id {
+    span {
+        &.order--prebook {
+            color: #7c6be8;
+        }
+
+        &.order--booked {
+            color: #649a2b;
+        }
+
+        &.order--sample {
+            color: #f19634;
+        }
+    }
+}

@@ -1,0 +1,182 @@
+<section>
+    <div class="main-block">
+        <app-brand-profile-header pageSlug="learn" (saveClick)="savePageData()"></app-brand-profile-header>
+
+        <form [formGroup]="infoForm" novalidate>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="border-main br-2 p-3 p-lg-4">
+                        <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-3">
+                            Banner<span class="star">*</span>
+                        </h4>
+                        <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
+                            Image/Video banner<span class="star">*</span>
+                        </p>
+                        <p class="fnt-12 fnt-md-14 lh-normal fnt-600 fnt-muli text-clr588 mb-2">
+                            Upload a banner cover about your roaster
+                        </p>
+                        <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 1440 x 465 px</p>
+
+                        <div class="w-100 sewn-form-field">
+                            <app-uploader formControlName="banner_file" [width]="1440" [height]="465"></app-uploader>
+                            <small *ngIf="infoForm.controls.banner_file.errors?.required" class="p-error">
+                                Please upload
+                            </small>
+                        </div>
+
+                        <div class="w-100 sewn-form-field mb-0">
+                            <label>
+                                Banner Title<span class="star">*</span>
+                                <span class="pull-right text-clr588">
+                                    {{ infoForm.get('banner_title').value | wordCount }}/10 words
+                                </span>
+                            </label>
+                            <input type="text" formControlName="banner_title" appWordLimit [limit]="10" pInputText />
+                            <small *ngIf="infoForm.controls.banner_title.errors?.required" class="p-error">
+                                Required
+                            </small>
+                            <small *ngIf="infoForm.controls.banner_title.errors?.maxWordCount" class="p-error">
+                                Please input 10 words
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="border-main br-2 mt-4 mt-lg-45 p-3 p-lg-4">
+                        <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">Intro</h4>
+                        <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">Give yourself a small intro!</p>
+
+                        <div class="w-100 sewn-form-field">
+                            <label>
+                                Title<span class="star">*</span>
+                                <span class="pull-right text-clr588">
+                                    {{ infoForm.get('intro_title').value | wordCount }}/15 words
+                                </span>
+                            </label>
+                            <input type="text" formControlName="intro_title" appWordLimit [limit]="15" pInputText />
+                            <small *ngIf="infoForm.controls.intro_title.errors?.required" class="p-error">
+                                Required
+                            </small>
+                            <small *ngIf="infoForm.controls.intro_title.errors?.maxWordCount" class="p-error">
+                                Please input 15 words
+                            </small>
+                        </div>
+
+                        <div class="w-100 sewn-form-field mb-0">
+                            <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
+                                Upload an Image/Video<span class="star">*</span>
+                            </p>
+                            <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">
+                                Size - 815 x 449 px
+                            </p>
+                            <app-uploader formControlName="intro_file" [width]="815" [height]="449"></app-uploader>
+                            <small *ngIf="infoForm.controls.intro_file.errors?.required" class="p-error">
+                                Please upload
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="border-main br-2 mt-4 mt-lg-45 p-3 p-lg-4">
+                        <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">
+                            What you want to tell your users
+                        </h4>
+                        <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">Give a step by step guide to your user</p>
+
+                        <div class="w-100 sewn-form-field mb-0">
+                            <label>
+                                What is the process title<span class="star">*</span>
+                                <span class="pull-right text-clr588">
+                                    {{ infoForm.get('title').value | wordCount }}/10 words
+                                </span>
+                            </label>
+                            <input type="text" formControlName="title" appWordLimit [limit]="10" pInputText />
+                            <small *ngIf="infoForm.controls.title.errors?.required" class="p-error"> Required </small>
+                            <small *ngIf="infoForm.controls.title.errors?.maxWordCount" class="p-error">
+                                Please input 10 words
+                            </small>
+                        </div>
+
+                        <ng-container *ngFor="let i of [1, 2, 3, 4]">
+                            <div class="divider my-4"></div>
+                            <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-4">Step {{ i }}</h4>
+
+                            <div class="w-100 sewn-form-field">
+                                <label>
+                                    Step title<span class="star">*</span>
+                                    <span class="pull-right text-clr588">
+                                        {{ infoForm.get('step' + i + '_title').value | wordCount }}/10 words
+                                    </span>
+                                </label>
+                                <input
+                                    type="text"
+                                    formControlName="step{{ i }}_title"
+                                    appWordLimit
+                                    [limit]="10"
+                                    pInputText
+                                />
+                                <small
+                                    *ngIf="infoForm.controls['step' + i + '_title'].errors?.required"
+                                    class="p-error"
+                                >
+                                    Required
+                                </small>
+                                <small
+                                    *ngIf="infoForm.controls['step' + i + '_title'].errors?.maxWordCount"
+                                    class="p-error"
+                                >
+                                    Please input 10 words
+                                </small>
+                            </div>
+
+                            <div class="w-100 sewn-form-field">
+                                <label>
+                                    Description<span class="star">*</span>
+                                    <span class="pull-right text-clr588">
+                                        {{ infoForm.get('step' + i + '_short_description').value | wordCount }}/50 words
+                                    </span>
+                                </label>
+                                <input
+                                    type="text"
+                                    formControlName="step{{ i }}_short_description"
+                                    appWordLimit
+                                    [limit]="50"
+                                    pInputText
+                                />
+                                <small
+                                    *ngIf="infoForm.controls['step' + i + '_short_description'].errors?.required"
+                                    class="p-error"
+                                >
+                                    Required
+                                </small>
+                                <small
+                                    *ngIf="infoForm.controls['step' + i + '_short_description'].errors?.maxWordCount"
+                                    class="p-error"
+                                >
+                                    Please input 50 words
+                                </small>
+                            </div>
+
+                            <div class="w-100 sewn-form-field mb-0">
+                                <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
+                                    Upload an Image/Video<span class="star">*</span>
+                                </p>
+                                <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">
+                                    Size - 601 x 395 px
+                                </p>
+                                <app-uploader
+                                    formControlName="step{{ i }}_file"
+                                    [width]="601"
+                                    [height]="395"
+                                ></app-uploader>
+                                <small *ngIf="infoForm.controls['step' + i + '_file'].errors?.required" class="p-error">
+                                    Please upload
+                                </small>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <app-brand-profile-footer pageSlug="learn" (saveClick)="savePageData()"></app-brand-profile-footer>
+    </div>
+</section>

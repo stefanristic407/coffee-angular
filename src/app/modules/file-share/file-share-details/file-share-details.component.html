@@ -1,0 +1,101 @@
+<section>
+    <div class="main-block">
+        <div class="d-flex justify-content-between align-items-start mb-45 mb-md-3">
+            <p-breadcrumb [model]="breadItems"></p-breadcrumb>
+            <span class="custom-search d-none d-lg-block">
+                <input
+                    type="text"
+                    pInputText
+                    [(ngModel)]="queryParams.search"
+                    (keyup)="filterCall()"
+                    [placeholder]="'search_files' | translate"
+                    class="w-100 {{ fileShareSrv.filesTerm ? 'highlight' : '' }}"
+                />
+            </span>
+        </div>
+
+        <div class="social-media">
+            <div class="d-flex flex-wrap w-100">
+                <div class="col-md-8 px-0">
+                    <h4 class="fnt-16 fnt-md-18 fnt-md-18 lh-normal fnt-700 text-clr334">{{ folderDetail?.name }}</h4>
+                    <div class="fnt-14 fnt-md-16 lh-normal fnt-600 text-clr588">{{ folderDetail?.description }}</div>
+                </div>
+
+                <div class="col-md-4 flex-column align-items-end px-0 d-none d-md-flex mt-lg-35">
+                    <span class="btn-trans-icon share-icon" (click)="fileShareSrv.openShareModal(folderDetail)">
+                        {{ 'share' | translate }}
+                    </span>
+                    <p class="fnt-14 fnt-600 text-clr588 mt-25" *ngIf="sharedUsers?.length">
+                        Sharing with {{ sharedUsers?.length }} members
+                    </p>
+                </div>
+            </div>
+
+            <div class="pt-3">
+                <label class="btn-trans-icon upload-icon mr-25 mb-25 mb-md-0">
+                    <input type="file" (change)="fileShareSrv.uploadFile($event)" />
+                    <span> {{ 'upload' | translate }} </span>
+                </label>
+                <span
+                    class="btn-trans-icon plus-icon mb-25 mb-md-0"
+                    routerLink="/file-share/create-folder/{{ fileShareSrv.folderId }}"
+                >
+                    <span> {{ 'create_new_folder' | translate }} </span>
+                </span>
+                <span class="btn-trans-icon share-icon d-md-none" (click)="fileShareSrv.openShareModal(folderDetail)">
+                    {{ 'share' | translate }}
+                </span>
+            </div>
+
+            <div class="position-relative mt-4 mt-md-5 pt-md-25 mb-2 mb-md-45">
+                <div class="filter-sort d-none d-md-block">
+                    <p-dropdown
+                        [options]="sortItems"
+                        [(ngModel)]="queryParams.sort_by"
+                        (onChange)="filterCall()"
+                        scrollHeight="225px"
+                        placeholder="{{ globals.languageJson?.sort_by }}"
+                        styleClass="round-border mr-25"
+                    ></p-dropdown>
+                    <p-selectButton
+                        [options]="viewModeItems"
+                        [(ngModel)]="viewMode"
+                        (onChange)="changeViewMode()"
+                        styleClass="select-layout"
+                    >
+                        <ng-template let-item>
+                            <svg
+                                *ngIf="item.value === 'table'"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="14"
+                                height="10"
+                                viewBox="0 0 14 10"
+                            >
+                                <path
+                                    fill="#FFF"
+                                    d="M13.25 8c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5c-.414 0-.75-.336-.75-.75S3.336 8 3.75 8h9.5zM.75 8c.414 0 .75.336.75.75s-.336.75-.75.75S0 9.164 0 8.75.336 8 .75 8zm12.5-4c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5c-.414 0-.75-.336-.75-.75S3.336 4 3.75 4h9.5zM.75 4c.414 0 .75.336.75.75s-.336.75-.75.75S0 5.164 0 4.75.336 4 .75 4zm12.5-4c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5C3.336 1.5 3 1.164 3 .75S3.336 0 3.75 0h9.5zM.75 0c.414 0 .75.336.75.75s-.336.75-.75.75S0 1.164 0 .75.336 0 .75 0z"
+                                />
+                            </svg>
+                            <svg
+                                *ngIf="item.value === 'grid'"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="13"
+                                height="13"
+                                viewBox="0 0 13 13"
+                            >
+                                <path
+                                    fill="#232334"
+                                    d="M12.387 7.195c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H7.808c-.338 0-.613-.275-.613-.613V7.808c0-.338.275-.613.613-.613zm-7.195 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H.613C.275 13 0 12.725 0 12.387V7.808c0-.338.275-.613.613-.613zm6.582 1.226H8.42v3.353h3.353V8.42zm-7.195 0H1.226v3.353H4.58V8.42zM5.192 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H.613C.275 5.805 0 5.53 0 5.192V.613C0 .275.275 0 .613 0zm7.195 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H7.808c-.338 0-.613-.275-.613-.613V.613c0-.338.275-.613.613-.613zM4.579 1.226H1.226V4.58H4.58V1.226zm7.195 0H8.42V4.58h3.353V1.226z"
+                                />
+                            </svg>
+                        </ng-template>
+                    </p-selectButton>
+                </div>
+                <p-tabMenu [model]="menuItems"></p-tabMenu>
+            </div>
+            <div class="mb-4">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,30 @@
+@import '../../../../theme/styles/variables';
+
+::ng-deep {
+    .p-calendar {
+        input {
+            background: none;
+        }
+    }
+
+    .p-datepicker-buttonbar {
+        .p-button-label {
+            color: $brown-color;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+@media all and (min-width: 768px) {
+    .search-bar {
+        position: relative;
+        top: -8px;
+
+        .custom-search {
+            max-width: 282px;
+        }
+    }
+}

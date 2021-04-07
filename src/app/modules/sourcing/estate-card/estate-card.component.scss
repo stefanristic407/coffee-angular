@@ -1,0 +1,89 @@
+.card {
+    border: solid 1px #ebebeb;
+    &:hover {
+        transition: box-shadow 400ms ease;
+        box-shadow: 0 0 54px -10px rgba(114, 114, 114, 0.5);
+    }
+}
+
+.pad-card {
+    padding-top: 2rem;
+    padding-bottom: 20px;
+    @media (max-width: 768px) {
+        padding-top: 1rem;
+        padding-bottom: 0.25rem;
+    }
+}
+
+.name-wrap {
+    max-width: 70%;
+}
+
+.card-img-top {
+    height: 160px;
+    background-color: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @media (min-width: 992px) {
+        height: 208px;
+    }
+    img {
+        &:not(.empty) {
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
+.card-body {
+    padding: 1.5rem 1.5rem 1rem 1.5rem;
+    @media (max-width: 768px) {
+        padding: 1rem;
+    }
+}
+
+.orgin-att {
+    @media (max-width: 767px) {
+        width: 50%;
+        margin-bottom: 20px;
+        &:nth-child(2),
+        &:nth-child(4) {
+            border-left: 1px solid #ebebeb;
+            padding-left: 20px;
+        }
+    }
+
+    @media (min-width: 768px) {
+        width: 28%;
+        margin-bottom: 24px;
+        &:nth-child(2),
+        &:nth-child(3) {
+            width: 36%;
+            border-left: 1px solid #ebebeb;
+            padding-left: 24px;
+        }
+        &:last-child {
+            width: 100%;
+        }
+    }
+}
+
+.cert-image {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+
+    @media (min-width: 768px) {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+.checked {
+    font-size: 16px;
+    @media (min-width: 768px) {
+        font-size: 22px;
+    }
+}

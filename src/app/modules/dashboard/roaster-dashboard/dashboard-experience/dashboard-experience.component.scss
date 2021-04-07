@@ -1,0 +1,84 @@
+.experience-block {
+    position: relative;
+    padding: 12px;
+
+    @media (min-width: 768px) {
+        padding: 30px 50px;
+    }
+
+    .content-wrap {
+        position: relative;
+        padding: 12px;
+
+        @media (min-width: 992px) {
+            position: absolute;
+            padding: 5% 24%;
+        }
+        @media (min-width: 767px) and (max-width: 992px) {
+            position: absolute;
+            padding: 0 22% 0 30%;
+        }
+    }
+
+    .img-wrap {
+        @media (max-width: 767px) {
+            margin-top: -49px;
+        }
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+}
+
+.fnt-md-84 {
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+        font-size: 8.4px !important;
+        line-height: normal !important;
+    }
+}
+
+.fnt-md-12 {
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+        font-size: 12px !important;
+        line-height: normal !important;
+    }
+}
+
+.fnt-md-14 {
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+        font-size: 14px !important;
+        line-height: normal !important;
+    }
+}
+
+.fnt-md-16 {
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+        font-size: 16px !important;
+        line-height: normal !important;
+    }
+}
+
+.fnt-md-bold {
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+        font-weight: bold;
+    }
+}
+
+.fnt-16 {
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.fnt-md-18 {
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.fnt-12-md-only {
+    @media (min-width: 767px) and (max-width: 992px) {
+        font-size: 12px !important;
+        line-height: normal;
+        max-width: 225px;
+    }
+}

@@ -1,0 +1,15 @@
+.templete-modal-body {
+    position: relative;
+    padding: 67px 84px;
+    .templete-btn {
+        padding: 24px 24px 0 24px;
+    }
+    @media screen and (max-width: 767px) {
+        padding: 48px 35px;
+        .menu-arrow {
+            p {
+                padding-right: 10px;
+            }
+        }
+    }
+}

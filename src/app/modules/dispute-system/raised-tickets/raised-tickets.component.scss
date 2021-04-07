@@ -1,0 +1,65 @@
+.search-raised {
+    height: 38px;
+    background-color: #fff;
+    background: url(/assets/images/search-user.png) no-repeat scroll 11px 11px;
+    background-size: 16px 16px;
+    padding-left: 41px;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: normal;
+    color: #232334;
+    margin-left: 4.7rem;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+}
+.text-highlited {
+    font-weight: 700;
+    color: #80460b !important;
+    cursor: pointer;
+    text-decoration: underline !important;
+}
+::ng-deep .ui-table-disputes {
+    border: 1px solid #d6d6d6;
+}
+.mobileNameDiv {
+    background-color: #f8f8f8;
+    margin: 4px;
+    padding: 12px;
+}
+.mobileLable {
+    color: #747588;
+}
+
+@media screen and (max-width: 767px) {
+    ::ng-deep .ui-table-disputes {
+        border: 0px;
+    }
+    .mobileNameDiv {
+        background-color: #f8f8f8;
+        margin: 4px;
+        padding: 12px;
+    }
+    .mobileLable {
+        color: #747588;
+    }
+    :host ::ng-deep .p-datatable-tbody > tr > .nameMobileHeader {
+        padding: 0px !important;
+    }
+    :host ::ng-deep .p-datatable-tbody > tr > .mobileBorderClass {
+        border-bottom: 1px dashed #d6d6d6 !important;
+    }
+    ::ng-deep .userTable .p-datatable.p-datatable-responsive .p-datatable-tbody > tr {
+        padding: 0px;
+    }
+    ::ng-deep .userTable .p-datatable.p-datatable-responsive .p-datatable-tbody > tr > td {
+        border-bottom: 0px !important;
+    }
+    ::ng-deep .userTable .p-datatable.p-datatable-responsive .p-datatable-tbody > tr > .mobileBorderClass {
+        border-bottom: 1px dashed #d6d6d6 !important;
+        padding: 1rem 1rem;
+    }
+    ::ng-deep .userTable .p-datatable.p-datatable-responsive .p-datatable-tbody > tr > .mobileBottom {
+        padding: 1rem 1rem;
+    }
+}

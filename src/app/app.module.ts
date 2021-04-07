@@ -17,49 +17,71 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { AnimateOnScrollModule } from 'ng2-animate-on-scroll';
 import { ToastrModule } from 'ngx-toastr';
 
-import { environment } from '../environments/environment';
+import { environment } from '@env/environment';
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
-import { HealthCheckComponent } from './health-check/health-check.component';
-import { DirectMessagingComponent } from './components/direct-messaging/direct-messaging.component';
+import { FooterComponent } from '@components';
+import { GateComponent } from '@components';
+import { HealthCheckComponent } from '@components';
+import { MenuComponent } from '@components';
+import { SearchPanelComponent } from '@components';
+
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { ErrorIntercept } from './error-module/error.interceptor';
+
+import { ErrorInterceptor } from '@interceptors';
 
 import 'hammerjs';
-import { AuthGuard } from './guards/auth.guard';
+import { AuthGuard } from '@guards';
 import { CookieService } from 'ngx-cookie-service';
-import { UserserviceService } from 'src/services/users/userservice.service';
+import { UserserviceService } from '@services';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AgmCoreModule } from '@agm/core';
+import { getSaver, SAVER } from '@services';
 
 @NgModule({
-    declarations: [AppComponent, HealthCheckComponent, DirectMessagingComponent, LayoutComponent],
+    declarations: [
+        AppComponent,
+        HealthCheckComponent,
+        MenuComponent,
+        LayoutComponent,
+        FooterComponent,
+        SearchPanelComponent,
+        GateComponent,
+    ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
         HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
         AnimateOnScrollModule.forRoot(),
         CarouselModule.forRoot(),
         ModalModule.forRoot(),
         PopoverModule.forRoot(),
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-        ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true, positionClass: 'toast-bottom-right' }),
+        ToastrModule.forRoot({ timeOut: 3000, preventDuplicates: true, positionClass: 'toast-bottom-right' }),
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
                 useFactory: (http: HttpClient) => {
-                    return new TranslateHttpLoader(http, './assets/multi-lang/', '.json');
+                    return new TranslateHttpLoader(http, 'https://fed-api.sewnstaging.com/language/', '');
                 },
                 deps: [HttpClient],
             },
         }),
         TypeaheadModule.forRoot(),
         SharedModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyAacYaKLrRdDZDzrQ5QAdNFMj9nQ2PgweU',
+        }),
     ],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,
-            useClass: ErrorIntercept,
+            useClass: ErrorInterceptor,
             multi: true,
         },
         {
@@ -69,6 +91,7 @@ import { UserserviceService } from 'src/services/users/userservice.service';
             deps: [UserserviceService],
         },
         AuthGuard,
+        { provide: SAVER, useFactory: getSaver },
     ],
     bootstrap: [AppComponent],
 })

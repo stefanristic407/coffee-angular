@@ -1,0 +1,20 @@
+.orders-border {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6 !important;
+}
+
+@media (max-width: 767px) {
+    .estate-orders-heading {
+        margin: 0.2rem 0.2rem 0.2rem 0;
+        padding-left: 0 !important;
+    }
+    #agreements-nav .p-tabview .p-tabview-nav li {
+        margin-right: 1.5rem !important;
+    }
+}
+
+@media (min-width: 767px) and (max-width: 991px) {
+    .estate-orders-heading {
+        padding-left: 0px !important;
+    }
+}

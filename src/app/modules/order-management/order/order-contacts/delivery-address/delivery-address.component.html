@@ -1,0 +1,21 @@
+<div class="d-flex justify-content-between">
+    <div class="font-bold text-clr334" [class.fnt-18]="!orderConfirmation" [class.fnt-14]="orderConfirmation">
+        {{ 'delivery_address' | translate }}
+    </div>
+    <div
+        class="font-bold text-clr55c cursor-pointer"
+        [routerLink]="['/orders', orgType, order?.id, 'edit']"
+        *ngIf="orgType === OrgType.ESTATE"
+    >
+        <img class="mb-1" src="assets/images/icon-edit.svg" />
+        <span class="ml-1">{{ 'edit' | translate }}</span>
+    </div>
+</div>
+<div class="d-flex mt-1 text-clr588 fnt-14 fnt-500" *ngIf="order?.shipping_address">
+    {{ order.shipping_address.address_line1 }}, {{ order.shipping_address.address_line2 }},
+    {{ order.shipping_address.zipcode }} - {{ order.shipping_address.state }},
+    {{ commonService.getCountryName(order.shipping_address.country) }}
+</div>
+<div class="d-flex-column mt-3">
+    <agm-map [latitude]="latitude" [longitude]="longitude"></agm-map>
+</div>

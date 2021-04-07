@@ -19,7 +19,7 @@ import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
 import { RoasterProfileComponent } from './setup/roaster-profile/roaster-profile.component';
 
 import { CookieService } from 'ngx-cookie-service';
-import { UserserviceService } from 'src/services/users/userservice.service';
+import { UserserviceService } from '@services';
 import { HttpClientModule } from '@angular/common/http';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { SignUpComponent } from './sign-up/sign-up.component';

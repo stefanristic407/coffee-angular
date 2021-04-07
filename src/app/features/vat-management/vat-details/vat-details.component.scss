@@ -1,0 +1,97 @@
+.pls-note {
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    padding: 16px;
+}
+
+.table-container {
+    margin: 0.5rem 0;
+}
+
+.table-header {
+    border-radius: 4px;
+    background-color: #f8f8f8;
+}
+
+.tabletView {
+    display: none;
+}
+@media (min-width: 426px) and (max-width: 768px) {
+    .tabletView {
+        display: block;
+    }
+}
+.form-group {
+    input,
+    select {
+        height: 50px !important;
+        padding: 16px;
+    }
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: url(../../../../assets/images/arrow-down.png);
+        background-repeat: no-repeat;
+        background-position: right;
+        background-size: 14px;
+        background-position: right 17px bottom 16px;
+    }
+}
+
+.loader {
+    height: 17px;
+    width: 17px;
+    margin-left: 4px;
+    margin-top: -4px;
+}
+
+.mt-43 {
+    margin-top: 43px;
+}
+.text-highlited {
+    font-weight: 700;
+    color: #80460b !important;
+    cursor: pointer;
+    text-decoration: underline !important;
+}
+
+.featureSectionCard {
+    padding: 0.5rem;
+    border: 1px solid #ebebeb;
+    border-radius: 4px;
+    .header-bg {
+        background-color: #f8f8f8;
+        border-radius: 4px;
+    }
+    .header {
+        padding: 0.5rem 0.75rem;
+        width: 100%;
+    }
+    .form-control {
+        height: 46px;
+        padding: 14px 16px;
+    }
+
+    table.mtable {
+        margin: 0.75rem;
+        width: calc(100% - 24px);
+        td {
+            border-bottom: 1px dashed #d6d6d6;
+            padding: 16px 0px !important;
+            height: 50px !important;
+        }
+        td:first-child {
+            padding-left: 0px;
+            width: 50%;
+        }
+        td:last-child {
+            padding-right: 0px;
+            text-align: right;
+        }
+    }
+
+    table tr:last-child > td {
+        border-bottom: none;
+    }
+}

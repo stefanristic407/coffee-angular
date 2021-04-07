@@ -1,0 +1,185 @@
+.border-div {
+    margin-top: 3.2rem !important;
+}
+.text-brown {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.57;
+    letter-spacing: normal;
+    text-align: right;
+    color: #80460b;
+    text-decoration: underline;
+    a {
+        cursor: pointer;
+    }
+}
+.border-bottom-gray {
+    border-bottom: 1px solid #d6d6d6;
+}
+.pb-24 {
+    padding-bottom: 24px !important;
+}
+
+.mb-48 {
+    margin-bottom: 2rem;
+}
+.web-sec {
+    display: block;
+}
+.mob-sec {
+    display: none;
+}
+.text-underline {
+    text-decoration: underline;
+}
+::ng-deep .breadCrumb .p-breadcrumb ul {
+    width: max-content;
+}
+::ng-deep .productListTable .p-datatable table tr td {
+    white-space: normal;
+}
+
+/****************************    Media Queries   ****************************/
+
+@media screen and (max-width: 767px) {
+    .create-role {
+        padding-top: 0.25rem;
+    }
+    .mob-sec {
+        display: block !important;
+    }
+    .web-sec {
+        display: none !important;
+    }
+    .border-div {
+        margin-top: 1.2rem !important;
+    }
+    .back-icon {
+        a {
+            font-size: 14px;
+            color: #80460b;
+            font-weight: 600;
+        }
+        img {
+            margin-right: 5px;
+        }
+    }
+    :host ::ng-deep .productListTable .p-datatable-tbody > tr > .nameMobileHeader {
+        padding: 0px;
+        width: 100% !important;
+    }
+    .mobileValueTxt {
+        font-size: 14px !important;
+    }
+    .mobileCardBody {
+        border-bottom: 1px dashed #d6d6d6;
+        padding: 1rem 0px;
+    }
+    :host ::ng-deep .productListTable .p-datatable-tbody > tr > .cardBottom {
+        margin-bottom: 14px;
+        border-bottom: 1px solid #d6d6d6 !important;
+    }
+    :host ::ng-deep .productListTable .p-datatable .p-datatable-tbody > tr {
+        border-bottom: 0px !important;
+    }
+    .borderCard {
+        background-color: #f8f8f8;
+        border: 1px solid #d6d6d6;
+    }
+    .productHeight {
+        height: 138px !important;
+    }
+    .mobileCard {
+        border-left: 1px solid #d6d6d6;
+        border-right: 1px solid #d6d6d6;
+        border-bottom: 1px solid #d6d6d6;
+    }
+    .tabPage {
+        display: none !important;
+    }
+    .mt-48 {
+        margin-top: 1.5rem;
+    }
+}
+
+::ng-deep .deleteProductDiv .p-dialog .p-dialog-header {
+    display: none;
+}
+::ng-deep .productListTable .p-checkbox {
+    margin-left: 0px;
+}
+::ng-deep .productListTable .p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
+    background: #ffffff;
+}
+.weightInputGroupDiv {
+    border: 1px solid #d6d6d6;
+    border-radius: 4px;
+}
+.weightInputDiv {
+    flex: 1 1 auto;
+    width: 1%;
+    border: 0px;
+}
+.input-group-append {
+    border: 0px !important;
+    padding: 4px;
+    width: auto;
+}
+::ng-deep .p-inputgroup-addon .p-dropdown .p-inputtext {
+    position: relative;
+    bottom: 4px;
+}
+
+.current-s-bg {
+    padding: 0.75rem !important;
+}
+@media (max-width: 1270px) and (min-width: 768px) {
+    ::ng-deep .productListTable .p-datatable table {
+        border-collapse: collapse;
+        table-layout: fixed;
+        width: 1100px !important;
+    }
+
+    .productListTable {
+        position: relative;
+        overflow: auto !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 0rem !important;
+    }
+    .tabViewModel {
+        display: inline !important;
+    }
+    .webMobPage {
+        display: none !important;
+    }
+    .tabPage {
+        display: block !important;
+    }
+    .border-div {
+        border-top: 1px dashed #d6d6d6;
+    }
+    .avail-status {
+        background-color: #faf8f4;
+        border-radius: 4px;
+        padding: 1.5rem;
+    }
+}
+.webMobPage {
+    display: block;
+}
+.tabPage {
+    display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.breadCrumb {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+.breadCrumb::-webkit-scrollbar {
+    display: none !important;
+}
+::ng-deep .sewn-form-field .dropdownClass .p-inputgroup-addon {
+    padding: 5px !important;
+}

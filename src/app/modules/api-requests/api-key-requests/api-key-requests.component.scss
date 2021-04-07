@@ -1,0 +1,52 @@
+@import '../../../../theme/styles/variables';
+
+::ng-deep .p-datatable .p-paginator-bottom {
+    padding: 22px 0;
+}
+
+::ng-deep .p-paginator {
+    padding: 22px 0;
+    border: none;
+    background: transparent;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .api-request-table {
+        overflow: scroll;
+
+        th {
+            width: 250px;
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .border-0 {
+        padding: 0 !important;
+    }
+}
+
+.mobile-row {
+    border-bottom: 1px dashed $primary-border-color;
+}
+
+.api-request-header {
+    background-color: #f8f8f8;
+}
+
+.cell-header {
+    width: 40%;
+}
+
+.view-order {
+    font-family: Muli !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    color: #80460b !important;
+
+    &:hover {
+        text-decoration: underline !important;
+    }
+
+    cursor: pointer !important;
+}

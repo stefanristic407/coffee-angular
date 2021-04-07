@@ -11,11 +11,15 @@
         [arcWidth]="arcWidth"
         [tooltipDisabled]="tooltipDisabled"
     >
+        <ng-template #tooltipTemplate let-model="model">
+            <div class="custom-chart-tooltip fnt-bold">{{ model.name }}</div>
+            <div class="custom-chart-tooltip">{{ model.value | number: '1.0':'en-US' }}</div>
+        </ng-template>
     </ngx-charts-pie-chart>
     <div class="total-info text-center" [style.top]="view[1] / 2 + 'px'">
-        <p class="fnt-24 fnt-bold fnt-muli text-black334 mb-0">
+        <p class="fnt-24 fnt-bold fnt-muli text-clr334 mb-0">
             {{ total }}
         </p>
-        <p class="fnt-12 fnt-600 fnt-muli text-gray588 mb-0">{{ description }}</p>
+        <p class="fnt-12 fnt-600 fnt-muli text-clr588 mb-0">{{ description }}</p>
     </div>
 </div>

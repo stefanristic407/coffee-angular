@@ -1,0 +1,218 @@
+.g-box .ng-star-inserted {
+    border-radius: 0px !important;
+}
+.source-cont-available {
+    background: #fff;
+    padding: 1rem 2.5rem;
+}
+.det-tit {
+    h2 {
+        font-size: 18px;
+        font-weight: bold;
+        color: #242424;
+        text-transform: capitalize;
+    }
+    h6 {
+        font-family: Muli;
+        font-size: 18px;
+        font-weight: bold;
+        color: #242424;
+        text-transform: capitalize;
+    }
+}
+.g-thumbs-container,
+#basic-test {
+    background-color: #fff !important;
+}
+.real-estate {
+    h6 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 3px;
+        margin-top: 12px;
+        color: #747588;
+    }
+    h3 {
+        font-size: 16px;
+        font-weight: bold;
+        color: #232334;
+        text-transform: capitalize;
+        margin-bottom: 6px;
+    }
+    img {
+        width: 38px !important;
+    }
+}
+.estate-focus {
+    h3 {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 32px;
+        margin-bottom: 13px;
+    }
+    ul {
+        margin-bottom: 0;
+        padding: 10px;
+        li {
+            width: 100%;
+            float: left;
+            border-bottom: 1px dashed #d6d6d6;
+            padding: 16px 0;
+
+            &:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+            &:first-child {
+                padding-top: 0;
+            }
+            label {
+                float: left;
+                width: 45%;
+                margin-bottom: 0;
+                color: #747588;
+                font-size: 14px;
+                font-weight: 500;
+            }
+            p {
+                margin-bottom: 0;
+                width: 55%;
+                float: left;
+                font-size: 14px;
+                color: #232334;
+                font-weight: 600;
+            }
+        }
+    }
+}
+/*Product Details*/
+.p-photo {
+    float: left;
+    margin-right: 10px;
+}
+.produect-pro {
+    padding: 10px;
+}
+.v-report {
+    text-align: right;
+    margin-top: 10px;
+    a {
+        font-size: 14px;
+        font-weight: bold;
+        color: #80460b;
+    }
+}
+ul {
+    padding-left: 0;
+    li {
+        list-style: none;
+    }
+}
+.avaialble-web {
+    display: block;
+}
+.avaialble-mob {
+    display: none;
+}
+.border-class {
+    border: 1px solid #ebebeb;
+    border-radius: 4px;
+    padding: 14px;
+}
+::ng-deep .breadCrumb .p-breadcrumb ul {
+    width: max-content;
+}
+@media (max-width: 767px) {
+    .source-cont-available {
+        padding: 24px 8px;
+    }
+    .prodect-details {
+        padding: 0px 12px;
+    }
+    .produect-pro {
+        padding: 0px 2px;
+    }
+    .avaialble-web {
+        display: none;
+    }
+    .avaialble-mob {
+        display: block;
+    }
+    .det-tit h2,
+    .estate-focus h3 {
+        font-size: 16px;
+    }
+    .estate-focus ul {
+        padding: 2px;
+    }
+    .v-report {
+        text-align: left;
+    }
+    .estate-focus ul li label,
+    .estate-focus ul li p {
+        width: 50%;
+    }
+    .real-estate {
+        margin-top: 2px;
+        h6 {
+            margin-bottom: 4px;
+            font-size: 12px;
+        }
+        h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        p,
+        span {
+            color: #232334;
+            font-weight: bold;
+        }
+        img {
+            height: 32px;
+            width: 32px;
+        }
+    }
+    .p-date {
+        margin-top: 14px;
+    }
+    .no-pad {
+        padding: 0px;
+    }
+    .dateAt {
+        font-size: 12px;
+        font-weight: 600 !important;
+        color: #747588 !important;
+    }
+    .notes {
+        color: #747588 !important;
+    }
+    .text-head {
+        color: #232334 !important;
+    }
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+    .no-pad {
+        padding-left: 10.5rem;
+        padding-right: 10.5rem;
+        padding-bottom: 1.5rem;
+        padding-top: 1rem;
+    }
+    .v-report {
+        a {
+            font-size: 12px;
+        }
+    }
+    .botSpacing {
+        padding-bottom: 1.5rem;
+        border-bottom: 1px dashed #d6d6d6;
+    }
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.breadCrumb {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+.breadCrumb::-webkit-scrollbar {
+    display: none !important;
+}

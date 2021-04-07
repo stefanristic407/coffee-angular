@@ -1,384 +1,220 @@
-<div class="total-loader" *ngIf="featureActive != 2">
-    <div>
-        <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
-        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
-    </div>
-</div>
-
-<header class="stricky" *ngIf="featureActive == 2">
+<header class="stricky" *ngIf="loaded; else headerLoader">
     <nav class="bg-white nav-top1">
-        <div class="container header-container">
-            <div class="pad-header">
-                <div class="row align-items-center">
-                    <div class="sidenav-hamberg">
-                        <span class="sidenav-hamberg__line"></span>
-                        <span class="sidenav-hamberg__line"></span>
-                        <span class="sidenav-hamberg__line"></span>
-                    </div>
-                    <div class="company-logo pad-logo">
-                        <a class="company-logo__img d-inline-block" [routerLink]="['/features/welcome-aboard']">
-                            <img src="assets/images/Sewn-logo.svg" alt="Comany-Logo" />
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <div class="d-md-block" [class.d-none]="showSearch">
+                    <a class="sidenav-hamberg d-lg-none" (click)="openSideNav()">
+                        <img src="assets/images/hamberg.svg" alt="hamberg" class="d-md-none" />
+                        <img src="assets/images/hamberg-tablet.svg" alt="hamberg" class="d-none d-md-inline-block" />
+                    </a>
+                    <a class="company-logo d-inline-block" [routerLink]="['/']">
+                        <img src="assets/images/Sewn-logo.svg" alt="Comany-Logo" />
+                    </a>
+                </div>
+                <div class="d-md-inline-block header-search" [class.d-none]="!showSearch">
+                    <input
+                        type="text"
+                        [(ngModel)]="searchString"
+                        styleClass=""
+                        placeholder="Search.."
+                        (keyup)="search()"
+                        pInputText
+                    />
+                </div>
+                <div *ngIf="!showSearch" class="d-md-none ml-auto">
+                    <img src="assets/images/search.svg" class="img d-inline-block" (click)="openSearchPanel()" />
+                </div>
+                <ul class="header-profile-links ml-md-auto d-flex align-items-center p-15">
+                    <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
+                        <a
+                            [routerLink]="['/team-management/team-members']"
+                            [queryParams]="{ roleID: 21, isAddMember: true }"
+                            class="d-inline-block image-card"
+                        >
+                            <img class="img" src="assets/images/add.svg" />
                         </a>
-                    </div>
-                    <div class="d-inline-block header-searach">
-                        <div class="search-on-site">
-                            <div class="search-on-site__input fnt-muli">
-                                <img class="img d-inline-block" src="assets/images/search.svg" />
-                                <p-autoComplete
-                                    [(ngModel)]="text"
-                                    [suggestions]="results"
-                                    (onSelect)="redirect($event)"
-                                    (completeMethod)="search($event)"
-                                    class="fadout-search pt-1"
-                                ></p-autoComplete>
+                    </li>
+                    <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
+                        <a
+                            (click)="toggleMessagePanel()"
+                            class="d-inline-block cursor-pointer start-messaging image-card"
+                        >
+                            <img class="img" *ngIf="(chat.unReadCount | async) === 0" src="assets/images/mess.svg" />
+                            <img
+                                class="img"
+                                *ngIf="(chat.unReadCount | async) > 0"
+                                src="assets/images/mess-active.svg"
+                            />
+                        </a>
+                    </li>
+                    <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
+                        <a
+                            href="javascript:void(0)"
+                            class="d-inline-block image-card"
+                            role="button"
+                            [popover]="notifList"
+                            placement="bottom"
+                            container="body"
+                            [outsideClick]="true"
+                        >
+                            <img class="img" src="assets/images/notification.svg " />
+                        </a>
+                        <ng-template #notifList>
+                            <div class="notification-header">
+                                <span
+                                    class="notfi-header-title fnt-16 fnt-md-18 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 ng-star-inserted"
+                                    >Notifications</span
+                                >
+                                <a href="javascript:void(0)" class="notif-close">
+                                    <img src="assets/images/notif-close-icon.svg" />
+                                </a>
+                                <a href="javascript:void(0)" class="mark-all under-mark">Mark all read</a>
+                            </div>
+                            <div class="notification-body">
+                                <ul class="p-0">
+                                    <li>
+                                        <div class="border-container">
+                                            <div class="notifi-cotainer">
+                                                <p
+                                                    class="fnt-14 fnt-md-16 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-none d-md-block"
+                                                >
+                                                    Order Shipped!
+                                                </p>
+                                                <div class="notif-description">
+                                                    <p class="fnt-14 fnt-normal fnt-muli text-clr588 mb-2">
+                                                        Your green coffee order placed with Finca La Pampa estate has
+                                                        been shipped
+                                                    </p>
+                                                </div>
+                                                <p class="under-mark">Order #13213</p>
+                                                <p class="fnt-12 fnt-normal fnt-muli text-clr588 mb-2">2 hours ago</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="border-container">
+                                            <div class="notifi-cotainer">
+                                                <p
+                                                    class="fnt-14 fnt-md-16 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-none d-md-block"
+                                                >
+                                                    Order Shipped!
+                                                </p>
+                                                <div class="notif-description active">
+                                                    <p class="fnt-14 fnt-normal fnt-muli text-clr588 mb-2">
+                                                        Your green coffee order placed with Finca La Pampa estate has
+                                                        been shipped
+                                                    </p>
+                                                </div>
+                                                <p class="under-mark">Order #13213</p>
+                                                <p class="fnt-12 fnt-normal fnt-muli text-clr588 mb-2">2 hours ago</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </ng-template>
+                    </li>
+                    <li class="header-profile-links__item d-inline-block ml-md-3 pl-xl-2">
+                        <div class="profile-link d-flex align-items-center">
+                            <div class="d-inline-block mr-md-2">
+                                <app-avatar [size]="38" [src]="profilePic || 'assets/images/profile.svg'"> </app-avatar>
+                            </div>
+                            <div class="profile-link__info pl-lg-1 float-right">
+                                <div>
+                                    <a
+                                        class="profile-name"
+                                        role="button"
+                                        [popover]="popTemplate"
+                                        placement="bottom"
+                                        #pop2="bs-popover"
+                                        container="body"
+                                        [outsideClick]="true"
+                                    >
+                                        <h6 class="d-block fnt-14 fnt-md-16 fnt-600 text-clr24 m-0">
+                                            {{ userName }}
+                                            <span class="pl-1"><img src="assets/images/triangle.svg" /> </span>
+                                        </h6>
+                                        <span
+                                            class="d-inline-block text-clr5d fnt-12 fnt-mont fnt-500 pt-2"
+                                            style="transform: translateY(-10px)"
+                                            >{{ rolename | titlecase }}</span
+                                        >
+                                    </a>
+                                    <ng-template #popTemplate>
+                                        <div id="popover-mobile-content">
+                                            <ul class="menu-list bottom">
+                                                <li
+                                                    *ngIf="this.globals.checkItem('settings-management')"
+                                                    [routerLink]="['/roastery-profile']"
+                                                    routerLinkActive="highlight"
+                                                    (click)="pop2.hide()"
+                                                >
+                                                    {{ 'roastery_profile' | translate }}
+                                                </li>
+                                                <li
+                                                    [routerLink]="['/my-profile']"
+                                                    routerLinkActive="highlight"
+                                                    (click)="pop2.hide()"
+                                                >
+                                                    {{ 'my_profile' | translate }}
+                                                </li>
+                                                <li
+                                                    [routerLink]="['/account-settings']"
+                                                    routerLinkActive="highlight"
+                                                    (click)="pop2.hide()"
+                                                >
+                                                    {{ 'account_settings' | translate }}
+                                                </li>
+                                                <li (click)="userLogout()">{{ 'logout' | translate }}</li>
+                                            </ul>
+                                        </div>
+                                    </ng-template>
+                                </div>
                             </div>
                         </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <nav class="bg-f8">
+        <div class="container">
+            <div class="w-100 sidenav-mb">
+                <span class="sidenav-mb__hide"></span>
+                <div class="sidenav-mb__content">
+                    <div class="sidenav-mb__close">
+                        <img src="assets/images/close-icon.png" />
                     </div>
-                    <ul class="header-profile-links ml-md-auto d-flex align-items-center p-15">
+                    <div class="">
+                        <app-menu [menuParentId]="0"></app-menu>
+                    </div>
+                    <ul class="nav-links fnt-muli pad-5">
                         <li
-                            class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container"
+                            class="nav-links__item d-md-inline-block position-relative mobile-farm settings-list mt-md-0 mt-5"
                         >
-                            <a [routerLink]="['/people/team-members']" class="d-inline-block image-card">
-                                <img class="img" src="assets/images/add.svg" />
+                            <a class="d-inline-block fnt-600" [routerLink]="['/features/account-settings']"
+                                >{{ 'account_settings' | translate }}
                             </a>
                         </li>
-                        <li
-                            class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container"
-                        >
-                            <a class="d-inline-block cursor-pointer start-messaging image-card">
-                                <img class="img" src="assets/images/mess.svg" />
-                            </a>
+                        <li class="nav-links__item d-md-inline-block position-relative mobile-farm help-list">
+                            <a class="d-inline-block fnt-600">{{ 'help_support' | translate }} </a>
                         </li>
-                        <li
-                            class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container"
-                        >
-                            <a href="javascript:void(0)" class="d-inline-block image-card">
-                                <img class="img" src="assets/images/notification.svg " />
-                            </a>
-                        </li>
-                        <li class="header-profile-links__item d-inline-block ml-md-3 pl-xl-2">
-                            <div class="profile-link d-flex align-items-center">
-                                <div class="profile-link__img d-inline-block mr-md-2">
-                                    <img *ngIf="profilePic != ''" class="profile-pic" src="{{ profilePic }}" />
-                                    <img *ngIf="profilePic == ''" class="profile-pic" src="assets/images/profile.svg" />
-                                </div>
-                                <div class="profile-link__info pl-lg-1 float-right">
-                                    <div>
-                                        <a
-                                            class="profile-name"
-                                            role="button"
-                                            [popover]="popTemplate"
-                                            placement="bottom"
-                                            #pop2="bs-popover"
-                                            container="body"
-                                            [outsideClick]="true"
-                                        >
-                                            <h6 class="d-block fnt-14 m-0 fnt-600 fnt-mont">
-                                                {{ userName }}
-                                                <span class="pl-1"><img src="assets/images/triangle.svg" /> </span>
-                                            </h6>
-                                            <span
-                                                class="d-inline-block text-clr5d fnt-12 fnt-mont fnt-500 pt-2"
-                                                style="transform: translateY(-10px)"
-                                                >{{ rolename | titlecase }}</span
-                                            >
-                                        </a>
-                                        <ng-template #popTemplate>
-                                            <div id="popover-mobile-content">
-                                                <ul class="list-group">
-                                                    <li
-                                                        class="list-group-item"
-                                                        *ngIf="this.globals.checkItem('settings-management')"
-                                                    >
-                                                        <a
-                                                            class="cursor-dots"
-                                                            [routerLink]="['/features/roastery-profile']"
-                                                            (click)="pop2.hide()"
-                                                            >{{ globals.languageJson?.roastery_profile }}</a
-                                                        >
-                                                    </li>
-                                                    <li class="list-group-item">
-                                                        <a
-                                                            class="cursor-dots"
-                                                            [routerLink]="['/features/myprofile']"
-                                                            (click)="pop2.hide()"
-                                                            >{{ globals.languageJson?.my_profile }}
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item">
-                                                        <a
-                                                            class="cursor-dots"
-                                                            [routerLink]="['/features/account-settings']"
-                                                            (click)="pop2.hide()"
-                                                            >{{ globals.languageJson?.account_settings }}</a
-                                                        >
-                                                    </li>
-                                                    <li class="list-group-item">
-                                                        <a class="cursor-dots" (click)="userLogout()"
-                                                            >{{ globals.languageJson?.logout }}
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </ng-template>
-                                    </div>
-                                </div>
-                            </div>
+                        <li class="nav-links__item d-md-inline-block position-relative mobile-farm logout-list">
+                            <a class="d-inline-block fnt-600" (click)="userLogout()">{{ 'logout' | translate }} </a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </nav>
-
-    <nav class="bg-gray8f8">
-        <div class="container header-container">
-            <div class="pad-header">
-                <div class="row">
-                    <div class="w-100 sidenav-mb">
-                        <span class="sidenav-mb__hide"></span>
-                        <div class="sidenav-mb__content">
-                            <div class="sidenav-mb__close">
-                                <img src="assets/images/close-icon.png" />
-                            </div>
-                            <ul class="nav-links fnt-muli pad-5">
-                                <li
-                                    class="nav-links__item d-md-inline-block position-relative"
-                                    routerLinkActive="active"
-                                >
-                                    <a
-                                        class="d-inline-block fnt-600 router-link"
-                                        [routerLink]="['/features/welcome-aboard']"
-                                        >{{ globals.languageJson?.dashboard }}
-                                    </a>
-                                </li>
-
-                                <li
-                                    class="nav-links__item d-inline-block position-relative"
-                                    routerLinkActive="active"
-                                    *ngIf="this.globals.checkItem('sourcing-management')"
-                                >
-                                    <a class="d-inline-block fnt-600 router-link" routerLink="/sourcing">
-                                        {{ globals.languageJson?.sourcing_module }}
-                                    </a>
-                                </li>
-                                <!-- *ngIf="globals.permissions['cart-management'] || globals.permissions['cart-list']" -->
-                                <li
-                                    class="nav-links__item arrow d-inline-block position-relative"
-                                    *ngIf="this.globals.checkItem('sourcing-management')"
-                                >
-                                    <a class="d-inline-block fnt-600" href="javascript:void(0)"
-                                        >{{ globals.languageJson?.order_management }}
-                                    </a>
-                                    <ul class="nav-dropdown fnt-600">
-                                        <li>
-                                            <a class="router-link" [routerLink]="['/ordermanagement/estate-orders']">
-                                                <!-- {{globals.languageJson?.estate_orders}} -->
-                                                Purchase Orders Estates
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                class="router-link"
-                                                [routerLink]="['/ordermanagement/microroaster-orders']"
-                                            >
-                                                <!-- {{globals.languageJson?.microroaster_orders}} -->
-                                                Orders & Requests by Micro Roasters
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="router-link">
-                                                <!-- {{globals.languageJson?.horeca_orders}} -->
-                                                Customer Sales Orders
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li
-                                    class="nav-links__item arrow d-inline-block position-relative"
-                                    *ngIf="
-                                        globals.checkItem('coffee-management') ||
-                                        globals.checkItem('coffee-list') ||
-                                        globals.checkItem('products-management')
-                                    "
-                                >
-                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">
-                                        <!-- {{globals.languageJson?.inventory}} -->
-                                        Inventory
-                                    </a>
-                                    <ul class="nav-dropdown fnt-600">
-                                        <li>
-                                            <a class="router-link" [routerLink]="['/features/green-coffee-inventory']">
-                                                <!-- Green coffee management -->
-                                                Green Coffee Inventory
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="router-link" [routerLink]="['/features/roasted-coffee-batch']">
-                                                <!-- Roasted coffee batch -->
-                                                Roasted Coffee Inventory
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="router-link" [routerLink]="['/features/products-list']">
-                                                <!-- E-comm catatlog management -->
-                                                E-commerce Product Management
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="router-link" [routerLink]="['/features/vat-management']">
-                                                <!-- Order settings -->
-                                                Product Settings
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <!-- <li class="nav-links__item d-md-inline-block position-relative" *ngIf="globals.checkItem('coffee-management') || globals.checkItem('coffee-list')">
-                                    <a class="d-inline-block fnt-600" [routerLink]="['/features/green-coffee-inventory']">{{globals.languageJson?.inventory}}
-                                    </a>
-                                </li> -->
-                                <li class="nav-links__item arrow d-inline-block position-relative">
-                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">
-                                        <!-- {{globals.languageJson?.ecommerce}} -->
-                                        Sales Management
-                                    </a>
-                                    <ul class="nav-dropdown fnt-600">
-                                        <li>
-                                            <a class="router-link" [routerLink]="['./']"> Sales </a>
-                                        </li>
-                                        <li>
-                                            <a class="router-link" [routerLink]="['/features/agreement']">
-                                                <!-- {{globals.languageJson?.agreement}} -->
-                                                Sales Contracts
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="router-link" [routerLink]="['./']"> Sales Tool </a>
-                                        </li>
-                                        <li>
-                                            <a class="router-link" [routerLink]="['/features/api-requests-list']">
-                                                API Requests
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li
-                                    class="nav-links__item d-inline-block position-relative"
-                                    routerLinkActive="active"
-                                    *ngIf="this.globals.checkItem('sourcing-management')"
-                                >
-                                    <a class="d-inline-block fnt-600 router-link" routerLink="/features/green-grading">
-                                        Green grading
-                                    </a>
-                                </li>
-
-                                <li class="nav-links__item arrow d-inline-block position-relative">
-                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">
-                                        <!-- {{globals.languageJson?.farm_link}} -->
-                                        Brand & Experience
-                                    </a>
-                                    <ul class="nav-dropdown fnt-600">
-                                        <li *ngIf="this.globals.checkItem('brand-profile-management')">
-                                            <a class="router-link" [routerLink]="['/features/brand-profile']">
-                                                <!-- {{globals.languageJson?.brand_profile}} -->
-                                                Brand Profile Management
-                                            </a>
-                                        </li>
-                                        <li *ngIf="this.globals.checkItem('coffee-management', 'coffee-list')">
-                                            <a class="router-link" [routerLink]="['/features/coffee-experience']">
-                                                <!-- {{globals.languageJson?.coffee_experience}} -->
-                                                End-User Experience
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="router-link" [routerLink]="['/features/file-share']">
-                                                <!-- {{globals.languageJson?.file_share}} -->
-                                                Education & Collaboration
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="router-link" [routerLink]="['/features/q-a-forum']">
-                                                <!-- {{globals.languageJson?.qa_forum}} -->
-                                                The Coffee Lab
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="router-link" [routerLink]="['/features/social-media']">
-                                                <!-- {{globals.languageJson?.social_media_posts}} -->
-                                                Social PR
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li
-                                    class="nav-links__item arrow d-inline-block position-relative"
-                                    *ngIf="
-                                        globals.checkItem('acl-management') ||
-                                        globals.checkItem('acl-list') ||
-                                        globals.checkItem('user-management') ||
-                                        globals.checkItem('user-reports')
-                                    "
-                                >
-                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">
-                                        <!-- {{globals.languageJson?.people}} -->
-                                        Team Management
-                                    </a>
-                                    <ul class="nav-dropdown fnt-600">
-                                        <li
-                                            *ngIf="
-                                                globals.checkItem('acl-management', 'acl-list') ||
-                                                globals.checkItem('acl-list', 'acl-management')
-                                            "
-                                        >
-                                            <a class="router-link" [routerLink]="['/people/manage-role']">
-                                                <!-- {{globals.languageJson?.manage_roles}} -->
-                                                Roles
-                                            </a>
-                                        </li>
-                                        <li
-                                            *ngIf="
-                                                globals.checkItem('user-management', 'user-reports') ||
-                                                globals.checkItem('user-reports', 'user-management')
-                                            "
-                                        >
-                                            <a class="router-link" [routerLink]="['/people/user-management']">
-                                                <!-- {{globals.languageJson?.user_management}} -->
-                                                User Settings
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="router-link" [routerLink]="['/people/customer-management']">
-                                                {{ globals.languageJson?.customer_management }}
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li
-                                    class="nav-links__item d-md-inline-block position-relative mobile-farm settings-list mt-md-0 mt-5"
-                                >
-                                    <a class="d-inline-block fnt-600" [routerLink]="['/features/account-settings']"
-                                        >{{ globals.languageJson?.account_settings }}
-                                    </a>
-                                </li>
-                                <li class="nav-links__item d-md-inline-block position-relative mobile-farm help-list">
-                                    <a class="d-inline-block fnt-600">{{ globals.languageJson?.help_support }} </a>
-                                </li>
-                                <li class="nav-links__item d-md-inline-block position-relative mobile-farm logout-list">
-                                    <a class="d-inline-block fnt-600" (click)="userLogout()"
-                                        >{{ globals.languageJson?.logout }}
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
 </header>
+
+<ng-template #headerLoader>
+    <div class="stricky">
+        <img class="w-100" src="/assets/images/loader-header.gif" />
+    </div>
+</ng-template>
 
 <footer class="sectin-footer-mb">
     <section>
@@ -386,58 +222,71 @@
             <div class="d-flex">
                 <div class="col-12 px-0">
                     <ul class="footer-links d-flex flex-wrap mb-0 align-items-center justify-content-between">
-                        <li class="footer-links__item active">
-                            <a [routerLink]="['/features/welcome-aboard']" class="d-inline-block">
+                        <li class="footer-links__item" [ngClass]="{ active: activeLink === 'DASHBOARD' }">
+                            <a (click)="closeMessagePanel()" [routerLink]="['/']" class="d-inline-block">
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/ft-icon-dashboard.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-dashboard.svg" />
-                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-gray588">
-                                        {{ globals.languageJson?.dashboard }}
+                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">
+                                        {{ 'dashboard' | translate }}
                                     </p>
                                 </div>
                             </a>
                         </li>
-                        <li class="footer-links__item">
-                            <a class="d-inline-block">
+                        <li class="footer-links__item" [ngClass]="{ active: activeLink === 'MESSAGES' }">
+                            <a class="d-inline-block" (click)="toggleMessagePanel()">
                                 <div class="d-flex flex-column align-items-center start-messaging">
-                                    <img class="in-active" src="assets/images/mess.svg" />
+                                    <img
+                                        class="in-active"
+                                        *ngIf="(chat.unReadCount | async) === 0"
+                                        src="assets/images/mess.svg"
+                                    />
+                                    <img
+                                        class="in-active"
+                                        *ngIf="(chat.unReadCount | async) > 0"
+                                        src="assets/images/mess-active.svg"
+                                    />
                                     <img class="active" src="assets/images/ft-icon-active-message.svg" />
-                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-gray588">
-                                        {{ globals.languageJson?.messages }}
-                                    </p>
+                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">{{ 'messages' | translate }}</p>
                                 </div>
                             </a>
                         </li>
-                        <li class="footer-links__item">
-                            <a [routerLink]="['/features/notification']" class="d-inline-block">
+                        <li class="footer-links__item" [ngClass]="{ active: activeLink === 'NOTIFICATIONS' }">
+                            <a
+                                (click)="closeMessagePanel()"
+                                [routerLink]="['/features/notification']"
+                                class="d-inline-block"
+                            >
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/notification.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-notification.svg" />
-                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-gray588">
-                                        {{ globals.languageJson?.notifications }}
+                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">
+                                        {{ 'notifications' | translate }}
                                     </p>
                                 </div>
                             </a>
                         </li>
 
-                        <li class="footer-links__item">
-                            <a href="javascript:void(0)" class="d-inline-block">
+                        <li class="footer-links__item" [ngClass]="{ active: activeLink === 'PROFILES' }">
+                            <a
+                                (click)="closeMessagePanel()"
+                                [routerLink]="['/features/roastery-profile/about_roastery']"
+                                class="d-inline-block"
+                            >
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/ft-icon-profile.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-profile.svg" />
-                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-gray588">
-                                        {{ globals.languageJson?.profile }}
-                                    </p>
+                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">{{ 'profile' | translate }}</p>
                                 </div>
                             </a>
                             <div class="ft-dropdown">
                                 <div class="ft-dropdown__content">
                                     <a
+                                        (click)="closeMessagePanel()"
                                         [routerLink]="['/features/profile-edit']"
                                         class="ft-dropdown__link d-flex clearfix align-items-center"
                                     >
                                         <div class="img float-left mr-2">
-                                            <!-- <img class="profile-pic" src="{{profilePic}}"> -->
                                             <img *ngIf="profilePic != ''" class="profile-pic" src="{{ profilePic }}" />
                                             <img
                                                 *ngIf="profilePic == ''"
@@ -445,26 +294,17 @@
                                                 src="assets/images/profile.svg"
                                             />
                                         </div>
-                                        <span class="text-capitalize">{{ globals.languageJson?.my_profile }}</span>
+                                        <span class="text-capitalize">{{ 'my_profile' | translate }}</span>
                                     </a>
                                     <a
-                                        [routerLink]="['/features/roastery-profile']"
+                                        [routerLink]="['/roastery-profile']"
                                         class="ft-dropdown__link active d-flex clearfix align-items-center"
                                     >
                                         <div class="img float-left mr-2">
                                             <img class="profile-pic" src="{{ roasterProfilePic }}" />
                                         </div>
-                                        <span class="text-capitalize">{{
-                                            globals.languageJson?.roastery_profile
-                                        }}</span>
+                                        <span class="text-capitalize">{{ 'roastery_profile' | translate }}</span>
                                     </a>
-
-                                    <!-- <a (click)="userLogout()" class="ft-dropdown__link d-flex clearfix align-items-center ">
-                                        <div class="img float-left mr-2">
-                                            <img src="assets/images/ft-roastry-profile.png">
-                                        </div>
-                                        <span class="text-capitalize">Logout</span>
-                                    </a> -->
                                 </div>
                             </div>
                         </li>
@@ -475,9 +315,26 @@
     </section>
 </footer>
 
-<div class="container sewn-container" *ngIf="featureActive == 2">
-    <div class="router-design">
-        <app-direct-messaging></app-direct-messaging>
-        <router-outlet></router-outlet>
+<div class="layout-wrap">
+    <div class="container" *ngIf="loaded">
+        <div class="router-design" [class]="{ 'hide-footer-for-chat': !showFooter() }">
+            <ng-container *ngIf="loaded; else mainLoader">
+                <app-sewn-direct-message></app-sewn-direct-message>
+                <app-search-panel
+                    [show]="showSearch"
+                    [searchStr]="searchString"
+                    [searchResults]="searchResults"
+                    (closeEmitter)="closeSearchPanel()"
+                ></app-search-panel>
+                <div [class.d-none]="showSearch">
+                    <router-outlet></router-outlet>
+                </div>
+            </ng-container>
+        </div>
     </div>
+    <app-footer *ngIf="showFooter()"></app-footer>
 </div>
+
+<ng-template #mainLoader>
+    <app-loading></app-loading>
+</ng-template>

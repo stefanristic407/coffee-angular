@@ -1,0 +1,37 @@
+<ng-container *ngIf="!rejectMode; else rejectForm">
+  <div class="confirm-header">{{ 'confirm_order' | translate }}</div>
+  <div class="mt-2 available-quantity" *ngIf="availability$ | async as availability">
+    {{ 'available_quantity' | translate }} : {{ availability.quantityCount }} {{ availability.quantityType }}
+  </div>
+  <div class="mt-2 secondary-description">{{ 'confirm_the_order_within' | translate }}</div>
+  <div class="mt-4 button-block">
+    <button class="btn-raised p-12" (click)="accept()">{{ 'accept_order' | translate | titlecase }}</button>
+    <button class="ml-4 btn-stroked p-12" (click)="reject()">{{ 'reject_order' | translate | titlecase }}</button>
+  </div>
+</ng-container>
+
+<ng-template #rejectForm>
+  <div class="available-quantity pt-4">
+    {{ 'order_has_been_rejected' | translate }}
+  </div>
+  <div>
+    <label>
+      {{ 'not_serviceable' | translate }}
+      <input type="checkbox" checked="checked" />
+      <span class="checkmark"></span>
+    </label>
+    <label>
+      {{ 'out_of_stock' | translate }}
+      <input type="checkbox" checked="checked" />
+      <span class="checkmark"></span>
+    </label>
+    <label>
+      {{ 'other' | translate }}
+      <input type="checkbox" checked="checked" />
+      <span class="checkmark"></span>
+    </label>
+  </div>
+  <div class="mt-4 button-block">
+    <button class="btn btn-primary p-12" (click)="submitReason()">{{ 'submit' | translate }}</button>
+  </div>
+</ng-template>

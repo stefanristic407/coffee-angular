@@ -1,0 +1,60 @@
+@import '_variables.scss';
+
+.custom-search {
+    @media (min-width: 768px) {
+        width: 300px;
+    }
+}
+.pin-quiker-files {
+    border-radius: 2px;
+    border: dashed 1px rgba(128, 70, 11, 0.29);
+    background: #faf8f4;
+    @media (min-width: 768px) {
+        height: 237px;
+        width: 271px;
+    }
+
+    .pin-quiker-file__upload {
+        padding: 8px 12px;
+        @media (min-width: 768px) {
+            padding: 16px 0;
+        }
+        @media (min-width: 992px) {
+            padding: 16px 24px;
+        }
+        img {
+            width: 24px;
+            @media (min-width: 768px) {
+                width: 34px;
+            }
+        }
+        div {
+            max-width: 168px;
+            @media (min-width: 768px) {
+                max-width: 170px;
+            }
+        }
+    }
+
+    .close-file {
+        position: absolute;
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        @media (max-width: 767px) {
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+        }
+        @media (min-width: 768px) {
+            top: 15px;
+            right: 15px;
+        }
+    }
+}
+
+.content-block {
+    @media (max-width: 767px) {
+        border-top: 1px dashed $primary-border-color !important;
+    }
+}

@@ -1,0 +1,21 @@
+.foot-section {
+    justify-content: space-between;
+}
+
+@media (max-width: 767px) {
+    .foot-section {
+        flex-direction: column;
+    }
+    .align-btn {
+        display: flex;
+        flex-direction: column;
+        margin-top: 1.2rem;
+    }
+    .btn-width {
+        width: 100% !important;
+    }
+    .custom-padding {
+        background-color: white;
+        padding: 16px;
+    }
+}

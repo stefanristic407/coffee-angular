@@ -1,0 +1,111 @@
+.row {
+    color: #232334 !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    font-family: 'Muli' !important;
+    border-bottom: none !important;
+}
+
+.bor-bot-d6d6:last-child {
+    border: none !important;
+}
+
+.filter {
+    margin-top: 1.5rem;
+}
+
+::ng-deep .range-picker {
+    height: 43px !important;
+    width: 138px !important;
+}
+
+::ng-deep .p-inputwrapper-filled .range-picker {
+    width: auto !important;
+}
+
+@media (min-width: 1280px) {
+    .order {
+        width: 120px;
+    }
+    .quantity {
+        width: 110px;
+    }
+    .variety {
+        width: 100px;
+    }
+
+    .update-details {
+        width: 136 !important;
+    }
+}
+@media (min-width: 993px) and (max-width: 1279px) {
+    .coffee-experience-table .p-datatable table {
+        width: 135%;
+    }
+    .coffee-experience-table .p-datatable-wrapper {
+        overflow-x: auto;
+    }
+}
+@media (min-width: 768px) and (max-width: 992px) {
+    .coffee-experience-table .p-datatable table {
+        width: 200%;
+    }
+    .coffee-experience-table .p-datatable-wrapper {
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 767px) {
+    .estate-table {
+        margin: -1.5rem 0rem;
+    }
+    .mobile-ce p {
+        margin-bottom: 0rem !important;
+    }
+    .bg-f4f4 {
+        background: #f8f8f8;
+    }
+    .bor-bot-d6d6 {
+        border-bottom: 2px dashed #d6d6d6 !important;
+    }
+    .bor-ebe {
+        border: 1px solid #ebebeb;
+        border-radius: 4px;
+    }
+    .agreement-top {
+        margin-top: 2rem;
+    }
+}
+@media (max-width: 480px) {
+    .name-header {
+        margin: 4px;
+        border-radius: 4px;
+    }
+    .agreement-top {
+        margin-top: 0.5rem;
+    }
+    .agreement-x {
+        margin-right: -8px;
+        margin-left: -8px;
+    }
+    .filter {
+        margin-top: 1rem;
+    }
+}
+
+:host ::ng-deep .ui-inputtext {
+    display: none !important;
+}
+
+:host ::ng-deep .ui-button-icon-only .ui-button-icon-left {
+    color: #3d8462;
+}
+
+@media (max-width: 1024px) {
+    .estate-table {
+        overflow: scroll;
+    }
+    .estate-table table {
+        width: 1024px;
+    }
+}

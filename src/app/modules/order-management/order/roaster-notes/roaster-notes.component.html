@@ -1,0 +1,36 @@
+<div class="p-3 px-md-4 py-md-45">
+    <p class="w-100 fnt-18 fnt-600 mb-2 mb-md-3 text-clr334">{{ 'add_roaster_notes' | translate }}</p>
+    <div class="w-100 mt-4">
+        <app-add-note [class.border-b-dashed]="notes.length" [orderId]="orderId"></app-add-note>
+    </div>
+    <div class="mt-4" *ngIf="notes.length">
+        <div class="d-flex justify-content-between text-clr334 font-bold">
+            <div class="fnt-16">{{ 'older_notes' | translate }}</div>
+            <div class="fnt-14">
+                {{ currentIndex }} {{ 'of' | translate | lowercase }} {{ notes.length }}
+                {{ 'notes' | translate | lowercase }}
+            </div>
+        </div>
+        <div class="mt-4">
+            <app-note [note]="notes[currentIndex - 1]"></app-note>
+        </div>
+        <div class="d-flex mt-4 ml-5" *ngIf="notes.length > 1">
+            <div
+                class="pagination-button ml-1 prev"
+                [class.active]="currentIndex > 1"
+                [class.cursor-pointer]="currentIndex > 1"
+                (click)="navigate(-1)"
+            >
+                <img src="assets/images/expand-arrow.svg" />
+            </div>
+            <div
+                class="pagination-button cursor-pointer ml-4 next"
+                [class.active]="currentIndex < notes.length"
+                [class.cursor-pointer]="currentIndex < notes.length"
+                (click)="navigate(1)"
+            >
+                <img src="assets/images/expand-arrow.svg" />
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="main-block">
+    <div class="row mb-3">
+        <div class="col-10">
+            <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <span class="d-none d-md-flex primary_txt">
+                {{ globals.languageJson?.new_members_to }}
+                <span
+                    class="d-flex align-items-center w-fit-content primary_txt roleTxt-selector pl-1"
+                    (click)="op.toggle($event)"
+                >
+                    <span>{{ selectedRole }}</span>
+                    <i class="pi pi-angle-down text-clr55c fnt-22"></i>
+                </span>
+            </span>
+            <div class="d-block d-md-none primary_txt">Create Role</div>
+        </div>
+    </div>
+    <div class="d-block d-md-none col-12 p-0 mt-3">
+        <div class="sewn-form-field w-100">
+            <label>Add member<span class="star">*</span></label>
+            <p-dropdown
+                [options]="roleList"
+                optionLabel="name"
+                placeholder="Select role"
+                [style]="{ width: '100%' }"
+                [(ngModel)]="currentRoleID"
+                optionValue="id"
+            ></p-dropdown>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <app-edit-user-details></app-edit-user-details>
+        </div>
+    </div>
+    <div class="mt-3 mt-md-5">
+        <div class="d-flex flex-column-reverse flex-md-row flex-wrap">
+            <button
+                routerLink="/team-management/manage-role"
+                [disabled]="!currentRoleID"
+                class="btn-stroked mb-3 w-mob-100 mr-md-25"
+            >
+                {{ 'cancel' | translate }}
+            </button>
+            <button (click)="onInvite()" [disabled]="!currentRoleID" class="btn-raised mb-3 w-mob-100">
+                Send Invites
+            </button>
+        </div>
+    </div>
+
+    <p-overlayPanel #op [dismissable]="true" appendTo="body" styleClass="p-overlaypanel-role">
+        <div class="overflow-popover">
+            <ul class="custom-popover">
+                <li class="content_list" *ngFor="let role of roleList" (click)="setTeamRole(role); op.hide()">
+                    {{ role.name }}
+                </li>
+            </ul>
+            <button class="btn btn-stroked w-100" routerLink="/team-management/create-role">
+                {{ 'add_role' | translate }}
+            </button>
+        </div>
+    </p-overlayPanel>
+</div>

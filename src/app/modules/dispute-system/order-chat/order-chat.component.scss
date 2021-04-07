@@ -1,0 +1,147 @@
+.floting-containerDiv {
+    position: absolute;
+    width: 100%;
+    width: 100%;
+    z-index: 41;
+}
+.header-group {
+    position: relative;
+    width: 100%;
+}
+.headerDiv {
+    border-bottom: 1px solid #d6d6d6;
+    position: relative;
+}
+.imgDiv {
+    @media screen and (min-width: 576px) {
+        border-right: 1px solid #d6d6d6;
+        .move-left {
+            margin-left: -12px;
+        }
+    }
+}
+.font-bold-700 {
+    font-weight: 700;
+}
+.orderDiv {
+    display: grid;
+}
+.primary-label {
+    font-family: 'Muli';
+    font-size: 14px;
+    font-weight: bold;
+    opacity: 0.7;
+    color: #232334;
+}
+.primary-sub-label {
+    font-family: 'Muli';
+    font-size: 14px;
+    font-weight: bold;
+    opacity: 0.7;
+    color: #747588;
+}
+.selected-data-font {
+    font-family: 'Muli';
+    font-size: 14px;
+    font-weight: bold;
+    color: #232334;
+}
+.text-highlited {
+    font-weight: 700;
+    color: #80460b !important;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.seperatorClass {
+    width: 1px;
+    height: 12px;
+    margin: 0px 24px 1px 24px;
+    background-color: #2c2b46;
+}
+.order-ticket {
+    box-shadow: 0 12px 44px -10px rgba(143, 51, 11, 0.1);
+    overflow: auto;
+    display: -webkit-inline-box;
+}
+.disputeDiv {
+    margin: 24px 32px;
+    width: calc(100% - 64px);
+    position: absolute;
+    box-shadow: 0 12px 44px -10px rgba(143, 51, 11, 0.1);
+    z-index: 40;
+    border-radius: 2px;
+    border: dashed 1px #d6d6d6;
+}
+.dispute-margin {
+    margin: 10px;
+}
+.card-width {
+    padding: 12px 23px 12px 12px;
+    opacity: 0.7;
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
+    background-color: #ffffff;
+    margin: 6px;
+    width: 117px;
+    cursor: pointer;
+}
+.cardSelect {
+    opacity: 0.9;
+    border: solid 1px #3a8561;
+    background-color: rgba(61, 132, 98, 0.05);
+}
+.profileImg {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: solid 2px #ffffff;
+    background-color: #d8d8d8;
+}
+.chat-page-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.order-chat-wrapper {
+    position: relative;
+    width: 100%;
+}
+@media (max-width: 768px) {
+    .disputeDiv {
+        margin: 16px;
+        box-shadow: 0 12px 44px -10px rgba(143, 51, 11, 0.1);
+        display: -webkit-inline-box;
+        width: calc(100% - 32px);
+        position: absolute;
+    }
+    .imgMobileDiv {
+        margin-left: auto;
+    }
+}
+
+.ticket-num-status {
+    float: right;
+    margin-left: auto;
+    position: relative;
+    padding: 2px 8px 2px 16px;
+    border-radius: 10px;
+    border: solid 0.5px #747588;
+    p {
+        font-size: 10px;
+        line-height: 14px;
+        margin: 0px;
+        font-weight: 600;
+        color: #747588;
+    }
+    &::before {
+        position: absolute;
+        content: '';
+        top: 7px;
+        left: 7px;
+        width: 4px;
+        height: 4px;
+        background-color: #747588;
+        border-radius: 50%;
+        z-index: 1;
+    }
+}

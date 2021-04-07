@@ -1,0 +1,19 @@
+.close-btn {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.search-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.panel-block {
+    height: 0;
+    transition: all 1.5s;
+    overflow: hidden;
+    &.fadeIn {
+        height: unset;
+    }
+}
