@@ -9,6 +9,8 @@ import { CoffeeListComponent } from './coffee-list/coffee-list.component';
 import { CoffeeDetailsComponent } from './coffee-details/coffee-details.component';
 import { AvailableConfirmOrderComponent } from './coffee-details/available-confirm-order/available-confirm-order.component';
 import { EstateDetailsComponent } from './estate-details/estate-details.component';
+import { LotDetailsComponent } from './lot-details/lot-details.component';
+import { PrebookConfirmOrderComponent } from './lot-details/prebook-confirm-order/prebook-confirm-order.component';
 
 const routes: Routes = [
     {
@@ -45,9 +47,14 @@ const routes: Routes = [
     },
     {
         path: 'prebook-lot',
-        component: AvailableConfirmOrderComponent,
+        component: PrebookConfirmOrderComponent,
         canActivate: [AuthGuard],
         data: { orderType: 'preBooked' },
+    },
+    {
+        path: 'lot-details/:estateId/:lotId',
+        component: LotDetailsComponent,
+        canActivate: [AuthGuard],
     },
 ];
 

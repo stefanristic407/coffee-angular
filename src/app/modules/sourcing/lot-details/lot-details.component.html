@@ -1,0 +1,331 @@
+<section *ngIf="isLoaded; else loading">
+    <div class="main-block">
+        <div class="w-100 pb-3">
+            <a class="back-page" routerLink="/sourcing/estate-details/{{ sourcing.estate?.id }}">
+                {{ 'back' | translate }}</a
+            >
+        </div>
+        <div class="solid-divider d-md-none mx-n3"></div>
+
+        <div class="mt-3 mb-3">
+            <div class="w-100 d-flex justify-content-between pb-2 pb-md-1">
+                <div class="d-flex align-items-center">
+                    <div class="d-inline-block mr-2 pr-1">
+                        <app-avatar
+                            [size]="(isMobile$ | async) ? 48 : 54"
+                            [src]="sourcing.estate?.company_image_thumbnail_url"
+                            [name]="sourcing.estate?.name"
+                        ></app-avatar>
+                    </div>
+
+                    <div class="d-inline-block">
+                        <h2 class="fnt-16 fnt-md-18 fnt-bold text-clr24 mb-0">
+                            {{ sourcing.estate?.name }}
+                        </h2>
+                        <div class="d-flex align-items-center">
+                            <span class="fa fa-star checked mr-2"></span>
+                            <h6 class="fnt-16 fnt-md-18 fnt-700 custom-link mb-0">
+                                {{ sourcing.estate?.rating | number: '1.2-2' }}
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-none d-md-block">
+                    <ng-container *ngTemplateOutlet="btnGroup"></ng-container>
+                </div>
+            </div>
+        </div>
+
+        <div class="">
+            <div class="border-lg-main br-4 content-block">
+                <div class="row">
+                    <div class="col-lg-5 left-block">
+                        <div class="d-flex justify-content-center">
+                            <div class="prodect-gal w-100 mb-4 mb-md-5">
+                                <gallery
+                                    *ngIf="sourcing.harvestDetail?.images?.length; else noImages"
+                                    class="bg-white gallery-wrap"
+                                    [items]="items"
+                                    [thumbHeight]="(isMobile$ | async) ? 66 : 64"
+                                    [thumbWidth]="(isMobile$ | async) ? 73 : 103"
+                                    gallerize
+                                ></gallery>
+                                <ng-template #noImages>
+                                    <div class="no-image">
+                                        <img src="assets/images/empty.svg" alt="Empty" class="empty" />
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </div>
+                        <div class="certify-green d-none d-lg-block" *ngIf="sourcing.availableCertify != ''">
+                            <h5 class="fnt-16 fnt-md-18 fnt-bold text-clr000">Certificates</h5>
+                            <div class="pt-3">
+                                <img
+                                    *ngFor="let cert of sourcing.availableCertify"
+                                    [src]="cert.certificate_type_id | certificateImg"
+                                    class="cert-img mb-3 mr-4 mr-lg-45"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 right-block">
+                        <div class="mx-n2 mx-md-0">
+                            <div class="border-main border-lg-0 br-4 p-3 p-lg-0">
+                                <div class="mb-2 mb-md-3 mb-lg-4">
+                                    <a
+                                        class="custom-link fnt-14"
+                                        routerLink="/sourcing/lot-details/{{ sourcing.lot?.estate_id }}/{{
+                                            sourcing.lot?.lot_id
+                                        }}"
+                                    >
+                                        {{ 'lot_id' | translate }} - {{ sourcing.lot?.id }}
+                                    </a>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <h2 class="fnt-16 fnt-md-18 fnt-bold text-clr334 mb-2 mb-md-3 mb-lg-4">
+                                        {{ 'land_lot' | translate }} : {{ sourcing.lot?.name }}
+                                    </h2>
+                                    <div class="d-lg-none d-flex">
+                                        <img
+                                            *ngFor="let cert of sourcing.availableCertify"
+                                            [src]="cert.certificate_type_id | certificateImg"
+                                            class="cert-img mb-3 ml-25"
+                                        />
+                                    </div>
+                                </div>
+
+                                <p class="d-none d-md-block fnt-14 fnt-md-16 text-clr334">
+                                    {{ sourcing.lot?.description }}
+                                </p>
+                                <p class="d-md-none mb-0 fnt-14 text-clr588">
+                                    {{ sourcing.lot?.description }}
+                                </p>
+
+                                <div class="d-md-none mt-3">
+                                    <ng-container *ngTemplateOutlet="btnGroup"></ng-container>
+                                </div>
+                            </div>
+
+                            <div class="px-3 p-lg-0">
+                                <div class="row gutter-8 gutter-md-16 mt-md-5 mt-4 mb-4 mb-md-5">
+                                    <div class="col-6 col-md-4 col-lg-3 mb-45 pb-md-2">
+                                        <div class="real-estate">
+                                            <img src="assets/images/orgin.svg" />
+                                            <h6>{{ 'origin' | translate }}</h6>
+                                            <h3>{{ sourcing.lot?.country | country }}</h3>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-3 mb-45 pb-md-2">
+                                        <div class="real-estate">
+                                            <img src="assets/images/varient.svg" />
+                                            <h6>{{ 'species' | translate }}</h6>
+                                            <h3 class="elipsis">
+                                                {{ sourcing.lot?.species.split(',')[0] || 'NA' }}
+                                                {{
+                                                    sourcing.lot?.species.split(',')?.length > 1
+                                                        ? ' +' + (sourcing.lot?.species.split(',').length - 1)
+                                                        : ''
+                                                }}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-3 mb-45 pb-md-2">
+                                        <div class="real-estate">
+                                            <img src="assets/images/estate.svg" />
+                                            <h6>{{ 'variety' | translate }}</h6>
+                                            <h3>
+                                                {{
+                                                    sourcing.lot?.varieties?.length
+                                                        ? sourcing.lot?.varieties[0].name
+                                                        : 'NA'
+                                                }}
+                                                {{
+                                                    sourcing.lot?.varieties?.length > 1
+                                                        ? ' +' + (sourcing.lot?.varieties.length - 1)
+                                                        : ''
+                                                }}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-3 mb-45 pb-md-2">
+                                        <div class="real-estate">
+                                            <img src="assets/images/estate.svg" />
+                                            <h6>{{ 'lot_size' | translate }}</h6>
+                                            <h3>
+                                                {{ sourcing.lot?.total_area || 'NA' }}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-3 mb-45 pb-md-2">
+                                        <div class="real-estate">
+                                            <img src="assets/images/harveaster.svg" />
+                                            <h6>{{ 'harvest_year' | translate }}</h6>
+                                            <h3>
+                                                {{ sourcing.lot?.harvest_start | month: 'MMMM' }} -
+                                                {{ sourcing.lot?.harvest_end | month: 'MMMM' }}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-3 mb-45 pb-md-2">
+                                        <div class="real-estate">
+                                            <img src="assets/images/grad-range.svg" />
+                                            <h6>{{ 'average_grade' | translate }}</h6>
+                                            <h3>{{ sourcing.lot?.avg_cup_score || 'NA' }}</h3>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-4">
+                                        <div class="real-estate">
+                                            <img src="assets/images/altitute.svg" />
+                                            <h6>Altitude range</h6>
+                                            <h3>
+                                                {{ sourcing.lot?.min_altitude }} -
+                                                {{ sourcing.lot?.max_altitude }}
+                                                m
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-4">
+                                        <div class="real-estate">
+                                            <img src="assets/images/flavour-image.svg" />
+                                            <h6>{{ 'flavour_profile' | translate }}</h6>
+                                            <div *ngIf="sourcing.lot?.flavours?.length">
+                                                <div
+                                                    class="custom-chip mr-25"
+                                                    *ngFor="let flavour of sourcing.lot?.flavours"
+                                                >
+                                                    {{ flavour.name }}
+                                                </div>
+                                            </div>
+                                            <h3
+                                                *ngIf="!sourcing.lot?.flavours?.length"
+                                                class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0"
+                                            >
+                                                NA
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="estate-focus with-last-border border-main border-lg-0 br-4 p-3 p-lg-0">
+                                <h3 class="fnt-16 fnt-md-18 fnt-bold text-clr000">
+                                    {{ 'estate_details' | translate }}
+                                </h3>
+                                <ul class="clearfix">
+                                    <li>
+                                        <label>District :</label>
+                                        <p>{{ sourcing.lot?.state || 'NA' }}</p>
+                                    </li>
+                                    <li>
+                                        <label>Region :</label>
+                                        <p>{{ sourcing.lot?.region || 'NA' }}</p>
+                                    </li>
+                                    <li>
+                                        <label>Average annual production :</label>
+                                        <p>{{ sourcing.lot?.annual_production || '0' }} Kg</p>
+                                    </li>
+                                    <li>
+                                        <label>Soil footprint :</label>
+                                        <p>
+                                            {{ sourcing.lot?.soil_footprint || 'NA' }}
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <label>Lot direction :</label>
+                                        <p>{{ sourcing.lot?.direction || 'NA' }}</p>
+                                    </li>
+                                    <li>
+                                        <label>Temperature :</label>
+                                        <p>{{ sourcing.lot?.temperature || 'NA' }}</p>
+                                    </li>
+                                    <li>
+                                        <label>Irrigation type :</label>
+                                        <p>{{ sourcing.lot?.irrigation_type || 'NA' }}</p>
+                                    </li>
+                                    <li>
+                                        <label>Irrigation Type :</label>
+                                        <p>{{ sourcing.lot?.irrigation_type || 'NA' }}</p>
+                                    </li>
+                                    <li>
+                                        <label>Water source :</label>
+                                        <p>{{ sourcing.lot?.water_source || 'NA' }}</p>
+                                    </li>
+                                    <li>
+                                        <label>Water activity :</label>
+                                        <p>{{ sourcing.lot?.weather_activity || 'NA' }}</p>
+                                    </li>
+                                    <li>
+                                        <label>Other crops :</label>
+                                        <p>{{ sourcing.lot?.other_crops || 'NA' }}</p>
+                                    </li>
+                                </ul>
+                                <div class="pt-md-1">
+                                    <a class="custom-link" [href]="brandProfileEstateWeb" target="_blank">
+                                        Know more about the listing
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="sourcing.lot?.polygon_id" class="mx-n2 mx-md-0">
+                <app-remote-sensoring [polygonId]="sourcing.lot?.polygon_id"> </app-remote-sensoring>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white br-4 pl-2 px-md-3 px-lg-5 py-3 py-lg-4 mt-4">
+        <div class="px-0">
+            <div class="fnt-16 fnt-md-18 fnt-bold text-clr000 mt-lg-2 mb-3 mb-lg-4">
+                {{ 'estates_other_green_coffee' | translate }}
+            </div>
+            <div
+                *ngIf="sourcing.otherGreenList && sourcing.otherGreenList.length; else noOtherCoffee"
+                class="row gutter-md-16 gutter-lg-26 card-block"
+            >
+                <div
+                    class="col-lg-4 col-md-6 col-12 cursor-pointer card-wrap d-none d-md-block"
+                    *ngFor="let item of sourcing.otherGreenList"
+                    routerLink="/sourcing/coffee-details/{{ item.estate.id }}/{{ item.harvest_id }}"
+                >
+                    <app-harvest-card [data]="item"></app-harvest-card>
+                </div>
+                <!-- Mobile Carousel -->
+                <div class="col-lg-4 col-md-6 col-12 cursor-pointer d-md-none">
+                    <p-carousel [value]="sourcing.otherGreenList" [numVisible]="1" [numScroll]="1" [circular]="true">
+                        <ng-template let-item pTemplate="item">
+                            <div routerLink="/sourcing/coffee-details/{{ item.estate.id }}/{{ item.harvest_id }}">
+                                <app-harvest-card [data]="item"></app-harvest-card>
+                            </div>
+                        </ng-template>
+                    </p-carousel>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<ng-template #btnGroup>
+    <div class="row gutter-16 gutter-md-12">
+        <div class="col-12 col-md-auto">
+            <a
+                class="btn-raised w-100"
+                routerLink="/sourcing/prebook-lot"
+                [queryParams]="{ estateId: sourcing.lot?.estate_id, lotId: sourcing.lot?.id }"
+            >
+                {{ 'pre_book_lot' | translate }}
+            </a>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #loading>
+    <app-loading></app-loading>
+</ng-template>
+
+<ng-template #noOtherCoffee>
+    <app-blank title="No data available" button="Browse availabilities" link="/"></app-blank>
+</ng-template>

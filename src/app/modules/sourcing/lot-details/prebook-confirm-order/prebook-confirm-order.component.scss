@@ -1,0 +1,30 @@
+.confirm-order {
+    padding: 3rem 2rem;
+}
+
+.confirm-txt {
+    font-size: 18px;
+    font-weight: normal;
+    color: #020202;
+    @media (min-width: 768px) {
+        font-size: 28px;
+    }
+}
+
+.fill-txt {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 20px;
+    @media (min-width: 768px) {
+        font-size: 16px;
+        font-weight: normal;
+    }
+}
+
+.form-middle {
+    padding-top: 36px;
+}
+
+.order-sec {
+    padding: 8rem 0;
+}
