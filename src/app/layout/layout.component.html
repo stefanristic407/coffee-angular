@@ -180,10 +180,10 @@
 
     <nav class="bg-f8">
         <div class="container">
-            <div class="w-100 sidenav-mb">
-                <span class="sidenav-mb__hide"></span>
-                <div class="sidenav-mb__content">
-                    <div class="sidenav-mb__close">
+            <div class="w-100 sidenav-mb" [class.open]="sideNavOpened">
+                <span class="sidenav-mb__hide" (click)="closeSideNav()"></span>
+                <div class="sidenav-mb__content" [class.open]="sideNavOpened">
+                    <div class="sidenav-mb__close" (click)="closeSideNav()">
                         <img src="assets/images/close-icon.png" />
                     </div>
                     <div class="">
@@ -216,7 +216,7 @@
     </div>
 </ng-template>
 
-<footer class="sectin-footer-mb">
+<footer class="sectin-footer-mb" [class.show]="showMobFooter">
     <section>
         <div class="container px-0">
             <div class="d-flex">

@@ -1,16 +1,19 @@
-import { SocketService, ChatHandlerService, CommonService, I18NService } from '@services';
-import { AfterViewInit, Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
-import { Subscription, fromEvent, interval } from 'rxjs';
-import { CookieService } from 'ngx-cookie-service';
-import { UserserviceService } from '@services';
+import { AfterViewInit, Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { Subscription, fromEvent, interval } from 'rxjs';
+import { filter, takeUntil, debounce, debounceTime } from 'rxjs/operators';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-declare var $: any;
-import { TranslateService } from '@ngx-translate/core';
-import { GlobalsService } from '@services';
-import { RoasterserviceService } from '@services';
-import { filter, takeUntil, debounce } from 'rxjs/operators';
-import { MenuService } from '@services';
+import {
+    ChatHandlerService,
+    CommonService,
+    GlobalsService,
+    I18NService,
+    MenuService,
+    RoasterserviceService,
+    SocketService,
+    UserserviceService,
+} from '@services';
 import { DestroyableComponent } from '@base-components';
 
 @Component({
@@ -32,9 +35,10 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     searchResults: string[];
     profilePic: any;
     roasterProfilePic: any;
-    supportLanguages = ['en', 'es'];
     rolename: any;
     slugList: any;
+    sideNavOpened = false;
+    showMobFooter = true;
 
     notifications: any[];
     readNotification: any;
@@ -43,7 +47,6 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     profileUpdateEvent$?: Subscription;
     resizeEvent: Subscription;
     constructor(
-        private elementRef: ElementRef,
         private cookieService: CookieService,
         private userService: UserserviceService,
         private roasterService: RoasterserviceService,
@@ -80,11 +83,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 window.scrollTo(0, 0);
                 this.updateActiveLinkState();
                 this.menuService.expandActiveSubMenu();
-                if (window.innerWidth <= 768) {
-                    setTimeout(() => {
-                        $('.sidenav-mb').removeClass('open');
-                    }, 800);
-                }
+                this.closeSideNav();
             });
 
         this.updateActiveLinkState();
@@ -112,42 +111,20 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
 
         this.getLoggedInUserRoles();
 
-        $(window).scroll(() => {
-            if (!this.chat.isOpen.value && this.showFooter()) {
-                if ($(window).scrollTop() + $(window).height() === $(document).height()) {
-                    $('.sectin-footer-mb').css({
-                        opacity: '0',
-                        'pointer-events': 'none',
-                    });
+        fromEvent(window, 'scroll')
+            .pipe(debounceTime(100))
+            .pipe(takeUntil(this.unsubscribeAll$))
+            .subscribe(() => {
+                if (!this.chat.isOpen.value && this.showFooter()) {
+                    if (window.scrollY + window.innerHeight === document.documentElement.scrollHeight) {
+                        this.showMobFooter = false;
+                    } else {
+                        this.showMobFooter = true;
+                    }
                 } else {
-                    $('.sectin-footer-mb').css({
-                        opacity: '1',
-                        'pointer-events': 'all',
-                    });
+                    this.showMobFooter = true;
                 }
-            } else {
-                $('.sectin-footer-mb').css({
-                    opacity: '1',
-                    'pointer-events': 'all',
-                });
-            }
-        });
-
-        $('body').on('click', '.sidenav-mb__close', (event) => {
-            $('.sidenav-mb__content').removeClass('open');
-            setTimeout(() => {
-                $('.sidenav-mb').removeClass('open');
-            }, 800);
-            event.stopImmediatePropagation();
-        });
-
-        $('body').on('click', '.sidenav-mb__hide', (event) => {
-            $('.sidenav-mb__content').removeClass('open');
-            setTimeout(() => {
-                $('.sidenav-mb').removeClass('open');
-            }, 800);
-            event.stopImmediatePropagation();
-        });
+            });
 
         this.getNotificationList();
     }
@@ -162,6 +139,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     viewPortSizeChanged = () => {
         this.scrollFix();
     };
+
     scrollFix() {
         if (window.innerWidth <= 767 && this.chat.isOpen.value) {
             document.body.style.overflow = 'hidden';
@@ -288,9 +266,12 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         this.router.navigateByUrl(event.routerLink);
     }
 
+    closeSideNav() {
+        this.sideNavOpened = false;
+    }
+
     openSideNav() {
-        $('.sidenav-mb').addClass('open');
-        $('.sidenav-mb__content').addClass('open');
+        this.sideNavOpened = true;
     }
 
     showFooter() {

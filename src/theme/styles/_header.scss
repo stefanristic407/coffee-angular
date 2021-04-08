@@ -52,24 +52,28 @@
         overflow-y: scroll;
         overflow-x: hidden;
         z-index: 999;
-        transition: 0.2s ease-in-out;
         opacity: 0;
+        transition: 0.2s ease-in-out;
+        transition-delay: 0.8s !important;
+
+        &.open {
+            background: rgba(0, 0, 0, 0.6);
+            left: 0 !important;
+            opacity: 1;
+            transition-delay: 0s !important;
+        }
     }
     .sidenav-mb__content {
         position: fixed;
         left: -100%;
         transition: 0.7s ease-in-out;
+
+        &.open {
+            left: 0 !important;
+            transition: 0.7s ease-in-out;
+        }
     }
-    .sidenav-mb.open .sidenav-mb__content.open {
-        left: 0 !important;
-    }
-    .sidenav-mb.open {
-        background: rgba(0, 0, 0, 0.6);
-        opacity: 1;
-    }
-    .sidenav-mb.open {
-        left: 0 !important;
-    }
+
     .sidenav-mb__close {
         display: inline-block;
         width: 18px;
