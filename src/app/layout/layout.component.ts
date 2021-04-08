@@ -1,4 +1,4 @@
-import { SocketService, ChatHandlerService, CommonService } from '@services';
+import { SocketService, ChatHandlerService, CommonService, I18NService } from '@services';
 import { AfterViewInit, Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, fromEvent, interval } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
@@ -49,7 +49,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         private roasterService: RoasterserviceService,
         private router: Router,
         private toastrService: ToastrService,
-        private translateService: TranslateService,
+        private i18NService: I18NService,
         public globals: GlobalsService,
         public chat: ChatHandlerService,
         public menuService: MenuService,
@@ -57,15 +57,6 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         private commonService: CommonService,
     ) {
         super();
-        this.translateService.addLangs(this.supportLanguages);
-        if (localStorage.getItem('locale')) {
-            const browserLang = localStorage.getItem('locale');
-            this.translateService.use(browserLang);
-        } else {
-            const browserlang = this.translateService.getBrowserLang();
-            this.translateService.use(browserlang);
-            localStorage.setItem('locale', 'en');
-        }
     }
 
     ngOnInit(): void {
@@ -221,14 +212,9 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
             if (res.success) {
                 this.userName = res.result.firstname + ' ' + res.result.lastname;
                 this.profilePic = res.result.profile_image_thumb_url;
-                const language = res.result.language === '' ? 'en' : res.result.language;
-                this.userService.getUserLanguageStrings(language).subscribe((resultLanguage) => {
-                    this.globals.languageJson = resultLanguage;
-                    resolve();
-                });
-            } else {
-                resolve();
+                this.i18NService.use(res.result.language || 'en');
             }
+            resolve();
         });
     }
 
