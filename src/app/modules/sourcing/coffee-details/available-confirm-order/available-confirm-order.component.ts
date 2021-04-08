@@ -229,7 +229,7 @@ export class AvailableConfirmOrderComponent implements OnInit {
                     ]),
                 ),
             );
-            this.infoForm.addControl('service', new FormControl(''));
+            this.infoForm.addControl('service', new FormControl(true));
         }
         this.changeQuantity();
     }

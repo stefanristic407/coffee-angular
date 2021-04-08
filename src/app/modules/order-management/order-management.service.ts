@@ -239,7 +239,10 @@ export class OrderManagementService {
 
                     if (details.payment_status === 'VERIFIED') {
                         details.statusPaid = true;
-                        details.status = OrderStatus.Payment;
+
+                        if (details.status === OrderStatus.Confirmed) {
+                            details.status = OrderStatus.Payment;
+                        }
                     }
 
                     this.orderDetailsSubject.next(details);
