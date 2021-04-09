@@ -1,0 +1,313 @@
+<section *ngIf="isLoaded; else loading">
+    <ng-container *ngIf="!orderPlaced; else OrderSucess">
+        <div class="main-block mb-3 d-md-none">
+            <a
+                class="back-page"
+                routerLink="/sourcing/lot-details/{{ sourcing.lot?.estate_id }}/{{ sourcing.lot?.id }}"
+            >
+                {{ 'back' | translate }}</a
+            >
+            <div class="solid-divider mt-3 mx-n3"></div>
+            <div class="bg-f8 br-4 p-3 mt-3">
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <h4 class="confirm-txt fnt-play">
+                            {{ 'confirm_order' | translate }}
+                        </h4>
+                        <div class="fill-txt text-clr588">{{ 'sample_recieved' | translate }}.</div>
+                        <div class="fill-txt text-clr588">
+                            {{ 'please_shippment' | translate }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-block">
+            <p-breadcrumb [model]="breadItems" styleClass="d-none d-md-block"></p-breadcrumb>
+            <section>
+                <div class="bg-f8 br-4 confirm-order mt-4 mb-5 d-none d-md-block">
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-12">
+                            <h4 class="confirm-txt fnt-play">
+                                {{ 'confirm_order' | translate }}
+                            </h4>
+                            <div class="fill-txt text-clr588">
+                                <div>
+                                    {{ 'prebook_description' | translate }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Order detail table -->
+                <div class="mb-3">
+                    <div class="border-main border-md-none br-4 p-3 p-md-0">
+                        <div class="fnt-16 fnt-md-18 fnt-bold text-clr000 pb-2">
+                            {{ 'order_details' | translate }}
+                        </div>
+                        <p-table *ngIf="orderDetail" [value]="[orderDetail]" styleClass="p-datatable-responsive-single">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th *ngFor="let item of orderDetail">{{ item.label }}</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-item>
+                                <tr>
+                                    <td *ngFor="let element of item" [ngSwitch]="element.field">
+                                        <ng-container *ngSwitchCase="'origin'">
+                                            <span class="p-column-title"> {{ element.label }} </span>
+                                            <span>{{ element.value | country }}</span>
+                                        </ng-container>
+
+                                        <ng-container *ngSwitchDefault>
+                                            <span class="p-column-title"> {{ element.label }} </span>
+                                            <span>{{ element.value }}</span>
+                                        </ng-container>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+
+                <!-- Prebook lot message -->
+                <div class="row">
+                    <div class="col-12 d-flex">
+                        <span class="fnt-14 fnt-700 text-clr334"> {{ 'note' | translate }}:</span>
+                        <div class="col-md-7">
+                            <p class="fnt-14 fnt-400 text-clr334">
+                                {{ 'pre_book_note' | translate }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-md-3">
+                        <div class="solid-divider w-100"></div>
+                    </div>
+                </div>
+
+                <!-- Form for real order -->
+                <form [formGroup]="infoForm" novalidate>
+                    <div class="mt-3">
+                        <div class="row">
+                            <!-- Total price -->
+                            <div
+                                class="col-12 col-md-4 col-lg-3 col-xl-2 offset-md-8 offset-lg-9 offset-xl-10 d-flex d-md-block justify-content-between"
+                            >
+                                <div class="fnt-14 fnt-bold text-clr334">
+                                    {{ 'total_amount' | translate }}
+                                </div>
+                                <div class="fnt-16 fnt-md-18 fnt-bold text-clr334 pt-md-2">
+                                    ${{ totalPrice | number: '1.0-0' }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="!editAddress" class="col-12 col-md-7 mt-5 px-0">
+                        <div
+                            class="fnt-16 fnt-md-18 fnt-bold text-clr000 d-flex justify-content-between align-items-center"
+                        >
+                            <div>
+                                {{ 'delivery_address' | translate }}
+                            </div>
+                            <div
+                                class="fnt-14 fnt-bold text-clr55c cursor-pointer d-flex align-items-center"
+                                (click)="refreshAddressForm()"
+                            >
+                                <img class="edit-icon pr-2" src="assets/images/shape-2.png" alt="Edit" />
+                                {{ 'edit_shipping_details' | translate }}
+                            </div>
+                        </div>
+                        <div
+                            class="fnt-14 lh-normal fnt-600 text-clr334 d-md-flex justify-content-between bg-f8 br-4 p-3 p-md-4 mt-2"
+                        >
+                            <div>
+                                {{ addressData?.address_line1 }}, {{ addressData?.address_line2 }},
+                                {{ addressData?.city }}
+                                <div>{{ addressData?.zipcode }}-{{ addressData?.state }}</div>
+                                <div>{{ addressData?.country | country }}</div>
+                            </div>
+                            <div class="mt-3 mt-md-0 d-flex flex-column justify-content-between">
+                                <div>+420 6365719</div>
+                                <div class="pt-3">info@lofbergs.com</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="editAddress" class="mt-4 mt-md-45">
+                        <div class="fnt-16 fnt-md-18 fnt-bold text-clr000 mb-4">
+                            {{ 'shipping_address' | translate }}
+                        </div>
+                        <form [formGroup]="addressForm" class="form-container">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="row">
+                                        <div class="col-12 col-md-6 sewn-form-field">
+                                            <label>Country<span class="star">*</span></label>
+                                            <p-dropdown
+                                                [options]="COUNTRY_LIST"
+                                                optionLabel="name"
+                                                optionValue="isoCode"
+                                                formControlName="country"
+                                                (onChange)="changeCountry()"
+                                                placeholder="{{ 'select_country' | translate }}"
+                                                styleClass="w-100"
+                                            ></p-dropdown>
+                                            <small
+                                                *ngIf="addressForm.controls.country.errors?.required"
+                                                class="p-error"
+                                            >
+                                                Please select your country
+                                            </small>
+                                        </div>
+                                        <div class="col-12 col-md-6 sewn-form-field">
+                                            <label>State</label>
+                                            <p-dropdown
+                                                [options]="cities"
+                                                formControlName="state"
+                                                placeholder="{{ 'select_state' | translate }}"
+                                                styleClass="w-100"
+                                            ></p-dropdown>
+                                        </div>
+                                        <div class="col-12 col-md-6 sewn-form-field">
+                                            <label>{{ 'address' | translate }}<span class="star">*</span></label>
+                                            <input
+                                                type="text"
+                                                placeholder="Please enter your e-mail address"
+                                                formControlName="address_line1"
+                                                pInputText
+                                                placeholder="Line 1"
+                                                styleClass="w-100"
+                                            />
+                                            <small
+                                                *ngIf="addressForm.controls.address_line1.errors?.required"
+                                                class="p-error"
+                                            >
+                                                Please enter address
+                                            </small>
+                                        </div>
+                                        <div class="col-12 col-md-6 sewn-form-field">
+                                            <label>{{ 'address' | translate }}</label>
+                                            <input
+                                                type="text"
+                                                placeholder="Line 2"
+                                                formControlName="address_line2"
+                                                pInputText
+                                                styleClass="w-100"
+                                            />
+                                        </div>
+                                        <div class="col-6 col-md-3 sewn-form-field">
+                                            <label>City<span class="star">*</span></label>
+                                            <input
+                                                type="text"
+                                                placeholder="{{ 'enter_city' | translate }}"
+                                                formControlName="city"
+                                                pInputText
+                                                styleClass="w-100"
+                                            />
+                                            <small *ngIf="addressForm.controls.city.errors?.required" class="p-error">
+                                                Please enter city
+                                            </small>
+                                        </div>
+                                        <div class="col-6 col-md-3 sewn-form-field">
+                                            <label>{{ 'zipcode' | translate }}<span class="star">*</span></label>
+                                            <input
+                                                type="text"
+                                                placeholder="{{ 'zipcode' | translate }}"
+                                                formControlName="zipcode"
+                                                pInputText
+                                                styleClass="w-100"
+                                            />
+                                            <small
+                                                *ngIf="addressForm.controls.zipcode.errors?.required"
+                                                class="p-error"
+                                            >
+                                                Please enter zipcode
+                                            </small>
+                                        </div>
+                                        <div class="col-12 col-md-6 d-flex justify-content-end align-items-center">
+                                            <button type="button" class="btn-raised" (click)="saveAddress()">
+                                                {{ 'save_address' | translate }}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-12 mt-4 mt-md-45">
+                        <div class="row">
+                            <div class="sewn-form-field mb-4 mb-md-5">
+                                <div class="p-field-checkbox">
+                                    <p-checkbox
+                                        formControlName="terms"
+                                        value="true"
+                                        inputId="terms"
+                                        class="dark"
+                                    ></p-checkbox>
+                                    <label for="terms" class="fnt-14 fnt-600 text-clr334 mb-0 flex-fill">
+                                        {{ 'i_have_understood' | translate }}
+                                        <a class="custom-link fnt-14">{{ 'terms_conditions' | translate }}</a>
+                                        {{ 'platform_agree' | translate }}.
+                                    </label>
+                                    <small *ngIf="infoForm.controls.terms.errors?.required" class="p-error">
+                                        Please accept the terms and conditions
+                                    </small>
+
+                                    <ng-template #ttt>sdsfdsfdsfdsf</ng-template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="solid-divider mb-4 mb-md-45 d-none d-md-block"></div>
+                    <div class="row">
+                        <div class="col-12 text-right">
+                            <button
+                                type="button"
+                                class="btn-stroked mr-3"
+                                routerLink="/sourcing/lot-details/{{ sourcing.lot?.estate_id }}/{{ sourcing.lot?.id }}"
+                            >
+                                {{ 'cancel' | translate }}
+                            </button>
+                            <button type="button" class="btn-raised" (click)="placeOrder()">
+                                {{ 'pre_book_lot' | translate }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </ng-container>
+</section>
+
+<ng-template #loading>
+    <div class="total-loader">
+        <div>
+            <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
+            <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #OrderSucess>
+    <section>
+        <div class="bg-white main-block">
+            <div class="order-sec">
+                <div class="text-center">
+                    <img src="assets/images/check-brown.svg" alt="" class="" />
+                    <h1 class="fnt-34 black fnt-normal fnt-play mb-4 mt-3">
+                        {{ 'order_placed' | translate }}
+                    </h1>
+                    <div class="text-center mt-2">
+                        <button type="button" class="btn-raised" routerLink="/ordermanagement/estate-orders">
+                            {{ 'view_order' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</ng-template>

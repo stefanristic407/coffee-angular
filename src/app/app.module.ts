@@ -40,6 +40,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { getSaver, SAVER } from '@services';
 
+import { StartupService } from '@services';
+export function StartupServiceFactory(startupService: StartupService) {
+    return () => startupService.load();
+}
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -63,15 +68,7 @@ import { getSaver, SAVER } from '@services';
         PopoverModule.forRoot(),
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
         ToastrModule.forRoot({ timeOut: 3000, preventDuplicates: true, positionClass: 'toast-bottom-right' }),
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: (http: HttpClient) => {
-                    return new TranslateHttpLoader(http, 'https://fed-api.sewnstaging.com/language/', '');
-                },
-                deps: [HttpClient],
-            },
-        }),
+        TranslateModule.forRoot(),
         TypeaheadModule.forRoot(),
         SharedModule,
         AgmCoreModule.forRoot({
@@ -79,6 +76,13 @@ import { getSaver, SAVER } from '@services';
         }),
     ],
     providers: [
+        StartupService,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: StartupServiceFactory,
+            deps: [StartupService],
+            multi: true,
+        },
         {
             provide: HTTP_INTERCEPTORS,
             useClass: ErrorInterceptor,

@@ -340,6 +340,10 @@ input[type='number'] {
     box-shadow: inset 0 0 3px $primary-color;
 }
 
+.osano-cm-widget {
+    display: none;
+}
+
 // Cursor
 .cursor-move {
     cursor: move;

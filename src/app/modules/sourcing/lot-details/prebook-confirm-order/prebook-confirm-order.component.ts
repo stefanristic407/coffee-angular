@@ -12,11 +12,11 @@ import { ConfirmComponent } from '@shared';
 import { COUNTRY_LIST } from '@constants';
 
 @Component({
-    selector: 'app-available-confirm-order',
-    templateUrl: './available-confirm-order.component.html',
-    styleUrls: ['./available-confirm-order.component.scss'],
+    selector: 'app-prebook-confirm-order',
+    templateUrl: './prebook-confirm-order.component.html',
+    styleUrls: ['./prebook-confirm-order.component.scss'],
 })
-export class AvailableConfirmOrderComponent implements OnInit {
+export class PrebookConfirmOrderComponent implements OnInit {
     public readonly COUNTRY_LIST = COUNTRY_LIST;
     breadItems: any[];
     serviceItems: any[] = [
@@ -25,7 +25,6 @@ export class AvailableConfirmOrderComponent implements OnInit {
     ];
 
     roasterId: any;
-    orderType: string;
     prebookOrderId: any;
     infoForm: FormGroup;
     addressForm: FormGroup;
@@ -59,43 +58,17 @@ export class AvailableConfirmOrderComponent implements OnInit {
 
     ngOnInit(): void {
         this.roasterId = this.cookieService.get('roaster_id');
-        this.route.data.subscribe((data) => {
-            this.orderType = data.orderType;
-        });
 
         this.route.queryParamMap.subscribe((params) => {
-            if (params.has('gc_id')) {
-                this.sourcing.harvestId = params.get('gc_id');
-            }
             if (params.has('estateId') && params.has('lotId')) {
                 this.sourcing.estateId = params.get('estateId');
                 this.sourcing.lotId = params.get('lotId');
             }
-            if (this.orderType === 'booked' || this.orderType === 'sample') {
-                this.getHarvest();
-            } else if (this.orderType === 'preBooked') {
-                this.getLot();
-                this.getPrebookBatch();
-            }
+            this.getLot();
+            this.getPrebookBatch();
         });
 
         this.prebookOrderId = 0;
-    }
-
-    getHarvest() {
-        if (this.sourcing.harvestId) {
-            new Promise((resolve, reject) => this.sourcing.availableDetailList(resolve, reject))
-                .then(() => {
-                    this.refreshBreadCrumb();
-                    this.getBasicData();
-                })
-                .catch(() => {
-                    this.toastrService.error('Error while retrieving data');
-                    this.router.navigateByUrl('/sourcing/coffee-list');
-                });
-        } else {
-            this.router.navigateByUrl('/error');
-        }
     }
 
     getLot() {
@@ -111,9 +84,6 @@ export class AvailableConfirmOrderComponent implements OnInit {
 
     getBasicData() {
         const promises = [];
-        if (this.orderType === 'booked') {
-            promises.push(new Promise((resolve) => this.getShipInfo(resolve)));
-        }
         promises.push(new Promise((resolve) => this.getRoAddress(resolve)));
         promises.push(new Promise((resolve) => this.getOrderSettins(resolve)));
         Promise.all(promises).then(() => {
@@ -128,109 +98,35 @@ export class AvailableConfirmOrderComponent implements OnInit {
         this.breadItems = [
             { label: 'Home', routerLink: '/' },
             { label: 'Sourcing Module', routerLink: '/sourcing' },
-            this.orderType === 'preBooked'
-                ? {
-                      label: this.sourcing.lot.name,
-                      routerLink: `/sourcing/estate-details/${this.sourcing.lot.estate_id}`,
-                  }
-                : {
-                      label: this.sourcing.harvestDetail.name,
-                      routerLink: `/sourcing/coffee-details/${this.sourcing.harvestDetail.estate_id}/${this.sourcing.harvestDetail.id}`,
-                  },
+            { label: this.sourcing.lot.name, routerLink: `/sourcing/estate-details/${this.sourcing.lot.estate_id}` },
             { label: 'Confirm order' },
         ];
     }
 
     refreshOrderDetails() {
-        if (this.orderType === 'preBooked') {
-            this.orderDetail = [
-                {
-                    field: 'customer',
-                    label: this.globals.languageJson?.customer,
-                    value: this.sourcing.lot.estate_name,
-                },
-                { field: 'origin', label: this.globals.languageJson?.origin, value: this.sourcing.lot.country },
-                {
-                    field: 'variety',
-                    label: this.globals.languageJson?.variety,
-                    value: this.sourcing.lot.varietiesStr,
-                },
-                { field: 'species', label: this.globals.languageJson?.species, value: this.sourcing.lot.species },
-                { field: 'cupScore', label: 'Avg, grade', value: this.sourcing.lot.avg_cup_score },
-                { field: 'production', label: 'Avg. Production', value: this.sourcing.lot.avg_precipitation },
-                { field: 'token', label: 'Token amount', value: `$${this.orderSettings.token_amount}` },
-            ];
-        } else {
-            this.orderDetail = [
-                {
-                    field: 'customer',
-                    label: this.globals.languageJson?.customer,
-                    value: this.sourcing.harvestDetail.estate_name,
-                },
-                {
-                    field: 'origin',
-                    label: this.globals.languageJson?.origin,
-                    value: this.sourcing.harvestDetail.country,
-                },
-                {
-                    field: 'variety',
-                    label: this.globals.languageJson?.variety,
-                    value: this.sourcing.harvestDetail.varieties,
-                },
-                {
-                    field: 'species',
-                    label: this.globals.languageJson?.species,
-                    value: this.sourcing.harvestDetail.species,
-                },
-                {
-                    field: 'cupScore',
-                    label: this.globals.languageJson?.cupping_score,
-                    value: this.sourcing.harvestDetail.cupping.cup_score,
-                },
-            ];
-        }
-        if (this.orderType === 'booked') {
-            this.orderDetail = this.orderDetail.concat([
-                {
-                    field: 'quantity',
-                    label: this.globals.languageJson?.available_quantity,
-                    value: `${this.sourcing.harvestDetail.quantity_count}/${this.sourcing.harvestDetail.quantity}${this.sourcing.harvestDetail.quantity_unit}`,
-                },
-                {
-                    field: 'price',
-                    label: this.globals.languageJson?.rate_per_kg,
-                    value: `$${this.sourcing.harvestDetail.price}USD/kg`,
-                },
-            ]);
-        } else if (this.orderType === 'sample') {
-            this.orderDetail = this.orderDetail.concat([
-                {
-                    field: 'sample_price',
-                    label: 'Sample Price',
-                    value: `$${this.orderSettings.sample_price}`,
-                },
-            ]);
-        }
+        this.orderDetail = [
+            {
+                field: 'customer',
+                label: this.globals.languageJson?.customer,
+                value: this.sourcing.lot.estate_name,
+            },
+            { field: 'origin', label: this.globals.languageJson?.origin, value: this.sourcing.lot.country },
+            {
+                field: 'variety',
+                label: this.globals.languageJson?.variety,
+                value: this.sourcing.lot.varietiesStr,
+            },
+            { field: 'species', label: this.globals.languageJson?.species, value: this.sourcing.lot.species },
+            { field: 'cupScore', label: 'Avg, grade', value: this.sourcing.lot.avg_cup_score },
+            { field: 'production', label: 'Avg. Production', value: this.sourcing.lot.avg_precipitation },
+            { field: 'token', label: 'Token amount', value: `$${this.orderSettings.token_amount}` },
+        ];
     }
 
     refreshForm() {
         this.infoForm = this.fb.group({
             terms: [null, Validators.compose([Validators.required])],
         });
-        if (this.orderType === 'booked') {
-            this.infoForm.addControl(
-                'quantity',
-                new FormControl(
-                    null,
-                    Validators.compose([
-                        Validators.required,
-                        Validators.min(this.shipInfo.minimum_quantity || 0),
-                        Validators.max(this.sourcing.harvestDetail.quantity_count),
-                    ]),
-                ),
-            );
-            this.infoForm.addControl('service', new FormControl(true));
-        }
         this.changeQuantity();
     }
 
@@ -253,18 +149,7 @@ export class AvailableConfirmOrderComponent implements OnInit {
             this.infoForm.value.quantity = event.value;
         }
         setTimeout(() => {
-            if (this.orderType === 'booked') {
-                if (this.infoForm.value.service) {
-                    this.totalPrice =
-                        (this.sourcing.harvestDetail.price + this.shipInfo.unit_price) * this.infoForm.value.quantity;
-                } else {
-                    this.totalPrice = this.sourcing.harvestDetail.price * this.infoForm.value.quantity;
-                }
-            } else if (this.orderType === 'sample') {
-                this.totalPrice = this.orderSettings.sample_price;
-            } else {
-                this.totalPrice = this.orderSettings.token_amount;
-            }
+            this.totalPrice = this.orderSettings.token_amount;
         });
     }
 
@@ -290,50 +175,12 @@ export class AvailableConfirmOrderComponent implements OnInit {
                 })
                 .onClose.subscribe((action: any) => {
                     if (action === 'yes') {
-                        if (this.orderType === 'booked') {
-                            this.submitOrder();
-                        } else if (this.orderType === 'sample') {
-                            this.submitSample();
-                        } else if (this.orderType === 'preBooked') {
-                            this.submitPreBook();
-                        }
+                        this.submitPreBook();
                     }
                 });
         } else {
             this.infoForm.markAllAsTouched();
         }
-    }
-
-    submitOrder() {
-        const data = {
-            quantity_count: this.infoForm.value.quantity,
-            shipping_address_id: this.roAddress.id,
-            billing_address_id: this.roAddress.id,
-            prebook_order_id: this.prebookOrderId,
-            is_fully_serviced_delivery: this.infoForm.value.service,
-        };
-        this.roasterService.placeOrder(this.roasterId, this.sourcing.harvestId, data).subscribe((res: any) => {
-            if (res.success) {
-                this.orderPlaced = true;
-            } else {
-                this.toastrService.error('Error while Placing the order');
-            }
-        });
-    }
-
-    submitSample() {
-        const doneData = {
-            shipping_address_id: this.addressData.id,
-            billing_address_id: this.addressData.id,
-            prebook_order_id: this.prebookOrderId,
-        };
-        this.userService.addRequestSample(this.roasterId, this.sourcing.harvestId, doneData).subscribe((res: any) => {
-            if (res.success) {
-                this.orderPlaced = true;
-            } else {
-                this.toastrService.error('Error while Placing the order');
-            }
-        });
     }
 
     submitPreBook() {
@@ -349,6 +196,8 @@ export class AvailableConfirmOrderComponent implements OnInit {
                     this.toastrService.error('Error while Placing the prebook order');
                 }
             });
+        } else {
+            this.toastrService.error('There is no batch');
         }
     }
 
@@ -432,7 +281,6 @@ export class AvailableConfirmOrderComponent implements OnInit {
             .getPrebookBatchList(this.roasterId, this.sourcing.estateId, this.sourcing.lotId)
             .subscribe((res: any) => {
                 if (res.success && res.result.length) {
-                    console.log('Batch:', res.result);
                     this.batchId = res.result[0].id;
                 }
             });

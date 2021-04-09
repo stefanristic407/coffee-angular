@@ -17,6 +17,8 @@ import { AvailableConfirmOrderComponent } from './coffee-details/available-confi
 import { EstateDetailsComponent } from './estate-details/estate-details.component';
 import { OverviewRatingsComponent } from './estate-details/overview-ratings/overview-ratings.component';
 import { LandLotsComponent } from './estate-details/land-lots/land-lots.component';
+import { LotDetailsComponent } from './lot-details/lot-details.component';
+import { PrebookConfirmOrderComponent } from './lot-details/prebook-confirm-order/prebook-confirm-order.component';
 import { OverviewComponent } from './estate-details/overview/overview.component';
 import { AboutComponent } from './estate-details/about/about.component';
 import { EstateCardComponent } from './estate-card/estate-card.component';
@@ -37,6 +39,8 @@ import { FilterComponent } from './filter/filter.component';
         EstateDetailsComponent,
         OverviewRatingsComponent,
         LandLotsComponent,
+        LotDetailsComponent,
+        PrebookConfirmOrderComponent,
         OverviewComponent,
         AboutComponent,
         EstateCardComponent,

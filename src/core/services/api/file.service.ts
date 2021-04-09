@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { environment } from '@env/environment';
 import { CookieService } from 'ngx-cookie-service';
+import { ApiResponse } from '@models';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -41,7 +43,7 @@ export class FileService extends ApiService {
 
     // ------------ Farmlink Files ------------
     // Upload Farmlink files
-    uploadFiles(formData: FormData) {
+    uploadFiles(formData: FormData): Observable<ApiResponse<any>> {
         const httpOptions = {
             headers: new HttpHeaders({ Accept: 'application/json' }),
         };
@@ -49,7 +51,7 @@ export class FileService extends ApiService {
         formData.append('api_call', `/ro/${roasterId}/file-manager/files`);
         formData.append('token', this.cookieService.get('Auth'));
         formData.append('method', 'POST');
-        return this.http.post(this.fileUploadUrl, formData, httpOptions);
+        return this.http.post<ApiResponse<any>>(this.fileUploadUrl, formData, httpOptions);
     }
     // Update the file
     updateFile(fileId, formData: FormData) {

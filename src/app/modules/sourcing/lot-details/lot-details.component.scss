@@ -1,0 +1,117 @@
+@import 'variables';
+
+.content-block {
+    @media (min-width: 768px) {
+        padding-top: 24px;
+    }
+    @media (min-width: 992px) {
+        padding: 32px 24px;
+    }
+}
+.left-block {
+    @media (min-width: 992px) {
+        padding-right: 30px;
+    }
+}
+.right-block {
+    @media (min-width: 992px) {
+        padding-left: 6px;
+    }
+}
+.prodect-gal {
+    height: 325px;
+    max-width: 414px;
+    @media (min-width: 768px) {
+        height: 440px;
+    }
+    @media (min-width: 992px) {
+        height: 530px;
+    }
+    .gallery-wrap {
+        height: 100%;
+    }
+    .no-image {
+        height: 100%;
+        background-color: $primary-bg-color;
+        border-radius: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.checked {
+    font-size: 16px;
+    @media (min-width: 768px) {
+        font-size: 22px;
+    }
+}
+
+.cert-img {
+    height: 24px;
+    width: auto;
+    @media (min-width: 768px) {
+        height: 36px;
+    }
+    @media (min-width: 992px) {
+        height: 50px;
+    }
+}
+
+.produect-pro {
+    border: solid 1px #747588;
+}
+
+.card-block {
+    margin-top: -8px;
+    margin-bottom: -8px;
+    @media (min-width: 992px) {
+        margin-top: -13px;
+        margin-bottom: -13px;
+    }
+    .card-wrap {
+        margin-top: 8px;
+        margin-bottom: 8px;
+        @media (min-width: 992px) {
+            margin-top: 13px;
+            margin-bottom: 13px;
+        }
+    }
+}
+
+:host ::ng-deep {
+    .p-carousel .p-carousel-content .p-carousel-prev,
+    .p-carousel .p-carousel-content .p-carousel-next {
+        display: none;
+    }
+
+    .p-carousel .p-carousel-indicators .p-carousel-indicator button {
+        background-color: #ffffff;
+        width: 12px;
+        height: 12px;
+        border: 1px solid $brown-color;
+        border-radius: 50%;
+    }
+
+    .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
+        background: $brown-color;
+        color: #ffffff;
+    }
+
+    .p-carousel .p-carousel-indicators .p-carousel-indicator {
+        margin-bottom: 0;
+    }
+
+    .p-carousel-content {
+        padding: 0;
+    }
+
+    .p-carousel-items-container .p-carousel-item {
+        padding-right: 0.75em;
+        width: 100%;
+    }
+
+    .p-carousel-items-content {
+        padding-right: 0.75em;
+    }
+}

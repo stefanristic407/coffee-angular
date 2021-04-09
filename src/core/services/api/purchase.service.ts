@@ -49,7 +49,9 @@ export class PurchaseService extends ApiService {
                         details.statusPaid = true;
                         details.statusPending = false;
                         details.paymentVerification = true;
-                        details.status = OrderStatus.Payment;
+                        if (details.status === OrderStatus.Confirmed) {
+                            details.status = OrderStatus.Payment;
+                        }
                     }
 
                     return details;

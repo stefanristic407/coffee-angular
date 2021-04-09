@@ -18,7 +18,7 @@ import {
 } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { OrganizationType, OrderType } from '@enums';
+import { OrganizationType, OrderType, OrderStatus } from '@enums';
 import {
     AvailabilityService,
     BrandProfileService,
@@ -31,6 +31,8 @@ import {
     LotsService,
     ReviewsService,
     AddressesService,
+    FileService,
+    RoasterOrdersService,
 } from '@services';
 import * as _ from 'lodash';
 import * as moment from 'moment';
@@ -73,6 +75,8 @@ export class OrderManagementService {
         private lotsSrv: LotsService,
         private reviewSrv: ReviewsService,
         private addressesSrv: AddressesService,
+        private fileSrv: FileService,
+        private roasterOrdersSrv: RoasterOrdersService,
     ) {}
 
     get orderDetails$(): Observable<OrderDetails> {
@@ -231,6 +235,16 @@ export class OrderManagementService {
         this.purchaseSrv.getOrderDetailsById(orderId, orgType).subscribe({
             next: (details) => {
                 if (details) {
+                    details.statusPaid = false;
+
+                    if (details.payment_status === 'VERIFIED') {
+                        details.statusPaid = true;
+
+                        if (details.status === OrderStatus.Confirmed) {
+                            details.status = OrderStatus.Payment;
+                        }
+                    }
+
                     this.orderDetailsSubject.next(details);
 
                     if (!skipAdditionalDetails) {
@@ -276,6 +290,30 @@ export class OrderManagementService {
         this.purchaseSrv.getOrderNotes(orderId).subscribe({
             next: (result) => this.orderNotesSubject.next(result),
         });
+    }
+
+    uploadReceipt(orderId: number, fileEvent: any): Observable<ApiResponse<any>> {
+        const files = fileEvent.target.files;
+        if (!files || !files.length) {
+            return of(null);
+        }
+
+        const file = files[0];
+        const formData = new FormData();
+
+        formData.append('file', file, file.name);
+        formData.append('name', file.name);
+        formData.append('file_module', 'gc-order');
+
+        return this.fileSrv.uploadFiles(formData).pipe(
+            mergeMap((response) => {
+                if (response.success && response.result) {
+                    return this.roasterOrdersSrv.updatePaymentReceipt(orderId, response.result.id);
+                }
+
+                return of(null);
+            }),
+        );
     }
 
     private loadActivities(orderId: number, orgType: OrganizationType): void {
