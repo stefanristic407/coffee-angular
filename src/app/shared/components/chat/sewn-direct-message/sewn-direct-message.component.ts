@@ -270,6 +270,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         return message;
     }
     processThreadUser(threadUser: ThreadMember): ThreadMember {
+        if (threadUser.org_type === OrganizationType.SEWN_ADMIN) {
+            threadUser.org_id = 0;
+        }
         threadUser.last_seen = threadUser.last_seen || '';
         threadUser.computed_lastseen = this.chatUtil.getReadableTime(threadUser.last_seen || '');
         threadUser.computed_organization_name = this.chatUtil.getOrganization(threadUser.org_type);
@@ -410,6 +413,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 [uniqueKey: string]: ResponseUserStatus;
             } = {};
             WSmsg.data.forEach((userStatus) => {
+                if (userStatus.org_type === OrganizationType.SEWN_ADMIN) {
+                    userStatus.org_id = 0;
+                }
                 userStatusMap[`${userStatus.user_id}_${userStatus.org_type}_${userStatus.org_id}`] = userStatus;
             });
             this.threadList.forEach((thread) => {

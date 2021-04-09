@@ -50,6 +50,10 @@ export class ChatUtilService {
             idKey = 'estate_id';
         } else if (this.ORGANIZATION_TYPE === OrganizationType.FACILITATOR) {
             idKey = 'facilitator_id';
+        } else if (this.ORGANIZATION_TYPE === OrganizationType.MICRO_ROASTER) {
+            idKey = 'micro_roaster_id';
+        } else if (this.ORGANIZATION_TYPE === OrganizationType.HORECA) {
+            idKey = 'horeca_id';
         }
         return parseInt(this.cookieService.get(idKey), 10) || null;
     }

@@ -46,11 +46,11 @@
                                     <img src="assets/images/dm-back-arrow.svg" />
                                 </button>
                                 <div
-                                    class="d-inline-block profile-pic pointer"
+                                    class="d-inline-block chat-profile-pic pointer"
                                     (click)="openUserInfoPanel(openedThread)"
                                 >
                                     <span
-                                        class="profile-pic__item bg-profile"
+                                        class="chat-profile-pic__item bg-profile"
                                         [style.backgroundImage]="
                                             openedThread?.computed_targetedUser.computed_profile_dp
                                         "
@@ -116,7 +116,10 @@
                                         </li>
 
                                         <li class="list-group-item list-group-item__disabled">
-                                            <a class="pointer-item">{{ globals.languageJson?.mark_read }}</a>
+                                            <a class="pointer-item">{{ globals.languageJson?.mark_unread }}</a>
+                                        </li>
+                                        <li class="list-group-item list-group-item__disabled">
+                                            <a class="pointer-item">{{ globals.languageJson?.archive }}</a>
                                         </li>
                                         <li class="list-group-item list-group-item__disabled">
                                             <a class="pointer-item">{{ globals.languageJson?.report }}</a>
@@ -237,11 +240,11 @@
                                             <img src="assets/images/dm-back-arrow.svg" />
                                         </button>
                                         <div
-                                            class="d-inline-block profile-pic pointer"
+                                            class="d-inline-block chat-profile-pic pointer"
                                             (click)="openUserInfoPanel(openedThread)"
                                         >
                                             <span
-                                                class="profile-pic__item bg-profile"
+                                                class="chat-profile-pic__item bg-profile"
                                                 [style.backgroundImage]="
                                                     openedThread?.computed_targetedUser.computed_profile_dp
                                                 "
@@ -553,9 +556,9 @@
                                                 *ngFor="let user of recentUserList"
                                                 (click)="openThreadWithUser(user)"
                                             >
-                                                <div class="d-inline-block profile-pic">
+                                                <div class="d-inline-block chat-profile-pic">
                                                     <span
-                                                        class="profile-pic__item bg-profile"
+                                                        class="chat-profile-pic__item bg-profile"
                                                         [style.backgroundImage]="user.computed_profile_dp"
                                                     ></span>
                                                 </div>
@@ -580,9 +583,9 @@
                                                 *ngFor="let user of usersList"
                                                 (click)="openThreadWithUser(user)"
                                             >
-                                                <div class="d-inline-block profile-pic">
+                                                <div class="d-inline-block chat-profile-pic">
                                                     <span
-                                                        class="profile-pic__item bg-profile"
+                                                        class="chat-profile-pic__item bg-profile"
                                                         [style.backgroundImage]="user.computed_profile_dp"
                                                     ></span>
                                                 </div>
@@ -642,9 +645,9 @@
                                             *ngFor="let thread of threadList | searchFilter: threadSearchKeyword"
                                         >
                                             <div class="clearfix account" (click)="openThreadChat(thread)">
-                                                <div class="d-inline-block profile-pic">
+                                                <div class="d-inline-block chat-profile-pic">
                                                     <span
-                                                        class="profile-pic__item bg-profile"
+                                                        class="chat-profile-pic__item bg-profile"
                                                         [style.backgroundImage]="
                                                             thread.computed_targetedUser.computed_profile_dp
                                                         "
