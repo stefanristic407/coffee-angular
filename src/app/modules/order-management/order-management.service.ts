@@ -316,6 +316,10 @@ export class OrderManagementService {
         );
     }
 
+    markAsReceived(orderId: number): Observable<ApiResponse<any>> {
+        return this.purchaseSrv.markAsReceived(orderId);
+    }
+
     private loadActivities(orderId: number, orgType: OrganizationType): void {
         this.purchaseSrv.getRecentActivity(orderId, orgType).subscribe({
             next: (result) => this.recentActivitiesSubject.next(result),
