@@ -1,7 +1,6 @@
-import { ChatHandlerService } from '@services';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { GlobalsService } from '@services';
+import { GlobalsService, ChatHandlerService } from '@services';
 import { WelcomeService } from '../welcome.service';
 
 @Component({
@@ -38,7 +37,7 @@ export class DashboardNotifyComponent implements OnInit, OnDestroy {
         this.disputesSub.unsubscribe();
     }
 
-    openMessages() {
+    openMessagePanel() {
         this.chat.showChatPanel();
     }
 }

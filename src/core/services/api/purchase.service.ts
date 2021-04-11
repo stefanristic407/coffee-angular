@@ -143,6 +143,10 @@ export class PurchaseService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `mr-${this.endpoint}/${orderId}/shipment`, 'PUT', body);
     }
 
+    markAsReceived(orderId: number): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `${this.endpoint}/${orderId}/mark/received`, 'PUT');
+    }
+
     private getLabel(labels: LabelValue[], value: any): string {
         const label = labels.find((x) => x.value === value);
         return label ? label.label : '';

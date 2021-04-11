@@ -223,6 +223,7 @@ export class UserserviceService extends ApiService {
     }
 
     searchUser(key: string) {
+        key = decodeURIComponent(key);
         const data = {
             api_call: '/users/user-list?query=' + key,
             token: this.cookieService.get('Auth'),

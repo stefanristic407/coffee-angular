@@ -33,7 +33,7 @@
                 <div class="col-12 col-md-3">
                     <div
                         class="notify-mark br-4 fnt-14 fnt-600 fnt-muli text-clr334 mb-2"
-                        [class.active]="(chat.unReadCount | async) > 0"
+                        [ngClass]="{ 'notify-mark-active': (chat.unReadCount | async) > 0 }"
                     >
                         Messages
                     </div>
@@ -48,7 +48,7 @@
                             See what your contacts have to say!
                         </p>
                         <a
-                            (click)="openMessages()"
+                            (click)="openMessagePanel()"
                             href="javascript:void(0)"
                             class="start-messaging arrow-link fnt-12 fnt-md-14 float-right float-md-left"
                             >Go to messages</a

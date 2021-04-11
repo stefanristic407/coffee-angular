@@ -5,6 +5,7 @@ import { LabelValue, OrderDetails, RecentActivity } from '@models';
 import { ResizeService } from '@services';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { takeUntil } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-order-timeline',
@@ -13,6 +14,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class OrderTimelineComponent extends ResizeableComponent implements OnInit {
     readonly OrgTypes = OrganizationType;
+    readonly OrderStatus = OrderStatus;
 
     readonly isReviewed$ = this.orderService.isReviewed$;
 
@@ -62,12 +64,16 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
             this.orgType === OrganizationType.ESTATE &&
             this.order &&
             this.order.status &&
-            this.order.status === OrderStatus.Received &&
-            (this.order.order_type === OrderType.Sample || this.order.order_type === OrderType.Booked)
+            this.order.order_type !== OrderType.Prebook &&
+            (this.order.status === OrderStatus.Shipped || this.order.status === OrderStatus.Received)
         );
     }
 
-    constructor(private orderService: OrderManagementService, protected resizeService: ResizeService) {
+    constructor(
+        private toastrService: ToastrService,
+        private orderService: OrderManagementService,
+        protected resizeService: ResizeService,
+    ) {
         super(resizeService);
     }
 
@@ -104,6 +110,19 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
         if (this.invoiceUrl) {
             window.open(this.invoiceUrl, '_blank');
         }
+    }
+
+    confirmOrder(): void {
+        this.orderService.markAsReceived(+this.orderId).subscribe({
+            next: (response) => {
+                if (response.success) {
+                    this.toastrService.success('Order has been marked as received.');
+                    this.orderService.loadOrderDetails(+this.orderId, this.orgType);
+                } else {
+                    this.toastrService.error('Error while confirming order shipment.');
+                }
+            },
+        });
     }
 
     private getLatestActivity(point: LabelValue): RecentActivity {
