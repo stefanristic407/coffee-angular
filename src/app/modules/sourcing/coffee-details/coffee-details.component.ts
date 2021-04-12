@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { GlobalsService, ResizeService } from '@services';
 import { SourcingService } from '../sourcing.service';
 import { ResizeableComponent } from '@base-components';
+import { CURRENCY_LIST } from '@constants';
 
 @Component({
     selector: 'app-coffee-details',
@@ -13,6 +14,7 @@ import { ResizeableComponent } from '@base-components';
     styleUrls: ['./coffee-details.component.scss'],
 })
 export class CoffeeDetailsComponent extends ResizeableComponent implements OnInit {
+    public readonly CURRENCY_LIST = CURRENCY_LIST;
     items: GalleryItem[];
     isLoaded = false;
 

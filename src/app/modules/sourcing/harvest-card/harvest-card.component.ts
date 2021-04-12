@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CURRENCY_LIST } from '@constants';
 import { GlobalsService } from '@services';
 
 @Component({
@@ -8,9 +9,7 @@ import { GlobalsService } from '@services';
 })
 export class HarvestCardComponent implements OnInit {
     @Input() data: any;
-    Currencies = {
-        $: 'USD',
-    };
+    public readonly CURRENCY_LIST = CURRENCY_LIST;
 
     constructor(public globals: GlobalsService) {}
 
