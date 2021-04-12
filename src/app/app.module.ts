@@ -88,12 +88,6 @@ export function StartupServiceFactory(startupService: StartupService) {
             useClass: ErrorInterceptor,
             multi: true,
         },
-        {
-            provide: APP_INITIALIZER,
-            useFactory: ConfigLoader,
-            multi: true,
-            deps: [UserserviceService],
-        },
         AuthGuard,
         { provide: SAVER, useFactory: getSaver },
     ],
@@ -103,29 +97,3 @@ export class AppModule {}
 
 // Sweden
 registerLocaleData(localeSe);
-
-export function ConfigLoader(userService: UserserviceService, cookieService: CookieService) {
-    return () => {
-        const queryParams = new URLSearchParams(window.location.search);
-        // Setting token
-        if (userService.cookieService.get('Auth') && userService.cookieService.get('roaster_id')) {
-            return Promise.resolve().then(() => {
-                const promise2 = userService.getUserPermissionPromise(userService.cookieService.get('roaster_id'));
-                promise2.then(
-                    (response: any) => {
-                        if (response && response.success) {
-                            const permissionList = response.result;
-                            userService.cookieService.set('permissionSlug', JSON.stringify(permissionList));
-                        }
-                        return response;
-                    },
-                    (err) => {
-                        return err;
-                    },
-                );
-                return promise2;
-            });
-        }
-        return;
-    };
-}

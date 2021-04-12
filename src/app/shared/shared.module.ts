@@ -51,20 +51,6 @@ import { LightboxModule } from 'ng-gallery/lightbox';
 import { MatVideoModule } from 'mat-video';
 import { Ng2TelInputModule } from 'ng2-tel-input';
 
-import { SearchFilterPipe } from './pipes/chat/search-filter.pipe';
-import { CountryPipe } from './pipes/country/country.pipe';
-import { EstateBrandLinkPipe } from './pipes/link/estate-brand-link.pipe';
-import { ProfileLinkPipe } from './pipes/link/profile-link.pipe';
-import { ReviewLinkPipe } from './pipes/link/review-link.pipe';
-import { RoasterBrandLinkPipe } from './pipes/link/roaster-brand-link.pipe';
-import { OrderRatingLinkPipe } from './pipes/link/order-rating-link.pipe';
-import { OrderLinkPipe } from './pipes/link/order-link.pipe';
-import { FileIconPipe } from './pipes/file-icon.pipe';
-import { FileNamePipe } from './pipes/file-name.pipe';
-import { MonthPipe } from './pipes/month/month.pipe';
-import { OrgTypePipe } from './pipes/org-type.pipe';
-import { WordCountPipe } from './pipes/word-count/word-count.pipe';
-
 import { RatingDirective } from './directives/rating.directive';
 import { WordLimitDirective } from './directives/word-limit.directive';
 import { LifecyclehookDirective } from './directives/lifecyclehook/lifecyclehook.directive';
@@ -196,10 +182,26 @@ const COMPONENTS = [
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 const DIRECTIVES = [WordLimitDirective, RatingDirective, LifecyclehookDirective];
+
+import { SearchFilterPipe } from './pipes/chat/search-filter.pipe';
+import { CountryPipe } from './pipes/country/country.pipe';
+import { EstateBrandLinkPipe } from './pipes/link/estate-brand-link.pipe';
+import { GcBrandLinkPipe } from './pipes/link/gc-brand-link.pipe';
+import { ProfileLinkPipe } from './pipes/link/profile-link.pipe';
+import { ReviewLinkPipe } from './pipes/link/review-link.pipe';
+import { RoasterBrandLinkPipe } from './pipes/link/roaster-brand-link.pipe';
+import { OrderRatingLinkPipe } from './pipes/link/order-rating-link.pipe';
+import { OrderLinkPipe } from './pipes/link/order-link.pipe';
+import { FileIconPipe } from './pipes/file-icon.pipe';
+import { FileNamePipe } from './pipes/file-name.pipe';
+import { MonthPipe } from './pipes/month/month.pipe';
+import { OrgTypePipe } from './pipes/org-type.pipe';
+import { WordCountPipe } from './pipes/word-count/word-count.pipe';
 const PIPES = [
     ArrayFilterPipe,
     CountryPipe,
     EstateBrandLinkPipe,
+    GcBrandLinkPipe,
     FileIconPipe,
     FileNamePipe,
     MonthPipe,
