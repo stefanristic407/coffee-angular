@@ -115,9 +115,10 @@
                             <tr>
                                 <td *ngIf="!isMobileView">
                                     <p-tableCheckbox
+                                        #e
                                         [disabled]="!rowData.cupping_report_id"
                                         [value]="rowData"
-                                        (click)="selectRow(rowData.cupping_report_id)"
+                                        (click)="selectRow(rowData, e.checked)"
                                     ></p-tableCheckbox>
                                 </td>
 
@@ -137,9 +138,10 @@
                                                 }}
                                             </span>
                                             <p-tableCheckbox
+                                                #e
                                                 [value]="rowData"
                                                 [disabled]="!rowData.cupping_report_id"
-                                                (click)="selectRow(rowData.cupping_report_id)"
+                                                (click)="selectRow(rowData, e.checked)"
                                                 style="margin-left: auto"
                                             >
                                             </p-tableCheckbox>
@@ -180,6 +182,9 @@
                                                     : 'Prebook'
                                             }}
                                         </span>
+                                    </span>
+                                    <span class="d-flex" *ngSwitchCase="'cupping_version'">
+                                        <span> Cupping {{ rowData[col.field] }}.0 </span>
                                     </span>
                                     <span *ngSwitchCase="'type'">
                                         <div class="d-flex justify-content-between align-items-center px-3 px-md-0">
