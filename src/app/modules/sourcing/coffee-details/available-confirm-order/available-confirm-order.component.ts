@@ -10,6 +10,7 @@ import { UserserviceService } from '@services';
 import { SourcingService } from '../../sourcing.service';
 import { ConfirmComponent } from '@shared';
 import { COUNTRY_LIST } from '@constants';
+import { OrganizationType } from '@enums';
 
 @Component({
     selector: 'app-available-confirm-order',
@@ -18,6 +19,7 @@ import { COUNTRY_LIST } from '@constants';
 })
 export class AvailableConfirmOrderComponent implements OnInit {
     public readonly COUNTRY_LIST = COUNTRY_LIST;
+    public readonly OrganizationType = OrganizationType;
     breadItems: any[];
     serviceItems: any[] = [
         { label: 'Import & Delivery service', value: true },
@@ -32,6 +34,7 @@ export class AvailableConfirmOrderComponent implements OnInit {
     orderSettings: any;
     isLoaded = false;
     orderPlaced = false;
+    createdOrder: any;
     orderDetail: any;
     totalPrice;
     shipInfo: any;
@@ -315,6 +318,7 @@ export class AvailableConfirmOrderComponent implements OnInit {
         this.roasterService.placeOrder(this.roasterId, this.sourcing.harvestId, data).subscribe((res: any) => {
             if (res.success) {
                 this.orderPlaced = true;
+                this.createdOrder = res.result;
             } else {
                 this.toastrService.error('Error while Placing the order');
             }
@@ -330,6 +334,7 @@ export class AvailableConfirmOrderComponent implements OnInit {
         this.userService.addRequestSample(this.roasterId, this.sourcing.harvestId, doneData).subscribe((res: any) => {
             if (res.success) {
                 this.orderPlaced = true;
+                this.createdOrder = res.result;
             } else {
                 this.toastrService.error('Error while Placing the order');
             }
