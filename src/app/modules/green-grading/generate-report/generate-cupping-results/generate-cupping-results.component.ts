@@ -14,6 +14,7 @@ import { ConfirmComponent } from '@shared';
 export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
     type: boolean;
     @Output() next = new EventEmitter<any>();
+    @Output() handleChangeCuppingVersion = new EventEmitter<any>();
     @Input() cuppingDetails;
     @Input() fromQueryParam;
 
@@ -181,8 +182,7 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
     }
 
     handleSelectCupping(cuppingId) {
-        this.cuppingReportId = cuppingId;
-        this.reset();
+        this.handleChangeCuppingVersion.emit(cuppingId);
     }
 
     reset() {
@@ -326,23 +326,27 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
     }
 
     onConfirmGenerate() {
-        this.dialogSrv
-            .open(ConfirmComponent, {
-                data: {
-                    title: 'Are you sure want to generate the report',
-                    desp: 'Once generated, no changes can be made to the report',
-                    type: 'confirm',
-                    noButton: 'No',
-                    yesButton: 'Yes, Generate report',
-                },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
-            })
-            .onClose.subscribe((action: any) => {
-                if (action === 'yes') {
-                    this.submit();
-                }
-            });
+        if (this.singleCuppingDetails.status === 'DRAFT') {
+            this.dialogSrv
+                .open(ConfirmComponent, {
+                    data: {
+                        title: 'Are you sure want to generate the report',
+                        desp: 'Once generated, no changes can be made to the report',
+                        type: 'confirm',
+                        noButton: 'No',
+                        yesButton: 'Yes, Generate report',
+                    },
+                    showHeader: false,
+                    styleClass: 'confirm-dialog',
+                })
+                .onClose.subscribe((action: any) => {
+                    if (action === 'yes') {
+                        this.submit();
+                    }
+                });
+        } else {
+            this.next.emit('screen5');
+        }
     }
 
     submit() {
@@ -354,7 +358,7 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
             this.greenGradingService.updateStatus(this.roasterId, this.cuppingReportId, data).subscribe((res: any) => {
                 if (res.success === true) {
                     this.toastrService.success('The Report has been updated.');
-                    this.next.emit({ screen: 'screen5', selectedCuppingId: this.cuppingReportId });
+                    this.next.emit('screen5');
                 } else {
                     this.toastrService.error('Error while updating the report');
                 }

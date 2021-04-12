@@ -6,6 +6,7 @@ import { GlobalsService } from '@services';
 })
 export class GenerateReportService {
     serviceRequestsList: any = [];
+    totalRequestList: any = [];
 
     constructor(private globalsService: GlobalsService) {}
 
