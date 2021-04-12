@@ -295,8 +295,15 @@
                                     </li>
                                 </ul>
                                 <div class="pt-md-1">
-                                    <a class="custom-link" [href]="brandProfileEstateWeb" target="_blank">
-                                        Know more about the listing
+                                    <a
+                                        class="custom-link"
+                                        [href]="
+                                            sourcing.estate?.slug
+                                                | gcBrandLink: sourcing.harvestId:sourcing.harvestDetail?.name
+                                        "
+                                        target="_blank"
+                                    >
+                                        {{ 'know_more_listing' | translate }}
                                     </a>
                                 </div>
                             </div>
