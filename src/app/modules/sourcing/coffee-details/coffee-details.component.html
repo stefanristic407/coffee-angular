@@ -135,7 +135,7 @@
                                         <div class="real-estate">
                                             <h6>{{ 'minimum_quantity' | translate }} :</h6>
                                             <h3 class="mb-0">
-                                                {{ sourcing.harvestDetail?.initial_quantity
+                                                {{ sourcing.harvestDetail?.minimum_purchase_quantity
                                                 }}{{ sourcing.harvestDetail?.quantity_type }}
                                             </h3>
                                         </div>
@@ -216,7 +216,10 @@
                                         <div class="real-estate">
                                             <img src="assets/images/harveaster.svg" />
                                             <h6>Harvest Month</h6>
-                                            <h3>{{ sourcing.harvestDetail?.harvest_date | date: 'MMMM, y' }}</h3>
+                                            <h3>
+                                                {{ sourcing.harvestDetail?.harvest_year_start | date: 'MMM' }} -
+                                                {{ sourcing.harvestDetail?.harvest_year_end | date: 'MMM' }}
+                                            </h3>
                                         </div>
                                     </div>
                                     <div class="col-6 col-md-4 col-lg-4">

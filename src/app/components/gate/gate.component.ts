@@ -40,6 +40,7 @@ export class GateComponent extends DestroyableComponent implements OnInit {
             if (params.has('orgId') && params.has('token')) {
                 const orgId = params.get('orgId');
                 const token = params.get('token');
+                this.cookieService.deleteAll();
                 this.cookieService.set('roaster_id', orgId);
                 this.cookieService.set('Auth', token);
                 this.getData();

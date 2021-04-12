@@ -230,7 +230,6 @@ export class SourcingService {
     otherAvailableCoffee() {
         this.userService.getGreenCoffee(this.roasterId, this.estateId).subscribe((res: any) => {
             if (res.success) {
-                console.log(res.result, this.harvestId);
                 this.otherGreenList = res.result.filter((element) => element.harvest_id !== this.harvestId);
             }
         });
