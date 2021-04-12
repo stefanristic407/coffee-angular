@@ -124,6 +124,7 @@ export class RatingComponent implements OnInit {
                 .subscribe((res: any) => {
                     this.submitted = false;
                     if (res.success) {
+                        this.review = res.result;
                         this.toastrService.success('Rate and Review of order submitted successfully');
                     } else if (!res.success) {
                         if (res.messages.order_id && res.messages.order_id.find((element) => element === 'not_found')) {

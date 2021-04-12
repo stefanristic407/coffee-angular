@@ -4,19 +4,20 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from '@services';
+import { GlobalsService, ResizeService } from '@services';
 import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
 import { SourcingService } from '../../sourcing.service';
 import { ConfirmComponent } from '@shared';
 import { COUNTRY_LIST } from '@constants';
+import { ResizeableComponent } from '@base-components';
 
 @Component({
     selector: 'app-prebook-confirm-order',
     templateUrl: './prebook-confirm-order.component.html',
     styleUrls: ['./prebook-confirm-order.component.scss'],
 })
-export class PrebookConfirmOrderComponent implements OnInit {
+export class PrebookConfirmOrderComponent extends ResizeableComponent implements OnInit {
     public readonly COUNTRY_LIST = COUNTRY_LIST;
     breadItems: any[];
     serviceItems: any[] = [
@@ -54,7 +55,10 @@ export class PrebookConfirmOrderComponent implements OnInit {
         private toastrService: ToastrService,
         private roasterService: RoasterserviceService,
         private userService: UserserviceService,
-    ) {}
+        protected resizeService: ResizeService,
+    ) {
+        super(resizeService);
+    }
 
     ngOnInit(): void {
         this.roasterId = this.cookieService.get('roaster_id');

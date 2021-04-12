@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { fromEvent } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
 import { GlobalsService } from '@services';
 import { SourcingService } from '../sourcing.service';
 import { FilterComponent } from '../filter/filter.component';
+import { debounceTime, takeUntil } from 'rxjs/operators';
+import { extend } from 'hammerjs';
+import { DestroyableComponent } from '@base-components';
 
 @Component({
     selector: 'app-sourcing',
     templateUrl: './sourcing.component.html',
     styleUrls: ['./sourcing.component.scss'],
 })
-export class SourcingComponent implements OnInit {
+export class SourcingComponent extends DestroyableComponent implements OnInit, AfterViewInit {
+    @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
     menuItems: any[];
     originItems: any[] = [
         { label: 'Sweden', value: 'se' },
@@ -49,7 +54,9 @@ export class SourcingComponent implements OnInit {
     viewMode = 'grid';
     viewModeItems: any[] = [{ value: 'table' }, { value: 'grid' }];
 
-    constructor(public dialogSrv: DialogService, public globals: GlobalsService, public sourcingSrv: SourcingService) {}
+    constructor(public dialogSrv: DialogService, public globals: GlobalsService, public sourcingSrv: SourcingService) {
+        super();
+    }
 
     ngOnInit(): void {
         this.menuItems = [
@@ -65,6 +72,15 @@ export class SourcingComponent implements OnInit {
         this.viewMode = this.sourcingSrv.viewMode.getValue();
 
         this.sourcingSrv.flavourprofileList();
+    }
+
+    ngAfterViewInit() {
+        fromEvent(this.searchInput.nativeElement, 'keyup')
+            .pipe(debounceTime(300))
+            .pipe(takeUntil(this.unsubscribeAll$))
+            .subscribe((res) => {
+                this.filterCall();
+            });
     }
 
     filterCall() {

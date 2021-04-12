@@ -8,7 +8,7 @@
                 {{ 'back' | translate }}</a
             >
             <div class="solid-divider mt-3 mx-n3"></div>
-            <div class="bg-f8 br-4 p-3 mt-3">
+            <div class="bg-fa br-4 p-3 mt-3">
                 <div class="row">
                     <div class="col-12 col-md-12">
                         <h4 class="confirm-txt fnt-play">
@@ -26,7 +26,7 @@
         <div class="main-block">
             <p-breadcrumb [model]="breadItems" styleClass="d-none d-md-block"></p-breadcrumb>
             <section>
-                <div class="bg-f8 br-4 confirm-order mt-4 mb-5 d-none d-md-block">
+                <div class="bg-fa br-4 confirm-order mt-4 mb-5 d-none d-md-block">
                     <div class="row">
                         <div class="col-12 col-md-12 col-lg-12">
                             <h4 class="confirm-txt fnt-play">
@@ -41,12 +41,17 @@
                     </div>
                 </div>
                 <!-- Order detail table -->
-                <div class="mb-3">
+                <div class="mb-325">
                     <div class="border-main border-md-none br-4 p-3 p-md-0">
                         <div class="fnt-16 fnt-md-18 fnt-bold text-clr000 pb-2">
                             {{ 'order_details' | translate }}
                         </div>
-                        <p-table *ngIf="orderDetail" [value]="[orderDetail]" styleClass="p-datatable-responsive-single">
+                        <p-table
+                            *ngIf="orderDetail"
+                            [value]="[orderDetail]"
+                            [autoLayout]="isTablet$ | async"
+                            styleClass="p-datatable-responsive-single  p-datatable-tablet-scrollable"
+                        >
                             <ng-template pTemplate="header">
                                 <tr>
                                     <th *ngFor="let item of orderDetail">{{ item.label }}</th>
@@ -75,13 +80,13 @@
                 <div class="row">
                     <div class="col-12 d-flex">
                         <span class="fnt-14 fnt-700 text-clr334"> {{ 'note' | translate }}:</span>
-                        <div class="col-md-7">
-                            <p class="fnt-14 fnt-400 text-clr334">
+                        <div class="col-lg-7">
+                            <div class="fnt-14 fnt-400 text-clr334">
                                 {{ 'pre_book_note' | translate }}
-                            </p>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-12 mt-md-3">
+                    <div class="col-12 mt-4 mt-md-475">
                         <div class="solid-divider w-100"></div>
                     </div>
                 </div>
@@ -284,12 +289,7 @@
 </section>
 
 <ng-template #loading>
-    <div class="total-loader">
-        <div>
-            <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
-            <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
-        </div>
-    </div>
+    <app-loading></app-loading>
 </ng-template>
 
 <ng-template #OrderSucess>

@@ -23,6 +23,9 @@ $spacers: map-merge(
             $spacer * 0.75,
         ),
         3: $spacer,
+        325: (
+            $spacer * 1.125,
+        ),
         35: (
             $spacer * 1.25,
         ),

@@ -46,9 +46,9 @@
                 <span class="custom-search w-100">
                     <input
                         type="text"
+                        #searchInput
                         pInputText
                         [(ngModel)]="queryParams.name"
-                        (change)="filterCall()"
                         placeholder="{{ globals.languageJson?.search_by_name }}"
                         class="w-100 br-left-md-0 {{ queryParams.name ? 'highlight' : '' }}"
                     />

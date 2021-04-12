@@ -3,7 +3,7 @@
         <div class="main-block mb-3 d-md-none">
             <a class="back-page" routerLink="/sourcing"> {{ globals.languageJson?.back }}</a>
             <div class="solid-divider mt-3 mx-n3"></div>
-            <div class="bg-f8 br-4 p-3 mt-3">
+            <div class="bg-fa br-4 p-3 mt-3">
                 <div class="row">
                     <div class="col-12 col-md-12">
                         <h4 class="confirm-txt fnt-play">
@@ -21,7 +21,7 @@
         <div class="main-block">
             <p-breadcrumb [model]="breadItems" styleClass="d-none d-md-block"></p-breadcrumb>
             <section>
-                <div class="bg-f8 br-4 confirm-order mt-4 mb-5 d-none d-md-block">
+                <div class="bg-fa br-4 confirm-order mt-4 mb-5 d-none d-md-block">
                     <div class="row">
                         <div class="col-12 col-md-12 col-lg-12">
                             <h4 class="confirm-txt fnt-play">
@@ -45,7 +45,12 @@
                         <div class="fnt-16 fnt-md-18 fnt-bold text-clr000 pb-2">
                             {{ globals.languageJson?.order_details }}
                         </div>
-                        <p-table *ngIf="orderDetail" [value]="[orderDetail]" styleClass="p-datatable-responsive-single">
+                        <p-table
+                            *ngIf="orderDetail"
+                            [value]="[orderDetail]"
+                            [autoLayout]="isTablet$ | async"
+                            styleClass="p-datatable-responsive-single p-datatable-tablet-scrollable"
+                        >
                             <ng-template pTemplate="header">
                                 <tr>
                                     <th *ngFor="let item of orderDetail">{{ item.label }}</th>
@@ -329,19 +334,21 @@
                     </div>
 
                     <div class="solid-divider mb-4 mb-md-45 d-none d-md-block"></div>
-                    <div class="row">
-                        <div class="col-12 text-right">
+
+                    <div class="row gutter-12 v-gutter-16 justify-content-end">
+                        <div class="col-12 col-md-auto order-2 order-md-1">
                             <button
-                                type="button"
-                                class="btn-stroked mr-3"
+                                class="btn-stroked w-100"
                                 routerLink="/sourcing/coffee-details/{{ sourcing.harvestDetail.estate_id }}/{{
                                     sourcing.harvestDetail.id
                                 }}"
                             >
                                 {{ globals.languageJson?.cancel }}
                             </button>
-                            <button type="button" class="btn-raised" (click)="placeOrder()">
-                                {{ orderType === 'preBooked' ? 'Pre-book lot' : globals.languageJson?.place_order }}
+                        </div>
+                        <div class="col-12 col-md-auto order-1 order-md-2">
+                            <button class="btn-raised w-100" (click)="placeOrder()">
+                                {{ globals.languageJson?.place_order }}
                             </button>
                         </div>
                     </div>
@@ -352,12 +359,7 @@
 </section>
 
 <ng-template #loading>
-    <div class="total-loader">
-        <div>
-            <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
-            <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
-        </div>
-    </div>
+    <app-loading></app-loading>
 </ng-template>
 
 <ng-template #OrderSucess>
