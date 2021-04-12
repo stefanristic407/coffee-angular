@@ -30,8 +30,8 @@ export class LotDetailsComponent extends ResizeableComponent implements OnInit {
         super(resizeService);
         this.route.paramMap.subscribe((params) => {
             if (params.has('lotId') && params.has('estateId')) {
-                this.sourcing.lotId = params.get('lotId');
-                this.sourcing.estateId = params.get('estateId');
+                this.sourcing.lotId = +params.get('lotId');
+                this.sourcing.estateId = +params.get('estateId');
                 this.refreshData();
             }
         });

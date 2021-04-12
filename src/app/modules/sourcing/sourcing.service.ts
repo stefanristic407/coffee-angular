@@ -40,7 +40,7 @@ export class SourcingService {
     flavourList$: any = this.flavourList.asObservable();
 
     // Details of an estate
-    estateId: any;
+    estateId: number;
     estate: any;
     estateCertify: any;
     estateHomepage: any;
@@ -56,13 +56,13 @@ export class SourcingService {
     reviewsList: any[];
 
     // Details of an green coffee
-    harvestId: any;
+    harvestId: number;
     harvestDetail: any = {};
     otherGreenList: any;
     availableCertify: any;
 
     // Details of an lot
-    lotId: any;
+    lotId: number;
     lot: any;
 
     constructor(
@@ -230,7 +230,8 @@ export class SourcingService {
     otherAvailableCoffee() {
         this.userService.getGreenCoffee(this.roasterId, this.estateId).subscribe((res: any) => {
             if (res.success) {
-                this.otherGreenList = res.result;
+                console.log(res.result, this.harvestId);
+                this.otherGreenList = res.result.filter((element) => element.harvest_id !== this.harvestId);
             }
         });
     }
