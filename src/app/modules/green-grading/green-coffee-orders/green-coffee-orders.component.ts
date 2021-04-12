@@ -116,6 +116,11 @@ export class GreenCoffeeOrdersComponent implements OnInit {
                     sortable: false,
                 },
                 {
+                    field: 'cupping_version',
+                    header: 'Cupping version',
+                    sortable: false,
+                },
+                {
                     field: 'quantity',
                     header: 'Quantity',
                     sortable: false,
@@ -174,15 +179,38 @@ export class GreenCoffeeOrdersComponent implements OnInit {
 
     selectRows(checkValue) {
         if (checkValue) {
-            this.selectedRows = this.tableData.filter((value) => value.cupping_report_id);
+            const temp = [];
+            this.selectedRows = this.tableData.filter((value) => {
+                const requestItem = temp.find((item) => item.order_id === value.order_id);
+                if (requestItem || !value.cupping_report_id) {
+                    return false;
+                } else {
+                    temp.push(value);
+                    return true;
+                }
+            });
         } else {
             this.selectedRows = [];
         }
     }
 
-    selectRow(cuppingReportId) {
-        if (!cuppingReportId) {
+    selectRow(rowData, checkValue) {
+        console.log(rowData);
+        if (!rowData.cupping_report_id) {
             this.toastrService.error('Please assign user.');
+        }
+        if (checkValue) {
+            const requestItems = this.selectedRows.filter((item) => item.order_id === rowData.order_id);
+            if (requestItems.length > 1) {
+                this.selectedRows = this.selectedRows.filter(
+                    (item) => item.cupping_report_id !== rowData.cupping_report_id,
+                );
+                this.toastrService.error('This has been already selected.');
+            }
+        } else {
+            this.selectedRows = this.selectedRows.filter(
+                (item) => item.cupping_report_id !== rowData.cupping_report_id,
+            );
         }
     }
 }
