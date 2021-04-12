@@ -29,7 +29,7 @@ export class EstateDetailsComponent implements OnInit {
     ngOnInit(): void {
         this.route.paramMap.subscribe((params) => {
             if (params.has('id')) {
-                this.sourcing.estateId = params.get('id');
+                this.sourcing.estateId = +params.get('id');
                 this.refreshData();
             }
         });

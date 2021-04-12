@@ -61,8 +61,8 @@ export class PrebookConfirmOrderComponent implements OnInit {
 
         this.route.queryParamMap.subscribe((params) => {
             if (params.has('estateId') && params.has('lotId')) {
-                this.sourcing.estateId = params.get('estateId');
-                this.sourcing.lotId = params.get('lotId');
+                this.sourcing.estateId = +params.get('estateId');
+                this.sourcing.lotId = +params.get('lotId');
             }
             this.getLot();
             this.getPrebookBatch();

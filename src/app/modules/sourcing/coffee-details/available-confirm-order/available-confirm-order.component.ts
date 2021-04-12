@@ -68,11 +68,11 @@ export class AvailableConfirmOrderComponent implements OnInit {
 
         this.route.queryParamMap.subscribe((params) => {
             if (params.has('gc_id')) {
-                this.sourcing.harvestId = params.get('gc_id');
+                this.sourcing.harvestId = +params.get('gc_id');
             }
             if (params.has('estateId') && params.has('lotId')) {
-                this.sourcing.estateId = params.get('estateId');
-                this.sourcing.lotId = params.get('lotId');
+                this.sourcing.estateId = +params.get('estateId');
+                this.sourcing.lotId = +params.get('lotId');
             }
             if (this.orderType === 'booked' || this.orderType === 'sample') {
                 this.getHarvest();

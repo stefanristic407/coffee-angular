@@ -30,8 +30,8 @@ export class CoffeeDetailsComponent extends ResizeableComponent implements OnIni
         super(resizeService);
         this.route.paramMap.subscribe((params) => {
             if (params.has('harvestId') && params.has('estateId')) {
-                this.sourcing.harvestId = params.get('harvestId');
-                this.sourcing.estateId = params.get('estateId');
+                this.sourcing.harvestId = +params.get('harvestId');
+                this.sourcing.estateId = +params.get('estateId');
                 this.refreshData();
             }
         });
