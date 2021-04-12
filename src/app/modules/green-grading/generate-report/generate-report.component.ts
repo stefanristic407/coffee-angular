@@ -72,4 +72,22 @@ export class GenerateReportComponent implements OnInit {
     addBtnClick() {
         this.location.back();
     }
+
+    afterUpload() {
+        if (this.generateReportService.serviceRequestsList.length === 1) {
+            this.generateReportService.serviceRequestsList = [];
+            this.router.navigate(['/green-grading/green-coffee-orders']);
+        } else {
+            this.generateReportService.serviceRequestsList = this.generateReportService.serviceRequestsList.filter(
+                (item) => item.cupping_report_id !== this.cuppingDetails.cupping_report_id,
+            );
+            this.gradeReport(0);
+        }
+    }
+
+    handleChangeCuppingVersion(cuppingReportId: any) {
+        this.cuppingDetails = this.generateReportService.totalRequestList.find(
+            (item) => item.cupping_report_id === cuppingReportId,
+        );
+    }
 }

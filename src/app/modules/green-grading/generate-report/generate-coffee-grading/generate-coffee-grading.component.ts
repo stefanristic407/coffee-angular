@@ -172,52 +172,45 @@ export class GenerateCoffeeGradingComponent implements OnChanges {
         });
     }
 
-    private validateInput() {
-        let flag = true;
-        if (
-            this.moistureContent === '' ||
-            this.waterActivity === '' ||
-            this.odor === '' ||
-            this.totalColors === '' ||
-            this.totalDefects === ''
-        ) {
-            flag = false;
-        }
-        return flag;
-    }
-
     goNext() {
         this.cuppingId = this.cuppingDetails.cupping_report_id;
-        const flag = this.validateInput();
-        if (flag) {
-            const data = {
-                total_category_one: this.category1Defects,
-                total_category_two: this.cat2Defects,
-                moisture_content: this.moistureContent,
-                water_activity: this.waterActivity,
-                odor: this.odor,
-                colors: this.totalColors.toString(),
-                total_green_defects: this.totalDefects,
-            };
-            for (const cat of this.category1List) {
-                data[cat.key1] = this.dataObj[cat.key1];
-                data[cat.key2] = this.dataObj[cat.key2];
-            }
-            for (const cat of this.category2List) {
-                data[cat.key1] = this.dataObj[cat.key1];
-                data[cat.key2] = this.dataObj[cat.key2];
-            }
-            this.greenGradingService.addPhysicalDefects(this.roasterId, this.cuppingId, data).subscribe((res: any) => {
-                if (res.success === true) {
-                    this.toastrService.success('Physical defects added/updated successfully');
-                    this.next.emit('screen2');
-                } else {
-                    this.toastrService.error('Error while adding/updating physical defects');
-                }
-            });
-        } else {
-            this.toastrService.error('Fields should not be empty.');
+        const data: any = {
+            moisture_content: this.moistureContent,
+            water_activity: this.waterActivity,
+            odor: this.odor,
+            colors: this.totalColors.toString(),
+            total_green_defects: this.totalDefects,
+        };
+        if (this.category1Defects) {
+            data.total_category_one = this.category1Defects;
         }
+        if (this.cat2Defects) {
+            data.total_category_two = this.cat2Defects;
+        }
+        for (const cat of this.category1List) {
+            if (this.dataObj[cat.key1]) {
+                data[cat.key1] = this.dataObj[cat.key1];
+            }
+            if (this.dataObj[cat.key2]) {
+                data[cat.key2] = this.dataObj[cat.key2];
+            }
+        }
+        for (const cat of this.category2List) {
+            if (this.dataObj[cat.key1]) {
+                data[cat.key1] = this.dataObj[cat.key1];
+            }
+            if (this.dataObj[cat.key2]) {
+                data[cat.key2] = this.dataObj[cat.key2];
+            }
+        }
+        this.greenGradingService.addPhysicalDefects(this.roasterId, this.cuppingId, data).subscribe((res: any) => {
+            if (res.success === true) {
+                this.toastrService.success('Physical defects added/updated successfully');
+                this.next.emit('screen2');
+            } else {
+                this.toastrService.error('Error while adding/updating physical defects');
+            }
+        });
     }
 
     physicalDefectsList() {

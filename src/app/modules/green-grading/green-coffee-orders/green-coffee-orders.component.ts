@@ -157,6 +157,7 @@ export class GreenCoffeeOrdersComponent implements OnInit {
         this.greenGradingService.getCuppingInviteList(options).subscribe((res: any) => {
             if (res.success === true) {
                 this.tableData = res.result;
+                this.generateReportService.totalRequestList = res.success ? res.result : [];
                 this.totalCount = res.result_info.total_count;
             }
             this.loading = false;

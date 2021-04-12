@@ -43,10 +43,13 @@ export class GenerateCuppingReportComponent implements OnInit, OnChanges {
         } else if (this.fromQueryParam === 'SampleRequest') {
             this.sampleRequestId = this.cuppingDetails.external_sample_id;
         }
-        this.selectedCuppingId = this.cuppingDetails.cupping_report_id;
-        this.cuppingReportId = this.selectedCuppingId;
+        this.cuppingReportId = this.selectedCuppingId ?? this.cuppingDetails.cupping_report_id;
+        this.getEvaluatorData(this.cuppingReportId);
         this.getEvaluatorData(this.selectedCuppingId);
         this.singleCuppingData();
+        if (!this.selectedCuppingId) {
+            this.getCupReports();
+        }
     }
 
     getEvaluatorData(reportingId) {

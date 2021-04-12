@@ -88,7 +88,7 @@
     }
 }
 
-.button-wrapper {
+.report-button-wrapper {
     .p-button-outlined {
         border: solid 1px #747588;
         color: #232334;
@@ -166,14 +166,10 @@
                 &:focus {
                     box-shadow: none !important;
                 }
-
-                @media (max-width: 991px) {
-                    align-items: flex-start !important;
-                }
-
                 @media (max-width: 767px) {
                     padding: 0 !important;
                     border-bottom: 0 !important;
+                    align-items: flex-start !important;
 
                     .p-accordion-toggle-icon {
                         height: 55px !important;
