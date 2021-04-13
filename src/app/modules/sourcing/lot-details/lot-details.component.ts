@@ -13,7 +13,7 @@ import { ResizeableComponent } from '@base-components';
     styleUrls: ['./lot-details.component.scss'],
 })
 export class LotDetailsComponent extends ResizeableComponent implements OnInit {
-    items: GalleryItem[];
+    imageItems: GalleryItem[];
     isLoaded = false;
     brandProfileEstateWeb = 'https://qa-brand-profile.sewnstaging.com/estatebrandprofile/green-coffee';
 
@@ -48,7 +48,7 @@ export class LotDetailsComponent extends ResizeableComponent implements OnInit {
         this.sourcing.lot = null;
         new Promise((resolve, reject) => this.sourcing.getLotDetails(resolve))
             .then(() => {
-                // this.galleryImages();
+                this.galleryImages();
                 this.isLoaded = true;
             })
             .catch(() => {
@@ -62,8 +62,8 @@ export class LotDetailsComponent extends ResizeableComponent implements OnInit {
 
     galleryImages() {
         const images = [];
-        if (this.sourcing.harvestDetail?.images) {
-            this.sourcing.harvestDetail?.images.forEach((element) => {
+        if (this.sourcing.lot?.lot_images) {
+            this.sourcing.lot?.lot_images.forEach((element) => {
                 const sample = {
                     srcUrl: element.url,
                     previewUrl: element.thumb_url,
@@ -71,12 +71,12 @@ export class LotDetailsComponent extends ResizeableComponent implements OnInit {
                 images.push(sample);
             });
         }
-        this.items = images.map((item) => new ImageItem({ src: item.srcUrl, thumb: item.previewUrl }));
+        this.imageItems = images.map((item) => new ImageItem({ src: item.srcUrl, thumb: item.previewUrl }));
         const lightboxRef = this.gallery.ref('lightbox');
         lightboxRef.setConfig({
             imageSize: ImageSize.Cover,
             thumbPosition: ThumbnailsPosition.Top,
         });
-        lightboxRef.load(this.items);
+        lightboxRef.load(this.imageItems);
     }
 }

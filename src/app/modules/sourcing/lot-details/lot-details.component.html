@@ -44,9 +44,9 @@
                         <div class="d-flex justify-content-center">
                             <div class="prodect-gal w-100 mb-4 mb-md-5">
                                 <gallery
-                                    *ngIf="sourcing.harvestDetail?.images?.length; else noImages"
+                                    *ngIf="imageItems?.length; else noImages"
                                     class="bg-white gallery-wrap"
-                                    [items]="items"
+                                    [items]="imageItems"
                                     [thumbHeight]="(isMobile$ | async) ? 66 : 64"
                                     [thumbWidth]="(isMobile$ | async) ? 73 : 103"
                                     gallerize
