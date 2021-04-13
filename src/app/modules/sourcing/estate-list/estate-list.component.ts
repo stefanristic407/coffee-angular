@@ -15,7 +15,7 @@ export class EstateListComponent implements OnInit, OnDestroy {
     roasterId: any;
     estateData: any[] = [];
     queryParams: any;
-    rows = 6;
+    rows = 15;
     pageNumber = 1;
     totalRecords;
     queryParamsSub: Subscription;
