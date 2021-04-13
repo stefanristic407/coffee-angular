@@ -37,7 +37,9 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     orderPlaced = false;
     createdOrder: any;
     orderDetail: any;
-    totalPrice;
+    coffeePrice: number;
+    shipmentPrice: number;
+    totalPrice: number;
     shipInfo: any;
     shipAddress: any;
     roAddress: any;
@@ -261,12 +263,14 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         }
         setTimeout(() => {
             if (this.orderType === 'booked') {
+                const mass = this.sourcing.harvestDetail.quantity * this.infoForm.value.quantity;
+                this.coffeePrice = this.sourcing.harvestDetail.price * mass;
                 if (this.infoForm.value.service) {
-                    this.totalPrice =
-                        (this.sourcing.harvestDetail.price + this.shipInfo.unit_price) * this.infoForm.value.quantity;
+                    this.shipmentPrice = this.shipInfo.unit_price * mass;
                 } else {
-                    this.totalPrice = this.sourcing.harvestDetail.price * this.infoForm.value.quantity;
+                    this.shipmentPrice = 0;
                 }
+                this.totalPrice = this.coffeePrice + this.shipmentPrice;
             } else if (this.orderType === 'sample') {
                 this.totalPrice = this.orderSettings.sample_price;
             } else {

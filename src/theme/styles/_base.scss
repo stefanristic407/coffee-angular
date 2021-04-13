@@ -1,5 +1,25 @@
 @import 'variables';
 
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-family: $general-font-family;
+    font-size: 0.875rem;
+    font-weight: normal;
+    line-height: normal;
+    color: $general-text-color;
+    text-align: left;
+    background-color: #f1f1f1;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    box-shadow: none !important;
+}
+
 // Layout style
 .container {
     @media (min-width: 768px) and (max-width: 992px) {
@@ -24,27 +44,6 @@ div[class^='col-'] {
 
 #pwd_strength_wrap:after {
     border-right: none !important;
-}
-
-html,
-body {
-    height: 100%;
-}
-
-/* body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
-
-html,
-body {
-    height: 100%;
-}
-
-/* body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
-
-input:focus,
-select:focus,
-textarea:focus,
-button:focus {
-    box-shadow: none !important;
 }
 
 .overlay-sewn {

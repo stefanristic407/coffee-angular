@@ -122,13 +122,16 @@
                                         </div>
                                     </div>
                                     <div class="fnt-14 fnt-bold text-clr334 form-middle">
-                                        &nbsp;&nbsp;&nbsp;X&nbsp;&nbsp;&nbsp;${{ sourcing.harvestDetail?.price }}
+                                        &nbsp;&nbsp;&nbsp;X&nbsp;&nbsp;&nbsp;${{
+                                            sourcing.harvestDetail?.price * sourcing.harvestDetail?.quantity
+                                                | number: '1.0-0'
+                                        }}
                                     </div>
                                 </div>
                                 <div
                                     class="col-4 col-lg-3 col-xl-2 fnt-16 fnt-md-18 fnt-bold text-clr334 form-middle d-none d-md-block"
                                 >
-                                    ${{ sourcing.harvestDetail?.price * infoForm.value.quantity | number: '1.0-0' }}
+                                    ${{ coffeePrice | number: '1.0-0' }}
                                 </div>
 
                                 <!-- Service -->
@@ -145,10 +148,7 @@
                                 <div
                                     class="col-4 col-lg-3 col-xl-2 fnt-16 fnt-md-18 fnt-bold text-clr334 form-middle d-none d-md-block"
                                 >
-                                    ${{
-                                        (infoForm.value.service ? shipInfo.unit_price * infoForm.value.quantity : 0)
-                                            | number: '1.0-0'
-                                    }}
+                                    ${{ shipmentPrice | number: '1.0-0' }}
                                 </div>
 
                                 <div class="col-12">
