@@ -1,0 +1,193 @@
+<div class="sewn-container">
+    <div class="bg-fff content-wrapper">
+        <div class="d-flex flex-wrap justify-content-between">
+            <p-breadcrumb [model]="breadCrumbItems"></p-breadcrumb>
+            <span class="custom-search d-none d-lg-inline-block">
+                <input
+                    type="text"
+                    pInputText
+                    placeholder="Search by name, role.."
+                    [(ngModel)]="term"
+                    (ngModelChange)="loadData()"
+                />
+            </span>
+        </div>
+        <section class="grading__total pt-3 pt-lg-25 pt-md-4">
+            <div class="d-flex flex-wrap justify-content-between flex-column flex-md-row">
+                <div class="green_grading_cont">
+                    <h1 class="fnt-muli fnt-18 font-bold">Assign Orders</h1>
+                    <h3 class="mb-0">Select service(s) that you want to cup</h3>
+                </div>
+                <span class="custom-search d-inline-block d-lg-none mt-3 mt-md-0" style="height: fit-content">
+                    <input
+                        type="text"
+                        class="w-100"
+                        pInputText
+                        placeholder="Search by name, role.."
+                        [(ngModel)]="term"
+                        (ngModelChange)="loadData()"
+                    />
+                </span>
+            </div>
+            <div class="d-flex flex-column flex-md-row">
+                <div class="d-flex flex-wrap d-col-12 px-0 dropdown-wrapper">
+                    <div class="mt-3 px-2">
+                        <p-dropdown
+                            [options]="orderTypeItems"
+                            [(ngModel)]="selectedOrderType"
+                            placeholder="Type of order"
+                            styleClass="round-border"
+                            optionLabel="label"
+                            optionValue="value"
+                            [showClear]="true"
+                            (onChange)="loadData()"
+                        >
+                        </p-dropdown>
+                    </div>
+                    <div class="mt-3 px-2">
+                        <p-dropdown
+                            [options]="displayOptions"
+                            [(ngModel)]="displayRowCounts"
+                            placeholder="Display"
+                            styleClass="round-border"
+                            optionLabel="label"
+                            optionValue="value"
+                            (onChange)="loadData()"
+                        >
+                            <ng-template pTemplate="selectedItem">
+                                <span class="d-flex align-items-center">
+                                    Display<span class="dot"></span>{{ displayRowCounts }}
+                                </span>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="table-container mt-3 mt-md-4">
+                <div class="table-responsive">
+                    <p-table
+                        #myTable
+                        [class.table-mobile]="isMobileView"
+                        [value]="tableData"
+                        [columns]="tableColumns"
+                        styleClass="p-table-estate"
+                        [loading]="loading"
+                        [paginator]="totalCount > displayRowCounts"
+                        [lazy]="true"
+                        [rows]="displayRowCounts"
+                        [showCurrentPageReport]="false"
+                        [totalRecords]="totalCount"
+                        (onLazyLoad)="loadData($event)"
+                        [responsive]="isMobileView"
+                    >
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th
+                                    *ngFor="let col of columns"
+                                    [pSortableColumn]="col.sortable === true ? col.field : null"
+                                    [style.width]="col.width ? col.width : 'unset'"
+                                    [ngClass]="{ ellipsis: col.isCut }"
+                                >
+                                    <span class="primeng-table-header">{{ col.header }}</span>
+                                    <p-sortIcon
+                                        *ngIf="col.sortable === true"
+                                        [field]="col.field"
+                                        ariaLabel="Activate to sort"
+                                        ariaLabelDesc="Activate to sort in descending order"
+                                        ariaLabelAsc="Activate to sort in ascending order"
+                                    >
+                                    </p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                            <tr>
+                                <td *ngFor="let col of columns" [ngSwitch]="col.field">
+                                    <span class="d-flex" *ngSwitchCase="'order_id'">
+                                        <span *ngIf="isMobileView" class="d-flex w-100">
+                                            <span class="prime-table-label w-50">
+                                                {{ col.header }} {{ rowData[col.field] }}
+                                            </span>
+                                            <span class="fnt-14" [ngClass]="rowData.order_type">
+                                                &#9679;&nbsp;{{
+                                                    rowData[col.field] === 'GC_ORDER'
+                                                        ? 'Booked'
+                                                        : rowData[col.field] === 'GC_ORDER_SAMPLE'
+                                                        ? 'Sample'
+                                                        : 'Prebook'
+                                                }}
+                                            </span>
+                                        </span>
+                                        <span *ngIf="!isMobileView">
+                                            {{ rowData[col.field] }}
+                                        </span>
+                                    </span>
+                                    <span class="d-flex" *ngSwitchCase="'order_date'">
+                                        <span *ngIf="isMobileView" class="prime-table-label w-50">
+                                            {{ col.header }}
+                                        </span>
+
+                                        <span>
+                                            {{ rowData[col.field] | date: 'd MMM yyyy' }}
+                                        </span>
+                                    </span>
+                                    <span class="d-flex" *ngSwitchCase="'origin'">
+                                        <span *ngIf="isMobileView" class="prime-table-label w-50">
+                                            {{ col.header }}
+                                        </span>
+
+                                        <span>
+                                            {{ generateReportService.getCountryName(rowData[col.field]) }}
+                                        </span>
+                                    </span>
+                                    <span class="d-flex" *ngSwitchCase="'order_type'">
+                                        <span *ngIf="isMobileView" class="prime-table-label w-50">
+                                            {{ col.header }}
+                                        </span>
+
+                                        <span [ngClass]="rowData.order_type">
+                                            &#9679;&nbsp;{{
+                                                rowData[col.field] === 'GC_ORDER'
+                                                    ? 'Booked'
+                                                    : rowData[col.field] === 'GC_ORDER_SAMPLE'
+                                                    ? 'Sample'
+                                                    : 'Prebook'
+                                            }}
+                                        </span>
+                                    </span>
+                                    <span *ngSwitchCase="'type'">
+                                        <div class="d-flex justify-content-between align-items-center px-3 px-md-0">
+                                            <span
+                                                *ngIf="isMobileView"
+                                                class="fnt-muli fnt-14 fnt-bold text-clr588 col-6 p-0"
+                                            >
+                                                {{ col['header'] }}
+                                            </span>
+
+                                            <span
+                                                class="ellipsis navigation-link"
+                                                [routerLink]="'/green-grading/assign-user/' + rowData.order_id"
+                                            >
+                                                {{ rowData.cupping_report_id ? rowData[col.field] : 'Assign' }}
+                                            </span>
+                                        </div>
+                                    </span>
+                                    <span class="d-flex" *ngSwitchDefault>
+                                        <span *ngIf="isMobileView" class="prime-table-label w-50">
+                                            {{ col.header }}
+                                        </span>
+
+                                        <span>
+                                            {{ rowData[col.field] }}
+                                        </span>
+                                    </span>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

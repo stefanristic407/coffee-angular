@@ -174,13 +174,23 @@ export class GenerateCoffeeGradingComponent implements OnChanges {
 
     goNext() {
         this.cuppingId = this.cuppingDetails.cupping_report_id;
-        const data: any = {
-            moisture_content: this.moistureContent,
-            water_activity: this.waterActivity,
-            odor: this.odor,
-            colors: this.totalColors.toString(),
-            total_green_defects: this.totalDefects,
-        };
+        const data: any = {};
+        if (this.moistureContent) {
+            data.moisture_content = this.moistureContent;
+        }
+        if (this.waterActivity) {
+            data.water_activity = this.waterActivity;
+        }
+        if (this.totalColors && this.totalColors.length > 0) {
+            data.colors = this.totalColors.toString();
+        }
+        if (this.odor) {
+            data.odor = this.odor;
+        }
+        if (this.totalDefects) {
+            data.total_green_defects = this.totalDefects;
+        }
+
         if (this.category1Defects) {
             data.total_category_one = this.category1Defects;
         }

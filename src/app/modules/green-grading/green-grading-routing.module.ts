@@ -10,6 +10,7 @@ import { CuppingReportComponent } from './cupping-report/cupping-report.componen
 import { GenerateNewReportComponent } from './cupping-report/generate-new-report/generate-new-report.component';
 import { CuppingServiceComponent } from './cupping-report/cupping-service/cupping-service.component';
 import { AssignUserComponent } from './assign-user/assign-user.component';
+import { AssignOrdersComponent } from './assign-orders/assign-orders.component';
 
 import { PageNotFoundComponent } from '@app/modules/error-module/page-not-found/page-not-found.component';
 
@@ -20,6 +21,11 @@ const routes: Routes = [
             {
                 path: 'home',
                 component: GreenGradingComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'assign-orders',
+                component: AssignOrdersComponent,
                 canActivate: [AuthGuard],
             },
             {
