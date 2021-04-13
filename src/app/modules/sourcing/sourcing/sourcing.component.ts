@@ -43,11 +43,11 @@ export class SourcingComponent extends DestroyableComponent implements OnInit, A
         { label: 'Kg', value: 'kg' },
     ];
     sortItems: any[] = [
-        { label: 'Name (A-Z)', value: 'name' },
-        { label: 'Recently added', value: 'created_at' },
-        { label: 'Cup score (High-Low)', value: 'cup_score' },
-        { label: 'Price (High - low)', value: 'price' },
-        { label: 'Quantity (High- Low)', value: 'quantity' },
+        { label: 'Name (A-Z)', value: ['name', 'asc'] },
+        { label: 'Recently added', value: ['created_at', 'desc'] },
+        { label: 'Cup score (High-Low)', value: ['cup_score', 'desc'] },
+        { label: 'Price (High - low)', value: ['price', 'desc'] },
+        { label: 'Quantity (High- Low)', value: ['quantity', 'desc'] },
     ];
 
     queryParams: any;
@@ -85,6 +85,14 @@ export class SourcingComponent extends DestroyableComponent implements OnInit, A
 
     filterCall() {
         this.sourcingSrv.queryParams.next({ ...this.queryParams });
+    }
+
+    sort() {
+        this.sourcingSrv.queryParams.next({
+            ...this.queryParams,
+            sort_by: this.sourcingSrv.sortParam[0],
+            sort_order: this.sourcingSrv.sortParam[1],
+        });
     }
 
     changeViewMode() {

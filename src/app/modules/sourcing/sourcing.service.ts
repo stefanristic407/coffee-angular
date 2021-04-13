@@ -20,17 +20,8 @@ export class SourcingService {
     // Lot data
     polygonId: string;
 
-    queryParams: any = new BehaviorSubject({
-        origin: '',
-        species: '',
-        name: '',
-        grade: null,
-        crop_year: null,
-        available_coffee: null,
-        weight: 'kg',
-        sort_by: '',
-        sort_order: 'asc',
-    });
+    sortParam: string;
+    queryParams: any = new BehaviorSubject({});
     queryParams$: any = this.queryParams.asObservable();
 
     viewMode: any = new BehaviorSubject('grid');
@@ -77,6 +68,7 @@ export class SourcingService {
     }
 
     clearQueryParams() {
+        this.sortParam = null;
         this.queryParams.next({
             origin: '',
             species: '',
@@ -85,7 +77,7 @@ export class SourcingService {
             crop_year: null,
             available_coffee: null,
             weight: 'kg',
-            sort_by: '',
+            sort_by: 'name',
             sort_order: 'asc',
         });
     }

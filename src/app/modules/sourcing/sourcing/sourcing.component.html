@@ -108,8 +108,8 @@
             <div class="filter-sort d-none d-md-block">
                 <p-dropdown
                     [options]="sortItems"
-                    [(ngModel)]="queryParams.sort_by"
-                    (onChange)="filterCall()"
+                    [(ngModel)]="sourcingSrv.sortParam"
+                    (onChange)="sort()"
                     scrollHeight="225px"
                     placeholder="{{ globals.languageJson?.sort_by }}"
                     styleClass="round-border mr-25"

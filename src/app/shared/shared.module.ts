@@ -29,6 +29,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MenuModule } from 'primeng/menu';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { PaginatorModule } from 'primeng/paginator';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
@@ -120,6 +121,7 @@ const THIRDMODULES = [
     MenuModule,
     MultiSelectModule,
     OverlayPanelModule,
+    PaginatorModule,
     ProgressSpinnerModule,
     RadioButtonModule,
     RatingModule,

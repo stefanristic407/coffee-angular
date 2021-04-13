@@ -1,7 +1,7 @@
 <div *ngIf="(sourcingSrv.viewMode$ | async) === 'grid'; else tableView">
     <ng-container *ngIf="isLoaded; else mainLoader">
-        <div *ngIf="coffeedata?.length; else empty" class="row gutter-26">
-            <div *ngFor="let item of coffeedata" class="col-12 col-md-6 col-lg-4 card-wrap">
+        <div *ngIf="coffeedata?.length; else empty" class="row gutter-26 v-gutter-24 v-gutter-md-26">
+            <div *ngFor="let item of coffeedata" class="col-12 col-md-6 col-lg-4">
                 <div
                     class="cursor-pointer h-100"
                     routerLink="/sourcing/coffee-details/{{ item.estate.id }}/{{ item.harvest_id }}"
@@ -50,7 +50,7 @@
                     {{ item.lot?.varieties[0] || 'NA' }}
                     {{ item.lot?.varieties?.length > 1 ? ' +' + (item.lot.varieties.length - 1) : '' }}
                 </td>
-                <td>{{ item.price_unit }}{{ item.price }} {{ Currencies[item.price_unit] }}&nbsp;/&nbsp;kg</td>
+                <td>{{ CURRENCY_LIST[item.price_unit] }}{{ item.price }} {{ item.price_unit }}&nbsp;/&nbsp;kg</td>
                 <td>{{ item.quantity_count }}&nbsp;{{ item.quantity_type | lowercase }}</td>
                 <td>{{ item.flavours?.length ? item.flavours.join(', ') : 'NA' }}</td>
                 <td>{{ item.cup_score }}</td>
@@ -58,6 +58,14 @@
         </ng-template>
     </p-table>
 </ng-template>
+
+<p-paginator
+    *ngIf="totalRecords > rows"
+    [rows]="rows"
+    [totalRecords]="totalRecords"
+    (onPageChange)="getData($event)"
+    styleClass="mt-45"
+></p-paginator>
 
 <ng-template #mainLoader>
     <app-loading></app-loading>

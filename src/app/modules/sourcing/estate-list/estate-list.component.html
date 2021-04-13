@@ -1,7 +1,7 @@
 <div *ngIf="(sourcingSrv.viewMode$ | async) === 'grid'; else tableView">
     <ng-container *ngIf="isLoaded; else mainLoader">
-        <div *ngIf="estateData?.length; else empty" class="row gutter-26">
-            <div *ngFor="let item of estateData" class="col-12 col-md-6 col-lg-4 card-wrap">
+        <div *ngIf="estateData?.length; else empty" class="row gutter-26 v-gutter-24 v-gutter-md-26">
+            <div *ngFor="let item of estateData" class="col-12 col-md-6 col-lg-4">
                 <div class="cursor-pointer h-100" routerLink="/sourcing/estate-details/{{ item.estate_id }}">
                     <app-estate-card [data]="item"></app-estate-card>
                 </div>
@@ -70,6 +70,14 @@
         </ng-template>
     </p-table>
 </ng-template>
+
+<p-paginator
+    *ngIf="totalRecords > 10"
+    [rows]="rows"
+    [totalRecords]="totalRecords"
+    (onPageChange)="getData($event)"
+    styleClass="mt-45"
+></p-paginator>
 
 <ng-template #empty>
     <app-empty title="No data available"></app-empty>

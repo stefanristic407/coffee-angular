@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { GlobalsService } from '@services';
 import { SourcingService } from '../sourcing.service';
 import { UserserviceService } from '@services';
+import { CURRENCY_LIST } from '@constants';
 
 @Component({
     selector: 'app-coffee-list',
@@ -11,13 +12,14 @@ import { UserserviceService } from '@services';
     styleUrls: ['./coffee-list.component.scss'],
 })
 export class CoffeeListComponent implements OnInit, OnDestroy {
-    Currencies = {
-        $: 'USD',
-    };
+    public readonly CURRENCY_LIST = CURRENCY_LIST;
     isLoaded = false;
     roasterId: any;
     coffeedata: any[] = [];
     queryParams: any;
+    rows = 6;
+    pageNumber = 1;
+    totalRecords;
     queryParamsSub: Subscription;
 
     constructor(
@@ -42,6 +44,11 @@ export class CoffeeListComponent implements OnInit, OnDestroy {
 
     getAvailableCoffee() {
         const query = [];
+        this.queryParams = {
+            ...this.queryParams,
+            page: this.pageNumber,
+            per_page: this.rows,
+        };
         Object.entries(this.queryParams).forEach(([key, value]) => {
             if (value) {
                 if (key === 'grade') {
@@ -58,16 +65,25 @@ export class CoffeeListComponent implements OnInit, OnDestroy {
             this.isLoaded = true;
             if (res.success) {
                 this.coffeedata = res.result;
+                this.totalRecords = res.result_info.total_count;
             }
         });
     }
 
     getData(event) {
+        if (event.page > -1) {
+            this.pageNumber = event.page + 1;
+        }
         setTimeout(() => {
+            if (event.sortField) {
+                this.queryParams = {
+                    ...this.queryParams,
+                    sort_by: event.sortField,
+                    sort_order: event.sortOrder === -1 ? 'desc' : 'asc',
+                };
+            }
             this.sourcingSrv.queryParams.next({
                 ...this.queryParams,
-                sort_by: event.sortField,
-                sort_order: event.sortOrder === 1 ? 'asc' : 'desc',
             });
         });
     }

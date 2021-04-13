@@ -15,6 +15,9 @@ export class EstateListComponent implements OnInit, OnDestroy {
     roasterId: any;
     estateData: any[] = [];
     queryParams: any;
+    rows = 6;
+    pageNumber = 1;
+    totalRecords;
     queryParamsSub: Subscription;
 
     constructor(
@@ -39,6 +42,11 @@ export class EstateListComponent implements OnInit, OnDestroy {
 
     getAvailableEstates() {
         const query = [];
+        this.queryParams = {
+            ...this.queryParams,
+            page: this.pageNumber,
+            per_page: this.rows,
+        };
         Object.entries(this.queryParams).forEach(([key, value]) => {
             this.queryParams[key] = value || '';
             if (value) {
@@ -51,16 +59,25 @@ export class EstateListComponent implements OnInit, OnDestroy {
             this.isLoaded = true;
             if (res.success) {
                 this.estateData = res.result;
+                this.totalRecords = res.result_info.total_count;
             }
         });
     }
 
     getData(event) {
+        if (event.page > -1) {
+            this.pageNumber = event.page + 1;
+        }
         setTimeout(() => {
+            if (event.sortField) {
+                this.queryParams = {
+                    ...this.queryParams,
+                    sort_by: event.sortField,
+                    sort_order: event.sortOrder === -1 ? 'desc' : 'asc',
+                };
+            }
             this.sourcingSrv.queryParams.next({
                 ...this.queryParams,
-                sort_by: event.sortField,
-                sort_order: event.sortOrder === 1 ? 'asc' : 'desc',
             });
         });
     }
