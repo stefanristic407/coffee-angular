@@ -24,6 +24,7 @@ import { ProcessDetailsComponent } from './process-details/process-details.compo
 import { ResultViewComponent } from './result-view/result-view.component';
 import { GreenCoffeeOrdersComponent } from './green-coffee-orders/green-coffee-orders.component';
 import { AssignUserComponent } from './assign-user/assign-user.component';
+import { AssignOrdersComponent } from './assign-orders/assign-orders.component';
 
 @NgModule({
     declarations: [
@@ -44,6 +45,7 @@ import { AssignUserComponent } from './assign-user/assign-user.component';
         ResultViewComponent,
         GreenCoffeeOrdersComponent,
         AssignUserComponent,
+        AssignOrdersComponent,
     ],
     imports: [CommonModule, FormsModule, GreenGradingRoutingModule, SharedModule],
 })
