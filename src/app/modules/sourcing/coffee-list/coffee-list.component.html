@@ -50,7 +50,11 @@
                     {{ item.lot?.varieties[0] || 'NA' }}
                     {{ item.lot?.varieties?.length > 1 ? ' +' + (item.lot.varieties.length - 1) : '' }}
                 </td>
-                <td>{{ CURRENCY_LIST[item.price_unit] }}{{ item.price }} {{ item.price_unit }}&nbsp;/&nbsp;kg</td>
+                <td>
+                    <span>{{ CURRENCY_LIST[item.price_unit] }}</span>
+                    <span>{{ item.price * (sourcingSrv.quantityUnit == QuantityUnit.lb ? LBUNIT : 1) }}</span>
+                    <span>{{ item.price_unit }}&nbsp;/&nbsp;{{ sourcingSrv.quantityUnit }}</span>
+                </td>
                 <td>{{ item.quantity_count }}&nbsp;{{ item.quantity_type | lowercase }}</td>
                 <td>{{ item.flavours?.length ? item.flavours.join(', ') : 'NA' }}</td>
                 <td>{{ item.cup_score }}</td>

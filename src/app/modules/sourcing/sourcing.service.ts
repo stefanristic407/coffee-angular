@@ -6,7 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { UserserviceService, GlobalsService } from '@services';
 import * as _ from 'underscore';
-import { OrganizationType } from '@enums';
+import { OrganizationType, QuantityUnit } from '@enums';
 
 @Injectable({
     providedIn: 'root',
@@ -21,6 +21,7 @@ export class SourcingService {
     polygonId: string;
 
     sortParam: string;
+    quantityUnit = QuantityUnit.kg;
     queryParams: any = new BehaviorSubject({});
     queryParams$: any = this.queryParams.asObservable();
 
@@ -76,7 +77,6 @@ export class SourcingService {
             grade: null,
             crop_year: null,
             available_coffee: null,
-            weight: 'kg',
             sort_by: 'name',
             sort_order: 'asc',
         });

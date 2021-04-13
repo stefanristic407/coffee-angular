@@ -4,7 +4,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { GlobalsService } from '@services';
 import { SourcingService } from '../sourcing.service';
 import { UserserviceService } from '@services';
-import { CURRENCY_LIST } from '@constants';
+import { CURRENCY_LIST, LBUNIT } from '@constants';
+import { QuantityUnit } from '@enums';
 
 @Component({
     selector: 'app-coffee-list',
@@ -13,6 +14,8 @@ import { CURRENCY_LIST } from '@constants';
 })
 export class CoffeeListComponent implements OnInit, OnDestroy {
     public readonly CURRENCY_LIST = CURRENCY_LIST;
+    public readonly QuantityUnit = QuantityUnit;
+    public readonly LBUNIT = LBUNIT;
     isLoaded = false;
     roasterId: any;
     coffeedata: any[] = [];

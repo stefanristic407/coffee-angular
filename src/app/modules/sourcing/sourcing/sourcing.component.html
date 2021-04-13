@@ -97,8 +97,7 @@
             ></p-dropdown>
             <p-selectButton
                 [options]="weightItems"
-                [(ngModel)]="queryParams.weight"
-                (onChange)="filterCall()"
+                [(ngModel)]="sourcingSrv.quantityUnit"
                 styleClass="round-select  mb-25 mb-md-4 "
             >
             </p-selectButton>
