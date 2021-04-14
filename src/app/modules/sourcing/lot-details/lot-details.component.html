@@ -185,16 +185,18 @@
                                             </h3>
                                         </div>
                                     </div>
-                                    <div class="col-6 col-md-4 col-lg-4">
+                                    <div class="col-6 col-md-8 col-lg-12">
                                         <div class="real-estate">
                                             <img src="assets/images/flavour-image.svg" />
                                             <h6>{{ 'flavour_profile' | translate }}</h6>
-                                            <div *ngIf="sourcing.lot?.flavours?.length">
-                                                <div
-                                                    class="custom-chip mr-25"
-                                                    *ngFor="let flavour of sourcing.lot?.flavours"
-                                                >
-                                                    {{ flavour.name }}
+                                            <div
+                                                *ngIf="sourcing.lot?.flavours?.length"
+                                                class="row gutter-12 v-gutter-8"
+                                            >
+                                                <div *ngFor="let flavour of sourcing.lot?.flavours" class="col-auto">
+                                                    <div class="custom-chip">
+                                                        {{ flavour.name }}
+                                                    </div>
                                                 </div>
                                             </div>
                                             <h3
@@ -236,10 +238,6 @@
                                         <p>{{ sourcing.lot?.direction || 'NA' }}</p>
                                     </li>
                                     <li>
-                                        <label>Temperature :</label>
-                                        <p>{{ sourcing.lot?.temperature || 'NA' }}</p>
-                                    </li>
-                                    <li>
                                         <label>Irrigation type :</label>
                                         <p>{{ sourcing.lot?.irrigation_type || 'NA' }}</p>
                                     </li>
@@ -250,10 +248,6 @@
                                     <li>
                                         <label>Water source :</label>
                                         <p>{{ sourcing.lot?.water_source || 'NA' }}</p>
-                                    </li>
-                                    <li>
-                                        <label>Water activity :</label>
-                                        <p>{{ sourcing.lot?.weather_activity || 'NA' }}</p>
                                     </li>
                                     <li>
                                         <label>Other crops :</label>
