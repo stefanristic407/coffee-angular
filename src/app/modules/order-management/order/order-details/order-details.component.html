@@ -35,7 +35,12 @@
             <div class="col-lg-7 col-md-7 col-sm-12 pr-lg-5 bulk-details-content">
                 <app-bulk-details *ngIf="order?.order_type === OrderType.Prebook" [bulk]="bulk$ | async">
                 </app-bulk-details>
-                <app-availability-details *ngIf="order?.order_type !== OrderType.Prebook" [bulk]="bulk$ | async">
+                <app-availability-details
+                    *ngIf="order?.order_type !== OrderType.Prebook"
+                    [bulk]="bulk$ | async"
+                    [estateId]="order?.estate_id"
+                    [harvestId]="order?.harvest_id"
+                >
                 </app-availability-details>
             </div>
 

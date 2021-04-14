@@ -23,7 +23,7 @@ export class GradeInfoComponent extends DestroyableComponent implements OnInit {
             if (res.length === 1) {
                 res.push({
                     cupping_date: null,
-                    evaluator_name: null,
+                    evaluator_name: 'Roaster',
                     evaluator_type: 'Roaster',
                     final_score: null,
                     total_score: null,

@@ -54,29 +54,21 @@
 
                                 <div class="download-icon-cell d-flex align-items-center">
                                     <span class="ml-auto mr-auto" (click)="downloadFile(document)"
-                                        ><img
-                                            class="pr-2"
-                                            *ngIf="document.mime == 'image/jpeg' || document.mime == 'image/png'"
-                                            src="assets/images/pdf.svg"
-                                            alt="download-icon"
+                                        ><img class="pr-2" src="assets/images/pdf.svg" alt="download-icon"
                                     /></span>
                                 </div>
                             </div>
                         </div>
                     </td>
                     <td class="d-none d-md-table-cell">
-                        {{ document.dateAdded | date: 'd MMM y' }}
+                        {{ document.date_added | date: 'd MMM y' }}
                     </td>
                     <td class="d-none d-md-table-cell text-overflow-ellipsis">
-                        {{ document.fileOwner }}
+                        {{ document.file_owner }}
                     </td>
                     <td class="d-none d-md-table-cell px-0 text-center">
                         <span (click)="downloadFile(document)"
-                            ><img
-                                class="pr-2"
-                                *ngIf="document.mime == 'image/jpeg' || document.mime == 'image/png'"
-                                src="assets/images/pdf.svg"
-                                alt="download-icon"
+                            ><img class="pr-2" src="assets/images/pdf.svg" alt="download-icon"
                         /></span>
                     </td>
                 </tr>

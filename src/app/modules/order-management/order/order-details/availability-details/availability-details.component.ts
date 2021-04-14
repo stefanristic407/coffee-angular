@@ -9,4 +9,6 @@ import { BulkDetails } from '@models';
 })
 export class AvailabilityDetailsComponent {
     @Input() bulk: BulkDetails;
+    @Input() estateId: number;
+    @Input() harvestId: number;
 }
