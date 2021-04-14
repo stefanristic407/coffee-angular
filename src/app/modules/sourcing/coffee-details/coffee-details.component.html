@@ -73,11 +73,11 @@
                                 <div class="mb-2 mb-md-3 mb-lg-4">
                                     <a
                                         class="custom-link fnt-14"
-                                        routerLink="/sourcing/lot-details/{{ sourcing.harvestDetail?.estateId }}/{{
-                                            sourcing.harvestDetail?.lot_id
+                                        routerLink="/sourcing/lot-details/{{ sourcing.lot?.estate_id }}/{{
+                                            sourcing.lot?.id
                                         }}"
                                     >
-                                        {{ 'lot_id' | translate }} - {{ sourcing.harvestDetail?.lot_id }}
+                                        {{ 'lot_id' | translate }} - {{ sourcing.lot?.number }}
                                     </a>
                                 </div>
                                 <div class="d-flex justify-content-between">
