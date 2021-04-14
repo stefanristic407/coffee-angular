@@ -35,6 +35,7 @@ export class AvailabilityService extends ApiService {
                 if (response.success) {
                     const details: BulkDetails = {
                         ...response.result,
+                        flavours: response.result.flavours ? response.result.flavours.map((x) => x.name) : '',
                         water_activity: response.result.dry_milling.water_activity,
                     };
 

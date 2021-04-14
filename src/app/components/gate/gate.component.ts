@@ -37,9 +37,14 @@ export class GateComponent extends DestroyableComponent implements OnInit {
     private checkToken() {
         console.log('Gate ');
         this.route.queryParamMap.pipe(takeUntil(this.unsubscribeAll$)).subscribe((params) => {
-            if (params.has('orgId') && params.has('token')) {
+            if (params.has('orgId')) {
                 const orgId = params.get('orgId');
-                const token = params.get('token');
+                // Either from url, or from API cookie
+                const token = params.has('token') ? params.get('token') : this.cookieService.get('Authorization');
+                if (!token) {
+                    this.goToLogin();
+                }
+
                 this.cookieService.deleteAll();
                 this.cookieService.set('roaster_id', orgId);
                 this.cookieService.set('Auth', token);
