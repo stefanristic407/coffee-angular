@@ -18,8 +18,8 @@ export class OrderComponent extends DestroyableComponent implements OnInit {
     readonly roaster$ = this.ordersService.estateDetails$;
     readonly lotDetails$ = this.ordersService.lotDetails$;
 
-    orderId: number;
-    organizationType: OrganizationType;
+    orderId = 0;
+    organizationType = OrganizationType.ESTATE;
     orderDetails: OrderDetails;
 
     get needConfirmation(): boolean {

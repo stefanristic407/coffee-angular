@@ -16,19 +16,11 @@ export class LotDetailsComponent {
     @Input() lot: OrderDetails;
 
     get quantity(): string {
-        if (this.lot && this.lot.quantity) {
-            return `${this.lot.quantity} ${this.lot.quantity_type}`;
+        if (this.lot && this.lot.quantity && this.lot.quantity_count) {
+            return `${this.lot.quantity_count} ${this.lot.quantity_type} x ${this.lot.quantity} kg`;
         }
 
         return '';
-    }
-
-    get quantityType(): string {
-        if (this.lot && this.lot.quantity_type) {
-            return trimCharRight(this.lot.quantity_type, 's'); // TODO
-        }
-
-        return 'KG';
     }
 
     constructor(public commonService: CommonService) {}

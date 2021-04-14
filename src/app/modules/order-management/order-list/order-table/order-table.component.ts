@@ -46,4 +46,12 @@ export class OrderTableComponent extends DataTableComponent<OrderSummary> implem
         const options = super.getLoadingOptions(event);
         this.orderService.loadOrders(this.orgType, options);
     }
+
+    getPrice(order: OrderSummary): number {
+        if (order.shipping_price) {
+            return order.price + order.shipping_price;
+        }
+
+        return order.price;
+    }
 }

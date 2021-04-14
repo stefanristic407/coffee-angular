@@ -7,7 +7,7 @@ export interface OrderSummary {
     cup_score: number;
     origin: string;
     price: number;
-    total_price: number;
+    shipping_price: number;
     status: OrderStatus;
     type: OrderType;
     varieties: string;
