@@ -31,12 +31,13 @@
     <p class="pb-md-2 mb-0 mt-sm-2 mt-md-0 mt-lg-3">
         <a class="navigation-link mt-2">{{ 'view_payment_procedure' | translate }}</a>
     </p>
-    <div class="track-info mt-4 pt-35" *ngIf="order?.status_paid && order?.tracking_link">
-        <p class="mb-1 fnt-14 fnt-600 text-clr334">
-            {{ 'tracking_id' | translate }}
-        </p>
-        <button class="btn-stroked" (click)="openLink(order?.tracking_link)">
-            <span class="track">{{ 'track_shipment' | translate }}</span>
+    <div class="track-info mt-4 pt-2" *ngIf="trackingUrl">
+        <div class="mb-2 d-flex justify-content-between">
+            <span class="fnt-14 fnt-600 text-clr334">{{ 'tracking_id' | translate }}</span>
+            <img src="assets/images/external-link.svg" />
+        </div>
+        <button class="btn-stroked" (click)="openLink(trackingUrl)">
+            <span class="text-clr55c font-bold">{{ 'track_shipment' | translate }}</span>
         </button>
     </div>
 </div>

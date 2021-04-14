@@ -15,10 +15,10 @@
                         </p>
                     </div>
                     <p class="order-date mt-3 mb-0 fnt-14 font-bold text-clr334">
-                        {{ item.cuppingDate | date: 'd MMM yyyy' }}
+                        {{ item.cupping_date | date: 'd MMM yyyy' }}
                     </p>
                     <p class="order-status mt-1 mb-25 text-muted font-bold fnt-12 fnt-md-14">
-                        {{ 'graded_by' | translate }} {{ item.evaluator_type | titlecase }}
+                        {{ 'graded_by' | translate }} {{ item.evaluator_name | titlecase }}
                     </p>
                     <a
                         *ngIf="first"

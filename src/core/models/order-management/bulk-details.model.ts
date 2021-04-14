@@ -1,14 +1,16 @@
 export interface BulkDetails {
     flavours: string;
-    listingStatus: string;
+    listing_status: string;
     packaging: string;
-    processingTypes: string;
+    processing_types: string;
     type: string;
     species: string;
-    waterActivity: string;
-    icoNumber: string;
-    quantityCount: number;
-    quantityType: string;
-    qualityGrade: number;
+    water_activity: string;
+    ico_number: string;
+    quantity_count: number;
+    quantity_type: string;
+    quality_grade: number;
     weight: number;
+    varieties: string;
+    dry_milling: any;
 }

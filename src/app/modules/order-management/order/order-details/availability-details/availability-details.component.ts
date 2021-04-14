@@ -1,15 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { BulkDetails } from '@models';
 
 @Component({
     selector: 'app-availability-details',
     templateUrl: './availability-details.component.html',
     styleUrls: ['./availability-details.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AvailabilityDetailsComponent implements OnInit {
+export class AvailabilityDetailsComponent {
     @Input() bulk: BulkDetails;
-
-    constructor() {}
-
-    ngOnInit(): void {}
+    @Input() estateId: number;
+    @Input() harvestId: number;
 }

@@ -6,6 +6,7 @@ import { ShippingAddressEditorComponent } from './shipping-address-editor/shippi
 const routes: Routes = [
     {
         path: '',
+        pathMatch: 'full',
         component: OrderComponent,
     },
     {

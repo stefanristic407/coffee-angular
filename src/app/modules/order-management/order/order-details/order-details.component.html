@@ -10,6 +10,9 @@
             <p-tabPanel [header]="'grade_info' | translate">
                 <app-grade-info [harvestId]="order?.harvest_id"></app-grade-info>
             </p-tabPanel>
+            <p-tabPanel [header]="'shipping' | translate" *ngIf="order?.order_type === OrderType.Booked">
+                <app-shipping-details [shippingDetails]="shippingDetails" [bulk]="bulk$ | async"></app-shipping-details>
+            </p-tabPanel>
         </p-tabView>
 
         <div
@@ -32,12 +35,20 @@
             <div class="col-lg-7 col-md-7 col-sm-12 pr-lg-5 bulk-details-content">
                 <app-bulk-details *ngIf="order?.order_type === OrderType.Prebook" [bulk]="bulk$ | async">
                 </app-bulk-details>
-                <app-availability-details *ngIf="order?.order_type !== OrderType.Prebook" [bulk]="bulk$ | async">
+                <app-availability-details
+                    *ngIf="order?.order_type !== OrderType.Prebook"
+                    [bulk]="bulk$ | async"
+                    [estateId]="order?.estate_id"
+                    [harvestId]="order?.harvest_id"
+                >
                 </app-availability-details>
             </div>
 
             <div class="col-lg-5 col-md-5 col-sm-12 pl-lg-4 mt-3 mt-md-0 payment-status-content mb-2">
-                <app-order-payment-status [order]="order"></app-order-payment-status>
+                <app-order-payment-status
+                    [order]="order"
+                    [trackingUrl]="shippingDetails?.tracking_id"
+                ></app-order-payment-status>
             </div>
         </div>
     </div>

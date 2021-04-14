@@ -15,6 +15,7 @@ export class OrderPaymentStatusComponent {
     readonly OrderTypes = OrderType;
 
     @Input() order: OrderDetails;
+    @Input() trackingUrl: string;
 
     constructor(private toastrService: ToastrService, private orderService: OrderManagementService) {}
 

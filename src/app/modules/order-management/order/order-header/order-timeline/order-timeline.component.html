@@ -102,10 +102,10 @@
                     </div>
                     <div class="w-100 ml-md-3 d-flex flex-column flex-md-row justify-content-between">
                         <div class="d-flex flex-column">
-                            <h4 class="fnt-md-26 fnt-sm-18 text-clr334 fnt-play">
+                            <h4 class="fnt-md-26 fnt-sm-18 fnt-700 text-clr334 fnt-play">
                                 {{ 'received_on' | translate }} {{ receivedDate | date: 'd MMMM y' }}
                             </h4>
-                            <div class="fnt-md-16 fnt-sm-12 text-clr5d pt-2 fnt-500">
+                            <div class="fnt-md-16 fnt-sm-12 text-clr5d pt-2">
                                 {{ 'you_have_successfully_received' | translate }}<br />
                                 {{ 'please_rate_and_review' | translate }}
                             </div>
@@ -146,8 +146,8 @@
         <div class="col-12">
             <div class="d-flex justify-content-between">
                 <div class="d-flex-column">
-                    <div class="text-clr02 font-bold fnt-24">Confirm Order</div>
-                    <div class="mt-25 text-clr5d fnt-16">
+                    <div class="text-clr334 fnt-play fnt-700 fnt-md-26 fnt-sm-18">Confirm Order</div>
+                    <div class="fnt-md-16 fnt-sm-12 text-clr5d pt-2">
                         Please confirm if you have recieved the shipment you have ordered.<br />
                         The order will be marked as complete then
                     </div>
@@ -159,8 +159,8 @@
                 </div>
 
                 <div class="d-flex flex-column">
-                    <button class="btn-raised p-3 mb-2" (click)="confirmOrder()">Yes I have</button>
-                    <button class="btn-stroked p-3 mt-2">No I haven't</button>
+                    <button class="btn-raised px-3 mb-2" (click)="confirmOrder()">Yes I have</button>
+                    <button class="btn-stroked px-3 mt-2">No I haven't</button>
                 </div>
             </div>
         </div>
