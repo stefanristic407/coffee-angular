@@ -26,6 +26,7 @@ import { AddNoteComponent } from './roaster-notes/add-note/add-note.component';
 import { NoteComponent } from './roaster-notes/note/note.component';
 import { EditTrackingInfoComponent } from './order-header/edit-tracking-info/edit-tracking-info.component';
 import { ShippingAddressEditorComponent } from './shipping-address-editor/shipping-address-editor.component';
+import { ShippingDetailsComponent } from './order-details/shipping-details/shipping-details.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule, AgmCoreModule, SharedModule, OrderRoutingModule],
@@ -52,6 +53,7 @@ import { ShippingAddressEditorComponent } from './shipping-address-editor/shippi
         NoteComponent,
         EditTrackingInfoComponent,
         ShippingAddressEditorComponent,
+        ShippingDetailsComponent,
     ],
 })
 export class OrderModule {}

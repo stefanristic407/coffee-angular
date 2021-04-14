@@ -15,6 +15,7 @@ import {
     UserProfile,
     LotDetails,
     Address,
+    ShippingDetails,
 } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable, of } from 'rxjs';
@@ -33,6 +34,7 @@ import {
     AddressesService,
     FileService,
     RoasterOrdersService,
+    ShippingDetailsService,
 } from '@services';
 import * as _ from 'lodash';
 import * as moment from 'moment';
@@ -59,6 +61,7 @@ export class OrderManagementService {
     private readonly userProfileSubject = new BehaviorSubject<UserProfile>(null);
     private readonly lotDetailsSubject = new BehaviorSubject<LotDetails>(null);
     private readonly isReviewedSubject = new BehaviorSubject(false);
+    private readonly shippingDetailsSubject = new BehaviorSubject<ShippingDetails>(null);
 
     private orderId: number;
 
@@ -77,6 +80,7 @@ export class OrderManagementService {
         private addressesSrv: AddressesService,
         private fileSrv: FileService,
         private roasterOrdersSrv: RoasterOrdersService,
+        private shippingDetailsSrv: ShippingDetailsService,
     ) {}
 
     get orderDetails$(): Observable<OrderDetails> {
@@ -125,6 +129,10 @@ export class OrderManagementService {
 
     get isReviewed$(): Observable<boolean> {
         return this.isReviewedSubject.asObservable();
+    }
+
+    get shippingDetails$(): Observable<ShippingDetails> {
+        return this.shippingDetailsSubject.asObservable();
     }
 
     getOrders(organizationType: OrganizationType): Observable<ApiResponse<OrderSummary[]>> {
@@ -257,6 +265,10 @@ export class OrderManagementService {
                         this.loadUserProfile();
                         this.checkReviews(orderId, orgType);
 
+                        if (details.status !== OrderStatus.Placed) {
+                            this.loadShippingDetails(orderId);
+                        }
+
                         if (details.order_type === OrderType.Prebook) {
                             this.loadLotDetails(details.estate_id, details.lot_id);
                         }
@@ -318,6 +330,24 @@ export class OrderManagementService {
 
     markAsReceived(orderId: number): Observable<ApiResponse<any>> {
         return this.purchaseSrv.markAsReceived(orderId);
+    }
+
+    private loadShippingDetails(orderId: number): void {
+        this.shippingDetailsSrv.getShippingDetails(orderId).subscribe({
+            next: (response) => {
+                if (response.success) {
+                    const shippingDetails = response.result;
+                    this.shippingDetailsSubject.next(shippingDetails);
+
+                    // if (shippingDetails) {
+                    //     const orderDetails = this.orderDetailsSubject.value;
+                    //     if (orderDetails) {
+                    //         this.updateOrderStatus(orderDetails, shippingDetails);
+                    //     }
+                    // }
+                }
+            },
+        });
     }
 
     private loadActivities(orderId: number, orgType: OrganizationType): void {

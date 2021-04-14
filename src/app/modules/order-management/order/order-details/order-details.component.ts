@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DestroyableComponent, ResizeableComponent } from '@base-components';
 import { OrderStatus, OrderType, OrganizationType } from '@enums';
-import { OrderDetails, OrganizationDetails } from '@models';
+import { OrderDetails, OrganizationDetails, ShippingDetails } from '@models';
 import { GlobalsService, ResizeService } from '@services';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { takeUntil } from 'rxjs/operators';
@@ -16,6 +16,7 @@ export class OrderDetailsComponent extends ResizeableComponent implements OnInit
     readonly OrderStatus = OrderStatus;
     readonly bulk$ = this.orderService.bulkDetails$;
 
+    shippingDetails: ShippingDetails;
     roaster: OrganizationDetails;
     showDetails = true;
     selectedTab = 0;
@@ -39,5 +40,8 @@ export class OrderDetailsComponent extends ResizeableComponent implements OnInit
             .pipe(takeUntil(this.unsubscribeAll$))
             .subscribe({ next: (res) => (this.roaster = res) });
         this.isMobile$.pipe(takeUntil(this.unsubscribeAll$)).subscribe({ next: (res) => (this.isMobile = res) });
+        this.orderService.shippingDetails$
+            .pipe(takeUntil(this.unsubscribeAll$))
+            .subscribe({ next: (res) => (this.shippingDetails = res) });
     }
 }

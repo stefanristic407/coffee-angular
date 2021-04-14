@@ -15,6 +15,7 @@ export * from './purchase.service';
 export * from './reviews.service';
 export * from './roaster-orders.service';
 export * from './roaster.service';
+export * from './shipping-details.service';
 export * from './user-original.service';
 export * from './user.service';
 export * from './your.service';
