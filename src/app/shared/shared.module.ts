@@ -189,6 +189,7 @@ import { SearchFilterPipe } from './pipes/chat/search-filter.pipe';
 import { CountryPipe } from './pipes/country/country.pipe';
 import { EstateBrandLinkPipe } from './pipes/link/estate-brand-link.pipe';
 import { GcBrandLinkPipe } from './pipes/link/gc-brand-link.pipe';
+import { LotBrandLinkPipe } from './pipes/link/lot-brand-link.pipe';
 import { ProfileLinkPipe } from './pipes/link/profile-link.pipe';
 import { ReviewLinkPipe } from './pipes/link/review-link.pipe';
 import { RoasterBrandLinkPipe } from './pipes/link/roaster-brand-link.pipe';
@@ -204,6 +205,7 @@ const PIPES = [
     CountryPipe,
     EstateBrandLinkPipe,
     GcBrandLinkPipe,
+    LotBrandLinkPipe,
     FileIconPipe,
     FileNamePipe,
     MonthPipe,
