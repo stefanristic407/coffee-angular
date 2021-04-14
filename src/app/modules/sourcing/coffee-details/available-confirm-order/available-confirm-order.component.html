@@ -1,17 +1,17 @@
 <section *ngIf="isLoaded; else loading">
     <ng-container *ngIf="!orderPlaced; else OrderSucess">
         <div class="main-block mb-3 d-md-none">
-            <a class="back-page" routerLink="/sourcing"> {{ globals.languageJson?.back }}</a>
+            <a class="back-page" routerLink="/sourcing"> {{ 'back' | translate }}</a>
             <div class="solid-divider mt-3 mx-n3"></div>
             <div class="bg-fa br-4 p-3 mt-3">
                 <div class="row">
                     <div class="col-12 col-md-12">
                         <h4 class="confirm-txt fnt-play">
-                            {{ globals.languageJson?.confirm_order }}
+                            {{ 'confirm_order' | translate }}
                         </h4>
-                        <div class="fill-txt text-clr588">{{ globals.languageJson?.sample_recieved }}.</div>
+                        <div class="fill-txt text-clr588">{{ 'sample_recieved' | translate }}.</div>
                         <div class="fill-txt text-clr588">
-                            {{ globals.languageJson?.please_shippment }}
+                            {{ 'please_shippment' | translate }}
                         </div>
                     </div>
                 </div>
@@ -25,10 +25,10 @@
                     <div class="row">
                         <div class="col-12 col-md-12 col-lg-12">
                             <h4 class="confirm-txt fnt-play">
-                                {{ globals.languageJson?.confirm_order }}
+                                {{ 'confirm_order' | translate }}
                             </h4>
                             <div class="fill-txt text-clr588">
-                                <div *ngIf="orderType === 'booked'">{{ globals.languageJson?.please_shippment }}</div>
+                                <div *ngIf="orderType === 'booked'">{{ 'please_shippment' | translate }}</div>
                                 <div *ngIf="orderType === 'sample'">
                                     Please verify the details and place your order for coffee sample
                                 </div>
@@ -43,7 +43,7 @@
                 <div class="mb-3">
                     <div class="border-main border-md-none br-4 p-3 p-md-0">
                         <div class="fnt-16 fnt-md-18 fnt-bold text-clr000 pb-2">
-                            {{ globals.languageJson?.order_details }}
+                            {{ 'order_details' | translate }}
                         </div>
                         <p-table
                             *ngIf="orderDetail"
@@ -99,7 +99,7 @@
                                 <!-- Quantity -->
                                 <div class="col-12 col-md-8 col-lg-9 col-xl-10 d-flex">
                                     <div class="sewn-form-field mb-md-45">
-                                        <label class="fnt-bold">{{ globals.languageJson?.order_quantity }}:</label>
+                                        <label class="fnt-bold">{{ 'order_quantity' | translate }}:</label>
                                         <div class="p-inputgroup custom-addon">
                                             <p-inputNumber
                                                 formControlName="quantity"
@@ -137,12 +137,15 @@
                                 <!-- Service -->
                                 <div class="col-12 col-md-8 col-lg-9 col-xl-10 d-flex">
                                     <div class="sewn-form-field mb-md-45">
-                                        <label class="fnt-bold">{{ globals.languageJson?.select_service }}:</label>
+                                        <label class="fnt-bold">{{ 'select_service' | translate }}:</label>
                                         <p-dropdown
                                             [options]="serviceItems"
                                             formControlName="service"
                                             (onChange)="changeService()"
                                         ></p-dropdown>
+                                    </div>
+                                    <div *ngIf="infoForm.value.service" class="fnt-14 fnt-bold text-clr334 form-middle">
+                                        &nbsp;&nbsp;&nbsp;${{ this.shipInfo.unit_price | number: '1.0-0' }} per Kg
                                     </div>
                                 </div>
                                 <div
@@ -160,7 +163,7 @@
                                 class="col-12 col-md-4 col-lg-3 col-xl-2 offset-md-8 offset-lg-9 offset-xl-10 d-flex d-md-block justify-content-between"
                             >
                                 <div class="fnt-14 fnt-bold text-clr334">
-                                    {{ globals.languageJson?.total_amount }}
+                                    {{ 'total_amount' | translate }}
                                 </div>
                                 <div class="fnt-16 fnt-md-18 fnt-bold text-clr334 pt-md-2">
                                     ${{ totalPrice | number: '1.0-0' }}
@@ -174,10 +177,10 @@
                             class="fnt-16 fnt-md-18 fnt-bold text-clr000 d-flex justify-content-between align-items-center"
                         >
                             <div *ngIf="(!infoForm.value.service && orderType == 'booked') || orderType == 'sample'">
-                                {{ globals.languageJson?.delivery_address }}
+                                {{ 'delivery_address' | translate }}
                             </div>
                             <div *ngIf="infoForm.value.service && orderType == 'booked'">
-                                {{ globals.languageJson?.pickup_address }}
+                                {{ 'pickup_address' | translate }}
                             </div>
                             <div
                                 *ngIf="(!infoForm.value.service && orderType == 'booked') || orderType == 'sample'"
@@ -206,7 +209,7 @@
 
                     <div *ngIf="editAddress" class="mt-4 mt-md-45">
                         <div class="fnt-16 fnt-md-18 fnt-bold text-clr000 mb-4">
-                            {{ globals.languageJson?.shipping_address }}
+                            {{ 'shipping_address' | translate }}
                         </div>
                         <form [formGroup]="addressForm" class="form-container">
                             <div class="row">
@@ -220,7 +223,7 @@
                                                 optionValue="isoCode"
                                                 formControlName="country"
                                                 (onChange)="changeCountry()"
-                                                placeholder="{{ globals.languageJson?.select_country }}"
+                                                placeholder="{{ 'select_country' | translate }}"
                                                 styleClass="w-100"
                                             ></p-dropdown>
                                             <small
@@ -235,14 +238,12 @@
                                             <p-dropdown
                                                 [options]="cities"
                                                 formControlName="state"
-                                                placeholder="{{ globals.languageJson?.select_state }}"
+                                                placeholder="{{ 'select_state' | translate }}"
                                                 styleClass="w-100"
                                             ></p-dropdown>
                                         </div>
                                         <div class="col-12 col-md-6 sewn-form-field">
-                                            <label
-                                                >{{ globals.languageJson?.address }}<span class="star">*</span></label
-                                            >
+                                            <label>{{ 'address' | translate }}<span class="star">*</span></label>
                                             <input
                                                 type="text"
                                                 placeholder="Please enter your e-mail address"
@@ -259,7 +260,7 @@
                                             </small>
                                         </div>
                                         <div class="col-12 col-md-6 sewn-form-field">
-                                            <label>{{ globals.languageJson?.address }}</label>
+                                            <label>{{ 'address' | translate }}</label>
                                             <input
                                                 type="text"
                                                 placeholder="Line 2"
@@ -272,7 +273,7 @@
                                             <label>City<span class="star">*</span></label>
                                             <input
                                                 type="text"
-                                                placeholder="{{ globals.languageJson?.enter_city }}"
+                                                placeholder="{{ 'enter_city' | translate }}"
                                                 formControlName="city"
                                                 pInputText
                                                 styleClass="w-100"
@@ -282,12 +283,10 @@
                                             </small>
                                         </div>
                                         <div class="col-6 col-md-3 sewn-form-field">
-                                            <label
-                                                >{{ globals.languageJson?.zipcode }}<span class="star">*</span></label
-                                            >
+                                            <label>{{ 'zipcode' | translate }}<span class="star">*</span></label>
                                             <input
                                                 type="text"
-                                                placeholder="{{ globals.languageJson?.zipcode }}"
+                                                placeholder="{{ 'zipcode' | translate }}"
                                                 formControlName="zipcode"
                                                 pInputText
                                                 styleClass="w-100"
@@ -301,7 +300,7 @@
                                         </div>
                                         <div class="col-12 col-md-6 d-flex justify-content-end align-items-center">
                                             <button type="button" class="btn-raised" (click)="saveAddress()">
-                                                {{ globals.languageJson?.save_address }}
+                                                {{ 'save_address' | translate }}
                                             </button>
                                         </div>
                                     </div>
@@ -321,9 +320,9 @@
                                         class="dark"
                                     ></p-checkbox>
                                     <label for="terms" class="fnt-14 fnt-600 text-clr334 mb-0 flex-fill">
-                                        {{ globals.languageJson?.i_have_understood }}
-                                        <a class="custom-link fnt-14">{{ globals.languageJson?.terms_conditions }}</a>
-                                        {{ globals.languageJson?.platform_agree }}.
+                                        {{ 'i_have_understood' | translate }}
+                                        <a class="custom-link fnt-14">{{ 'terms_conditions' | translate }}</a>
+                                        {{ 'platform_agree' | translate }}.
                                     </label>
                                     <small *ngIf="infoForm.controls.terms.errors?.required" class="p-error">
                                         Please accept the terms and conditions
@@ -343,12 +342,12 @@
                                     sourcing.harvestDetail.id
                                 }}"
                             >
-                                {{ globals.languageJson?.cancel }}
+                                {{ 'cancel' | translate }}
                             </button>
                         </div>
                         <div class="col-12 col-md-auto order-1 order-md-2">
                             <button class="btn-raised w-100" (click)="placeOrder()">
-                                {{ globals.languageJson?.place_order }}
+                                {{ 'place_order' | translate }}
                             </button>
                         </div>
                     </div>
@@ -369,7 +368,7 @@
                 <div class="text-center">
                     <img src="assets/images/check-brown.svg" alt="" class="" />
                     <h1 class="fnt-34 black fnt-normal fnt-play mb-4 mt-3">
-                        {{ globals.languageJson?.order_placed }}
+                        {{ 'order_placed' | translate }}
                     </h1>
                     <div class="text-center mt-2">
                         <button
@@ -377,7 +376,7 @@
                             class="btn-raised"
                             [routerLink]="OrganizationType.ESTATE | orderLink: createdOrder.id"
                         >
-                            {{ globals.languageJson?.view_order }}
+                            {{ 'view_order' | translate }}
                         </button>
                     </div>
                 </div>
