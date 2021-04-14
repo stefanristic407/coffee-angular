@@ -227,10 +227,25 @@
                                         <div class="real-estate">
                                             <img src="assets/images/flavour-image.svg" />
                                             <h6>{{ 'flavour_profile' | translate }}</h6>
-                                            <h3 *ngIf="sourcing.harvestDetail?.flavours != null">
-                                                {{ sourcing.harvestDetail?.flavours }}
+                                            <div
+                                                *ngIf="sourcing.harvestDetail?.flavours?.length"
+                                                class="row gutter-12 v-gutter-8"
+                                            >
+                                                <div
+                                                    *ngFor="let flavour of sourcing.harvestDetail?.flavours"
+                                                    class="col-auto"
+                                                >
+                                                    <div class="custom-chip">
+                                                        {{ flavour.name }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h3
+                                                *ngIf="!sourcing.harvestDetail?.flavours?.length"
+                                                class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0"
+                                            >
+                                                NA
                                             </h3>
-                                            <h3 *ngIf="sourcing.harvestDetail?.flavours == null">NA</h3>
                                         </div>
                                     </div>
                                     <div class="col-6 col-md-4 col-lg-4">
