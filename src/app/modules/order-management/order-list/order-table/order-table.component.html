@@ -231,7 +231,7 @@
                 {{ rowData.varieties }}
             </td>
             <td *ngIf="orgType === OrgTypes.ESTATE" class="d-none d-md-table-cell text-overflow-ellipsis">
-                {{ rowData.price || rowData.total_price | currency: 'USD' }}
+                {{ getPrice(rowData) | currency: 'USD' }}
             </td>
             <td class="d-none d-md-table-cell text-overflow-ellipsis">
                 {{ rowData.order_reference || '-' }}

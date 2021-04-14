@@ -14,9 +14,9 @@
         }}</span>
     </div>
     <div class="d-flex flex-row flex-md-column w-100">
-        <span class="fnt-500 text-muted">{{ 'rate_per' | translate }} {{ quantityType }}</span>
+        <span class="fnt-500 text-muted">{{ 'rate_per' | translate }} kg</span>
         <span class="mt-md-3 fnt-600 text-clr334">{{
-            lot?.quantity ? (lot?.price / lot?.quantity | currency: 'USD') : '-'
+            lot?.quantity ? (lot?.price / (lot?.quantity * lot?.quantity_count) | currency: 'USD') : '-'
         }}</span>
     </div>
     <div class="d-flex flex-row flex-md-column w-100">
