@@ -8,8 +8,6 @@ import { SourcingService } from '../../sourcing.service';
     styleUrls: ['./land-lots.component.scss'],
 })
 export class LandLotsComponent implements OnInit {
-    brandProfileEstateWeb = 'https://qa-brand-profile.sewnstaging.com/estatebrandprofile/production-details';
-
     constructor(public globals: GlobalsService, public sourcing: SourcingService) {}
 
     ngOnInit(): void {}

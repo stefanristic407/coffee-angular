@@ -102,7 +102,7 @@
                                     {{ sourcing.lot?.description }}
                                 </p>
 
-                                <div class="d-md-none mt-3">
+                                <div class="d-md-none">
                                     <ng-container *ngTemplateOutlet="btnGroup"></ng-container>
                                 </div>
                             </div>
@@ -307,7 +307,7 @@
 </section>
 
 <ng-template #btnGroup>
-    <div class="row gutter-16 gutter-md-12">
+    <div *ngIf="sourcing.lot?.prebook_ready" class="row gutter-16 gutter-md-12 mt-3 mt-md-0">
         <div class="col-12 col-md-auto">
             <a
                 class="btn-raised w-100"

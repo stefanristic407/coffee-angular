@@ -15,7 +15,6 @@ import { ResizeableComponent } from '@base-components';
 export class LotDetailsComponent extends ResizeableComponent implements OnInit {
     imageItems: GalleryItem[];
     isLoaded = false;
-    brandProfileEstateWeb = 'https://qa-brand-profile.sewnstaging.com/estatebrandprofile/green-coffee';
 
     constructor(
         private route: ActivatedRoute,
@@ -41,7 +40,6 @@ export class LotDetailsComponent extends ResizeableComponent implements OnInit {
 
     refreshData() {
         this.isLoaded = false;
-        this.brandProfileEstateWeb = `https://qa-brand-profile.sewnstaging.com/estate/estate-${this.sourcing.estateId}/estatebrandprofile/green-coffee`;
         this.sourcing.polygonId = '';
         this.sourcing.harvestDetail = null;
         this.sourcing.estate = null;
