@@ -1,0 +1,28 @@
+<div>
+    <div class="py-4 px-md-4 d-flex align-items-center border-top-main border-bottom-main">
+        <p-avatar [image]="'assets/images/default-avatar.png'" shape="circle" styleClass="user-avatar mr-3"></p-avatar>
+        <span class="sewn-form-field mb-0 ml-z5 w-100">
+            <input
+                class="w-100"
+                pInputText
+                [(ngModel)]="comment"
+                placeholder="Leave a comment..."
+                (keyup.enter)="addComment()"
+            />
+        </span>
+    </div>
+    <div class="pt-4 pt-lg-45">
+        <p class="fnt-muli fnt-14 fnt-bold text-clr60b mb-0 mb-md-2 text-underline">{{ 'comment' | translate }}s</p>
+        <div class="w-100 py-4 py-lg-45 border-bottom-dashed" *ngFor="let commentItem of commentList">
+            <app-user-header [prop]="commentItem"></app-user-header>
+            <p class="fnt-muli fnt-14 fnt-normal text-clr588 lh-157 mb-0 mt-3" style="padding-left: 52px">
+                {{ commentItem?.comment }}
+            </p>
+        </div>
+        <div class="mt-4 d-flex">
+            <button class="btn-f8 mx-auto w-mob-100 px-4" (click)="onClickMoreComment()">
+                {{ 'view_more' | translate }} {{ 'comment' | translate }}s
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,82 @@
+<div class="mb-4 mb-lg-45">
+    <a class="back-page" (click)="location.back()">
+        {{ 'back' | translate }}
+    </a>
+</div>
+
+<div *ngIf="!isLoading" class="row">
+    <div class="col-md-8 mb-4 mb-md-0">
+        <div class="border-main br-4 p-45">
+            <div class="mb-3">
+                <app-user-header [prop]="detailsData"></app-user-header>
+            </div>
+            <div class="fnt-muli fnt-18 font-weight-bold text-clr334 mb-4" [innerHTML]="detailsData.question"></div>
+            <div class="mb-2">
+                <span (click)="setPagePosition()" class="btn-f8 w-100"
+                    >Showing {{ detailsData.answers.length }} Comments</span
+                >
+            </div>
+            <div
+                *ngFor="let answer of detailsData.answers; let last = last"
+                [id]="answer.id"
+                class="py-4"
+                [ngClass]="{ 'border-bottom-dashed': !last }"
+            >
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <app-user-header [prop]="answer"></app-user-header>
+                    </div>
+                    <div>
+                        <div class="d-flex flex-column align-items-end">
+                            <div class="position-relative mb-2">
+                                <p-menu #menu [popup]="true" [model]="items" styleClass="left-menu-actions"> </p-menu>
+                                <i
+                                    class="pi pi-ellipsis-h text-clr588 cursor-pointer"
+                                    (click)="menu.toggle($event)"
+                                ></i>
+                            </div>
+                            <div class="d-none d-md-block" *ngIf="answer?.translations?.length">
+                                <app-translation-dropdown
+                                    forumType="questions"
+                                    [translatedList]="answer?.translations"
+                                ></app-translation-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fnt-muli fnt-14 text-clr334 lh-15 mb-4">
+                    {{ answer.answer }}
+                </div>
+                <div *ngFor="let image of answer?.images; let last = last" [ngClass]="{ 'mb-3': !last }">
+                    <img class="w-100" [src]="image.file" alt="image" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="br-4 border-main">
+            <div class="bg-f8 fnt-18 fnt-muli font-weight-bold text-clr334 mt-1 ml-1 mr-1 py-25 px-3">
+                {{ 'recent_discussions_on_forum' | translate }}
+            </div>
+            <div class="mx-3 border-bottom-dashed py-4">
+                <a class="fnt-muli fnt-600 text-154faa" href="#"
+                    >What are coffee flavour profiles? How many profiles can a coffee have?</a
+                >
+            </div>
+            <div class="mx-3 border-bottom-dashed py-4">
+                <a class="fnt-muli fnt-600 text-154faa" href="#"
+                    >What are coffee flavour profiles? How many profiles can a coffee have?</a
+                >
+            </div>
+            <div class="mx-3 py-4">
+                <a class="fnt-muli fnt-600 text-154faa" href="#"
+                    >What are coffee flavour profiles? How many profiles can a coffee have?</a
+                >
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="isLoading">
+    <app-loading></app-loading>
+</div>

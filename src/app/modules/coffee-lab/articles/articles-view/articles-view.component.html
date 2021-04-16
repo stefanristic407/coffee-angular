@@ -1,0 +1,70 @@
+<div>
+    <div class="d-flex flex-column flex-md-row justify-content-md-between">
+        <h1 class="fnt-18 fnt-md-24 fnt-muli fnt-bold text-clr334 mb-0">{{ 'articles' | translate }}</h1>
+        <span class="custom-search h-fit-content mt-3 mt-md-0">
+            <input
+                class="w-100"
+                type="text"
+                pInputText
+                #searchInput
+                [(ngModel)]="keyword"
+                placeholder="Search Articles..."
+                (ngModelChange)="getData()"
+            />
+        </span>
+    </div>
+    <div class="d-flex justify-content-between align-items-center py-3 pb-md-4 pb-lg-45">
+        <p-dropdown
+            [options]="translationsList"
+            optionLabel="label"
+            optionValue="value"
+            [showClear]="true"
+            [(ngModel)]="isAvailableTranslation"
+            (onChange)="getData()"
+            placeholder="Translations available"
+            styleClass="round-border {{ isAvailableTranslation ? 'highlight' : '' }}"
+        >
+        </p-dropdown>
+        <p-dropdown
+            [options]="orderList"
+            optionLabel="label"
+            optionValue="value"
+            [(ngModel)]="selectedOrder"
+            (onChange)="getData()"
+            styleClass="no-border {{ isAvailableTranslation ? 'highlight' : '' }}"
+        >
+        </p-dropdown>
+    </div>
+    <div class="articles-wrapper" *ngIf="!isLoading">
+        <div class="col-12 col-md-6 col-lg-4 px-0 py-25 p-md-2" *ngFor="let article of articlesData">
+            <div
+                class="border-main br-4 p-3 py-md-4 px-lg-4 article-item"
+                [routerLink]="'/coffee-lab/articles/' + article.slug"
+            >
+                <div class="d-flex justify-content-between">
+                    <app-user-header [prop]="article"></app-user-header>
+                    <div>
+                        <p-menu #menu [popup]="true" [model]="items" appendTo="body"> </p-menu>
+                        <i
+                            class="pi pi-ellipsis-h text-clr588 cursor-pointer"
+                            (click)="$event.stopPropagation(); menu.toggle($event)"
+                        ></i>
+                    </div>
+                </div>
+                <img [src]="article.cover_image_url" class="br-4 w-100 my-3 my-md-4" />
+                <a class="fnt-muli fnt-14 fnt-bold lh-157 text-clr334 cursor-pointer">
+                    {{ article?.title }}
+                    <br />
+                    {{ article?.subtitle }}
+                </a>
+                <div class="article-content-wrapper pt-3">
+                    <p class="fnt-muli fnt-14 fnt-normal lh-15 text-clr334 mb-0">
+                        {{ article.content }}
+                    </p>
+                    <label class="custom-link mb-0" style="margin-top: 18px">{{ 'read_more' | translate }}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-loading *ngIf="isLoading"></app-loading>
+</div>

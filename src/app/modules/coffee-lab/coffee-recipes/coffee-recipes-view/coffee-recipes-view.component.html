@@ -1,0 +1,115 @@
+<div class="coffee-recipes-view-container">
+    <div class="row gutter-32 align-items-center">
+        <div class="col-lg-8">
+            <div class="recepie-text">Recipes</div>
+        </div>
+        <div class="col-lg-4">
+            <div class="custom-search qa-forum-search d-lg-block">
+                <input
+                    class="w-100 fnt-16"
+                    type="text"
+                    pInputText
+                    #searchInput
+                    [(ngModel)]="searchQuery"
+                    placeholder="Search Recipes.."
+                />
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex align-items-md-center justify-content-between">
+        <div class="d-flex flex-wrap filter-dropdown">
+            <div class="mt-sm-16 pl-xsm-0 mt-md-4 mt-lg-0">
+                <p-dropdown
+                    [options]="labels"
+                    optionLabel="label"
+                    optionValue="value"
+                    [showClear]="true"
+                    [(ngModel)]="label"
+                    (onChange)="getCoffeeRecipesData()"
+                    placeholder="Labels"
+                    styleClass="round-border {{ label ? 'highlight' : '' }}"
+                >
+                </p-dropdown>
+            </div>
+            <div class="pl-3 mt-sm-16 pl-xsm-0 mt-md-4 mt-lg-0">
+                <p-dropdown
+                    [options]="translationsList"
+                    optionLabel="label"
+                    optionValue="value"
+                    [showClear]="true"
+                    [(ngModel)]="isAvailableTranslation"
+                    (onChange)="getCoffeeRecipesData()"
+                    placeholder="Translation available"
+                    styleClass="round-border {{ isAvailableTranslation ? 'highlight' : '' }}"
+                >
+                </p-dropdown>
+            </div>
+            <div class="pl-3 mt-sm-16 pl-xsm-0 mt-md-4 mt-lg-0 ingredient-field">
+                <input
+                    class="w-100 fnt-16"
+                    type="text"
+                    pInputText
+                    #ingredientSearchInput
+                    [(ngModel)]="searchIngredient"
+                    styleClass="ingredient-field"
+                    placeholder="Search by ingredient"
+                />
+            </div>
+        </div>
+        <div class="mt-sm-16 mt-md-4 mt-lg-0">
+            <p-dropdown
+                [options]="orderList"
+                optionLabel="label"
+                optionValue="value"
+                [(ngModel)]="selectedOrder"
+                (onChange)="getCoffeeRecipesData()"
+                styleClass="no-border {{ selectedOrder ? 'highlight' : '' }}"
+            >
+            </p-dropdown>
+        </div>
+    </div>
+    <div class="coffee-wrapper pt-3 pt-md-4 pt-lg-45" *ngIf="!isLoading">
+        <div class="col-12 col-md-6 col-lg-4 px-0 py-2 p-md-2" *ngFor="let coffee of coffeeRecipeData">
+            <div
+                class="border-main br-4 p-3 py-md-4 px-lg-4 coffee-item"
+                [routerLink]="'/coffee-lab/recipes/' + coffee.id"
+            >
+                <div class="d-flex justify-content-between">
+                    <app-user-header [prop]="coffee"></app-user-header>
+                    <div>
+                        <p-menu #menu [popup]="true" [model]="items" appendTo="body"> </p-menu>
+                        <i
+                            class="pi pi-ellipsis-h text-clr588 cursor-pointer"
+                            (click)="$event.stopPropagation(); menu.toggle($event)"
+                        ></i>
+                    </div>
+                </div>
+                <div class="w-100" style="position: relative">
+                    <img [src]="coffee.cover_image_url" class="w-100 my-3 my-md-4" />
+                    <span class="expertise"> {{ coffee.expertise }} </span>
+                </div>
+                <a class="fnt-muli fnt-14 fnt-bold text-clr334 cursor-pointer">
+                    {{ coffee?.name }}
+                    <div class="py-3 m-0 d-flex">
+                        <div class="heading">Preparation Time:</div>
+                        <span class="value"> {{ coffee.preparation_time }}{{ coffee.preparation_time_unit }} </span>
+                    </div>
+                    <div class="m-0 d-flex">
+                        <div class="heading">ingredients:</div>
+                        <span class="value">
+                            {{ coffee.ingredients }}
+                        </span>
+                    </div>
+                </a>
+                <div class="coffee-content-wrapper">
+                    <p class="fnt-muli fnt-14 fnt-normal text-clr334 mb-0">
+                        {{ coffee.description }}
+                    </p>
+                    <label class="fnt-muli fnt-14 fnt-600 text-clr60b mb-0 red-more-text">Read more</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-loading *ngIf="isLoading"></app-loading>
+</div>

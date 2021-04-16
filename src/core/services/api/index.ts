@@ -20,3 +20,4 @@ export * from './user-original.service';
 export * from './user.service';
 export * from './your.service';
 export * from './green-grading.service';
+export * from './coffee-lab.service';

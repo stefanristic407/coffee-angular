@@ -1,0 +1,127 @@
+<div class="fnt-18 fnt-muli text-clr334 font-weight-bold d-block d-md-none mb-3">Q/A Forum</div>
+
+<div class="row gutter-32">
+    <div class="col-lg-8">
+        <div class="p-3 bg-f8 br-4 d-flex align-items-center">
+            <img src="assets/images/avatar.png" class="mr-3 rounded-circle" alt="avatar" width="40" height="40" />
+            <div class="sewn-form-field w-100 mb-0">
+                <input
+                    routerLink="../../create-post"
+                    type="text"
+                    pInputText
+                    placeholder="Ask your coffee question..."
+                />
+            </div>
+        </div>
+
+        <div *ngIf="isDisplayTip" class="p-4 bg-f8 br-4 mt-4 mt-lg-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="fnt-18 fnt-muli font-weight-bold text-clr334">We have made a few updates to the forum</div>
+                <img
+                    (click)="isDisplayTip = false"
+                    src="assets/images/close.svg"
+                    class="cursor-pointer"
+                    alt="icon"
+                    width="24"
+                    height="24"
+                />
+            </div>
+            <div class="fnt-14 fnt-muli text-clr334 lh-15">
+                Now you can create posts, add recipes, join the forum in your preferred language, and more for an
+                improved user experience.
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="custom-search qa-forum-search d-none d-lg-block">
+            <input
+                class="w-100 fnt-16"
+                [(ngModel)]="keyword"
+                (ngModelChange)="getQuestions()"
+                type="text"
+                pInputText
+                placeholder="Search QnA forum"
+            />
+        </div>
+    </div>
+</div>
+
+<div class="pt-4 pt-md-3 mt-lg-45">
+    <div class="row gutter-32">
+        <div class="col-lg-8" [ngClass]="{ 'col-lg-8': viewMode === 'list', 'col-12': viewMode === 'grid' }">
+            <div class="d-flex justify-content-between align-items-center mb-4 mb-md-35 mb-lg-4">
+                <div class="fnt-24 fnt-muli text-clr334 font-weight-bold d-none d-md-block">Q/A Forum</div>
+                <div class="custom-search qa-forum-search d-block d-lg-none">
+                    <input
+                        class="w-100 fnt-16"
+                        [(ngModel)]="keyword"
+                        type="text"
+                        pInputText
+                        placeholder="Search QnA forum"
+                    />
+                </div>
+                <div class="d-none d-lg-block">
+                    <p-selectButton [options]="viewModeItems" [(ngModel)]="viewMode" styleClass="select-layout">
+                        <ng-template let-item>
+                            <svg
+                                *ngIf="item.value === 'list'"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="14"
+                                height="10"
+                                viewBox="0 0 14 10"
+                            >
+                                <path
+                                    fill="#FFF"
+                                    d="M13.25 8c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5c-.414 0-.75-.336-.75-.75S3.336 8 3.75 8h9.5zM.75 8c.414 0 .75.336.75.75s-.336.75-.75.75S0 9.164 0 8.75.336 8 .75 8zm12.5-4c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5c-.414 0-.75-.336-.75-.75S3.336 4 3.75 4h9.5zM.75 4c.414 0 .75.336.75.75s-.336.75-.75.75S0 5.164 0 4.75.336 4 .75 4zm12.5-4c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5C3.336 1.5 3 1.164 3 .75S3.336 0 3.75 0h9.5zM.75 0c.414 0 .75.336.75.75s-.336.75-.75.75S0 1.164 0 .75.336 0 .75 0z"
+                                />
+                            </svg>
+                            <svg
+                                *ngIf="item.value === 'grid'"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="13"
+                                height="13"
+                                viewBox="0 0 13 13"
+                            >
+                                <path
+                                    fill="#232334"
+                                    d="M12.387 7.195c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H7.808c-.338 0-.613-.275-.613-.613V7.808c0-.338.275-.613.613-.613zm-7.195 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H.613C.275 13 0 12.725 0 12.387V7.808c0-.338.275-.613.613-.613zm6.582 1.226H8.42v3.353h3.353V8.42zm-7.195 0H1.226v3.353H4.58V8.42zM5.192 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H.613C.275 5.805 0 5.53 0 5.192V.613C0 .275.275 0 .613 0zm7.195 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H7.808c-.338 0-.613-.275-.613-.613V.613c0-.338.275-.613.613-.613zM4.579 1.226H1.226V4.58H4.58V1.226zm7.195 0H8.42V4.58h3.353V1.226z"
+                                />
+                            </svg>
+                        </ng-template>
+                    </p-selectButton>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-4 mb-md-3 mb-lg-45">
+                <div>
+                    <p-dropdown
+                        [options]="filterOptions"
+                        [(ngModel)]="filterBy"
+                        (ngModelChange)="getQuestions()"
+                        styleClass="round-border"
+                        optionLabel="label"
+                        optionValue="value"
+                    ></p-dropdown>
+                </div>
+                <div>
+                    <p-dropdown
+                        [options]="sortOptions"
+                        [(ngModel)]="sortBy"
+                        (ngModelChange)="getQuestions()"
+                        styleClass="no-border no-padding"
+                        optionLabel="label"
+                        optionValue="value"
+                    ></p-dropdown>
+                </div>
+            </div>
+            <div *ngIf="!isLoading">
+                <app-questions [questions]="questions" [viewMode]="viewMode"></app-questions>
+            </div>
+            <div *ngIf="isLoading">
+                <app-loading></app-loading>
+            </div>
+            <div *ngIf="!isLoading && !questions.length" class="text-center my-4 fnt-muli text-clr24">
+                No questions are available.
+            </div>
+        </div>
+    </div>
+</div>

@@ -114,6 +114,10 @@ export const routes: Routes = [
                         (m) => m.CoffeeExperienceModule,
                     ),
             },
+            {
+                path: 'coffee-lab',
+                loadChildren: () => import('./modules/coffee-lab/coffee-lab.module').then((m) => m.CoffeeLabModule),
+            },
         ],
     },
     { path: 'gate', component: GateComponent },
