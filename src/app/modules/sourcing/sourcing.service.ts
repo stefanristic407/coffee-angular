@@ -253,6 +253,11 @@ export class SourcingService {
         });
     }
 
+    getFlavour(flavourId) {
+        const flavours = this.flavourList.getValue();
+        return flavours.length ? flavours.find((element) => element.id === flavourId) : null;
+    }
+
     getCertificateType(typeId) {
         return this.finalCertify ? this.finalCertify[typeId] : null;
     }

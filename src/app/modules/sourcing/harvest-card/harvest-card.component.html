@@ -54,9 +54,11 @@
                     <label class="fnt-12 fnt-md-14 lh-normal text-clr588 mb-2">{{
                         globals.languageJson?.flavour
                     }}</label>
-                    <div *ngIf="data.flavours?.length">
-                        <div class="custom-chip mb-2 mr-25" *ngFor="let flavour of data.flavours">
-                            {{ flavour }}
+                    <div *ngIf="data.flavours?.length" class="row gutter-12 v-gutter-8">
+                        <div *ngFor="let flavour of data.flavours" class="col-auto">
+                            <div class="custom-chip">
+                                {{ flavour | flavour }}
+                            </div>
                         </div>
                     </div>
                     <h6 *ngIf="!data.flavours?.length" class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0">

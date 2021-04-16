@@ -27,18 +27,16 @@
     >
         <ng-template pTemplate="header">
             <tr>
-                <th>{{ globals.languageJson?.name }}</th>
-                <th>{{ globals.languageJson?.estate_name }}</th>
-                <th>{{ globals.languageJson?.origin }}</th>
-                <th>{{ globals.languageJson?.variety }}</th>
-                <th pSortableColumn="price">
-                    {{ globals.languageJson?.price }}<p-sortIcon field="price"></p-sortIcon>
-                </th>
+                <th>{{ 'name' | translate }}</th>
+                <th>{{ 'estate_name' | translate }}</th>
+                <th>{{ 'origin' | translate }}</th>
+                <th>{{ 'variety' | translate }}</th>
+                <th pSortableColumn="price">{{ 'price' | translate }}<p-sortIcon field="price"></p-sortIcon></th>
                 <th pSortableColumn="quantity">
-                    {{ globals.languageJson?.quantity }}<p-sortIcon field="quantity"></p-sortIcon>
+                    {{ 'quantity' | translate }}<p-sortIcon field="quantity"></p-sortIcon>
                 </th>
-                <th>{{ globals.languageJson?.flavour_profile }}</th>
-                <th>{{ globals.languageJson?.cup_score }}</th>
+                <th>{{ 'flavour_profile' | translate }}</th>
+                <th>{{ 'cup_score' | translate }}</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item>
@@ -56,7 +54,16 @@
                     <span>{{ item.price_unit }}&nbsp;/&nbsp;{{ sourcingSrv.quantityUnit }}</span>
                 </td>
                 <td>{{ item.quantity_count }}&nbsp;{{ item.quantity_type | lowercase }}</td>
-                <td>{{ item.flavours?.length ? item.flavours.join(', ') : 'NA' }}</td>
+                <td>
+                    <div *ngIf="item.flavours?.length" class="row gutter-12 v-gutter-8">
+                        <div *ngFor="let flavour of item.flavours" class="col-auto">
+                            <div class="custom-chip">
+                                {{ flavour | flavour }}
+                            </div>
+                        </div>
+                    </div>
+                    <span *ngIf="!item.flavours?.length"> NA </span>
+                </td>
                 <td>{{ item.cup_score }}</td>
             </tr>
         </ng-template>

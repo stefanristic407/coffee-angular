@@ -8,6 +8,7 @@ import { AgmCoreModule } from '@agm/core';
 import { RatingModule } from 'ng-starrating';
 
 import { CertificateImgPipe } from './certificateImg.pipe';
+import { FlavourPipe } from './flavour.pipe';
 
 import { SourcingComponent } from './sourcing/sourcing.component';
 import { EstateListComponent } from './estate-list/estate-list.component';
@@ -31,6 +32,7 @@ import { FilterComponent } from './filter/filter.component';
 @NgModule({
     declarations: [
         CertificateImgPipe,
+        FlavourPipe,
         SourcingComponent,
         EstateListComponent,
         CoffeeListComponent,
