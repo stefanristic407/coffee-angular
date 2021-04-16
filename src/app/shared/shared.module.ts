@@ -42,6 +42,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { DividerModule } from 'primeng/divider';
+import { AvatarModule } from 'primeng/avatar';
+import { ToastModule } from 'primeng/toast';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
@@ -89,6 +91,7 @@ import { ReviewsComponent } from './components/reviews/reviews.component';
 import { ArrayFilterPipe } from './pipes/array-filter.pipe';
 import { StringReplacePipe } from './pipes/string-replace.pipe';
 import { AccordionModule } from 'primeng/accordion';
+import { MomentModule } from 'ngx-moment';
 
 import { SewnDirectMessageComponent } from './components/chat/sewn-direct-message/sewn-direct-message.component';
 import { SewnOrderChatComponent } from './components/chat/sewn-order-chat/sewn-order-chat.component';
@@ -146,6 +149,9 @@ const THIRDMODULES = [
     AccordionModule,
     DividerModule,
     ChartsModule,
+    MomentModule,
+    AvatarModule,
+    ToastModule,
 ];
 // #endregion
 
@@ -200,6 +206,7 @@ import { FileNamePipe } from './pipes/file-name.pipe';
 import { MonthPipe } from './pipes/month/month.pipe';
 import { OrgTypePipe } from './pipes/org-type.pipe';
 import { WordCountPipe } from './pipes/word-count/word-count.pipe';
+import { ConvertToShortDescriptionPipe } from './pipes/convert-to-short-description.pipe';
 const PIPES = [
     ArrayFilterPipe,
     CountryPipe,
@@ -218,6 +225,7 @@ const PIPES = [
     StringReplacePipe,
     WordCountPipe,
     SearchFilterPipe,
+    ConvertToShortDescriptionPipe,
 ];
 // #endregion
 

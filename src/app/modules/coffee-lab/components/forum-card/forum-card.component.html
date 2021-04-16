@@ -1,0 +1,40 @@
+<div class="border-main br-4 p-3 forum-card-wrapper" (click)="onClick()">
+    <div class="w-100" style="position: relative">
+        <img [src]="data?.cover_image_url" class="cover-image w-100 br-4" />
+        <span class="expertise" *ngIf="data.expertise"> {{ data.expertise }} </span>
+    </div>
+    <div class="d-flex justify-content-between pt-3">
+        <a class="fnt-muli fnt-14 fnt-bold text-clr334 lh-157 cursor-pointer" *ngIf="forumType == 'recipes'">
+            {{ data?.description }}
+        </a>
+        <a
+            class="fnt-muli fnt-14 fnt-bold text-clr334 lh-157 cursor-pointer forum-title-text"
+            *ngIf="forumType == 'articles'"
+        >
+            {{ data?.title }}
+            <br />
+            {{ data?.subtitle }}
+        </a>
+        <div>
+            <p-menu #menu [popup]="true" [model]="items" appendTo="body"> </p-menu>
+            <i
+                class="pi pi-ellipsis-h cursor-pointer text-clr588"
+                (click)="$event.stopPropagation(); menu.toggle($event)"
+            ></i>
+        </div>
+    </div>
+    <div class="d-flex align-items-center pt-3">
+        <p-avatar
+            [image]="data?.profile_image_thumb_url || data?.profile_image_url"
+            pBadge
+            severity="success"
+            shape="circle"
+            styleClass="user-avatar"
+            [style.height]="'40px'"
+        ></p-avatar>
+        <p class="fnt-14 fnt-muli fnt-bold text-clr334 mb-0 px-3">{{ data?.user_name || data?.posted_user }}</p>
+        <p class="fnt-12 fnt-muli fnt-normal text-clr588 mb-0">
+            {{ data?.posted_at ? (data.posted_at | amTimeAgo) : (data?.created_at | amTimeAgo) }}
+        </p>
+    </div>
+</div>

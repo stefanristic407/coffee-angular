@@ -41,6 +41,7 @@ export const menuItems = [
     new Menu(71, 'menu_brand_profile', '/brand-profile', null, null, null, false, 7, []),
     new Menu(72, 'menu_end_user_experience', '/coffee-experience', null, null, null, false, 7, []),
     new Menu(73, 'menu_education_collaboration', '/file-share', null, null, null, false, 7, []),
+    new Menu(74, 'menu_coffee_lab', '/coffee-lab', null, null, null, false, 7, []),
     new Menu(75, 'menu_social_pr', '/social-media', null, null, null, false, 7, []),
 
     new Menu(8, 'menu_team_management', null, null, null, null, true, 0, [

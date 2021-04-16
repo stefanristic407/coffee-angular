@@ -1,0 +1,23 @@
+@import 'variables';
+.page-wrapper {
+    background: #ffffff;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 150px;
+    .background-header {
+        padding: 11px 15px;
+        border-radius: 4px;
+        background-color: $primary-bg-color;
+    }
+}
+
+.flag-image {
+    width: 100px;
+    height: 60px;
+    @media (max-width: 767px) {
+        width: 40px;
+        height: 24px;
+    }
+}

@@ -1,0 +1,41 @@
+<p-dropdown
+    [options]="translatedList"
+    optionLabel="language"
+    [autoDisplayFirst]="false"
+    styleClass="p-dropdown-translate"
+    [placeholder]="globalsService.languageJson.translated_answer_available"
+    (onChange)="onChangeTranslate($event)"
+>
+    <ng-template pTemplate="selectedItem">
+        <span class="fnt-14 fnt-muli fnt-bold text-clr60b pr-2">
+            <img src="assets/images/translate.svg" class="translate-icon" />
+            {{ 'translated_answer_available' | translate }}
+        </span>
+    </ng-template>
+    <ng-template let-translateItem pTemplate="item">
+        <a class="d-flex align-items-center">
+            <p-avatar
+                [image]="translateItem?.profile_image_thumb_url || translateItem?.profile_image_url"
+                shape="circle"
+                styleClass="user-avatar"
+                [style.height]="'40px'"
+            ></p-avatar>
+            <div class="d-flex flex-column justify-content-between pl-3">
+                <p class="fnt-14 fnt-muli fnt-bold text-clr334 mb-2" *ngIf="forumType == 'articles'">
+                    {{ translateItem.user_name }}
+                </p>
+                <p class="fnt-14 fnt-muli fnt-bold text-clr334 mb-2" *ngIf="forumType == 'recipes'">
+                    {{ translateItem.first_name }}
+                </p>
+                <div class="d-flex align-items-center">
+                    <p class="fnt-12 fnt-muli fnt-bold text-clr588 mb-0 pr-2">
+                        {{ globalsService.getLanguage(translateItem.language) }} {{ 'translation' | translate }}
+                    </p>
+                    <p class="fnt-12 fnt-muli fnt-normal text-clr588 mb-0">
+                        {{ translateItem.created_at | amTimeAgo }}
+                    </p>
+                </div>
+            </div>
+        </a>
+    </ng-template>
+</p-dropdown>

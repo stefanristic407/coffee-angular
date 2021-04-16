@@ -1,0 +1,30 @@
+@import 'variables';
+
+.draft-link {
+    color: $muted-text-color;
+    cursor: pointer;
+    &:hover {
+        color: $muted-text-color;
+    }
+}
+
+.post-container {
+    margin: 64px auto 48px;
+    width: 814px;
+    @media (max-width: 991px) {
+        margin: 24px auto;
+        width: 100%;
+    }
+    @media (max-width: 767px) {
+        margin: 20px auto;
+    }
+}
+
+.btn-controls {
+    button {
+        @media (max-width: 767px) {
+            width: 100%;
+            margin-bottom: 8px;
+        }
+    }
+}

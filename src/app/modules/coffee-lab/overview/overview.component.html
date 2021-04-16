@@ -1,0 +1,41 @@
+<div class="language-wrapper d-flex justify-content-between align-items-center d-md-none mb-3">
+    <app-language-dropdown></app-language-dropdown>
+    <i class="pi pi-info-circle text-clr588 fnt-16 ml-3"></i>
+</div>
+<div class="d-flex flex-column flex-md-row justify-content-between pb-4">
+    <div>
+        <h1 class="fnt-16 fnt-md-18 fnt-muli fnt-bold text-clr334 mb-25">{{ 'the_coffee_lab' | translate }}</h1>
+        <p class="fnt-14 fnt-muli fnt-normal text-clr588 lh-normal mb-0">
+            {{ 'coffee_lab_sub_text' | translate }}
+        </p>
+    </div>
+    <span class="custom-search coffee-lab-search h-fit-content mt-3 mt-md-0">
+        <input
+            class="w-100 fnt-16"
+            type="text"
+            pInputText
+            #searchInput
+            [(ngModel)]="keyword"
+            [placeholder]="'search_the_coffee_lab' | translate"
+        />
+    </span>
+</div>
+<div class="d-none d-md-flex justify-content-between align-items-center pt-2 pb-45">
+    <p class="fnt-14 fnt-muli fnt-600 text-clr334 mb-0">{{ 'discussions_knowledge_language' | translate }}</p>
+    <div class="d-flex align-items-center">
+        <app-language-dropdown></app-language-dropdown>
+        <i class="pi pi-info-circle text-clr588 fnt-16 ml-3"></i>
+    </div>
+</div>
+<div>
+    <p-tabMenu [model]="menuItems" styleClass="tabmenu-coffee-lab">
+        <ng-template pTemplate="item" let-item let-i="index">
+            <img [src]="item.icon" alt="icon" />
+            <img [src]="item.activeIcon" alt="icon" class="active-icon" />
+            <span class="pl-1 d-none d-md-block">{{ item.label | translate }}</span>
+        </ng-template>
+    </p-tabMenu>
+    <div class="pt-35 pt-lg-45">
+        <router-outlet></router-outlet>
+    </div>
+</div>

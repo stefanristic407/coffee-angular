@@ -1,0 +1,21 @@
+::ng-deep .draft-posts.p-dialog {
+    width: 583px;
+    padding: 0;
+    border-radius: 8px;
+    margin-left: 16px;
+    margin-right: 16px;
+    & .p-dialog-content {
+        padding: 0;
+        border-radius: 8px;
+    }
+}
+
+.post-list-content {
+    margin-right: 108px;
+    @media (max-width: 991px) {
+        margin-right: 48px;
+    }
+    @media (max-width: 767px) {
+        margin-right: 42px;
+    }
+}

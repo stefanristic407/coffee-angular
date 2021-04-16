@@ -1,0 +1,20 @@
+@import 'variables';
+
+.original-language {
+    padding: 8px 16px;
+    object-fit: contain;
+    border-radius: 2px;
+    border: solid 1px #747588;
+    width: fit-content;
+}
+
+.original-link {
+    background: $primary-bg-color;
+    padding: 16px;
+    border: dashed 2px $primary-border-color;
+    display: flex;
+    border-radius: 4px;
+    text-decoration: underline;
+    color: #154faa;
+    word-break: break-all;
+}

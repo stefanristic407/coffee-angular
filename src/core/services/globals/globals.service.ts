@@ -3,7 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Gallery, ImageItem, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
-import { COUNTRY_LIST, CONTINIENT_LIST } from '@constants';
+import { COUNTRY_LIST, CONTINIENT_LIST, languages } from '@constants';
 import { Country } from '@models';
 
 @Injectable({
@@ -140,5 +140,15 @@ export class GlobalsService {
         });
         lightboxRef.load(items);
         this.lightbox.open(0);
+    }
+
+    getLanguage(code: string): string {
+        if (code) {
+            const language = languages.find((c) => c.value === code.toLowerCase());
+            if (language) {
+                return language.name;
+            }
+        }
+        return '';
     }
 }
