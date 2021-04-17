@@ -7,6 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { formatDate, Location } from '@angular/common';
 import { MyProfileService } from '@modules/my-profile/my-profile.service';
 import { MenuItem } from 'primeng/api';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-my-profile',
@@ -34,6 +35,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     breadcrumbItems: MenuItem[];
     certificationArray: any[] = [];
     apiCount = 0;
+    userPramId: any;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -45,6 +47,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         public myProfileService: MyProfileService,
         private commonService: CommonService,
         private roasterService: RoasterserviceService,
+        private activateRoute: ActivatedRoute,
+        private router: Router
     ) {
         this.form = this.formBuilder.group({
             firstName: ['', Validators.required],
@@ -56,6 +60,10 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         });
         this.roasterId = this.cookieService.get('roaster_id');
         this.userId = this.cookieService.get('user_id');
+        this.activateRoute.params.subscribe((params: any) => {
+            this.userPramId = params.id;
+            this.getUserInfo();
+        });
     }
 
     ngOnInit(): void {
@@ -63,7 +71,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             { label: this.globals.languageJson?.home, routerLink: '/dashboard' },
             { label: this.globals.languageJson?.my_profile },
         ];
-        this.getUserInfo();
         this.profilePictureSavedEvent$ = this.myProfileService.profilePictureSavedEvent.subscribe(() => {
             this.handleCroppedProfilePicture();
         });
@@ -77,16 +84,17 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     }
 
     getRoasterProfile(): void {
-        this.userOriginalService.getRoasterProfile(this.roasterId).subscribe((res: any) => {
+        this.userOriginalService.getRoasterProfile(this.roasterId, this.userPramId).subscribe((res: any) => {
             this.apiCount += 1;
             if (res.success) {
                 this.profileInfo = res.result;
                 this.previewUrl = this.profileInfo.profile_image_url;
+                this.getUserBasedRoles();
+                this.checkApiCompletion();
             } else {
                 this.toastr.error('Error while fetching profile');
+                this.router.navigate(['/']);
             }
-            this.getUserBasedRoles();
-            this.checkApiCompletion();
         });
     }
 

@@ -1,16 +1,18 @@
 <div class="main-block">
-    <div class="mb-45 fnt-14 d-none d-md-block">
-        <p-breadcrumb [model]="breadcrumbItems"></p-breadcrumb>
-    </div>
+    <div *ngIf="!userPramId">
+        <div class="mb-45 fnt-14 d-none d-md-block">
+            <p-breadcrumb [model]="breadcrumbItems"></p-breadcrumb>
+        </div>
 
-    <div class="mb-4 d-block d-md-none">
-        <a class="back-page" (click)="location.back()">
-            {{ 'back' | translate }}
-        </a>
+        <div class="mb-4 d-block d-md-none">
+            <a class="back-page" (click)="location.back()">
+                {{ 'back' | translate }}
+            </a>
+        </div>
     </div>
 
     <div data-aos="fade-up">
-        <div class="row">
+        <div *ngIf="!userPramId" class="row">
             <div class="col-md-6 mb-4">
                 <div class="text-clr24 mb-2 mb-md-25 fnt-16 fnt-md-18 font-weight-bold line-height-normal">
                     {{ 'my_profile' | translate }}

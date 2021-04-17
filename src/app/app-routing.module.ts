@@ -108,6 +108,10 @@ export const routes: Routes = [
                 loadChildren: () => import('./modules/my-profile/my-profile.module').then((m) => m.MyProfileModule),
             },
             {
+                path: 'profile/:id',
+                loadChildren: () => import('./modules/my-profile/my-profile.module').then((m) => m.MyProfileModule),
+            },
+            {
                 path: 'coffee-experience',
                 loadChildren: () =>
                     import('./modules/coffee-experience/coffee-experience.module').then(
