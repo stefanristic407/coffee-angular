@@ -17,7 +17,7 @@ export class UserDetailComponent implements OnInit, OnChanges {
 
     constructor(public globalsService: GlobalsService, private userService: UserService) {}
     ngOnChanges(): void {
-        this.orgName = organizationTypes.find((item) => item.value === this.orgType.toUpperCase())?.title;
+        this.orgName = organizationTypes.find((item) => item.value === this.orgType?.toUpperCase())?.title;
         if (this.userId && this.orgType) {
             this.userService.getUserDetail(this.userId, this.orgType).subscribe((res) => {
                 if (res.success) {
