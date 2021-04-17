@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { UserService } from '@services';
+import { Component, OnInit } from '@angular/core';
+import { CoffeeLabService } from '@services';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: 'app-my-comments',
@@ -16,7 +17,19 @@ export class MyCommentsComponent implements OnInit {
     sortBy = 'latest';
     shortComments = false;
     result: any;
-    constructor(private userService: UserService) {}
+    roasterId: string;
+    constructor(private coffeeLabService: CoffeeLabService, private cookieService: CookieService) {
+        this.roasterId = this.cookieService.get('roaster_id');
+    }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.getComments();
+    }
+
+    getComments(): void {
+        this.coffeeLabService.getMyComments(this.roasterId).subscribe((res) => {
+            this.comments = res.result;
+            this.filteredComments = res.result;
+        });
+    }
 }

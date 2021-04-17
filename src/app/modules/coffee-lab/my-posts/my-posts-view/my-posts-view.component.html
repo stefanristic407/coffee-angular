@@ -1,10 +1,30 @@
 <div>
-    <div>
-        <h1 class="fnt-18 fnt-muli fnt-bold text-clr334 mb-0">{{ 'filter_by_content' | translate }}</h1>
+    <div class="d-none d-md-block">
+        <h1 class="fnt-18 fnt-muli fnt-bold text-clr334 mb-0">
+            {{ 'filter_by_content' | translate }}
+        </h1>
     </div>
-
-    <p-tabView class="toggle" styleClass="inner-menu mt-3">
-        <p-tabPanel header="QA Post"> <app-qa-post> </app-qa-post> </p-tabPanel>
-        <p-tabPanel header="My comments"> <app-my-comments> </app-my-comments></p-tabPanel>
-    </p-tabView>
+    <div class="d-md-none">
+        <h1 class="fnt-18 fnt-muli fnt-bold text-clr334 mb-0 mb-4">{{ 'my_posts' | translate }}</h1>
+        <h1 class="fnt-14 fnt-muli fnt-bold text-clr334 mb-0 mb-3">{{ 'filter_by_content' | translate }}</h1>
+    </div>
+    <div>
+        <p-tabView class="toggle" styleClass="inner-menu mt-3">
+            <p-tabPanel [header]="'qa_post' | translate">
+                <div class="d-md-none fnt-18 fnt-bold fnt-muli text-clr334 mb-3">
+                    {{ 'showing_your_questions' | translate }}
+                </div>
+                <app-qa-post> </app-qa-post>
+            </p-tabPanel>
+            <p-tabPanel [header]="'article' | translate"><app-articles-view></app-articles-view></p-tabPanel>
+            <p-tabPanel [header]="'recipe' | translate"><app-coffee-recipes-view></app-coffee-recipes-view></p-tabPanel>
+            <p-tabPanel [header]="'my_answyers' | translate"><app-my-answers></app-my-answers></p-tabPanel>
+            <p-tabPanel [header]="'my_comments' | translate">
+                <div class="d-md-none fnt-18 fnt-bold fnt-muli text-clr334 mb-3">
+                    {{ 'showing_your_questions' | translate }}
+                </div>
+                <app-my-comments> </app-my-comments
+            ></p-tabPanel>
+        </p-tabView>
+    </div>
 </div>

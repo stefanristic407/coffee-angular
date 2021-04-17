@@ -24,6 +24,7 @@ import { DraftPostsComponent } from './qa-forum/create-post/draft-posts/draft-po
 import { FormsModule } from '@angular/forms';
 import { QuestionDetailComponent } from './qa-forum/question-detail/question-detail.component';
 import { OriginalViewComponent } from './components/original-view/original-view.component';
+import { MyAnswersComponent } from './my-posts/my-answers/my-answers.component';
 @NgModule({
     declarations: [
         CoffeeLabComponent,
@@ -47,6 +48,7 @@ import { OriginalViewComponent } from './components/original-view/original-view.
         DraftPostsComponent,
         QuestionDetailComponent,
         OriginalViewComponent,
+        MyAnswersComponent,
     ],
     imports: [CommonModule, CoffeeLabRoutingModule, SharedModule, FormsModule],
 })

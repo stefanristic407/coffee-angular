@@ -4,7 +4,7 @@
         [ngClass]="{ 'col-12': viewMode === 'list', 'col-lg-6': viewMode === 'grid' }"
     >
         <div class="br-4 border-main mb-4 mb-md-3 mb-lg-4">
-            <div class="p-4">
+            <div class="p-md-4 p-3">
                 <div class="d-flex justify-content-between">
                     <div>
                         <app-user-header [prop]="question"></app-user-header>
@@ -19,8 +19,15 @@
                     [routerLink]="'/coffee-lab/questions/' + question.slug"
                     [innerHTML]="question?.question"
                 ></div>
+                <button
+                    (click)="handleShowAllAnswers(question.id)"
+                    [disabled]="loadingQuestionId === question.id"
+                    class="btn-f8 w-100 d-md-none mt-4"
+                >
+                    See all answers
+                </button>
             </div>
-            <div *ngIf="question.total_answers > 0" class="py-4 px-5 border-top-main">
+            <div *ngIf="question.total_answers > 0" class="py-4 px-5 border-top-main d-none d-md-block">
                 <div
                     *ngFor="let answer of question?.answers; let last = last"
                     [ngClass]="{ 'border-bottom-dashed': !last }"
