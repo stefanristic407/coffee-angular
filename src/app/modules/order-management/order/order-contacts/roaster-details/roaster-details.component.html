@@ -1,6 +1,6 @@
 <div class="d-flex mt-4 flex-column flex-md-row">
     <div class="p-0">
-        <app-avatar [src]="companyImageThumbnailUrl" [name]="ownerName"></app-avatar>
+        <app-user-detail [imageUrl]="companyImageThumbnailUrl" [userId]="userId" [orgType]="orgType"></app-user-detail>
     </div>
     <div class="pull-left">
         <ul class="details-list p-0 ml-3 mb-4">
@@ -13,7 +13,6 @@
             </li>
         </ul>
     </div>
-
     <div class="pull-right ml-auto">
         <span class="btn-trans-icon br-4 cursor-pointer p-2" (click)="openChat()">
             <img class="svg" src="assets/images/message-icon.svg" />

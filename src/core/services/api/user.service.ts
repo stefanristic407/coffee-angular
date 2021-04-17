@@ -25,4 +25,8 @@ export class UserService extends ApiService {
     getPrivacyTerms() {
         return this.post(this.orgPostUrl, `users/privacy-terms`, 'GET');
     }
+
+    getUserDetail(userId: string | number, orgType: string): Observable<ApiResponse<UserProfile>> {
+        return this.post(this.orgPostUrl, `general/${orgType}/users/${userId}`, 'GET');
+    }
 }
