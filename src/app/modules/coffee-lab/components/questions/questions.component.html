@@ -23,6 +23,7 @@
                     (click)="handleShowAllAnswers(question.id)"
                     [disabled]="loadingQuestionId === question.id"
                     class="btn-f8 w-100 d-md-none mt-4"
+                    [routerLink]="'/coffee-lab/questions/' + question.slug"
                 >
                     See all answers
                 </button>
