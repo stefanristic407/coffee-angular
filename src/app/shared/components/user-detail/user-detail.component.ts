@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { organizationTypes } from '@constants';
-import { GlobalsService, UserService } from '@services';
+import { GlobalsService, UserService, ChatHandlerService } from '@services';
 
 @Component({
     selector: 'app-user-detail',
@@ -15,7 +15,11 @@ export class UserDetailComponent implements OnInit, OnChanges {
     orgName: any;
     data: any;
 
-    constructor(public globalsService: GlobalsService, private userService: UserService) {}
+    constructor(
+        public globalsService: GlobalsService,
+        private userService: UserService,
+        private chatHandler: ChatHandlerService,
+    ) {}
     ngOnChanges(): void {
         this.orgName = organizationTypes.find((item) => item.value === this.orgType?.toUpperCase())?.title;
         if (this.userId && this.orgType) {
@@ -28,4 +32,12 @@ export class UserDetailComponent implements OnInit, OnChanges {
     }
 
     ngOnInit(): void {}
+
+    openChat(): void {
+        this.chatHandler.openChatThread({
+            user_id: this.userId,
+            org_type: this.orgType,
+            org_id: this.data.organization_id,
+        });
+    }
 }
