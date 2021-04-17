@@ -1,0 +1,51 @@
+.user-details-wrapper {
+    max-width: 100%;
+    .user-image {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+    }
+    .message-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 11px 16px;
+        border-radius: 4px;
+        border: solid 1px #747588;
+        cursor: pointer;
+    }
+    .language-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        margin: -8px;
+    }
+
+    @media (min-width: 768px) {
+        min-width: 494px;
+        .user-image {
+            width: 80px;
+            height: 80px;
+        }
+        .language-wrapper {
+            margin: -8px -24px;
+        }
+    }
+}
+
+::ng-deep {
+    .p-overlaypanel {
+        &.user-details-overlay {
+            border-radius: 4px;
+            box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
+            border: solid 0.5px #ebebeb;
+            background-color: #ffffff;
+            .p-overlaypanel-content {
+                padding: 0;
+            }
+            &:before,
+            &::after {
+                display: none;
+            }
+        }
+    }
+}
