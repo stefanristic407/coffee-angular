@@ -70,8 +70,6 @@ export class SourcingComponent extends DestroyableComponent implements OnInit, A
         this.sourcingSrv.clearQueryParams();
         this.queryParams = { ...this.sourcingSrv.queryParams.getValue() };
         this.viewMode = this.sourcingSrv.viewMode.getValue();
-
-        this.sourcingSrv.flavourprofileList();
     }
 
     ngAfterViewInit() {

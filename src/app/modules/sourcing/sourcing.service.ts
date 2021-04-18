@@ -66,6 +66,7 @@ export class SourcingService {
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.getEstateCertificates();
+        this.flavourprofileList();
     }
 
     clearQueryParams() {
