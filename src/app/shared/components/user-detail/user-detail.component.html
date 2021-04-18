@@ -1,6 +1,6 @@
 <app-avatar
     [size]="size || 36"
-    [src]="imageUrl || data?.profile_image_thumb_url || data?.profile_image_url || 'assets/images/default-avatar.png'"
+    [src]="imageUrl || data?.profile_image_thumb_url || data?.profile_image_url"
     [name]="data?.firstname + data?.lastname"
     (mouseenter)="myOp.toggle($event)"
 >
