@@ -30,11 +30,7 @@
                         </div>
                         <div class="row gutter-16 gutter-md-12 mt-4 mt-md-0">
                             <div class="col-6 col-md-auto">
-                                <button
-                                    *ngIf="sourcing.estate?.admin_id"
-                                    class="btn-raised w-100"
-                                    (click)="chatWithEstate()"
-                                >
+                                <button class="btn-raised w-100" (click)="chatWithEstate()">
                                     {{ globals.languageJson?.contact_us }}
                                 </button>
                             </div>
@@ -99,9 +95,7 @@
 
     <a
         *ngIf="
-            (selectedTab == 0 || selectedTab == 1 || selectedTab == 2 || selectedTab == 4) &&
-            !(chatSrv.isOpen | async) &&
-            sourcing.estate?.admin_id
+            (selectedTab == 0 || selectedTab == 1 || selectedTab == 2 || selectedTab == 4) && !(chatSrv.isOpen | async)
         "
         class="estate-chat-btn active d-none d-md-block"
         (click)="chatWithEstate()"
