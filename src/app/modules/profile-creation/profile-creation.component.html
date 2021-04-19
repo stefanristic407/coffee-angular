@@ -30,7 +30,7 @@
                 type="button"
                 class="btn-raised"
                 label="{{ 'edit' | translate }}"
-                *ngIf="isEditMode"
+                *ngIf="isAdminRole && isEditMode"
                 (click)="roasteryProfileService.editRoasterProfile()"
             ></button>
         </div>
@@ -68,7 +68,7 @@
                     type="button"
                     class="btn-raised"
                     label="{{ 'edit' | translate }}"
-                    *ngIf="isEditMode"
+                    *ngIf="isAdminRole && isEditMode"
                     (click)="roasteryProfileService.editRoasterProfile()"
                 ></button>
             </div>
@@ -248,7 +248,7 @@
             type="button"
             pButton
             class="cancel-butn w-100 mb-3"
-            *ngIf="isEditMode"
+            *ngIf="isAdminRole && isEditMode"
             label="{{ 'edit' | translate }}"
             (click)="roasteryProfileService.editRoasterProfile()"
         ></button>

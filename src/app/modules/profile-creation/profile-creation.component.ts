@@ -2,8 +2,9 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ProfilePhotoService } from './profile-photo/profile-photo.service';
 import { RoasteryProfileService } from './roastery-profile.service';
-import { GlobalsService } from '@services';
+import { GlobalsService, UserserviceService } from '@services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: 'app-profile-creation',
@@ -26,6 +27,8 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
 
     subProfileForm: FormGroup;
     isShowAvatarModal: boolean;
+    roasterId: string;
+    isAdminRole = false;
 
     constructor(
         private toastrService: ToastrService,
@@ -33,16 +36,29 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
         public roasteryProfileService: RoasteryProfileService,
         public globals: GlobalsService,
         private fb: FormBuilder,
+        public cookieService: CookieService,
+        private userService: UserserviceService,
     ) {}
 
     ngOnInit(): void {
         this.detectMode();
         this.initialForm();
+        this.roasterId = this.cookieService.get('roaster_id');
+        this.checkAdminRole(this.roasterId);
     }
 
     ngOnDestroy() {
         this.roasteryProfileService.saveMode.next(false);
         this.roasteryProfileService.editMode.next(true);
+    }
+
+    checkAdminRole(userId) {
+        this.userService.getRoasterProfile(userId).subscribe((res: any) => {
+            console.log('check admin role: ', res);
+            if (res.success) {
+                this.isAdminRole = res.result.has_system_role;
+            }
+        });
     }
 
     initialForm() {

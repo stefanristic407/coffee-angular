@@ -96,8 +96,6 @@ export class RoasteryProfileService {
         this.roasterService.getRoasterUsers(this.roasterId).subscribe((data: any) => {
             if (data.success) {
                 this.roasterUsers = data.result;
-
-                console.log(this.roasterUsers);
             }
         });
 
@@ -108,7 +106,6 @@ export class RoasteryProfileService {
         this.roasterService.getRoasterContacts(this.roasterId).subscribe((res: any) => {
             if (res.success) {
                 this.roasterContacts = res.result;
-                console.log(this.roasterContacts);
             }
         });
     }
@@ -166,7 +163,6 @@ export class RoasteryProfileService {
         const data: OrganizationProfile = this.toUpdateProfileData;
         this.userService.updateRoasterAccount(this.roasterId, data).subscribe((response: any) => {
             if (response.success === true) {
-                console.log(response);
                 const base64Rejex = /^data:image\/(?:gif|png|jpeg|bmp|webp)(?:;charset=utf-8)?;base64,(?:[A-Za-z0-9]|[+/])+={0,2}/;
                 const isBase64Valid = base64Rejex.test(this.profilePhotoService.croppedImage); // base64Data is the base64 string
 
@@ -175,7 +171,6 @@ export class RoasteryProfileService {
 
                     this.roasterProfile();
                 } else {
-                    console.log('entering here');
                     const ImageURL = this.profilePhotoService.croppedImage;
                     const block = ImageURL.split(';');
                     const contentType = block[0].split(':')[1];
@@ -191,7 +186,6 @@ export class RoasteryProfileService {
                             this.toastrService.success('Roaster profile details updated successfully');
                             this.roasterProfile();
                         } else {
-                            console.log(result);
                             this.isSaving = false;
                             this.toastrService.error('Error while uploading company image, please try again.');
                         }
@@ -206,7 +200,6 @@ export class RoasteryProfileService {
 
     handleBannerImageFile(inputElement: any) {
         const file = inputElement.files[0];
-        console.log('input images: ', file);
         if (!file) {
             return;
         }
@@ -223,8 +216,6 @@ export class RoasteryProfileService {
         reader.onload = (event: any) => {
             const img = new Image();
             img.onload = () => {
-                console.log('img.naturalWidth images: ', img.naturalWidth);
-
                 if (img.naturalWidth !== 1144 || img.naturalHeight !== 160) {
                     this.toastrService.error(`Image should be 1144 x 160 size`);
                 } else {
