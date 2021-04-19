@@ -9,13 +9,13 @@
                     <div>
                         <app-user-header [prop]="question"></app-user-header>
                     </div>
-                    <div>
+                    <div class="mobile-dot">
                         <p-menu #menu [popup]="true" [model]="questionMenuItems" appendTo="body"> </p-menu>
                         <i class="pi pi-ellipsis-h text-clr588 cursor-pointer" (click)="menu.toggle($event)"></i>
                     </div>
                 </div>
                 <div
-                    class="fnt-muli fnt-18 font-weight-bold text-clr24 mt-4 cursor-pointer hover-underline"
+                    class="fnt-muli fnt-md-18 fnt-16 font-weight-bold text-clr24 mt-4 cursor-pointer hover-underline"
                     [routerLink]="'/coffee-lab/questions/' + question.slug"
                     [innerHTML]="question?.question"
                 ></div>
