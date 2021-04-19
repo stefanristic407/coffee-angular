@@ -20,6 +20,10 @@ export class FileService extends ApiService {
     createFolder(body: any) {
         return this.postWithOrg(this.orgPostUrl, `file-manager/folders`, 'POST', body);
     }
+    // View the folder details
+    getFolder(id: number) {
+        return this.postWithOrg(this.orgPostUrl, `file-manager/folders/${id}`, 'GET');
+    }
     // Delete the folder details
     deleteFolder(id: any) {
         return this.postWithOrg(this.orgDeleteUrl, `file-manager/folders/${id}`, 'DELETE');

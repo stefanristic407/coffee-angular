@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { RoasterserviceService } from '@services';
+import { FileService, RoasterserviceService } from '@services';
 import { GlobalsService } from '@services';
 import { FileShareService } from '../file-share.service';
 import { Subscription } from 'rxjs';
@@ -35,6 +35,7 @@ export class FileShareDetailsComponent implements OnInit, OnDestroy {
         public toastrService: ToastrService,
         public roasterService: RoasterserviceService,
         public fileShareSrv: FileShareService,
+        public fileService: FileService,
         public globals: GlobalsService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
@@ -125,7 +126,7 @@ export class FileShareDetailsComponent implements OnInit, OnDestroy {
     }
 
     getFolderDetails() {
-        this.roasterService.getFolderDetails(this.roasterId, this.fileShareSrv.folderId).subscribe((res: any) => {
+        this.fileService.getFolder(this.fileShareSrv.folderId).subscribe((res: any) => {
             if (res.success) {
                 this.folderDetail = res.result;
             } else {
