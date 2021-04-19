@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from '@services';
+import { GlobalsService, IdmService } from '@services';
 import { FileService } from '@services';
 import { RoasterserviceService } from '@services';
 
@@ -28,7 +28,7 @@ export class ShareComponent implements OnInit {
         private toastrService: ToastrService,
         private globals: GlobalsService,
         private fileSrv: FileService,
-        private roasterSrv: RoasterserviceService,
+        private idmService: IdmService,
     ) {
         this.record = config.data.record;
     }
@@ -102,7 +102,7 @@ export class ShareComponent implements OnInit {
     }
 
     getUsersList(event: any) {
-        this.roasterSrv.getUsersList(event.query).subscribe((res: any) => {
+        this.idmService.getUsersList(event.query).subscribe((res: any) => {
             if (res.success) {
                 this.usersList = res.result;
                 this.usersList.map((element) => (element.name = `${element.firstname} ${element.lastname}`));

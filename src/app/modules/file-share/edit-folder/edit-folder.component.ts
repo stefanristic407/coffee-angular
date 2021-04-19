@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from '@services';
+import { GlobalsService, IdmService } from '@services';
 import { FileService } from '@services';
 import { RoasterserviceService } from '@services';
 import { FileShareService } from '../file-share.service';
@@ -36,6 +36,7 @@ export class EditFolderComponent implements OnInit {
         private globals: GlobalsService,
         private fileSrv: FileService,
         private roasterSrv: RoasterserviceService,
+        private idmService: IdmService,
         private fileShareSrv: FileShareService,
     ) {
         this.roasterId = this.cookieSrv.get('roaster_id');
@@ -169,7 +170,7 @@ export class EditFolderComponent implements OnInit {
     }
 
     getUsersList(event: any) {
-        this.roasterSrv.getUsersList(event.query).subscribe((res: any) => {
+        this.idmService.getUsersList(event.query).subscribe((res: any) => {
             if (res.success) {
                 this.usersList = res.result;
                 this.usersList.map((element) => (element.name = `${element.firstname} ${element.lastname}`));
