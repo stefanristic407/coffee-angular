@@ -25,7 +25,6 @@ import {
 } from '@models';
 import { ThreadType, ThreadActivityType, ChatMessageType } from '@enums';
 import { ChatHandlerService, GlobalsService, SocketService, ChatUtilService } from '@services';
-import { TranslateModule } from '@ngx-translate/core';
 const badwordsRegExp = require('badwords/regexp') as RegExp;
 @Component({
     selector: 'app-sewn-order-chat',
@@ -35,7 +34,6 @@ const badwordsRegExp = require('badwords/regexp') as RegExp;
 export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     @Input() orderThread: OrderChatThreadListItem;
     @Input() orderDisputes: any;
-    @Input() showEscalateBtn: boolean;
     @Input() roasterName: string;
     @Input() orderDetails: any;
     @Output() threadUsers: EventEmitter<ThreadMember[]> = new EventEmitter<ThreadMember[]>();
@@ -281,11 +279,17 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
 
     handleIncomingMessages(WSmsg: WSResponse<IncomingChatMessage>) {
         const message = WSmsg.data;
-        if (WSmsg.code === 201 && (message?.content || '').trim() !== '') {
+        if (
+            WSmsg.code === 201 &&
+            (message?.content || '').trim() !== '' &&
+            (message.thread.type === ThreadType.dispute ||
+                message.thread.type === ThreadType.gc_order ||
+                message.thread.type === ThreadType.mr_order)
+        ) {
             if (
                 message.activity_type === ThreadActivityType.message &&
                 this.threadDetails &&
-                this.threadDetails.id === message.thread_id
+                this.threadDetails.id === message.thread.id
             ) {
                 this.processChatMessages(message, this.threadDetails);
                 const user = message?.member?.user;

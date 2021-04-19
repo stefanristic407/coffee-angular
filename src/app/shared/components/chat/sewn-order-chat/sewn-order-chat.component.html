@@ -16,18 +16,19 @@
                 </div>
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <button
-                        *ngIf="orderDisputes?.id && showEscalateBtn"
+                        *ngIf="!orderDisputes['escalated']"
                         class="btn btn-stroked float-right"
                         (click)="escalate()"
                     >
                         <span class="track">Escalate</span>
                     </button>
                     <button
-                        *ngIf="!(orderDisputes?.id && showEscalateBtn)"
-                        class="btn btn-stroked float-right"
+                        *ngIf="orderDisputes['escalated']"
+                        class="btn-raised float-right disabled"
                         title="Already dispute has been escalated"
+                        disabled
                     >
-                        <span class="track">Escalate</span>
+                        <span class="track">Escalated</span>
                     </button>
                 </div>
             </div>
