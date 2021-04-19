@@ -21,7 +21,7 @@ export class ReviewSummaryComponent implements OnInit {
                     label: idx + '.0',
                     value: this.reviewSummary[idx + '_star'],
                     percent,
-                    color: this.reviewColors[Math.floor(percent / 34)],
+                    color: this.reviewColors[idx > 2 ? 2 : idx - 1],
                 });
             }
         }
