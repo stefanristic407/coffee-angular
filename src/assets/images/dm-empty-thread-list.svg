@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="__Chat_box_empty" width="197" height="197" viewBox="0 0 197 197">
+    <defs>
+        <clipPath id="clip-path">
+            <path id="Mask" d="M0 0H197V197H0z" class="cls-1"/>
+        </clipPath>
+        <style>
+            .cls-1,.cls-3{fill:none}.cls-3{stroke:#a88057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10}
+        </style>
+    </defs>
+    <path id="Mask-2" d="M0 0H197V197H0z" class="cls-1"/>
+    <g id="__Chat_box_empty-2" clip-path="url(#clip-path)">
+        <g id="__Chat_box_empty-3" transform="translate(8.674 54.71)">
+            <g id="Group" transform="translate(18.988 41.869)">
+                <path id="Path" d="M2.664 0L0 2.664" class="cls-3"/>
+                <path id="Path-2" d="M2.664 2.664L0 0" class="cls-3"/>
+            </g>
+            <g id="Group-2" transform="translate(150.061 9.904)">
+                <path id="Path-3" d="M2.664 0L0 2.664" class="cls-3"/>
+                <path id="Path-4" d="M2.664 2.664L0 0" class="cls-3"/>
+            </g>
+            <path id="Path-5" d="M2.186 0A1.222 1.222 0 1 1 0 1.093" class="cls-3" transform="translate(89.75 2.049)"/>
+            <path id="Path-6" d="M2.186 0A1.222 1.222 0 1 1 0 1.093" class="cls-3" transform="translate(150.197 55.598)"/>
+            <path id="Path-7" d="M69.669 0c30.326.82 53.822 6.489 53.822 13.251 0 7.377-27.663 13.387-61.746 13.387S0 20.627 0 13.251c0-3.689 6.83-7.035 17.9-9.426" class="cls-3" transform="translate(27.936 61.336)"/>
+            <path id="Path-8" d="M16.461 29.438A16.47 16.47 0 0 1 0 12.977V0h32.922v12.977a16.47 16.47 0 0 1-16.461 16.461z" class="cls-3" transform="translate(53.344 47.129)"/>
+            <path id="Path-9" d="M43.714.273c5.6.956 9.153 2.322 9.153 3.893 0 2.869-11.816 5.123-26.433 5.123S0 6.967 0 4.166C0 2.459 4.235.956 10.724 0" class="cls-3" transform="translate(42.553 71.649)"/>
+            <path id="Path-10" d="M41.391 0c0 1.844-9.221 3.347-20.7 3.347S0 1.844 0 0" class="cls-3" transform="translate(48.358 75.816)"/>
+            <path id="Path-11" d="M0 0a7 7 0 0 1 6.967 6.967A7 7 0 0 1 0 13.934" class="cls-3" transform="translate(86.266 50.202)"/>
+            <path id="Path-12" d="M28.209 0h8.4A10.45 10.45 0 0 1 47.06 10.45v.75a10.45 10.45 0 0 1-10.45 10.45H18.237l-7.855 6.079.068-6.079A10.45 10.45 0 0 1 0 11.2v-.75A10.45 10.45 0 0 1 10.45 0h7.308" class="cls-3" transform="translate(93.165 25.204)"/>
+            <path id="Path-13" d="M24.452 12.226a12.226 12.226 0 1 0-15.3 11.816l3.348 5.123 3.62-5.4a12.08 12.08 0 0 0 8.332-11.539z" class="cls-3" transform="translate(44.602)"/>
+            <g id="Group-3" transform="translate(48.905 11.202)">
+                <circle id="Oval" cx="1.298" cy="1.298" r="1.298" class="cls-3"/>
+                <circle id="Oval-2" cx="1.298" cy="1.298" r="1.298" class="cls-3" transform="translate(6.079)"/>
+                <circle id="Oval-3" cx="1.298" cy="1.298" r="1.298" class="cls-3" transform="translate(21.652)"/>
+            </g>
+            <g id="Group-4" transform="translate(114.475 19.876)">
+                <path id="Path-14" d="M1.571 14.48A1.546 1.546 0 0 1 0 12.909V1.571A1.546 1.546 0 0 1 1.571 0a1.546 1.546 0 0 1 1.571 1.571v11.338a1.546 1.546 0 0 1-1.571 1.571z" class="cls-3" transform="translate(.068)"/>
+                <circle id="Oval-4" cx="1.639" cy="1.639" r="1.639" class="cls-3" transform="translate(0 16.734)"/>
+            </g>
+            <path id="Path-15" d="M0 .25h27.458" class="cls-3" transform="translate(53.276 51.182)"/>
+            <path id="Path-16" d="M0 .25h21.993" class="cls-3" transform="translate(157.984 74.473)"/>
+            <path id="Path-17" d="M27.936.225L0 .293" class="cls-3" transform="translate(0 74.43)"/>
+        </g>
+    </g>
+</svg>

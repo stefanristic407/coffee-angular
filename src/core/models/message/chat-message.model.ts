@@ -1,4 +1,4 @@
-import { ThreadActivityType } from '@enums';
+import { ThreadActivityType, OrganizationType } from '@enums';
 import { ChatMessageMember } from './chat-message-member.model';
 import { ThreadMember } from './thread-member.model';
 
@@ -15,6 +15,19 @@ export interface ChatMessage {
     computed_author: ThreadMember;
     showUserBadge: boolean;
     isActiveUser: boolean;
+    file?: {
+        id: number;
+        mime: string;
+        org_id: number;
+        org_type: OrganizationType;
+        thread_id: number;
+        thumb_url: string;
+        url: string;
+        user_id: number;
+    };
     dateString?: string; // wil be null if same date as prev
     showDateBadge?: boolean;
+    lang?: string;
+    showTranslation?: 'ON' | 'OFF' | 'IP';
+    translatedText?: string;
 }

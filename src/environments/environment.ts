@@ -1,6 +1,7 @@
 export const environment = {
     apiURL: 'https://fed-api.sewnstaging.com',
     wsEndpoint: 'wss://messaging.sewnstaging.com/v1',
+    chatUploadEndPoint: 'https://messaging.sewnstaging.com/v1/',
     encryptionKey: 'sewen_secrete_key',
     ssoWeb: 'http://localhost:4300',
     estatesWeb: 'https://estates.sewnstaging.com',
@@ -13,5 +14,6 @@ export const environment = {
     estateBrandProfileUrl: 'https://www.sewnstaging.com/estate',
     roasterBrandProfileUrl: 'https://www.sewnstaging.com/roaster',
     endUserWeb: 'https://enduser.sewnstaging.com',
+    googleTranslationAPIKey: 'AIzaSyBEDVxvYT9-dlcBz83jitndZ4xODAJiqO0',
     production: false,
 };

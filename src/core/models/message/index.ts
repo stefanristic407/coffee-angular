@@ -8,5 +8,6 @@ export * from './response-user-status.model';
 export * from './thread-list-item.model';
 export * from './thread-member.model';
 export * from './user-list-item.model';
+export * from './block-list.model';
 export * from './ws-request.model';
 export * from './ws-response.model';

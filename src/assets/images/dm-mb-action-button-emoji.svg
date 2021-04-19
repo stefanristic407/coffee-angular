@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Icon_feather-smile" width="24" height="24" viewBox="0 0 24 24">
+    <defs>
+        <clipPath id="clip-path">
+            <path id="Mask" d="M0 0H24V24H0z" class="cls-1"/>
+        </clipPath>
+        <style>
+            .cls-1,.cls-3{fill:none}.cls-3{stroke:#747588;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-width:1.6px}
+        </style>
+    </defs>
+    <path id="Mask-2" d="M0 0H24V24H0z" class="cls-1"/>
+    <g id="Icon_feather-smile-2" clip-path="url(#clip-path)">
+        <g id="Icon_feather-smile-3" transform="translate(4 3)">
+            <path id="Path_43" d="M16.65 8.325a8.325 8.325 0 1 1-2.438-5.887 8.325 8.325 0 0 1 2.438 5.887z" class="cls-3"/>
+            <path id="Path_44" d="M0 0a4.5 4.5 0 0 0 3.33 1.665A4.5 4.5 0 0 0 6.66 0" class="cls-3" transform="translate(4.995 9.99)"/>
+            <circle cx="5.5" cy="5" r="1.6" stroke="black" stroke-width="0" fill="#747588" />
+            <circle cx="11" cy="5" r="1.6" stroke="black" stroke-width="0" fill="#747588" />
+        </g>
+    </g>
+</svg>

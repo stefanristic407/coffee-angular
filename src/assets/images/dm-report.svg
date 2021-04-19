@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Group_51" width="16" height="16" viewBox="0 0 16 16">
+    <defs>
+        <clipPath id="clip-path">
+            <path id="Mask" d="M0 0H16V16H0z" class="cls-1"/>
+        </clipPath>
+        <style>
+            .cls-1{fill:none}
+        </style>
+    </defs>
+    <path id="Mask-2" d="M0 0H16V16H0z" class="cls-1"/>
+    <g id="Group_51-2" clip-path="url(#clip-path)">
+        <g id="Group_9" transform="translate(1 2)">
+            <path id="Path_2" fill="none" stroke="#f23737" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5px" d="M7.466.8a.54.54 0 0 0-.933 0L.474 11.188A.54.54 0 0 0 .94 12h12.12a.54.54 0 0 0 .466-.812z"/>
+            <circle id="Oval" cx=".5" cy=".5" r=".5" fill="#f23737" transform="translate(6.5 5)"/>
+            <path id="Path_3" fill="none" stroke="#f23737" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M.5 2.788V0" transform="translate(6.5 7)"/>
+        </g>
+    </g>
+</svg>

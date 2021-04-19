@@ -3,6 +3,7 @@ export * from './api';
 export * from './agro/agro.service';
 export * from './chat/chat-handler.service';
 export * from './chat/chat-util.service';
+export * from './chat/googletranslate.service';
 export * from './download';
 export * from './globals/globals.service';
 export * from './i18n/i18n.service';
