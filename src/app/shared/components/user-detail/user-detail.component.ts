@@ -23,7 +23,7 @@ export class UserDetailComponent implements OnInit, OnChanges {
     ngOnChanges(): void {
         this.orgName = organizationTypes.find((item) => item.value === this.orgType?.toUpperCase())?.title;
         if (this.userId && this.orgType) {
-            this.userService.getUserDetail(this.userId, this.orgType).subscribe((res) => {
+            this.userService.getUserDetail(this.userId, this.orgType.toLowerCase()).subscribe((res) => {
                 if (res.success) {
                     this.data = res.result;
                 }
@@ -36,7 +36,7 @@ export class UserDetailComponent implements OnInit, OnChanges {
     openChat(): void {
         this.chatHandler.openChatThread({
             user_id: this.userId,
-            org_type: this.orgType,
+            org_type: this.orgType.toLowerCase(),
             org_id: this.data.organization_id,
         });
     }
