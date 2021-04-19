@@ -31,6 +31,11 @@ export class FileService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `file-manager/${fileId}/share`, 'POST', body);
     }
 
+    // Removed the file/folder access to user
+    unshareFileFolder(fileId: any, body: any) {
+        return this.postWithOrg(this.orgPostUrl, `file-manager/${fileId}/unshare`, 'POST', body);
+    }
+
     // Update the file/folder access to user
     updatePermission(fileId: any, body: any) {
         return this.postWithOrg(this.orgPostUrl, `file-manager/${fileId}/permission`, 'PUT', body);

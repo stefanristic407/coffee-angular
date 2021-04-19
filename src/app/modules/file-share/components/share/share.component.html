@@ -14,7 +14,7 @@
             >
             </p-autoComplete>
             <p-dropdown
-                [options]="permissionItems"
+                [options]="permissionItems.slice(0, 2)"
                 formControlName="permission"
                 [style]="{ width: '115px' }"
             ></p-dropdown>
