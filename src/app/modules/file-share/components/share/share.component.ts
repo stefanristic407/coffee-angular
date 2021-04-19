@@ -79,7 +79,6 @@ export class ShareComponent implements OnInit {
     }
 
     updatePermission(value) {
-        console.log(value);
         if (value.permission === 'REMOVE') {
             const postData = {
                 user_id: value.user_id,
