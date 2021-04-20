@@ -11,7 +11,10 @@
                     </div>
                     <div class="mobile-dot">
                         <p-menu #menu [popup]="true" [model]="questionMenuItems" appendTo="body"> </p-menu>
-                        <i class="pi pi-ellipsis-h text-clr588 cursor-pointer" (click)="menu.toggle($event); selectedQuestion = question"></i>
+                        <i
+                            class="pi pi-ellipsis-h text-clr588 cursor-pointer"
+                            (click)="menu.toggle($event); selectedQuestion = question"
+                        ></i>
                     </div>
                 </div>
                 <div
