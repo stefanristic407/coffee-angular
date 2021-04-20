@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService } from './api.service';
 
@@ -9,6 +9,11 @@ import { ApiService } from './api.service';
     providedIn: 'root',
 })
 export class CoffeeLabService extends ApiService {
+    forumLanguage = new BehaviorSubject('en');
+    get currentForumLanguage(): string {
+        return this.forumLanguage.value;
+    }
+
     constructor(protected cookieSrv: CookieService, protected http: HttpClient) {
         super(cookieSrv, http);
     }

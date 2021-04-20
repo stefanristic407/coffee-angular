@@ -5,12 +5,12 @@
     optionValue="value"
     [(ngModel)]="selectedLanguage"
     styleClass="p-dropdown-translate"
-    (onChange)="onChangeLanguage($event)"
+    (onChange)="onChangeLanguage()"
 >
     <ng-template pTemplate="selectedItem">
         <span class="fnt-14 fnt-muli fnt-bold text-clr60b pr-2">
             <i class="pi pi-globe pr-1 align-middle"></i>
-            {{ 'language' | translate }} : {{ selectedLanguage }}
+            {{ 'language' | translate }} : {{ selectedLanguage | uppercase }}
         </span>
     </ng-template>
     <ng-template let-languageItem pTemplate="item">

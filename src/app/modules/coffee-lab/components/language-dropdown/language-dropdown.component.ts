@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { languages } from '@constants';
-import { GlobalsService } from '@services';
+import { CoffeeLabService, GlobalsService } from '@services';
 import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
@@ -13,26 +13,30 @@ export class LanguageDropdownComponent implements OnInit {
     languageList: any[] = [
         {
             label: 'English',
-            value: 'EN',
+            value: 'en',
         },
         {
             label: 'Swedish',
-            value: 'SV',
+            value: 'sv',
         },
         {
             label: 'Portuguese',
-            value: 'PT',
+            value: 'pt',
         },
         {
             label: 'Spanish',
-            value: 'ES',
+            value: 'es',
         },
     ];
-    selectedLanguage = 'EN';
+    selectedLanguage: string;
 
-    constructor(public globalsService: GlobalsService, private router: Router) {}
+    constructor(public globalsService: GlobalsService, private router: Router, public coffeeLabService: CoffeeLabService) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.selectedLanguage = this.coffeeLabService.currentForumLanguage;
+    }
 
-    onChangeLanguage(event: any): void {}
+    onChangeLanguage(): void {
+        this.coffeeLabService.forumLanguage.next(this.selectedLanguage);
+    }
 }

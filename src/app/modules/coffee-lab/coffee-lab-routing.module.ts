@@ -9,8 +9,11 @@ import { CoffeeRecipesViewComponent } from '@modules/coffee-lab/coffee-recipes/c
 import { MyPostsViewComponent } from '@modules/coffee-lab/my-posts/my-posts-view/my-posts-view.component';
 import { SavedPostsViewComponent } from '@modules/coffee-lab/saved-posts/saved-posts-view/saved-posts-view.component';
 import { CoffeeDetailsComponent } from './coffee-recipes/coffee-details/coffee-details.component';
-import { CreatePostComponent } from '@modules/coffee-lab/qa-forum/create-post/create-post.component';
+import { CreatePostComponent } from './create-post/create-post.component';
 import { QuestionDetailComponent } from '@modules/coffee-lab/qa-forum/question-detail/question-detail.component';
+import { CreateQuestionComponent } from '@modules/coffee-lab/create-post/create-question/create-question.component';
+import { CreateArticleComponent } from '@modules/coffee-lab/create-post/create-article/create-article.component';
+import { CreateRecipeComponent } from '@modules/coffee-lab/create-post/create-recipe/create-recipe.component';
 
 const routes: Routes = [
     {
@@ -68,6 +71,28 @@ const routes: Routes = [
             {
                 path: 'create-post',
                 component: CreatePostComponent,
+                children: [
+                    {
+                        path: '',
+                        redirectTo: 'question',
+                        pathMatch: 'full',
+                    },
+                    {
+                        path: 'question',
+                        component: CreateQuestionComponent,
+                        data: { type: 'question' },
+                    },
+                    {
+                        path: 'article',
+                        component: CreateArticleComponent,
+                        data: { type: 'question' },
+                    },
+                    {
+                        path: 'recipe',
+                        component: CreateRecipeComponent,
+                        data: { type: 'question' },
+                    },
+                ],
             },
         ],
     },

@@ -30,13 +30,16 @@
                             "node_modules/datatables.net-dt/css/jquery.dataTables.css",
                             "node_modules/plyr/dist/plyr.css",
                             "node_modules/intl-tel-input/build/css/intlTelInput.css",
+                            "node_modules/quill/dist/quill.core.css",
+                            "node_modules/quill/dist/quill.snow.css",
                             "src/styles.scss"
                         ],
                         "scripts": [
                             "node_modules/jquery/dist/jquery.min.js",
                             "node_modules/datatables.net/js/jquery.dataTables.js",
                             "node_modules/bootstrap/dist/js/bootstrap.js",
-                            "node_modules/intl-tel-input/build/js/intlTelInput.min.js"
+                            "node_modules/intl-tel-input/build/js/intlTelInput.min.js",
+                            "node_modules/quill/dist/quill.js"
                         ]
                     },
                     "configurations": {
