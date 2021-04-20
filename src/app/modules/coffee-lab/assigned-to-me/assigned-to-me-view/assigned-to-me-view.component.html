@@ -19,5 +19,7 @@
     <div *ngIf="isLoading">
         <app-loading></app-loading>
     </div>
-    <div *ngIf="!questions.length" class="text-center my-4 fnt-muli text-clr24">{{'no_assigned_post' | translate}</div>
+    <div *ngIf="!isLoading && !questions.length" class="text-center my-4 fnt-muli text-clr24">
+        {{'no_assigned_post' | translate}
+    </div>
 </div>
