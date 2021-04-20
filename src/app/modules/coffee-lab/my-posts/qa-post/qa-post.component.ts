@@ -65,7 +65,7 @@ export class QaPostComponent implements OnInit {
             this.coffeeLabService.getSavedForumList('question', this.roasterId).subscribe((res: any) => {
                 this.isLoading = false;
                 if (res.success) {
-                    this.questions = res.result?.questions || [];
+                    this.questions = res.result || [];
                 } else {
                     this.toastService.error('Cannot get forum data');
                 }
