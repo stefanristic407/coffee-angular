@@ -120,7 +120,7 @@
                 <app-loading></app-loading>
             </div>
             <div *ngIf="!isLoading && !questions.length" class="text-center my-4 fnt-muli text-clr24">
-                No questions are available.
+                {{ 'no_data_is_available' | translate }}
             </div>
         </div>
     </div>

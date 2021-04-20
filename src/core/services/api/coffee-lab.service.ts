@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService } from './api.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
     providedIn: 'root',
@@ -17,8 +18,18 @@ export class CoffeeLabService extends ApiService {
         return this.forumLanguage.value;
     }
 
-    constructor(protected cookieSrv: CookieService, protected http: HttpClient) {
+    constructor(protected cookieSrv: CookieService, protected http: HttpClient, private toastService: ToastrService) {
         super(cookieSrv, http);
+    }
+
+    copyContext(context: string): void {
+        const textArea = document.createElement('textarea');
+        textArea.value = context;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('Copy');
+        textArea.remove();
+        this.toastService.success('Successfully copied');
     }
 
     getForumList(type: string, options?: any): Observable<any> {
@@ -55,18 +66,22 @@ export class CoffeeLabService extends ApiService {
     }
 
     getMyComments(organizationId): Observable<any> {
-        return this.post(this.orgPostUrl, `ro/${organizationId}/my-comments`, 'GET');
+        return this.post(this.orgPostUrl, `${this.organization}/${organizationId}/my-comments`, 'GET');
     }
 
     getMyAnswers(organizationId): Observable<any> {
-        return this.post(this.orgPostUrl, `ro/${organizationId}/answers`, 'GET');
+        return this.post(this.orgPostUrl, `${this.organization}/${organizationId}/answers`, 'GET');
     }
 
     getMyForumList(type: string, organizationId: any): Observable<any> {
-        return this.post(this.orgPostUrl, `ro/${organizationId}/${type}s`, 'GET');
+        return this.post(this.orgPostUrl, `${this.organization}/${organizationId}/${type}s`, 'GET');
     }
 
     getSavedForumList(type: string, organizationId: any): Observable<any> {
-        return this.post(this.orgPostUrl, `ro/${organizationId}/${type}s/saved`, 'GET');
+        return this.post(this.orgPostUrl, `${this.organization}/${organizationId}/${type}s/saved`, 'GET');
+    }
+
+    saveForum(type: string, id: any): Observable<any> {
+        return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/${type}s/${id}/save`, 'PUT');
     }
 }
