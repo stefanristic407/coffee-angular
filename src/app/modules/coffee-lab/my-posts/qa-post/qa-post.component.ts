@@ -26,7 +26,6 @@ export class QaPostComponent implements OnInit {
     keyword = '';
     filteredData = [];
     pageDesc: string | undefined;
-    roasterId: string;
 
     constructor(
         private coffeeLabService: CoffeeLabService,
@@ -35,7 +34,6 @@ export class QaPostComponent implements OnInit {
         private activateRoute: ActivatedRoute,
     ) {
         this.pageDesc = this.activateRoute.snapshot.routeConfig?.path;
-        this.roasterId = this.cookieService.get('roaster_id');
     }
 
     ngOnInit(): void {
@@ -62,7 +60,7 @@ export class QaPostComponent implements OnInit {
     getPosts(): void {
         this.isLoading = true;
         if (this.pageDesc === 'saved-posts') {
-            this.coffeeLabService.getSavedForumList('question', this.roasterId).subscribe((res: any) => {
+            this.coffeeLabService.getSavedForumList('question').subscribe((res: any) => {
                 this.isLoading = false;
                 if (res.success) {
                     this.questions = res.result || [];

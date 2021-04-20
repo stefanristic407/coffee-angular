@@ -3,7 +3,6 @@ import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { CoffeeLabService } from '@services';
 import { ActivatedRoute } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: 'app-coffee-recipes-view',
@@ -79,16 +78,13 @@ export class CoffeeRecipesViewComponent implements OnInit {
         },
     ];
     pageDesc: string | undefined;
-    roasterId: string;
 
     constructor(
         private toastService: ToastrService,
         private activateRoute: ActivatedRoute,
         private coffeeLab: CoffeeLabService,
-        private cookieService: CookieService,
     ) {
         this.pageDesc = this.activateRoute.snapshot.routeConfig?.path;
-        this.roasterId = this.cookieService.get('roaster_id');
     }
 
     ngOnInit(): void {
@@ -106,7 +102,7 @@ export class CoffeeRecipesViewComponent implements OnInit {
             level: this.label,
         };
         if (this.pageDesc === 'saved-posts') {
-            this.coffeeLab.getSavedForumList('recipe', this.roasterId).subscribe((res) => {
+            this.coffeeLab.getSavedForumList('recipe').subscribe((res) => {
                 if (res.success) {
                     this.coffeeRecipeData = res.result;
                 } else {
@@ -115,7 +111,7 @@ export class CoffeeRecipesViewComponent implements OnInit {
                 this.isLoading = false;
             });
         } else if (this.pageDesc === 'my-posts') {
-            this.coffeeLab.getMyForumList('recipe', this.roasterId).subscribe((res) => {
+            this.coffeeLab.getMyForumList('recipe').subscribe((res) => {
                 if (res.success) {
                     this.coffeeRecipeData = res.result;
                 } else {

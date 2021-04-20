@@ -27,7 +27,7 @@ export class MyCommentsComponent implements OnInit {
     }
 
     getComments(): void {
-        this.coffeeLabService.getMyForumList('my-comments').subscribe((res) => {
+        this.coffeeLabService.getMyForumList('my-comment').subscribe((res) => {
             this.comments = res.result;
             this.filteredComments = res.result;
         });
