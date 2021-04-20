@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-    selector: 'app-assigned-to-me',
-    templateUrl: './assigned-to-me.component.html',
-    styleUrls: ['./assigned-to-me.component.scss'],
+    selector: 'app-assigned-to-me-view',
+    templateUrl: './assigned-to-me-view.component.html',
+    styleUrls: ['./assigned-to-me-view.component.scss'],
+    encapsulation: ViewEncapsulation.None,
 })
-export class AssignedToMeComponent implements OnInit {
+export class AssignedToMeViewComponent implements OnInit {
     viewMode = 'list';
     sortOptions = [
         { label: 'Latest', value: 'latest' },

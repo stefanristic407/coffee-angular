@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CoffeeLabService } from '@services';
 
 @Component({
     selector: 'app-overview',
