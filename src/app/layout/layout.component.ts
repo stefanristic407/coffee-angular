@@ -5,7 +5,8 @@ import { filter, takeUntil, debounce, debounceTime } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import {
-    ChatHandlerService, CoffeeLabService,
+    ChatHandlerService,
+    CoffeeLabService,
     CommonService,
     GlobalsService,
     I18NService,
@@ -58,7 +59,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         public menuService: MenuService,
         private socket: SocketService,
         private commonService: CommonService,
-        private coffeeLabService: CoffeeLabService
+        private coffeeLabService: CoffeeLabService,
     ) {
         super();
     }
