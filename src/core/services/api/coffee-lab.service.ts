@@ -53,9 +53,4 @@ export class CoffeeLabService extends ApiService {
     getDrafts(): Observable<any> {
         return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/drafts`, 'GET');
     }
-
-    getOrgId(): number {
-        const orgId = this.cookieSrv.get('roaster_id');
-        return +orgId;
-    }
 }
