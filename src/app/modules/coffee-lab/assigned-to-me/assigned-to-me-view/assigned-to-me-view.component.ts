@@ -50,7 +50,8 @@ export class AssignedToMeViewComponent implements OnInit {
         const params = {
             query: this.keyword,
             posted_user_id: this.filterBy,
-            sort_by: this.sortBy === 'most_answered' ? 'most_answered' : 'posted_at',
+            org_type: 'ro',
+            sort_by: this.sortBy === 'most_answered' ? 'posted_at' : 'posted_at',
             sort_order: this.sortBy === 'most_answered' ? 'desc' : this.sortBy === 'latest' ? 'desc' : 'asc',
         };
         this.isLoading = true;
