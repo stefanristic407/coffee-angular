@@ -50,7 +50,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        <div class="mobile-dot">
                             <p-menu #menu [popup]="true" [model]="questionMenuItems" appendTo="body"> </p-menu>
                             <i class="pi pi-ellipsis-h text-clr588 cursor-pointer" (click)="menu.toggle($event)"></i>
                         </div>
@@ -78,8 +78,8 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-2 w-100">
                                 <div class="d-flex">
-                                    <div class="fnt-muli text-clr334 fnt-600 fnt-14 mr-md-3 mr-1">
-                                        <a>{{ 'your_answer' | translate }}</a>
+                                    <div class="fnt-muli text-clr334 fnt-600 fnt-14 mr-md-3 mr-1 under">
+                                        {{ 'your_answer' | translate }}
                                     </div>
                                     <div class="fnt-muli fnt-12 text-clr588 d-md-flex align-items-center">
                                         <span class="d-none d-md-block">{{ 'posted' | translate }}</span
