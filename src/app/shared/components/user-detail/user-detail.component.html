@@ -4,8 +4,12 @@
     [src]="imageUrl || data?.profile_image_thumb_url || data?.profile_image_url"
     [name]="data?.firstname + data?.lastname"
     (mouseenter)="myOp.toggle($event)"
+    *ngIf="!type || type === 'avatar'"
 >
 </app-avatar>
+<span class="text-underline" *ngIf="type === 'text' && data" (mouseenter)="myOp.toggle($event)">
+    {{ data?.firstname + data?.lastname }}
+</span>
 <p-overlayPanel #myOp styleClass="user-details-overlay" appendTo="body">
     <ng-template pTemplate>
         <div class="py-2 py-md-0 user-details-wrapper">

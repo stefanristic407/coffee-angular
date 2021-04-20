@@ -497,12 +497,12 @@
                                 *ngFor="let contact of roasteryProfileService.roasterContacts"
                             >
                                 <div class="employ-profile">
-                                    <div class="p-gal">
-                                        <img
-                                            class="w-100"
-                                            [src]="contact.profile_image_url || 'assets/images/profile.svg'"
-                                        />
-                                    </div>
+                                    <app-user-detail
+                                        [userId]="contact?.user_id"
+                                        orgType="ro"
+                                        shape="rectangle"
+                                        size="150"
+                                    ></app-user-detail>
                                     <div class="profile-des">
                                         <p class="fnt-16 font-bold mb-1 mt-3 text-clr334">
                                             {{ contact.name | titlecase }}
