@@ -5,7 +5,7 @@ import { filter, takeUntil, debounce, debounceTime } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import {
-    ChatHandlerService,
+    ChatHandlerService, CoffeeLabService,
     CommonService,
     GlobalsService,
     I18NService,
@@ -58,6 +58,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         public menuService: MenuService,
         private socket: SocketService,
         private commonService: CommonService,
+        private coffeeLabService: CoffeeLabService
     ) {
         super();
     }
@@ -188,6 +189,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         this.globals.permissionMethod();
         this.userService.getRoasterProfile(this.roasterId).subscribe((res: any) => {
             if (res.success) {
+                this.coffeeLabService.forumLanguage.next(res.result.language || 'en');
                 this.userName = res.result.firstname + ' ' + res.result.lastname;
                 this.profilePic = res.result.profile_image_thumb_url;
                 this.i18NService.use(res.result.language || 'en');

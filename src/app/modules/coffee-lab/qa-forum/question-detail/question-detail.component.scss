@@ -1,3 +1,7 @@
-.text-154faa {
-    color: #154faa;
+.recent-question-item {
+    color: #154faa !important;
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
 }
