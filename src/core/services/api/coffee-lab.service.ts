@@ -53,4 +53,20 @@ export class CoffeeLabService extends ApiService {
     getDrafts(): Observable<any> {
         return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/drafts`, 'GET');
     }
+
+    getMyComments(organizationId): Observable<any> {
+        return this.post(this.orgPostUrl, `ro/${organizationId}/my-comments`, 'GET');
+    }
+
+    getMyAnswers(organizationId): Observable<any> {
+        return this.post(this.orgPostUrl, `ro/${organizationId}/answers`, 'GET');
+    }
+
+    getMyForumList(type: string, organizationId: any): Observable<any> {
+        return this.post(this.orgPostUrl, `ro/${organizationId}/${type}s`, 'GET');
+    }
+
+    getSavedForumList(type: string, organizationId: any): Observable<any> {
+        return this.post(this.orgPostUrl, `ro/${organizationId}/${type}s/saved`, 'GET');
+    }
 }

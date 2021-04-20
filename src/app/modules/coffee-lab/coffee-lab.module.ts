@@ -29,6 +29,7 @@ import { CreateArticleComponent } from './create-post/create-article/create-arti
 import { CreateRecipeComponent } from './create-post/create-recipe/create-recipe.component';
 import { TabContainerComponent } from './create-post/tab-container/tab-container.component';
 import { CreateAnswerComponent } from './create-post/create-answer/create-answer.component';
+import { MyAnswersComponent } from './my-posts/my-answers/my-answers.component';
 @NgModule({
     declarations: [
         CoffeeLabComponent,
@@ -57,6 +58,7 @@ import { CreateAnswerComponent } from './create-post/create-answer/create-answer
         CreateRecipeComponent,
         TabContainerComponent,
         CreateAnswerComponent,
+        MyAnswersComponent,
     ],
     imports: [CommonModule, CoffeeLabRoutingModule, SharedModule, FormsModule],
 })

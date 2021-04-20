@@ -4,6 +4,9 @@
     border-radius: 0;
     border-bottom: none;
     margin-bottom: 2rem;
+    @media (max-width: 480px) {
+        margin-bottom: 1.5rem;
+    }
 }
 
 .p-tabview.inner-menu .p-tabview-nav li {

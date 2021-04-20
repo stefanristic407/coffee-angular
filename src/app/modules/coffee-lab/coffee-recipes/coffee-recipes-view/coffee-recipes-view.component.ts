@@ -1,9 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { CoffeeLabService } from '@services';
-import { fromEvent } from 'rxjs';
-import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: 'app-coffee-recipes-view',
@@ -11,13 +11,11 @@ import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
     styleUrls: ['./coffee-recipes-view.component.scss'],
 })
 export class CoffeeRecipesViewComponent implements OnInit {
-    @ViewChild('ingredientSearchInput') ingredientSearch: ElementRef;
-    @ViewChild('searchInput') recipeSearch: ElementRef;
     isAvailableTranslation?: string;
     label?: string;
     ingredientValue?: string;
-    searchQuery: string = '';
-    searchIngredient: string = '';
+    searchQuery = '';
+    searchIngredient = '';
     coffeeRecipeData: any[] = [];
     isLoading = false;
     translationsList: any[] = [
@@ -80,38 +78,24 @@ export class CoffeeRecipesViewComponent implements OnInit {
             ],
         },
     ];
+    pageDesc: string | undefined;
+    roasterId: string;
 
-    constructor(private coffeeLabService: CoffeeLabService, private toastService: ToastrService) {}
+    constructor(
+        private toastService: ToastrService,
+        private activateRoute: ActivatedRoute,
+        private coffeeLab: CoffeeLabService,
+        private cookieService: CookieService,
+    ) {
+        this.pageDesc = this.activateRoute.snapshot.routeConfig?.path;
+        this.roasterId = this.cookieService.get('roaster_id');
+    }
 
     ngOnInit(): void {
-        console.log('coffeeRecipeData---', this.coffeeRecipeData);
         this.getCoffeeRecipesData();
     }
 
-    ngAfterViewInit() {
-        fromEvent(this.ingredientSearch.nativeElement, 'keyup')
-            .pipe(
-                debounceTime(400),
-                distinctUntilChanged(),
-                tap((text) => {
-                    console.log('text-->>', text);
-                    this.getCoffeeRecipesData();
-                }),
-            )
-            .subscribe();
-        fromEvent(this.recipeSearch.nativeElement, 'keyup')
-            .pipe(
-                debounceTime(400),
-                distinctUntilChanged(),
-                tap((text) => {
-                    console.log('text-->>', text);
-                    this.getCoffeeRecipesData();
-                }),
-            )
-            .subscribe();
-    }
-
-    getCoffeeRecipesData() {
+    getCoffeeRecipesData(): void {
         this.isLoading = true;
         const params = {
             query: this.searchQuery,
@@ -121,23 +105,39 @@ export class CoffeeRecipesViewComponent implements OnInit {
             sort_order: this.selectedOrder === 'latest' ? 'desc' : 'asc',
             level: this.label,
         };
-        this.coffeeLabService.getForumList('recipe', params).subscribe((res) => {
-            if (res.success) {
-                console.log('response----->>>>>', res);
-                this.coffeeRecipeData = res.result;
-                console.log('coffeeRecipeData Data---->>>', this.coffeeRecipeData);
-            } else {
-                this.toastService.error('Cannot get Articles data');
-            }
-            this.isLoading = false;
-        });
+        if (this.pageDesc === 'saved-posts') {
+            this.coffeeLab.getSavedForumList('recipe', this.roasterId).subscribe((res) => {
+                if (res.success) {
+                    this.coffeeRecipeData = res.result;
+                } else {
+                    this.toastService.error('Cannot get Recipes data');
+                }
+                this.isLoading = false;
+            });
+        } else if (this.pageDesc === 'my-posts') {
+            this.coffeeLab.getMyForumList('recipe', this.roasterId).subscribe((res) => {
+                if (res.success) {
+                    this.coffeeRecipeData = res.result;
+                } else {
+                    this.toastService.error('Cannot get Recipes data');
+                }
+                this.isLoading = false;
+            });
+        } else {
+            this.coffeeLab.getForumList('recipe', params).subscribe((res) => {
+                if (res.success) {
+                    console.log('response----->>>>>', res);
+                    this.coffeeRecipeData = res.result;
+                    console.log('coffeeRecipeData Data---->>>', this.coffeeRecipeData);
+                } else {
+                    this.toastService.error('Cannot get Recipes data');
+                }
+                this.isLoading = false;
+            });
+        }
     }
 
     onShare(postItem: any): void {}
     onSavePost(postItem: any): void {}
     onTranslate(postItem: any): void {}
-
-    getData() {
-        console.log('call get data.......');
-    }
 }
