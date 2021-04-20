@@ -10,6 +10,9 @@ import { ApiService } from './api.service';
 })
 export class CoffeeLabService extends ApiService {
     forumLanguage = new BehaviorSubject('en');
+    organization = 'ro';
+    organizationId = this.cookieSrv.get('roaster_id');
+
     get currentForumLanguage(): string {
         return this.forumLanguage.value;
     }
@@ -31,11 +34,11 @@ export class CoffeeLabService extends ApiService {
     }
 
     postComment(type: string, id: any, data: any): any {
-        return this.post(this.orgPostUrl, `co/${type}s/${id}/comments`, 'POST', data);
+        return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/${type}s/${id}/comments`, 'POST', data);
     }
 
     postQuestion(data: any): Observable<any> {
-        return this.post(this.orgPostUrl, `co/questions`, 'POST', data);
+        return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/questions`, 'POST', data);
     }
 
     getAuthors(type: string): Observable<any> {
@@ -43,6 +46,6 @@ export class CoffeeLabService extends ApiService {
     }
 
     getDrafts(): Observable<any> {
-        return this.post(this.orgPostUrl, `co/drafts`, 'GET');
+        return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/drafts`, 'GET');
     }
 }
