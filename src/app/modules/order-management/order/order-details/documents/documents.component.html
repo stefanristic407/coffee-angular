@@ -37,11 +37,11 @@
             <ng-template pTemplate="body" let-document>
                 <tr>
                     <td class="text-overflow-ellipsis border-0 card-column">
-                        <span class="d-none d-md-inline">{{ document.name }}</span>
+                        <span class="d-none d-md-inline">{{ document.doc_type }}</span>
                         <div class="p-mobile-row-content">
                             <div class="d-flex">
                                 <div class="d-flex flex-column w-100">
-                                    <div class="fnt-14 font-bold text-clr334 mb-1 mt-2">{{ document.name }}</div>
+                                    <div class="fnt-14 font-bold text-clr334 mb-1 mt-2">{{ document.doc_type }}</div>
                                     <div class="fnt-12 my-2">
                                         <span class="text-clr588">{{ 'owner' | translate }}:</span>&nbsp;
                                         <span class="text-clr334 font-bold">{{ document.file_owner }}</span>

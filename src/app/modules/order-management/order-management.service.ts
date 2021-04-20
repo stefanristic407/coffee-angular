@@ -19,7 +19,7 @@ import {
 } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { OrganizationType, OrderType, OrderStatus } from '@enums';
+import { OrganizationType, OrderType, OrderStatus, ShippingStatus } from '@enums';
 import {
     AvailabilityService,
     BrandProfileService,
@@ -265,9 +265,11 @@ export class OrderManagementService {
                         this.loadUserProfile();
                         this.checkReviews(orderId, orgType);
 
-                        if (details.status !== OrderStatus.Placed) {
+                        if (details.estimated_departure_date || details.estimated_pickup_date) {
                             this.loadShippingDetails(orderId);
                         }
+
+                        this.updateOrderStatus(details);
 
                         if (details.order_type === OrderType.Prebook) {
                             this.loadLotDetails(details.estate_id, details.lot_id);
@@ -338,13 +340,6 @@ export class OrderManagementService {
                 if (response.success) {
                     const shippingDetails = response.result;
                     this.shippingDetailsSubject.next(shippingDetails);
-
-                    // if (shippingDetails) {
-                    //     const orderDetails = this.orderDetailsSubject.value;
-                    //     if (orderDetails) {
-                    //         this.updateOrderStatus(orderDetails, shippingDetails);
-                    //     }
-                    // }
                 }
             },
         });
@@ -402,5 +397,28 @@ export class OrderManagementService {
         this.reviewSrv.getOrderReviews(orderId, orgType).subscribe({
             next: (res) => this.isReviewedSubject.next(res.length > 0),
         });
+    }
+
+    private updateOrderStatus(order: OrderDetails) {
+        const status = order.status;
+        const today = moment().startOf('day');
+        const departureDate = order.estimated_departure_date
+            ? moment(order.estimated_departure_date).startOf('day')
+            : moment().startOf('day').add(1, 'day');
+        const pickupDate = order.estimated_pickup_date
+            ? moment(order.estimated_pickup_date).startOf('day')
+            : moment().startOf('day').add(1, 'day');
+
+        if (order.shipment_status === ShippingStatus.SHIPPED || departureDate <= today) {
+            order.status = OrderStatus.Shipped;
+        }
+
+        if (order.shipment_status === ShippingStatus.DELIVERED || pickupDate <= today) {
+            order.status = OrderStatus.Received;
+        }
+
+        if (order.status !== status) {
+            this.orderDetailsSubject.next(order);
+        }
     }
 }

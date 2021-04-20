@@ -41,7 +41,6 @@ export class PurchaseService extends ApiService {
                     details.receiptShow = false;
                     details.beforeGradeComplete = true;
                     details.afterGradeComplete = false;
-                    details.shipmentStatus = false;
 
                     if (details.paymentStatus === 'VERIFIED') {
                         details.uploadShow = false;
