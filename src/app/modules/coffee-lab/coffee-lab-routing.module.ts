@@ -14,6 +14,7 @@ import { QuestionDetailComponent } from '@modules/coffee-lab/qa-forum/question-d
 import { CreateQuestionComponent } from '@modules/coffee-lab/create-post/create-question/create-question.component';
 import { CreateArticleComponent } from '@modules/coffee-lab/create-post/create-article/create-article.component';
 import { CreateRecipeComponent } from '@modules/coffee-lab/create-post/create-recipe/create-recipe.component';
+import { AssignedToMeComponent } from './assigned-to-me/assigned-to-me.component';
 
 const routes: Routes = [
     {
@@ -53,6 +54,10 @@ const routes: Routes = [
                     {
                         path: 'saved-posts',
                         component: SavedPostsViewComponent,
+                    },
+                    {
+                        path: 'assigned-to-me',
+                        component: AssignedToMeComponent,
                     },
                 ],
             },

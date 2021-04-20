@@ -27,6 +27,7 @@ import { OriginalViewComponent } from './components/original-view/original-view.
 import { CreateQuestionComponent } from './create-post/create-question/create-question.component';
 import { CreateArticleComponent } from './create-post/create-article/create-article.component';
 import { CreateRecipeComponent } from './create-post/create-recipe/create-recipe.component';
+import { AssignedToMeComponent } from './assigned-to-me/assigned-to-me.component';
 @NgModule({
     declarations: [
         CoffeeLabComponent,
@@ -53,6 +54,7 @@ import { CreateRecipeComponent } from './create-post/create-recipe/create-recipe
         CreateQuestionComponent,
         CreateArticleComponent,
         CreateRecipeComponent,
+        AssignedToMeComponent,
     ],
     imports: [CommonModule, CoffeeLabRoutingModule, SharedModule, FormsModule],
 })
