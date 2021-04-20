@@ -31,6 +31,7 @@ import { TabContainerComponent } from './create-post/tab-container/tab-container
 import { CreateAnswerComponent } from './create-post/create-answer/create-answer.component';
 import { MyAnswersComponent } from './my-posts/my-answers/my-answers.component';
 import { AssignedToMeViewComponent } from './assigned-to-me/assigned-to-me-view/assigned-to-me-view.component';
+// import { CoffeeRecipePostComponent } from './coffee-recipes/coffee-recipe-post/coffee-recipe-post.component';
 @NgModule({
     declarations: [
         CoffeeLabComponent,
@@ -61,6 +62,7 @@ import { AssignedToMeViewComponent } from './assigned-to-me/assigned-to-me-view/
         CreateAnswerComponent,
         MyAnswersComponent,
         AssignedToMeViewComponent,
+        // CoffeeRecipePostComponent,
     ],
     imports: [CommonModule, CoffeeLabRoutingModule, SharedModule, FormsModule],
 })

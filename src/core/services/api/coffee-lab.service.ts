@@ -76,4 +76,8 @@ export class CoffeeLabService extends ApiService {
     saveForum(type: string, id: any): Observable<any> {
         return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/${type}s/${id}/save`, 'PUT');
     }
+
+    postCoffeeRecipe(data: any): Observable<any> {
+        return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/recipes`, 'POST', data);
+    }
 }
