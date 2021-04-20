@@ -1,0 +1,37 @@
+::ng-deep {
+    .p-tabmenu {
+        &.tabmenu-create-post {
+            .p-tabmenu-nav {
+                li {
+                    margin-right: 0;
+                    .p-menuitem-link {
+                        padding: 0 16px 4px 16px !important;
+                        img {
+                            display: inline-block;
+                            &.active-icon {
+                                display: none;
+                            }
+                        }
+                    }
+                    .p-menuitem-link-active {
+                        img {
+                            display: none;
+                            &.active-icon {
+                                display: inline-block;
+                            }
+                        }
+                    }
+                }
+            }
+            .p-tabview-panel {
+                padding-top: 48px;
+                @media (max-width: 991px) {
+                    padding-top: 32px;
+                }
+                @media (max-width: 767px) {
+                    padding-top: 24px;
+                }
+            }
+        }
+    }
+}
