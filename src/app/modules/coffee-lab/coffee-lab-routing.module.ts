@@ -16,6 +16,7 @@ import { CreateArticleComponent } from '@modules/coffee-lab/create-post/create-a
 import { CreateRecipeComponent } from '@modules/coffee-lab/create-post/create-recipe/create-recipe.component';
 import { TabContainerComponent } from '@modules/coffee-lab/create-post/tab-container/tab-container.component';
 import { CreateAnswerComponent } from '@modules/coffee-lab/create-post/create-answer/create-answer.component';
+import { AssignedToMeViewComponent } from '@modules/coffee-lab/assigned-to-me/assigned-to-me-view/assigned-to-me-view.component';
 
 const routes: Routes = [
     {
@@ -56,6 +57,10 @@ const routes: Routes = [
                         path: 'saved-posts',
                         component: SavedPostsViewComponent,
                     },
+                    {
+                        path: 'assigned-to-me',
+                        component: AssignedToMeViewComponent,
+                    },
                 ],
             },
             {
@@ -77,7 +82,7 @@ const routes: Routes = [
                     {
                         path: '',
                         redirectTo: 'tab',
-                        pathMatch: 'full'
+                        pathMatch: 'full',
                     },
                     {
                         path: 'tab',
@@ -107,9 +112,9 @@ const routes: Routes = [
                     },
                     {
                         path: 'answer',
-                        component: CreateAnswerComponent
-                    }
-                ]
+                        component: CreateAnswerComponent,
+                    },
+                ],
             },
         ],
     },
