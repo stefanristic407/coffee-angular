@@ -74,6 +74,7 @@ export class QaPostComponent implements OnInit {
             const params = {
                 query: this.keyword,
                 sort_by: this.sortBy === 'most_answered' ? 'most_answered' : 'posted_at',
+                org_type: 'ro',
                 sort_order: this.sortBy === 'most_answered' ? 'desc' : this.sortBy === 'latest' ? 'desc' : 'asc',
             };
             this.coffeeLabService.getForumList('question', params).subscribe((res: any) => {
