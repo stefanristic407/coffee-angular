@@ -54,17 +54,14 @@ export class ArticlesViewComponent implements OnInit {
     ];
     isLoading = false;
     pageDesc: string | undefined;
-    roasterId: string;
     constructor(
         private coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
         private globalsService: GlobalsService,
         private activateRoute: ActivatedRoute,
         private coffeeLab: CoffeeLabService,
-        private cookieService: CookieService,
     ) {
         this.pageDesc = this.activateRoute.snapshot.routeConfig?.path;
-        this.roasterId = this.cookieService.get('roaster_id');
     }
 
     ngOnInit(): void {
@@ -80,7 +77,7 @@ export class ArticlesViewComponent implements OnInit {
             sort_order: this.selectedOrder === 'latest' ? 'desc' : 'asc',
         };
         if (this.pageDesc === 'saved-posts') {
-            this.coffeeLab.getSavedForumList('article', this.roasterId).subscribe((res) => {
+            this.coffeeLab.getSavedForumList('article').subscribe((res) => {
                 if (res.success) {
                     this.articlesData = res.result;
                 } else {
@@ -89,7 +86,7 @@ export class ArticlesViewComponent implements OnInit {
                 this.isLoading = false;
             });
         } else if (this.pageDesc === 'my-posts') {
-            this.coffeeLab.getMyForumList('article', this.roasterId).subscribe((res) => {
+            this.coffeeLab.getMyForumList('article').subscribe((res) => {
                 if (res.success) {
                     this.articlesData = res.result;
                 } else {

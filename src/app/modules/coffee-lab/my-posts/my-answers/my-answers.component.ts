@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CoffeeLabService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -19,9 +18,7 @@ export class MyAnswersComponent implements OnInit {
     shortComments = false;
     result: any;
     roasterId: string;
-    constructor(private coffeeLabService: CoffeeLabService, private cookieService: CookieService) {
-        this.roasterId = this.cookieService.get('roaster_id');
-    }
+    constructor(private coffeeLabService: CoffeeLabService) {}
 
     ngOnInit(): void {
         this.getComments();
@@ -46,7 +43,7 @@ export class MyAnswersComponent implements OnInit {
     }
 
     getComments(): void {
-        this.coffeeLabService.getMyAnswers(this.roasterId).subscribe((res) => {
+        this.coffeeLabService.getMyForumList('answer').subscribe((res) => {
             this.answers = res.result;
         });
     }
