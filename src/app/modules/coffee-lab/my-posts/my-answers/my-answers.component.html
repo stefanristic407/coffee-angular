@@ -1,1 +1,117 @@
-<p>No data to display</p>
+<div class="col-lg-8 col-md px-0">
+    <div class="d-md-block d-none">
+        <div class="d-flex justify-content-between">
+            <h1 class="fnt-24 fnt-muli fnt-bold text-clr334 mb-0 mb-4">{{ 'my_posts' | translate }}</h1>
+            <div>
+                <p-dropdown
+                    [options]="sortOptions"
+                    [(ngModel)]="sortBy"
+                    (ngModelChange)="getComments()"
+                    styleClass="no-border no-padding"
+                    optionLabel="label"
+                    optionValue="value"
+                ></p-dropdown>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="gutter-24" *ngFor="let comment of filteredComments; let last = last">
+            <div class="w-100 br-4 border-main mb-4 mb-md-3 mb-lg-4">
+                <div class="p-md-4 p-3 bg">
+                    <div class="mb-4 d-md-flex">
+                        <div class="d-flex">
+                            <div class="mr-25">
+                                <img
+                                    [src]="
+                                        comment?.profile_image_url ||
+                                        comment?.profile_image_thumb_url ||
+                                        comment?.posted_user_profile_image_url ||
+                                        'assets/images/default-avatar.png'
+                                    "
+                                    class="rounded-circle"
+                                    alt="avatar"
+                                    width="40"
+                                    height="40"
+                                />
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="fnt-muli font-weight-bold fnt-14 text-clr24 mr-3">
+                                    {{
+                                        comment?.user_name ||
+                                            comment?.question_user ||
+                                            comment?.posted_user ||
+                                            'unknown_user' | translate
+                                    }}
+                                </div>
+                                <div class="fnt-muli fnt-12 text-clr588">
+                                    {{ comment?.posted_at || comment?.created_at | amTimeAgo }}
+                                </div>
+                                <div *ngIf="comment?.post_type" class="ml-3 d-none d-md-block">
+                                    <div *ngIf="comment?.post_type === 'article'" class="align-items-center d-flex">
+                                        <img
+                                            src="/assets/images/noun-questions-and-answers-1950001-copy-2.svg"
+                                            alt="article"
+                                        />
+                                        <span class="fnt-14 fnt-600 fnt-muli text-clr24 ml-2">{{
+                                            'article' | translate
+                                        }}</span>
+                                    </div>
+                                    <div *ngIf="comment?.post_type === 'recipe'" class="align-items-center d-flex">
+                                        <img
+                                            src="/assets/images/noun-questions-and-answers-1950001-copy.svg"
+                                            alt="recipe"
+                                        />
+                                        <span class="fnt-14 fnt-600 fnt-muli text-clr24 ml-2">{{
+                                            'recipe' | translate
+                                        }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="comment?.post_type" class="ml-5 d-md-none">
+                            <div *ngIf="comment?.post_type === 'article'" class="align-items-center d-flex">
+                                <img src="/assets/images/noun-questions-and-answers-1950001-copy-2.svg" alt="article" />
+                                <span class="fnt-14 fnt-600 fnt-muli text-clr24 ml-2">{{ 'article' | translate }}</span>
+                            </div>
+                            <div *ngIf="comment?.post_type === 'recipe'" class="align-items-center d-flex">
+                                <img src="/assets/images/noun-questions-and-answers-1950001-copy.svg" alt="recipe" />
+                                <span class="fnt-14 fnt-600 fnt-muli text-clr24 ml-2">{{ 'recipe' | translate }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-4 fnt-md-18 fnt-16 fnt-bold fnt-muli text-clr24">
+                        {{ comment?.post_title | translate }}
+                    </div>
+                    <div
+                        class="border-main inner-bg br-4 p-md-4 p-3 mb-3"
+                        *ngFor="let cmt of comment.comments?.slice(0, comment.sliceNumber); let i = index"
+                    >
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="fnt-muli text-clr334 fnt-600 fnt-14 mr-3">
+                                        {{ 'your_comment' | translate }}
+                                    </div>
+                                    <div class="fnt-muli fnt-12 text-clr588 d-md-flex">
+                                        <span class="d-none d-md-block">{{ 'posted' | translate }}</span
+                                        >&nbsp;
+                                        {{ cmt?.posted_at | amTimeAgo }}
+                                    </div>
+                                </div>
+                                <div class="fnt-muli fnt-14 text-clr24 lh-15 mt-2">
+                                    <span>{{ cmt?.comment | translate | convertToShortDescription: 20 }}</span>
+                                </div>
+                            </div>
+                            <div class="fnt-muli fnt-12 text-clr588 d-none d-md-block">
+                                {{ cmt?.posted_at | date: 'shortTime' }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <a class="custom-link ml-1">{{ 'view_post' | translate }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
