@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CoffeeLabService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
+import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'app-my-answers',
@@ -8,12 +9,12 @@ import { CookieService } from 'ngx-cookie-service';
     styleUrls: ['./my-answers.component.scss'],
 })
 export class MyAnswersComponent implements OnInit {
-    comments: any[] = [];
-    filteredComments: any[] = [];
+    answers: any[] = [];
     sortOptions = [
         { label: 'Latest', value: 'latest' },
         { label: 'Oldest', value: 'oldest' },
     ];
+    questionMenuItems: MenuItem[] = [];
     sortBy = 'latest';
     shortComments = false;
     result: any;
@@ -24,20 +25,33 @@ export class MyAnswersComponent implements OnInit {
 
     ngOnInit(): void {
         this.getComments();
+        this.questionMenuItems = [
+            {
+                items: [
+                    {
+                        label: 'Share',
+                        command: () => {
+                            this.onSharePost({});
+                        },
+                    },
+                    {
+                        label: 'Save Post',
+                        command: () => {
+                            this.onSavePost({});
+                        },
+                    },
+                ],
+            },
+        ];
     }
 
     getComments(): void {
         this.coffeeLabService.getMyAnswers(this.roasterId).subscribe((res) => {
-            this.comments = res.result;
-            this.filteredComments = res.result;
+            this.answers = res.result;
         });
     }
-    postMyAnswers() {
-        // for (let questionId = 1; questionId < 100; questionId++) {
-        // const
-        this.coffeeLabService.postMyAnswers(this.roasterId, 65).subscribe((res) => {
-            console.log(res);
-        });
-        // }
+    onSharePost(postItem: any): void {}
+    onSavePost(postItem: any): void {
+        console.log('working...');
     }
 }

@@ -49,10 +49,6 @@ export class CoffeeLabService extends ApiService {
         return this.post(this.orgPostUrl, `ro/${organizationId}/answers`, 'GET');
     }
 
-    postMyAnswers(organizationId, questionId): Observable<any> {
-        return this.post(this.orgPostUrl, `ro/${organizationId}/questions/${questionId}/answers`, 'POST');
-    }
-
     getMyForumList(type: string, organizationId: any): Observable<any> {
         return this.post(this.orgPostUrl, `ro/${organizationId}/${type}s`, 'GET');
     }
