@@ -32,4 +32,12 @@ export class MyAnswersComponent implements OnInit {
             this.filteredComments = res.result;
         });
     }
+    postMyAnswers() {
+        // for (let questionId = 1; questionId < 100; questionId++) {
+        // const
+        this.coffeeLabService.postMyAnswers(this.roasterId, 65).subscribe((res) => {
+            console.log(res);
+        });
+        // }
+    }
 }
