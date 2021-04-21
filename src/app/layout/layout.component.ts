@@ -5,6 +5,7 @@ import { filter, takeUntil, debounce, debounceTime } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import {
+    AuthService,
     ChatHandlerService,
     CoffeeLabService,
     CommonService,
@@ -25,7 +26,6 @@ import { DestroyableComponent } from '@base-components';
 })
 export class LayoutComponent extends DestroyableComponent implements OnInit, AfterViewInit, OnDestroy {
     menuItems: any[];
-    userName: string;
     selected: string;
     roasterId: any;
     userId: any;
@@ -34,7 +34,6 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     searchString: string;
     showSearch = false;
     searchResults: string[];
-    profilePic: any;
     roasterProfilePic: any;
     rolename: any;
     slugList: any;
@@ -45,7 +44,6 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     readNotification: any;
 
     activeLink: 'DASHBOARD' | 'MESSAGES' | 'NOTIFICATIONS' | 'PROFILES' | 'UNSET' = 'UNSET';
-    profileUpdateEvent$?: Subscription;
     resizeEvent: Subscription;
     constructor(
         private cookieService: CookieService,
@@ -60,14 +58,12 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         private socket: SocketService,
         private commonService: CommonService,
         private coffeeLabService: CoffeeLabService,
+        public authService: AuthService
     ) {
         super();
     }
 
     ngOnInit(): void {
-        this.profileUpdateEvent$ = this.commonService.profileUpdateEvent.subscribe((profileInfo: any) => {
-            this.handleProfileUpdateEvent(profileInfo);
-        });
         this.socket.initSocketService(); // Enable socket service
         this.chat.isOpen.pipe(takeUntil(this.unsubscribeAll$)).subscribe((x) => {
             if (x) {
@@ -150,11 +146,6 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         }
     }
 
-    handleProfileUpdateEvent(profileInfo: any) {
-        this.userName = profileInfo.firstname + ' ' + profileInfo.lastname;
-        this.profilePic = profileInfo.profile_image_thumb_url;
-    }
-
     refreshMenuItems() {
         this.menuItems = this.menuService.getMenuItems().filter((element) => element.routerLink);
         this.menuItems.forEach((element) => {
@@ -191,8 +182,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         this.userService.getRoasterProfile(this.roasterId).subscribe((res: any) => {
             if (res.success) {
                 this.coffeeLabService.forumLanguage.next(res.result.language || 'en');
-                this.userName = res.result.firstname + ' ' + res.result.lastname;
-                this.profilePic = res.result.profile_image_thumb_url;
+                this.authService.userSubject.next(res.result);
                 this.i18NService.use(res.result.language || 'en');
             }
             resolve();
@@ -286,6 +276,5 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
             this.resizeEvent.unsubscribe();
         }
         this.socket.destorySocket();
-        this.profileUpdateEvent$?.unsubscribe();
     }
 }

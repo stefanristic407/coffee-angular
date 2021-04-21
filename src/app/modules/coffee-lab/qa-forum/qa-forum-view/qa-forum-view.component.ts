@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CoffeeLabService } from '@services';
+import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -23,7 +23,11 @@ export class QaForumViewComponent implements OnInit {
     isLoading = false;
     keyword = '';
 
-    constructor(private coffeeLabService: CoffeeLabService, private toastService: ToastrService) {}
+    constructor(
+        private coffeeLabService: CoffeeLabService,
+        private toastService: ToastrService,
+        public authService: AuthService,
+    ) {}
 
     ngOnInit(): void {
         window.scroll(0, 0);

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { CommonService, GlobalsService, RoasterserviceService, UserserviceService } from '@services';
+import { AuthService, CommonService, GlobalsService, RoasterserviceService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { formatDate, Location } from '@angular/common';
 import { MyProfileService } from '@modules/my-profile/my-profile.service';
@@ -45,7 +45,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         private userOriginalService: UserserviceService,
         private cookieService: CookieService,
         public myProfileService: MyProfileService,
-        private commonService: CommonService,
+        private authService: AuthService,
         private roasterService: RoasterserviceService,
         private activateRoute: ActivatedRoute,
         private router: Router
@@ -200,7 +200,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             this.isUpdatingProfile = false;
             this.profileInfo = res.result;
             this.isEditMode = false;
-            this.commonService.profileUpdateEvent.emit(this.profileInfo);
+            this.authService.userSubject.next(res.result);
             this.apiCount = 2;
             this.getCertificates();
             this.toastr.success('Successfully saved');
