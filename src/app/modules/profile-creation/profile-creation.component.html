@@ -39,10 +39,10 @@
         <div class="d-flex justify-content-between">
             <div class="w-100 text-center text-md-left">
                 <p *ngIf="isSaveMode" class="fnt-16 fnt-md-18 mb-0 mb-3 fnt-bold text-clr334 text-center text-md-left">
-                    {{ subProfileForm.controls.company_name.value }}
+                    {{ subProfileForm.controls.name.value }}
                 </p>
                 <p *ngIf="!isSaveMode" class="fnt-16 fnt-md-18 mb-0 mb-3 fnt-bold text-clr334 text-center text-md-left">
-                    {{ roasteryProfileService.roasteryProfileData?.company_name }}
+                    {{ roasteryProfileService.roasteryProfileData?.name }}
                 </p>
             </div>
             <div class="d-none d-md-flex d-lg-none mb-3">
@@ -175,18 +175,18 @@
 
             <div class="profile-metadata-container pl-3 pr-3 pb-3 p-md-0">
                 <p class="fnt-18 font-bold text-clr334 d-none d-md-block m-0 pt-4" *ngIf="isEditMode">
-                    {{ roasteryProfileService.roasteryProfileData?.company_name }}
+                    {{ roasteryProfileService.roasteryProfileData?.name }}
                 </p>
                 <a
                     class="d-md-none font-16 text-clr334 font-bold"
                     href="{{ roasteryProfileService.roasteryProfileData?.website }}"
                     target="blank"
-                    >{{ roasteryProfileService.roasteryProfileData?.company_name }}</a
+                    >{{ roasteryProfileService.roasteryProfileData?.name }}</a
                 >
                 <form [formGroup]="subProfileForm" *ngIf="isSaveMode">
                     <div class="sewn-form-field w-100 mb-0">
-                        <input pInputText type="text" formControlName="company_name" style="margin-top: 11px" />
-                        <small *ngIf="isControlHasError('company_name', 'required')" class="p-error">
+                        <input pInputText type="text" formControlName="name" style="margin-top: 11px" />
+                        <small *ngIf="isControlHasError('name', 'required')" class="p-error">
                             {{ 'required' | translate }}
                         </small>
                     </div>

@@ -35,4 +35,9 @@ export class ReviewsService extends ApiService {
             }),
         );
     }
+
+    getReviews(orgId: any, orgType: OrganizationType, query?: any): Observable<any> {
+        const params = this.serializeParams(query);
+        return this.post(this.orgPostUrl, `general/${orgType}/${orgId}/reviews?${params}`, 'GET');
+    }
 }
