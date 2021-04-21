@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CoffeeLabService, GlobalsService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
+import { CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { MenuItem } from 'primeng/api';
 @Component({
     selector: 'app-articles-view',
     templateUrl: './articles-view.component.html',
@@ -34,30 +32,11 @@ export class ArticlesViewComponent implements OnInit {
     isAvailableTranslation?: any;
     selectedOrder = 'latest';
     articlesData: any = [];
-    items: MenuItem[] = [
-        {
-            items: [
-                {
-                    label: this.globalsService.languageJson.share,
-                    command: () => {
-                        this.onShare({});
-                    },
-                },
-                {
-                    label: this.globalsService.languageJson.save_post,
-                    command: () => {
-                        this.onSavePost({});
-                    },
-                },
-            ],
-        },
-    ];
     isLoading = false;
     pageDesc: string | undefined;
     constructor(
         private coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
-        private globalsService: GlobalsService,
         private activateRoute: ActivatedRoute,
         private coffeeLab: CoffeeLabService,
     ) {
@@ -105,7 +84,4 @@ export class ArticlesViewComponent implements OnInit {
             });
         }
     }
-
-    onShare(postItem: any): void {}
-    onSavePost(postItem: any): void {}
 }
