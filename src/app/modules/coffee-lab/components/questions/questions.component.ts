@@ -3,7 +3,6 @@ import { MenuItem } from 'primeng/api';
 import { CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
-import { environment } from '@env/environment';
 
 @Component({
     selector: 'app-questions',
@@ -15,7 +14,7 @@ export class QuestionsComponent implements OnInit {
     @Input() viewMode = 'list';
     questionMenuItems: MenuItem[] = [];
     pageDesc: string | undefined;
-    selectedQuestion: any;
+    isMyPostsPage = false;
 
     constructor(
         private coffeeLabService: CoffeeLabService,
@@ -27,74 +26,7 @@ export class QuestionsComponent implements OnInit {
 
     ngOnInit(): void {
         if (this.pageDesc === 'my-posts') {
-            this.questionMenuItems = [
-                {
-                    items: [
-                        {
-                            label: 'Edit',
-                            command: () => {
-                                this.onEditPost({});
-                            },
-                        },
-                        {
-                            label: 'Delete',
-                            command: () => {
-                                this.onDeletePost({});
-                            },
-                        },
-                        {
-                            label: 'Share',
-                            command: () => {
-                                this.onSharePost();
-                            },
-                        },
-                    ],
-                },
-            ];
-        } else {
-            this.questionMenuItems = [
-                {
-                    items: [
-                        {
-                            label: 'Share',
-                            command: () => {
-                                this.onSharePost();
-                            },
-                        },
-                        {
-                            label: 'Save Post',
-                            command: () => {
-                                this.onSavePost();
-                            },
-                        },
-                    ],
-                },
-            ];
+            this.isMyPostsPage = true;
         }
-    }
-
-    onClickMenu(question: any): void {
-        console.log('clicking menu >>>>>>>>>>', question);
-    }
-
-    onEditPost(postItem: any): void {}
-    onDeletePost(postItem: any): void {}
-    onSharePost(): void {
-        const url = `${environment.roasterWeb}/coffee-lab/questions/${this.selectedQuestion.slug}`;
-        this.coffeeLabService.copyContext(url);
-    }
-    onSavePost(): void {
-        this.coffeeLabService.saveForum('question', this.selectedQuestion.id).subscribe((res: any) => {
-            console.log('save forum result >>>>>>>>', res);
-            if (res.success) {
-                this.toastService.success('Successfully saved');
-            } else {
-                if (res?.messages?.question_id[0] === 'already_exists') {
-                    this.toastService.error('You already saved this post');
-                } else {
-                    this.toastService.error('Error while save post');
-                }
-            }
-        });
     }
 }

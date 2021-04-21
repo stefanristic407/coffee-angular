@@ -16,3 +16,4 @@ export * from './startup/startup.service';
 export * from './common.service';
 export * from './resize.service';
 export * from './api/api-request.service';
+export * from './auth.service';

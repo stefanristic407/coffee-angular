@@ -3,20 +3,28 @@
 <div class="row gutter-32">
     <div class="col-lg-8">
         <div class="p-3 bg-f8 br-4 d-flex align-items-center">
-            <img src="assets/images/avatar.png" class="mr-3 rounded-circle" alt="avatar" width="40" height="40" />
+            <img
+                [src]="authService.currentUser?.profile_image_thumb_url || 'assets/images/default-avatar.png'"
+                alt="avatar"
+                class="rounded-circle mr-3"
+                width="40"
+                height="40"
+            />
             <div class="sewn-form-field w-100 mb-0">
                 <input
-                    routerLink="../../create-post/tab/question"
+                    routerLink="../../create-post"
                     type="text"
                     pInputText
-                    placeholder="Ask your coffee question..."
+                    [placeholder]="'ask_your_question_bla' | translate"
                 />
             </div>
         </div>
 
         <div *ngIf="isDisplayTip" class="p-4 bg-f8 br-4 mt-4 mt-lg-4">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <div class="fnt-18 fnt-muli font-weight-bold text-clr334">We have made a few updates to the forum</div>
+                <div class="fnt-18 fnt-muli font-weight-bold text-clr334">
+                    {{ 'we_have_made_a_few_updates_to_the_forum' | translate }}
+                </div>
                 <img
                     (click)="isDisplayTip = false"
                     src="assets/images/close.svg"
@@ -27,8 +35,7 @@
                 />
             </div>
             <div class="fnt-14 fnt-muli text-clr334 lh-15">
-                Now you can create posts, add recipes, join the forum in your preferred language, and more for an
-                improved user experience.
+                {{ 'now_you_can_create_posts_description' | translate }}
             </div>
         </div>
     </div>
@@ -40,7 +47,7 @@
                 (ngModelChange)="getQuestions()"
                 type="text"
                 pInputText
-                placeholder="Search QnA forum"
+                [placeholder]="'search_qna_forum' | translate"
             />
         </div>
     </div>
@@ -57,7 +64,7 @@
                         [(ngModel)]="keyword"
                         type="text"
                         pInputText
-                        placeholder="Search QnA forum"
+                        [placeholder]="'search_qna_forum' | translate"
                     />
                 </div>
                 <div class="d-none d-lg-block">
