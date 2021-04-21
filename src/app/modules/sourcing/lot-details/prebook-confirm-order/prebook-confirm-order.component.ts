@@ -11,6 +11,7 @@ import { SourcingService } from '../../sourcing.service';
 import { ConfirmComponent } from '@shared';
 import { COUNTRY_LIST } from '@constants';
 import { ResizeableComponent } from '@base-components';
+import { PrebookStatus } from '@enums';
 
 @Component({
     selector: 'app-prebook-confirm-order',
@@ -69,7 +70,6 @@ export class PrebookConfirmOrderComponent extends ResizeableComponent implements
                 this.sourcing.lotId = +params.get('lotId');
             }
             this.getLot();
-            this.getPrebookBatch();
         });
 
         this.prebookOrderId = 0;
@@ -80,6 +80,7 @@ export class PrebookConfirmOrderComponent extends ResizeableComponent implements
             new Promise((resolve) => this.sourcing.getLotDetails(resolve)).then(() => {
                 this.refreshBreadCrumb();
                 this.getBasicData();
+                this.getPrebookBatch();
             });
         } else {
             this.router.navigateByUrl('/error');
@@ -281,11 +282,18 @@ export class PrebookConfirmOrderComponent extends ResizeableComponent implements
     }
 
     getPrebookBatch() {
+        const curDate: Date = new Date();
+        const curYear = curDate.getFullYear();
+        const year = curDate.getMonth() < this.sourcing.lot.harvest_start ? curYear : curYear + 1;
         this.userService
-            .getPrebookBatchList(this.roasterId, this.sourcing.estateId, this.sourcing.lotId)
+            .getPrebookBatchList(this.sourcing.estateId, this.sourcing.lotId, { year })
             .subscribe((res: any) => {
                 if (res.success && res.result.length) {
-                    this.batchId = res.result[0].id;
+                    if (res.result[0].prebook_status === PrebookStatus.Active) {
+                        this.batchId = res.result[0].id;
+                    } else {
+                        this.toastrService.error('There is no prebookable batch');
+                    }
                 }
             });
     }
