@@ -3,15 +3,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
 import { GlobalsService } from '@services';
-import { RoasterserviceService } from '@services';
+import { RoasterserviceService, ResizeService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
+import { ResizeableComponent } from '@base-components';
 
 @Component({
     selector: 'app-procured-coffee',
     templateUrl: './procured-coffee.component.html',
     styleUrls: ['./procured-coffee.component.scss'],
 })
-export class ProcuredCoffeeComponent implements OnInit {
+export class ProcuredCoffeeComponent extends ResizeableComponent implements OnInit {
     items: GalleryItem[];
     appLanguage?: any;
     procuredActive: any = 0;
@@ -30,7 +31,9 @@ export class ProcuredCoffeeComponent implements OnInit {
         private router: Router,
         public roasterService: RoasterserviceService,
         public cookieService: CookieService,
+        protected resizeService: ResizeService,
     ) {
+        super(resizeService);
         this.roasterID = this.cookieService.get('roaster_id');
         this.route.params.subscribe((params) => {
             this.orderID = params.orderId;

@@ -24,11 +24,10 @@ export class DraftPostsComponent implements OnInit {
         this.coffeeLabService.getDrafts().subscribe((res: any) => {
             this.isLoading = false;
             if (res.success) {
-                this.drafts = res.result.filter((draft: any) => draft.post_type === 'question');
+                this.drafts = res.result || [];
             } else {
                 this.toastrService.error('Failed to get drafts');
             }
-            console.log('drafts >>>>>>>>>>>', res);
         });
     }
 }

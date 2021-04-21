@@ -1,11 +1,27 @@
-<app-avatar
-    [size]="size || 36"
-    [shape]="shape"
-    [src]="imageUrl || data?.profile_image_thumb_url || data?.profile_image_url"
-    [name]="data?.firstname + data?.lastname"
+<div
+    class="avatar"
+    [style.width]="size + 'px'"
+    [style.height]="size + 'px'"
+    [style.border]="hasBorder ? '2px solid #fff' : 'none'"
     (mouseenter)="myOp.toggle($event)"
+    *ngIf="type !== 'text'"
 >
-</app-avatar>
+    <img
+        *ngIf="data?.profile_image_thumb_url || data?.profile_image_url"
+        [src]="data?.profile_image_thumb_url || data?.profile_image_url"
+        [alt]="name && name.length ? name.slice(0, 1) : 'AV'"
+        [style.borderRadius]="shape === 'rectangle' ? 'unset' : '50%'"
+    />
+    <span
+        *ngIf="!data?.profile_image_thumb_url && !data?.profile_image_url"
+        class="text-white"
+        [style.font-size]="size / 1.5 + 'px'"
+        >{{ name && name.length ? name.slice(0, 1) : '' }}</span
+    >
+</div>
+<span class="text-underline" *ngIf="type === 'text' && data" (mouseenter)="myOp.toggle($event)">
+    {{ name }}
+</span>
 <p-overlayPanel #myOp styleClass="user-details-overlay" appendTo="body">
     <ng-template pTemplate>
         <div class="py-2 py-md-0 user-details-wrapper">
@@ -51,7 +67,7 @@
                     </div>
                 </div>
                 <div class="mt-4 d-flex align-items-center">
-                    <button class="btn-raised mr-3" [routerLink]="'/profile/' + userId">
+                    <button class="btn-raised mr-3" [routerLink]="'/profile/' + userId + '/' + orgType">
                         {{ 'view_profile' | translate }}
                     </button>
                     <div class="message-button fnt-14 fnt-muli" (click)="myOp.hide(); openChat()">

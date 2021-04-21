@@ -14,6 +14,9 @@ import { QuestionDetailComponent } from '@modules/coffee-lab/qa-forum/question-d
 import { CreateQuestionComponent } from '@modules/coffee-lab/create-post/create-question/create-question.component';
 import { CreateArticleComponent } from '@modules/coffee-lab/create-post/create-article/create-article.component';
 import { CreateRecipeComponent } from '@modules/coffee-lab/create-post/create-recipe/create-recipe.component';
+import { TabContainerComponent } from '@modules/coffee-lab/create-post/tab-container/tab-container.component';
+import { CreateAnswerComponent } from '@modules/coffee-lab/create-post/create-answer/create-answer.component';
+import { AssignedToMeViewComponent } from '@modules/coffee-lab/assigned-to-me/assigned-to-me-view/assigned-to-me-view.component';
 
 const routes: Routes = [
     {
@@ -54,6 +57,10 @@ const routes: Routes = [
                         path: 'saved-posts',
                         component: SavedPostsViewComponent,
                     },
+                    {
+                        path: 'assigned-to-me',
+                        component: AssignedToMeViewComponent,
+                    },
                 ],
             },
             {
@@ -74,23 +81,38 @@ const routes: Routes = [
                 children: [
                     {
                         path: '',
-                        redirectTo: 'question',
+                        redirectTo: 'tab',
                         pathMatch: 'full',
                     },
                     {
-                        path: 'question',
-                        component: CreateQuestionComponent,
-                        data: { type: 'question' },
+                        path: 'tab',
+                        component: TabContainerComponent,
+                        children: [
+                            {
+                                path: '',
+                                redirectTo: 'question',
+                                pathMatch: 'full',
+                            },
+                            {
+                                path: 'question',
+                                component: CreateQuestionComponent,
+                                data: { type: 'question' },
+                            },
+                            {
+                                path: 'article',
+                                component: CreateArticleComponent,
+                                data: { type: 'question' },
+                            },
+                            {
+                                path: 'recipe',
+                                component: CreateRecipeComponent,
+                                data: { type: 'question' },
+                            },
+                        ],
                     },
                     {
-                        path: 'article',
-                        component: CreateArticleComponent,
-                        data: { type: 'question' },
-                    },
-                    {
-                        path: 'recipe',
-                        component: CreateRecipeComponent,
-                        data: { type: 'question' },
+                        path: 'answer',
+                        component: CreateAnswerComponent,
                     },
                 ],
             },

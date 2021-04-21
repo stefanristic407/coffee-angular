@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { GlobalsService, UserserviceService } from '@services';
+import { GlobalsService, ReviewsService, UserserviceService } from '@services';
 import { RoasterserviceService } from '@services';
+import { OrganizationType } from '@enums';
 
 @Component({
     selector: 'app-sewn-reviews',
@@ -24,6 +25,7 @@ export class ReviewsComponent implements OnInit {
         private roasterService: RoasterserviceService,
         private cookieService: CookieService,
         public userSrv: UserserviceService,
+        private reviewRatingService: ReviewsService,
     ) {
         this.termStatus = 'Most relevant';
     }
@@ -35,8 +37,8 @@ export class ReviewsComponent implements OnInit {
 
     getReviews(): void {
         this.isLoading = true;
-        this.roasterService.getRoasterReviews(this.roasterId).subscribe((res) => {
-            console.log('review: ', res);
+
+        this.reviewRatingService.getReviews(this.roasterId, OrganizationType.ROASTER, {}).subscribe((res: any) => {
             if (res.success) {
                 this.isLoading = false;
                 this.reviews = res.result ? res.result : [];

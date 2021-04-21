@@ -157,11 +157,12 @@
                                         <div class="col-lg-4 col-md-4 col-sm-6 mb-2 mb-md-0">
                                             <div class="real-estate d-flex mt-3 mt-md-0">
                                                 <div class="mr-2 mr-md-3">
-                                                    <app-avatar
+                                                    <app-user-detail
+                                                        [imageUrl]="sourcing.harvestDetail?.cupping?.evaluator_dp_thumb"
+                                                        [userId]="sourcing.harvestDetail?.cupping?.evaluator_id"
+                                                        orgType="fc"
                                                         [size]="(isMobile$ | async) ? 32 : 40"
-                                                        [src]="sourcing.harvestDetail?.cupping?.evaluator_dp_thumb"
-                                                        [name]="sourcing.harvestDetail?.cupping?.evaluator_name"
-                                                    ></app-avatar>
+                                                    ></app-user-detail>
                                                 </div>
                                                 <div>
                                                     <h3 class="mb-1">

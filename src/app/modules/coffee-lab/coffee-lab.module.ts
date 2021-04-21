@@ -27,6 +27,12 @@ import { OriginalViewComponent } from './components/original-view/original-view.
 import { CreateQuestionComponent } from './create-post/create-question/create-question.component';
 import { CreateArticleComponent } from './create-post/create-article/create-article.component';
 import { CreateRecipeComponent } from './create-post/create-recipe/create-recipe.component';
+import { TabContainerComponent } from './create-post/tab-container/tab-container.component';
+import { CreateAnswerComponent } from './create-post/create-answer/create-answer.component';
+import { MyAnswersComponent } from './my-posts/my-answers/my-answers.component';
+import { AssignedToMeViewComponent } from './assigned-to-me/assigned-to-me-view/assigned-to-me-view.component';
+import { ForumMenuComponent } from './components/forum-menu/forum-menu.component';
+
 @NgModule({
     declarations: [
         CoffeeLabComponent,
@@ -53,6 +59,11 @@ import { CreateRecipeComponent } from './create-post/create-recipe/create-recipe
         CreateQuestionComponent,
         CreateArticleComponent,
         CreateRecipeComponent,
+        TabContainerComponent,
+        CreateAnswerComponent,
+        MyAnswersComponent,
+        AssignedToMeViewComponent,
+        ForumMenuComponent,
     ],
     imports: [CommonModule, CoffeeLabRoutingModule, SharedModule, FormsModule],
 })

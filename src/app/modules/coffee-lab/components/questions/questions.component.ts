@@ -14,6 +14,7 @@ export class QuestionsComponent implements OnInit {
     @Input() viewMode = 'list';
     questionMenuItems: MenuItem[] = [];
     pageDesc: string | undefined;
+    isMyPostsPage = false;
 
     constructor(
         private coffeeLabService: CoffeeLabService,
@@ -25,56 +26,7 @@ export class QuestionsComponent implements OnInit {
 
     ngOnInit(): void {
         if (this.pageDesc === 'my-posts') {
-            this.questionMenuItems = [
-                {
-                    items: [
-                        {
-                            label: 'Edit',
-                            command: () => {
-                                this.onEditPost({});
-                            },
-                        },
-                        {
-                            label: 'Delete',
-                            command: () => {
-                                this.onDeletePost({});
-                            },
-                        },
-                        {
-                            label: 'Share',
-                            command: () => {
-                                this.onSharePost({});
-                            },
-                        },
-                    ],
-                },
-            ];
-        } else {
-            this.questionMenuItems = [
-                {
-                    items: [
-                        {
-                            label: 'Share',
-                            command: () => {
-                                this.onSharePost({});
-                            },
-                        },
-                        {
-                            label: 'Save Post',
-                            command: () => {
-                                this.onSavePost({});
-                            },
-                        },
-                    ],
-                },
-            ];
+            this.isMyPostsPage = true;
         }
-    }
-
-    onEditPost(postItem: any): void {}
-    onDeletePost(postItem: any): void {}
-    onSharePost(postItem: any): void {}
-    onSavePost(postItem: any): void {
-        console.log('working...');
     }
 }

@@ -1,15 +1,22 @@
-<div class="col-md-8 pl-0">
-    <div class="d-flex justify-content-between">
-        <h1 class="fnt-24 fnt-muli fnt-bold text-clr334 mb-0 mb-4">{{ 'my_posts' | translate }}</h1>
-        <div>
-            <p-dropdown
-                [options]="sortOptions"
-                [(ngModel)]="sortBy"
-                (ngModelChange)="getPosts()"
-                styleClass="no-border no-padding"
-                optionLabel="label"
-                optionValue="value"
-            ></p-dropdown>
+<div class="col-lg-8 col-md px-0">
+    <div class="d-none d-md-block">
+        <div class="d-flex justify-content-between">
+            <h1 *ngIf="pageDesc === 'my-posts'" class="fnt-24 fnt-muli fnt-bold text-clr334 mb-0 mb-4">
+                {{ 'my_posts' | translate }}
+            </h1>
+            <h1 *ngIf="pageDesc === 'saved-posts'" class="fnt-24 fnt-muli fnt-bold text-clr334 mb-0 mb-4">
+                {{ 'saved_posts' | translate }}
+            </h1>
+            <div>
+                <p-dropdown
+                    [options]="sortOptions"
+                    [(ngModel)]="sortBy"
+                    (ngModelChange)="getPosts()"
+                    styleClass="no-border no-padding"
+                    optionLabel="label"
+                    optionValue="value"
+                ></p-dropdown>
+            </div>
         </div>
     </div>
     <div>
@@ -18,5 +25,7 @@
     <div *ngIf="isLoading">
         <app-loading></app-loading>
     </div>
-    <div *ngIf="!questions.length" class="text-center my-4 fnt-muli text-clr24">{{'no_qa_post' | translate}</div>
+    <div *ngIf="!isLoading && !questions.length" class="text-center my-4 fnt-muli text-clr24">
+        {{ 'no_data_is_available' | translate }}
+    </div>
 </div>

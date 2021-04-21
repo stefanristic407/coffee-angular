@@ -25,7 +25,11 @@
                                 *ngIf="index < 2"
                             >
                                 By :
-                                <span class="text-underline">{{ getStatusAuthor(point) }}</span>
+                                <app-user-detail
+                                    [userId]="getStatusAuthor(point).id"
+                                    [orgType]="getStatusAuthor(point).orgType"
+                                    type="text"
+                                ></app-user-detail>
                             </p>
                             <p class="pt-1 fnt-12 d-lg-block d-md-none d-sm-block">
                                 {{ getStatusDate(point) | date: 'd MMMM y' }}

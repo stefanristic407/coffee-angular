@@ -96,9 +96,14 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
         });
     }
 
-    getStatusAuthor(point: LabelValue): string {
+    getStatusAuthor(point: LabelValue): any {
         const activity = this.getLatestActivity(point);
-        return activity ? `${activity.user_first_name} ${activity.user_last_name}` : '';
+        const userData = {
+            id: activity ? activity.user_id : '',
+            orgType: activity ? activity.organization_type : '',
+            name: activity ? `${activity.user_first_name} ${activity.user_last_name}` : '',
+        };
+        return userData;
     }
 
     getStatusDate(point: LabelValue): string {

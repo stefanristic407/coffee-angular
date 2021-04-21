@@ -8,6 +8,7 @@
                 #input
                 name="search"
                 [(ngModel)]="termSearch"
+                (ngModelChange)="filterCall()"
                 placeholder="{{ 'search_name_role' | translate }}"
             />
         </div>
@@ -45,6 +46,7 @@
                         name="search"
                         class="w-100"
                         [(ngModel)]="termSearch"
+                        (ngModelChange)="filterCall()"
                         placeholder="{{ 'search_name_role' | translate }}"
                     />
                 </div>
@@ -92,6 +94,7 @@
                         #input
                         name="search"
                         [(ngModel)]="termSearch"
+                        (ngModelChange)="filterCall()"
                         placeholder="{{ 'search_name_role' | translate }}"
                     />
                 </div>

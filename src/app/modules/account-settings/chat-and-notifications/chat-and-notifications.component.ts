@@ -36,7 +36,7 @@ export class ChatAndNotificationsComponent implements OnInit {
         this.breadcrumbItems = [
             { label: this.globals.languageJson?.home, routerLink: '/dashboard' },
             { label: this.globals.languageJson?.account_settings, routerLink: '../../account-settings' },
-            { label: this.globals.languageJson?.chat_and_notifications },
+            { label: this.globals.languageJson?.preferences },
         ];
     }
 

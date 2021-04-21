@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CoffeeLabService } from '@services';
 
 @Component({
     selector: 'app-overview',
@@ -37,6 +36,12 @@ export class OverviewComponent implements OnInit {
             routerLink: 'saved-posts',
             icon: 'assets/images/saved-post.svg',
             activeIcon: 'assets/images/saved-post-active.svg',
+        },
+        {
+            label: 'assigned_to_me',
+            routerLink: 'assigned-to-me',
+            icon: 'assets/images/assigned-to-me.svg',
+            activeIcon: 'assets/images/assigned-to-me-active.svg',
         },
     ];
     keyword?: string;

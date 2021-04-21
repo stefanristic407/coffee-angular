@@ -1,0 +1,21 @@
+@import 'variables';
+
+.bg {
+    background-color: $primary-bg-color;
+}
+
+.inner-bg,
+.btn-f8 {
+    background-color: $white;
+}
+
+.mobile-dot {
+    @media (max-width: 480px) {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.under {
+    text-decoration: underline;
+}

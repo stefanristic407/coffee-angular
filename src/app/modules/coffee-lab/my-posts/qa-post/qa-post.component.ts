@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CoffeeLabService, UserService } from '@services';
+import { CoffeeLabService } from '@services';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -29,7 +30,7 @@ export class QaPostComponent implements OnInit {
     constructor(
         private coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
-        private userService: UserService,
+        private cookieService: CookieService,
         private activateRoute: ActivatedRoute,
     ) {
         this.pageDesc = this.activateRoute.snapshot.routeConfig?.path;
@@ -56,5 +57,32 @@ export class QaPostComponent implements OnInit {
         });
     }
 
-    getPosts(): void {}
+    getPosts(): void {
+        this.isLoading = true;
+        if (this.pageDesc === 'saved-posts') {
+            this.coffeeLabService.getSavedForumList('question').subscribe((res: any) => {
+                this.isLoading = false;
+                if (res.success) {
+                    this.questions = res.result || [];
+                } else {
+                    this.toastService.error('Cannot get forum data');
+                }
+            });
+        } else {
+            const params = {
+                query: this.keyword,
+                sort_by: this.sortBy === 'most_answered' ? 'most_answered' : 'posted_at',
+                org_type: 'ro',
+                sort_order: this.sortBy === 'most_answered' ? 'desc' : this.sortBy === 'latest' ? 'desc' : 'asc',
+            };
+            this.coffeeLabService.getForumList('question', params).subscribe((res: any) => {
+                this.isLoading = false;
+                if (res.success) {
+                    this.questions = res.result?.questions || [];
+                } else {
+                    this.toastService.error('Cannot get forum data');
+                }
+            });
+        }
+    }
 }
