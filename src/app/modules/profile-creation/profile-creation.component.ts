@@ -63,7 +63,7 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
 
     initialForm() {
         this.subProfileForm = this.fb.group({
-            company_name: ['', Validators.compose([Validators.required])],
+            name: ['', Validators.compose([Validators.required])],
             website: [''],
         });
         this.subProfileForm.valueChanges.subscribe((changedData: any) => {
@@ -88,9 +88,7 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
     }
 
     setFormValue() {
-        this.subProfileForm.controls.company_name.setValue(
-            this.roasteryProfileService.roasteryProfileData.company_name,
-        );
+        this.subProfileForm.controls.name.setValue(this.roasteryProfileService.roasteryProfileData.name);
         this.subProfileForm.controls.website.setValue(this.roasteryProfileService.roasteryProfileData.website);
     }
 
