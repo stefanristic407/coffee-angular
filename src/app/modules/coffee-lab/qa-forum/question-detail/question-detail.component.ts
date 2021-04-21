@@ -1,8 +1,7 @@
 import { Component, OnInit, Inject, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CoffeeLabService, GlobalsService } from '@services';
+import { AuthService, CoffeeLabService, GlobalsService } from '@services';
 import { DOCUMENT, Location } from '@angular/common';
-import { MenuItem } from 'primeng/api';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -14,24 +13,6 @@ export class QuestionDetailComponent implements OnInit {
     slug?: string;
     isLoading = false;
     detailsData: any;
-    items: MenuItem[] = [
-        {
-            items: [
-                {
-                    label: this.globalsService.languageJson.share,
-                    command: () => {
-                        this.onShare({});
-                    },
-                },
-                {
-                    label: this.globalsService.languageJson.save_post,
-                    command: () => {
-                        this.onSavePost({});
-                    },
-                },
-            ],
-        },
-    ];
     recentQuestions: any[] = [];
 
     constructor(
@@ -41,9 +22,11 @@ export class QuestionDetailComponent implements OnInit {
         public globalsService: GlobalsService,
         public location: Location,
         private toastService: ToastrService,
+        public authService: AuthService,
     ) {
         this.activatedRoute.params.subscribe((params) => {
             this.slug = params.slug;
+            console.log('slug >>>>>>>>>', this.slug);
             this.getRecentQuestions();
             this.getDetails();
         });
@@ -102,7 +85,4 @@ export class QuestionDetailComponent implements OnInit {
             window.scroll(0, offsetTop);
         }
     }
-
-    onShare(postItem: any): void {}
-    onSavePost(postItem: any): void {}
 }

@@ -53,6 +53,15 @@ export class CoffeeLabService extends ApiService {
         );
     }
 
+    postAnswer(id: any, data: any): any {
+        return this.post(
+            this.orgPostUrl,
+            `${this.organization}/${this.organizationId}/questions/${id}/answers`,
+            'POST',
+            data,
+        );
+    }
+
     postQuestion(data: any): Observable<any> {
         return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/questions`, 'POST', data);
     }
@@ -73,7 +82,7 @@ export class CoffeeLabService extends ApiService {
         return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/${type}s/saved`, 'GET');
     }
 
-    saveForum(type: string, id: any): Observable<any> {
+    saveForum(type: any, id: any): Observable<any> {
         return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/${type}s/${id}/save`, 'PUT');
     }
 }

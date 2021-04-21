@@ -7,13 +7,36 @@
 <div *ngIf="!isLoading" class="row">
     <div class="col-lg-8 mb-4 mb-lg-0">
         <div class="border-main br-4 p-3 py-md-45 px-lg-45">
-            <div class="mb-3">
+            <div class="mb-3 d-flex justify-content-between align-items-center">
                 <app-user-header [prop]="detailsData"></app-user-header>
+                <div>
+                    <app-forum-menu [selectedItem]="detailsData" forumType="question"></app-forum-menu>
+                </div>
             </div>
             <div
                 class="fnt-muli fnt-16 fnt-md-18 font-weight-bold text-clr334 mb-4"
                 [innerHTML]="detailsData.question"
             ></div>
+            <div class="mb-4 border-top-main border-bottom-main py-4 px-45">
+                <div class="d-flex align-items-center">
+                    <img
+                        [src]="authService.currentUser?.profile_image_thumb_url || 'assets/images/default-avatar.png'"
+                        alt="avatar"
+                        class="rounded-circle mr-35"
+                        width="40"
+                        height="40"
+                    />
+                    <div class="sewn-form-field w-100 mb-0">
+                        <input
+                            type="text"
+                            pInputText
+                            routerLink="/coffee-lab/create-post/answer"
+                            [queryParams]="{ id: detailsData.id }"
+                            [placeholder]="'leave_a_comment_bla' | translate"
+                        />
+                    </div>
+                </div>
+            </div>
             <div class="mb-2">
                 <span (click)="setPagePosition()" class="btn-f8 w-100">
                     {{
@@ -33,12 +56,14 @@
                     </div>
                     <div>
                         <div class="d-flex flex-column align-items-end">
-                            <div class="position-relative mb-2">
-                                <p-menu #menu [popup]="true" [model]="items" styleClass="left-menu-actions"> </p-menu>
-                                <i
-                                    class="pi pi-ellipsis-h text-clr588 cursor-pointer"
-                                    (click)="menu.toggle($event)"
-                                ></i>
+                            <div class="mb-2">
+                                <app-forum-menu
+                                    [selectedItem]="answer"
+                                    forumType="answer"
+                                    [extraInfo]="slug"
+                                    [enableSave]="false"
+                                    [enableTranslation]="true"
+                                ></app-forum-menu>
                             </div>
                             <div *ngIf="answer?.translations?.length" class="d-none d-md-block">
                                 <app-translation-dropdown
@@ -58,9 +83,7 @@
                         [translatedList]="answer?.translations"
                     ></app-translation-dropdown>
                 </div>
-                <div class="fnt-muli fnt-14 text-clr334 lh-15 mb-3 mb-md-4">
-                    {{ answer.answer }}
-                </div>
+                <div class="fnt-muli fnt-14 text-clr334 lh-15 mb-3 mb-md-4" [innerHTML]="answer.answer"></div>
                 <div *ngFor="let image of answer?.images; let last = last" [ngClass]="{ 'mb-3': !last }">
                     <img class="w-100" [src]="image.file" alt="image" />
                 </div>

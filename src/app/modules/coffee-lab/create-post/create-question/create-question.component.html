@@ -17,9 +17,9 @@
     ></p-checkbox>
     <i class="pi pi-info-circle text-clr588 fnt-16 ml-2"></i>
 </div>
-<div class="row btn-controls">
+<div class="row">
     <div class="col-md-6 order-2 order-md-1">
-        <button routerLink="/coffee-lab/overview/qa-forum" class="btn-stroked px-4">
+        <button routerLink="/coffee-lab/overview/qa-forum" class="btn-stroked px-4 w-mob-100 mb-2 mb-md-0">
             {{ 'cancel' | translate }}
         </button>
     </div>
@@ -28,14 +28,14 @@
             <button
                 [disabled]="isPosting"
                 (click)="onPostQuestion('DRAFT')"
-                class="btn-stroked px-4 order-2 order-md-1"
+                class="btn-stroked px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0"
             >
                 {{ 'save_as_draft' | translate }}
             </button>
             <button
                 [disabled]="isPosting"
                 (click)="onPostQuestion('PUBLISHED')"
-                class="btn-raised px-4 ml-md-3 order-1 order-md-2"
+                class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
             >
                 {{ 'submit' | translate }}
             </button>
