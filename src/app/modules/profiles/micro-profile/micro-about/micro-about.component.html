@@ -1,0 +1,838 @@
+<div class="form-container">
+    <div class="row pl-2 pr-2 mt-4">
+        <div class="col-md-12 pl-2 pr-2 pb-3 d-none d-md-block d-lg-none">
+            <ng-template *ngTemplateOutlet="rightSidePanel"></ng-template>
+        </div>
+        <div class="col-lg-8 col-12 pt-0 pl-2 pr-2">
+            <div class="border-md-main br-4 p-lg-4 p-md-3">
+                <form [formGroup]="aboutForm">
+                    <div class="row border-md-main border-md-none br-6 mt-3 m-0 p-0 p-md-0 mr-md-0 ml-md-0">
+                        <div
+                            class="sewn-form-field col-md-6 m-0 pl-0 pr-md-2 pr-0 pt-0 pt-md-0"
+                            [ngClass]="[isSaveMode ? 'col-12' : 'col-6']"
+                        >
+                            <label [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12 fnt-md-14']" for="founded_in">
+                                {{ 'founded_in' | translate }}
+                                <span class="star" *ngIf="isSaveMode">*</span>
+                            </label>
+                            <input
+                                *ngIf="isSaveMode"
+                                id="founded_in"
+                                type="number"
+                                limit="4"
+                                pInputText
+                                name="founded_in"
+                                formControlName="founded_on"
+                                placeholder="Please enter founded year"
+                            />
+                            <p class="fnt-14 fnt-600 text-clr334 mb-1" *ngIf="isEditMode">
+                                {{ profileCreationService.roasteryProfileData?.founded_on }}
+                            </p>
+                            <small *ngIf="isControlHasError('founded_on', 'required')" class="p-error">
+                                {{ 'required' | translate }}
+                            </small>
+                        </div>
+
+                        <div
+                            class="sewn-form-field col-md-6 mt-md-0 mb-0 pl-0 pr-0 pl-md-2"
+                            [ngClass]="[isSaveMode ? 'col-12 mt-3' : 'col-6 mt-0']"
+                        >
+                            <label [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12 fnt-md-14']" for="owner_name">
+                                {{ 'owner_name' | translate }}<span class="star" *ngIf="isSaveMode">*</span>
+                            </label>
+                            <input
+                                *ngIf="isSaveMode"
+                                pInputText
+                                id="owner_name"
+                                type="text"
+                                required
+                                name="owner_name"
+                                formControlName="owner_name"
+                                placeholder="Please enter owner name"
+                            />
+                            <p class="fnt-14 fnt-600 text-clr334 mb-1" *ngIf="isEditMode">
+                                {{ profileCreationService.roasteryProfileData?.owner_name }}
+                            </p>
+                            <small *ngIf="isControlHasError('owner_name', 'required')" class="p-error">
+                                {{ 'required' | translate }}
+                            </small>
+                        </div>
+                    </div>
+
+                    <div
+                        class="row border-md-main border-md-none br-4 mb-3 mb-md-45 m-0 mt-3 mt-md-0 p-0 p-md-0 mr-md-0 ml-md-0"
+                    >
+                        <div class="sewn-form-field col-md-12 mt-md-45 p-0 mb-0">
+                            <label [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12 fnt-md-14']" for="summary"
+                                >{{ 'roastery_summary' | translate }}
+                                <span class="pull-right text-clr588" *ngIf="isSaveMode">
+                                    {{ aboutForm.get('description').value | wordCount }}/150 words
+                                </span>
+                            </label>
+                            <textarea
+                                *ngIf="isSaveMode"
+                                appWordLimit
+                                [limit]="150"
+                                pInputTextarea
+                                class="w-100"
+                                id="summary"
+                                name="summary"
+                                rows="5"
+                                formControlName="description"
+                                placeholder="Tell us and to our users about who you are as a company!"
+                            >
+                            </textarea>
+                            <small *ngIf="isControlHasError('description', 'maxWordCount')" class="p-error">
+                                Description shouldn't be over 150 words
+                            </small>
+                            <p class="fnt-14 fnt-600 text-clr334" *ngIf="isEditMode">
+                                {{ profileCreationService.roasteryProfileData?.description }}
+                            </p>
+                        </div>
+                    </div>
+                    <hr class="mb-4 mt-4" *ngIf="isSaveMode" />
+
+                    <div class="row mt-md-45" *ngIf="isSaveMode">
+                        <div class="col-12 mb-3 mb-md-45">
+                            <p class="fnt-18 font-bold text-clr334 w-100 mb-1">
+                                {{ 'employee_details' | translate }}
+                            </p>
+                            <p class="fnt-14 fnt-600 text-clr588 w-100 m-0">{{ 'give_overview_text' | translate }}.</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-md-3" *ngIf="isSaveMode">
+                        <div class="sewn-form-field col-12 col-md-6 pr-md-2 mb-3 mb-md-4">
+                            <label for="employee_nos">
+                                {{ 'total_number_employees' | translate }}
+                                <span class="star">*</span>
+                            </label>
+                            <input
+                                id="employee_nos"
+                                type="number"
+                                pInputText
+                                required
+                                name="employee_nos"
+                                formControlName="total_employees"
+                                placeholder="Please enter no. of employees"
+                            />
+                            <small class="p-error" *ngIf="isControlHasError('total_employees', 'required')">
+                                {{ 'required' | translate }}
+                            </small>
+                            <small class="p-error" *ngIf="profileCreationService.invalidSumEmployee">
+                                Please enter the correct no
+                            </small>
+                        </div>
+                        <div class="sewn-form-field col-12 col-md-6 pl-md-2 mb-3 mb-md-4">
+                            <label for="employee_avg">
+                                {{ 'average_employee_age' | translate }}
+                                <span class="star">*</span>
+                            </label>
+                            <input
+                                id="employee_avg"
+                                type="number"
+                                pInputText
+                                required
+                                name="employee_avg"
+                                formControlName="avg_employee_age"
+                                placeholder="Please enter employee avg. age"
+                            />
+                            <small class="p-error" *ngIf="isControlHasError('avg_employee_age', 'required')">
+                                {{ 'required' | translate }}
+                            </small>
+                        </div>
+                    </div>
+                    <span class="fnt-14 font-bold text-clr334" *ngIf="isSaveMode">
+                        {{ 'gender_distribution' | translate }}
+                        <span class="star">*</span>
+                    </span>
+                    <div class="row" *ngIf="isSaveMode">
+                        <div class="sewn-form-field col-12 col-md-6 pr-md-2 mb-3 mb-md-4">
+                            <label for="female_num">
+                                {{ 'total_number_female_employees' | translate }}
+                                <span class="star">*</span>
+                            </label>
+                            <input
+                                id="female_num"
+                                pInputText
+                                type="number"
+                                required
+                                name="female_num"
+                                formControlName="female_employee_count"
+                                placeholder="Please enter the number of female employees"
+                            />
+                            <small class="p-error" *ngIf="profileCreationService.invalidSumEmployee">
+                                Please enter the correct no
+                            </small>
+                        </div>
+                        <div class="sewn-form-field col-12 col-md-6 pl-md-2 mb-3 mb-md-4">
+                            <label for="male_num">
+                                {{ 'total_number_male_employees' | translate }}
+                                <span class="star">*</span>
+                            </label>
+                            <input
+                                id="male_num"
+                                pInputText
+                                type="number"
+                                required
+                                name="male_num"
+                                formControlName="male_employee_count"
+                                placeholder="Please enter the number of male employees"
+                            />
+                            <small class="p-error" *ngIf="profileCreationService.invalidSumEmployee">
+                                Please enter the correct no
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="d-block d-md-none mb-3 mb-md-4">
+                        <ng-template *ngTemplateOutlet="rightSidePanel"></ng-template>
+                    </div>
+
+                    <!-- company details -->
+
+                    <hr class="d-none d-lg-block" />
+                    <div class="row border-md-main border-md-none br-4 mt-md-45 mb-2 m-0 p-0 p-md-0">
+                        <div class="col-9 mb-3 mb-md-45 p-0">
+                            <p class="fnt-18 font-bold text-clr334 w-100 mb-1">Company details</p>
+                            <p class="fnt-14 fnt-600 text-clr588 w-100 m-0" *ngIf="isSaveMode">
+                                Enter your VAT and customer ID for billing purposes
+                            </p>
+                        </div>
+                        <div class="col-3 text-right p-0" *ngIf="isSaveMode">
+                            <p class="fnt-14 fnt-600 text-clr588 w-100 mb-2 text-clr588">Private</p>
+                            <p-inputSwitch
+                                styleClass="custom-input-switch"
+                                formControlName="company_details_public"
+                            ></p-inputSwitch>
+                        </div>
+
+                        <div
+                            class="sewn-form-field col-md-6 p-0 pr-md-2 mb-3 mb-md-4"
+                            [ngClass]="[isSaveMode ? 'col-12' : 'col-6']"
+                        >
+                            <label [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12 fnt-md-14']" for="vat_nos"
+                                >VAT number<span class="star" *ngIf="isSaveMode">*</span></label
+                            >
+                            <input
+                                *ngIf="isSaveMode"
+                                id="vat_nos"
+                                type="text"
+                                pInputText
+                                required
+                                name="vat_nos"
+                                formControlName="vat_number"
+                                placeholder="Please VAT Number"
+                            />
+                            <p class="fnt-14 fnt-600 text-clr334 mb-0" *ngIf="isEditMode">
+                                {{ profileCreationService.roasteryProfileData?.vat_number }}
+                            </p>
+                            <small class="p-error" *ngIf="isControlHasError('vat_number', 'required')">
+                                {{ 'required' | translate }}
+                            </small>
+                        </div>
+                        <div
+                            class="sewn-form-field col-md-6 p-0 pl-md-2 mb-0 mb-md-4"
+                            [ngClass]="[isSaveMode ? 'col-12' : 'col-6']"
+                        >
+                            <label for="cmpy_rid" [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12 fnt-md-14']"
+                                >Company registration ID<span class="star" *ngIf="isSaveMode">*</span></label
+                            >
+                            <input
+                                *ngIf="isSaveMode"
+                                id="cmpy_rid"
+                                pInputText
+                                type="text"
+                                required
+                                name="cmpy_rid"
+                                formControlName="registration_id"
+                                placeholder="Please enter employee avg. age"
+                            />
+                            <p class="fnt-14 fnt-600 text-clr334 mb-0" *ngIf="isEditMode">
+                                {{ profileCreationService.roasteryProfileData?.registration_id }}
+                            </p>
+                            <small class="p-error" *ngIf="isControlHasError('registration_id', 'required')">
+                                {{ 'required' | translate }}
+                            </small>
+                        </div>
+                    </div>
+
+                    <hr class="mt-4 mb-4 mt-md-3" />
+
+                    <div class="row mt-md-45 mb-3 mb-md-4 ml-0 mr-0">
+                        <div class="col-12 p-0">
+                            <p class="fnt-18 font-bold text-clr334 w-100 mb-1">
+                                {{ 'roastery_capabilities' | translate }}
+                            </p>
+                            <p class="fnt-14 fnt-600 text-clr588 w-100 m-0" *ngIf="isSaveMode">
+                                {{ 'tell_us_capability_text' | translate }}.
+                            </p>
+                            <p class="fnt-14 fnt-600 text-clr588 w-100 m-0" *ngIf="isEditMode">
+                                {{ 'our_roastery_capabilities_storage' | translate }}.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="isSaveMode">
+                        <div class="sewn-form-field col-12 col-md-6 pr-md-2 mb-3 mb-md-4 position-relative">
+                            <label for="capacity">
+                                {{ 'roaster_capacity' | translate }}
+                                <span class="star">*</span>
+                            </label>
+                            <input
+                                id="capacity"
+                                type="number"
+                                required
+                                pInputText
+                                name="capacity"
+                                formControlName="capacity"
+                                placeholder="Enter capacity"
+                            />
+                            <p-dropdown
+                                id="kgs"
+                                name="kgs"
+                                class="unit-dropdown"
+                                optionLabel="name"
+                                optionValue="value"
+                                [options]="kgsOptions"
+                                formControlName="capacity_unit"
+                            >
+                            </p-dropdown>
+                            <small class="p-error" *ngIf="isControlHasError('capacity', 'required')">
+                                {{ 'required' | translate }}
+                            </small>
+                        </div>
+
+                        <div class="sewn-form-field col-12 col-md-6 pl-md-2">
+                            <label for="capabilities">
+                                {{ 'capabilities' | translate }}
+                                <span class="star">*</span>
+                            </label>
+                            <input
+                                id="capabilities"
+                                type="text"
+                                pInputText
+                                required
+                                name="capabilities"
+                                formControlName="capabilities"
+                                placeholder="Eg. Hand roasted, Blended, Mocha-Java"
+                            />
+                            <small class="p-error" *ngIf="isControlHasError('capabilities', 'required')">
+                                {{ 'required' | translate }}
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4 mb-md-45" *ngIf="isEditMode">
+                        <div class="col-lg-12">
+                            <div
+                                class="capability-container d-flex border-md-main br-4 p-2 pt-md-4 pb-md-1 pl-md-4 pr-md-4"
+                            >
+                                <div class="capability-meta-data pr-3 pr-md-4 border-right">
+                                    <label class="fnt-600 text-clr588">
+                                        {{ 'roaster_capacity' | translate }}
+                                    </label>
+                                    <p class="fnt-md-38 fnt-28 font-bold text-clr334">
+                                        {{ profileCreationService.roasteryProfileData?.capacity }} Kgs
+                                    </p>
+                                </div>
+                                <div class="capability-content font-bold pl-25 pt-md-3 pl-md-4 text-clr334">
+                                    {{ profileCreationService.roasteryProfileData?.capabilities }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="mt-2 mb-2" />
+                </form>
+                <!-- Brand Profile -->
+
+                <!-- new brand form -->
+                <div class="row mt-md-45 mb-4 mb-md-45">
+                    <div class="col-12">
+                        <p class="fnt-18 font-bold text-clr334 w-100 mt-2 mt-md-0 mb-0">
+                            Micro-roastery branches <span class="fnt-14 fnt-600 text-clr588">(optional)</span>
+                        </p>
+                        <p class="fnt-14 fnt-600 text-clr588 w-100 m-0" *ngIf="isSaveMode">
+                            List down your company branches
+                        </p>
+                    </div>
+                </div>
+                <div *ngIf="isSaveMode && isAddBranchMode">
+                    <ng-template *ngTemplateOutlet="brandFormTemplate"></ng-template>
+                </div>
+                <!-- end new brand form -->
+                <hr class="mt-2 mb-4 mb-md-45" *ngIf="isSaveMode && isAddBranchMode" />
+
+                <div class="row mb-4 mb-md-45 pl-2 pr-2">
+                    <div
+                        class="col-12 pl-2 pr-2"
+                        *ngFor="let branch of branches; let i = index"
+                        [ngClass]="[i === branches.length - 1 ? ' mb-0' : ' mb-25']"
+                    >
+                        <div
+                            class="brand-item-container"
+                            *ngIf="(isEditBranchMode && branch.id !== toEditBranch?.id) || !isEditBranchMode"
+                        >
+                            <div
+                                class="border-main br-4 brand-item pl-md-3 p-md-4 d-flex align-items-center"
+                                [ngClass]="{ 'mr-3125': isSaveMode }"
+                            >
+                                <div class="brand-meta-container">
+                                    <p class="fnt-16 font-bold text-clr334 mb-2">
+                                        {{ branch.name }}
+                                    </p>
+                                    <p class="fnt-14 fnt-600 text-clr334">
+                                        {{ branch.address_line1 }} {{ branch.address_line2 }}, {{ branch.city }},
+                                        {{ branch.state }}, {{ branch.zipcode }}
+                                    </p>
+                                    <p class="fnt-14 fnt-600 text-clr588">
+                                        {{ branch.description }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="brand-edit-btn" [ngClass]="{ 'visiblity-hidden': !isSaveMode }">
+                                <a class="view-order cursor-pointer" (click)="editBrand(branch)">
+                                    {{ 'edit' | translate }}
+                                </a>
+                            </div>
+                        </div>
+                        <div *ngIf="isSaveMode && isEditBranchMode && branch.id === toEditBranch.id">
+                            <ng-template *ngTemplateOutlet="brandFormTemplate"></ng-template>
+                        </div>
+                    </div>
+                    <div *ngIf="!branches?.length" class="text-center p-2">
+                        <span> No branches found.</span>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="isSaveMode && !isAddBranchMode">
+                    <div class="col-12 mt-4 mt-md-0 mb-4 mb-md-4 text-left">
+                        <a class="add-link" href="javascript:void(0);" (click)="addBrandProfileMode()">
+                            <span class="fnt-14 font-bold add-text ml-4">Add another brand</span>
+                        </a>
+                    </div>
+                </div>
+
+                <hr [ngClass]="[isAddBranchMode ? 'mt-4 mt-md-45 mb-4 mb-md-45' : 'mt-0 mb-0']" />
+
+                <div class="" *ngIf="isSaveMode">
+                    <div class="row mt-3 mb-md-4 mb-3">
+                        <div class="col-12">
+                            <p class="fnt-18 font-bold text-clr334 w-100 mb-1">
+                                {{ 'contacts' | translate }}<span class="star">*</span>
+                            </p>
+                            <p class="fnt-14 fnt-600 text-clr588 w-100 m-0 mb-0">{{ 'list_contacts' | translate }}!</p>
+                        </div>
+                    </div>
+                    <div class="row mb-1" *ngFor="let role of profileCreationService.roasterContacts; let i = index">
+                        <div class="sewn-form-field col-md-6 mb-3 mb-md-3">
+                            <input
+                                type="text"
+                                pInputText
+                                required
+                                [(ngModel)]="role.name"
+                                [ngModelOptions]="{ standalone: true }"
+                            />
+                        </div>
+                        <div
+                            class="add-partner mb-3 mb-md-0 mt-md-3 col-12 col-md-6 p-md-0 text-left"
+                            *ngIf="
+                                profileCreationService.showDelete && profileCreationService.roasterContacts.length > 1
+                            "
+                        >
+                            <a class="ml-2 brown-cta" href="javascript:void(0);" (click)="removeContact(role.id)">
+                                {{ 'remove' | translate }} {{ 'contact' | translate }}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row mt-3" *ngIf="assignRow">
+                        <div class="sewn-form-field col-md-6">
+                            <label for="emp_name">{{ 'select_employee' | translate }}</label>
+                            <p-dropdown
+                                class="w-100"
+                                id="emp_name"
+                                name="emp_name"
+                                [options]="roasterUsersOptions"
+                                optionLabel="name"
+                                optionValue="value"
+                                [ngModelOptions]="{ standalone: true }"
+                                [(ngModel)]="employeeId"
+                            ></p-dropdown>
+                        </div>
+                        <div class="col-12 col-md-6 mt-md-4 p-md-0 add-contact-group">
+                            <button
+                                type="submit"
+                                class="btn-raised ml-md-2 mr-2"
+                                [disabled]="assignButtonValue === 'Adding'"
+                                (click)="addContact()"
+                            >
+                                {{ assignButtonValue }}
+                            </button>
+                            <button type="submit" class="btn-stroked-transparent" (click)="cancelAssign()">
+                                {{ 'cancel' | translate }}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="add-brand-div mt-3 mb-3 text-left">
+                        <a class="brand-tag add-link" (click)="showContact()">
+                            <span class="add-text ml-4">{{ 'add_another_contact' | translate }}</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="d-block" *ngIf="isEditMode">
+                    <div class="employer mt-4">
+                        <p class="fnt-18 font-bold text-clr334 w-100 mb-1">{{ 'contacts' | translate }}</p>
+                        <p class="fnt-14 fnt-600 text-clr588 w-100 m-0 mb-4">
+                            {{ 'list_down_top_employees' | translate }}
+                        </p>
+                        <div class="row p-0">
+                            <div
+                                class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3 pl-3 pr-3"
+                                *ngFor="let contact of profileCreationService.roasterContacts"
+                            >
+                                <div class="employ-profile">
+                                    <div class="p-gal">
+                                        <img
+                                            class="w-100"
+                                            [src]="contact.profile_image_url || 'assets/images/profile.svg'"
+                                        />
+                                    </div>
+                                    <div class="profile-des">
+                                        <p class="fnt-16 font-bold mb-1 mt-3 text-clr334">
+                                            {{ contact.name | titlecase }}
+                                        </p>
+                                        <p class="fnt-14 fnt-500 text-clr588 mb-0">
+                                            {{ contact.roles[0] || '-' }}
+                                        </p>
+                                    </div>
+                                    <div class="mt-3 mt-lg-45">
+                                        <button class="btn-file-upload d-flex">
+                                            <img class="mr-2" src="assets/images/message-icon.svg" alt="message icon" />
+                                            {{ 'message' | translate }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-12 pt-0 pl-2 pr-2 d-none d-lg-block">
+            <ng-template *ngTemplateOutlet="rightSidePanel"></ng-template>
+        </div>
+    </div>
+</div>
+
+<ng-template #brandButtonGroup>
+    <div class="add-brand-btns d-flex float-right float-md-none">
+        <a
+            *ngIf="!isEditBranchMode"
+            class="view-order cursor-pointer mr-3"
+            href="javascript:void(0);"
+            (click)="addNewBranch()"
+        >
+            {{ 'save' | translate }}
+        </a>
+        <a
+            *ngIf="isEditBranchMode"
+            class="view-order cursor-pointer mr-3"
+            href="javascript:void(0);"
+            (click)="updateBranch()"
+        >
+            {{ 'save' | translate }}
+        </a>
+        <a
+            *ngIf="isEditBranchMode"
+            class="view-order cursor-pointer mr-3"
+            href="javascript:void(0);"
+            (click)="deleteBranch()"
+        >
+            {{ 'delete' | translate }}
+        </a>
+        <a class="view-order cursor-pointer" href="javascript:void(0);" (click)="cancelAddBrand()">
+            {{ 'cancel' | translate }}
+        </a>
+    </div>
+</ng-template>
+
+<ng-template #rightSidePanel>
+    <div class="row m-0">
+        <div class="col-12 col-md-6 col-lg-12 p-0 pl-md-0 pr-md-2 p-lg-0">
+            <div
+                class="border-main br-4 p-0"
+                *ngIf="this.globals.checkItem('certificate-list') || this.globals.checkItem('certificate-management')"
+            >
+                <div class="header fnt-18 font-bold text-clr334 m-1">{{ 'awards_and_certificates' | translate }}</div>
+                <div class="row mt-3 m-0" *ngFor="let certificate of certificatesArray; let i = index">
+                    <div class="col-12">
+                        <div
+                            class="w-100 certification-item-container d-flex justify-content-between"
+                            [ngClass]="{ 'border-div': i !== certificatesArray.length - 1 || isSaveMode }"
+                        >
+                            <div class="certification-item-metadata d-flex">
+                                <img class="img-estate" src="assets/images/certificate.svg" alt="User" />
+                                <div class="certification-description ml-2">
+                                    <ul>
+                                        <li class="fnt-14-normal fnt-600 text-clr334">{{ certificate.name }}</li>
+                                        <li class="fnt-14-normal fnt-600 text-clr588">
+                                            {{ certificate.year }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="certificaion-action d-flex">
+                                <a
+                                    class="menu-arrow"
+                                    [ngClass]="{ 'd-none': !isSaveMode }"
+                                    [popover]="listTemplate"
+                                    placement="left"
+                                    [outsideClick]="true"
+                                    #pop1="bs-popover"
+                                >
+                                    <img class="message-icon" src="assets/images/ellipses.png" alt="Message" />
+                                </a>
+                                <ng-template #listTemplate id="{{ certificate.id }}">
+                                    <div id="popover-mobile-content">
+                                        <ul class="list-data custom-popover">
+                                            <li
+                                                class="list-item fnt-14 fnt-600 fnt-muli text-clr588 border-none"
+                                                (click)="editCertificate($event, certificate); pop1.hide()"
+                                                *ngIf="
+                                                    this.globals.checkItem('certificate-management') &&
+                                                    this.globals.permissions['certificate-management'].manage
+                                                "
+                                            >
+                                                <a class="pointer-item">
+                                                    {{ 'edit' | translate }}
+                                                </a>
+                                            </li>
+                                            <li
+                                                class="list-item fnt-14 fnt-600 text-clr588 border-none"
+                                                (click)="deleteCertificate(certificate.id); pop1.hide()"
+                                                *ngIf="
+                                                    this.globals.checkItem('certificate-management') &&
+                                                    this.globals.permissions['certificate-management'].manage
+                                                "
+                                            >
+                                                <a class="pointer-item">{{ 'delete' | translate }}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="add-brand-div p-25 p-md-4"
+                    *ngIf="
+                        this.globals.checkItem('certificate-management') &&
+                        this.globals.permissions['certificate-management'].manage &&
+                        isSaveMode
+                    "
+                >
+                    <a class="brand-tag add-link" routerLink="/micro-roastery-profile/certificate">
+                        <span class="add-text ml-4">{{ 'add_another_certificate' | translate }}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-12 p-0 pl-md-2 pr-md-0 p-lg-0">
+            <div class="border-main br-4 mt-3 mt-md-0 mt-lg-3 p-0">
+                <div class="header fnt-18 font-bold text-clr334 m-1">{{ 'employee_details' | translate }}</div>
+                <div class="w-100">
+                    <div class="d-flex employee-details-container pt-45 pb-45 pl-4 pr-4">
+                        <div class="w-50 border-right">
+                            <p class="m-0 fnt-32 font-bold text-clr334">
+                                {{ profileCreationService.roasteryProfileData?.total_employees }}
+                            </p>
+                            <p class="mt-2 mb-0 fnt-18 font-600 text-clr588">{{ 'total_employees' | translate }}</p>
+                        </div>
+                        <div class="w-50 pl-45">
+                            <p class="m-0 fnt-24 fnt-md-32 font-bold text-clr334">
+                                {{ profileCreationService.roasteryProfileData?.avg_employee_age }}
+                            </p>
+                            <p class="mt-2 mb-0 fnt-14 fnt-md-18 font-600 text-clr588">
+                                {{ 'average_age' | translate }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-100">
+                    <div
+                        *ngIf="
+                            this.profileCreationService.roasteryProfileData?.male_employee_count == null &&
+                            this.profileCreationService.roasteryProfileData?.female_employee_count == null
+                        "
+                    >
+                        <p class="fnt-18 font-bold text-center">{{ 'no_data_display' | translate }}</p>
+                    </div>
+                    <div class="custom-chart-container">
+                        <app-pie-area-chart [results]="profileCreationService.single"></app-pie-area-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- brand form template -->
+<ng-template #brandFormTemplate>
+    <form [formGroup]="branchForm">
+        <div class="row">
+            <div class="sewn-form-field col-12 col-md-6 pr-md-2">
+                <label for="branch_name" [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12 fnt-md-14']">
+                    Branch name
+                    <span class="star">*</span>
+                </label>
+                <input
+                    id="branch_name"
+                    type="text"
+                    pInputText
+                    required
+                    name="branch_name"
+                    formControlName="name"
+                    placeholder="Please enter branch name"
+                />
+                <small class="p-error" *ngIf="isBranchControlHasError('name', 'required')">
+                    {{ 'required' | translate }}
+                </small>
+            </div>
+
+            <div class="sewn-form-field col-12 col-md-6">
+                <ng-template *ngTemplateOutlet="brandButtonGroup"></ng-template>
+            </div>
+
+            <div class="sewn-form-field col-12 col-md-6 pr-md-2">
+                <label for="country" [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12 fnt-md-14']">
+                    {{ 'country' | translate }}
+                    <span class="star">*</span>
+                </label>
+                <p-dropdown formControlName="country" [options]="countryList" optionLabel="name" optionValue="isoCode">
+                </p-dropdown>
+                <small class="p-error" *ngIf="isBranchControlHasError('country', 'required')">
+                    {{ 'required' | translate }}
+                </small>
+            </div>
+
+            <div class="sewn-form-field col-12 col-md-6 pl-md-2">
+                <label for="state" [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12 fnt-md-14']">{{
+                    'state' | translate
+                }}</label>
+                <p-dropdown formControlName="state" [options]="cityList" optionLabel="name" optionValue="value">
+                </p-dropdown>
+            </div>
+
+            <div class="sewn-form-field col-md-6 pr-md-2">
+                <label for="address_line1" [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12 fnt-md-14']"
+                    >{{ 'address' | translate }}<span class="star">*</span></label
+                >
+                <input pInputText formControlName="address_line1" type="text" placeholder="Line 1" />
+                <small *ngIf="isBranchControlHasError('address_line1', 'required')" class="p-error">
+                    {{ 'required' | translate }}
+                </small>
+            </div>
+
+            <div class="sewn-form-field col-md-6 pl-md-2">
+                <label
+                    for="address_line2"
+                    [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12 fnt-md-14']"
+                    class="d-none d-md-block"
+                    >&nbsp;</label
+                >
+                <input pInputText formControlName="address_line2" type="text" placeholder="Line 2" />
+            </div>
+
+            <div class="sewn-form-field col-md-6 pr-md-2">
+                <label for="city" [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12 fnt-md-14']"
+                    >{{ 'city' | translate }}<span class="star">*</span></label
+                >
+                <input type="text" pInputText formControlName="city" placeholder="City" />
+                <small *ngIf="isBranchControlHasError('city', 'required')" class="p-error">
+                    {{ 'required' | translate }}
+                </small>
+            </div>
+            <div class="sewn-form-field col-md-6 pl-2">
+                <label for="zipcode" [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12 fnt-md-14']">{{
+                    'zipcode' | translate
+                }}</label>
+                <input type="text" pInputText formControlName="zipcode" placeholder="eg:23134" />
+            </div>
+            <div class="sewn-form-field col-md-12">
+                <label
+                    >{{ 'description' | translate }}<span class="star">*</span>
+                    <span class="pull-right text-clr588">
+                        {{ branchForm.controls.description.value | wordCount }}/50 words
+                    </span>
+                </label>
+                <textarea
+                    class="w-100"
+                    appWordLimit
+                    [limit]="50"
+                    pInputTextarea
+                    rows="5"
+                    formControlName="description"
+                    placeholder="Tell us a bit about your brand"
+                >
+                </textarea>
+                <small *ngIf="isBranchControlHasError('description', 'required')" class="p-error">
+                    {{ 'required' | translate }}
+                </small>
+                <small *ngIf="isBranchControlHasError('description', 'maxWordCount')" class="p-error">
+                    Description shouldn't over 50 words
+                </small>
+            </div>
+        </div>
+    </form>
+</ng-template>
+<!-- end brand form template -->
+<p-dialog
+    header="Edit Photo"
+    [(visible)]="isShowBrandImageModal"
+    [modal]="true"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
+    styleClass="p-0"
+>
+    <div class="image-crop-div">
+        <div class="img-pos-div" style="max-height: 80vh">
+            <image-cropper
+                style="max-height: 60vh"
+                [imageChangedEvent]="imageChangedEvent"
+                [maintainAspectRatio]="true"
+                [containWithinAspectRatio]="false"
+                [aspectRatio]="1 / 1"
+                [resizeToWidth]="256"
+                [resizeToHeight]="256"
+                [cropperMinWidth]="128"
+                [onlyScaleDown]="false"
+                [roundCropper]="true"
+                [canvasRotation]="canvasRotation"
+                [transform]="transform"
+                [autoCrop]="false"
+                [style.display]="showCropper ? null : 'none'"
+                format="png"
+                (imageCropped)="imageCropped($event)"
+                (imageLoaded)="imageLoaded()"
+                (loadImageFailed)="loadImageFailed()"
+            ></image-cropper>
+        </div>
+        <div class="zoom-div w-100">
+            <div class="slider-div mt-3">
+                <p-slider [min]="1" [max]="5" [step]="0.1" [(ngModel)]="scale" (onChange)="zoom()"></p-slider>
+            </div>
+        </div>
+    </div>
+    <p-footer>
+        <button type="button" id="change-pic" class="btn-raised" (click)="selectBrandImage()">
+            {{ 'change_photo' | translate }}
+        </button>
+        <button type="button" id="save-pic" class="btn-raised" (click)="cropImage()">Crop Image</button>
+    </p-footer>
+</p-dialog>

@@ -22,7 +22,6 @@ export class ReviewsComponent implements OnInit {
     average: any;
     constructor(
         public globals: GlobalsService,
-        private roasterService: RoasterserviceService,
         private cookieService: CookieService,
         public userSrv: UserserviceService,
         private reviewRatingService: ReviewsService,

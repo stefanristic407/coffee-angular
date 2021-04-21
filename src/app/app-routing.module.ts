@@ -122,6 +122,10 @@ export const routes: Routes = [
                 path: 'coffee-lab',
                 loadChildren: () => import('./modules/coffee-lab/coffee-lab.module').then((m) => m.CoffeeLabModule),
             },
+            {
+                path: 'profile-creation',
+                loadChildren: () => import('./modules/profiles/profiles.module').then((m) => m.ProfilesModule),
+            },
         ],
     },
     { path: 'gate', component: GateComponent },

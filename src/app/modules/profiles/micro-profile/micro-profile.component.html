@@ -1,0 +1,115 @@
+<div class="main-block">
+    <div class="w-100 d-flex justify-content-between mb-3">
+        <div class="d-none d-md-block">
+            <p-breadcrumb [model]="breadItems">
+                <ng-template pTemplate="item" let-item let-i="index">
+                    {{ item.label | translate }}
+                </ng-template>
+            </p-breadcrumb>
+        </div>
+    </div>
+    <div class="p-0">
+        <div class="d-flex justify-content-between">
+            <div class="w-100 text-center text-md-left">
+                <p *ngIf="isSaveMode" class="fnt-16 fnt-md-18 mb-0 mb-3 fnt-bold text-clr334 text-center text-md-left">
+                    {{ subProfileForm.controls.company_name.value }}
+                </p>
+                <p *ngIf="!isSaveMode" class="fnt-16 fnt-md-18 mb-0 mb-3 fnt-bold text-clr334 text-center text-md-left">
+                    {{ profileCreationService.roasteryProfileData?.company_name }}
+                </p>
+            </div>
+        </div>
+
+        <div class="profile-header-details border-md-main br-4 position-relative">
+            <img
+                class="cover-image-profile-banner w-100"
+                *ngIf="isSaveMode && profileCreationService.bannerUrl"
+                [src]="profileCreationService.bannerUrl"
+                height="160"
+            />
+            <img
+                class="cover-image-profile-banner w-100"
+                *ngIf="isSaveMode && !profileCreationService.bannerUrl"
+                [src]="profileCreationService.roasteryProfileData?.banner_url || 'assets/images/blank.png'"
+                height="160"
+            />
+            <div
+                class="cover-pic text-center"
+                *ngIf="
+                    isSaveMode &&
+                    !profileCreationService.roasteryProfileData?.banner_url &&
+                    !profileCreationService.bannerUrl
+                "
+            >
+                <p class="fnt-12 fnt-md-14 font-bold text-clr588 pt-0 pt-md-2 mb-1">
+                    {{ 'add_cover_image' | translate }}
+                </p>
+                <p class="fnt-12 fnt-md-14 font-bold text-clr588 m-0">{{ 'dimension' | translate }} 1144 x 160</p>
+            </div>
+
+            <img
+                class="cover-image-profile-banner w-100"
+                *ngIf="isEditMode && !profileCreationService.roasteryProfileData?.banner_url"
+                src="assets/images/blank.png"
+                height="160"
+            />
+            <img
+                class="cover-image-profile-banner w-100"
+                *ngIf="isEditMode && profileCreationService.roasteryProfileData?.banner_url"
+                [src]="profileCreationService.roasteryProfileData?.banner_url"
+                alt="profile banner image"
+                height="160"
+            />
+        </div>
+        <div class="profile-description-container">
+            <div class="profile-metadata-container pl-3 pr-3 pb-3 p-md-0">
+                <p class="fnt-18 font-bold text-clr334 d-none d-md-block m-0 pt-4" *ngIf="isEditMode">
+                    {{ profileCreationService.roasteryProfileData?.company_name }}
+                </p>
+                <a
+                    class="d-md-none font-16 text-clr334 font-bold"
+                    href="{{ profileCreationService.roasteryProfileData?.website }}"
+                    target="blank"
+                    >{{ profileCreationService.roasteryProfileData?.company_name }}</a
+                >
+                <form [formGroup]="subProfileForm" *ngIf="isSaveMode">
+                    <div class="sewn-form-field w-100 mb-0">
+                        <input pInputText type="text" formControlName="company_name" style="margin-top: 11px" />
+                        <small *ngIf="isControlHasError('company_name', 'required')" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
+                    </div>
+                    <div class="sewn-form-field w-100">
+                        <input
+                            type="text"
+                            pInputText
+                            placeholder="www.royalcoffee.az.com"
+                            formControlName="website"
+                            style="margin-top: 10px"
+                        />
+                    </div>
+                </form>
+                <p class="fnt-14 text-clr334 mt-2 font-bold d-md-none underline" *ngIf="isEditMode">
+                    {{ profileCreationService.roasteryProfileData?.website }}
+                </p>
+                <p class="fnt-14 text-clr588 mt-2 font-bold d-none d-md-block" *ngIf="isEditMode">
+                    {{ profileCreationService.roasteryProfileData?.website }}
+                </p>
+                <a target="blank" href="{{ profileCreationService.roasteryProfileData?.website }}" #link hidden></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bg-fff pl-2 pr-2 p-lg-5 pl-md-3 pr-md-3 pb-md-3 pt-md-4 mt-md-3">
+    <div class="responsive-tabMenu pl-2 pr-2 pl-md-0 pr-md-0">
+        <p-tabMenu [model]="menuItems" styleClas="profile-tabmenu" class="profile-tabmenu">
+            <ng-template pTemplate="item" let-item let-i="index">
+                {{ item.label | translate }}
+            </ng-template>
+        </p-tabMenu>
+    </div>
+    <div class="m-2 mt-md-3 ml-md-0 mr-md-0 mb-md-0">
+        <router-outlet></router-outlet>
+    </div>
+</div>
