@@ -154,7 +154,7 @@ const THIRDMODULES = [
     MomentModule,
     AvatarModule,
     ToastModule,
-    EditorModule
+    EditorModule,
 ];
 // #endregion
 

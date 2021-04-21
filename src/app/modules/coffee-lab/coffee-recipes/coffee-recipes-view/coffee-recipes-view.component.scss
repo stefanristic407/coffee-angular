@@ -14,19 +14,12 @@
         }
     }
     .expertise {
-        font-family: Muli;
-        font-size: 12px;
         font-weight: 600;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: 1;
-        letter-spacing: normal;
         position: absolute;
         top: 20px;
         left: 0;
         margin: 16px;
         padding: 8px 16px;
-        object-fit: contain;
         border-radius: 14px;
         -webkit-backdrop-filter: blur(10px);
         backdrop-filter: blur(10px);
@@ -36,15 +29,39 @@
     .heading {
         min-width: 150px;
         color: #747588;
-        @extend .font-family;
     }
-    .value {
-        @extend .font-family;
-        line-height: 1.29;
-        color: #232334;
+    .coffee-item {
+        img {
+            height: 243px;
+            border-radius: 4px;
+        }
+
+        &:hover {
+            cursor: pointer;
+            box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
+        }
+
+        .value {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .coffee-content-wrapper {
+            padding-top: 24px;
+
+            p {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                min-height: 36px;
+            }
+        }
     }
     .recepie-text {
-        padding: 16px 0 32px;
+        padding: 32px 0 32px;
         font-family: Muli;
         font-size: 24px;
         font-weight: bold;
