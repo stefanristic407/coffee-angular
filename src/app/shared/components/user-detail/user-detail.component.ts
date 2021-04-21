@@ -14,8 +14,10 @@ export class UserDetailComponent implements OnInit, OnChanges {
     @Input() imageUrl: any;
     @Input() shape: any;
     @Input() type: any;
+    @Input() hasBorder: any;
     orgName: any;
     data: any;
+    name: any;
 
     constructor(
         public globalsService: GlobalsService,
@@ -28,6 +30,7 @@ export class UserDetailComponent implements OnInit, OnChanges {
             this.userService.getUserDetail(this.userId, this.orgType.toLowerCase()).subscribe((res) => {
                 if (res.success) {
                     this.data = res.result;
+                    this.name = `${this.data?.firstname} ${this.data?.lastname}`;
                 }
             });
         }

@@ -1,3 +1,20 @@
+@import 'variables';
+
+.avatar {
+    background-color: $brown-color;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        margin: 0;
+    }
+}
+
 .user-details-wrapper {
     max-width: 100%;
     .user-image {
