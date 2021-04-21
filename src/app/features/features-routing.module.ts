@@ -21,8 +21,6 @@ import { VatManagementComponent } from './vat-management/vat-management.componen
 import { BatchSelectAnOrderComponent } from './batch-select-an-order/batch-select-an-order.component';
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
 import { DefaultSettingComponent } from './Farm Link/coffee-experience/default-setting/default-setting.component';
-// tslint:disable-next-line: max-line-length
-import { ConfirmPreorderLotComponent } from './confirm-preorder-lot/confirm-preorder-lot.component';
 import { ProductListComponent } from './e-commerce/product-list/product-list.component';
 import { ProductDetailsComponent } from './e-commerce/product-details/product-details.component';
 
@@ -141,11 +139,6 @@ const routes: Routes = [
             {
                 path: 'default-setting',
                 component: DefaultSettingComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'confirm-preorder-lot',
-                component: ConfirmPreorderLotComponent,
                 canActivate: [AuthGuard],
             },
             {
