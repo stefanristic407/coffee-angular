@@ -113,36 +113,6 @@ export class MicroAboutComponent implements OnInit, AfterViewInit {
         this.getBranches();
         this.getRoasterUsers();
         this.initialForm();
-        this.detectMode();
-    }
-
-    detectMode() {
-        this.profileCreationService.saveMode$.subscribe((res: boolean) => {
-            this.isSaveMode = res;
-            if (res) {
-                this.setFormValue();
-            } else {
-                this.chartData = [
-                    {
-                        name: 'Female',
-                        value: this.profileCreationService.roasteryProfileData
-                            ? this.profileCreationService.roasteryProfileData.female_employee_count
-                            : 0,
-                    },
-                    {
-                        name: 'Male',
-                        value: this.profileCreationService.roasteryProfileData
-                            ? this.profileCreationService.roasteryProfileData.male_employee_count
-                            : 0,
-                    },
-                ];
-
-                this.profileCreationService.single = this.chartData;
-            }
-        });
-        this.profileCreationService.editMode$.subscribe((res: boolean) => {
-            this.isEditMode = res;
-        });
     }
 
     initialForm() {
@@ -160,30 +130,6 @@ export class MicroAboutComponent implements OnInit, AfterViewInit {
             capacity: ['', Validators.compose([Validators.required])],
             capacity_unit: ['', Validators.compose([Validators.required])],
             capabilities: ['', Validators.compose([Validators.required])],
-        });
-
-        this.aboutForm.valueChanges.subscribe((changedData: any) => {
-            this.profileCreationService.aboutFormInvalid = this.aboutForm.invalid;
-            if (changedData.total_employees !== changedData.female_employee_count + changedData.male_employee_count) {
-                this.profileCreationService.invalidSumEmployee = true;
-            } else {
-                this.profileCreationService.invalidSumEmployee = false;
-                if (this.chartData) {
-                    this.chartData = [
-                        {
-                            name: 'Female',
-                            value: changedData.female_employee_count ? changedData.female_employee_count : 0,
-                        },
-                        {
-                            name: 'Male',
-                            value: changedData.male_employee_count ? changedData.male_employee_count : 0,
-                        },
-                    ];
-                    this.profileCreationService.single = this.chartData;
-                }
-            }
-
-            this.profileCreationService.editProfileData(changedData);
         });
 
         this.branchForm = this.fb.group({
@@ -210,27 +156,6 @@ export class MicroAboutComponent implements OnInit, AfterViewInit {
                 }
             });
         });
-    }
-
-    setFormValue() {
-        const formValue = {
-            owner_name: this.profileCreationService.roasteryProfileData.owner_name,
-            founded_on: this.profileCreationService.roasteryProfileData.founded_on,
-            description: this.profileCreationService.roasteryProfileData.description,
-            total_employees: this.profileCreationService.roasteryProfileData.total_employees,
-            avg_employee_age: this.profileCreationService.roasteryProfileData.avg_employee_age,
-            female_employee_count: this.profileCreationService.roasteryProfileData.female_employee_count,
-            male_employee_count: this.profileCreationService.roasteryProfileData.male_employee_count,
-            company_details_public: this.profileCreationService.roasteryProfileData.company_details_public,
-            vat_number: this.profileCreationService.roasteryProfileData.vat_number,
-            registration_id: this.profileCreationService.roasteryProfileData.registration_id,
-            capacity: this.profileCreationService.roasteryProfileData.capacity,
-            capacity_unit: this.profileCreationService.roasteryProfileData.capacity_unit,
-            capabilities: this.profileCreationService.roasteryProfileData.capabilities,
-        };
-        this.aboutForm.setValue(formValue);
-
-        this.chartData = this.profileCreationService.single;
     }
 
     getRoasterUsers() {
