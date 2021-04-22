@@ -1,0 +1,7 @@
+.addImageContainer {
+    background: #fff;
+    height: 253px;
+    @media (max-width: 767px) {
+        height: 120px;
+    }
+}
