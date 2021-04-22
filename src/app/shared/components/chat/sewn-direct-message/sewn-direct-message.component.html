@@ -30,7 +30,13 @@
                     <div class="dm-exp-chat-section">
                         <ng-container *ngIf="openedThread">
                             <div class="dm-exp-chat-header">
-                                <ng-container *ngTemplateOutlet="headerUserBadgeTL"></ng-container>
+                                <div class="dm-exp-chat-header-left-panel">
+                                    <ng-container *ngTemplateOutlet="headerUserBadgeTL"></ng-container>
+                                </div>
+                                <div class="dm-exp-chat-header-right-panel">
+                                    <ng-container *ngTemplateOutlet="searchBoxTL"></ng-container>
+                                    <ng-container *ngTemplateOutlet="chatMenuPanelTL"></ng-container>
+                                </div>
                             </div>
                             <div class="dm-exp-chat-content" data-element="live-chat-message-body">
                                 <div class="dm-exp-chat-wrapper">
@@ -65,12 +71,18 @@
                             <ng-container *ngTemplateOutlet="listHeaderTL"></ng-container>
                         </div>
                         <div class="dm-clp-chat-header">
-                            <img
-                                class="badge-back-arrow-button"
-                                (click)="closeChatPanel()"
-                                src="assets/images/dm-back-arrow.svg"
-                            />
-                            <ng-container *ngTemplateOutlet="headerUserBadgeTL"></ng-container>
+                            <div class="dm-clp-chat-header-left-panel">
+                                <img
+                                    class="badge-back-arrow-button"
+                                    (click)="closeChatPanel()"
+                                    src="assets/images/dm-back-arrow.svg"
+                                />
+                                <ng-container *ngTemplateOutlet="headerUserBadgeTL"></ng-container>
+                            </div>
+                            <div class="dm-clp-chat-header-right-panel">
+                                <ng-container *ngTemplateOutlet="searchBoxTL"></ng-container>
+                                <ng-container *ngTemplateOutlet="chatMenuPanelTL"></ng-container>
+                            </div>
                         </div>
                         <div class="dm-clp-chat-content" data-element="live-chat-message-body">
                             <div class="dm-clp-chat-wrapper">
@@ -126,7 +138,7 @@
                     <span class="dm-udv-option-item-text">Mute notifications from user</span>
                     <p-inputSwitch [(ngModel)]="openedThread.computed_mute"></p-inputSwitch>
                 </div>
-                <div class="dm-udv-option-item dm-pointer">
+                <div (click)="clearChat()" class="dm-udv-option-item dm-pointer">
                     <span class="dm-udv-option-item-text">Clear conversation</span>
                     <img class="ml-auto" src="assets/images/setting-arrow.svg" />
                 </div>
@@ -253,7 +265,6 @@
     </div>
 </ng-template>
 <ng-template #searchUserPanelViewTL>
-    <!-- ANCHOR  Search Panel -->
     <div class="dm-search-user-panel-view">
         <ng-container *ngTemplateOutlet="listHeaderTL"></ng-container>
         <div class="dm-sup-back-to-chat" (click)="closeNewChatPanel()">
@@ -321,7 +332,6 @@
 <ng-template #reportUserPanelViewTL>
     <div class="dm-report-user-panel-view">
         <ng-container *ngTemplateOutlet="listHeaderTL"></ng-container>
-        <!-- ANCHOR Report pane; -->
         <div class="dm-rup-back-to-chat" (click)="closeBlockedListPanel()">
             <img class="dm-rup-back-img" src="assets/images/dm-back-arrow.svg" />
             <span class="dm-rup-back-text brown-text" *ngIf="!chatHandler.isExpand.value"> Back to chat </span>
@@ -356,6 +366,26 @@
         <div class="dm-hub-name">
             <div class="dm-hub-user-name">{{ openedThread.computed_targetedUser.computed_fullname }}</div>
             <div class="dm-hub-org-name">{{ openedThread.computed_targetedUser.computed_organization_name }}</div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #searchBoxTL> </ng-template>
+<ng-template #chatMenuPanelTL>
+    <!-- ANCHOR chatMenuPanelTL -->
+    <div class="dm-header-chat-menu" data-element="chat-menu-panel">
+        <img
+            class="dm-hcm-opener"
+            src="assets/images/dm-thread-list-menu-opener.svg"
+            (click)="toggleChatMenu()"
+            alt="Menu"
+        />
+        <div class="dm-hcm-panel" *ngIf="chatMenuOpen">
+            <span class="dm-hcm-panel-arrow"></span>
+            <div class="dm-hcm-menu-wrapper">
+                <div class="dm-hcm-menu-item" (click)="menuAction('BLOCK')">Block User</div>
+                <div class="dm-hcm-menu-item" (click)="menuAction('CLEAR')">Clear Chat</div>
+                <div class="dm-hcm-menu-item" (click)="menuAction('DELETE')">Delete Chat</div>
+            </div>
         </div>
     </div>
 </ng-template>
@@ -669,6 +699,12 @@
                 class="dialog-image"
                 *ngIf="this.modelConfig.icon === 'REPORT'"
                 src="assets/images/dm-report.svg"
+                alt=""
+            />
+            <img
+                class="dialog-image"
+                *ngIf="this.modelConfig.icon === 'DELETE'"
+                src="/assets/images/delete-role.svg"
                 alt=""
             />
 

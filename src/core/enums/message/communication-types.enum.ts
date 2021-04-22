@@ -14,4 +14,6 @@ export enum ChatMessageType {
     blocklist = 'blocklist', // Get Block List
     users = 'users', // Get Multiple users details
     getCreate = 'get-create',
+    clearChat = 'clear-chat',
+    deleteChat = 'delete-chat',
 }
