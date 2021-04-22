@@ -2,7 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService, CommonService, GlobalsService, RoasterserviceService, UserserviceService } from '@services';
+import {
+    AuthService,
+    CoffeeLabService,
+    CommonService,
+    GlobalsService,
+    RoasterserviceService,
+    UserserviceService,
+} from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { formatDate, Location } from '@angular/common';
 import { MyProfileService } from '@modules/my-profile/my-profile.service';
@@ -48,7 +55,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         private authService: AuthService,
         private roasterService: RoasterserviceService,
         private activateRoute: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private coffeeLabService: CoffeeLabService
     ) {
         this.form = this.formBuilder.group({
             firstName: ['', Validators.required],
@@ -144,6 +152,10 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         const inputElement = event.target;
         this.avatarFileError = '';
         this.file = inputElement.files[0];
+        console.log('file >>>>>', this.file);
+        this.coffeeLabService.uploadFile(this.file, 'qa-forum').subscribe(res => {
+            console.log('file upload response >>>>>>>', res);
+        });
         if (!this.file) {
             return;
         }
