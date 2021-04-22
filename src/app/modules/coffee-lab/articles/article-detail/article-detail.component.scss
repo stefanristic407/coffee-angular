@@ -24,7 +24,12 @@
 }
 
 ::ng-deep {
-    .article-content > div p {
-        margin-bottom: 0;
+    .article-content > div {
+        p {
+            margin-bottom: 0;
+        }
+        img {
+            width: 100%;
+        }
     }
 }
