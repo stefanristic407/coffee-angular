@@ -10,7 +10,7 @@ import { ChatHandlerService } from '@services';
 })
 export class RoasterDetailsComponent {
     @Input() companyImageThumbnailUrl: string;
-    @Input() ownerName: string;
+    @Input() companyName: string;
     @Input() rating: number;
     @Input() orgType: OrganizationType;
     @Input() orderId: number;

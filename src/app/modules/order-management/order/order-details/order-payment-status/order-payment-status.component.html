@@ -9,7 +9,7 @@
             <img src=" assets/images/view-reciept.svg" class="pr-2" />{{ 'view_receipt' | translate }}
         </div>
     </div>
-    <div *ngIf="!order?.receipt_url">
+    <div *ngIf="!order?.receipt_url && !order?.micro_roaster_id">
         <input
             #fileInput
             class="d-none"
@@ -18,7 +18,7 @@
             (change)="uploadReceipt($event)"
         />
         <span class="btn-trans-icon br-4 cursor-pointer p-2" (click)="fileInput.click()">
-            <img class="svg" src="assets/images/upload-icon.png" />
+            <img class="svg" src="assets/images/upload_icon.svg" />
             <span class="estate-message pl-2">{{ 'upload_receipt' | translate }}</span>
         </span>
     </div>
@@ -37,7 +37,7 @@
             <img src="assets/images/external-link.svg" />
         </div>
         <button class="btn-stroked" (click)="openLink(trackingUrl)">
-            <span class="text-clr55c font-bold">{{ 'track_shipment' | translate }}</span>
+            <span class="font-bold">{{ 'track_shipment' | translate }}</span>
         </button>
     </div>
 </div>

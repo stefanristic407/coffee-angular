@@ -494,3 +494,11 @@ span.star {
 .border-bottom-dashed {
     border-bottom: 1px dashed $primary-border-color;
 }
+
+.banner-image {
+    height: 276px;
+    object-fit: cover;
+    @media (max-width: 767px) {
+        height: 256px;
+    }
+}

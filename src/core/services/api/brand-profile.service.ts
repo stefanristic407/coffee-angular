@@ -31,7 +31,7 @@ export class BrandProfileService extends ApiService {
     }
 
     getProfile(orgType: OrganizationType, orgId: number): Observable<OrganizationDetails> {
-        return this.post(this.orgPostUrl, `general/${orgType}/${orgId}/profile`, 'GET').pipe(
+        return this.post(this.postUrl, `general/${orgType}/${orgId}/profile`, 'GET').pipe(
             map((response) => {
                 if (response.success) {
                     return response.result;

@@ -173,7 +173,11 @@
         <tr>
             <td class="border-0">
                 <span class="d-none d-md-inline">{{ rowData.id }}</span>
-                <div class="p-mobile-row-content border-ebebeb p-0" [routerLink]="orgType | orderLink: rowData.id">
+                <div
+                    *ngIf="orgType"
+                    class="p-mobile-row-content border-ebebeb p-0"
+                    [routerLink]="orgType | orderLink: rowData.id"
+                >
                     <div class="d-flex flex-column fnt-12">
                         <div class="order-header d-flex justify-content-between px-3 py-2">
                             <span class="fnt-14 font-bold text-clr334">
@@ -241,7 +245,9 @@
             </td>
             <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.status }}</td>
             <td class="d-none d-md-table-cell">
-                <a class="view-order" [routerLink]="orgType | orderLink: rowData.id">{{ 'view_order' | translate }}</a>
+                <a *ngIf="orgType" class="view-order" [routerLink]="orgType | orderLink: rowData.id">{{
+                    'view_order' | translate
+                }}</a>
             </td>
         </tr>
     </ng-template>

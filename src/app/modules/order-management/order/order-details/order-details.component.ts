@@ -36,7 +36,8 @@ export class OrderDetailsComponent extends ResizeableComponent implements OnInit
     }
 
     ngOnInit(): void {
-        this.orderService.estateDetails$
+        this.orderService
+            .getOrgProfile(this.orgType)
             .pipe(takeUntil(this.unsubscribeAll$))
             .subscribe({ next: (res) => (this.roaster = res) });
         this.isMobile$.pipe(takeUntil(this.unsubscribeAll$)).subscribe({ next: (res) => (this.isMobile = res) });

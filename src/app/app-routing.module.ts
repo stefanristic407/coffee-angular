@@ -18,7 +18,7 @@ export const routes: Routes = [
                 loadChildren: () => import('./features/features.module').then((m) => m.FeaturesModule),
             },
             {
-                path: 'orders/:orgType',
+                path: 'orders',
                 loadChildren: () =>
                     import('./modules/order-management/order-management.module').then((m) => m.OrderManagementModule),
             },

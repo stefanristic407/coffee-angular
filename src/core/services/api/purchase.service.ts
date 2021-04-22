@@ -122,7 +122,10 @@ export class PurchaseService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `mr-${this.endpoint}/${orderId}/confirm`, 'PUT', details);
     }
 
-    rejectOrder(orderId: number, details?: ConfirmRejectOrderDetails): Observable<ApiResponse<any>> {
+    rejectOrder(
+        orderId: number,
+        details: ConfirmRejectOrderDetails = { notes: 'Order rejection' },
+    ): Observable<ApiResponse<any>> {
         return this.postWithOrg(this.orgPostUrl, `mr-${this.endpoint}/${orderId}/reject`, 'PUT', details);
     }
 

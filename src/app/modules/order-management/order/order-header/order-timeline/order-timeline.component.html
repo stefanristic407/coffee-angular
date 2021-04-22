@@ -22,12 +22,12 @@
                         <ng-template #statusInfo>
                             <p
                                 class="mb-0 fnt-14 fnt-sm-12 text-muted font-bold d-lg-block d-md-none d-sm-block"
-                                *ngIf="index < 2"
+                                *ngIf="index < 2 && getStatusAuthor(point) as statusAuthor"
                             >
-                                By :
+                                <ng-container *ngIf="statusAuthor.id">By :</ng-container>
                                 <app-user-detail
-                                    [userId]="getStatusAuthor(point).id"
-                                    [orgType]="getStatusAuthor(point).orgType"
+                                    [userId]="statusAuthor.id"
+                                    [orgType]="statusAuthor.orgType"
                                     type="text"
                                 ></app-user-detail>
                             </p>
@@ -97,7 +97,7 @@
 <ng-container *ngIf="order && showTextBlock">
     <div class="in-order mt-4 confirm-shippment br-4">
         <div class="row">
-            <ng-container *ngIf="order.status === OrderStatus.Received; else confirmationBlock">
+            <ng-container *ngIf="order.status === OrderStatus.Delivered; else confirmationBlock">
                 <div class="col-12 d-flex px-2 px-md-3">
                     <div class="img-block d-none d-md-block">
                         <span class="circle-image">

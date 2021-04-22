@@ -65,7 +65,7 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
             this.order &&
             this.order.status &&
             this.order.order_type !== OrderType.Prebook &&
-            (this.order.status === OrderStatus.Shipped || this.order.status === OrderStatus.Received)
+            (this.order.status === OrderStatus.Delivered || this.order.status === OrderStatus.Received)
         );
     }
 

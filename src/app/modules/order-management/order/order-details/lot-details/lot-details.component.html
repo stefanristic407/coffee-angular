@@ -24,3 +24,8 @@
         <span class="mt-md-3 fnt-600 text-clr334">{{ lot?.price | currency: 'USD' }}</span>
     </div>
 </div>
+<div class="d-flex w-100 justify-content-center mt-2">
+    <div class="navigation-link" *ngIf="lot" [routerLink]="['/sourcing/lot-details/', lot?.estate_id, lot?.lot_id]">
+        {{ 'view_lot_details' | translate }}
+    </div>
+</div>
