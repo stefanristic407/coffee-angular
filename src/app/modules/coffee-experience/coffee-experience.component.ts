@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { GlobalsService, RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { SourcingService } from '../sourcing/sourcing.service';
 
 @Component({
     selector: 'app-coffee-experience',
@@ -15,6 +16,10 @@ export class CoffeeExperienceComponent implements OnInit {
         { label: 'Farm link' },
         { label: 'The Coffee Experience' },
     ];
+    queryParams: any;
+    rows = 15;
+    pageNumber = 1;
+    totalRecords;
     searchTerm: any;
     customerType = 'estate';
     coffeeExperienceData: any;
@@ -25,6 +30,7 @@ export class CoffeeExperienceComponent implements OnInit {
         public cookieService: CookieService,
         private coffeeExperienceOrders: RoasterserviceService,
         private toastrService: ToastrService,
+        public sourcingSrv: SourcingService,
     ) {}
 
     ngOnInit(): void {
@@ -46,15 +52,27 @@ export class CoffeeExperienceComponent implements OnInit {
     }
 
     getEstateOrders() {
+        const params: any = {
+            page: this.pageNumber,
+            per_page: this.rows,
+            status: 'RECEIVED',
+        };
         this.coffeeExperienceData = [];
         this.coffeeExperienceOrders
-            .getCoffeeExperienceOrders(this.roasterId, this.customerType)
+            .getCoffeeExperienceOrders(this.roasterId, this.customerType, params)
             .subscribe((res: any) => {
                 if (res.success) {
                     this.coffeeExperienceData = res.result;
+                    this.totalRecords = res.result_info.total_count;
                 } else {
                     this.toastrService.error('Error while getting orders');
                 }
             });
+    }
+    getData(event) {
+        if (event.page > -1) {
+            this.pageNumber = event.page + 1;
+        }
+        this.getEstateOrders();
     }
 }

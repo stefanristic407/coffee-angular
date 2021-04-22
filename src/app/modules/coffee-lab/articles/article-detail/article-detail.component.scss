@@ -22,3 +22,9 @@
         height: 24px;
     }
 }
+
+::ng-deep {
+    .article-content > div p {
+        margin-bottom: 0;
+    }
+}

@@ -82,4 +82,11 @@
             </p-tabView>
         </div>
     </section>
+    <p-paginator
+        *ngIf="totalRecords > 10"
+        [rows]="rows"
+        [totalRecords]="totalRecords"
+        (onPageChange)="getData($event)"
+        styleClass="mt-45"
+    ></p-paginator>
 </div>

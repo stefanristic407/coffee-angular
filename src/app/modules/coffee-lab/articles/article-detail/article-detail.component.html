@@ -20,13 +20,11 @@
                     <div class="d-flex justify-content-between align-items-end w-100">
                         <app-user-header [prop]="detailsData"></app-user-header>
                         <div class="d-flex flex-column align-items-end">
-                            <div class="position-relative mb-2">
-                                <p-menu #menu [popup]="true" [model]="items" styleClass="left-menu-actions"> </p-menu>
-                                <i
-                                    class="pi pi-ellipsis-h text-clr588 cursor-pointer"
-                                    (click)="menu.toggle($event)"
-                                ></i>
-                            </div>
+                            <app-forum-menu
+                                [selectedItem]="detailsData"
+                                forumType="article"
+                                [enableTranslation]="true"
+                            ></app-forum-menu>
                             <div class="d-none d-md-block" *ngIf="detailsData?.allow_translation">
                                 <app-translation-dropdown
                                     forumType="articles"
@@ -45,10 +43,11 @@
                         ></app-translation-dropdown>
                     </div>
                 </div>
-                <div class="answer-content pt-3 pt-md-4">
-                    <p class="fnt-muli fnt-14 fnt-normal text-clr334 lh-157 mb-0">
-                        {{ detailsData?.content }}
-                    </p>
+                <div class="article-content pt-3 pt-md-4">
+                    <div
+                        class="fnt-muli fnt-14 fnt-normal text-clr334 lh-157 mb-0"
+                        [innerHTML]="detailsData?.content"
+                    ></div>
                 </div>
                 <div class="pt-4" *ngIf="detailsData?.original_article_id">
                     <app-original-view [detailsData]="detailsData"></app-original-view>
@@ -65,13 +64,13 @@
                 </div>
                 <div class="d-none d-lg-block">
                     <div *ngFor="let forum of relatedData" class="py-2">
-                        <app-forum-card [data]="forum" forumType="articles"></app-forum-card>
+                        <app-forum-card [data]="forum" forumType="article"></app-forum-card>
                     </div>
                 </div>
                 <div class="d-block d-lg-none pt-3">
                     <p-carousel [value]="relatedData" styleClass="p-carousel-forum" [numVisible]="1" [numScroll]="1">
                         <ng-template let-forum pTemplate="item">
-                            <app-forum-card [data]="forum" forumType="articles"></app-forum-card>
+                            <app-forum-card [data]="forum" forumType="article"></app-forum-card>
                         </ng-template>
                     </p-carousel>
                 </div>

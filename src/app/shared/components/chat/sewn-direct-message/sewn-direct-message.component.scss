@@ -38,6 +38,7 @@
     position: fixed;
     display: block;
     width: 30%;
+    height: 100%;
     background-color: white;
     z-index: 100;
     right: 0px;
@@ -66,23 +67,40 @@
                 flex-direction: column;
                 align-items: stretch;
                 background-color: #f8f8f8;
-                height: calc(100% - 72px);
+                height: 100%;
+                .dm-clp-chat-title-bar {
+                    position: relative;
+                    background-color: #ffffff;
+                }
                 .dm-clp-chat-header {
                     position: relative;
                     display: flex;
                     align-items: center;
-                    justify-content: flex-start;
+                    justify-content: space-between;
                     width: 100%;
                     min-height: 72px;
                     padding: 15px 24px;
                     border: solid 1px #dedede;
                     background-color: #ffffff;
-                    .badge-back-arrow-button {
-                        display: block;
-                        margin-right: 12px;
-                        width: 24px;
-                        height: 24px;
-                        cursor: pointer;
+                    .dm-clp-chat-header-left-panel {
+                        position: relative;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        width: 100%;
+                        .badge-back-arrow-button {
+                            display: block;
+                            margin-right: 12px;
+                            width: 24px;
+                            height: 24px;
+                            cursor: pointer;
+                        }
+                    }
+                    .dm-clp-chat-header-right-panel {
+                        position: relative;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-end;
                     }
                 }
                 .dm-clp-chat-content {
@@ -123,6 +141,7 @@
     z-index: 10;
     display: flex;
     justify-content: center;
+
     .dm-expand-panel-wrapper {
         background-color: #f1f1f1;
         margin-top: $dm-expand-panel-wrapper-margin;
@@ -176,11 +195,28 @@
                     height: 100%;
                     .dm-exp-chat-header {
                         position: relative;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
                         width: 100%;
                         min-height: 72px;
                         padding: 15px 24px;
                         border: solid 1px #dedede;
                         background-color: #ffffff;
+                        .dm-exp-chat-header-right-panel {
+                            position: relative;
+                            display: flex;
+                            justify-content: flex-end;
+                            align-items: center;
+                            flex-grow: 1;
+                            flex-shrink: 1;
+                        }
+                        .dm-exp-chat-header-left-panel {
+                            position: relative;
+                            display: flex;
+                            justify-content: flex-end;
+                            align-items: center;
+                        }
                     }
                     .dm-exp-chat-content {
                         position: relative;
@@ -202,6 +238,15 @@
                     .dm-exp-chat-footer {
                         position: relative;
                         width: 100%;
+                    }
+                    .dm-exp-no-thread-selectecd {
+                        position: relative;
+                        font-size: 14px;
+                        color: #747588;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100%;
                     }
                 }
             }
@@ -263,6 +308,7 @@
         width: 100%;
         padding: 0px 24px;
         margin-bottom: 18px;
+        margin-top: 10px;
         .dm-ivtp-thread-search-wrapper {
             position: relative;
             display: block;
@@ -378,7 +424,6 @@
         }
     }
 }
-// ANCHOR User Panel View
 .dm-search-user-panel-view {
     position: relative;
     display: flex;
@@ -392,7 +437,7 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        margin: 0px 24px 24px 21px;
+        margin: 16px;
         cursor: pointer;
         .dm-sup-back-img {
             display: inline-block;
@@ -669,10 +714,9 @@
 
     .dm-rli-unblock-block {
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
         align-items: center;
-        border-left: 1px solid #dedede;
-        width: 56px;
+        width: 30px;
         .dm-rli-unblock-button {
             display: block;
             width: 24px;
@@ -687,6 +731,7 @@
     padding: 16px 16px 0px 16px;
     margin-bottom: 7px;
     cursor: pointer;
+    border-bottom: 1px solid #dedede;
     &:last-child {
         .dm-fli-content-block {
             border: none;
@@ -716,7 +761,6 @@
         flex-direction: column;
         flex-grow: 1;
         padding-bottom: 16px;
-        border-bottom: 1px solid #dedede;
         .dm-fli-content-row {
             position: relative;
             display: flex;
@@ -1032,6 +1076,9 @@
                     margin-right: 17px;
                     cursor: pointer;
                     user-select: none;
+                    :hover {
+                        text-decoration: underline;
+                    }
                 }
                 .dm-ci-message-stamp {
                     display: flex;
@@ -1092,7 +1139,8 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        margin: 0px 18px;
+        margin: 16px;
+
         cursor: pointer;
         .dm-udv-back-img {
             display: inline-block;
@@ -1124,9 +1172,7 @@
             padding: 20px 20px 32px;
             height: 94px;
             background-color: #faf8f4;
-            margin: 32px 24px;
-            margin-bottom: 58px;
-
+            margin: 16px 24px 58px 24px;
             .dm-udv-profile-pic {
                 position: relative;
                 width: 96px;
@@ -1282,6 +1328,25 @@
     position: relative;
     width: 100%;
     min-height: 125px;
+    .dm-message-offensive-lang {
+        border-radius: 2px;
+        background-color: #d50000;
+        padding: 10px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #fff;
+        position: absolute;
+        width: calc(100% - 30px);
+        bottom: 105%;
+        right: calc(-100% + 30px);
+        opacity: 0;
+        transition: all 0.4s ease-in-out;
+        &.active {
+            opacity: 1;
+            right: 50%;
+            transform: translateX(50%);
+        }
+    }
     .dm-mb-image-view {
         display: flex;
         position: relative;
@@ -1338,7 +1403,8 @@
         position: relative;
         background-color: #ffffff;
         padding: 24px 24px 23px;
-        box-shadow: 0 -1px 17px 0 rgba(0, 0, 0, 0.06);
+        border-top: 1px solid #e8e8e8;
+        // box-shadow: 0 -1px 17px 0 rgba(0, 0, 0, 0.06);
         &.open-emoji {
             background-color: #e9e8e8;
             .dm-mb-emoji-panel-wrapper {
@@ -1488,16 +1554,70 @@
         background-color: #55912d;
     }
 }
-
+.dm-header-chat-menu {
+    // ANCHOR chatMenuPanelTL
+    margin-left: 16px;
+    position: relative;
+    display: block;
+    .dm-hcm-opener {
+        position: relative;
+        display: block;
+        width: 32px;
+        height: 32px;
+    }
+    .dm-hcm-panel {
+        position: absolute;
+        background-color: #fff;
+        height: 130px;
+        width: 120px;
+        left: -80px;
+        top: 48px;
+        z-index: 20;
+        padding: 5px;
+        box-shadow: 0 0 14px 0 #0003;
+        border: solid 0.2px #ebebeb;
+        .dm-hcm-panel-arrow {
+            display: inline-block;
+            height: 16px;
+            width: 16px;
+            background-color: #fff;
+            position: absolute;
+            right: 24px;
+            top: 0px;
+            border-left: 1px solid #0003;
+            border-top: 1px solid #0003;
+            transform: translate(50%, -50%) rotate(45deg);
+        }
+        .dm-hcm-menu-wrapper {
+            display: block;
+            position: relative;
+            .dm-hcm-menu-item {
+                position: relative;
+                width: 100%;
+                padding: 10px 5px;
+                text-align: center;
+                border-bottom: 1px solid #e0e0e0;
+                cursor: pointer;
+                transition: background-color 400ms linear;
+                &:last-child {
+                    border: none;
+                }
+                &:hover {
+                    background-color: #f6f6f6;
+                }
+            }
+        }
+    }
+}
 @media (min-width: 1400px) {
     .dm-collapse-panel {
         width: 25%;
     }
     .dm-expand-panel .dm-exp-body .dm-exp-listing-section {
-        width: 25%;
+        width: 30%;
     }
     .dm-expand-panel .dm-exp-body .dm-exp-chat-section {
-        width: 75%;
+        width: 70%;
     }
 }
 @media (min-width: 1300px) and (max-width: 1399px) {
@@ -1506,10 +1626,10 @@
     }
 
     .dm-expand-panel .dm-exp-body .dm-exp-listing-section {
-        width: 32%;
+        width: 40%;
     }
     .dm-expand-panel .dm-exp-body .dm-exp-chat-section {
-        width: 68%;
+        width: 60%;
     }
 }
 @media (min-width: 992px) and (max-width: 1299px) {
@@ -1517,10 +1637,10 @@
         width: 34%;
     }
     .dm-expand-panel .dm-exp-body .dm-exp-listing-section {
-        width: 34%;
+        width: 50%;
     }
     .dm-expand-panel .dm-exp-body .dm-exp-chat-section {
-        width: 66%;
+        width: 50%;
     }
 }
 @media (min-width: 768px) and (max-width: 991px) {
@@ -1598,5 +1718,15 @@
 @keyframes getWidth {
     100% {
         width: 100%;
+    }
+}
+
+.dialog-image {
+    width: 32px;
+    height: 32px;
+}
+:host {
+    ::ng-deep .p-dialog {
+        max-width: 400px;
     }
 }

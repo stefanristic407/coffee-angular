@@ -84,9 +84,6 @@
                     ></app-translation-dropdown>
                 </div>
                 <div class="fnt-muli fnt-14 text-clr334 lh-15 mb-3 mb-md-4" [innerHTML]="answer.answer"></div>
-                <div *ngFor="let image of answer?.images; let last = last" [ngClass]="{ 'mb-3': !last }">
-                    <img class="w-100" [src]="image.file" alt="image" />
-                </div>
             </div>
         </div>
     </div>

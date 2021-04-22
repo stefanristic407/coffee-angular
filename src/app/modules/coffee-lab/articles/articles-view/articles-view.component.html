@@ -6,7 +6,7 @@
                 <img src="assets/images/avatar.png" class="mr-3 rounded-circle" alt="avatar" width="40" height="40" />
                 <div class="sewn-form-field w-100 mb-0">
                     <input
-                        routerLink="../../create-post/article"
+                        routerLink="../../create-post/tab/article"
                         type="text"
                         pInputText
                         placeholder="Publish an article"
@@ -72,13 +72,7 @@
             >
                 <div class="d-flex justify-content-between">
                     <app-user-header [prop]="article"></app-user-header>
-                    <div>
-                        <p-menu #menu [popup]="true" [model]="items" appendTo="body"> </p-menu>
-                        <i
-                            class="pi pi-ellipsis-h text-clr588 cursor-pointer"
-                            (click)="$event.stopPropagation(); menu.toggle($event)"
-                        ></i>
-                    </div>
+                    <app-forum-menu [selectedItem]="article" forumType="article"></app-forum-menu>
                 </div>
                 <img [src]="article.cover_image_url" class="br-4 w-100 my-3 my-md-4" />
                 <a class="fnt-muli fnt-14 fnt-bold lh-157 text-clr334 cursor-pointer">
@@ -87,9 +81,7 @@
                     {{ article?.subtitle }}
                 </a>
                 <div class="article-content-wrapper pt-3">
-                    <p class="fnt-muli fnt-14 fnt-normal lh-15 text-clr334 mb-0">
-                        {{ article.content }}
-                    </p>
+                    <div class="fnt-muli fnt-14 fnt-normal lh-15 text-clr334 mb-0" [innerHTML]="article.content"></div>
                     <label class="custom-link mb-0" style="margin-top: 18px">{{ 'read_more' | translate }}</label>
                 </div>
             </div>

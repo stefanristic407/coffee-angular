@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CoffeeLabService, GlobalsService } from '@services';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MenuItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
-import { PrimeNGConfig } from 'primeng/api';
-
 @Component({
     selector: 'app-aticle-details',
     templateUrl: './article-detail.component.html',
@@ -17,24 +14,6 @@ export class ArticleDetailComponent implements OnInit {
     idOrSlug: string | number = '';
     commentData?: any[];
     isLoading = true;
-    items: MenuItem[] = [
-        {
-            items: [
-                {
-                    label: this.globalsService.languageJson.share,
-                    command: () => {
-                        this.onShare({});
-                    },
-                },
-                {
-                    label: this.globalsService.languageJson.save_post,
-                    command: () => {
-                        this.onSavePost({});
-                    },
-                },
-            ],
-        },
-    ];
 
     constructor(
         private coffeeLabService: CoffeeLabService,
@@ -42,7 +21,6 @@ export class ArticleDetailComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         public globalsService: GlobalsService,
         private messageService: MessageService,
-        private primengConfig: PrimeNGConfig,
     ) {
         this.activatedRoute.params.subscribe((params) => {
             this.idOrSlug = params.idOrSlug;
@@ -97,7 +75,4 @@ export class ArticleDetailComponent implements OnInit {
             }
         });
     }
-
-    onShare(postItem: any): void {}
-    onSavePost(postItem: any): void {}
 }
