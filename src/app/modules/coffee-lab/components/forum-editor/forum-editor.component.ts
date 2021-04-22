@@ -17,6 +17,7 @@ export class ForumEditorComponent implements OnInit {
     @Output() isUploadingImageChange = new EventEmitter<boolean>();
     @Input() imageIdList = [];
     @Output() imageIdListChange = new EventEmitter<any>();
+    @Input() fileModule = 'qa-forum';
     imagesCount = 0;
     images = [];
 
@@ -54,7 +55,7 @@ export class ForumEditorComponent implements OnInit {
         console.log('This is new images so lets upload this image through api', file);
         this.isUploadingImage = true;
         this.isUploadingImageChange.emit(true);
-        this.coffeeLabService.uploadFile(file, 'qa-forum').subscribe((res: any) => {
+        this.coffeeLabService.uploadFile(file, this.fileModule).subscribe((res: any) => {
             this.isUploadingImage = false;
             this.isUploadingImageChange.emit(false);
             if (res.success) {
