@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { CoffeeLabService, RoasterserviceService } from '@services';
 import { number } from 'echarts';
 import { CookieService } from 'ngx-cookie-service';
@@ -11,6 +12,11 @@ import { ToastrService } from 'ngx-toastr';
     styleUrls: ['./create-recipe.component.scss'],
 })
 export class CreateRecipeComponent implements OnInit {
+    id: any;
+    description: any;
+    stepDescription: any;
+    isUploadingImage = false;
+    imageIdList = [];
     qualitySeleted = '1 Lbs';
     seletedPreparationTime = 'mins';
     seletedCookingTime = 'mins';
@@ -23,7 +29,9 @@ export class CreateRecipeComponent implements OnInit {
     fileName: any;
     imageFileData: any;
     imageFileName: any;
+    languageArray = [];
     roaster_id: string;
+    imageIdListStep = [];
     experiseArray: any[] = [
         {
             label: 'easy',
@@ -71,8 +79,11 @@ export class CreateRecipeComponent implements OnInit {
         private cookieService: CookieService,
         private roasterService: RoasterserviceService,
         private coffeeLabService: CoffeeLabService,
+        private route: ActivatedRoute,
     ) {
         this.roaster_id = this.cookieService.get('roaster_id');
+        this.id = this.route.snapshot.queryParamMap.get('id');
+        console.log('id---->>>>', this.id);
     }
 
     ngOnInit(): void {
@@ -89,11 +100,14 @@ export class CreateRecipeComponent implements OnInit {
             preparation_time: ['', Validators.compose([Validators.required])],
             cooking_time: ['', Validators.compose([Validators.required])],
             preparation_method: ['', Validators.compose([Validators.required])],
-            cover_image_id: [number],
+            cover_image_id: [null, Validators.compose([Validators.required])],
             description: ['', Validators.compose([Validators.required])],
             ingredients: this.fb.array([this.createCoffeIngredient()]),
             steps: this.fb.array([this.createcoffeStep()]),
             allow_translation: [false],
+            video_id: [null, Validators.compose([Validators.required])],
+            inline_images: [[]],
+            language: 'en',
         });
     }
 
@@ -102,27 +116,29 @@ export class CreateRecipeComponent implements OnInit {
         this.fileEvent = this.files;
         console.log(this.fileEvent);
         this.imageFileName = this.files[0].name;
-        let fileList: FileList = this.fileEvent;
+        const fileList: FileList = this.fileEvent;
         if (fileList.length > 0) {
-            let file: File = fileList[0];
-            let formData: FormData = new FormData();
+            const file: File = fileList[0];
+            const formData: FormData = new FormData();
             formData.append('file', file, file.name);
             formData.append('name', this.imageFileName);
             formData.append('file_module', 'Coffee-Story');
             formData.append('parent_id', '0');
             formData.append('api_call', '/ro/' + this.roaster_id + '/file-manager/files');
             formData.append('token', this.cookieService.get('Auth'));
-            this.roasterService.uploadFiles(formData).subscribe((result) => {
-                console.log('image upload result---');
-                if (result['success'] == true) {
+            this.coffeeLabService.uploadFile(file, 'recipe-post').subscribe((result: any) => {
+                console.log('image upload result---', result);
+                if (result.success === true) {
                     this.toaster.success('The file ' + this.imageFileName + ' uploaded successfully');
-                    this.imageFileData = result['result'];
-                    if (type == 'recipeCoverImage') {
-                        this.recipeForm.controls.cover_image_id.setValue(result['result'].id);
-                    } else {
+                    this.imageFileData = result.result;
+                    if (type === 'recipeCoverImage') {
+                        this.recipeForm.controls.cover_image_id.setValue(result.result.id);
+                    } else if (type === 'stepImage') {
                         const step = this.recipeForm.get('steps') as FormArray;
                         console.log('step--->>>', step);
-                        step['controls'][index].value.image_id = result['result'].id;
+                        step.controls[index].value.image_id = result.result.id;
+                    } else {
+                        this.recipeForm.controls.video_id.setValue(result.result.id);
                     }
                     console.log('recipe form', this.recipeForm.value);
                 } else {
@@ -134,8 +150,8 @@ export class CreateRecipeComponent implements OnInit {
 
     createcoffeStep() {
         return this.fb.group({
-            description: ['', Validators.compose([Validators.required])],
-            image_id: [number],
+            description: [''],
+            image_id: [null],
         });
     }
 
@@ -156,6 +172,7 @@ export class CreateRecipeComponent implements OnInit {
     addStep() {
         this.steps = this.recipeForm.get('steps') as FormArray;
         this.steps.push(this.createcoffeStep());
+        console.log('this.steps--->>', this.steps);
     }
 
     validateForms() {
@@ -164,14 +181,20 @@ export class CreateRecipeComponent implements OnInit {
             returnFlag = false;
             return returnFlag;
         }
+        this.recipeForm.value.steps.forEach((child) => {
+            if (!child.description) {
+                returnFlag = false;
+                return;
+            }
+        });
         return returnFlag;
     }
 
     onSave() {
+        this.recipeForm.controls.description.setValue(this.description);
         console.log('save----', this.recipeForm.value);
         if (this.validateForms()) {
-            const coffeeObj = this.recipeForm.value;
-            this.createNewRecipe(coffeeObj);
+            this.createNewRecipe(this.recipeForm.value);
         } else {
             this.recipeForm.markAllAsTouched();
             this.toaster.error('Please fill all Data');
@@ -179,6 +202,7 @@ export class CreateRecipeComponent implements OnInit {
     }
 
     createNewRecipe(data) {
+        data.inline_images = [].concat(this.imageIdList, ...this.imageIdListStep);
         console.log('send recipe-->>>>', data);
         this.coffeeLabService.postCoffeeRecipe(data).subscribe((res: any) => {
             console.log('post question result >>>', res);

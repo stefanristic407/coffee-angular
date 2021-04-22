@@ -1,5 +1,15 @@
-<div class="recipe-post-wrapper p-4 bg-f8">
+<div class="recipe-post-wrapper bg-f8">
     <div class="row" [formGroup]="recipeForm" (ngSubmit)="onSave()" novalidate>
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100" *ngIf="id">
+            <p-dropdown
+                [options]="languageArray"
+                optionLabel="label"
+                placeholder="Select translate language"
+                [style]="{ width: '100%' }"
+                optionValue="value"
+                class="inputFieldBox"
+            ></p-dropdown>
+        </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sewn-form-field w-100">
             <label>Add a cover image<span class="star">*</span></label>
             <div class="addImageContainer d-flex align-items-center justify-content-center imagesDiv">
@@ -12,7 +22,9 @@
                         (change)="uploadImage($event, 0, 'recipeCoverImage')"
                     />
                     <div class="d-block flex-wrap align-items-center justify-content-center">
-                        <div class="oval"><span>+</span></div>
+                        <div class="oval">
+                            <span><i class="pi fa fa-plus text-clr588 fnt-16"></i></span>
+                        </div>
                         <span class="d-none d-sm-none d-md-block secondary_txt dragColor my-25"
                             >Add a cover image<span class="star">*</span></span
                         >
@@ -28,21 +40,12 @@
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sewn-form-field w-100">
             <label>Recipe Description<span class="star">*</span></label>
-            <p-editor
-                styleClass="forum-editor"
-                [style]="{ height: '213px' }"
-                formControlName="description"
-                placeholder="Give a small description about the recipe..."
-            >
-                <ng-template pTemplate="header">
-                    <span class="ql-formats">
-                        <button type="button" class="ql-bold" aria-label="Bold"></button>
-                        <button type="button" class="ql-italic" aria-label="Italic"></button>
-                        <button type="button" class="ql-underline" aria-label="Underline"></button>
-                    </span>
-                </ng-template>
-            </p-editor>
-            <small *ngIf="recipeForm.controls['description'].errors?.required" class="p-error"> Required </small>
+            <app-forum-editor
+                [(content)]="description"
+                [(isUploadingImage)]="isUploadingImage"
+                [(imageIdList)]="imageIdList"
+                fileModule="recipe-post"
+            ></app-forum-editor>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
             <label>Expertise<span class="star">*</span></label>
@@ -166,13 +169,20 @@
         </div>
         <div class="row col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-0">
-                <label>Upload a video of the recipe (optional)</label>
+                <label>Upload a video of the recipe (optional)<span class="star">*</span></label>
                 <div class="addImageContainer d-flex align-items-center justify-content-center imagesDiv">
                     <label class="d-block align-items-center justify-content-center pointer-item">
-                        <input type="file" accept="image/png, image/jpeg" style="display: none" #featureImage />
+                        <input
+                            type="file"
+                            style="display: none"
+                            #featureImage
+                            (change)="uploadImage($event, 0, 'recipeVideo')"
+                        />
                         <div class="d-block flex-wrap align-items-center justify-content-center">
                             <!-- <img src="assets/images/upload_icon.svg" /> -->
-                            <div class="oval"><span>+</span></div>
+                            <div class="oval">
+                                <span><i class="pi fa fa-plus text-clr588 fnt-16"></i></span>
+                            </div>
                             <span class="d-none d-sm-none d-md-block secondary_txt dragColor my-25"
                                 >Add a video<span class="star">*</span></span
                             >
@@ -183,30 +193,17 @@
             </div>
         </div>
 
-        <ng-container
-            formArrayName="steps"
-            *ngFor="let step of recipeForm.controls['steps']['controls']; let i = index; last as isLast"
-        >
-            <div [formGroupName]="i" class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <ng-container *ngFor="let step of recipeForm?.value?.steps; let i = index; last as isLast">
+            <div class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9 sewn-form-field w-100">
                     <label>Step {{ i + 1 }}<span class="star">*</span></label>
-                    <p-editor
-                        styleClass="forum-editor"
-                        formControlName="description"
-                        [style]="{ height: '186px' }"
-                        placeholder="Start writing..."
-                    >
-                        <ng-template pTemplate="header">
-                            <span class="ql-formats">
-                                <button type="button" class="ql-bold" aria-label="Bold"></button>
-                                <button type="button" class="ql-italic" aria-label="Italic"></button>
-                                <button type="button" class="ql-underline" aria-label="Underline"></button>
-                            </span>
-                        </ng-template>
-                    </p-editor>
-                    <small *ngIf="step.controls['description'].errors?.required" class="p-error"> Required </small>
+                    <app-forum-editor
+                        [(content)]="step.description"
+                        [(isUploadingImage)]="isUploadingImage"
+                        [(imageIdList)]="imageIdListStep[i]"
+                        fileModule="recipe-post"
+                    ></app-forum-editor>
                 </div>
-
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3 sewn-form-field w-100">
                     <label>Add image</label>
                     <div class="stepAddImageContainer d-flex align-items-center justify-content-center imagesDiv">
@@ -219,7 +216,10 @@
                                 (change)="uploadImage($event, 0, 'stepImage')"
                             />
                             <div class="d-block flex-wrap align-items-center justify-content-center">
-                                <img src="assets/images/upload_icon.svg" />
+                                <!-- <img src="assets/images/upload_icon.svg" /> -->
+                                <div class="step-oval">
+                                    <span><i class="pi fa fa-plus text-clr588 fnt-16"></i></span>
+                                </div>
                                 <span class="d-none d-sm-none d-md-block secondary_txt dragColor my-25 px-4"
                                     >Drag and drop or upload an image</span
                                 >

@@ -1,0 +1,13 @@
+<div class="bg-f8 py-4">
+    <p-tabView class="toggle">
+        <p-tabPanel [header]="'translation' | translate">
+            <!-- <app-create-recipe></app-create-recipe> -->
+            <div class="p-4 bg-f8">
+                <router-outlet></router-outlet>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel [header]="'see_original_post' | translate">
+            <div class="p-4 bg-f8">See original post</div>
+        </p-tabPanel>
+    </p-tabView>
+</div>

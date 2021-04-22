@@ -36,6 +36,7 @@ import { ForumEditorComponent } from './components/forum-editor/forum-editor.com
 import { TranslateArticleComponent } from './create-post/translate/translate-article/translate-article.component';
 import { TranslateRecipeComponent } from './create-post/translate/translate-recipe/translate-recipe.component';
 import { TranslateAnswerComponent } from './create-post/translate/translate-answer/translate-answer.component';
+import { RecipeTabContainerComponent } from './create-post/recipe-tab-container/recipe-tab-container.component';
 
 @NgModule({
     declarations: [
@@ -72,6 +73,7 @@ import { TranslateAnswerComponent } from './create-post/translate/translate-answ
         TranslateArticleComponent,
         TranslateRecipeComponent,
         TranslateAnswerComponent,
+        RecipeTabContainerComponent,
     ],
     imports: [CommonModule, CoffeeLabRoutingModule, SharedModule, FormsModule],
 })

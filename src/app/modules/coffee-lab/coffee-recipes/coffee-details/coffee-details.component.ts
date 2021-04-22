@@ -92,5 +92,9 @@ export class CoffeeDetailsComponent implements OnInit {
 
     onShare(postItem: any): void {}
     onSavePost(postItem: any): void {}
-    onTranslate(postItem: any): void {}
+    onTranslate(postItem: any): void {
+        this.router.navigate(['/coffee-lab/create-post/translate/translate-recipe'], {
+            queryParams: { id: this.id },
+        });
+    }
 }
