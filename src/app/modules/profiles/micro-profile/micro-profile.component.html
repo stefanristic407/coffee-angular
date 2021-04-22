@@ -12,10 +12,10 @@
         <div class="d-flex justify-content-between">
             <div class="w-100 text-center text-md-left">
                 <p *ngIf="isSaveMode" class="fnt-16 fnt-md-18 mb-0 mb-3 fnt-bold text-clr334 text-center text-md-left">
-                    {{ subProfileForm.controls.company_name.value }}
+                    {{ subProfileForm.controls.name.value }}
                 </p>
                 <p *ngIf="!isSaveMode" class="fnt-16 fnt-md-18 mb-0 mb-3 fnt-bold text-clr334 text-center text-md-left">
-                    {{ profileCreationService.roasteryProfileData?.company_name }}
+                    {{ profileCreationService.roasteryProfileData?.name }}
                 </p>
             </div>
         </div>
@@ -49,33 +49,43 @@
 
             <img
                 class="cover-image-profile-banner w-100"
-                *ngIf="isEditMode && !profileCreationService.roasteryProfileData?.banner_url"
+                *ngIf="!profileCreationService.roasteryProfileData?.banner_url"
                 src="assets/images/blank.png"
                 height="160"
             />
             <img
                 class="cover-image-profile-banner w-100"
-                *ngIf="isEditMode && profileCreationService.roasteryProfileData?.banner_url"
+                *ngIf="profileCreationService.roasteryProfileData?.banner_url"
                 [src]="profileCreationService.roasteryProfileData?.banner_url"
                 alt="profile banner image"
                 height="160"
             />
         </div>
         <div class="profile-description-container">
+            <div
+                class="profile-avatar bg-fff"
+                [ngClass]="{ 'border-main': !profileCreationService.roasteryProfileData?.company_image_url }"
+            >
+                <img
+                    [src]="profileCreationService.roasteryProfileData?.company_image_url"
+                    *ngIf="profileCreationService.roasteryProfileData?.company_image_url"
+                    class="avatar-img"
+                />
+            </div>
             <div class="profile-metadata-container pl-3 pr-3 pb-3 p-md-0">
-                <p class="fnt-18 font-bold text-clr334 d-none d-md-block m-0 pt-4" *ngIf="isEditMode">
-                    {{ profileCreationService.roasteryProfileData?.company_name }}
+                <p class="fnt-18 font-bold text-clr334 d-none d-md-block m-0 pt-4">
+                    {{ profileCreationService.roasteryProfileData?.name }}
                 </p>
                 <a
                     class="d-md-none font-16 text-clr334 font-bold"
                     href="{{ profileCreationService.roasteryProfileData?.website }}"
                     target="blank"
-                    >{{ profileCreationService.roasteryProfileData?.company_name }}</a
+                    >{{ profileCreationService.roasteryProfileData?.name }}</a
                 >
-                <p class="fnt-14 text-clr334 mt-2 font-bold d-md-none underline" *ngIf="isEditMode">
+                <p class="fnt-14 text-clr334 mt-2 font-bold d-md-none underline">
                     {{ profileCreationService.roasteryProfileData?.website }}
                 </p>
-                <p class="fnt-14 text-clr588 mt-2 font-bold d-none d-md-block" *ngIf="isEditMode">
+                <p class="fnt-14 text-clr588 mt-2 font-bold d-none d-md-block">
                     {{ profileCreationService.roasteryProfileData?.website }}
                 </p>
                 <a target="blank" href="{{ profileCreationService.roasteryProfileData?.website }}" #link hidden></a>

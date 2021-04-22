@@ -44,6 +44,7 @@ export class MicroProfileService {
     bannerFile?: any;
     profileInfo?: any;
     isSaving?: boolean;
+    roasterId: string;
 
     constructor(
         public userService: UserserviceService,
@@ -54,36 +55,35 @@ export class MicroProfileService {
     ) {
         this.userId = this.cookieService.get('user_id');
         this.microRoasterId = '7';
+        this.roasterId = this.cookieService.get('roaster_id');
         this.roasterProfile();
         this.countryList = COUNTRY_LIST;
     }
 
     roasterProfile() {
-        this.userService
-            .getProfileCreationData(this.microRoasterId, OrganizationType.MICRO_ROASTER)
-            .subscribe((result: any) => {
-                console.log('micro roaster details: ', result);
-                if (result.success) {
-                    this.roasteryProfileData = result.result;
-                    this.toUpdateProfileData = result.result;
-                    this.single = [
-                        {
-                            name: 'Female',
-                            value: this.roasteryProfileData.female_employee_count
-                                ? this.roasteryProfileData.female_employee_count
-                                : 0,
-                        },
-                        {
-                            name: 'Male',
-                            value: this.roasteryProfileData.male_employee_count
-                                ? this.roasteryProfileData.male_employee_count
-                                : 0,
-                        },
-                    ];
-                    this.saveMode.next(false);
-                    this.editMode.next(true);
-                }
-            });
+        this.userService.getMicroDetails(this.roasterId, this.microRoasterId).subscribe((result: any) => {
+            console.log('micro roaster details: ', result);
+            if (result.success) {
+                this.roasteryProfileData = result.result;
+                this.toUpdateProfileData = result.result;
+                this.single = [
+                    {
+                        name: 'Female',
+                        value: this.roasteryProfileData.female_employee_count
+                            ? this.roasteryProfileData.female_employee_count
+                            : 0,
+                    },
+                    {
+                        name: 'Male',
+                        value: this.roasteryProfileData.male_employee_count
+                            ? this.roasteryProfileData.male_employee_count
+                            : 0,
+                    },
+                ];
+                this.saveMode.next(false);
+                this.editMode.next(true);
+            }
+        });
 
         this.roasterService.getRoasterUsers(this.microRoasterId).subscribe((data: any) => {
             if (data.success) {

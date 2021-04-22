@@ -37,6 +37,10 @@ export class MicroProfileComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.microRoasterId = '7';
+        console.log(
+            'profileCreationService.roasteryProfileData?.banner_url',
+            this.profileCreationService.roasteryProfileData?.banner_url,
+        );
     }
 
     ngOnDestroy() {}
