@@ -3,6 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { CoffeeLabService, GlobalsService } from '@services';
 import { environment } from '@env/environment';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-forum-menu',
@@ -25,6 +26,7 @@ export class ForumMenuComponent implements OnInit {
         public globalsService: GlobalsService,
         private coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
+        private router: Router
     ) {}
 
     ngOnInit(): void {
@@ -116,6 +118,8 @@ export class ForumMenuComponent implements OnInit {
             case 'recipe':
                 break;
             case 'answer':
+                console.log('lets go here');
+                this.router.navigate(['/coffee-lab/create-post/translate-answer'], {queryParams: {id: this.selectedItem.id}});
                 break;
             case 'articleComment':
                 break;

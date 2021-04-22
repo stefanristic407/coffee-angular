@@ -1,1 +1,90 @@
-<p>create-article works!</p>
+<div>
+    <div [formGroup]="articleForm" novalidate>
+        <div class="col-12 sewn-form-field p-0">
+            <div class="addImageContainer d-flex align-items-center justify-content-center">
+                <label class="cursor-pointer">
+                    <input
+                        type="file"
+                        accept="image/png, image/jpeg"
+                        style="display: none"
+                        #featureImage
+                        (change)="uploadImage($event, 0, 'recipeCoverImage')"
+                    />
+                    <div class="d-flex flex-column align-items-center">
+                        <img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25" />
+                        <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25"
+                            >{{ 'add_cover_image' | translate }}<span class="star">*</span></span
+                        >
+                        <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25"
+                            >({{ 'max_size' | translate }} 2mb)</span
+                        >
+                    </div>
+                </label>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 sewn-form-field p-0">
+            <input type="text" placeholder="Give a title" pInputText formControlName="title" />
+            <small *ngIf="articleForm.controls['title'].errors?.required" class="p-error">
+                {{ 'required' | translate }}
+            </small>
+        </div>
+        <div class="col-12 sewn-form-field p-0">
+            <input type="text" placeholder="subtitle" pInputText formControlName="subtitle" />
+            <small *ngIf="articleForm.controls['subtitle'].errors?.required" class="p-error">
+                {{ 'required' | translate }}
+            </small>
+        </div>
+        <div class="col-12 sewn-form-field p-0">
+            <p-editor
+                styleClass="forum-editor"
+                [style]="{ height: '213px' }"
+                formControlName="content"
+                placeholder="Give content of article..."
+            >
+                <ng-template pTemplate="header">
+                    <span class="ql-formats">
+                        <button type="button" class="ql-bold" aria-label="Bold"></button>
+                        <button type="button" class="ql-italic" aria-label="Italic"></button>
+                        <button type="button" class="ql-underline" aria-label="Underline"></button>
+                    </span>
+                </ng-template>
+            </p-editor>
+            <small *ngIf="articleForm.controls['content'].errors?.required" class="p-error">
+                {{ 'required' | translate }}
+            </small>
+        </div>
+        <div class="d-flex align-items-center">
+            <p-checkbox
+                [binary]="true"
+                [label]="globals.languageJson?.allow_translations_by_other_authors"
+                formControlName="allow_translation"
+            ></p-checkbox>
+            <i class="pi pi-info-circle text-clr588 fnt-16 ml-2"></i>
+        </div>
+        <div class="row pt-45 pt-lg-5">
+            <div class="col-md-6 order-2 order-md-1">
+                <button routerLink="/coffee-lab/overview/articles" class="btn-stroked px-4 w-mob-100 mb-2 mb-md-0">
+                    {{ 'cancel' | translate }}
+                </button>
+            </div>
+            <div class="col-md-6 order-1 order-md-2">
+                <div class="d-flex justify-content-end flex-column flex-md-row">
+                    <button
+                        [disabled]="isPosting"
+                        (click)="onPost('DRAFT')"
+                        class="btn-stroked px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0"
+                    >
+                        {{ 'save_as_draft' | translate }}
+                    </button>
+                    <button
+                        [disabled]="isPosting"
+                        (click)="onPost('PUBLISHED')"
+                        class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
+                    >
+                        {{ 'submit' | translate }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -17,6 +17,9 @@ import { CreateRecipeComponent } from '@modules/coffee-lab/create-post/create-re
 import { TabContainerComponent } from '@modules/coffee-lab/create-post/tab-container/tab-container.component';
 import { CreateAnswerComponent } from '@modules/coffee-lab/create-post/create-answer/create-answer.component';
 import { AssignedToMeViewComponent } from '@modules/coffee-lab/assigned-to-me/assigned-to-me-view/assigned-to-me-view.component';
+import { TranslateRecipeComponent } from '@modules/coffee-lab/create-post/translate/translate-recipe/translate-recipe.component';
+import { TranslateArticleComponent } from '@modules/coffee-lab/create-post/translate/translate-article/translate-article.component';
+import { TranslateAnswerComponent } from '@modules/coffee-lab/create-post/translate/translate-answer/translate-answer.component';
 
 const routes: Routes = [
     {
@@ -114,6 +117,18 @@ const routes: Routes = [
                         path: 'answer',
                         component: CreateAnswerComponent,
                     },
+                    {
+                        path: 'translate-answer',
+                        component: TranslateAnswerComponent
+                    },
+                    {
+                        path: 'translate-article',
+                        component: TranslateArticleComponent
+                    },
+                    {
+                        path: 'translate-recipe',
+                        component: TranslateRecipeComponent
+                    }
                 ],
             },
         ],

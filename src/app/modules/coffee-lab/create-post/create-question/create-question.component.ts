@@ -45,7 +45,7 @@ export class CreateQuestionComponent implements OnInit {
             language: this.coffeeLabService.currentForumLanguage,
         };
         this.isPosting = true;
-        this.coffeeLabService.postQuestion(data).subscribe((res: any) => {
+        this.coffeeLabService.postForum('question', data).subscribe((res: any) => {
             this.isPosting = false;
             console.log('post question result >>>', res);
             if (res.success) {

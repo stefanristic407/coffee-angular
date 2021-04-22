@@ -1,0 +1,16 @@
+<div *ngIf="isLoading">
+    <app-loading></app-loading>
+</div>
+
+<div *ngIf="!isLoading">
+    <div class="bg-f8 py-4">
+        <p-tabView class="toggle" styleClass="inner-menu mt-3">
+            <p-tabPanel [header]="'translation' | translate">
+                <div class="p-4 bg-f8">Translation</div>
+            </p-tabPanel>
+            <p-tabPanel [header]="'see_original_post' | translate">
+                <div class="p-4 bg-f8">See original post</div>
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+</div>

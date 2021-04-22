@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -62,8 +62,8 @@ export class CoffeeLabService extends ApiService {
         );
     }
 
-    postQuestion(data: any): Observable<any> {
-        return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/questions`, 'POST', data);
+    postForum(type: string, data: any): Observable<any> {
+        return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/${type}s`, 'POST', data);
     }
 
     getAuthors(type: string): Observable<any> {
@@ -88,5 +88,19 @@ export class CoffeeLabService extends ApiService {
 
     postCoffeeRecipe(data: any): Observable<any> {
         return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/recipes`, 'POST', data);
+    }
+
+    uploadFile(file: any, module: string): Observable<any> {
+        const formData: FormData = new FormData();
+        formData.append('file', file);
+        formData.append('name', Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15));
+        formData.append('file_module', module);
+        formData.append('api_call', `/${this.organization}/${this.organizationId}/file-manager/files`);
+        formData.append('method', 'POST');
+        formData.append('token', this.cookieSrv.get('Auth'));
+        const httpOptions = {
+            headers: new HttpHeaders({ Accept: 'application/json' }),
+        };
+        return this.http.post(this.fileUploadUrl, formData, httpOptions);
     }
 }
