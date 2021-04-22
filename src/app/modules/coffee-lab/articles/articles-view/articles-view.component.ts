@@ -77,11 +77,25 @@ export class ArticlesViewComponent implements OnInit {
             this.coffeeLabService.getForumList('article', params).subscribe((res) => {
                 if (res.success) {
                     this.articlesData = res.result;
+                    this.articlesData.map((item) => {
+                        item.content = this.getJustText(item.content);
+                        return item;
+                    });
                 } else {
                     this.toastService.error('Cannot get Articles data');
                 }
                 this.isLoading = false;
             });
         }
+    }
+
+    getJustText(content: any) {
+        const contentElement = document.createElement('div');
+        contentElement.innerHTML = content;
+        const images = contentElement.querySelectorAll('img');
+        for (let i = 0; i < images.length; i++) {
+            images[0].parentNode.removeChild(images[0]);
+        }
+        return contentElement.innerHTML;
     }
 }

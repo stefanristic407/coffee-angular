@@ -81,7 +81,10 @@
                     {{ article?.subtitle }}
                 </a>
                 <div class="article-content-wrapper pt-3">
-                    <div class="fnt-muli fnt-14 fnt-normal lh-15 text-clr334 mb-0" [innerHTML]="article.content"></div>
+                    <div
+                        class="fnt-muli fnt-14 fnt-normal lh-15 text-clr334 mb-0"
+                        [innerHTML]="article.content | convertToShortDescription: 10"
+                    ></div>
                     <label class="custom-link mb-0" style="margin-top: 18px">{{ 'read_more' | translate }}</label>
                 </div>
             </div>
