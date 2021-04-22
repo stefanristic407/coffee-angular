@@ -457,7 +457,7 @@ export class ChatUtilService {
         const httpOptions = {
             headers: new HttpHeaders({ Authorization: this.TOKEN }),
         };
-        const url = `${environment.chatUploadEndPoint}/${this.ORGANIZATION_TYPE}/${this.ORGANIZATION_ID}/upload-files`;
+        const url = `${environment.chatUploadEndPoint}${this.ORGANIZATION_TYPE}/${this.ORGANIZATION_ID}/upload-files`;
         return this.http.post(url, formData, httpOptions);
     }
 

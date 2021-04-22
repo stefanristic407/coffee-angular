@@ -232,6 +232,17 @@ export class UserserviceService extends ApiService {
         };
         return this.http.post<any>(this.roasterUrl, data);
     }
+    reportUser(user_id: number, org_type: OrganizationType, org_id: number) {
+        const payloadData = {
+            user_id,
+            org_type,
+            org_id: org_id || undefined,
+            reason: 'Messaging abuse',
+            origin: 'Messaging System',
+        };
+
+        return this.postWithOrg(this.orgPostUrl, 'report-user', 'POST', payloadData);
+    }
 
     // API Function Name : Roaster User Last Login
     // API Description: This API calls helps to get the logged in user last login details.

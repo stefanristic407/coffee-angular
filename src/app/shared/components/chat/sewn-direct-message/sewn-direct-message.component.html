@@ -9,7 +9,7 @@
                     </span>
                 </div>
                 <div class="dm-exp-body">
-                    <div class="dm-exp-listing-section">
+                    <div class="dm-exp-listing-section" #mainPanel>
                         <ng-container *ngIf="showInlineLoader">
                             <ng-container *ngTemplateOutlet="loaderBox"> </ng-container>
                         </ng-container>
@@ -25,19 +25,25 @@
                         <ng-container *ngIf="panelVisibility === 'SEARCH_USER'">
                             <ng-container *ngTemplateOutlet="searchUserPanelViewTL"></ng-container>
                         </ng-container>
+                        <ng-container *ngTemplateOutlet="confirmPopup"></ng-container>
                     </div>
                     <div class="dm-exp-chat-section">
-                        <div class="dm-exp-chat-header">
-                            <ng-container *ngTemplateOutlet="headerUserBadgeTL"></ng-container>
-                        </div>
-                        <div class="dm-exp-chat-content" data-element="live-chat-message-body">
-                            <div class="dm-exp-chat-wrapper">
-                                <ng-container *ngTemplateOutlet="chatListTL"></ng-container>
+                        <ng-container *ngIf="openedThread">
+                            <div class="dm-exp-chat-header">
+                                <ng-container *ngTemplateOutlet="headerUserBadgeTL"></ng-container>
                             </div>
-                        </div>
-                        <div class="dm-exp-chat-footer">
-                            <ng-container *ngTemplateOutlet="messageBoxTL"></ng-container>
-                        </div>
+                            <div class="dm-exp-chat-content" data-element="live-chat-message-body">
+                                <div class="dm-exp-chat-wrapper">
+                                    <ng-container *ngTemplateOutlet="chatListTL"></ng-container>
+                                </div>
+                            </div>
+                            <div class="dm-exp-chat-footer">
+                                <ng-container *ngTemplateOutlet="messageBoxTL"></ng-container>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="!openedThread">
+                            <div class="dm-exp-no-thread-selectecd">No chat thread selected</div>
+                        </ng-container>
                     </div>
                 </div>
             </div>
@@ -45,7 +51,7 @@
     </div>
 
     <div *ngIf="!chatHandler.isExpand.value" class="dm-collapse-panel fade-in-right" data-element="collapse-panel">
-        <div class="dm-clp-listing-section">
+        <div class="dm-clp-listing-section" #mainPanel>
             <ng-container *ngIf="showInlineLoader">
                 <ng-container *ngTemplateOutlet="loaderBox"> </ng-container>
             </ng-container>
@@ -54,8 +60,10 @@
                     <ng-container *ngTemplateOutlet="threadPanelViewTL"></ng-container>
                 </div>
                 <div class="dm-clp-chat-panel" *ngIf="openedThread">
-                    <ng-container *ngTemplateOutlet="listHeaderTL"></ng-container>
                     <div class="dm-clp-chat-section">
+                        <div class="dm-clp-chat-title-bar">
+                            <ng-container *ngTemplateOutlet="listHeaderTL"></ng-container>
+                        </div>
                         <div class="dm-clp-chat-header">
                             <img
                                 class="badge-back-arrow-button"
@@ -84,6 +92,7 @@
             <ng-container *ngIf="panelVisibility === 'SEARCH_USER'">
                 <ng-container *ngTemplateOutlet="searchUserPanelViewTL"></ng-container>
             </ng-container>
+            <ng-container *ngTemplateOutlet="confirmPopup"></ng-container>
         </div>
     </div>
 </ng-container>
@@ -127,7 +136,7 @@
                 </button>
                 <button class="dm-gray-button dm-udv-report-button">
                     <img class="dm-btn-icon" src="assets/images/dm-report.svg" />
-                    <span class="dm-btn-label">Report user</span>
+                    <span (click)="reportUser(selectedUser)" class="dm-btn-label">Report user</span>
                 </button>
             </div>
         </div>
@@ -351,7 +360,7 @@
     </div>
 </ng-template>
 <ng-template #listHeaderTL>
-    <div class="dm-list-view-header">
+    <div class="dm-list-view-header" *ngIf="!chatHandler.isMobileView.value">
         <div class="dm-lvh-message">Messaging</div>
         <div class="dm-lvh-action-buttons">
             <ng-container *ngIf="!chatHandler.isMobileView.value">
@@ -529,7 +538,7 @@
                     </div>
                 </div>
                 <div class="dm-ci-message-meta">
-                    <div *ngIf="message.lang !== 'en'" class="dm-ci-translation">
+                    <div *ngIf="message.lang !== gtrans.defaultLang" class="dm-ci-translation">
                         <span *ngIf="message.showTranslation === 'OFF'" (click)="translateMessage(message)"
                             >View translation</span
                         >
@@ -553,6 +562,12 @@
 
 <ng-template #messageBoxTL>
     <div class="dm-messag-box">
+        <div class="dm-message-offensive-lang" [ngClass]="{ active: showOffensiveMessageError }">
+            <span
+                >Use of offensive language is strictly prohibited using within member to member messaging, on our public
+                groups, non-compliance may lead to permanent / temporary suspension of your account.</span
+            >
+        </div>
         <div class="dm-mb-image-view" *ngIf="(uploadFileMeta && uploadFileMeta?.url) || uploadProgressing">
             <div class="dm-mb-image-wrapper" *ngIf="uploadFileMeta && uploadFileMeta?.url">
                 <img class="dm-mb-image-close-button" src="assets/images/dm-remove-upload.svg" title="Remove" />
@@ -632,4 +647,41 @@
     <div class="dm-loader">
         <div class="dm-loader__element"></div>
     </div>
+</ng-template>
+<ng-template #confirmPopup>
+    <p-dialog
+        [(visible)]="this.modelConfig.display"
+        position="center"
+        [style]="{ width: 'calc(100% - 48px)' }"
+        [showHeader]="false"
+        [dismissableMask]="true"
+        [modal]="true"
+        [closeOnEscape]="true"
+    >
+        <div class="text-center dialog-wrap">
+            <img
+                class="dialog-image"
+                *ngIf="this.modelConfig.icon === 'BLOCK'"
+                src="assets/images/dm-blocked.svg"
+                alt=""
+            />
+            <img
+                class="dialog-image"
+                *ngIf="this.modelConfig.icon === 'REPORT'"
+                src="assets/images/dm-report.svg"
+                alt=""
+            />
+
+            <div class="title lh-normal fnt-bold text-clr02 fnt-play mt-3">{{ this.modelConfig.title }}</div>
+            <div class="fnt-14 fnt-md-16 lh-15 text-clr5d pt-3">{{ this.modelConfig.description }}</div>
+            <div class="pt-45 pt-md-5">
+                <button class="btn-stroked mr-3" (click)="this.modelConfig.actionEventHandler('no')">
+                    {{ this.modelConfig.noAction }}
+                </button>
+                <button class="btn-raised" (click)="this.modelConfig.actionEventHandler('yes')">
+                    {{ this.modelConfig.yesAction }}
+                </button>
+            </div>
+        </div>
+    </p-dialog>
 </ng-template>
