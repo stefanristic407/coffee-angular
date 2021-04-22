@@ -14,11 +14,11 @@ export class MicroProfileComponent implements OnInit, OnDestroy {
     menuItems = [
         {
             label: 'about_micro_roastery',
-            routerLink: '/micro-roastery-profile/about-micro-roastery',
+            routerLink: '/profile-creation/about-micro-roastery',
         },
-        { label: 'virtual_tour', routerLink: '/micro-roastery-profile/virtual-tour' },
-        { label: 'contact', routerLink: '/micro-roastery-profile/contact' },
-        { label: 'reviews', routerLink: '/micro-roastery-profile/reviews' },
+        { label: 'virtual_tour', routerLink: '/profile-creation/virtual-tour' },
+        { label: 'contact', routerLink: '/profile-creation/contact' },
+        { label: 'reviews', routerLink: '/profile-creation/reviews' },
     ];
     breadItems = [{ label: 'home', routerLink: '/' }, { label: 'Roastery Profile' }];
     isSaveMode: boolean;

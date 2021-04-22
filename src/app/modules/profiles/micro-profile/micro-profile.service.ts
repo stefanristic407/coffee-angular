@@ -97,12 +97,14 @@ export class MicroProfileService {
     }
 
     getcontactList() {
-        // this.roasterService.getMrRoasterContacts(this.microRoasterId).subscribe((res: any) => {
-        //     if (res.success) {
-        //         this.roasterContacts = res.result;
-        //         console.log(this.roasterContacts);
-        //     }
-        // });
+        this.userService
+            .getGeneralContactList(this.microRoasterId, OrganizationType.MICRO_ROASTER)
+            .subscribe((res: any) => {
+                if (res.success) {
+                    this.roasterContacts = res.result;
+                    console.log(this.roasterContacts);
+                }
+            });
     }
 
     changeCountry(count) {
