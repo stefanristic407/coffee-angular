@@ -4,6 +4,10 @@ $icon-size: 34px;
     width: 20%;
     position: relative;
 
+    .order-status.text-muted {
+        color: #6c757d !important;
+    }
+
     @media all and (max-width: 767px) {
         .order-tracking__mb-text {
             position: relative;

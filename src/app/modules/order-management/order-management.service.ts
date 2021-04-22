@@ -48,6 +48,7 @@ export class OrderManagementService {
     private readonly recentActivitiesSubject = new BehaviorSubject<RecentActivity[]>([]);
     private readonly bulkDetailsSubject = new BehaviorSubject<BulkDetails>(null);
     private readonly estateDetailsSubject = new BehaviorSubject<OrganizationDetails>(null);
+    private readonly microRoasterDetailsSubject = new BehaviorSubject<OrganizationDetails>(null);
     private readonly documentsSubject = new BehaviorSubject<OrderDocument[]>([]);
     private readonly ordersSubjects = {
         [OrganizationType.ESTATE]: new BehaviorSubject<ApiResponse<OrderSummary[]>>(null),
@@ -99,6 +100,10 @@ export class OrderManagementService {
         return this.estateDetailsSubject.asObservable();
     }
 
+    get microRoasterDetails$(): Observable<OrganizationDetails> {
+        return this.microRoasterDetailsSubject.asObservable();
+    }
+
     get documents$(): Observable<OrderDocument[]> {
         return this.documentsSubject.asObservable();
     }
@@ -135,11 +140,22 @@ export class OrderManagementService {
         return this.shippingDetailsSubject.asObservable();
     }
 
+    getOrgProfile(orgType: OrganizationType): Observable<OrganizationDetails> {
+        if (orgType === OrganizationType.ESTATE) {
+            return this.estateDetails$;
+        } else {
+            return this.microRoasterDetails$;
+        }
+    }
+
     getOrders(organizationType: OrganizationType): Observable<ApiResponse<OrderSummary[]>> {
         return this.ordersSubjects[organizationType].asObservable();
     }
 
-    confirmOrder(orderId: number, details?: ConfirmRejectOrderDetails): Observable<ApiResponse<any>> {
+    confirmOrder(
+        orderId: number,
+        details: ConfirmRejectOrderDetails = { notes: 'Order confirmation' },
+    ): Observable<ApiResponse<any>> {
         return this.purchaseSrv.confirmOrder(orderId, details);
     }
 
@@ -260,6 +276,7 @@ export class OrderManagementService {
                         this.loadBulkDetails(details.harvest_id);
                         this.loadCuppingScore(details.harvest_id, orgType);
                         this.loadEstateDetails(details.estate_id);
+                        this.loadMicroRoasterDetails(details.micro_roaster_id);
                         this.loadDocuments(1, 5, rewrite);
                         this.loadOrderNotes(orderId);
                         this.loadUserProfile();
@@ -367,6 +384,14 @@ export class OrderManagementService {
         });
     }
 
+    private loadMicroRoasterDetails(id: number): void {
+        if (id) {
+            this.brandProfileSrv.getProfile(OrganizationType.MICRO_ROASTER, id).subscribe({
+                next: (result) => this.microRoasterDetailsSubject.next(result),
+            });
+        }
+    }
+
     private loadCuppingScore(harvestId: number, orgType: OrganizationType): void {
         this.cuppingSrv.getCuppingScores(harvestId, orgType).subscribe({
             next: (result) => this.cuppingScoreSubject.next(result),
@@ -409,12 +434,22 @@ export class OrderManagementService {
             ? moment(order.estimated_pickup_date).startOf('day')
             : moment().startOf('day').add(1, 'day');
 
-        if (order.shipment_status === ShippingStatus.SHIPPED || departureDate <= today) {
+        if (
+            order.status !== OrderStatus.Received &&
+            (order.shipment_status === ShippingStatus.SHIPPED || departureDate <= today)
+        ) {
             order.status = OrderStatus.Shipped;
         }
 
-        if (order.shipment_status === ShippingStatus.DELIVERED || pickupDate <= today) {
-            order.status = OrderStatus.Received;
+        if (
+            order.status !== OrderStatus.Received &&
+            (order.shipment_status === ShippingStatus.DELIVERED || pickupDate <= today)
+        ) {
+            order.status = OrderStatus.Delivered;
+        }
+
+        if (order.status === OrderStatus.Confirmed && order.payment_after_delivery) {
+            order.status = OrderStatus.Payment;
         }
 
         if (order.status !== status) {

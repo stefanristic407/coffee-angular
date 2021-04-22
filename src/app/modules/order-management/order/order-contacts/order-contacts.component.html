@@ -3,7 +3,9 @@
 
     <div class="d-none d-md-block">
         <div class="d-flex mt-4 justify-content-between">
-            <div class="fnt-18 font-bold text-clr334">{{ 'estate_details' | translate }}</div>
+            <div class="fnt-18 font-bold text-clr334">
+                {{ (orgType === OrgType.ESTATE ? 'estate_details' : 'micro_roaster_details') | translate }}
+            </div>
             <a *ngIf="roaster" class="navigation-link" [routerLink]="['/sourcing/estate-details', roaster?.id]">
                 {{ 'view_details' | translate }}
             </a>
@@ -11,11 +13,11 @@
 
         <app-roaster-details
             *ngIf="order"
-            [ownerName]="roaster?.owner_name"
+            [companyName]="roaster?.company_name"
             [rating]="roaster?.rating"
             [companyImageThumbnailUrl]="roaster?.company_image_thumbnail_url"
             [orgType]="orgType"
-            [orderId]="order.id"
+            [orderId]="order?.id"
             [userId]="roaster?.admin_id"
             [estateId]="roaster?.id"
         ></app-roaster-details>

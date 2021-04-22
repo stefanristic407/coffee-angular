@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DestroyableComponent } from '@base-components';
 import { OrderStatus, OrderType, OrganizationType } from '@enums';
-import { OrderDetails } from '@models';
+import { OrderDetails, OrganizationProfile } from '@models';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-order',
@@ -15,8 +16,8 @@ export class OrderComponent extends DestroyableComponent implements OnInit {
     readonly OrderType = OrderType;
     readonly OrderStatus = OrderStatus;
 
-    readonly roaster$ = this.ordersService.estateDetails$;
-    readonly lotDetails$ = this.ordersService.lotDetails$;
+    readonly roaster$: Observable<OrganizationProfile>;
+    readonly lotDetails$ = this.ordersService.lotDetails$.pipe(takeUntil(this.unsubscribeAll$));
 
     orderId = 0;
     organizationType = OrganizationType.ESTATE;
@@ -46,6 +47,7 @@ export class OrderComponent extends DestroyableComponent implements OnInit {
         this.route.params.pipe(takeUntil(this.unsubscribeAll$)).subscribe((params) => {
             this.orderId = +params.id;
             this.organizationType = params.orgType;
+            this.ordersService.getOrgProfile(this.organizationType).pipe(takeUntil(this.unsubscribeAll$));
             this.ordersService.loadOrderDetails(this.orderId, this.organizationType);
             this.ordersService.orderDetails$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((data) => {
                 this.orderDetails = data;

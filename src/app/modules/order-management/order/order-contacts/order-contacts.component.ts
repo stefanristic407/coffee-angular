@@ -10,6 +10,8 @@ import { OrganizationType } from '@enums';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderContactsComponent {
+    readonly OrgType = OrganizationType;
+
     @Input() order: OrderDetails;
     @Input() roaster: OrganizationDetails;
     @Input() orgType: OrganizationType;
