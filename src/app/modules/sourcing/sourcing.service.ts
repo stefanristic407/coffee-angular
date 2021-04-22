@@ -134,15 +134,17 @@ export class SourcingService {
         this.userService.getavailableLots(this.roasterId, this.estateId).subscribe((res: any) => {
             if (res.success) {
                 this.estateLots = res.result;
-                this.estateLots.forEach((element) => {
-                    element.varietiesStr = _.pluck(element.varieties, 'name').join(', ');
-                    if (element.polygon_coordinates) {
-                        try {
-                            element.polygon_coordinates = JSON.parse(element.polygon_coordinates);
-                            element.center = element.polygon_coordinates[0][0];
-                        } catch {}
-                    }
-                });
+                if (this.estateLots?.length) {
+                    this.estateLots.forEach((element) => {
+                        element.varietiesStr = _.pluck(element.varieties, 'name').join(', ');
+                        if (element.polygon_coordinates) {
+                            try {
+                                element.polygon_coordinates = JSON.parse(element.polygon_coordinates);
+                                element.center = element.polygon_coordinates[0][0];
+                            } catch {}
+                        }
+                    });
+                }
             }
         });
     }

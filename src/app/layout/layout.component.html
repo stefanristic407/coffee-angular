@@ -117,7 +117,7 @@
                     <li class="header-profile-links__item d-inline-block ml-md-3 pl-xl-2">
                         <div class="profile-link d-flex align-items-center">
                             <div class="d-inline-block mr-md-2">
-                                <app-avatar [size]="38" [src]="profilePic || 'assets/images/profile.svg'"> </app-avatar>
+                                <app-avatar [size]="38" [src]="authService.currentUser?.profile_image_thumb_url || 'assets/images/default-avatar.png'"> </app-avatar>
                             </div>
                             <div class="profile-link__info pl-lg-1 float-right">
                                 <div>
@@ -131,7 +131,7 @@
                                         [outsideClick]="true"
                                     >
                                         <h6 class="d-block fnt-14 fnt-md-16 fnt-600 text-clr24 m-0">
-                                            {{ userName }}
+                                            {{ authService.currentUser?.firstname }}
                                             <span class="pl-1"><img src="assets/images/triangle.svg" /> </span>
                                         </h6>
                                         <span
@@ -144,7 +144,7 @@
                                         <div id="popover-mobile-content">
                                             <ul class="menu-list bottom">
                                                 <li
-                                                    *ngIf="this.globals.checkItem('settings-management')"
+                                                    *ngIf="globals.checkItem('account-management')"
                                                     [routerLink]="['/roastery-profile']"
                                                     routerLinkActive="highlight"
                                                     (click)="pop2.hide()"
@@ -287,12 +287,7 @@
                                         class="ft-dropdown__link d-flex clearfix align-items-center"
                                     >
                                         <div class="img float-left mr-2">
-                                            <img *ngIf="profilePic != ''" class="profile-pic" src="{{ profilePic }}" />
-                                            <img
-                                                *ngIf="profilePic == ''"
-                                                class="profile-pic"
-                                                src="assets/images/profile.svg"
-                                            />
+                                            <img class="profile-pic" [src]="authService.currentUser?.profile_image_thumb_url || 'assets/images/default-avatar.png'" />
                                         </div>
                                         <span class="text-capitalize">{{ 'my_profile' | translate }}</span>
                                     </a>

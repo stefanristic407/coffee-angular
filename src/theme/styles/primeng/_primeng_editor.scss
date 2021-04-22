@@ -1,0 +1,31 @@
+@import "variables";
+
+.forum-editor {
+  .p-editor-toolbar {
+    padding: 16px 24px;
+    background-color: white;
+    border-color: $primary-border-color;
+    border-bottom-width: 0!important;
+    position: relative;
+    &:before {
+      content: "";
+      display: block;
+      border-bottom: 1px dashed $primary-border-color;
+      position: absolute;
+      bottom: 0;
+      width: calc(100% - 48px);
+    }
+  }
+  .p-editor-content {
+    background-color: white;
+    padding: 24px;
+    .ql-editor {
+      padding: 0;
+      &:before {
+        left: 24px;
+        font-family: $general-font-family;
+        font-style: normal;
+      }
+    }
+  }
+}

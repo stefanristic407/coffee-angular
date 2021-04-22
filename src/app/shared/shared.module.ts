@@ -44,6 +44,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { DividerModule } from 'primeng/divider';
 import { AvatarModule } from 'primeng/avatar';
 import { ToastModule } from 'primeng/toast';
+import { EditorModule } from 'primeng/editor';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
@@ -153,6 +154,7 @@ const THIRDMODULES = [
     MomentModule,
     AvatarModule,
     ToastModule,
+    EditorModule,
 ];
 // #endregion
 

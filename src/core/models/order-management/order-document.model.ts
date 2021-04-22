@@ -6,4 +6,5 @@ export interface OrderDocument {
     mime: string;
     name: string;
     url: string;
+    doc_type: string;
 }

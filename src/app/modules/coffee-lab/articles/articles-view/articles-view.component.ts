@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CoffeeLabService, GlobalsService } from '@services';
+import { ActivatedRoute } from '@angular/router';
+import { CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { MenuItem } from 'primeng/api';
 @Component({
     selector: 'app-articles-view',
     templateUrl: './articles-view.component.html',
@@ -32,30 +32,16 @@ export class ArticlesViewComponent implements OnInit {
     isAvailableTranslation?: any;
     selectedOrder = 'latest';
     articlesData: any = [];
-    items: MenuItem[] = [
-        {
-            items: [
-                {
-                    label: this.globalsService.languageJson.share,
-                    command: () => {
-                        this.onShare({});
-                    },
-                },
-                {
-                    label: this.globalsService.languageJson.save_post,
-                    command: () => {
-                        this.onSavePost({});
-                    },
-                },
-            ],
-        },
-    ];
     isLoading = false;
+    pageDesc: string | undefined;
     constructor(
         private coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
-        private globalsService: GlobalsService,
-    ) {}
+        private activateRoute: ActivatedRoute,
+        private coffeeLab: CoffeeLabService,
+    ) {
+        this.pageDesc = this.activateRoute.snapshot.routeConfig?.path;
+    }
 
     ngOnInit(): void {
         this.getData();
@@ -69,16 +55,33 @@ export class ArticlesViewComponent implements OnInit {
             sort_by: 'created_at',
             sort_order: this.selectedOrder === 'latest' ? 'desc' : 'asc',
         };
-        this.coffeeLabService.getForumList('article', params).subscribe((res) => {
-            if (res.success) {
-                this.articlesData = res.result;
-            } else {
-                this.toastService.error('Cannot get Articles data');
-            }
-            this.isLoading = false;
-        });
+        if (this.pageDesc === 'saved-posts') {
+            this.coffeeLab.getSavedForumList('article').subscribe((res) => {
+                if (res.success) {
+                    this.articlesData = res.result;
+                } else {
+                    this.toastService.error('Cannot get Articles data');
+                }
+                this.isLoading = false;
+            });
+        } else if (this.pageDesc === 'my-posts') {
+            this.coffeeLab.getMyForumList('article').subscribe((res) => {
+                if (res.success) {
+                    this.articlesData = res.result;
+                } else {
+                    this.toastService.error('Cannot get Articles data');
+                }
+                this.isLoading = false;
+            });
+        } else {
+            this.coffeeLabService.getForumList('article', params).subscribe((res) => {
+                if (res.success) {
+                    this.articlesData = res.result;
+                } else {
+                    this.toastService.error('Cannot get Articles data');
+                }
+                this.isLoading = false;
+            });
+        }
     }
-
-    onShare(postItem: any): void {}
-    onSavePost(postItem: any): void {}
 }

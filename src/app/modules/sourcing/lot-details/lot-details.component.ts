@@ -3,9 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService, ResizeService } from '@services';
+import { GlobalsService, ResizeService, UserserviceService } from '@services';
 import { SourcingService } from '../sourcing.service';
 import { ResizeableComponent } from '@base-components';
+import { PrebookStatus } from '@enums';
 
 @Component({
     selector: 'app-lot-details',
@@ -15,6 +16,7 @@ import { ResizeableComponent } from '@base-components';
 export class LotDetailsComponent extends ResizeableComponent implements OnInit {
     imageItems: GalleryItem[];
     isLoaded = false;
+    batchId: number;
 
     constructor(
         private route: ActivatedRoute,
@@ -25,6 +27,7 @@ export class LotDetailsComponent extends ResizeableComponent implements OnInit {
         public globals: GlobalsService,
         protected resizeService: ResizeService,
         public sourcing: SourcingService,
+        private userService: UserserviceService,
     ) {
         super(resizeService);
         this.route.paramMap.subscribe((params) => {
@@ -47,15 +50,16 @@ export class LotDetailsComponent extends ResizeableComponent implements OnInit {
         new Promise((resolve, reject) => this.sourcing.getLotDetails(resolve))
             .then(() => {
                 this.galleryImages();
+                this.getPrebookBatch();
+                this.sourcing.estateDetailList();
+                this.sourcing.otherAvailableCoffee();
+                this.sourcing.getEachGreenCertify();
                 this.isLoaded = true;
             })
             .catch(() => {
                 this.toastrService.error('Error while retrieving data');
                 this.router.navigateByUrl('/sourcing/coffee-list');
             });
-        this.sourcing.estateDetailList();
-        this.sourcing.otherAvailableCoffee();
-        this.sourcing.getEachGreenCertify();
     }
 
     galleryImages() {
@@ -76,5 +80,24 @@ export class LotDetailsComponent extends ResizeableComponent implements OnInit {
             thumbPosition: ThumbnailsPosition.Top,
         });
         lightboxRef.load(this.imageItems);
+    }
+
+    getPrebookBatch() {
+        const curDate: Date = new Date();
+        const curYear = curDate.getFullYear();
+        const year = curDate.getMonth() < this.sourcing.lot.harvest_start ? curYear : curYear + 1;
+        this.userService
+            .getPrebookBatchList(this.sourcing.estateId, this.sourcing.lotId, { year })
+            .subscribe((res: any) => {
+                if (res.success && res.result.length) {
+                    if (res.result[0].prebook_status === PrebookStatus.Active) {
+                        this.batchId = res.result[0].id;
+                    }
+                }
+            });
+    }
+
+    checkPrebookable() {
+        return this.sourcing.lot?.prebook_ready && this.batchId;
     }
 }

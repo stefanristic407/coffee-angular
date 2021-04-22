@@ -43,8 +43,6 @@ import { EstateOrdersComponent } from './Farm Link/coffee-experience/estate-orde
 import { MicroRoasterOrdersComponent } from './Farm Link/coffee-experience/micro-roaster-orders/micro-roaster-orders.component';
 import { HorecaOrdersComponent } from './Farm Link/coffee-experience/horeca-orders/horeca-orders.component';
 import { DefaultSettingComponent } from './Farm Link/coffee-experience/default-setting/default-setting.component';
-// tslint:disable-next-line: max-line-length
-import { ConfirmPreorderLotComponent } from './confirm-preorder-lot/confirm-preorder-lot.component';
 import { ProductListComponent } from './e-commerce/product-list/product-list.component';
 import { ProductDetailsComponent } from './e-commerce/product-details/product-details.component';
 import { VarientDetailsComponent } from './e-commerce/varient-details/varient-details.component';
@@ -84,7 +82,6 @@ import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/ro
         MicroRoasterOrdersComponent,
         HorecaOrdersComponent,
         DefaultSettingComponent,
-        ConfirmPreorderLotComponent,
         ProductListComponent,
         ProductDetailsComponent,
         VarientDetailsComponent,

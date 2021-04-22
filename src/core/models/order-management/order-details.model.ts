@@ -1,4 +1,4 @@
-import { OrderStatus, OrderType } from '@enums';
+import { OrderStatus, OrderType, ShippingStatus } from '@enums';
 import { Address } from '../common';
 
 export interface OrderDetails {
@@ -44,12 +44,14 @@ export interface OrderDetails {
     varieties?: string;
     shipment_date: string;
     tracking_link: string;
+    estimated_departure_date: string;
+    estimated_pickup_date: string;
+    shipment_status: ShippingStatus;
 
     upload_show: boolean;
     receipt_show: boolean;
     status_paid: boolean;
     status_pending: boolean;
-    shipment_status: boolean;
     payment_verification?: boolean;
     before_grade_complete: boolean;
     after_grade_complete: boolean;

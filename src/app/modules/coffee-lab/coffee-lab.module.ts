@@ -19,11 +19,20 @@ import { CoffeeDetailsComponent } from './coffee-recipes/coffee-details/coffee-d
 import { QuestionsComponent } from './components/questions/questions.component';
 import { QaPostComponent } from './my-posts/qa-post/qa-post.component';
 import { MyCommentsComponent } from './my-posts/my-comments/my-comments.component';
-import { CreatePostComponent } from './qa-forum/create-post/create-post.component';
-import { DraftPostsComponent } from './qa-forum/create-post/draft-posts/draft-posts.component';
+import { CreatePostComponent } from './create-post/create-post.component';
+import { DraftPostsComponent } from './create-post/draft-posts/draft-posts.component';
 import { FormsModule } from '@angular/forms';
 import { QuestionDetailComponent } from './qa-forum/question-detail/question-detail.component';
 import { OriginalViewComponent } from './components/original-view/original-view.component';
+import { CreateQuestionComponent } from './create-post/create-question/create-question.component';
+import { CreateArticleComponent } from './create-post/create-article/create-article.component';
+import { CreateRecipeComponent } from './create-post/create-recipe/create-recipe.component';
+import { TabContainerComponent } from './create-post/tab-container/tab-container.component';
+import { CreateAnswerComponent } from './create-post/create-answer/create-answer.component';
+import { MyAnswersComponent } from './my-posts/my-answers/my-answers.component';
+import { AssignedToMeViewComponent } from './assigned-to-me/assigned-to-me-view/assigned-to-me-view.component';
+import { ForumMenuComponent } from './components/forum-menu/forum-menu.component';
+
 @NgModule({
     declarations: [
         CoffeeLabComponent,
@@ -47,6 +56,14 @@ import { OriginalViewComponent } from './components/original-view/original-view.
         DraftPostsComponent,
         QuestionDetailComponent,
         OriginalViewComponent,
+        CreateQuestionComponent,
+        CreateArticleComponent,
+        CreateRecipeComponent,
+        TabContainerComponent,
+        CreateAnswerComponent,
+        MyAnswersComponent,
+        AssignedToMeViewComponent,
+        ForumMenuComponent,
     ],
     imports: [CommonModule, CoffeeLabRoutingModule, SharedModule, FormsModule],
 })

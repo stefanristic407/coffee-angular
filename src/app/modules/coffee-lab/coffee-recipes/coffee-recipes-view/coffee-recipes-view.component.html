@@ -1,7 +1,17 @@
 <div class="coffee-recipes-view-container">
-    <div class="row gutter-32 align-items-center">
+    <div class="row gutter-32">
         <div class="col-lg-8">
-            <div class="recepie-text">Recipes</div>
+            <div class="p-3 bg-f8 br-4 d-flex align-items-center">
+                <img src="assets/images/avatar.png" class="mr-3 rounded-circle" alt="avatar" width="40" height="40" />
+                <div class="sewn-form-field w-100 mb-0">
+                    <input
+                        routerLink="../../create-post/tab/question"
+                        type="text"
+                        pInputText
+                        placeholder="Ask your coffee question..."
+                    />
+                </div>
+            </div>
         </div>
         <div class="col-lg-4">
             <div class="custom-search qa-forum-search d-lg-block">
@@ -16,10 +26,28 @@
             </div>
         </div>
     </div>
+    <div class="row gutter-32 align-items-center">
+        <div class="col-lg-8">
+            <div class="recepie-text">Find Something Intersting to read</div>
+        </div>
+    </div>
 
     <div class="d-flex align-items-md-center justify-content-between">
         <div class="d-flex flex-wrap filter-dropdown">
             <div class="mt-sm-16 pl-xsm-0 mt-md-4 mt-lg-0">
+                <p-dropdown
+                    [options]="labels"
+                    optionLabel="label"
+                    optionValue="value"
+                    [showClear]="true"
+                    [(ngModel)]="label"
+                    (onChange)="getCoffeeRecipesData()"
+                    placeholder="Posted by"
+                    styleClass="round-border {{ label ? 'highlight' : '' }}"
+                >
+                </p-dropdown>
+            </div>
+            <div class="pl-3 mt-sm-16 pl-xsm-0 mt-md-4 mt-lg-0">
                 <p-dropdown
                     [options]="labels"
                     optionLabel="label"
@@ -85,19 +113,19 @@
                         ></i>
                     </div>
                 </div>
-                <div class="w-100" style="position: relative">
+                <div class="w-100 position-relative">
                     <img [src]="coffee.cover_image_url" class="w-100 my-3 my-md-4" />
-                    <span class="expertise"> {{ coffee.expertise }} </span>
+                    <span class="expertise fnt-12"> {{ coffee.expertise }} </span>
                 </div>
                 <a class="fnt-muli fnt-14 fnt-bold text-clr334 cursor-pointer">
                     {{ coffee?.name }}
                     <div class="py-3 m-0 d-flex">
-                        <div class="heading">Preparation Time:</div>
-                        <span class="value"> {{ coffee.preparation_time }}{{ coffee.preparation_time_unit }} </span>
+                        <div class="heading fnt-muli fnt-14 fnt-normal">{{ 'preparation_time' | translate }}:</div>
+                        <span> {{ coffee.preparation_time }}{{ coffee.preparation_time_unit }} </span>
                     </div>
                     <div class="m-0 d-flex">
-                        <div class="heading">ingredients:</div>
-                        <span class="value">
+                        <div class="heading fnt-muli fnt-14 fnt-normal">{{ 'ingredients' | translate }}:</div>
+                        <span class="value fnt-muli fnt-14">
                             {{ coffee.ingredients }}
                         </span>
                     </div>
@@ -106,7 +134,9 @@
                     <p class="fnt-muli fnt-14 fnt-normal text-clr334 mb-0">
                         {{ coffee.description }}
                     </p>
-                    <label class="fnt-muli fnt-14 fnt-600 text-clr60b mb-0 red-more-text">Read more</label>
+                    <label class="fnt-muli fnt-14 fnt-600 text-clr60b mb-0 custom-link pt-2">{{
+                        'read_more' | translate
+                    }}</label>
                 </div>
             </div>
         </div>

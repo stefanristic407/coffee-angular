@@ -37,6 +37,12 @@ export class OverviewComponent implements OnInit {
             icon: 'assets/images/saved-post.svg',
             activeIcon: 'assets/images/saved-post-active.svg',
         },
+        {
+            label: 'assigned_to_me',
+            routerLink: 'assigned-to-me',
+            icon: 'assets/images/assigned-to-me.svg',
+            activeIcon: 'assets/images/assigned-to-me-active.svg',
+        },
     ];
     keyword?: string;
 

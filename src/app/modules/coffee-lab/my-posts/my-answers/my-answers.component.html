@@ -1,0 +1,106 @@
+<div class="col-lg-8 col-md px-0">
+    <div class="d-md-block d-none">
+        <div class="d-flex justify-content-between">
+            <h1 class="fnt-24 fnt-muli fnt-bold text-clr334 mb-0 mb-4">{{ 'my_posts' | translate }}</h1>
+            <div>
+                <p-dropdown
+                    [options]="sortOptions"
+                    [(ngModel)]="sortBy"
+                    (ngModelChange)="getComments()"
+                    styleClass="no-border no-padding"
+                    optionLabel="label"
+                    optionValue="value"
+                ></p-dropdown>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="gutter-24" *ngFor="let answer of answers; let last = last">
+            <div class="w-100 br-4 border-main mb-4 mb-md-3 mb-lg-4">
+                <div class="p-md-4 p-3 bg">
+                    <div class="mb-2 d-flex justify-content-between">
+                        <div class="d-flex">
+                            <div class="mr-md-25 mr-1">
+                                <img
+                                    [src]="
+                                        answer?.profile_image_url ||
+                                        answer?.profile_image_thumb_url ||
+                                        answer?.question_user_image ||
+                                        answer?.posted_user_profile_image_url ||
+                                        'assets/images/default-avatar.png'
+                                    "
+                                    class="rounded-circle"
+                                    alt="avatar"
+                                    width="40"
+                                    height="40"
+                                />
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="fnt-muli font-weight-bold fnt-14 text-clr24 mr-md-3 mr-1">
+                                    {{
+                                        answer?.user_name ||
+                                            answer?.question_user ||
+                                            answer?.posted_user ||
+                                            answer?.question_user_name ||
+                                            'unknown_user' | translate
+                                    }}
+                                </div>
+                                <div class="fnt-muli fnt-12 text-clr588">
+                                    {{ answer?.posted_at || answer?.question_created_at | amTimeAgo }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mobile-dot">
+                            <p-menu #menu [popup]="true" [model]="questionMenuItems" appendTo="body"> </p-menu>
+                            <i class="pi pi-ellipsis-h text-clr588 cursor-pointer" (click)="menu.toggle($event)"></i>
+                        </div>
+                    </div>
+                    <div
+                        class="mb-4 fnt-md-18 fnt-16 fnt-bold fnt-muli text-clr24 ml-md-5"
+                        [innerHTML]="answer?.question"
+                    ></div>
+                    <div class="border-main inner-bg br-4 p-md-4 p-3 mb-3">
+                        <div class="d-flex">
+                            <div class="mr-md-25 mr-1">
+                                <img
+                                    [src]="
+                                        answer?.profile_image_url ||
+                                        answer?.profile_image_thumb_url ||
+                                        answer?.answer_user_image ||
+                                        answer?.posted_user_profile_image_url ||
+                                        'assets/images/default-avatar.png'
+                                    "
+                                    class="rounded-circle"
+                                    alt="avatar"
+                                    width="40"
+                                    height="40"
+                                />
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-2 w-100">
+                                <div class="d-flex">
+                                    <div class="fnt-muli text-clr334 fnt-600 fnt-14 mr-md-3 mr-1 under">
+                                        {{ 'your_answer' | translate }}
+                                    </div>
+                                    <div class="fnt-muli fnt-12 text-clr588 d-md-flex align-items-center">
+                                        <span class="d-none d-md-block">{{ 'posted' | translate }}</span
+                                        >&nbsp;
+                                        {{ answer?.answer_created_at | amTimeAgo }}
+                                    </div>
+                                </div>
+                                <div class="fnt-muli fnt-12 text-clr588 d-none d-md-block">
+                                    {{ answer?.answer_created_at | date: 'shortTime' }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fnt-muli fnt-14 text-clr24 lh-15 mt-2 pt-1">
+                            <span>{{ answer?.answer | translate | convertToShortDescription: 20 }}</span>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <a class="custom-link ml-1">{{ 'read_complete_answer' | translate }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

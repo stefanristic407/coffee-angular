@@ -5,15 +5,43 @@
 </div>
 
 <div *ngIf="!isLoading" class="row">
-    <div class="col-md-8 mb-4 mb-md-0">
-        <div class="border-main br-4 p-45">
-            <div class="mb-3">
+    <div class="col-lg-8 mb-4 mb-lg-0">
+        <div class="border-main br-4 p-3 py-md-45 px-lg-45">
+            <div class="mb-3 d-flex justify-content-between align-items-center">
                 <app-user-header [prop]="detailsData"></app-user-header>
+                <div>
+                    <app-forum-menu [selectedItem]="detailsData" forumType="question"></app-forum-menu>
+                </div>
             </div>
-            <div class="fnt-muli fnt-18 font-weight-bold text-clr334 mb-4" [innerHTML]="detailsData.question"></div>
+            <div
+                class="fnt-muli fnt-16 fnt-md-18 font-weight-bold text-clr334 mb-4"
+                [innerHTML]="detailsData.question"
+            ></div>
+            <div class="mb-4 border-top-main border-bottom-main py-4 px-45">
+                <div class="d-flex align-items-center">
+                    <img
+                        [src]="authService.currentUser?.profile_image_thumb_url || 'assets/images/default-avatar.png'"
+                        alt="avatar"
+                        class="rounded-circle mr-35"
+                        width="40"
+                        height="40"
+                    />
+                    <div class="sewn-form-field w-100 mb-0">
+                        <input
+                            type="text"
+                            pInputText
+                            routerLink="/coffee-lab/create-post/answer"
+                            [queryParams]="{ id: detailsData.id }"
+                            [placeholder]="'leave_a_comment_bla' | translate"
+                        />
+                    </div>
+                </div>
+            </div>
             <div class="mb-2">
-                <span (click)="setPagePosition()" class="btn-f8 w-100"
-                    >Showing {{ detailsData.answers.length }} Comments</span
+                <span (click)="setPagePosition()" class="btn-f8 w-100">
+                    {{
+                        ('showing' | translate) + ' ' + detailsData.answers.length + ' ' + ('comments' | translate)
+                    }}</span
                 >
             </div>
             <div
@@ -22,20 +50,22 @@
                 class="py-4"
                 [ngClass]="{ 'border-bottom-dashed': !last }"
             >
-                <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3 mb-md-4">
                     <div>
                         <app-user-header [prop]="answer"></app-user-header>
                     </div>
                     <div>
                         <div class="d-flex flex-column align-items-end">
-                            <div class="position-relative mb-2">
-                                <p-menu #menu [popup]="true" [model]="items" styleClass="left-menu-actions"> </p-menu>
-                                <i
-                                    class="pi pi-ellipsis-h text-clr588 cursor-pointer"
-                                    (click)="menu.toggle($event)"
-                                ></i>
+                            <div class="mb-2">
+                                <app-forum-menu
+                                    [selectedItem]="answer"
+                                    forumType="answer"
+                                    [extraInfo]="slug"
+                                    [enableSave]="false"
+                                    [enableTranslation]="true"
+                                ></app-forum-menu>
                             </div>
-                            <div class="d-none d-md-block" *ngIf="answer?.translations?.length">
+                            <div *ngIf="answer?.translations?.length" class="d-none d-md-block">
                                 <app-translation-dropdown
                                     forumType="questions"
                                     [translatedList]="answer?.translations"
@@ -44,34 +74,36 @@
                         </div>
                     </div>
                 </div>
-                <div class="fnt-muli fnt-14 text-clr334 lh-15 mb-4">
-                    {{ answer.answer }}
+                <div
+                    *ngIf="answer?.translations?.length"
+                    class="d-block d-md-none border-top-main border-bottom-main py-3 mb-3 text-center"
+                >
+                    <app-translation-dropdown
+                        forumType="questions"
+                        [translatedList]="answer?.translations"
+                    ></app-translation-dropdown>
                 </div>
+                <div class="fnt-muli fnt-14 text-clr334 lh-15 mb-3 mb-md-4" [innerHTML]="answer.answer"></div>
                 <div *ngFor="let image of answer?.images; let last = last" [ngClass]="{ 'mb-3': !last }">
                     <img class="w-100" [src]="image.file" alt="image" />
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-lg-4">
         <div class="br-4 border-main">
             <div class="bg-f8 fnt-18 fnt-muli font-weight-bold text-clr334 mt-1 ml-1 mr-1 py-25 px-3">
                 {{ 'recent_discussions_on_forum' | translate }}
             </div>
-            <div class="mx-3 border-bottom-dashed py-4">
-                <a class="fnt-muli fnt-600 text-154faa" href="#"
-                    >What are coffee flavour profiles? How many profiles can a coffee have?</a
-                >
+            <div *ngFor="let question of recentQuestions" class="mx-3 border-bottom-dashed">
+                <div
+                    class="fnt-muli fnt-600 mb-0 recent-question-item my-4"
+                    [routerLink]="'/coffee-lab/questions/' + question.slug"
+                    [innerHTML]="question.question"
+                ></div>
             </div>
-            <div class="mx-3 border-bottom-dashed py-4">
-                <a class="fnt-muli fnt-600 text-154faa" href="#"
-                    >What are coffee flavour profiles? How many profiles can a coffee have?</a
-                >
-            </div>
-            <div class="mx-3 py-4">
-                <a class="fnt-muli fnt-600 text-154faa" href="#"
-                    >What are coffee flavour profiles? How many profiles can a coffee have?</a
-                >
+            <div *ngIf="!recentQuestions.length" class="text-center my-4 fnt-muli text-clr24">
+                {{ 'no_data_is_available' | translate }}
             </div>
         </div>
     </div>

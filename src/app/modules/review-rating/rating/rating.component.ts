@@ -18,7 +18,7 @@ export class RatingComponent implements OnInit {
     orderId: number;
     orderType: OrderType;
     orderStatus: OrderStatus;
-    ownerName: string;
+    orgName: string;
     companyImg: string;
     rating: number;
     country: string;
@@ -61,11 +61,13 @@ export class RatingComponent implements OnInit {
             if (res.success) {
                 if (this.orgType === OrganizationType.ESTATE) {
                     this.orgId = res.result.estate_id;
+                    this.orgName = res.result.estate_name;
                     this.orderType = res.result.order_type;
                     this.orderStatus = res.result.status;
                     this.getEstate(res.result.estate_id);
                 } else if (this.orgType === OrganizationType.MICRO_ROASTER) {
                     this.orgId = res.result.micro_roaster_id;
+                    this.orgName = res.result.micro_roaster_name;
                     this.orderType = res.result.type;
                     this.orderStatus = res.result.status;
                     this.getMicroRoaster(res.result.micro_roaster_id);
@@ -79,7 +81,6 @@ export class RatingComponent implements OnInit {
     getEstate(estateId) {
         this.userSrv.getAvailableEstateList(this.roasterId, estateId).subscribe((res: any) => {
             if (res.success) {
-                this.ownerName = res.result.owner_name;
                 this.companyImg = res.result.company_image_thumbnail_url;
                 this.rating = res.result.rating;
                 this.country = res.result.country;
@@ -90,7 +91,6 @@ export class RatingComponent implements OnInit {
     getMicroRoaster(estateId) {
         this.userSrv.getMicroDetails(this.roasterId, estateId).subscribe((res: any) => {
             if (res.success) {
-                this.ownerName = res.result.owner_name;
                 this.companyImg = res.result.company_image_thumbnail_url;
                 this.rating = res.result.rating;
                 this.country = res.result.country;

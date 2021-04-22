@@ -1402,13 +1402,11 @@ export class UserserviceService extends ApiService {
         };
         return this.http.post(this.roasterUrl, data);
     }
-    getPrebookBatchList(roaster_id: any, estate_id: any, lot_id: any) {
-        const data = {
-            api_call: '/ro/' + roaster_id + '/estates/' + estate_id + '/lots/' + lot_id + '/prebook-batches',
-            method: 'GET',
-            token: this.cookieService.get('Auth'),
-        };
-        return this.http.post(this.roasterUrl, data);
+    getPrebookBatchList(estateId: any, lotId: any, params?: any) {
+        return this.postWithOrg(
+            this.orgPostUrl,
+            `/estates/${estateId}/lots/${lotId}/prebook-batches?${this.serializeParams(params)}`,
+        );
     }
     addPrebookLots(roasterId: any, batch_id: any, body: any) {
         const data = {

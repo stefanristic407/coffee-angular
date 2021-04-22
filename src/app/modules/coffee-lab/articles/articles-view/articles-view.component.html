@@ -1,7 +1,36 @@
 <div>
-    <div class="d-flex flex-column flex-md-row justify-content-md-between">
+    <h1 class="fnt-18 fnt-md-24 fnt-muli fnt-bold text-clr334 mb-0 d-block d-md-none">{{ 'articles' | translate }}</h1>
+    <div class="d-flex flex-column flex-lg-row justify-content-lg-between pt-3 pt-md-0">
+        <div class="col-12 col-lg-8 p-0 pr-lg-3">
+            <div class="p-3 bg-f8 br-4 d-flex align-items-center">
+                <img src="assets/images/avatar.png" class="mr-3 rounded-circle" alt="avatar" width="40" height="40" />
+                <div class="sewn-form-field w-100 mb-0">
+                    <input
+                        routerLink="../../create-post/tab/article"
+                        type="text"
+                        pInputText
+                        placeholder="Publish an article"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4 p-0 pl-lg-3 d-none d-lg-block">
+            <span class="custom-search h-fit-content mt-3 mt-md-0">
+                <input
+                    class="w-100"
+                    type="text"
+                    pInputText
+                    #searchInput
+                    [(ngModel)]="keyword"
+                    placeholder="Search Articles..."
+                    (ngModelChange)="getData()"
+                />
+            </span>
+        </div>
+    </div>
+    <div class="d-none d-md-flex flex-column flex-md-row justify-content-md-between pt-md-4 pt-lg-45">
         <h1 class="fnt-18 fnt-md-24 fnt-muli fnt-bold text-clr334 mb-0">{{ 'articles' | translate }}</h1>
-        <span class="custom-search h-fit-content mt-3 mt-md-0">
+        <span class="custom-search h-fit-content mt-3 mt-md-0 d-lg-none">
             <input
                 class="w-100"
                 type="text"
@@ -43,13 +72,7 @@
             >
                 <div class="d-flex justify-content-between">
                     <app-user-header [prop]="article"></app-user-header>
-                    <div>
-                        <p-menu #menu [popup]="true" [model]="items" appendTo="body"> </p-menu>
-                        <i
-                            class="pi pi-ellipsis-h text-clr588 cursor-pointer"
-                            (click)="$event.stopPropagation(); menu.toggle($event)"
-                        ></i>
-                    </div>
+                    <app-forum-menu [selectedItem]="article" forumType="article"></app-forum-menu>
                 </div>
                 <img [src]="article.cover_image_url" class="br-4 w-100 my-3 my-md-4" />
                 <a class="fnt-muli fnt-14 fnt-bold lh-157 text-clr334 cursor-pointer">

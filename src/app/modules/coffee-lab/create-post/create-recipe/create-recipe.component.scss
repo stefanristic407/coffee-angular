@@ -1,0 +1,46 @@
+@import 'variables';
+.recipe-post-wrapper {
+    .addImageContainer {
+        height: 255px;
+        border: 1px solid $primary-border-color;
+        border-radius: 4px;
+        text-align: center;
+    }
+    .stepAddImageContainer {
+        height: 266px;
+        border: 1px solid $primary-border-color;
+        border-radius: 4px;
+        text-align: center;
+    }
+
+    label {
+        color: #747589 !important;
+    }
+    ::ng-deep .sewn-form-field .dropdownClass .p-inputgroup-addon {
+        padding: 5px !important;
+    }
+    ::ng-deep .p-inputgroup-addon .p-dropdown .p-inputtext {
+        position: relative;
+        bottom: 4px;
+    }
+    .btn-controls {
+        button {
+            @media (max-width: 767px) {
+                width: 100%;
+                margin-bottom: 8px;
+            }
+        }
+    }
+
+    .oval {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        margin: 0 50px 12px 52px;
+        padding: 8px 9px 9px 8px;
+        border: solid 1.5px #979797;
+        border-radius: 50%;
+    }
+}

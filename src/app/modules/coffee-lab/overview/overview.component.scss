@@ -22,6 +22,9 @@
                     margin-right: 0;
                     .p-menuitem-link {
                         padding: 0 16px 4px 16px !important;
+                        @media (max-width: 991px) {
+                            padding: 0 10px 4px 16px !important;
+                        }
                         img {
                             display: inline-block;
                             &.active-icon {

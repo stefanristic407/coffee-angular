@@ -3,14 +3,13 @@
         <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli black" *ngIf="hrContacts != null">Important Contacts</p>
         <div class="row meet-our-team-list">
             <div class="col-12 col-md-4 col-lg-2 meet-our-team-list__item pl-md-1" *ngFor="let contact of hrContacts">
-                <div class="team-img">
-                    <img *ngIf="contact.profile_image_url == ''" src="assets/images/team-1.png" class="team-images" />
-                    <img
-                        *ngIf="contact.profile_image_url != ''"
-                        src="{{ contact.profile_image_url }}"
-                        class="team-images"
-                    />
-                </div>
+                <app-user-detail
+                    [imageUrl]="contact.profile_image_url"
+                    [userId]="contact.user_id"
+                    [orgType]="orgType"
+                    size="128"
+                    shape="rectangle"
+                ></app-user-detail>
                 <div class="team-des">
                     <p class="fnt-muli fnt-14 fnt-md-16 fnt-700 text-clr334 m-0">{{ contact.name | titlecase }}</p>
                     <p class="fnt-muli fnt-12 fnt-md-14 fnt-500 text-clr00 m-0 mt-1">{{ contact.roles[0] }}</p>
@@ -33,19 +32,14 @@
                     *ngFor="let contact of hrContacts"
                 >
                     <div class="d-flex py-2">
-                        <div class="">
-                            <div class="team-img mr-3">
-                                <img
-                                    *ngIf="contact.profile_image_url == ''"
-                                    src="assets/images/team-1.png"
-                                    class="team-images"
-                                />
-                                <img
-                                    *ngIf="contact.profile_image_url != ''"
-                                    src="{{ contact.profile_image_url }}"
-                                    class="team-images"
-                                />
-                            </div>
+                        <div class="mr-3">
+                            <app-user-detail
+                                [imageUrl]="contact.profile_image_url"
+                                [userId]="contact.user_id"
+                                [orgType]="orgType"
+                                size="36"
+                                shape="circle"
+                            ></app-user-detail>
                         </div>
                         <div class="">
                             <p class="fnt-muli fnt-14 fnt-md-16 fnt-700 text-clr334 mb-1">

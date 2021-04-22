@@ -38,12 +38,11 @@
                     <div *ngFor="let item of estates.slice(0, 4)">
                         <div class="d-flex estate-wrap mb-3 pb-md-1">
                             <div class="mr-2 ml-lg-3">
-                                <app-user-detail
-                                    [imageUrl]="item.company_image_thumbnail_url"
+                                <app-avatar
                                     [size]="36"
-                                    [userId]="item.admin_id"
-                                    orgType="es"
-                                ></app-user-detail>
+                                    [src]="item.company_image_thumbnail_url"
+                                    [name]="item.name"
+                                ></app-avatar>
                             </div>
                             <div>
                                 <p class="fnt-14 fnt-bold fnt-muli text-clr334 mb-0">{{ item.name }}</p>

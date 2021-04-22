@@ -25,14 +25,14 @@
                         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-45">
                             <div class="real-estate">
                                 <img src="assets/images/orgin.svg" />
-                                <h6>{{ globals.languageJson?.origin }}</h6>
+                                <h6>{{ 'origin' | translate }}</h6>
                                 <h3>{{ (sourcing.estate?.country | country) || 'NA' }}</h3>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-45">
                             <div class="real-estate">
                                 <img src="assets/images/estate.svg" />
-                                <h6>{{ globals.languageJson?.region }}</h6>
+                                <h6>{{ 'region' | translate }}</h6>
                                 <h3>{{ sourcing.estate?.region || 'NA' }}</h3>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-45">
                             <div class="real-estate">
                                 <img src="assets/images/altitute.svg" />
-                                <h6>{{ globals.languageJson?.altitude_range }}</h6>
+                                <h6>{{ 'altitude_range' | translate }}</h6>
                                 <h3>
                                     {{ sourcing.estate?.altitude_start || 'NA' }} -
                                     {{ sourcing.estate?.altitude_end || 'NA' }} m
@@ -77,7 +77,7 @@
                         <div class="col-lg-3 col-md-3 col-sm-6 col-6">
                             <div class="real-estate">
                                 <img src="assets/images/grad-range.svg" />
-                                <h6>{{ globals.languageJson?.grade_range }}</h6>
+                                <h6>{{ 'grade_range' | translate }}</h6>
                                 <h3>{{ sourcing.estate?.grade_range || 'NA' }}</h3>
                             </div>
                         </div>
@@ -87,32 +87,32 @@
                 <div class="border-main border-md-none br-4 mt-3 mt-md-0 p-3 px-md-4 pb-md-4 pt-md-0">
                     <div class="estate-focus">
                         <h3 class="fnt-16 fnt-md-18 fnt-md-18 lh-normal fnt-bold text-clr334 mb-1 mb-md-2">
-                            {{ globals.languageJson?.estate_facts }}
+                            {{ 'estate_facts' | translate }}
                         </h3>
                         <ul class="clearfix mb-1">
                             <li>
-                                <label>{{ globals.languageJson?.location }} :</label>
+                                <label>{{ 'location' | translate }} :</label>
                                 <p>{{ sourcing.estate?.location || 'NA' }}</p>
                             </li>
                             <li>
                                 <label>Varieties :</label>
                                 <p>
-                                    {{ sourcing.estate?.varieties.split(',').join(', ') || 'NA' }}
+                                    {{ sourcing.estate?.varieties?.split(',').join(', ') || 'NA' }}
                                 </p>
                             </li>
                             <li>
                                 <label class="pr-lg-5 d-none d-md-block"
-                                    >{{ globals.languageJson?.average_annual_production_coffee }} :</label
+                                    >{{ 'average_annual_production_coffee' | translate }} :</label
                                 >
                                 <label class="d-md-none">Average annual prodcution :</label>
                                 <p>{{ (sourcing.estate?.coffee_production || 0) + ' tons' }}</p>
                             </li>
                             <li>
-                                <label>{{ globals.languageJson?.access_to_agronomist }} :</label>
+                                <label>{{ 'access_to_agronomist' | translate }} :</label>
                                 <p>{{ sourcing.estate?.agronomist_access || 'NA' }}</p>
                             </li>
                             <li>
-                                <label>{{ globals.languageJson?.total_number_trees }} :</label>
+                                <label>{{ 'total_number_trees' | translate }} :</label>
                                 <p>{{ sourcing.estate?.number_of_trees || 'NA' }}</p>
                             </li>
                             <li>
@@ -120,7 +120,7 @@
                                 <p>{{ sourcing.estate?.packaging || 'NA' }}</p>
                             </li>
                             <li>
-                                <label>{{ globals.languageJson?.other_crops }} :</label>
+                                <label>{{ 'other_crops' | translate }} :</label>
                                 <p>{{ sourcing.estate?.other_crops || 'NA' }}</p>
                             </li>
                             <li>
@@ -128,7 +128,7 @@
                                 <p>{{ sourcing.estate?.wild_animals || 'NA' }}</p>
                             </li>
                             <li>
-                                <label>{{ globals.languageJson?.average_annual_prodcution_crops }} :</label>
+                                <label>{{ 'average_annual_prodcution_crops' | translate }} :</label>
                                 <p>{{ sourcing.estate?.total_production + ' tons' || 'NA' }}</p>
                             </li>
                         </ul>
@@ -144,7 +144,7 @@
                         class="d-none d-md-block col-md-5 col-lg-12 pt-md-2 pt-lg-0"
                     >
                         <h2 class="fnt-16 fnt-md-18 fnt-md-18 lh-normal fnt-bold text-clr000 mb-4">
-                            {{ globals.languageJson?.certificates }}
+                            {{ 'certificates' | translate }}
                         </h2>
                         <div class="cetify-logo">
                             <div class="d-flex flex-wrap mb-45">
@@ -158,7 +158,7 @@
                         <div class="row mx-0 mt-md-45 d-none d-md-block d-lg-none">
                             <div class="col-8 px-0">
                                 <a class="btn-raised w-100" [href]="brandProfileEstateWeb" target="_blank">
-                                    {{ globals.languageJson?.know_more }}
+                                    {{ 'know_more' | translate }}
                                 </a>
                             </div>
                         </div>
@@ -185,7 +185,7 @@
                         <div class="row justify-content-end mx-2 mx-md-0 mt-4 mt-md-45 d-md-none d-lg-flex">
                             <div class="col-12 col-md-6 px-0">
                                 <a class="btn-raised w-100" [href]="brandProfileEstateWeb" target="_blank">
-                                    {{ globals.languageJson?.know_more }}
+                                    {{ 'know_more' | translate }}
                                 </a>
                             </div>
                         </div>

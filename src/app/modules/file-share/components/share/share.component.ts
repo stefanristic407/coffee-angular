@@ -43,6 +43,10 @@ export class ShareComponent implements OnInit {
                 label: this.globals.languageJson.can_edit,
                 value: 'EDIT',
             },
+            {
+                label: this.globals.languageJson.remove,
+                value: 'REMOVE',
+            },
         ];
         this.infoForm = this.fb.group({
             user: [null, Validators.compose([Validators.required])],
@@ -59,12 +63,12 @@ export class ShareComponent implements OnInit {
                 company_type: this.infoForm.value.user.organization_type,
                 company_id: this.infoForm.value.user.organization_id,
             };
-            this.submitted = false;
+            this.submitted = true;
             this.fileSrv.shareFileFolder(this.record.id, postData).subscribe((res: any) => {
                 this.submitted = false;
                 if (res.success) {
                     this.toastrService.success('Shared successfully.');
-                    this.close(res.result);
+                    this.close(res.success);
                 } else {
                     this.toastrService.error('Error! while sharing');
                 }
@@ -75,20 +79,39 @@ export class ShareComponent implements OnInit {
     }
 
     updatePermission(value) {
-        const postData = {
-            user_id: value.user_id,
-            permission: value.permission,
-            company_type: value.company_type,
-            company_id: value.company_id,
-        };
-        this.fileSrv.updatePermission(this.record.id, postData).subscribe((res: any) => {
-            this.submitted = false;
-            if (res.success) {
-                this.toastrService.success('Permission has been updated succssfully.');
-            } else {
-                this.toastrService.error('Error while changing the Share permissions');
-            }
-        });
+        if (value.permission === 'REMOVE') {
+            const postData = {
+                user_id: value.user_id,
+                company_type: value.company_type,
+                company_id: value.company_id,
+            };
+            this.submitted = true;
+            this.fileSrv.unshareFileFolder(this.record.id, postData).subscribe((res: any) => {
+                this.submitted = false;
+                if (res.success) {
+                    this.toastrService.success('Unshared successfully.');
+                    this.close(res.success);
+                } else {
+                    this.toastrService.error('Error! while unsharing');
+                }
+            });
+        } else {
+            const postData = {
+                user_id: value.user_id,
+                permission: value.permission,
+                company_type: value.company_type,
+                company_id: value.company_id,
+            };
+            this.submitted = true;
+            this.fileSrv.updatePermission(this.record.id, postData).subscribe((res: any) => {
+                this.submitted = false;
+                if (res.success) {
+                    this.toastrService.success('Permission has been updated succssfully.');
+                } else {
+                    this.toastrService.error('Error while changing the Share permissions');
+                }
+            });
+        }
     }
 
     getSharedUsers() {

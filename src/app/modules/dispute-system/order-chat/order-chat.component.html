@@ -44,12 +44,13 @@
                         [ngClass]="{ 'move-left': i !== 0 }"
                         [ngStyle]="{ 'z-index': threadUserList.length - i }"
                     >
-                        <img
-                            class="profileImg"
-                            [pTooltip]="user.computed_fullname"
-                            tooltipPosition="top"
-                            [src]="user.profile_pic || 'assets/images/profile.svg'"
-                        />
+                        <app-user-detail
+                            [imageUrl]="user.profile_pic || 'assets/images/profile.svg'"
+                            [userId]="user.user_id"
+                            [orgType]="user.org_type"
+                            size="36"
+                            [hasBorder]="true"
+                        ></app-user-detail>
                     </div>
                 </div>
                 <span class="text-highlited mt-4" (click)="navigateAssignUser()"> Change assigned user</span>
@@ -75,12 +76,13 @@
                         [ngClass]="{ 'move-left': i !== 0 }"
                         [ngStyle]="{ 'z-index': threadUserList.length - i }"
                     >
-                        <img
-                            class="profileImg"
-                            [pTooltip]="user.computed_fullname"
-                            tooltipPosition="top"
-                            [src]="user.profile_pic || 'assets/images/profile.svg'"
-                        />
+                        <app-user-detail
+                            [imageUrl]="user.profile_pic || 'assets/images/profile.svg'"
+                            [userId]="user.user_id"
+                            [orgType]="user.org_type"
+                            size="36"
+                            [hasBorder]="true"
+                        ></app-user-detail>
                     </div>
                 </div>
 
