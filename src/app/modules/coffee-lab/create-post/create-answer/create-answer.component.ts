@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { DialogService } from 'primeng/dynamicdialog';
-import { AuthService, CoffeeLabService } from '@services';
+import { AuthService, CoffeeLabService, FileService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -12,9 +12,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CreateAnswerComponent implements OnInit {
     isAllowTranslation = true;
-    content?: string;
     isPosting = false;
     questionId: any;
+
+    // these 3 parameters are mandatory to use forum-editor
+    content: any;
+    isUploadingImage = false;
+    imageIdList = [];
 
     constructor(
         public location: Location,
@@ -23,7 +27,7 @@ export class CreateAnswerComponent implements OnInit {
         private toastrService: ToastrService,
         private router: Router,
         private route: ActivatedRoute,
-        public authService: AuthService
+        public authService: AuthService,
     ) {}
 
     ngOnInit(): void {
@@ -35,19 +39,11 @@ export class CreateAnswerComponent implements OnInit {
             this.toastrService.error('Please type your answer.');
             return;
         }
-        console.log('content >>>>>>>>', this.content);
-        // if (this.content.length < 10) {
-        //     this.toastrService.error('Question is too short.');
-        //     return;
-        // }
-        // if (this.content.length > 300) {
-        //     this.toastrService.error('Question is too long.');
-        //     return;
-        // }
         const data = {
             answer: this.content,
             allow_translation: this.isAllowTranslation ? 1 : 0,
             status,
+            images: this.imageIdList,
             language: this.coffeeLabService.currentForumLanguage,
         };
         this.isPosting = true;

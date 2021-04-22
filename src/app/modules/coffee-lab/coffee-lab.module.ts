@@ -32,6 +32,10 @@ import { CreateAnswerComponent } from './create-post/create-answer/create-answer
 import { MyAnswersComponent } from './my-posts/my-answers/my-answers.component';
 import { AssignedToMeViewComponent } from './assigned-to-me/assigned-to-me-view/assigned-to-me-view.component';
 import { ForumMenuComponent } from './components/forum-menu/forum-menu.component';
+import { ForumEditorComponent } from './components/forum-editor/forum-editor.component';
+import { TranslateArticleComponent } from './create-post/translate/translate-article/translate-article.component';
+import { TranslateRecipeComponent } from './create-post/translate/translate-recipe/translate-recipe.component';
+import { TranslateAnswerComponent } from './create-post/translate/translate-answer/translate-answer.component';
 
 @NgModule({
     declarations: [
@@ -64,6 +68,10 @@ import { ForumMenuComponent } from './components/forum-menu/forum-menu.component
         MyAnswersComponent,
         AssignedToMeViewComponent,
         ForumMenuComponent,
+        ForumEditorComponent,
+        TranslateArticleComponent,
+        TranslateRecipeComponent,
+        TranslateAnswerComponent,
     ],
     imports: [CommonModule, CoffeeLabRoutingModule, SharedModule, FormsModule],
 })
