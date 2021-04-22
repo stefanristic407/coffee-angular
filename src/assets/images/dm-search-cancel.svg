@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Shape" width="24" height="24" viewBox="0 0 24 24">
+    <defs>
+        <clipPath id="clip-path">
+            <path id="Mask" d="M0 0h24v24H0z" class="cls-1"/>
+        </clipPath>
+        <style>
+            .cls-1{fill:none}
+        </style>
+    </defs>
+    <path id="Mask-2" d="M0 0h24v24H0z" class="cls-1"/>
+    <g id="Shape-2" clip-path="url(#clip-path)">
+        <path id="Combined_Shape" fill="#747588" d="M.207 10.234a.706.706 0 0 1-.068-.92l.068-.079L4.222 5.22.207 1.205A.706.706 0 0 1 1.126.139l.079.068L5.22 4.222 9.235.207a.706.706 0 0 1 1.067.919l-.068.079L6.219 5.22l4.015 4.015a.706.706 0 0 1-.92 1.067l-.079-.068L5.22 6.219l-4.015 4.015a.706.706 0 0 1-1 0z" transform="translate(7 7)"/>
+    </g>
+</svg>

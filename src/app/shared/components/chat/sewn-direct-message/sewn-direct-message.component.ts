@@ -54,8 +54,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     private clearThreadReferance: ThreadListItem | null = null;
     private deleteThreadReferance: ThreadListItem | null = null;
 
-    public chatMenuOpen = false;
-
     private threadListConfig = {
         perPage: 200,
         activePage: 1,
@@ -92,6 +90,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     public notificationState = false;
     public contextMenuOpen = false;
     public openEmojiPanel = false;
+    public chatMenuOpen = false;
+    public expandChatSearch = false;
 
     public enableReadRecipient = false;
     public enableEmoji = true;
@@ -1242,6 +1242,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         this.messageList = [];
         this.showInlineLoader = true;
         this.chatMenuOpen = false;
+        this.expandChatSearch = false;
         this.openedThread = thread;
         this.socket.directMessageSent.next(this.getHistoryPayload(thread));
         if (this.SM.lastRender && this.SM.lastRender.unsubscribe) {
@@ -1462,6 +1463,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         this.chatMessageBodyElement = null;
         this.messageInputElement = null;
         this.chatMenuOpen = false;
+        this.expandChatSearch = false;
         this.contextMenuOpen = false;
         this.generateRecentUserList();
         if (this.SM.userPanelRendered && this.SM.userPanelRendered.unsubscribe) {
@@ -1476,6 +1478,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         this.showInlineLoader = false;
         this.userListLoading = false;
         this.chatMenuOpen = false;
+        this.expandChatSearch = false;
         this.panelVisibility = 'THREAD';
         this.chatMessageBodyElement = null;
         this.messageInputElement = null;
@@ -1489,6 +1492,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     openBlockedListPanel() {
         this.chatMenuOpen = false;
+        this.expandChatSearch = false;
         this.panelVisibility = 'BLOCKED_USERS';
         this.blockedUsersList = [];
         this.chatMessageBodyElement = null;
@@ -1499,6 +1503,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     closeNewChatPanel() {
         this.chatMenuOpen = false;
+        this.expandChatSearch = false;
         this.showInlineLoader = false;
         this.recentUserList = [];
         this.usersList = [];
@@ -1514,6 +1519,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         this.openedThread = null;
         this.messageList = [];
         this.chatMenuOpen = false;
+        this.expandChatSearch = false;
         this.chatMessageBodyElement = null;
         this.messageInputElement = null;
         this.contextMenuOpen = false;
@@ -1521,6 +1527,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     openUserInfoPanel(thread: ThreadListItem) {
         this.chatMenuOpen = false;
+        this.expandChatSearch = false;
         this.selectedUser = thread?.computed_targetedUser || null;
         this.panelVisibility = 'USER_DETAILS';
         this.chatMessageBodyElement = null;
@@ -1529,6 +1536,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
     closeUserInfoPanel() {
         this.chatMenuOpen = false;
+        this.expandChatSearch = false;
         this.panelVisibility = 'THREAD';
         this.selectedUser = null;
         this.chatMessageBodyElement = null;
@@ -1541,6 +1549,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         this.panelVisibility = 'THREAD';
         this.openedThread = null;
         this.chatMenuOpen = false;
+        this.expandChatSearch = false;
         this.messageList = [];
         this.chatHandler.isOpen.next(false);
         this.chatHandler.isExpand.next(false);
@@ -1556,6 +1565,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         this.messageInputElement = null;
         this.openedThread = null;
         this.chatMenuOpen = false;
+        this.expandChatSearch = false;
         this.messageList = [];
         this.selectedUser = null;
         this.contextMenuOpen = false;

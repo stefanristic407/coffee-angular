@@ -82,13 +82,22 @@
                     padding: 15px 24px;
                     border: solid 1px #dedede;
                     background-color: #ffffff;
-                    .dm-clp-chat-header-left-panel {
+                    &.dm-clp-ch-search-expand {
+                        justify-content: center;
+                        .dm-clp-ch-right-panel {
+                            width: 100%;
+                            justify-content: space-between;
+                        }
+                    }
+                    .dm-clp-ch-left-panel {
                         position: relative;
                         display: flex;
                         align-items: center;
                         justify-content: flex-start;
                         width: 100%;
-                        .badge-back-arrow-button {
+                        flex-grow: 1;
+                        flex-shrink: 1;
+                        .dm-clp-ch-back-arrow-button {
                             display: block;
                             margin-right: 12px;
                             width: 24px;
@@ -96,7 +105,7 @@
                             cursor: pointer;
                         }
                     }
-                    .dm-clp-chat-header-right-panel {
+                    .dm-clp-ch-right-panel {
                         position: relative;
                         display: flex;
                         align-items: center;
@@ -203,19 +212,34 @@
                         padding: 15px 24px;
                         border: solid 1px #dedede;
                         background-color: #ffffff;
-                        .dm-exp-chat-header-right-panel {
+                        &.dm-exp-ch-search-expand {
+                            justify-content: center;
+                            .dm-exp-ch-right-panel {
+                                width: 100%;
+                                justify-content: space-between;
+                            }
+                        }
+                        .dm-exp-ch-left-panel {
                             position: relative;
                             display: flex;
-                            justify-content: flex-end;
                             align-items: center;
+                            justify-content: flex-start;
+                            width: 100%;
                             flex-grow: 1;
                             flex-shrink: 1;
+                            .dm-exp-ch-back-arrow-button {
+                                display: block;
+                                margin-right: 12px;
+                                width: 24px;
+                                height: 24px;
+                                cursor: pointer;
+                            }
                         }
-                        .dm-exp-chat-header-left-panel {
+                        .dm-exp-ch-right-panel {
                             position: relative;
                             display: flex;
-                            justify-content: flex-end;
                             align-items: center;
+                            justify-content: flex-end;
                         }
                     }
                     .dm-exp-chat-content {
@@ -1555,7 +1579,6 @@
     }
 }
 .dm-header-chat-menu {
-    // ANCHOR chatMenuPanelTL
     margin-left: 16px;
     position: relative;
     display: block;
@@ -1606,6 +1629,36 @@
                     background-color: #f6f6f6;
                 }
             }
+        }
+    }
+}
+.dm-chat-search-box {
+    display: block;
+    position: relative;
+    &.dm-csb-box-active {
+        flex: 1;
+        .dm-csb-box {
+            width: 100%;
+            border-radius: 3px;
+            border: solid 1px #d6d6d6;
+            background-color: #ffffff;
+        }
+    }
+    .dm-csb-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 8px;
+        .dm-csb-seach-icon {
+            display: block;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+        }
+        .dm-csb-seach-input {
+            flex: 1;
+            outline: none;
+            border: none;
         }
     }
 }

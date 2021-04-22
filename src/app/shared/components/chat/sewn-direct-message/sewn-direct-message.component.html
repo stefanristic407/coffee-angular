@@ -29,11 +29,11 @@
                     </div>
                     <div class="dm-exp-chat-section">
                         <ng-container *ngIf="openedThread">
-                            <div class="dm-exp-chat-header">
-                                <div class="dm-exp-chat-header-left-panel">
+                            <div class="dm-exp-chat-header" [ngClass]="{ 'dm-exp-ch-search-expand': expandChatSearch }">
+                                <div class="dm-exp-ch-left-panel" *ngIf="!expandChatSearch">
                                     <ng-container *ngTemplateOutlet="headerUserBadgeTL"></ng-container>
                                 </div>
-                                <div class="dm-exp-chat-header-right-panel">
+                                <div class="dm-exp-ch-right-panel">
                                     <ng-container *ngTemplateOutlet="searchBoxTL"></ng-container>
                                     <ng-container *ngTemplateOutlet="chatMenuPanelTL"></ng-container>
                                 </div>
@@ -70,16 +70,16 @@
                         <div class="dm-clp-chat-title-bar">
                             <ng-container *ngTemplateOutlet="listHeaderTL"></ng-container>
                         </div>
-                        <div class="dm-clp-chat-header">
-                            <div class="dm-clp-chat-header-left-panel">
+                        <div class="dm-clp-chat-header" [ngClass]="{ 'dm-clp-ch-search-expand': expandChatSearch }">
+                            <div class="dm-clp-ch-left-panel" *ngIf="!expandChatSearch">
                                 <img
-                                    class="badge-back-arrow-button"
+                                    class="dm-clp-ch-back-arrow-button"
                                     (click)="closeChatPanel()"
                                     src="assets/images/dm-back-arrow.svg"
                                 />
                                 <ng-container *ngTemplateOutlet="headerUserBadgeTL"></ng-container>
                             </div>
-                            <div class="dm-clp-chat-header-right-panel">
+                            <div class="dm-clp-ch-right-panel">
                                 <ng-container *ngTemplateOutlet="searchBoxTL"></ng-container>
                                 <ng-container *ngTemplateOutlet="chatMenuPanelTL"></ng-container>
                             </div>
@@ -369,7 +369,25 @@
         </div>
     </div>
 </ng-template>
-<ng-template #searchBoxTL> </ng-template>
+<ng-template #searchBoxTL>
+    <div class="dm-chat-search-box" [ngClass]="{ 'dm-csb-box-active': expandChatSearch }">
+        <div class="dm-csb-box">
+            <img
+                src="assets/images/search.svg"
+                (click)="expandChatSearch = !expandChatSearch"
+                class="dm-csb-seach-icon"
+            />
+            <ng-container *ngIf="expandChatSearch">
+                <input class="dm-csb-seach-input" type="text" placeholder="Search messages" />
+                <div class="dm-csb-seach-controls">
+                    <img src="assets/images/dm-seach-down-arrow.svg" class="dm-csb-control-icon" />
+                    <img src="assets/images/dm-seach-up-arrow.svg" class="dm-csb-control-icon" />
+                    <img src="assets/images/dm-search-cancel.svg" class="dm-csb-control-icon" />
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</ng-template>
 <ng-template #chatMenuPanelTL>
     <!-- ANCHOR chatMenuPanelTL -->
     <div class="dm-header-chat-menu" data-element="chat-menu-panel">
