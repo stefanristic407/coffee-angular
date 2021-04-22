@@ -43,10 +43,11 @@
                         ></app-translation-dropdown>
                     </div>
                 </div>
-                <div class="answer-content pt-3 pt-md-4">
-                    <p class="fnt-muli fnt-14 fnt-normal text-clr334 lh-157 mb-0">
-                        {{ detailsData?.content }}
-                    </p>
+                <div class="article-content pt-3 pt-md-4">
+                    <div
+                        class="fnt-muli fnt-14 fnt-normal text-clr334 lh-157 mb-0"
+                        [innerHTML]="detailsData?.content"
+                    ></div>
                 </div>
                 <div class="pt-4" *ngIf="detailsData?.original_article_id">
                     <app-original-view [detailsData]="detailsData"></app-original-view>
