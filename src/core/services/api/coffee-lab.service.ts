@@ -134,6 +134,7 @@ export class CoffeeLabService extends ApiService {
             this.orgPostUrl,
             `${this.organization}/${this.organizationId}/${type}s/${id}/translate`,
             'POST',
+            data,
         );
     }
 }
