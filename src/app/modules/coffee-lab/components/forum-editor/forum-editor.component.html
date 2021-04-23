@@ -1,8 +1,9 @@
 <p-editor
     [(ngModel)]="content"
     styleClass="forum-editor"
-    [style]="{ height: '213px' }"
+    id="test"
+    [style]="{ height: height + 'px' }"
     (ngModelChange)="onChangeContent()"
-    [placeholder]="'leave_an_answer_bla' | translate"
+    [placeholder]="placeholder"
 >
 </p-editor>

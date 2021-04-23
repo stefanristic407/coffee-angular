@@ -18,6 +18,8 @@ export class ForumEditorComponent implements OnInit {
     @Input() imageIdList = [];
     @Output() imageIdListChange = new EventEmitter<any>();
     @Input() fileModule = 'qa-forum';
+    @Input() placeholder: string;
+    @Input() height = 213;
     imagesCount = 0;
     images = [];
 
@@ -29,7 +31,6 @@ export class ForumEditorComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         public authService: AuthService,
-        private fileService: FileService,
     ) {}
 
     ngOnInit(): void {}
@@ -51,7 +52,7 @@ export class ForumEditorComponent implements OnInit {
         this.images.push({
             virtualId,
         });
-        const file = this.fileService.dataURItoBlob(imageURL);
+        const file = this.coffeeLabService.dataURItoBlob(imageURL);
         console.log('This is new images so lets upload this image through api', file);
         this.isUploadingImage = true;
         this.isUploadingImageChange.emit(true);
@@ -60,13 +61,13 @@ export class ForumEditorComponent implements OnInit {
             this.isUploadingImageChange.emit(false);
             if (res.success) {
                 this.content = this.content.replace(/data:image\/[a-z]*;base64,[^"]+/g, res.result.url);
+                this.contentChange.emit(this.content);
                 const imageIndex = this.images.findIndex((item: any) => item.virtualId === virtualId);
                 if (imageIndex !== -1) {
                     this.images[imageIndex].id = res.result.id;
                     this.images[imageIndex].url = res.result.url;
-                    this.onChangeImages();
+                    this.emitImagesChange();
                 }
-                this.contentChange.emit(this.content);
             } else {
                 this.toastrService.error('Error while upload image');
             }
@@ -90,7 +91,7 @@ export class ForumEditorComponent implements OnInit {
             return null;
         } else if (images.length < this.imagesCount) {
             this.images.pop();
-            this.onChangeImages();
+            this.emitImagesChange();
             this.imagesCount -= 1;
             return null;
         } else {
@@ -99,7 +100,7 @@ export class ForumEditorComponent implements OnInit {
         }
     }
 
-    onChangeImages(): void {
+    emitImagesChange(): void {
         this.imageIdList = this.images.map((item: any) => item.id);
         this.imageIdListChange.emit(this.imageIdList);
     }

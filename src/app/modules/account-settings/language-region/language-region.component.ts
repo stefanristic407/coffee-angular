@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment-timezone';
 import { GlobalsService, UserService, UserserviceService } from '@services';
 import { Location } from '@angular/common';
-import { languages } from '@constants';
+import { APP_LANGUAGES, languages } from '@constants';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { MenuItem } from 'primeng/api';
@@ -13,24 +13,7 @@ import { MenuItem } from 'primeng/api';
     styleUrls: ['./language-region.component.scss'],
 })
 export class LanguageRegionComponent implements OnInit {
-    applicationLanguages: any[] = [
-        {
-            name: 'English',
-            value: 'en',
-        },
-        {
-            name: 'Swedish',
-            value: 'sv',
-        },
-        {
-            name: 'Spanish',
-            value: 'es',
-        },
-        {
-            name: 'Portuguese',
-            value: 'pt',
-        },
-    ];
+    applicationLanguages: any[] = APP_LANGUAGES;
     languages: any[] = languages.sort((a: any, b: any) => (a.name < b.name ? -1 : 1));
     timezones: any[] = [];
     selectedConverseLanguages?: any = [];
