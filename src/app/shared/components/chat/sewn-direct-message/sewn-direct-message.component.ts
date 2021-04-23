@@ -26,7 +26,6 @@ import {
     BlockListItem,
 } from '@models';
 import { ThreadActivityType, OrganizationType, ThreadType, ServiceCommunicationType, ChatMessageType } from '@enums';
-import { ConfirmationService } from 'primeng/api/public_api';
 
 const badwordsRegExp = require('badwords/regexp') as RegExp;
 
@@ -50,16 +49,58 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     public selectedUser: ThreadMember | null = null;
     public userListLoading = false;
     public emojiList = [];
+
     private blockThreadReferance: ThreadListItem | null = null;
     private clearThreadReferance: ThreadListItem | null = null;
     private deleteThreadReferance: ThreadListItem | null = null;
+
+    public chatListScrollEventSubject = new Subject<Event>();
+
+    public chatSearch = {
+        keyword: '',
+        expand: false,
+        inputSubject: new Subject<InputEvent>(),
+        page: 1,
+        searchResult: [],
+        lastSentTimeStamp: '',
+        config: {
+            perPage: 100,
+            rows: 10,
+        },
+        escAction: (event: KeyboardEvent) => {
+            if (event.key === 'Esc' || event.key === 'Escape') {
+                this.chatSearch.reset();
+            }
+        },
+        reset: () => {
+            this.chatSearch.keyword = '';
+            this.chatSearch.expand = false;
+            this.chatSearch.page = 1;
+            this.chatSearch.searchResult = [];
+            this.chatSearch.lastSentTimeStamp = '';
+        },
+        toggle: () => {
+            const openState = !this.chatSearch.expand;
+            this.chatSearch.reset();
+            this.chatSearch.expand = openState;
+        },
+
+        clear: () => {
+            this.chatSearch.keyword = '';
+            this.chatSearch.page = 1;
+            this.chatSearch.searchResult = [];
+            this.chatSearch.lastSentTimeStamp = '';
+        },
+    };
 
     private threadListConfig = {
         perPage: 200,
         activePage: 1,
     };
     private messageListConfig = {
-        perPage: 300,
+        lastSentTimeStamp: '',
+        totalCount: 0,
+        perPage: 10,
         activePage: 1,
     };
 
@@ -74,6 +115,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     public messageList: ChatMessage[] = [];
     public openedThread: ThreadListItem | null = null;
+
     public threadSearchKeyword = '';
 
     private messageInputElement: HTMLTextAreaElement | null = null;
@@ -91,7 +133,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     public contextMenuOpen = false;
     public openEmojiPanel = false;
     public chatMenuOpen = false;
-    public expandChatSearch = false;
 
     public enableReadRecipient = false;
     public enableEmoji = true;
@@ -102,10 +143,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         { name: 'Large', value: 'LARGE' },
     ];
     public activeFontSize = this.fontSizeList[1];
-    public muteforUser = false;
-
     public panelVisibility: 'THREAD' | 'CHAT' | 'BLOCKED_USERS' | 'SEARCH_USER' | 'USER_DETAILS' = 'THREAD';
-    display = true;
     public modelConfig = {
         display: false,
         icon: '' as 'BLOCK' | 'REPORT' | 'DELETE' | '',
@@ -184,7 +222,13 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.uiUpdateOnStateChange();
             }, 150);
         });
+        this.SM.chatSearchInputChangesSubscription = this.chatSearch.inputSubject
+            .pipe(debounce(() => interval(500)))
+            .subscribe(this.chatSearchChange);
         this.readSettings();
+        this.SM.chatListScrollEventSubscription = this.chatListScrollEventSubject
+            .pipe(debounce(() => interval(500)))
+            .subscribe(this.chatListScrollListener);
     }
 
     saveSettings() {
@@ -321,6 +365,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.handleClearChatResponse(WSmsg as WSResponse<any>);
             } else if (WSmsg.type === ChatMessageType.deleteChat) {
                 this.handleDeleteChatResponse(WSmsg as WSResponse<any>);
+            } else if (WSmsg.type === ChatMessageType.searchMessage) {
+                this.handleChatSearchResult(WSmsg as WSResponse<any>);
             }
         });
 
@@ -344,7 +390,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         } = {};
         this.threadList.forEach((x) => {
             x.members.forEach((m) => {
-                userPayload[`${m.user_id}_${m.org_type}_${m.org_id}`] = {
+                userPayload[`${m.user_id}_${m.org_type}_${m.org_id || 0}`] = {
                     org_id: m.org_id,
                     org_type: m.org_type,
                     user_id: m.user_id,
@@ -413,6 +459,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     getHistoryPayload(thread: ThreadListItem) {
         const timestamp = this.chatUtil.getTimeStamp();
+        this.messageListConfig.lastSentTimeStamp = timestamp;
         return {
             timestamp,
             type: ChatMessageType.history,
@@ -454,6 +501,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         message.lang = this.gtrans.defaultLang;
         message.translatedText = '';
         message.showTranslation = 'OFF';
+        message.showUserBadge = false;
         message.computed_date = this.chatUtil.getReadableTime(message.updated_at || message.created_at);
         message.dateString = moment(message.created_at).format('Do MMM YYYY');
         if (thread.computed_targetedUser.id === message.member.id) {
@@ -501,14 +549,13 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         thread.computed_targetedUserList = targtedUserList;
         thread.computed_createdAt = this.chatUtil.getReadableTime(thread.activity_created_at || '');
         thread.computed_thread_createdAt = this.chatUtil.getReadableTime(thread.created_at || '');
-        thread.computed_lastActivityText =
-            thread.content.length > 60 ? thread.content.slice(0, 60) + '...' : thread.content;
+        thread.computed_lastActivityText = thread.content;
         return thread;
     }
 
     handleIncomingMessages(WSmsg: WSResponse<IncomingChatMessage>) {
         let message = WSmsg.data;
-        if (WSmsg.code === 201 && (message?.content || '').trim() !== '' && message.thread.type === ThreadType.normal) {
+        if (WSmsg.code === 201 && message.thread.type === ThreadType.normal) {
             if (message.activity_type === ThreadActivityType.message) {
                 const inThread = this.threadList.find((thread) => thread.id === message.thread.id);
                 if (inThread) {
@@ -517,6 +564,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                     if (user) {
                         this.processThreadUser(user);
                     }
+                    this.updateSendersOnlineStatus(user, inThread);
                     if (this.openedThread && this.openedThread.id === message.thread.id) {
                         this.updateChatMessageBodyElRef();
                         if (this.SM.lastRender && this.SM.lastRender.unsubscribe) {
@@ -526,23 +574,13 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                             this.scrollbottom();
                         });
                         const lastMessage = this.messageList[this.messageList.length - 1];
-                        if (lastMessage) {
-                            message.showUserBadge = lastMessage.isActiveUser && !message.isActiveUser;
-                        } else {
-                            message.showUserBadge = true;
-                        }
-
                         if (!lastMessage) {
                             message.showDateBadge = true;
                         } else {
                             message.showDateBadge = lastMessage.dateString !== message.dateString;
                         }
-
                         this.messageList.push(message);
-                        let messagcontent = message.content || '';
-                        messagcontent = messagcontent.length > 60 ? messagcontent.slice(0, 60) + '...' : messagcontent;
-
-                        this.openedThread.computed_lastActivityText = messagcontent;
+                        this.openedThread.computed_lastActivityText = message.content || '';
                         this.sendReadToken(message.id);
                     } else {
                         let messagcontent = message.content || '';
@@ -569,6 +607,17 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         }
     }
 
+    updateSendersOnlineStatus(sender: ThreadMember, threadOpen: ThreadListItem) {
+        if (
+            !threadOpen.computed_targetedUser.online &&
+            threadOpen.computed_targetedUser.user_id === sender.user_id &&
+            threadOpen.computed_targetedUser.org_type === sender.org_type &&
+            (threadOpen.computed_targetedUser.org_id || 0 === sender.org_id || 0)
+        ) {
+            this.updateUserStatus();
+        }
+    }
+
     isCurrentlyBottom() {
         this.updateChatMessageBodyElRef();
         if (this.chatMessageBodyElement) {
@@ -583,22 +632,33 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     handleThreadHistory(WSmsg: WSResponse<ChatMessage[]>) {
         this.showInlineLoader = false;
         if (WSmsg.code === 200) {
-            this.messageList = WSmsg.data
-                .filter((x) => x.activity_type === ThreadActivityType.message && x.content.trim() !== '')
-                .reverse();
-            let showUserBadge = true; // Set true on To message, and false after first From message
-            // Need different logic for group chat
+            this.messageListConfig.totalCount = WSmsg.result_info.total_count;
+            this.messageListConfig.activePage = WSmsg.result_info.page;
+            const rawMessagesList = WSmsg.data.filter((x) => x.activity_type === ThreadActivityType.message);
+            const newProcessedMessages: ChatMessage[] = []; // mainly use for lang detection
+            const alreadyExistingMessageID = this.messageList.map((msgItm) => msgItm.id);
+            const existingLastMessageId = alreadyExistingMessageID[0];
+            if (existingLastMessageId) {
+                // Used to preserve already existing position of current message
+                if (this.SM.lastRender && this.SM.lastRender.unsubscribe) {
+                    this.SM.lastRender.unsubscribe();
+                }
+                this.SM.lastRender = this.lastMessageRendered.pipe(first()).subscribe((x) => {
+                    this.scrollToMessage(existingLastMessageId);
+                });
+            }
+            rawMessagesList.forEach((newMsg) => {
+                const cookedMessage = this.processChatMessages(newMsg, this.openedThread);
+                if (!alreadyExistingMessageID.includes(cookedMessage.id)) {
+                    this.messageList.unshift(cookedMessage);
+                    newProcessedMessages.push(cookedMessage);
+                }
+            });
+            this.detectLangBatchMessages(newProcessedMessages);
+
             for (let index = 0, len = this.messageList.length; index < len; index++) {
-                this.messageList[index] = this.processChatMessages(this.messageList[index], this.openedThread);
                 const prevMessage = this.messageList[index - 1];
                 const activeMessage = this.messageList[index];
-                if (!this.messageList[index].isActiveUser) {
-                    this.messageList[index].showUserBadge = showUserBadge;
-                    showUserBadge = false;
-                } else {
-                    this.messageList[index].showUserBadge = false; // always false on TO message
-                    showUserBadge = true;
-                }
                 if (!prevMessage) {
                     activeMessage.showDateBadge = true;
                 } else {
@@ -607,17 +667,33 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             }
             const lastMessage = this.messageList[this.messageList.length - 1];
             if (lastMessage) {
-                if (lastMessage && lastMessage.content) {
-                    let messagcontent = lastMessage.content || '';
-                    messagcontent = messagcontent.length > 60 ? messagcontent.slice(0, 60) + '...' : messagcontent;
-                    this.openedThread.computed_lastActivityText = messagcontent;
-                }
+                this.openedThread.computed_lastActivityText = lastMessage.content || '';
                 this.sendReadToken(lastMessage.id);
             }
             this.updateUnRead();
-            this.detectMessageLang();
         } else {
             console.log('Websocket:Thread History: Failure');
+        }
+    }
+
+    detectLangBatchMessages(messageList: ChatMessage[]) {
+        if (messageList.length) {
+            const contentArray = [];
+            messageList.forEach((msgListItem: ChatMessage) => {
+                if (this.gtrans.validateMessage(msgListItem.content)) {
+                    contentArray.push(msgListItem.content);
+                } else {
+                    msgListItem.lang = this.gtrans.defaultLang;
+                    contentArray.push('');
+                }
+            });
+            if (contentArray.length) {
+                this.gtrans.detectBatch(contentArray).subscribe((outPut) => {
+                    messageList.forEach((msgListItem, index) => {
+                        msgListItem.lang = outPut[index] || this.gtrans.defaultLang;
+                    });
+                });
+            }
         }
     }
 
@@ -629,23 +705,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 });
             } else {
                 message.lang = this.gtrans.defaultLang;
-            }
-        } else {
-            const contentArray = [];
-            this.messageList.forEach((msgListItem: ChatMessage) => {
-                if (this.gtrans.validateMessage(msgListItem.content)) {
-                    contentArray.push(msgListItem.content);
-                } else {
-                    msgListItem.lang = this.gtrans.defaultLang;
-                    contentArray.push('');
-                }
-            });
-            if (contentArray.length) {
-                this.gtrans.detectBatch(contentArray).subscribe((outPut) => {
-                    this.messageList.forEach((msgListItem, index) => {
-                        msgListItem.lang = outPut[index] || this.gtrans.defaultLang;
-                    });
-                });
             }
         }
     }
@@ -674,12 +733,12 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 if (userStatus.org_type === OrganizationType.SEWN_ADMIN) {
                     userStatus.org_id = 0;
                 }
-                userStatusMap[`${userStatus.user_id}_${userStatus.org_type}_${userStatus.org_id}`] = userStatus;
+                userStatusMap[`${userStatus.user_id}_${userStatus.org_type}_${userStatus.org_id || 0}`] = userStatus;
             });
             this.threadList.forEach((thread) => {
                 thread.members.forEach((member) => {
                     member.last_seen =
-                        userStatusMap[`${member.user_id}_${member.org_type}_${member.org_id}`]?.last_seen || '';
+                        userStatusMap[`${member.user_id}_${member.org_type}_${member.org_id || 0}`]?.last_seen || '';
                     member.online = userStatusMap[`${member.user_id}_${member.org_type}_${member.org_id}`].online;
                     member.computed_lastseen = this.chatUtil.getReadableTime(member.last_seen || '');
                 });
@@ -731,7 +790,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             const index = this.threadList.findIndex((thread) => thread.id === this.clearThreadReferance.id);
             if (index > -1) {
                 if (this.clearThreadReferance.id === this.openedThread?.id) {
-                    this.messageList = [];
+                    this.openThreadChat(this.openedThread);
                 }
             }
             this.toast.success('Successfully clear the conversation', 'Clear Conversation');
@@ -749,9 +808,13 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.threadList.splice(index, 1);
                 if (this.deleteThreadReferance.id === this.openedThread?.id) {
                     if (this.chatHandler.isExpand.value) {
-                        this.openedThread = this.threadList[0] || null;
+                        if (this.threadList[0]) {
+                            this.openThreadChat(this.threadList[0]);
+                        } else {
+                            this.closeChatPanel();
+                        }
                     } else {
-                        this.openedThread = null;
+                        this.closeChatPanel();
                     }
                 }
             }
@@ -770,9 +833,13 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.threadList.splice(index, 1);
                 if (this.blockThreadReferance.id === this.openedThread?.id) {
                     if (this.chatHandler.isExpand.value) {
-                        this.openedThread = this.threadList[0] || null;
+                        if (this.threadList[0]) {
+                            this.openThreadChat(this.threadList[0]);
+                        } else {
+                            this.closeChatPanel();
+                        }
                     } else {
-                        this.openedThread = null;
+                        this.closeChatPanel();
                     }
                 }
             }
@@ -852,6 +919,17 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             }
         } else {
             console.log('Websocket:Requested-thread Thread: Failure');
+        }
+    }
+
+    handleChatSearchResult(WSmsg: WSResponse<any>) {
+        this.showInlineLoader = false;
+        if (WSmsg.code === 200 && WSmsg.data && WSmsg.data.length) {
+            const rawMessagesList = WSmsg.data.filter((x) => x.activity_type === ThreadActivityType.message);
+
+            console.log('handleChatSearchResult', WSmsg);
+        } else {
+            console.log('Websocket:Search result: Failure');
         }
     }
 
@@ -1202,6 +1280,39 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         });
     };
 
+    chatSearchChange = () => {
+        if (this.chatSearch.keyword.trim()) {
+            const timestamp = this.chatUtil.getTimeStamp();
+            this.chatSearch.lastSentTimeStamp = timestamp;
+            this.showInlineLoader = true;
+            this.socket.directMessageSent.next({
+                timestamp,
+                type: ChatMessageType.searchMessage,
+                data: {
+                    thread_id: this.openedThread.id,
+                    search_query: this.chatSearch.keyword,
+                    rows: this.chatSearch.config.rows,
+                    page: this.chatSearch.page,
+                    per_page: this.chatSearch.config.perPage,
+                },
+            });
+        } else {
+            this.chatSearch.searchResult = [];
+        }
+    };
+
+    chatListScrollListener = () => {
+        this.updateChatMessageBodyElRef();
+        if (!this.showInlineLoader && this.chatMessageBodyElement && this.chatMessageBodyElement.scrollTop === 0) {
+            const totalPage = Math.ceil(this.messageListConfig.totalCount / this.messageListConfig.perPage);
+            if (totalPage > this.messageListConfig.activePage) {
+                this.messageListConfig.activePage++;
+                this.showInlineLoader = true;
+                this.socket.directMessageSent.next(this.getHistoryPayload(this.openedThread));
+            }
+        }
+    };
+
     openThreadWithUser(item: UserListItem | RecentUserListItem) {
         this.showInlineLoader = true;
         const timestamp = this.chatUtil.getTimeStamp();
@@ -1239,10 +1350,10 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     };
 
     openThreadChat(thread: ThreadListItem) {
-        this.messageList = [];
         this.showInlineLoader = true;
-        this.chatMenuOpen = false;
-        this.expandChatSearch = false;
+        this.chatOpenedMessageReset();
+        this.chatUIStateReset();
+        this.chatElRefReset();
         this.openedThread = thread;
         this.socket.directMessageSent.next(this.getHistoryPayload(thread));
         if (this.SM.lastRender && this.SM.lastRender.unsubscribe) {
@@ -1255,7 +1366,17 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
     scrollbottom() {
         this.updateChatMessageBodyElRef();
-        this.chatMessageBodyElement.scrollTop = this.chatMessageBodyElement.scrollHeight;
+        if (this.chatMessageBodyElement) {
+            this.chatMessageBodyElement.scrollTop = this.chatMessageBodyElement.scrollHeight;
+        }
+    }
+    scrollToMessage(elementId: number) {
+        this.updateChatMessageBodyElRef();
+        if (this.chatMessageBodyElement) {
+            const query = `[data-element="messages-item"][data-chat-id="${elementId}"]`;
+            const messageElement = this.chatMessageBodyElement.querySelector(query);
+            messageElement.scrollIntoView(true);
+        }
     }
     getEmojiRender(emoji: string) {
         return '&#x' + emoji + ';';
@@ -1382,8 +1503,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     openExapndView() {
-        this.chatMessageBodyElement = null;
-        this.messageInputElement = null;
+        this.chatElRefReset();
         if (!this.openedThread) {
             if (this.threadList[0]) {
                 this.openThreadChat(this.threadList[0]);
@@ -1419,8 +1539,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     closeExapndView() {
-        this.chatMessageBodyElement = null;
-        this.messageInputElement = null;
+        this.chatElRefReset();
         if (this.SM.lastRender && this.SM.lastRender.unsubscribe) {
             this.SM.lastRender.unsubscribe();
         }
@@ -1454,16 +1573,32 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         }
     }
 
+    chatOpenedMessageReset() {
+        this.messageList = [];
+        this.openedThread = null;
+        this.messageListConfig.activePage = 1;
+        this.messageListConfig.totalCount = 0;
+        this.messageListConfig.lastSentTimeStamp = '';
+    }
+    chatUIStateReset() {
+        if (!this.chatHandler.isExpand.value) {
+            this.chatSearch.reset();
+            this.chatMenuOpen = false;
+        }
+    }
+    chatElRefReset() {
+        this.chatMessageBodyElement = null;
+        this.messageInputElement = null;
+    }
+
     startNewChat() {
+        this.chatElRefReset();
+        this.chatUIStateReset();
         this.recentUserList = [];
         this.usersList = [];
         this.userListLoading = false;
         this.userSearchKeywords = '';
         this.panelVisibility = 'SEARCH_USER';
-        this.chatMessageBodyElement = null;
-        this.messageInputElement = null;
-        this.chatMenuOpen = false;
-        this.expandChatSearch = false;
         this.contextMenuOpen = false;
         this.generateRecentUserList();
         if (this.SM.userPanelRendered && this.SM.userPanelRendered.unsubscribe) {
@@ -1475,13 +1610,11 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     closeBlockedListPanel() {
+        this.chatElRefReset();
+        this.chatUIStateReset();
         this.showInlineLoader = false;
         this.userListLoading = false;
-        this.chatMenuOpen = false;
-        this.expandChatSearch = false;
         this.panelVisibility = 'THREAD';
-        this.chatMessageBodyElement = null;
-        this.messageInputElement = null;
         this.contextMenuOpen = false;
     }
 
@@ -1491,82 +1624,66 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     openBlockedListPanel() {
-        this.chatMenuOpen = false;
-        this.expandChatSearch = false;
+        this.chatElRefReset();
+        this.chatUIStateReset();
         this.panelVisibility = 'BLOCKED_USERS';
         this.blockedUsersList = [];
-        this.chatMessageBodyElement = null;
-        this.messageInputElement = null;
         this.contextMenuOpen = false;
         this.fetchBlockUserList();
     }
 
     closeNewChatPanel() {
-        this.chatMenuOpen = false;
-        this.expandChatSearch = false;
+        this.chatElRefReset();
+        this.chatUIStateReset();
         this.showInlineLoader = false;
         this.recentUserList = [];
         this.usersList = [];
         this.userListLoading = false;
         this.userSearchKeywords = '';
         this.panelVisibility = 'THREAD';
-        this.chatMessageBodyElement = null;
-        this.messageInputElement = null;
         this.contextMenuOpen = false;
     }
 
     closeChatPanel() {
-        this.openedThread = null;
-        this.messageList = [];
-        this.chatMenuOpen = false;
-        this.expandChatSearch = false;
-        this.chatMessageBodyElement = null;
-        this.messageInputElement = null;
+        this.chatOpenedMessageReset();
+        this.chatElRefReset();
+        this.chatUIStateReset();
         this.contextMenuOpen = false;
     }
 
     openUserInfoPanel(thread: ThreadListItem) {
-        this.chatMenuOpen = false;
-        this.expandChatSearch = false;
+        this.chatElRefReset();
+        this.chatUIStateReset();
         this.selectedUser = thread?.computed_targetedUser || null;
         this.panelVisibility = 'USER_DETAILS';
-        this.chatMessageBodyElement = null;
-        this.messageInputElement = null;
         this.contextMenuOpen = false;
     }
+
     closeUserInfoPanel() {
-        this.chatMenuOpen = false;
-        this.expandChatSearch = false;
+        this.chatElRefReset();
+        this.chatUIStateReset();
         this.panelVisibility = 'THREAD';
         this.selectedUser = null;
-        this.chatMessageBodyElement = null;
-        this.messageInputElement = null;
         this.contextMenuOpen = false;
     }
 
     closePanel() {
+        this.chatOpenedMessageReset();
+        this.chatElRefReset();
+        this.chatUIStateReset();
         this.showInlineLoader = false;
         this.panelVisibility = 'THREAD';
-        this.openedThread = null;
-        this.chatMenuOpen = false;
-        this.expandChatSearch = false;
-        this.messageList = [];
         this.chatHandler.isOpen.next(false);
         this.chatHandler.isExpand.next(false);
-        this.chatMessageBodyElement = null;
-        this.messageInputElement = null;
         this.contextMenuOpen = false;
     }
 
     openPanel() {
         this.closeNewChatPanel();
         this.closeUserInfoPanel();
-        this.chatMessageBodyElement = null;
-        this.messageInputElement = null;
-        this.openedThread = null;
-        this.chatMenuOpen = false;
-        this.expandChatSearch = false;
-        this.messageList = [];
+        this.chatOpenedMessageReset();
+        this.chatElRefReset();
+        this.chatUIStateReset();
         this.selectedUser = null;
         this.contextMenuOpen = false;
         if (this.SM.lastRender && this.SM.lastRender.unsubscribe) {

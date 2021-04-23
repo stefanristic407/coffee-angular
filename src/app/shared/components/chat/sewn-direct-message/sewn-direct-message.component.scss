@@ -1,3 +1,4 @@
+@use 'animations';
 :root {
     font-family: 'Muli', sans-serif;
     font-stretch: normal;
@@ -1599,6 +1600,7 @@
         padding: 5px;
         box-shadow: 0 0 14px 0 #0003;
         border: solid 0.2px #ebebeb;
+        border-radius: 5px;
         .dm-hcm-panel-arrow {
             display: inline-block;
             height: 16px;
@@ -1645,20 +1647,54 @@
         }
     }
     .dm-csb-box {
+        position: relative;
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
         align-items: center;
         padding: 8px;
+        flex-wrap: wrap;
         .dm-csb-seach-icon {
+            position: relative;
             display: block;
-            width: 32px;
-            height: 32px;
+            width: 24px;
+            height: 24px;
             cursor: pointer;
         }
         .dm-csb-seach-input {
+            position: relative;
+            display: block;
             flex: 1;
             outline: none;
             border: none;
+        }
+        .dm-csb-seach-controls {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .dm-csb-result-count {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-right: 8px;
+                font-size: 14px;
+                font-weight: 600;
+                line-height: 1.43;
+                letter-spacing: normal;
+                text-align: left;
+                color: #747588;
+                .dm-csb-result-count-block {
+                    margin-right: 8px;
+                }
+            }
+            .dm-csb-control-icon {
+                position: relative;
+                display: block;
+                margin-right: 8px;
+                cursor: pointer;
+                width: 24px;
+                height: 24px;
+            }
         }
     }
 }
@@ -1719,65 +1755,11 @@
     }
 }
 
-.fade-in {
-    -webkit-animation: fade-in 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
-    animation: fade-in 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
-}
-.fade-in-right {
-    -webkit-animation: fade-in-right 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
-    animation: fade-in-right 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
-}
-@-webkit-keyframes fade-in {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-@keyframes fade-in {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-@-webkit-keyframes fade-in-right {
-    0% {
-        -webkit-transform: translateX(50px);
-        transform: translateX(50px);
-        opacity: 0;
-    }
-    100% {
-        -webkit-transform: translateX(0);
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-@keyframes fade-in-right {
-    0% {
-        -webkit-transform: translateX(50px);
-        transform: translateX(50px);
-        opacity: 0;
-    }
-    100% {
-        -webkit-transform: translateX(0);
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-@keyframes getWidth {
-    100% {
-        width: 100%;
-    }
-}
-
 .dialog-image {
     width: 32px;
     height: 32px;
 }
+
 :host {
     ::ng-deep .p-dialog {
         max-width: 400px;

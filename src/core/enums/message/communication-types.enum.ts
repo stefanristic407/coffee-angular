@@ -16,4 +16,5 @@ export enum ChatMessageType {
     getCreate = 'get-create',
     clearChat = 'clear-chat',
     deleteChat = 'delete-chat',
+    searchMessage = 'search-message',
 }

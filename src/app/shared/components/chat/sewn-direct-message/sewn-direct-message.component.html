@@ -29,8 +29,11 @@
                     </div>
                     <div class="dm-exp-chat-section">
                         <ng-container *ngIf="openedThread">
-                            <div class="dm-exp-chat-header" [ngClass]="{ 'dm-exp-ch-search-expand': expandChatSearch }">
-                                <div class="dm-exp-ch-left-panel" *ngIf="!expandChatSearch">
+                            <div
+                                class="dm-exp-chat-header"
+                                [ngClass]="{ 'dm-exp-ch-search-expand': chatSearch.expand }"
+                            >
+                                <div class="dm-exp-ch-left-panel" *ngIf="!chatSearch.expand">
                                     <ng-container *ngTemplateOutlet="headerUserBadgeTL"></ng-container>
                                 </div>
                                 <div class="dm-exp-ch-right-panel">
@@ -38,7 +41,11 @@
                                     <ng-container *ngTemplateOutlet="chatMenuPanelTL"></ng-container>
                                 </div>
                             </div>
-                            <div class="dm-exp-chat-content" data-element="live-chat-message-body">
+                            <div
+                                class="dm-exp-chat-content"
+                                (scroll)="chatListScrollEventSubject.next($event)"
+                                data-element="live-chat-message-body"
+                            >
                                 <div class="dm-exp-chat-wrapper">
                                     <ng-container *ngTemplateOutlet="chatListTL"></ng-container>
                                 </div>
@@ -70,8 +77,8 @@
                         <div class="dm-clp-chat-title-bar">
                             <ng-container *ngTemplateOutlet="listHeaderTL"></ng-container>
                         </div>
-                        <div class="dm-clp-chat-header" [ngClass]="{ 'dm-clp-ch-search-expand': expandChatSearch }">
-                            <div class="dm-clp-ch-left-panel" *ngIf="!expandChatSearch">
+                        <div class="dm-clp-chat-header" [ngClass]="{ 'dm-clp-ch-search-expand': chatSearch.expand }">
+                            <div class="dm-clp-ch-left-panel" *ngIf="!chatSearch.expand">
                                 <img
                                     class="dm-clp-ch-back-arrow-button"
                                     (click)="closeChatPanel()"
@@ -84,7 +91,11 @@
                                 <ng-container *ngTemplateOutlet="chatMenuPanelTL"></ng-container>
                             </div>
                         </div>
-                        <div class="dm-clp-chat-content" data-element="live-chat-message-body">
+                        <div
+                            class="dm-clp-chat-content"
+                            (scroll)="chatListScrollEventSubject.next($event)"
+                            data-element="live-chat-message-body"
+                        >
                             <div class="dm-clp-chat-wrapper">
                                 <ng-container *ngTemplateOutlet="chatListTL"></ng-container>
                             </div>
@@ -370,19 +381,33 @@
     </div>
 </ng-template>
 <ng-template #searchBoxTL>
-    <div class="dm-chat-search-box" [ngClass]="{ 'dm-csb-box-active': expandChatSearch }">
-        <div class="dm-csb-box">
-            <img
-                src="assets/images/search.svg"
-                (click)="expandChatSearch = !expandChatSearch"
-                class="dm-csb-seach-icon"
-            />
-            <ng-container *ngIf="expandChatSearch">
-                <input class="dm-csb-seach-input" type="text" placeholder="Search messages" />
+    <div class="dm-chat-search-box" [ngClass]="{ 'dm-csb-box-active': chatSearch.expand }">
+        <div class="dm-csb-box" [ngClass]="{ 'swing-in-right-fwd': chatSearch.expand }">
+            <img src="assets/images/search.svg" (click)="chatSearch.toggle()" class="dm-csb-seach-icon" />
+            <ng-container *ngIf="chatSearch.expand">
+                <input
+                    class="dm-csb-seach-input"
+                    (keydown)="chatSearch.escAction($event)"
+                    (input)="chatSearch.inputSubject.next($event)"
+                    [(ngModel)]="chatSearch.keyword"
+                    type="text"
+                    placeholder="Search messages"
+                />
                 <div class="dm-csb-seach-controls">
-                    <img src="assets/images/dm-seach-down-arrow.svg" class="dm-csb-control-icon" />
-                    <img src="assets/images/dm-seach-up-arrow.svg" class="dm-csb-control-icon" />
-                    <img src="assets/images/dm-search-cancel.svg" class="dm-csb-control-icon" />
+                    <ng-container *ngIf="chatSearch.searchResult.length">
+                        <div class="dm-csb-result-count">
+                            <div class="dm-csb-result-count-block">2</div>
+                            <div class="dm-csb-result-count-block">results</div>
+                        </div>
+                        <img src="assets/images/dm-seach-down-arrow.svg" class="dm-csb-control-icon" />
+                        <img src="assets/images/dm-seach-up-arrow.svg" class="dm-csb-control-icon" />
+                    </ng-container>
+                    <img
+                        *ngIf="chatSearch.keyword"
+                        (click)="chatSearch.clear()"
+                        src="assets/images/dm-search-cancel.svg"
+                        class="dm-csb-control-icon"
+                    />
                 </div>
             </ng-container>
         </div>
@@ -397,7 +422,7 @@
             (click)="toggleChatMenu()"
             alt="Menu"
         />
-        <div class="dm-hcm-panel" *ngIf="chatMenuOpen">
+        <div class="dm-hcm-panel tilt-in-fwd-tr" *ngIf="chatMenuOpen">
             <span class="dm-hcm-panel-arrow"></span>
             <div class="dm-hcm-menu-wrapper">
                 <div class="dm-hcm-menu-item" (click)="menuAction('BLOCK')">Block User</div>
@@ -544,6 +569,7 @@
         class="dm-chat-item-wrapper"
         *ngFor="let message of messageList; let last = last"
         [attr.data-chat-id]="message.id"
+        data-element="messages-item"
     >
         <div *ngIf="message.showDateBadge" class="dm-ci-date-box">
             <div class="dm-ci-date-bar"></div>
@@ -575,7 +601,7 @@
                         <img class="dm-ci-content-image" [src]="message?.file?.url" alt="Image" />
                     </a>
                     <div *ngIf="message.showTranslation === 'OFF'" class="dm-ci-content-text">
-                        {{ message.content }}
+                        {{ message.content || '_' }}
                     </div>
                     <div *ngIf="message.showTranslation === 'ON'" class="dm-ci-content-text">
                         {{ message.translatedText }}
