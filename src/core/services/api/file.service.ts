@@ -5,6 +5,7 @@ import { environment } from '@env/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { ApiResponse } from '@models';
 import { Observable } from 'rxjs';
+import { OrganizationType } from '@enums';
 
 @Injectable({
     providedIn: 'root',
@@ -28,7 +29,7 @@ export class FileService extends ApiService {
         for (let i = 0; i < byteString.length; i++) {
             ia[i] = byteString.charCodeAt(i);
         }
-        return new Blob([ab], {type: mimeString});
+        return new Blob([ab], { type: mimeString });
     }
 
     // ------------ Farmlink Folders ------------
@@ -124,5 +125,10 @@ export class FileService extends ApiService {
     getAllFiles(query?: object) {
         const params = this.serializeParams(query);
         return this.postWithOrg(this.orgPostUrl, `file-manager/all-files?${params}`, 'GET');
+    }
+
+    getGeneralFiles(orgId: any, orgType: OrganizationType, query?: object): Observable<any> {
+        const params = this.serializeParams(query);
+        return this.post(this.orgPostUrl, `${orgType}/${orgId}/file-manager/all-files?${params}`, 'GET');
     }
 }
