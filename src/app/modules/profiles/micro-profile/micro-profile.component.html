@@ -11,10 +11,7 @@
     <div class="p-0">
         <div class="d-flex justify-content-between">
             <div class="w-100 text-center text-md-left">
-                <p *ngIf="isSaveMode" class="fnt-16 fnt-md-18 mb-0 mb-3 fnt-bold text-clr334 text-center text-md-left">
-                    {{ subProfileForm.controls.name.value }}
-                </p>
-                <p *ngIf="!isSaveMode" class="fnt-16 fnt-md-18 mb-0 mb-3 fnt-bold text-clr334 text-center text-md-left">
+                <p class="fnt-16 fnt-md-18 mb-0 mb-3 fnt-bold text-clr334 text-center text-md-left">
                     {{ profileCreationService.roasteryProfileData?.name }}
                 </p>
             </div>
@@ -23,29 +20,9 @@
         <div class="profile-header-details border-md-main br-4 position-relative">
             <img
                 class="cover-image-profile-banner w-100"
-                *ngIf="isSaveMode && profileCreationService.bannerUrl"
-                [src]="profileCreationService.bannerUrl"
-                height="160"
-            />
-            <img
-                class="cover-image-profile-banner w-100"
-                *ngIf="isSaveMode && !profileCreationService.bannerUrl"
                 [src]="profileCreationService.roasteryProfileData?.banner_url || 'assets/images/blank.png'"
                 height="160"
             />
-            <div
-                class="cover-pic text-center"
-                *ngIf="
-                    isSaveMode &&
-                    !profileCreationService.roasteryProfileData?.banner_url &&
-                    !profileCreationService.bannerUrl
-                "
-            >
-                <p class="fnt-12 fnt-md-14 font-bold text-clr588 pt-0 pt-md-2 mb-1">
-                    {{ 'add_cover_image' | translate }}
-                </p>
-                <p class="fnt-12 fnt-md-14 font-bold text-clr588 m-0">{{ 'dimension' | translate }} 1144 x 160</p>
-            </div>
 
             <img
                 class="cover-image-profile-banner w-100"
@@ -116,7 +93,7 @@
                     </div>
                 </ng-template>
             </p-tabPanel>
-            <p-tabPanel header="Contact">
+            <p-tabPanel header="Reviews">
                 <ng-template pTemplate="content">
                     <div class="mb-3 mb-md-0 mt-3 mt-md-0">
                         <app-micro-reviews [microRoasterId]="microRoasterId"></app-micro-reviews>

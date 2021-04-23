@@ -12,22 +12,7 @@ import { ActivatedRoute } from '@angular/router';
     styleUrls: ['./micro-profile.component.scss'],
 })
 export class MicroProfileComponent implements OnInit, OnDestroy {
-    menuItems = [
-        {
-            label: 'about_micro_roastery',
-            routerLink: '/profile-creation/about-micro-roastery',
-        },
-        { label: 'virtual_tour', routerLink: '/profile-creation/virtual-tour' },
-        { label: 'contact', routerLink: '/profile-creation/contact' },
-        { label: 'reviews', routerLink: '/profile-creation/reviews' },
-    ];
-    breadItems = [{ label: 'home', routerLink: '/' }, { label: 'Roastery Profile' }];
-    isSaveMode: boolean;
-    isEditMode: boolean;
-
-    subProfileForm: FormGroup;
-    isShowAvatarModal: boolean;
-    isAdminRole = false;
+    breadItems = [{ label: 'home', routerLink: '/' }, { label: 'Micro Roastery Profile' }];
     microRoasterId: string;
     tabIndex: number;
 
