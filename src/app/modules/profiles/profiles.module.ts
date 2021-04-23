@@ -17,6 +17,7 @@ import { EstateReviewsComponent } from './estate-profile/estate-reviews/estate-r
 import { EstateContactComponent } from './estate-profile/estate-contact/estate-contact.component';
 import { EstateAboutComponent } from './estate-profile/estate-about/estate-about.component';
 import { EstateVirtulTourComponent } from './estate-profile/estate-virtul-tour/estate-virtul-tour.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
     declarations: [
@@ -40,6 +41,7 @@ import { EstateVirtulTourComponent } from './estate-profile/estate-virtul-tour/e
         RatingModule,
         SharedModule,
         NgxChartsModule,
+        GoogleMapsModule,
     ],
 })
 export class ProfilesModule {}
