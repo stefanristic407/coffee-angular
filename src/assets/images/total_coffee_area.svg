@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="38" height="39" viewBox="0 0 38 39">
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <path d="M0 0H38V38H0z" transform="translate(-353 -1399) translate(353 1400)"/>
+                <g stroke="#A88057" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.164">
+                    <path d="M10.209 7.024c.556 4.231-1.255 7.958-4.047 8.325C3.371 15.717.657 12.585.1 8.355-.456 4.124 1.355.396 4.147.029c.698-.092 1.39.035 2.046.343 1.968.924 3.598 3.48 4.016 6.652z" transform="translate(-353 -1399) translate(353 1400) rotate(-86 24.138 3.795)"/>
+                    <path d="M5.466 3.452c-.525 1.547-.854 3.646-.094 5.891 1.535 4.534-.835 5.835-.835 5.835" transform="translate(-353 -1399) translate(353 1400) rotate(-86 24.138 3.795)"/>
+                </g>
+                <g stroke="#A88057" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.164">
+                    <path d="M10.209 7.024c.556 4.231-1.255 7.958-4.047 8.325C3.371 15.717.657 12.585.1 8.355-.456 4.124 1.355.396 4.147.029c.698-.092 1.39.035 2.046.343 1.968.924 3.598 3.48 4.016 6.652z" transform="translate(-353 -1399) translate(353 1400) rotate(-30 43.454 8.17)"/>
+                    <path d="M5.466 3.452c-.525 1.547-.854 3.646-.094 5.891 1.535 4.534-.835 5.835-.835 5.835" transform="translate(-353 -1399) translate(353 1400) rotate(-30 43.454 8.17)"/>
+                </g>
+                <g stroke="#A88057" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.164">
+                    <path d="M10.209 7.024c.556 4.231-1.255 7.958-4.047 8.325C3.371 15.717.657 12.585.1 8.355-.456 4.124 1.355.396 4.147.029c.698-.092 1.39.035 2.046.343 1.968.924 3.598 3.48 4.016 6.652z" transform="translate(-353 -1399) translate(353 1400) rotate(45 8.086 21.071)"/>
+                    <path d="M5.466 3.452c-.525 1.547-.854 3.646-.094 5.891 1.535 4.534-.835 5.835-.835 5.835" transform="translate(-353 -1399) translate(353 1400) rotate(45 8.086 21.071)"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

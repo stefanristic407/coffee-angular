@@ -6,25 +6,18 @@
         <div class="col-lg-8 col-12 pt-0 pl-2 pr-2">
             <div class="border-md-main br-4 p-lg-4 p-md-3">
                 <div class="row border-md-main border-md-none br-6 mt-3 m-0 p-0 p-md-0 mr-md-0 ml-md-0">
-                    <div
-                        class="sewn-form-field col-md-6 m-0 pl-0 pr-md-2 pr-0 pt-0 pt-md-0"
-                        [ngClass]="[isSaveMode ? 'col-12' : 'col-6']"
-                    >
-                        <label [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12 fnt-md-14']" for="founded_in">
+                    <div class="sewn-form-field col-6 col-md-6 m-0 pl-0 pr-md-2 pr-0 pt-0 pt-md-0">
+                        <label class="fnt-12 fnt-md-14" for="founded_in">
                             {{ 'founded_in' | translate }}
-                            <span class="star" *ngIf="isSaveMode">*</span>
                         </label>
                         <p class="fnt-14 fnt-600 text-clr334 mb-1">
                             {{ profileCreationService.roasteryProfileData?.founded_on }}
                         </p>
                     </div>
 
-                    <div
-                        class="sewn-form-field col-md-6 mt-md-0 mb-0 pl-0 pr-0 pl-md-2"
-                        [ngClass]="[isSaveMode ? 'col-12 mt-3' : 'col-6 mt-0']"
-                    >
-                        <label [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12 fnt-md-14']" for="owner_name">
-                            {{ 'owner_name' | translate }}<span class="star" *ngIf="isSaveMode">*</span>
+                    <div class="sewn-form-field col-6 mt-0 col-md-6 mt-md-0 mb-0 pl-0 pr-0 pl-md-2">
+                        <label class="fnt-12 fnt-md-14" for="owner_name">
+                            {{ 'owner_name' | translate }}
                         </label>
                         <p class="fnt-14 fnt-600 text-clr334 mb-1">
                             {{ profileCreationService.roasteryProfileData?.owner_name }}
@@ -36,58 +29,10 @@
                     class="row border-md-main border-md-none br-4 mb-3 mb-md-45 m-0 mt-3 mt-md-0 p-0 p-md-0 mr-md-0 ml-md-0"
                 >
                     <div class="sewn-form-field col-md-12 mt-md-45 p-0 mb-0">
-                        <label [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12 fnt-md-14']" for="summary"
-                            >{{ 'roastery_summary' | translate }}
-                            <span class="pull-right text-clr588" *ngIf="isSaveMode">
-                                {{ aboutForm.get('description').value | wordCount }}/150 words
-                            </span>
-                        </label>
+                        <label class="fnt-12 fnt-md-14" for="summary">{{ 'roastery_summary' | translate }} </label>
                         <p class="fnt-14 fnt-600 text-clr334">
                             {{ profileCreationService.roasteryProfileData?.description }}
                         </p>
-                    </div>
-                </div>
-                <hr class="mb-4 mt-4" *ngIf="isSaveMode" />
-
-                <div class="row mt-md-45" *ngIf="isSaveMode">
-                    <div class="col-12 mb-3 mb-md-45">
-                        <p class="fnt-18 font-bold text-clr334 w-100 mb-1">
-                            {{ 'employee_details' | translate }}
-                        </p>
-                        <p class="fnt-14 fnt-600 text-clr588 w-100 m-0">{{ 'give_overview_text' | translate }}.</p>
-                    </div>
-                </div>
-
-                <div class="row mb-md-3" *ngIf="isSaveMode">
-                    <div class="sewn-form-field col-12 col-md-6 pr-md-2 mb-3 mb-md-4">
-                        <label for="employee_nos">
-                            {{ 'total_number_employees' | translate }}
-                            <span class="star">*</span>
-                        </label>
-                    </div>
-                    <div class="sewn-form-field col-12 col-md-6 pl-md-2 mb-3 mb-md-4">
-                        <label for="employee_avg">
-                            {{ 'average_employee_age' | translate }}
-                            <span class="star">*</span>
-                        </label>
-                    </div>
-                </div>
-                <span class="fnt-14 font-bold text-clr334" *ngIf="isSaveMode">
-                    {{ 'gender_distribution' | translate }}
-                    <span class="star">*</span>
-                </span>
-                <div class="row" *ngIf="isSaveMode">
-                    <div class="sewn-form-field col-12 col-md-6 pr-md-2 mb-3 mb-md-4">
-                        <label for="female_num">
-                            {{ 'total_number_female_employees' | translate }}
-                            <span class="star">*</span>
-                        </label>
-                    </div>
-                    <div class="sewn-form-field col-12 col-md-6 pl-md-2 mb-3 mb-md-4">
-                        <label for="male_num">
-                            {{ 'total_number_male_employees' | translate }}
-                            <span class="star">*</span>
-                        </label>
                     </div>
                 </div>
 
@@ -101,36 +46,16 @@
                 <div class="row border-md-main border-md-none br-4 mt-md-45 mb-2 m-0 p-0 p-md-0">
                     <div class="col-9 mb-3 mb-md-45 p-0">
                         <p class="fnt-18 font-bold text-clr334 w-100 mb-1">Company details</p>
-                        <p class="fnt-14 fnt-600 text-clr588 w-100 m-0" *ngIf="isSaveMode">
-                            Enter your VAT and customer ID for billing purposes
-                        </p>
-                    </div>
-                    <div class="col-3 text-right p-0" *ngIf="isSaveMode">
-                        <p class="fnt-14 fnt-600 text-clr588 w-100 mb-2 text-clr588">Private</p>
-                        <!-- <p-inputSwitch
-                                styleClass="custom-input-switch"
-                                formControlName="company_details_public"
-                            ></p-inputSwitch> -->
                     </div>
 
-                    <div
-                        class="sewn-form-field col-md-6 p-0 pr-md-2 mb-3 mb-md-4"
-                        [ngClass]="[isSaveMode ? 'col-12' : 'col-6']"
-                    >
-                        <label [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12 fnt-md-14']" for="vat_nos"
-                            >VAT number<span class="star" *ngIf="isSaveMode">*</span></label
-                        >
+                    <div class="sewn-form-field col-6 col-md-6 p-0 pr-md-2 mb-3 mb-md-4">
+                        <label class="fnt-12 fnt-md-14" for="vat_nos">VAT number</label>
                         <p class="fnt-14 fnt-600 text-clr334 mb-0">
                             {{ profileCreationService.roasteryProfileData?.vat_number }}
                         </p>
                     </div>
-                    <div
-                        class="sewn-form-field col-md-6 p-0 pl-md-2 mb-0 mb-md-4"
-                        [ngClass]="[isSaveMode ? 'col-12' : 'col-6']"
-                    >
-                        <label for="cmpy_rid" [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12 fnt-md-14']"
-                            >Company registration ID<span class="star" *ngIf="isSaveMode">*</span></label
-                        >
+                    <div class="sewn-form-field col-6 col-md-6 p-0 pl-md-2 mb-0 mb-md-4">
+                        <label for="cmpy_rid" class="fnt-12 fnt-md-14">Company registration ID</label>
                         <p class="fnt-14 fnt-600 text-clr334 mb-0">
                             {{ profileCreationService.roasteryProfileData?.registration_id }}
                         </p>
@@ -143,9 +68,6 @@
                     <div class="col-12 p-0">
                         <p class="fnt-18 font-bold text-clr334 w-100 mb-1">
                             {{ 'roastery_capabilities' | translate }}
-                        </p>
-                        <p class="fnt-14 fnt-600 text-clr588 w-100 m-0" *ngIf="isSaveMode">
-                            {{ 'tell_us_capability_text' | translate }}.
                         </p>
                         <p class="fnt-14 fnt-600 text-clr588 w-100 m-0">
                             {{ 'our_roastery_capabilities_storage' | translate }}.
@@ -184,10 +106,7 @@
                         [ngClass]="[i === branches.length - 1 ? ' mb-0' : ' mb-25']"
                     >
                         <div class="brand-item-container">
-                            <div
-                                class="border-main br-4 brand-item pl-md-3 p-md-4 d-flex align-items-center"
-                                [ngClass]="{ 'mr-3125': isSaveMode }"
-                            >
+                            <div class="border-main br-4 brand-item pl-md-3 p-md-4 d-flex align-items-center">
                                 <div class="brand-meta-container">
                                     <p class="fnt-16 font-bold text-clr334 mb-2">
                                         {{ branch.name }}
@@ -209,17 +128,6 @@
                 </div>
 
                 <hr class="mt-0 mb-0" />
-
-                <div class="" *ngIf="isSaveMode">
-                    <div class="row mt-3 mb-md-4 mb-3">
-                        <div class="col-12">
-                            <p class="fnt-18 font-bold text-clr334 w-100 mb-1">
-                                {{ 'contacts' | translate }}<span class="star">*</span>
-                            </p>
-                            <p class="fnt-14 fnt-600 text-clr588 w-100 m-0 mb-0">{{ 'list_contacts' | translate }}!</p>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="d-block">
                     <div class="employer mt-4">
@@ -278,7 +186,7 @@
                     <div class="col-12">
                         <div
                             class="w-100 certification-item-container d-flex justify-content-between"
-                            [ngClass]="{ 'border-div': i !== certificatesArray.length - 1 || isSaveMode }"
+                            [ngClass]="{ 'border-div': i !== certificatesArray.length - 1 }"
                         >
                             <div class="certification-item-metadata d-flex">
                                 <img class="img-estate" src="assets/images/certificate.svg" alt="User" />
@@ -293,18 +201,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div
-                    class="add-brand-div p-25 p-md-4"
-                    *ngIf="
-                        this.globals.checkItem('certificate-management') &&
-                        this.globals.permissions['certificate-management'].manage &&
-                        isSaveMode
-                    "
-                >
-                    <a class="brand-tag add-link" routerLink="/micro-roastery-profile/certificate">
-                        <span class="add-text ml-4">{{ 'add_another_certificate' | translate }}</span>
-                    </a>
                 </div>
             </div>
         </div>

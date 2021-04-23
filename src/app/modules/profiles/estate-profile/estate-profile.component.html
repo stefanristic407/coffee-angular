@@ -1,4 +1,4 @@
-<div class="main-block">
+<div class="bg-fff pl-lg-5 pr-lg-5 pt-lg-45 pb-lg-325 p-md-3">
     <div class="w-100 d-flex justify-content-between mb-3">
         <div class="d-none d-md-block">
             <p-breadcrumb [model]="breadItems">
@@ -12,7 +12,7 @@
         <div class="d-flex justify-content-between">
             <div class="w-100 text-center text-md-left">
                 <p class="fnt-16 fnt-md-18 mb-0 mb-3 fnt-bold text-clr334 text-center text-md-left">
-                    {{ profileCreationService.roasteryProfileData?.name }}
+                    {{ profileCreationService.organizationProfile?.name }}
                 </p>
             </div>
         </div>
@@ -20,52 +20,32 @@
         <div class="profile-header-details border-md-main br-4 position-relative">
             <img
                 class="cover-image-profile-banner w-100"
-                [src]="profileCreationService.roasteryProfileData?.banner_url || 'assets/images/blank.png'"
-                height="160"
-            />
-
-            <img
-                class="cover-image-profile-banner w-100"
-                *ngIf="!profileCreationService.roasteryProfileData?.banner_url"
-                src="assets/images/blank.png"
-                height="160"
-            />
-            <img
-                class="cover-image-profile-banner w-100"
-                *ngIf="profileCreationService.roasteryProfileData?.banner_url"
-                [src]="profileCreationService.roasteryProfileData?.banner_url"
-                alt="profile banner image"
+                [src]="profileCreationService.organizationProfile?.banner_url || 'assets/images/blank.png'"
                 height="160"
             />
         </div>
         <div class="profile-description-container">
-            <div
-                class="profile-avatar bg-fff"
-                [ngClass]="{ 'border-main': !profileCreationService.roasteryProfileData?.company_image_url }"
-            >
-                <img
-                    [src]="profileCreationService.roasteryProfileData?.company_image_url"
-                    *ngIf="profileCreationService.roasteryProfileData?.company_image_url"
-                    class="avatar-img"
-                />
+            <div class="profile-avatar bg-fff">
+                <img [src]="profileCreationService.organizationProfile?.company_image_url" class="avatar-img" />
             </div>
+
             <div class="profile-metadata-container pl-3 pr-3 pb-3 p-md-0">
                 <p class="fnt-18 font-bold text-clr334 d-none d-md-block m-0 pt-4">
-                    {{ profileCreationService.roasteryProfileData?.name }}
+                    {{ profileCreationService.organizationProfile?.name }}
                 </p>
                 <a
                     class="d-md-none font-16 text-clr334 font-bold"
-                    href="{{ profileCreationService.roasteryProfileData?.website }}"
+                    href="{{ profileCreationService.organizationProfile?.website }}"
                     target="blank"
-                    >{{ profileCreationService.roasteryProfileData?.name }}</a
+                    >{{ profileCreationService.organizationProfile?.name }}</a
                 >
                 <p class="fnt-14 text-clr334 mt-2 font-bold d-md-none underline">
-                    {{ profileCreationService.roasteryProfileData?.website }}
+                    {{ profileCreationService.organizationProfile?.website }}
                 </p>
                 <p class="fnt-14 text-clr588 mt-2 font-bold d-none d-md-block">
-                    {{ profileCreationService.roasteryProfileData?.website }}
+                    {{ profileCreationService.organizationProfile?.website }}
                 </p>
-                <a target="blank" href="{{ profileCreationService.roasteryProfileData?.website }}" #link hidden></a>
+                <a target="blank" href="{{ profileCreationService.organizationProfile?.website }}" #link hidden></a>
             </div>
         </div>
     </div>
@@ -76,27 +56,27 @@
         <p-tabView [(activeIndex)]="tabIndex">
             <p-tabPanel header="About Company">
                 <ng-template pTemplate="content">
-                    <app-micro-about [microRoasterId]="microRoasterId"></app-micro-about>
+                    <app-estate-about [estateId]="estateId"></app-estate-about>
                 </ng-template>
             </p-tabPanel>
             <p-tabPanel header="Virtual Tour">
                 <ng-template pTemplate="content">
                     <div class="mb-3 mb-md-0 mt-3 mt-md-0">
-                        <app-micro-virtual-tour [microRoasterId]="microRoasterId"></app-micro-virtual-tour>
+                        <app-estate-virtul-tour [estateId]="estateId"></app-estate-virtul-tour>
                     </div>
                 </ng-template>
             </p-tabPanel>
             <p-tabPanel header="Contact">
                 <ng-template pTemplate="content">
                     <div class="mb-3 mb-md-0 mt-3 mt-md-0">
-                        <app-micro-contact></app-micro-contact>
+                        <app-estate-contact></app-estate-contact>
                     </div>
                 </ng-template>
             </p-tabPanel>
             <p-tabPanel header="Reviews">
                 <ng-template pTemplate="content">
                     <div class="mb-3 mb-md-0 mt-3 mt-md-0">
-                        <app-micro-reviews [microRoasterId]="microRoasterId"></app-micro-reviews>
+                        <app-estate-reviews [estateId]="estateId"></app-estate-reviews>
                     </div>
                 </ng-template>
             </p-tabPanel>

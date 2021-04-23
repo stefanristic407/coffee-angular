@@ -6,19 +6,19 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { COUNTRY_LIST } from '@constants';
 import { BehaviorSubject } from 'rxjs';
-import { MicroOrganizationProfile } from '@models';
+import { EstateOrganizationProfile, MicroOrganizationProfile } from '@models';
 import { OrganizationType } from '@enums';
 
 @Injectable({
     providedIn: 'root',
 })
-export class MicroProfileService {
-    public roasteryProfileData: MicroOrganizationProfile;
-
-    userId: string;
-    roasterContacts: any = [];
-    single: { name: string; value: any }[];
+export class EstateProfileService {
     roasterId: string;
+    userId: string;
+    estateUsers: any = [];
+    estateContacts: any = [];
+    single: { name: string; value: any }[];
+    public organizationProfile: EstateOrganizationProfile;
 
     constructor(
         public userService: UserserviceService,
@@ -31,36 +31,37 @@ export class MicroProfileService {
         this.roasterId = this.cookieService.get('roaster_id');
     }
 
-    roasterProfile(microRoasterId) {
-        this.userService.getMicroDetails(this.roasterId, microRoasterId).subscribe((result: any) => {
-            console.log('micro roaster details: ', result);
+    estateProfile(estateId) {
+        this.userService.getEstateDetails(this.roasterId, estateId).subscribe((result: any) => {
             if (result.success) {
-                this.roasteryProfileData = result.result;
+                this.organizationProfile = result.result;
+                console.log('estate details: ', this.organizationProfile);
+
                 this.single = [
                     {
-                        name: 'Female',
-                        value: this.roasteryProfileData.female_employee_count
-                            ? this.roasteryProfileData.female_employee_count
+                        name: 'Full time',
+                        value: this.organizationProfile.full_time_employee_count
+                            ? this.organizationProfile.full_time_employee_count
                             : 0,
                     },
                     {
-                        name: 'Male',
-                        value: this.roasteryProfileData.male_employee_count
-                            ? this.roasteryProfileData.male_employee_count
+                        name: 'Part time',
+                        value: this.organizationProfile.part_time_employee_count
+                            ? this.organizationProfile.part_time_employee_count
                             : 0,
                     },
                 ];
             }
         });
 
-        this.getcontactList(microRoasterId);
+        this.getcontactList(estateId);
     }
 
-    getcontactList(microRoasterId) {
-        this.userService.getGeneralContactList(microRoasterId, OrganizationType.MICRO_ROASTER).subscribe((res: any) => {
+    getcontactList(estateId) {
+        this.userService.getGeneralContactList(estateId, OrganizationType.ESTATE).subscribe((res: any) => {
             if (res.success) {
-                this.roasterContacts = res.result;
-                console.log(this.roasterContacts);
+                this.estateContacts = res.result;
+                console.log(this.estateContacts);
             }
         });
     }

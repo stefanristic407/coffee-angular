@@ -12,6 +12,11 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { RatingModule } from 'ng-starrating';
 import { SharedModule } from '@app/shared';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { EstateProfileComponent } from './estate-profile/estate-profile.component';
+import { EstateReviewsComponent } from './estate-profile/estate-reviews/estate-reviews.component';
+import { EstateContactComponent } from './estate-profile/estate-contact/estate-contact.component';
+import { EstateAboutComponent } from './estate-profile/estate-about/estate-about.component';
+import { EstateVirtulTourComponent } from './estate-profile/estate-virtul-tour/estate-virtul-tour.component';
 
 @NgModule({
     declarations: [
@@ -21,6 +26,11 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
         MicroContactComponent,
         MicroReviewsComponent,
         MicroVirtualTourComponent,
+        EstateProfileComponent,
+        EstateAboutComponent,
+        EstateReviewsComponent,
+        EstateContactComponent,
+        EstateVirtulTourComponent,
     ],
     imports: [
         CommonModule,
