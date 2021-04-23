@@ -35,6 +35,8 @@ export class CreateAnswerComponent implements OnInit {
     }
 
     onPost(status: string): void {
+        console.log('content >>>>>>>>>>>>>', this.content);
+        // return;
         if (!this.content) {
             this.toastrService.error('Please type your answer.');
             return;
@@ -52,7 +54,7 @@ export class CreateAnswerComponent implements OnInit {
             console.log('post question result >>>', res);
             if (res.success) {
                 this.toastrService.success('You have posted an answer successfully.');
-                this.location.back();
+                this.router.navigate(['../']);
             } else {
                 this.toastrService.error('Failed to post question.');
             }

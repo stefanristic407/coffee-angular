@@ -4,13 +4,82 @@
 
 <div *ngIf="!isLoading">
     <div class="bg-f8 py-4">
-        <p-tabView class="toggle" styleClass="inner-menu mt-3">
+        <p-tabView>
             <p-tabPanel [header]="'translation' | translate">
-                <div class="p-4 bg-f8">Translation</div>
+                <div class="p-4 bg-f8">
+                    <form [formGroup]="form">
+                        <div class="sewn-form-field language-container mb-4">
+                            <p-dropdown
+                                [options]="applicationLanguages"
+                                class="w-100"
+                                formControlName="language"
+                                required
+                                [placeholder]="'select_translation_language' | translate"
+                                optionLabel="label"
+                                optionValue="value"
+                            ></p-dropdown>
+                            <div *ngIf="form.controls.language.invalid" class="p-error">Required field</div>
+                        </div>
+                        <div class="sewn-form-field w-100 mb-4">
+                            <input
+                                class="w-100"
+                                type="text"
+                                pInputText
+                                [placeholder]="'translate_the_question' | translate"
+                                formControlName="question"
+                            />
+                        </div>
+                        <div>
+                            <app-forum-editor
+                                [(content)]="translatedAnswer"
+                                [(isUploadingImage)]="isUploadingImage"
+                                [(imageIdList)]="imageIdList"
+                                fileModule="qa-forum"
+                                [placeholder]="'leave_an_answer_bla' | translate"
+                            ></app-forum-editor>
+                        </div>
+                    </form>
+                </div>
             </p-tabPanel>
             <p-tabPanel [header]="'see_original_post' | translate">
-                <div class="p-4 bg-f8">See original post</div>
+                <div class="p-4 bg-f8">
+                    <div class="border-main bg-white p-3 br-4 fnt-14 fnt-muli text-clr334 mb-4">
+                        <div class="font-weight-bold mb-3">{{ 'original_question' | translate }}:</div>
+                        <div>What are coffee profiles? How many flabour profiles a coffee can have?</div>
+                    </div>
+                    <div class="border-main bg-white p-4 br-4">
+                        <div class="font-weight-bold mb-3">
+                            {{ 'translating_answer_by' | translate }} {{ this.authService.currentUser.firstname }}
+                        </div>
+                        <app-origin-post [content]="answer.answer"></app-origin-post>
+                    </div>
+                </div>
             </p-tabPanel>
         </p-tabView>
+        <div class="row mt-2 px-4">
+            <div class="col-md-6 order-2 order-md-1">
+                <button routerLink="/coffee-lab/overview/qa-forum" class="btn-stroked px-4 w-mob-100 mb-2 mb-md-0">
+                    {{ 'cancel' | translate }}
+                </button>
+            </div>
+            <div class="col-md-6 order-1 order-md-2">
+                <div class="d-flex justify-content-end flex-column flex-md-row">
+                    <button
+                        [disabled]="isPosting || isUploadingImage"
+                        (click)="onPost('DRAFT')"
+                        class="btn-stroked px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0"
+                    >
+                        {{ 'save_as_draft' | translate }}
+                    </button>
+                    <button
+                        [disabled]="isPosting || isUploadingImage"
+                        (click)="onPost('PUBLISHED')"
+                        class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
+                    >
+                        {{ 'submit' | translate }}
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
