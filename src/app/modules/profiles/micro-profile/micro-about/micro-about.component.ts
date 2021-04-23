@@ -21,7 +21,6 @@ export class MicroAboutComponent implements OnInit {
     constructor(
         public profileCreationService: MicroProfileService,
         public userService: UserserviceService,
-        private cookieService: CookieService,
         private toastrService: ToastrService,
         public globals: GlobalsService,
         public roasterService: RoasterserviceService,
