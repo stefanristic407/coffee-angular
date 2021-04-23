@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-estate-about',
-  templateUrl: './estate-about.component.html',
-  styleUrls: ['./estate-about.component.scss']
+    selector: 'app-estate-about',
+    templateUrl: './estate-about.component.html',
+    styleUrls: ['./estate-about.component.scss'],
 })
 export class EstateAboutComponent implements OnInit {
+    @Input() estateId;
 
-  constructor() { }
+    constructor() {}
 
-  ngOnInit(): void {
-  }
-
+    ngOnInit(): void {}
 }

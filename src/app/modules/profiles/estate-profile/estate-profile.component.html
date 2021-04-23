@@ -1,1 +1,85 @@
-<p>estate-profile works!</p>
+<div class="bg-fff pl-lg-5 pr-lg-5 pt-lg-45 pb-lg-325 p-md-3">
+    <div class="w-100 d-flex justify-content-between mb-3">
+        <div class="d-none d-md-block">
+            <p-breadcrumb [model]="breadItems">
+                <ng-template pTemplate="item" let-item let-i="index">
+                    {{ item.label | translate }}
+                </ng-template>
+            </p-breadcrumb>
+        </div>
+    </div>
+    <div class="p-0">
+        <div class="d-flex justify-content-between">
+            <div class="w-100 text-center text-md-left">
+                <p class="fnt-16 fnt-md-18 mb-0 mb-3 fnt-bold text-clr334 text-center text-md-left">
+                    {{ profileCreationService.organizationProfile?.name }}
+                </p>
+            </div>
+        </div>
+
+        <div class="profile-header-details border-md-main br-4 position-relative">
+            <img
+                class="cover-image-profile-banner w-100"
+                [src]="profileCreationService.organizationProfile?.banner_url || 'assets/images/blank.png'"
+                height="160"
+            />
+        </div>
+        <div class="profile-description-container">
+            <div class="profile-avatar bg-fff">
+                <img [src]="profileCreationService.organizationProfile?.company_image_url" class="avatar-img" />
+            </div>
+
+            <div class="profile-metadata-container pl-3 pr-3 pb-3 p-md-0">
+                <p class="fnt-18 font-bold text-clr334 d-none d-md-block m-0 pt-4">
+                    {{ profileCreationService.organizationProfile?.name }}
+                </p>
+                <a
+                    class="d-md-none font-16 text-clr334 font-bold"
+                    href="{{ profileCreationService.organizationProfile?.website }}"
+                    target="blank"
+                    >{{ profileCreationService.organizationProfile?.name }}</a
+                >
+                <p class="fnt-14 text-clr334 mt-2 font-bold d-md-none underline">
+                    {{ profileCreationService.organizationProfile?.website }}
+                </p>
+                <p class="fnt-14 text-clr588 mt-2 font-bold d-none d-md-block">
+                    {{ profileCreationService.organizationProfile?.website }}
+                </p>
+                <a target="blank" href="{{ profileCreationService.organizationProfile?.website }}" #link hidden></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bg-fff pl-2 pr-2 p-lg-5 pl-md-3 pr-md-3 pb-md-3 pt-md-4 mt-md-3">
+    <div class="responsive-tabMenu pl-2 pr-2 pl-md-0 pr-md-0">
+        <p-tabView [(activeIndex)]="tabIndex">
+            <p-tabPanel header="About Company">
+                <ng-template pTemplate="content">
+                    <app-estate-about [estateId]="estateId"></app-estate-about>
+                </ng-template>
+            </p-tabPanel>
+            <p-tabPanel header="Virtual Tour">
+                <ng-template pTemplate="content">
+                    <div class="mb-3 mb-md-0 mt-3 mt-md-0">
+                        <app-estate-virtul-tour [estateId]="estateId"></app-estate-virtul-tour>
+                    </div>
+                </ng-template>
+            </p-tabPanel>
+            <p-tabPanel header="Contact">
+                <ng-template pTemplate="content">
+                    <div class="mb-3 mb-md-0 mt-3 mt-md-0">
+                        <app-estate-contact></app-estate-contact>
+                    </div>
+                </ng-template>
+            </p-tabPanel>
+            <p-tabPanel header="Reviews">
+                <ng-template pTemplate="content">
+                    <div class="mb-3 mb-md-0 mt-3 mt-md-0">
+                        <app-estate-reviews [estateId]="estateId"></app-estate-reviews>
+                    </div>
+                </ng-template>
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+</div>

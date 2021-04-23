@@ -16,7 +16,6 @@ export class MicroProfileService {
     public roasteryProfileData: MicroOrganizationProfile;
 
     userId: string;
-    roasterUsers: any = [];
     roasterContacts: any = [];
     single: { name: string; value: any }[];
     roasterId: string;
@@ -51,12 +50,6 @@ export class MicroProfileService {
                             : 0,
                     },
                 ];
-            }
-        });
-
-        this.roasterService.getRoasterUsers(microRoasterId).subscribe((data: any) => {
-            if (data.success) {
-                this.roasterUsers = data.result;
             }
         });
 

@@ -10,7 +10,7 @@ const routes: Routes = [
         component: MicroProfileComponent,
     },
     {
-        path: 'mr/:id',
+        path: 'es/:id',
         component: EstateProfileComponent,
     },
 ];

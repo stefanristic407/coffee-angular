@@ -784,6 +784,16 @@ export class UserserviceService extends ApiService {
         return this.http.post(this.roasterUrl, data);
     }
 
+    getEstateDetails(roaster_id: any, estate_id: any) {
+        // let params = new HttpParams();
+        const data = {
+            api_call: `/general/es/${estate_id}/profile`,
+            method: 'GET',
+            token: this.cookieService.get('Auth'),
+        };
+        return this.http.post(this.roasterUrl, data);
+    }
+
     getFAQList(roaster_id: any) {
         const data = {
             api_call: '/ro/' + roaster_id + '/faq',
