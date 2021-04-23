@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '@env/environment';
+import { ApiResponse } from '@models';
 
 @Injectable({
     providedIn: 'root',
@@ -48,7 +49,7 @@ export class CoffeeLabService extends ApiService {
         return this.post(this.orgPostUrl, `general/${type}s?${this.serializeParams(options)}`, 'GET');
     }
 
-    getForumDetails(type: string, idOrSlug: any): Observable<any> {
+    getForumDetails(type: string, idOrSlug: any, language = 'en'): Observable<any> {
         return this.post(this.orgPostUrl, `general/${type}s/${idOrSlug}`, 'GET');
     }
 

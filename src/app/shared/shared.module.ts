@@ -211,6 +211,7 @@ import { MonthPipe } from './pipes/month/month.pipe';
 import { OrgTypePipe } from './pipes/org-type.pipe';
 import { WordCountPipe } from './pipes/word-count/word-count.pipe';
 import { ConvertToShortDescriptionPipe } from './pipes/convert-to-short-description.pipe';
+import { CopyImageToClipboardDirective } from './directives/copy-image-to-clipboard.directive';
 const PIPES = [
     ArrayFilterPipe,
     CountryPipe,
@@ -251,6 +252,7 @@ const PIPES = [
         ...COMPONENTS_NOROUNT,
         ...DIRECTIVES,
         ...PIPES,
+        CopyImageToClipboardDirective,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [
@@ -265,6 +267,7 @@ const PIPES = [
         ...COMPONENTS,
         ...DIRECTIVES,
         ...PIPES,
+        CopyImageToClipboardDirective,
     ],
     providers: [DialogService],
 })
