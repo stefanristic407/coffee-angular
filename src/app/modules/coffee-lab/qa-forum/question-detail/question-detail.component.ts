@@ -14,6 +14,7 @@ export class QuestionDetailComponent implements OnInit {
     isLoading = false;
     detailsData: any;
     recentQuestions: any[] = [];
+    language: string;
 
     constructor(
         private coffeeLabService: CoffeeLabService,
@@ -28,7 +29,17 @@ export class QuestionDetailComponent implements OnInit {
             this.slug = params.slug;
             console.log('slug >>>>>>>>>', this.slug);
             this.getRecentQuestions();
-            this.getDetails();
+            if (!this.isLoading) {
+                this.getDetails();
+            }
+        });
+        this.activatedRoute.queryParams.subscribe(queryParams => {
+            const language = this.activatedRoute.snapshot.queryParamMap.get('language');
+            this.language = language || this.coffeeLabService.currentForumLanguage;
+            console.log('question details page is being loaded........', language);
+            if (!this.isLoading) {
+                this.getDetails();
+            }
         });
     }
 
@@ -56,13 +67,14 @@ export class QuestionDetailComponent implements OnInit {
     getDetails(): void {
         this.isLoading = true;
         this.coffeeLabService.getForumDetails('question', this.slug).subscribe((res: any) => {
+            console.log('get forum details result >>>>>>>>>>', res);
             this.isLoading = false;
             if (res.success) {
                 this.detailsData = res.result;
                 console.log('question details data >>>>>>>>', this.detailsData);
                 setTimeout(() => {
                     this.setPagePosition();
-                }, 100);
+                }, 500);
             } else {
                 this.toastService.error('Cannot get detail data');
             }
