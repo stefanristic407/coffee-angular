@@ -45,7 +45,7 @@ export class TranslateArticleComponent implements OnInit {
     ngOnInit(): void {
         this.articleId = this.route.snapshot.queryParamMap.get('id');
         if (!this.articleId) {
-            this.router.navigate(['/coffee-lab']);
+            this.location.back();
         } else {
             this.getArticleById();
         }

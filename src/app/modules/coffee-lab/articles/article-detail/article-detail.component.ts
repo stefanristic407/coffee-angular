@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CoffeeLabService, GlobalsService } from '@services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { CookieService } from 'ngx-cookie-service';
 @Component({
     selector: 'app-aticle-details',
     templateUrl: './article-detail.component.html',
@@ -14,6 +15,7 @@ export class ArticleDetailComponent implements OnInit {
     idOrSlug: string | number = '';
     commentData?: any[];
     isLoading = true;
+    organizationId: any;
 
     constructor(
         private coffeeLabService: CoffeeLabService,
@@ -21,6 +23,7 @@ export class ArticleDetailComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         public globalsService: GlobalsService,
         private messageService: MessageService,
+        private cookieService: CookieService,
     ) {
         this.activatedRoute.params.subscribe((params) => {
             this.idOrSlug = params.idOrSlug;
@@ -29,7 +32,9 @@ export class ArticleDetailComponent implements OnInit {
         });
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.organizationId = +this.cookieService.get('roaster_id');
+    }
 
     getArticleList(): any {
         this.coffeeLabService.getForumList('article').subscribe((res: any) => {

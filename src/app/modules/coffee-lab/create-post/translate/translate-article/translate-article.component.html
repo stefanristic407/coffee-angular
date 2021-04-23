@@ -65,14 +65,7 @@
             </p-tabPanel>
             <p-tabPanel [header]="'see_original_post' | translate">
                 <div class="p-4 bg-f8">
-                    <div class="border-main bg-white p-3 br-4 fnt-14 fnt-muli text-clr334 mb-4">
-                        <div class="font-weight-bold mb-3">{{ 'original_question' | translate }}:</div>
-                        <div>What are coffee profiles? How many flabour profiles a coffee can have?</div>
-                    </div>
                     <div class="border-main bg-white p-4 br-4">
-                        <div class="font-weight-bold mb-3">
-                            {{ 'translating_answer_by' | translate }} {{ this.authService.currentUser.firstname }}
-                        </div>
                         <app-origin-post [content]="article.content"></app-origin-post>
                     </div>
                 </div>
