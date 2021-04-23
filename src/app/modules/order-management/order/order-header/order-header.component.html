@@ -49,8 +49,15 @@
                     ></app-order-timeline>
                 </section>
                 <ng-container *ngIf="organizationType === OrgTypes.MICRO_ROASTER && !isConfirmationMode">
-                    <app-payment-status [orderId]="orderId" *ngIf="!statusPaid"> </app-payment-status>
-                    <app-edit-tracking-info [orderId]="orderId" *ngIf="statusPaid"></app-edit-tracking-info>
+                    <app-payment-status
+                        [orderId]="orderId"
+                        *ngIf="!statusPaid && orderStatus === OrderStatus.Confirmed"
+                    >
+                    </app-payment-status>
+                    <app-edit-tracking-info
+                        [orderId]="orderId"
+                        *ngIf="statusPaid || orderStatus !== OrderStatus.Confirmed"
+                    ></app-edit-tracking-info>
                 </ng-container>
             </div>
         </div>

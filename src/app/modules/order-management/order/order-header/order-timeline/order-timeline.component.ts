@@ -153,9 +153,15 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
                 { label: 'Order Confirmed', value: OrderStatus.Confirmed },
                 { label: 'Payment', value: OrderStatus.Payment },
                 { label: 'Shipped', value: OrderStatus.Shipped },
-                { label: 'Received', value: OrderStatus.Received },
-                { label: 'Confirm', value: OrderStatus.Graded },
+                {
+                    label: this.orgType === OrganizationType.ESTATE ? 'Received' : 'Received by Micro-roaster',
+                    value: OrderStatus.Received,
+                },
             ];
+
+            if (this.orgType === OrganizationType.ESTATE) {
+                this.timelinePoints.push({ label: 'Confirm', value: OrderStatus.Graded });
+            }
         }
     }
 }
