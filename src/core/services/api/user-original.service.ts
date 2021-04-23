@@ -173,6 +173,18 @@ export class UserserviceService extends ApiService {
         return this.http.post(this.roasterUrl, data);
     }
 
+    getProfileCreationData(orgId: any, orgType: OrganizationType): Observable<any> {
+        return this.post(this.orgPostUrl, `${orgType}/${orgId}/profile`, 'GET');
+    }
+
+    getGeneralContactList(orgId: any, orgType: OrganizationType): Observable<any> {
+        return this.post(this.postUrl, `general/${orgType}/${orgId}/users/top-contacts`, 'GET');
+    }
+
+    getGeneralCertificates(orgId: any, orgType: OrganizationType): Observable<any> {
+        return this.post(this.postUrl, `general/${orgType}/${orgId}/certificates`, 'GET');
+    }
+
     // API Function Name : Roaster Account
     // API Description: This API calls helps to update the Roaster Account profile.
 
