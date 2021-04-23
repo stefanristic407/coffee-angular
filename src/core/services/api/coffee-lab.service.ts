@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '@env/environment';
 
 @Injectable({
     providedIn: 'root',
@@ -22,7 +23,18 @@ export class CoffeeLabService extends ApiService {
         super(cookieSrv, http);
     }
 
-    copyContext(context: string): void {
+    dataURItoBlob(dataURI: any): any {
+        const byteString = atob(dataURI.split(',')[1]);
+        const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+        return new Blob([ab], { type: mimeString });
+    }
+
+    copyContext(context: any): void {
         const textArea = document.createElement('textarea');
         textArea.value = context;
         document.body.appendChild(textArea);
@@ -93,7 +105,10 @@ export class CoffeeLabService extends ApiService {
     uploadFile(file: any, module: string): Observable<any> {
         const formData: FormData = new FormData();
         formData.append('file', file);
-        formData.append('name', Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15));
+        formData.append(
+            'name',
+            Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
+        );
         formData.append('file_module', module);
         formData.append('api_call', `/${this.organization}/${this.organizationId}/file-manager/files`);
         formData.append('method', 'POST');
@@ -102,5 +117,24 @@ export class CoffeeLabService extends ApiService {
             headers: new HttpHeaders({ Accept: 'application/json' }),
         };
         return this.http.post(this.fileUploadUrl, formData, httpOptions);
+    }
+
+    getFileBlob(url: string): Observable<any> {
+        return this.http.post(
+            `${environment.apiURL}/images/generate-blob`,
+            { url },
+            {
+                responseType: 'blob',
+            },
+        );
+    }
+
+    translateForum(type: string, id: any, data: any): Observable<any> {
+        return this.post(
+            this.orgPostUrl,
+            `${this.organization}/${this.organizationId}/${type}s/${id}/translate`,
+            'POST',
+            data,
+        );
     }
 }

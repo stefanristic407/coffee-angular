@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { languages } from '@constants';
 import { CoffeeLabService, GlobalsService } from '@services';
 import { Router, NavigationExtras } from '@angular/router';
+import { APP_LANGUAGES } from '@constants';
 
 @Component({
     selector: 'app-language-dropdown',
@@ -10,24 +11,7 @@ import { Router, NavigationExtras } from '@angular/router';
 })
 export class LanguageDropdownComponent implements OnInit {
     languages = languages;
-    languageList: any[] = [
-        {
-            label: 'English',
-            value: 'en',
-        },
-        {
-            label: 'Swedish',
-            value: 'sv',
-        },
-        {
-            label: 'Portuguese',
-            value: 'pt',
-        },
-        {
-            label: 'Spanish',
-            value: 'es',
-        },
-    ];
+    languageList: any[] = APP_LANGUAGES;
     selectedLanguage: string;
 
     constructor(public globalsService: GlobalsService, private router: Router, public coffeeLabService: CoffeeLabService) {}
