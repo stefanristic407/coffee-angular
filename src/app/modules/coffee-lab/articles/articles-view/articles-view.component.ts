@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
+import { CookieService } from 'ngx-cookie-service';
 @Component({
     selector: 'app-articles-view',
     templateUrl: './articles-view.component.html',
@@ -34,16 +35,19 @@ export class ArticlesViewComponent implements OnInit {
     articlesData: any = [];
     isLoading = false;
     pageDesc: string | undefined;
+    organizationId: any;
     constructor(
         private coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
         private activateRoute: ActivatedRoute,
         private coffeeLab: CoffeeLabService,
+        private cookieService: CookieService,
     ) {
         this.pageDesc = this.activateRoute.snapshot.routeConfig?.path;
     }
 
     ngOnInit(): void {
+        this.organizationId = +this.cookieService.get('roaster_id');
         this.getData();
     }
 

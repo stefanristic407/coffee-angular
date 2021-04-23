@@ -72,7 +72,11 @@
             >
                 <div class="d-flex justify-content-between">
                     <app-user-header [prop]="article"></app-user-header>
-                    <app-forum-menu [selectedItem]="article" forumType="article"></app-forum-menu>
+                    <app-forum-menu
+                        [selectedItem]="article"
+                        forumType="article"
+                        [enableEdit]="organizationId === article.organisation_id"
+                    ></app-forum-menu>
                 </div>
                 <img [src]="article.cover_image_url" class="br-4 w-100 my-3 my-md-4" />
                 <a class="fnt-muli fnt-14 fnt-bold lh-157 text-clr334 cursor-pointer">

@@ -24,7 +24,7 @@ export class OriginalViewComponent implements OnInit {
             .subscribe((res: any) => {
                 if (res.success) {
                     this.originalArticleData = res.result;
-                    this.originalArticleUrl = `${environment.endUserWeb}/coffee-lab/articles/${res.result.slug}`;
+                    this.originalArticleUrl = `${environment.roasterWeb}/coffee-lab/articles/${res.result.slug}`;
                 }
             });
     }

@@ -38,7 +38,7 @@ import {
 } from '@services';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import { mergeMap } from 'rxjs/operators';
+import { mergeMap, tap } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
@@ -168,7 +168,9 @@ export class OrderManagementService {
     }
 
     updatePaymentAfterDelivery(orderId: number): Observable<ApiResponse<any>> {
-        return this.purchaseSrv.updatePaymentAfterDelivery(orderId);
+        return this.purchaseSrv
+            .updatePaymentAfterDelivery(orderId)
+            .pipe(tap(() => this.loadOrderDetails(orderId, OrganizationType.MICRO_ROASTER)));
     }
 
     updateShipmentDetails(orderId: number, trackingLink: string, shipmentDate: string): Observable<ApiResponse<any>> {
@@ -176,7 +178,10 @@ export class OrderManagementService {
             tracking_link: trackingLink,
             shipment_date: moment(shipmentDate).format('yyyy-MM-DD'),
         };
-        return this.purchaseSrv.updateShipmentDetails(orderId, payload);
+
+        return this.purchaseSrv
+            .updateShipmentDetails(orderId, payload)
+            .pipe(tap(() => this.loadOrderDetails(orderId, OrganizationType.MICRO_ROASTER)));
     }
 
     updateShippingAddress(orderId: number, address: Address): Observable<ApiResponse<any>> {
@@ -427,25 +432,40 @@ export class OrderManagementService {
     private updateOrderStatus(order: OrderDetails) {
         const status = order.status;
         const today = moment().startOf('day');
-        const departureDate = order.estimated_departure_date
-            ? moment(order.estimated_departure_date).startOf('day')
-            : moment().startOf('day').add(1, 'day');
-        const pickupDate = order.estimated_pickup_date
-            ? moment(order.estimated_pickup_date).startOf('day')
-            : moment().startOf('day').add(1, 'day');
 
-        if (
-            order.status !== OrderStatus.Received &&
-            (order.shipment_status === ShippingStatus.SHIPPED || departureDate <= today)
-        ) {
-            order.status = OrderStatus.Shipped;
-        }
+        if (!order.micro_roaster_id) {
+            const departureDate = order.estimated_departure_date
+                ? moment(order.estimated_departure_date).startOf('day')
+                : moment().startOf('day').add(1, 'day');
+            const pickupDate = order.estimated_pickup_date
+                ? moment(order.estimated_pickup_date).startOf('day')
+                : moment().startOf('day').add(1, 'day');
 
-        if (
-            order.status !== OrderStatus.Received &&
-            (order.shipment_status === ShippingStatus.DELIVERED || pickupDate <= today)
-        ) {
-            order.status = OrderStatus.Delivered;
+            if (
+                order.status !== OrderStatus.Received &&
+                (order.shipment_status === ShippingStatus.SHIPPED || departureDate <= today)
+            ) {
+                order.status = OrderStatus.Shipped;
+            }
+
+            if (
+                order.status !== OrderStatus.Received &&
+                (order.shipment_status === ShippingStatus.DELIVERED || pickupDate <= today)
+            ) {
+                order.status = OrderStatus.Delivered;
+            }
+        } else {
+            const shipmentDate = order.shipment_date
+                ? moment(order.shipment_date).startOf('day')
+                : moment().startOf('day').add(1, 'day');
+
+            if (order.status === OrderStatus.Shipped && shipmentDate > today) {
+                order.status = OrderStatus.Payment;
+            }
+
+            if (order.status !== OrderStatus.Received && shipmentDate <= today) {
+                order.status = OrderStatus.Shipped;
+            }
         }
 
         if (order.status === OrderStatus.Confirmed && order.payment_after_delivery) {
