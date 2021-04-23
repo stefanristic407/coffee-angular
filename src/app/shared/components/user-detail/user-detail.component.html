@@ -54,7 +54,7 @@
             <p-divider styleClass="m-0"></p-divider>
             <div class="p-3 px-md-4 pt-md-3 pb-md-4">
                 <p class="fnt-muli fnt-14 fnt-600 lh-15 text-clr588 pt-z5 mb-3" *ngIf="data?.about_me">
-                    {{ data?.about_me }}
+                    {{ data?.about_me | convertToShortDescription: 13 }}
                 </p>
                 <p class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-25">{{ 'languages_spoken' | translate }}:</p>
                 <div class="language-wrapper">
