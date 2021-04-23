@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { GlobalsService, ReviewsService, UserserviceService } from '@services';
 import { OrganizationType } from '@enums';
@@ -14,11 +14,12 @@ export class MicroReviewsComponent implements OnInit {
     reviewvalue: any = 4;
     termStatus: any;
     showRelavant = true;
-    microRoasterId: any;
     reviews: any = [];
     isLoading?: boolean;
     summary: any;
     average: any;
+    @Input() microRoasterId;
+
     constructor(
         public globals: GlobalsService,
         private ratingService: ReviewsService,
@@ -29,7 +30,6 @@ export class MicroReviewsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.microRoasterId = '7';
         this.getReviews();
     }
 

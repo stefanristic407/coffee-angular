@@ -96,13 +96,33 @@
 
 <div class="bg-fff pl-2 pr-2 p-lg-5 pl-md-3 pr-md-3 pb-md-3 pt-md-4 mt-md-3">
     <div class="responsive-tabMenu pl-2 pr-2 pl-md-0 pr-md-0">
-        <p-tabMenu [model]="menuItems" styleClas="profile-tabmenu" class="profile-tabmenu">
-            <ng-template pTemplate="item" let-item let-i="index">
-                {{ item.label | translate }}
-            </ng-template>
-        </p-tabMenu>
-    </div>
-    <div class="m-2 mt-md-3 ml-md-0 mr-md-0 mb-md-0">
-        <router-outlet></router-outlet>
+        <p-tabView [(activeIndex)]="tabIndex">
+            <p-tabPanel header="About Company">
+                <ng-template pTemplate="content">
+                    <app-micro-about [microRoasterId]="microRoasterId"></app-micro-about>
+                </ng-template>
+            </p-tabPanel>
+            <p-tabPanel header="Virtual Tour">
+                <ng-template pTemplate="content">
+                    <div class="mb-3 mb-md-0 mt-3 mt-md-0">
+                        <app-micro-virtual-tour [microRoasterId]="microRoasterId"></app-micro-virtual-tour>
+                    </div>
+                </ng-template>
+            </p-tabPanel>
+            <p-tabPanel header="Contact">
+                <ng-template pTemplate="content">
+                    <div class="mb-3 mb-md-0 mt-3 mt-md-0">
+                        <app-micro-contact></app-micro-contact>
+                    </div>
+                </ng-template>
+            </p-tabPanel>
+            <p-tabPanel header="Contact">
+                <ng-template pTemplate="content">
+                    <div class="mb-3 mb-md-0 mt-3 mt-md-0">
+                        <app-micro-reviews [microRoasterId]="microRoasterId"></app-micro-reviews>
+                    </div>
+                </ng-template>
+            </p-tabPanel>
+        </p-tabView>
     </div>
 </div>

@@ -28,15 +28,19 @@ export class MicroProfileComponent implements OnInit, OnDestroy {
     isShowAvatarModal: boolean;
     isAdminRole = false;
     microRoasterId: string;
+    tabIndex: number;
 
     constructor(
         public profileCreationService: MicroProfileService,
         public globals: GlobalsService,
         public cookieService: CookieService,
-    ) {}
+    ) {
+        this.tabIndex = 0;
+    }
 
     ngOnInit(): void {
         this.microRoasterId = '7';
+        this.profileCreationService.roasterProfile(this.microRoasterId);
         console.log(
             'profileCreationService.roasteryProfileData?.banner_url',
             this.profileCreationService.roasteryProfileData?.banner_url,

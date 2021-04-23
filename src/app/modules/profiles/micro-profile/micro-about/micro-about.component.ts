@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, Input, ViewChild } from '@angular/core';
 import { UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -32,7 +32,6 @@ export class MicroAboutComponent implements OnInit, AfterViewInit {
     brandName: string;
     shortFescr: string;
     empName = '';
-    microRoasterId: any;
     certificatesArray: any = [];
     userId: any;
     single: any[];
@@ -79,6 +78,8 @@ export class MicroAboutComponent implements OnInit, AfterViewInit {
     countryList = COUNTRY_LIST;
     cityList: any[];
 
+    @Input() microRoasterId;
+
     constructor(
         public profileCreationService: MicroProfileService,
         public userService: UserserviceService,
@@ -87,13 +88,12 @@ export class MicroAboutComponent implements OnInit, AfterViewInit {
         public globals: GlobalsService,
         public roasterService: RoasterserviceService,
     ) {
-        this.microRoasterId = '7';
         this.userId = this.cookieService.get('user_id');
     }
 
     ngOnInit(): void {
         this.getCertificates();
-        this.profileCreationService.getcontactList();
+        this.profileCreationService.getcontactList(this.microRoasterId);
         this.getBranches();
     }
 

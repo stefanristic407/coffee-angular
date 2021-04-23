@@ -1,6 +1,6 @@
 import { FileService, UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { GlobalsService } from '@services';
 import { DialogService } from 'primeng/dynamicdialog';
 import { MediaPreviewComponent } from '@app/modules/file-share/components/media-preview/media-preview.component';
@@ -16,7 +16,8 @@ export class MicroVirtualTourComponent implements OnInit {
     tourMedias: any = [];
     isLoading?: boolean;
     isSaveMode: boolean;
-    microRoasterId = '7';
+    @Input() microRoasterId;
+
     constructor(
         public profileCreationService: MicroProfileService,
         public globals: GlobalsService,

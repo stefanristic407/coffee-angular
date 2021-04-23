@@ -35,7 +35,6 @@ export class MicroProfileService {
     cities: Array<any> = [];
 
     userId: string;
-    microRoasterId: string;
     roasterUsers: any = [];
     roasterContacts: any = [];
     single: { name: string; value: any }[];
@@ -54,14 +53,12 @@ export class MicroProfileService {
         public router: Router,
     ) {
         this.userId = this.cookieService.get('user_id');
-        this.microRoasterId = '7';
         this.roasterId = this.cookieService.get('roaster_id');
-        this.roasterProfile();
         this.countryList = COUNTRY_LIST;
     }
 
-    roasterProfile() {
-        this.userService.getMicroDetails(this.roasterId, this.microRoasterId).subscribe((result: any) => {
+    roasterProfile(microRoasterId) {
+        this.userService.getMicroDetails(this.roasterId, microRoasterId).subscribe((result: any) => {
             console.log('micro roaster details: ', result);
             if (result.success) {
                 this.roasteryProfileData = result.result;
@@ -85,7 +82,7 @@ export class MicroProfileService {
             }
         });
 
-        this.roasterService.getRoasterUsers(this.microRoasterId).subscribe((data: any) => {
+        this.roasterService.getRoasterUsers(microRoasterId).subscribe((data: any) => {
             if (data.success) {
                 this.roasterUsers = data.result;
 
@@ -93,18 +90,16 @@ export class MicroProfileService {
             }
         });
 
-        this.getcontactList();
+        this.getcontactList(microRoasterId);
     }
 
-    getcontactList() {
-        this.userService
-            .getGeneralContactList(this.microRoasterId, OrganizationType.MICRO_ROASTER)
-            .subscribe((res: any) => {
-                if (res.success) {
-                    this.roasterContacts = res.result;
-                    console.log(this.roasterContacts);
-                }
-            });
+    getcontactList(microRoasterId) {
+        this.userService.getGeneralContactList(microRoasterId, OrganizationType.MICRO_ROASTER).subscribe((res: any) => {
+            if (res.success) {
+                this.roasterContacts = res.result;
+                console.log(this.roasterContacts);
+            }
+        });
     }
 
     changeCountry(count) {
