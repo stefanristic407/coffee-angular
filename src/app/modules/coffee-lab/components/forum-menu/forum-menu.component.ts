@@ -26,7 +26,7 @@ export class ForumMenuComponent implements OnInit {
         public globalsService: GlobalsService,
         private coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
-        private router: Router
+        private router: Router,
     ) {}
 
     ngOnInit(): void {
@@ -114,12 +114,17 @@ export class ForumMenuComponent implements OnInit {
             case 'question':
                 break;
             case 'article':
+                this.router.navigate(['/coffee-lab/create-post/translate-article'], {
+                    queryParams: { id: this.selectedItem.id },
+                });
                 break;
             case 'recipe':
                 break;
             case 'answer':
                 console.log('lets go here');
-                this.router.navigate(['/coffee-lab/create-post/translate-answer'], {queryParams: {id: this.selectedItem.id}});
+                this.router.navigate(['/coffee-lab/create-post/translate-answer'], {
+                    queryParams: { id: this.selectedItem.id },
+                });
                 break;
             case 'articleComment':
                 break;
@@ -128,6 +133,24 @@ export class ForumMenuComponent implements OnInit {
         }
     }
 
-    onEdit(): void {}
+    onEdit(): void {
+        switch (this.forumType) {
+            case 'question':
+                break;
+            case 'article':
+                this.router.navigate(['/coffee-lab/create-post/tab/article'], {
+                    queryParams: { id: this.selectedItem.id },
+                });
+                break;
+            case 'recipe':
+                break;
+            case 'answer':
+                break;
+            case 'articleComment':
+                break;
+            case 'recipeComment':
+                break;
+        }
+    }
     onDelete(): void {}
 }

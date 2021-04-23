@@ -52,7 +52,7 @@
     </div>
 </ng-template>
 
-<div class="in-order mt-3 pb-lg-2 br-4" *ngIf="!showTextBlock">
+<div class="in-order mt-3 pb-lg-2 br-4" *ngIf="!showTextBlock && !showMrTextBlock">
     <div class="row">
         <div class="col-12 col-md-12">
             <ng-container *ngIf="(isMobile$ | async) !== true; else mobileTimeline">
@@ -97,7 +97,7 @@
 <ng-container *ngIf="order && showTextBlock">
     <div class="in-order mt-4 confirm-shippment br-4">
         <div class="row">
-            <ng-container *ngIf="order.status === OrderStatus.Delivered; else confirmationBlock">
+            <ng-container *ngIf="order.status === OrderStatus.Received; else confirmationBlock">
                 <div class="col-12 d-flex px-2 px-md-3">
                     <div class="img-block d-none d-md-block">
                         <span class="circle-image">
@@ -165,6 +165,79 @@
                 <div class="d-flex flex-column">
                     <button class="btn-raised px-3 mb-2" (click)="confirmOrder()">Yes I have</button>
                     <button class="btn-stroked px-3 mt-2">No I haven't</button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</ng-container>
+
+<ng-container *ngIf="order && showMrTextBlock">
+    <ng-container *ngIf="order.status === OrderStatus.Shipped; else orderReceived">
+        <div class="in-order mt-5 confirm-shippment">
+            <div class="row">
+                <div class="col-lg-9 col-md-8 col-sm-12 d-flex px-2 px-md-3">
+                    <div class="col-md-12">
+                        <h4 class="fnt-26 text-black334 fnt-play">Waiting for a confirmation</h4>
+                        <div class="fnt-12 fnt-md-16 text-clr5d pt-2">
+                            The roaster will review the sample recieved and confirm the if the correct order has been
+                            received.
+                        </div>
+                        <button
+                            type="submit"
+                            class="btn-raised sm mt-3"
+                            *ngIf="order"
+                            [routerLink]="order?.id | orderRatingLink: OrgTypes.ROASTER"
+                        >
+                            Leave a feedback!
+                        </button>
+                        <button
+                            type="submit"
+                            class="btn-raised pull-right w-100 text-center mt-2 d-md-none"
+                            (click)="openInvoice()"
+                        >
+                            {{ 'order_invoice' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-template #orderReceived>
+        <div class="in-order mt-4 confirm-shippment">
+            <div class="row">
+                <div class="col-lg-9 col-md-8 col-sm-12 d-flex px-2 px-md-3">
+                    <div class="img-block d-none d-md-block">
+                        <span class="circle-image">
+                            <img class="pt-1" src="assets/images/timeline-check-active.svg"
+                        /></span>
+                    </div>
+                    <div class="txt-block ml-2">
+                        <h4 class="fnt-18 fnt-md-28 fnt-700 text-black334 fnt-play">
+                            Received on {{ receivedDate | date: 'd MMMM y' }}
+                        </h4>
+                        <div class="fnt-12 fnt-md-16 text-clr5d pt-2">
+                            Wohoo! The sample has been received by the micro-roaster.
+                        </div>
+                        <div class="fnt-12 fnt-md-16 text-clr5d">
+                            Please Rate and Review the micro-roaster to help us expand as a transparent community!
+                        </div>
+                        <button
+                            type="submit"
+                            class="btn-raised sm mt-3"
+                            *ngIf="order"
+                            [routerLink]="order?.id | orderRatingLink: OrgTypes.ROASTER"
+                        >
+                            Leave a Feedback!
+                        </button>
+                        <button
+                            type="submit"
+                            class="btn-raised pull-right w-100 text-center mt-2 d-md-none"
+                            (click)="openInvoice()"
+                        >
+                            {{ 'order_invoice' | translate }}
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

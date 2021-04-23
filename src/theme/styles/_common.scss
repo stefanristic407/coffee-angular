@@ -497,6 +497,7 @@ span.star {
 
 .banner-image {
     height: 276px;
+    width: 100%;
     object-fit: cover;
     @media (max-width: 767px) {
         height: 256px;

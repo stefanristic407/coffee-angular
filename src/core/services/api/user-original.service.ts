@@ -173,6 +173,18 @@ export class UserserviceService extends ApiService {
         return this.http.post(this.roasterUrl, data);
     }
 
+    getProfileCreationData(orgId: any, orgType: OrganizationType): Observable<any> {
+        return this.post(this.orgPostUrl, `${orgType}/${orgId}/profile`, 'GET');
+    }
+
+    getGeneralContactList(orgId: any, orgType: OrganizationType): Observable<any> {
+        return this.post(this.postUrl, `general/${orgType}/${orgId}/users/top-contacts`, 'GET');
+    }
+
+    getGeneralCertificates(orgId: any, orgType: OrganizationType): Observable<any> {
+        return this.post(this.postUrl, `general/${orgType}/${orgId}/certificates`, 'GET');
+    }
+
     // API Function Name : Roaster Account
     // API Description: This API calls helps to update the Roaster Account profile.
 
@@ -766,6 +778,16 @@ export class UserserviceService extends ApiService {
         // let params = new HttpParams();
         const data = {
             api_call: '/ro/' + roaster_id + '/micro-roasters/' + micro_roaster_id,
+            method: 'GET',
+            token: this.cookieService.get('Auth'),
+        };
+        return this.http.post(this.roasterUrl, data);
+    }
+
+    getEstateDetails(roaster_id: any, estate_id: any) {
+        // let params = new HttpParams();
+        const data = {
+            api_call: `/general/es/${estate_id}/profile`,
             method: 'GET',
             token: this.cookieService.get('Auth'),
         };

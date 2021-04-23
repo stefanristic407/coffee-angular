@@ -69,6 +69,16 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
         );
     }
 
+    get showMrTextBlock(): boolean {
+        return (
+            this.orgType === OrganizationType.MICRO_ROASTER &&
+            this.order &&
+            this.order.status &&
+            this.order.order_type !== OrderType.Prebook &&
+            (this.order.status === OrderStatus.Delivered || this.order.status === OrderStatus.Received)
+        );
+    }
+
     constructor(
         private toastrService: ToastrService,
         private orderService: OrderManagementService,
@@ -153,9 +163,15 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
                 { label: 'Order Confirmed', value: OrderStatus.Confirmed },
                 { label: 'Payment', value: OrderStatus.Payment },
                 { label: 'Shipped', value: OrderStatus.Shipped },
-                { label: 'Received', value: OrderStatus.Received },
-                { label: 'Confirm', value: OrderStatus.Graded },
+                {
+                    label: this.orgType === OrganizationType.ESTATE ? 'Received' : 'Received by Micro-roaster',
+                    value: OrderStatus.Received,
+                },
             ];
+
+            if (this.orgType === OrganizationType.ESTATE) {
+                this.timelinePoints.push({ label: 'Confirm', value: OrderStatus.Graded });
+            }
         }
     }
 }
