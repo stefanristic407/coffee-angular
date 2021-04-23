@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CoffeeLabService, RoasterserviceService, GlobalsService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CoffeeLabService, GlobalsService } from '@services';
 import { ToastrService } from 'ngx-toastr';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-create-article',
@@ -20,21 +20,51 @@ export class CreateArticleComponent implements OnInit {
     coverImageUrl: any;
     isCoverImageUploaded = false;
     coverImageId: any;
+    articleId: any;
+    article: any;
+    isLoading = false;
+
     constructor(
         private fb: FormBuilder,
         private toaster: ToastrService,
-        private cookieService: CookieService,
-        private roasterService: RoasterserviceService,
         private coffeeLabService: CoffeeLabService,
         public globals: GlobalsService,
         private router: Router,
+        private route: ActivatedRoute,
+        private location: Location,
     ) {}
 
     ngOnInit(): void {
+        this.articleId = this.route.snapshot.queryParamMap.get('id');
         this.articleForm = this.fb.group({
             title: ['', Validators.compose([Validators.required])],
             subtitle: ['', Validators.compose([Validators.required])],
             allow_translation: [true, Validators.compose([Validators.required])],
+        });
+        if (this.articleId) {
+            this.getArticleById();
+        }
+    }
+
+    getArticleById(): void {
+        this.isLoading = true;
+        this.coffeeLabService.getForumDetails('article', this.articleId).subscribe((res: any) => {
+            this.isLoading = false;
+            if (res.success) {
+                this.article = res.result;
+                this.coverImageUrl = res.result.cover_image_url;
+                this.coverImageId = res.result.cover_image_id;
+                this.isCoverImageUploaded = true;
+                this.content = res.result.content;
+                this.articleForm.patchValue({
+                    title: res.result.title,
+                    subtitle: res.result.subtitle,
+                    allow_translation: res.result.allow_translation,
+                });
+            } else {
+                this.toaster.error('Error while get article');
+                this.location.back();
+            }
         });
     }
 
@@ -81,7 +111,6 @@ export class CreateArticleComponent implements OnInit {
     }
     handlePost(status: string) {
         const data = {
-            question: this.content,
             ...this.articleForm.value,
             cover_image_id: this.coverImageId,
             content: this.content,
@@ -89,14 +118,26 @@ export class CreateArticleComponent implements OnInit {
             status,
             language: this.coffeeLabService.currentForumLanguage,
         };
-        this.coffeeLabService.postForum('article', data).subscribe((res: any) => {
-            this.isPosting = false;
-            if (res.success) {
-                this.toaster.success('You have posted an article successfully.');
-                this.router.navigate(['/coffee-lab/overview/articles']);
-            } else {
-                this.toaster.error('Failed to post article.');
-            }
-        });
+        if (this.article.id) {
+            this.coffeeLabService.updateForum('article', this.articleId, data).subscribe((res: any) => {
+                this.isPosting = false;
+                if (res.success) {
+                    this.toaster.success('You have updated an article successfully.');
+                    this.location.back();
+                } else {
+                    this.toaster.error('Failed to update article.');
+                }
+            });
+        } else {
+            this.coffeeLabService.postForum('article', data).subscribe((res: any) => {
+                this.isPosting = false;
+                if (res.success) {
+                    this.toaster.success('You have posted an article successfully.');
+                    this.router.navigate(['/coffee-lab/overview/articles']);
+                } else {
+                    this.toaster.error('Failed to post article.');
+                }
+            });
+        }
     }
 }

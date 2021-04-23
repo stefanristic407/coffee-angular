@@ -133,6 +133,24 @@ export class ForumMenuComponent implements OnInit {
         }
     }
 
-    onEdit(): void {}
+    onEdit(): void {
+        switch (this.forumType) {
+            case 'question':
+                break;
+            case 'article':
+                this.router.navigate(['/coffee-lab/create-post/tab/article'], {
+                    queryParams: { id: this.selectedItem.id },
+                });
+                break;
+            case 'recipe':
+                break;
+            case 'answer':
+                break;
+            case 'articleComment':
+                break;
+            case 'recipeComment':
+                break;
+        }
+    }
     onDelete(): void {}
 }
