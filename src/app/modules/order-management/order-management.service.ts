@@ -429,9 +429,7 @@ export class OrderManagementService {
         });
     }
 
-    private updateOrderStatus(order?: OrderDetails) {
-        order = order || this.orderDetailsSubject.value;
-
+    private updateOrderStatus(order: OrderDetails) {
         const status = order.status;
         const today = moment().startOf('day');
 

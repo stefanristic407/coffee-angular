@@ -69,6 +69,16 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
         );
     }
 
+    get showMrTextBlock(): boolean {
+        return (
+            this.orgType === OrganizationType.MICRO_ROASTER &&
+            this.order &&
+            this.order.status &&
+            this.order.order_type !== OrderType.Prebook &&
+            (this.order.status === OrderStatus.Delivered || this.order.status === OrderStatus.Received)
+        );
+    }
+
     constructor(
         private toastrService: ToastrService,
         private orderService: OrderManagementService,
