@@ -97,7 +97,7 @@
 <ng-container *ngIf="order && showTextBlock">
     <div class="in-order mt-4 confirm-shippment br-4">
         <div class="row">
-            <ng-container *ngIf="order.status === OrderStatus.Delivered; else confirmationBlock">
+            <ng-container *ngIf="order.status === OrderStatus.Received; else confirmationBlock">
                 <div class="col-12 d-flex px-2 px-md-3">
                     <div class="img-block d-none d-md-block">
                         <span class="circle-image">
