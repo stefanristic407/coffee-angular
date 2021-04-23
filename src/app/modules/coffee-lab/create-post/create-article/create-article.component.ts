@@ -51,6 +51,14 @@ export class CreateArticleComponent implements OnInit {
     }
 
     onPost(status: string): void {
+        this.articleForm.markAllAsTouched();
+        if (this.articleForm.invalid) {
+            return;
+        }
+        if (!this.content) {
+            this.toaster.error('Please fill content.');
+            return;
+        }
         this.isPosting = true;
         if (this.isCoverImageUploaded) {
             this.handlePost(status);
