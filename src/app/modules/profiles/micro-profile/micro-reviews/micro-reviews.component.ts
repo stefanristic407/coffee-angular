@@ -9,9 +9,6 @@ import { OrganizationType } from '@enums';
     styleUrls: ['./micro-reviews.component.scss'],
 })
 export class MicroReviewsComponent implements OnInit {
-    totalstar = 5;
-    newvalue: any = 2;
-    reviewvalue: any = 4;
     termStatus: any;
     showRelavant = true;
     reviews: any = [];
@@ -23,7 +20,6 @@ export class MicroReviewsComponent implements OnInit {
     constructor(
         public globals: GlobalsService,
         private ratingService: ReviewsService,
-        private cookieService: CookieService,
         public userSrv: UserserviceService,
     ) {
         this.termStatus = 'Most relevant';
