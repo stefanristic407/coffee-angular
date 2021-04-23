@@ -39,6 +39,15 @@
                                     >
                                 </div>
                             </label>
+                            <div
+                                class="bg-f8 br-4 py-2 px-3 d-flex align-items-center justify-content-center copy-paste-button"
+                                (click)="pasteCoverImage()"
+                            >
+                                <img src="assets/images/paste.svg" class="mr-1" />
+                                <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334 ml-1">{{
+                                    'paste' | translate
+                                }}</span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-6 sewn-form-field p-0">
@@ -66,6 +75,21 @@
             <p-tabPanel [header]="'see_original_post' | translate">
                 <div class="p-4 bg-f8">
                     <div class="border-main bg-white p-4 br-4">
+                        <div class="position-relative">
+                            <img [src]="article?.cover_image_url" class="banner-image" />
+                            <div
+                                class="bg-f8 br-4 py-2 px-3 d-flex align-items-center justify-content-center copy-paste-button"
+                                (click)="copyCoverImage()"
+                            >
+                                <img src="assets/images/copy.svg" class="mr-1" />
+                                <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334 ml-1">{{
+                                    'copy' | translate
+                                }}</span>
+                            </div>
+                        </div>
+                        <p class="fnt-muli fnt-14 fnt-md-18 fnt-bold lh-normal text-clr334 pt-3 mb-3 mb-md-4">
+                            {{ article?.title }}
+                        </p>
                         <app-origin-post [content]="article.content"></app-origin-post>
                     </div>
                 </div>

@@ -17,3 +17,14 @@
         height: 120px;
     }
 }
+
+.copy-paste-button {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    cursor: pointer;
+    @media (max-width: 767px) {
+        bottom: 8px;
+        right: 8px;
+    }
+}

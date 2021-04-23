@@ -123,4 +123,7 @@ export class TranslateArticleComponent implements OnInit {
             }
         });
     }
+
+    copyCoverImage() {}
+    pasteCoverImage() {}
 }
