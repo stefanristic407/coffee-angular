@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { APP_LANGUAGES } from '@constants';
 import { CoffeeLabService, RoasterserviceService } from '@services';
-import { number } from 'echarts';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-create-recipe',
@@ -12,6 +13,10 @@ import { ToastrService } from 'ngx-toastr';
     styleUrls: ['./create-recipe.component.scss'],
 })
 export class CreateRecipeComponent implements OnInit {
+    @Input() recipeId;
+    @Input() saveOriginalPost;
+    recipeSub: Subscription;
+    applicationLanguages: any[] = APP_LANGUAGES;
     id: any;
     description: any;
     stepDescription: any;
@@ -80,14 +85,27 @@ export class CreateRecipeComponent implements OnInit {
         private roasterService: RoasterserviceService,
         private coffeeLabService: CoffeeLabService,
         private route: ActivatedRoute,
-    ) {
-        this.roaster_id = this.cookieService.get('roaster_id');
-        this.id = this.route.snapshot.queryParamMap.get('id');
-        console.log('id---->>>>', this.id);
-    }
+    ) {}
 
     ngOnInit(): void {
         this.createRecipeForm();
+        const recipeSub = this.coffeeLabService.originalPost.subscribe((res) => {
+            console.log('response', res);
+            if (res && this.id) {
+                console.log('this.id--->>posttttttt', this.id);
+                this.onSave();
+            }
+        });
+
+        this.recipeSub?.add(recipeSub);
+    }
+
+    ngOnChanges() {
+        console.log('recipeId', this.recipeId);
+        if (this.recipeId) {
+            this.id = this.recipeId;
+            console.log('id---->>>>', this.id);
+        }
     }
 
     createRecipeForm() {
@@ -194,11 +212,30 @@ export class CreateRecipeComponent implements OnInit {
         this.recipeForm.controls.description.setValue(this.description);
         console.log('save----', this.recipeForm.value);
         if (this.validateForms()) {
-            this.createNewRecipe(this.recipeForm.value);
+            if (this.id) {
+                console.log('translate recipe');
+                this.translateRecipe(this.recipeForm.value);
+            } else {
+                console.log('create new recipe');
+                this.createNewRecipe(this.recipeForm.value);
+            }
         } else {
             this.recipeForm.markAllAsTouched();
             this.toaster.error('Please fill all Data');
         }
+    }
+
+    translateRecipe(data) {
+        data.inline_images = [].concat(this.imageIdList, ...this.imageIdListStep);
+        console.log('send recipe-->>>>', data);
+        this.coffeeLabService.translateForum('recipe', this.id, data).subscribe((res: any) => {
+            console.log('post question result >>>', res);
+            if (res.success) {
+                this.toaster.success('You have translated a coffee recipe successfully.');
+            } else {
+                this.toaster.error('Failed to translate coffee recipe.');
+            }
+        });
     }
 
     createNewRecipe(data) {
@@ -212,5 +249,10 @@ export class CreateRecipeComponent implements OnInit {
                 this.toaster.error('Failed to post coffee recipe.');
             }
         });
+    }
+
+    ngOnDestroy() {
+        console.log('ondestroy calll----');
+        this.recipeSub?.unsubscribe();
     }
 }
