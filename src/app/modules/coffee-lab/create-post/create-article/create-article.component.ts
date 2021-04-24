@@ -105,6 +105,7 @@ export class CreateArticleComponent implements OnInit {
                     this.coverImageId = null;
                     this.coverImageUrl = null;
                     this.isCoverImageUploaded = false;
+                    this.isPosting = false;
                 }
             });
         }
@@ -118,7 +119,7 @@ export class CreateArticleComponent implements OnInit {
             status,
             language: this.coffeeLabService.currentForumLanguage,
         };
-        if (this.article.id) {
+        if (this.articleId) {
             this.coffeeLabService.updateForum('article', this.articleId, data).subscribe((res: any) => {
                 this.isPosting = false;
                 if (res.success) {
