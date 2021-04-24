@@ -18,6 +18,10 @@ import { EstateContactComponent } from './estate-profile/estate-contact/estate-c
 import { EstateAboutComponent } from './estate-profile/estate-about/estate-about.component';
 import { EstateVirtulTourComponent } from './estate-profile/estate-virtul-tour/estate-virtul-tour.component';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { PartnerAboutComponent } from './partner-profile/partner-about/partner-about.component';
+import { PartnerContactComponent } from './partner-profile/partner-contact/partner-contact.component';
+import { PartnerVirtualTourComponent } from './partner-profile/partner-virtual-tour/partner-virtual-tour.component';
+import { PartnerReviewsComponent } from './partner-profile/partner-reviews/partner-reviews.component';
 
 @NgModule({
     declarations: [
@@ -32,6 +36,10 @@ import { GoogleMapsModule } from '@angular/google-maps';
         EstateReviewsComponent,
         EstateContactComponent,
         EstateVirtulTourComponent,
+        PartnerAboutComponent,
+        PartnerContactComponent,
+        PartnerReviewsComponent,
+        PartnerVirtualTourComponent,
     ],
     imports: [
         CommonModule,
