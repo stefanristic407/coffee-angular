@@ -57,6 +57,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     public chatListScrollEventSubject = new Subject<Event>();
 
     public chatSearch = {
+        //ANCHOR chatSearch
         keyword: '',
         expand: false,
         inputSubject: new Subject<InputEvent>(),
@@ -64,13 +65,18 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         searchResult: [],
         lastSentTimeStamp: '',
         config: {
-            perPage: 100,
-            rows: 10,
+            perPage: 5,
+            rows: 5,
         },
         escAction: (event: KeyboardEvent) => {
             if (event.key === 'Esc' || event.key === 'Escape') {
                 this.chatSearch.reset();
             }
+        },
+        resetSearchResult: () => {
+            this.chatSearch.page = 1;
+            this.chatSearch.searchResult = [];
+            this.chatSearch.lastSentTimeStamp = '';
         },
         reset: () => {
             this.chatSearch.keyword = '';
@@ -513,6 +519,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         }
         return message;
     }
+
     processThreadUser(threadUser: ThreadMember): ThreadMember {
         if (threadUser.org_type === OrganizationType.SEWN_ADMIN) {
             threadUser.org_id = 0;
@@ -1281,10 +1288,12 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     };
 
     chatSearchChange = () => {
+        //ANCHOR chatSearchChange
         if (this.chatSearch.keyword.trim()) {
             const timestamp = this.chatUtil.getTimeStamp();
-            this.chatSearch.lastSentTimeStamp = timestamp;
             this.showInlineLoader = true;
+            this.chatSearch.resetSearchResult();
+            this.chatSearch.lastSentTimeStamp = timestamp;
             this.socket.directMessageSent.next({
                 timestamp,
                 type: ChatMessageType.searchMessage,
