@@ -11,3 +11,4 @@ export * from './user-list-item.model';
 export * from './block-list.model';
 export * from './ws-request.model';
 export * from './ws-response.model';
+export * from './response-search-message';

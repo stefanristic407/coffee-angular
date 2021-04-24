@@ -194,7 +194,7 @@
                     alt="Menu"
                 />
 
-                <div class="dm-ltm-panel" *ngIf="contextMenuOpen" data-element="context-menu-panel">
+                <div class="dm-ltm-panel scale-up-top" *ngIf="contextMenuOpen" data-element="context-menu-panel">
                     <span class="dm-ltm-pane-arrow"></span>
                     <div class="dm-ltm-panel-listing">
                         <div class="dm-ltm-panel-title">Chat settings</div>
@@ -422,7 +422,7 @@
             (click)="toggleChatMenu()"
             alt="Menu"
         />
-        <div class="dm-hcm-panel tilt-in-fwd-tr" *ngIf="chatMenuOpen">
+        <div class="dm-hcm-panel scale-up-top" *ngIf="chatMenuOpen">
             <span class="dm-hcm-panel-arrow"></span>
             <div class="dm-hcm-menu-wrapper">
                 <div class="dm-hcm-menu-item" (click)="menuAction('BLOCK')">Block User</div>
