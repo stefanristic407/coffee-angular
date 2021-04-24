@@ -1,13 +1,31 @@
 <div class="bg-f8 py-4">
-    <p-tabView class="toggle">
+    <p-tabView class="toggle" [(activeIndex)]="selectedTab">
         <p-tabPanel [header]="'translation' | translate">
-            <!-- <app-create-recipe></app-create-recipe> -->
-            <div class="p-4 bg-f8">
-                <router-outlet></router-outlet>
+            <div class="p-4 bg-f8" *ngIf="id">
+                <app-create-recipe [recipeId]="id"></app-create-recipe>
             </div>
         </p-tabPanel>
         <p-tabPanel [header]="'see_original_post' | translate">
-            <div class="p-4 bg-f8">See original post</div>
+            <div class="p-4 bg-f8" *ngIf="id">
+                <app-recipe-original-post [recipeId]="id"></app-recipe-original-post>
+                <div class="row btn-controls col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 my-4 mx-0 p-0">
+                    <div class="col-md-6 order-2 order-md-1 p-0">
+                        <button class="btn-stroked px-4">
+                            {{ 'cancel' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-6 order-1 order-md-2 p-0">
+                        <div class="d-flex justify-content-end flex-column flex-md-row">
+                            <button class="btn-stroked px-4 order-2 order-md-1">
+                                {{ 'save_as_draft' | translate }}
+                            </button>
+                            <button class="btn-raised px-4 ml-md-3 order-1 order-md-2" (click)="onSave()">
+                                {{ 'submit' | translate }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </p-tabPanel>
     </p-tabView>
 </div>

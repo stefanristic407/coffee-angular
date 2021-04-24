@@ -12,6 +12,7 @@ import { ApiResponse } from '@models';
     providedIn: 'root',
 })
 export class CoffeeLabService extends ApiService {
+    originalPost = new BehaviorSubject(null);
     forumLanguage = new BehaviorSubject('en');
     organization = 'ro';
     organizationId = this.cookieSrv.get('roaster_id');

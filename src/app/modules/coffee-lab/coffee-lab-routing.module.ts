@@ -20,7 +20,7 @@ import { AssignedToMeViewComponent } from '@modules/coffee-lab/assigned-to-me/as
 import { TranslateRecipeComponent } from '@modules/coffee-lab/create-post/translate/translate-recipe/translate-recipe.component';
 import { TranslateArticleComponent } from '@modules/coffee-lab/create-post/translate/translate-article/translate-article.component';
 import { TranslateAnswerComponent } from '@modules/coffee-lab/create-post/translate/translate-answer/translate-answer.component';
-import { RecipeTabContainerComponent } from './create-post/recipe-tab-container/recipe-tab-container.component';
+import { RecipeTabContainerComponent } from '@modules/coffee-lab/create-post/recipe-tab-container/recipe-tab-container.component';
 
 const routes: Routes = [
     {
@@ -133,12 +133,6 @@ const routes: Routes = [
                     {
                         path: 'translate',
                         component: RecipeTabContainerComponent,
-                        children: [
-                            {
-                                path: 'translate-recipe',
-                                component: CreateRecipeComponent,
-                            },
-                        ],
                     },
                 ],
             },
