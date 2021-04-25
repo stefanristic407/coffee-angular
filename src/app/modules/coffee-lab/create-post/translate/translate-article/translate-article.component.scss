@@ -28,3 +28,17 @@
         right: 8px;
     }
 }
+
+::ng-deep {
+    .article-content {
+        p {
+            margin-bottom: 0;
+        }
+        img {
+            width: 100%;
+            height: 276px;
+            margin: 16px 0;
+            object-fit: cover;
+        }
+    }
+}
