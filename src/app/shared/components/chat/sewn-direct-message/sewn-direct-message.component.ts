@@ -24,6 +24,8 @@ import {
     OpenChatThread,
     RecentUserListItem,
     BlockListItem,
+    ResponseSearchMessageRow,
+    SearchChatMessagResult,
 } from '@models';
 import { ThreadActivityType, OrganizationType, ThreadType, ServiceCommunicationType, ChatMessageType } from '@enums';
 
@@ -62,11 +64,26 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         expand: false,
         inputSubject: new Subject<InputEvent>(),
         page: 1,
-        searchResult: [],
+        activeResultIndex: 0,
+        searchResult: [] as SearchChatMessagResult[],
         lastSentTimeStamp: '',
         config: {
             perPage: 5,
             rows: 5,
+        },
+        upNavigation: () => {
+            if (this.chatSearch.activeResultIndex > 0) {
+                this.chatSearch.activeResultIndex--;
+            } else {
+                this.chatSearch.activeResultIndex = this.chatSearch.searchResult.length - 1;
+            }
+        },
+        downNavigation: () => {
+            if (this.chatSearch.activeResultIndex < this.chatSearch.searchResult.length - 1) {
+                this.chatSearch.activeResultIndex++;
+            } else {
+                this.chatSearch.activeResultIndex = 0;
+            }
         },
         escAction: (event: KeyboardEvent) => {
             if (event.key === 'Esc' || event.key === 'Escape') {
@@ -77,6 +94,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             this.chatSearch.page = 1;
             this.chatSearch.searchResult = [];
             this.chatSearch.lastSentTimeStamp = '';
+            this.chatSearch.activeResultIndex = 0;
         },
         reset: () => {
             this.chatSearch.keyword = '';
@@ -84,6 +102,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             this.chatSearch.page = 1;
             this.chatSearch.searchResult = [];
             this.chatSearch.lastSentTimeStamp = '';
+            this.chatSearch.activeResultIndex = 0;
         },
         toggle: () => {
             const openState = !this.chatSearch.expand;
@@ -95,6 +114,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             this.chatSearch.keyword = '';
             this.chatSearch.page = 1;
             this.chatSearch.searchResult = [];
+            this.chatSearch.activeResultIndex = 0;
             this.chatSearch.lastSentTimeStamp = '';
         },
     };
@@ -372,7 +392,14 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             } else if (WSmsg.type === ChatMessageType.deleteChat) {
                 this.handleDeleteChatResponse(WSmsg as WSResponse<any>);
             } else if (WSmsg.type === ChatMessageType.searchMessage) {
-                this.handleChatSearchResult(WSmsg as WSResponse<any>);
+                this.handleChatSearchResult(
+                    WSmsg as WSResponse<
+                        {
+                            activity_id: number;
+                            messages: ResponseSearchMessageRow[];
+                        }[]
+                    >,
+                );
             }
         });
 
@@ -929,12 +956,50 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         }
     }
 
-    handleChatSearchResult(WSmsg: WSResponse<any>) {
+    handleChatSearchResult(
+        WSmsg: WSResponse<
+            {
+                activity_id: number;
+                messages: ResponseSearchMessageRow[];
+            }[]
+        >,
+    ) {
         this.showInlineLoader = false;
-        if (WSmsg.code === 200 && WSmsg.data && WSmsg.data.length) {
-            const rawMessagesList = WSmsg.data.filter((x) => x.activity_type === ThreadActivityType.message);
 
-            console.log('handleChatSearchResult', WSmsg);
+        if (WSmsg.code === 200 && WSmsg.data && WSmsg.data.length) {
+            for (const resResult of WSmsg.data) {
+                const processedResultItem: SearchChatMessagResult = {
+                    activity_id: resResult.activity_id,
+                    messageUnit: [],
+                };
+                // FIXME  normalizing message make sure this is standards in all message format
+                for (const resMessage of resResult.messages) {
+                    const preProcessedMessage: any = resMessage;
+                    preProcessedMessage.is_read = true;
+                    preProcessedMessage.thread = {
+                        id: this.openedThread.id,
+                        name: this.openedThread.name,
+                        status: this.openedThread.status,
+                        created_by: '',
+                        type: this.openedThread.type,
+                        type_id: this.openedThread.type_id,
+                        created_at: this.openedThread.created_at,
+                    };
+                    preProcessedMessage.member = resMessage.member || {};
+                    preProcessedMessage.member.user = resMessage.member.user || {};
+                    preProcessedMessage.member.user.is_removed = false;
+                    const message = this.processChatMessages(preProcessedMessage, this.openedThread);
+                    const user = this.processThreadUser(preProcessedMessage.member.user);
+                    processedResultItem.messageUnit.push({
+                        message,
+                        user,
+                        isMatch: resResult.activity_id === message.id,
+                    });
+                }
+                this.chatSearch.searchResult.push(processedResultItem);
+                this.chatSearch.activeResultIndex = 0;
+            }
+            console.log('handleChatSearchResult', this.chatSearch.searchResult);
         } else {
             console.log('Websocket:Search result: Failure');
         }
@@ -1384,7 +1449,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         if (this.chatMessageBodyElement) {
             const query = `[data-element="messages-item"][data-chat-id="${elementId}"]`;
             const messageElement = this.chatMessageBodyElement.querySelector(query);
-            messageElement.scrollIntoView(true);
+            if (messageElement) {
+                messageElement.scrollIntoView(true);
+            }
         }
     }
     getEmojiRender(emoji: string) {

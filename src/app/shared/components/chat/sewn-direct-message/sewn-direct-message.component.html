@@ -396,11 +396,20 @@
                 <div class="dm-csb-seach-controls">
                     <ng-container *ngIf="chatSearch.searchResult.length">
                         <div class="dm-csb-result-count">
-                            <div class="dm-csb-result-count-block">2</div>
-                            <div class="dm-csb-result-count-block">results</div>
+                            <div class="dm-csb-result-count-block">
+                                {{ chatSearch.activeResultIndex + 1 }} of {{ chatSearch.searchResult.length }}
+                            </div>
                         </div>
-                        <img src="assets/images/dm-seach-down-arrow.svg" class="dm-csb-control-icon" />
-                        <img src="assets/images/dm-seach-up-arrow.svg" class="dm-csb-control-icon" />
+                        <img
+                            src="assets/images/dm-seach-down-arrow.svg"
+                            (click)="chatSearch.downNavigation()"
+                            class="dm-csb-control-icon"
+                        />
+                        <img
+                            src="assets/images/dm-seach-up-arrow.svg"
+                            (click)="chatSearch.upNavigation()"
+                            class="dm-csb-control-icon"
+                        />
                     </ng-container>
                     <img
                         *ngIf="chatSearch.keyword"
