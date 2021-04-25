@@ -143,4 +143,12 @@ export class CoffeeLabService extends ApiService {
             data,
         );
     }
+
+    copyFile(fileId: number) {
+        return this.post(
+            this.fileUploadUrl,
+            `${this.organization}/${this.organizationId}/file-manager/files/${fileId}/copy-image`,
+            'POST',
+        );
+    }
 }
