@@ -25,6 +25,8 @@ export class TranslateArticleComponent implements OnInit {
     coverImageUrl: any;
     isCoverImageUploaded = false;
     coverImageId: any;
+    copiedCoverImageId: any;
+    copiedCoverImageUrl: any;
 
     constructor(
         private route: ActivatedRoute,
@@ -124,6 +126,21 @@ export class TranslateArticleComponent implements OnInit {
         });
     }
 
-    copyCoverImage() {}
-    pasteCoverImage() {}
+    copyCoverImage() {
+        this.isPosting = true;
+        this.coffeeLabService.copyFile(this.article.cover_image_id).subscribe((res: any) => {
+            this.isPosting = false;
+            if (res.success) {
+                this.copiedCoverImageId = res.result.id;
+                this.copiedCoverImageUrl = res.result.url;
+                this.toastrService.success('Copied cover image successfully.');
+            } else {
+                this.toastrService.error('Failed to copy cover image.');
+            }
+        });
+    }
+    pasteCoverImage() {
+        this.coverImageUrl = this.copiedCoverImageUrl;
+        this.coverImageId = this.copiedCoverImageId;
+    }
 }
