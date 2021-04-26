@@ -21,7 +21,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { PartnerAboutComponent } from './partner-profile/partner-about/partner-about.component';
 import { PartnerContactComponent } from './partner-profile/partner-contact/partner-contact.component';
 import { PartnerVirtualTourComponent } from './partner-profile/partner-virtual-tour/partner-virtual-tour.component';
-import { PartnerReviewsComponent } from './partner-profile/partner-reviews/partner-reviews.component';
+import { PartnerProfileComponent } from './partner-profile/partner-profile.component';
 
 @NgModule({
     declarations: [
@@ -36,9 +36,9 @@ import { PartnerReviewsComponent } from './partner-profile/partner-reviews/partn
         EstateReviewsComponent,
         EstateContactComponent,
         EstateVirtulTourComponent,
+        PartnerProfileComponent,
         PartnerAboutComponent,
         PartnerContactComponent,
-        PartnerReviewsComponent,
         PartnerVirtualTourComponent,
     ],
     imports: [

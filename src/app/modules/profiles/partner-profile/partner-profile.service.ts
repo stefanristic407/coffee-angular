@@ -40,7 +40,7 @@ export class PartnerProfileService {
     }
 
     getcontactList(horecaId) {
-        this.userService.getGeneralContactList(horecaId, OrganizationType.ESTATE).subscribe((res: any) => {
+        this.userService.getGeneralContactList(horecaId, OrganizationType.HORECA).subscribe((res: any) => {
             if (res.success) {
                 this.operatorContacts = res.result;
             }
