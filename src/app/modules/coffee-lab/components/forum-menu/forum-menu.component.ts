@@ -79,6 +79,7 @@ export class ForumMenuComponent implements OnInit {
                 url = `${environment.roasterWeb}/coffee-lab/questions/${this.selectedItem.slug}`;
                 break;
             case 'article':
+                url = `${environment.roasterWeb}/coffee-lab/articles/${this.selectedItem.slug}`;
                 break;
             case 'recipe':
                 break;

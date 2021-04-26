@@ -183,3 +183,53 @@ export interface EstateOrganizationProfile {
     wild_animals: string;
     zipcode: string;
 }
+
+export interface PartnerOrganizationProfile {
+    address_line1: string;
+    address_line2: string;
+    admin_id: number;
+    admin_name: string;
+    avg_employee_age: number;
+    banner_file_id: number;
+    banner_url: string;
+    city: string;
+    company_details_public: boolean;
+    company_image_thumbnail_url: string;
+    company_image_url: string;
+    company_name: string;
+    country: string;
+    created_at: string;
+    description: string;
+    email: string;
+    fb_profile: string;
+    female_employee_count: number;
+    founded_on: number;
+    id: number;
+    ig_profile: string;
+    last_login_at: string;
+    latitude: number;
+    longitude: number;
+    male_employee_count: number;
+    member_count: number;
+    name: string;
+    onboarded_by: number;
+    owner_name: string;
+    phone: string;
+    rating: number;
+    registration_id: string;
+    slug: string;
+    state: string;
+    status: string;
+    total_employees: number;
+    updated_at: Date;
+    vat_number: string;
+    website: string;
+    zipcode: string;
+    environmental_responsibility: string;
+    social_community_responsibility: string;
+    company_type: string;
+    discount_percentage: number;
+    partner_count: number;
+    partner_id: number;
+    roaster_id: number;
+}

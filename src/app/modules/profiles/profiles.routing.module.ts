@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { MicroProfileComponent } from './micro-profile/micro-profile.component';
 import { RouterModule, Routes } from '@angular/router';
 import { EstateProfileComponent } from './estate-profile/estate-profile.component';
+import { PartnerProfileComponent } from './partner-profile/partner-profile.component';
 
 const routes: Routes = [
     {
@@ -11,6 +12,10 @@ const routes: Routes = [
     {
         path: 'es/:id',
         component: EstateProfileComponent,
+    },
+    {
+        path: 'hrc/:id',
+        component: PartnerProfileComponent,
     },
 ];
 

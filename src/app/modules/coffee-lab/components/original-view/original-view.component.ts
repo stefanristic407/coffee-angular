@@ -9,22 +9,25 @@ import { CoffeeLabService } from '@services';
 })
 export class OriginalViewComponent implements OnInit {
     @Input() detailsData: any;
-    originalArticleUrl;
-    originalArticleData;
+    @Input() forumType: string;
+    originalUrl: any;
+    originalData: any;
+    originalForumData: any;
 
     constructor(private coffeeLabService: CoffeeLabService) {}
 
     ngOnInit(): void {
+        this.originalForumData = this.detailsData[`original_${this.forumType}`];
         this.getOriginalDetails();
     }
 
     getOriginalDetails(): void {
         this.coffeeLabService
-            .getForumDetails('article', this.detailsData?.original_article_id)
+            .getForumDetails(this.forumType, this.detailsData?.original_article_id)
             .subscribe((res: any) => {
                 if (res.success) {
-                    this.originalArticleData = res.result;
-                    this.originalArticleUrl = `${environment.roasterWeb}/coffee-lab/articles/${res.result.slug}`;
+                    this.originalData = res.result;
+                    this.originalUrl = `${environment.roasterWeb}/coffee-lab/${this.forumType}s/${res.result.slug}`;
                 }
             });
     }

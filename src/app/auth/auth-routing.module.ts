@@ -4,7 +4,6 @@ import { from } from 'rxjs';
 import { AuthComponent } from './auth.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { LoginComponent } from './login/login.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { SetupComponent } from './setup/setup.component';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
@@ -16,10 +15,6 @@ const routes: Routes = [
         path: '',
         component: AuthComponent,
         children: [
-            {
-                path: 'login',
-                component: LoginComponent,
-            },
             {
                 path: 'forgot-password',
                 component: ForgotPasswordComponent,

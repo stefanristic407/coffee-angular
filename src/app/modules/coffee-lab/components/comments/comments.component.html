@@ -6,7 +6,7 @@
                 class="w-100"
                 pInputText
                 [(ngModel)]="comment"
-                placeholder="Leave a comment..."
+                placeholder="{{ 'leave_a_comment_bla' | translate }}"
                 (keyup.enter)="addComment()"
             />
         </span>
@@ -15,7 +15,7 @@
         <p class="fnt-muli fnt-14 fnt-bold text-clr60b mb-0 mb-md-2 text-underline">{{ 'comment' | translate }}s</p>
         <div class="w-100 py-4 py-lg-45 border-bottom-dashed" *ngFor="let commentItem of commentList">
             <app-user-header [prop]="commentItem"></app-user-header>
-            <p class="fnt-muli fnt-14 fnt-normal text-clr588 lh-157 mb-0 mt-3" style="padding-left: 52px">
+            <p class="fnt-muli fnt-14 fnt-normal text-clr588 lh-157 mb-0 mt-3 comment-text">
                 {{ commentItem?.comment }}
             </p>
         </div>

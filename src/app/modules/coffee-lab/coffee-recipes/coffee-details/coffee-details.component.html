@@ -21,7 +21,7 @@
                             </div>
                             <div class="d-none d-md-block" *ngIf="detailsData?.allow_translation">
                                 <app-translation-dropdown
-                                    forumType="recipes"
+                                    forumType="recipe"
                                     [translatedList]="detailsData?.translations"
                                 ></app-translation-dropdown>
                             </div>
@@ -32,7 +32,7 @@
                         *ngIf="detailsData?.allow_translation"
                     >
                         <app-translation-dropdown
-                            forumType="recipes"
+                            forumType="recipe"
                             [translatedList]="detailsData?.translations"
                         ></app-translation-dropdown>
                     </div>

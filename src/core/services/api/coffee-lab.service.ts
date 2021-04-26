@@ -146,7 +146,7 @@ export class CoffeeLabService extends ApiService {
 
     copyFile(fileId: number) {
         return this.post(
-            this.fileUploadUrl,
+            this.orgPostUrl,
             `${this.organization}/${this.organizationId}/file-manager/files/${fileId}/copy-image`,
             'POST',
         );

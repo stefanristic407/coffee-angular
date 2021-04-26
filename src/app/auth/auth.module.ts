@@ -8,7 +8,6 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { LoginComponent } from './login/login.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { LicenseComponent } from './setup/license/license.component';
@@ -26,7 +25,6 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 
 @NgModule({
     declarations: [
-        LoginComponent,
         ForgotPasswordComponent,
         AuthComponent,
         PagenotfoundComponent,
