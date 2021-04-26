@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { organizationTypes } from '@constants';
 import { GlobalsService, UserService, ChatHandlerService } from '@services';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: 'app-user-detail',
@@ -23,6 +24,7 @@ export class UserDetailComponent implements OnInit, OnChanges {
         public globalsService: GlobalsService,
         private userService: UserService,
         private chatHandler: ChatHandlerService,
+        private cookieService: CookieService,
     ) {}
     ngOnChanges(): void {
         this.orgName = organizationTypes.find((item) => item.value === this.orgType?.toUpperCase())?.title;
@@ -41,8 +43,15 @@ export class UserDetailComponent implements OnInit, OnChanges {
     openChat(): void {
         this.chatHandler.openChatThread({
             user_id: this.userId,
-            org_type: this.orgType.toLowerCase(),
+            org_type: this.data.organization_type.toLowerCase(),
             org_id: this.data.organization_id,
         });
+    }
+
+    showPopup(element: any, event: any) {
+        const roasterId = this.cookieService.get('roaster_id');
+        if (this.data.organization_type.toLowerCase() !== 'ro' || roasterId !== this.data.organization_id.toString()) {
+            element.toggle(event);
+        }
     }
 }

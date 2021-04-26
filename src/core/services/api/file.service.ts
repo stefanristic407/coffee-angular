@@ -111,6 +111,6 @@ export class FileService extends ApiService {
 
     getGeneralFiles(orgId: any, orgType: OrganizationType, query?: object): Observable<any> {
         const params = this.serializeParams(query);
-        return this.post(this.orgPostUrl, `${orgType}/${orgId}/file-manager/all-files?${params}`, 'GET');
+        return this.post(this.postUrl, `${orgType}/${orgId}/file-manager/all-files?${params}`, 'GET');
     }
 }
