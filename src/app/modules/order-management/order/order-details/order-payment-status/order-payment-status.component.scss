@@ -3,4 +3,8 @@
 .track-info {
     width: fit-content;
     border-top: 1px solid $primary-border-color;
+
+    .track-info-container {
+        width: fit-content;
+    }
 }

@@ -264,15 +264,7 @@ export class OrderManagementService {
         this.purchaseSrv.getOrderDetailsById(orderId, orgType).subscribe({
             next: (details) => {
                 if (details) {
-                    details.statusPaid = false;
-
-                    if (details.payment_status === 'VERIFIED') {
-                        details.statusPaid = true;
-
-                        if (details.status === OrderStatus.Confirmed) {
-                            details.status = OrderStatus.Payment;
-                        }
-                    }
+                    details.statusPaid = details.payment_status === 'VERIFIED';
 
                     this.orderDetailsSubject.next(details);
 
@@ -468,7 +460,7 @@ export class OrderManagementService {
             }
         }
 
-        if (order.status === OrderStatus.Confirmed && order.payment_after_delivery) {
+        if (order.status === OrderStatus.Confirmed && (order.payment_after_delivery || order.statusPaid)) {
             order.status = OrderStatus.Payment;
         }
 

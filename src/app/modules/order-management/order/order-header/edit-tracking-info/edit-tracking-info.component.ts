@@ -4,6 +4,7 @@ import { ResizeService } from '@services';
 import { OrderManagementService } from '@app/modules/order-management/order-management.service';
 import { ResizeableComponent } from '@base-components';
 import { takeUntil } from 'rxjs/operators';
+import { OrderStatus } from '@enums';
 
 @Component({
     selector: 'app-edit-tracking-info',
@@ -11,10 +12,13 @@ import { takeUntil } from 'rxjs/operators';
     styleUrls: ['./edit-tracking-info.component.scss'],
 })
 export class EditTrackingInfoComponent extends ResizeableComponent implements OnInit {
+    readonly OrderStatuses = OrderStatus;
+
     trackingUrl: string;
     shippingDate: string | Date;
 
     @Input() orderId: number;
+    @Input() orderStatus: OrderStatus;
 
     get today(): Date {
         return new Date();

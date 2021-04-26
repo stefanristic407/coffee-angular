@@ -5,6 +5,7 @@ import { ResizeService } from '@services';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { ToastrService } from 'ngx-toastr';
 import { takeUntil } from 'rxjs/operators';
+import { OrganizationType } from '@enums';
 
 @Component({
     selector: 'app-payment-status',
@@ -52,8 +53,7 @@ export class PaymentStatusComponent extends ResizeableComponent implements OnIni
         this.ordersService.updatePaymentAfterDelivery(this.orderId).subscribe((data) => {
             if (data.success) {
                 this.toastrService.success('Payment after delivering the order!');
-                this.orderDetails.payment_after_delivery = true;
-                this.ordersService.updateOrderDetails(this.orderDetails);
+                this.ordersService.loadOrderDetails(this.orderId, OrganizationType.MICRO_ROASTER, true);
             } else {
                 this.toastrService.error('Error while verifying the payment after delivery');
             }

@@ -20,6 +20,10 @@ export class OrderPaymentStatusComponent {
     constructor(private toastrService: ToastrService, private orderService: OrderManagementService) {}
 
     openLink(link: string): void {
+        if (!link.startsWith('http')) {
+            link = `http://${link}`;
+        }
+
         if (link) {
             window.open(link, '_blank');
         }

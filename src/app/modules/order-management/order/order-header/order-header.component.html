@@ -56,12 +56,16 @@
                         *ngIf="!statusPaid && orderStatus === OrderStatus.Confirmed"
                     >
                     </app-payment-status>
-                    <app-edit-tracking-info
-                        [orderId]="orderId"
-                        *ngIf="statusPaid || orderStatus !== OrderStatus.Confirmed"
-                    ></app-edit-tracking-info>
                 </ng-container>
             </div>
         </div>
     </div>
+
+    <ng-container *ngIf="organizationType === OrgTypes.MICRO_ROASTER && !isConfirmationMode">
+        <app-edit-tracking-info
+            [orderId]="orderId"
+            [orderStatus]="orderStatus"
+            *ngIf="orderStatus !== OrderStatus.Confirmed"
+        ></app-edit-tracking-info>
+    </ng-container>
 </div>
