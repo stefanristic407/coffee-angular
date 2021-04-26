@@ -1,9 +1,11 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { APP_LANGUAGES } from '@constants';
 import { CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-create-recipe',
@@ -11,14 +13,18 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./create-recipe.component.scss'],
 })
 export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
-    @Input() recipeId;
+    @Input() isTranslate;
     @Input() saveOriginalPost;
+    isPosting = false;
     recipeSub: Subscription;
     applicationLanguages: any[] = APP_LANGUAGES;
     id: any;
+    coverImageUrl: any;
+    videoUrl: any;
     description: any;
     stepDescription: any;
     isUploadingImage = false;
+    isShowVideo = false;
     imageIdList = [];
     qualitySeleted = '1 Lbs';
     seletedPreparationTime = 'mins';
@@ -35,6 +41,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
     languageArray = [];
     roasterId: string;
     imageIdListStep = [];
+    recipeId: any;
     expertiseArray: any[] = [
         {
             label: 'easy',
@@ -76,14 +83,26 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         },
     ];
 
-    constructor(private fb: FormBuilder, private toaster: ToastrService, private coffeeLabService: CoffeeLabService) {}
+    constructor(
+        private fb: FormBuilder,
+        private toaster: ToastrService,
+        private coffeeLabService: CoffeeLabService,
+        private router: Router,
+        private route: ActivatedRoute,
+        private location: Location,
+    ) {
+        this.createRecipeForm();
+    }
 
     ngOnInit(): void {
-        this.createRecipeForm();
+        this.recipeId = this.route.snapshot.queryParamMap.get('id');
+        if (this.recipeId) {
+            this.getRecipeyById();
+        }
         this.recipeSub?.unsubscribe();
         const recipeSub = this.coffeeLabService.originalPost.subscribe((res) => {
             console.log('response', res);
-            if (res && this.id) {
+            if (res && this.isTranslate) {
                 console.log('this.id--->>posttttttt', this.id);
                 this.onSave();
             }
@@ -92,11 +111,44 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         this.recipeSub?.add(recipeSub);
     }
 
+    getRecipeyById(): void {
+        // this.isLoading = true;
+        this.coffeeLabService.getForumDetails('recipe', this.recipeId).subscribe((res: any) => {
+            // this.isLoading = false;
+            console.log('getby id response--->>', res);
+            if (res.success) {
+                // this.article = res.result;
+                this.recipeForm.controls.cover_image_id.setValue(res.result.cover_image_id);
+                this.coverImageUrl = res.result.cover_image_url;
+                this.isUploadingImage = true;
+                this.description = res.result.description;
+                this.recipeForm.patchValue({
+                    name: res.result.name,
+                    expertise: res.result.expertise,
+                    serves: res.result.serves,
+                    preparation_time_unit: res.result.preparation_time_unit,
+                    cooking_time_unit: res.result.cooking_time_unit,
+                    preparation_time: res.result.preparation_time,
+                    cooking_time: res.result.cooking_time,
+                    preparation_method: res.result.preparation_method,
+                    cover_image_id: res.result.cover_image_id,
+                    description: res.result.description,
+                    ingredients: res.result.ingredients ? res.result.ingredients : [],
+                    steps: res.result.steps ? res.result.steps : [],
+                    allow_translation: res.result.allow_translation,
+                    video_id: res.result?.video_id,
+                });
+                this.isShowVideo = true;
+                this.videoUrl = res.result.video_url;
+            } else {
+                this.toaster.error('Error while get article');
+                this.location.back();
+            }
+        });
+    }
+
     ngOnChanges(): void {
-        console.log('recipeId', this.recipeId);
-        if (this.recipeId) {
-            this.id = this.recipeId;
-        }
+        console.log('isTranslate', this.isTranslate);
     }
 
     createRecipeForm(): void {
@@ -135,11 +187,14 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
                     this.imageFileData = res.result;
                     if (type === 'recipeCoverImage') {
                         this.recipeForm.controls.cover_image_id.setValue(res.result.id);
+                        this.coverImageUrl = res.result.url;
                     } else if (type === 'stepImage') {
                         const step = this.recipeForm.get('steps') as FormArray;
                         console.log('step--->>>', step);
                         step.controls[index].value.image_id = res.result.id;
                     } else {
+                        this.isShowVideo = true;
+                        this.videoUrl = res.result.url;
                         this.recipeForm.controls.video_id.setValue(res.result.id);
                     }
                     console.log('recipe form', this.recipeForm.value);
@@ -196,9 +251,13 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         this.recipeForm.controls.description.setValue(this.description);
         console.log('save----', this.recipeForm.value);
         if (this.validateForms()) {
+            this.isPosting = true;
             if (this.id) {
                 console.log('translate recipe');
                 this.translateRecipe(this.recipeForm.value);
+            } else if (this.recipeId) {
+                console.log('update recipe');
+                this.updateRecipe(this.recipeForm.value);
             } else {
                 console.log('create new recipe');
                 this.createNewRecipe(this.recipeForm.value);
@@ -209,6 +268,20 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         }
     }
 
+    updateRecipe(data: any): void {
+        data.inline_images = [].concat(this.imageIdList, ...this.imageIdListStep);
+        console.log('send recipe-->>>>', data);
+        this.coffeeLabService.updateForum('recipe', this.recipeId, data).subscribe((res: any) => {
+            this.isPosting = false;
+            if (res.success) {
+                this.toaster.success('You have updated an recipe successfully.');
+                this.location.back();
+            } else {
+                this.toaster.error('Failed to update recipe.');
+            }
+        });
+    }
+
     translateRecipe(data: any): void {
         data.inline_images = [].concat(this.imageIdList, ...this.imageIdListStep);
         console.log('send recipe-->>>>', data);
@@ -216,6 +289,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
             console.log('post question result >>>', res);
             if (res.success) {
                 this.toaster.success('You have translated a coffee recipe successfully.');
+                this.router.navigate(['/coffee-lab/overview/coffee-recipes']);
             } else {
                 this.toaster.error('Failed to translate coffee recipe.');
             }
@@ -229,6 +303,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
             console.log('post question result >>>', res);
             if (res.success) {
                 this.toaster.success('You have posted a coffee recipe successfully.');
+                this.router.navigate(['/coffee-lab/overview/coffee-recipes']);
             } else {
                 this.toaster.error('Failed to post coffee recipe.');
             }

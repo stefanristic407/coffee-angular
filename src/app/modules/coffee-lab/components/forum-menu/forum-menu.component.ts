@@ -82,6 +82,7 @@ export class ForumMenuComponent implements OnInit {
                 url = `${environment.roasterWeb}/coffee-lab/articles/${this.selectedItem.slug}`;
                 break;
             case 'recipe':
+                url = `${environment.roasterWeb}/coffee-lab/recipes/${this.selectedItem.slug}`;
                 break;
             case 'answer':
                 url = `${environment.roasterWeb}/coffee-lab/questions/${this.extraInfo}?answer=${this.selectedItem.id}`;
@@ -120,6 +121,9 @@ export class ForumMenuComponent implements OnInit {
                 });
                 break;
             case 'recipe':
+                this.router.navigate(['/coffee-lab/create-post/translate-recipe'], {
+                    queryParams: { id: this.selectedItem.id },
+                });
                 break;
             case 'answer':
                 console.log('lets go here');
@@ -144,6 +148,9 @@ export class ForumMenuComponent implements OnInit {
                 });
                 break;
             case 'recipe':
+                this.router.navigate(['/coffee-lab/create-post/tab/recipe'], {
+                    queryParams: { id: this.selectedItem.id },
+                });
                 break;
             case 'answer':
                 break;

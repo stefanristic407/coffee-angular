@@ -2,7 +2,7 @@
     <p-tabView class="toggle" [(activeIndex)]="selectedTab">
         <p-tabPanel [header]="'translation' | translate">
             <div class="p-4 bg-f8" *ngIf="id">
-                <app-create-recipe [recipeId]="id"></app-create-recipe>
+                <app-create-recipe [isTranslate]="true"></app-create-recipe>
             </div>
         </p-tabPanel>
         <p-tabPanel [header]="'see_original_post' | translate">

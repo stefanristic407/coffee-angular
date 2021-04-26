@@ -80,7 +80,7 @@
                     justify-content: space-between;
                     width: 100%;
                     min-height: 72px;
-                    padding: 15px 24px;
+                    padding: 0px 24px;
                     border: solid 1px #dedede;
                     background-color: #ffffff;
                     &.dm-clp-ch-search-expand {
@@ -210,7 +210,7 @@
                         align-items: center;
                         width: 100%;
                         min-height: 72px;
-                        padding: 15px 24px;
+                        padding: 0px 24px;
                         border: solid 1px #dedede;
                         background-color: #ffffff;
                         &.dm-exp-ch-search-expand {
@@ -971,6 +971,9 @@
                 }
                 .dm-ci-content-text {
                     text-align: left;
+                    ::ng-deep .dm-highlight-marker {
+                        background-color: #d0cdcd;
+                    }
                 }
                 .dm-ci-content-translation {
                     justify-content: flex-start;
@@ -992,6 +995,9 @@
                 }
                 .dm-ci-content-text {
                     text-align: right;
+                    ::ng-deep .dm-highlight-marker {
+                        background-color: #fdf5e7;
+                    }
                 }
                 .dm-ci-content-translation {
                     justify-content: flex-end;
@@ -1051,6 +1057,7 @@
                         background-color: #efe0d1;
                     }
                 }
+
                 .dm-ci-content-text {
                     position: relative;
                     display: block;
@@ -1061,9 +1068,11 @@
                     font-weight: 600;
                     color: #232334;
                     padding: 0px 8px;
-                    .marker {
-                        background-color: #fdf5e7;
+                    ::ng-deep .dm-highlight-marker {
                         text-decoration: underline;
+                        margin: 1px;
+                        font-weight: bold;
+                        color: #232334;
                     }
                 }
                 .dm-ci-content-translation {
@@ -1581,7 +1590,6 @@
     }
 }
 .dm-header-chat-menu {
-    margin-left: 16px;
     position: relative;
     display: block;
     .dm-hcm-opener {
@@ -1589,13 +1597,14 @@
         display: block;
         width: 32px;
         height: 32px;
+        margin-left: 16px;
     }
     .dm-hcm-panel {
         position: absolute;
         background-color: #fff;
         height: 130px;
         width: 120px;
-        left: -80px;
+        left: -62px;
         top: 48px;
         z-index: 20;
         padding: 5px;

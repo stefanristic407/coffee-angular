@@ -293,7 +293,7 @@ export class VarientDetailsComponent implements OnInit {
         }
         const productImageArray = weight.controls[this.currentVarientIndex]['controls'].product_images.value;
         const getNewImage = productImageArray.filter(
-            (ele) => ele.fileDetails && !ele.fileDetails.image_id && ele.fileDetails.image_url,
+            (ele) => ele.fileDetails && !ele.image_id && ele.fileDetails.image_url,
         );
         getNewImage.forEach((ele, index) => {
             if (ele.fileDetails && !ele.fileDetails.image_id && ele.fileDetails.image_url) {

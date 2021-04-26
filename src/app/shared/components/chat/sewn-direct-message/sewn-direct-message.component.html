@@ -47,7 +47,12 @@
                                 data-element="live-chat-message-body"
                             >
                                 <div class="dm-exp-chat-wrapper">
-                                    <ng-container *ngTemplateOutlet="chatListTL"></ng-container>
+                                    <ng-container *ngIf="!chatSearch.searchResult.length">
+                                        <ng-container *ngTemplateOutlet="chatListTL"></ng-container>
+                                    </ng-container>
+                                    <ng-container *ngIf="chatSearch.searchResult.length">
+                                        <ng-container *ngTemplateOutlet="chatSearchResult"></ng-container>
+                                    </ng-container>
                                 </div>
                             </div>
                             <div class="dm-exp-chat-footer">
@@ -97,7 +102,12 @@
                             data-element="live-chat-message-body"
                         >
                             <div class="dm-clp-chat-wrapper">
-                                <ng-container *ngTemplateOutlet="chatListTL"></ng-container>
+                                <ng-container *ngIf="!chatSearch.searchResult.length">
+                                    <ng-container *ngTemplateOutlet="chatListTL"></ng-container>
+                                </ng-container>
+                                <ng-container *ngIf="chatSearch.searchResult.length">
+                                    <ng-container *ngTemplateOutlet="chatSearchResult"></ng-container>
+                                </ng-container>
                             </div>
                         </div>
                         <div class="dm-clp-chat-footer">
@@ -636,6 +646,85 @@
                             <span class="dm-ci-message-stamp-seprator"></span>
                         </ng-container>
                         <span>{{ message.computed_date }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #chatSearchResult>
+    <div
+        class="dm-chat-item-wrapper"
+        *ngFor="let unit of chatSearch.activeResult.messageUnit; let last = last"
+        [attr.data-chat-id]="unit.message.id"
+        data-element="messages-item"
+    >
+        <div *ngIf="unit.message.showDateBadge" class="dm-ci-date-box">
+            <div class="dm-ci-date-bar"></div>
+            <div class="dm-ci-date-stamp">{{ unit.message.dateString }}</div>
+            <div class="dm-ci-date-bar"></div>
+        </div>
+        <div
+            appLifecyclehook
+            (viewChecked)="last && searchMessageRendered.next('done')"
+            class="dm-ci-unit-wrapper"
+            [ngClass]="{ 'dm-chat-to': unit.message.isActiveUser, 'dm-chat-from': !unit.message.isActiveUser }"
+        >
+            <div class="dm-ci-unit">
+                <div
+                    class="dm-ci-content-block"
+                    [ngClass]="{
+                        'dm-ci-content-size-small': activeFontSize.value === 'SMALL',
+                        'dm-ci-content-size-normal': activeFontSize.value === 'NORMAL',
+                        'dm-ci-content-size-large': activeFontSize.value === 'LARGE'
+                    }"
+                >
+                    <a
+                        [href]="unit.message?.file?.url"
+                        target="_blank"
+                        download="sewn-chat.jpg"
+                        class="dm-ci-image-wrapper"
+                        *ngIf="unit.message?.file?.url"
+                    >
+                        <img class="dm-ci-content-image" [src]="unit.message?.file?.url" alt="Image" />
+                    </a>
+
+                    <ng-container *ngIf="unit.message.showTranslation === 'OFF'">
+                        <div *ngIf="!unit.isMatch" class="dm-ci-content-text">
+                            {{ unit.message.content || '_' }}
+                        </div>
+                        <div
+                            *ngIf="unit.isMatch"
+                            appChatHighlighter
+                            [searchKey]="chatSearch.keyword"
+                            [messageContent]="unit.message.content"
+                            class="dm-ci-content-text"
+                        ></div>
+                    </ng-container>
+                    <div *ngIf="unit.message.showTranslation === 'ON'" class="dm-ci-content-text">
+                        {{ unit.message.translatedText }}
+                    </div>
+                    <div *ngIf="unit.message.showTranslation === 'IP'" class="dm-ci-content-translation">
+                        <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+                        <span class="dm-ci-content-translating-text">Translating...</span>
+                    </div>
+                </div>
+                <div class="dm-ci-message-meta">
+                    <div *ngIf="unit.message.lang !== gtrans.defaultLang" class="dm-ci-translation">
+                        <span *ngIf="unit.message.showTranslation === 'OFF'" (click)="translateMessage(unit.message)"
+                            >View translation</span
+                        >
+                        <span *ngIf="unit.message.showTranslation === 'ON'" (click)="showOrginal(unit.message)"
+                            >Show original text</span
+                        >
+                    </div>
+                    <div class="dm-ci-message-stamp">
+                        <ng-container *ngIf="enableReadRecipient">
+                            <span>Delivered</span>
+                            <span *ngIf="false">Read</span>
+                            <span class="dm-ci-message-stamp-seprator"></span>
+                        </ng-container>
+                        <span>{{ unit.message.computed_date }}</span>
                     </div>
                 </div>
             </div>
