@@ -51,7 +51,7 @@
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
             <label>Expertise<span class="star">*</span></label>
             <p-dropdown
-                [options]="experiseArray"
+                [options]="expertiseArray"
                 optionLabel="label"
                 placeholder="Select level"
                 [style]="{ width: '100%' }"
@@ -158,7 +158,7 @@
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
             <p-dropdown
-                [options]="experiseArray"
+                [options]="expertiseArray"
                 optionLabel="label"
                 placeholder="Add step by step introduction & video"
                 [style]="{ width: '100%' }"
@@ -243,18 +243,21 @@
             ></p-checkbox>
             <i class="pi pi-info-circle text-clr588 fnt-16 ml-2"></i>
         </div>
-        <div class="row btn-controls col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 my-4 pr-0">
+        <div class="row mt-2 col-sm-12 pr-0">
             <div class="col-md-6 order-2 order-md-1">
-                <button class="btn-stroked px-4">
+                <button routerLink="/coffee-lab/overview/qa-forum" class="btn-stroked px-4 w-mob-100 mb-2 mb-md-0">
                     {{ 'cancel' | translate }}
                 </button>
             </div>
-            <div class="col-md-6 order-1 order-md-2 pr-0">
+            <div class="col-md-6 order-1 order-md-2 p-0">
                 <div class="d-flex justify-content-end flex-column flex-md-row">
-                    <button class="btn-stroked px-4 order-2 order-md-1">
+                    <button class="btn-stroked px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0">
                         {{ 'save_as_draft' | translate }}
                     </button>
-                    <button class="btn-raised px-4 ml-md-3 order-1 order-md-2" (click)="onSave()">
+                    <button
+                        (click)="onSave()"
+                        class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
+                    >
                         {{ 'submit' | translate }}
                     </button>
                 </div>

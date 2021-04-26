@@ -1,9 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { APP_LANGUAGES } from '@constants';
-import { CoffeeLabService, RoasterserviceService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
+import { CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 
@@ -12,7 +10,7 @@ import { Subscription } from 'rxjs';
     templateUrl: './create-recipe.component.html',
     styleUrls: ['./create-recipe.component.scss'],
 })
-export class CreateRecipeComponent implements OnInit {
+export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
     @Input() recipeId;
     @Input() saveOriginalPost;
     recipeSub: Subscription;
@@ -35,9 +33,9 @@ export class CreateRecipeComponent implements OnInit {
     imageFileData: any;
     imageFileName: any;
     languageArray = [];
-    roaster_id: string;
+    roasterId: string;
     imageIdListStep = [];
-    experiseArray: any[] = [
+    expertiseArray: any[] = [
         {
             label: 'easy',
             value: 'easy',
@@ -78,17 +76,11 @@ export class CreateRecipeComponent implements OnInit {
         },
     ];
 
-    constructor(
-        private fb: FormBuilder,
-        private toaster: ToastrService,
-        private cookieService: CookieService,
-        private roasterService: RoasterserviceService,
-        private coffeeLabService: CoffeeLabService,
-        private route: ActivatedRoute,
-    ) {}
+    constructor(private fb: FormBuilder, private toaster: ToastrService, private coffeeLabService: CoffeeLabService) {}
 
     ngOnInit(): void {
         this.createRecipeForm();
+        this.recipeSub?.unsubscribe();
         const recipeSub = this.coffeeLabService.originalPost.subscribe((res) => {
             console.log('response', res);
             if (res && this.id) {
@@ -100,15 +92,14 @@ export class CreateRecipeComponent implements OnInit {
         this.recipeSub?.add(recipeSub);
     }
 
-    ngOnChanges() {
+    ngOnChanges(): void {
         console.log('recipeId', this.recipeId);
         if (this.recipeId) {
             this.id = this.recipeId;
-            console.log('id---->>>>', this.id);
         }
     }
 
-    createRecipeForm() {
+    createRecipeForm(): void {
         this.recipeForm = this.fb.group({
             name: ['', Validators.compose([Validators.required])],
             expertise: ['', Validators.compose([Validators.required])],
@@ -120,8 +111,8 @@ export class CreateRecipeComponent implements OnInit {
             preparation_method: ['', Validators.compose([Validators.required])],
             cover_image_id: [null, Validators.compose([Validators.required])],
             description: ['', Validators.compose([Validators.required])],
-            ingredients: this.fb.array([this.createCoffeIngredient()]),
-            steps: this.fb.array([this.createcoffeStep()]),
+            ingredients: this.fb.array([this.createCoffeeIngredient()]),
+            steps: this.fb.array([this.createcoffeeStep()]),
             allow_translation: [false],
             video_id: [null, Validators.compose([Validators.required])],
             inline_images: [[]],
@@ -129,7 +120,7 @@ export class CreateRecipeComponent implements OnInit {
         });
     }
 
-    uploadImage(event: any, index?, type?) {
+    uploadImage(event: any, index?, type?): void {
         this.files = event.target.files;
         this.fileEvent = this.files;
         console.log(this.fileEvent);
@@ -137,26 +128,19 @@ export class CreateRecipeComponent implements OnInit {
         const fileList: FileList = this.fileEvent;
         if (fileList.length > 0) {
             const file: File = fileList[0];
-            const formData: FormData = new FormData();
-            formData.append('file', file, file.name);
-            formData.append('name', this.imageFileName);
-            formData.append('file_module', 'Coffee-Story');
-            formData.append('parent_id', '0');
-            formData.append('api_call', '/ro/' + this.roaster_id + '/file-manager/files');
-            formData.append('token', this.cookieService.get('Auth'));
-            this.coffeeLabService.uploadFile(file, 'recipe-post').subscribe((result: any) => {
-                console.log('image upload result---', result);
-                if (result.success === true) {
+            this.coffeeLabService.uploadFile(file, 'recipe-post').subscribe((res: any) => {
+                console.log('image upload result---', res);
+                if (res.success === true) {
                     this.toaster.success('The file ' + this.imageFileName + ' uploaded successfully');
-                    this.imageFileData = result.result;
+                    this.imageFileData = res.result;
                     if (type === 'recipeCoverImage') {
-                        this.recipeForm.controls.cover_image_id.setValue(result.result.id);
+                        this.recipeForm.controls.cover_image_id.setValue(res.result.id);
                     } else if (type === 'stepImage') {
                         const step = this.recipeForm.get('steps') as FormArray;
                         console.log('step--->>>', step);
-                        step.controls[index].value.image_id = result.result.id;
+                        step.controls[index].value.image_id = res.result.id;
                     } else {
-                        this.recipeForm.controls.video_id.setValue(result.result.id);
+                        this.recipeForm.controls.video_id.setValue(res.result.id);
                     }
                     console.log('recipe form', this.recipeForm.value);
                 } else {
@@ -166,14 +150,14 @@ export class CreateRecipeComponent implements OnInit {
         }
     }
 
-    createcoffeStep() {
+    createcoffeeStep() {
         return this.fb.group({
             description: [''],
             image_id: [null],
         });
     }
 
-    createCoffeIngredient() {
+    createCoffeeIngredient() {
         return this.fb.group({
             name: ['', Validators.compose([Validators.required])],
             quantity: ['', Validators.compose([Validators.required])],
@@ -181,15 +165,15 @@ export class CreateRecipeComponent implements OnInit {
         });
     }
 
-    addIngredient() {
+    addIngredient(): void {
         console.log('add varient');
         this.ingredients = this.recipeForm.get('ingredients') as FormArray;
-        this.ingredients.push(this.createCoffeIngredient());
+        this.ingredients.push(this.createCoffeeIngredient());
     }
 
-    addStep() {
+    addStep(): void {
         this.steps = this.recipeForm.get('steps') as FormArray;
-        this.steps.push(this.createcoffeStep());
+        this.steps.push(this.createcoffeeStep());
         console.log('this.steps--->>', this.steps);
     }
 
@@ -208,7 +192,7 @@ export class CreateRecipeComponent implements OnInit {
         return returnFlag;
     }
 
-    onSave() {
+    onSave(): void {
         this.recipeForm.controls.description.setValue(this.description);
         console.log('save----', this.recipeForm.value);
         if (this.validateForms()) {
@@ -225,7 +209,7 @@ export class CreateRecipeComponent implements OnInit {
         }
     }
 
-    translateRecipe(data) {
+    translateRecipe(data: any): void {
         data.inline_images = [].concat(this.imageIdList, ...this.imageIdListStep);
         console.log('send recipe-->>>>', data);
         this.coffeeLabService.translateForum('recipe', this.id, data).subscribe((res: any) => {
@@ -238,7 +222,7 @@ export class CreateRecipeComponent implements OnInit {
         });
     }
 
-    createNewRecipe(data) {
+    createNewRecipe(data: any): void {
         data.inline_images = [].concat(this.imageIdList, ...this.imageIdListStep);
         console.log('send recipe-->>>>', data);
         this.coffeeLabService.postCoffeeRecipe(data).subscribe((res: any) => {
@@ -251,8 +235,7 @@ export class CreateRecipeComponent implements OnInit {
         });
     }
 
-    ngOnDestroy() {
-        console.log('ondestroy calll----');
+    ngOnDestroy(): void {
         this.recipeSub?.unsubscribe();
     }
 }

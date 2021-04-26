@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { ApiResponse } from '@models';
     providedIn: 'root',
 })
 export class CoffeeLabService extends ApiService {
-    originalPost = new BehaviorSubject(null);
+    @Output() originalPost = new EventEmitter();
     forumLanguage = new BehaviorSubject('en');
     organization = 'ro';
     organizationId = this.cookieSrv.get('roaster_id');
