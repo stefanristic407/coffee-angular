@@ -28,9 +28,6 @@
     </div>
     <div class="d-flex flex-row flex-md-column w-100">
         <span class="fnt-500 text-muted">{{ 'total' | translate }}</span>
-        <span class="mt-md-3 fnt-600 text-clr334">{{ lot?.price | currency: 'USD' }}</span>
+        <span class="mt-md-3 fnt-600 text-clr334">{{ lot?.price + lot?.shipping_price | currency: 'USD' }}</span>
     </div>
 </div>
-<!-- <div class="d-flex w-100 justify-content-center mt-2">
-    
-</div> -->
