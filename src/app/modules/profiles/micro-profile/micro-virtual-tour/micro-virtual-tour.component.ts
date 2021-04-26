@@ -34,7 +34,7 @@ export class MicroVirtualTourComponent implements OnInit {
         this.isLoading = true;
         this.fileService
             .getGeneralFiles(this.microRoasterId, OrganizationType.MICRO_ROASTER, {
-                file_module: 'Virtual-Tour',
+                file_module: 'Gallery',
                 type_in: 'VIDEO,IMAGE',
             })
             .subscribe((res) => {
