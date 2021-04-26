@@ -142,5 +142,6 @@ export class TranslateArticleComponent implements OnInit {
     pasteCoverImage() {
         this.coverImageUrl = this.copiedCoverImageUrl;
         this.coverImageId = this.copiedCoverImageId;
+        this.isCoverImageUploaded = true;
     }
 }
