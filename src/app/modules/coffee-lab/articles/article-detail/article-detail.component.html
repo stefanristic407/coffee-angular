@@ -35,7 +35,7 @@
                                 "
                             >
                                 <app-translation-dropdown
-                                    forumType="articles"
+                                    forumType="article"
                                     [translatedList]="detailsData?.translated_articles"
                                 ></app-translation-dropdown>
                             </div>
@@ -50,7 +50,7 @@
                         "
                     >
                         <app-translation-dropdown
-                            forumType="articles"
+                            forumType="article"
                             [translatedList]="detailsData?.translated_articles"
                         ></app-translation-dropdown>
                     </div>
@@ -62,7 +62,7 @@
                     ></div>
                 </div>
                 <div class="pt-4" *ngIf="detailsData?.original_article_id">
-                    <app-original-view [detailsData]="detailsData"></app-original-view>
+                    <app-original-view [detailsData]="detailsData" forumType="article"></app-original-view>
                 </div>
                 <div class="pt-4">
                     <app-comments [commentData]="commentData" (postComment)="postComment($event)"></app-comments>

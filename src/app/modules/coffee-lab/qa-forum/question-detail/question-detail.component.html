@@ -67,7 +67,7 @@
                             </div>
                             <div *ngIf="answer?.translations?.length" class="d-none d-md-block">
                                 <app-translation-dropdown
-                                    forumType="questions"
+                                    forumType="question"
                                     [translatedList]="answer?.translations"
                                 ></app-translation-dropdown>
                             </div>
@@ -79,7 +79,7 @@
                     class="d-block d-md-none border-top-main border-bottom-main py-3 mb-3 text-center"
                 >
                     <app-translation-dropdown
-                        forumType="questions"
+                        forumType="question"
                         [translatedList]="answer?.translations"
                     ></app-translation-dropdown>
                 </div>

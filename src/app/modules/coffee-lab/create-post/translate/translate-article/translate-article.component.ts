@@ -67,7 +67,7 @@ export class TranslateArticleComponent implements OnInit {
     }
 
     onFileChange(event: any) {
-        if (event.target.files && event.target.files.length > 0) {
+        if (event.target.files?.length) {
             this.isCoverImageUploaded = false;
             this.coverImage = event.target.files[0];
             const reader = new FileReader();
