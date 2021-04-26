@@ -1,0 +1,15 @@
+<p-toast position="bottom-center" key="translate" [baseZIndex]="5000" styleClass="translate-toast">
+    <ng-template pTemplate="message">
+        <div class="d-flex align-items-center p-md-3">
+            <img src="assets/images/flag.jpg" class="flag-image" />
+            <div class="pl-25 pl-md-4">
+                <p class="fnt-muli fnt-18 fnt-md-24 fnt-bold lh-142 text-clr334 mb-2">
+                    You are now in the {{ globalsService.getLanguage(language) }} Coffee Lab
+                </p>
+                <p class="fnt-muli fnt-14 fnt-normal lh-157 text-clr334 mb-0">
+                    {{ 'translated_description' | translate }}
+                </p>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
