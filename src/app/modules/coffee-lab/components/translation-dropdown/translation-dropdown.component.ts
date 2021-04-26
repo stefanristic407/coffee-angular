@@ -18,11 +18,11 @@ export class TranslationDropdownComponent implements OnInit {
     ngOnInit(): void {}
 
     onChangeTranslate(event: any): void {
-        if (this.forumType === 'questions') {
+        if (this.forumType === 'question') {
             console.log('event value >>>>>>>', event.value);
-            this.router.navigate([], {queryParams: {language: event.value.language}, queryParamsHandling: 'merge'});
+            this.router.navigate([], { queryParams: { language: event.value.language }, queryParamsHandling: 'merge' });
         } else {
-            this.router.navigate([`/coffee-lab/${this.forumType}/${event.value.slug ?? event.value.id}`]);
+            this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.slug ?? event.value.id}`]);
         }
     }
 }
