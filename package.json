@@ -37,6 +37,7 @@
     "crypto-js": "^4.0.0",
     "datatables.net": "^1.10.21",
     "datatables.net-dt": "^1.10.21",
+    "dompurify": "^2.2.7",
     "echarts": "^5.0.2",
     "file-saver": "^2.0.5",
     "google-libphonenumber": "^3.2.16",
