@@ -92,6 +92,10 @@ export class CoffeeLabService extends ApiService {
         return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/${type}s/${id}`, 'PUT', data);
     }
 
+    deleteForumById(type: string, id: any): Observable<any> {
+        return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/${type}s/${id}`, 'DELETE');
+    }
+
     getAuthors(type: string): Observable<any> {
         return this.post(this.orgPostUrl, `general/coffee-lab/authors?post_type=${type}s`, 'GET');
     }
