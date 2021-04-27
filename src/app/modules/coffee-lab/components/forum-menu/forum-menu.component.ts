@@ -160,10 +160,10 @@ export class ForumMenuComponent implements OnInit {
     onDelete(): void {
         this.coffeeLabService.deleteForumById(this.forumType, this.selectedItem.id).subscribe((res: any) => {
             if (res.success) {
-                this.toastService.success('You have deleted a forum successfully.');
+                this.toastService.success(`You have deleted a ${this.forumType} successfully.`);
                 this.coffeeLabService.forumDeleteEvent.emit();
             } else {
-                this.toastService.error('Failed to delete a forum.');
+                this.toastService.error(`Failed to delete a ${this.forumType}.`);
             }
         });
     }

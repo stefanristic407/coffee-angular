@@ -38,6 +38,7 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
     pageDesc: string | undefined;
     organizationId: any;
     forumLanguageSub: Subscription;
+    forumDeleteSub: Subscription;
     forumLanguage: string;
     constructor(
         private coffeeLabService: CoffeeLabService,
@@ -53,6 +54,9 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
         this.organizationId = +this.cookieService.get('roaster_id');
         this.forumLanguageSub = this.coffeeLabService.forumLanguage.subscribe((language) => {
             this.forumLanguage = language;
+            this.getData();
+        });
+        this.forumDeleteSub = this.coffeeLabService.forumDeleteEvent.subscribe(() => {
             this.getData();
         });
     }
@@ -103,9 +107,9 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
         const contentElement = document.createElement('div');
         contentElement.innerHTML = content;
         const images = contentElement.querySelectorAll('img');
-        for (let i = 0; i < images.length; i++) {
-            images[0].parentNode.removeChild(images[0]);
-        }
+        images.forEach((image) => {
+            image.parentNode.removeChild(image);
+        });
         return contentElement.innerHTML;
     }
 
