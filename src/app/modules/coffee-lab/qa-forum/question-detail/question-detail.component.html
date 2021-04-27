@@ -92,7 +92,11 @@
             <div class="bg-f8 fnt-18 fnt-muli font-weight-bold text-clr334 mt-1 ml-1 mr-1 py-25 px-3">
                 {{ 'recent_discussions_on_forum' | translate }}
             </div>
-            <div *ngFor="let question of recentQuestions" class="mx-3 border-bottom-dashed">
+            <div
+                *ngFor="let question of recentQuestions; let last = last"
+                class="mx-3"
+                [ngClass]="{ 'border-bottom-dashed': !last }"
+            >
                 <div
                     class="fnt-muli fnt-600 mb-0 recent-question-item my-4"
                     [routerLink]="'/coffee-lab/questions/' + question.slug"

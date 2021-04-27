@@ -46,8 +46,16 @@ export class CoffeeLabService extends ApiService {
         this.toastService.success('Successfully copied');
     }
 
-    getForumList(type: string, options?: any): Observable<any> {
-        return this.post(this.orgPostUrl, `general/${type}s?${this.serializeParams(options)}`, 'GET');
+    getForumList(type: string, options?: any, language = 'en'): Observable<any> {
+        const data = {
+            api_call: `/general/${type}s?${this.serializeParams(options)}`,
+            method: 'GET',
+            token: this.cookieSrv.get('Auth')
+        };
+        const httpOptions = {
+            headers: new HttpHeaders({ 'Accept-Language': language }),
+        };
+        return this.http.post(this.orgPostUrl, data, httpOptions);
     }
 
     getForumDetails(type: string, idOrSlug: any, language = 'en'): Observable<any> {

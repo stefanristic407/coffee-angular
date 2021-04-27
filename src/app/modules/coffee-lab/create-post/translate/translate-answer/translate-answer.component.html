@@ -11,6 +11,7 @@
                         <div class="sewn-form-field language-container mb-4">
                             <p-dropdown
                                 [options]="applicationLanguages"
+                                (onChange)="onChangeTranslationLanguage($event.value)"
                                 class="w-100"
                                 formControlName="language"
                                 required
@@ -18,9 +19,11 @@
                                 optionLabel="label"
                                 optionValue="value"
                             ></p-dropdown>
-                            <div *ngIf="form.controls.language.invalid" class="p-error">Required field</div>
+                            <div *ngIf="form.controls.language.invalid" class="p-error">
+                                {{ 'required_field' | translate }}
+                            </div>
                         </div>
-                        <div class="sewn-form-field w-100 mb-4">
+                        <div *ngIf="needToTranslateQuestion" class="sewn-form-field w-100 mb-4">
                             <input
                                 class="w-100"
                                 type="text"
@@ -28,6 +31,9 @@
                                 [placeholder]="'translate_the_question' | translate"
                                 formControlName="question"
                             />
+                            <div *ngIf="form.controls.language.invalid" class="p-error">
+                                {{ 'required_field' | translate }}
+                            </div>
                         </div>
                         <div>
                             <app-forum-editor
@@ -45,13 +51,13 @@
                 <div class="p-4 bg-f8">
                     <div class="border-main bg-white p-3 br-4 fnt-14 fnt-muli text-clr334 mb-4">
                         <div class="font-weight-bold mb-3">{{ 'original_question' | translate }}:</div>
-                        <div>What are coffee profiles? How many flabour profiles a coffee can have?</div>
+                        <div>{{ originAnswer.question }}</div>
                     </div>
                     <div class="border-main bg-white p-4 br-4">
                         <div class="font-weight-bold mb-3">
                             {{ 'translating_answer_by' | translate }} {{ this.authService.currentUser.firstname }}
                         </div>
-                        <div appCopyImageToClipboard [innerHTML]="answer.answer"></div>
+                        <div appCopyImageToClipboard [innerHTML]="originAnswer.answer"></div>
                     </div>
                 </div>
             </p-tabPanel>
