@@ -33,14 +33,20 @@ export class DashboardCoffeeComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.stockSub = this.welcomeSrv.stock$.subscribe((res: any) => {
-            this.stock = res;
-            if (this.stock) {
+            if (res) {
+                this.stock = res;
                 this.makeChartData();
             }
         });
         this.ordersSub = this.welcomeSrv.orders$.subscribe((res: any) => {
             if (res) {
-                this.orders = res;
+                const orderData: any = res;
+                const sortedOrdersData = orderData.sort((a: any, b: any) => {
+                    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+                });
+                sortedOrdersData.length > 5
+                    ? (this.orders = sortedOrdersData.slice(0, 5))
+                    : (this.orders = sortedOrdersData);
             }
         });
     }

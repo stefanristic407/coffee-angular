@@ -15,7 +15,9 @@
                 class="animation-bounce-in-up col-12 col-md-6 col-lg-4 mb-sm-4 mb-4 mb-md-0"
             >
                 <div class="chart-block br-4 h-100 mb-3">
-                    <div class="fnt-14 fnt-bold text-clr334 br-4 bg-f8 p-2 m-1 d-md-none">Total sourced coffee</div>
+                    <div class="fnt-14 fnt-bold text-clr334 br-4 bg-f8 p-2 m-1 d-md-none">
+                        {{ 'total_sourced_coffee' | translate }}
+                    </div>
 
                     <div class="h-sm-100 d-flex flex-column justify-content-center align-items-center">
                         <app-pie-chart
@@ -33,17 +35,17 @@
                         <table *ngIf="orders" class="table w-100">
                             <thead class="table-header">
                                 <tr class="header-row">
-                                    <th>Order ID</th>
-                                    <th scope="col">Estate name</th>
-                                    <th scope="col">Order type</th>
-                                    <th scope="col">Placed on</th>
-                                    <th scope="col">Status</th>
+                                    <th>{{ 'order_id' | translate }}</th>
+                                    <th scope="col">{{ 'estate_name' | translate }}</th>
+                                    <th scope="col">{{ 'order_type' | translate }}</th>
+                                    <th scope="col">{{ 'placed_on' | translate }}</th>
+                                    <th scope="col">{{ 'status' | translate }}</th>
                                 </tr>
                             </thead>
                             <tbody class="customtable">
                                 <tr
                                     class="ticket-boby-txt"
-                                    *ngFor="let item of orders.slice(0, 5)"
+                                    *ngFor="let item of orders"
                                     (click)="goToOrderDetails(item)"
                                 >
                                     <td>#{{ item.id }}</td>
@@ -63,9 +65,9 @@
 
                     <div class="d-lg-none">
                         <div
-                            *ngFor="let item of orders.slice(0, 2); let i = index"
+                            *ngFor="let item of orders; let i = index"
                             class="order-wrap"
-                            [ngClass]="{ 'mt-4': i !== 0 }"
+                            [ngClass]="{ 'mt-4': i !== 0, 'd-none': i > 1 }"
                         >
                             <div class="main-content br-4 border-main" (click)="goToOrderDetails(item)">
                                 <div class="row m-0 order-card-item order-card-header bg-f8">
