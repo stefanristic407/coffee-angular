@@ -117,7 +117,14 @@
                     <li class="header-profile-links__item d-inline-block ml-md-3 pl-xl-2">
                         <div class="profile-link d-flex align-items-center">
                             <div class="d-inline-block mr-md-2">
-                                <app-avatar [size]="38" [src]="authService.currentUser?.profile_image_thumb_url || 'assets/images/default-avatar.png'"> </app-avatar>
+                                <app-avatar
+                                    [size]="38"
+                                    [src]="
+                                        authService.currentUser?.profile_image_thumb_url ||
+                                        'assets/images/default-avatar.png'
+                                    "
+                                >
+                                </app-avatar>
                             </div>
                             <div class="profile-link__info pl-lg-1 float-right">
                                 <div>
@@ -164,6 +171,14 @@
                                                     (click)="pop2.hide()"
                                                 >
                                                     {{ 'account_settings' | translate }}
+                                                </li>
+                                                <li
+                                                    *ngFor="let item of orgData"
+                                                    (click)="switchPortal(item.orgType, item.id)"
+                                                >
+                                                    {{ 'switch_to' | translate }}&nbsp;{{
+                                                        item.orgType | orgType
+                                                    }}&nbsp;{{ 'portal' | translate }}
                                                 </li>
                                                 <li (click)="userLogout()">{{ 'logout' | translate }}</li>
                                             </ul>
@@ -287,7 +302,13 @@
                                         class="ft-dropdown__link d-flex clearfix align-items-center"
                                     >
                                         <div class="img float-left mr-2">
-                                            <img class="profile-pic" [src]="authService.currentUser?.profile_image_thumb_url || 'assets/images/default-avatar.png'" />
+                                            <img
+                                                class="profile-pic"
+                                                [src]="
+                                                    authService.currentUser?.profile_image_thumb_url ||
+                                                    'assets/images/default-avatar.png'
+                                                "
+                                            />
                                         </div>
                                         <span class="text-capitalize">{{ 'my_profile' | translate }}</span>
                                     </a>

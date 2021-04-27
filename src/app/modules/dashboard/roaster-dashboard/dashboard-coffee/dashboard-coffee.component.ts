@@ -33,14 +33,20 @@ export class DashboardCoffeeComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.stockSub = this.welcomeSrv.stock$.subscribe((res: any) => {
-            this.stock = res;
-            if (this.stock) {
+            if (res) {
+                this.stock = res;
                 this.makeChartData();
             }
         });
         this.ordersSub = this.welcomeSrv.orders$.subscribe((res: any) => {
             if (res) {
-                this.orders = res;
+                const orderData: any = res;
+                const sortedOrdersData = orderData.sort((a: any, b: any) => {
+                    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+                });
+                sortedOrdersData.length > 5
+                    ? (this.orders = sortedOrdersData.slice(0, 5))
+                    : (this.orders = sortedOrdersData);
             }
         });
     }
@@ -55,10 +61,11 @@ export class DashboardCoffeeComponent implements OnInit, OnDestroy {
         this.stock.stock_stats.forEach((element) => {
             tempData.push({
                 name: element.cup_score,
-                value: (element.available_quantity / 1000).toFixed(1),
+                value: element.available_quantity.toFixed(1),
             });
         });
-        this.chartData = tempData;
+        const chartSortData = tempData.sort((a, b) => a.available_quantity - b.available_quantity);
+        chartSortData.length > 5 ? (this.chartData = chartSortData.slice(0, 5)) : (this.chartData = chartSortData);
     }
 
     goToOrderDetails(item: any) {
