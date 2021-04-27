@@ -13,7 +13,10 @@
     >
         <ng-template #tooltipTemplate let-model="model">
             <div class="custom-chart-tooltip fnt-bold">{{ model.name }}</div>
-            <div class="custom-chart-tooltip">{{ model.value | number: '1.0':'en-US' }}</div>
+            <div class="custom-chart-tooltip" *ngIf="!isWeight">{{ model.value | number: '1.0':'en-US' }}</div>
+            <div class="custom-chart-tooltip" *ngIf="isWeight">
+                {{ model.value | number: '1.0':'en-US' }} {{ unit }}
+            </div>
         </ng-template>
     </ngx-charts-pie-chart>
     <div class="total-info text-center" [style.top]="view[1] / 2 + 'px'">
