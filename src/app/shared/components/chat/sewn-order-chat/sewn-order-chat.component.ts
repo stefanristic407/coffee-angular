@@ -182,6 +182,10 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
             }
             return mem;
         });
+        thread.blockedDetails = {
+            blockedMe: false,
+            myBlock: false,
+        };
         thread.content = thread.content || '';
         thread.computed_mute = false;
         thread.computed_activeUser = activeUser[0];

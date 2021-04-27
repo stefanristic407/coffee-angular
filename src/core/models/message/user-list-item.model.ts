@@ -12,6 +12,10 @@ export interface UserListItem {
     profile_pic: string;
     organization_type: OrganizationType;
     timezone: string;
+    blockedDetails: {
+        blockedMe: boolean;
+        myBlock: boolean;
+    };
     computed_fullname: string;
     computed_profile_dp: string;
     computed_organization_name: string;

@@ -359,13 +359,13 @@
             <span class="dm-rup-back-text brown-text" *ngIf="chatHandler.isExpand.value"> Back to Conversation</span>
         </div>
         <div class="dm-rup-listing">
-            <div class="dm-rup-error-panel" *ngIf="!blockedUsersList.length && !showInlineLoader">
+            <div class="dm-rup-error-panel" *ngIf="!myBlockList.length && !showInlineLoader">
                 <div class="dm-rup-error-block">
                     <img class="dm-rup-error-img" src="assets/images/dm-empty-thread-list.svg" alt="Empty" />
                     <div class="dm-rup-error-text">Looks like you haven`t blocked any users</div>
                 </div>
             </div>
-            <div class="dm-rup-listing-wrapper" *ngIf="blockedUsersList.length">
+            <div class="dm-rup-listing-wrapper" *ngIf="myBlockList.length">
                 <ng-container *ngTemplateOutlet="reportListTL"></ng-container>
             </div>
         </div>
@@ -479,7 +479,7 @@
 </ng-template>
 
 <ng-template #reportListTL>
-    <div class="dm-report-list-item" *ngFor="let blockedUser of blockedUsersList">
+    <div class="dm-report-list-item" *ngFor="let blockedUser of myBlockList">
         <div class="dm-rli-dp-block dm-rli-extra-margin">
             <img class="dm-rli-dp-image" [src]="blockedUser.computed_profile_direct_url" alt="Profile Picture" />
         </div>
@@ -553,33 +553,38 @@
         }"
         *ngFor="let thread of threadList | searchFilter: threadSearchKeyword"
     >
-        <div class="dm-thi-dp-block">
-            <img
-                class="dm-thi-dp-image"
-                [src]="thread.computed_targetedUser.computed_profile_direct_url"
-                alt="Profile Picture"
-            />
-            <span class="dm-online-status" [ngClass]="{ 'dm-user-online': thread.computed_targetedUser.online }"></span>
-        </div>
-        <div class="dm-thi-content-block">
-            <div class="dm-thi-content-row">
-                <div class="dm-thi-name">{{ thread.computed_targetedUser.computed_fullname }}</div>
-                <div class="dm-thi-date">{{ thread.computed_createdAt }}</div>
+        <ng-container *ngIf="!thread.blockedDetails.blockedM && !thread.blockedDetails.myBlock">
+            <div class="dm-thi-dp-block">
+                <img
+                    class="dm-thi-dp-image"
+                    [src]="thread.computed_targetedUser.computed_profile_direct_url"
+                    alt="Profile Picture"
+                />
+                <span
+                    class="dm-online-status"
+                    [ngClass]="{ 'dm-user-online': thread.computed_targetedUser.online }"
+                ></span>
             </div>
-            <div class="dm-thi-content-row">
-                <div class="dm-thi-org-name">
-                    {{ thread.computed_targetedUser.computed_organization_name }}
+            <div class="dm-thi-content-block">
+                <div class="dm-thi-content-row">
+                    <div class="dm-thi-name">{{ thread.computed_targetedUser.computed_fullname }}</div>
+                    <div class="dm-thi-date">{{ thread.computed_createdAt }}</div>
+                </div>
+                <div class="dm-thi-content-row">
+                    <div class="dm-thi-org-name">
+                        {{ thread.computed_targetedUser.computed_organization_name }}
+                    </div>
+                </div>
+                <div class="dm-thi-content-row">
+                    <div class="dm-thi-lastmsg">
+                        <span class="dm-thi-lastmsg-content">
+                            {{ thread.computed_lastActivityText }}
+                        </span>
+                    </div>
+                    <div *ngIf="thread.unread" class="dm-thi-count">{{ thread.unread }}</div>
                 </div>
             </div>
-            <div class="dm-thi-content-row">
-                <div class="dm-thi-lastmsg">
-                    <span class="dm-thi-lastmsg-content">
-                        {{ thread.computed_lastActivityText }}
-                    </span>
-                </div>
-                <div *ngIf="thread.unread" class="dm-thi-count">{{ thread.unread }}</div>
-            </div>
-        </div>
+        </ng-container>
     </div>
 </ng-template>
 
