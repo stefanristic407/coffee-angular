@@ -129,6 +129,10 @@ export const routes: Routes = [
         ],
     },
     { path: 'gate', component: GateComponent },
+    {
+        path: 'auth',
+        loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+    },
     { path: 'health-check', component: HealthCheckComponent },
     {
         path: 'error',

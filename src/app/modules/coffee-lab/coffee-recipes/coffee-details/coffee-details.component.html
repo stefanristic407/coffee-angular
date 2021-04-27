@@ -13,13 +13,21 @@
                         <app-user-header [prop]="detailsData"></app-user-header>
                         <div class="d-flex flex-column align-items-end">
                             <div class="position-relative mb-2">
-                                <p-menu #menu [popup]="true" [model]="items" styleClass="left-menu-actions"> </p-menu>
-                                <i
-                                    class="pi pi-ellipsis-h text-clr588 cursor-pointer"
-                                    (click)="menu.toggle($event)"
-                                ></i>
+                                <app-forum-menu
+                                    [selectedItem]="detailsData"
+                                    forumType="recipe"
+                                    [enableTranslation]="true"
+                                    [enableEdit]="organizationId === detailsData?.organisation_id"
+                                ></app-forum-menu>
                             </div>
-                            <div class="d-none d-md-block" *ngIf="detailsData?.allow_translation">
+                            <div
+                                class="d-none d-md-block"
+                                *ngIf="
+                                    detailsData?.allow_translation &&
+                                    detailsData?.translations &&
+                                    detailsData?.translations.length > 0
+                                "
+                            >
                                 <app-translation-dropdown
                                     forumType="recipe"
                                     [translatedList]="detailsData?.translations"
@@ -97,9 +105,7 @@
                             </div>
                         </div>
                     </div>
-                    <p class="fnt-14 fnt-muli pt-3 mb-2">
-                        {{ detailsData?.description }}
-                    </p>
+                    <p class="fnt-14 fnt-muli pt-3 mb-2" [innerHTML]="detailsData?.description"></p>
                 </div>
                 <div class="ingredient-block">
                     <p class="m-0 fnt-14 fnt-muli fnt-bold text-clr334">Ingredients</p>
@@ -119,7 +125,7 @@
                     <p class="m-0 fnt-14 fnt-muli fnt-bold text-clr334 pb-2">Directions</p>
                     <div *ngFor="let st of detailsData?.steps; index as i">
                         <p class="m-0 pb-1">Step {{ i + 1 }}:</p>
-                        <p class="m-0 pb-2">{{ st?.description }}</p>
+                        <p class="m-0 pb-2" [innerHTML]="st?.description"></p>
                         <span><img [src]="st.image_url" class="w-100 pb-3" /></span>
                     </div>
                 </div>
@@ -149,3 +155,4 @@
         </article>
     </div>
 </main>
+<app-translate-toast [language]="detailsData?.language"></app-translate-toast>

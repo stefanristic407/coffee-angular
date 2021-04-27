@@ -82,13 +82,12 @@ export class ForumMenuComponent implements OnInit {
                 url = `${environment.roasterWeb}/coffee-lab/articles/${this.selectedItem.slug}`;
                 break;
             case 'recipe':
+                url = `${environment.roasterWeb}/coffee-lab/recipes/${this.selectedItem.slug}`;
                 break;
             case 'answer':
                 url = `${environment.roasterWeb}/coffee-lab/questions/${this.extraInfo}?answer=${this.selectedItem.id}`;
                 break;
-            case 'articleComment':
-                break;
-            case 'recipeComment':
+            case 'comment':
                 break;
         }
         this.coffeeLabService.copyContext(url);
@@ -120,6 +119,9 @@ export class ForumMenuComponent implements OnInit {
                 });
                 break;
             case 'recipe':
+                this.router.navigate(['/coffee-lab/create-post/translate-recipe'], {
+                    queryParams: { id: this.selectedItem.id },
+                });
                 break;
             case 'answer':
                 console.log('lets go here');
@@ -127,9 +129,7 @@ export class ForumMenuComponent implements OnInit {
                     queryParams: { id: this.selectedItem.id },
                 });
                 break;
-            case 'articleComment':
-                break;
-            case 'recipeComment':
+            case 'comment':
                 break;
         }
     }
@@ -137,6 +137,9 @@ export class ForumMenuComponent implements OnInit {
     onEdit(): void {
         switch (this.forumType) {
             case 'question':
+                this.router.navigate(['/coffee-lab/create-post/tab/question'], {
+                    queryParams: { id: this.selectedItem.id },
+                });
                 break;
             case 'article':
                 this.router.navigate(['/coffee-lab/create-post/tab/article'], {
@@ -144,14 +147,24 @@ export class ForumMenuComponent implements OnInit {
                 });
                 break;
             case 'recipe':
+                this.router.navigate(['/coffee-lab/create-post/tab/recipe'], {
+                    queryParams: { id: this.selectedItem.id },
+                });
                 break;
             case 'answer':
                 break;
-            case 'articleComment':
-                break;
-            case 'recipeComment':
+            case 'comment':
                 break;
         }
     }
-    onDelete(): void {}
+    onDelete(): void {
+        this.coffeeLabService.deleteForumById(this.forumType, this.selectedItem.id).subscribe((res: any) => {
+            if (res.success) {
+                this.toastService.success(`You have deleted a ${this.forumType} successfully.`);
+                this.coffeeLabService.forumDeleteEvent.emit();
+            } else {
+                this.toastService.error(`Failed to delete a ${this.forumType}.`);
+            }
+        });
+    }
 }

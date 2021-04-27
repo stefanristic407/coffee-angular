@@ -3,6 +3,7 @@ import { CoffeeLabService, GlobalsService } from '@services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { CookieService } from 'ngx-cookie-service';
+import { Subscription } from 'rxjs';
 @Component({
     selector: 'app-aticle-details',
     templateUrl: './article-detail.component.html',
@@ -16,6 +17,7 @@ export class ArticleDetailComponent implements OnInit {
     commentData?: any[];
     isLoading = true;
     organizationId: any;
+    forumDeleteSub: Subscription;
 
     constructor(
         private coffeeLabService: CoffeeLabService,
@@ -34,6 +36,9 @@ export class ArticleDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.organizationId = +this.cookieService.get('roaster_id');
+        this.forumDeleteSub = this.coffeeLabService.forumDeleteEvent.subscribe(() => {
+            this.router.navigate(['/coffee-lab/overview/articles']);
+        });
     }
 
     getArticleList(): any {

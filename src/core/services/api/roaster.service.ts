@@ -848,9 +848,9 @@ export class RoasterserviceService extends ApiService {
         data['token'] = this.cookieService.get('Auth');
         return this.http.post(this.url, data);
     }
-    getRoastedBatches(roaster_id: any): Observable<any> {
+    getRoastedBatches(roaster_id: any, params: any = {}): Observable<any> {
         const data = {};
-        data['api_call'] = `/ro/${roaster_id}/roasted-batches`;
+        data['api_call'] = `/ro/${roaster_id}/roasted-batches?${this.serializeParams(params)}`;
         data['method'] = 'GET';
         data['token'] = this.cookieService.get('Auth');
         return this.http.post(this.url, data);

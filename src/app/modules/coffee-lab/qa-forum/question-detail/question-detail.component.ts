@@ -33,7 +33,7 @@ export class QuestionDetailComponent implements OnInit {
                 this.getDetails();
             }
         });
-        this.activatedRoute.queryParams.subscribe(queryParams => {
+        this.activatedRoute.queryParams.subscribe((queryParams) => {
             const language = this.activatedRoute.snapshot.queryParamMap.get('language');
             this.language = language || this.coffeeLabService.currentForumLanguage;
             console.log('question details page is being loaded........', language);

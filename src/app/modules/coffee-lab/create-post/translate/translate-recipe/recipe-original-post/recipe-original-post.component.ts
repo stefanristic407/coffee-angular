@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { CoffeeLabService } from '@services';
 
 @Component({
@@ -6,7 +6,7 @@ import { CoffeeLabService } from '@services';
     templateUrl: './recipe-original-post.component.html',
     styleUrls: ['./recipe-original-post.component.scss'],
 })
-export class RecipeOriginalPostComponent implements OnInit {
+export class RecipeOriginalPostComponent implements OnInit, OnChanges {
     @Input() recipeId;
     id: string | number = '';
     isLoading = true;
@@ -15,7 +15,7 @@ export class RecipeOriginalPostComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    ngOnChanges() {
+    ngOnChanges(): void {
         console.log('recipeId', this.recipeId);
         if (this.recipeId) {
             this.getCoffeeDetails(true);
@@ -33,7 +33,7 @@ export class RecipeOriginalPostComponent implements OnInit {
         });
     }
 
-    copyImage(id) {
+    copyImage(id: string): void {
         const ele = document.getElementById(id);
         ele.click();
     }

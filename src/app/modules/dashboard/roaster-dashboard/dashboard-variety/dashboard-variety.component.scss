@@ -1,10 +1,16 @@
 .chart-block {
-  border-bottom: dashed 2px #ebebeb;
-  .total-stats {
-    position: absolute;
-    left: 50%;
-    top: 120px;
-    transform: translateX(-50%);
-    line-height: 1.4;
-  }
+    border-bottom: dashed 2px #ebebeb;
+    .total-stats {
+        position: absolute;
+        left: 50%;
+        top: 120px;
+        transform: translateX(-50%);
+        line-height: 1.4;
+    }
+}
+
+.manage-coffee-link {
+    @media screen and (min-width: 768px) {
+        margin-bottom: 10px;
+    }
 }

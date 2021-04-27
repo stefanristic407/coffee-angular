@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CoffeeLabService } from '@services';
 
 @Component({
     selector: 'app-translate-recipe',
@@ -6,7 +8,14 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./translate-recipe.component.scss'],
 })
 export class TranslateRecipeComponent implements OnInit {
-    constructor() {}
+    selectedTab = 0;
+    id: any;
+    constructor(private route: ActivatedRoute, public router: Router, private coffeeLabService: CoffeeLabService) {
+        this.id = this.route.snapshot.queryParamMap.get('id');
+    }
 
     ngOnInit(): void {}
+    onSave(): void {
+        this.coffeeLabService.originalPost.next(true);
+    }
 }

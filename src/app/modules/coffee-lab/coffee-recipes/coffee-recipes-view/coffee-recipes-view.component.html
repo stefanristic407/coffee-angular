@@ -5,7 +5,7 @@
                 <img src="assets/images/avatar.png" class="mr-3 rounded-circle" alt="avatar" width="40" height="40" />
                 <div class="sewn-form-field w-100 mb-0">
                     <input
-                        routerLink="../../create-post/tab/question"
+                        routerLink="../../create-post/tab/recipe"
                         type="text"
                         pInputText
                         placeholder="Ask your coffee question..."
@@ -19,8 +19,8 @@
                     class="w-100 fnt-16"
                     type="text"
                     pInputText
-                    #searchInput
                     [(ngModel)]="searchQuery"
+                    (ngModelChange)="getCoffeeRecipesData()"
                     placeholder="Search Recipes.."
                 />
             </div>
@@ -65,8 +65,8 @@
                     class="w-100 fnt-16"
                     type="text"
                     pInputText
-                    #ingredientSearchInput
                     [(ngModel)]="searchIngredient"
+                    (ngModelChange)="getCoffeeRecipesData()"
                     styleClass="ingredient-field"
                     placeholder="Search by ingredient"
                 />
@@ -92,13 +92,11 @@
             >
                 <div class="d-flex justify-content-between">
                     <app-user-header [prop]="coffee"></app-user-header>
-                    <div>
-                        <p-menu #menu [popup]="true" [model]="items" appendTo="body"> </p-menu>
-                        <i
-                            class="pi pi-ellipsis-h text-clr588 cursor-pointer"
-                            (click)="$event.stopPropagation(); menu.toggle($event)"
-                        ></i>
-                    </div>
+                    <app-forum-menu
+                        [selectedItem]="coffee"
+                        forumType="recipe"
+                        [enableEdit]="organizationId === coffee.organisation_id"
+                    ></app-forum-menu>
                 </div>
                 <div class="w-100 position-relative">
                     <img [src]="coffee.cover_image_url" class="w-100 my-3 my-md-4" />
@@ -118,9 +116,11 @@
                     </div>
                 </a>
                 <div class="coffee-content-wrapper">
-                    <p class="fnt-muli fnt-14 fnt-normal text-clr334 mb-0">
-                        {{ coffee.description }}
-                    </p>
+                    <div
+                        class="fnt-muli fnt-14 fnt-normal lh-15 text-clr334 mb-0"
+                        [innerHTML]="coffee.description | convertToShortDescription: 10"
+                    ></div>
+
                     <label class="fnt-muli fnt-14 fnt-600 text-clr60b mb-0 custom-link pt-2">{{
                         'read_more' | translate
                     }}</label>

@@ -4,7 +4,7 @@
         <ng-container *ngFor="let day of recentActivityList; let lastDay = last">
             <p-accordionTab class="d-block my-md-0" #tab [selected]="false">
                 <ng-template pTemplate="header">
-                    <p class="w-100 activity-date fnt-md-14 fnt-sm-12 fnt-600 mb-3 mb-md-4">
+                    <p class="w-100 activity-date fnt-12 fnt-md-16 fnt-600 text-black334 mb-3 mb-md-4">
                         {{ day.date | date: 'EEEE, d MMM yyyy' }}
                         <img class="pl-2" src="assets/images/collapse-arrow.svg" *ngIf="!tab.selected" />
                         <img class="pl-2" src="assets/images/expand-arrow.svg" *ngIf="tab.selected" />

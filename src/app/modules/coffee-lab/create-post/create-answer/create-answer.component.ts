@@ -54,7 +54,7 @@ export class CreateAnswerComponent implements OnInit {
             console.log('post question result >>>', res);
             if (res.success) {
                 this.toastrService.success('You have posted an answer successfully.');
-                this.router.navigate(['../']);
+                this.location.back();
             } else {
                 this.toastrService.error('Failed to post question.');
             }

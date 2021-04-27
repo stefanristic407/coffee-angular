@@ -127,7 +127,7 @@ export class ProductDetailsComponent implements OnInit {
                 });
             }
         });
-        this.services.getRoastedBatches(this.roasterId).subscribe(
+        this.services.getRoastedBatches(this.roasterId, { per_page: 10000 }).subscribe(
             (res) => {
                 this.roastedBatches = res.result ? res.result : [];
                 if (this.productID) {
@@ -189,11 +189,11 @@ export class ProductDetailsComponent implements OnInit {
                         }
                         const varient: any = {};
                         if (getBatchDetails) {
-                            (varient.varient_name = 'Varient ' + (this.varients.length + 1)),
-                                this.roastedFields.forEach((ele) => {
-                                    const getValue = getBatchDetails[ele] ? getBatchDetails[ele] : '';
-                                    varient[ele] = getValue;
-                                });
+                            varient.varient_name = 'Varient ' + (this.varients.length + 1);
+                            this.roastedFields.forEach((ele) => {
+                                const getValue = getBatchDetails[ele] ? getBatchDetails[ele] : '';
+                                varient[ele] = getValue;
+                            });
                         }
                         varient.rc_batch_id = coffeeBatchID;
                         varient.weight_variants = getVariant[0].weight_variants;
