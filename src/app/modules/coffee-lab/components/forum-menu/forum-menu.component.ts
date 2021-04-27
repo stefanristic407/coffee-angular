@@ -141,6 +141,9 @@ export class ForumMenuComponent implements OnInit {
     onEdit(): void {
         switch (this.forumType) {
             case 'question':
+                this.router.navigate(['/coffee-lab/create-post/tab/question'], {
+                    queryParams: { id: this.selectedItem.id },
+                });
                 break;
             case 'article':
                 this.router.navigate(['/coffee-lab/create-post/tab/article'], {
