@@ -1,1 +1,37 @@
-<p>translate-recipe works!</p>
+<div class="bg-f8 py-4">
+    <p-tabView class="toggle" [(activeIndex)]="selectedTab">
+        <p-tabPanel [header]="'translation' | translate">
+            <div class="p-4 bg-f8" *ngIf="id">
+                <app-create-recipe [isTranslate]="true"></app-create-recipe>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel [header]="'see_original_post' | translate">
+            <div class="p-4 bg-f8" *ngIf="id">
+                <app-recipe-original-post [recipeId]="id"></app-recipe-original-post>
+                <div class="row mt-5 col-sm-12 pr-0 mx-0 p-0">
+                    <div class="col-md-6 order-2 order-md-1 p-0">
+                        <button
+                            routerLink="/coffee-lab/overview/qa-forum"
+                            class="btn-stroked px-4 w-mob-100 mb-2 mb-md-0"
+                        >
+                            {{ 'cancel' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-6 order-1 order-md-2 p-0">
+                        <div class="d-flex justify-content-end flex-column flex-md-row">
+                            <button class="btn-stroked px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0">
+                                {{ 'save_as_draft' | translate }}
+                            </button>
+                            <button
+                                (click)="onSave()"
+                                class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
+                            >
+                                {{ 'submit' | translate }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+</div>
