@@ -35,7 +35,7 @@
                                 "
                             >
                                 <app-translation-dropdown
-                                    forumType="articles"
+                                    forumType="article"
                                     [translatedList]="detailsData?.translated_articles"
                                 ></app-translation-dropdown>
                             </div>
@@ -50,7 +50,7 @@
                         "
                     >
                         <app-translation-dropdown
-                            forumType="articles"
+                            forumType="article"
                             [translatedList]="detailsData?.translated_articles"
                         ></app-translation-dropdown>
                     </div>
@@ -62,7 +62,7 @@
                     ></div>
                 </div>
                 <div class="pt-4" *ngIf="detailsData?.original_article_id">
-                    <app-original-view [detailsData]="detailsData"></app-original-view>
+                    <app-original-view [detailsData]="detailsData" forumType="article"></app-original-view>
                 </div>
                 <div class="pt-4">
                     <app-comments [commentData]="commentData" (postComment)="postComment($event)"></app-comments>
@@ -91,19 +91,4 @@
     </div>
     <app-loading *ngIf="isLoading"></app-loading>
 </main>
-<p-toast position="bottom-center" key="translate" [baseZIndex]="5000" styleClass="translate-toast">
-    <ng-template pTemplate="message">
-        <div class="d-flex align-items-center p-md-3">
-            <img src="assets/images/flag.jpg" class="flag-image" />
-            <div class="pl-25 pl-md-4">
-                <p class="fnt-muli fnt-18 fnt-md-24 fnt-bold lh-142 text-clr334 mb-2">
-                    Your are now in the {{ globalsService.getLanguage(detailsData?.language) }} Coffee Lab
-                </p>
-                <p class="fnt-muli fnt-14 fnt-normal lh-157 text-clr334 mb-0">
-                    When view the translated answers & posts, the coffee lab changes to the translated language's
-                    portal. You can go back to your language's portal at any time.
-                </p>
-            </div>
-        </div>
-    </ng-template>
-</p-toast>
+<app-translate-toast [language]="detailsData?.language"></app-translate-toast>

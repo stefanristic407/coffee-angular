@@ -12,6 +12,13 @@
         <span class="mt-md-3 fnt-600 text-clr334">{{
             lot?.order_type === OrderType.Sample ? ('sample' | translate) : quantity || '-'
         }}</span>
+        <div
+            class="navigation-link mt-2"
+            *ngIf="lot"
+            [routerLink]="['/sourcing/lot-details/', lot?.estate_id, lot?.lot_id]"
+        >
+            {{ 'view_lot_details' | translate }}
+        </div>
     </div>
     <div class="d-flex flex-row flex-md-column w-100">
         <span class="fnt-500 text-muted">{{ 'rate_per' | translate }} kg</span>
@@ -21,11 +28,6 @@
     </div>
     <div class="d-flex flex-row flex-md-column w-100">
         <span class="fnt-500 text-muted">{{ 'total' | translate }}</span>
-        <span class="mt-md-3 fnt-600 text-clr334">{{ lot?.price | currency: 'USD' }}</span>
-    </div>
-</div>
-<div class="d-flex w-100 justify-content-center mt-2">
-    <div class="navigation-link" *ngIf="lot" [routerLink]="['/sourcing/lot-details/', lot?.estate_id, lot?.lot_id]">
-        {{ 'view_lot_details' | translate }}
+        <span class="mt-md-3 fnt-600 text-clr334">{{ lot?.price + lot?.shipping_price | currency: 'USD' }}</span>
     </div>
 </div>

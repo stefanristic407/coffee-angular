@@ -9,7 +9,7 @@
                         routerLink="../../create-post/tab/article"
                         type="text"
                         pInputText
-                        placeholder="Publish an article"
+                        placeholder="{{ 'publish_article' | translate }}"
                     />
                 </div>
             </div>
@@ -22,7 +22,7 @@
                     pInputText
                     #searchInput
                     [(ngModel)]="keyword"
-                    placeholder="Search Articles..."
+                    placeholder="{{ 'search_articles' | translate }}"
                     (ngModelChange)="getData()"
                 />
             </span>
@@ -37,7 +37,7 @@
                 pInputText
                 #searchInput
                 [(ngModel)]="keyword"
-                placeholder="Search Articles..."
+                placeholder="{{ 'search_articles' | translate }}"
                 (ngModelChange)="getData()"
             />
         </span>
@@ -50,8 +50,8 @@
             [showClear]="true"
             [(ngModel)]="isAvailableTranslation"
             (onChange)="getData()"
-            placeholder="Translations available"
-            styleClass="round-border {{ isAvailableTranslation ? 'highlight' : '' }}"
+            placeholder="{{ 'translations_available' | translate }}"
+            styleClass="round-border"
         >
         </p-dropdown>
         <p-dropdown
@@ -60,7 +60,7 @@
             optionValue="value"
             [(ngModel)]="selectedOrder"
             (onChange)="getData()"
-            styleClass="no-border {{ isAvailableTranslation ? 'highlight' : '' }}"
+            styleClass="no-border"
         >
         </p-dropdown>
     </div>
@@ -89,7 +89,7 @@
                         class="fnt-muli fnt-14 fnt-normal lh-15 text-clr334 mb-0"
                         [innerHTML]="article.content | convertToShortDescription: 10"
                     ></div>
-                    <label class="custom-link mb-0" style="margin-top: 18px">{{ 'read_more' | translate }}</label>
+                    <label class="custom-link mb-0 mt-3 pt-z5">{{ 'read_more' | translate }}</label>
                 </div>
             </div>
         </div>

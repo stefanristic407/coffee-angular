@@ -69,7 +69,7 @@ export class CreateArticleComponent implements OnInit {
     }
 
     onFileChange(event: any) {
-        if (event.target.files && event.target.files.length > 0) {
+        if (event.target.files?.length) {
             this.isCoverImageUploaded = false;
             this.coverImage = event.target.files[0];
             const reader = new FileReader();
@@ -97,7 +97,7 @@ export class CreateArticleComponent implements OnInit {
                 if (res.result) {
                     this.coverImageId = res.result.id;
                     this.isCoverImageUploaded = true;
-                    this.toaster.success('Cover image has been successfuly uploaded.');
+                    this.toaster.success('Cover image has been successfully uploaded.');
                     this.handlePost(status);
                 } else {
                     this.toaster.error('failed to upload cover image.');

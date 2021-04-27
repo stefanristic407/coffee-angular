@@ -40,4 +40,15 @@ export class BrandProfileService extends ApiService {
             }),
         );
     }
+
+    getMrProfile(id: number): Observable<OrganizationDetails> {
+        return this.postWithOrg(this.orgPostUrl, `micro-roasters/${id}`, 'GET').pipe(
+            map((response) => {
+                if (response.success) {
+                    return response.result;
+                }
+                return null;
+            }),
+        );
+    }
 }
