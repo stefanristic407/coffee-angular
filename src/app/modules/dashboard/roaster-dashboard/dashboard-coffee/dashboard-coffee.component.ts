@@ -64,7 +64,8 @@ export class DashboardCoffeeComponent implements OnInit, OnDestroy {
                 value: (element.available_quantity / 1000).toFixed(1),
             });
         });
-        this.chartData = tempData;
+        const chartSortData = tempData.sort((a, b) => a.available_quantity - b.available_quantity);
+        chartSortData.length > 5 ? (this.chartData = chartSortData.slice(0, 5)) : (this.chartData = chartSortData);
     }
 
     goToOrderDetails(item: any) {
