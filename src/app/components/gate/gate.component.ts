@@ -43,8 +43,7 @@ export class GateComponent extends DestroyableComponent implements OnInit {
                 if (!token) {
                     const simToken = this.cookieService.get('Sim-Authorization');
                     if (simToken) {
-                        token = JSON.parse(simToken).Authorization;
-                        console.log(token);
+                        token = JSON.parse(atob(simToken)).Authorization;
                     } else {
                         this.goToLogin();
                     }
