@@ -549,14 +549,11 @@
         class="dm-thread-list-item"
         (click)="openThreadChat(thread)"
         [ngClass]="{
-            'dm-thi-active': openedThread && thread.id === openedThread.id,
-
-            'opacity-level red': thread.blockedDetails.blockedMe,
-            'opacity-level blue': thread.blockedDetails.myBlock
+            'dm-thi-active': openedThread && thread.id === openedThread.id
         }"
         *ngFor="let thread of threadList | searchFilter: threadSearchKeyword"
     >
-        <ng-container>
+        <ng-container *ngIf="!thread.blockedDetails.blockedM && !thread.blockedDetails.myBlock">
             <div class="dm-thi-dp-block">
                 <img
                     class="dm-thi-dp-image"
