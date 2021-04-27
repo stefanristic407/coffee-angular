@@ -24,6 +24,10 @@ export interface ThreadListItem {
     type_id: number;
     unread?: number;
     messages: [];
+    blockedDetails: {
+        blockedMe: boolean;
+        myBlock: boolean;
+    };
     computed_mute: boolean;
     computed_createdAt: string;
     computed_thread_createdAt: string;
