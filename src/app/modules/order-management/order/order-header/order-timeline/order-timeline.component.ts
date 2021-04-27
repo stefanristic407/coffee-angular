@@ -6,6 +6,7 @@ import { ResizeService } from '@services';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { takeUntil } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-order-timeline',
@@ -117,6 +118,16 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     }
 
     getStatusDate(point: LabelValue): string {
+        if (this.order && point.value === OrderStatus.Shipped) {
+            const date = this.order.estimated_departure_date || this.order.shipment_date;
+
+            if (moment(date).startOf('day') <= moment()) {
+                return date;
+            } else {
+                return '';
+            }
+        }
+
         const activity = this.getLatestActivity(point);
         return point.value !== OrderStatus.HarvestReady && activity ? activity.created_at : '';
     }
@@ -164,7 +175,7 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
                 { label: 'Payment', value: OrderStatus.Payment },
                 { label: 'Shipped', value: OrderStatus.Shipped },
                 {
-                    label: this.orgType === OrganizationType.ESTATE ? 'Received' : 'Received by Micro-roaster',
+                    label: this.orgType === OrganizationType.ESTATE ? 'Delivered' : 'Received by Micro-roaster',
                     value: OrderStatus.Received,
                 },
             ];

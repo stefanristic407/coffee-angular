@@ -58,6 +58,7 @@ import { Ng2TelInputModule } from 'ng2-tel-input';
 import { RatingDirective } from './directives/rating.directive';
 import { WordLimitDirective } from './directives/word-limit.directive';
 import { LifecyclehookDirective } from './directives/lifecyclehook/lifecyclehook.directive';
+import { ChatHighlighterDirective } from './directives/chat-highlighter/chat-highlighter.directive';
 
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { BlankComponent } from './components/blank/blank.component';
@@ -193,7 +194,7 @@ const COMPONENTS = [
     UserDetailComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
-const DIRECTIVES = [WordLimitDirective, RatingDirective, LifecyclehookDirective];
+const DIRECTIVES = [WordLimitDirective, RatingDirective, LifecyclehookDirective, ChatHighlighterDirective];
 
 import { SearchFilterPipe } from './pipes/chat/search-filter.pipe';
 import { CountryPipe } from './pipes/country/country.pipe';

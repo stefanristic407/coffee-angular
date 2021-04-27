@@ -12,4 +12,5 @@ export interface OrganizationDetails {
     belongs_to: string;
     admin_id: number;
     company_name: string;
+    name: string;
 }

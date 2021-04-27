@@ -1,15 +1,16 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-origin-post',
-    templateUrl: './origin-post.component.html',
-    styleUrls: ['./origin-post.component.scss'],
-    encapsulation: ViewEncapsulation.None,
+  selector: 'app-origin-post',
+  templateUrl: './origin-post.component.html',
+  styleUrls: ['./origin-post.component.scss']
 })
 export class OriginPostComponent implements OnInit {
-    @Input() content: any;
+  @Input() content: any;
 
-    constructor() {}
+  constructor() { }
 
-    ngOnInit(): void {}
+  ngOnInit(): void {
+  }
+
 }

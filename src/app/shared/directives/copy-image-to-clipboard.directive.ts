@@ -11,7 +11,8 @@ declare class ClipboardItem {
 })
 export class CopyImageToClipboardDirective implements AfterViewInit {
     isCopyingImage = false;
-    css = 'img {cursor: pointer} img:hover{ opacity: 0.8 } .copying-image img { cursor: not-allowed !important }';
+    css =
+        '.copy-image-to-clipboard-container img {cursor: pointer} .copy-image-to-clipboard-container img:hover{ opacity: 0.8 } .copying-image img { cursor: not-allowed !important }';
     style: any = document.createElement('style');
 
     constructor(
@@ -26,6 +27,7 @@ export class CopyImageToClipboardDirective implements AfterViewInit {
         } else {
             this.style.appendChild(document.createTextNode(this.css));
         }
+        this.el.nativeElement.classList.add('copy-image-to-clipboard-container');
         this.el.nativeElement.appendChild(this.style);
         this.el.nativeElement.querySelectorAll('img').forEach((item) => {
             item.addEventListener('click', (event) => {

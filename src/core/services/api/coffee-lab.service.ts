@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -12,7 +12,8 @@ import { ApiResponse } from '@models';
     providedIn: 'root',
 })
 export class CoffeeLabService extends ApiService {
-    originalPost = new BehaviorSubject(null);
+    @Output() originalPost = new EventEmitter();
+    forumDeleteEvent = new EventEmitter();
     forumLanguage = new BehaviorSubject('en');
     organization = 'ro';
     organizationId = this.cookieSrv.get('roaster_id');
@@ -46,8 +47,16 @@ export class CoffeeLabService extends ApiService {
         this.toastService.success('Successfully copied');
     }
 
-    getForumList(type: string, options?: any): Observable<any> {
-        return this.post(this.orgPostUrl, `general/${type}s?${this.serializeParams(options)}`, 'GET');
+    getForumList(type: string, options?: any, language = 'en'): Observable<any> {
+        const data = {
+            api_call: `/general/${type}s?${this.serializeParams(options)}`,
+            method: 'GET',
+            token: this.cookieSrv.get('Auth')
+        };
+        const httpOptions = {
+            headers: new HttpHeaders({ 'Accept-Language': language }),
+        };
+        return this.http.post(this.orgPostUrl, data, httpOptions);
     }
 
     getForumDetails(type: string, idOrSlug: any, language = 'en'): Observable<any> {
@@ -82,6 +91,10 @@ export class CoffeeLabService extends ApiService {
 
     updateForum(type: string, id: any, data: any): Observable<any> {
         return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/${type}s/${id}`, 'PUT', data);
+    }
+
+    deleteForumById(type: string, id: any): Observable<any> {
+        return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/${type}s/${id}`, 'DELETE');
     }
 
     getAuthors(type: string): Observable<any> {

@@ -21,6 +21,8 @@ export class TranslateAnswerComponent implements OnInit {
     isUploadingImage = false;
     imageIdList = [];
     isPosting = false;
+    originAnswer: any;
+    needToTranslateQuestion = true;
 
     constructor(
         private route: ActivatedRoute,
@@ -33,7 +35,7 @@ export class TranslateAnswerComponent implements OnInit {
     ) {
         this.form = this.formBuilder.group({
             language: ['', Validators.required],
-            question: [''],
+            question: ['', Validators.required],
         });
     }
 
@@ -50,15 +52,45 @@ export class TranslateAnswerComponent implements OnInit {
     getAnswerById(): void {
         this.isLoading = true;
         this.coffeeLabService.getForumDetails('answer', this.answerId).subscribe((res: any) => {
-            this.isLoading = false;
             if (res.success) {
                 this.answer = res.result;
                 console.log('answer >>>>>>>>>>>>>', res.result);
+                if (this.answer.parent_answer_id) {
+                    this.coffeeLabService
+                        .getForumDetails('answer', this.answer.parent_answer_id)
+                        .subscribe((originAnswerRes: any) => {
+                            this.isLoading = false;
+                            if (originAnswerRes.success) {
+                                this.originAnswer = originAnswerRes.result;
+                            } else {
+                                this.toastrService.error('Error while get origin answer');
+                            }
+                        });
+                } else {
+                    this.isLoading = false;
+                    this.originAnswer = this.answer;
+                }
             } else {
+                this.isLoading = false;
                 this.toastrService.error('Error while get answer');
                 this.router.navigate(['/coffee-lab']);
             }
         });
+    }
+
+    onChangeTranslationLanguage(selectedLanguage: string): void {
+        console.log('origin answer >>>>>>>>>>', this.originAnswer);
+        if (
+            this.originAnswer.translations.find((item: any) => item.language === selectedLanguage) ||
+            this.originAnswer.lang_code === selectedLanguage
+        ) {
+            this.needToTranslateQuestion = false;
+            this.form.controls.question.clearValidators();
+            this.form.controls.question.updateValueAndValidity();
+        } else {
+            this.needToTranslateQuestion = true;
+            this.form.controls.question.setValidators(Validators.required);
+        }
     }
 
     onPost(status: string): void {
@@ -70,13 +102,15 @@ export class TranslateAnswerComponent implements OnInit {
             this.toastrService.error('Please type your answer.');
             return;
         }
-        const data = {
-            question: this.form.controls.question.value,
+        const data: any = {
             answer: this.translatedAnswer,
             status,
             images: this.imageIdList,
             language: this.form.controls.language.value,
         };
+        if (this.needToTranslateQuestion) {
+            data.question = this.form.controls.question.value;
+        }
         console.log('data >>>>>>>>', data);
         this.isPosting = true;
         this.coffeeLabService.translateForum('answer', this.answerId, data).subscribe((res: any) => {
