@@ -61,7 +61,7 @@ export class DashboardCoffeeComponent implements OnInit, OnDestroy {
         this.stock.stock_stats.forEach((element) => {
             tempData.push({
                 name: element.cup_score,
-                value: (element.available_quantity / 1000).toFixed(1),
+                value: element.available_quantity.toFixed(1),
             });
         });
         const chartSortData = tempData.sort((a, b) => a.available_quantity - b.available_quantity);
