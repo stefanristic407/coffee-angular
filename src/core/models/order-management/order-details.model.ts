@@ -37,6 +37,7 @@ export interface OrderDetails {
     roaster_profile_image_thumbnail_url: string;
     sample_order_id?: number;
     shipping_address: Address;
+    delivery_address: Address;
     shipping_price?: number;
     species?: string;
     status: OrderStatus;

@@ -22,7 +22,7 @@
             [estateId]="roaster?.id"
         ></app-roaster-details>
 
-        <div class="d-flex flex-column mt-3 fnt-14">
+        <div class="d-flex flex-column mt-3 fnt-14" *ngIf="orgType === OrgType.ESTATE">
             <div class="d-flex border-top py-3">
                 <div class="w-50 fnt-500 text-clr588">{{ 'company_number' | translate }}&nbsp;:</div>
                 <div class="w-50 fnt-600 text-clr334">{{ roaster?.company_number }}</div>
