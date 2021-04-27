@@ -13,6 +13,7 @@ import { ApiResponse } from '@models';
 })
 export class CoffeeLabService extends ApiService {
     @Output() originalPost = new EventEmitter();
+    forumDeleteEvent = new EventEmitter();
     forumLanguage = new BehaviorSubject('en');
     organization = 'ro';
     organizationId = this.cookieSrv.get('roaster_id');

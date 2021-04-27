@@ -87,9 +87,7 @@ export class ForumMenuComponent implements OnInit {
             case 'answer':
                 url = `${environment.roasterWeb}/coffee-lab/questions/${this.extraInfo}?answer=${this.selectedItem.id}`;
                 break;
-            case 'articleComment':
-                break;
-            case 'recipeComment':
+            case 'comment':
                 break;
         }
         this.coffeeLabService.copyContext(url);
@@ -131,9 +129,7 @@ export class ForumMenuComponent implements OnInit {
                     queryParams: { id: this.selectedItem.id },
                 });
                 break;
-            case 'articleComment':
-                break;
-            case 'recipeComment':
+            case 'comment':
                 break;
         }
     }
@@ -157,11 +153,18 @@ export class ForumMenuComponent implements OnInit {
                 break;
             case 'answer':
                 break;
-            case 'articleComment':
-                break;
-            case 'recipeComment':
+            case 'comment':
                 break;
         }
     }
-    onDelete(): void {}
+    onDelete(): void {
+        this.coffeeLabService.deleteForumById(this.forumType, this.selectedItem.id).subscribe((res: any) => {
+            if (res.success) {
+                this.toastService.success('You have deleted a forum successfully.');
+                this.coffeeLabService.forumDeleteEvent.emit();
+            } else {
+                this.toastService.error('Failed to delete a forum.');
+            }
+        });
+    }
 }

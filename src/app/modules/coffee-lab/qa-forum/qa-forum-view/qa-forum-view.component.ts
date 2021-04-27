@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-qa-forum-view',
@@ -23,7 +24,7 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
     questions: any[] = [];
     isLoading = false;
     keyword = '';
-    forumLanguageSub: Subscription;
+    destroy$: Subject<boolean> = new Subject<boolean>();
     forumLanguage: string;
 
     constructor(
@@ -35,7 +36,7 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         window.scroll(0, 0);
         this.getAuthors();
-        this.forumLanguageSub = this.coffeeLabService.forumLanguage.subscribe((language) => {
+        this.coffeeLabService.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
             this.forumLanguage = language;
             this.getQuestions();
         });
@@ -77,6 +78,7 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.forumLanguageSub.unsubscribe();
+        this.destroy$.next(true);
+        this.destroy$.unsubscribe();
     }
 }
