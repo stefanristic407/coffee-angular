@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
+import { Subscription } from 'rxjs';
 @Component({
     selector: 'app-articles-view',
     templateUrl: './articles-view.component.html',
     styleUrls: ['./articles-view.component.scss'],
 })
-export class ArticlesViewComponent implements OnInit {
+export class ArticlesViewComponent implements OnInit, OnDestroy {
     keyword?: string;
     translationsList: any[] = [
         {
@@ -36,6 +37,8 @@ export class ArticlesViewComponent implements OnInit {
     isLoading = false;
     pageDesc: string | undefined;
     organizationId: any;
+    forumLanguageSub: Subscription;
+    forumLanguage: string;
     constructor(
         private coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
@@ -48,7 +51,10 @@ export class ArticlesViewComponent implements OnInit {
 
     ngOnInit(): void {
         this.organizationId = +this.cookieService.get('roaster_id');
-        this.getData();
+        this.forumLanguageSub = this.coffeeLabService.forumLanguage.subscribe((language) => {
+            this.forumLanguage = language;
+            this.getData();
+        });
     }
 
     getData(): void {
@@ -78,7 +84,7 @@ export class ArticlesViewComponent implements OnInit {
                 this.isLoading = false;
             });
         } else {
-            this.coffeeLabService.getForumList('article', params).subscribe((res) => {
+            this.coffeeLabService.getForumList('article', params, this.forumLanguage).subscribe((res) => {
                 if (res.success) {
                     this.articlesData = res.result;
                     this.articlesData.map((item) => {
@@ -101,5 +107,9 @@ export class ArticlesViewComponent implements OnInit {
             images[0].parentNode.removeChild(images[0]);
         }
         return contentElement.innerHTML;
+    }
+
+    ngOnDestroy(): void {
+        this.forumLanguageSub.unsubscribe();
     }
 }
