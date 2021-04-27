@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-qa-forum-view',
     templateUrl: './qa-forum-view.component.html',
     styleUrls: ['./qa-forum-view.component.scss'],
 })
-export class QaForumViewComponent implements OnInit {
+export class QaForumViewComponent implements OnInit, OnDestroy {
     isDisplayTip = true;
     viewModeItems: any[] = [{ value: 'list' }, { value: 'grid' }];
     viewMode = 'list';
@@ -22,6 +23,8 @@ export class QaForumViewComponent implements OnInit {
     questions: any[] = [];
     isLoading = false;
     keyword = '';
+    forumLanguageSub: Subscription;
+    forumLanguage: string;
 
     constructor(
         private coffeeLabService: CoffeeLabService,
@@ -32,7 +35,10 @@ export class QaForumViewComponent implements OnInit {
     ngOnInit(): void {
         window.scroll(0, 0);
         this.getAuthors();
-        this.getQuestions();
+        this.forumLanguageSub = this.coffeeLabService.forumLanguage.subscribe((language) => {
+            this.forumLanguage = language;
+            this.getQuestions();
+        });
     }
 
     getAuthors(): void {
@@ -59,7 +65,7 @@ export class QaForumViewComponent implements OnInit {
             sort_order: this.sortBy === 'most_answered' ? 'desc' : this.sortBy === 'latest' ? 'desc' : 'asc',
         };
         this.isLoading = true;
-        this.coffeeLabService.getForumList('question', params).subscribe((res: any) => {
+        this.coffeeLabService.getForumList('question', params, this.forumLanguage).subscribe((res: any) => {
             this.isLoading = false;
             if (res.success) {
                 console.log('questions >>>>>>>', res);
@@ -68,5 +74,9 @@ export class QaForumViewComponent implements OnInit {
                 this.toastService.error('Cannot get forum data');
             }
         });
+    }
+
+    ngOnDestroy(): void {
+        this.forumLanguageSub.unsubscribe();
     }
 }
