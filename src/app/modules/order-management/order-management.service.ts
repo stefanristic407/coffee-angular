@@ -383,7 +383,7 @@ export class OrderManagementService {
 
     private loadMicroRoasterDetails(id: number): void {
         if (id) {
-            this.brandProfileSrv.getProfile(OrganizationType.MICRO_ROASTER, id).subscribe({
+            this.brandProfileSrv.getMrProfile(id).subscribe({
                 next: (result) => this.microRoasterDetailsSubject.next(result),
             });
         }
