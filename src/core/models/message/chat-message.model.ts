@@ -1,6 +1,7 @@
 import { ThreadActivityType, OrganizationType } from '@enums';
 import { ChatMessageMember } from './chat-message-member.model';
 import { ThreadMember } from './thread-member.model';
+import { MessageMeta } from './message-meta.model';
 
 export interface ChatMessage {
     activity_type: ThreadActivityType;
@@ -9,7 +10,7 @@ export interface ChatMessage {
     id: number;
     member: ChatMessageMember;
     meta_data: string;
-    meta: any;
+    meta: MessageMeta;
     updated_at: string;
     computed_date: string;
     computed_author: ThreadMember;

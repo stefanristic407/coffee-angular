@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '@env/environment';
+import { StickerListItem } from '@models';
 @Injectable({
     providedIn: 'root',
 })
@@ -13,6 +14,7 @@ export class ChatUtilService {
     private incomingAudioPlayer = new Audio('assets/sounds/msg-incoming.mp3');
     private outgoingAudioPlayer = new Audio('assets/sounds/msg-outgoing.mp3');
     public DEFAULT_URL = 'assets/images/profile.svg';
+    public stickerFolder = 'assets/images/dm-stickers';
 
     public emojiList = [
         '1F600',
@@ -419,9 +421,38 @@ export class ChatUtilService {
         '1F30A',
     ];
 
+    public stickerList: StickerListItem[] = [
+        { title: 'Cafe owner male 1', name: 'cafe-owner-male-1', path: '' },
+        { title: 'Cafe owner male 2', name: 'cafe-owner-male-2', path: '' },
+        { title: 'Cafe owner male 3', name: 'cafe-owner-male-3', path: '' },
+        { title: 'Cafe owner female 1', name: 'cafe-owner-female-1', path: '' },
+        { title: 'Cafe owner female 2', name: 'cafe-owner-female-2', path: '' },
+        { title: 'Cafe owner female 3', name: 'cafe-owner-female-3', path: '' },
+        { title: 'Coffee bag', name: 'coffee-bag', path: '' },
+        { title: 'Coffee brand', name: 'coffee-brand', path: '' },
+        { title: 'Coffee cherry', name: 'coffee-cherry', path: '' },
+        { title: 'Coffee cup', name: 'coffee-cup', path: '' },
+        { title: 'Coffee leaves', name: 'coffee-leaves', path: '' },
+        { title: 'Estate owner male 1', name: 'estate-owner-male-1', path: '' },
+        { title: 'Estate owner male 2', name: 'estate-owner-male-2', path: '' },
+        { title: 'Estate owner male 3', name: 'estate-owner-male-3', path: '' },
+        { title: 'Estate owner female 1', name: 'estate-owner-female-1', path: '' },
+        { title: 'Estate owner female 2', name: 'estate-owner-female-2', path: '' },
+        { title: 'Estate owner female 3', name: 'estate-owner-female-3', path: '' },
+        { title: 'Green coffee', name: 'green-coffee', path: '' },
+        { title: 'Roasted beans', name: 'roasted-beans', path: '' },
+        { title: 'Roaster machine', name: 'roaster-machine', path: '' },
+    ];
+
     constructor(private cookieService: CookieService, private http: HttpClient) {
         this.incomingAudioPlayer.load();
         this.outgoingAudioPlayer.load();
+        this.prepareStickers();
+    }
+    prepareStickers() {
+        this.stickerList.forEach((sticker) => {
+            sticker.path = `${this.stickerFolder}/${sticker.name}.svg`;
+        });
     }
 
     public getTimeStamp(): string {

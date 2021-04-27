@@ -1,3 +1,4 @@
+import { MessageMetaTypes } from './../../../../../core/enums/message/message-meta-types.enum';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
 import { debounce, first, filter, tap } from 'rxjs/operators';
@@ -25,6 +26,8 @@ import {
     BlockListItem,
     ResponseSearchMessageRow,
     SearchChatMessagResult,
+    MessageMeta,
+    StickerListItem,
 } from '@models';
 import { ThreadActivityType, OrganizationType, ThreadType, ServiceCommunicationType, ChatMessageType } from '@enums';
 
@@ -58,6 +61,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     public selectedUser: ThreadMember | null = null;
     public userListLoading = false;
     public emojiList = [];
+    public stickerList: StickerListItem[] = [];
 
     private unblockUserReferance: BlockListItem | null = null;
     private blockThreadReferance: ThreadListItem | null = null;
@@ -67,7 +71,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     public chatListScrollEventSubject = new Subject<Event>();
 
     public chatSearch = {
-        //ANCHOR chatSearch
+        // ANCHOR chatSearch
         keyword: '',
         expand: false,
         inputSubject: new Subject<InputEvent>(),
@@ -142,7 +146,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         perPage: 10,
         activePage: 1,
     };
-
+    selectedSticker: StickerListItem | null = null;
     uploadFileMeta: {
         url: string;
         file_id: number;
@@ -171,7 +175,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     public chatVisibilityRendered = new Subject<boolean>();
     public notificationState = false;
     public contextMenuOpen = false;
-    public openEmojiPanel = false;
+    public showMessageBoxPanel: 'OFF' | 'EMOJI' | 'STICKER' = 'OFF';
+
     public chatMenuOpen = false;
 
     public enableReadRecipient = false;
@@ -240,6 +245,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     ngOnInit(): void {
         this.acceptFileTypeString = this.acceptFileTypeArray.join(',');
         this.emojiList = this.chatUtil.emojiList;
+        this.stickerList = this.chatUtil.stickerList;
         this.SM.WSState = this.socket.socketState.subscribe((value) => {
             if (value === 'CONNECTED') {
                 this.initializeWebSocket();
@@ -277,6 +283,10 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             notificationSound: this.notificationSound,
             activeFontSize: this.activeFontSize.value,
         };
+
+        if (!this.enableEmoji && this.showMessageBoxPanel === 'EMOJI') {
+            this.showMessageBoxPanel = 'OFF';
+        }
         localStorage.setItem('setting', JSON.stringify(setting));
     }
 
@@ -291,6 +301,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             this.enableReadRecipient = setting.enableReadRecipient;
         } else if (setting.hasOwnProperty('enableEmoji')) {
             this.enableEmoji = setting.enableEmoji;
+            if (!this.enableEmoji && this.showMessageBoxPanel === 'EMOJI') {
+                this.showMessageBoxPanel = 'OFF';
+            }
         } else if (setting.hasOwnProperty('notificationSound')) {
             this.notificationSound = setting.notificationSound;
         } else if (setting.hasOwnProperty('activeFontSize')) {
@@ -482,21 +495,13 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         };
     }
 
-    getMessagePayload(message: string) {
+    getMessagePayload(data: any) {
         const timestamp = this.chatUtil.getTimeStamp();
         const payload: any = {
             type: ChatMessageType.message,
             timestamp,
-            data: {
-                thread_id: this.openedThread.id,
-                content: message,
-                meta_data: '',
-            },
+            data,
         };
-        const fileId = this.uploadFileMeta?.file_id || '';
-        if (fileId) {
-            payload.data.file_id = fileId;
-        }
         return payload;
     }
 
@@ -553,6 +558,16 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         message.translatedText = '';
         message.showTranslation = 'OFF';
         message.showUserBadge = false;
+        const meta = { type: 'NORMAL' } as MessageMeta;
+        try {
+            message.meta = (JSON.parse(message.meta_data) || meta) as MessageMeta;
+        } catch (e) {
+            message.meta = meta as MessageMeta;
+        }
+        if (message.meta.type === 'STICKER' && message.meta.sticker) {
+            message.meta.sticker.stickerItem = this.stickerList.find((x) => x.name === message.meta.sticker.name);
+        }
+
         message.computed_date = this.chatUtil.getReadableTime(message.updated_at || message.created_at);
         message.dateString = moment(message.created_at).format('Do MMM YYYY');
         if (thread.computed_targetedUser.id === message.member.id) {
@@ -823,7 +838,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     handleBlockUpdateResponse(WSmsg: WSResponse<any>) {
-        if (WSmsg.success && WSmsg.code === 200) {
+        if (WSmsg.success && (WSmsg.code === 200 || WSmsg.code === 201)) {
             const newblock = this.processBlockedUserList([WSmsg.data])[0];
             this.whoBlockedMe.push(newblock);
             this.generateBlockMap();
@@ -836,7 +851,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     handleUnBlockUpdateResponse(WSmsg: WSResponse<any>) {
-        if (WSmsg.success && WSmsg.code === 200) {
+        if (WSmsg.success && (WSmsg.code === 200 || WSmsg.code === 201)) {
             const unblock = this.processBlockedUserList([WSmsg.data])[0];
             const index = this.whoBlockedMe.findIndex(
                 (ub) =>
@@ -850,7 +865,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.updateBlockStatuOnUserList();
                 this.updateBlockStatusOnThreadList();
             }
-            this.toast.success(`You have been un blocked by ${unblock.computed_fullname}`, 'Direct Messaging');
+            this.toast.success(`You have been unblocked by ${unblock.computed_fullname}`, 'Direct Messaging');
         } else {
             console.log('Websocket:UnBlock Update: error');
         }
@@ -990,7 +1005,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.updateBlockStatusOnThreadList();
             }
             if (isSameTab) {
-                this.toast.success(`Successfully un blocked the user ${unblockedItem.computed_fullname}`, 'Un Block');
+                this.toast.success(`Successfully unblocked the user ${unblockedItem.computed_fullname}`, 'Unblock');
             } else {
                 this.toast.info(
                     `You unblocked ${unblockedItem.computed_fullname} from another logged in session.`,
@@ -999,7 +1014,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             }
             this.fetchBlockUserList();
         } else {
-            this.toast.error('Unable to unblock the user', 'Un Block');
+            this.toast.error('Unable to unblock the user', 'Unblock');
         }
         this.unblockUserReferance = null;
     }
@@ -1355,38 +1370,83 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         }
         return message;
     }
+    detectOffensiveWords(msg) {
+        badwordsRegExp.lastIndex = 0;
+        if (badwordsRegExp.test(msg)) {
+            this.showOffensiveMessageError = true;
+            this.offensiveTimeout = window.setTimeout(this.offensiveTimeoutHandler, 3500);
+            msg = this.replaceOffensiveWord(msg);
+        }
+        return msg;
+    }
+
+    sendSticker(sticker: StickerListItem) {
+        this.selectedSticker = sticker;
+        this.sendMessage();
+    }
 
     sendMessage() {
         clearTimeout(this.offensiveTimeout);
         this.showOffensiveMessageError = false;
         let msg = this.messageInput.trim();
-        if (msg !== '') {
-            badwordsRegExp.lastIndex = 0;
-            if (badwordsRegExp.test(msg)) {
-                this.showOffensiveMessageError = true;
-                this.offensiveTimeout = window.setTimeout(this.offensiveTimeoutHandler, 3500);
-                msg = this.replaceOffensiveWord(msg);
-            }
-            this.socket.directMessageSent.next(this.getMessagePayload(msg));
-            if (this.notificationSound) {
-                this.chatUtil.playNotificationSound('OUTGOING');
-            }
-            this.messageInput = '';
-            this.uploadFileMeta = null;
-            this.chatBodyHeightAdjust();
-            if (this.SM.lastRender && this.SM.lastRender.unsubscribe) {
-                this.SM.lastRender.unsubscribe();
-            }
+        const hasContent = !!msg;
+        const hasImage = !!this.uploadFileMeta?.file_id;
+        const hasSticker = !!this.selectedSticker?.name;
+        const payload = {
+            thread_id: this.openedThread.id,
+            content: '',
+            meta_data: '',
+            file_id: undefined,
+        };
 
-            this.SM.lastRender = this.lastMessageRendered.pipe(first()).subscribe((x) => {
-                this.chatBodyHeightAdjust();
-            });
-            this.SM.timeoutTextSend = timer(600).subscribe((x) => {
-                this.chatBodyHeightAdjust();
-            });
+        if (hasSticker) {
+            payload.content = '\u25A3 Sticker';
+            delete payload.file_id;
+            payload.meta_data = JSON.stringify({
+                type: MessageMetaTypes.STICKER,
+                sticker: {
+                    category: 'STANDARD',
+                    version: 1,
+                    name: this.selectedSticker?.name,
+                },
+            } as MessageMeta);
+        } else if (hasContent && hasImage) {
+            msg = this.detectOffensiveWords(msg);
+            payload.content = msg;
+            payload.file_id = this.uploadFileMeta?.file_id || '';
+            payload.meta_data = JSON.stringify({
+                type: MessageMetaTypes.PICTURE_CAPTION,
+            } as MessageMeta);
+        } else if (hasContent && !hasImage) {
+            msg = this.detectOffensiveWords(msg);
+            payload.content = msg;
+            delete payload.file_id;
+            payload.meta_data = JSON.stringify({
+                type: MessageMetaTypes.NORMAL,
+            } as MessageMeta);
         } else {
             this.toast.warning('Message text can not be blank', 'Unable to sent', { timeOut: 800 });
+            return;
         }
+
+        this.socket.directMessageSent.next(this.getMessagePayload(payload));
+        if (this.notificationSound) {
+            this.chatUtil.playNotificationSound('OUTGOING');
+        }
+        this.messageInput = '';
+        this.uploadFileMeta = null;
+        this.selectedSticker = null;
+        this.chatBodyHeightAdjust();
+
+        if (this.SM.lastRender && this.SM.lastRender.unsubscribe) {
+            this.SM.lastRender.unsubscribe();
+        }
+        this.SM.lastRender = this.lastMessageRendered.pipe(first()).subscribe((x) => {
+            this.chatBodyHeightAdjust();
+        });
+        this.SM.timeoutTextSend = timer(600).subscribe((x) => {
+            this.chatBodyHeightAdjust();
+        });
     }
 
     focusSearchResult() {
@@ -1543,7 +1603,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     };
 
     chatSearchChange = () => {
-        //ANCHOR chatSearchChange
+        // ANCHOR chatSearchChange
         if (this.chatSearch.keyword.trim()) {
             const timestamp = this.chatUtil.getTimeStamp();
             this.showInlineLoader = true;
@@ -1853,11 +1913,16 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         this.messageListConfig.activePage = 1;
         this.messageListConfig.totalCount = 0;
         this.messageListConfig.lastSentTimeStamp = '';
+        this.uploadFileMeta = null;
+        this.selectedSticker = null;
+        this.uploadProgressing = false;
     }
+
     chatUIStateReset() {
         if (!this.chatHandler.isExpand.value) {
             this.chatSearch.reset();
             this.chatMenuOpen = false;
+            this.showMessageBoxPanel = 'OFF';
         }
     }
     chatElRefReset() {

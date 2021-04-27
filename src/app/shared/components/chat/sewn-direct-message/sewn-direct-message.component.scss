@@ -1010,9 +1010,31 @@
                 }
             }
         }
+
         .dm-ci-unit {
             position: relative;
             display: block;
+            .dm-ci-sticker-block {
+                position: relative;
+                display: block;
+                padding: 12px 8px;
+                .dm-ci-sticker-image {
+                    display: block;
+                    position: relative;
+                    max-width: 200px;
+                    max-height: 200px;
+                    min-height: 100px;
+                    min-width: 100px;
+                    user-select: none;
+                    pointer-events: none;
+                    object-fit: contain;
+                    background-image: url(../../../../../assets/images/dm-svg-image-loader.svg);
+                    background-position: center;
+                    background-size: 60px 60px;
+                    background-repeat: no-repeat;
+                    background-color: #07000000;
+                }
+            }
             .dm-ci-content-block {
                 position: relative;
                 display: block;
@@ -1443,7 +1465,16 @@
         &.open-emoji {
             background-color: #e9e8e8;
             .dm-mb-emoji-panel-wrapper {
-                height: 72px;
+                height: 100px;
+                overflow-y: scroll;
+                margin-bottom: 20px;
+                visibility: visible;
+            }
+        }
+        &.open-stickers {
+            background-color: #e9e8e8;
+            .dm-mb-sticker-panel-wrapper {
+                height: 100px;
                 overflow-y: scroll;
                 margin-bottom: 20px;
                 visibility: visible;
@@ -1487,6 +1518,38 @@
                     vertical-align: middle;
                     text-align: center;
                     margin: 4px;
+                    cursor: pointer;
+                    user-select: none;
+                }
+            }
+        }
+        .dm-mb-sticker-panel-wrapper {
+            position: relative;
+            visibility: hidden;
+            position: relative;
+            margin-bottom: 0px;
+            height: 0px;
+            overflow-x: hidden;
+            overflow-y: hidden;
+            transition: height 400ms ease-in;
+            -ms-overflow-style: none; /* IE 11 */
+            scrollbar-width: none; /* Firefox 64 */
+            &::-webkit-scrollbar {
+                display: none;
+            }
+            .dm-mb-sticker-panel {
+                position: relative;
+                display: flex;
+                flex-wrap: wrap;
+                align-content: center;
+                justify-content: flex-start;
+                .dm-mb-sticker-item {
+                    display: inline-block;
+                    position: relative;
+                    vertical-align: middle;
+                    text-align: center;
+                    margin: 5px;
+                    width: 40px;
                     cursor: pointer;
                     user-select: none;
                 }
