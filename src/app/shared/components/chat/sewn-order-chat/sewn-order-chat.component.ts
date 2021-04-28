@@ -22,6 +22,7 @@ import {
     WSResponse,
     DisputeChatThreadListItem,
     OrderChatThreadListItem,
+    MessageMeta,
 } from '@models';
 import { ThreadType, ThreadActivityType, ChatMessageType } from '@enums';
 import { ChatHandlerService, GlobalsService, SocketService, ChatUtilService } from '@services';
@@ -182,6 +183,10 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
             }
             return mem;
         });
+        thread.blockedDetails = {
+            blockedMe: false,
+            myBlock: false,
+        };
         thread.content = thread.content || '';
         thread.computed_mute = false;
         thread.computed_activeUser = activeUser[0];
@@ -334,9 +339,9 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
         message.computed_date = this.chatUtil.getReadableTime(message.updated_at || message.created_at);
         const meta = { type: 'NORMAL' };
         try {
-            message.meta = JSON.parse(message.meta_data) || meta;
+            message.meta = (JSON.parse(message.meta_data) || meta) as MessageMeta;
         } catch (e) {
-            message.meta = meta;
+            message.meta = meta as MessageMeta;
         }
         if (thread.computed_targetedUserList.find((tuser) => tuser.id === message.member.id)) {
             message.computed_author = thread.computed_targetedUser;

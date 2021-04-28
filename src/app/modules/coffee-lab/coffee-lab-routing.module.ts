@@ -90,28 +90,6 @@ const routes: Routes = [
                     {
                         path: 'tab',
                         component: TabContainerComponent,
-                        children: [
-                            {
-                                path: '',
-                                redirectTo: 'question',
-                                pathMatch: 'full',
-                            },
-                            {
-                                path: 'question',
-                                component: CreateQuestionComponent,
-                                data: { type: 'question' },
-                            },
-                            {
-                                path: 'article',
-                                component: CreateArticleComponent,
-                                data: { type: 'question' },
-                            },
-                            {
-                                path: 'recipe',
-                                component: CreateRecipeComponent,
-                                data: { type: 'question' },
-                            },
-                        ],
                     },
                     {
                         path: 'answer',

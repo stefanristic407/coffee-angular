@@ -11,12 +11,15 @@ import {
     CommonService,
     GlobalsService,
     I18NService,
+    IdmService,
     MenuService,
     RoasterserviceService,
     SocketService,
     UserserviceService,
 } from '@services';
 import { DestroyableComponent } from '@base-components';
+import { OrganizationType } from '@enums';
+import { environment } from '@env/environment';
 
 @Component({
     selector: 'app-layout',
@@ -39,6 +42,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     slugList: any;
     sideNavOpened = false;
     showMobFooter = true;
+    orgData: any[];
 
     notifications: any[];
     readNotification: any;
@@ -58,7 +62,8 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         private socket: SocketService,
         private commonService: CommonService,
         private coffeeLabService: CoffeeLabService,
-        public authService: AuthService
+        private idmService: IdmService,
+        public authService: AuthService,
     ) {
         super();
     }
@@ -108,6 +113,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         });
 
         this.getLoggedInUserRoles();
+        this.getOrganizations();
 
         fromEvent(window, 'scroll')
             .pipe(debounceTime(100))
@@ -154,14 +160,10 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     }
 
     getNotificationList() {
-        this.userService.getNofitication().subscribe((res: any) => {
-            console.log('notification data: ', res);
-        });
+        this.userService.getNofitication().subscribe((res: any) => {});
     }
 
-    showNotification() {
-        console.log('notif show: ');
-    }
+    showNotification() {}
 
     updateActiveLinkState() {
         if (this.chat.isOpen.value) {
@@ -276,5 +278,84 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
             this.resizeEvent.unsubscribe();
         }
         this.socket.destorySocket();
+    }
+
+    getOrganizations() {
+        this.idmService.verifyToken().subscribe((res: any) => {
+            if (res.success === true) {
+                this.checkOrgRes(res.result);
+            }
+        });
+    }
+
+    checkOrgRes(orgRes: any) {
+        this.orgData = [];
+        Object.keys(orgRes).forEach((key) => {
+            switch (key) {
+                case 'estates': {
+                    this.orgData.push({ orgType: OrganizationType.ESTATE, ...orgRes[key] });
+                    break;
+                }
+                case 'facilitators': {
+                    this.orgData.push({ orgType: OrganizationType.FACILITATOR, ...orgRes[key] });
+                    break;
+                }
+                case 'horecas': {
+                    this.orgData.push({ orgType: OrganizationType.HORECA, ...orgRes[key] });
+                    break;
+                }
+                case 'micro_roasters': {
+                    this.orgData.push({ orgType: OrganizationType.MICRO_ROASTER, ...orgRes[key] });
+                    break;
+                }
+                case 'sewn_admin': {
+                    this.orgData.push({
+                        orgType: OrganizationType.SEWN_ADMIN,
+                        id: orgRes.user_id,
+                        ...orgRes[key],
+                    });
+                    break;
+                }
+            }
+        });
+    }
+
+    switchPortal(orgType: OrganizationType, orgId) {
+        let portalUrl = '';
+
+        switch (orgType) {
+            case OrganizationType.ESTATE: {
+                portalUrl = environment.estatesWeb;
+                break;
+            }
+            case OrganizationType.FACILITATOR: {
+                portalUrl = environment.facilitatorWeb;
+                break;
+            }
+            case OrganizationType.HORECA: {
+                portalUrl = environment.horecaWeb;
+                break;
+            }
+            case OrganizationType.MICRO_ROASTER: {
+                portalUrl = environment.microRoasterWeb;
+                break;
+            }
+            case OrganizationType.ROASTER: {
+                portalUrl = environment.roasterWeb;
+                break;
+            }
+            case OrganizationType.SEWN_ADMIN: {
+                portalUrl = environment.adminWeb;
+                break;
+            }
+        }
+
+        portalUrl += `/gate?orgId=${orgId}`;
+        // Probably we need to add separate flag for this logic.
+        if (!environment.production) {
+            portalUrl += `&token=${this.cookieService.get('Auth')}`;
+        }
+
+        window.open(portalUrl, '_self');
     }
 }

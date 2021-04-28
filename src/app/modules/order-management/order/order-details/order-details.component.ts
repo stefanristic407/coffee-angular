@@ -14,6 +14,7 @@ import { takeUntil } from 'rxjs/operators';
 export class OrderDetailsComponent extends ResizeableComponent implements OnInit {
     readonly OrderType = OrderType;
     readonly OrderStatus = OrderStatus;
+    readonly OrgType = OrganizationType;
     readonly bulk$ = this.orderService.bulkDetails$;
 
     shippingDetails: ShippingDetails;

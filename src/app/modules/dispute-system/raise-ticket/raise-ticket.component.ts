@@ -179,13 +179,13 @@ export class RaiseTicketComponent implements OnInit {
                         timestamp,
                         data: {
                             thread_id: orderThread.thread_id,
-                            content: `has raised dispute on the ${
-                                disputeReason === 'Others' ? 'some  reasons' : disputeReason
-                            } of GC.  Please take appropriate action`,
                             meta_data: JSON.stringify({
                                 type: 'DISPUTE_RAISED',
                                 dispute_details: {
                                     id: disputeID,
+                                    content: `has raised dispute on the ${
+                                        disputeReason === 'Others' ? 'some  reasons' : disputeReason
+                                    } of GC.  Please take appropriate action`,
                                 },
                             }),
                         },

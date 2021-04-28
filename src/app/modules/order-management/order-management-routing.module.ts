@@ -16,11 +16,6 @@ const routes: Routes = [
             },
         ],
     },
-    // {
-    //     path: '',
-    //     pathMatch: 'full',
-    //     redirectTo: 'es',
-    // },
 ];
 
 @NgModule({

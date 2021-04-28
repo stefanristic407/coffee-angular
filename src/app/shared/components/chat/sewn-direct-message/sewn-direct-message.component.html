@@ -359,13 +359,13 @@
             <span class="dm-rup-back-text brown-text" *ngIf="chatHandler.isExpand.value"> Back to Conversation</span>
         </div>
         <div class="dm-rup-listing">
-            <div class="dm-rup-error-panel" *ngIf="!blockedUsersList.length && !showInlineLoader">
+            <div class="dm-rup-error-panel" *ngIf="!myBlockList.length && !showInlineLoader">
                 <div class="dm-rup-error-block">
                     <img class="dm-rup-error-img" src="assets/images/dm-empty-thread-list.svg" alt="Empty" />
                     <div class="dm-rup-error-text">Looks like you haven`t blocked any users</div>
                 </div>
             </div>
-            <div class="dm-rup-listing-wrapper" *ngIf="blockedUsersList.length">
+            <div class="dm-rup-listing-wrapper" *ngIf="myBlockList.length">
                 <ng-container *ngTemplateOutlet="reportListTL"></ng-container>
             </div>
         </div>
@@ -479,7 +479,7 @@
 </ng-template>
 
 <ng-template #reportListTL>
-    <div class="dm-report-list-item" *ngFor="let blockedUser of blockedUsersList">
+    <div class="dm-report-list-item" *ngFor="let blockedUser of myBlockList">
         <div class="dm-rli-dp-block dm-rli-extra-margin">
             <img class="dm-rli-dp-image" [src]="blockedUser.computed_profile_direct_url" alt="Profile Picture" />
         </div>
@@ -545,42 +545,45 @@
 </ng-template>
 
 <ng-template #threadListTL>
-    <div
-        class="dm-thread-list-item"
-        (click)="openThreadChat(thread)"
-        [ngClass]="{
-            'dm-thi-active': openedThread && thread.id === openedThread.id
-        }"
-        *ngFor="let thread of threadList | searchFilter: threadSearchKeyword"
-    >
-        <div class="dm-thi-dp-block">
-            <img
-                class="dm-thi-dp-image"
-                [src]="thread.computed_targetedUser.computed_profile_direct_url"
-                alt="Profile Picture"
-            />
-            <span class="dm-online-status" [ngClass]="{ 'dm-user-online': thread.computed_targetedUser.online }"></span>
-        </div>
-        <div class="dm-thi-content-block">
-            <div class="dm-thi-content-row">
-                <div class="dm-thi-name">{{ thread.computed_targetedUser.computed_fullname }}</div>
-                <div class="dm-thi-date">{{ thread.computed_createdAt }}</div>
+    <ng-container *ngFor="let thread of threadList | searchFilter: threadSearchKeyword">
+        <div
+            class="dm-thread-list-item"
+            (click)="openThreadChat(thread)"
+            *ngIf="!thread.blockedDetails.blockedMe && !thread.blockedDetails.myBlock"
+            [ngClass]="{ 'dm-thi-active': openedThread && thread.id === openedThread.id }"
+        >
+            <div class="dm-thi-dp-block">
+                <img
+                    class="dm-thi-dp-image"
+                    [src]="thread.computed_targetedUser.computed_profile_direct_url"
+                    alt="Profile Picture"
+                />
+                <span
+                    class="dm-online-status"
+                    [ngClass]="{ 'dm-user-online': thread.computed_targetedUser.online }"
+                ></span>
             </div>
-            <div class="dm-thi-content-row">
-                <div class="dm-thi-org-name">
-                    {{ thread.computed_targetedUser.computed_organization_name }}
+            <div class="dm-thi-content-block">
+                <div class="dm-thi-content-row">
+                    <div class="dm-thi-name">{{ thread.computed_targetedUser.computed_fullname }}</div>
+                    <div class="dm-thi-date">{{ thread.computed_createdAt }}</div>
+                </div>
+                <div class="dm-thi-content-row">
+                    <div class="dm-thi-org-name">
+                        {{ thread.computed_targetedUser.computed_organization_name }}
+                    </div>
+                </div>
+                <div class="dm-thi-content-row">
+                    <div class="dm-thi-lastmsg">
+                        <span class="dm-thi-lastmsg-content">
+                            {{ thread.computed_lastActivityText }}
+                        </span>
+                    </div>
+                    <div *ngIf="thread.unread" class="dm-thi-count">{{ thread.unread }}</div>
                 </div>
             </div>
-            <div class="dm-thi-content-row">
-                <div class="dm-thi-lastmsg">
-                    <span class="dm-thi-lastmsg-content">
-                        {{ thread.computed_lastActivityText }}
-                    </span>
-                </div>
-                <div *ngIf="thread.unread" class="dm-thi-count">{{ thread.unread }}</div>
-            </div>
         </div>
-    </div>
+    </ng-container>
 </ng-template>
 
 <ng-template #chatListTL>
@@ -602,34 +605,41 @@
             [ngClass]="{ 'dm-chat-to': message.isActiveUser, 'dm-chat-from': !message.isActiveUser }"
         >
             <div class="dm-ci-unit">
-                <div
-                    class="dm-ci-content-block"
-                    [ngClass]="{
-                        'dm-ci-content-size-small': activeFontSize.value === 'SMALL',
-                        'dm-ci-content-size-normal': activeFontSize.value === 'NORMAL',
-                        'dm-ci-content-size-large': activeFontSize.value === 'LARGE'
-                    }"
-                >
-                    <a
-                        [href]="message?.file?.url"
-                        target="_blank"
-                        download="sewn-chat.jpg"
-                        class="dm-ci-image-wrapper"
-                        *ngIf="message?.file?.url"
+                <ng-container *ngIf="message.meta.type === 'STICKER' && message.meta.sticker">
+                    <div class="dm-ci-sticker-block">
+                        <img class="dm-ci-sticker-image" [src]="message.meta?.sticker?.stickerItem?.path" />
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="!(message.meta.type === 'STICKER' && message.meta.sticker)">
+                    <div
+                        class="dm-ci-content-block"
+                        [ngClass]="{
+                            'dm-ci-content-size-small': activeFontSize.value === 'SMALL',
+                            'dm-ci-content-size-normal': activeFontSize.value === 'NORMAL',
+                            'dm-ci-content-size-large': activeFontSize.value === 'LARGE'
+                        }"
                     >
-                        <img class="dm-ci-content-image" [src]="message?.file?.url" alt="Image" />
-                    </a>
-                    <div *ngIf="message.showTranslation === 'OFF'" class="dm-ci-content-text">
-                        {{ message.content || '_' }}
+                        <a
+                            [href]="message?.file?.url"
+                            target="_blank"
+                            download="sewn-chat.jpg"
+                            class="dm-ci-image-wrapper"
+                            *ngIf="message?.file?.url"
+                        >
+                            <img class="dm-ci-content-image" [src]="message?.file?.url" alt="Image" />
+                        </a>
+                        <div *ngIf="message.showTranslation === 'OFF'" class="dm-ci-content-text">
+                            {{ message.content || '_' }}
+                        </div>
+                        <div *ngIf="message.showTranslation === 'ON'" class="dm-ci-content-text">
+                            {{ message.translatedText }}
+                        </div>
+                        <div *ngIf="message.showTranslation === 'IP'" class="dm-ci-content-translation">
+                            <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+                            <span class="dm-ci-content-translating-text">Translating...</span>
+                        </div>
                     </div>
-                    <div *ngIf="message.showTranslation === 'ON'" class="dm-ci-content-text">
-                        {{ message.translatedText }}
-                    </div>
-                    <div *ngIf="message.showTranslation === 'IP'" class="dm-ci-content-translation">
-                        <p-progressSpinner strokeWidth="5"></p-progressSpinner>
-                        <span class="dm-ci-content-translating-text">Translating...</span>
-                    </div>
-                </div>
+                </ng-container>
                 <div class="dm-ci-message-meta">
                     <div *ngIf="message.lang !== gtrans.defaultLang" class="dm-ci-translation">
                         <span *ngIf="message.showTranslation === 'OFF'" (click)="translateMessage(message)"
@@ -671,44 +681,52 @@
             [ngClass]="{ 'dm-chat-to': unit.message.isActiveUser, 'dm-chat-from': !unit.message.isActiveUser }"
         >
             <div class="dm-ci-unit">
-                <div
-                    class="dm-ci-content-block"
-                    [ngClass]="{
-                        'dm-ci-content-size-small': activeFontSize.value === 'SMALL',
-                        'dm-ci-content-size-normal': activeFontSize.value === 'NORMAL',
-                        'dm-ci-content-size-large': activeFontSize.value === 'LARGE'
-                    }"
-                >
-                    <a
-                        [href]="unit.message?.file?.url"
-                        target="_blank"
-                        download="sewn-chat.jpg"
-                        class="dm-ci-image-wrapper"
-                        *ngIf="unit.message?.file?.url"
+                <ng-container *ngIf="unit.message.meta.type === 'STICKER' && unit.message.meta.sticker">
+                    <div class="dm-ci-sticker-block">
+                        <img class="dm-ci-sticker-image" [src]="unit.message.meta?.sticker?.stickerItem?.path" />
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="!(unit.message.meta.type === 'STICKER' && unit.message.meta.sticker)">
+                    <div
+                        class="dm-ci-content-block"
+                        [ngClass]="{
+                            'dm-ci-content-size-small': activeFontSize.value === 'SMALL',
+                            'dm-ci-content-size-normal': activeFontSize.value === 'NORMAL',
+                            'dm-ci-content-size-large': activeFontSize.value === 'LARGE'
+                        }"
                     >
-                        <img class="dm-ci-content-image" [src]="unit.message?.file?.url" alt="Image" />
-                    </a>
+                        <a
+                            [href]="unit.message?.file?.url"
+                            target="_blank"
+                            download="sewn-chat.jpg"
+                            class="dm-ci-image-wrapper"
+                            *ngIf="unit.message?.file?.url"
+                        >
+                            <img class="dm-ci-content-image" [src]="unit.message?.file?.url" alt="Image" />
+                        </a>
 
-                    <ng-container *ngIf="unit.message.showTranslation === 'OFF'">
-                        <div *ngIf="!unit.isMatch" class="dm-ci-content-text">
-                            {{ unit.message.content || '_' }}
+                        <ng-container *ngIf="unit.message.showTranslation === 'OFF'">
+                            <div *ngIf="!unit.isMatch" class="dm-ci-content-text">
+                                {{ unit.message.content || '_' }}
+                            </div>
+                            <div
+                                *ngIf="unit.isMatch"
+                                appChatHighlighter
+                                [searchKey]="chatSearch.keyword"
+                                [messageContent]="unit.message.content"
+                                class="dm-ci-content-text"
+                            ></div>
+                        </ng-container>
+                        <div *ngIf="unit.message.showTranslation === 'ON'" class="dm-ci-content-text">
+                            {{ unit.message.translatedText }}
                         </div>
-                        <div
-                            *ngIf="unit.isMatch"
-                            appChatHighlighter
-                            [searchKey]="chatSearch.keyword"
-                            [messageContent]="unit.message.content"
-                            class="dm-ci-content-text"
-                        ></div>
-                    </ng-container>
-                    <div *ngIf="unit.message.showTranslation === 'ON'" class="dm-ci-content-text">
-                        {{ unit.message.translatedText }}
+                        <div *ngIf="unit.message.showTranslation === 'IP'" class="dm-ci-content-translation">
+                            <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+                            <span class="dm-ci-content-translating-text">Translating...</span>
+                        </div>
                     </div>
-                    <div *ngIf="unit.message.showTranslation === 'IP'" class="dm-ci-content-translation">
-                        <p-progressSpinner strokeWidth="5"></p-progressSpinner>
-                        <span class="dm-ci-content-translating-text">Translating...</span>
-                    </div>
-                </div>
+                </ng-container>
+
                 <div class="dm-ci-message-meta">
                     <div *ngIf="unit.message.lang !== gtrans.defaultLang" class="dm-ci-translation">
                         <span *ngIf="unit.message.showTranslation === 'OFF'" (click)="translateMessage(unit.message)"
@@ -751,7 +769,13 @@
             </div>
             <div></div>
         </div>
-        <div class="dm-mb-shadow-container" [ngClass]="{ 'open-emoji': openEmojiPanel }">
+        <div
+            class="dm-mb-shadow-container"
+            [ngClass]="{
+                'open-emoji': showMessageBoxPanel === 'EMOJI',
+                'open-stickers': showMessageBoxPanel === 'STICKER'
+            }"
+        >
             <div class="dm-mb-emoji-panel-wrapper" *ngIf="enableEmoji">
                 <div class="dm-mb-emoji-panel">
                     <span
@@ -760,6 +784,17 @@
                         *ngFor="let emoji of emojiList"
                         [innerHTML]="getEmojiRender(emoji)"
                     ></span>
+                </div>
+            </div>
+            <div class="dm-mb-sticker-panel-wrapper">
+                <div class="dm-mb-sticker-panel">
+                    <img
+                        class="dm-mb-sticker-item"
+                        (click)="sendSticker(sticker)"
+                        [title]="sticker.title"
+                        *ngFor="let sticker of stickerList"
+                        [src]="sticker.path"
+                    />
                 </div>
             </div>
             <div class="dm-mb-text-row">
@@ -783,20 +818,34 @@
             <div class="dm-mb-action-row">
                 <ng-container *ngIf="enableEmoji">
                     <img
-                        (click)="openEmojiPanel = !openEmojiPanel"
-                        *ngIf="!openEmojiPanel"
+                        *ngIf="showMessageBoxPanel !== 'EMOJI'"
+                        (click)="showMessageBoxPanel = 'EMOJI'"
                         class="dm-mb-action-button-img dm-action-button"
                         src="assets/images/dm-mb-action-button-emoji.svg"
                         alt="Emoji"
                     />
                     <img
-                        *ngIf="openEmojiPanel"
-                        (click)="openEmojiPanel = !openEmojiPanel"
+                        *ngIf="showMessageBoxPanel === 'EMOJI'"
+                        (click)="showMessageBoxPanel = 'OFF'"
                         class="dm-mb-action-button-img dm-action-button"
                         src="assets/images/dm-mb-action-button-emoji-active.svg"
                         alt="Emoji"
                     />
                 </ng-container>
+                <img
+                    *ngIf="showMessageBoxPanel !== 'STICKER'"
+                    (click)="showMessageBoxPanel = 'STICKER'"
+                    class="dm-mb-action-button-img dm-action-button"
+                    src="assets/images/dm-mb-action-button-sticker.svg"
+                    alt="Emoji"
+                />
+                <img
+                    *ngIf="showMessageBoxPanel === 'STICKER'"
+                    (click)="showMessageBoxPanel = 'OFF'"
+                    class="dm-mb-action-button-img dm-action-button"
+                    src="assets/images/dm-mb-action-button-sticker-active.svg"
+                    alt="Emoji"
+                />
                 <label class="dm-mb-file-input-lable">
                     <img
                         class="dm-mb-action-button-img dm-action-button"

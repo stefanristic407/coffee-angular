@@ -11,12 +11,12 @@
         </div>
     </div>
     <div class="py-3 py-md-4 border-bottom-main user-info-wrapper">
-        <app-user-header [prop]="detailsData?.original_article"></app-user-header>
+        <app-user-header [prop]="originalForumData"></app-user-header>
     </div>
     <p class="fnt-muli fnt-14 fnt-bold lh-normal text-clr334 my-3 my-md-4 text-underline">
-        {{ originalData?.title }}
+        {{ originalForumTitle }}
     </p>
-    <a class="fnt-muli fnt-14 fnt-bold lh-normal original-link" [href]="originalUrl">
-        {{ originalUrl }}
+    <a class="fnt-muli fnt-14 fnt-600 lh-normal original-link" [routerLink]="originalUrl">
+        {{ originalForumTitle }}
     </a>
 </div>

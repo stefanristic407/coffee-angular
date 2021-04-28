@@ -6,5 +6,13 @@
 </div>
 
 <div class="post-container">
+    <div *ngIf="coffeeLabService.pageName.value === 'translate-answer'" class="mb-25 mb-md-45">
+        <div class="border-main p-3 p-md-4 fnt-muli fnt-14 d-flex flex-column flex-md-row">
+            <div class="font-weight-bold text-clr334 mr-2 mb-2 mb-md-0">{{ 'note' | translate }}</div>
+            <div class="text-clr588 lh-15">
+                {{ 'translate_answer_description' | translate }}
+            </div>
+        </div>
+    </div>
     <router-outlet></router-outlet>
 </div>
