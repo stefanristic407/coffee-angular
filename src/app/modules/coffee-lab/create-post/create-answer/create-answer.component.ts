@@ -13,7 +13,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CreateAnswerComponent implements OnInit {
     isAllowTranslation = true;
     isPosting = false;
-    questionId: any;
+    parentForumType: string;
+    forumType: string;
+    parentForumId: any;
+    forumId: any;
 
     // these 3 parameters are mandatory to use forum-editor
     content: any;
@@ -31,14 +34,20 @@ export class CreateAnswerComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.questionId = this.route.snapshot.queryParamMap.get('id');
+        this.parentForumType = this.route.snapshot.queryParamMap.get('parentForumType') || 'question';
+        this.forumType = this.route.snapshot.queryParamMap.get('forumType') || 'answer';
+        this.parentForumId = this.route.snapshot.queryParamMap.get('parentForumId');
+        this.forumId = this.route.snapshot.queryParamMap.get('forumId');
+        if (!this.parentForumId) {
+            this.router.navigate(['/coffee-lab']);
+        }
     }
 
     onPost(status: string): void {
         console.log('content >>>>>>>>>>>>>', this.content);
         // return;
         if (!this.content) {
-            this.toastrService.error('Please type your answer.');
+            this.toastrService.error('Please fill out field.');
             return;
         }
         const data = {
@@ -49,15 +58,28 @@ export class CreateAnswerComponent implements OnInit {
             language: this.coffeeLabService.currentForumLanguage,
         };
         this.isPosting = true;
-        this.coffeeLabService.postAnswer(this.questionId, data).subscribe((res: any) => {
-            this.isPosting = false;
-            console.log('post question result >>>', res);
-            if (res.success) {
-                this.toastrService.success('You have posted an answer successfully.');
-                this.location.back();
-            } else {
-                this.toastrService.error('Failed to post question.');
-            }
-        });
+        if (this.forumId) {
+            this.coffeeLabService.updateForum(this.forumType, this.forumId, data).subscribe((res: any) => {
+                this.isPosting = false;
+                console.log('postComment result >>>', res);
+                if (res.success) {
+                    this.toastrService.success('You have updated a comment successfully.');
+                    this.location.back();
+                } else {
+                    this.toastrService.error('Failed to update comment.');
+                }
+            });
+        } else {
+            this.coffeeLabService.postComment(this.parentForumType, this.parentForumId, data).subscribe((res: any) => {
+                this.isPosting = false;
+                console.log('postComment result >>>', res);
+                if (res.success) {
+                    this.toastrService.success('You have posted a comment successfully.');
+                    this.location.back();
+                } else {
+                    this.toastrService.error('Failed to post comment.');
+                }
+            });
+        }
     }
 }
