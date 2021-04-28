@@ -19,12 +19,11 @@ export class CreatePostComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        console.log('this.router.url >>>>>>>>>>', this.router.url);
-        this.router.events.forEach((event) => {
-            if (event instanceof NavigationStart) {
-                console.log('route change event >>>>>>>', event);
-            }
-        });
+        // this.router.events.forEach((event) => {
+        //     if (event instanceof NavigationStart) {
+        //         console.log('route change event >>>>>>>', event);
+        //     }
+        // });
     }
 
     onOpenDraftPosts(): void {

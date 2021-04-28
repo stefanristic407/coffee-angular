@@ -13,13 +13,26 @@
             </div>
         </div>
         <div class="px-4">
-            <app-forum-editor
-                [(content)]="content"
-                [(isUploadingImage)]="isUploadingImage"
-                [(imageIdList)]="imageIdList"
-                fileModule="qa-forum"
-                [placeholder]="'leave_an_answer_bla' | translate"
-            ></app-forum-editor>
+            <div *ngIf="forumType === 'answer'">
+                <app-forum-editor
+                    [(content)]="content"
+                    [(isUploadingImage)]="isUploadingImage"
+                    [(imageIdList)]="imageIdList"
+                    fileModule="qa-forum"
+                    [placeholder]="'leave_an_answer_bla' | translate"
+                ></app-forum-editor>
+            </div>
+            <div *ngIf="forumType === 'comment'" class="mb-0 sewn-form-field w-100">
+                <textarea
+                    class="w-100"
+                    type="text"
+                    pInputTextarea
+                    required
+                    rows="8"
+                    [placeholder]="'leave_an_answer_bla' | translate"
+                    [(ngModel)]="content"
+                ></textarea>
+            </div>
         </div>
     </div>
 

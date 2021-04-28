@@ -15,7 +15,6 @@ export class CoffeeLabService extends ApiService {
     @Output() originalPost = new EventEmitter();
     forumDeleteEvent = new EventEmitter();
     forumLanguage = new BehaviorSubject('en');
-    pageName = new BehaviorSubject(null);
     organization = 'ro';
     organizationId = this.cookieSrv.get('roaster_id');
 
