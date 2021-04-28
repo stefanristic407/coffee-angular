@@ -141,17 +141,17 @@ export class ForumMenuComponent implements OnInit {
         switch (this.forumType) {
             case 'question':
                 this.router.navigate(['/coffee-lab/create-post/tab'], {
-                    queryParams: { id: this.selectedItem.id },
+                    queryParams: { id: this.selectedItem.id, type: this.forumType },
                 });
                 break;
             case 'article':
                 this.router.navigate(['/coffee-lab/create-post/tab'], {
-                    queryParams: { id: this.selectedItem.id },
+                    queryParams: { id: this.selectedItem.id, type: this.forumType },
                 });
                 break;
             case 'recipe':
                 this.router.navigate(['/coffee-lab/create-post/tab'], {
-                    queryParams: { id: this.selectedItem.id },
+                    queryParams: { id: this.selectedItem.id, type: this.forumType },
                 });
                 break;
             case 'answer':

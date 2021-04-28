@@ -35,7 +35,10 @@ export class CreateArticleComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.articleId = this.route.snapshot.queryParamMap.get('id');
+        const type = this.route.snapshot.queryParamMap.get('type');
+        if (type === 'article') {
+            this.articleId = this.route.snapshot.queryParamMap.get('id');
+        }
         this.articleForm = this.fb.group({
             title: ['', Validators.compose([Validators.required])],
             subtitle: ['', Validators.compose([Validators.required])],
