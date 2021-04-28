@@ -50,7 +50,7 @@ export class UserDetailComponent implements OnInit, OnChanges {
 
     showPopup(element: any, event: any) {
         const userId = +this.cookieService.get('user_id');
-        if (this.data.id !== userId) {
+        if (this.data?.id !== userId) {
             element.toggle(event);
         }
     }
