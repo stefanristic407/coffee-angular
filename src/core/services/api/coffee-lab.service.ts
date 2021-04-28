@@ -15,7 +15,6 @@ export class CoffeeLabService extends ApiService {
     @Output() originalPost = new EventEmitter();
     forumDeleteEvent = new EventEmitter();
     forumLanguage = new BehaviorSubject('en');
-    pageName = new BehaviorSubject(null);
     organization = 'ro';
     organizationId = this.cookieSrv.get('roaster_id');
 
@@ -48,7 +47,7 @@ export class CoffeeLabService extends ApiService {
         this.toastService.success('Successfully copied');
     }
 
-    getForumList(type: string, options?: any, language = 'en'): Observable<any> {
+    getForumList(type: string, options?: any, language = this.currentForumLanguage): Observable<any> {
         const data = {
             api_call: `/general/${type}s?${this.serializeParams(options)}`,
             method: 'GET',
@@ -60,7 +59,19 @@ export class CoffeeLabService extends ApiService {
         return this.http.post(this.orgPostUrl, data, httpOptions);
     }
 
-    getForumDetails(type: string, idOrSlug: any, language = 'en'): Observable<any> {
+    getFOrganizationForumList(type: string, options?: any, language = this.currentForumLanguage): Observable<any> {
+        const data = {
+            api_call: `/${this.organization}/${this.organizationId}/${type}s?${this.serializeParams(options)}`,
+            method: 'GET',
+            token: this.cookieSrv.get('Auth'),
+        };
+        const httpOptions = {
+            headers: new HttpHeaders({ 'Accept-Language': language }),
+        };
+        return this.http.post(this.orgPostUrl, data, httpOptions);
+    }
+
+    getForumDetails(type: string, idOrSlug: any): Observable<any> {
         return this.post(this.orgPostUrl, `general/${type}s/${idOrSlug}`, 'GET');
     }
 

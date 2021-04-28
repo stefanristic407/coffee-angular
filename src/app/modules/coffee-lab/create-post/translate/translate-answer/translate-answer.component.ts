@@ -11,9 +11,10 @@ import { Location } from '@angular/common';
     templateUrl: './translate-answer.component.html',
     styleUrls: ['./translate-answer.component.scss'],
 })
-export class TranslateAnswerComponent implements OnInit, OnDestroy {
+export class TranslateAnswerComponent implements OnInit {
     answerId: any;
     answer: any;
+    originAnswer: any;
     isLoading = false;
     applicationLanguages = APP_LANGUAGES;
     form: FormGroup;
@@ -21,8 +22,9 @@ export class TranslateAnswerComponent implements OnInit, OnDestroy {
     isUploadingImage = false;
     imageIdList = [];
     isPosting = false;
-    originAnswer: any;
+    question: any;
     needToTranslateQuestion = true;
+    originLanguage: string;
 
     constructor(
         private route: ActivatedRoute,
@@ -40,8 +42,6 @@ export class TranslateAnswerComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        console.log('translate answer component !!!!!!!!!!!!!');
-        this.coffeeLabService.pageName.next('translate-answer');
         this.answerId = this.route.snapshot.queryParamMap.get('id');
         if (!this.answerId) {
             this.router.navigate(['/coffee-lab']);
@@ -53,25 +53,32 @@ export class TranslateAnswerComponent implements OnInit, OnDestroy {
     getAnswerById(): void {
         this.isLoading = true;
         this.coffeeLabService.getForumDetails('answer', this.answerId).subscribe((res: any) => {
-            console.log('answer id and anaswer res >>>>>>>>>>>', this.answerId, res);
             if (res.success) {
                 this.answer = res.result;
+                this.originLanguage =  res.result?.original_details?.language ||  res.result.lang_code;
                 console.log('answer >>>>>>>>>>>>>', res.result);
-                if (this.answer.parent_answer_id) {
-                    this.coffeeLabService
-                        .getForumDetails('answer', this.answer.parent_answer_id)
-                        .subscribe((originAnswerRes: any) => {
-                            this.isLoading = false;
-                            if (originAnswerRes.success) {
-                                this.originAnswer = originAnswerRes.result;
-                            } else {
-                                this.toastrService.error('Error while get origin answer');
-                            }
-                        });
+                if (res.result.parent_answer_id) {
+                    this.coffeeLabService.getForumDetails('answer', res.result.parent_answer_id).subscribe((originAnswerRes: any) => {
+                        if (originAnswerRes.success) {
+                            this.originAnswer = originAnswerRes.result;
+                        } else {
+                            this.toastrService.error('Error while get origin answer');
+                        }
+                    });
                 } else {
-                    this.isLoading = false;
                     this.originAnswer = this.answer;
                 }
+                this.coffeeLabService
+                    .getForumDetails('question', this.answer.question_id)
+                    .subscribe((questionRes: any) => {
+                        this.isLoading = false;
+                        if (questionRes.success) {
+                            console.log('parent question >>>>>>>>>', questionRes.result);
+                            this.question = questionRes.result;
+                        } else {
+                            this.toastrService.error('Error while get parent question');
+                        }
+                    });
             } else {
                 this.isLoading = false;
                 this.toastrService.error('Error while get answer');
@@ -81,10 +88,20 @@ export class TranslateAnswerComponent implements OnInit, OnDestroy {
     }
 
     onChangeTranslationLanguage(selectedLanguage: string): void {
-        console.log('origin answer >>>>>>>>>>', this.originAnswer);
+        if (selectedLanguage === this.originLanguage) {
+            this.toastrService.error('Cannot translate in origin language.');
+            return;
+        }
         if (
-            this.originAnswer.translations.find((item: any) => item.language === selectedLanguage) ||
-            this.originAnswer.lang_code === selectedLanguage
+            this.answer.translations.find((item: any) => item.language === selectedLanguage) ||
+            this.answer.lang_code === selectedLanguage
+        ) {
+            this.toastrService.error('This answer was already translated in selected language');
+            return;
+        }
+        if (
+            this.question.translations.find((item: any) => item.language === selectedLanguage) ||
+            this.question.lang_code === selectedLanguage
         ) {
             this.needToTranslateQuestion = false;
             this.form.controls.question.clearValidators();
@@ -125,9 +142,5 @@ export class TranslateAnswerComponent implements OnInit, OnDestroy {
                 this.toastrService.error('Failed to translate answer.');
             }
         });
-    }
-
-    ngOnDestroy(): void {
-        this.coffeeLabService.pageName.next(null);
     }
 }
