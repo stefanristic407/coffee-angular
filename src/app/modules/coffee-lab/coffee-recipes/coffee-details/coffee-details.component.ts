@@ -72,7 +72,6 @@ export class CoffeeDetailsComponent implements OnInit {
     }
 
     postComment(event: any) {
-        console.log('event--', event);
         this.coffeeLabService.postComment('recipe', this.id, event).subscribe((res: any) => {
             if (res.success) {
                 this.getCoffeeDetails(false);
@@ -93,10 +92,10 @@ export class CoffeeDetailsComponent implements OnInit {
     }
 
     getJustText(content: any) {
-        console.log('content---->>>>>', content);
         const contentElement = document.createElement('div');
         contentElement.innerHTML = content;
         const images = contentElement.querySelectorAll('img');
+        // tslint:disable-next-line: prefer-for-of
         for (let i = 0; i < images.length; i++) {
             images[0].parentNode.removeChild(images[0]);
         }

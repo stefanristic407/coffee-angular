@@ -34,7 +34,13 @@ export class RecipeOriginalPostComponent implements OnInit, OnChanges {
     }
 
     copyImage(id: string): void {
-        const ele = document.getElementById(id);
-        ele.click();
+        if (id === 'stepImg') {
+            const ele = document.getElementById(id);
+            ele.click();
+        } else {
+            // const ele = document.getElementById(id);
+            // ele.click();
+            this.coffeeLabService.copyCoverImage.emit(this.detailsData);
+        }
     }
 }

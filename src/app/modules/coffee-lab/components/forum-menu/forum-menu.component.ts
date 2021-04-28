@@ -141,17 +141,17 @@ export class ForumMenuComponent implements OnInit {
         switch (this.forumType) {
             case 'question':
                 this.router.navigate(['/coffee-lab/create-post/tab'], {
-                    queryParams: { id: this.selectedItem.id },
+                    queryParams: { id: this.selectedItem.id, type: this.forumType },
                 });
                 break;
             case 'article':
                 this.router.navigate(['/coffee-lab/create-post/tab'], {
-                    queryParams: { id: this.selectedItem.id },
+                    queryParams: { id: this.selectedItem.id, type: this.forumType },
                 });
                 break;
             case 'recipe':
                 this.router.navigate(['/coffee-lab/create-post/tab'], {
-                    queryParams: { id: this.selectedItem.id },
+                    queryParams: { id: this.selectedItem.id, type: this.forumType },
                 });
                 break;
             case 'answer':
@@ -171,16 +171,18 @@ export class ForumMenuComponent implements OnInit {
                 styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
-            if (action === 'yes') {
-                this.coffeeLabService.deleteForumById(this.forumType, this.selectedItem.id).subscribe((res: any) => {
-                    if (res.success) {
-                        this.toastService.success(`You have deleted a ${this.forumType} successfully.`);
-                        this.coffeeLabService.forumDeleteEvent.emit();
-                    } else {
-                        this.toastService.error(`Failed to delete a ${this.forumType}.`);
-                    }
-                });
-            }
-        });
+                if (action === 'yes') {
+                    this.coffeeLabService
+                        .deleteForumById(this.forumType, this.selectedItem.id)
+                        .subscribe((res: any) => {
+                            if (res.success) {
+                                this.toastService.success(`You have deleted a ${this.forumType} successfully.`);
+                                this.coffeeLabService.forumDeleteEvent.emit();
+                            } else {
+                                this.toastService.error(`Failed to delete a ${this.forumType}.`);
+                            }
+                        });
+                }
+            });
     }
 }

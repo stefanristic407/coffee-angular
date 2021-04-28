@@ -1,13 +1,28 @@
 @import 'variables';
 .recipe-post-wrapper {
     .addImageContainer {
+        background: #fff;
         height: 255px;
         border: 1px solid $primary-border-color;
         border-radius: 4px;
         text-align: center;
         position: relative;
+        & > label {
+            z-index: 1;
+        }
+    }
+    .copy-paste-button {
+        position: absolute;
+        bottom: 16px;
+        right: 16px;
+        cursor: pointer;
+        @media (max-width: 767px) {
+            bottom: 8px;
+            right: 8px;
+        }
     }
     .stepAddImageContainer {
+        background: #fff;
         height: 295px;
         border: 1px solid $primary-border-color;
         border-radius: 4px;

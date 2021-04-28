@@ -4,7 +4,7 @@
         <div class="p-3 py-md-45 px-lg-45 border-main br-4">
             <div class="pb-3 coffee-name">{{ detailsData?.name }}</div>
             <div class="pb-3 pb-md-4 pb-lg-45">
-                <div class="w-100 position-relative" appCopyImageToClipboard>
+                <div class="w-100 position-relative">
                     <img class="w-100 banner-image" id="imgClick" [src]="detailsData?.cover_image_url" />
                     <span class="copy-btn fnt-14 fnt-muli fnt-bold" (click)="copyImage('imgClick')"
                         ><span><img class="mr-2" src="assets/images/group-18.svg" /></span>Copy</span
@@ -85,10 +85,13 @@
                 <p class="m-0 fnt-14 fnt-muli fnt-bold text-clr334 pb-2">Directions</p>
                 <div *ngFor="let st of detailsData?.steps; index as i">
                     <p class="m-0 pb-1 fnt-14 fnt-muli fnt-bold">Step {{ i + 1 }}:</p>
-                    <p class="m-0 pb-2 fnt-14 fnt-muli">{{ st?.description }}</p>
+                    <p class="m-0 pb-2 fnt-14 fnt-muli" [innerHTML]="st?.description"></p>
                     <div class="w-100 position-relative mb-3" appCopyImageToClipboard>
                         <img [src]="st.image_url" class="w-100" id="stepImg" />
-                        <span class="copy-btn fnt-14 fnt-muli fnt-bold" (click)="copyImage('stepImg')"
+                        <span
+                            class="copy-btn fnt-14 fnt-muli fnt-bold"
+                            (click)="copyImage('stepImg')"
+                            *ngIf="st?.image_url"
                             ><span><img class="mr-2" src="assets/images/group-18.svg" /></span>Copy</span
                         >
                     </div>

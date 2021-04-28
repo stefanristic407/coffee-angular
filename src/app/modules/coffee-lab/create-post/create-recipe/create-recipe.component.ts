@@ -6,6 +6,7 @@ import { CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Location } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: 'app-create-recipe',
@@ -18,7 +19,6 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
     isPosting = false;
     recipeSub: Subscription;
     applicationLanguages: any[] = APP_LANGUAGES;
-    id: any;
     coverImageUrl: any;
     videoUrl: any;
     description: any;
@@ -26,9 +26,6 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
     isUploadingImage = false;
     isShowVideo = false;
     imageIdList = [];
-    qualitySeleted = '1 Lbs';
-    seletedPreparationTime = 'mins';
-    seletedCookingTime = 'mins';
     recipeForm: FormGroup;
     ingredients: FormArray;
     steps: FormArray;
@@ -42,6 +39,19 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
     roasterId: string;
     imageIdListStep = [];
     recipeId: any;
+    recipe: any;
+    copiedCoverImageId: any;
+    copiedCoverImageUrl: any;
+    preparationMethods: any[] = [
+        {
+            label: 'video',
+            value: 'video',
+        },
+        {
+            label: 'steps',
+            value: 'steps',
+        },
+    ];
     expertiseArray: any[] = [
         {
             label: 'easy',
@@ -84,6 +94,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
     ];
 
     constructor(
+        private cokkieService: CookieService,
         private fb: FormBuilder,
         private toaster: ToastrService,
         private coffeeLabService: CoffeeLabService,
@@ -92,32 +103,40 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         private location: Location,
     ) {
         this.createRecipeForm();
+        this.roasterId = this.cokkieService.get('roaster_id');
     }
 
     ngOnInit(): void {
-        this.recipeId = this.route.snapshot.queryParamMap.get('id');
-        if (this.recipeId) {
-            this.getRecipeyById();
+        const type = this.route.snapshot.queryParamMap.get('type');
+        if (type === 'recipe') {
+            this.recipeId = this.route.snapshot.queryParamMap.get('id');
+        }
+        if (this.recipeId && !this.isTranslate) {
+            this.getRecipeById();
         }
         this.recipeSub?.unsubscribe();
         const recipeSub = this.coffeeLabService.originalPost.subscribe((res) => {
             console.log('response', res);
             if (res && this.isTranslate) {
-                console.log('this.id--->>posttttttt', this.id);
                 this.onSave();
             }
         });
 
+        const recipeCoverImage = this.coffeeLabService.copyCoverImage.subscribe((res) => {
+            if (res && this.isTranslate) {
+                this.copyCoverImage(res);
+            }
+        });
+
         this.recipeSub?.add(recipeSub);
+        this.recipeSub?.add(recipeCoverImage);
     }
 
-    getRecipeyById(): void {
-        // this.isLoading = true;
-        this.coffeeLabService.getForumDetails('recipe', this.recipeId).subscribe((res: any) => {
-            // this.isLoading = false;
+    getRecipeById(): void {
+        this.coffeeLabService.getRecipeById('recipe', this.recipeId, this.roasterId).subscribe((res: any) => {
             console.log('getby id response--->>', res);
             if (res.success) {
-                // this.article = res.result;
+                this.recipe = res.result;
                 this.recipeForm.controls.cover_image_id.setValue(res.result.cover_image_id);
                 this.coverImageUrl = res.result.cover_image_url;
                 this.isUploadingImage = true;
@@ -141,7 +160,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
                 this.isShowVideo = true;
                 this.videoUrl = res.result.video_url;
             } else {
-                this.toaster.error('Error while get article');
+                this.toaster.error('Error while get recipe');
                 this.location.back();
             }
         });
@@ -164,9 +183,9 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
             cover_image_id: [null, Validators.compose([Validators.required])],
             description: ['', Validators.compose([Validators.required])],
             ingredients: this.fb.array([this.createCoffeeIngredient()]),
-            steps: this.fb.array([this.createcoffeeStep()]),
+            steps: this.fb.array([this.createCoffeeStep()]),
             allow_translation: [false],
-            video_id: [null, Validators.compose([Validators.required])],
+            video_id: [null],
             inline_images: [[]],
             language: 'en',
         });
@@ -205,7 +224,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         }
     }
 
-    createcoffeeStep() {
+    createCoffeeStep() {
         return this.fb.group({
             description: [''],
             image_id: [null],
@@ -228,7 +247,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
 
     addStep(): void {
         this.steps = this.recipeForm.get('steps') as FormArray;
-        this.steps.push(this.createcoffeeStep());
+        this.steps.push(this.createCoffeeStep());
         console.log('this.steps--->>', this.steps);
     }
 
@@ -238,12 +257,12 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
             returnFlag = false;
             return returnFlag;
         }
-        this.recipeForm.value.steps.forEach((child) => {
-            if (!child.description) {
-                returnFlag = false;
-                return;
-            }
-        });
+        // this.recipeForm.value.steps.forEach((child) => {
+        //     if (!child.description) {
+        //         returnFlag = false;
+        //         return;
+        //     }
+        // });
         return returnFlag;
     }
 
@@ -252,7 +271,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         console.log('save----', this.recipeForm.value);
         if (this.validateForms()) {
             this.isPosting = true;
-            if (this.id) {
+            if (this.isTranslate) {
                 console.log('translate recipe');
                 this.translateRecipe(this.recipeForm.value);
             } else if (this.recipeId) {
@@ -277,6 +296,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
                 this.toaster.success('You have updated an recipe successfully.');
                 this.location.back();
             } else {
+                this.isPosting = false;
                 this.toaster.error('Failed to update recipe.');
             }
         });
@@ -285,13 +305,26 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
     translateRecipe(data: any): void {
         data.inline_images = [].concat(this.imageIdList, ...this.imageIdListStep);
         console.log('send recipe-->>>>', data);
-        this.coffeeLabService.translateForum('recipe', this.id, data).subscribe((res: any) => {
+        this.coffeeLabService.translateForum('recipe', this.recipeId, data).subscribe((res: any) => {
             console.log('post question result >>>', res);
             if (res.success) {
                 this.toaster.success('You have translated a coffee recipe successfully.');
                 this.router.navigate(['/coffee-lab/overview/coffee-recipes']);
             } else {
-                this.toaster.error('Failed to translate coffee recipe.');
+                this.isPosting = false;
+                this.toaster.error(res.messages.translation);
+            }
+        });
+    }
+
+    copyCoverImage(data) {
+        this.coffeeLabService.copyFile(data?.cover_image_id).subscribe((res: any) => {
+            if (res.success) {
+                this.copiedCoverImageId = res.result.id;
+                this.copiedCoverImageUrl = res.result.url;
+                this.toaster.success('Copied cover image successfully.');
+            } else {
+                this.toaster.error('Failed to copy cover image.');
             }
         });
     }
@@ -305,6 +338,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
                 this.toaster.success('You have posted a coffee recipe successfully.');
                 this.router.navigate(['/coffee-lab/overview/coffee-recipes']);
             } else {
+                this.isPosting = false;
                 this.toaster.error('Failed to post coffee recipe.');
             }
         });
@@ -312,5 +346,10 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
 
     ngOnDestroy(): void {
         this.recipeSub?.unsubscribe();
+    }
+
+    pasteCoverImage() {
+        this.coverImageUrl = this.copiedCoverImageUrl;
+        this.recipeForm.controls.cover_image_id.setValue(this.copiedCoverImageId);
     }
 }

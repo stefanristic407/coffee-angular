@@ -29,7 +29,10 @@ export class CreateQuestionComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.questionId = this.route.snapshot.queryParamMap.get('id');
+        const type = this.route.snapshot.queryParamMap.get('type');
+        if (type === 'question') {
+            this.questionId = this.route.snapshot.queryParamMap.get('id');
+        }
         if (this.questionId) {
             this.getQuestionById();
         }
