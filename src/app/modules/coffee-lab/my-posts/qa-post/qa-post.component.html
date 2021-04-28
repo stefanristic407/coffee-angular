@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-    <div>
+    <div *ngIf="!isLoading">
         <app-questions [questions]="questions" [viewMode]="viewMode"></app-questions>
     </div>
     <div *ngIf="isLoading">

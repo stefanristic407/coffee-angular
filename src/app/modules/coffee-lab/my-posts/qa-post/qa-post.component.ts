@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CoffeeLabService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'app-qa-post',
     templateUrl: './qa-post.component.html',
     styleUrls: ['./qa-post.component.scss'],
 })
-export class QaPostComponent implements OnInit {
+export class QaPostComponent implements OnInit, OnDestroy {
     viewMode = 'list';
     questions = [];
     isLoading = false;
@@ -26,6 +28,8 @@ export class QaPostComponent implements OnInit {
     keyword = '';
     filteredData = [];
     pageDesc: string | undefined;
+    destroy$: Subject<boolean> = new Subject<boolean>();
+    forumLanguage: string;
 
     constructor(
         private coffeeLabService: CoffeeLabService,
@@ -38,7 +42,13 @@ export class QaPostComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAuthors();
-        this.getPosts();
+        this.coffeeLabService.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
+            this.forumLanguage = language;
+            this.getPosts();
+        });
+        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
+            this.getPosts();
+        });
     }
 
     getAuthors(): void {
@@ -72,10 +82,11 @@ export class QaPostComponent implements OnInit {
             const params = {
                 query: this.keyword,
                 sort_by: this.sortBy === 'most_answered' ? 'most_answered' : 'posted_at',
-                org_type: 'ro',
+                // org_type: 'ro',
                 sort_order: this.sortBy === 'most_answered' ? 'desc' : this.sortBy === 'latest' ? 'desc' : 'asc',
             };
-            this.coffeeLabService.getForumList('question', params).subscribe((res: any) => {
+            console.log('getting my questions here..............', params);
+            this.coffeeLabService.getFOrganizationForumList('question', params).subscribe((res: any) => {
                 this.isLoading = false;
                 if (res.success) {
                     this.questions = res.result?.questions || [];
@@ -84,5 +95,10 @@ export class QaPostComponent implements OnInit {
                 }
             });
         }
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next(true);
+        this.destroy$.unsubscribe();
     }
 }
