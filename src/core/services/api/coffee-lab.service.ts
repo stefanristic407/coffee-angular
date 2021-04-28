@@ -15,6 +15,7 @@ export class CoffeeLabService extends ApiService {
     @Output() originalPost = new EventEmitter();
     forumDeleteEvent = new EventEmitter();
     forumLanguage = new BehaviorSubject('en');
+    pageName = new BehaviorSubject(null);
     organization = 'ro';
     organizationId = this.cookieSrv.get('roaster_id');
 
@@ -68,18 +69,10 @@ export class CoffeeLabService extends ApiService {
     }
 
     postComment(type: string, id: any, data: any): any {
+        const commentType = type === 'question' ? 'answers' : 'comments';
         return this.post(
             this.orgPostUrl,
-            `${this.organization}/${this.organizationId}/${type}s/${id}/comments`,
-            'POST',
-            data,
-        );
-    }
-
-    postAnswer(id: any, data: any): any {
-        return this.post(
-            this.orgPostUrl,
-            `${this.organization}/${this.organizationId}/questions/${id}/answers`,
+            `${this.organization}/${this.organizationId}/${type}s/${id}/${commentType}`,
             'POST',
             data,
         );

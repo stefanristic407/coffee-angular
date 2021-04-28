@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
@@ -11,7 +11,7 @@ import { Location } from '@angular/common';
     templateUrl: './translate-answer.component.html',
     styleUrls: ['./translate-answer.component.scss'],
 })
-export class TranslateAnswerComponent implements OnInit {
+export class TranslateAnswerComponent implements OnInit, OnDestroy {
     answerId: any;
     answer: any;
     isLoading = false;
@@ -41,6 +41,7 @@ export class TranslateAnswerComponent implements OnInit {
 
     ngOnInit(): void {
         console.log('translate answer component !!!!!!!!!!!!!');
+        this.coffeeLabService.pageName.next('translate-answer');
         this.answerId = this.route.snapshot.queryParamMap.get('id');
         if (!this.answerId) {
             this.router.navigate(['/coffee-lab']);
@@ -52,6 +53,7 @@ export class TranslateAnswerComponent implements OnInit {
     getAnswerById(): void {
         this.isLoading = true;
         this.coffeeLabService.getForumDetails('answer', this.answerId).subscribe((res: any) => {
+            console.log('answer id and anaswer res >>>>>>>>>>>', this.answerId, res);
             if (res.success) {
                 this.answer = res.result;
                 console.log('answer >>>>>>>>>>>>>', res.result);
@@ -123,5 +125,9 @@ export class TranslateAnswerComponent implements OnInit {
                 this.toastrService.error('Failed to translate answer.');
             }
         });
+    }
+
+    ngOnDestroy(): void {
+        this.coffeeLabService.pageName.next(null);
     }
 }
