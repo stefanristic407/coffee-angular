@@ -39,11 +39,19 @@
                                                         <div
                                                             class="social-post-farmlink__item w-100 h-100 position-relative"
                                                         >
-                                                            <img
-                                                                class="w-100 h-auto cover-fill br-4"
-                                                                src="{{ images.url }}"
-                                                                alt="farm-images"
-                                                            />
+                                                            <!-- <div class="cover-fill br-4 w-100 h-auto"> -->
+                                                            <div
+                                                                class="h-100 social-bg-image"
+                                                                [ngStyle]="{
+                                                                    backgroundImage:
+                                                                        'url(' +
+                                                                        (images.url ||
+                                                                            'assets/images/selling-your-green-coffee.png') +
+                                                                        ')'
+                                                                }"
+                                                            ></div>
+                                                            <!-- </div> -->
+
                                                             <p class="mb-0 post-info">
                                                                 {{ images.description }} &nbsp; @
                                                                 {{ images.owner_name }}
