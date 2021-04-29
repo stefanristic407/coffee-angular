@@ -9,10 +9,10 @@
             <div class="p-3 p-lg-45 border-main br-4">
                 <div class="pb-3 pb-md-4 pb-lg-45">
                     <img class="w-100 banner-image br-4" [src]="detailsData?.cover_image_url" />
-                    <h1 class="fnt-16 fnt-md-18 fnt-muli fnt-bold text-clr334 pt-3 mb-2">
+                    <h1 class="fnt-18 fnt-muli fnt-bold text-clr334 pt-3 mb-2">
                         {{ detailsData?.title }}
                     </h1>
-                    <h4 class="fnt-14 fnt-md-16 fnt-muli fnt-normal text-clr334 mb-0">
+                    <h4 class="fnt-18 fnt-muli fnt-normal text-clr334 mb-0">
                         {{ detailsData?.subtitle }}
                     </h4>
                 </div>
@@ -28,7 +28,7 @@
                                 [enableDelete]="organizationId === detailsData?.organisation_id"
                             ></app-forum-menu>
                             <div
-                                class="d-none d-md-block"
+                                class="d-none d-md-block mt-2"
                                 *ngIf="
                                     detailsData?.allow_translation &&
                                     detailsData?.translated_articles &&
