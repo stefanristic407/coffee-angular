@@ -93,7 +93,7 @@
                             </div>
                         </div>
                         <div class="fnt-muli fnt-14 text-clr24 lh-15 mt-2 pt-1">
-                            <span>{{ answer?.answer | translate | convertToShortDescription: 20 }}</span>
+                            <span [innerHTML]="answer?.answer | translate | convertToShortDescription: 20"></span>
                         </div>
                     </div>
                     <div class="mt-4">
