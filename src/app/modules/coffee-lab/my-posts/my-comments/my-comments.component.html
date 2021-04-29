@@ -14,11 +14,11 @@
             </div>
         </div>
     </div>
-    <div>
-        <div class="gutter-24" *ngFor="let comment of filteredComments; let last = last">
+    <div *ngIf="!isLoading">
+        <div class="gutter-24" *ngFor="let comment of comments; let last = last">
             <div class="w-100 br-4 border-main mb-4 mb-md-3 mb-lg-4">
                 <div class="p-md-4 p-3 bg">
-                    <div class="mb-4 d-md-flex">
+                    <div class="mb-4 d-md-flex justify-content-between">
                         <div class="d-flex">
                             <div class="mr-25">
                                 <img
@@ -67,6 +67,14 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="mobile-dot">
+                            <app-forum-menu
+                                [selectedItem]="comment"
+                                forumType="comment"
+                                [enableEdit]="isMyPostsPage"
+                                [enableDelete]="isMyPostsPage"
+                            ></app-forum-menu>
                         </div>
                         <div *ngIf="comment?.post_type" class="ml-5 d-md-none">
                             <div *ngIf="comment?.post_type === 'article'" class="align-items-center d-flex">
@@ -117,5 +125,11 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div *ngIf="isLoading">
+        <app-loading></app-loading>
+    </div>
+    <div *ngIf="!isLoading && !comments.length" class="text-center my-4 fnt-muli text-clr24">
+        {{ 'no_data_is_available' | translate }}
     </div>
 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CoffeeLabService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -9,27 +10,37 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class MyCommentsComponent implements OnInit {
     comments: any[] = [];
-    filteredComments: any[] = [];
     sortOptions = [
         { label: 'Latest', value: 'latest' },
         { label: 'Oldest', value: 'oldest' },
     ];
     sortBy = 'latest';
-    shortComments = false;
-    result: any;
     roasterId: string;
-    constructor(private coffeeLabService: CoffeeLabService, private cookieService: CookieService) {
+    isLoading = false;
+    isMyPostsPage = false;
+    pageDesc: string;
+
+    constructor(
+        private coffeeLabService: CoffeeLabService,
+        private cookieService: CookieService,
+        private activateRoute: ActivatedRoute,
+    ) {
         this.roasterId = this.cookieService.get('roaster_id');
+        this.pageDesc = this.activateRoute.snapshot.routeConfig?.path;
     }
 
     ngOnInit(): void {
+        if (this.pageDesc === 'my-posts') {
+            this.isMyPostsPage = true;
+        }
         this.getComments();
     }
 
     getComments(): void {
+        this.isLoading = true;
         this.coffeeLabService.getMyForumList('my-comment').subscribe((res) => {
             this.comments = res.result;
-            this.filteredComments = res.result;
+            this.isLoading = false;
         });
     }
 }

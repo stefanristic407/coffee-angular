@@ -13,11 +13,9 @@ export class MyAnswersComponent implements OnInit {
         { label: 'Oldest', value: 'oldest' },
     ];
     sortBy = 'latest';
-    shortComments = false;
-    result: any;
-    roasterId: string;
     pageDesc: string;
     isMyPostsPage = false;
+    isLoading = false;
     constructor(private coffeeLabService: CoffeeLabService, private activateRoute: ActivatedRoute) {
         this.pageDesc = this.activateRoute.snapshot.routeConfig?.path;
     }
@@ -30,6 +28,7 @@ export class MyAnswersComponent implements OnInit {
     }
 
     getComments(): void {
+        this.isLoading = true;
         this.coffeeLabService.getMyForumList('answer').subscribe((res) => {
             this.answers = res.result.map((item) => {
                 if (item.question_slug) {
@@ -38,6 +37,7 @@ export class MyAnswersComponent implements OnInit {
                 }
                 return item;
             });
+            this.isLoading = false;
         });
     }
 }
