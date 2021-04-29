@@ -6,6 +6,7 @@ import { MenuItem } from 'primeng/api';
 import { EmailService, GlobalsService } from '@services';
 import { RoasterserviceService, UserserviceService } from '@services';
 import { EditUserDetailsComponent } from '../edit-user-details/edit-user-details.component';
+import { environment } from '@env/environment';
 
 @Component({
     selector: 'app-invite-new-user',
@@ -92,21 +93,15 @@ export class InviteNewUserComponent implements OnInit {
     async addUserToRoaster(userInput) {
         const addUserResponse: any = await this.userService.addUserRoaster(userInput).toPromise();
         if (addUserResponse && addUserResponse.success) {
-            const assignRoleResponse: any = await this.roasterService
+            this.roasterService
                 .assignUserBasedUserRoles(this.roasterID, this.currentRoleID, addUserResponse.result.user_id)
-                .toPromise();
-            if (assignRoleResponse && assignRoleResponse.success) {
-                const getEmailInput = this.getEmailInputBody(userInput);
-                const sendInviteEmail: any = await this.emailService.sendEmail(getEmailInput).toPromise();
-                if (sendInviteEmail && sendInviteEmail.status === '200 OK') {
-                    this.toastrService.success('Invite sent successfully');
-                    return;
-                } else {
-                    this.showError('email');
-                }
-            } else {
-                this.showError('assign');
-            }
+                .subscribe((res: any) => {
+                    if (res.success) {
+                        this.toastrService.success('Invite sent successfully');
+                    } else {
+                        this.showError('assign');
+                    }
+                });
         } else {
             this.showError('add');
         }
@@ -120,21 +115,7 @@ export class InviteNewUserComponent implements OnInit {
             this.toastrService.error('Error while sending Invite to new user');
         }
     }
-    getEmailInputBody(newUser) {
-        const body = {
-            portal: 'RO',
-            content_type: 'invite_with_password',
-            data: [
-                {
-                    email: newUser.email,
-                    password: newUser.password,
-                    name: newUser.firstname,
-                    url: 'https://roaster.sewnstaging.com',
-                },
-            ],
-        };
-        return body;
-    }
+
     getUserInputObj(item) {
         return {
             firstname: item.name,

@@ -66,7 +66,7 @@
                         <div class="font-weight-bold mb-3">
                             {{ 'translating_answer_by' | translate }} {{ this.authService.currentUser.firstname }}
                         </div>
-                        <div appCopyImageToClipboard [innerHTML]="originAnswer.answer"></div>
+                        <div appCopyImageToClipboard appFullImgWrapper [innerHTML]="originAnswer.answer"></div>
                     </div>
                 </div>
             </p-tabPanel>

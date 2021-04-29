@@ -259,23 +259,21 @@
     header="Edit Photo"
     [(visible)]="isShowAvatarModal"
     [modal]="true"
+    [style]="{ width: '50vw' }"
+    appendTo="body"
     [baseZIndex]="10000"
     [draggable]="false"
     [resizable]="false"
-    styleClass="p-0"
 >
-    <app-sewn-profile-photo></app-sewn-profile-photo>
-    <p-footer>
-        <button type="button" id="change-pic" class="btn-raised" (click)="inputAvatarImage.click()">
-            {{ 'change_photo' | translate }}
-        </button>
-        <button
-            type="button"
-            id="save-pic"
-            class="btn-raised"
-            (click)="profilePhotoService.saveProfilePic(); isShowAvatarModal = false"
-        >
-            {{ 'save_photo' | translate }}
-        </button>
-    </p-footer>
+    <div class="px-4">
+        <app-sewn-profile-photo></app-sewn-profile-photo>
+    </div>
+    <ng-template pTemplate="footer">
+        <div class="text-right">
+            <button (click)="inputAvatarImage.click()" class="btn-stroked mr-3 px-4">Change Photo</button>
+            <button (click)="profilePhotoService.saveProfilePic(); isShowAvatarModal = false" class="btn-raised px-4">
+                Save Photo
+            </button>
+        </div>
+    </ng-template>
 </p-dialog>
