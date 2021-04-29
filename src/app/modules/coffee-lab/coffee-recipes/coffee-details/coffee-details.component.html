@@ -1,7 +1,7 @@
 <main>
     <div class="back-page mt-1 mt-lg-3 pb-35 pb-lg-45 w-fit-content" routerLink="/coffee-lab/overview/coffee-recipes">
         <a>
-            <span>Back</span>
+            <span>{{ 'back' | translate }}</span>
         </a>
     </div>
     <app-loading *ngIf="isLoading"></app-loading>
@@ -53,7 +53,7 @@
                             <div class="pr-45 expert-sm">
                                 <div class="m-0 d-flex">
                                     <span><img src="/assets/images/beginner-expertise.svg" /></span>
-                                    <div class="expertise pl-2">Expertise Level</div>
+                                    <div class="expertise pl-2">{{ 'expertise_level' | translate }}</div>
                                 </div>
                                 <div class="expertise-level m-0 d-flex">
                                     <span style="visibility: hidden"
@@ -65,7 +65,7 @@
                             <div class="pr-45 preparation-sm">
                                 <div class="m-0 d-flex">
                                     <span><img src="/assets/images/p-time.svg" /></span>
-                                    <div class="expertise pl-2">Preparation Time</div>
+                                    <div class="expertise pl-2">{{ 'preparation_time' | translate }}</div>
                                 </div>
                                 <div class="expertise-level m-0">
                                     <span style="visibility: hidden"
@@ -79,7 +79,7 @@
                             <div class="pr-45 cooking-sm">
                                 <div class="m-0 d-flex">
                                     <span><img src="/assets/images/cooking-time.svg" /></span>
-                                    <div class="expertise pl-2">Cooking Time</div>
+                                    <div class="expertise pl-2">{{ 'cooking _time' | translate }}</div>
                                 </div>
                                 <div class="expertise-level m-0 d-flex">
                                     <span style="visibility: hidden"
@@ -94,7 +94,7 @@
                             <div class="d-flex flex-wrap serving-sm">
                                 <div class="m-0 d-flex">
                                     <span><img src="/assets/images/beginner-expertise.svg" /></span>
-                                    <div class="expertise pl-2">Serving</div>
+                                    <div class="expertise pl-2">{{ 'serving' | translate }}</div>
                                 </div>
                                 <div class="expertise-level m-0 d-flex">
                                     <span style="visibility: hidden"
@@ -108,7 +108,7 @@
                     <p class="fnt-14 fnt-muli pt-3 mb-2" [innerHTML]="detailsData?.description"></p>
                 </div>
                 <div class="ingredient-block">
-                    <p class="m-0 fnt-14 fnt-muli fnt-bold text-clr334">Ingredients</p>
+                    <p class="m-0 fnt-14 fnt-muli fnt-bold text-clr334">{{ 'ingredients' | translate }}</p>
                     <div class="ingredient-details">
                         <div class="m-0" *ngFor="let ing of detailsData?.ingredients; let last = last">
                             <span class="d-flex">
@@ -122,9 +122,9 @@
                     </div>
                 </div>
                 <div class="directions pt-45" *ngIf="detailsData?.steps && detailsData?.steps.length">
-                    <p class="m-0 fnt-14 fnt-muli fnt-bold text-clr334 pb-2">Directions</p>
+                    <p class="m-0 fnt-14 fnt-muli fnt-bold text-clr334 pb-2">{{ 'directions' | translate }}</p>
                     <div *ngFor="let st of detailsData?.steps; index as i">
-                        <p class="m-0 pb-1">Step {{ i + 1 }}:</p>
+                        <p class="m-0 pb-1">{{ 'step' | translate }} {{ i + 1 }}:</p>
                         <p class="m-0 pb-2" [innerHTML]="st?.description"></p>
                         <span><img [src]="st.image_url" class="w-100 pb-3" /></span>
                     </div>
@@ -137,7 +137,7 @@
         <article class="col-12 col-lg-4 p-0 pl-lg-3 mt-4 mt-lg-0">
             <div class="">
                 <div class="fnt-16 fnt-md-18 fnt-muli fnt-bold text-clr334 background-header">
-                    Related recipes on the cofee lab
+                    {{ 'related_coffee_recipes' | translate }}
                 </div>
                 <div class="d-none d-lg-block">
                     <div *ngFor="let forum of relatedData" class="py-2">

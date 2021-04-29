@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { MenuItem } from 'primeng/api';
 import { CoffeeLabService } from '@services';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -135,13 +134,12 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
     }
 
     getJustText(content: any) {
-        console.log('content---->>>>>', content);
         const contentElement = document.createElement('div');
         contentElement.innerHTML = content;
         const images = contentElement.querySelectorAll('img');
-        for (let i = 0; i < images.length; i++) {
-            images[0].parentNode.removeChild(images[0]);
-        }
+        images.forEach((image) => {
+            image.parentNode.removeChild(image);
+        });
         return contentElement.innerHTML;
     }
 

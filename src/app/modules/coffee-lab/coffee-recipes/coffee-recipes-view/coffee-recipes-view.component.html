@@ -6,7 +6,7 @@
                 <div class="sewn-form-field w-100 mb-0">
                     <input
                         routerLink="../../create-post/tab"
-                        [queryParams]="{type: 'recipe'}"
+                        [queryParams]="{ type: 'recipe' }"
                         type="text"
                         pInputText
                         placeholder="Ask your coffee question..."
@@ -29,7 +29,7 @@
     </div>
     <div class="row gutter-32 align-items-center">
         <div class="col-lg-8">
-            <div class="recepie-text">Find Something Intersting to read</div>
+            <div class="recepie-text">{{ 'find_something_interesting' | translate }}</div>
         </div>
     </div>
 
