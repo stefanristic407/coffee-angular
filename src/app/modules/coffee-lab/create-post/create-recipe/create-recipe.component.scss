@@ -1,7 +1,7 @@
 @import 'variables';
 .recipe-post-wrapper {
     .addImageContainer {
-        background: #fff;
+        background: $white;
         height: 255px;
         border: 1px solid $primary-border-color;
         border-radius: 4px;
@@ -22,7 +22,7 @@
         }
     }
     .stepAddImageContainer {
-        background: #fff;
+        background: $white;
         height: 295px;
         border: 1px solid $primary-border-color;
         border-radius: 4px;
@@ -38,7 +38,7 @@
     }
 
     label {
-        color: #747589 !important;
+        color: $label-text-color !important;
     }
     ::ng-deep .sewn-form-field .dropdownClass .p-inputgroup-addon {
         padding: 5px !important;
@@ -69,11 +69,11 @@
         height: 28px;
         margin: 0 50px 12px 52px;
         padding: 8px 9px 9px 8px;
-        border: solid 1.5px #979797;
+        border: solid 1.5px $button-icon-color;
         border-radius: 50%;
         i {
             margin: 0 !important;
-            color: #979797;
+            color: $button-icon-color;
             position: relative;
             top: 1px;
         }

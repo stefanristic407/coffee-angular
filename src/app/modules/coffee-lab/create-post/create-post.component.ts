@@ -4,6 +4,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { DraftPostsComponent } from '@modules/coffee-lab/create-post/draft-posts/draft-posts.component';
 import { NavigationStart, Router } from '@angular/router';
 import { CoffeeLabService } from '@services';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-create-post',
@@ -11,25 +12,34 @@ import { CoffeeLabService } from '@services';
     styleUrls: ['./create-post.component.scss'],
 })
 export class CreatePostComponent implements OnInit {
+    drafts: any[] = [];
+
     constructor(
         public location: Location,
         public dialogService: DialogService,
-        private router: Router,
+        private toastrService: ToastrService,
         public coffeeLabService: CoffeeLabService
     ) {}
 
     ngOnInit(): void {
-        // this.router.events.forEach((event) => {
-        //     if (event instanceof NavigationStart) {
-        //         console.log('route change event >>>>>>>', event);
-        //     }
-        // });
+        this.getDrafts();
+    }
+
+    getDrafts(): void {
+        this.coffeeLabService.getDrafts().subscribe((res: any) => {
+            if (res.success) {
+                this.drafts = res.result || [];
+            } else {
+                this.toastrService.error('Failed to get drafts');
+            }
+        });
     }
 
     onOpenDraftPosts(): void {
         this.dialogService.open(DraftPostsComponent, {
             showHeader: false,
             styleClass: 'draft-posts',
+            data: this.drafts,
         });
     }
 }

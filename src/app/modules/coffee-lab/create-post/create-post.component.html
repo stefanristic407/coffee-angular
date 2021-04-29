@@ -2,7 +2,7 @@
     <a class="back-page" (click)="location.back()">
         {{ 'back' | translate }}
     </a>
-    <a (click)="onOpenDraftPosts()" class="draft-link">{{ 'draft_posts' | translate }}</a>
+    <a (click)="onOpenDraftPosts()" class="draft-link">{{ 'draft_posts' | translate }} ({{drafts.length}})</a>
 </div>
 
 <div class="post-container">

@@ -21,7 +21,7 @@ export class CopyImageToClipboardDirective implements AfterViewInit {
         private toastrService: ToastrService,
     ) {}
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         if (this.style.styleSheet) {
             this.style.styleSheet.cssText = this.css;
         } else {

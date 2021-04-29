@@ -94,7 +94,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
     ];
 
     constructor(
-        private cokkieService: CookieService,
+        private cookieService: CookieService,
         private fb: FormBuilder,
         private toaster: ToastrService,
         private coffeeLabService: CoffeeLabService,
@@ -103,7 +103,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         private location: Location,
     ) {
         this.createRecipeForm();
-        this.roasterId = this.cokkieService.get('roaster_id');
+        this.roasterId = this.cookieService.get('roaster_id');
     }
 
     ngOnInit(): void {
@@ -134,7 +134,6 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
 
     getRecipeById(): void {
         this.coffeeLabService.getRecipeById('recipe', this.recipeId, this.roasterId).subscribe((res: any) => {
-            console.log('getby id response--->>', res);
             if (res.success) {
                 this.recipe = res.result;
                 this.recipeForm.controls.cover_image_id.setValue(res.result.cover_image_id);
@@ -187,7 +186,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
             allow_translation: [false],
             video_id: [null],
             inline_images: [[]],
-            language: 'en',
+            language: this.coffeeLabService.currentForumLanguage,
         });
     }
 
@@ -240,7 +239,6 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     addIngredient(): void {
-        console.log('add varient');
         this.ingredients = this.recipeForm.get('ingredients') as FormArray;
         this.ingredients.push(this.createCoffeeIngredient());
     }
@@ -248,7 +246,6 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
     addStep(): void {
         this.steps = this.recipeForm.get('steps') as FormArray;
         this.steps.push(this.createCoffeeStep());
-        console.log('this.steps--->>', this.steps);
     }
 
     validateForms() {
@@ -257,12 +254,6 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
             returnFlag = false;
             return returnFlag;
         }
-        // this.recipeForm.value.steps.forEach((child) => {
-        //     if (!child.description) {
-        //         returnFlag = false;
-        //         return;
-        //     }
-        // });
         return returnFlag;
     }
 
@@ -289,7 +280,6 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
 
     updateRecipe(data: any): void {
         data.inline_images = [].concat(this.imageIdList, ...this.imageIdListStep);
-        console.log('send recipe-->>>>', data);
         this.coffeeLabService.updateForum('recipe', this.recipeId, data).subscribe((res: any) => {
             this.isPosting = false;
             if (res.success) {
@@ -333,7 +323,6 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         data.inline_images = [].concat(this.imageIdList, ...this.imageIdListStep);
         console.log('send recipe-->>>>', data);
         this.coffeeLabService.postCoffeeRecipe(data).subscribe((res: any) => {
-            console.log('post question result >>>', res);
             if (res.success) {
                 this.toaster.success('You have posted a coffee recipe successfully.');
                 this.router.navigate(['/coffee-lab/overview/coffee-recipes']);
