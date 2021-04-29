@@ -83,7 +83,7 @@
                         [translatedList]="answer?.translations"
                     ></app-translation-dropdown>
                 </div>
-                <div class="fnt-muli fnt-14 text-clr334 lh-15 mb-3 mb-md-4" [innerHTML]="answer.answer"></div>
+                <div class="fnt-muli fnt-14 text-clr334 lh-15 mb-3 mb-md-4" appFullImgWrapper [innerHTML]="answer.answer"></div>
                 <div class="pt-4" *ngIf="answer?.parent_answer_id">
                     <app-original-view
                         [translations]="answer.translations"
