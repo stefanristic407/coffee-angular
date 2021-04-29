@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between align-items-center p-4 bg-f8 br-8">
-    <div class="fnt-muli font-weight-bold text-clr24 fnt-14">Your Draft Posts</div>
+    <div class="fnt-muli font-weight-bold text-clr24 fnt-14">{{ 'your_draft_posts' | translate }}</div>
     <img
         (click)="ref.close()"
         src="assets/images/icon-close.svg"
@@ -10,17 +10,14 @@
     />
 </div>
 <div class="px-4">
-    <div *ngIf="isLoading" class="mb-3">
-        <app-loading></app-loading>
-    </div>
-    <div *ngIf="!isLoading">
+    <div>
         <div *ngFor="let draft of drafts" class="d-flex justify-content-between py-4 border-bottom-dashed">
             <div class="d-flex">
                 <div class="mr-3">
                     <img src="assets/images/qa-forum.svg" alt="icon" width="32" height="32" />
                 </div>
                 <div class="post-list-content">
-                    <div class="fnt-14 font-weight-bold fnt-muli text-clr24 mb-2" [innerHTML]="draft.post_title"></div>
+                    <div class="fnt-14 font-weight-bold fnt-muli text-clr24 mb-2" appFullImgWrapper [innerHTML]="draft.post_title"></div>
                     <div class="fnt-12 fnt-muli text-clr588">Draft saved {{ draft.created_at | amTimeAgo }}</div>
                 </div>
             </div>
@@ -29,5 +26,5 @@
             </div>
         </div>
     </div>
-    <div *ngIf="!isLoading && !drafts.length" class="text-center py-4">No data to display</div>
+    <div *ngIf="!drafts.length" class="text-center py-4">{{ 'no_data_is_available' | translate }}</div>
 </div>

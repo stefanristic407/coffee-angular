@@ -9,16 +9,26 @@ import { CoffeeLabService } from '@services';
 })
 export class OriginalViewComponent implements OnInit {
     @Input() detailsData: any;
+    @Input() parentAnswerId: any;
+    @Input() translations: any;
     @Input() forumType: string;
     originalUrl: any;
     originalData: any;
     originalForumData: any;
+    originalForumTitle: string;
 
     constructor(private coffeeLabService: CoffeeLabService) {}
 
     ngOnInit(): void {
-        this.originalForumData = this.detailsData[`original_${this.forumType}`];
-        this.getOriginalDetails();
+        if (this.forumType === 'question') {
+            this.originalForumData = this.translations.find((item: any) => item.id === this.parentAnswerId);
+            this.originalUrl = `/coffee-lab/${this.forumType}s/${this.originalForumData.question_slug}`;
+            this.originalForumTitle = this.originalForumData.question;
+            console.log('originalUrl >>>>>>>>>>>>>>', this.originalUrl);
+        } else {
+            this.originalForumData = this.detailsData[`original_${this.forumType}`];
+            this.getOriginalDetails();
+        }
     }
 
     getOriginalDetails(): void {
@@ -27,7 +37,8 @@ export class OriginalViewComponent implements OnInit {
             .subscribe((res: any) => {
                 if (res.success) {
                     this.originalData = res.result;
-                    this.originalUrl = `${environment.roasterWeb}/coffee-lab/${this.forumType}s/${res.result.slug}`;
+                    this.originalForumTitle = res.result.title;
+                    this.originalUrl = `/coffee-lab/${this.forumType}s/${res.result.slug}`;
                 }
             });
     }

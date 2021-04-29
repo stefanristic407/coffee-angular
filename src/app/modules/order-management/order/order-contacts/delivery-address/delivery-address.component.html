@@ -11,11 +11,21 @@
         <span class="ml-1">{{ 'edit' | translate }}</span>
     </div>
 </div>
-<div class="d-flex mt-1 text-clr588 fnt-14 fnt-500" *ngIf="order?.shipping_address">
-    {{ order.shipping_address.address_line1 }}, {{ order.shipping_address.address_line2 }},
-    {{ order.shipping_address.zipcode }} - {{ order.shipping_address.state }},
-    {{ commonService.getCountryName(order.shipping_address.country) }}
-</div>
+
+<ng-container
+    *ngTemplateOutlet="
+        addressText;
+        context: { address: orgType === OrgType.ESTATE ? order?.shipping_address : order?.delivery_address }
+    "
+></ng-container>
+
 <div class="d-flex-column mt-3">
     <agm-map [latitude]="latitude" [longitude]="longitude"></agm-map>
 </div>
+
+<ng-template #addressText let-address="address">
+    <div class="d-flex mt-1 text-clr588 fnt-14 fnt-500" *ngIf="address">
+        {{ address.address_line1 }}, {{ address.address_line2 }}, {{ address.zipcode }} - {{ address.state }},
+        {{ commonService.getCountryName(address.country) }}
+    </div>
+</ng-template>

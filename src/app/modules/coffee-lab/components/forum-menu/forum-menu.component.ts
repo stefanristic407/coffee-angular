@@ -4,6 +4,8 @@ import { CoffeeLabService, GlobalsService } from '@services';
 import { environment } from '@env/environment';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmComponent } from '@shared';
 
 @Component({
     selector: 'app-forum-menu',
@@ -27,6 +29,7 @@ export class ForumMenuComponent implements OnInit {
         private coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
         private router: Router,
+        private dialogService: DialogService,
     ) {}
 
     ngOnInit(): void {
@@ -137,18 +140,18 @@ export class ForumMenuComponent implements OnInit {
     onEdit(): void {
         switch (this.forumType) {
             case 'question':
-                this.router.navigate(['/coffee-lab/create-post/tab/question'], {
-                    queryParams: { id: this.selectedItem.id },
+                this.router.navigate(['/coffee-lab/create-post/tab'], {
+                    queryParams: { id: this.selectedItem.id, type: this.forumType },
                 });
                 break;
             case 'article':
-                this.router.navigate(['/coffee-lab/create-post/tab/article'], {
-                    queryParams: { id: this.selectedItem.id },
+                this.router.navigate(['/coffee-lab/create-post/tab'], {
+                    queryParams: { id: this.selectedItem.id, type: this.forumType },
                 });
                 break;
             case 'recipe':
-                this.router.navigate(['/coffee-lab/create-post/tab/recipe'], {
-                    queryParams: { id: this.selectedItem.id },
+                this.router.navigate(['/coffee-lab/create-post/tab'], {
+                    queryParams: { id: this.selectedItem.id, type: this.forumType },
                 });
                 break;
             case 'answer':
@@ -157,13 +160,26 @@ export class ForumMenuComponent implements OnInit {
                 break;
         }
     }
+
     onDelete(): void {
-        this.coffeeLabService.deleteForumById(this.forumType, this.selectedItem.id).subscribe((res: any) => {
-            if (res.success) {
-                this.toastService.success('You have deleted a forum successfully.');
-                this.coffeeLabService.forumDeleteEvent.emit();
-            } else {
-                this.toastService.error('Failed to delete a forum.');
+        this.dialogService
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'delete',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+            if (action === 'yes') {
+                this.coffeeLabService.deleteForumById(this.forumType, this.selectedItem.id).subscribe((res: any) => {
+                    if (res.success) {
+                        this.toastService.success(`You have deleted a ${this.forumType} successfully.`);
+                        this.coffeeLabService.forumDeleteEvent.emit();
+                    } else {
+                        this.toastService.error(`Failed to delete a ${this.forumType}.`);
+                    }
+                });
             }
         });
     }

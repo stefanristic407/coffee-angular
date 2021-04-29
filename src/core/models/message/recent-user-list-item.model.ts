@@ -11,4 +11,8 @@ export interface RecentUserListItem {
     profile_pic: string;
     id: number;
     user_id: number;
+    blockedDetails: {
+        blockedMe: boolean;
+        myBlock: boolean;
+    };
 }

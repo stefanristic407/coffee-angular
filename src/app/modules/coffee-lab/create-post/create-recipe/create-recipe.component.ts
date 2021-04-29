@@ -95,7 +95,10 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.recipeId = this.route.snapshot.queryParamMap.get('id');
+        const type = this.route.snapshot.queryParamMap.get('type');
+        if (type === 'recipe') {
+            this.recipeId = this.route.snapshot.queryParamMap.get('id');
+        }
         if (this.recipeId) {
             this.getRecipeyById();
         }

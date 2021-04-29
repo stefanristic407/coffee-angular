@@ -13,3 +13,5 @@ export * from './ws-request.model';
 export * from './ws-response.model';
 export * from './response-search-message.model';
 export * from './search-message.model';
+export * from './message-meta.model';
+export * from './sticker-listitem.model';

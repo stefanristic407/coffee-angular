@@ -1,8 +1,8 @@
+import { MessageMetaTypes } from './../../../../../core/enums/message/message-meta-types.enum';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
 import { debounce, first, filter, tap } from 'rxjs/operators';
 import { Subscription, fromEvent, interval, Subject, timer } from 'rxjs';
-import { DialogService } from 'primeng/dynamicdialog';
 import { Component, OnInit, OnDestroy, AfterViewInit, Renderer2, ElementRef, ViewEncapsulation } from '@angular/core';
 import {
     UserserviceService,
@@ -26,6 +26,8 @@ import {
     BlockListItem,
     ResponseSearchMessageRow,
     SearchChatMessagResult,
+    MessageMeta,
+    StickerListItem,
 } from '@models';
 import { ThreadActivityType, OrganizationType, ThreadType, ServiceCommunicationType, ChatMessageType } from '@enums';
 
@@ -46,12 +48,22 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     public threadList: ThreadListItem[] = [];
     public usersList: UserListItem[] = [];
     public recentUserList: RecentUserListItem[] = [];
-    public blockedUsersList = [];
+    public myBlockList: BlockListItem[] = [];
+    public whoBlockedMe: BlockListItem[] = [];
+    public blockMap: {
+        myBlock: { [key: string]: BlockListItem };
+        blockedMe: { [key: string]: BlockListItem };
+    } = {
+        myBlock: {},
+        blockedMe: {},
+    };
     public userSearchKeywords = '';
     public selectedUser: ThreadMember | null = null;
     public userListLoading = false;
     public emojiList = [];
+    public stickerList: StickerListItem[] = [];
 
+    private unblockUserReferance: BlockListItem | null = null;
     private blockThreadReferance: ThreadListItem | null = null;
     private clearThreadReferance: ThreadListItem | null = null;
     private deleteThreadReferance: ThreadListItem | null = null;
@@ -59,7 +71,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     public chatListScrollEventSubject = new Subject<Event>();
 
     public chatSearch = {
-        //ANCHOR chatSearch
+        // ANCHOR chatSearch
         keyword: '',
         expand: false,
         inputSubject: new Subject<InputEvent>(),
@@ -134,7 +146,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         perPage: 10,
         activePage: 1,
     };
-
+    selectedSticker: StickerListItem | null = null;
     uploadFileMeta: {
         url: string;
         file_id: number;
@@ -163,7 +175,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     public chatVisibilityRendered = new Subject<boolean>();
     public notificationState = false;
     public contextMenuOpen = false;
-    public openEmojiPanel = false;
+    public showMessageBoxPanel: 'OFF' | 'EMOJI' | 'STICKER' = 'OFF';
+
     public chatMenuOpen = false;
 
     public enableReadRecipient = false;
@@ -227,12 +240,12 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         private chatUtil: ChatUtilService,
         private toast: ToastrService,
         public gtrans: GoogletranslateService,
-        private dialogSrv: DialogService,
     ) {}
 
     ngOnInit(): void {
         this.acceptFileTypeString = this.acceptFileTypeArray.join(',');
         this.emojiList = this.chatUtil.emojiList;
+        this.stickerList = this.chatUtil.stickerList;
         this.SM.WSState = this.socket.socketState.subscribe((value) => {
             if (value === 'CONNECTED') {
                 this.initializeWebSocket();
@@ -270,6 +283,10 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             notificationSound: this.notificationSound,
             activeFontSize: this.activeFontSize.value,
         };
+
+        if (!this.enableEmoji && this.showMessageBoxPanel === 'EMOJI') {
+            this.showMessageBoxPanel = 'OFF';
+        }
         localStorage.setItem('setting', JSON.stringify(setting));
     }
 
@@ -284,6 +301,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             this.enableReadRecipient = setting.enableReadRecipient;
         } else if (setting.hasOwnProperty('enableEmoji')) {
             this.enableEmoji = setting.enableEmoji;
+            if (!this.enableEmoji && this.showMessageBoxPanel === 'EMOJI') {
+                this.showMessageBoxPanel = 'OFF';
+            }
         } else if (setting.hasOwnProperty('notificationSound')) {
             this.notificationSound = setting.notificationSound;
         } else if (setting.hasOwnProperty('activeFontSize')) {
@@ -406,6 +426,10 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                         }[]
                     >,
                 );
+            } else if (WSmsg.type === ChatMessageType.blockUpdate) {
+                this.handleBlockUpdateResponse(WSmsg as WSResponse<any>);
+            } else if (WSmsg.type === ChatMessageType.unblockUpdate) {
+                this.handleUnBlockUpdateResponse(WSmsg as WSResponse<any>);
             }
         });
 
@@ -413,6 +437,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             if (res === 'SUCCESS') {
                 this.showInlineLoader = true;
                 this.socket.directMessageSent.next(this.getCurrentThreadPayload());
+                this.fetchBlockUserList();
                 this.updateUserStatus();
                 this.updateUnRead();
             }
@@ -470,21 +495,13 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         };
     }
 
-    getMessagePayload(message: string) {
+    getMessagePayload(data: any) {
         const timestamp = this.chatUtil.getTimeStamp();
         const payload: any = {
             type: ChatMessageType.message,
             timestamp,
-            data: {
-                thread_id: this.openedThread.id,
-                content: message,
-                meta_data: '',
-            },
+            data,
         };
-        const fileId = this.uploadFileMeta?.file_id || '';
-        if (fileId) {
-            payload.data.file_id = fileId;
-        }
         return payload;
     }
 
@@ -541,6 +558,16 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         message.translatedText = '';
         message.showTranslation = 'OFF';
         message.showUserBadge = false;
+        const meta = { type: 'NORMAL' } as MessageMeta;
+        try {
+            message.meta = (JSON.parse(message.meta_data) || meta) as MessageMeta;
+        } catch (e) {
+            message.meta = meta as MessageMeta;
+        }
+        if (message.meta.type === 'STICKER' && message.meta.sticker) {
+            message.meta.sticker.stickerItem = this.stickerList.find((x) => x.name === message.meta.sticker.name);
+        }
+
         message.computed_date = this.chatUtil.getReadableTime(message.updated_at || message.created_at);
         message.dateString = moment(message.created_at).format('Do MMM YYYY');
         if (thread.computed_targetedUser.id === message.member.id) {
@@ -583,6 +610,10 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 }
             }
         });
+        thread.blockedDetails = {
+            blockedMe: false,
+            myBlock: false,
+        };
         thread.computed_mute = false;
         thread.computed_activeUser = activeUser[0];
         thread.computed_targetedUser = targtedUserList[0];
@@ -643,7 +674,11 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 console.log('Incoming message not correct message type');
             }
         } else {
-            console.log('Incoming message incorrect status/content');
+            if (WSmsg.code === 409) {
+                console.log('the thread should be blocked');
+            } else {
+                console.log('Incoming message incorrect status/content');
+            }
         }
     }
 
@@ -775,7 +810,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 }
                 userStatusMap[`${userStatus.user_id}_${userStatus.org_type}_${userStatus.org_id || 0}`] = userStatus;
             });
-            this.threadList.forEach((thread) => {
+            this.filteredThreadList.forEach((thread) => {
                 thread.members.forEach((member) => {
                     member.last_seen =
                         userStatusMap[`${member.user_id}_${member.org_type}_${member.org_id || 0}`]?.last_seen || '';
@@ -791,7 +826,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     handleUnReadResponse(WSmsg: WSResponse<{ threads: { [threadId: number]: number } }>) {
         if (WSmsg.code === 200) {
             let totalCount = 0;
-            this.threadList.forEach((x) => {
+            this.filteredThreadList.forEach((x) => {
                 const count = WSmsg?.data?.threads?.[x.id] || 0;
                 x.unread = count;
                 totalCount += count;
@@ -802,6 +837,40 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         }
     }
 
+    handleBlockUpdateResponse(WSmsg: WSResponse<any>) {
+        if (WSmsg.success && (WSmsg.code === 200 || WSmsg.code === 201)) {
+            const newblock = this.processBlockedUserList([WSmsg.data])[0];
+            this.whoBlockedMe.push(newblock);
+            this.generateBlockMap();
+            this.updateBlockStatuOnUserList();
+            this.updateBlockStatusOnThreadList();
+            this.toast.warning(`You have been blocked by ${newblock.computed_fullname}`, 'Direct Messaging');
+        } else {
+            console.log('Websocket:Block Update: error');
+        }
+    }
+
+    handleUnBlockUpdateResponse(WSmsg: WSResponse<any>) {
+        if (WSmsg.success && (WSmsg.code === 200 || WSmsg.code === 201)) {
+            const unblock = this.processBlockedUserList([WSmsg.data])[0];
+            const index = this.whoBlockedMe.findIndex(
+                (ub) =>
+                    ub.user_id === unblock.user_id &&
+                    (ub.org_id || 0) === (unblock.org_id || 0) &&
+                    ub.org_type === unblock.org_type,
+            );
+            if (index > -1) {
+                this.whoBlockedMe.splice(index, 1);
+                this.generateBlockMap();
+                this.updateBlockStatuOnUserList();
+                this.updateBlockStatusOnThreadList();
+            }
+            this.toast.success(`You have been unblocked by ${unblock.computed_fullname}`, 'Direct Messaging');
+        } else {
+            console.log('Websocket:UnBlock Update: error');
+        }
+    }
+
     handleBlockListResponse(
         WSmsg: WSResponse<{
             block_list: BlockListItem[];
@@ -809,21 +878,147 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         }>,
     ) {
         this.showInlineLoader = false;
-        if (WSmsg.code === 200 && WSmsg.data && WSmsg.data.block_list) {
-            this.blockedUsersList = (WSmsg.data.block_list || []).map((blockedUser: BlockListItem) => {
-                if (blockedUser.org_type === OrganizationType.SEWN_ADMIN) {
-                    blockedUser.org_id = 0;
-                }
-                blockedUser.computed_organization_name = this.chatUtil.getOrganization(blockedUser.org_type);
-                blockedUser.computed_fullname = blockedUser.first_name + ' ' + blockedUser.last_name;
-                blockedUser.computed_profile_dp = this.getProfileImageBgStyle(blockedUser.profile_pic);
-                blockedUser.computed_profile_direct_url = this.getProfileImageDirectURL(blockedUser.profile_pic);
-                return blockedUser;
-            });
+        if (WSmsg.code === 200 && WSmsg.data) {
+            this.myBlockList = this.processBlockedUserList(WSmsg.data.block_list);
+            this.whoBlockedMe = this.processBlockedUserList(WSmsg.data.blocked_list);
+            this.generateBlockMap();
+            this.updateBlockStatuOnUserList();
+            this.updateBlockStatusOnThreadList();
         } else {
             console.log('Websocket:Block list: Failure');
         }
     }
+
+    generateBlockMap() {
+        this.blockMap = {
+            blockedMe: {},
+            myBlock: {},
+        };
+        for (const item of this.myBlockList) {
+            const key = `${item.user_id}_${item.org_type}_${item.org_id || 0}`;
+            this.blockMap.myBlock[key] = item;
+        }
+        for (const item of this.whoBlockedMe) {
+            const key = `${item.user_id}_${item.org_type}_${item.org_id || 0}`;
+            this.blockMap.blockedMe[key] = item;
+        }
+    }
+
+    updateBlockStatusOnThreadList() {
+        this.threadList.forEach((thread: ThreadListItem) => {
+            const user = thread.computed_targetedUser;
+            const key = `${user.user_id}_${user.org_type}_${user.org_id || 0}`;
+            thread.blockedDetails.myBlock = !!this.blockMap.myBlock[key];
+            thread.blockedDetails.blockedMe = !!this.blockMap.blockedMe[key];
+        });
+    }
+    updateBlockStatuOnUserList() {
+        this.usersList.forEach((user: UserListItem) => {
+            const key = `${user.user_id}_${user.organization_type}_${user.organization_id || 0}`;
+            user.blockedDetails.myBlock = !!this.blockMap.myBlock[key];
+            user.blockedDetails.blockedMe = !!this.blockMap.blockedMe[key];
+        });
+        this.recentUserList.forEach((recentUser: RecentUserListItem) => {
+            const key = `${recentUser.user_id}_${recentUser.organization_type}_${recentUser.organization_id || 0}`;
+            recentUser.blockedDetails.myBlock = !!this.blockMap.myBlock[key];
+            recentUser.blockedDetails.blockedMe = !!this.blockMap.blockedMe[key];
+        });
+    }
+
+    processBlockedUserList(list: Partial<BlockListItem>[]): BlockListItem[] {
+        return (list || []).map((blockedUser: BlockListItem) => {
+            if (blockedUser.org_type === OrganizationType.SEWN_ADMIN) {
+                blockedUser.org_id = 0;
+            }
+            blockedUser.computed_organization_name = this.chatUtil.getOrganization(blockedUser.org_type);
+            blockedUser.computed_fullname = blockedUser.first_name + ' ' + blockedUser.last_name;
+            blockedUser.computed_profile_dp = this.getProfileImageBgStyle(blockedUser.profile_pic);
+            blockedUser.computed_profile_direct_url = this.getProfileImageDirectURL(blockedUser.profile_pic);
+            return blockedUser;
+        }) as BlockListItem[];
+    }
+
+    handleBlockResponse(WSmsg: WSResponse<BlockListItem>) {
+        this.showInlineLoader = false;
+        const isActivityOnThisTab =
+            this.openedThread && this.blockThreadReferance && this.openedThread.id === this.blockThreadReferance.id;
+        if (WSmsg.success && WSmsg.code === 201) {
+            const newBlockedItem = this.processBlockedUserList([WSmsg.data])[0];
+            this.myBlockList.push(newBlockedItem);
+            this.generateBlockMap();
+            this.updateBlockStatuOnUserList();
+            this.updateBlockStatusOnThreadList();
+            if (this.openedThread && this.isThreadBlocked(this.openedThread)) {
+                this.closeChatPanel();
+                const newOpendThread = this.filteredThreadList[0];
+                if (newOpendThread) {
+                    this.openThreadChat(newOpendThread);
+                } else {
+                    this.closeChatPanel();
+                }
+            }
+
+            if (isActivityOnThisTab) {
+                this.toast.success(`Successfully blocked the user ${newBlockedItem.computed_fullname}`, 'Block');
+                this.openBlockedListPanel();
+            } else {
+                this.toast.info(
+                    `You blocked ${newBlockedItem.computed_fullname} from another logged in session.`,
+                    'Direct Messaging',
+                );
+            }
+        } else if (WSmsg.code === 409) {
+            if (isActivityOnThisTab) {
+                this.toast.error('The user is already blocked', 'Block');
+                this.openBlockedListPanel();
+            } else {
+                console.log('Info: Failed to block the following user from another logged in session', WSmsg.data);
+            }
+        } else {
+            this.toast.error('Unable to block the user', 'Block');
+        }
+        this.blockThreadReferance = null;
+    }
+
+    handleUnBlockResponse(WSmsg: WSResponse<BlockListItem>) {
+        this.showInlineLoader = false;
+        if (WSmsg.success && WSmsg.code === 200) {
+            const unblockedItem = this.processBlockedUserList([WSmsg.data])[0];
+
+            const isSameTab =
+                unblockedItem &&
+                this.unblockUserReferance &&
+                unblockedItem.user_id === this.unblockUserReferance.user_id &&
+                unblockedItem.org_type === this.unblockUserReferance.org_type &&
+                (unblockedItem.user_id || 0) === (this.unblockUserReferance.user_id || 0);
+
+            const index = this.myBlockList.findIndex(
+                (myBlock) =>
+                    myBlock.user_id === unblockedItem.user_id &&
+                    myBlock.org_type === unblockedItem.org_type &&
+                    (myBlock.org_id || 0) === (unblockedItem.org_id || 0),
+            );
+            if (index > -1) {
+                this.myBlockList.splice(index, 1);
+                this.generateBlockMap();
+                this.updateBlockStatuOnUserList();
+                this.updateBlockStatusOnThreadList();
+            }
+            if (isSameTab) {
+                this.toast.success(`Successfully unblocked the user ${unblockedItem.computed_fullname}`, 'Unblock');
+            } else {
+                this.toast.info(
+                    `You unblocked ${unblockedItem.computed_fullname} from another logged in session.`,
+                    'Direct Messaging',
+                );
+            }
+            this.fetchBlockUserList();
+        } else {
+            this.toast.error('Unable to unblock the user', 'Unblock');
+        }
+        this.unblockUserReferance = null;
+    }
+
     handleClearChatResponse(WSmsg: WSResponse<any>) {
         this.showInlineLoader = false;
         if (WSmsg.success && WSmsg.code === 200) {
@@ -868,44 +1063,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         this.deleteThreadReferance = null;
     }
 
-    handleBlockResponse(WSmsg: WSResponse<any>) {
-        this.showInlineLoader = false;
-        if (WSmsg.success && WSmsg.code === 201) {
-            const index = this.threadList.findIndex((thread) => thread.id === this.blockThreadReferance.id);
-            if (index > -1) {
-                this.threadList.splice(index, 1);
-                if (this.blockThreadReferance.id === this.openedThread?.id) {
-                    if (this.chatHandler.isExpand.value) {
-                        if (this.threadList[0]) {
-                            this.openThreadChat(this.threadList[0]);
-                        } else {
-                            this.closeChatPanel();
-                        }
-                    } else {
-                        this.closeChatPanel();
-                    }
-                }
-            }
-            this.toast.success('Successfully blocked the user', 'Block');
-            this.openBlockedListPanel();
-        } else if (WSmsg.code === 409) {
-            this.toast.error('The user is already blocked', 'Block');
-            this.openBlockedListPanel();
-        } else {
-            this.toast.error('Unable to block the user', 'Block');
-        }
-        this.blockThreadReferance = null;
-    }
-
-    handleUnBlockResponse(WSmsg: WSResponse<any>) {
-        if (WSmsg.success && WSmsg.code === 200) {
-            this.toast.success('Successfully unblocked the user', 'Un Block');
-            this.fetchBlockUserList();
-        } else {
-            this.toast.error('Unable to unblock the user', 'Un Block');
-        }
-    }
-
     handleThreadsResponse(WSmsg: WSResponse<ThreadListItem[]>) {
         this.showInlineLoader = false;
         if (WSmsg.code === 200) {
@@ -913,6 +1070,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             this.threadList.forEach((thread) => {
                 this.processThreads(thread);
             });
+            this.updateBlockStatusOnThreadList();
             this.updateUserStatus();
             this.updateUnRead();
         } else {
@@ -933,6 +1091,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                     this.openThreadChat(existingThread);
                 } else {
                     this.threadList.unshift(thread);
+                    this.updateBlockStatusOnThreadList();
                     this.openThreadChat(thread);
                 }
             } else {
@@ -951,6 +1110,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 const existingThread = this.threadList.find((t) => t.id === thread.id);
                 if (!existingThread) {
                     this.threadList.unshift(thread);
+                    this.updateBlockStatusOnThreadList();
                 }
                 if (!thread.computed_mute && this.notificationSound) {
                     this.chatUtil.playNotificationSound('INCOMING');
@@ -1210,38 +1370,83 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         }
         return message;
     }
+    detectOffensiveWords(msg) {
+        badwordsRegExp.lastIndex = 0;
+        if (badwordsRegExp.test(msg)) {
+            this.showOffensiveMessageError = true;
+            this.offensiveTimeout = window.setTimeout(this.offensiveTimeoutHandler, 3500);
+            msg = this.replaceOffensiveWord(msg);
+        }
+        return msg;
+    }
+
+    sendSticker(sticker: StickerListItem) {
+        this.selectedSticker = sticker;
+        this.sendMessage();
+    }
 
     sendMessage() {
         clearTimeout(this.offensiveTimeout);
         this.showOffensiveMessageError = false;
         let msg = this.messageInput.trim();
-        if (msg !== '') {
-            badwordsRegExp.lastIndex = 0;
-            if (badwordsRegExp.test(msg)) {
-                this.showOffensiveMessageError = true;
-                this.offensiveTimeout = window.setTimeout(this.offensiveTimeoutHandler, 3500);
-                msg = this.replaceOffensiveWord(msg);
-            }
-            this.socket.directMessageSent.next(this.getMessagePayload(msg));
-            if (this.notificationSound) {
-                this.chatUtil.playNotificationSound('OUTGOING');
-            }
-            this.messageInput = '';
-            this.uploadFileMeta = null;
-            this.chatBodyHeightAdjust();
-            if (this.SM.lastRender && this.SM.lastRender.unsubscribe) {
-                this.SM.lastRender.unsubscribe();
-            }
+        const hasContent = !!msg;
+        const hasImage = !!this.uploadFileMeta?.file_id;
+        const hasSticker = !!this.selectedSticker?.name;
+        const payload = {
+            thread_id: this.openedThread.id,
+            content: '',
+            meta_data: '',
+            file_id: undefined,
+        };
 
-            this.SM.lastRender = this.lastMessageRendered.pipe(first()).subscribe((x) => {
-                this.chatBodyHeightAdjust();
-            });
-            this.SM.timeoutTextSend = timer(600).subscribe((x) => {
-                this.chatBodyHeightAdjust();
-            });
+        if (hasSticker) {
+            payload.content = '\u25A3 Sticker';
+            delete payload.file_id;
+            payload.meta_data = JSON.stringify({
+                type: MessageMetaTypes.STICKER,
+                sticker: {
+                    category: 'STANDARD',
+                    version: 1,
+                    name: this.selectedSticker?.name,
+                },
+            } as MessageMeta);
+        } else if (hasContent && hasImage) {
+            msg = this.detectOffensiveWords(msg);
+            payload.content = msg;
+            payload.file_id = this.uploadFileMeta?.file_id || '';
+            payload.meta_data = JSON.stringify({
+                type: MessageMetaTypes.PICTURE_CAPTION,
+            } as MessageMeta);
+        } else if (hasContent && !hasImage) {
+            msg = this.detectOffensiveWords(msg);
+            payload.content = msg;
+            delete payload.file_id;
+            payload.meta_data = JSON.stringify({
+                type: MessageMetaTypes.NORMAL,
+            } as MessageMeta);
         } else {
             this.toast.warning('Message text can not be blank', 'Unable to sent', { timeOut: 800 });
+            return;
         }
+
+        this.socket.directMessageSent.next(this.getMessagePayload(payload));
+        if (this.notificationSound) {
+            this.chatUtil.playNotificationSound('OUTGOING');
+        }
+        this.messageInput = '';
+        this.uploadFileMeta = null;
+        this.selectedSticker = null;
+        this.chatBodyHeightAdjust();
+
+        if (this.SM.lastRender && this.SM.lastRender.unsubscribe) {
+            this.SM.lastRender.unsubscribe();
+        }
+        this.SM.lastRender = this.lastMessageRendered.pipe(first()).subscribe((x) => {
+            this.chatBodyHeightAdjust();
+        });
+        this.SM.timeoutTextSend = timer(600).subscribe((x) => {
+            this.chatBodyHeightAdjust();
+        });
     }
 
     focusSearchResult() {
@@ -1332,6 +1537,10 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 organization_id: target.org_id,
                 organization_type: target.org_type,
                 profile_pic: target.profile_pic,
+                blockedDetails: {
+                    blockedMe: false,
+                    myBlock: false,
+                },
                 id: target.id,
                 user_id: target.user_id,
             };
@@ -1341,6 +1550,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             }
         });
         this.recentUserList = Object.values(recentListMap);
+        this.updateBlockStatuOnUserList();
     }
 
     fetchUserList = (searchQuery: string) => {
@@ -1374,9 +1584,13 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                         organization_type: ((x.organization_type || '') as string).toLowerCase() as OrganizationType,
                         timezone: x.timezone || '',
                         user_id: x.id || 0,
+                        blockedDetails: {
+                            blockedMe: false,
+                            myBlock: false,
+                        },
                         computed_fullname: x.firstname + ' ' + x.lastname,
-                        computed_profile_dp: this.getProfileImageBgStyle(x.profile_pic),
-                        computed_profile_direct_url: this.getProfileImageDirectURL(x.profile_pic),
+                        computed_profile_dp: this.getProfileImageBgStyle(x.profile_image_url),
+                        computed_profile_direct_url: this.getProfileImageDirectURL(x.profile_image_url),
                         computed_organization_name: '',
                     };
                     processedItem.computed_organization_name = this.chatUtil.getOrganization(
@@ -1384,11 +1598,12 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                     );
                     return processedItem;
                 });
+            this.updateBlockStatuOnUserList();
         });
     };
 
     chatSearchChange = () => {
-        //ANCHOR chatSearchChange
+        // ANCHOR chatSearchChange
         if (this.chatSearch.keyword.trim()) {
             const timestamp = this.chatUtil.getTimeStamp();
             this.showInlineLoader = true;
@@ -1605,6 +1820,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 if (value === 'yes') {
                     this.showInlineLoader = true;
                     const timestamp = this.chatUtil.getTimeStamp();
+                    this.unblockUserReferance = dataPayload;
                     this.socket.directMessageSent.next({
                         timestamp,
                         data: {
@@ -1622,8 +1838,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     openExapndView() {
         this.chatElRefReset();
         if (!this.openedThread) {
-            if (this.threadList[0]) {
-                this.openThreadChat(this.threadList[0]);
+            const thread = this.filteredThreadList[0];
+            if (thread) {
+                this.openThreadChat(thread);
             } else {
                 return;
             }
@@ -1696,11 +1913,16 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         this.messageListConfig.activePage = 1;
         this.messageListConfig.totalCount = 0;
         this.messageListConfig.lastSentTimeStamp = '';
+        this.uploadFileMeta = null;
+        this.selectedSticker = null;
+        this.uploadProgressing = false;
     }
+
     chatUIStateReset() {
         if (!this.chatHandler.isExpand.value) {
             this.chatSearch.reset();
             this.chatMenuOpen = false;
+            this.showMessageBoxPanel = 'OFF';
         }
     }
     chatElRefReset() {
@@ -1736,6 +1958,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     fetchBlockUserList() {
+        this.myBlockList = [];
+        this.whoBlockedMe = [];
+        this.generateBlockMap();
         this.showInlineLoader = true;
         this.socket.directMessageSent.next(this.getBlockListPayload());
     }
@@ -1744,7 +1969,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         this.chatElRefReset();
         this.chatUIStateReset();
         this.panelVisibility = 'BLOCKED_USERS';
-        this.blockedUsersList = [];
         this.contextMenuOpen = false;
         this.fetchBlockUserList();
     }
@@ -1826,5 +2050,13 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             });
         this.chatHandler.isExpand.next(false);
         this.chatHandler.isOpen.next(true);
+    }
+
+    get filteredThreadList(): ThreadListItem[] {
+        return this.threadList.filter((x) => !this.isThreadBlocked(x));
+    }
+
+    isThreadBlocked(thread: ThreadListItem): boolean {
+        return thread.blockedDetails.blockedMe || thread.blockedDetails.myBlock;
     }
 }

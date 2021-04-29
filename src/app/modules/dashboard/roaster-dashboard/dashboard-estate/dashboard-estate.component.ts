@@ -26,7 +26,25 @@ export class DashboardEstateComponent implements OnInit, OnDestroy {
             }
         });
         this.estatesSub = this.welcomeSrv.estates$.subscribe((res: any) => {
-            this.estates = res;
+            if (res) {
+                const estateData: any = res;
+                const sortedEstateData = estateData.sort((a: any, b: any) => {
+                    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+                });
+                sortedEstateData.length > 4
+                    ? (this.estates = sortedEstateData.slice(0, 4))
+                    : (this.estates = sortedEstateData);
+                this.estates.map((item: any) => {
+                    const countryName = this.globals.getCountryName(item.country);
+                    item.countryName = countryName;
+                    if (item.variety) {
+                        const tags = item.variety.split(',');
+                        item.tags = tags;
+                    } else {
+                        item.tags = [];
+                    }
+                });
+            }
         });
     }
 

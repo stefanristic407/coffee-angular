@@ -6,7 +6,8 @@
                 <img src="assets/images/avatar.png" class="mr-3 rounded-circle" alt="avatar" width="40" height="40" />
                 <div class="sewn-form-field w-100 mb-0">
                     <input
-                        routerLink="../../create-post/tab/article"
+                        routerLink="/coffee-lab/create-post/tab"
+                        [queryParams]="{type: 'article'}"
                         type="text"
                         pInputText
                         placeholder="{{ 'publish_article' | translate }}"
@@ -76,6 +77,7 @@
                         [selectedItem]="article"
                         forumType="article"
                         [enableEdit]="organizationId === article.organisation_id"
+                        [enableDelete]="organizationId === article.organisation_id"
                     ></app-forum-menu>
                 </div>
                 <img [src]="article.cover_image_url" class="br-4 w-100 my-3 my-md-4" />

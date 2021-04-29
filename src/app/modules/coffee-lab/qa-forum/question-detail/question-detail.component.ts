@@ -3,11 +3,13 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService, CoffeeLabService, GlobalsService } from '@services';
 import { DOCUMENT, Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'app-question-detail',
     templateUrl: './question-detail.component.html',
     styleUrls: ['./question-detail.component.scss'],
+    providers: [MessageService],
 })
 export class QuestionDetailComponent implements OnInit {
     slug?: string;
@@ -24,6 +26,7 @@ export class QuestionDetailComponent implements OnInit {
         public location: Location,
         private toastService: ToastrService,
         public authService: AuthService,
+        private messageService: MessageService,
     ) {
         this.activatedRoute.params.subscribe((params) => {
             this.slug = params.slug;
@@ -71,10 +74,17 @@ export class QuestionDetailComponent implements OnInit {
             this.isLoading = false;
             if (res.success) {
                 this.detailsData = res.result;
-                console.log('question details data >>>>>>>>', this.detailsData);
                 setTimeout(() => {
                     this.setPagePosition();
                 }, 500);
+                if (res.result.parent_question_id) {
+                    this.messageService.clear();
+                    this.messageService.add({
+                        key: 'translate',
+                        severity: 'success',
+                        closable: false,
+                    });
+                }
             } else {
                 this.toastService.error('Cannot get detail data');
             }

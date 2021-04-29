@@ -256,12 +256,13 @@ export class VarientDetailsComponent implements OnInit {
                     fileObj.isNew = true;
                     fileObj.fileID = '_' + Math.random().toString(36).substr(2, 9);
                     const weight = this.weightForm.get('weights') as FormArray;
-                    if (type == 'featured_image') {
+                    if (type === 'featured_image') {
                         weight.controls[this.currentVarientIndex]['controls'].fileDetails.setValue(fileObj);
+                        weight.controls[this.currentVarientIndex]['controls'].featured_image_id.setValue('');
                     } else {
-                        weight.controls[this.currentVarientIndex]['controls'].product_images.value[
-                            index
-                        ].fileDetails = fileObj;
+                        weight.controls[this.currentVarientIndex]['controls'].product_images.value[index] = {
+                            fileDetails: fileObj,
+                        };
                     }
                 }
             }
@@ -275,7 +276,6 @@ export class VarientDetailsComponent implements OnInit {
                 this.deleteImageIDs.push(getValue.featured_image_id);
             }
             weight.controls[this.currentVarientIndex]['controls'].fileDetails.setValue(null);
-            weight.controls[this.currentVarientIndex]['controls'].feature_image_set.setValue(false);
             weight.controls[this.currentVarientIndex]['controls'].featured_image_id.setValue('');
         } else {
             const productArray = weight.controls[this.currentVarientIndex]['controls'].product_images.value;
@@ -295,6 +295,7 @@ export class VarientDetailsComponent implements OnInit {
         const getNewImage = productImageArray.filter(
             (ele) => ele.fileDetails && !ele.image_id && ele.fileDetails.image_url,
         );
+        console.log(productImageArray, getNewImage);
         getNewImage.forEach((ele, index) => {
             if (ele.fileDetails && !ele.fileDetails.image_id && ele.fileDetails.image_url) {
                 let showToaster = false;

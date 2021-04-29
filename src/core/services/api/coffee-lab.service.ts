@@ -47,11 +47,11 @@ export class CoffeeLabService extends ApiService {
         this.toastService.success('Successfully copied');
     }
 
-    getForumList(type: string, options?: any, language = 'en'): Observable<any> {
+    getForumList(type: string, options?: any, language = this.currentForumLanguage): Observable<any> {
         const data = {
             api_call: `/general/${type}s?${this.serializeParams(options)}`,
             method: 'GET',
-            token: this.cookieSrv.get('Auth')
+            token: this.cookieSrv.get('Auth'),
         };
         const httpOptions = {
             headers: new HttpHeaders({ 'Accept-Language': language }),
@@ -59,7 +59,19 @@ export class CoffeeLabService extends ApiService {
         return this.http.post(this.orgPostUrl, data, httpOptions);
     }
 
-    getForumDetails(type: string, idOrSlug: any, language = 'en'): Observable<any> {
+    getFOrganizationForumList(type: string, options?: any, language = this.currentForumLanguage): Observable<any> {
+        const data = {
+            api_call: `/${this.organization}/${this.organizationId}/${type}s?${this.serializeParams(options)}`,
+            method: 'GET',
+            token: this.cookieSrv.get('Auth'),
+        };
+        const httpOptions = {
+            headers: new HttpHeaders({ 'Accept-Language': language }),
+        };
+        return this.http.post(this.orgPostUrl, data, httpOptions);
+    }
+
+    getForumDetails(type: string, idOrSlug: any): Observable<any> {
         return this.post(this.orgPostUrl, `general/${type}s/${idOrSlug}`, 'GET');
     }
 
@@ -68,18 +80,10 @@ export class CoffeeLabService extends ApiService {
     }
 
     postComment(type: string, id: any, data: any): any {
+        const commentType = type === 'question' ? 'answers' : 'comments';
         return this.post(
             this.orgPostUrl,
-            `${this.organization}/${this.organizationId}/${type}s/${id}/comments`,
-            'POST',
-            data,
-        );
-    }
-
-    postAnswer(id: any, data: any): any {
-        return this.post(
-            this.orgPostUrl,
-            `${this.organization}/${this.organizationId}/questions/${id}/answers`,
+            `${this.organization}/${this.organizationId}/${type}s/${id}/${commentType}`,
             'POST',
             data,
         );

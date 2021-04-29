@@ -708,16 +708,16 @@ export class UserserviceService extends ApiService {
         };
         return this.http.post(this.roasterUrl, data);
     }
+
+    // List of top contacts of an organization.
     getEstateContacts(estate_id: any) {
-        const data = {
-            api_call: '/general/es/' + estate_id + '/users/top-contacts',
-            token: this.cookieService.get('Auth'),
-        };
-        return this.http.post(this.roasterUrl, data);
+        return this.post(this.orgPostUrl, `general/es/${estate_id}/users/top-contacts`);
     }
+
     getEstateCertificates() {
         return this.post(this.postUrl, `general/certificate-types`);
     }
+
     updateRoastedBatchDetail(roaster_id: any, id: any, body: any): Observable<any> {
         const data = {
             api_call: `/ro/${roaster_id}/roasted-batches/${id}`,

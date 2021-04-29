@@ -12,6 +12,7 @@ export class OrgTypePipe implements PipeTransform {
             [OrganizationType.HORECA]: 'Horeca',
             [OrganizationType.MICRO_ROASTER]: 'Micro Roaster',
             [OrganizationType.ROASTER]: 'Roaster',
+            [OrganizationType.SEWN_ADMIN]: 'Admin',
         };
         return organizations[orgType];
     }

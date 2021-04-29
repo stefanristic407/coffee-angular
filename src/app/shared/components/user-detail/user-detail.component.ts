@@ -49,8 +49,8 @@ export class UserDetailComponent implements OnInit, OnChanges {
     }
 
     showPopup(element: any, event: any) {
-        const roasterId = this.cookieService.get('roaster_id');
-        if (this.data.organization_type.toLowerCase() !== 'ro' || roasterId !== this.data.organization_id.toString()) {
+        const userId = +this.cookieService.get('user_id');
+        if (this.data?.id !== userId) {
             element.toggle(event);
         }
     }

@@ -12,6 +12,9 @@
 
 .post-list-content {
     margin-right: 108px;
+    img {
+        width: 100%;
+    }
     @media (max-width: 991px) {
         margin-right: 48px;
     }

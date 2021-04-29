@@ -17,4 +17,6 @@ export enum ChatMessageType {
     clearChat = 'clear-chat',
     deleteChat = 'delete-chat',
     searchMessage = 'search-message',
+    blockUpdate = 'block-update',
+    unblockUpdate = 'unblock-update',
 }

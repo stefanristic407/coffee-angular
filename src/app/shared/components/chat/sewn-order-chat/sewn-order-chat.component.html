@@ -98,7 +98,7 @@
                                 <div class="drm-content-header">Dispute raised :</div>
                                 <div class="drm-content-body">
                                     {{ message?.computed_author?.computed_fullname || 'Deleted User' }}
-                                    {{ message.content }}
+                                    {{ message.meta.dispute_details.content }}
                                 </div>
                             </div>
                             <div class="drm-action-section">

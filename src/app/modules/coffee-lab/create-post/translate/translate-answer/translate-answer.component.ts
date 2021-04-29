@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
@@ -14,15 +14,18 @@ import { Location } from '@angular/common';
 export class TranslateAnswerComponent implements OnInit {
     answerId: any;
     answer: any;
+    originAnswer: any;
     isLoading = false;
     applicationLanguages = APP_LANGUAGES;
     form: FormGroup;
     translatedAnswer = '';
     isUploadingImage = false;
+    isInvalidTranslation = false;
     imageIdList = [];
     isPosting = false;
-    originAnswer: any;
+    question: any;
     needToTranslateQuestion = true;
+    originLanguage: string;
 
     constructor(
         private route: ActivatedRoute,
@@ -40,7 +43,6 @@ export class TranslateAnswerComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log('translate answer component !!!!!!!!!!!!!');
         this.answerId = this.route.snapshot.queryParamMap.get('id');
         if (!this.answerId) {
             this.router.navigate(['/coffee-lab']);
@@ -54,22 +56,30 @@ export class TranslateAnswerComponent implements OnInit {
         this.coffeeLabService.getForumDetails('answer', this.answerId).subscribe((res: any) => {
             if (res.success) {
                 this.answer = res.result;
+                this.originLanguage =  res.result?.original_details?.language ||  res.result.lang_code;
                 console.log('answer >>>>>>>>>>>>>', res.result);
-                if (this.answer.parent_answer_id) {
-                    this.coffeeLabService
-                        .getForumDetails('answer', this.answer.parent_answer_id)
-                        .subscribe((originAnswerRes: any) => {
-                            this.isLoading = false;
-                            if (originAnswerRes.success) {
-                                this.originAnswer = originAnswerRes.result;
-                            } else {
-                                this.toastrService.error('Error while get origin answer');
-                            }
-                        });
+                if (res.result.parent_answer_id) {
+                    this.coffeeLabService.getForumDetails('answer', res.result.parent_answer_id).subscribe((originAnswerRes: any) => {
+                        if (originAnswerRes.success) {
+                            this.originAnswer = originAnswerRes.result;
+                        } else {
+                            this.toastrService.error('Error while get origin answer');
+                        }
+                    });
                 } else {
-                    this.isLoading = false;
                     this.originAnswer = this.answer;
                 }
+                this.coffeeLabService
+                    .getForumDetails('question', this.answer.question_id)
+                    .subscribe((questionRes: any) => {
+                        this.isLoading = false;
+                        if (questionRes.success) {
+                            console.log('parent question >>>>>>>>>', questionRes.result);
+                            this.question = questionRes.result;
+                        } else {
+                            this.toastrService.error('Error while get parent question');
+                        }
+                    });
             } else {
                 this.isLoading = false;
                 this.toastrService.error('Error while get answer');
@@ -79,10 +89,23 @@ export class TranslateAnswerComponent implements OnInit {
     }
 
     onChangeTranslationLanguage(selectedLanguage: string): void {
-        console.log('origin answer >>>>>>>>>>', this.originAnswer);
+        if (selectedLanguage === this.originLanguage) {
+            this.toastrService.error('Cannot translate in origin language.');
+            this.isInvalidTranslation = true;
+            return;
+        }
         if (
-            this.originAnswer.translations.find((item: any) => item.language === selectedLanguage) ||
-            this.originAnswer.lang_code === selectedLanguage
+            this.answer.translations.find((item: any) => item.language === selectedLanguage) ||
+            this.answer.lang_code === selectedLanguage
+        ) {
+            this.toastrService.error('This answer was already translated in selected language');
+            this.isInvalidTranslation = true;
+            return;
+        }
+        this.isInvalidTranslation = false;
+        if (
+            this.question.translations.find((item: any) => item.language === selectedLanguage) ||
+            this.question.lang_code === selectedLanguage
         ) {
             this.needToTranslateQuestion = false;
             this.form.controls.question.clearValidators();
