@@ -6,7 +6,7 @@
                 <p-dropdown
                     [options]="sortOptions"
                     [(ngModel)]="sortBy"
-                    (ngModelChange)="getComments()"
+                    (ngModelChange)="getAnswers()"
                     styleClass="no-border no-padding"
                     optionLabel="label"
                     optionValue="value"
@@ -14,7 +14,7 @@
             </div>
         </div>
     </div>
-    <div>
+    <div *ngIf="!isLoading">
         <div class="gutter-24" *ngFor="let answer of answers; let last = last">
             <div class="w-100 br-4 border-main mb-4 mb-md-3 mb-lg-4">
                 <div class="p-md-4 p-3 bg">

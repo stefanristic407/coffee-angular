@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CoffeeLabService } from '@services';
+import { Subscription } from 'rxjs';
 @Component({
     selector: 'app-my-answers',
     templateUrl: './my-answers.component.html',
@@ -16,24 +17,31 @@ export class MyAnswersComponent implements OnInit {
     pageDesc: string;
     isMyPostsPage = false;
     isLoading = false;
+    forumDeleteSub: Subscription;
+
     constructor(private coffeeLabService: CoffeeLabService, private activateRoute: ActivatedRoute) {
         this.pageDesc = this.activateRoute.snapshot.routeConfig?.path;
     }
 
     ngOnInit(): void {
-        this.getComments();
+        this.getAnswers();
         if (this.pageDesc === 'my-posts') {
             this.isMyPostsPage = true;
         }
+        this.forumDeleteSub = this.coffeeLabService.forumDeleteEvent.subscribe(() => {
+            this.getAnswers();
+        });
     }
 
-    getComments(): void {
+    getAnswers(): void {
         this.isLoading = true;
         this.coffeeLabService.getMyForumList('answer').subscribe((res) => {
             this.answers = res.result.map((item) => {
                 if (item.question_slug) {
                     const slug = 'slug';
+                    const id = 'id';
                     item[slug] = item.question_slug;
+                    item[id] = item.answer_id;
                 }
                 return item;
             });

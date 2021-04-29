@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CoffeeLabService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-my-comments',
@@ -19,7 +20,7 @@ export class MyCommentsComponent implements OnInit {
     isLoading = false;
     isMyPostsPage = false;
     pageDesc: string;
-
+    forumDeleteSub: Subscription;
     constructor(
         private coffeeLabService: CoffeeLabService,
         private cookieService: CookieService,
@@ -33,13 +34,24 @@ export class MyCommentsComponent implements OnInit {
         if (this.pageDesc === 'my-posts') {
             this.isMyPostsPage = true;
         }
+        this.forumDeleteSub = this.coffeeLabService.forumDeleteEvent.subscribe(() => {
+            this.getComments();
+        });
         this.getComments();
     }
 
     getComments(): void {
         this.isLoading = true;
         this.coffeeLabService.getMyForumList('my-comment').subscribe((res) => {
-            this.comments = res.result;
+            this.comments = res.result.map((item) => {
+                if (item.post_slug) {
+                    const slug = 'slug';
+                    const id = 'id';
+                    item[slug] = item.post_slug;
+                    item[id] = item.post_id;
+                }
+                return item;
+            });
             this.isLoading = false;
         });
     }
