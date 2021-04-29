@@ -4,7 +4,7 @@ import { AfterViewInit, Directive, ElementRef } from '@angular/core';
     selector: '[appFullImgWrapper]',
 })
 export class FullImgWrapperDirective implements AfterViewInit {
-    css = '.full-img-wrapper img {width: 100%}';
+    css = '.full-img-wrapper img {max-width: 100%}';
     style: any = document.createElement('style');
 
     constructor(private el: ElementRef) {}
