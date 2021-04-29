@@ -86,7 +86,8 @@
     }
     .p-inputtext.ng-invalid.ng-touched,
     input.ng-invalid.ng-touched,
-    input.ng-invalid.ng-touched + .input-group-append {
+    input.ng-invalid.ng-touched + .input-group-append,
+    .ng-invalid.ng-touched .p-dropdown {
         border-color: $error-border-color !important;
     }
 
