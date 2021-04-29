@@ -95,10 +95,9 @@ export class CoffeeDetailsComponent implements OnInit {
         const contentElement = document.createElement('div');
         contentElement.innerHTML = content;
         const images = contentElement.querySelectorAll('img');
-        // tslint:disable-next-line: prefer-for-of
-        for (let i = 0; i < images.length; i++) {
-            images[0].parentNode.removeChild(images[0]);
-        }
+        images.forEach((image) => {
+            image.parentNode.removeChild(image);
+        });
         return contentElement.innerHTML;
     }
 }

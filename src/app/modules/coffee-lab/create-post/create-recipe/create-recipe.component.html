@@ -220,7 +220,7 @@
         <ng-container *ngFor="let step of recipeForm?.value?.steps; let i = index; last as isLast">
             <div class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9 sewn-form-field w-100">
-                    <label>Step {{ i + 1 }}<span class="star">*</span></label>
+                    <label>{{ 'step' | translate }} {{ i + 1 }}<span class="star">*</span></label>
                     <app-forum-editor
                         [(content)]="step.description"
                         [(isUploadingImage)]="isUploadingImage"
