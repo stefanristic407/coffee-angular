@@ -51,8 +51,12 @@
                             </div>
                         </div>
                         <div class="mobile-dot">
-                            <p-menu #menu [popup]="true" [model]="questionMenuItems" appendTo="body"> </p-menu>
-                            <i class="pi pi-ellipsis-h text-clr588 cursor-pointer" (click)="menu.toggle($event)"></i>
+                            <app-forum-menu
+                                [selectedItem]="answer"
+                                forumType="answer"
+                                [enableEdit]="isMyPostsPage"
+                                [enableDelete]="isMyPostsPage"
+                            ></app-forum-menu>
                         </div>
                     </div>
                     <div
@@ -93,11 +97,19 @@
                             </div>
                         </div>
                         <div class="fnt-muli fnt-14 text-clr24 lh-15 mt-2 pt-1">
-                            <span [innerHTML]="answer?.answer | translate | convertToShortDescription: 20"></span>
+                            <span
+                                appFullImgWrapper
+                                [innerHTML]="answer?.answer | translate | convertToShortDescription: 20"
+                            ></span>
                         </div>
                     </div>
                     <div class="mt-4">
-                        <a class="custom-link ml-1">{{ 'read_complete_answer' | translate }}</a>
+                        <a
+                            class="custom-link ml-1"
+                            [routerLink]="'/coffee-lab/questions/' + answer.question_slug"
+                            [queryParams]="{ answer: answer.answer_id }"
+                            >{{ 'read_complete_answer' | translate }}</a
+                        >
                     </div>
                 </div>
             </div>

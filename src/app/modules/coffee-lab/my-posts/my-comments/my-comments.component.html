@@ -108,7 +108,11 @@
                         </div>
                     </div>
                     <div class="mt-4">
-                        <a class="custom-link ml-1">{{ 'view_post' | translate }}</a>
+                        <a
+                            class="custom-link ml-1"
+                            [routerLink]="'/coffee-lab/' + comment?.post_type + 's' + '/' + comment?.post_slug"
+                            >{{ 'view_post' | translate }}</a
+                        >
                     </div>
                 </div>
             </div>

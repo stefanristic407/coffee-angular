@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CoffeeLabService } from '@services';
-import { MenuItem } from 'primeng/api';
-
 @Component({
     selector: 'app-my-answers',
     templateUrl: './my-answers.component.html',
@@ -13,42 +12,32 @@ export class MyAnswersComponent implements OnInit {
         { label: 'Latest', value: 'latest' },
         { label: 'Oldest', value: 'oldest' },
     ];
-    questionMenuItems: MenuItem[] = [];
     sortBy = 'latest';
     shortComments = false;
     result: any;
     roasterId: string;
-    constructor(private coffeeLabService: CoffeeLabService) {}
+    pageDesc: string;
+    isMyPostsPage = false;
+    constructor(private coffeeLabService: CoffeeLabService, private activateRoute: ActivatedRoute) {
+        this.pageDesc = this.activateRoute.snapshot.routeConfig?.path;
+    }
 
     ngOnInit(): void {
         this.getComments();
-        this.questionMenuItems = [
-            {
-                items: [
-                    {
-                        label: 'Share',
-                        command: () => {
-                            this.onSharePost({});
-                        },
-                    },
-                    {
-                        label: 'Save Post',
-                        command: () => {
-                            this.onSavePost({});
-                        },
-                    },
-                ],
-            },
-        ];
+        if (this.pageDesc === 'my-posts') {
+            this.isMyPostsPage = true;
+        }
     }
 
     getComments(): void {
         this.coffeeLabService.getMyForumList('answer').subscribe((res) => {
-            this.answers = res.result;
+            this.answers = res.result.map((item) => {
+                if (item.question_slug) {
+                    const slug = 'slug';
+                    item[slug] = item.question_slug;
+                }
+                return item;
+            });
         });
-    }
-    onSharePost(postItem: any): void {}
-    onSavePost(postItem: any): void {
-        console.log('working...');
     }
 }
