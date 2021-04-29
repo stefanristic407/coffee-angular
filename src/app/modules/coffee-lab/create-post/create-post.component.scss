@@ -5,6 +5,7 @@
     cursor: pointer;
     &:hover {
         color: $muted-text-color;
+        text-decoration: underline!important;
     }
 }
 

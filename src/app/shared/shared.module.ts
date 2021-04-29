@@ -194,7 +194,7 @@ const COMPONENTS = [
     UserDetailComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
-const DIRECTIVES = [WordLimitDirective, RatingDirective, LifecyclehookDirective, ChatHighlighterDirective];
+const DIRECTIVES = [WordLimitDirective, RatingDirective, LifecyclehookDirective, ChatHighlighterDirective, FullImgWrapperDirective];
 
 import { SearchFilterPipe } from './pipes/chat/search-filter.pipe';
 import { CountryPipe } from './pipes/country/country.pipe';
@@ -213,6 +213,7 @@ import { OrgTypePipe } from './pipes/org-type.pipe';
 import { WordCountPipe } from './pipes/word-count/word-count.pipe';
 import { ConvertToShortDescriptionPipe } from './pipes/convert-to-short-description.pipe';
 import { CopyImageToClipboardDirective } from './directives/copy-image-to-clipboard.directive';
+import { FullImgWrapperDirective } from './directives/full-img-wrapper.directive';
 const PIPES = [
     ArrayFilterPipe,
     CountryPipe,
@@ -254,6 +255,7 @@ const PIPES = [
         ...DIRECTIVES,
         ...PIPES,
         CopyImageToClipboardDirective,
+        FullImgWrapperDirective,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [

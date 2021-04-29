@@ -20,6 +20,7 @@ export class TranslateAnswerComponent implements OnInit {
     form: FormGroup;
     translatedAnswer = '';
     isUploadingImage = false;
+    isInvalidTranslation = false;
     imageIdList = [];
     isPosting = false;
     question: any;
@@ -90,6 +91,7 @@ export class TranslateAnswerComponent implements OnInit {
     onChangeTranslationLanguage(selectedLanguage: string): void {
         if (selectedLanguage === this.originLanguage) {
             this.toastrService.error('Cannot translate in origin language.');
+            this.isInvalidTranslation = true;
             return;
         }
         if (
@@ -97,8 +99,10 @@ export class TranslateAnswerComponent implements OnInit {
             this.answer.lang_code === selectedLanguage
         ) {
             this.toastrService.error('This answer was already translated in selected language');
+            this.isInvalidTranslation = true;
             return;
         }
+        this.isInvalidTranslation = false;
         if (
             this.question.translations.find((item: any) => item.language === selectedLanguage) ||
             this.question.lang_code === selectedLanguage
