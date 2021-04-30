@@ -15,9 +15,9 @@
     <div class="bg-f8 py-4">
         <p-tabView>
             <p-tabPanel [header]="'translation' | translate">
-                <div class="p-4 bg-f8">
+                <div class="px-2 py-3 p-md-4 bg-f8">
                     <form [formGroup]="form">
-                        <div class="sewn-form-field language-container mb-4">
+                        <div class="sewn-form-field language-container mb-3 mb-md-4">
                             <p-dropdown
                                 [options]="applicationLanguages"
                                 (onChange)="onChangeTranslationLanguage($event.value)"
@@ -32,7 +32,7 @@
                                 {{ 'required_field' | translate }}
                             </div>
                         </div>
-                        <div *ngIf="needToTranslateQuestion" class="sewn-form-field w-100 mb-4">
+                        <div *ngIf="needToTranslateQuestion" class="sewn-form-field w-100 mb-3 mb-md-4">
                             <input
                                 class="w-100"
                                 type="text"
@@ -57,7 +57,7 @@
                 </div>
             </p-tabPanel>
             <p-tabPanel [header]="'see_original_post' | translate">
-                <div class="p-4 bg-f8">
+                <div class="px-2 py-3 p-md-4 bg-f8">
                     <div class="border-main bg-white p-3 br-4 fnt-14 fnt-muli text-clr334 mb-4">
                         <div class="font-weight-bold mb-3">{{ 'original_question' | translate }}:</div>
                         <div>{{ originAnswer.question }}</div>
@@ -71,7 +71,7 @@
                 </div>
             </p-tabPanel>
         </p-tabView>
-        <div class="row mt-2 px-4">
+        <div class="row mt-2 px-2 px-md-4">
             <div class="col-md-6 order-2 order-md-1">
                 <button routerLink="/coffee-lab/overview/qa-forum" class="btn-stroked px-4 w-mob-100 mb-2 mb-md-0">
                     {{ 'cancel' | translate }}

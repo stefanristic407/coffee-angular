@@ -1,8 +1,17 @@
+@import "variables";
+
 ::ng-deep {
     .tabview-create-post {
         .p-tabview-nav {
             li {
                 margin-right: 0;
+                @media (max-width: 767px) {
+                    padding-top: 16px;
+                    border-right: 1px solid $secondary-border-color;
+                }
+                &:nth-child(3) {
+                    border-right-width: 0;
+                }
                 .p-tabview-nav-link {
                     padding: 0 16px 4px 16px !important;
                     img {

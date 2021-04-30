@@ -1,5 +1,5 @@
-<div class="border-main br-4 p-4">
-    <div class="bg-f8 br-4 p-4 mb-45">
+<div class="border-md-main br-4 p-0 p-md-4">
+    <div class="bg-f8 br-4 px-2 py-25 p-md-4 mb-0 mb-md-45">
         <div class="d-flex align-items-center mb-3">
             <img
                 [src]="authService.currentUser?.profile_image_thumb_url || 'assets/images/default-avatar.png'"
@@ -12,7 +12,7 @@
                 {{ authService.currentUser?.firstname }} (you)
             </div>
         </div>
-        <div class="px-4">
+        <div class="px-0 px-md-4">
             <div *ngIf="forumType === 'answer'">
                 <app-forum-editor
                     [(content)]="content"
@@ -36,36 +36,38 @@
         </div>
     </div>
 
-    <div class="d-flex align-items-center mb-4 mb-md-5">
-        <p-checkbox
-            [(ngModel)]="isAllowTranslation"
-            [binary]="true"
-            [label]="'allow_translations_by_other_authors' | translate"
-        ></p-checkbox>
-        <i class="pi pi-info-circle text-clr588 fnt-16 ml-2"></i>
-    </div>
-    <div class="row">
-        <div class="col-md-6 order-2 order-md-1">
-            <button routerLink="/coffee-lab/overview/qa-forum" class="btn-stroked px-4 w-mob-100 mb-2 mb-md-0">
-                {{ 'cancel' | translate }}
-            </button>
+    <div class="pt-2 pt-md-0 bg-f8 bg-md-white">
+        <div class="d-flex align-items-center mb-4 mb-md-5">
+            <p-checkbox
+                    [(ngModel)]="isAllowTranslation"
+                    [binary]="true"
+                    [label]="'allow_translations_by_other_authors' | translate"
+            ></p-checkbox>
+            <i class="pi pi-info-circle text-clr588 fnt-16 ml-2"></i>
         </div>
-        <div class="col-md-6 order-1 order-md-2">
-            <div class="d-flex justify-content-end flex-column flex-md-row">
-                <button
-                    [disabled]="isPosting || isUploadingImage"
-                    (click)="onPost('DRAFT')"
-                    class="btn-stroked px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0"
-                >
-                    {{ 'save_as_draft' | translate }}
+        <div class="row pb-4 px-2 px-md-0">
+            <div class="col-md-6 order-2 order-md-1">
+                <button routerLink="/coffee-lab/overview/qa-forum" class="btn-stroked px-4 w-mob-100 mb-2 mb-md-0">
+                    {{ 'cancel' | translate }}
                 </button>
-                <button
-                    [disabled]="isPosting || isUploadingImage"
-                    (click)="onPost('PUBLISHED')"
-                    class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
-                >
-                    {{ 'submit' | translate }}
-                </button>
+            </div>
+            <div class="col-md-6 order-1 order-md-2">
+                <div class="d-flex justify-content-end flex-column flex-md-row">
+                    <button
+                            [disabled]="isPosting || isUploadingImage"
+                            (click)="onPost('DRAFT')"
+                            class="btn-stroked px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0"
+                    >
+                        {{ 'save_as_draft' | translate }}
+                    </button>
+                    <button
+                            [disabled]="isPosting || isUploadingImage"
+                            (click)="onPost('PUBLISHED')"
+                            class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
+                    >
+                        {{ 'submit' | translate }}
+                    </button>
+                </div>
             </div>
         </div>
     </div>
