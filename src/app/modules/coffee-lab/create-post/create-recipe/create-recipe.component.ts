@@ -156,8 +156,10 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
                     allow_translation: res.result.allow_translation,
                     video_id: res.result?.video_id,
                 });
-                this.isShowVideo = true;
-                this.videoUrl = res.result.video_url;
+                if (res.result.video_url) {
+                    this.isShowVideo = true;
+                    this.videoUrl = res.result.video_url;
+                }
             } else {
                 this.toaster.error('Error while get recipe');
                 this.location.back();

@@ -103,7 +103,7 @@ export class ForumMenuComponent implements OnInit {
             if (res.success) {
                 this.toastService.success('Successfully saved');
             } else {
-                if (res?.messages?.[`${this.forumType}_id`][0] === 'already_exists') {
+                if (res?.messages.length && res?.messages?.[`${this.forumType}_id`][0] === 'already_exists') {
                     this.toastService.error('You already saved this post');
                 } else {
                     this.toastService.error('Error while save post');
