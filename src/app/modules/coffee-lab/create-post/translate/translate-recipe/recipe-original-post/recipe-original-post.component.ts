@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { CoffeeLabService } from '@services';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: 'app-recipe-original-post',
@@ -11,12 +12,14 @@ export class RecipeOriginalPostComponent implements OnInit, OnChanges {
     id: string | number = '';
     isLoading = true;
     detailsData: any;
-    constructor(private coffeeLabService: CoffeeLabService) {}
+    roasterId: string;
+    constructor(private coffeeLabService: CoffeeLabService, private cookieService: CookieService) {}
 
     ngOnInit(): void {}
 
     ngOnChanges(): void {
         console.log('recipeId', this.recipeId);
+        this.roasterId = this.cookieService.get('roaster_id');
         if (this.recipeId) {
             this.getCoffeeDetails(true);
         }
@@ -24,9 +27,9 @@ export class RecipeOriginalPostComponent implements OnInit, OnChanges {
 
     getCoffeeDetails(isReloading: boolean): void {
         this.isLoading = isReloading;
-        this.coffeeLabService.getForumDetails('recipe', this.recipeId).subscribe((res: any) => {
+        this.coffeeLabService.getRecipeById('recipe', this.recipeId, this.roasterId).subscribe((res: any) => {
             if (res.success) {
-                console.log('coffe details--------', res);
+                console.log('coffee details--------', res);
                 this.detailsData = res.result;
             }
             this.isLoading = false;
@@ -34,7 +37,11 @@ export class RecipeOriginalPostComponent implements OnInit, OnChanges {
     }
 
     copyImage(id: string): void {
-        const ele = document.getElementById(id);
-        ele.click();
+        if (id === 'stepImg') {
+            const ele = document.getElementById(id);
+            ele.click();
+        } else {
+            this.coffeeLabService.copyCoverImage.emit(this.detailsData);
+        }
     }
 }

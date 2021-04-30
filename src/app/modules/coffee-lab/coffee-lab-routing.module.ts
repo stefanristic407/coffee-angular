@@ -90,6 +90,13 @@ const routes: Routes = [
                     {
                         path: 'tab',
                         component: TabContainerComponent,
+                        children: [
+                            {
+                                path: 'recipe',
+                                component: CreateRecipeComponent,
+                                data: { type: 'recipe' },
+                            },
+                        ],
                     },
                     {
                         path: 'answer',

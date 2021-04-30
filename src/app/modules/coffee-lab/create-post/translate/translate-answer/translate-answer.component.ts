@@ -16,7 +16,7 @@ export class TranslateAnswerComponent implements OnInit {
     answer: any;
     originAnswer: any;
     isLoading = false;
-    applicationLanguages = APP_LANGUAGES;
+    applicationLanguages = [];
     form: FormGroup;
     translatedAnswer = '';
     isUploadingImage = false;
@@ -62,12 +62,14 @@ export class TranslateAnswerComponent implements OnInit {
                     this.coffeeLabService.getForumDetails('answer', res.result.parent_answer_id).subscribe((originAnswerRes: any) => {
                         if (originAnswerRes.success) {
                             this.originAnswer = originAnswerRes.result;
+                            this.setLanguageOptions();
                         } else {
                             this.toastrService.error('Error while get origin answer');
                         }
                     });
                 } else {
                     this.originAnswer = this.answer;
+                    this.setLanguageOptions();
                 }
                 this.coffeeLabService
                     .getForumDetails('question', this.answer.question_id)
@@ -84,6 +86,17 @@ export class TranslateAnswerComponent implements OnInit {
                 this.isLoading = false;
                 this.toastrService.error('Error while get answer');
                 this.router.navigate(['/coffee-lab']);
+            }
+        });
+    }
+
+    setLanguageOptions(): void {
+        console.log('origin answer >>>>>>>', this.originAnswer);
+        this.applicationLanguages = APP_LANGUAGES.filter((item: any) => {
+            if (
+                item.value !== this.originLanguage
+                && this.originAnswer.translations?.findIndex(translate => translate.language === item.value) === -1) {
+                return item;
             }
         });
     }

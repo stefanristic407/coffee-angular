@@ -255,8 +255,8 @@
                                 [width]="100"
                                 [height]="100"
                             ></app-uploader>
-                            <small *ngIf="infoForm.controls.product_label_icon.errors?.fileCount" class="p-error">
-                                Please upload 4 icons
+                            <small *ngIf="infoForm.controls.product_label_icon.errors?.required" class="p-error">
+                                Please upload icons
                             </small>
                         </div>
                     </div>

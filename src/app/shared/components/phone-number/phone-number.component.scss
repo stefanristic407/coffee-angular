@@ -49,7 +49,7 @@
     }
 }
 
-::ng-deep .ng-invalid.ng-dirty {
+::ng-deep .ng-invalid.ng-dirty + .iti {
     .phone-number-input {
         border: 1px solid $error-border-color !important;
         &:hover {

@@ -14,6 +14,7 @@ import { ApiResponse } from '@models';
 export class CoffeeLabService extends ApiService {
     @Output() originalPost = new EventEmitter();
     forumDeleteEvent = new EventEmitter();
+    copyCoverImage = new EventEmitter();
     forumLanguage = new BehaviorSubject('en');
     organization = 'ro';
     organizationId = this.cookieSrv.get('roaster_id');
@@ -73,6 +74,10 @@ export class CoffeeLabService extends ApiService {
 
     getForumDetails(type: string, idOrSlug: any): Observable<any> {
         return this.post(this.orgPostUrl, `general/${type}s/${idOrSlug}`, 'GET');
+    }
+
+    getRecipeById(type: string, idOrSlug: any, roasterId): Observable<any> {
+        return this.post(this.orgPostUrl, `ro/${roasterId}/${type}s/${idOrSlug}`, 'GET');
     }
 
     getCommentList(type: string, slug: any): any {

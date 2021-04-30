@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { MenuItem } from 'primeng/api';
-import { CoffeeLabService } from '@services';
+import { AuthService, CoffeeLabService } from '@services';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-coffee-recipes-view',
     templateUrl: './coffee-recipes-view.component.html',
     styleUrls: ['./coffee-recipes-view.component.scss'],
 })
-export class CoffeeRecipesViewComponent implements OnInit {
+export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
+    destroy$: Subject<boolean> = new Subject<boolean>();
     isAvailableTranslation?: string;
     organizationId: any;
     label?: string;
@@ -19,6 +21,8 @@ export class CoffeeRecipesViewComponent implements OnInit {
     searchIngredient = '';
     coffeeRecipeData: any[] = [];
     isLoading = false;
+    forumLanguage: string;
+    forumDeleteSub: Subscription;
     translationsList: any[] = [
         {
             label: 'Yes',
@@ -62,13 +66,20 @@ export class CoffeeRecipesViewComponent implements OnInit {
         private activateRoute: ActivatedRoute,
         private coffeeLab: CoffeeLabService,
         private cookieService: CookieService,
+        public authService: AuthService,
     ) {
         this.pageDesc = this.activateRoute.snapshot.routeConfig?.path;
     }
 
     ngOnInit(): void {
         this.organizationId = +this.cookieService.get('roaster_id');
-        this.getCoffeeRecipesData();
+        this.coffeeLab.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
+            this.forumLanguage = language;
+            this.getCoffeeRecipesData();
+        });
+        this.forumDeleteSub = this.coffeeLab.forumDeleteEvent.subscribe(() => {
+            this.getCoffeeRecipesData();
+        });
     }
 
     getCoffeeRecipesData(): void {
@@ -98,20 +109,26 @@ export class CoffeeRecipesViewComponent implements OnInit {
             this.coffeeLab.getMyForumList('recipe').subscribe((res) => {
                 if (res.success) {
                     this.coffeeRecipeData = res.result;
+                    this.coffeeRecipeData.map((item) => {
+                        item.description = this.getJustText(item.description);
+                        return item;
+                    });
                 } else {
                     this.toastService.error('Cannot get Recipes data');
                 }
                 this.isLoading = false;
             });
         } else {
-            this.coffeeLab.getForumList('recipe', params).subscribe((res) => {
+            this.coffeeLab.getFOrganizationForumList('recipe', params, this.forumLanguage).subscribe((res) => {
                 if (res.success) {
                     console.log('response----->>>>>', res);
-                    this.coffeeRecipeData = res.result;
-                    this.coffeeRecipeData.map((item) => {
-                        item.description = this.getJustText(item.description);
-                        return item;
-                    });
+                    if (res.result) {
+                        this.coffeeRecipeData = res.result;
+                        this.coffeeRecipeData.map((item) => {
+                            item.description = this.getJustText(item.description);
+                            return item;
+                        });
+                    }
                     console.log('coffeeRecipeData Data---->>>', this.coffeeRecipeData);
                 } else {
                     this.toastService.error('Cannot get Recipes data');
@@ -122,13 +139,18 @@ export class CoffeeRecipesViewComponent implements OnInit {
     }
 
     getJustText(content: any) {
-        console.log('content---->>>>>', content);
         const contentElement = document.createElement('div');
         contentElement.innerHTML = content;
         const images = contentElement.querySelectorAll('img');
-        for (let i = 0; i < images.length; i++) {
-            images[0].parentNode.removeChild(images[0]);
-        }
+        images.forEach((image) => {
+            image.parentNode.removeChild(image);
+        });
         return contentElement.innerHTML;
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next(true);
+        this.destroy$.unsubscribe();
+        this.forumDeleteSub?.unsubscribe();
     }
 }
