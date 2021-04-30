@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { CoffeeLabService } from '@services';
+import { AuthService, CoffeeLabService } from '@services';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-coffee-recipes-view',
@@ -22,6 +22,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
     coffeeRecipeData: any[] = [];
     isLoading = false;
     forumLanguage: string;
+    forumDeleteSub: Subscription;
     translationsList: any[] = [
         {
             label: 'Yes',
@@ -65,6 +66,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
         private activateRoute: ActivatedRoute,
         private coffeeLab: CoffeeLabService,
         private cookieService: CookieService,
+        public authService: AuthService,
     ) {
         this.pageDesc = this.activateRoute.snapshot.routeConfig?.path;
     }
@@ -73,6 +75,9 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
         this.organizationId = +this.cookieService.get('roaster_id');
         this.coffeeLab.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
             this.forumLanguage = language;
+            this.getCoffeeRecipesData();
+        });
+        this.forumDeleteSub = this.coffeeLab.forumDeleteEvent.subscribe(() => {
             this.getCoffeeRecipesData();
         });
     }
@@ -114,7 +119,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
                 this.isLoading = false;
             });
         } else {
-            this.coffeeLab.getForumList('recipe', params, this.forumLanguage).subscribe((res) => {
+            this.coffeeLab.getFOrganizationForumList('recipe', params, this.forumLanguage).subscribe((res) => {
                 if (res.success) {
                     console.log('response----->>>>>', res);
                     if (res.result) {
@@ -146,5 +151,6 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.destroy$.next(true);
         this.destroy$.unsubscribe();
+        this.forumDeleteSub?.unsubscribe();
     }
 }
