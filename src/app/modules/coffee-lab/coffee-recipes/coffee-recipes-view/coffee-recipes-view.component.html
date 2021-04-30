@@ -1,7 +1,8 @@
 <div class="coffee-recipes-view-container">
+    <div class="fnt-18 fnt-md-24 font-weight-bold pb-md-45 pb-3 d-md-none">{{ 'recipes' | translate }}</div>
     <div class="row gutter-32">
         <div class="col-lg-8">
-            <div class="p-3 bg-f8 br-4 d-flex align-items-center">
+            <div class="p-3 bg-f8 br-4 d-flex align-items-center mb-4 mb-md-0">
                 <img
                     [src]="authService.currentUser?.profile_image_thumb_url || 'assets/images/default-avatar.png'"
                     alt="avatar"
@@ -33,15 +34,17 @@
             </div>
         </div>
     </div>
-    <div class="row gutter-32 align-items-center">
+    <div class="row gutter-32 align-items-center d-none d-md-block">
         <div class="col-lg-8">
-            <div class="recepie-text">{{ 'find_something_interesting' | translate }}</div>
+            <div class="fnt-18 fnt-md-24 font-weight-bold py-45">
+                {{ 'find_something_interesting' | translate }}
+            </div>
         </div>
     </div>
 
     <div class="d-flex align-items-md-center justify-content-between py-4 pt-lg-0 pb-md-4 pb-lg-45">
-        <div class="d-flex flex-wrap filter-dropdown">
-            <div class="mt-sm-16 pl-xsm-0 mt-md-4 mt-lg-0">
+        <div class="d-block flex-wrap d-md-flex">
+            <div class="mt-md-4 mt-lg-0">
                 <p-dropdown
                     [options]="labels"
                     optionLabel="label"
@@ -49,12 +52,12 @@
                     [showClear]="true"
                     [(ngModel)]="label"
                     (onChange)="getCoffeeRecipesData()"
-                    placeholder="Labels"
+                    placeholder="Levels"
                     styleClass="round-border {{ label ? 'highlight' : '' }}"
                 >
                 </p-dropdown>
             </div>
-            <div class="pl-3 mt-sm-16 pl-xsm-0 mt-md-4 mt-lg-0">
+            <div class="pl-md-3 mt-3 mt-lg-0 mt-md-4 mt-lg-0">
                 <p-dropdown
                     [options]="translationsList"
                     optionLabel="label"
@@ -67,7 +70,7 @@
                 >
                 </p-dropdown>
             </div>
-            <div class="pl-3 mt-sm-16 pl-xsm-0 mt-md-4 mt-lg-0 ingredient-field">
+            <div class="pl-md-3 mt-3 mt-lg-0 mt-md-4 mt-lg-0 ingredient-field">
                 <input
                     class="w-100 fnt-16"
                     type="text"
@@ -79,14 +82,14 @@
                 />
             </div>
         </div>
-        <div class="mt-sm-16 mt-md-4 mt-lg-0">
+        <div class="mt-md-4 mt-lg-0">
             <p-dropdown
                 [options]="orderList"
                 optionLabel="label"
                 optionValue="value"
                 [(ngModel)]="selectedOrder"
                 (onChange)="getCoffeeRecipesData()"
-                styleClass="no-border {{ selectedOrder ? 'highlight' : '' }}"
+                styleClass="no-border mobile-ui {{ selectedOrder ? 'highlight' : '' }}"
             >
             </p-dropdown>
         </div>
@@ -110,15 +113,15 @@
                     <img [src]="coffee.cover_image_url" class="w-100 my-3 my-md-4" />
                     <span class="expertise fnt-12"> {{ coffee.expertise }} </span>
                 </div>
-                <a class="fnt-muli fnt-14 fnt-bold text-clr334 cursor-pointer">
+                <a class="fnt-muli fnt-lg-14 fnt-16 fnt-bold text-clr334 cursor-pointer">
                     {{ coffee?.name }}
                     <div class="py-3 m-0 d-flex">
                         <div class="heading fnt-muli fnt-14 fnt-normal">{{ 'preparation_time' | translate }}:</div>
-                        <span> {{ coffee.preparation_time }}{{ coffee.preparation_time_unit }} </span>
+                        <span class="fnt-600"> {{ coffee.preparation_time }}{{ coffee.preparation_time_unit }} </span>
                     </div>
                     <div class="m-0 d-flex">
                         <div class="heading fnt-muli fnt-14 fnt-normal">{{ 'ingredients' | translate }}:</div>
-                        <span class="value fnt-muli fnt-14">
+                        <span class="value fnt-muli fnt-14 fnt-600">
                             {{ coffee.ingredients }}
                         </span>
                     </div>

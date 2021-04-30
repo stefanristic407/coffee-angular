@@ -52,7 +52,12 @@
                         <div class="d-flex w-100">
                             <div class="pr-45 expert-sm">
                                 <div class="m-0 d-flex">
-                                    <span><img src="/assets/images/beginner-expertise.svg" /></span>
+                                    <span class="d-none d-md-block"
+                                        ><img src="/assets/images/beginner-expertise.svg"
+                                    /></span>
+                                    <span class="d-md-none"
+                                        ><img src="/assets/images/beginner-expertise-mb.svg"
+                                    /></span>
                                     <div class="expertise pl-2">{{ 'expertise_level' | translate }}</div>
                                 </div>
                                 <div class="expertise-level m-0 d-flex">
@@ -64,7 +69,8 @@
                             </div>
                             <div class="pr-45 preparation-sm">
                                 <div class="m-0 d-flex">
-                                    <span><img src="/assets/images/p-time.svg" /></span>
+                                    <span class="d-none d-md-block"><img src="/assets/images/p-time.svg" /></span>
+                                    <span class="d-md-none"><img src="/assets/images/p-time-mb.svg" /></span>
                                     <div class="expertise pl-2">{{ 'preparation_time' | translate }}</div>
                                 </div>
                                 <div class="expertise-level m-0">
@@ -78,7 +84,8 @@
                         <div class="d-flex w-100">
                             <div class="pr-45 cooking-sm">
                                 <div class="m-0 d-flex">
-                                    <span><img src="/assets/images/cooking-time.svg" /></span>
+                                    <span class="d-none d-md-block"><img src="/assets/images/cooking-time.svg" /></span>
+                                    <span class="d-md-none"><img src="/assets/images/cooking-time-mb.svg" /></span>
                                     <div class="expertise pl-2">{{ 'cooking _time' | translate }}</div>
                                 </div>
                                 <div class="expertise-level m-0 d-flex">
@@ -93,13 +100,12 @@
                             </div>
                             <div class="d-flex flex-wrap serving-sm">
                                 <div class="m-0 d-flex">
-                                    <span><img src="/assets/images/beginner-expertise.svg" /></span>
+                                    <span class="d-none d-md-block"><img src="/assets/images/serving.svg" /></span>
+                                    <span class="d-md-none"><img src="/assets/images/serving-mb.svg" /></span>
                                     <div class="expertise pl-2">{{ 'serving' | translate }}</div>
                                 </div>
                                 <div class="expertise-level m-0 d-flex">
-                                    <span style="visibility: hidden"
-                                        ><img src="/assets/images/beginner-expertise.svg"
-                                    /></span>
+                                    <span style="visibility: hidden"><img src="/assets/images/serving.svg" /></span>
                                     <div class="pl-2">{{ detailsData?.serves }}</div>
                                 </div>
                             </div>
