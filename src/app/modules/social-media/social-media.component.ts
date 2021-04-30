@@ -49,20 +49,37 @@ export class SocialMediaComponent implements OnInit {
     download(socialMediaItem) {
         console.log('download data356: ', socialMediaItem);
         this.isDownload = true;
-        this.downloads.download(socialMediaItem.url, socialMediaItem.name, socialMediaItem.mime).subscribe(
-            (res: Download) => {
-                console.log('download res: ', res);
-                this.downloadStatus = res;
-                if (this.downloadStatus.progress === 100) {
+        if (socialMediaItem.type === 'IMAGE') {
+            this.downloads.imageDownload(socialMediaItem.url, socialMediaItem.name, socialMediaItem.mime).subscribe(
+                (res: Download) => {
+                    console.log('download res: ', res);
+                    this.downloadStatus = res;
+                    if (this.downloadStatus.progress === 100) {
+                        this.isDownload = false;
+                    }
+                },
+                (error) => {
                     this.isDownload = false;
-                }
-            },
-            (error) => {
-                this.isDownload = false;
-                console.log('download social error: ', error);
-                this.toastrService.error('Download failed');
-            },
-        );
+                    console.log('download social error: ', error);
+                    this.toastrService.error('Download failed');
+                },
+            );
+        } else {
+            this.downloads.download(socialMediaItem.url, socialMediaItem.name, socialMediaItem.mime).subscribe(
+                (res: Download) => {
+                    console.log('download res: ', res);
+                    this.downloadStatus = res;
+                    if (this.downloadStatus.progress === 100) {
+                        this.isDownload = false;
+                    }
+                },
+                (error) => {
+                    this.isDownload = false;
+                    console.log('download social error: ', error);
+                    this.toastrService.error('Download failed');
+                },
+            );
+        }
     }
 
     openModal(template: TemplateRef<any>) {
