@@ -1,7 +1,7 @@
 <div class="d-md-flex justify-content-between mb-4 mb-md-25">
     <p-breadcrumb [model]="breadItems" styleClass="d-none d-md-block"></p-breadcrumb>
     <a class="back-page d-md-none" routerLink="/brand-profile"> {{ 'back' | translate }} </a>
-    <a class="btn-raised d-none d-md-block" [href]="roasterSlug | roasterBrandLink: pageSlug" target="_blank">
+    <a class="btn-raised d-none d-md-block" [href]="orgId | roasterBrandCmsLink: pageSlug" target="_blank">
         {{ 'edit_on_webpage' | translate }}
     </a>
 </div>
@@ -22,6 +22,6 @@
         <button type="button" class="btn-raised" (click)="savePageData()">{{ 'save' | translate }}</button>
     </div>
 </div>
-<a class="btn-raised w-100 mb-3 d-md-none" [href]="roasterSlug | roasterBrandLink: pageSlug" target="_blank">
+<a class="btn-raised w-100 mb-3 d-md-none" [href]="orgId | roasterBrandCmsLink: pageSlug" target="_blank">
     {{ 'edit_on_webpage' | translate }}
 </a>

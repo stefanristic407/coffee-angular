@@ -6,7 +6,7 @@
                 <p-dropdown
                     [options]="sortOptions"
                     [(ngModel)]="sortBy"
-                    (ngModelChange)="getComments()"
+                    (ngModelChange)="getAnswers()"
                     styleClass="no-border no-padding"
                     optionLabel="label"
                     optionValue="value"
@@ -14,7 +14,7 @@
             </div>
         </div>
     </div>
-    <div>
+    <div *ngIf="!isLoading">
         <div class="gutter-24" *ngFor="let answer of answers; let last = last">
             <div class="w-100 br-4 border-main mb-4 mb-md-3 mb-lg-4">
                 <div class="p-md-4 p-3 bg">
@@ -51,8 +51,12 @@
                             </div>
                         </div>
                         <div class="mobile-dot">
-                            <p-menu #menu [popup]="true" [model]="questionMenuItems" appendTo="body"> </p-menu>
-                            <i class="pi pi-ellipsis-h text-clr588 cursor-pointer" (click)="menu.toggle($event)"></i>
+                            <app-forum-menu
+                                [selectedItem]="answer"
+                                forumType="answer"
+                                [enableEdit]="!isMyPostsPage"
+                                [enableDelete]="!isMyPostsPage"
+                            ></app-forum-menu>
                         </div>
                     </div>
                     <div
@@ -87,20 +91,44 @@
                                         {{ answer?.answer_created_at | amTimeAgo }}
                                     </div>
                                 </div>
-                                <div class="fnt-muli fnt-12 text-clr588 d-none d-md-block">
-                                    {{ answer?.answer_created_at | date: 'shortTime' }}
+                                <div
+                                    *ngIf="answer.question_user_id == userId"
+                                    class="fnt-muli fnt-12 text-clr588 d-none d-md-block"
+                                >
+                                    <app-forum-menu
+                                        [selectedItem]="answer"
+                                        forumType="answer"
+                                        [enableEdit]="isMyPostsPage"
+                                        [enableDelete]="isMyPostsPage"
+                                        [enableShare]="!isMyPostsPage"
+                                        [enableSave]="!isMyPostsPage"
+                                    ></app-forum-menu>
                                 </div>
                             </div>
                         </div>
                         <div class="fnt-muli fnt-14 text-clr24 lh-15 mt-2 pt-1">
-                            <span [innerHTML]="answer?.answer | translate | convertToShortDescription: 20"></span>
+                            <span
+                                appFullImgWrapper
+                                [innerHTML]="answer?.answer | translate | convertToShortDescription: 20"
+                            ></span>
                         </div>
                     </div>
                     <div class="mt-4">
-                        <a class="custom-link ml-1">{{ 'read_complete_answer' | translate }}</a>
+                        <a
+                            class="custom-link ml-1"
+                            [routerLink]="'/coffee-lab/questions/' + answer.question_slug"
+                            [queryParams]="{ answer: answer.answer_id }"
+                            >{{ 'read_complete_answer' | translate }}</a
+                        >
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div *ngIf="isLoading">
+        <app-loading></app-loading>
+    </div>
+    <div *ngIf="!isLoading && !answers.length" class="text-center my-4 fnt-muli text-clr24">
+        {{ 'no_data_is_available' | translate }}
     </div>
 </div>

@@ -1,13 +1,19 @@
 <div>
     <h1 class="fnt-18 fnt-md-24 fnt-muli fnt-bold text-clr334 mb-0 d-block d-md-none">{{ 'articles' | translate }}</h1>
-    <div class="d-flex flex-column flex-lg-row justify-content-lg-between pt-3 pt-md-0">
-        <div class="col-12 col-lg-8 p-0 pr-lg-3">
+    <div class="row gutter-32 justify-content-lg-between pt-3 pt-md-0">
+        <div class="col-12 col-lg-8">
             <div class="p-3 bg-f8 br-4 d-flex align-items-center">
-                <img src="assets/images/avatar.png" class="mr-3 rounded-circle" alt="avatar" width="40" height="40" />
+                <img
+                    [src]="authService.currentUser?.profile_image_thumb_url || 'assets/images/default-avatar.png'"
+                    alt="avatar"
+                    class="rounded-circle mr-3"
+                    width="40"
+                    height="40"
+                />
                 <div class="sewn-form-field w-100 mb-0">
                     <input
                         routerLink="/coffee-lab/create-post/tab"
-                        [queryParams]="{type: 'article'}"
+                        [queryParams]="{ type: 'article' }"
                         type="text"
                         pInputText
                         placeholder="{{ 'publish_article' | translate }}"
@@ -15,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-4 p-0 pl-lg-3 d-none d-lg-block">
+        <div class="col-12 col-lg-4 d-none d-lg-block">
             <span class="custom-search h-fit-content mt-3 mt-md-0">
                 <input
                     class="w-100"

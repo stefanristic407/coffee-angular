@@ -59,7 +59,7 @@ export class SustainabilityComponent implements OnInit {
             section4_title: ['', Validators.compose([Validators.required, maxWordCountValidator(15)])],
             section4_description: ['', Validators.compose([Validators.required, maxWordCountValidator(70)])],
             product_short_description: ['', Validators.compose([Validators.required, maxWordCountValidator(40)])],
-            product_label_icon: [null, Validators.compose([fileCountValidator(4)])],
+            product_label_icon: [null, Validators.compose([Validators.required])],
         });
         this.getSubstainabilityDetails();
     }
