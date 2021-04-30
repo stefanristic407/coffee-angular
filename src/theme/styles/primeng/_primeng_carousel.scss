@@ -11,7 +11,9 @@
             display: none;
         }
         .p-carousel-indicators {
+            padding-bottom: 8px;
             .p-carousel-indicator {
+                margin-bottom: 0 !important;
                 &.p-highlight button {
                     background-color: #80460b;
                 }
