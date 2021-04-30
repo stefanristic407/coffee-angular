@@ -194,7 +194,13 @@ const COMPONENTS = [
     UserDetailComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
-const DIRECTIVES = [WordLimitDirective, RatingDirective, LifecyclehookDirective, ChatHighlighterDirective, FullImgWrapperDirective];
+const DIRECTIVES = [
+    WordLimitDirective,
+    RatingDirective,
+    LifecyclehookDirective,
+    ChatHighlighterDirective,
+    FullImgWrapperDirective,
+];
 
 import { SearchFilterPipe } from './pipes/chat/search-filter.pipe';
 import { CountryPipe } from './pipes/country/country.pipe';
@@ -204,6 +210,7 @@ import { LotBrandLinkPipe } from './pipes/link/lot-brand-link.pipe';
 import { ProfileLinkPipe } from './pipes/link/profile-link.pipe';
 import { ReviewLinkPipe } from './pipes/link/review-link.pipe';
 import { RoasterBrandLinkPipe } from './pipes/link/roaster-brand-link.pipe';
+import { RoasterBrandCmsLinkPipe } from './pipes/link/roaster-brand-cms-link.pipe';
 import { OrderRatingLinkPipe } from './pipes/link/order-rating-link.pipe';
 import { OrderLinkPipe } from './pipes/link/order-link.pipe';
 import { FileIconPipe } from './pipes/file-icon.pipe';
@@ -226,6 +233,7 @@ const PIPES = [
     ProfileLinkPipe,
     ReviewLinkPipe,
     RoasterBrandLinkPipe,
+    RoasterBrandCmsLinkPipe,
     OrderRatingLinkPipe,
     OrderLinkPipe,
     OrgTypePipe,

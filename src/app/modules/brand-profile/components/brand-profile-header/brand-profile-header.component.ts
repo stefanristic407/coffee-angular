@@ -12,6 +12,7 @@ export class BrandProfileHeaderComponent implements OnInit {
     @Output() saveClick = new EventEmitter();
     breadItems: any[];
     roasterSlug: string;
+    orgId: number;
     desp: any = {
         'home-page': 'Add details according to respective sections to create your brand profile website',
         'about-us': 'Add details according to respective sections to create your brand profile website',
@@ -22,6 +23,7 @@ export class BrandProfileHeaderComponent implements OnInit {
 
     constructor(private cookieService: CookieService, public globals: GlobalsService) {
         this.roasterSlug = this.cookieService.get('roasterSlug');
+        this.orgId = +this.cookieService.get('roaster_id');
     }
 
     ngOnInit(): void {
