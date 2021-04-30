@@ -54,8 +54,8 @@
                             <app-forum-menu
                                 [selectedItem]="answer"
                                 forumType="answer"
-                                [enableEdit]="isMyPostsPage"
-                                [enableDelete]="isMyPostsPage"
+                                [enableEdit]="!isMyPostsPage"
+                                [enableDelete]="!isMyPostsPage"
                             ></app-forum-menu>
                         </div>
                     </div>
@@ -91,8 +91,18 @@
                                         {{ answer?.answer_created_at | amTimeAgo }}
                                     </div>
                                 </div>
-                                <div class="fnt-muli fnt-12 text-clr588 d-none d-md-block">
-                                    {{ answer?.answer_created_at | date: 'shortTime' }}
+                                <div
+                                    *ngIf="answer.question_user_id == userId"
+                                    class="fnt-muli fnt-12 text-clr588 d-none d-md-block"
+                                >
+                                    <app-forum-menu
+                                        [selectedItem]="answer"
+                                        forumType="answer"
+                                        [enableEdit]="isMyPostsPage"
+                                        [enableDelete]="isMyPostsPage"
+                                        [enableShare]="!isMyPostsPage"
+                                        [enableSave]="!isMyPostsPage"
+                                    ></app-forum-menu>
                                 </div>
                             </div>
                         </div>

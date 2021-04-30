@@ -17,6 +17,7 @@ export class MyCommentsComponent implements OnInit {
     ];
     sortBy = 'latest';
     roasterId: string;
+    userId: string;
     isLoading = false;
     isMyPostsPage = false;
     pageDesc: string;
@@ -27,6 +28,7 @@ export class MyCommentsComponent implements OnInit {
         private activateRoute: ActivatedRoute,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
+        this.userId = this.cookieService.get('user_id');
         this.pageDesc = this.activateRoute.snapshot.routeConfig?.path;
     }
 
@@ -44,11 +46,17 @@ export class MyCommentsComponent implements OnInit {
         this.isLoading = true;
         this.coffeeLabService.getMyForumList('my-comment').subscribe((res) => {
             this.comments = res.result.map((item) => {
+                const id = 'id';
                 if (item.post_slug) {
                     const slug = 'slug';
-                    const id = 'id';
                     item[slug] = item.post_slug;
                     item[id] = item.post_id;
+                }
+                if (item.comments) {
+                    item.comments.map((ele) => {
+                        ele[id] = ele.comment_id;
+                        return ele;
+                    });
                 }
                 return item;
             });

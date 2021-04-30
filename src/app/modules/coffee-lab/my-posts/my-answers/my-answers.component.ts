@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CoffeeLabService } from '@services';
+import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 @Component({
     selector: 'app-my-answers',
@@ -17,10 +18,16 @@ export class MyAnswersComponent implements OnInit {
     pageDesc: string;
     isMyPostsPage = false;
     isLoading = false;
+    userId: string;
     forumDeleteSub: Subscription;
 
-    constructor(private coffeeLabService: CoffeeLabService, private activateRoute: ActivatedRoute) {
+    constructor(
+        private coffeeLabService: CoffeeLabService,
+        private cookieService: CookieService,
+        private activateRoute: ActivatedRoute,
+    ) {
         this.pageDesc = this.activateRoute.snapshot.routeConfig?.path;
+        this.userId = this.cookieService.get('user_id');
     }
 
     ngOnInit(): void {

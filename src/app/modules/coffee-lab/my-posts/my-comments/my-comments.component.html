@@ -72,8 +72,8 @@
                             <app-forum-menu
                                 [selectedItem]="comment"
                                 forumType="comment"
-                                [enableEdit]="isMyPostsPage"
-                                [enableDelete]="isMyPostsPage"
+                                [enableEdit]="!isMyPostsPage"
+                                [enableDelete]="!isMyPostsPage"
                             ></app-forum-menu>
                         </div>
                         <div *ngIf="comment?.post_type" class="ml-5 d-md-none">
@@ -110,8 +110,18 @@
                                     <span>{{ cmt?.comment | translate | convertToShortDescription: 20 }}</span>
                                 </div>
                             </div>
-                            <div class="fnt-muli fnt-12 text-clr588 d-none d-md-block">
-                                {{ cmt?.posted_at | date: 'shortTime' }}
+                            <div
+                                *ngIf="comment.posted_by == userId"
+                                class="fnt-muli fnt-12 text-clr588 d-none d-md-block"
+                            >
+                                <app-forum-menu
+                                    [selectedItem]="cmt"
+                                    forumType="comment"
+                                    [enableEdit]="isMyPostsPage"
+                                    [enableDelete]="isMyPostsPage"
+                                    [enableShare]="!isMyPostsPage"
+                                    [enableSave]="!isMyPostsPage"
+                                ></app-forum-menu>
                             </div>
                         </div>
                     </div>
