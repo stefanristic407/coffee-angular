@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { DialogService } from 'primeng/dynamicdialog';
 import { DraftPostsComponent } from '@modules/coffee-lab/create-post/draft-posts/draft-posts.component';
-import { NavigationStart, Router } from '@angular/router';
 import { CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 
@@ -27,6 +26,7 @@ export class CreatePostComponent implements OnInit {
 
     getDrafts(): void {
         this.coffeeLabService.getDrafts().subscribe((res: any) => {
+            console.log('drafts >>>>>>>>>', res);
             if (res.success) {
                 this.drafts = res.result || [];
             } else {
@@ -36,10 +36,13 @@ export class CreatePostComponent implements OnInit {
     }
 
     onOpenDraftPosts(): void {
-        this.dialogService.open(DraftPostsComponent, {
+        const dialogRef = this.dialogService.open(DraftPostsComponent, {
             showHeader: false,
             styleClass: 'draft-posts',
             data: this.drafts,
+        });
+        dialogRef.onClose.subscribe(res => {
+            this.getDrafts();
         });
     }
 }

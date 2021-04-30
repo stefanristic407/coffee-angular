@@ -1,3 +1,4 @@
+@import 'variables';
 .coffee-recipes-view-container {
     .font-family {
         font-size: 14px;
@@ -24,11 +25,11 @@
         -webkit-backdrop-filter: blur(10px);
         backdrop-filter: blur(10px);
         background-color: rgba(116, 117, 136, 0.45);
-        color: #ffffff;
+        color: $white;
     }
     .heading {
         min-width: 150px;
-        color: #747588;
+        color: $muted-text-color;
     }
     .coffee-item {
         img {
@@ -69,7 +70,7 @@
         font-style: normal;
         line-height: normal;
         letter-spacing: normal;
-        color: #232334;
+        color: $general-text-color;
     }
     .coffee-wrapper {
         display: flex;

@@ -103,7 +103,7 @@ export class ForumMenuComponent implements OnInit {
             if (res.success) {
                 this.toastService.success('Successfully saved');
             } else {
-                if (res?.messages?.[`${this.forumType}_id`][0] === 'already_exists') {
+                if (res?.messages.length && res?.messages?.[`${this.forumType}_id`][0] === 'already_exists') {
                     this.toastService.error('You already saved this post');
                 } else {
                     this.toastService.error('Error while save post');
@@ -171,16 +171,18 @@ export class ForumMenuComponent implements OnInit {
                 styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
-            if (action === 'yes') {
-                this.coffeeLabService.deleteForumById(this.forumType, this.selectedItem.id).subscribe((res: any) => {
-                    if (res.success) {
-                        this.toastService.success(`You have deleted a ${this.forumType} successfully.`);
-                        this.coffeeLabService.forumDeleteEvent.emit();
-                    } else {
-                        this.toastService.error(`Failed to delete a ${this.forumType}.`);
-                    }
-                });
-            }
-        });
+                if (action === 'yes') {
+                    this.coffeeLabService
+                        .deleteForumById(this.forumType, this.selectedItem.id)
+                        .subscribe((res: any) => {
+                            if (res.success) {
+                                this.toastService.success(`You have deleted a ${this.forumType} successfully.`);
+                                this.coffeeLabService.forumDeleteEvent.emit();
+                            } else {
+                                this.toastService.error(`Failed to delete a ${this.forumType}.`);
+                            }
+                        });
+                }
+            });
     }
 }
