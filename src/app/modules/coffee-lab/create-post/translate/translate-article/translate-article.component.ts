@@ -15,7 +15,7 @@ export class TranslateArticleComponent implements OnInit {
     articleId: any;
     article: any;
     isLoading = false;
-    applicationLanguages = APP_LANGUAGES;
+    applicationLanguages: any[];
     articleForm: FormGroup;
     content = '';
     isUploadingImage = false;
@@ -59,6 +59,11 @@ export class TranslateArticleComponent implements OnInit {
             this.isLoading = false;
             if (res.success) {
                 this.article = res.result;
+                this.applicationLanguages = APP_LANGUAGES.filter(
+                    (item) =>
+                        item.value !== res.result.language &&
+                        !res.result.translated_articles?.find((lng) => lng.language === item.value),
+                );
             } else {
                 this.toastrService.error('Error while get article');
                 this.router.navigate(['/coffee-lab']);
