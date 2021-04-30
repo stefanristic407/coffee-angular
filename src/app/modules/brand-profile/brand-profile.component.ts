@@ -43,7 +43,7 @@ export class BrandProfileComponent implements OnInit {
             slug: 'visit-us',
         },
     ];
-    roasterId: string;
+    roasterId: number;
     roasterSlug: string;
     slug;
 
@@ -53,7 +53,7 @@ export class BrandProfileComponent implements OnInit {
         private cookieService: CookieService,
         private roasterSrv: RoasterserviceService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = +this.cookieService.get('roaster_id');
         this.roasterSlug = this.cookieService.get('roasterSlug');
         this.slug = this.roasterSlug;
     }
