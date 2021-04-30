@@ -90,29 +90,30 @@ export class UploaderComponent implements OnInit, ControlValueAccessor {
             if (!file) {
                 this.toastrService.error(`Please select the correct file`);
             }
-            if (file.type.startsWith('image') && (this.width || this.height)) {
-                const reader = new FileReader();
-                reader.onload = () => {
-                    const img = new Image();
-                    img.onload = () => {
-                        if (
-                            (this.width && this.width !== img.naturalWidth) ||
-                            (this.height && this.height !== img.naturalHeight)
-                        ) {
-                            this.toastrService.error(
-                                `Image should be ${this.width || 'NA'} x ${this.height || 'NA'} size`,
-                            );
-                        } else {
-                            this.upload(file);
-                        }
-                        window.URL.revokeObjectURL(img.src);
-                    };
-                    img.src = window.URL.createObjectURL(file);
-                };
-                reader.readAsDataURL(file);
-            } else {
-                this.upload(file);
-            }
+            this.upload(file);
+            // if (file.type.startsWith('image') && (this.width || this.height)) {
+            //     const reader = new FileReader();
+            //     reader.onload = () => {
+            //         const img = new Image();
+            //         img.onload = () => {
+            //             if (
+            //                 (this.width && this.width !== img.naturalWidth) ||
+            //                 (this.height && this.height !== img.naturalHeight)
+            //             ) {
+            //                 this.toastrService.error(
+            //                     `Image should be ${this.width || 'NA'} x ${this.height || 'NA'} size`,
+            //                 );
+            //             } else {
+            //                 this.upload(file);
+            //             }
+            //             window.URL.revokeObjectURL(img.src);
+            //         };
+            //         img.src = window.URL.createObjectURL(file);
+            //     };
+            //     reader.readAsDataURL(file);
+            // } else {
+            //     this.upload(file);
+            // }
         }
     }
 
