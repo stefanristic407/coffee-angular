@@ -39,6 +39,7 @@ import { TranslateAnswerComponent } from './create-post/translate/translate-answ
 import { OriginPostComponent } from './components/origin-post/origin-post.component';
 import { RecipeOriginalPostComponent } from './create-post/translate/translate-recipe/recipe-original-post/recipe-original-post.component';
 import { TranslateToastComponent } from './components/translate-toast/translate-toast.component';
+import { CreateCommentComponent } from './create-post/create-comment/create-comment.component';
 
 @NgModule({
     declarations: [
@@ -78,6 +79,7 @@ import { TranslateToastComponent } from './components/translate-toast/translate-
         OriginPostComponent,
         RecipeOriginalPostComponent,
         TranslateToastComponent,
+        CreateCommentComponent,
     ],
     imports: [CommonModule, CoffeeLabRoutingModule, SharedModule, FormsModule],
 })
