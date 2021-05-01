@@ -1,13 +1,20 @@
 <div>
     <div class="py-4 px-md-4 d-flex align-items-center border-top-main border-bottom-main">
-        <app-avatar class="mr-3" [src]="profilePic" size="40"></app-avatar>
+        <img
+            [src]="authService.currentUser?.profile_image_thumb_url || 'assets/images/default-avatar.png'"
+            alt="avatar"
+            class="rounded-circle mr-3"
+            width="40"
+            height="40"
+        />
         <span class="sewn-form-field mb-0 ml-z5 w-100">
             <input
                 class="w-100"
                 pInputText
-                [(ngModel)]="comment"
+                [readonly]="true"
                 placeholder="{{ 'leave_a_comment_bla' | translate }}"
-                (keyup.enter)="addComment()"
+                routerLink="/coffee-lab/create-post/comment"
+                [queryParams]="{ forumId: forumId, forumType: forumType }"
             />
         </span>
     </div>
