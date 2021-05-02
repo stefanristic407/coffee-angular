@@ -38,7 +38,7 @@ export class CreateCommentComponent implements OnInit {
 
     getCommentById(): void {
         this.isLoading = true;
-        this.coffeeLabService.getForumDetails('comment', this.commentId).subscribe((res: any) => {
+        this.coffeeLabService.getComment(this.commentId).subscribe((res: any) => {
             this.isLoading = false;
             if (res.success) {
                 this.comment = res.result.comment;
@@ -56,7 +56,7 @@ export class CreateCommentComponent implements OnInit {
                 comment: this.comment,
             };
             if (this.commentId) {
-                this.coffeeLabService.updateForum(this.forumType, this.forumId, body).subscribe((res: any) => {
+                this.coffeeLabService.updateForum('comment', this.commentId, body).subscribe((res: any) => {
                     this.isPosting = false;
                     if (res.success) {
                         this.toaster.success('You have updated an article successfully.');
