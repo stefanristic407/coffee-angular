@@ -98,6 +98,7 @@ export class InviteNewUserComponent implements OnInit {
                 .subscribe((res: any) => {
                     if (res.success) {
                         this.toastrService.success('Invite sent successfully');
+                        this.router.navigate(['/team-management/manage-role']);
                     } else {
                         this.showError('assign');
                     }

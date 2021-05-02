@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CoffeeLabService } from '@services';
-import { MenuItem } from 'primeng/api';
-
+import { CookieService } from 'ngx-cookie-service';
+import { Subscription } from 'rxjs';
 @Component({
     selector: 'app-my-answers',
     templateUrl: './my-answers.component.html',
@@ -13,42 +14,45 @@ export class MyAnswersComponent implements OnInit {
         { label: 'Latest', value: 'latest' },
         { label: 'Oldest', value: 'oldest' },
     ];
-    questionMenuItems: MenuItem[] = [];
     sortBy = 'latest';
-    shortComments = false;
-    result: any;
-    roasterId: string;
-    constructor(private coffeeLabService: CoffeeLabService) {}
+    pageDesc: string;
+    isMyPostsPage = false;
+    isLoading = false;
+    userId: string;
+    forumDeleteSub: Subscription;
+
+    constructor(
+        private coffeeLabService: CoffeeLabService,
+        private cookieService: CookieService,
+        private activateRoute: ActivatedRoute,
+    ) {
+        this.pageDesc = this.activateRoute.snapshot.routeConfig?.path;
+        this.userId = this.cookieService.get('user_id');
+    }
 
     ngOnInit(): void {
-        this.getComments();
-        this.questionMenuItems = [
-            {
-                items: [
-                    {
-                        label: 'Share',
-                        command: () => {
-                            this.onSharePost({});
-                        },
-                    },
-                    {
-                        label: 'Save Post',
-                        command: () => {
-                            this.onSavePost({});
-                        },
-                    },
-                ],
-            },
-        ];
-    }
-
-    getComments(): void {
-        this.coffeeLabService.getMyForumList('answer').subscribe((res) => {
-            this.answers = res.result;
+        this.getAnswers();
+        if (this.pageDesc === 'my-posts') {
+            this.isMyPostsPage = true;
+        }
+        this.forumDeleteSub = this.coffeeLabService.forumDeleteEvent.subscribe(() => {
+            this.getAnswers();
         });
     }
-    onSharePost(postItem: any): void {}
-    onSavePost(postItem: any): void {
-        console.log('working...');
+
+    getAnswers(): void {
+        this.isLoading = true;
+        this.coffeeLabService.getMyForumList('answer').subscribe((res) => {
+            this.answers = res.result.map((item) => {
+                if (item.question_slug) {
+                    const slug = 'slug';
+                    const id = 'id';
+                    item[slug] = item.question_slug;
+                    item[id] = item.answer_id;
+                }
+                return item;
+            });
+            this.isLoading = false;
+        });
     }
 }

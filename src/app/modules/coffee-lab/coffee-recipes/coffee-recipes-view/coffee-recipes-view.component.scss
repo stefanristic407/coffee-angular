@@ -51,7 +51,7 @@
         .coffee-content-wrapper {
             padding-top: 24px;
 
-            p {
+            ::ng-deep p {
                 overflow: hidden;
                 text-overflow: ellipsis;
                 display: -webkit-box;

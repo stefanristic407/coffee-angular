@@ -78,4 +78,40 @@
             top: 1px;
         }
     }
+
+    ::ng-deep {
+        .tabview-create-recipe {
+            border-radius: 4px;
+            border: solid 1px #d6d6d6;
+            background-color: #ffffff;
+            .p-tabview-nav {
+                li {
+                    @media (max-width: 767px) {
+                        border-right: none !important;
+                    }
+                }
+            }
+        }
+    }
+    .step-mb {
+        display: none !important;
+    }
+    .step-xs {
+        display: inherit;
+    }
+    @media (max-width: 767px) {
+        .addImageContainer,
+        .stepAddImageContainer {
+            height: 120px !important;
+        }
+        .step-mb {
+            display: inherit !important;
+            ::ng-deep .p-component {
+                width: 100%;
+            }
+        }
+        .step-xs {
+            display: none;
+        }
+    }
 }

@@ -120,7 +120,10 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 my-3 d-flex">
-            <span class="primary_txt fnt-14">{{ 'list_of_ingredients' | translate }}<span class="star">*</span></span>
+            <span class="primary_txt fnt-14"
+                >{{ 'list_of_ingredients' | translate }}{{ recipeForm.controls['ingredients']['controls'].length
+                }}<span class="star">*</span></span
+            >
         </div>
         <ng-container
             formArrayName="ingredients"
@@ -142,7 +145,6 @@
                                 [options]="qualityArray"
                                 optionLabel="label"
                                 placeholder="Select level"
-                                optionValue="value"
                                 formControlName="quantity_unit"
                                 class="inputFieldBox"
                                 [style]="{ width: '100%', height: '40px', border: '0px', background: '#f8f8f8' }"
@@ -156,7 +158,7 @@
             </div>
         </ng-container>
 
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2 mb-3 d-flex">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2 mb-md-3 mb-0 d-flex">
             <span class="fnt-14"
                 ><span class="editBtn cursor-pointer" (click)="addIngredient()">{{
                     'add_ingredients' | translate
@@ -164,10 +166,11 @@
                 ><span class="star">*</span></span
             >
         </div>
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 my-3 d-flex">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-3 d-flex mb-md-3 mb-0">
             <span class="primary_txt fnt-14">{{ 'method_of_preparation' | translate }}<span class="star">*</span></span>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
+
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 d-none d-md-block">
             <p-dropdown
                 [options]="preparationMethods"
                 optionLabel="label"
@@ -179,7 +182,99 @@
             ></p-dropdown>
             <small *ngIf="recipeForm.controls['preparation_method'].errors?.required" class="p-error"> Required </small>
         </div>
-        <div class="row col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 my-3 d-flex step-mb">
+            <p-tabView styleClass="tabview-create-recipe" style="width: 100%">
+                <p-tabPanel header="instruction steps & video">
+                    <ng-container *ngFor="let step of recipeForm?.value?.steps; let i = index; last as isLast">
+                        <div class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9 sewn-form-field w-100 pt-4">
+                                <label>{{ 'step' | translate }} {{ i + 1 }}<span class="star">*</span></label>
+                                <app-forum-editor
+                                    [(content)]="step.description"
+                                    [(isUploadingImage)]="isUploadingImage"
+                                    [(imageIdList)]="imageIdListStep[i]"
+                                    fileModule="recipe-post"
+                                ></app-forum-editor>
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3 sewn-form-field w-100">
+                                <label>{{ 'add_image' | translate }}</label>
+                                <div
+                                    class="stepAddImageContainer d-flex align-items-center justify-content-center imagesDiv"
+                                >
+                                    <label class="d-block align-items-center justify-content-center pointer-item">
+                                        <input
+                                            type="file"
+                                            accept="image/png, image/jpeg"
+                                            style="display: none"
+                                            #featureImage
+                                            (change)="uploadImage($event, 0, 'stepImage')"
+                                        />
+                                        <div class="d-flex flex-column align-items-center">
+                                            <img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25" />
+                                            <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25"
+                                                >{{ 'drag_drop_or_upload_image' | translate
+                                                }}<span class="star">*</span></span
+                                            >
+                                            <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25"
+                                                >({{ 'max_size' | translate }} 2mb)</span
+                                            >
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3 d-md-none">
+                                <span class="fnt-14"
+                                    ><span class="editBtn cursor-pointer" (click)="addStep()">{{
+                                        'add_another_step' | translate
+                                    }}</span></span
+                                >
+                            </div>
+                        </div>
+                    </ng-container>
+                </p-tabPanel>
+                <p-tabPanel header="video recipe">
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pt-4">
+                        <label>{{ 'upload_recipe_video' | translate }}<span class="star">*</span></label>
+                        <div
+                            class="addImageContainer d-flex align-items-center justify-content-center imagesDiv position-relative"
+                        >
+                            <video
+                                id="player"
+                                class="w-100"
+                                playsinline
+                                controls
+                                data-poster="/path/to/poster.jpg"
+                                *ngIf="isShowVideo"
+                                class="cover-image"
+                            >
+                                <source [src]="videoUrl" type="video/mp4" />
+                            </video>
+                            <label class="d-block align-items-center justify-content-center pointer-item">
+                                <input
+                                    type="file"
+                                    style="display: none"
+                                    #featureImage
+                                    (change)="uploadImage($event, 0, 'recipeVideo')"
+                                />
+                                <div class="d-flex flex-column align-items-center">
+                                    <img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25" />
+                                    <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25"
+                                        >{{ 'add_a_video' | translate }}<span class="star">*</span></span
+                                    >
+                                    <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25"
+                                        >({{ 'max_size' | translate }} 2mb)</span
+                                    >
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </p-tabPanel>
+            </p-tabView>
+        </div>
+        <div
+            class="row col-sm-12 col-md-12 col-lg-12 col-xl-12 step-xs"
+            *ngIf="recipeForm?.value?.preparation_method === 'video'"
+        >
             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-0">
                 <label>{{ 'upload_recipe_video' | translate }}<span class="star">*</span></label>
                 <div
@@ -218,7 +313,7 @@
         </div>
 
         <ng-container *ngFor="let step of recipeForm?.value?.steps; let i = index; last as isLast">
-            <div class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12 step-xs flex-wrap">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9 sewn-form-field w-100">
                     <label>{{ 'step' | translate }} {{ i + 1 }}<span class="star">*</span></label>
                     <app-forum-editor
@@ -254,7 +349,7 @@
             </div>
         </ng-container>
 
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2 mb-3 d-flex">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2 mb-3 d-none d-md-flex">
             <span class="fnt-14"
                 ><span class="editBtn cursor-pointer" (click)="addStep()">{{
                     'add_another_step' | translate
@@ -270,7 +365,7 @@
             <i class="pi pi-info-circle text-clr588 fnt-16 ml-2"></i>
         </div>
         <div class="row mt-2 col-sm-12 pr-0">
-            <div class="col-md-6 order-2 order-md-1">
+            <div class="col-md-6 order-2 order-md-1 p-0 px-md-3">
                 <button routerLink="/coffee-lab/overview/qa-forum" class="btn-stroked px-4 w-mob-100 mb-2 mb-md-0">
                     {{ 'cancel' | translate }}
                 </button>
