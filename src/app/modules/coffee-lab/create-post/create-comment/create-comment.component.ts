@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { CoffeeLabService, AuthService } from '@services';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
@@ -22,7 +22,6 @@ export class CreateCommentComponent implements OnInit {
         public location: Location,
         private coffeeLabService: CoffeeLabService,
         private toastrService: ToastrService,
-        private router: Router,
         private route: ActivatedRoute,
         private toaster: ToastrService,
         public authService: AuthService,
@@ -52,16 +51,30 @@ export class CreateCommentComponent implements OnInit {
 
     onPostComment(): void {
         if (this.comment?.length) {
+            this.isPosting = true;
             const body = {
                 comment: this.comment,
             };
-            this.coffeeLabService.postComment(this.forumType, this.forumId, body).subscribe((res: any) => {
-                if (res.success) {
-                    this.location.back();
-                } else {
-                    this.toastrService.error('Cannot post comment.');
-                }
-            });
+            if (this.commentId) {
+                this.coffeeLabService.updateForum(this.forumType, this.forumId, body).subscribe((res: any) => {
+                    this.isPosting = false;
+                    if (res.success) {
+                        this.toaster.success('You have updated an article successfully.');
+                        this.location.back();
+                    } else {
+                        this.toaster.error('Failed to update article.');
+                    }
+                });
+            } else {
+                this.coffeeLabService.postComment(this.forumType, this.forumId, body).subscribe((res: any) => {
+                    this.isPosting = false;
+                    if (res.success) {
+                        this.location.back();
+                    } else {
+                        this.toastrService.error('Cannot post comment.');
+                    }
+                });
+            }
         }
     }
 }
