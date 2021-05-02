@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
-import { EmailService } from '@services';
+import { EmailService, InviteFriendsService } from '@services';
 
 @Component({
     selector: 'app-invite-friends',
@@ -21,7 +21,7 @@ export class InviteFriendsComponent implements OnInit {
         private fb: FormBuilder,
         private toastrService: ToastrService,
         private cookieService: CookieService,
-        private emailService: EmailService,
+        private inviteFriendsService: InviteFriendsService,
     ) {}
 
     ngOnInit(): void {
@@ -44,31 +44,27 @@ export class InviteFriendsComponent implements OnInit {
             this.infoForm.value.emails.forEach((element) => {
                 const postData = {
                     name: element,
-                    portal: 'Roaster',
-                    content_type: 'invite_with_url',
-                    senders: [element],
-                    url: 'https://qa-client-horeca.sewnstaging.com/auth/horeca-setup',
-                    referral_code: this.cookieService.get('referral_code'),
+                    email: element,
                 };
                 promises.push(
                     new Promise((resolve, reject) => {
-                        return this.emailService.sendEmail(postData).subscribe((res: any) => {
-                            if (res.status === '200 OK') {
+                        return this.inviteFriendsService.inviteFriend(postData).subscribe((res: any) => {
+                            if (res.success) {
                                 resolve(res);
                             } else {
-                                reject(res);
+                                reject();
                             }
                         });
                     }),
                 );
             });
             Promise.all([promises])
-                .then(() => {
+                .then((res: any) => {
                     this.inviting = false;
-                    this.toastrService.success('Email has been sent successfully');
+                    this.toastrService.success('Invitation has been sent successfully');
                 })
                 .catch(() => {
-                    this.toastrService.error('Error while sending email to the User');
+                    this.toastrService.error('Error while inviting friends');
                 });
         } else {
             this.toastrService.error('Please fill correct data.');
