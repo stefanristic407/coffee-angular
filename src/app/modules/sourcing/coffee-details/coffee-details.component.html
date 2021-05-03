@@ -278,11 +278,11 @@
                                     </li>
                                     <li>
                                         <label>Type :</label>
-                                        <p>{{ sourcing.harvestDetail?.type }}</p>
+                                        <p>{{ sourcing.harvestDetail?.type | abailabilityType }}</p>
                                     </li>
                                     <li>
                                         <label>Listing Status :</label>
-                                        <p>{{ sourcing.harvestDetail?.listing_status }}</p>
+                                        <p>{{ sourcing.harvestDetail?.listing_status | abailabilityListingStatus }}</p>
                                     </li>
                                     <li>
                                         <label>Wet Mill processing :</label>

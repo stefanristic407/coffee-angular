@@ -116,8 +116,8 @@
                                                 Please enter quantity in range of available for sale
                                             </small>
                                             <small *ngIf="infoForm.controls.quantity.errors?.min" class="p-error">
-                                                Minimum quantity for shipping is {{ shipInfo.minimum_quantity }}. please
-                                                order above.
+                                                Minimum quantity for shipping is {{ minimumQuantity }}. please order
+                                                above.
                                             </small>
                                         </div>
                                     </div>
