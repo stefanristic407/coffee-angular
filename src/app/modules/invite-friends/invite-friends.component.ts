@@ -56,7 +56,7 @@ export class InviteFriendsComponent implements OnInit {
                     }),
                 );
             });
-            Promise.all([promises])
+            Promise.all(promises)
                 .then((res: any) => {
                     this.inviting = false;
                     this.toastrService.success('Invitation has been sent successfully');
