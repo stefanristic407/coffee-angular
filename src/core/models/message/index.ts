@@ -15,3 +15,4 @@ export * from './response-search-message.model';
 export * from './search-message.model';
 export * from './message-meta.model';
 export * from './sticker-listitem.model';
+export * from './response-read-update.model';

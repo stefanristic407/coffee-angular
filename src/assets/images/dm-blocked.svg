@@ -1,12 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="Icon_metro-blocked" width="16" height="16" viewBox="0 0 16 16">
+<svg xmlns="http://www.w3.org/2000/svg" id="Icon_metro-blocked" width="20" height="20" viewBox="0 0 20 20">
     <defs>
         <style>
             .cls-1{fill:none;stroke:#f23737;stroke-miterlimit:10;stroke-width:1.5px}
+            .cls-2{stroke-width:2.5px}
+
+        
         </style>
     </defs>
-    <g id="Oval" class="cls-1">
-        <circle cx="8" cy="8" r="7.5"/>
-        <circle cx="8" cy="8" r="6.75" fill="none"/>
+    <g xmlns="http://www.w3.org/2000/svg" id="Oval" class="cls-1">
+        <circle cx="10" cy="10" r="7.5"/>
+        <circle cx="10" cy="10" r="6.75" fill="none"/>
     </g>
-    <path id="Path_3" d="M0 0l12.99 7.5" class="cls-1" transform="translate(1.505 3.75)"/>
+    <path id="Path_3" d="M4.3,-.7 L12,12" stroke="4px" class="cls-1 cls-2" transform="translate(1.505 3.75)"/>
 </svg>
