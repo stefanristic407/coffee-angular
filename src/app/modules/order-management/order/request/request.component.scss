@@ -1,0 +1,44 @@
+@import '../../../../../theme/styles/variables';
+
+:host {
+    @media all and (max-width: 767px) {
+        .d-flex.w-fit {
+            padding-top: 16px;
+            padding-bottom: 16px;
+
+            &:not(:last-child) {
+                border-bottom: 1px solid $secondary-border-color;
+            }
+
+            span {
+                width: 50%;
+            }
+        }
+    }
+
+    @media all and (min-width: 768px) {
+        .w-fit {
+            width: fit-content;
+            max-width: 25%;
+        }
+    }
+
+    .icon-container {
+        width: 32px;
+        height: 32px;
+        padding: 8px;
+        color: #f1f1f1;
+        background-color: #d50000;
+        border-radius: 16px;
+    }
+
+    .reject-form {
+        border-bottom: 1px dashed $secondary-border-color;
+    }
+
+    @media all and (min-width: 768px) {
+        .when-receive-container {
+            max-width: 40%;
+        }
+    }
+}

@@ -5,7 +5,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService } from './api.service';
-import { toCamelCase } from '@utils';
 
 @Injectable({
     providedIn: 'root',
@@ -44,5 +43,9 @@ export class AvailabilityRequestService extends ApiService {
                 return null;
             }),
         );
+    }
+
+    updateStatus(id: number, status: string, reason: any = null): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `${this.endpoint}/${id}/${status}`, 'PUT', reason);
     }
 }

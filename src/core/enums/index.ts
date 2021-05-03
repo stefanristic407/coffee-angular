@@ -1,5 +1,6 @@
 export * from './action/component-action';
 export * from './availability';
+export * from './availability-request';
 export * from './message';
 export * from './order-chat';
 export * from './orders';

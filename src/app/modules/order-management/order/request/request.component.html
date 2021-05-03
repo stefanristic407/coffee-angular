@@ -1,0 +1,156 @@
+<div class="px-md-4 pt-md-35 pb-md-5 px-lg-5 pt-lg-45 pb-lg-5 bg-fff">
+    <div class="d-flex flex-wrap justify-content-between fnt-14 mb-1">
+        <div>
+            <p-breadcrumb [model]="breadcrumbs"></p-breadcrumb>
+        </div>
+        <div class="font-bold" *ngIf="request">
+            <span class="text-clr588">{{ 'date_requested' | translate }}: </span>
+            <span class="text-clr334">{{ request.created_at | date: 'd MMM yyyy' }}</span>
+        </div>
+    </div>
+    <ng-container *ngIf="request">
+        <div class="col-sm-12 col-md-12 col-lg-7 mt-lg-5 p-0">
+            <div class="d-flex flex-wrap justify-content-between">
+                <div class="d-flex align-items-center text-clr334 fnt-18 font-bold">
+                    {{ 'request_details' | translate }}
+                </div>
+                <div>
+                    <button class="btn-raised px-4" [routerLink]="['/sourcing/coffee-details', request.harvest_id]">
+                        {{ 'view_availability' | translate }}
+                    </button>
+                </div>
+            </div>
+
+            <div class="mt-3 w-100 border-ebebeb br-4 px-lg-3 py-lg-4">
+                <div class="d-flex flex-column flex-md-row fnt-14 lh-18 w-100 justify-content-between">
+                    <div class="d-flex flex-row flex-md-column w-fit">
+                        <span class="fnt-500 text-muted">{{ 'estate' | translate }}</span>
+                        <span class="mt-md-3 fnt-600 text-clr334">
+                            <div>{{ request.estate_name }},</div>
+                            <div>{{ commonService.getContinentName(request.origin) || request.origin }}</div>
+                        </span>
+                    </div>
+                    <div class="d-flex flex-row flex-md-column w-fit">
+                        <span class="fnt-500 text-muted">{{ 'lot_id' | translate }}</span>
+                        <span class="mt-md-3 fnt-600 text-clr334">
+                            <div>{{ request.lot_id }}</div>
+                            <div class="mt-md-2 navigation-link">{{ 'view_lot_details' | translate }}</div>
+                        </span>
+                    </div>
+                    <div class="d-flex flex-row flex-md-column w-fit">
+                        <span class="fnt-500 text-muted">{{ 'variety' | translate }}</span>
+                        <span class="mt-md-3 fnt-600 text-clr334">{{ request.varieties | strReplace: ',':', ' }}</span>
+                    </div>
+                    <div class="d-flex flex-row flex-md-column w-fit">
+                        <span class="fnt-500 text-muted">{{ 'rate_per' | translate }} {{ request.quantity_unit }}</span>
+                        <span class="mt-md-3 fnt-600 text-clr334">{{
+                            request.unit_price | currency: request.price_unit
+                        }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-3 w-100 bg-f8 p-4 pb-45 mb-lg-4">
+                <div class="d-flex w-100" *ngIf="request.status === RequestStatus.REJECTED">
+                    <div class="icon-container">
+                        <i class="pi pi-times"></i>
+                    </div>
+                    <div class="w-100 ml-3">
+                        <div class="text-clrd50 fnt-16 fnt-600 mb-1">
+                            {{ 'request_has_been_cancelled' | translate }}
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="w-100 justify-content-between"
+                    [class.d-flex]="!isRejectMode"
+                    *ngIf="request.status === RequestStatus.APPROVAL_PENDING"
+                >
+                    <ng-container *ngIf="!isRejectMode; else rejectForm">
+                        <div class="text-clr334 font-bold fnt-14 when-receive-container">
+                            {{ 'when_you_receive_from_estate' | translate }}
+                        </div>
+                        <div>
+                            <button class="btn-raised" (click)="notify()">{{ 'notify_now' | translate }}</button>
+                            <button class="btn-stroked ml-3" (click)="setRejectMode(true)">
+                                {{ 'cancel_request' | translate }}
+                            </button>
+                        </div>
+                    </ng-container>
+                    <ng-template #rejectForm>
+                        <div class="text-clr334 font-bold fnt-14">
+                            {{ 'this_request_has_been_cancelled' | translate }}
+                        </div>
+                        <div class="reject-form mt-4 pb-4 d-flex flex-column" [formGroup]="rejectReasonForm">
+                            <div class="custom-control custom-checkbox mb-3 float-left pad-left">
+                                <input
+                                    type="checkbox"
+                                    class="custom-control-input"
+                                    id="not_serviceable"
+                                    formControlName="not_serviceable"
+                                />
+                                <label class="custom-control-label" for="not_serviceable">
+                                    <span class="remeber-left">{{ 'not_serviceable' | translate }}</span>
+                                </label>
+                            </div>
+
+                            <div class="custom-control custom-checkbox mb-3 float-left pad-left">
+                                <input
+                                    type="checkbox"
+                                    class="custom-control-input"
+                                    id="out_of_stock"
+                                    formControlName="out_of_stock"
+                                />
+                                <label class="custom-control-label pt-1" for="out_of_stock">
+                                    <span class="remeber-left">{{ 'out_of_stock' | translate }}</span>
+                                </label>
+                            </div>
+
+                            <div class="custom-control custom-checkbox mb-3 float-left pad-left">
+                                <input
+                                    type="checkbox"
+                                    class="custom-control-input"
+                                    id="poor_quality"
+                                    formControlName="poor_quality"
+                                />
+                                <label class="custom-control-label pt-1" for="poor_quality">
+                                    <span class="remeber-left">{{ 'poor_quality' | translate }}</span>
+                                </label>
+                            </div>
+
+                            <div class="custom-control custom-checkbox float-left pad-left">
+                                <input
+                                    type="checkbox"
+                                    class="custom-control-input"
+                                    id="other"
+                                    formControlName="other"
+                                />
+                                <label class="custom-control-label" for="other">
+                                    <span class="remeber-left">{{ 'other' | translate }}</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mt-3 d-flex justify-content-end">
+                            <button class="btn-stroked" (click)="setRejectMode(false)">
+                                {{ 'cancel' | translate }}
+                            </button>
+                            <button class="btn-raised ml-3" (click)="cancelRequest()">
+                                {{ 'submit' | translate }}
+                            </button>
+                        </div>
+                    </ng-template>
+                </div>
+
+                <div *ngIf="request.status === RequestStatus.APPROVED">
+                    <div class="d-flex">
+                        <img src="assets/images/timeline-check-active.svg" />
+                        <div class="d-flex align-items-center ml-3 text-clr334 font-bold fnt-14">
+                            {{ 'micro_roaster_has_been_notified' }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
