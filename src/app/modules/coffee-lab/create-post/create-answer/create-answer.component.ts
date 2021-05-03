@@ -17,6 +17,8 @@ export class CreateAnswerComponent implements OnInit {
     forumType: string;
     parentForumId: any;
     forumId: any;
+    isLoading: boolean;
+    language: string;
 
     // these 3 parameters are mandatory to use forum-editor
     content: any;
@@ -38,9 +40,30 @@ export class CreateAnswerComponent implements OnInit {
         this.forumType = this.route.snapshot.queryParamMap.get('forumType') || 'answer';
         this.parentForumId = this.route.snapshot.queryParamMap.get('parentForumId');
         this.forumId = this.route.snapshot.queryParamMap.get('forumId');
-        if (!this.parentForumId) {
-            this.router.navigate(['/coffee-lab']);
+        this.language = this.coffeeLabService.currentForumLanguage;
+        if (this.forumId) {
+            this.getForumById();
         }
+    }
+
+    getForumById(): void {
+        this.isLoading = true;
+        this.coffeeLabService.getForumDetails(this.forumType, this.forumId).subscribe((res: any) => {
+            this.isLoading = false;
+            if (res.success) {
+                this.language = res.result.lang_code;
+                console.log('forum detail in create-answer component >>>>>>>>>>>', res);
+                if (this.forumType === 'answer') {
+                    this.content = res.result.answer;
+                }
+                if (this.forumType === 'comment') {
+                    this.content = res.result.comment;
+                }
+            } else {
+                this.toastrService.error('Error while get comment');
+                this.location.back();
+            }
+        });
     }
 
     onPost(status: string): void {
@@ -50,13 +73,20 @@ export class CreateAnswerComponent implements OnInit {
             this.toastrService.error('Please fill out field.');
             return;
         }
-        const data = {
-            answer: this.content,
-            allow_translation: this.isAllowTranslation ? 1 : 0,
-            status,
-            images: this.imageIdList,
-            language: this.coffeeLabService.currentForumLanguage,
-        };
+        let data: any = {};
+        if (this.forumType === 'answer') {
+            data = {
+                answer: this.content,
+                allow_translation: this.isAllowTranslation ? 1 : 0,
+                status,
+                images: this.imageIdList,
+                language: this.language,
+            };
+        } else {
+            data = {
+                comment: this.content,
+            };
+        }
         this.isPosting = true;
         if (this.forumId) {
             this.coffeeLabService.updateForum(this.forumType, this.forumId, data).subscribe((res: any) => {
