@@ -78,9 +78,8 @@ export class UserserviceService extends ApiService {
     // API Function Name :Roaster Profile
     // API Description: This API calls helps to Roaster User Profile.
 
-    // tslint:disable: variable-name
-    getRoasterProfile(roaster_id: any, user_id = null) {
-        const apiCall = user_id ? `/ro/${roaster_id}/users/${user_id}` : `/ro/${roaster_id}/users/profile`;
+    getRoasterProfile(organizationId, organization = 'ro', userId = null) {
+        const apiCall = userId ? `/general/${organization}/users/${userId}` : `/${organization}/${organizationId}/users/profile`;
         const data = {
             api_call: apiCall,
             token: this.cookieService.get('Auth'),
