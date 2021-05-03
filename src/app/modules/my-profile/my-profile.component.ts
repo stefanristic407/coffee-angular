@@ -44,7 +44,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     apiCount = 0;
     queryUserId: any;
     queryOrganization: any;
-    queryOrganizationId: any;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -72,7 +71,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         this.userId = this.cookieService.get('user_id');
         this.queryUserId  = this.activateRoute.snapshot.queryParamMap.get('user_id');
         this.queryOrganization  = this.activateRoute.snapshot.queryParamMap.get('organization') || 'ro';
-        this.queryOrganizationId  = this.activateRoute.snapshot.queryParamMap.get('organization_id') || this.roasterId;
         this.getUserInfo();
     }
 
@@ -95,7 +93,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
     getRoasterProfile(): void {
         this.userOriginalService.getRoasterProfile(
-            this.queryOrganizationId,
+            this.roasterId,
             this.queryOrganization,
             this.queryUserId
         ).subscribe((res: any) => {
@@ -104,7 +102,11 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             if (res.success) {
                 this.profileInfo = res.result;
                 this.previewUrl = this.profileInfo.profile_image_url;
-                this.getUserBasedRoles();
+                if (this.queryUserId) {
+                    this.apiCount += 1;
+                } else {
+                    this.getUserBasedRoles();
+                }
                 this.checkApiCompletion();
             } else {
                 this.toastr.error('Error while fetching profile');
@@ -215,7 +217,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     }
 
     handleProfileUpdateSuccess(): void {
-        this.userOriginalService.getRoasterProfile(this.queryOrganizationId).subscribe((res: any) => {
+        this.userOriginalService.getRoasterProfile(this.roasterId).subscribe((res: any) => {
             this.isUpdatingProfile = false;
             this.profileInfo = res.result;
             this.isEditMode = false;
