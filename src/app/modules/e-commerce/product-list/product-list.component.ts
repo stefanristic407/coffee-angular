@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { RoasterserviceService, GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
@@ -228,6 +228,6 @@ export class ProductListComponent implements OnInit {
     }
 
     onViewDetails(item) {
-        this.router.navigate([`/features/new-product/${item.id}`]);
+        this.router.navigate([`/e-commerce/product-details/${item.id}`]);
     }
 }
