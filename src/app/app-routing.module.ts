@@ -126,6 +126,10 @@ export const routes: Routes = [
                 path: 'profile-creation',
                 loadChildren: () => import('./modules/profiles/profiles.module').then((m) => m.ProfilesModule),
             },
+            {
+                path: 'e-commerce',
+                loadChildren: () => import('./modules/e-commerce/e-commerce.module').then((m) => m.ECommerceModule),
+            },
         ],
     },
     { path: 'gate', component: GateComponent },

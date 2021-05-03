@@ -1,1 +1,244 @@
-<p>product-list works!</p>
+<section class="main-block">
+    <div class="pb-4 pb-md-0 pt-2 pt-md-0 d-flex flex-wrap justify-content-between">
+        <p-breadcrumb [model]="breadCrumbItems"></p-breadcrumb>
+        <button class="btn-raised d-none d-md-block" routerLink="/e-commerce/product">
+            {{ 'add_product' | translate }}
+        </button>
+    </div>
+
+    <h4 class="fnt-16 fnt-md-18 fnt-muli fnt-bold text-clr334 lh-normal mb-3">
+        {{ 'e_commerce_catalog_management' | translate }}
+    </h4>
+    <button class="btn-raised d-block d-md-none mb-3" routerLink="/e-commerce/product">
+        {{ 'add_product' | translate }}
+    </button>
+    <div class="d-flex flex-column flex-md-row-reverse justify-content-md-between">
+        <span class="custom-search mb-3 mb-md-0 h-fit-content">
+            <input
+                type="text"
+                pInputText
+                class="w-mob-100"
+                placeholder="{{ 'search_for_products' | translate }}"
+                [(ngModel)]="keywords"
+                (ngModelChange)="loadData()"
+            />
+        </span>
+        <div class="dropdown-wrapper">
+            <div class="dropdown-col">
+                <p-dropdown
+                    [options]="originArray"
+                    optionLabel="name"
+                    optionValue="isoCode"
+                    [(ngModel)]="selectedOrigin"
+                    [autoDisplayFirst]="false"
+                    [showClear]="true"
+                    placeholder="{{ 'origin' | translate }}"
+                    styleClass="round-border"
+                    (onChange)="loadData()"
+                ></p-dropdown>
+            </div>
+            <div class="dropdown-col">
+                <p-dropdown
+                    [options]="priceRangeArray"
+                    optionLabel="label"
+                    optionValue="value"
+                    [(ngModel)]="selectedPriceRange"
+                    (onChange)="loadData()"
+                    [showClear]="true"
+                    placeholder="{{ 'price_range' | translate }}"
+                    [autoDisplayFirst]="false"
+                    styleClass="round-border"
+                >
+                </p-dropdown>
+            </div>
+            <div class="dropdown-col">
+                <p-dropdown
+                    [options]="statusArray"
+                    optionLabel="label"
+                    optionValue="value"
+                    [(ngModel)]="selectedStatus"
+                    [autoDisplayFirst]="false"
+                    [showClear]="true"
+                    placeholder="{{ 'status' | translate }}"
+                    styleClass="round-border"
+                    (onChange)="loadData()"
+                ></p-dropdown>
+            </div>
+        </div>
+    </div>
+    <div class="pt-0 table-container">
+        <div class="table-responsive">
+            <p-table
+                #myTable
+                [class.table-mobile]="isMobileView"
+                [value]="tableData"
+                [columns]="tableColumns"
+                dataKey="id"
+                [loading]="loading"
+                [responsive]="isMobileView"
+                [paginator]="true"
+                [rows]="10"
+                [lazy]="true"
+                [showCurrentPageReport]="false"
+                [totalRecords]="totalCount"
+                (onLazyLoad)="loadData($event)"
+                styleClass="p-table-service"
+            >
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th
+                            *ngFor="let col of columns"
+                            [pSortableColumn]="col.sortable === true ? col.field : null"
+                            [style.width]="col.width ? col.width : 'unset'"
+                        >
+                            <div class="d-flex">
+                                <span class="primeng-table-header text-overflow-ellipsis">{{ col.header }}</span>
+                                <p-sortIcon
+                                    *ngIf="col.sortable === true"
+                                    [field]="col.field"
+                                    ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"
+                                >
+                                </p-sortIcon>
+                            </div>
+                        </th>
+                        <th [style.width]="'50px'"></th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr>
+                        <td *ngFor="let col of columns" [ngSwitch]="col.field">
+                            <span *ngSwitchCase="'name'">
+                                <div
+                                    class="d-flex d-md-none justify-content-between align-items-center table-mobile-first-col"
+                                >
+                                    <div class="d-flex align-items-center">
+                                        <span class="fnt-bold mr-2"> {{ rowData[col.field] }} </span>
+                                        <img src="assets/images/star-1.svg" alt="" />
+                                        <span class="pl-2">
+                                            {{ rowData.rating }}
+                                        </span>
+                                    </div>
+                                    <div *ngIf="isMobileView" style="position: relative">
+                                        <p-menu
+                                            #menu
+                                            popup="popup"
+                                            [model]="getMenuItemsForItem(rowData)"
+                                            styleClass="left-menu-actions"
+                                        >
+                                        </p-menu>
+                                        <button
+                                            pButton
+                                            pRipple
+                                            type="button"
+                                            (click)="$event.stopPropagation(); menu.toggle($event)"
+                                            class="p-button-rounded p-button-text text-clr588 w-unset"
+                                            icon="pi pi-ellipsis-v"
+                                        ></button>
+                                    </div>
+                                </div>
+                                <span class="d-none d-md-flex">
+                                    <img class="product-image" src="{{ rowData['featured_image'] }}" />
+                                    <div>
+                                        {{ rowData[col.field] }}
+                                        <div class="mt-2">
+                                            <img src="assets/images/star-1.svg" alt="" />
+                                            <span class="pl-2">
+                                                {{ rowData.rating }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </span>
+                            </span>
+                            <span *ngSwitchCase="'featured_image'">
+                                <div class="d-flex">
+                                    <img class="product-image" src="{{ rowData['featured_image'] }}" />
+                                    <div class="w-100">
+                                        <div
+                                            class="mob-row-item"
+                                            *ngFor="let item of mobileFields"
+                                            [ngSwitch]="item.field"
+                                        >
+                                            <span class="pr-2">{{ item.header }}:</span>
+                                            <span class="fnt-bold" *ngSwitchCase="'status'">
+                                                {{ rowData[item.field] | strReplace: '-':' ' | titlecase }}
+                                            </span>
+                                            <span class="fnt-bold" *ngSwitchCase="'origin'">
+                                                {{ globals.getCountryName(rowData[item.field]) }}
+                                            </span>
+                                            <span class="fnt-bold" *ngSwitchCase="'price'">
+                                                ${{ rowData[item.field] }}
+                                            </span>
+                                            <span class="fnt-bold" *ngSwitchDefault>
+                                                {{ rowData[item.field] }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </span>
+
+                            <span *ngSwitchCase="'status'">
+                                <span>
+                                    {{ rowData[col.field] | strReplace: '-':' ' | titlecase }}
+                                </span>
+                            </span>
+
+                            <span *ngSwitchCase="'origin'">
+                                <span>
+                                    {{ globals.getCountryName(rowData[col.field]) || '_' }}
+                                </span>
+                            </span>
+                            <span *ngSwitchCase="'weight'">
+                                <span> {{ rowData[col.field] }} {{ rowData.weight_unit }} </span>
+                            </span>
+                            <span *ngSwitchCase="'price'">
+                                <span> ${{ rowData[col.field] }} </span>
+                            </span>
+                            <span *ngSwitchCase="'actions'">
+                                <span
+                                    class="fnt-muli fnt-14 fnt-bold lh-normal text-clr60b view-details"
+                                    (click)="onViewDetails(rowData)"
+                                >
+                                    {{ 'edit_product' | translate }}
+                                </span>
+                            </span>
+
+                            <span *ngSwitchDefault>
+                                <div class="d-flex justify-content-between align-items-center px-3 px-md-0">
+                                    <span *ngIf="isMobileView" class="fnt-muli fnt-14 fnt-bold text-clr588">
+                                        {{ col['header'] }}
+                                    </span>
+
+                                    <span>
+                                        {{ rowData[col.field] || '_' }}
+                                    </span>
+                                </div>
+                            </span>
+                        </td>
+                        <td *ngIf="!isMobileView">
+                            <div style="position: relative">
+                                <p-menu
+                                    #menu
+                                    popup="popup"
+                                    [model]="getMenuItemsForItem(rowData)"
+                                    styleClass="left-menu-actions"
+                                >
+                                </p-menu>
+                                <button
+                                    pButton
+                                    pRipple
+                                    type="button"
+                                    (click)="menu.toggle($event)"
+                                    class="p-button-rounded p-button-text text-clr588"
+                                    icon="pi pi-ellipsis-v"
+                                ></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</section>
