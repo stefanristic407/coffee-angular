@@ -14,7 +14,7 @@
                 [readonly]="true"
                 placeholder="{{ 'leave_a_comment_bla' | translate }}"
                 routerLink="/coffee-lab/create-post/comment"
-                [queryParams]="{ forumId: forumId, forumType: forumType }"
+                [queryParams]="{ parentForumId: forumId, parentForumType: forumType, forumType: 'comment' }"
             />
         </span>
     </div>

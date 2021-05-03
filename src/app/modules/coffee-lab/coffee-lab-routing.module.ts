@@ -20,7 +20,6 @@ import { AssignedToMeViewComponent } from '@modules/coffee-lab/assigned-to-me/as
 import { TranslateRecipeComponent } from '@modules/coffee-lab/create-post/translate/translate-recipe/translate-recipe.component';
 import { TranslateArticleComponent } from '@modules/coffee-lab/create-post/translate/translate-article/translate-article.component';
 import { TranslateAnswerComponent } from '@modules/coffee-lab/create-post/translate/translate-answer/translate-answer.component';
-import { CreateCommentComponent } from './create-post/create-comment/create-comment.component';
 
 const routes: Routes = [
     {
@@ -117,7 +116,7 @@ const routes: Routes = [
                     },
                     {
                         path: 'comment',
-                        component: CreateCommentComponent,
+                        component: CreateAnswerComponent,
                     },
                 ],
             },
