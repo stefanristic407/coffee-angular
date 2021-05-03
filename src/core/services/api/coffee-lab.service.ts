@@ -173,4 +173,8 @@ export class CoffeeLabService extends ApiService {
             'POST',
         );
     }
+
+    getComment(id: any): Observable<any> {
+        return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/comments/${id}`, 'GET');
+    }
 }

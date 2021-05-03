@@ -29,7 +29,11 @@
                     pInputTextarea
                     required
                     rows="8"
-                    [placeholder]="'leave_an_answer_bla' | translate"
+                    [placeholder]="
+                        forumType === 'comment'
+                            ? ('leave_a_comment_bla' | translate)
+                            : ('leave_an_answer_bla' | translate)
+                    "
                     [(ngModel)]="content"
                 ></textarea>
             </div>
@@ -57,6 +61,7 @@
                         [disabled]="isPosting || isUploadingImage"
                         (click)="onPost('DRAFT')"
                         class="btn-stroked px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0"
+                        *ngIf="forumType !== 'comment'"
                     >
                         {{ 'save_as_draft' | translate }}
                     </button>

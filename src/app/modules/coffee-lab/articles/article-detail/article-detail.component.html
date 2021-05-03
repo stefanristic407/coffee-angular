@@ -68,7 +68,11 @@
                     <app-original-view [detailsData]="detailsData" forumType="article"></app-original-view>
                 </div>
                 <div class="pt-4">
-                    <app-comments [commentData]="commentData" (postComment)="postComment($event)"></app-comments>
+                    <app-comments
+                        [commentData]="commentData"
+                        [forumId]="detailsData?.id"
+                        forumType="article"
+                    ></app-comments>
                 </div>
             </div>
         </article>
