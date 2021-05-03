@@ -2260,9 +2260,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 navbar: false,
                 className: 'dm-image-view',
                 loop: false,
-                viewed: () => {
-                    this.viewerRef.zoomTo(1);
-                },
             });
             this.viewerRef.show(true);
         } else {
