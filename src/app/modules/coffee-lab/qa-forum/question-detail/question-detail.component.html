@@ -62,7 +62,7 @@
                                     forumType="answer"
                                     [extraInfo]="slug"
                                     [enableSave]="false"
-                                    [enableTranslation]="true"
+                                    [enableTranslation]="answer?.translations?.length < 3"
                                 ></app-forum-menu>
                             </div>
                             <div *ngIf="answer?.translations?.length" class="d-none d-md-block">

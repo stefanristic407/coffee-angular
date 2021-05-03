@@ -1,0 +1,73 @@
+@media (max-width: 767px) {
+    .dm-list-view {
+        .dm-thread-listing {
+            background-color: #f1f1f1;
+            .dm-thread-listing-wrapper {
+                width: auto;
+                padding: 0px 0px;
+                margin: 16px;
+                background-color: #fff;
+                border-radius: 5px;
+            }
+        }
+        .dm-list-view-top-panel {
+            background-color: #f8f8f8;
+            margin: 0px;
+            padding: 8px 16px;
+            min-height: inherit;
+        }
+        .dm-start-chat-panel {
+            align-items: center;
+            padding: 12px 32px;
+        }
+    }
+
+    .dm-search-user-panel-view {
+        .dm-sup-listing {
+            background-color: #f1f1f1;
+            .dm-sup-listing-wrapper {
+                width: auto;
+                padding: 0px 0px;
+                margin: 16px;
+                background-color: #fff;
+                border-radius: 5px;
+                .dm-sup-listing-recent-tag {
+                    padding-top: 12px;
+                    position: relative;
+                }
+            }
+        }
+        .dm-sup-top-panel {
+            background-color: #f8f8f8;
+            margin: 0px;
+            padding: 8px 16px;
+            min-height: inherit;
+        }
+    }
+    .dm-report-user-panel-view {
+        .dm-rup-listing {
+            background-color: #f1f1f1;
+            .dm-rup-listing-wrapper {
+                width: auto;
+                padding: 0px 0px;
+                margin: 16px;
+                background-color: #fff;
+                border-radius: 5px;
+            }
+        }
+    }
+
+    .dm-collapse-panel {
+        .dm-clp-listing-section {
+            .dm-clp-chat-panel {
+                .dm-clp-chat-section {
+                    .dm-clp-chat-content {
+                        .dm-clp-chat-wrapper {
+                            padding: 16px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

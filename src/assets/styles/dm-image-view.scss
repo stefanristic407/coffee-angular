@@ -1,0 +1,15 @@
+.dm-image-view {
+    .viewer-footer{
+        .viewer-toolbar{
+            .viewer-play{
+                &::before{
+                    background-image: url('/assets/images/dm-file-download.svg');
+                    background-position:center;
+                    background-size: contain;
+                    content: "Download";
+                }
+            }
+        }
+    }
+    
+}
