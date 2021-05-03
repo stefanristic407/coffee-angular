@@ -35,16 +35,18 @@
                         </a>
                     </li>
                     <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
-                        <a
-                            (click)="toggleMessagePanel()"
-                            class="d-inline-block cursor-pointer start-messaging image-card"
-                        >
-                            <img class="img" *ngIf="(chat.unReadCount | async) === 0" src="assets/images/mess.svg" />
+                        <a (click)="toggleMessagePanel()" class="image-card">
                             <img
                                 class="img"
-                                *ngIf="(chat.unReadCount | async) > 0"
+                                *ngIf="chat.unReadCount.value === 0 && !chat.isOpen.value"
+                                src="assets/images/mess.svg"
+                            />
+                            <img
+                                class="img"
+                                *ngIf="chat.unReadCount.value > 0 && !chat.isOpen.value"
                                 src="assets/images/mess-active.svg"
                             />
+                            <img class="img" *ngIf="chat.isOpen.value" src="assets/images/mess-desktop-active.svg" />
                         </a>
                     </li>
                     <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">

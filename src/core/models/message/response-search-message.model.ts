@@ -1,4 +1,4 @@
-import { ThreadActivityType } from '../../enums/message/thread-activity-types.enum';
+import { ThreadActivityType } from '@enums';
 export interface ResponseSearchMessageRow {
     activity_type: ThreadActivityType;
     content: string;

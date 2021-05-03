@@ -29,6 +29,7 @@ export interface ChatMessage {
     dateString?: string; // wil be null if same date as prev
     showDateBadge?: boolean;
     lang?: string;
+    is_read: boolean;
     showTranslation?: 'ON' | 'OFF' | 'IP';
     translatedText?: string;
 }

@@ -114,6 +114,10 @@ const routes: Routes = [
                         path: 'translate-recipe',
                         component: TranslateRecipeComponent,
                     },
+                    {
+                        path: 'comment',
+                        component: CreateAnswerComponent,
+                    },
                 ],
             },
         ],

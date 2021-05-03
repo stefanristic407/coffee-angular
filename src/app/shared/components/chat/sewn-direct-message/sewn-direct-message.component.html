@@ -2,16 +2,10 @@
     <div *ngIf="chatHandler.isExpand.value" class="dm-expand-backdrop fade-in" data-element="expand-backdrop">
         <div class="dm-expand-panel-wrapper container">
             <div class="dm-expand-panel" data-element="expand-panel">
-                <div class="dm-exp-header">
-                    <span class="dm-exp-back-btn" (click)="closeExapndView()">
-                        <img class="dm-exp-back-btn-img" src="assets/images/dm-back-arrow.svg" />
-                        <span class="dm-exp-back-btn-text brown-text">Back</span>
-                    </span>
-                </div>
                 <div class="dm-exp-body">
                     <div class="dm-exp-listing-section" #mainPanel>
                         <ng-container *ngIf="showInlineLoader">
-                            <ng-container *ngTemplateOutlet="loaderBox"> </ng-container>
+                            <ng-container *ngTemplateOutlet="inlineLoaderBox"> </ng-container>
                         </ng-container>
                         <ng-container *ngIf="panelVisibility === 'THREAD'">
                             <ng-container *ngTemplateOutlet="threadPanelViewTL"></ng-container>
@@ -20,7 +14,7 @@
                             <ng-container *ngTemplateOutlet="userDetailPanelViewTL"></ng-container>
                         </ng-container>
                         <ng-container *ngIf="panelVisibility === 'BLOCKED_USERS'">
-                            <ng-container *ngTemplateOutlet="reportUserPanelViewTL"></ng-container>
+                            <ng-container *ngTemplateOutlet="blockListPanelViewTL"></ng-container>
                         </ng-container>
                         <ng-container *ngIf="panelVisibility === 'SEARCH_USER'">
                             <ng-container *ngTemplateOutlet="searchUserPanelViewTL"></ng-container>
@@ -47,10 +41,10 @@
                                 data-element="live-chat-message-body"
                             >
                                 <div class="dm-exp-chat-wrapper">
-                                    <ng-container *ngIf="!chatSearch.searchResult.length">
+                                    <ng-container *ngIf="!chatSearch.keyword">
                                         <ng-container *ngTemplateOutlet="chatListTL"></ng-container>
                                     </ng-container>
-                                    <ng-container *ngIf="chatSearch.searchResult.length">
+                                    <ng-container *ngIf="chatSearch.keyword">
                                         <ng-container *ngTemplateOutlet="chatSearchResult"></ng-container>
                                     </ng-container>
                                 </div>
@@ -71,7 +65,7 @@
     <div *ngIf="!chatHandler.isExpand.value" class="dm-collapse-panel fade-in-right" data-element="collapse-panel">
         <div class="dm-clp-listing-section" #mainPanel>
             <ng-container *ngIf="showInlineLoader">
-                <ng-container *ngTemplateOutlet="loaderBox"> </ng-container>
+                <ng-container *ngTemplateOutlet="inlineLoaderBox"> </ng-container>
             </ng-container>
             <ng-container *ngIf="panelVisibility === 'THREAD'">
                 <div class="dm-clp-extra-wrapper" [ngClass]="{ 'dm-hide-panel': openedThread }">
@@ -102,10 +96,10 @@
                             data-element="live-chat-message-body"
                         >
                             <div class="dm-clp-chat-wrapper">
-                                <ng-container *ngIf="!chatSearch.searchResult.length">
+                                <ng-container *ngIf="!chatSearch.keyword">
                                     <ng-container *ngTemplateOutlet="chatListTL"></ng-container>
                                 </ng-container>
-                                <ng-container *ngIf="chatSearch.searchResult.length">
+                                <ng-container *ngIf="chatSearch.keyword">
                                     <ng-container *ngTemplateOutlet="chatSearchResult"></ng-container>
                                 </ng-container>
                             </div>
@@ -120,7 +114,7 @@
                 <ng-container *ngTemplateOutlet="userDetailPanelViewTL"></ng-container>
             </ng-container>
             <ng-container *ngIf="panelVisibility === 'BLOCKED_USERS'">
-                <ng-container *ngTemplateOutlet="reportUserPanelViewTL"></ng-container>
+                <ng-container *ngTemplateOutlet="blockListPanelViewTL"></ng-container>
             </ng-container>
             <ng-container *ngIf="panelVisibility === 'SEARCH_USER'">
                 <ng-container *ngTemplateOutlet="searchUserPanelViewTL"></ng-container>
@@ -157,7 +151,10 @@
             <div class="dm-udv-option-list">
                 <div class="dm-udv-option-item">
                     <span class="dm-udv-option-item-text">Mute notifications from user</span>
-                    <p-inputSwitch [(ngModel)]="openedThread.computed_mute"></p-inputSwitch>
+                    <p-inputSwitch
+                        (onChange)="toggleMute($event)"
+                        [(ngModel)]="openedThread.computed_mute"
+                    ></p-inputSwitch>
                 </div>
                 <div (click)="clearChat()" class="dm-udv-option-item dm-pointer">
                     <span class="dm-udv-option-item-text">Clear conversation</span>
@@ -186,6 +183,12 @@
                     [(ngModel)]="threadSearchKeyword"
                     placeholder="Search Messages"
                     class="dm-ivtp-thread-search-input"
+                />
+                <img
+                    class="dm-ivtp-thread-search-close"
+                    *ngIf="threadSearchKeyword"
+                    src="assets/images/dm-search-cancel.svg"
+                    (click)="threadSearchKeyword = ''"
                 />
             </div>
             <div class="dm-list-thread-menu">
@@ -302,8 +305,13 @@
                     placeholder="Search Users"
                     class="dm-sup-thread-search-input"
                     data-element="user-search-input"
-                    appLifecyclehook
-                    (viewChecked)="userSearchPanelRendered.next('done')"
+                    (input)="userSearchInputSubject.next($event)"
+                />
+                <img
+                    *ngIf="userSearchKeywords"
+                    (click)="userSearchInputClear()"
+                    src="assets/images/dm-search-cancel.svg"
+                    class="dm-sup-thread-search-close-icon"
                 />
             </div>
         </div>
@@ -323,7 +331,7 @@
                 </div>
             </ng-container>
             <ng-container *ngIf="userSearchKeywords">
-                <ng-container *ngIf="userListLoading">
+                <ng-container *ngIf="this.loader.userListFetchFetch">
                     <div class="dm-sup-listing-error-panel">
                         <div class="dm-sup-search-progress-section">
                             <p-progressSpinner strokeWidth="5"></p-progressSpinner>
@@ -331,7 +339,7 @@
                         </div>
                     </div>
                 </ng-container>
-                <ng-container *ngIf="!userListLoading">
+                <ng-container *ngIf="!this.loader.userListFetchFetch">
                     <div class="dm-sup-listing-error-panel" *ngIf="!usersList.length">
                         <div class="dm-sup-error-block">
                             <img class="dm-sup-error-img" src="assets/images/dm-notfound-thread.svg" alt="Empty" />
@@ -350,7 +358,7 @@
         </div>
     </div>
 </ng-template>
-<ng-template #reportUserPanelViewTL>
+<ng-template #blockListPanelViewTL>
     <div class="dm-report-user-panel-view">
         <ng-container *ngTemplateOutlet="listHeaderTL"></ng-container>
         <div class="dm-rup-back-to-chat" (click)="closeBlockedListPanel()">
@@ -359,14 +367,14 @@
             <span class="dm-rup-back-text brown-text" *ngIf="chatHandler.isExpand.value"> Back to Conversation</span>
         </div>
         <div class="dm-rup-listing">
-            <div class="dm-rup-error-panel" *ngIf="!myBlockList.length && !showInlineLoader">
+            <div class="dm-rup-error-panel" *ngIf="!myBlockList.length && !loader.blockListFetch">
                 <div class="dm-rup-error-block">
                     <img class="dm-rup-error-img" src="assets/images/dm-empty-thread-list.svg" alt="Empty" />
                     <div class="dm-rup-error-text">Looks like you haven`t blocked any users</div>
                 </div>
             </div>
             <div class="dm-rup-listing-wrapper" *ngIf="myBlockList.length">
-                <ng-container *ngTemplateOutlet="reportListTL"></ng-container>
+                <ng-container *ngTemplateOutlet="blockListTL"></ng-container>
             </div>
         </div>
     </div>
@@ -385,8 +393,68 @@
             ></span>
         </div>
         <div class="dm-hub-name">
-            <div class="dm-hub-user-name">{{ openedThread.computed_targetedUser.computed_fullname }}</div>
+            <div class="dm-hub-user-name-block">
+                <div class="dm-hub-user-name">{{ openedThread.computed_targetedUser.computed_fullname }}</div>
+                <img
+                    class="dm-hub-user-mute-icon"
+                    *ngIf="openedThread.computed_mute"
+                    src="assets/images/dm-mute.svg"
+                    alt=""
+                />
+            </div>
+
             <div class="dm-hub-org-name">{{ openedThread.computed_targetedUser.computed_organization_name }}</div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #chatMenuPanelTL>
+    <!-- ANCHOR chatMenuPanelTL -->
+    <div class="dm-header-chat-menu" data-element="chat-menu-panel">
+        <img
+            class="dm-hcm-opener"
+            src="assets/images/dm-thread-list-menu-opener.svg"
+            (click)="toggleChatMenu()"
+            alt="Menu"
+        />
+        <div class="dm-hcm-panel scale-up-top" *ngIf="chatMenuOpen">
+            <span class="dm-hcm-panel-arrow"></span>
+            <div class="dm-hcm-menu-wrapper">
+                <div class="dm-hcm-menu-item" (click)="menuAction('BLOCK')">Block User</div>
+                <div class="dm-hcm-menu-item" *ngIf="!openedThread.computed_mute" (click)="menuAction('MUTE')">
+                    Mute User
+                </div>
+                <div class="dm-hcm-menu-item" *ngIf="openedThread.computed_mute" (click)="menuAction('UNMUTE')">
+                    Unmute User
+                </div>
+                <div class="dm-hcm-menu-item" (click)="menuAction('CLEAR')">Clear Chat</div>
+                <div class="dm-hcm-menu-item" (click)="menuAction('DELETE')">Delete Chat</div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #listHeaderTL>
+    <div class="dm-list-view-header" *ngIf="!chatHandler.isMobileView.value">
+        <div class="dm-lvh-message">Messaging</div>
+        <div class="dm-lvh-action-buttons">
+            <ng-container *ngIf="!chatHandler.isMobileView.value">
+                <div
+                    *ngIf="chatHandler.isExpand.value"
+                    (click)="closeExapndView()"
+                    class="dm-lvh-action dm-lvh-action-collapse"
+                >
+                    <img src="assets/images/dm-chatpanel-collapse.svg" alt="" />
+                </div>
+                <div
+                    *ngIf="!chatHandler.isExpand.value"
+                    (click)="openExapndView()"
+                    class="dm-lvh-action dm-lvh-action-expand"
+                >
+                    <img src="assets/images/dm-chatpanel-expand.svg" alt="" />
+                </div>
+            </ng-container>
+            <div class="dm-lvh-action dm-lvh-action-close" (click)="closePanel()">
+                <img src="assets/images/dm-chatpanel-close.svg" alt="" />
+            </div>
         </div>
     </div>
 </ng-template>
@@ -422,8 +490,7 @@
                         />
                     </ng-container>
                     <img
-                        *ngIf="chatSearch.keyword"
-                        (click)="chatSearch.clear()"
+                        (click)="chatSearch.reset()"
                         src="assets/images/dm-search-cancel.svg"
                         class="dm-csb-control-icon"
                     />
@@ -432,53 +499,7 @@
         </div>
     </div>
 </ng-template>
-<ng-template #chatMenuPanelTL>
-    <!-- ANCHOR chatMenuPanelTL -->
-    <div class="dm-header-chat-menu" data-element="chat-menu-panel">
-        <img
-            class="dm-hcm-opener"
-            src="assets/images/dm-thread-list-menu-opener.svg"
-            (click)="toggleChatMenu()"
-            alt="Menu"
-        />
-        <div class="dm-hcm-panel scale-up-top" *ngIf="chatMenuOpen">
-            <span class="dm-hcm-panel-arrow"></span>
-            <div class="dm-hcm-menu-wrapper">
-                <div class="dm-hcm-menu-item" (click)="menuAction('BLOCK')">Block User</div>
-                <div class="dm-hcm-menu-item" (click)="menuAction('CLEAR')">Clear Chat</div>
-                <div class="dm-hcm-menu-item" (click)="menuAction('DELETE')">Delete Chat</div>
-            </div>
-        </div>
-    </div>
-</ng-template>
-<ng-template #listHeaderTL>
-    <div class="dm-list-view-header" *ngIf="!chatHandler.isMobileView.value">
-        <div class="dm-lvh-message">Messaging</div>
-        <div class="dm-lvh-action-buttons">
-            <ng-container *ngIf="!chatHandler.isMobileView.value">
-                <div
-                    *ngIf="chatHandler.isExpand.value"
-                    (click)="closeExapndView()"
-                    class="dm-lvh-action dm-lvh-action-collapse"
-                >
-                    <img src="assets/images/dm-chatpanel-collapse.svg" alt="" />
-                </div>
-                <div
-                    *ngIf="!chatHandler.isExpand.value"
-                    (click)="openExapndView()"
-                    class="dm-lvh-action dm-lvh-action-expand"
-                >
-                    <img src="assets/images/dm-chatpanel-expand.svg" alt="" />
-                </div>
-            </ng-container>
-            <div class="dm-lvh-action dm-lvh-action-close" (click)="closePanel()">
-                <img src="assets/images/dm-chatpanel-close.svg" alt="" />
-            </div>
-        </div>
-    </div>
-</ng-template>
-
-<ng-template #reportListTL>
+<ng-template #blockListTL>
     <div class="dm-report-list-item" *ngFor="let blockedUser of myBlockList">
         <div class="dm-rli-dp-block dm-rli-extra-margin">
             <img class="dm-rli-dp-image" [src]="blockedUser.computed_profile_direct_url" alt="Profile Picture" />
@@ -565,7 +586,15 @@
             </div>
             <div class="dm-thi-content-block">
                 <div class="dm-thi-content-row">
-                    <div class="dm-thi-name">{{ thread.computed_targetedUser.computed_fullname }}</div>
+                    <div class="dm-thi-name-block">
+                        <div class="dm-thi-name">{{ thread.computed_targetedUser.computed_fullname }}</div>
+                        <img
+                            class="dm-thi-mute-icon"
+                            *ngIf="thread.computed_mute"
+                            src="assets/images/dm-mute.svg"
+                            alt=""
+                        />
+                    </div>
                     <div class="dm-thi-date">{{ thread.computed_createdAt }}</div>
                 </div>
                 <div class="dm-thi-content-row">
@@ -585,7 +614,6 @@
         </div>
     </ng-container>
 </ng-template>
-
 <ng-template #chatListTL>
     <div
         class="dm-chat-item-wrapper"
@@ -619,28 +647,43 @@
                             'dm-ci-content-size-large': activeFontSize.value === 'LARGE'
                         }"
                     >
-                        <a
+                        <!-- <a
+                            [ngClass]="{ 'dm-margin-fix': message.meta.type === 'PICTURE_ONLY' }"
                             [href]="message?.file?.url"
                             target="_blank"
                             download="sewn-chat.jpg"
                             class="dm-ci-image-wrapper"
                             *ngIf="message?.file?.url"
+                        > -->
+                        <a
+                            [ngClass]="{ 'dm-margin-fix': message.meta.type === 'PICTURE_ONLY' }"
+                            (click)="openImage(message.id)"
+                            class="dm-ci-image-wrapper"
+                            *ngIf="message?.file?.url"
                         >
-                            <img class="dm-ci-content-image" [src]="message?.file?.url" alt="Image" />
+                            <img
+                                class="dm-ci-content-image"
+                                [attr.data-image-id]="message.id"
+                                [attr.data-image-caption]="message.content"
+                                [src]="message?.file?.url"
+                                alt="Image"
+                            />
                         </a>
-                        <div *ngIf="message.showTranslation === 'OFF'" class="dm-ci-content-text">
-                            {{ message.content || '_' }}
-                        </div>
-                        <div *ngIf="message.showTranslation === 'ON'" class="dm-ci-content-text">
-                            {{ message.translatedText }}
-                        </div>
-                        <div *ngIf="message.showTranslation === 'IP'" class="dm-ci-content-translation">
-                            <p-progressSpinner strokeWidth="5"></p-progressSpinner>
-                            <span class="dm-ci-content-translating-text">Translating...</span>
-                        </div>
+                        <ng-container *ngIf="message.meta.type !== 'PICTURE_ONLY'">
+                            <div *ngIf="message.showTranslation === 'OFF'" class="dm-ci-content-text">
+                                {{ message.content || '_' }}
+                            </div>
+                            <div *ngIf="message.showTranslation === 'ON'" class="dm-ci-content-text">
+                                {{ message.translatedText }}
+                            </div>
+                            <div *ngIf="message.showTranslation === 'IP'" class="dm-ci-content-translation">
+                                <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+                                <span class="dm-ci-content-translating-text">Translating...</span>
+                            </div>
+                        </ng-container>
                     </div>
                 </ng-container>
-                <div class="dm-ci-message-meta">
+                <div *ngIf="message.meta.type !== 'PICTURE_ONLY'" class="dm-ci-message-meta">
                     <div *ngIf="message.lang !== gtrans.defaultLang" class="dm-ci-translation">
                         <span *ngIf="message.showTranslation === 'OFF'" (click)="translateMessage(message)"
                             >View translation</span
@@ -650,9 +693,9 @@
                         >
                     </div>
                     <div class="dm-ci-message-stamp">
-                        <ng-container *ngIf="enableReadRecipient">
-                            <span>Delivered</span>
-                            <span *ngIf="false">Read</span>
+                        <ng-container *ngIf="enableReadRecipient && message.isActiveUser">
+                            <span *ngIf="!message.is_read">Delivered</span>
+                            <span *ngIf="message.is_read">Read</span>
                             <span class="dm-ci-message-stamp-seprator"></span>
                         </ng-container>
                         <span>{{ message.computed_date }}</span>
@@ -663,93 +706,123 @@
     </div>
 </ng-template>
 <ng-template #chatSearchResult>
-    <div
-        class="dm-chat-item-wrapper"
-        *ngFor="let unit of chatSearch.activeResult.messageUnit; let last = last"
-        [attr.data-chat-id]="unit.message.id"
-        data-element="messages-item"
-    >
-        <div *ngIf="unit.message.showDateBadge" class="dm-ci-date-box">
-            <div class="dm-ci-date-bar"></div>
-            <div class="dm-ci-date-stamp">{{ unit.message.dateString }}</div>
-            <div class="dm-ci-date-bar"></div>
-        </div>
+    <ng-container *ngIf="!chatSearch.searchResult.length">
+        <ng-container *ngIf="loader.chatSearch">
+            <div class="chat-loading-result">
+                <div class="chat-loading-result-loader">
+                    <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+                </div>
+                <span class="chat-loading-result-text">Searching...</span>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!loader.chatSearch">
+            <div class="chat-empty-result">No Search Result Found!</div>
+        </ng-container>
+    </ng-container>
+    <ng-container *ngIf="chatSearch.searchResult.length">
         <div
-            appLifecyclehook
-            (viewChecked)="last && searchMessageRendered.next('done')"
-            class="dm-ci-unit-wrapper"
-            [ngClass]="{ 'dm-chat-to': unit.message.isActiveUser, 'dm-chat-from': !unit.message.isActiveUser }"
+            class="dm-chat-item-wrapper"
+            *ngFor="let unit of chatSearch.activeResult.messageUnit; let last = last"
+            [attr.data-chat-id]="unit.message.id"
+            data-element="messages-item"
         >
-            <div class="dm-ci-unit">
-                <ng-container *ngIf="unit.message.meta.type === 'STICKER' && unit.message.meta.sticker">
-                    <div class="dm-ci-sticker-block">
-                        <img class="dm-ci-sticker-image" [src]="unit.message.meta?.sticker?.stickerItem?.path" />
-                    </div>
-                </ng-container>
-                <ng-container *ngIf="!(unit.message.meta.type === 'STICKER' && unit.message.meta.sticker)">
-                    <div
-                        class="dm-ci-content-block"
-                        [ngClass]="{
-                            'dm-ci-content-size-small': activeFontSize.value === 'SMALL',
-                            'dm-ci-content-size-normal': activeFontSize.value === 'NORMAL',
-                            'dm-ci-content-size-large': activeFontSize.value === 'LARGE'
-                        }"
-                    >
-                        <a
-                            [href]="unit.message?.file?.url"
-                            target="_blank"
-                            download="sewn-chat.jpg"
-                            class="dm-ci-image-wrapper"
-                            *ngIf="unit.message?.file?.url"
-                        >
-                            <img class="dm-ci-content-image" [src]="unit.message?.file?.url" alt="Image" />
-                        </a>
-
-                        <ng-container *ngIf="unit.message.showTranslation === 'OFF'">
-                            <div *ngIf="!unit.isMatch" class="dm-ci-content-text">
-                                {{ unit.message.content || '_' }}
-                            </div>
-                            <div
-                                *ngIf="unit.isMatch"
-                                appChatHighlighter
-                                [searchKey]="chatSearch.keyword"
-                                [messageContent]="unit.message.content"
-                                class="dm-ci-content-text"
-                            ></div>
-                        </ng-container>
-                        <div *ngIf="unit.message.showTranslation === 'ON'" class="dm-ci-content-text">
-                            {{ unit.message.translatedText }}
+            <div *ngIf="unit.message.showDateBadge" class="dm-ci-date-box">
+                <div class="dm-ci-date-bar"></div>
+                <div class="dm-ci-date-stamp">{{ unit.message.dateString }}</div>
+                <div class="dm-ci-date-bar"></div>
+            </div>
+            <div
+                appLifecyclehook
+                (viewChecked)="last && searchMessageRendered.next('done')"
+                class="dm-ci-unit-wrapper"
+                [ngClass]="{ 'dm-chat-to': unit.message.isActiveUser, 'dm-chat-from': !unit.message.isActiveUser }"
+            >
+                <div class="dm-ci-unit">
+                    <ng-container *ngIf="unit.message.meta.type === 'STICKER' && unit.message.meta.sticker">
+                        <div class="dm-ci-sticker-block">
+                            <img class="dm-ci-sticker-image" [src]="unit.message.meta?.sticker?.stickerItem?.path" />
                         </div>
-                        <div *ngIf="unit.message.showTranslation === 'IP'" class="dm-ci-content-translation">
-                            <p-progressSpinner strokeWidth="5"></p-progressSpinner>
-                            <span class="dm-ci-content-translating-text">Translating...</span>
+                    </ng-container>
+                    <ng-container *ngIf="!(unit.message.meta.type === 'STICKER' && unit.message.meta.sticker)">
+                        <div
+                            class="dm-ci-content-block"
+                            [ngClass]="{
+                                'dm-ci-content-size-small': activeFontSize.value === 'SMALL',
+                                'dm-ci-content-size-normal': activeFontSize.value === 'NORMAL',
+                                'dm-ci-content-size-large': activeFontSize.value === 'LARGE'
+                            }"
+                        >
+                            <!-- <a
+                                [ngClass]="{ 'dm-margin-fix': unit.message.meta.type === 'PICTURE_ONLY' }"
+                                [href]="unit.message?.file?.url"
+                                target="_blank"
+                                download="sewn-chat.jpg"
+                                class="dm-ci-image-wrapper"
+                                *ngIf="unit.message?.file?.url"
+                            > -->
+                            <a
+                                [ngClass]="{ 'dm-margin-fix': unit.message.meta.type === 'PICTURE_ONLY' }"
+                                (click)="openImage(unit.message.id)"
+                                class="dm-ci-image-wrapper"
+                                *ngIf="unit.message?.file?.url"
+                            >
+                                <img
+                                    class="dm-ci-content-image"
+                                    [attr.data-image-id]="unit.message.id"
+                                    [attr.data-image-caption]="unit.message.content"
+                                    [src]="unit.message?.file?.url"
+                                    alt="Image"
+                                />
+                            </a>
+                            <ng-container *ngIf="unit.message.meta.type !== 'PICTURE_ONLY'">
+                                <ng-container *ngIf="unit.message.showTranslation === 'OFF'">
+                                    <div *ngIf="!unit.isMatch" class="dm-ci-content-text">
+                                        {{ unit.message.content || '_' }}
+                                    </div>
+                                    <div
+                                        *ngIf="unit.isMatch"
+                                        appChatHighlighter
+                                        [searchKey]="chatSearch.keyword"
+                                        [messageContent]="unit.message.content"
+                                        class="dm-ci-content-text"
+                                    ></div>
+                                </ng-container>
+                                <div *ngIf="unit.message.showTranslation === 'ON'" class="dm-ci-content-text">
+                                    {{ unit.message.translatedText }}
+                                </div>
+                                <div *ngIf="unit.message.showTranslation === 'IP'" class="dm-ci-content-translation">
+                                    <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+                                    <span class="dm-ci-content-translating-text">Translating...</span>
+                                </div>
+                            </ng-container>
                         </div>
-                    </div>
-                </ng-container>
+                    </ng-container>
 
-                <div class="dm-ci-message-meta">
-                    <div *ngIf="unit.message.lang !== gtrans.defaultLang" class="dm-ci-translation">
-                        <span *ngIf="unit.message.showTranslation === 'OFF'" (click)="translateMessage(unit.message)"
-                            >View translation</span
-                        >
-                        <span *ngIf="unit.message.showTranslation === 'ON'" (click)="showOrginal(unit.message)"
-                            >Show original text</span
-                        >
-                    </div>
-                    <div class="dm-ci-message-stamp">
-                        <ng-container *ngIf="enableReadRecipient">
-                            <span>Delivered</span>
-                            <span *ngIf="false">Read</span>
-                            <span class="dm-ci-message-stamp-seprator"></span>
-                        </ng-container>
-                        <span>{{ unit.message.computed_date }}</span>
+                    <div class="dm-ci-message-meta" *ngIf="unit.message.meta.type !== 'PICTURE_ONLY'">
+                        <div *ngIf="unit.message.lang !== gtrans.defaultLang" class="dm-ci-translation">
+                            <span
+                                *ngIf="unit.message.showTranslation === 'OFF'"
+                                (click)="translateMessage(unit.message)"
+                                >View translation</span
+                            >
+                            <span *ngIf="unit.message.showTranslation === 'ON'" (click)="showOrginal(unit.message)"
+                                >Show original text</span
+                            >
+                        </div>
+                        <div class="dm-ci-message-stamp">
+                            <ng-container *ngIf="enableReadRecipient">
+                                <span>Delivered</span>
+                                <span *ngIf="false">Read</span>
+                                <span class="dm-ci-message-stamp-seprator"></span>
+                            </ng-container>
+                            <span>{{ unit.message.computed_date }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </ng-container>
 </ng-template>
-
 <ng-template #messageBoxTL>
     <div class="dm-messag-box">
         <div class="dm-message-offensive-lang" [ngClass]="{ active: showOffensiveMessageError }">
@@ -760,7 +833,12 @@
         </div>
         <div class="dm-mb-image-view" *ngIf="(uploadFileMeta && uploadFileMeta?.url) || uploadProgressing">
             <div class="dm-mb-image-wrapper" *ngIf="uploadFileMeta && uploadFileMeta?.url">
-                <img class="dm-mb-image-close-button" src="assets/images/dm-remove-upload.svg" title="Remove" />
+                <img
+                    class="dm-mb-image-close-button"
+                    (click)="removeFile()"
+                    src="assets/images/dm-remove-upload.svg"
+                    title="Remove"
+                />
                 <img class="dm-mb-image" [src]="uploadFileMeta?.url" />
             </div>
             <div class="dm-mb-image-uploader" *ngIf="uploadProgressing">
@@ -864,7 +942,7 @@
         </div>
     </div>
 </ng-template>
-<ng-template #loaderBox>
+<ng-template #inlineLoaderBox>
     <div class="dm-loader">
         <div class="dm-loader__element"></div>
     </div>
@@ -899,7 +977,7 @@
                 alt=""
             />
 
-            <div class="title lh-normal fnt-bold text-clr02 fnt-play mt-3">{{ this.modelConfig.title }}</div>
+            <div class="title lh-normal fnt-bold text-clr02 fnt-18 mt-3">{{ this.modelConfig.title }}</div>
             <div class="fnt-14 fnt-md-16 lh-15 text-clr5d pt-3">{{ this.modelConfig.description }}</div>
             <div class="pt-45 pt-md-5">
                 <button class="btn-stroked mr-3" (click)="this.modelConfig.actionEventHandler('no')">

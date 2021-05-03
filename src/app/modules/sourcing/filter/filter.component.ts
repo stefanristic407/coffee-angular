@@ -39,6 +39,13 @@ export class FilterComponent extends ResizeableComponent implements OnInit {
     }
 
     clear() {
+        this.queryParams = {
+            altitude_start: null,
+            altitude_end: null,
+            flavours: null,
+            listing_status: null,
+            certificates: null,
+        };
         this.sourcingSrv.queryParams.next({ ...this.sourcingSrv.queryParams.getValue(), ...this.queryParams });
         this.close();
     }

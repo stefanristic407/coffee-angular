@@ -56,13 +56,13 @@ export class InviteFriendsComponent implements OnInit {
                     }),
                 );
             });
-            Promise.all([promises])
+            Promise.all(promises)
                 .then((res: any) => {
                     this.inviting = false;
                     this.toastrService.success('Invitation has been sent successfully');
                 })
                 .catch(() => {
-                    this.toastrService.error('Error while inviting friends');
+                    // this.toastrService.error('Error while inviting friends');
                 });
         } else {
             this.toastrService.error('Please fill correct data.');

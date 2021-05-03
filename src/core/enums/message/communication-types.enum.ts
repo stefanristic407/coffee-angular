@@ -19,4 +19,9 @@ export enum ChatMessageType {
     searchMessage = 'search-message',
     blockUpdate = 'block-update',
     unblockUpdate = 'unblock-update',
+    readUpdate = 'read-update',
+    muteThread = 'mute-thread',
+    unmuteThread = 'unmute-thread',
+    muteList = 'mute-list',
+    muteUpdate = 'mute-update',
 }
