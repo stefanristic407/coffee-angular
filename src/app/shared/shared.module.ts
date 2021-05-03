@@ -202,6 +202,8 @@ const DIRECTIVES = [
     FullImgWrapperDirective,
 ];
 
+import { AvailabilityListingStatusPipe } from './pipes/availability/availability-listing-status.pipe';
+import { AvailabilityTypePipe } from './pipes/availability/availability-type.pipe';
 import { SearchFilterPipe } from './pipes/chat/search-filter.pipe';
 import { CountryPipe } from './pipes/country/country.pipe';
 import { EstateBrandLinkPipe } from './pipes/link/estate-brand-link.pipe';
@@ -222,6 +224,8 @@ import { ConvertToShortDescriptionPipe } from './pipes/convert-to-short-descript
 import { CopyImageToClipboardDirective } from './directives/copy-image-to-clipboard.directive';
 import { FullImgWrapperDirective } from './directives/full-img-wrapper.directive';
 const PIPES = [
+    AvailabilityListingStatusPipe,
+    AvailabilityTypePipe,
     ArrayFilterPipe,
     CountryPipe,
     EstateBrandLinkPipe,
