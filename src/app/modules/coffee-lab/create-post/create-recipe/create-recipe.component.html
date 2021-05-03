@@ -120,10 +120,7 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 my-3 d-flex">
-            <span class="primary_txt fnt-14"
-                >{{ 'list_of_ingredients' | translate }}{{ recipeForm.controls['ingredients']['controls'].length
-                }}<span class="star">*</span></span
-            >
+            <span class="primary_txt fnt-14">{{ 'list_of_ingredients' | translate }}<span class="star">*</span></span>
         </div>
         <ng-container
             formArrayName="ingredients"
@@ -144,7 +141,8 @@
                             <p-dropdown
                                 [options]="qualityArray"
                                 optionLabel="label"
-                                placeholder="Select level"
+                                optionValue="value"
+                                placeholder="Select quantity unit"
                                 formControlName="quantity_unit"
                                 class="inputFieldBox"
                                 [style]="{ width: '100%', height: '40px', border: '0px', background: '#f8f8f8' }"

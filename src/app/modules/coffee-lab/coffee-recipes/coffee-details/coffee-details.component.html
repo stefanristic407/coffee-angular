@@ -64,7 +64,9 @@
                                     <span style="visibility: hidden"
                                         ><img src="/assets/images/beginner-expertise.svg"
                                     /></span>
-                                    <div class="pl-2">{{ detailsData?.expertise }}</div>
+                                    <div class="overflow-hidden pl-2 text-overflow-ellipsis">
+                                        {{ detailsData?.expertise }}
+                                    </div>
                                 </div>
                             </div>
                             <div class="pr-45 preparation-sm">
@@ -77,7 +79,9 @@
                                     <span style="visibility: hidden"
                                         ><img src="/assets/images/beginner-expertise.svg"
                                     /></span>
-                                    <span class="pl-2">{{ detailsData?.preparation_time }}</span>
+                                    <span class="pl-2">{{
+                                        detailsData?.preparation_time + ' ' + detailsData?.preparation_time_unit
+                                    }}</span>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +96,7 @@
                                     <span style="visibility: hidden"
                                         ><img src="/assets/images/cooking-time.svg"
                                     /></span>
-                                    <div class="pl-2">
+                                    <div class="nowrap pl-2">
                                         {{ detailsData?.cooking_time }}
                                         {{ detailsData?.cooking_time_unit }}
                                     </div>

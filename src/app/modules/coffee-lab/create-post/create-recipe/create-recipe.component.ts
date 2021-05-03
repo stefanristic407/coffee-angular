@@ -136,6 +136,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         this.coffeeLabService.getRecipeById('recipe', this.recipeId, this.roasterId).subscribe((res: any) => {
             if (res.success) {
                 this.recipe = res.result;
+                console.log('get by id response-->>>>>>>', res);
                 this.recipeForm.controls.cover_image_id.setValue(res.result.cover_image_id);
                 this.coverImageUrl = res.result.cover_image_url;
                 this.isUploadingImage = true;
@@ -151,11 +152,37 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
                     preparation_method: res.result.preparation_method,
                     cover_image_id: res.result.cover_image_id,
                     description: res.result.description,
-                    ingredients: res.result.ingredients ? res.result.ingredients : [],
                     steps: res.result.steps ? res.result.steps : [],
                     allow_translation: res.result.allow_translation,
                     video_id: res.result?.video_id,
                 });
+                let i = 0;
+                for (const ing of res.result.ingredients) {
+                    const ingredient = {
+                        name: ing.name,
+                        quantity: ing.quantity,
+                        quantity_unit: ing.quantity_unit,
+                    };
+                    const controlArray = this.recipeForm.controls?.ingredients as FormArray;
+                    controlArray.controls[i]?.patchValue(ingredient);
+                    if (i < res.result.ingredients.length - 1) {
+                        controlArray.push(this.createCoffeeIngredient());
+                    }
+                    i++;
+                }
+                let j = 0;
+                for (const ing of res.result.steps) {
+                    const ingredient = {
+                        description: ing.description,
+                        image_id: ing.image_id,
+                    };
+                    const controlArray = this.recipeForm.controls?.steps as FormArray;
+                    controlArray.controls[j]?.patchValue(ingredient);
+                    if (j < res.result.steps.length - 1) {
+                        controlArray.push(this.createCoffeeStep());
+                    }
+                    j++;
+                }
                 if (res.result.video_url) {
                     this.isShowVideo = true;
                     this.videoUrl = res.result.video_url;
