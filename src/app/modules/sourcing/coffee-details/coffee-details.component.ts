@@ -63,10 +63,11 @@ export class CoffeeDetailsComponent extends ResizeableComponent implements OnIni
     galleryImages() {
         const images = [];
         if (this.sourcing.harvestDetail?.images) {
+            console.log(this.sourcing.harvestDetail.images);
             this.sourcing.harvestDetail?.images.forEach((element) => {
                 const sample = {
                     srcUrl: element.url,
-                    previewUrl: element.thumb_url,
+                    previewUrl: element.thumb_url || element.url,
                 };
                 images.push(sample);
             });
