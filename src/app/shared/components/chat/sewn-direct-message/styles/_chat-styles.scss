@@ -73,6 +73,7 @@
     background-color: white;
     z-index: 100;
     right: 0px;
+    border: solid 1px #dedede;
     .dm-clp-extra-wrapper {
         position: relative;
         height: 100%;
@@ -89,8 +90,6 @@
             flex-direction: column;
             align-items: stretch;
             background-color: #ffffff;
-            box-shadow: 0 10px 9px 0 rgba(233, 233, 233, 0.5);
-            border: solid 1px #dedede;
             height: 100%;
             .dm-clp-chat-section {
                 position: relative;
@@ -111,7 +110,8 @@
                     width: 100%;
                     min-height: 72px;
                     padding: 0px 24px;
-                    border: solid 1px #dedede;
+                    border-bottom: solid 1px #dedede;
+                    border-top: solid 1px #dedede;
                     background-color: #ffffff;
                     &.dm-clp-ch-search-expand {
                         justify-content: center;
@@ -193,6 +193,10 @@
             width: 100%;
             height: 100%;
             background-color: #ffffff;
+            border: solid 1px #dedede;
+            border-top-right-radius: 4px;
+            border-top-left-radius: 4px;
+            overflow: hidden;
             .dm-exp-body {
                 position: relative;
                 display: flex;
@@ -201,6 +205,7 @@
                 .dm-exp-listing-section {
                     position: relative;
                     height: 100%;
+                    border-right: solid 1px #dedede;
                 }
                 .dm-exp-chat-section {
                     position: relative;
@@ -217,7 +222,7 @@
                         width: 100%;
                         min-height: 72px;
                         padding: 0px 24px;
-                        border: solid 1px #dedede;
+                        border-bottom: solid 1px #dedede;
                         background-color: #ffffff;
                         &.dm-exp-ch-search-expand {
                             justify-content: center;
@@ -329,7 +334,6 @@
     align-items: stretch;
     background-color: #ffffff;
     box-shadow: 0 10px 9px 0 rgba(233, 233, 233, 0.5);
-    border: solid 1px #dedede;
     height: 100%;
     .dm-list-view-top-panel {
         position: relative;
@@ -338,7 +342,7 @@
         justify-content: space-between;
         min-height: 40px;
         width: 100%;
-        padding: 8px 16px;
+        padding: 8px 22px;
         .dm-ivtp-thread-search-wrapper {
             position: relative;
             display: block;
@@ -427,7 +431,7 @@
         .dm-thread-listing-wrapper {
             position: relative;
             width: 100%;
-            padding: 0px 7px;
+            padding: 10px 7px;
         }
     }
 
@@ -470,7 +474,6 @@
     align-items: stretch;
     background-color: #ffffff;
     box-shadow: 0 10px 9px 0 rgba(233, 233, 233, 0.5);
-    border: solid 1px #dedede;
     height: 100%;
     .dm-sup-back-to-chat {
         display: flex;
@@ -620,7 +623,6 @@
     align-items: stretch;
     background-color: #ffffff;
     box-shadow: 0 10px 9px 0 rgba(233, 233, 233, 0.5);
-    border: solid 1px #dedede;
     height: 100%;
     .dm-rup-back-to-chat {
         display: flex;
@@ -1229,7 +1231,6 @@
     align-items: stretch;
     background-color: #ffffff;
     box-shadow: 0 10px 9px 0 rgba(233, 233, 233, 0.5);
-    border: solid 1px #dedede;
     height: 100%;
     .dm-udv-back-to-chat {
         display: flex;

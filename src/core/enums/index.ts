@@ -5,4 +5,4 @@ export * from './orders';
 export * from './file/file';
 export * from './shipping';
 export * from './unit';
-export * from './organization/organization';
+export * from './organization/organization-type.enum';
