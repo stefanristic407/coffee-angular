@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { CoffeeLabService } from '@services';
-import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'app-questions',
@@ -13,20 +12,11 @@ export class QuestionsComponent implements OnInit {
     @Input() questions: any[] = [];
     @Input() viewMode = 'list';
     questionMenuItems: MenuItem[] = [];
-    pageDesc: string | undefined;
-    isMyPostsPage = false;
+    organizationId: any;
 
-    constructor(
-        private coffeeLabService: CoffeeLabService,
-        private toastService: ToastrService,
-        private activateRoute: ActivatedRoute,
-    ) {
-        this.pageDesc = this.activateRoute.snapshot.routeConfig?.path;
-    }
+    constructor(private cookieService: CookieService) {}
 
     ngOnInit(): void {
-        if (this.pageDesc === 'my-posts') {
-            this.isMyPostsPage = true;
-        }
+        this.organizationId = +this.cookieService.get('roaster_id');
     }
 }

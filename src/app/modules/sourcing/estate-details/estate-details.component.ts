@@ -33,6 +33,11 @@ export class EstateDetailsComponent implements OnInit {
                 this.refreshData();
             }
         });
+        this.route.queryParamMap.subscribe((params) => {
+            if (params.has('dataLots')) {
+                this.selectedTab = 2;
+            }
+        });
     }
 
     refreshData() {

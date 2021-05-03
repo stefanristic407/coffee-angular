@@ -10,7 +10,14 @@
         cursor: pointer;
         box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
     }
+    .recipe-des {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 20px;
+        white-space: nowrap;
+    }
     .expertise {
+        text-transform: capitalize;
         font-family: Muli;
         font-size: 12px;
         font-weight: 600;
@@ -43,5 +50,6 @@
 
     @media (max-width: 767px) {
         width: 247px;
+        height: 322px;
     }
 }

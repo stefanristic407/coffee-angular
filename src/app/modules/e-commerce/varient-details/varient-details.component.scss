@@ -1,0 +1,341 @@
+.nav-pills {
+    border-bottom: 1px solid #dddddd;
+    .nav-link {
+        font-family: Muli;
+        font-size: 14px;
+        font-weight: 600;
+        color: #232334;
+        padding: 0px;
+    }
+    .nav-link.active {
+        color: #232334;
+        font-size: 14px;
+        font-weight: 600;
+        background-color: unset !important;
+        border-radius: unset;
+        font-family: Muli;
+        font-size: 14px;
+        font-weight: 600;
+        color: #30855c;
+        position: relative;
+        padding-right: 0px;
+        padding-left: 0px;
+        &:before {
+            content: '';
+            width: 100%;
+            height: 2px;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            text-align: center;
+            margin: auto;
+            top: 80%;
+            transform: translate(-50%);
+            border-radius: 1.5px;
+            background-color: #30855c;
+            transition: unset !important;
+        }
+    }
+    .show {
+        > .nav-link {
+            color: #232334;
+            font-size: 14px;
+            font-weight: 600;
+            background-color: unset !important;
+            border-radius: unset;
+        }
+    }
+    .vat-link {
+        &:before {
+            background-color: unset !important;
+        }
+    }
+    .vat-link.active {
+        &:before {
+            background-color: unset !important;
+        }
+        color: #f8f8f8 !important;
+        background-color: #f8f8f8 !important;
+    }
+}
+.imageLabel {
+    background-color: #c0c0c9;
+    width: 92%;
+    color: #ffffff;
+    position: absolute;
+    bottom: 4px;
+    right: 4%;
+    padding: 6px 4px 2px 8px;
+    border-radius: 2px;
+}
+.weight-varient-array {
+    ::ng-deep .p-dropdown {
+        background: #f9f9f9;
+    }
+    ::ng-deep .p-dropdown .p-dropdown-label {
+        padding: 16px !important;
+    }
+}
+.delete-weight-varient {
+    position: absolute;
+    right: 0;
+    color: #80460b !important;
+    cursor: pointer;
+    text-decoration: underline !important;
+}
+.imageLabel label {
+    font-family: 'Muli';
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+    float: left;
+}
+
+.uploadImg {
+    height: 4rem;
+}
+.addImageContainer {
+    height: 130px;
+    border: 1px solid #d6d6d6;
+    border-radius: 4px;
+    text-align: center;
+}
+.dragColor {
+    color: #ababab;
+}
+.imageContainer {
+    display: block;
+    position: relative;
+    padding-top: 20px;
+}
+.addWeightDiv {
+    border: 1px solid #747588;
+    padding: 8px 12px;
+    height: 38px;
+    border-radius: 4px;
+}
+.checkBoxDiv {
+    justify-content: flex-end;
+}
+.weightNameFont {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 700;
+    color: #232334;
+}
+.delBtn {
+    position: relative;
+    top: -16px;
+    left: 75px;
+}
+::ng-deep .isWeightTab .p-tabview .p-tabview-nav {
+    display: flex;
+}
+.weightDiv {
+    padding: 4px;
+    border: 1px solid #d6d6d6;
+    border-top: 0px solid #d6d6d6;
+    border-left: 1px solid #d6d6d6;
+    border-right: 1px solid #d6d6d6;
+    border-bottom: 1px solid #d6d6d6;
+}
+.weightDiv:first-child {
+    border-radius: 4px 4px 0px 0px;
+    border: 1px solid #d6d6d6;
+}
+.weightDiv:last-child {
+    border-radius: 0px 0px 4px 4px;
+    border-top: 0px solid #d6d6d6;
+    border-left: 1px solid #d6d6d6;
+    border-right: 1px solid #d6d6d6;
+    border-bottom: 1px solid #d6d6d6;
+}
+
+.weightInputGroupDiv {
+    border: 1px solid #d6d6d6;
+    border-radius: 4px;
+}
+.weightInputDiv {
+    border: 0px;
+}
+::ng-deep .p-checkbox {
+    margin-left: 0px;
+}
+.daysInputDiv {
+    display: flex;
+    align-items: center;
+    padding: 12px 9px;
+    background-color: #fafafa;
+    margin: 2px;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+}
+.input-group-append {
+    width: 40%;
+    border: 0px !important;
+    padding: 0px;
+    background-color: #f8f8f8;
+}
+.dollarBox {
+    width: 20%;
+    height: 100%;
+    background: #f8f8f8 !important;
+}
+.dollarSpan {
+    font-size: 14px !important;
+    color: #000 !important;
+    height: 100%;
+    padding-top: 14px;
+    width: 100%;
+    border: 0 !important;
+}
+.sewn-form-field .p-dropdown .p-inputtext {
+    padding-right: 0;
+    position: relative !important;
+    bottom: 4px !important;
+}
+.drop-margin {
+    margin: 4px;
+}
+::ng-deep .sewn-form-field .dropdownClass .p-inputgroup-addon {
+    padding: 5px !important;
+}
+::ng-deep .p-inputgroup-addon .p-dropdown .p-inputtext {
+    position: relative;
+    bottom: 4px;
+}
+
+.productWeightDiv {
+    width: 200px;
+    margin-right: 12px;
+}
+
+.inputFieldBox {
+    width: 203px !important;
+}
+
+.imagePaddingDiv {
+    margin-right: -45px;
+    margin-left: -12px;
+}
+
+.imagesDiv,
+.productImagesDiv {
+    width: 200px;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .add-image-flex {
+        overflow: auto;
+    }
+    .setDefaultPro {
+        position: relative;
+        bottom: 2rem;
+    }
+    .hidePro {
+        position: absolute;
+    }
+    .delBtn {
+        left: 0px;
+    }
+    .imagePaddingDiv {
+        width: 100%;
+        margin-right: -8px;
+        margin-left: -8px;
+    }
+    .inputFieldBox {
+        width: 213px !important;
+    }
+}
+
+.delete-weight-varient-mb {
+    display: none;
+}
+
+@media screen and (max-width: 1024px) {
+    .delete-weight-varient {
+        display: none;
+    }
+    .upload-feature-image {
+        overflow: auto;
+        flex-wrap: nowrap;
+    }
+    .add-image-flex {
+        display: flex;
+    }
+    .addWeightDiv {
+        border: 1px solid #747588;
+        padding: 6px 12px;
+        height: 34px;
+        border-radius: 4px;
+    }
+    .divSeperator {
+        border: 1px dashed #d6d6d6;
+        margin-top: 24px !important;
+        margin-bottom: 24px !important;
+        width: 100%;
+    }
+    .weight-pos {
+        position: relative;
+        margin-bottom: 1rem;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .delete-weight-varient {
+        display: none;
+    }
+    .delete-weight-varient {
+        position: inherit;
+        right: 0;
+        color: #80460b !important;
+        cursor: pointer;
+        text-decoration: underline !important;
+    }
+    .addImageContainer {
+        width: auto;
+        text-align: center;
+    }
+    .weightVariantBtn {
+        border: solid 1px #30855c;
+        color: #30855c;
+        padding: 0.5rem 2rem;
+        display: flex;
+        border-radius: 4px;
+        align-items: center;
+        justify-content: center;
+    }
+    .e-comm-border-top {
+        border-top: 1px dashed #d6d6d6;
+        padding: 10px;
+    }
+    .divSeperator {
+        border: 1px dashed #d6d6d6;
+        margin-top: 12px !important;
+        margin-bottom: 12px !important;
+        width: 100%;
+    }
+    .delBtn {
+        position: relative;
+        top: 6px;
+        left: 0px;
+    }
+    .inputFieldBox {
+        width: 100% !important;
+    }
+
+    .imagePaddingDiv {
+        margin-right: -12px;
+        margin-left: -12px;
+    }
+
+    .productImagesDiv {
+        width: 132px;
+    }
+}

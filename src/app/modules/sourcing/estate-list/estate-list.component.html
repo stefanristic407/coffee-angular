@@ -26,17 +26,13 @@
     >
         <ng-template pTemplate="header">
             <tr>
-                <th>{{ globals.languageJson?.estate_name }}</th>
-                <th pSortableColumn="rating">
-                    {{ globals.languageJson?.rating }}<p-sortIcon field="rating"></p-sortIcon>
-                </th>
-                <th pSortableColumn="origin">
-                    {{ globals.languageJson?.origin }}<p-sortIcon field="origin"></p-sortIcon>
-                </th>
-                <th>{{ globals.languageJson?.altitude_range }}</th>
-                <th>{{ globals.languageJson?.crop_year }}</th>
-                <th>{{ globals.languageJson?.lots }}</th>
-                <th>{{ globals.languageJson?.certificates }}</th>
+                <th>{{ 'estate_name' | translate }}</th>
+                <th pSortableColumn="rating">{{ 'rating' | translate }}<p-sortIcon field="rating"></p-sortIcon></th>
+                <th pSortableColumn="origin">{{ 'origin' | translate }}<p-sortIcon field="origin"></p-sortIcon></th>
+                <th>{{ 'altitude_range' | translate }}</th>
+                <th>{{ 'crop_year' | translate }}</th>
+                <th>{{ 'lots' | translate }}</th>
+                <th>{{ 'certificates' | translate }}</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item>
@@ -49,14 +45,17 @@
                 <td>
                     <ng-container *ngFor="let lotdata of item.lots | slice: 0:3; index as i">
                         <div *ngIf="i == 2" class="mb-2"></div>
-                        <a class="custom-link mr-2" href="">
+                        <a
+                            class="custom-link mr-2"
+                            routerLink="/sourcing/lot-details/{{ item.estate_id }}/{{ lotdata.id }}"
+                        >
                             {{ lotdata.name }}
                         </a>
                     </ng-container>
                     <a
                         *ngIf="item.lots?.length > 3"
                         class="custom-link"
-                        routerLink="/features/estate-details/{{ item.estate_id }}"
+                        routerLink="/sourcing/estate-details/{{ item.estate_id }}"
                         [queryParams]="{ dataLots: true }"
                         >+{{ item.lots?.length - 3 }}more</a
                     >

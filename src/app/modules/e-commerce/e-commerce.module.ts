@@ -5,16 +5,11 @@ import { SharedModule } from '@shared';
 import { ECommerceRoutingModule } from './e-commerce-routing.module';
 
 import { ProductListComponent } from './product-list/product-list.component';
-
-
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { VarientDetailsComponent } from './varient-details/varient-details.component';
 
 @NgModule({
-  declarations: [ProductListComponent],
-  imports: [
-    CommonModule,
-    FormsModule,
-    SharedModule,
-    ECommerceRoutingModule
-  ]
+    declarations: [ProductListComponent, ProductDetailsComponent, VarientDetailsComponent],
+    imports: [CommonModule, FormsModule, SharedModule, ECommerceRoutingModule],
 })
-export class ECommerceModule { }
+export class ECommerceModule {}

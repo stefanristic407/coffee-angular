@@ -1,7 +1,7 @@
 <app-loading *ngIf="isLoading"></app-loading>
-<div class="page-wrapper m-0" *ngIf="!isLoading">
+<div class="page-wrapper m-0 p-2 p-md-0 bg-f8" *ngIf="!isLoading">
     <article class="col-12 col-lg-12 p-0">
-        <div class="p-3 py-md-45 px-lg-45 border-main br-4">
+        <div class="p-2 p-md-4 border-main br-4">
             <div class="pb-3 coffee-name">{{ detailsData?.name }}</div>
             <div class="pb-3 pb-md-4 pb-lg-45">
                 <div class="w-100 position-relative">
@@ -13,7 +13,7 @@
                 </div>
                 <div class="mt-3 expertise-level-block">
                     <div class="d-flex w-100">
-                        <div class="pr-45 expert-sm">
+                        <div class="pr-45 pr-md-3 expert-sm">
                             <div class="m-0 d-flex">
                                 <span><img src="/assets/images/beginner-expertise.svg" /></span>
                                 <div class="expertise pl-2">{{ 'expertise_level' | translate }}</div>
@@ -66,13 +66,11 @@
                         </div>
                     </div>
                 </div>
-                <p class="fnt-14 fnt-muli pt-3 mb-2">
-                    {{ detailsData?.description }}
-                </p>
+                <p class="fnt-14 fnt-muli pt-3 mb-2" [innerHTML]="detailsData?.description"></p>
             </div>
             <div class="ingredient-block">
                 <p class="m-0 fnt-14 fnt-muli fnt-bold text-clr334">{{ 'ingredients' | translate }}</p>
-                <div class="ingredient-details">
+                <div class="ingredient-details bg-white">
                     <div class="m-0" *ngFor="let ing of detailsData?.ingredients; let last = last">
                         <span class="d-flex">
                             <div class="name fnt-14 fnt-muli">{{ ing?.name }}</div>

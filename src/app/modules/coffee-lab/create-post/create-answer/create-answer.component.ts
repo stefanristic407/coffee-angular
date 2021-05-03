@@ -48,22 +48,30 @@ export class CreateAnswerComponent implements OnInit {
 
     getForumById(): void {
         this.isLoading = true;
-        this.coffeeLabService.getForumDetails(this.forumType, this.forumId).subscribe((res: any) => {
-            this.isLoading = false;
-            if (res.success) {
-                this.language = res.result.lang_code;
-                console.log('forum detail in create-answer component >>>>>>>>>>>', res);
-                if (this.forumType === 'answer') {
-                    this.content = res.result.answer;
-                }
-                if (this.forumType === 'comment') {
+        if (this.forumType === 'comment') {
+            this.coffeeLabService.getComment(this.forumId).subscribe((res: any) => {
+                this.isLoading = false;
+                if (res.success) {
                     this.content = res.result.comment;
+                } else {
+                    this.toastrService.error('Error while get comment');
+                    this.location.back();
                 }
-            } else {
-                this.toastrService.error('Error while get comment');
-                this.location.back();
-            }
-        });
+            });
+        } else {
+            this.coffeeLabService.getForumDetails(this.forumType, this.forumId).subscribe((res: any) => {
+                this.isLoading = false;
+                if (res.success) {
+                    this.language = res.result.lang_code;
+                    console.log('forum detail in create-answer component >>>>>>>>>>>', res);
+                    this.content = res.result.answer;
+                    this.imageIdList = (res.result.images || []).map((item: any) => item.id);
+                } else {
+                    this.toastrService.error('Error while get comment');
+                    this.location.back();
+                }
+            });
+        }
     }
 
     onPost(status: string): void {
@@ -87,29 +95,32 @@ export class CreateAnswerComponent implements OnInit {
                 comment: this.content,
             };
         }
+        console.log('data >>>>>>>>>>', data);
+        return;
         this.isPosting = true;
         if (this.forumId) {
             this.coffeeLabService.updateForum(this.forumType, this.forumId, data).subscribe((res: any) => {
                 this.isPosting = false;
-                console.log('postComment result >>>', res);
                 if (res.success) {
-                    this.toastrService.success('You have updated a comment successfully.');
+                    this.toastrService.success('You have updated an article successfully.');
                     this.location.back();
                 } else {
-                    this.toastrService.error('Failed to update comment.');
+                    this.toastrService.error('Failed to update article.');
                 }
             });
         } else {
-            this.coffeeLabService.postComment(this.parentForumType, this.parentForumId, data).subscribe((res: any) => {
-                this.isPosting = false;
-                console.log('postComment result >>>', res);
-                if (res.success) {
-                    this.toastrService.success('You have posted a comment successfully.');
-                    this.location.back();
-                } else {
-                    this.toastrService.error('Failed to post comment.');
-                }
-            });
+            this.coffeeLabService
+                .postComment(this.parentForumType, this.parentForumId, data)
+                .subscribe((res: any) => {
+                    this.isPosting = false;
+                    console.log('postComment result >>>', res);
+                    if (res.success) {
+                        this.toastrService.success('You have posted a comment successfully.');
+                        this.location.back();
+                    } else {
+                        this.toastrService.error('Failed to post comment.');
+                    }
+                });
         }
     }
 }

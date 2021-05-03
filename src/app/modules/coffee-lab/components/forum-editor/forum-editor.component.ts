@@ -19,7 +19,7 @@ export class ForumEditorComponent implements OnInit {
     @Output() imageIdListChange = new EventEmitter<any>();
     @Input() fileModule = 'qa-forum';
     @Input() placeholder: string;
-    @Input() height = 213;
+    @Input() height;
     imagesCount = 0;
     images = [];
 
@@ -31,9 +31,20 @@ export class ForumEditorComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         public authService: AuthService,
-    ) {}
+    ) {
+        if (!this.height) {
+            this.height = 213;
+        }
+    }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.imagesCount = this.imageIdList?.length;
+        if (this.imagesCount) {
+            this.images = this.imageIdList.map((item: any) => {
+                return { id: item };
+            });
+        }
+    }
 
     onChangeContent(): void {
         this.contentChange.emit(this.content);
