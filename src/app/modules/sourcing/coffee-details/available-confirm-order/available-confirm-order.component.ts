@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CookieService } from 'ngx-cookie-service';
@@ -37,6 +37,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     orderPlaced = false;
     createdOrder: any;
     orderDetail: any;
+    minimumQuantity: number;
     coffeePrice: number;
     shipmentPrice: number;
     totalPrice: number;
@@ -227,13 +228,15 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             terms: [null, Validators.compose([Validators.required])],
         });
         if (this.orderType === 'booked') {
+            this.calcMinimumQuanity();
             this.infoForm.addControl(
                 'quantity',
                 new FormControl(
                     null,
                     Validators.compose([
                         Validators.required,
-                        Validators.min(this.shipInfo.minimum_quantity || 0),
+                        // Validators.min(this.minimumQuantity),
+                        (control: AbstractControl) => Validators.min(this.minimumQuantity)(control),
                         Validators.max(this.sourcing.harvestDetail.quantity_count),
                     ]),
                 ),
@@ -286,6 +289,22 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             this.addressData = this.roAddress;
         }
         this.changeQuantity();
+        this.calcMinimumQuanity();
+    }
+
+    calcMinimumQuanity() {
+        if (this.infoForm.value.service) {
+            this.minimumQuantity = Math.max(
+                this.shipInfo.minimum_quantity || 0,
+                this.sourcing.harvestDetail.minimum_purchase_quantity || 0,
+            );
+        } else {
+            this.minimumQuantity = this.sourcing.harvestDetail.minimum_purchase_quantity || 0;
+        }
+        const quantityControl = this.infoForm.get('quantity');
+        if (quantityControl) {
+            quantityControl.setValue(this.infoForm.value.quantity);
+        }
     }
 
     placeOrder() {
