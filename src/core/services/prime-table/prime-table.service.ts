@@ -32,7 +32,7 @@ export class PrimeTableService {
     public selectedRecords: any[] = [];
     public currentPage = 0;
     public sortBy: string = null;
-    public sortOrder = 'asc';
+    public sortOrder = 'desc';
     public isMobileView = true;
     public windowWidth: number;
     public responsiveStartsAt = 640;
@@ -47,15 +47,11 @@ export class PrimeTableService {
     }
 
     getData(event: any) {
-        if (event && event.sortOrder === 1) {
-            this.sortOrder = 'asc';
-        } else {
-            this.sortOrder = 'desc';
-        }
-
         if (event && event.sortField) {
             this.sortBy = event.sortField;
+            this.sortOrder = event.sortOrder === -1 ? 'desc' : 'asc';
         }
+
         if (event) {
             this.currentPage = event.first / this.rows;
         }
