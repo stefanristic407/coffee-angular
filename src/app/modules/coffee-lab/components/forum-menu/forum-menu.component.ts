@@ -167,7 +167,7 @@ export class ForumMenuComponent implements OnInit {
                 this.router.navigate(['/coffee-lab/create-post/comment'], {
                     queryParams: {
                         forumType: 'comment',
-                        forumId: this.selectedItem.comment_id,
+                        forumId: this.selectedItem.id,
                     },
                 });
                 break;
