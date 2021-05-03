@@ -133,6 +133,12 @@ export class ForumMenuComponent implements OnInit {
                 });
                 break;
             case 'comment':
+                this.router.navigate(['/coffee-lab/create-post/comment'], {
+                    queryParams: {
+                        forumId: this.selectedItem.post_id,
+                        forumType: 'comment',
+                    },
+                });
                 break;
         }
     }
@@ -164,6 +170,12 @@ export class ForumMenuComponent implements OnInit {
                 });
                 break;
             case 'comment':
+                this.router.navigate(['/coffee-lab/create-post/comment'], {
+                    queryParams: {
+                        forumId: this.selectedItem.post_id,
+                        forumType: 'comment',
+                    },
+                });
                 break;
         }
     }
