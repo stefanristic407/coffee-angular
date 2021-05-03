@@ -10,8 +10,6 @@ import { OrganizationType } from '@enums';
     styleUrls: ['./about.component.scss'],
 })
 export class AboutComponent implements OnInit {
-    brandProfileEstateWeb = 'https://qa-brand-profile.sewnstaging.com/estatebrandprofile/green-coffee';
-
     constructor(public globals: GlobalsService, public sourcing: SourcingService, public chatSrv: ChatHandlerService) {}
 
     ngOnInit(): void {}

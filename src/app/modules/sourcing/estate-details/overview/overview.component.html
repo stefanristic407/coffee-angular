@@ -157,7 +157,11 @@
                         </div>
                         <div class="row mx-0 mt-md-45 d-none d-md-block d-lg-none">
                             <div class="col-8 px-0">
-                                <a class="btn-raised w-100" [href]="brandProfileEstateWeb" target="_blank">
+                                <a
+                                    class="btn-raised w-100"
+                                    [href]="sourcing.estate?.slug | estateBrandLink"
+                                    target="_blank"
+                                >
                                     {{ 'know_more' | translate }}
                                 </a>
                             </div>
@@ -184,7 +188,11 @@
                         </div>
                         <div class="row justify-content-end mx-2 mx-md-0 mt-4 mt-md-45 d-md-none d-lg-flex">
                             <div class="col-12 col-md-6 px-0">
-                                <a class="btn-raised w-100" [href]="brandProfileEstateWeb" target="_blank">
+                                <a
+                                    class="btn-raised w-100"
+                                    [href]="sourcing.estate?.slug | estateBrandLink"
+                                    target="_blank"
+                                >
                                     {{ 'know_more' | translate }}
                                 </a>
                             </div>

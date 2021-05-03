@@ -25,14 +25,14 @@
                         <div class="col-lg-3 col-md-6 col-sm-6 col-6">
                             <div class="real-estate">
                                 <img src="assets/images/harveaster.svg" />
-                                <h6>{{ globals.languageJson?.year_founded_in }}</h6>
+                                <h6>{{ 'year_founded_in' | translate }}</h6>
                                 <h3>{{ sourcing.estate?.founded_on || 'NA' }}</h3>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 col-6">
                             <div class="real-estate">
                                 <img src="assets/images/small-avatar.svg" />
-                                <h6>{{ globals.languageJson?.estate_owner }}</h6>
+                                <h6>{{ 'estate_owner' | translate }}</h6>
                                 <h3>
                                     {{ sourcing.estate?.owner_name || 'NA' }}
                                 </h3>
@@ -63,7 +63,7 @@
                         class="d-none d-md-block col-md-5 col-lg-12 pt-md-2 pt-lg-0"
                     >
                         <h2 class="fnt-16 fnt-md-18 fnt-md-18 lh-normal fnt-bold text-clr000 mb-4">
-                            {{ globals.languageJson?.certificates }}
+                            {{ 'certificates' | translate }}
                         </h2>
                         <div class="cetify-logo">
                             <div class="d-flex flex-wrap mb-45">
@@ -76,8 +76,12 @@
                         </div>
                         <div class="row mx-0 mt-md-45 d-none d-md-block d-lg-none">
                             <div class="col-8 px-0">
-                                <a class="btn-raised w-100" [href]="brandProfileEstateWeb" target="_blank">
-                                    {{ globals.languageJson?.know_more }}
+                                <a
+                                    class="btn-raised w-100"
+                                    [href]="sourcing.estate?.slug | estateBrandLink"
+                                    target="_blank"
+                                >
+                                    {{ 'know_more' | translate }}
                                 </a>
                             </div>
                         </div>
@@ -106,8 +110,12 @@
                         </div>
                         <div class="row justify-content-end mx-2 mx-md-0 mt-1 mt-md-45 d-md-none d-lg-flex">
                             <div class="col-12 col-md-6 px-0">
-                                <a class="btn-raised w-100" [href]="brandProfileEstateWeb" target="_blank">
-                                    {{ globals.languageJson?.know_more }}
+                                <a
+                                    class="btn-raised w-100"
+                                    [href]="sourcing.estate?.slug | estateBrandLink"
+                                    target="_blank"
+                                >
+                                    {{ 'know_more' | translate }}
                                 </a>
                             </div>
                         </div>
@@ -120,7 +128,7 @@
 
 <ng-template #contacts>
     <h2 class="fnt-16 fnt-md-18 fnt-md-18 lh-normal fnt-bold text-clr334 mb-3 mb-md-4">
-        {{ globals.languageJson?.employees }}
+        {{ 'employees' | translate }}
     </h2>
     <div class="d-flex flex-wrap justify-content-between justify-content-md-start contact-block">
         <div class="contact-wrap" *ngFor="let contact of sourcing.estateContacts">
@@ -132,7 +140,7 @@
             <div class="msg-chat mt-3" (click)="message(contact.user_id)">
                 <img src="assets/images/message-icon.svg" class="" />
                 <p class="fnt-12 fnt-md-14 lh-normal fnt-500 text-clr334 pl-2">
-                    {{ globals.languageJson?.message }}
+                    {{ 'message' | translate }}
                 </p>
             </div>
         </div>
