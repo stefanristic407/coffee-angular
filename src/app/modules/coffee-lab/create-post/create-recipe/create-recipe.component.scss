@@ -10,23 +10,49 @@
         & > label {
             z-index: 1;
         }
+        .edit-btn-group {
+            z-index: 1;
+            position: absolute;
+            right: 30px;
+            top: 30px;
+            .btn-trans-nb {
+                background-color: transparent;
+                border: none;
+                color: #ffffff;
+                padding: 11px 24px;
+            }
+        }
     }
     .copy-paste-button {
         position: absolute;
         bottom: 16px;
         right: 16px;
         cursor: pointer;
-        @media (max-width: 767px) {
+        @media (max-width: 768px) {
             bottom: 8px;
             right: 8px;
         }
     }
+    .limitFont {
+        font-family: Muli;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: right;
+        color: #ababab;
+    }
     .stepAddImageContainer {
         background: $white;
-        height: 295px;
+        height: 184px;
         border: 1px solid $primary-border-color;
         border-radius: 4px;
         text-align: center;
+        & > label {
+            z-index: 1;
+        }
     }
     .cover-image {
         position: absolute;
@@ -49,7 +75,7 @@
     }
     .btn-controls {
         button {
-            @media (max-width: 767px) {
+            @media (max-width: 768px) {
                 width: 100%;
                 margin-bottom: 8px;
             }
@@ -87,6 +113,7 @@
             .p-tabview-nav {
                 li {
                     @media (max-width: 767px) {
+                        padding-top: 16px;
                         border-right: none !important;
                     }
                 }
@@ -102,6 +129,7 @@
     @media (max-width: 767px) {
         .addImageContainer,
         .stepAddImageContainer {
+            width: auto !important;
             height: 120px !important;
         }
         .step-mb {

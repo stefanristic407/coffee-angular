@@ -36,16 +36,16 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
 
     labels: any[] = [
         {
-            label: 'easy',
-            value: 'easy',
+            label: 'Easy',
+            value: 'Easy',
         },
         {
-            label: 'intermediate',
-            value: 'intermediate',
+            label: 'Intermediate',
+            value: 'Intermediate',
         },
         {
-            label: 'hard',
-            value: 'hard',
+            label: 'Hard',
+            value: 'Hard',
         },
     ];
     orderList: any[] = [
@@ -90,7 +90,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
             translations_available: this.isAvailableTranslation,
             sort_by: 'created_at',
             sort_order: this.selectedOrder === 'latest' ? 'desc' : 'asc',
-            level: this.label,
+            level: this.label?.toLowerCase(),
         };
         if (this.pageDesc === 'saved-posts') {
             this.coffeeLab.getSavedForumList('recipe').subscribe((res) => {

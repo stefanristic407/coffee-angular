@@ -1,4 +1,4 @@
-<div class="recipe-post-wrapper bg-f8">
+<div class="recipe-post-wrapper p-2 p-md-0 bg-f8">
     <div class="row" [formGroup]="recipeForm" (ngSubmit)="onSave()" novalidate>
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100" *ngIf="isTranslate">
             <p-dropdown
@@ -14,13 +14,29 @@
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sewn-form-field w-100">
             <label>{{ 'add_cover_image' | translate }}<span class="star">*</span></label>
             <div class="addImageContainer d-flex align-items-center justify-content-center imagesDiv">
+                <div class="edit-btn-group d-flex" *ngIf="coverImageUrl">
+                    <button
+                        class="btn-raised d-none d-md-flex mr-2"
+                        pButton
+                        (click)="bannerFileInput.click()"
+                        label="{{ 'replace_image' | translate }}"
+                    ></button>
+                    <button
+                        pButton
+                        icon="pi pi-trash"
+                        iconPos="left"
+                        class="fnt-14 btn-trans-nb d-none d-md-flex"
+                        (click)="deleteCoverImage()"
+                        label="{{ 'delete' | translate }}"
+                    ></button>
+                </div>
                 <img [src]="coverImageUrl" *ngIf="coverImageUrl" class="cover-image" />
                 <label class="d-block align-items-center justify-content-center pointer-item">
                     <input
                         type="file"
                         accept="image/png, image/jpeg"
                         style="display: none"
-                        #featureImage
+                        #bannerFileInput
                         (change)="uploadImage($event, 0, 'recipeCoverImage')"
                     />
                     <div class="d-flex flex-column align-items-center">
@@ -55,9 +71,10 @@
                 [(isUploadingImage)]="isUploadingImage"
                 [(imageIdList)]="imageIdList"
                 fileModule="recipe-post"
+                [height]="103"
             ></app-forum-editor>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-md-2 pr-lg-3">
             <label>{{ 'expertise' | translate }}<span class="star">*</span></label>
             <p-dropdown
                 [options]="expertiseArray"
@@ -70,12 +87,12 @@
             ></p-dropdown>
             <small *ngIf="recipeForm.controls['expertise'].errors?.required" class="p-error"> Required </small>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pl-md-2 pl-lg-3">
             <label>{{ 'serves' | translate }}<span class="star">*</span></label>
             <input type="text" placeholder="Enter number of servings" formControlName="serves" pInputText />
             <small *ngIf="recipeForm.controls['serves'].errors?.required" class="p-error"> Required </small>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-md-2 pr-lg-3">
             <label>{{ 'preparation_time' | translate }}<span class="star">*</span></label>
             <div class="p-inputgroup custom-addon dropdownClass inputFieldBox">
                 <input
@@ -100,7 +117,7 @@
                 </small>
             </div>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pl-md-2 pl-lg-3">
             <label>{{ 'cooking_time' | translate }}<span class="star">*</span></label>
             <div class="p-inputgroup custom-addon dropdownClass inputFieldBox">
                 <input type="number" placeholder="Enter Cooking Time" formControlName="cooking_time" pInputText />
@@ -127,13 +144,13 @@
             *ngFor="let ingredient of recipeForm.controls['ingredients']['controls']; let i = index; last as isLast"
         >
             <div [formGroupName]="i" class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-md-2 pr-lg-3">
                     <label>{{ 'ingredient' | translate }}<span class="star">*</span></label>
                     <input type="text" placeholder="Ingredient Name" pInputText formControlName="name" />
                     <small *ngIf="ingredient.controls['name'].errors?.required" class="p-error"> Required </small>
                 </div>
 
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pl-md-2 pl-lg-3">
                     <label>{{ 'quantity' | translate }}<span class="star">*</span></label>
                     <div class="p-inputgroup custom-addon dropdownClass inputFieldBox">
                         <input type="text" placeholder="Ingredient Quantity" pInputText formControlName="quantity" />
@@ -160,8 +177,7 @@
             <span class="fnt-14"
                 ><span class="editBtn cursor-pointer" (click)="addIngredient()">{{
                     'add_ingredients' | translate
-                }}</span
-                ><span class="star">*</span></span
+                }}</span></span
             >
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-3 d-flex mb-md-3 mb-0">
@@ -186,12 +202,18 @@
                     <ng-container *ngFor="let step of recipeForm?.value?.steps; let i = index; last as isLast">
                         <div class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9 sewn-form-field w-100 pt-4">
-                                <label>{{ 'step' | translate }} {{ i + 1 }}<span class="star">*</span></label>
+                                <div>
+                                    <label>{{ 'step' | translate }} {{ i + 1 }}<span class="star">*</span></label>
+                                    <label class="float-right limitFont"
+                                        >({{ step.description?.length || 0 }}/50 words)</label
+                                    >
+                                </div>
                                 <app-forum-editor
                                     [(content)]="step.description"
                                     [(isUploadingImage)]="isUploadingImage"
                                     [(imageIdList)]="imageIdListStep[i]"
                                     fileModule="recipe-post"
+                                    [height]="103"
                                 ></app-forum-editor>
                             </div>
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3 sewn-form-field w-100">
@@ -209,10 +231,9 @@
                                         />
                                         <div class="d-flex flex-column align-items-center">
                                             <img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25" />
-                                            <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25"
-                                                >{{ 'drag_drop_or_upload_image' | translate
-                                                }}<span class="star">*</span></span
-                                            >
+                                            <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25">{{
+                                                'drag_drop_or_upload_image' | translate
+                                            }}</span>
                                             <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25"
                                                 >({{ 'max_size' | translate }} 2mb)</span
                                             >
@@ -232,7 +253,7 @@
                 </p-tabPanel>
                 <p-tabPanel header="video recipe">
                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pt-4">
-                        <label>{{ 'upload_recipe_video' | translate }}<span class="star">*</span></label>
+                        <label>{{ 'upload_recipe_video' | translate }}</label>
                         <div
                             class="addImageContainer d-flex align-items-center justify-content-center imagesDiv position-relative"
                         >
@@ -274,7 +295,7 @@
             *ngIf="recipeForm?.value?.preparation_method === 'video'"
         >
             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-0">
-                <label>{{ 'upload_recipe_video' | translate }}<span class="star">*</span></label>
+                <label>{{ 'upload_recipe_video' | translate }}</label>
                 <div
                     class="addImageContainer d-flex align-items-center justify-content-center imagesDiv position-relative"
                 >
@@ -312,18 +333,25 @@
 
         <ng-container *ngFor="let step of recipeForm?.value?.steps; let i = index; last as isLast">
             <div class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12 step-xs flex-wrap">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9 sewn-form-field w-100">
-                    <label>{{ 'step' | translate }} {{ i + 1 }}<span class="star">*</span></label>
+                <div class="col-sm-12 col-md-8 col-lg-8 col-xl-9 sewn-form-field w-100">
+                    <div>
+                        <label>{{ 'step' | translate }} {{ i + 1 }}<span class="star">*</span></label>
+                        <label class="float-right limitFont">({{ step.description?.length || 0 }}/50 words)</label>
+                    </div>
                     <app-forum-editor
                         [(content)]="step.description"
                         [(isUploadingImage)]="isUploadingImage"
                         [(imageIdList)]="imageIdListStep[i]"
                         fileModule="recipe-post"
+                        [height]="103"
                     ></app-forum-editor>
                 </div>
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3 sewn-form-field w-100">
+                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-3 sewn-form-field w-100">
                     <label>{{ 'add_image' | translate }}</label>
-                    <div class="stepAddImageContainer d-flex align-items-center justify-content-center imagesDiv">
+                    <div
+                        class="stepAddImageContainer d-flex align-items-center justify-content-center imagesDiv position-relative"
+                    >
+                        <img [src]="step?.coverImageUrl" *ngIf="step?.coverImageUrl" class="cover-image" />
                         <label class="d-block align-items-center justify-content-center pointer-item">
                             <input
                                 type="file"
@@ -334,9 +362,9 @@
                             />
                             <div class="d-flex flex-column align-items-center">
                                 <img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25" />
-                                <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25"
-                                    >{{ 'drag_drop_or_upload_image' | translate }}<span class="star">*</span></span
-                                >
+                                <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25">{{
+                                    'drag_drop_or_upload_image' | translate
+                                }}</span>
                                 <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25"
                                     >({{ 'max_size' | translate }} 2mb)</span
                                 >
@@ -362,23 +390,27 @@
             ></p-checkbox>
             <i class="pi pi-info-circle text-clr588 fnt-16 ml-2"></i>
         </div>
-        <div class="row mt-2 col-sm-12 pr-0">
-            <div class="col-md-6 order-2 order-md-1 p-0 px-md-3">
+        <div class="row mt-2 col-sm-12 m-0">
+            <div class="col-md-6 order-2 order-md-1 p-0">
                 <button routerLink="/coffee-lab/overview/qa-forum" class="btn-stroked px-4 w-mob-100 mb-2 mb-md-0">
                     {{ 'cancel' | translate }}
                 </button>
             </div>
             <div class="col-md-6 order-1 order-md-2 p-0">
                 <div class="d-flex justify-content-end flex-column flex-md-row">
-                    <button class="btn-stroked px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0">
+                    <button
+                        class="btn-stroked px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0"
+                        [disabled]="isPosting"
+                        (click)="onSave('draft')"
+                    >
                         {{ 'save_as_draft' | translate }}
                     </button>
                     <button
                         [disabled]="isPosting"
-                        (click)="onSave()"
+                        (click)="onSave('published')"
                         class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
                     >
-                        {{ 'submit' | translate }}
+                        {{ (recipeId ? 'save_changes' : 'submit') | translate }}
                     </button>
                 </div>
             </div>

@@ -93,6 +93,7 @@
         }
     }
     @media (max-width: 767px) {
+        background: $primary-bg-color;
         .expert-sm {
             border-right: solid 1px $primary-border-color;
             border-bottom: solid 1px $primary-border-color;
@@ -123,6 +124,11 @@
         }
         .expertise-level-block {
             flex-wrap: wrap;
+        }
+    }
+    @media (max-width: 768px) {
+        .pr-45 {
+            padding-right: 16px !important;
         }
     }
 }

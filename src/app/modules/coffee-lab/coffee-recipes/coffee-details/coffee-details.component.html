@@ -37,7 +37,11 @@
                     </div>
                     <div
                         class="w-100 d-block d-md-none mt-3 py-3 pr-0 border-top-main border-bottom-main"
-                        *ngIf="detailsData?.allow_translation"
+                        *ngIf="
+                            detailsData?.allow_translation &&
+                            detailsData?.translations &&
+                            detailsData?.translations.length > 0
+                        "
                     >
                         <app-translation-dropdown
                             forumType="recipe"
@@ -136,7 +140,7 @@
                     <div *ngFor="let st of detailsData?.steps; index as i">
                         <p class="m-0 pb-1">{{ 'step' | translate }} {{ i + 1 }}:</p>
                         <p class="m-0 pb-2" [innerHTML]="st?.description"></p>
-                        <span><img [src]="st.image_url" class="w-100 pb-3" /></span>
+                        <span *ngIf="st.image_url"><img [src]="st.image_url" class="w-100 pb-3" /></span>
                     </div>
                 </div>
                 <div class="pt-4">
