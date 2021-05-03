@@ -483,7 +483,7 @@ export class DefaultSettingsComponent implements OnInit {
 
     handleCopyCoffeeExperienceLink(): void {
         const textArea = document.createElement('textarea');
-        textArea.value = this.coffeeExperienceLink;
+        textArea.value = this.coffeeExperienceLink.coffee_story_url;
         document.body.appendChild(textArea);
         textArea.select();
         document.execCommand('Copy');
