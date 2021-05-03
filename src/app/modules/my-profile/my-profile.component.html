@@ -1,5 +1,5 @@
 <div class="main-block">
-    <div *ngIf="!userPramId">
+    <div *ngIf="!queryUserId">
         <div class="mb-45 fnt-14 d-none d-md-block">
             <p-breadcrumb [model]="breadcrumbItems"></p-breadcrumb>
         </div>
@@ -10,14 +10,14 @@
             </a>
         </div>
     </div>
-    <div *ngIf="userPramId" class="mb-4">
+    <div *ngIf="queryUserId" class="mb-4">
         <a class="back-page" (click)="location.back()">
             {{ 'back' | translate }}
         </a>
     </div>
 
     <div data-aos="fade-up">
-        <div *ngIf="!userPramId" class="row">
+        <div *ngIf="!queryUserId" class="row">
             <div class="col-md-6 mb-4">
                 <div class="text-clr24 mb-2 mb-md-25 fnt-16 fnt-md-18 font-weight-bold line-height-normal">
                     {{ 'my_profile' | translate }}
