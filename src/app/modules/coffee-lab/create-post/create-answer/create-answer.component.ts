@@ -64,12 +64,8 @@ export class CreateAnswerComponent implements OnInit {
                 if (res.success) {
                     this.language = res.result.lang_code;
                     console.log('forum detail in create-answer component >>>>>>>>>>>', res);
-                    if (this.forumType === 'answer') {
-                        this.content = res.result.answer;
-                    }
-                    if (this.forumType === 'comment') {
-                        this.content = res.result.comment;
-                    }
+                    this.content = res.result.answer;
+                    this.imageIdList = (res.result.images || []).map((item: any) => item.id);
                 } else {
                     this.toastrService.error('Error while get comment');
                     this.location.back();
@@ -99,43 +95,32 @@ export class CreateAnswerComponent implements OnInit {
                 comment: this.content,
             };
         }
+        console.log('data >>>>>>>>>>', data);
+        return;
         this.isPosting = true;
-        if (this.forumType === 'answer') {
+        if (this.forumId) {
             this.coffeeLabService.updateForum(this.forumType, this.forumId, data).subscribe((res: any) => {
                 this.isPosting = false;
-                console.log('postComment result >>>', res);
                 if (res.success) {
-                    this.toastrService.success('You have updated a comment successfully.');
+                    this.toastrService.success('You have updated an article successfully.');
                     this.location.back();
                 } else {
-                    this.toastrService.error('Failed to update comment.');
+                    this.toastrService.error('Failed to update article.');
                 }
             });
         } else {
-            if (this.forumId) {
-                this.coffeeLabService.updateForum('comment', this.forumId, data).subscribe((res: any) => {
+            this.coffeeLabService
+                .postComment(this.parentForumType, this.parentForumId, data)
+                .subscribe((res: any) => {
                     this.isPosting = false;
+                    console.log('postComment result >>>', res);
                     if (res.success) {
-                        this.toastrService.success('You have updated an article successfully.');
+                        this.toastrService.success('You have posted a comment successfully.');
                         this.location.back();
                     } else {
-                        this.toastrService.error('Failed to update article.');
+                        this.toastrService.error('Failed to post comment.');
                     }
                 });
-            } else {
-                this.coffeeLabService
-                    .postComment(this.parentForumType, this.parentForumId, data)
-                    .subscribe((res: any) => {
-                        this.isPosting = false;
-                        console.log('postComment result >>>', res);
-                        if (res.success) {
-                            this.toastrService.success('You have posted a comment successfully.');
-                            this.location.back();
-                        } else {
-                            this.toastrService.error('Failed to post comment.');
-                        }
-                    });
-            }
         }
     }
 }

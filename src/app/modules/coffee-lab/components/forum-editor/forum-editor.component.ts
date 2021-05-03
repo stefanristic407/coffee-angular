@@ -33,7 +33,14 @@ export class ForumEditorComponent implements OnInit {
         public authService: AuthService,
     ) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.imagesCount = this.imageIdList.length;
+        if (this.imagesCount) {
+            this.images = this.imageIdList.map((item: any) => {
+                return { id: item };
+            });
+        }
+    }
 
     onChangeContent(): void {
         this.contentChange.emit(this.content);
