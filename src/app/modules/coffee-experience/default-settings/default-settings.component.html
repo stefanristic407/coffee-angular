@@ -513,7 +513,7 @@
                                                         <input
                                                             class="tab-input"
                                                             type="text"
-                                                            [value]="coffeeExperienceLink"
+                                                            [value]="coffeeExperienceLink?.coffee_story_url"
                                                             readonly
                                                         />
                                                         <button
@@ -537,7 +537,10 @@
                                                         {{ 'scan_download_text' | translate }}
                                                     </p>
                                                     <div class="text-center">
-                                                        <img class="img-fluid" src="assets/images/qr.PNG" />
+                                                        <img
+                                                            class="img-fluid"
+                                                            src="{{ coffeeExperienceLink?.qr_code_url }}"
+                                                        />
                                                         <div class="download-qr-link d-flex justify-content-center">
                                                             <a
                                                                 class="btn-trans-icon px-3 d-inline-flex align-items-center download"

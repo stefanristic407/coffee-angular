@@ -19,7 +19,7 @@
             <div class="w-100 br-4 border-main mb-4 mb-md-3 mb-lg-4">
                 <div class="p-md-4 p-3 bg">
                     <div class="mb-4 d-md-flex justify-content-between">
-                        <div class="d-flex">
+                        <div class="d-flex w-100">
                             <div class="mr-25">
                                 <img
                                     [src]="
@@ -34,7 +34,7 @@
                                     height="40"
                                 />
                             </div>
-                            <div class="d-flex justify-content-between w-100">
+                            <div class="d-flex d-md-inline justify-content-between w-100 mt-md-2">
                                 <div class="d-flex align-items-center">
                                     <div class="fnt-muli font-weight-bold fnt-14 text-clr24 mr-3">
                                         {{
@@ -68,7 +68,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mobile-dot">
+                                <div class="mobile-dot float-md-right">
                                     <app-forum-menu
                                         [selectedItem]="comment"
                                         forumType="comment"
@@ -113,10 +113,7 @@
                                     <span>{{ cmt?.comment | translate | convertToShortDescription: 20 }}</span>
                                 </div>
                             </div>
-                            <div
-                                *ngIf="comment.posted_by == userId"
-                                class="fnt-muli fnt-12 text-clr588 d-none d-md-block"
-                            >
+                            <div *ngIf="comment.posted_by == userId" class="fnt-muli fnt-12 text-clr588">
                                 <app-forum-menu
                                     [selectedItem]="cmt"
                                     forumType="comment"
