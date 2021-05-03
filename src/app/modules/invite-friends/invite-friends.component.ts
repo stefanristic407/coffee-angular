@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { CookieService } from 'ngx-cookie-service';
-import { EmailService, InviteFriendsService } from '@services';
+import { InviteFriendsService } from '@services';
 
 @Component({
     selector: 'app-invite-friends',
@@ -20,7 +19,6 @@ export class InviteFriendsComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private toastrService: ToastrService,
-        private cookieService: CookieService,
         private inviteFriendsService: InviteFriendsService,
     ) {}
 
