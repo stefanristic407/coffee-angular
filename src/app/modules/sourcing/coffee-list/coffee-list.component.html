@@ -49,7 +49,6 @@
                     {{ item.lot?.varieties?.length > 1 ? ' +' + (item.lot.varieties.length - 1) : '' }}
                 </td>
                 <td>
-                    <span>{{ CURRENCY_LIST[item.price_unit] }}</span>
                     <span>{{ item.price * (sourcingSrv.quantityUnit == QuantityUnit.lb ? LBUNIT : 1) }}</span>
                     <span>{{ item.price_unit }}&nbsp;/&nbsp;{{ sourcingSrv.quantityUnit }}</span>
                 </td>
