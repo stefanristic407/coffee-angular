@@ -45,7 +45,7 @@ export class ForumEditorComponent implements OnInit {
     onChangeContent(): void {
         this.contentChange.emit(this.content);
         const lastUploadedImage = this.getLastUploadedImage();
-        if (lastUploadedImage) {
+        if (lastUploadedImage && lastUploadedImage.includes('data:image')) {
             this.handleUploadImage(lastUploadedImage);
         }
     }
