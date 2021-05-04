@@ -10,6 +10,8 @@ import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators';
 import { ChatHandlerService } from '@services';
 import { OrganizationType } from '@enums';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmComponent } from '@shared';
 
 @Component({
     selector: 'app-team-member-table',
@@ -39,8 +41,6 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
     modalUserRoasterName = '';
     loginId: any;
     tableRows;
-    popupDisplay = false;
-    selectedUserID: any;
     popupDetails = { message: '', buttonName: '', showIcon: false };
     assignedUsers = [];
     @ViewChild('input') input: ElementRef;
@@ -55,6 +55,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
         private modalService: BsModalService,
         private messageService: ChatHandlerService,
         public sharedService: SharedServiceService,
+        public dialogSrv: DialogService,
     ) {}
 
     ngOnInit(): void {
@@ -289,49 +290,46 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
     // Function Name : user Disable
     // Description: This function helps to disable the selected user.
     userDisable(disableId) {
-        if (confirm('Please confirm! you want to Disable Account?') === true) {
-            this.roasterService.disableAdminUsers(this.roasterID, disableId).subscribe((result: any) => {
-                if (result.success) {
-                    this.toastrService.success('Disabled User Account Successfully');
-                    this.getTableData();
-                } else {
-                    this.toastrService.error('Error while disabling the User account');
-                }
-            });
-        }
+        this.roasterService.disableAdminUsers(this.roasterID, disableId).subscribe((result: any) => {
+            if (result.success) {
+                this.toastrService.success('Disabled User Account Successfully');
+                this.getTableData();
+            } else {
+                this.toastrService.error('Error while disabling the User account');
+            }
+        });
     }
     userEnable(enableId) {
-        if (confirm('Please confirm! you want to Enable Account?') === true) {
-            this.roasterService.enableAdminUser(this.roasterID, enableId).subscribe((result: any) => {
-                if (result.success) {
-                    this.toastrService.success('Enabled User Account');
-                    this.getTableData();
-                } else {
-                    this.toastrService.error('Error while enabling the User account');
-                }
-            });
-        }
+        this.roasterService.enableAdminUser(this.roasterID, enableId).subscribe((result: any) => {
+            if (result.success) {
+                this.toastrService.success('Enabled User Account');
+                this.getTableData();
+            } else {
+                this.toastrService.error('Error while enabling the User account');
+            }
+        });
     }
     makeAdmin(userDetails: any) {
         let findAdmin = false;
         if (userDetails && userDetails.roles && userDetails.roles.length > 0) {
-            findAdmin = userDetails.roles.find((ele) => ele.name === 'support-admins');
-            this.toastrService.error('Already an Admin.');
-        }
-        if (!findAdmin) {
-            const findAdminRole = this.roleList.find((ele) => ele.name === 'support-admins');
-            this.roasterService
-                .assignUserBasedUserRoles(this.roasterID, findAdminRole.id, userDetails.id)
-                .subscribe((data: any) => {
-                    if (data.success) {
-                        this.toastrService.success('User has been made Admin Successfully!');
-                    }
-                });
+            findAdmin = userDetails.roles.find((ele) => ele.name === 'Support Admin');
+            if (findAdmin) {
+                this.toastrService.error('Already an Admin.');
+            } else {
+                const findAdminRole = this.roleList.find((ele) => ele.name === 'Support Admin');
+                this.roasterService
+                    .assignUserBasedUserRoles(this.roasterID, findAdminRole.id, userDetails.id)
+                    .subscribe((data: any) => {
+                        if (data.success) {
+                            this.toastrService.success('User has been made Admin Successfully!');
+                            this.getTableData();
+                        }
+                    });
+            }
         }
     }
     showPopup(userID, flag) {
-        this.selectedUserID = userID;
-        this.popupDisplay = true;
+        // this.popupDisplay = true;
         if (flag === 'delete') {
             this.popupDetails.message = 'You sure you really want to delete this?';
             this.popupDetails.buttonName = 'Delete';
@@ -345,16 +343,31 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
             this.popupDetails.buttonName = 'Disable';
             this.popupDetails.showIcon = false;
         }
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    title: flag === 'delete' ? 'Oh noh :(' : 'Are you sure?',
+                    desp: this.popupDetails.message,
+                    type: flag === 'delete' ? 'delete' : 'confirm',
+                    noButton: this.globals.languageJson?.cancel,
+                    yesButton: this.popupDetails.buttonName,
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    if (this.popupDetails.buttonName === 'Delete') {
+                        this.deleteRoasterUser(userID);
+                    } else if (this.popupDetails.buttonName === 'Enable') {
+                        this.userEnable(userID);
+                    } else {
+                        this.userDisable(userID);
+                    }
+                }
+            });
     }
-    makePopupAction() {
-        if (this.popupDetails.buttonName === 'Delete') {
-            this.deleteRoasterUser(this.selectedUserID);
-        } else if (this.popupDetails.buttonName === 'Enable') {
-            this.userEnable(this.selectedUserID);
-        } else {
-            this.userDisable(this.selectedUserID);
-        }
-    }
+
     sendDirectMessage(userID) {
         const payLoad = {
             user_id: userID,
