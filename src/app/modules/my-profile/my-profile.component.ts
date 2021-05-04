@@ -42,7 +42,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     breadcrumbItems: MenuItem[];
     certificationArray: any[] = [];
     apiCount = 0;
-    userPramId: any;
+    queryUserId: any;
+    queryOrganization: any;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -68,10 +69,9 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         });
         this.roasterId = this.cookieService.get('roaster_id');
         this.userId = this.cookieService.get('user_id');
-        this.activateRoute.params.subscribe((params: any) => {
-            this.userPramId = params.id;
-            this.getUserInfo();
-        });
+        this.queryUserId  = this.activateRoute.snapshot.queryParamMap.get('user_id');
+        this.queryOrganization  = this.activateRoute.snapshot.queryParamMap.get('organization') || 'ro';
+        this.getUserInfo();
     }
 
     ngOnInit(): void {
@@ -92,12 +92,21 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     }
 
     getRoasterProfile(): void {
-        this.userOriginalService.getRoasterProfile(this.roasterId, this.userPramId).subscribe((res: any) => {
+        this.userOriginalService.getRoasterProfile(
+            this.roasterId,
+            this.queryOrganization,
+            this.queryUserId
+        ).subscribe((res: any) => {
+            console.log('get user info response >>>>>>>>>>>>>>>', res);
             this.apiCount += 1;
             if (res.success) {
                 this.profileInfo = res.result;
                 this.previewUrl = this.profileInfo.profile_image_url;
-                this.getUserBasedRoles();
+                if (this.queryUserId) {
+                    this.apiCount += 1;
+                } else {
+                    this.getUserBasedRoles();
+                }
                 this.checkApiCompletion();
             } else {
                 this.toastr.error('Error while fetching profile');

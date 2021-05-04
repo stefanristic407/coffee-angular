@@ -7,6 +7,7 @@ import { FilterComponent } from '../filter/filter.component';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { extend } from 'hammerjs';
 import { DestroyableComponent } from '@base-components';
+import { COUNTRY_LIST } from '@constants';
 
 @Component({
     selector: 'app-sourcing',
@@ -16,10 +17,7 @@ import { DestroyableComponent } from '@base-components';
 export class SourcingComponent extends DestroyableComponent implements OnInit, AfterViewInit {
     @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
     menuItems: any[];
-    originItems: any[] = [
-        { label: 'Sweden', value: 'se' },
-        { label: 'India', value: 'IN' },
-    ];
+    readonly COUNTRY_LIST = COUNTRY_LIST;
     varietyItems: any[] = [
         { label: 'Bourbon', value: 'Bourbon' },
         { label: 'Castillo', value: 'Castillo' },

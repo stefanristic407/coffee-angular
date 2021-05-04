@@ -78,9 +78,8 @@ export class UserserviceService extends ApiService {
     // API Function Name :Roaster Profile
     // API Description: This API calls helps to Roaster User Profile.
 
-    // tslint:disable: variable-name
-    getRoasterProfile(roaster_id: any, user_id = null) {
-        const apiCall = user_id ? `/ro/${roaster_id}/users/${user_id}` : `/ro/${roaster_id}/users/profile`;
+    getRoasterProfile(roasterId, organization = 'ro', userId = null) {
+        const apiCall = userId ? `/general/${organization}/users/${userId}` : `/${organization}/${roasterId}/users/profile`;
         const data = {
             api_call: apiCall,
             token: this.cookieService.get('Auth'),
@@ -1156,6 +1155,14 @@ export class UserserviceService extends ApiService {
     getMrOrdersCoffeeExperience(roaster_id: any, order_id: any) {
         const data = {
             api_call: `/ro/${roaster_id}/mr-orders/${order_id}/coffee-experience`,
+            method: 'GET',
+            token: this.cookieService.get('Auth'),
+        };
+        return this.http.post(this.roasterUrl, data);
+    }
+    getCoffeeStory(roaster_id: any, order_id: any, type: string) {
+        const data = {
+            api_call: `/ro/${roaster_id}/${type}/${order_id}/coffee-story`,
             method: 'GET',
             token: this.cookieService.get('Auth'),
         };

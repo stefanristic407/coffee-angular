@@ -1,12 +1,10 @@
 @import 'variables';
 
 .draft-link {
-    color: $muted-text-color;
+    color: $brown-color !important;
     cursor: pointer;
-    &:hover {
-        color: $muted-text-color;
-        text-decoration: underline!important;
-    }
+    font-weight: bold;
+    text-decoration: underline !important;
 }
 
 .post-container {

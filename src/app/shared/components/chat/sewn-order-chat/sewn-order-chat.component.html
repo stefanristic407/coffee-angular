@@ -141,10 +141,10 @@
                 <ng-container *ngIf="!isClosedDispute">
                     <ng-container *ngIf="threadDetails?.computed_activeUser?.user_id">
                         <div class="chat-inputs">
-                            <label class="chat-inputs__img">
+                            <!-- <label class="chat-inputs__img">
                                 <img src="assets/images/dm-img-upload.svg" />
                                 <input type="file" class="files" />
-                            </label>
+                            </label> -->
                             <textarea
                                 (keypress)="inputkeyPress($event)"
                                 (input)="inputChanges($event)"
@@ -152,7 +152,7 @@
                                 type="text"
                                 rows="1"
                                 class="chat-inputs__text"
-                                placeholder="Type something.."
+                                placeholder="Type your message here..."
                                 [(ngModel)]="messageInput"
                             ></textarea>
                             <div class="send-message">
@@ -164,9 +164,9 @@
                     </ng-container>
                     <ng-container *ngIf="!threadDetails?.computed_activeUser?.user_id">
                         <div class="chat-inputs disable">
-                            <label class="chat-inputs__img">
+                            <!-- <label class="chat-inputs__img">
                                 <img src="assets/images/dm-img-upload.svg" />
-                            </label>
+                            </label> -->
                             <textarea
                                 disabled
                                 data-element="messag-text-area"

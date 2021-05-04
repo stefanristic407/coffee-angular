@@ -1,14 +1,14 @@
-<div class="bg-f8 py-4">
+<div class="bg-f8 pt-4">
     <p-tabView class="toggle" [(activeIndex)]="selectedTab">
         <p-tabPanel [header]="'translation' | translate">
-            <div class="p-4 bg-f8" *ngIf="id">
+            <div class="py-3 p-md-4 bg-f8" *ngIf="id">
                 <app-create-recipe [isTranslate]="true"></app-create-recipe>
             </div>
         </p-tabPanel>
         <p-tabPanel [header]="'see_original_post' | translate">
-            <div class="p-4 bg-f8" *ngIf="id">
+            <div class="py-3 p-md-4 bg-f8" *ngIf="id">
                 <app-recipe-original-post [recipeId]="id"></app-recipe-original-post>
-                <div class="row mt-5 col-sm-12 pr-0 mx-0 p-0">
+                <div class="row mt-2 py-2 px-md-0 px-2 col-sm-12 m-0">
                     <div class="col-md-6 order-2 order-md-1 p-0">
                         <button
                             routerLink="/coffee-lab/overview/qa-forum"

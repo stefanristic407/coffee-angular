@@ -37,7 +37,11 @@
                     </div>
                     <div
                         class="w-100 d-block d-md-none mt-3 py-3 pr-0 border-top-main border-bottom-main"
-                        *ngIf="detailsData?.allow_translation"
+                        *ngIf="
+                            detailsData?.allow_translation &&
+                            detailsData?.translations &&
+                            detailsData?.translations.length > 0
+                        "
                     >
                         <app-translation-dropdown
                             forumType="recipe"
@@ -52,40 +56,51 @@
                         <div class="d-flex w-100">
                             <div class="pr-45 expert-sm">
                                 <div class="m-0 d-flex">
-                                    <span><img src="/assets/images/beginner-expertise.svg" /></span>
+                                    <span class="d-none d-md-block"
+                                        ><img src="/assets/images/beginner-expertise.svg"
+                                    /></span>
+                                    <span class="d-md-none"
+                                        ><img src="/assets/images/beginner-expertise-mb.svg"
+                                    /></span>
                                     <div class="expertise pl-2">{{ 'expertise_level' | translate }}</div>
                                 </div>
                                 <div class="expertise-level m-0 d-flex">
                                     <span style="visibility: hidden"
                                         ><img src="/assets/images/beginner-expertise.svg"
                                     /></span>
-                                    <div class="pl-2">{{ detailsData?.expertise }}</div>
+                                    <div class="overflow-hidden pl-2 text-overflow-ellipsis">
+                                        {{ detailsData?.expertise }}
+                                    </div>
                                 </div>
                             </div>
                             <div class="pr-45 preparation-sm">
                                 <div class="m-0 d-flex">
-                                    <span><img src="/assets/images/p-time.svg" /></span>
+                                    <span class="d-none d-md-block"><img src="/assets/images/p-time.svg" /></span>
+                                    <span class="d-md-none"><img src="/assets/images/p-time-mb.svg" /></span>
                                     <div class="expertise pl-2">{{ 'preparation_time' | translate }}</div>
                                 </div>
                                 <div class="expertise-level m-0">
                                     <span style="visibility: hidden"
                                         ><img src="/assets/images/beginner-expertise.svg"
                                     /></span>
-                                    <span class="pl-2">{{ detailsData?.preparation_time }}</span>
+                                    <span class="pl-2">{{
+                                        detailsData?.preparation_time + ' ' + detailsData?.preparation_time_unit
+                                    }}</span>
                                 </div>
                             </div>
                         </div>
                         <div class="d-flex w-100">
                             <div class="pr-45 cooking-sm">
                                 <div class="m-0 d-flex">
-                                    <span><img src="/assets/images/cooking-time.svg" /></span>
+                                    <span class="d-none d-md-block"><img src="/assets/images/cooking-time.svg" /></span>
+                                    <span class="d-md-none"><img src="/assets/images/cooking-time-mb.svg" /></span>
                                     <div class="expertise pl-2">{{ 'cooking _time' | translate }}</div>
                                 </div>
                                 <div class="expertise-level m-0 d-flex">
                                     <span style="visibility: hidden"
                                         ><img src="/assets/images/cooking-time.svg"
                                     /></span>
-                                    <div class="pl-2">
+                                    <div class="nowrap pl-2">
                                         {{ detailsData?.cooking_time }}
                                         {{ detailsData?.cooking_time_unit }}
                                     </div>
@@ -93,13 +108,12 @@
                             </div>
                             <div class="d-flex flex-wrap serving-sm">
                                 <div class="m-0 d-flex">
-                                    <span><img src="/assets/images/beginner-expertise.svg" /></span>
+                                    <span class="d-none d-md-block"><img src="/assets/images/serving.svg" /></span>
+                                    <span class="d-md-none"><img src="/assets/images/serving-mb.svg" /></span>
                                     <div class="expertise pl-2">{{ 'serving' | translate }}</div>
                                 </div>
                                 <div class="expertise-level m-0 d-flex">
-                                    <span style="visibility: hidden"
-                                        ><img src="/assets/images/beginner-expertise.svg"
-                                    /></span>
+                                    <span style="visibility: hidden"><img src="/assets/images/serving.svg" /></span>
                                     <div class="pl-2">{{ detailsData?.serves }}</div>
                                 </div>
                             </div>
@@ -126,7 +140,7 @@
                     <div *ngFor="let st of detailsData?.steps; index as i">
                         <p class="m-0 pb-1">{{ 'step' | translate }} {{ i + 1 }}:</p>
                         <p class="m-0 pb-2" [innerHTML]="st?.description"></p>
-                        <span><img [src]="st.image_url" class="w-100 pb-3" /></span>
+                        <span *ngIf="st.image_url"><img [src]="st.image_url" class="w-100 pb-3" /></span>
                     </div>
                 </div>
                 <div class="pt-4">

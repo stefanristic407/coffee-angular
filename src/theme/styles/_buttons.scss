@@ -47,6 +47,7 @@
 
     &:disabled {
         opacity: 0.8;
+        cursor: not-allowed;
         &:hover {
             box-shadow: 0 0 0 0;
         }
@@ -71,6 +72,7 @@
 
     &:disabled {
         opacity: 0.8;
+        cursor: not-allowed;
         &:hover {
             @include btn-stroked($primary-color, $white, $primary-color);
         }

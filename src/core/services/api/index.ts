@@ -22,3 +22,4 @@ export * from './your.service';
 export * from './green-grading.service';
 export * from './coffee-lab.service';
 export * from './idm.service';
+export * from './invite-friends.service';

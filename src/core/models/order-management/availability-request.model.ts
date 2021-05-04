@@ -1,4 +1,4 @@
-import { OrderStatus } from '@enums';
+import { AvailabilityRequestStatus } from '@enums';
 
 export interface AvailabilityRequest {
     id: number;
@@ -8,7 +8,7 @@ export interface AvailabilityRequest {
     harvest_id: number;
     requested_by_id: number;
     requested_quantity: number;
-    status: OrderStatus;
+    status: AvailabilityRequestStatus;
     approved_on: string;
     created_at: string;
     estate_name: string;

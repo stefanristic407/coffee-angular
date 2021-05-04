@@ -155,8 +155,21 @@ export class ForumMenuComponent implements OnInit {
                 });
                 break;
             case 'answer':
+                this.router.navigate(['/coffee-lab/create-post/answer'], {
+                    queryParams: {
+                        forumId: this.selectedItem.answer_id,
+                        parentForumType: 'question',
+                        forumType: 'answer',
+                    },
+                });
                 break;
             case 'comment':
+                this.router.navigate(['/coffee-lab/create-post/comment'], {
+                    queryParams: {
+                        forumType: 'comment',
+                        forumId: this.selectedItem.id,
+                    },
+                });
                 break;
         }
     }

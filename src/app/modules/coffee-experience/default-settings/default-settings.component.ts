@@ -52,12 +52,11 @@ export class DefaultSettingsComponent implements OnInit {
     materialMenuItems: MenuItem[];
     isImagePreviewPanel = false;
     isVideoPreviewPanel = false;
-    coffeeExperienceLink = 'https://sewn.com/coffee-experience';
+    coffeeExperienceLink: any;
     orderId: any;
     items = [];
     isEditableMode = false;
     estateBtn = true;
-
     constructor(
         public router: Router,
         public globals: GlobalsService,
@@ -66,7 +65,6 @@ export class DefaultSettingsComponent implements OnInit {
         public cookieService: CookieService,
         public route: ActivatedRoute,
         public location: Location,
-        private roasterService: RoasterserviceService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.setMenuItems();
@@ -210,12 +208,22 @@ export class DefaultSettingsComponent implements OnInit {
                     this.getDefaultSetting();
                 }
             });
+            this.userService.getCoffeeStory(this.roasterId, this.orderId, 'mr-orders').subscribe((res: any) => {
+                if (res.success) {
+                    this.coffeeExperienceLink = res.result;
+                }
+            });
         } else if (this.route.snapshot.queryParams.hrc_id) {
             this.userService.getHrcOrdersCoffeeExperience(this.roasterId, this.orderId).subscribe((response: any) => {
                 if (response.success) {
                     this.setPageData(response);
                 } else {
                     this.getDefaultSetting();
+                }
+            });
+            this.userService.getCoffeeStory(this.roasterId, this.orderId, 'hrc-orders').subscribe((rep: any) => {
+                if (rep.success) {
+                    this.coffeeExperienceLink = rep.result;
                 }
             });
         }
@@ -475,7 +483,7 @@ export class DefaultSettingsComponent implements OnInit {
 
     handleCopyCoffeeExperienceLink(): void {
         const textArea = document.createElement('textarea');
-        textArea.value = this.coffeeExperienceLink;
+        textArea.value = this.coffeeExperienceLink.coffee_story_url;
         document.body.appendChild(textArea);
         textArea.select();
         document.execCommand('Copy');

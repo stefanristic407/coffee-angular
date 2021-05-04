@@ -1,5 +1,5 @@
 <div class="mb-4 mb-lg-45">
-    <a class="back-page" routerLink="/coffee-lab/overview/qa-forum">
+    <a class="back-page" (click)="location.back()">
         {{ 'back' | translate }}
     </a>
 </div>
@@ -31,7 +31,11 @@
                             type="text"
                             pInputText
                             routerLink="/coffee-lab/create-post/answer"
-                            [queryParams]="{ parentForumId: detailsData.id, parentForumType: 'question', forumType: 'answer' }"
+                            [queryParams]="{
+                                parentForumId: detailsData.id,
+                                parentForumType: 'question',
+                                forumType: 'answer'
+                            }"
                             [placeholder]="'leave_a_comment_bla' | translate"
                         />
                     </div>
@@ -62,7 +66,7 @@
                                     forumType="answer"
                                     [extraInfo]="slug"
                                     [enableSave]="false"
-                                    [enableTranslation]="true"
+                                    [enableTranslation]="answer?.translations?.length < 3"
                                 ></app-forum-menu>
                             </div>
                             <div *ngIf="answer?.translations?.length" class="d-none d-md-block">
@@ -83,7 +87,11 @@
                         [translatedList]="answer?.translations"
                     ></app-translation-dropdown>
                 </div>
-                <div class="fnt-muli fnt-14 text-clr334 lh-15 mb-3 mb-md-4" appFullImgWrapper [innerHTML]="answer.answer"></div>
+                <div
+                    class="fnt-muli fnt-14 text-clr334 lh-15 mb-3 mb-md-4"
+                    appFullImgWrapper
+                    [innerHTML]="answer.answer"
+                ></div>
                 <div class="pt-4" *ngIf="answer?.parent_answer_id">
                     <app-original-view
                         [translations]="answer.translations"

@@ -18,7 +18,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
     @Input() saveOriginalPost;
     isPosting = false;
     recipeSub: Subscription;
-    applicationLanguages: any[] = APP_LANGUAGES;
+    applicationLanguages = [];
     coverImageUrl: any;
     videoUrl: any;
     description: any;
@@ -69,16 +69,36 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
 
     qualityArray: any[] = [
         {
-            label: '1 Lbs',
-            value: '1 Lbs',
+            label: 'lbs',
+            value: 'lbs',
         },
         {
-            label: '2 Tbs',
-            value: '2 Tbs',
+            label: 'tbsp',
+            value: 'tbsp',
         },
         {
-            label: '2 Units',
-            value: '2 Units',
+            label: 'grams',
+            value: 'grams',
+        },
+        {
+            label: 'kg',
+            value: 'kg',
+        },
+        {
+            label: 'units',
+            value: 'units',
+        },
+        {
+            label: 'ml',
+            value: 'ml',
+        },
+        {
+            label: 'L',
+            value: 'L',
+        },
+        {
+            label: 'glasses',
+            value: 'glasses',
         },
     ];
 
@@ -108,10 +128,8 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
 
     ngOnInit(): void {
         const type = this.route.snapshot.queryParamMap.get('type');
-        if (type === 'recipe') {
-            this.recipeId = this.route.snapshot.queryParamMap.get('id');
-        }
-        if (this.recipeId && !this.isTranslate) {
+        this.recipeId = this.route.snapshot.queryParamMap.get('id');
+        if (this.recipeId) {
             this.getRecipeById();
         }
         this.recipeSub?.unsubscribe();
@@ -132,10 +150,24 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         this.recipeSub?.add(recipeCoverImage);
     }
 
+    setLanguageOptions(): void {
+        this.applicationLanguages = APP_LANGUAGES.filter((item: any) => {
+            if (
+                item.value !== this.recipe &&
+                this.recipe.translations?.findIndex((translate) => translate.lang_code === item.value) === -1
+            ) {
+                return item;
+            }
+        });
+    }
+
     getRecipeById(): void {
         this.coffeeLabService.getRecipeById('recipe', this.recipeId, this.roasterId).subscribe((res: any) => {
             if (res.success) {
                 this.recipe = res.result;
+                this.applicationLanguages = APP_LANGUAGES.filter((item) => item.value !== res.result?.lang_code);
+                // this.setLanguageOptions();
+                console.log('get by id response-->>>>>>>', res);
                 this.recipeForm.controls.cover_image_id.setValue(res.result.cover_image_id);
                 this.coverImageUrl = res.result.cover_image_url;
                 this.isUploadingImage = true;
@@ -151,11 +183,38 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
                     preparation_method: res.result.preparation_method,
                     cover_image_id: res.result.cover_image_id,
                     description: res.result.description,
-                    ingredients: res.result.ingredients ? res.result.ingredients : [],
                     steps: res.result.steps ? res.result.steps : [],
                     allow_translation: res.result.allow_translation,
                     video_id: res.result?.video_id,
                 });
+                let i = 0;
+                for (const ing of res.result.ingredients) {
+                    const ingredient = {
+                        name: ing.name,
+                        quantity: ing.quantity,
+                        quantity_unit: ing.quantity_unit,
+                    };
+                    const controlArray = this.recipeForm.controls?.ingredients as FormArray;
+                    controlArray.controls[i]?.patchValue(ingredient);
+                    if (i < res.result.ingredients.length - 1) {
+                        controlArray.push(this.createCoffeeIngredient());
+                    }
+                    i++;
+                }
+                let j = 0;
+                for (const ing of res.result.steps) {
+                    const ingredient = {
+                        description: ing.description,
+                        image_id: ing?.image_id,
+                        coverImageUrl: ing?.image_url,
+                    };
+                    const controlArray = this.recipeForm.controls?.steps as FormArray;
+                    controlArray.controls[j]?.patchValue(ingredient);
+                    if (j < res.result.steps.length - 1) {
+                        controlArray.push(this.createCoffeeStep());
+                    }
+                    j++;
+                }
                 if (res.result.video_url) {
                     this.isShowVideo = true;
                     this.videoUrl = res.result.video_url;
@@ -189,7 +248,13 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
             video_id: [null],
             inline_images: [[]],
             language: this.coffeeLabService.currentForumLanguage,
+            publish: true,
         });
+    }
+
+    deleteCoverImage() {
+        this.coverImageUrl = null;
+        this.recipeForm.controls.cover_image_id.setValue(null);
     }
 
     uploadImage(event: any, index?, type?): void {
@@ -212,6 +277,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
                         const step = this.recipeForm.get('steps') as FormArray;
                         console.log('step--->>>', step);
                         step.controls[index].value.image_id = res.result.id;
+                        step.controls[index].value.coverImageUrl = res.result.url;
                     } else {
                         this.isShowVideo = true;
                         this.videoUrl = res.result.url;
@@ -229,6 +295,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         return this.fb.group({
             description: [''],
             image_id: [null],
+            coverImageUrl: [null],
         });
     }
 
@@ -259,11 +326,14 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         return returnFlag;
     }
 
-    onSave(): void {
+    onSave(status?: string): void {
         this.recipeForm.controls.description.setValue(this.description);
         console.log('save----', this.recipeForm.value);
         if (this.validateForms()) {
             this.isPosting = true;
+            if (status === 'draft') {
+                this.recipeForm.controls.publish.setValue(false);
+            }
             if (this.isTranslate) {
                 console.log('translate recipe');
                 this.translateRecipe(this.recipeForm.value);

@@ -3,9 +3,11 @@
         <div class="row no-gutters col-lg-6 px-0">
             <div class="col-6 col-md-3">
                 <p-multiSelect
-                    [options]="originItems"
+                    [options]="COUNTRY_LIST"
+                    optionLabel="name"
+                    optionValue="isoCode"
                     [(ngModel)]="queryParams.origin"
-                    defaultLabel="{{ globals.languageJson?.select_origin }}"
+                    defaultLabel="{{ 'select_origin' | translate }}"
                     [maxSelectedLabels]="1"
                     selectedItemsLabel="{0} Origins"
                     [filter]="false"
@@ -24,7 +26,7 @@
                 <p-multiSelect
                     [options]="varietyItems"
                     [(ngModel)]="queryParams.species"
-                    defaultLabel="{{ globals.languageJson?.add_variety }}"
+                    defaultLabel="{{ 'add_variety' | translate }}"
                     [maxSelectedLabels]="1"
                     selectedItemsLabel="{0} Species"
                     [filter]="false"
@@ -49,7 +51,7 @@
                         #searchInput
                         pInputText
                         [(ngModel)]="queryParams.name"
-                        placeholder="{{ globals.languageJson?.search_by_name }}"
+                        placeholder="{{ 'search_by_name' | translate }}"
                         class="w-100 br-left-md-0 {{ queryParams.name ? 'highlight' : '' }}"
                     />
                 </span>
@@ -71,12 +73,12 @@
                 (onChange)="filterCall()"
                 scrollHeight="225px"
                 [showClear]="true"
-                placeholder="{{ globals.languageJson?.crop_year }}"
+                placeholder="{{ 'crop_year' | translate }}"
                 styleClass="round-border mr-25 mb-25 mb-md-4 {{ queryParams.crop_year ? 'highlight' : '' }}"
             ></p-dropdown>
             <p-dropdown
                 (click)="openFilter()"
-                placeholder="{{ globals.languageJson?.more_filters }}"
+                placeholder="{{ 'more_filters' | translate }}"
                 styleClass="round-border mr-25 mb-25 mb-md-4 {{
                     queryParams.altitude_start ||
                     queryParams.altitude_end ||
@@ -110,7 +112,7 @@
                     [(ngModel)]="sourcingSrv.sortParam"
                     (onChange)="sort()"
                     scrollHeight="225px"
-                    placeholder="{{ globals.languageJson?.sort_by }}"
+                    placeholder="{{ 'sort_by' | translate }}"
                     styleClass="round-border mr-25"
                 ></p-dropdown>
                 <p-selectButton

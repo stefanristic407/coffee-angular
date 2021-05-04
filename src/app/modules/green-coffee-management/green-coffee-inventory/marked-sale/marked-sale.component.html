@@ -52,7 +52,6 @@
         [lazy]="true"
         (onLazyLoad)="primeTableService.getData($event)"
         [totalRecords]="primeTableService.totalRecords"
-        [sortField]="'created_at'"
         [responsive]="primeTableService.isMobileView"
     >
         <ng-template pTemplate="colgroup" let-columns>

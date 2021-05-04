@@ -6,15 +6,15 @@
         <div class="br-4 border-main mb-4 mb-md-3 mb-lg-4">
             <div class="p-md-4 p-3">
                 <div class="d-flex justify-content-between">
-                    <div>
+                    <div class="flex-1">
                         <app-user-header [prop]="question"></app-user-header>
                     </div>
                     <div class="mobile-dot">
                         <app-forum-menu
                             [selectedItem]="question"
                             forumType="question"
-                            [enableEdit]="isMyPostsPage"
-                            [enableDelete]="isMyPostsPage"
+                            [enableEdit]="organizationId === question.org_id && question.org_type === 'ro'"
+                            [enableDelete]="organizationId === question.org_id && question.org_type === 'ro'"
                         ></app-forum-menu>
                     </div>
                 </div>

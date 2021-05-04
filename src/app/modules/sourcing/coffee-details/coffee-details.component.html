@@ -147,7 +147,12 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4 col-sm-6">
                                             <div class="real-estate mt-0">
-                                                <h6 class="mt-0">12 Feb, 2020</h6>
+                                                <h6 class="mt-0">
+                                                    {{
+                                                        sourcing.harvestDetail?.cupping?.cupped_at
+                                                            | date: 'MMMM dd, yyyy'
+                                                    }}
+                                                </h6>
                                                 <h3>
                                                     {{ 'cup_score' | translate }} :
                                                     {{ sourcing.harvestDetail?.cupping?.cup_score }}
@@ -278,11 +283,11 @@
                                     </li>
                                     <li>
                                         <label>Type :</label>
-                                        <p>{{ sourcing.harvestDetail?.type }}</p>
+                                        <p>{{ sourcing.harvestDetail?.type | abailabilityType }}</p>
                                     </li>
                                     <li>
                                         <label>Listing Status :</label>
-                                        <p>{{ sourcing.harvestDetail?.listing_status }}</p>
+                                        <p>{{ sourcing.harvestDetail?.listing_status | abailabilityListingStatus }}</p>
                                     </li>
                                     <li>
                                         <label>Wet Mill processing :</label>

@@ -40,6 +40,9 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
             this.forumLanguage = language;
             this.getQuestions();
         });
+        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
+            this.getQuestions();
+        });
     }
 
     getAuthors(): void {
