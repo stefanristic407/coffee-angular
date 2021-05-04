@@ -293,8 +293,7 @@
         <ng-container *ngTemplateOutlet="listHeaderTL"></ng-container>
         <div class="dm-sup-back-to-chat" (click)="closeNewChatPanel()">
             <img class="dm-sup-back-img" src="assets/images/dm-back-arrow.svg" />
-            <span class="dm-sup-back-text brown-text" *ngIf="!chatHandler.isExpand.value"> Back to chat </span>
-            <span class="dm-sup-back-text brown-text" *ngIf="chatHandler.isExpand.value"> Back to Conversation</span>
+            <span class="dm-sup-back-text brown-text"> Back to Conversation</span>
         </div>
         <div class="dm-sup-top-panel">
             <div class="dm-sup-thread-search-wrapper">
@@ -363,8 +362,7 @@
         <ng-container *ngTemplateOutlet="listHeaderTL"></ng-container>
         <div class="dm-rup-back-to-chat" (click)="closeBlockedListPanel()">
             <img class="dm-rup-back-img" src="assets/images/dm-back-arrow.svg" />
-            <span class="dm-rup-back-text brown-text" *ngIf="!chatHandler.isExpand.value"> Back to chat </span>
-            <span class="dm-rup-back-text brown-text" *ngIf="chatHandler.isExpand.value"> Back to Conversation</span>
+            <span class="dm-rup-back-text brown-text"> Back to Conversation</span>
         </div>
         <div class="dm-rup-listing">
             <div class="dm-rup-error-panel" *ngIf="!myBlockList.length && !loader.blockListFetch">
