@@ -104,7 +104,11 @@ export class InviteNewUserComponent implements OnInit {
                     }
                 });
         } else {
-            this.showError('add');
+            if (addUserResponse.messages.email) {
+                this.toastrService.error('This email already exists. Try with another one!');
+            } else {
+                this.showError('add');
+            }
         }
     }
     showError(flag) {
