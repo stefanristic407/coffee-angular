@@ -124,7 +124,7 @@
                     <app-order-table #appOrderTable [searchOptions]="queryParams" class="mt-md-4"> </app-order-table>
                 </p-tabPanel>
                 <p-tabPanel [header]="'requests' | translate">
-                    <app-request-table #requestTable class="mt-md-4"></app-request-table>
+                    <app-request-table #requestTable [searchOptions]="queryParams" class="mt-md-4"></app-request-table>
                 </p-tabPanel>
             </p-tabView>
         </div>

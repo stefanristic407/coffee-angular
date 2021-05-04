@@ -1,0 +1,202 @@
+@import 'variables';
+.toggleDiv {
+    border: 1px solid #d6d6d6;
+    padding: 2px;
+    height: 2rem;
+    border-radius: 4px;
+}
+.enableBtn {
+    background-color: $primary-color;
+    padding: 4px 16px;
+    color: #fff !important;
+    font-size: 12px;
+    border-radius: 4px !important;
+}
+.disbableBtn {
+    padding: 4px 16px;
+    color: #979797;
+    font-size: 12px;
+}
+.addNewWeightDiv {
+    border: 1px solid #747588;
+    padding: 6px 12px;
+    height: 34px;
+    border-radius: 4px;
+}
+.descriptionText-area {
+    height: 5.25rem;
+}
+.roasterDivText-area {
+    height: 7.62rem;
+}
+
+@media (min-width: 768px) {
+    .sewn-form-field {
+        margin-bottom: 1rem !important;
+    }
+}
+.flavour-item {
+    padding: 8px 16px;
+    border-radius: 17px;
+    background-color: #747588;
+    color: #fff;
+    margin: 5px;
+}
+.limitFont {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: right;
+    color: #ababab;
+}
+
+::ng-deep .isProductOption .p-tabview .p-tabview-nav {
+    display: none;
+}
+.equal-operators {
+    font-size: 14px;
+    font-weight: 600;
+    color: #454545;
+    position: relative;
+    min-height: 1px;
+    float: left;
+    vertical-align: middle;
+    padding: 9px 10px;
+    margin-top: 30px;
+}
+.divSeperator {
+    border: 1px dashed #d6d6d6;
+    margin-top: 1rem !important;
+    margin-bottom: 2.5rem !important;
+}
+.productDiv {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+}
+.boxCrateWidth {
+    width: 205px !important;
+}
+
+.bags-width {
+    width: 205px !important;
+}
+
+.weight-varient-array {
+    ::ng-deep .p-dropdown {
+        background: #f9f9f9;
+    }
+    ::ng-deep .p-dropdown .p-dropdown-label {
+        padding: 16px !important;
+    }
+}
+
+.delete-varient {
+    display: none;
+}
+
+::ng-deep .p-breadcrumb {
+    width: 100%;
+}
+
+@media screen and (max-width: 1100px) {
+    .divSeperator {
+        border: 1px dashed #d6d6d6;
+        margin-top: 24px !important;
+        margin-bottom: 24px !important;
+    }
+    .variant-pos {
+        position: relative;
+        top: 22px;
+        float: left;
+    }
+}
+@media (min-width: 768px) and (max-width: 1240px) {
+    .describePadding {
+        margin-bottom: 0px;
+    }
+
+    ::ng-deep .varientBox label.p-checkbox-label {
+        width: max-content;
+    }
+}
+@media screen and (max-width: 767px) {
+    .delete-varient {
+        display: inherit;
+        padding: 16px 0 0;
+        margin: 0;
+    }
+    .bags-width {
+        width: 100% !important;
+        padding: 0px !important;
+        padding-left: 15px !important;
+        margin-left: 0 !important;
+    }
+    .weightVariantBtn {
+        border: solid 1px #30855c;
+        color: #30855c;
+        padding: 0.5rem 2rem;
+        display: flex;
+        border-radius: 4px;
+        align-items: center;
+        justify-content: center;
+    }
+    :host ::ng-deep .p-tabview-nav {
+        display: none;
+    }
+    .p-dropdown {
+        width: 100%;
+    }
+    .e-comm-border-top {
+        border-top: 1px dashed #d6d6d6;
+        padding: 8px;
+    }
+    .divSeperator {
+        border: 1px dashed #d6d6d6;
+        margin-top: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    .productDiv {
+        margin-top: 1rem;
+        margin-bottom: 0px !important;
+    }
+    .productLineDiv {
+        padding-bottom: 1rem !important;
+        border-bottom: 1px solid #d6d6d6;
+    }
+    .roasterDivText-area {
+        height: 232px;
+    }
+    ::ng-deep .varientBox label.p-checkbox-label {
+        position: relative;
+        top: 0.35rem;
+    }
+    .boxCrateWidth {
+        width: 140px !important;
+    }
+    .boxCreatedMobile {
+        margin-left: 15px;
+    }
+    .width-mob {
+        width: 100%;
+    }
+}
+@media (max-width: 375px) {
+    ::ng-deep .varientBox label.p-checkbox-label {
+        position: relative;
+        top: 0.9rem;
+    }
+
+    .boxCrateWidth {
+        width: 110px !important;
+    }
+}
+.addWeightDiv {
+    border: 1px solid #747588;
+    padding: 6px 0px;
+    height: 38px;
+    border-radius: 2px;
+}

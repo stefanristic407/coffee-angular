@@ -13,9 +13,9 @@
                         <app-forum-menu
                             [selectedItem]="question"
                             forumType="question"
-                            [enableEdit]="isMyPostsPage"
-                            [enableDelete]="isMyPostsPage"
-                            [enableSave]="isMyPostsPage"
+                            [enableEdit]="organizationId === question.org_id && question.org_type === 'ro'"
+                            [enableDelete]="organizationId === question.org_id && question.org_type === 'ro'"
+                            [enableSave]="pageDesc === saved - posts ? false : true"
                         ></app-forum-menu>
                     </div>
                 </div>

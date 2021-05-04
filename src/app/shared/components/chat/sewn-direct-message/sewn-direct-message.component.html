@@ -340,7 +340,7 @@
                     </div>
                 </ng-container>
                 <ng-container *ngIf="!this.loader.userListFetchFetch">
-                    <div class="dm-sup-listing-error-panel" *ngIf="!usersList.length">
+                    <div class="dm-sup-listing-error-panel" *ngIf="!filteredUsersList.length">
                         <div class="dm-sup-error-block">
                             <img class="dm-sup-error-img" src="assets/images/dm-notfound-thread.svg" alt="Empty" />
                             <div class="dm-sup-error-text">Oops! No results found</div>
@@ -350,7 +350,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="dm-sup-listing-wrapper" *ngIf="usersList.length">
+                    <div class="dm-sup-listing-wrapper" *ngIf="filteredUsersList.length">
                         <ng-container *ngTemplateOutlet="findUserListTL"></ng-container>
                     </div>
                 </ng-container>
@@ -527,7 +527,7 @@
     </div>
 </ng-template>
 <ng-template #findUserListTL>
-    <div class="dm-find-list-item" *ngFor="let user of usersList" (click)="openThreadWithUser(user)">
+    <div class="dm-find-list-item" *ngFor="let user of filteredUsersList" (click)="openThreadWithUser(user)">
         <div class="dm-fli-dp-block dm-fli-extra-margin">
             <img class="dm-fli-dp-image" [src]="user.computed_profile_direct_url" alt="Profile Picture" />
         </div>

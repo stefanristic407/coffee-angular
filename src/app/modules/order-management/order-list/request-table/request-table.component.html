@@ -120,11 +120,15 @@
                 </div>
             </td>
             <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.created_at | date: 'd MMM yyyy' }}</td>
-            <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.origin }}</td>
+            <td class="d-none d-md-table-cell text-overflow-ellipsis">
+                {{ commonService.getCountryName(rowData.origin) }}
+            </td>
             <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.estate_name }}</td>
             <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.varieties }}</td>
             <td class="d-none d-md-table-cell">
-                <a class="navigation-link">{{ 'view_details' | translate }}</a>
+                <a class="navigation-link" [routerLink]="['/orders/mr', rowData.id, 'request']">{{
+                    'view_details' | translate
+                }}</a>
             </td>
         </tr>
     </ng-template>

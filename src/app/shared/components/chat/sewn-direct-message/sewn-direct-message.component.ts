@@ -1,16 +1,15 @@
-import { MessageMetaTypes } from '@enums';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
 import Viewer from 'viewerjs';
 import { debounce, first, filter, tap } from 'rxjs/operators';
 import { Subscription, fromEvent, interval, Subject, timer } from 'rxjs';
-import { Component, OnInit, OnDestroy, AfterViewInit, Renderer2, ElementRef, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, Renderer2, ElementRef } from '@angular/core';
 import {
-    UserserviceService,
     SocketService,
     ChatHandlerService,
     ChatUtilService,
     GlobalsService,
+    ChatApiServices,
     GoogletranslateService,
 } from '@services';
 
@@ -31,7 +30,14 @@ import {
     StickerListItem,
     ResponseReadUpdate,
 } from '@models';
-import { ThreadActivityType, OrganizationType, ThreadType, ServiceCommunicationType, ChatMessageType } from '@enums';
+import {
+    ThreadActivityType,
+    OrganizationType,
+    ThreadType,
+    ServiceCommunicationType,
+    ChatMessageType,
+    MessageMetaTypes,
+} from '@enums';
 
 const badwordsRegExp = require('badwords/regexp') as RegExp;
 
@@ -250,10 +256,10 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         private elRef: ElementRef,
         private socket: SocketService,
         public chatHandler: ChatHandlerService,
-        private userService: UserserviceService,
         private chatUtil: ChatUtilService,
         private toast: ToastrService,
         public gtrans: GoogletranslateService,
+        public chatApi: ChatApiServices,
     ) {}
 
     ngOnInit(): void {
@@ -1727,7 +1733,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         if (this.SM.userListSubscription && this.SM.userListSubscription.unsubscribe) {
             this.SM.userListSubscription.unsubscribe();
         }
-        this.SM.userListSubscription = this.userService.searchUser(searchQuery).subscribe((data) => {
+
+        this.SM.userListSubscription = this.chatApi.searchUser(searchQuery).subscribe((data) => {
+            console.log('userService', data);
             this.loader.userListFetchFetch = false;
             let list = [];
             if (data && data.success && data.result && data.result.length > 0) {
@@ -1933,22 +1941,20 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             actionHandler: (value) => {
                 if (value === 'yes') {
                     this.loader.reportAction = true;
-                    this.userService
-                        .reportUser(dataPayload.user_id, dataPayload.org_type, dataPayload.org_id)
-                        .subscribe(
-                            (res) => {
-                                this.loader.reportAction = false;
-                                if (res.success) {
-                                    this.toast.success('Successfully reported the user', 'Report');
-                                } else {
-                                    this.toast.success('Failed to report the user', 'Report');
-                                }
-                            },
-                            () => {
-                                this.loader.reportAction = false;
+                    this.chatApi.reportUser(dataPayload.user_id, dataPayload.org_type, dataPayload.org_id).subscribe(
+                        (res) => {
+                            this.loader.reportAction = false;
+                            if (res.success) {
+                                this.toast.success('Successfully reported the user', 'Report');
+                            } else {
                                 this.toast.success('Failed to report the user', 'Report');
-                            },
-                        );
+                            }
+                        },
+                        () => {
+                            this.loader.reportAction = false;
+                            this.toast.success('Failed to report the user', 'Report');
+                        },
+                    );
                 }
             },
         });
@@ -2223,10 +2229,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         }
     }
 
-    get filteredThreadList(): ThreadListItem[] {
-        return this.threadList.filter((x) => !this.isThreadBlocked(x));
-    }
-
     openImage(messageId: number) {
         if (this.viewerRef) {
             this.viewerRef.destroy();
@@ -2280,6 +2282,15 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         }, 500);
     }
 
+    get filteredThreadList(): ThreadListItem[] {
+        return this.threadList.filter((x) => !this.isThreadBlocked(x));
+    }
+    get filteredUsersList(): UserListItem[] {
+        return this.usersList.filter((x) => !this.isUserListItemBlocked(x));
+    }
+    isUserListItemBlocked(user: RecentUserListItem | UserListItem): boolean {
+        return user.blockedDetails.blockedMe || user.blockedDetails.myBlock;
+    }
     isThreadBlocked(thread: ThreadListItem): boolean {
         return thread.blockedDetails.blockedMe || thread.blockedDetails.myBlock;
     }

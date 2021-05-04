@@ -61,6 +61,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
         this.roasterID = this.cookieService.get('roaster_id');
         this.primeTableService.rows = 10;
         this.primeTableService.sortBy = 'created_at';
+        this.primeTableService.sortOrder = 'desc';
     }
 
     // tslint:disable: variable-name

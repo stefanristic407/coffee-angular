@@ -1,8 +1,8 @@
 <div class="coffee-recipes-view-container">
-    <div class="fnt-18 fnt-md-24 font-weight-bold pb-md-45 pb-3 d-md-none">{{ 'recipes' | translate }}</div>
-    <div class="row gutter-32">
+    <div class="fnt-18 fnt-md-24 font-weight-bold d-md-none">{{ 'recipes' | translate }}</div>
+    <div class="row justify-content-lg-between pt-3 pt-md-0 gutter-32">
         <div class="col-lg-8">
-            <div class="p-3 bg-f8 br-4 d-flex align-items-center mb-4 mb-md-0">
+            <div class="p-3 bg-f8 br-4 d-flex align-items-center">
                 <img
                     [src]="authService.currentUser?.profile_image_thumb_url || 'assets/images/default-avatar.png'"
                     alt="avatar"
@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-4 d-block d-md-none d-xl-block mt-4 mt-lg-0">
             <div class="custom-search qa-forum-search d-lg-block">
                 <input
                     class="w-100 fnt-16"
@@ -34,15 +34,26 @@
             </div>
         </div>
     </div>
-    <div class="row gutter-32 align-items-center d-none d-md-block">
-        <div class="col-lg-8">
-            <div class="fnt-18 fnt-md-24 font-weight-bold py-45">
-                {{ 'find_something_interesting' | translate }}
-            </div>
-        </div>
+
+    <div
+        class="d-none d-md-flex flex-column align-items-center flex-md-row justify-content-md-between pt-md-4 pb-md-0 py-lg-45"
+    >
+        <h1 class="fnt-18 fnt-md-24 fnt-muli fnt-bold text-clr334 mb-0">
+            {{ 'recipes' | translate }}
+        </h1>
+        <span class="custom-search h-fit-content mt-3 mt-md-0 d-lg-none">
+            <input
+                class="w-100 fnt-16"
+                type="text"
+                pInputText
+                [(ngModel)]="searchQuery"
+                (ngModelChange)="getCoffeeRecipesData()"
+                placeholder="Search Recipes.."
+            />
+        </span>
     </div>
 
-    <div class="d-flex align-items-md-center justify-content-between py-4 pt-lg-0 pb-md-4 pb-lg-45">
+    <div class="d-flex align-items-md-center justify-content-between py-4 pt-lg-0 pb-md-4 pt-md-0 pb-lg-45">
         <div class="d-block flex-wrap d-md-flex">
             <div class="mt-md-4 mt-lg-0">
                 <p-dropdown
