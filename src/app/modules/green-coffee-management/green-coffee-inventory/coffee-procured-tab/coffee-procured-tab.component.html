@@ -121,10 +121,24 @@
                             </span>
 
                             <span *ngIf="primeTableService.isMobileView" class="w-50">
-                                {{ rowData['quantity'] }}&nbsp; {{ rowData['quantity_type'] }}
+                                {{ rowData['quantity'] * rowData['quantity_count'] }}&nbsp; kg
                             </span>
                             <span *ngIf="!primeTableService.isMobileView" class="">
-                                {{ rowData['quantity'] }}&nbsp; {{ rowData['quantity_type'] }}
+                                {{ rowData['quantity'] * rowData['quantity_count'] }}&nbsp; kg
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'remaining_total_quantity'" [routerLink]="availabilityPage(rowData)">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                Reamaining Quantity
+                            </span>
+
+                            <span *ngIf="primeTableService.isMobileView" class="w-50">
+                                {{ rowData['remaining_total_quantity'] }}&nbsp; kg
+                            </span>
+                            <span *ngIf="!primeTableService.isMobileView" class="">
+                                {{ rowData['remaining_total_quantity'] }}&nbsp; kg
                             </span>
                         </div>
                     </span>

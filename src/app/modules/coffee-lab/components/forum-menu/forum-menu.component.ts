@@ -20,6 +20,7 @@ export class ForumMenuComponent implements OnInit {
     @Input() enableDelete = false;
     @Input() enableShare = true;
     @Input() enableSave = true;
+    @Input() enableDeleteSave = false;
     @Input() enableTranslation = false;
 
     items: MenuItem[] = [];
@@ -70,6 +71,14 @@ export class ForumMenuComponent implements OnInit {
                 label: this.globalsService.languageJson.translate_post,
                 command: () => {
                     this.onTranslate();
+                },
+            });
+        }
+        if (this.enableDeleteSave) {
+            this.items.push({
+                label: this.globalsService.languageJson.remove.concat(' ', this.globalsService.languageJson.save_post),
+                command: () => {
+                    this.onDelete();
                 },
             });
         }

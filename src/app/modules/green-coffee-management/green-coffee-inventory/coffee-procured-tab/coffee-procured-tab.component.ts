@@ -158,6 +158,12 @@ export class CoffeeProcuredTabComponent implements OnInit {
                     width: 50,
                 },
                 {
+                    field: 'remaining_total_quantity',
+                    header: 'Remaining Quantity',
+                    sortable: false,
+                    width: 50,
+                },
+                {
                     field: 'cup_score',
                     header: 'Cup score',
                     sortable: false,
@@ -194,7 +200,6 @@ export class CoffeeProcuredTabComponent implements OnInit {
                 this.table.reset();
             }, 100),
         );
-
         this.appLanguage = this.globals.languageJson;
     }
 
