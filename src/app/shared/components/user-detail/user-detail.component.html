@@ -67,14 +67,13 @@
                     </div>
                 </div>
                 <div class="mt-4 d-flex align-items-center">
-                    <a
+                    <button
                         class="btn-raised mr-3"
-                        target="_blank"
                         routerLink="/profile"
                         [queryParams]="{ user_id: userId, organization: orgType }"
                     >
                         {{ 'view_profile' | translate }}
-                    </a>
+                    </button>
                     <div class="message-button fnt-14 fnt-muli" (click)="myOp.hide(); openChat()">
                         <img src="assets/images/message-icon.svg" />
                     </div>
