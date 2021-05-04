@@ -20,16 +20,14 @@ export class ForumEditorComponent implements OnInit {
     @Input() fileModule = 'qa-forum';
     @Input() placeholder: string;
     @Input() height;
+    @Input() images = [];
     imagesCount = 0;
-    images = [];
 
     constructor(
         public location: Location,
         public dialogService: DialogService,
         private coffeeLabService: CoffeeLabService,
         private toastrService: ToastrService,
-        private router: Router,
-        private route: ActivatedRoute,
         public authService: AuthService,
     ) {
         if (!this.height) {
@@ -38,12 +36,9 @@ export class ForumEditorComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.imagesCount = this.imageIdList?.length;
-        if (this.imagesCount) {
-            this.images = this.imageIdList.map((item: any) => {
-                return { id: item };
-            });
-        }
+        this.imagesCount = this.images?.length;
+        this.imageIdList = this.images.map((item: any) => item.id);
+        console.log('images >>>>>>>>>>', this.images);
     }
 
     onChangeContent(): void {
@@ -101,7 +96,9 @@ export class ForumEditorComponent implements OnInit {
         if (images.length === this.imagesCount) {
             return null;
         } else if (images.length < this.imagesCount) {
-            this.images.pop();
+            this.images = this.images.filter((image: any) =>
+                images.find((item) => item === image.url || item === image.file),
+            );
             this.emitImagesChange();
             this.imagesCount -= 1;
             return null;
