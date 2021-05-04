@@ -24,6 +24,7 @@ export class CreateAnswerComponent implements OnInit {
     content: any;
     isUploadingImage = false;
     imageIdList = [];
+    images = [];
 
     constructor(
         public location: Location,
@@ -65,7 +66,7 @@ export class CreateAnswerComponent implements OnInit {
                     this.language = res.result.lang_code;
                     console.log('forum detail in create-answer component >>>>>>>>>>>', res);
                     this.content = res.result.answer;
-                    this.imageIdList = (res.result.images || []).map((item: any) => item.id);
+                    this.images = res.result.images;
                 } else {
                     this.toastrService.error('Error while get comment');
                     this.location.back();
@@ -95,8 +96,6 @@ export class CreateAnswerComponent implements OnInit {
                 comment: this.content,
             };
         }
-        console.log('data >>>>>>>>>>', data);
-        return;
         this.isPosting = true;
         if (this.forumId) {
             this.coffeeLabService.updateForum(this.forumType, this.forumId, data).subscribe((res: any) => {

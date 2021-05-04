@@ -10,7 +10,12 @@
             <div class="mb-3 d-flex justify-content-between align-items-center">
                 <app-user-header [prop]="detailsData"></app-user-header>
                 <div>
-                    <app-forum-menu [selectedItem]="detailsData" forumType="question"></app-forum-menu>
+                    <app-forum-menu
+                        [selectedItem]="detailsData"
+                        forumType="question"
+                        [enableEdit]="organizationId === detailsData.org_id && detailsData.org_type === 'ro'"
+                        [enableDelete]="organizationId === detailsData.org_id && detailsData.org_type === 'ro'"
+                    ></app-forum-menu>
                 </div>
             </div>
             <div
@@ -66,6 +71,8 @@
                                     forumType="answer"
                                     [extraInfo]="slug"
                                     [enableSave]="false"
+                                    [enableEdit]="organizationId === answer.org_id && answer.org_type === 'ro'"
+                                    [enableDelete]="organizationId === answer.org_id && answer.org_type === 'ro'"
                                     [enableTranslation]="answer?.translations?.length < 3"
                                 ></app-forum-menu>
                             </div>
