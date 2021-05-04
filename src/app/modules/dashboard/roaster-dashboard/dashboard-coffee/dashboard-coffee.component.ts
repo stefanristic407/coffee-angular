@@ -17,11 +17,11 @@ export class DashboardCoffeeComponent implements OnInit, OnDestroy {
     public chartData: any[] = [];
     orderTypes = {
         GC_ORDER: {
-            color: '#f19634',
+            color: '#629b20',
             name: 'Booked',
         },
         GC_ORDER_SAMPLE: {
-            color: '#629b20',
+            color: '#f19634',
             name: 'Sample',
         },
         PREBOOK_LOT: {
@@ -69,6 +69,6 @@ export class DashboardCoffeeComponent implements OnInit, OnDestroy {
     }
 
     goToOrderDetails(item: any) {
-        this.router.navigateByUrl(`/ordermanagement/order-booked?data=${item.type}&id=${item.id}`);
+        this.router.navigateByUrl(`/orders/${item.type}/${item.id}`);
     }
 }
