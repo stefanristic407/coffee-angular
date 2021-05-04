@@ -12,9 +12,10 @@
                 <div class="h-md-100 d-flex flex-column pt-1 pt-md-2">
                     <app-pie-chart
                         [data]="chartData"
-                        [total]="((sourcing?.total_coffee || 0) / 1000).toFixed(0) + ' Tonnes'"
+                        [total]="sourcing?.total_coffee"
                         [description]="'Total coffee available'"
                         [tooltipDisabled]="false"
+                        [isWeight]="true"
                     ></app-pie-chart>
                 </div>
             </div>
