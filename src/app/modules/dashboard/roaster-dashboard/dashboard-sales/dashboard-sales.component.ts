@@ -32,6 +32,14 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
             value: 'lastMonth',
             label: 'last 30 days',
         },
+        {
+            value: 'last3Month',
+            label: 'last 3 Months',
+        },
+        {
+            value: 'thisYear',
+            label: 'This year',
+        },
         // {
         //     value: 'lastYear',
         //     label: 'last Year',
@@ -155,6 +163,32 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
                 this.getSalesChartData(this.dateFrom, this.dateTo, this.customerType, this.chartType);
                 this.showDataLabel = false;
                 break;
+
+            case 'last3Month':
+                this.barPadding = 9;
+                const startOfLast3Month = moment().subtract(30, 'day').format('YYYY-MM-DD');
+                const dateFrom = moment().subtract(3, 'months').endOf('month').format('YYYY-MM-DD');
+                console.log('last3month', dateFrom);
+                // const endOfLast3Month = date;
+                // this.dateFrom = startOfLastMonth;
+                // this.dateTo = endOfLastMonth;
+                // this.getSalesChartData(this.dateFrom, this.dateTo, this.customerType, this.chartType);
+                // this.showDataLabel = false;
+                break;
+
+            case 'thisYear':
+                this.barPadding = 5;
+                const currentDate = new Date();
+                const thisYear = currentDate.getFullYear();
+                const startOfThisYear = thisYear + '-01-01';
+                this.dateFrom = startOfThisYear;
+                this.dateTo = moment().format('YYYY-MM-DD');
+                console.log('lastyear: ', this.dateFrom, this.dateTo);
+                this.getSalesChartData(this.dateFrom, this.dateTo, this.customerType, this.chartType);
+                this.showDataLabel = true;
+
+                break;
+
             case 'lastYear':
                 this.barPadding = 5;
                 const currentYear = new Date();
@@ -188,6 +222,9 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
                     name = day.toDate().getDate().toString();
                     break;
                 case 'lastYear':
+                    name = day.toDate().getMonth().toString() + 1;
+                    break;
+                case 'thisYear':
                     name = day.toDate().getMonth().toString() + 1;
                     break;
                 default:
