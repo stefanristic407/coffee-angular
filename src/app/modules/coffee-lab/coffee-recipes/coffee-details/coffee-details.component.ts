@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CoffeeLabService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-coffee-details',
