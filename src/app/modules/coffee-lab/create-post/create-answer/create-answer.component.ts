@@ -64,7 +64,6 @@ export class CreateAnswerComponent implements OnInit {
                 this.isLoading = false;
                 if (res.success) {
                     this.language = res.result.lang_code;
-                    console.log('forum detail in create-answer component >>>>>>>>>>>', res);
                     this.content = res.result.answer;
                     this.images = res.result.images;
                 } else {
@@ -76,8 +75,6 @@ export class CreateAnswerComponent implements OnInit {
     }
 
     onPost(status: string): void {
-        console.log('content >>>>>>>>>>>>>', this.content);
-        // return;
         if (!this.content) {
             this.toastrService.error('Please fill out field.');
             return;
@@ -112,7 +109,6 @@ export class CreateAnswerComponent implements OnInit {
                 .postComment(this.parentForumType, this.parentForumId, data)
                 .subscribe((res: any) => {
                     this.isPosting = false;
-                    console.log('postComment result >>>', res);
                     if (res.success) {
                         this.toastrService.success('You have posted a comment successfully.');
                         this.location.back();
