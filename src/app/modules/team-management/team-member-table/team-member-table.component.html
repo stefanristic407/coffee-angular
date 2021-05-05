@@ -256,7 +256,7 @@
                                                             globals.languageJson?.edit
                                                         }}</a>
                                                     </li>
-                                                    <li class="list-group-item">
+                                                    <li class="list-group-item" *ngIf="rowData.id != loginId">
                                                         <a
                                                             class="cursor-pointer"
                                                             (click)="sendDirectMessage(rowData.id); pop11.hide()"
@@ -379,7 +379,7 @@
                                                         globals.languageJson?.edit
                                                     }}</a>
                                                 </li>
-                                                <li class="list-group-item">
+                                                <li class="list-group-item" *ngIf="rowData.id != loginId">
                                                     <a
                                                         class="cursor-pointer"
                                                         (click)="sendDirectMessage(rowData.id); pop11.hide()"
@@ -446,4 +446,3 @@
         Cancel
     </button>
 </div>
-
