@@ -333,7 +333,7 @@
 
         <ng-container *ngFor="let step of recipeForm?.value?.steps; let i = index; last as isLast">
             <div class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12 step-xs flex-wrap">
-                <div class="col-sm-12 col-md-8 col-lg-8 col-xl-9 sewn-form-field w-100">
+                <div class="col-sm-12 col-md-8 col-lg-8 col-xl-9 pr-md-2 pr-lg-3 sewn-form-field w-100">
                     <div>
                         <label>{{ 'step' | translate }} {{ i + 1 }}<span class="star">*</span></label>
                         <label class="float-right limitFont">({{ step.description?.length || 0 }}/50 words)</label>
@@ -344,9 +344,10 @@
                         [(imageIdList)]="imageIdListStep[i]"
                         fileModule="recipe-post"
                         [height]="103"
+                        [images]="images"
                     ></app-forum-editor>
                 </div>
-                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-3 sewn-form-field w-100">
+                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-3 pl-md-2 pl-lg-3 sewn-form-field w-100">
                     <label>{{ 'add_image' | translate }}</label>
                     <div
                         class="stepAddImageContainer d-flex align-items-center justify-content-center imagesDiv position-relative"

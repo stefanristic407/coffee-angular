@@ -72,7 +72,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     private muteList: Set<number> = new Set<number>();
 
     private unblockUserReferance: BlockListItem | null = null;
-    private muteThreadReferance: ThreadListItem | null = null;
     private blockThreadReferance: ThreadListItem | null = null;
     private clearThreadReferance: ThreadListItem | null = null;
     private deleteThreadReferance: ThreadListItem | null = null;
@@ -478,8 +477,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.handleUnMuteResponse(WSmsg as WSResponse<any>);
             } else if (WSmsg.type === ChatMessageType.muteList) {
                 this.handleMuteListResponse(WSmsg as WSResponse<any>);
-            } else if (WSmsg.type === ChatMessageType.muteUpdate) {
-                this.handleMuteUpdateResponse(WSmsg as WSResponse<any>);
             }
         });
 
@@ -613,11 +610,11 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         message.translatedText = '';
         message.showTranslation = 'OFF';
         message.showUserBadge = false;
-        const meta = { type: 'NORMAL' } as MessageMeta;
+        const meta = { type: MessageMetaTypes.TEXT_ONLY } as MessageMeta;
         try {
             message.meta = (JSON.parse(message.meta_data) || meta) as MessageMeta;
         } catch (e) {
-            message.meta = meta as MessageMeta;
+            message.meta = meta;
         }
         if (message.meta.type === 'STICKER' && message.meta.sticker) {
             message.meta.sticker.stickerItem = this.stickerList.find((x) => x.name === message.meta.sticker.name);
@@ -669,13 +666,20 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             blockedMe: false,
             myBlock: false,
         };
+        const meta = { type: MessageMetaTypes.TEXT_ONLY } as MessageMeta;
+        try {
+            thread.meta = (JSON.parse(thread.meta_data) || meta) as MessageMeta;
+        } catch (e) {
+            thread.meta = meta;
+        }
+
         thread.computed_mute = false;
         thread.computed_activeUser = activeUser[0];
         thread.computed_targetedUser = targtedUserList[0];
         thread.computed_targetedUserList = targtedUserList;
         thread.computed_createdAt = this.chatUtil.getReadableTime(thread.activity_created_at || '');
         thread.computed_thread_createdAt = this.chatUtil.getReadableTime(thread.created_at || '');
-        thread.computed_lastActivityText = thread.content;
+        thread.computed_lastActivityText = this.getLastActivityText(thread, 'THREAD');
         return thread;
     }
 
@@ -706,10 +710,10 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                             message.showDateBadge = lastMessage.dateString !== message.dateString;
                         }
                         this.messageList.push(message);
-                        this.openedThread.computed_lastActivityText = message.content || '';
+                        this.openedThread.computed_lastActivityText = this.getLastActivityText(message, 'MESSAGE');
                         this.sendReadToken(message.id);
                     } else {
-                        inThread.computed_lastActivityText = message.content || '';
+                        inThread.computed_lastActivityText = this.getLastActivityText(message, 'MESSAGE');
                         if (!inThread.computed_mute && !message.isActiveUser && this.notificationSound) {
                             this.chatUtil.playNotificationSound('INCOMING');
                         }
@@ -794,7 +798,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             }
             const lastMessage = this.messageList[this.messageList.length - 1];
             if (lastMessage) {
-                this.openedThread.computed_lastActivityText = lastMessage.content || '';
+                this.openedThread.computed_lastActivityText = this.getLastActivityText(lastMessage, 'MESSAGE');
                 this.sendReadToken(lastMessage.id);
             }
             this.updateUnRead();
@@ -940,11 +944,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         console.log('Mute response', WSmsg);
         this.loader.muteAction = false;
         if (WSmsg.success && WSmsg.code === 200) {
-            if (this.muteThreadReferance) {
-                this.toast.success('Muted successfully', 'Mute');
-                this.muteList.add(this.muteThreadReferance.id);
-                this.updateMuteStatusOnThreadList();
-            }
+            this.toast.success('Muted successfully', 'Mute');
+            this.muteList.add(WSmsg.data.thread_id);
+            this.updateMuteStatusOnThreadList();
         } else {
             if (WSmsg.code === 409) {
                 this.toast.warning('Failed to mute, already in mute', 'Mute');
@@ -953,18 +955,14 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 console.log('Websocket: Mute: error');
             }
         }
-        this.muteThreadReferance = null;
     }
 
     handleUnMuteResponse(WSmsg: WSResponse<any>) {
         console.log('UnMute response', WSmsg);
         this.loader.unMuteAction = false;
-        if (WSmsg.success && WSmsg.code === 200) {
-            if (this.muteThreadReferance) {
-                // FIXME Replace muteThreadReferance with thread.id of response.
-                this.muteList.delete(this.muteThreadReferance.id);
-                this.updateMuteStatusOnThreadList();
-            }
+        if (WSmsg.success && WSmsg.code === 200 && WSmsg.data.thread_id) {
+            this.muteList.delete(WSmsg.data.thread_id);
+            this.updateMuteStatusOnThreadList();
             this.toast.success('Unmuted successfully', 'Unmute');
         } else {
             if (WSmsg.code === 409) {
@@ -974,7 +972,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 console.log('Websocket: Mute: error');
             }
         }
-        this.muteThreadReferance = null;
     }
 
     handleMuteListResponse(WSmsg: WSResponse<any>) {
@@ -989,21 +986,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         }
     }
 
-    handleMuteUpdateResponse(WSmsg: WSResponse<any>) {
-        console.log('Mute Update', WSmsg);
-
-        if (WSmsg.success && WSmsg.code === 200) {
-            if (WSmsg.data.is_muted) {
-                this.muteList.add(WSmsg.data.thread_id);
-            } else {
-                this.muteList.delete(WSmsg.data.thread_id);
-            }
-            this.updateMuteStatusOnThreadList();
-        }
-    }
-
     muteAction(thread: ThreadListItem) {
-        this.muteThreadReferance = thread;
         const timestamp = this.chatUtil.getTimeStamp();
         this.loader.muteAction = true;
         this.socket.directMessageSent.next({
@@ -1017,7 +1000,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     unMuteAction(thread: ThreadListItem) {
         const timestamp = this.chatUtil.getTimeStamp();
         this.loader.unMuteAction = true;
-        this.muteThreadReferance = thread;
         this.socket.directMessageSent.next({
             timestamp,
             type: ChatMessageType.unmuteThread,
@@ -1130,12 +1112,16 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             this.updateBlockStatusOnThreadList();
             this.updateMuteStatusOnThreadList();
             if (this.openedThread && this.isThreadBlocked(this.openedThread)) {
-                this.closeChatPanel();
-                const newOpendThread = this.filteredThreadList[0];
-                if (newOpendThread) {
-                    this.openThreadChat(newOpendThread);
+                if (this.chatHandler.isExpand.value) {
+                    this.closeChatPanel();
+                    this.closeUserInfoPanel();
+                    const newOpendThread = this.filteredThreadList[0];
+                    if (newOpendThread) {
+                        this.openThreadChat(newOpendThread);
+                    }
                 } else {
                     this.closeChatPanel();
+                    this.closeUserInfoPanel();
                 }
             }
 
@@ -1144,7 +1130,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.openBlockedListPanel();
             } else {
                 this.toast.info(
-                    `You blocked ${newBlockedItem.computed_fullname} from another logged in session.`,
+                    `You have blocked ${newBlockedItem.computed_fullname} from another logged in session.`,
                     'Direct Messaging',
                 );
             }
@@ -1189,7 +1175,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.toast.success(`Successfully unblocked the user ${unblockedItem.computed_fullname}`, 'Unblock');
             } else {
                 this.toast.info(
-                    `You unblocked ${unblockedItem.computed_fullname} from another logged in session.`,
+                    `You have unblocked ${unblockedItem.computed_fullname} from another logged in session.`,
                     'Direct Messaging',
                 );
             }
@@ -1583,7 +1569,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         };
 
         if (hasSticker) {
-            payload.content = '\u25A3 Sticker';
+            payload.content = '';
             delete payload.file_id;
             payload.meta_data = JSON.stringify({
                 type: MessageMetaTypes.STICKER,
@@ -1601,7 +1587,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 type: MessageMetaTypes.PICTURE_CAPTION,
             } as MessageMeta);
         } else if (!hasContent && hasImage) {
-            payload.content = '\u25A3 Image';
+            payload.content = '';
             payload.file_id = this.uploadFileMeta?.file_id || '';
             payload.meta_data = JSON.stringify({
                 type: MessageMetaTypes.PICTURE_ONLY,
@@ -1611,7 +1597,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             payload.content = msg;
             delete payload.file_id;
             payload.meta_data = JSON.stringify({
-                type: MessageMetaTypes.NORMAL,
+                type: MessageMetaTypes.TEXT_ONLY,
             } as MessageMeta);
         } else {
             this.toast.warning('Message text can not be blank', 'Unable to sent', { timeOut: 800 });
@@ -2293,5 +2279,41 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
     isThreadBlocked(thread: ThreadListItem): boolean {
         return thread.blockedDetails.blockedMe || thread.blockedDetails.myBlock;
+    }
+
+    getLastActivityText(input: ThreadListItem | IncomingChatMessage | ChatMessage, type: 'THREAD' | 'MESSAGE') {
+        let thread: ThreadListItem;
+        let incomingMessage: ChatMessage;
+        let meta: MessageMeta;
+        if (type === 'THREAD') {
+            thread = input as ThreadListItem;
+            incomingMessage = null;
+        } else if (type === 'MESSAGE') {
+            thread = null;
+            incomingMessage = input as ChatMessage;
+        }
+        if (thread) {
+            meta = thread.meta;
+        } else if (incomingMessage) {
+            meta = incomingMessage.meta;
+        }
+        if (meta.type === MessageMetaTypes.TEXT_ONLY) {
+            if (thread) {
+                return thread.content || '';
+            } else if (incomingMessage) {
+                return incomingMessage.content || '';
+            }
+        } else if (meta.type === MessageMetaTypes.PICTURE_CAPTION) {
+            if (thread) {
+                return '\u25A3 ' + thread.content;
+            } else if (incomingMessage) {
+                return '\u25A3 ' + thread.content;
+            }
+        } else if (meta.type === MessageMetaTypes.PICTURE_ONLY) {
+            return '\u25A3 Image';
+        } else if (meta.type === MessageMetaTypes.STICKER) {
+            return '\u25A3 Sticker';
+        }
+        return '';
     }
 }

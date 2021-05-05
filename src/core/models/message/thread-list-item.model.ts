@@ -1,3 +1,4 @@
+import { MessageMeta } from './message-meta.model';
 import { OrganizationType, ThreadActivityType, ThreadType } from '@enums';
 import { ThreadMember } from './thread-member.model';
 
@@ -18,6 +19,7 @@ export interface ThreadListItem {
     member_user_id: number;
     members: ThreadMember[];
     meta_data: string;
+    meta: MessageMeta;
     name: string;
     status: true;
     type: ThreadType;

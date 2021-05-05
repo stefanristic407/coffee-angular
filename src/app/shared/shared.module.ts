@@ -223,6 +223,8 @@ import { WordCountPipe } from './pipes/word-count/word-count.pipe';
 import { ConvertToShortDescriptionPipe } from './pipes/convert-to-short-description.pipe';
 import { CopyImageToClipboardDirective } from './directives/copy-image-to-clipboard.directive';
 import { FullImgWrapperDirective } from './directives/full-img-wrapper.directive';
+import { WeightConvertPipe } from './pipes/weight-convert.pipe';
+import { ThousandSuffPipe } from './pipes/thousand-suff.pipe';
 const PIPES = [
     AvailabilityListingStatusPipe,
     AvailabilityTypePipe,
@@ -268,6 +270,8 @@ const PIPES = [
         ...PIPES,
         CopyImageToClipboardDirective,
         FullImgWrapperDirective,
+        WeightConvertPipe,
+        ThousandSuffPipe,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [

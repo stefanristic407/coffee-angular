@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PieChartComponent implements OnInit {
     @Input() data = [];
-    @Input() total = '';
+    @Input() total = 0;
     @Input() description = '';
 
     @Input() view: any[] = [240, 240];
@@ -38,5 +38,15 @@ export class PieChartComponent implements OnInit {
         // }
         // return shortValue + suffixes[suffixNum];
         return value + this.unit;
+    }
+
+    transform(value) {
+        if (value >= 1e6) {
+            return (value / 1e6).toFixed(1) + 'M';
+        }
+        if (value >= 1e3) {
+            return (value / 1e3).toFixed(1) + 'K';
+        }
+        return value.toString();
     }
 }

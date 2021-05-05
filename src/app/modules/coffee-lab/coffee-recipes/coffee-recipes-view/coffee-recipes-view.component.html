@@ -118,6 +118,8 @@
                         forumType="recipe"
                         [enableEdit]="organizationId === coffee.organisation_id"
                         [enableDelete]="organizationId === coffee.organisation_id"
+                        [enableSave]="pageDesc === 'saved-posts' ? false : true"
+                        [enableDeleteSave]="pageDesc === 'saved-posts' ? true : false"
                     ></app-forum-menu>
                 </div>
                 <div class="w-100 position-relative">

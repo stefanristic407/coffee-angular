@@ -86,6 +86,8 @@
                         forumType="article"
                         [enableEdit]="organizationId === article.organisation_id"
                         [enableDelete]="organizationId === article.organisation_id"
+                        [enableSave]="pageDesc === 'saved-posts' ? false : true"
+                        [enableDeleteSave]="pageDesc === 'saved-posts' ? true : false"
                     ></app-forum-menu>
                 </div>
                 <img [src]="article.cover_image_url" class="br-4 w-100 my-3 my-md-4" />

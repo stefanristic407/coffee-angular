@@ -113,6 +113,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         },
     ];
 
+    images = [];
     constructor(
         private cookieService: CookieService,
         private fb: FormBuilder,
@@ -128,7 +129,9 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
 
     ngOnInit(): void {
         const type = this.route.snapshot.queryParamMap.get('type');
-        this.recipeId = this.route.snapshot.queryParamMap.get('id');
+        if (type === 'recipe') {
+            this.recipeId = this.route.snapshot.queryParamMap.get('id');
+        }
         if (this.recipeId) {
             this.getRecipeById();
         }
@@ -150,28 +153,24 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         this.recipeSub?.add(recipeCoverImage);
     }
 
-    setLanguageOptions(): void {
-        this.applicationLanguages = APP_LANGUAGES.filter((item: any) => {
-            if (
-                item.value !== this.recipe &&
-                this.recipe.translations?.findIndex((translate) => translate.lang_code === item.value) === -1
-            ) {
-                return item;
-            }
-        });
-    }
-
     getRecipeById(): void {
-        this.coffeeLabService.getRecipeById('recipe', this.recipeId, this.roasterId).subscribe((res: any) => {
+        this.coffeeLabService.getForumDetails('recipe', this.recipeId).subscribe((res: any) => {
             if (res.success) {
                 this.recipe = res.result;
-                this.applicationLanguages = APP_LANGUAGES.filter((item) => item.value !== res.result?.lang_code);
-                // this.setLanguageOptions();
+                this.applicationLanguages = APP_LANGUAGES.filter(
+                    (item) =>
+                        item.value !== res.result.lang_code &&
+                        !res.result.translations?.find((lng) => lng.language === item.value),
+                );
                 console.log('get by id response-->>>>>>>', res);
+                if (this.isTranslate) {
+                    this.recipeForm.controls.language.setValue(null);
+                }
                 this.recipeForm.controls.cover_image_id.setValue(res.result.cover_image_id);
                 this.coverImageUrl = res.result.cover_image_url;
                 this.isUploadingImage = true;
                 this.description = res.result.description;
+                this.images = res.result.inline_images ? res.result.inline_images : [];
                 this.recipeForm.patchValue({
                     name: res.result.name,
                     expertise: res.result.expertise,
@@ -187,33 +186,37 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
                     allow_translation: res.result.allow_translation,
                     video_id: res.result?.video_id,
                 });
-                let i = 0;
-                for (const ing of res.result.ingredients) {
-                    const ingredient = {
-                        name: ing.name,
-                        quantity: ing.quantity,
-                        quantity_unit: ing.quantity_unit,
-                    };
-                    const controlArray = this.recipeForm.controls?.ingredients as FormArray;
-                    controlArray.controls[i]?.patchValue(ingredient);
-                    if (i < res.result.ingredients.length - 1) {
-                        controlArray.push(this.createCoffeeIngredient());
+                if (res.result?.ingredients && res.result?.ingredients.length > 0) {
+                    let i = 0;
+                    for (const ing of res.result?.ingredients) {
+                        const ingredient = {
+                            name: ing.name,
+                            quantity: ing.quantity,
+                            quantity_unit: ing.quantity_unit,
+                        };
+                        const controlArray = this.recipeForm.controls?.ingredients as FormArray;
+                        controlArray.controls[i]?.patchValue(ingredient);
+                        if (i < res.result.ingredients.length - 1) {
+                            controlArray.push(this.createCoffeeIngredient());
+                        }
+                        i++;
                     }
-                    i++;
                 }
-                let j = 0;
-                for (const ing of res.result.steps) {
-                    const ingredient = {
-                        description: ing.description,
-                        image_id: ing?.image_id,
-                        coverImageUrl: ing?.image_url,
-                    };
-                    const controlArray = this.recipeForm.controls?.steps as FormArray;
-                    controlArray.controls[j]?.patchValue(ingredient);
-                    if (j < res.result.steps.length - 1) {
-                        controlArray.push(this.createCoffeeStep());
+                if (res.result?.steps && res.result?.steps.length > 0) {
+                    let j = 0;
+                    for (const ing of res.result?.steps) {
+                        const ingredient = {
+                            description: ing.description,
+                            image_id: ing?.image_id,
+                            coverImageUrl: ing?.image_url,
+                        };
+                        const controlArray = this.recipeForm.controls?.steps as FormArray;
+                        controlArray.controls[j]?.patchValue(ingredient);
+                        if (j < res.result.steps.length - 1) {
+                            controlArray.push(this.createCoffeeStep());
+                        }
+                        j++;
                     }
-                    j++;
                 }
                 if (res.result.video_url) {
                     this.isShowVideo = true;
@@ -322,6 +325,11 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         if (!this.recipeForm.valid) {
             returnFlag = false;
             return returnFlag;
+        }
+        if (this.isTranslate) {
+            if (!this.recipeForm.value.language) {
+                returnFlag = false;
+            }
         }
         return returnFlag;
     }

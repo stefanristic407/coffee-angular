@@ -36,14 +36,18 @@
                                 />
                             </div>
                             <div class="d-flex align-items-center">
-                                <div class="fnt-muli font-weight-bold fnt-14 text-clr24 mr-md-3 mr-1">
+                                <div class="fnt-muli font-weight-bold fnt-14 text-clr24 mr-md-3 mr-1 d-none d-md-block">
+                                    {{ answer?.question_user_name || 'unknown_user' | translate }}
+                                </div>
+                                <div class="fnt-muli font-weight-bold fnt-14 text-clr24 mr-md-3 mr-1 d-block d-md-none">
                                     {{
-                                        answer?.user_name ||
-                                            answer?.question_user ||
-                                            answer?.posted_user ||
-                                            answer?.question_user_name ||
-                                            'unknown_user' | translate
+                                        answer?.question_user_name && answer?.question_user_name.length > 10
+                                            ? answer?.question_user_name.slice(0, 10)
+                                            : ('unknown_user' | translate)
                                     }}
+                                    <span *ngIf="answer?.question_user_name && answer?.question_user_name.length > 10"
+                                        >...</span
+                                    >
                                 </div>
                                 <div class="fnt-muli fnt-12 text-clr588">
                                     {{ answer?.posted_at || answer?.question_created_at | amTimeAgo }}

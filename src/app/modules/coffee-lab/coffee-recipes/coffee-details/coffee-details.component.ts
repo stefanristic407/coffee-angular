@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CoffeeLabService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-coffee-details',
@@ -24,6 +25,7 @@ export class CoffeeDetailsComponent implements OnInit {
         private coffeeLabService: CoffeeLabService,
         private cookieService: CookieService,
         private messageService: MessageService,
+        public location: Location,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.activatedRoute.params.subscribe((params) => {
@@ -35,7 +37,7 @@ export class CoffeeDetailsComponent implements OnInit {
 
     getCoffeeDetails(isReloading: boolean): void {
         this.isLoading = isReloading;
-        this.coffeeLabService.getRecipeById('recipe', this.id, this.roasterId).subscribe((res: any) => {
+        this.coffeeLabService.getForumDetails('recipe', this.id).subscribe((res: any) => {
             if (res.success) {
                 this.detailsData = res.result;
                 this.detailsData.description = this.getJustText(this.detailsData.description);

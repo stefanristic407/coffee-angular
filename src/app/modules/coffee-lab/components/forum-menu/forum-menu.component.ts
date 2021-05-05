@@ -20,6 +20,7 @@ export class ForumMenuComponent implements OnInit {
     @Input() enableDelete = false;
     @Input() enableShare = true;
     @Input() enableSave = true;
+    @Input() enableDeleteSave = false;
     @Input() enableTranslation = false;
 
     items: MenuItem[] = [];
@@ -73,6 +74,14 @@ export class ForumMenuComponent implements OnInit {
                 },
             });
         }
+        if (this.enableDeleteSave) {
+            this.items.push({
+                label: this.globalsService.languageJson.remove.concat(' ', this.globalsService.languageJson.save_post),
+                command: () => {
+                    this.onDelete();
+                },
+            });
+        }
     }
 
     onShare(): void {
@@ -123,7 +132,7 @@ export class ForumMenuComponent implements OnInit {
                 break;
             case 'recipe':
                 this.router.navigate(['/coffee-lab/create-post/translate-recipe'], {
-                    queryParams: { id: this.selectedItem.id },
+                    queryParams: { id: this.selectedItem.id, type: this.forumType },
                 });
                 break;
             case 'answer':
@@ -157,7 +166,7 @@ export class ForumMenuComponent implements OnInit {
             case 'answer':
                 this.router.navigate(['/coffee-lab/create-post/answer'], {
                     queryParams: {
-                        forumId: this.selectedItem.answer_id,
+                        forumId: this.selectedItem.answer_id || this.selectedItem.id,
                         parentForumType: 'question',
                         forumType: 'answer',
                     },
@@ -188,6 +197,7 @@ export class ForumMenuComponent implements OnInit {
                     this.coffeeLabService
                         .deleteForumById(this.forumType, this.selectedItem.id)
                         .subscribe((res: any) => {
+                            console.log('delete forum result >>>>>>>>>>>', res);
                             if (res.success) {
                                 this.toastService.success(`You have deleted a ${this.forumType} successfully.`);
                                 this.coffeeLabService.forumDeleteEvent.emit();

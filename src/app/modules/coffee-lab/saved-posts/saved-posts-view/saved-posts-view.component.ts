@@ -7,6 +7,20 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
     encapsulation: ViewEncapsulation.None,
 })
 export class SavedPostsViewComponent implements OnInit {
+    menuItems = [
+        {
+            label: 'qa_post',
+            routerLink: ['qa-post'],
+        },
+        {
+            label: 'article',
+            routerLink: ['article'],
+        },
+        {
+            label: 'recipe',
+            routerLink: ['recipe'],
+        },
+    ];
     constructor() {}
 
     ngOnInit(): void {}

@@ -23,5 +23,4 @@ export enum ChatMessageType {
     muteThread = 'mute-thread',
     unmuteThread = 'unmute-thread',
     muteList = 'mute-list',
-    muteUpdate = 'mute-update',
 }

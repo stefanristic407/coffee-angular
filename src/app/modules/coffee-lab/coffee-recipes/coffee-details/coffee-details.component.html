@@ -1,5 +1,5 @@
 <main>
-    <div class="back-page mt-1 mt-lg-3 pb-35 pb-lg-45 w-fit-content" routerLink="/coffee-lab/overview/coffee-recipes">
+    <div class="back-page mt-1 mt-lg-3 pb-35 pb-lg-45 w-fit-content" (click)="location.back()">
         <a>
             <span>{{ 'back' | translate }}</span>
         </a>
@@ -17,6 +17,9 @@
                                     [selectedItem]="detailsData"
                                     forumType="recipe"
                                     [enableTranslation]="true"
+                                    [enableTranslation]="
+                                        !detailsData?.translations || detailsData?.translations.length < 3
+                                    "
                                     [enableEdit]="organizationId === detailsData?.organisation_id"
                                 ></app-forum-menu>
                             </div>

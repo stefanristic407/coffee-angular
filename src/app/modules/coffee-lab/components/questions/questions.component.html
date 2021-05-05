@@ -15,6 +15,7 @@
                             forumType="question"
                             [enableEdit]="organizationId === question.org_id && question.org_type === 'ro'"
                             [enableDelete]="organizationId === question.org_id && question.org_type === 'ro'"
+                            [enableSave]="pageDesc!=='saved-posts'"
                         ></app-forum-menu>
                     </div>
                 </div>

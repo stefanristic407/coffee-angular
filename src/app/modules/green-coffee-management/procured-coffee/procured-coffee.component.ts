@@ -56,6 +56,7 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
         this.getOrderDetails();
         this.getRoasterNotes();
         this.getSaleOrderDetails();
+        this.getActivityLogs();
     }
     getOrderDetails() {
         this.roasterService.getProcuredCoffeeDetails(this.roasterID, this.orderID).subscribe(
@@ -97,7 +98,7 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
                     this.orderDetails.evaluator_name = result.cupping.evaluator_name;
                     this.orderDetails.evaluator_dp_thumb = result.cupping.evaluator_dp_thumb;
                     this.orderDetails.altitude = result.min_altitude + '-' + result.max_altitude;
-                    this.orderDetails.flavour_profile = result.flavours;
+                    this.orderDetails.flavour_profile = result.flavours.map((item) => item.name).join(', ');
                     this.orderDetails.wet_mill = result.wet_milling.name;
                     this.orderDetails.processing = result.processing_types;
                     this.orderDetails.images = result.images;
@@ -126,6 +127,15 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
                 console.log(err);
             },
         );
+    }
+
+    getActivityLogs() {
+        this.roasterService.getRoasterActivityLogs(this.roasterID, this.orderID).subscribe((res: any) => {
+            console.log(res);
+            if (res.success) {
+                console.log(res);
+            }
+        });
     }
     language() {
         this.appLanguage = this.globals.languageJson;

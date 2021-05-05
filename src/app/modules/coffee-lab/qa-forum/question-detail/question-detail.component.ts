@@ -1,9 +1,12 @@
-import { Component, OnInit, Inject, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Inject, AfterViewInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService, CoffeeLabService, GlobalsService } from '@services';
 import { DOCUMENT, Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
+import { CookieService } from 'ngx-cookie-service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-question-detail',
@@ -11,12 +14,14 @@ import { MessageService } from 'primeng/api';
     styleUrls: ['./question-detail.component.scss'],
     providers: [MessageService],
 })
-export class QuestionDetailComponent implements OnInit {
+export class QuestionDetailComponent implements OnInit, OnDestroy {
     slug?: string;
     isLoading = false;
     detailsData: any;
     recentQuestions: any[] = [];
     language: string;
+    organizationId: any;
+    destroy$: Subject<boolean> = new Subject<boolean>();
 
     constructor(
         private coffeeLabService: CoffeeLabService,
@@ -27,6 +32,7 @@ export class QuestionDetailComponent implements OnInit {
         private toastService: ToastrService,
         public authService: AuthService,
         private messageService: MessageService,
+        private cookieService: CookieService,
     ) {
         this.activatedRoute.params.subscribe((params) => {
             this.slug = params.slug;
@@ -48,6 +54,10 @@ export class QuestionDetailComponent implements OnInit {
 
     ngOnInit(): void {
         window.scroll(0, 0);
+        this.organizationId = +this.cookieService.get('roaster_id');
+        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
+            this.getDetails();
+        });
     }
 
     getRecentQuestions(): void {
@@ -106,5 +116,10 @@ export class QuestionDetailComponent implements OnInit {
             }
             window.scroll(0, offsetTop);
         }
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next(true);
+        this.destroy$.unsubscribe();
     }
 }
