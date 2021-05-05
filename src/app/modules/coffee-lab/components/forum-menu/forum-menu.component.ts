@@ -132,7 +132,7 @@ export class ForumMenuComponent implements OnInit {
                 break;
             case 'recipe':
                 this.router.navigate(['/coffee-lab/create-post/translate-recipe'], {
-                    queryParams: { id: this.selectedItem.id },
+                    queryParams: { id: this.selectedItem.id, type: this.forumType },
                 });
                 break;
             case 'answer':
