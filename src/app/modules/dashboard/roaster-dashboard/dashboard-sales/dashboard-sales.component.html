@@ -101,7 +101,7 @@
                                                 class="nav-link"
                                                 (click)="changeCustomerType('')"
                                                 [class.active]="customerType === ''"
-                                                >ALL</a
+                                                >{{ 'all' | translate }}</a
                                             >
                                         </li>
                                         <li class="nav-item">
@@ -116,15 +116,17 @@
                                         <li class="nav-item">
                                             <a
                                                 href="javascript:void(0)"
-                                                class="nav-link"
+                                                class="nav-link text-capitalize"
                                                 (click)="changeCustomerType('mr')"
                                                 [class.active]="customerType === 'mr'"
-                                                >Micro-roster</a
+                                                >{{ 'micro' | translate }} - {{ 'roster' | translate }}</a
                                             >
                                         </li>
                                     </ul>
                                     <div class="select-wrap">
-                                        <span class="fnt-14 fnt-600 fnt-muli text-clr334">Sort by :</span>
+                                        <span class="fnt-14 fnt-600 fnt-muli text-clr334"
+                                            >{{ 'sort_by' | translate }} :</span
+                                        >
                                         <app-select
                                             [items]="periods"
                                             [noBorder]="true"
