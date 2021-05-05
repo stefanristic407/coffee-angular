@@ -19,7 +19,7 @@ export class ForumEditorComponent implements OnInit {
     @Output() imageIdListChange = new EventEmitter<any>();
     @Input() fileModule = 'qa-forum';
     @Input() placeholder: string;
-    @Input() height;
+    @Input() height = 213;
     @Input() images = [];
     imagesCount = 0;
 
@@ -29,11 +29,7 @@ export class ForumEditorComponent implements OnInit {
         private coffeeLabService: CoffeeLabService,
         private toastrService: ToastrService,
         public authService: AuthService,
-    ) {
-        if (!this.height) {
-            this.height = 213;
-        }
-    }
+    ) {}
 
     ngOnInit(): void {
         this.imagesCount = this.images?.length;
