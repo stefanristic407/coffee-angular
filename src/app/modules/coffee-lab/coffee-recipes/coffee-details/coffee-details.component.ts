@@ -74,14 +74,6 @@ export class CoffeeDetailsComponent implements OnInit {
         });
     }
 
-    postComment(event: any) {
-        this.coffeeLabService.postComment('recipe', this.id, event).subscribe((res: any) => {
-            if (res.success) {
-                this.getCoffeeDetails(false);
-            }
-        });
-    }
-
     getCommentsData(): void {
         this.coffeeLabService.getCommentList('recipe', this.detailsData.slug).subscribe((res: any) => {
             if (res.success) {
