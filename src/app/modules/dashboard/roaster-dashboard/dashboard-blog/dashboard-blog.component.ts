@@ -17,7 +17,7 @@ export class DashboardBlogComponent implements OnInit, OnDestroy {
             title: 'Coffee prices rise amid supply chain uncertainty..',
             description:
                 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by inject..',
-            link: '/features/sourcing',
+            link: '/social-media/blog-details',
         },
     ];
 
