@@ -17,7 +17,7 @@ export class CreatePostComponent implements OnInit {
         public location: Location,
         public dialogService: DialogService,
         private toastrService: ToastrService,
-        public coffeeLabService: CoffeeLabService
+        public coffeeLabService: CoffeeLabService,
     ) {}
 
     ngOnInit(): void {
@@ -41,7 +41,7 @@ export class CreatePostComponent implements OnInit {
             styleClass: 'draft-posts',
             data: this.drafts,
         });
-        dialogRef.onClose.subscribe(res => {
+        dialogRef.onClose.subscribe((res) => {
             this.getDrafts();
         });
     }

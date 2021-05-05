@@ -24,6 +24,7 @@ export class CoffeeDetailsComponent implements OnInit {
         private coffeeLabService: CoffeeLabService,
         private cookieService: CookieService,
         private messageService: MessageService,
+        public location: Location,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.activatedRoute.params.subscribe((params) => {

@@ -20,6 +20,9 @@ import { AssignedToMeViewComponent } from '@modules/coffee-lab/assigned-to-me/as
 import { TranslateRecipeComponent } from '@modules/coffee-lab/create-post/translate/translate-recipe/translate-recipe.component';
 import { TranslateArticleComponent } from '@modules/coffee-lab/create-post/translate/translate-article/translate-article.component';
 import { TranslateAnswerComponent } from '@modules/coffee-lab/create-post/translate/translate-answer/translate-answer.component';
+import { QaPostComponent } from './my-posts/qa-post/qa-post.component';
+import { MyAnswersComponent } from './my-posts/my-answers/my-answers.component';
+import { MyCommentsComponent } from './my-posts/my-comments/my-comments.component';
 
 const routes: Routes = [
     {
@@ -55,10 +58,26 @@ const routes: Routes = [
                     {
                         path: 'my-posts',
                         component: MyPostsViewComponent,
+                        children: [
+                            { path: '', redirectTo: 'qa-post' },
+                            { path: 'qa-post', component: QaPostComponent },
+                            { path: 'article', component: ArticlesViewComponent },
+                            { path: 'recipe', component: CoffeeRecipesViewComponent },
+                            { path: 'answer', component: MyAnswersComponent },
+                            { path: 'comment', component: MyCommentsComponent },
+                            { path: '**', redirectTo: 'qa-post' },
+                        ],
                     },
                     {
                         path: 'saved-posts',
                         component: SavedPostsViewComponent,
+                        children: [
+                            { path: '', redirectTo: 'qa-post' },
+                            { path: 'qa-post', component: QaPostComponent },
+                            { path: 'article', component: ArticlesViewComponent },
+                            { path: 'recipe', component: CoffeeRecipesViewComponent },
+                            { path: '**', redirectTo: 'qa-post' },
+                        ],
                     },
                     {
                         path: 'assigned-to-me',
