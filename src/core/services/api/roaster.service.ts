@@ -1276,4 +1276,13 @@ export class RoasterserviceService extends ApiService {
         };
         return this.http.post(this.url, data);
     }
+
+    getRoasterOuttakeOrders(roasterId) {
+        const data = {
+            api_call: `/ro/${roasterId}/outtake-orders`,
+            token: this.cookieService.get('Auth'),
+            method: 'GET',
+        };
+        return this.http.post(this.url, data);
+    }
 }
