@@ -19,7 +19,8 @@
                                     [enableTranslation]="
                                         !detailsData?.translations || detailsData?.translations.length < 3
                                     "
-                                    [enableEdit]="organizationId === detailsData?.organisation_id"
+                                    [enableEdit]="organizationId === detailsData?.organisation_id && detailsData?.organisation_type === 'ro'"
+                                    [enableDelete]="organizationId === detailsData?.organisation_id && detailsData?.organisation_type === 'ro'"
                                 ></app-forum-menu>
                             </div>
                             <div
