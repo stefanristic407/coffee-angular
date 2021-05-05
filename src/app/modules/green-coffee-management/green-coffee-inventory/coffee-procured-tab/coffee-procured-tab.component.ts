@@ -163,12 +163,12 @@ export class CoffeeProcuredTabComponent implements OnInit {
                     sortable: false,
                     width: 50,
                 },
-                {
-                    field: 'cup_score',
-                    header: 'Cup score',
-                    sortable: false,
-                    width: 50,
-                },
+                // {
+                //     field: 'cup_score',
+                //     header: 'Cup score',
+                //     sortable: false,
+                //     width: 50,
+                // },
                 {
                     field: 'actions',
                     header: 'Actions',
