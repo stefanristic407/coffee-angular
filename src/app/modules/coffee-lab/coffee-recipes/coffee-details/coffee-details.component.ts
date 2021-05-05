@@ -36,7 +36,7 @@ export class CoffeeDetailsComponent implements OnInit {
 
     getCoffeeDetails(isReloading: boolean): void {
         this.isLoading = isReloading;
-        this.coffeeLabService.getRecipeById('recipe', this.id, this.roasterId).subscribe((res: any) => {
+        this.coffeeLabService.getForumDetails('recipe', this.id).subscribe((res: any) => {
             if (res.success) {
                 this.detailsData = res.result;
                 this.detailsData.description = this.getJustText(this.detailsData.description);
