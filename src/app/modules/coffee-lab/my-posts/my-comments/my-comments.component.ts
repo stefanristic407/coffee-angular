@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { CoffeeLabService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
@@ -25,11 +25,11 @@ export class MyCommentsComponent implements OnInit {
     constructor(
         private coffeeLabService: CoffeeLabService,
         private cookieService: CookieService,
-        private activateRoute: ActivatedRoute,
+        private router: Router,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.userId = this.cookieService.get('user_id');
-        this.pageDesc = this.activateRoute.snapshot.routeConfig?.path;
+        this.pageDesc = this.router.url.split('/')[this.router.url.split('/').length - 2];
     }
 
     ngOnInit(): void {

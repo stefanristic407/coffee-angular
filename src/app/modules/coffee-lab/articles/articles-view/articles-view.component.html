@@ -84,10 +84,10 @@
                     <app-forum-menu
                         [selectedItem]="article"
                         forumType="article"
-                        [enableEdit]="organizationId === article.organisation_id"
-                        [enableDelete]="organizationId === article.organisation_id"
-                        [enableSave]="pageDesc === 'saved-posts' ? false : true"
-                        [enableDeleteSave]="pageDesc === 'saved-posts' ? true : false"
+                        [enableEdit]="organizationId === article.organisation_id && article.organisation_type === 'ro'"
+                        [enableDelete]="organizationId === article.organisation_id && article.organisation_type === 'ro'"
+                        [enableSave]="pageDesc!=='saved-posts'"
+                        [enableDeleteSave]="pageDesc === 'saved-posts'"
                     ></app-forum-menu>
                 </div>
                 <img [src]="article.cover_image_url" class="br-4 w-100 my-3 my-md-4" />
@@ -107,4 +107,7 @@
         </div>
     </div>
     <app-loading *ngIf="isLoading"></app-loading>
+    <div *ngIf="!isLoading && !articlesData.length" class="text-center my-4 fnt-muli text-clr24">
+        {{ 'no_data_is_available' | translate }}
+    </div>
 </div>

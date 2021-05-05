@@ -35,7 +35,6 @@ export class ForumEditorComponent implements OnInit {
         this.imagesCount = this.images?.length;
         this.imageIdList = this.images.map((item: any) => item.id);
         this.emitImagesChange();
-        console.log('images >>>>>>>>>>', this.images);
     }
 
     onChangeContent(): void {
@@ -56,7 +55,6 @@ export class ForumEditorComponent implements OnInit {
             virtualId,
         });
         const file = this.coffeeLabService.dataURItoBlob(imageURL);
-        console.log('This is new images so lets upload this image through api', file);
         this.isUploadingImage = true;
         this.isUploadingImageChange.emit(true);
         this.coffeeLabService.uploadFile(file, this.fileModule).subscribe((res: any) => {

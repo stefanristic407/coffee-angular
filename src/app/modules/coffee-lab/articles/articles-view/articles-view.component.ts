@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { CoffeeLabService, AuthService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
@@ -43,12 +43,12 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
     constructor(
         private coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
-        private activateRoute: ActivatedRoute,
+        private router: Router,
         private coffeeLab: CoffeeLabService,
         private cookieService: CookieService,
         public authService: AuthService,
     ) {
-        this.pageDesc = this.activateRoute.snapshot.routeConfig?.path;
+        this.pageDesc = this.router.url.split('/')[this.router.url.split('/').length - 2];
     }
 
     ngOnInit(): void {
