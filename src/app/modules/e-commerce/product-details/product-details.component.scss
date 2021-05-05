@@ -21,7 +21,7 @@
     border-radius: 17px;
     background-color: #747588;
     color: #fff;
-    margin: 5px;
+    margin: 8px 8px 0 0;
 }
 .limitFont {
     font-family: Muli;
@@ -160,6 +160,9 @@
             background: #f9f9f9;
             .p-dropdown-label {
                 padding: 16px !important;
+            }
+            .p-dropdown-panel .p-dropdown-items .p-dropdown-item:last-child {
+                padding-right: 12px;
             }
         }
     }

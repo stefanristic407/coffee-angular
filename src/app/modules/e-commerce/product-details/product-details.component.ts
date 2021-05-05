@@ -262,7 +262,7 @@ export class ProductDetailsComponent implements OnInit {
     removeVarientDrop(index: any) {
         this.variantTypeArray.splice(index, 1);
         this.varients.removeAt(index);
-        this.currentVariant = this.currentVariant - 1;
+        this.currentVariant = this.currentVariant > 0 ? this.currentVariant - 1 : null;
     }
     supplyBreadCrumb(): void {
         this.breadCrumbItem = [
@@ -557,14 +557,14 @@ export class ProductDetailsComponent implements OnInit {
         this.onSave();
     }
     createTypeVariantArray() {
-        this.variantTypeArray = [];
+        const variantTypeArray = [];
         const variant = this.productForm.get('varients') as FormArray;
         variant.value.forEach((ele, index) => {
-            this.variantTypeArray.push({ label: ele.varient_name, value: index });
+            variantTypeArray.push({ label: ele.varient_name, value: index });
         });
-        this.variantTypeArray.push({ label: '', value: 'button' });
+        variantTypeArray.push({ label: '', value: 'button' });
+        this.variantTypeArray = variantTypeArray;
         this.currentVariant = this.variantTypeArray.length - 2;
-        console.log(this.currentVariant);
     }
     getRoastingProfile(idx, profileID) {
         this.varients = this.productForm.get('varients') as FormArray;
