@@ -14,7 +14,6 @@ import { WelcomeService } from './welcome.service';
 })
 export class RoasterDashboardComponent implements OnInit {
     appLanguage?: any;
-    welcomeActive: any = 0;
     userName = '';
     roasterId: string;
     constructor(
@@ -41,9 +40,7 @@ export class RoasterDashboardComponent implements OnInit {
         promises.push(new Promise((resolve) => this.getStats(resolve)));
         promises.push(new Promise((resolve) => this.getAvailableEstates(resolve)));
         promises.push(new Promise((resolve) => this.getReviewsSummary(resolve)));
-        Promise.all(promises).then(() => {
-            this.welcomeActive++;
-        });
+        Promise.all(promises).then(() => {});
 
         this.getRecentActivities();
         this.getEstateOrders();

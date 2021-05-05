@@ -19,37 +19,29 @@ export class ForumEditorComponent implements OnInit {
     @Output() imageIdListChange = new EventEmitter<any>();
     @Input() fileModule = 'qa-forum';
     @Input() placeholder: string;
-    @Input() height;
+    @Input() height = 213;
+    @Input() images = [];
     imagesCount = 0;
-    images = [];
 
     constructor(
         public location: Location,
         public dialogService: DialogService,
         private coffeeLabService: CoffeeLabService,
         private toastrService: ToastrService,
-        private router: Router,
-        private route: ActivatedRoute,
         public authService: AuthService,
-    ) {
-        if (!this.height) {
-            this.height = 213;
-        }
-    }
+    ) {}
 
     ngOnInit(): void {
-        this.imagesCount = this.imageIdList?.length;
-        if (this.imagesCount) {
-            this.images = this.imageIdList.map((item: any) => {
-                return { id: item };
-            });
-        }
+        this.imagesCount = this.images?.length;
+        this.imageIdList = this.images.map((item: any) => item.id);
+        this.emitImagesChange();
+        console.log('images >>>>>>>>>>', this.images);
     }
 
     onChangeContent(): void {
         this.contentChange.emit(this.content);
         const lastUploadedImage = this.getLastUploadedImage();
-        if (lastUploadedImage) {
+        if (lastUploadedImage && lastUploadedImage.includes('data:image')) {
             this.handleUploadImage(lastUploadedImage);
         }
     }
@@ -101,7 +93,9 @@ export class ForumEditorComponent implements OnInit {
         if (images.length === this.imagesCount) {
             return null;
         } else if (images.length < this.imagesCount) {
-            this.images.pop();
+            this.images = this.images.filter((image: any) =>
+                images.find((item) => item === image.url || item === image.file),
+            );
             this.emitImagesChange();
             this.imagesCount -= 1;
             return null;

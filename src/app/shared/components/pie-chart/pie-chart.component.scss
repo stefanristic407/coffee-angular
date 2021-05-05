@@ -16,13 +16,14 @@
 // ngx chart styles
 // ::ng-deep .legend-wrap {
 //     width: 300px !important;
-//     margin-left: -30px;
+//     margin-left: -16px !important;
 // }
 ::ng-deep .chart-legend {
     .legend-labels {
         display: flex;
         flex-wrap: wrap;
         background: none !important;
+        width: 300px !important;
     }
 
     .legend-label {
@@ -30,7 +31,7 @@
         padding: 8px 4px !important;
         color: $general-text-color !important;
         font-weight: 600 !important;
-        width: 33.33% !important;
+        // width: 50% !important;
     }
 
     .legend-label-color {
@@ -39,6 +40,10 @@
         margin-top: 2px;
         margin-right: 8px !important;
         border-radius: 50% !important;
+    }
+
+    .legend-label-text {
+        overflow: inherit !important;
     }
 }
 

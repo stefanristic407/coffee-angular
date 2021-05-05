@@ -1,7 +1,9 @@
 <div class="h-100">
     <div class="d-flex justify-content-between align-items-center mb-1 mt-3 mt-md-45">
-        <p class="fnt-16 fnt-md-18 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2">Sourced green coffee</p>
-        <a class="arrow-link" routerLink="/orders/es">See all orders</a>
+        <p class="fnt-16 fnt-md-18 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2">
+            {{ 'sourced_green_coffee' | translate }}
+        </p>
+        <a class="arrow-link" routerLink="/orders/es">{{ 'see_all_orders' | translate }}</a>
     </div>
 
     <div
@@ -18,7 +20,7 @@
                     <div class="h-sm-100 d-flex flex-column justify-content-center align-items-center">
                         <app-pie-chart
                             [data]="chartData"
-                            [total]="((stock?.total_coffee || 0) / 1000).toFixed(1) + ' ton'"
+                            [total]="stock?.total_coffee"
                             [description]="'Total Coffee sourced'"
                             [tooltipDisabled]="false"
                             [isWeight]="true"

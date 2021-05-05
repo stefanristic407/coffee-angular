@@ -3,9 +3,12 @@
         <h1 class="fnt-18 fnt-muli fnt-bold text-clr334 mb-0">{{ 'filter_by_content' | translate }}</h1>
     </div>
 
-    <p-tabView class="toggle" styleClass="inner-menu mt-3">
-        <p-tabPanel [header]="'qa_post' | translate"><app-qa-post></app-qa-post></p-tabPanel>
-        <p-tabPanel [header]="'article' | translate"><app-articles-view></app-articles-view></p-tabPanel>
-        <p-tabPanel [header]="'recipe' | translate"><app-coffee-recipes-view></app-coffee-recipes-view></p-tabPanel>
-    </p-tabView>
+    <p-tabMenu [model]="menuItems" styleClass="inner-menu mt-3">
+        <ng-template pTemplate="item" let-item let-i="index">
+            <span class="pl-1 d-none d-md-block">{{ item.label | translate }}</span>
+        </ng-template>
+    </p-tabMenu>
+    <div class="mb-4">
+        <router-outlet></router-outlet>
+    </div>
 </div>

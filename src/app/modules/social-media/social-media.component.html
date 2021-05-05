@@ -3,7 +3,7 @@
         <div class="bg-white pl-lg-5 pr-lg-5 pt-lg-45 pb-lg-5 pt-md-4 pb-md-4 pl-md-3 pr-md-3 p-3">
             <div class="d-md-flex justify-content-md-between">
                 <p-breadcrumb [model]="breadItems"></p-breadcrumb>
-                <form class="custom-search mt-3 mt-md-0 order-search">
+                <!-- <form class="custom-search mt-3 mt-md-0 order-search">
                     <input
                         type="text"
                         pInputText
@@ -13,13 +13,13 @@
                         [ngModelOptions]="{ standalone: true }"
                         class="w-100 br-4"
                     />
-                </form>
+                </form> -->
             </div>
             <section class="social-media">
                 <p class="fnt-18 font-bold text-clr334 mt-3 mb-25">
-                    {{ globals.languageJson?.social_media_posts }}
+                    {{ 'social_media_posts' | translate }}
                 </p>
-                <p class="fnt-14 font-normal text-clr588">{{ globals.languageJson?.get_your_media_text }}</p>
+                <p class="fnt-14 font-normal text-clr588">{{ 'get_your_media_text' | translate }}</p>
                 <div class="col-lg-12 col-md-12 col-12">
                     <div class="row">
                         <div class="mt-1 mt-lg-3 col-lg-12 col-md-12 p-0">
@@ -292,7 +292,7 @@
                                         (click)="copySuccessAlert()"
                                         ><img class="share-img" src="assets/images/share-img.svg" alt="farm" />
                                         <span class="fnt-14 fnt-500 text-clr334">
-                                            {{ globals.languageJson?.share }}
+                                            {{ 'share' | translate }}
                                         </span>
                                     </a>
                                 </span>
@@ -305,7 +305,7 @@
                                     >
                                         <img class="share-img" src="assets/images/dwnd.svg" alt="farm" />
                                         <span class="fnt-14 fnt-500 text-clr334">
-                                            {{ globals.languageJson?.download_image }}
+                                            {{ 'download_image' | translate }}
                                         </span>
                                     </a>
                                 </span>
@@ -373,7 +373,7 @@
                                         (click)="copySuccessAlert()"
                                         ><img class="share-img" src="assets/images/share-img.svg" alt="farm" />
                                         <span class="fnt-14 fnt-500 text-clr334">
-                                            {{ globals.languageJson?.share }}
+                                            {{ 'share' | translate }}
                                         </span>
                                     </a>
                                 </span>
