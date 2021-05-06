@@ -1,33 +1,14 @@
 @import 'variables';
-.toggleDiv {
-    border: 1px solid #d6d6d6;
-    padding: 2px;
-    height: 2rem;
-    border-radius: 4px;
-}
-.enableBtn {
-    background-color: $primary-color;
-    padding: 4px 16px;
-    color: #fff !important;
-    font-size: 12px;
-    border-radius: 4px !important;
-}
-.disbableBtn {
-    padding: 4px 16px;
-    color: #979797;
-    font-size: 12px;
-}
+
 .addNewWeightDiv {
     border: 1px solid #747588;
-    padding: 6px 12px;
-    height: 34px;
+    padding: 8px 16px 8px 12px;
     border-radius: 4px;
-}
-.descriptionText-area {
-    height: 5.25rem;
-}
-.roasterDivText-area {
-    height: 7.62rem;
+    width: fit-content;
+    align-items: center;
+    span {
+        white-space: nowrap;
+    }
 }
 
 @media (min-width: 768px) {
@@ -40,7 +21,7 @@
     border-radius: 17px;
     background-color: #747588;
     color: #fff;
-    margin: 5px;
+    margin: 8px 8px 0 0;
 }
 .limitFont {
     font-family: Muli;
@@ -73,10 +54,7 @@
     margin-top: 1rem !important;
     margin-bottom: 2.5rem !important;
 }
-.productDiv {
-    margin-top: 2.5rem;
-    margin-bottom: 1rem;
-}
+
 .boxCrateWidth {
     width: 205px !important;
 }
@@ -85,21 +63,8 @@
     width: 205px !important;
 }
 
-.weight-varient-array {
-    ::ng-deep .p-dropdown {
-        background: #f9f9f9;
-    }
-    ::ng-deep .p-dropdown .p-dropdown-label {
-        padding: 16px !important;
-    }
-}
-
 .delete-varient {
     display: none;
-}
-
-::ng-deep .p-breadcrumb {
-    width: 100%;
 }
 
 @media screen and (max-width: 1100px) {
@@ -108,17 +73,8 @@
         margin-top: 24px !important;
         margin-bottom: 24px !important;
     }
-    .variant-pos {
-        position: relative;
-        top: 22px;
-        float: left;
-    }
 }
 @media (min-width: 768px) and (max-width: 1240px) {
-    .describePadding {
-        margin-bottom: 0px;
-    }
-
     ::ng-deep .varientBox label.p-checkbox-label {
         width: max-content;
     }
@@ -194,9 +150,20 @@
         width: 110px !important;
     }
 }
-.addWeightDiv {
-    border: 1px solid #747588;
-    padding: 6px 0px;
-    height: 38px;
-    border-radius: 2px;
+
+::ng-deep {
+    .p-breadcrumb {
+        max-width: 100%;
+    }
+    .p-dropdown {
+        &.p-dropdown-variantType {
+            background: #f9f9f9;
+            .p-dropdown-label {
+                padding: 16px !important;
+            }
+            .p-dropdown-panel .p-dropdown-items .p-dropdown-item:last-child {
+                padding-right: 12px;
+            }
+        }
+    }
 }

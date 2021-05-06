@@ -72,7 +72,6 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
         this.coffeeLabService.getForumList('question', params, this.forumLanguage).subscribe((res: any) => {
             this.isLoading = false;
             if (res.success) {
-                console.log('questions >>>>>>>', res);
                 this.questions = res.result?.questions;
             } else {
                 this.toastService.error('Cannot get forum data');

@@ -16,11 +16,11 @@
                                 <app-forum-menu
                                     [selectedItem]="detailsData"
                                     forumType="recipe"
-                                    [enableTranslation]="true"
                                     [enableTranslation]="
                                         !detailsData?.translations || detailsData?.translations.length < 3
                                     "
-                                    [enableEdit]="organizationId === detailsData?.organisation_id"
+                                    [enableEdit]="organizationId === detailsData?.organisation_id && detailsData?.organisation_type === 'ro'"
+                                    [enableDelete]="organizationId === detailsData?.organisation_id && detailsData?.organisation_type === 'ro'"
                                 ></app-forum-menu>
                             </div>
                             <div
@@ -68,7 +68,7 @@
                                     <div class="expertise pl-2">{{ 'expertise_level' | translate }}</div>
                                 </div>
                                 <div class="expertise-level m-0 d-flex">
-                                    <span style="visibility: hidden"
+                                    <span class="visibility-hidden"
                                         ><img src="/assets/images/beginner-expertise.svg"
                                     /></span>
                                     <div class="overflow-hidden pl-2 text-overflow-ellipsis">
@@ -83,7 +83,7 @@
                                     <div class="expertise pl-2">{{ 'preparation_time' | translate }}</div>
                                 </div>
                                 <div class="expertise-level m-0">
-                                    <span style="visibility: hidden"
+                                    <span class="visibility-hidden"
                                         ><img src="/assets/images/beginner-expertise.svg"
                                     /></span>
                                     <span class="pl-2">{{
@@ -100,9 +100,7 @@
                                     <div class="expertise pl-2">{{ 'cooking _time' | translate }}</div>
                                 </div>
                                 <div class="expertise-level m-0 d-flex">
-                                    <span style="visibility: hidden"
-                                        ><img src="/assets/images/cooking-time.svg"
-                                    /></span>
+                                    <span class="visibility-hidden"><img src="/assets/images/cooking-time.svg" /></span>
                                     <div class="nowrap pl-2">
                                         {{ detailsData?.cooking_time }}
                                         {{ detailsData?.cooking_time_unit }}
@@ -116,7 +114,7 @@
                                     <div class="expertise pl-2">{{ 'serving' | translate }}</div>
                                 </div>
                                 <div class="expertise-level m-0 d-flex">
-                                    <span style="visibility: hidden"><img src="/assets/images/serving.svg" /></span>
+                                    <span class="visibility-hidden"><img src="/assets/images/serving.svg" /></span>
                                     <div class="pl-2">{{ detailsData?.serves }}</div>
                                 </div>
                             </div>
@@ -147,7 +145,11 @@
                     </div>
                 </div>
                 <div class="pt-4">
-                    <app-comments [commentData]="commentData" (postComment)="postComment($event)"></app-comments>
+                    <app-comments
+                        [commentData]="commentData"
+                        [forumId]="detailsData?.id"
+                        forumType="recipe"
+                    ></app-comments>
                 </div>
             </div>
         </article>
