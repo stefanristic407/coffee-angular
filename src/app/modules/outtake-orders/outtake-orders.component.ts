@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { COUNTRY_LIST } from '@constants';
 import { FormGroup } from '@angular/forms';
 import { Table } from 'primeng/table';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-outtake-orders',
@@ -40,9 +41,11 @@ export class OuttakeOrdersComponent implements OnInit {
     }
 
     constructor(
+        private roasterService: RoasterserviceService,
         private cookieService: CookieService,
         public globals: GlobalsService,
         public primeTableService: PrimeTableService,
+        private toastrService: ToastrService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.primeTableService.rows = 10;
@@ -234,17 +237,17 @@ export class OuttakeOrdersComponent implements OnInit {
         return formatVal.replace('-', '');
     }
     deleteProductFromList(deleteId) {
-        // this.roasterService.deleteProcuredCoffee(this.roasterID, deleteId).subscribe(
-        //     (response) => {
-        //         if (response && response.success) {
-        //             this.toastrService.success('Product deleted successfully');
-        //             this.popupDisplay = true;
-        //         }
-        //     },
-        //     (err) => {
-        //         this.toastrService.error('Error while deleting the ');
-        //         console.log(err);
-        //     },
-        // );
+        console.log(deleteId);
+        this.roasterService.deleteOuttakeOrders(this.roasterId, deleteId).subscribe(
+            (response) => {
+                if (response && response.success) {
+                    this.toastrService.success('Product deleted successfully');
+                }
+            },
+            (err) => {
+                this.toastrService.error('Error while deleting the order');
+                console.log(err);
+            },
+        );
     }
 }
