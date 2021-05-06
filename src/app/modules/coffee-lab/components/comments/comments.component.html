@@ -27,9 +27,14 @@
             </p>
         </div>
         <div class="mt-4 d-flex">
-            <button class="btn-f8 mx-auto w-mob-100 px-4" (click)="onClickMoreComment()">
+            <button
+                class="btn-f8 mx-auto w-mob-100 px-4"
+                *ngIf="commentData?.length > 3 && commentList.length < 4"
+                (click)="onClickMoreComment()"
+            >
                 {{ 'view_more' | translate }} {{ 'comment' | translate }}s
             </button>
+            <p class="pb-0" *ngIf="!commentData?.length">{{ 'no_comments_show' | translate }}</p>
         </div>
     </div>
 </div>
