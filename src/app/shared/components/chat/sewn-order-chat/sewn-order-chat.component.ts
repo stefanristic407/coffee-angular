@@ -352,8 +352,9 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
         } catch (e) {
             message.meta = meta as MessageMeta;
         }
-        if (thread.computed_targetedUserList.find((tuser) => tuser.id === message.member.id)) {
-            message.computed_author = thread.computed_targetedUser;
+        const targetUser = thread.computed_targetedUserList.find((tuser) => tuser.id === message.member.id);
+        if (targetUser) {
+            message.computed_author = targetUser;
             message.isActiveUser = false;
         } else if (thread.computed_activeUser.id === message.member.id) {
             message.computed_author = thread.computed_activeUser;

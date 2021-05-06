@@ -1416,7 +1416,15 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.openPanel();
             }
         } else if (req.requestType === ServiceCommunicationType.OPEN_THREAD) {
-            this.findThread(req.payload as OpenChatThread);
+            const pl = req.payload as OpenChatThread;
+            const key = `${pl.user_id}_${pl.org_type}_${pl.org_id || 0}`;
+            if (!!this.blockMap.blockedMe[key]) {
+                this.toast.error('The user has been blocked you', 'Unable to start the chat');
+            } else if (!!this.blockMap.myBlock[key]) {
+                this.toast.error('Remove the user from block list', 'Unable to start the chat');
+            } else {
+                this.findThread(req.payload as OpenChatThread);
+            }
         }
     };
 
