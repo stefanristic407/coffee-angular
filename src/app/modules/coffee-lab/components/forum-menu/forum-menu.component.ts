@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { CoffeeLabService, GlobalsService } from '@services';
 import { environment } from '@env/environment';
@@ -22,7 +22,6 @@ export class ForumMenuComponent implements OnInit {
     @Input() enableSave = true;
     @Input() enableDeleteSave = false;
     @Input() enableTranslation = false;
-
     items: MenuItem[] = [];
 
     constructor(
