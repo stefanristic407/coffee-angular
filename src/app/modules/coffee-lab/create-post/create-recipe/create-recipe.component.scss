@@ -47,6 +47,7 @@
     .stepAddImageContainer {
         background: $white;
         height: 184px;
+        width: 184px;
         border: 1px solid $primary-border-color;
         border-radius: 4px;
         text-align: center;
@@ -125,6 +126,9 @@
     }
     .step-xs {
         display: inherit;
+        .col-xl-9 {
+            max-width: 73% !important;
+        }
     }
     @media (max-width: 767px) {
         .addImageContainer,
