@@ -25,7 +25,6 @@ export class ProductDetailsComponent implements OnInit {
     roastedBatches: any = [];
     productID = '';
     variantTypeArray: any = [];
-    productDescriptionLength = 0;
     recommendationTextLength = 0;
     recipeTextLength = 0;
     roastedFields = [
@@ -52,6 +51,10 @@ export class ProductDetailsComponent implements OnInit {
     allCrates = [];
     roastLevelArray: any = [];
     productName: any = '';
+    visibilityOptions = [
+        { label: 'Public', value: true },
+        { label: 'Private', value: false },
+    ];
     constructor(
         public globals: GlobalsService,
         private fb: FormBuilder,
@@ -259,7 +262,7 @@ export class ProductDetailsComponent implements OnInit {
     removeVarientDrop(index: any) {
         this.variantTypeArray.splice(index, 1);
         this.varients.removeAt(index);
-        this.currentVariant = this.currentVariant - 1;
+        this.currentVariant = this.currentVariant > 0 ? this.currentVariant - 1 : null;
     }
     supplyBreadCrumb(): void {
         this.breadCrumbItem = [
@@ -358,27 +361,18 @@ export class ProductDetailsComponent implements OnInit {
     onCancel(): void {
         this.router.navigate(['/features/products-list']);
     }
-    wordCounter(event) {
-        const wordlimit = event.target.value ? 51 - event.target.value.split(/\s+/).length : 50;
-        this.productDescriptionLength = event.target.value ? event.target.value.split(/\s+/).length : 0;
-        if (wordlimit <= 0 && event.keyCode !== 8) {
-            this.productDescriptionLength = 0;
-            event.preventDefault();
-        }
-    }
+
     onPasteDescription(flag, idx?) {
         if (flag === 'description') {
             const getValue = this.productForm.controls.description.value;
             const value = getValue.split(/\s+/);
             const wordlimit = getValue ? 50 - value.length : 50;
-            this.productDescriptionLength = value.length;
             if (wordlimit <= 0) {
                 value.splice(50);
                 let updatedString = '';
                 value.forEach((ele) => {
                     updatedString = updatedString + ' ' + ele;
                 });
-                this.productDescriptionLength = 50;
                 this.productForm.controls.description.setValue(updatedString);
             }
         } else if (flag === 'recommendation') {
@@ -563,14 +557,14 @@ export class ProductDetailsComponent implements OnInit {
         this.onSave();
     }
     createTypeVariantArray() {
-        this.variantTypeArray = [];
+        const variantTypeArray = [];
         const variant = this.productForm.get('varients') as FormArray;
         variant.value.forEach((ele, index) => {
-            this.variantTypeArray.push({ label: ele.varient_name, value: index });
+            variantTypeArray.push({ label: ele.varient_name, value: index });
         });
-        this.variantTypeArray.push({ label: '', value: 'button' });
+        variantTypeArray.push({ label: '', value: 'button' });
+        this.variantTypeArray = variantTypeArray;
         this.currentVariant = this.variantTypeArray.length - 2;
-        console.log(this.currentVariant);
     }
     getRoastingProfile(idx, profileID) {
         this.varients = this.productForm.get('varients') as FormArray;
