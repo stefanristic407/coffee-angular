@@ -63,6 +63,8 @@
                         editMode="row"
                         [loading]="loading"
                         [responsive]="isMobileView"
+                        (sortFunction)="customSort($event)"
+                        [customSort]="true"
                     >
                         <ng-template pTemplate="header" let-columns>
                             <tr>
@@ -190,7 +192,7 @@
                                                 </p-dropdown>
                                             </ng-template>
                                             <ng-template pTemplate="output">
-                                                {{ generateReportService.getCountryName(rowData.origin) }}
+                                                {{ globals.getCountryName(rowData.origin) }}
                                             </ng-template>
                                         </p-cellEditor>
                                     </span>
