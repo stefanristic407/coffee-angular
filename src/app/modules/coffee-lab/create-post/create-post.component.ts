@@ -26,7 +26,6 @@ export class CreatePostComponent implements OnInit {
 
     getDrafts(): void {
         this.coffeeLabService.getDrafts().subscribe((res: any) => {
-            console.log('drafts >>>>>>>>>', res);
             if (res.success) {
                 this.drafts = res.result || [];
             } else {
