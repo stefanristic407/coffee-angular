@@ -77,7 +77,7 @@ export class ForumMenuComponent implements OnInit {
             this.items.push({
                 label: this.globalsService.languageJson.remove.concat(' ', this.globalsService.languageJson.save_post),
                 command: () => {
-                    this.onDelete();
+                    this.onRemoveSavedPosts();
                 },
             });
         }
@@ -206,5 +206,17 @@ export class ForumMenuComponent implements OnInit {
                         });
                 }
             });
+    }
+
+    onRemoveSavedPosts(): void {
+        this.coffeeLabService.unSaveFormByType(this.forumType, this.selectedItem.id).subscribe((res: any) => {
+            console.log('delete forum result >>>>>>>>>>>', res);
+            if (res.success) {
+                this.toastService.success(`You have removed the ${this.forumType} successfully from saved posts.`);
+                this.coffeeLabService.forumDeleteEvent.emit();
+            } else {
+                this.toastService.error(`Failed to remmove a ${this.forumType} from saved posts.`);
+            }
+        });
     }
 }
