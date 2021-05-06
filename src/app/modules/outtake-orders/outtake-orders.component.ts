@@ -40,7 +40,6 @@ export class OuttakeOrdersComponent implements OnInit {
     }
 
     constructor(
-        private roasterService: RoasterserviceService,
         private cookieService: CookieService,
         public globals: GlobalsService,
         public primeTableService: PrimeTableService,
