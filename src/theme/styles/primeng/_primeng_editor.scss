@@ -15,6 +15,10 @@
             bottom: 0;
             width: calc(100% - 48px);
         }
+        @media (max-width: 991px) {
+            white-space: nowrap;
+            overflow-x: scroll;
+        }
     }
     .p-editor-content {
         background-color: white;
