@@ -38,7 +38,7 @@ export class ChatHandlerService {
      * @param payload.org_id - Organization id of targted user; provide 0 for admin users
      */
     public openChatThread(payload: OpenChatThread) {
-        if (payload.org_type === OrganizationType.SEWN_ADMIN) {
+        if (payload.org_type === OrganizationType.SEWN_ADMIN || payload.org_type === OrganizationType.CONSUMER) {
             delete payload.org_id;
         }
         this.chatSubject.next({
