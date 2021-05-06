@@ -1,0 +1,49 @@
+.estate-focus {
+    h3 {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 32px;
+        margin-bottom: 13px;
+    }
+    ul {
+        margin-bottom: 0;
+        padding: 10px;
+        border: 1px dashed #d6d6d6;
+        border-radius: 4px;
+        li {
+            width: 100%;
+            float: left;
+            border-bottom: 1px dashed #d6d6d6;
+            padding: 0;
+            &:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+            &:first-child {
+                padding-top: 0;
+            }
+            label {
+                float: left;
+                width: 50%;
+                margin-bottom: 0;
+                color: #747588;
+                font-size: 14px;
+                font-weight: 500;
+                border-right: solid 0.3px #d6d6d6;
+                padding: 1rem 1.5rem;
+            }
+            p {
+                margin-bottom: 0;
+                width: 50%;
+                float: left;
+                font-size: 14px;
+                color: #232334;
+                font-weight: 600;
+                padding: 1rem 1.5rem;
+            }
+        }
+    }
+}
+.p-calendar {
+    width: 100% !important;
+}

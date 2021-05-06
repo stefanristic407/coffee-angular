@@ -49,7 +49,7 @@
         <p-table
             #markedTable
             [class.table-mobile]="primeTableService.isMobileView"
-            [value]="primeTableService.records"
+            [value]="primeTableService?.records"
             [columns]="primeTableService._allColumns"
             [(selection)]="primeTableService.selectedRecords"
             dataKey="id"
