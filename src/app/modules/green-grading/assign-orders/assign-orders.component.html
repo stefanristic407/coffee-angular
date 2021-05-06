@@ -169,7 +169,7 @@
                                                 class="ellipsis navigation-link"
                                                 [routerLink]="'/green-grading/assign-user/' + rowData.order_id"
                                             >
-                                                {{ rowData.cupping_report_id ? rowData[col.field] : 'Assign' }}
+                                                {{ rowData[col.field] || 'Assign' }}
                                             </span>
                                         </div>
                                     </span>

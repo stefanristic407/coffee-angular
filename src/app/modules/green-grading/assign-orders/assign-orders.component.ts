@@ -145,7 +145,7 @@ export class AssignOrdersComponent implements OnInit {
             sort_by: event?.sortField,
             sort_order: event?.sortOrder === 1 ? 'asc' : 'desc',
         };
-        this.greenGradingService.getCuppingInviteList(options).subscribe((res: any) => {
+        this.greenGradingService.getAssignOrder(options).subscribe((res: any) => {
             if (res.success === true) {
                 this.tableData = res.result;
                 this.generateReportService.totalRequestList = res.success ? res.result : [];
