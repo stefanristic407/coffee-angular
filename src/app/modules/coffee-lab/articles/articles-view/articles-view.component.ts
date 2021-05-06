@@ -74,6 +74,10 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
             this.coffeeLab.getSavedForumList('article').subscribe((res) => {
                 if (res.success) {
                     this.articlesData = res.result;
+                    this.articlesData.map((item) => {
+                        item.content = this.getJustText(item.content);
+                        return item;
+                    });
                 } else {
                     this.toastService.error('Cannot get Articles data');
                 }
@@ -83,6 +87,10 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
             this.coffeeLab.getMyForumList('article').subscribe((res) => {
                 if (res.success) {
                     this.articlesData = res.result;
+                    this.articlesData.map((item) => {
+                        item.content = this.getJustText(item.content);
+                        return item;
+                    });
                 } else {
                     this.toastService.error('Cannot get Articles data');
                 }
