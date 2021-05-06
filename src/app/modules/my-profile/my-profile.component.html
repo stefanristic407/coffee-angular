@@ -353,7 +353,7 @@
             <app-loading></app-loading>
         </div>
 
-        <div class="d-block d-md-none">
+        <div *ngIf="!queryUserId" class="d-block d-md-none">
             <div *ngIf="!isEditMode">
                 <button (click)="isEditMode = true" type="button" class="btn-raised w-100">
                     {{ 'edit_profile' | translate }}

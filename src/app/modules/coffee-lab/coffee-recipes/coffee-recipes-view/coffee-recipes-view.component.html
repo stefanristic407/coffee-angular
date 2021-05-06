@@ -16,7 +16,7 @@
                         [queryParams]="{ type: 'recipe' }"
                         type="text"
                         pInputText
-                        placeholder="Ask your coffee question..."
+                        [placeholder]="'ask_your_question_bla' | translate"
                     />
                 </div>
             </div>
@@ -29,7 +29,7 @@
                     pInputText
                     [(ngModel)]="searchQuery"
                     (ngModelChange)="getCoffeeRecipesData()"
-                    placeholder="Search Recipes.."
+                    [placeholder]="'search_recipes_bla' | translate"
                 />
             </div>
         </div>
@@ -48,7 +48,7 @@
                 pInputText
                 [(ngModel)]="searchQuery"
                 (ngModelChange)="getCoffeeRecipesData()"
-                placeholder="Search Recipes.."
+                [placeholder]="'search_recipes_bla' | translate"
             />
         </span>
     </div>
@@ -64,7 +64,7 @@
                     [(ngModel)]="label"
                     (onChange)="getCoffeeRecipesData()"
                     placeholder="Levels"
-                    styleClass="round-border {{ label ? 'highlight' : '' }}"
+                    styleClass="round-border"
                 >
                 </p-dropdown>
             </div>
@@ -76,8 +76,8 @@
                     [showClear]="true"
                     [(ngModel)]="isAvailableTranslation"
                     (onChange)="getCoffeeRecipesData()"
-                    placeholder="Translation available"
-                    styleClass="round-border {{ isAvailableTranslation ? 'highlight' : '' }}"
+                    [placeholder]="'translation_available' | translate"
+                    styleClass="round-border"
                 >
                 </p-dropdown>
             </div>
@@ -89,7 +89,7 @@
                     [(ngModel)]="searchIngredient"
                     (ngModelChange)="getCoffeeRecipesData()"
                     styleClass="ingredient-field"
-                    placeholder="Search by ingredient"
+                    [placeholder]="'search_by_ingredient' | translate"
                 />
             </div>
         </div>
@@ -100,7 +100,7 @@
                 optionValue="value"
                 [(ngModel)]="selectedOrder"
                 (onChange)="getCoffeeRecipesData()"
-                styleClass="no-border mobile-ui {{ selectedOrder ? 'highlight' : '' }}"
+                styleClass="no-border mobile-ui"
             >
             </p-dropdown>
         </div>
@@ -116,10 +116,10 @@
                     <app-forum-menu
                         [selectedItem]="coffee"
                         forumType="recipe"
-                        [enableEdit]="organizationId === coffee.organisation_id"
-                        [enableDelete]="organizationId === coffee.organisation_id"
-                        [enableSave]="pageDesc === 'saved-posts' ? false : true"
-                        [enableDeleteSave]="pageDesc === 'saved-posts' ? true : false"
+                        [enableEdit]="organizationId === coffee.organisation_id && coffee.organisation_type === 'ro'"
+                        [enableDelete]="organizationId === coffee.organisation_id && coffee.organisation_type === 'ro'"
+                        [enableSave]="pageDesc!=='saved-posts'"
+                        [enableDeleteSave]="pageDesc === 'saved-posts'"
                     ></app-forum-menu>
                 </div>
                 <div class="w-100 position-relative">
@@ -145,7 +145,7 @@
                         [innerHTML]="coffee.description | convertToShortDescription: 10"
                     ></div>
 
-                    <label class="fnt-muli fnt-14 fnt-600 text-clr60b mb-0 custom-link pt-2">{{
+                    <label class="mb-0 brown-cta pt-2">{{
                         'read_more' | translate
                     }}</label>
                 </div>
@@ -153,4 +153,7 @@
         </div>
     </div>
     <app-loading *ngIf="isLoading"></app-loading>
+    <div *ngIf="!isLoading && !coffeeRecipeData.length" class="text-center my-4 fnt-muli text-clr24">
+        {{ 'no_data_is_available' | translate }}
+    </div>
 </div>

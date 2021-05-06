@@ -113,7 +113,7 @@
                                     <span>{{ cmt?.comment | translate | convertToShortDescription: 20 }}</span>
                                 </div>
                             </div>
-                            <div *ngIf="comment.posted_by == userId" class="fnt-muli fnt-12 text-clr588">
+                            <div class="fnt-muli fnt-12 text-clr588">
                                 <app-forum-menu
                                     [selectedItem]="cmt"
                                     forumType="comment"

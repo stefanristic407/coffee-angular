@@ -49,7 +49,7 @@
                         <span class="new-date__bar"></span>
                     </div>
                     <!--Mesaage From-->
-                    <ng-container *ngIf="message.meta.type === 'NORMAL'">
+                    <ng-container *ngIf="message.meta.type !== 'DISPUTE_RAISED'">
                         <div *ngIf="!message.isActiveUser" class="main-message message-from">
                             <div class="message-info">
                                 <div *ngIf="message.showUserBadge" class="main-message__profile clearfix">

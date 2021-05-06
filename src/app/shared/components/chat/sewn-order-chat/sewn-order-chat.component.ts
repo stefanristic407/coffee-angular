@@ -24,7 +24,7 @@ import {
     OrderChatThreadListItem,
     MessageMeta,
 } from '@models';
-import { ThreadType, ThreadActivityType, ChatMessageType } from '@enums';
+import { ThreadType, ThreadActivityType, ChatMessageType, MessageMetaTypes } from '@enums';
 import { ChatHandlerService, GlobalsService, SocketService, ChatUtilService } from '@services';
 const badwordsRegExp = require('badwords/regexp') as RegExp;
 @Component({
@@ -168,12 +168,11 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
         const activeUser: ThreadMember[] = [];
         const targtedUserList: ThreadMember[] = [];
         thread.members = (thread.members || []).map((mem: any) => {
-            mem = { ...mem, ...mem.user } as ThreadListItem;
             mem = this.processThreadUser(mem);
             if (!mem.is_removed) {
                 if (
                     mem.org_type === this.chatUtil.ORGANIZATION_TYPE &&
-                    mem.org_id === this.chatUtil.ORGANIZATION_ID &&
+                    (mem.org_id || 0) === this.chatUtil.ORGANIZATION_ID &&
                     mem.user_id === this.chatUtil.USER_ID
                 ) {
                     activeUser.push(mem);
@@ -214,7 +213,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                         isRemoved = (member as any).removed_at !== '0001-01-01T00:00:00Z';
                     }
                     if (!isRemoved) {
-                        const key = member.user_id + '_' + member.org_id + '_' + member.org_type;
+                        const key = member.user_id + '_' + (member.org_id || 0) + '_' + member.org_type;
                         users[key] = member;
                     }
                 }
@@ -258,7 +257,8 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                     if (prevMessage) {
                         activeMessage.showUserBadge = !(
                             prevMessage.computed_author?.user_id === activeMessage.computed_author?.user_id &&
-                            prevMessage.computed_author?.org_id === activeMessage.computed_author?.org_id &&
+                            (prevMessage.computed_author?.org_id || 0) ===
+                                (activeMessage.computed_author?.org_id || 0) &&
                             prevMessage.computed_author?.org_type === activeMessage.computed_author?.org_type
                         );
                     } else {
@@ -312,7 +312,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                     if (lastMessage) {
                         message.showUserBadge = !(
                             lastMessage.computed_author?.user_id === message.computed_author?.user_id &&
-                            lastMessage.computed_author?.org_id === message.computed_author?.org_id &&
+                            (lastMessage.computed_author?.org_id || 0) === (message.computed_author?.org_id || 0) &&
                             lastMessage.computed_author?.org_type === message.computed_author?.org_type
                         );
                     } else {
@@ -328,6 +328,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                 }
                 this.messageList.push(message);
                 this.sendReadToken(message.id);
+                this.chatUtil.playNotificationSound('INCOMING');
             } else {
                 console.log('Websocket:Incoming Message : Failure');
             }
@@ -337,7 +338,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     processChatMessages(message: ChatMessage | IncomingChatMessage, thread: ThreadListItem) {
         message.dateString = moment(message.created_at).format('Do MMM YYYY');
         message.computed_date = this.chatUtil.getReadableTime(message.updated_at || message.created_at);
-        const meta = { type: 'NORMAL' };
+        const meta = { type: MessageMetaTypes.TEXT_ONLY };
         try {
             message.meta = (JSON.parse(message.meta_data) || meta) as MessageMeta;
         } catch (e) {
@@ -431,19 +432,32 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
         this.chatInputHeightAdjust();
     }
 
+    replaceOffensiveWord(message: string) {
+        const badWordArray = message.match(badwordsRegExp);
+        for (const badWord of badWordArray) {
+            message = message.replace(badWord, '*'.repeat(badWord.length));
+        }
+        return message;
+    }
+    detectOffensiveWords(msg) {
+        badwordsRegExp.lastIndex = 0;
+        if (badwordsRegExp.test(msg)) {
+            this.showOffensiveMessageError = true;
+            this.offensiveTimeout = window.setTimeout(this.offensiveTimeoutHandler, 3500);
+            msg = this.replaceOffensiveWord(msg);
+        }
+        return msg;
+    }
+    offensiveTimeoutHandler = () => {
+        this.showOffensiveMessageError = false;
+    };
+
     sendMessage() {
         clearTimeout(this.offensiveTimeout);
         this.showOffensiveMessageError = false;
         let msg = this.messageInput.trim();
+        msg = this.detectOffensiveWords(msg);
         if (msg !== '') {
-            badwordsRegExp.lastIndex = 0;
-            if (badwordsRegExp.test(msg)) {
-                this.showOffensiveMessageError = true;
-                this.offensiveTimeout = window.setTimeout(() => {
-                    this.showOffensiveMessageError = false;
-                }, 3500);
-                msg = msg.replace(badwordsRegExp, '****');
-            }
             this.socket.orderChatSent.next(this.getMessagePayload(msg));
             this.chatUtil.playNotificationSound('OUTGOING');
             this.messageInput = '';
@@ -452,7 +466,6 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                 this.SM.lastRender2.unsubscribe();
             }
             this.SM.lastRender2 = this.lastMessageRendered.pipe(first()).subscribe((x) => {
-                console.log('Last render chatInputHeightAdjust');
                 this.chatInputHeightAdjust(true);
             });
         }

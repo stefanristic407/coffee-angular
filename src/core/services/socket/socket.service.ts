@@ -32,17 +32,22 @@ export class SocketService implements OnDestroy {
 
     public initSocketService() {
         console.log('SOCKET SERVICE INT CALLED');
-        if (
-            !(this.socketState.value === 'CONNECTED' || this.socketState.value === 'IP') &&
-            this.chatUtil.TOKEN &&
-            this.chatUtil.ORGANIZATION_ID
-        ) {
+        if (!(this.socketState.value === 'CONNECTED' || this.socketState.value === 'IP') && this.chatUtil.TOKEN) {
             console.log('SOCKET INT IP');
             this.destorySocket(true); // Cleanup
             this.authenticationState.next('IP');
             this.socketState.next('IP');
+            let url = '';
+            if (
+                this.chatUtil.ORGANIZATION_TYPE === OrganizationType.SEWN_ADMIN ||
+                this.chatUtil.ORGANIZATION_TYPE === OrganizationType.CONSUMER
+            ) {
+                url = `${environment.wsEndpoint}/${this.chatUtil.ORGANIZATION_TYPE}/messaging`;
+            } else {
+                url = `${environment.wsEndpoint}/${this.chatUtil.ORGANIZATION_TYPE}/${this.chatUtil.ORGANIZATION_ID}/messaging`;
+            }
             this.WSSubject = webSocket<WSResponse<unknown>>({
-                url: `${environment.wsEndpoint}/${this.chatUtil.ORGANIZATION_TYPE}/${this.chatUtil.ORGANIZATION_ID}/messaging`,
+                url,
                 openObserver: {
                     next: () => {
                         this.socketState.next('CONNECTED');

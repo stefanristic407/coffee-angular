@@ -23,6 +23,7 @@ export class CreateArticleComponent implements OnInit {
     articleId: any;
     article: any;
     isLoading = false;
+    images = [];
 
     constructor(
         private fb: FormBuilder,
@@ -59,6 +60,7 @@ export class CreateArticleComponent implements OnInit {
                 this.coverImageId = res.result.cover_image_id;
                 this.isCoverImageUploaded = true;
                 this.content = res.result.content;
+                this.images = res.result.images ?? [];
                 this.articleForm.patchValue({
                     title: res.result.title,
                     subtitle: res.result.subtitle,

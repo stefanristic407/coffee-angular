@@ -22,9 +22,9 @@
             </div>
         </div>
         <div class="col-12 col-lg-4 d-none d-lg-block">
-            <span class="custom-search h-fit-content mt-3 mt-md-0">
+            <div class="custom-search h-fit-content mt-3 mt-md-0">
                 <input
-                    class="w-100"
+                    class="w-100 fnt-16"
                     type="text"
                     pInputText
                     #searchInput
@@ -32,14 +32,14 @@
                     placeholder="{{ 'search_articles' | translate }}"
                     (ngModelChange)="getData()"
                 />
-            </span>
+            </div>
         </div>
     </div>
     <div class="d-none d-md-flex flex-column flex-md-row justify-content-md-between pt-md-4 pt-lg-45">
         <h1 class="fnt-18 fnt-md-24 fnt-muli fnt-bold text-clr334 mb-0">{{ 'articles' | translate }}</h1>
-        <span class="custom-search h-fit-content mt-3 mt-md-0 d-lg-none">
+        <div class="custom-search h-fit-content mt-3 mt-md-0 d-lg-none">
             <input
-                class="w-100"
+                class="w-100 fnt-16"
                 type="text"
                 pInputText
                 #searchInput
@@ -47,7 +47,7 @@
                 placeholder="{{ 'search_articles' | translate }}"
                 (ngModelChange)="getData()"
             />
-        </span>
+        </div>
     </div>
     <div class="d-flex justify-content-between align-items-center py-3 pb-md-4 pb-lg-45">
         <p-dropdown
@@ -84,10 +84,12 @@
                     <app-forum-menu
                         [selectedItem]="article"
                         forumType="article"
-                        [enableEdit]="organizationId === article.organisation_id"
-                        [enableDelete]="organizationId === article.organisation_id"
-                        [enableSave]="pageDesc === 'saved-posts' ? false : true"
-                        [enableDeleteSave]="pageDesc === 'saved-posts' ? true : false"
+                        [enableEdit]="organizationId === article.organisation_id && article.organisation_type === 'ro'"
+                        [enableDelete]="
+                            organizationId === article.organisation_id && article.organisation_type === 'ro'
+                        "
+                        [enableSave]="pageDesc !== 'saved-posts'"
+                        [enableDeleteSave]="pageDesc === 'saved-posts'"
                     ></app-forum-menu>
                 </div>
                 <img [src]="article.cover_image_url" class="br-4 w-100 my-3 my-md-4" />
@@ -101,10 +103,13 @@
                         class="fnt-muli fnt-14 fnt-normal lh-15 text-clr334"
                         [innerHTML]="article.content | convertToShortDescription: 20"
                     ></div>
-                    <label class="custom-link mb-0 mt-3 pt-z5">{{ 'read_more' | translate }}</label>
+                    <label class="brown-cta mb-0 mt-3 pt-z5">{{ 'read_more' | translate }}</label>
                 </div>
             </div>
         </div>
     </div>
     <app-loading *ngIf="isLoading"></app-loading>
+    <div *ngIf="!isLoading && !articlesData.length" class="text-center my-4 fnt-muli text-clr24">
+        {{ 'no_data_is_available' | translate }}
+    </div>
 </div>

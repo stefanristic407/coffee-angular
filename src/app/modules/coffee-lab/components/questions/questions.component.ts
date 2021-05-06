@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { CookieService } from 'ngx-cookie-service';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-questions',
@@ -15,8 +15,8 @@ export class QuestionsComponent implements OnInit {
     organizationId: any;
     pageDesc: string;
 
-    constructor(private cookieService: CookieService, private activateRoute: ActivatedRoute) {
-        this.pageDesc = this.activateRoute.snapshot.routeConfig?.path;
+    constructor(private cookieService: CookieService, private router: Router) {
+        this.pageDesc = this.router.url.split('/')[this.router.url.split('/').length - 2];
     }
 
     ngOnInit(): void {
