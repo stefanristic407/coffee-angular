@@ -176,19 +176,23 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
         if (!this.cupping || (this.cupping && this.cupping.key === '') || this.sampleSize === undefined) {
             this.toastrService.error('Please enter cupping type & Sample size');
         } else {
-            const data = {
-                cupping_type: this.cupping.key,
-                sample_size: this.sampleSize,
-                sample_size_unit: this.sampleSizeUnit,
-            };
-            this.greenGradingService.updateCuppingType(this.cuppingReportId, data).subscribe((res: any) => {
-                if (res.success) {
-                    this.toastrService.success('Cupping type updated');
-                    this.next.emit('screen3');
-                } else {
-                    this.toastrService.error('Error while Updating');
-                }
-            });
+            if (this.cuppingDetails.status === 'DRAFT' || this.cuppingDetails.status === 'NEW') {
+                const data = {
+                    cupping_type: this.cupping.key,
+                    sample_size: this.sampleSize,
+                    sample_size_unit: this.sampleSizeUnit,
+                };
+                this.greenGradingService.updateCuppingType(this.cuppingReportId, data).subscribe((res: any) => {
+                    if (res.success) {
+                        this.toastrService.success('Cupping type updated');
+                        this.next.emit('screen3');
+                    } else {
+                        this.toastrService.error('Error while Updating');
+                    }
+                });
+            } else {
+                this.next.emit('screen3');
+            }
         }
     }
 
