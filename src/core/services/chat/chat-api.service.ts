@@ -14,11 +14,11 @@ export class ChatApiServices extends ApiService {
         super(cookieService, http);
     }
 
-    reportUser(user_id: number, org_type: OrganizationType, org_id: number) {
+    reportUser(userId: number, orgType: OrganizationType, orgId: number) {
         const payloadData = {
-            user_id,
-            org_type,
-            org_id: org_id || undefined,
+            user_id: userId,
+            org_type: orgType,
+            org_id: orgId || undefined,
             reason: 'Messaging abuse',
             origin: 'Messaging System',
         };
