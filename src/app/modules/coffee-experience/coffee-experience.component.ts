@@ -24,6 +24,7 @@ export class CoffeeExperienceComponent implements OnInit {
     customerType = 'estate';
     coffeeExperienceData: any;
     roasterId: string;
+    params: any;
 
     constructor(
         public globals: GlobalsService,
@@ -52,14 +53,22 @@ export class CoffeeExperienceComponent implements OnInit {
     }
 
     getEstateOrders() {
-        const params: any = {
-            page: this.pageNumber,
-            per_page: this.rows,
-            status: 'RECEIVED',
-        };
+        if (this.customerType === 'hrc') {
+            this.params = {
+                page: this.pageNumber,
+                per_page: this.rows,
+                status: 'DELIVERED',
+            };
+        } else {
+            this.params = {
+                page: this.pageNumber,
+                per_page: this.rows,
+                status: 'RECEIVED',
+            };
+        }
         this.coffeeExperienceData = [];
         this.coffeeExperienceOrders
-            .getCoffeeExperienceOrders(this.roasterId, this.customerType, params)
+            .getCoffeeExperienceOrders(this.roasterId, this.customerType, this.params)
             .subscribe((res: any) => {
                 if (res.success) {
                     this.coffeeExperienceData = res.result;
