@@ -154,7 +154,7 @@ export class ProductDetailsComponent implements OnInit {
                         { label: this.globals.languageJson?.home, routerLink: '/' },
                         {
                             label: this.globals.languageJson?.e_commerce_catalog_management,
-                            routerLink: '/ecommerce/product-list',
+                            routerLink: '/e-commerce/product-list',
                         },
                         { label: res.result.name },
                     ];

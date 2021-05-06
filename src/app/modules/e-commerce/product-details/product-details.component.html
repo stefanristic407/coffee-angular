@@ -189,7 +189,7 @@
                         <p-divider type="dashed" styleClass="d-md-none mt-2 mb-4"></p-divider>
                         <div class="row gutter-16 gutter-lg-24 mt-md-2 mt-lg-3">
                             <div class="col-12 mb-3">
-                                <span class="primary_txt fnt-14 fnt-md-16">{{ 'details_estate' | translate }}</span>
+                                <span class="primary_txt fnt-16">{{ 'details_estate' | translate }}</span>
                             </div>
                             <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
                                 <label>{{ 'estate_name' | translate }}</label>
@@ -211,7 +211,7 @@
                         <p-divider type="dashed" styleClass="d-md-none mt-2 mb-4"></p-divider>
                         <div class="row gutter-16 gutter-lg-24 mt-md-2 mt-lg-3">
                             <div class="col-12 mb-3">
-                                <span class="primary_txt fnt-14 fnt-md-16">{{ 'tasting_notes' | translate }}</span>
+                                <span class="primary_txt fnt-16">{{ 'tasting_notes' | translate }}</span>
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
                                 <label>{{ 'body' | translate }}</label>
@@ -282,9 +282,7 @@
                         </div>
                         <div class="row gutter-16 mt-2 mt-lg-3">
                             <div class="col-12 mb-3">
-                                <span class="primary_txt fnt-14 fnt-md-16">{{
-                                    'recommended_brewing_method' | translate
-                                }}</span>
+                                <span class="primary_txt fnt-16">{{ 'recommended_brewing_method' | translate }}</span>
                             </div>
                             <div class="col-sm-12 col-md-4 col-lg-3 sewn-form-field">
                                 <label class="text-nowrap"
@@ -343,14 +341,15 @@
                                 ></app-varient-details>
                             </div>
                         </div>
-                        <div class="divSeperator"></div>
                     </div>
                 </p-tabPanel>
             </p-tabView>
         </div>
+        <p-divider type="dashed" styleClass="mb-4 mb-lg-45"></p-divider>
         <div class="col-12 p-0 mb-3">
-            <span class="primary_txt fnt-14 fnt-md-16">{{ 'boxes_details' | translate }}</span
-            ><br />
+            <p class="primary_txt fnt-16 mb-2">
+                {{ 'boxes_details' | translate }}
+            </p>
             <span>{{ 'add_value_crate' | translate }}</span>
         </div>
         <div
@@ -359,25 +358,24 @@
             class="mt-4"
         >
             <div [formGroupName]="i" class="row mt-2">
-                <div class="d-flex width-mob">
-                    <div class="sewn-form-field w-100 pr-0 bags-width ml-3">
+                <div class="d-flex w-mob-100">
+                    <div class="sewn-form-field w-100 bags-width ml-3">
                         <label class="text-nowrap">{{ 'box_value' | translate }}</label>
                         <input type="text" placeholder="" readonly formControlName="boxField" pInputText />
                     </div>
                     <div class="equal-operators">=</div>
                 </div>
-                <div class="sewn-form-field w-100 pl-0 pr-0 boxCrateWidth boxCreatedMobile">
+                <div class="sewn-form-field w-100 boxCrateWidth ml-3 ml-md-0">
                     <label>{{ 'weight' | translate }}</label>
                     <input type="text" readonly placeholder="" formControlName="weight_name" pInputText />
                 </div>
-                <div class="equal-operators pl-2 pr-2">x</div>
-                <div class="sewn-form-field w-100 pl-0 boxCrateWidth">
-                    <label class="d-none d-sm-none d-md-block"
-                        >{{ 'number_of_bags' | translate }}<span class="star">*</span></label
-                    >
-                    <label class="d-block d-sm-block d-md-none"
-                        >{{ 'no_of_bags' | translate }}<span class="star">*</span></label
-                    >
+                <div class="equal-operators px-1 px-md-2">x</div>
+                <div class="sewn-form-field w-100 boxCrateWidth mr-3 mr-md-0">
+                    <label class="d-none d-md-block">
+                        {{ 'number_of_bags' | translate }}
+                        <span class="star">*</span>
+                    </label>
+                    <label class="d-block d-md-none">{{ 'no_of_bags' | translate }}<span class="star">*</span></label>
                     <input type="number" placeholder="" formControlName="crate_capacity" pInputText />
                     <small *ngIf="box.controls['crate_capacity'].errors?.required" class="p-error">
                         {{ 'required' | translate }}
@@ -385,19 +383,19 @@
                 </div>
             </div>
         </div>
-        <div class="divSeperator"></div>
-        <div class="row gutter-16 gutter-lg-24 mt-4">
-            <div class="col-12 mb-3">
-                <span class="primary_txt fnt-14 fnt-md-16">{{ 'vat_details' | translate }}</span
+        <p-divider type="dashed" styleClass="mt-2 mt-lg-4 mb-4 mb-lg-475"></p-divider>
+        <div class="d-flex flex-wrap">
+            <div class="col-12 mb-3 p-0">
+                <span class="primary_txt fnt-16">{{ 'vat_details' | translate }}</span
                 ><br />
             </div>
-            <div class="col-12 col-sm-12 col-md-4 col-lg-6 col-xl-3 sewn-form-field w-100">
-                <label>{{ 'select_vat_type' }}<span class="star">*</span></label>
+            <div class="sewn-form-field mr-md-3 mr-lg-4 vat-type-wrapper">
+                <label class="mb-2">{{ 'select_vat_type' | translate }}<span class="star">*</span></label>
                 <p-dropdown
                     [options]="vatSettings"
                     optionLabel="label"
                     [placeholder]="'select_subscription_type' | translate"
-                    [style]="{ width: '100%' }"
+                    styleClass="w-100"
                     formControlName="vat_setting_id"
                     optionValue="value"
                 ></p-dropdown>
@@ -405,42 +403,42 @@
                     {{ 'required' | translate }}
                 </small>
             </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100 pl-md-4">
-                <label class="fnt-14 fnt-600 fnt-muli txt-clr-554"
-                    >{{ 'is_product_price_vat' | translate }}<span class="star">*</span></label
-                >
+            <div class="sewn-form-field ml-md-3 ml-lg-4 mt-2 mt-md-0">
+                <label class="fnt-14 fnt-600 fnt-muli txt-clr-554">
+                    {{ 'is_product_price_vat' | translate }}<span class="star">*</span>
+                </label>
                 <p-checkbox
                     formControlName="is_price_including_vat"
                     binary="true"
-                    class="mt-1"
                     [label]="'price_inclusive_vat' | translate"
                 >
                 </p-checkbox>
             </div>
         </div>
-        <div class="row gutter-16 gutter-lg-24 mt-4 d-none d-sm-none d-md-flex">
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                <button type="button" class="btn btn-stroked" (click)="onCancel()">{{ 'cancel' | translate }}</button>
-                <button type="submit" class="btn btn-raised ml-3" (click)="onSave()">{{ 'save' | translate }}</button>
-            </div>
-            <div *ngIf="!productID" class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                <button type="button" class="btn btn-raised pull-right" (click)="togglePublic(true)">
-                    {{ 'publish' | translate }}
-                </button>
-            </div>
-        </div>
-        <div class="row gutter-16 gutter-lg-24 mt-4 d-block d-sm-block d-md-none">
-            <div *ngIf="!productID" class="col-12 col-sm-12">
-                <button type="button" class="btn btn-raised w-100" (click)="togglePublic(true)">
-                    {{ 'publish' | translate }}
-                </button>
-            </div>
-            <div class="col-12 col-sm-12 mt-3">
-                <button type="submit" class="btn btn-raised w-100" (click)="onSave()">{{ 'save' | translate }}</button>
-            </div>
-            <div class="col-12 col-sm-12 mt-3">
-                <button type="button" class="btn btn-stroked w-100" (click)="onCancel()">
+        <div class="d-flex flex-column flex-md-row justify-content-md-between mt-2 mt-md-45">
+            <button
+                type="button"
+                class="btn btn-raised order-1 order-md-2 w-mob-100"
+                (click)="togglePublic(true)"
+                *ngIf="!productID"
+            >
+                {{ 'publish' | translate }}
+            </button>
+            <div class="d-flex flex-column flex-md-row order-2 order-md-1">
+                <button
+                    type="button"
+                    class="btn btn-stroked order-2 order-md-1 mt-3 mt-md-0 w-mob-100"
+                    (click)="onCancel()"
+                >
                     {{ 'cancel' | translate }}
+                </button>
+                <button
+                    type="submit"
+                    class="btn btn-raised ml-md-3 order-1 order-md-2 mt-md-0 w-mob-100"
+                    [ngClass]="{ 'mt-3': !productID }"
+                    (click)="onSave()"
+                >
+                    {{ 'save' | translate }}
                 </button>
             </div>
         </div>
