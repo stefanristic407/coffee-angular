@@ -17,7 +17,6 @@ export class MyCommentsComponent implements OnInit {
     ];
     sortBy = 'latest';
     roasterId: string;
-    userId: string;
     isLoading = false;
     isMyPostsPage = false;
     pageDesc: string;
@@ -28,7 +27,6 @@ export class MyCommentsComponent implements OnInit {
         private router: Router,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
-        this.userId = this.cookieService.get('user_id');
         this.pageDesc = this.router.url.split('/')[this.router.url.split('/').length - 2];
     }
 

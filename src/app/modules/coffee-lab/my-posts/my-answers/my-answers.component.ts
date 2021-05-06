@@ -18,7 +18,6 @@ export class MyAnswersComponent implements OnInit {
     pageDesc: string;
     isMyPostsPage = false;
     isLoading = false;
-    userId: string;
     forumDeleteSub: Subscription;
 
     constructor(
@@ -27,7 +26,6 @@ export class MyAnswersComponent implements OnInit {
         private router: Router,
     ) {
         this.pageDesc = this.router.url.split('/')[this.router.url.split('/').length - 2];
-        this.userId = this.cookieService.get('user_id');
     }
 
     ngOnInit(): void {
