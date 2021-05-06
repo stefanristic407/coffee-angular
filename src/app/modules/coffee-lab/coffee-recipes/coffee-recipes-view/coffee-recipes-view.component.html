@@ -109,7 +109,7 @@
         <div class="col-12 col-md-6 col-lg-4 px-0 py-2 p-md-2" *ngFor="let coffee of coffeeRecipeData">
             <div
                 class="border-main br-4 p-3 py-md-4 px-lg-4 coffee-item"
-                [routerLink]="'/coffee-lab/recipes/' + coffee.id"
+                [routerLink]="'/coffee-lab/recipes/' + coffee.slug"
             >
                 <div class="d-flex justify-content-between">
                     <app-user-header [prop]="coffee"></app-user-header>
@@ -118,7 +118,7 @@
                         forumType="recipe"
                         [enableEdit]="organizationId === coffee.organisation_id && coffee.organisation_type === 'ro'"
                         [enableDelete]="organizationId === coffee.organisation_id && coffee.organisation_type === 'ro'"
-                        [enableSave]="pageDesc!=='saved-posts'"
+                        [enableSave]="pageDesc !== 'saved-posts'"
                         [enableDeleteSave]="pageDesc === 'saved-posts'"
                     ></app-forum-menu>
                 </div>
