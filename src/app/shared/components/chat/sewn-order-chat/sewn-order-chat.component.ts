@@ -1,7 +1,9 @@
+import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { Subscription, Subject } from 'rxjs';
 import * as moment from 'moment';
+import Viewer from 'viewerjs';
 import {
     Component,
     OnInit,
@@ -49,10 +51,21 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     activeThreadType: 'ORDER' | 'DISPUTE' | 'UNSET' = 'UNSET';
     showOffensiveMessageError = false;
     offensiveTimeout = 0;
+
     messageListConfig = {
-        perPage: 300,
+        perPage: 400,
         activePage: 1,
     };
+    uploadFileMeta: {
+        url: string;
+        file_id: number;
+    } | null = null;
+    uploadProgressing = false;
+
+    public acceptFileTypeArray = ['image/jpeg', 'image/png'];
+    public acceptFileTypeString = '';
+    private viewerRef: Viewer | null = null;
+
     messageInputElement: HTMLTextAreaElement;
     chatMessageBodyElement: HTMLElement;
     lastMessageRendered = new Subject();
@@ -66,9 +79,11 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
         public chatUtil: ChatUtilService,
         private render: Renderer2,
         private router: Router,
+        private toast: ToastrService,
     ) {}
 
     ngOnInit(): void {
+        this.acceptFileTypeString = this.acceptFileTypeArray.join(',');
         this.SM.WSState = this.socket.socketState.subscribe((value) => {
             if (value === 'CONNECTED') {
                 this.initializeWebSocket();
@@ -242,13 +257,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                 this.scrollbottom();
             });
 
-            this.messageList = WSmsg.data
-                .filter((x) => x.activity_type === ThreadActivityType.message && x.content.trim() !== '')
-                .reverse();
-
-            // this.messageList.forEach((message) => {
-            //     this.processChatMessages(message, this.threadDetails);
-            // });
+            this.messageList = WSmsg.data.filter((x) => x.activity_type === ThreadActivityType.message).reverse();
             for (let index = 0, len = this.messageList.length; index < len; index++) {
                 this.messageList[index] = this.processChatMessages(this.messageList[index], this.threadDetails);
                 const prevMessage = this.messageList[index - 1];
@@ -286,7 +295,6 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
         const message = WSmsg.data;
         if (
             WSmsg.code === 201 &&
-            (message?.content || '').trim() !== '' &&
             (message.thread.type === ThreadType.dispute ||
                 message.thread.type === ThreadType.gc_order ||
                 message.thread.type === ThreadType.mr_order)
@@ -318,6 +326,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                     } else {
                         message.showUserBadge = true;
                     }
+                    this.chatUtil.playNotificationSound('INCOMING');
                 } else {
                     message.showUserBadge = false;
                 }
@@ -328,7 +337,6 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                 }
                 this.messageList.push(message);
                 this.sendReadToken(message.id);
-                this.chatUtil.playNotificationSound('INCOMING');
             } else {
                 console.log('Websocket:Incoming Message : Failure');
             }
@@ -411,10 +419,8 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
         }
     }
     updateChatMessageBodyElRef() {
-        if (!this.chatMessageBodyElement) {
-            const query = `[data-element="live-chat-message-body"]`;
-            this.chatMessageBodyElement = (this.elRef?.nativeElement?.querySelector(query) as HTMLElement) || null;
-        }
+        const query = `[data-element="live-chat-message-body"]`;
+        this.chatMessageBodyElement = (this.elRef?.nativeElement?.querySelector(query) as HTMLElement) || null;
     }
     scrollbottom() {
         this.updateChatMessageBodyElRef();
@@ -456,39 +462,156 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
         clearTimeout(this.offensiveTimeout);
         this.showOffensiveMessageError = false;
         let msg = this.messageInput.trim();
-        msg = this.detectOffensiveWords(msg);
-        if (msg !== '') {
-            this.socket.orderChatSent.next(this.getMessagePayload(msg));
-            this.chatUtil.playNotificationSound('OUTGOING');
-            this.messageInput = '';
-            this.chatInputHeightAdjust();
-            if (this.SM.lastRender2 && this.SM.lastRender2.unsubscribe) {
-                this.SM.lastRender2.unsubscribe();
-            }
-            this.SM.lastRender2 = this.lastMessageRendered.pipe(first()).subscribe((x) => {
-                this.chatInputHeightAdjust(true);
-            });
+        const hasContent = !!msg;
+        const hasImage = !!this.uploadFileMeta?.file_id;
+        const payload = {
+            thread_id: this.threadDetails.id,
+            content: '',
+            meta_data: '',
+            file_id: undefined,
+        };
+        if (hasContent && hasImage) {
+            msg = this.detectOffensiveWords(msg);
+            payload.content = msg;
+            payload.file_id = this.uploadFileMeta?.file_id || '';
+            payload.meta_data = JSON.stringify({
+                type: MessageMetaTypes.PICTURE_CAPTION,
+            } as MessageMeta);
+        } else if (!hasContent && hasImage) {
+            payload.content = '';
+            payload.file_id = this.uploadFileMeta?.file_id || '';
+            payload.meta_data = JSON.stringify({
+                type: MessageMetaTypes.PICTURE_ONLY,
+            } as MessageMeta);
+        } else if (hasContent && !hasImage) {
+            msg = this.detectOffensiveWords(msg);
+            payload.content = msg;
+            delete payload.file_id;
+            payload.meta_data = JSON.stringify({
+                type: MessageMetaTypes.TEXT_ONLY,
+            } as MessageMeta);
+        } else {
+            this.toast.warning('Message text can not be blank', 'Unable to sent', { timeOut: 800 });
+            return;
         }
+        this.socket.orderChatSent.next(this.getMessagePayload(payload));
+        this.chatUtil.playNotificationSound('OUTGOING');
+        this.messageInput = '';
+        this.uploadFileMeta = null;
+        this.chatInputHeightAdjust();
+        if (this.SM.lastRender2 && this.SM.lastRender2.unsubscribe) {
+            this.SM.lastRender2.unsubscribe();
+        }
+        this.SM.lastRender2 = this.lastMessageRendered.pipe(first()).subscribe((x) => {
+            this.chatInputHeightAdjust(true);
+        });
     }
 
-    getMessagePayload(message: string) {
+    removeFile() {
+        this.uploadFileMeta = null;
+    }
+
+    uploadFile($event: any) {
+        const file = (event.target as HTMLInputElement).files[0];
+        (event.target as HTMLInputElement).value = null;
+        if (this.acceptFileTypeArray.includes(file.type)) {
+            this.uploadFileMeta = null;
+            this.uploadProgressing = true;
+            this.chatUtil.uploadFile(file, this.threadDetails.id).subscribe(
+                (res: any) => {
+                    this.uploadProgressing = false;
+                    if (res.success) {
+                        this.uploadFileMeta = {
+                            file_id: res.result.id,
+                            url: res.result.url,
+                        };
+                    } else {
+                        this.toast.error('Unable to sent files, please try aftersome time', 'Uploading failed', {
+                            timeOut: 400,
+                        });
+                    }
+                },
+                (error) => {
+                    this.uploadProgressing = false;
+                    console.log('upload error', error);
+                },
+            );
+        } else {
+            this.toast.error('Please choose a valid file type', 'Invalid File type', { timeOut: 400 });
+        }
+        return false;
+    }
+
+    getMessagePayload(data: any) {
         const timestamp = this.chatUtil.getTimeStamp();
         this.TIMESTAMP_MAP[ChatMessageType.message] = timestamp;
         return {
             type: ChatMessageType.message,
             timestamp,
-            data: {
-                thread_id: this.threadDetails.id,
-                content: message,
-                meta_data: '',
-            },
+            data,
         };
     }
     escalate() {
         this.escalateTicket.emit();
     }
 
+    openImage(messageId: number) {
+        if (this.viewerRef) {
+            this.viewerRef.destroy();
+        }
+        const imageEL: HTMLElement = document.querySelector(`[data-image-id="${messageId}"]`);
+        if (imageEL) {
+            this.viewerRef = new Viewer(imageEL, {
+                title: (image) => image.dataset.imageCaption || '',
+                toolbar: {
+                    zoomIn: true,
+                    zoomOut: true,
+                    oneToOne: true,
+                    reset: true,
+                    play: {
+                        show: true,
+                        size: 'large' as Viewer.ToolbarButtonSize.Large,
+                        click: () => {
+                            const url = (this.viewerRef as any)?.element?.src || '';
+                            if (url) {
+                                this.fileDownload(url);
+                            } else {
+                                this.toast.error('Failed to download the image', 'Chat Download');
+                            }
+                        },
+                    },
+                    rotateLeft: true,
+                    rotateRight: true,
+                    flipHorizontal: true,
+                    flipVertical: true,
+                },
+                navbar: false,
+                className: 'dm-image-view',
+                loop: false,
+            });
+            this.viewerRef.show(true);
+        } else {
+            console.log('ImageView error: image element not found');
+        }
+    }
+
+    fileDownload(url) {
+        const anchor = document.createElement('a');
+        anchor.href = url;
+        anchor.target = '_blank';
+        anchor.download = 'Sewn chat';
+        anchor.style.display = 'none';
+        document.body.append(anchor);
+        anchor.click();
+        setTimeout(() => {
+            anchor.remove();
+        }, 500);
+    }
+
     ngOnDestroy() {
+        if (this.viewerRef) {
+            this.viewerRef.destroy();
+        }
         for (const name in this.SM) {
             if (this.SM[name] && this.SM[name].unsubscribe) {
                 this.SM[name].unsubscribe();
