@@ -326,7 +326,7 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
     }
 
     onConfirmGenerate() {
-        if (this.singleCuppingDetails.status === 'DRAFT') {
+        if (this.singleCuppingDetails.status === 'DRAFT' || this.singleCuppingDetails.status === 'NEW') {
             this.dialogSrv
                 .open(ConfirmComponent, {
                     data: {
@@ -350,7 +350,7 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
     }
 
     submit() {
-        if (this.singleCuppingDetails.status === 'DRAFT') {
+        if (this.singleCuppingDetails.status === 'DRAFT' || this.singleCuppingDetails.status === 'NEW') {
             const data = {
                 evaluator_ids: this.selectedEvaluators,
                 status: 'GENERATED',

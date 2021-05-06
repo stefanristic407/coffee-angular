@@ -295,7 +295,7 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
 
     goNext() {
         if (!!this.cuppingReportId && this.checkValidation()) {
-            if (this.cuppingDetails.cupping_status === 'DRAFT') {
+            if (this.cuppingDetails.status === 'DRAFT' || this.cuppingDetails.status === 'NEW') {
                 const data = {
                     roast_level: this.roastLevel[0],
                     fragrance_score: this.fragrance,
