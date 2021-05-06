@@ -11,11 +11,13 @@
     }
 }
 
-@media (min-width: 768px) {
-    .sewn-form-field {
-        margin-bottom: 1rem !important;
+.sewn-form-field {
+    margin-bottom: 1rem !important;
+    label {
+        color: #747588;
     }
 }
+
 .flavour-item {
     padding: 8px 16px;
     border-radius: 17px;
@@ -23,6 +25,7 @@
     color: #fff;
     margin: 8px 8px 0 0;
 }
+
 .limitFont {
     font-family: Muli;
     font-size: 14px;
@@ -35,9 +38,6 @@
     color: #ababab;
 }
 
-::ng-deep .isProductOption .p-tabview .p-tabview-nav {
-    display: none;
-}
 .equal-operators {
     font-size: 14px;
     font-weight: 600;
@@ -49,41 +49,22 @@
     padding: 9px 10px;
     margin-top: 30px;
 }
-.divSeperator {
-    border: 1px dashed #d6d6d6;
-    margin-top: 1rem !important;
-    margin-bottom: 2.5rem !important;
-}
 
 .boxCrateWidth {
-    width: 205px !important;
+    width: 200px !important;
 }
 
 .bags-width {
-    width: 205px !important;
+    width: 200px !important;
 }
 
-.delete-varient {
-    display: none;
+.vat-type-wrapper {
+    width: 200px;
 }
 
-@media screen and (max-width: 1100px) {
-    .divSeperator {
-        border: 1px dashed #d6d6d6;
-        margin-top: 24px !important;
-        margin-bottom: 24px !important;
-    }
-}
-@media (min-width: 768px) and (max-width: 1240px) {
-    ::ng-deep .varientBox label.p-checkbox-label {
-        width: max-content;
-    }
-}
 @media screen and (max-width: 767px) {
-    .delete-varient {
-        display: inherit;
-        padding: 16px 0 0;
-        margin: 0;
+    .vat-type-wrapper {
+        width: 100%;
     }
     .bags-width {
         width: 100% !important;
@@ -103,57 +84,18 @@
     :host ::ng-deep .p-tabview-nav {
         display: none;
     }
-    .p-dropdown {
-        width: 100%;
-    }
-    .e-comm-border-top {
-        border-top: 1px dashed #d6d6d6;
-        padding: 8px;
-    }
-    .divSeperator {
-        border: 1px dashed #d6d6d6;
-        margin-top: 1rem;
-        margin-bottom: 1.5rem;
-    }
-    .productDiv {
-        margin-top: 1rem;
-        margin-bottom: 0px !important;
-    }
-    .productLineDiv {
-        padding-bottom: 1rem !important;
-        border-bottom: 1px solid #d6d6d6;
-    }
-    .roasterDivText-area {
-        height: 232px;
-    }
-    ::ng-deep .varientBox label.p-checkbox-label {
-        position: relative;
-        top: 0.35rem;
-    }
     .boxCrateWidth {
-        width: 140px !important;
-    }
-    .boxCreatedMobile {
-        margin-left: 15px;
-    }
-    .width-mob {
-        width: 100%;
-    }
-}
-@media (max-width: 375px) {
-    ::ng-deep .varientBox label.p-checkbox-label {
-        position: relative;
-        top: 0.9rem;
-    }
-
-    .boxCrateWidth {
-        width: 110px !important;
+        flex: 1;
     }
 }
 
 ::ng-deep {
     .p-breadcrumb {
         max-width: 100%;
+    }
+
+    .isProductOption .p-tabview .p-tabview-nav {
+        display: none;
     }
     .p-dropdown {
         &.p-dropdown-variantType {
