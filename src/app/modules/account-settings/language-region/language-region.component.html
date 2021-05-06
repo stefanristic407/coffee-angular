@@ -90,7 +90,9 @@
                             class="w-100"
                             [(ngModel)]="userInfo.timezone"
                             (ngModelChange)="onChangeUserInfo()"
-                            placeholder="Select a timezone"
+                            [filter]="true"
+                            filterBy="label"
+                            [placeholder]="'select_a_timezone' | translate"
                             optionLabel="label"
                             optionValue="value"
                         >

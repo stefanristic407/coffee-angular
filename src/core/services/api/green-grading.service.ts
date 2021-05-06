@@ -166,15 +166,16 @@ export class GreenGradingService extends ApiService {
     }
 
     getProcessDetails(roasterId: any, harvestId: any) {
-        const data = {
-            api_call: 'ro/' + roasterId + '/harvests/' + harvestId + '/milling',
-            token: this.cookieService.get('Auth'),
-        };
-        return this.post(this.orgPostUrl, `ro/${roasterId}/harvests/${harvestId}/milling`);
+        return this.post(this.orgPostUrl, `ro/${roasterId}/harvests/${harvestId}/milling`, 'GET');
     }
 
     assignUser(orderId: string, userId: string) {
         const roasterId = this.cookieService.get('roaster_id');
         return this.post(this.orgPostUrl, `ro/${roasterId}/orders/${orderId}/users/${userId}/assign-evaluator`, 'PUT');
+    }
+
+    getAssignOrder(options: any) {
+        const params = this.serializeParams(options);
+        return this.post(this.orgPostUrl, `ro/${this.getOrgId()}/cupping-process/orders?${params}`, 'GET');
     }
 }

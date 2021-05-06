@@ -10,7 +10,10 @@
             <p-tabPanel [header]="'grade_info' | translate">
                 <app-grade-info [harvestId]="order?.harvest_id"></app-grade-info>
             </p-tabPanel>
-            <p-tabPanel [header]="'shipping' | translate" *ngIf="order?.order_type === OrderType.Booked">
+            <p-tabPanel
+                [header]="'shipping' | translate"
+                *ngIf="order?.order_type === OrderType.Booked && orderShipped"
+            >
                 <app-shipping-details [shippingDetails]="shippingDetails" [bulk]="bulk$ | async"></app-shipping-details>
             </p-tabPanel>
         </p-tabView>
