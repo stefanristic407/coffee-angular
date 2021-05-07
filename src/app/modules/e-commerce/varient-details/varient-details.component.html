@@ -261,7 +261,8 @@
                 <div class="row gutter-16 gutter-lg-24 flex-nowrap overflow-auto pb-2 pb-md-25 pb-lg-3 w-100">
                     <div class="col">
                         <label class="text-nowrap"
-                            >{{ 'upload_feature_image' | translate }}<span class="star">*</span></label
+                            >{{ ((isMobile$ | async) ? 'feature_image' : 'upload_feature_image') | translate
+                            }}<span class="star">*</span></label
                         >
                         <div
                             *ngIf="
@@ -294,45 +295,38 @@
                                     'fileDetails'
                                 ]
                             "
-                            class="addImageContainer imageContainer imagesDiv"
+                            class="addImageContainer"
                         >
-                            <div>
-                                <img
-                                    [src]="
-                                        weightForm['controls']['weights']['controls'][currentVarientIndex]['value'][
-                                            'fileDetails'
-                                        ]['image_url']
-                                    "
-                                    alt=""
-                                    class="uploadImg"
-                                />
-                            </div>
-
-                            <div class="imageLabel">
-                                <label class="mb-0 p-0.5">Image.png</label>
-                                <a
-                                    class="menu-arrow float-right pointer"
-                                    [popover]="documentTemplate2"
-                                    placement="left"
-                                    [outsideClick]="true"
-                                    #pop="bs-popover"
-                                >
-                                    <img class="img" src="assets/images/Ecom-Kebab-menu.svg" />
-                                </a>
-                                <ng-template #documentTemplate2>
-                                    <div id="popover-mobile-content">
-                                        <ul class="list-group custom-popover">
-                                            <li *ngIf="false" class="list-group-item">
-                                                <a class="pointer-item">{{ globals.languageJson?.edit }} </a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <a class="pointer-item" (click)="deleteImage(0, 'feature_image')">{{
-                                                    globals.languageJson?.delete
-                                                }}</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </ng-template>
+                            <img
+                                [src]="
+                                    weightForm['controls']['weights']['controls'][currentVarientIndex]['value'][
+                                        'fileDetails'
+                                    ]['image_url']
+                                "
+                                alt=""
+                                class="uploadImg"
+                            />
+                            <div class="imageLabel fnt-muli fnt-14 fnt-bold lh-normal text-white">
+                                <span class="ellipsis">
+                                    {{
+                                        trackFileName(
+                                            weightForm['controls']['weights']['controls'][currentVarientIndex]['value'][
+                                                'fileDetails'
+                                            ]['image_url']
+                                        )
+                                    }}
+                                </span>
+                                <i class="pi pi-ellipsis-v cursor-pointer" (click)="opMd.toggle($event)"></i>
+                                <p-overlayPanel #opMd styleClass="p-overlaypanel-actions" appendTo="body">
+                                    <ng-template pTemplate>
+                                        <div
+                                            class="fnt-muli fnt-14 fnt-600 text-clr588 action-item cursor-pointer"
+                                            (click)="deleteImage(0, 'featured_image')"
+                                        >
+                                            Delete
+                                        </div>
+                                    </ng-template>
+                                </p-overlayPanel>
                             </div>
                         </div>
                     </div>
@@ -348,7 +342,7 @@
                         <label>{{ 'product_images' | translate }}<span class="star">*</span></label>
                         <div
                             *ngIf="!product_image['fileDetails']"
-                            class="addImageContainer d-flex align-items-center justify-content-center productImagesDiv"
+                            class="addImageContainer d-flex align-items-center justify-content-center"
                         >
                             <label class="d-flex align-items-center justify-content-center pointer-item">
                                 <input
@@ -366,38 +360,29 @@
                                 </div>
                             </label>
                         </div>
-                        <div
-                            *ngIf="product_image['fileDetails']"
-                            class="addImageContainer imageContainer productImagesDiv"
-                        >
-                            <div>
-                                <img [src]="product_image['fileDetails']['image_url']" alt="" class="uploadImg" />
-                            </div>
-                            <div class="imageLabel">
-                                <label class="mb-0 p-0.5">Image.png</label>
-                                <a
-                                    class="menu-arrow float-right pointer"
-                                    [popover]="documentTemplate2"
-                                    placement="left"
-                                    [outsideClick]="true"
-                                    #pop="bs-popover"
-                                >
-                                    <img class="img" src="assets/images/Ecom-Kebab-menu.svg" />
-                                </a>
-                                <ng-template #documentTemplate2>
-                                    <div id="popover-mobile-content">
-                                        <ul class="list-group custom-popover">
-                                            <li *ngIf="false" class="list-group-item">
-                                                <a class="pointer-item">{{ globals.languageJson?.edit }} </a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <a class="pointer-item" (click)="deleteImage(m, 'product_image')">{{
-                                                    globals.languageJson?.delete
-                                                }}</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </ng-template>
+                        <div *ngIf="product_image['fileDetails']" class="addImageContainer">
+                            <img [src]="product_image['fileDetails']['image_url']" alt="" class="uploadImg" />
+                            <div class="imageLabel fnt-muli fnt-14 fnt-bold lh-normal text-white">
+                                <span class="ellipsis">
+                                    {{
+                                        trackFileName(
+                                            weightForm['controls']['weights']['controls'][currentVarientIndex]['value'][
+                                                'fileDetails'
+                                            ]['image_url']
+                                        )
+                                    }}
+                                </span>
+                                <i class="pi pi-ellipsis-v cursor-pointer" (click)="opMd.toggle($event)"></i>
+                                <p-overlayPanel #opMd styleClass="p-overlaypanel-actions" appendTo="body">
+                                    <ng-template pTemplate>
+                                        <div
+                                            class="fnt-muli fnt-14 fnt-600 text-clr588 action-item cursor-pointer"
+                                            (click)="deleteImage(m, 'product_image')"
+                                        >
+                                            Delete
+                                        </div>
+                                    </ng-template>
+                                </p-overlayPanel>
                             </div>
                         </div>
                     </div>

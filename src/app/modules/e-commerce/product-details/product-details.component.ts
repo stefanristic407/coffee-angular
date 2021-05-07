@@ -359,7 +359,7 @@ export class ProductDetailsComponent implements OnInit {
         }
     }
     onCancel(): void {
-        this.router.navigate(['/features/products-list']);
+        this.router.navigate(['/e-commerce/product-list']);
     }
 
     onPasteDescription(flag, idx?) {
@@ -509,7 +509,7 @@ export class ProductDetailsComponent implements OnInit {
             (res) => {
                 if (res.success && showToaster) {
                     this.toasterService.success('Product created successfully');
-                    this.router.navigate(['/features/products-list']);
+                    this.router.navigate(['/e-commerce/product-list']);
                 }
                 if (!res.success) {
                     this.toasterService.error('Errow while adding weight varients');
@@ -530,7 +530,7 @@ export class ProductDetailsComponent implements OnInit {
             (res) => {
                 if (showToaster && res.success) {
                     this.toasterService.success('Product updated successfully');
-                    this.router.navigate(['/features/products-list']);
+                    this.router.navigate(['/e-commerce/product-list']);
                 }
             },
             (err) => {
