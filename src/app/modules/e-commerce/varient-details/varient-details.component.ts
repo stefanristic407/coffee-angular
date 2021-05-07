@@ -2,9 +2,10 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RoasterserviceService } from 'src/core/services/api/roaster.service';
-import { GlobalsService } from '@services';
+import { GlobalsService, ResizeService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { ResizeableComponent } from '@base-components';
 import * as $ from 'jquery';
 
 @Component({
@@ -12,7 +13,7 @@ import * as $ from 'jquery';
     templateUrl: './varient-details.component.html',
     styleUrls: ['./varient-details.component.scss'],
 })
-export class VarientDetailsComponent implements OnInit {
+export class VarientDetailsComponent extends ResizeableComponent implements OnInit {
     weightForm: FormGroup;
     weights: FormArray;
     grind_variants: FormArray;
@@ -47,7 +48,9 @@ export class VarientDetailsComponent implements OnInit {
         public globals: GlobalsService,
         public services: RoasterserviceService,
         private cookieService: CookieService,
+        protected resizeService: ResizeService,
     ) {
+        super(resizeService);
         this.roasterID = this.cookieService.get('roaster_id');
     }
 
@@ -339,5 +342,14 @@ export class VarientDetailsComponent implements OnInit {
             this.weightVariantArray.push({ label: weightName, value: index });
         });
         this.weightVariantArray.push({ label: '', value: 'button' });
+    }
+
+    trackFileName(name) {
+        if (name) {
+            const strArr = name.split('/');
+            const lastItem = strArr[strArr.length - 1];
+            return lastItem.split('?')[0];
+        }
+        return '';
     }
 }
