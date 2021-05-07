@@ -804,6 +804,40 @@ export class RoasterserviceService extends ApiService {
         data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
+    getViewCustomerDetails(roaster_id: any, hrc_id: any, orderType = null): Observable<any> {
+        const data = {
+            api_call: `/ro/${roaster_id}/hrc/${hrc_id}`,
+            token: this.cookieService.get('Auth'),
+            method: 'GET',
+        };
+        return this.http.post(this.url, data);
+    }
+    getListOrderDetails(roaster_id: any, postData = null, orderType = ''): Observable<any> {
+        const data = {
+            api_call: `/ro/${roaster_id}/orders?` + this.serlialise(postData),
+            token: this.cookieService.get('Auth'),
+            method: 'GET',
+        };
+        return this.http.post(this.url, data);
+    }
+    addOrderDetails(roaster_id: any, body: any): Observable<any> {
+        const data = {
+            api_call: `/ro/${roaster_id}/outtake-orders`,
+            token: this.cookieService.get('Auth'),
+            method: 'POST',
+            data: body,
+        };
+        return this.http.post(this.url, data);
+    }
+    updateOrderDetails(roaster_id: any, outtake_order_id: any, body: any): Observable<any> {
+        const data = {
+            api_call: `/ro/${roaster_id}/outtake-orders${outtake_order_id}`,
+            token: this.cookieService.get('Auth'),
+            method: 'PUT',
+            data: body,
+        };
+        return this.http.post(this.url, data);
+    }
 
     getOrderDisputeList(roaster_id: any, order_id: any, orderType?) {
         var data = {};

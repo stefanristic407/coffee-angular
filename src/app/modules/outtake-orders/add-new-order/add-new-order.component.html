@@ -1,4 +1,4 @@
-<div class="main-block">
+<div *ngIf="!showOrderPanel" class="main-block">
     <div class="d-flex justify-content-between mb-45 pb-2">
         <div class="breadcrumb-container">
             <p-breadcrumb [model]="breadItems"></p-breadcrumb>
@@ -9,17 +9,23 @@
             <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1">Add a new order</div>
         </div>
         <div class="row">
-            <div class="col-lg-8 col-md-12">
+            <div class="col-lg-7 col-md-12">
                 <div class="row mb-45">
-                    <div class="col-5 pl-3">
+                    <div class="col pl-3">
                         <div class="sewn-form-field mb-0 w-100">
                             <div>
                                 <label>Product name<span class="text-clr-e5a">*</span></label>
                             </div>
-                            <input pInputText class="roastery-website-input border" type="text" pInputText />
+                            <input
+                                pInputText
+                                class="roastery-website-input border"
+                                formControlName="productName"
+                                type="text"
+                                pInputText
+                            />
                         </div>
                     </div>
-                    <div class="col-5 pl-2">
+                    <div class="col pl-2">
                         <div class="sewn-form-field mb-0 w-100">
                             <div>
                                 <label>Date Placed<span class="text-clr-e5a">*</span></label>
@@ -32,15 +38,27 @@
                     <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1">Order ID*</div>
                 </div>
                 <div class="row">
-                    <div class="col-5 pl-3">
+                    <div class="col pl-3">
                         <div class="sewn-form-field mb-0 w-100">
                             <div>
                                 <label>Select the green coffee order</label>
                             </div>
-                            <input pInputText class="roastery-website-input border" type="text" pInputText />
+                            <div class="weightInputGroupDiv d-flex inputFieldBox">
+                                <div class="w-100">
+                                    <input
+                                        pInputText
+                                        class="roastery-website-input border weightInputDiv"
+                                        type="text"
+                                        pInputText
+                                    />
+                                </div>
+                                <div class="daysInputDiv right_angle">
+                                    <i (click)="showOrderPanel = true" class="pi pi-angle-right fnt-20"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-5 pl-2">
+                    <div class="col pl-2">
                         <div class="sewn-form-field mb-0 w-100">
                             <div>
                                 <label>Roaster ref no</label>
@@ -50,7 +68,7 @@
                     </div>
                 </div>
                 <div class="row my-45">
-                    <div class="col-5 pl-3">
+                    <div class="col pl-3">
                         <div class="sewn-form-field mb-0 w-100">
                             <div>
                                 <label>Order created by</label>
@@ -58,7 +76,7 @@
                             <input pInputText class="roastery-website-input border" type="text" pInputText />
                         </div>
                     </div>
-                    <div class="col-5 pl-2">
+                    <div class="col pl-2">
                         <div class="sewn-form-field mb-0 w-100">
                             <div>
                                 <label>Select the sales member for the order<span class="text-clr-e5a">*</span></label>
@@ -67,60 +85,524 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex flex-column">
-                    <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1">Order details</div>
+                <div class="d-flex flex-column br_top mt-md-3 pt-3">
+                    <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 pt-md-3 mb-md-1">Order details</div>
                     <div class="fnt-14 fnt-400 text-clr334 fnt-muli mb-3">Select the green coffee order</div>
                 </div>
-                <div class="row">
-                    <div class="col-5 pl-3">
+                <div class="row padd-2r">
+                    <div class="col pl-3">
                         <div class="sewn-form-field mb-0 w-100">
                             <div>
                                 <label>Select the type of customer<span class="text-clr-e5a">*</span></label>
                             </div>
+                            <p-dropdown
+                                [options]="customerTypeArray"
+                                optionLabel="label"
+                                placeholder="Partner"
+                                formControlName="typeOfCustomer"
+                                optionValue="value"
+                                (onChange)="customerTypeChange($event)"
+                            ></p-dropdown>
+                            <small *ngIf="addOrdersForm.controls['typeOfCustomer'].errors?.required" class="p-error">
+                                {{ 'required' | translate }}
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col pl-2">
+                        <div class="sewn-form-field mb-0 w-100">
+                            <div>
+                                <label>Customer name<span class="text-clr-e5a">*</span></label>
+                            </div>
                             <input pInputText class="roastery-website-input border" type="text" pInputText />
                         </div>
                     </div>
-                    <div class="col-5 pl-2">
+                </div>
+                <div *ngIf="typeOfCustomer !== 'micro_roaster'" class="row padd-2r">
+                    <div class="col-6 pl-3">
                         <div class="sewn-form-field mb-0 w-100">
                             <div>
-                                <label>Roaster ref no</label>
+                                <label>Type of company</label>
                             </div>
-                            <p-calendar [(ngModel)]="date3" [showIcon]="true" inputId="icon"></p-calendar>
+                            <input
+                                pInputText
+                                class="roastery-website-input border"
+                                type="text"
+                                placeholder="Office"
+                                pInputText
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="row padd-2r">
+                    <div class="col pl-3">
+                        <div class="sewn-form-field mb-0 w-100">
+                            <div>
+                                <label>Price paid by the customer per kg<span class="text-clr-e5a">*</span></label>
+                            </div>
+                            <div class="weightInputGroupDiv d-flex inputFieldBox">
+                                <div class="w-100">
+                                    <input
+                                        type="number"
+                                        class="weightInputDiv"
+                                        formControlName="totalPrice"
+                                        pInputText
+                                    />
+                                    <!-- <small
+                                        *ngIf="grind_varient['controls']['price'].errors?.required"
+                                        class="position-absolute p-error"
+                                    >
+                                        Required
+                                    </small> -->
+                                </div>
+                                <div class="weightInputDivKg">
+                                    <span>SEK / kg</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col pl-2">
+                        <div class="sewn-form-field mb-0 w-100">
+                            <div>
+                                <label>Total price paid by the customer<span class="text-clr-e5a">*</span></label>
+                            </div>
+                            <div class="weightInputGroupDiv d-flex inputFieldBox">
+                                <div class="daysInputDiv">
+                                    <span>$</span>
+                                </div>
+                                <div class="w-100">
+                                    <input
+                                        type="number"
+                                        class="weightInputDiv"
+                                        formControlName="totalPrice"
+                                        pInputText
+                                    />
+                                    <!-- <small
+                                        *ngIf="grind_varient['controls']['price'].errors?.required"
+                                        class="position-absolute p-error"
+                                    >
+                                        Required
+                                    </small> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="typeOfCustomer !== 'micro_roaster'" class="row padd-2r mb-md-3">
+                    <div class="col pl-3">
+                        <div class="sewn-form-field mb-0 w-100">
+                            <div>
+                                <label>Total weight of coffee sold<span class="text-clr-e5a">*</span></label>
+                            </div>
+                            <div class="p-inputgroup custom-addon dropdownClass inputFieldBox">
+                                <p-inputNumber
+                                    formControlName="weight"
+                                    (onInput)="onWeightChange($event)"
+                                ></p-inputNumber>
+                                <span class="p-inputgroup-addon">
+                                    <p-dropdown
+                                        [options]="weightTypeArray"
+                                        optionLabel="label"
+                                        placeholder=""
+                                        [style]="{
+                                            width: '100%',
+                                            height: '40px',
+                                            border: '0px',
+                                            background: '#f8f8f8'
+                                        }"
+                                        formControlName="weight_unit"
+                                        optionValue="value"
+                                        (onChange)="onWeightUnitChange()"
+                                    ></p-dropdown>
+                                </span>
+                                <!-- <small
+                                    *ngIf="
+                                        weightForm['controls']['weights']['controls'][currentVarientIndex]['controls'][
+                                            'weight'
+                                        ].errors?.required
+                                    "
+                                    class="position-absolute p-error"
+                                >
+                                    Required
+                                </small> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col pl-2">
+                        <div class="sewn-form-field mb-0 w-100">
+                            <div>
+                                <label>Total weight of roasted coffee sold<span class="text-clr-e5a">*</span></label>
+                            </div>
+                            <div class="p-inputgroup custom-addon dropdownClass inputFieldBox">
+                                <p-inputNumber
+                                    formControlName="weight"
+                                    (onInput)="onWeightChange($event)"
+                                ></p-inputNumber>
+                                <span class="p-inputgroup-addon">
+                                    <p-dropdown
+                                        [options]="weightTypeArray"
+                                        optionLabel="label"
+                                        placeholder=""
+                                        [style]="{
+                                            width: '100%',
+                                            height: '40px',
+                                            border: '0px',
+                                            background: '#f8f8f8'
+                                        }"
+                                        formControlName="weight_unit"
+                                        optionValue="value"
+                                        (onChange)="onWeightUnitChange()"
+                                    ></p-dropdown>
+                                </span>
+                                <!-- <small
+                                    *ngIf="
+                                        weightForm['controls']['weights']['controls'][currentVarientIndex]['controls'][
+                                            'weight'
+                                        ].errors?.required
+                                    "
+                                    class="position-absolute p-error"
+                                >
+                                    Required
+                                </small> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="typeOfCustomer !== 'micro_roaster'" class="br_top">
+                    <div class="d-flex flex-column padd-2r mt-md-3">
+                        <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1">Order details</div>
+                    </div>
+                    <div class="row padd-2r">
+                        <div class="col-6 pl-3">
+                            <div class="sewn-form-field mb-0 w-100">
+                                <div>
+                                    <label>Date roasted</label>
+                                </div>
+                                <p-calendar
+                                    [(ngModel)]="date3"
+                                    placeholder="Select the date roasted"
+                                    [showIcon]="true"
+                                    inputId="icon"
+                                ></p-calendar>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row padd-2r">
+                        <div class="col pl-3">
+                            <div class="sewn-form-field mb-0 w-100">
+                                <div>
+                                    <label>Roast level</label>
+                                </div>
+                                <input
+                                    pInputText
+                                    class="roastery-website-input border"
+                                    placeholder="Select the date roasted"
+                                    type="text"
+                                    pInputText
+                                />
+                            </div>
+                        </div>
+                        <div class="col pl-2">
+                            <div class="sewn-form-field mb-0 w-100">
+                                <div>
+                                    <label>Roasting time</label>
+                                </div>
+                                <input
+                                    pInputText
+                                    class="roastery-website-input border"
+                                    placeholder="Enter a roasting time"
+                                    type="text"
+                                    pInputText
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row padd-2r">
+                        <div class="col pl-3">
+                            <div class="sewn-form-field mb-0 w-100">
+                                <div>
+                                    <label>Roasting temperature</label>
+                                </div>
+                                <input
+                                    pInputText
+                                    class="roastery-website-input border"
+                                    placeholder="Enter the roasting temperature"
+                                    type="text"
+                                    pInputText
+                                />
+                            </div>
+                        </div>
+                        <div class="col pl-2">
+                            <div class="sewn-form-field mb-0 w-100">
+                                <div>
+                                    <label>Machine used</label>
+                                </div>
+                                <input
+                                    pInputText
+                                    class="roastery-website-input border"
+                                    placeholder="Entrer the machine name used"
+                                    type="text"
+                                    pInputText
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row padd-2r">
+                        <div class="col-6 pl-3">
+                            <div class="sewn-form-field mb-0 w-100">
+                                <div>
+                                    <label>Waste produced</label>
+                                </div>
+                                <input
+                                    pInputText
+                                    class="roastery-website-input border"
+                                    placeholder="Total waste produced"
+                                    type="text"
+                                    pInputText
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="typeOfCustomer === 'micro_roaster'" class="row padd-2r">
+                    <div class="col-6 pl-3">
+                        <div class="sewn-form-field mb-0 w-100">
+                            <div>
+                                <label>Green coffee quantity sold<span class="text-clr-e5a">*</span></label>
+                            </div>
+                            <input
+                                pInputText
+                                class="roastery-website-input border"
+                                placeholder="Select a customer type"
+                                type="text"
+                                pInputText
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="typeOfCustomer === 'micro_roaster'" class="row padd-2r">
+                    <div class="col pl-3">
+                        <div class="sewn-form-field mb-0 w-100">
+                            <div>
+                                <label>Pre-cleaned</label>
+                            </div>
+                            <p-dropdown
+                                [options]="preCleaned"
+                                optionLabel="label"
+                                placeholder="Yes"
+                                formControlName="preCleaned"
+                                optionValue="value"
+                            ></p-dropdown>
+                        </div>
+                    </div>
+                    <div class="col pl-2">
+                        <div class="sewn-form-field mb-0 w-100">
+                            <div>
+                                <label>Waste produced</label>
+                            </div>
+                            <input
+                                pInputText
+                                class="roastery-website-input border"
+                                placeholder="Total waste produced"
+                                type="text"
+                                pInputText
+                            />
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-12">
+            <div class="col-lg-5 col-md-12">
                 <div class="row ml-md-0 mr-md-0">
+                    <div class="fnt-md-18 fnt-muli fnt-bold text-clr334 mb-4">Order details</div>
                     <div class="col-lg-12 bg-fa border-class p-45">
-                        <div class="mb-4 pb-3">Heading</div>
+                        <div class="d-flex justify-content-between mb-4">
+                            <div class="d-flex">
+                                <div class="img_circle mr-2 d-flex align-items-center">
+                                    <img
+                                        src="{{ odrerDetails.estate_profile_image_thumbnail_url }}"
+                                        width="40"
+                                        height="40"
+                                        alt=""
+                                    />
+                                </div>
+                                <div>
+                                    <div class="fnt-14 fnt-muli fnt-bold text-clr334">
+                                        {{ odrerDetails.estate_owner }}
+                                    </div>
+                                    <div class="fnt-14 fnt-muli fnt-bold text-clr588">
+                                        {{ odrerDetails.estate_name }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <i class="pi pi-star pr-1"></i>
+                                <span>4.95</span>
+                            </div>
+                        </div>
                         <div class="estate-focus">
                             <ul class="clearfix">
                                 <li>
-                                    <label>{{ 'origin' | translate }}</label>
-                                    <p>Tets</p>
+                                    <label>Order Id: </label>
+                                    <p>{{ odrerDetails.id }}</p>
                                 </li>
                                 <li>
-                                    <label>{{ 'variety' | translate }}</label>
-                                    <p>kg</p>
+                                    <label>{{ 'origin' | translate }}:</label>
+                                    <p>{{ odrerDetails.origin }}</p>
                                 </li>
                                 <li>
-                                    <label>{{ 'price' | translate }}</label>
-                                    <p>$/kg</p>
+                                    <label>{{ 'variety' | translate }}:</label>
+                                    <p>{{ odrerDetails.varieties }}kg</p>
+                                </li>
+                                <li>
+                                    <label>{{ 'price' | translate }}:</label>
+                                    <p>${{ odrerDetails.price }}USD/kg</p>
                                 </li>
                                 <li>
                                     <label>{{ 'quantity' | translate }}</label>
-                                    <p>we</p>
+                                    <p>{{ odrerDetails.quantity }}kg</p>
                                 </li>
                                 <li>
-                                    <label>{{ 'date_recieved' | translate }}</label>
-                                    <p>date</p>
+                                    <label>Remaining Quantity :</label>
+                                    <p>{{ odrerDetails.remaining_total_quantity }}kg</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-md-3 d-md-flex justify-content-around cust-profile p-4 br-4">
+                            <div>
+                                <div class="fnt-md-14 fnt-muli fnt-600 text-clr588 mb-2">12 Feb, 2020</div>
+                                <div class="fnt-md-14 fnt-muli fnt-600 text-clr588">
+                                    Cup Score :
+                                    <span class="fnt-md-14 fnt fnt-muli fnt-bold text-clr334">87.0</span>
+                                </div>
+                            </div>
+                            <div class="d-flex br_left">
+                                <div class="pl-3 pr-2 img_circle d-flex align-items-center">
+                                    <img
+                                        src="{{ odrerDetails.roaster_profile_image_thumbnail_url }}"
+                                        width="40"
+                                        height="40"
+                                        alt=""
+                                    />
+                                </div>
+                                <div>
+                                    <div class="fnt-md-16 fnt-14 fnt fnt-muli fnt-bold text-clr334 mb-2">
+                                        {{ odrerDetails.roaster_owner }}
+                                    </div>
+                                    <div class="fnt-md-14 fnt-muli fnt-bold text-clr588">
+                                        {{ odrerDetails.roaster_name }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row ml-md-0 mr-md-0">
+                    <div class="fnt-md-18 fnt-muli fnt-bold text-clr334 mt-4 pb-3">Customer details</div>
+                    <div class="col-lg-12 bg-fa border-class p-45">
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-4">
+                                <div class="d-flex">
+                                    <div><img src="" alt="" /></div>
+                                    <div>
+                                        <div class="fnt-14 fnt-muli fnt-bold text-clr334">Finca La Pampa</div>
+                                        <div class="fnt-14 fnt-muli fnt-bold text-clr588">Coffee Estate</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <i class="pi pi-star pr-1"></i>
+                                    <span>4.95</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="estate-focus">
+                            <ul class="clearfix">
+                                <li>
+                                    <label class="width-lable">Owner</label>
+                                    <p>Timothy Moreno</p>
+                                </li>
+                                <li>
+                                    <label class="width-lable">Country</label>
+                                    <p>Sweden</p>
+                                </li>
+                                <li>
+                                    <label class="width-lable">Address</label>
+                                    <p>30 Emzu Grove Gothenburg, Sweden 34278</p>
+                                </li>
+                                <li>
+                                    <label class="width-lable">Contact number</label>
+                                    <p>(355) 388-1919</p>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
+                <div class="form-section__inputs mt-4">
+                    <div class="roastery-fields tab">
+                        <div class="tab-width">
+                            <h4 class="fnt-16 fnt-700 fnt-muli text-clr334 tab-bottom-margin">
+                                {{ 'share_your_story' | translate }}
+                            </h4>
+                            <div class="copy-link">
+                                <label class="fnt-14 fnt-600 fnt-muli text-clr588">
+                                    {{ 'share_story_text' | translate }}
+                                </label>
+                                <div class="copy-link__value d-flex d-md-column d-lg-row flex-wrap align-items-center">
+                                    <input
+                                        class="tab-input"
+                                        type="text"
+                                        [value]="coffeeExperienceLink?.coffee_story_url"
+                                        readonly
+                                    />
+                                    <button class="tab-btn" (click)="handleCopyCoffeeExperienceLink()">
+                                        {{ 'copy_link' | translate }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-width-right">
+                            <div class="scan-qr-link text-center">
+                                <span
+                                    class="d-inline-block mx-auto fnt-12 fnt-600 fnt-muli text-clr334 mb-3 mt-3 mt-md-0 mb-lg-4 text-capitalize hideTabView"
+                                    >or</span
+                                >
+                                <p
+                                    class="text-md-left fnt-14 fnt-600 fnt-muli text-clr334 mb-3 mb-lg-4 tab-bottom-margin"
+                                >
+                                    {{ 'scan_download_text' | translate }}
+                                </p>
+                                <div class="text-center">
+                                    <img class="img-fluid" src="{{ coffeeExperienceLink?.qr_code_url }}" />
+                                    <div class="download-qr-link d-flex justify-content-center">
+                                        <a
+                                            class="btn-trans-icon px-3 d-inline-flex align-items-center download"
+                                            href="assets/images/dwnd.png"
+                                            download
+                                        >
+                                            <img src="assets/images/dwnd.png" />
+                                            <span class="ml-2">
+                                                {{ 'download' | translate }}
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center contact-for-help">
+                        <p class="mb-0 contact-for-help__text">
+                            {{ 'having_trouble' | translate }}?
+                            <a class="ml-1" href="#">{{ 'contact_us' | translate }}</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-md-4 mb-2">
+                <button class="btn-stroked px-4 mr-3" (click)="location.back()">Cancel</button>
+                <button class="btn-raised text-nowrap px-4" (click)="addOrderDetails()">Save</button>
             </div>
         </div>
     </section>
 </div>
+
+<ng-container *ngIf="showOrderPanel">
+    <app-select-orders (orderChange)="selectOrder($event)" (closeEvent)="showOrderPanel = false"></app-select-orders>
+</ng-container>

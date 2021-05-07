@@ -100,6 +100,7 @@ import { SewnOrderChatComponent } from './components/chat/sewn-order-chat/sewn-o
 import { PieAreaChartComponent } from './components/pie-area-chart/pie-area-chart.component';
 import { AppKeyConfirmationComponent } from './components/app-key-confirmation/app-key-confirmation.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { SelectOrdersComponent } from './components/select-orders/select-orders.component';
 
 // #region third libs
 const THIRDMODULES = [
@@ -192,6 +193,7 @@ const COMPONENTS = [
     PieAreaChartComponent,
     AppKeyConfirmationComponent,
     UserDetailComponent,
+    SelectOrdersComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 const DIRECTIVES = [
