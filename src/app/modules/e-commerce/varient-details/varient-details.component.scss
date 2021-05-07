@@ -2,6 +2,13 @@
     width: calc(100% - 200px);
 }
 
+.weight-item.active {
+    border-color: #30855c !important;
+    & > div {
+        color: #30855c !important;
+    }
+}
+
 .delete-weight-varient {
     position: absolute;
     right: 0;
