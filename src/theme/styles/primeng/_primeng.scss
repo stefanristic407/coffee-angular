@@ -122,12 +122,27 @@
             border-radius: 0;
             border-left: 1px solid $primary-border-color;
             margin: 0.5rem 0;
+            width: fit-content;
             .p-inputtext {
                 padding: 0.4375rem 0 0.4375rem 0.75rem;
             }
             .p-dropdown-trigger {
                 padding-left: 8px;
                 padding-right: 12px;
+            }
+        }
+
+        &.gray {
+            .p-dropdown {
+                background-color: $primary-bg-color;
+                border: none;
+                top: 4px;
+                right: 4px;
+                border-radius: 4px;
+                margin: 0;
+                .p-inputtext {
+                    padding: 0.75rem 0 0.75rem 0.75rem;
+                }
             }
         }
     }

@@ -94,7 +94,7 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="productForm.value.is_variants_included" class="weight-varient-array d-flex d-md-none">
+        <div *ngIf="productForm.value.is_variants_included" class="d-flex d-md-none">
             <p-dropdown
                 [options]="variantTypeArray"
                 optionLabel="label"
@@ -331,21 +331,17 @@
                             </div>
                         </div>
                         <p-divider type="dashed" styleClass="mt-2 mt-lg-4 mb-4 mb-lg-475"></p-divider>
-                        <div class="row gutter-16 gutter-lg-24">
-                            <div class="col-12">
-                                <app-varient-details
-                                    #cmp
-                                    [varientDetails]="varient"
-                                    (onWeightCreate)="onWeightCreate($event)"
-                                    (onWeightDelete)="onWeightDelete($event)"
-                                ></app-varient-details>
-                            </div>
-                        </div>
+                        <app-varient-details
+                            #cmp
+                            [varientDetails]="varient"
+                            (onWeightCreate)="onWeightCreate($event)"
+                            (onWeightDelete)="onWeightDelete($event)"
+                        ></app-varient-details>
                     </div>
                 </p-tabPanel>
             </p-tabView>
         </div>
-        <p-divider type="dashed" styleClass="mb-4 mb-lg-45"></p-divider>
+        <p-divider type="dashed" styleClass="my-4 my-lg-45"></p-divider>
         <div class="col-12 p-0 mb-3">
             <p class="primary_txt fnt-16 mb-2">
                 {{ 'boxes_details' | translate }}
