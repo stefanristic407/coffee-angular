@@ -70,7 +70,11 @@
                     <button
                         class="btn-raised mr-3"
                         routerLink="/profile"
-                        [queryParams]="{ user_id: userId, organization: orgType }"
+                        [queryParams]="{
+                            user_id: userId,
+                            organization: orgType,
+                            organization_id: data.organization_id
+                        }"
                     >
                         {{ 'view_profile' | translate }}
                     </button>
