@@ -334,8 +334,8 @@
                         <app-varient-details
                             #cmp
                             [varientDetails]="varient"
-                            (onWeightCreate)="onWeightCreate($event)"
-                            (onWeightDelete)="onWeightDelete($event)"
+                            (handleWeightCreate)="onWeightCreate($event)"
+                            (handleWeightDelete)="onWeightDelete($event)"
                         ></app-varient-details>
                     </div>
                 </p-tabPanel>
@@ -416,7 +416,7 @@
                 type="button"
                 class="btn btn-raised order-1 order-md-2 w-mob-100"
                 (click)="togglePublic(true)"
-                *ngIf="!productID"
+                *ngIf="productID"
             >
                 {{ 'publish' | translate }}
             </button>
@@ -431,7 +431,7 @@
                 <button
                     type="submit"
                     class="btn btn-raised ml-md-3 order-1 order-md-2 mt-md-0 w-mob-100"
-                    [ngClass]="{ 'mt-3': !productID }"
+                    [ngClass]="{ 'mt-3': productID }"
                     (click)="onSave()"
                 >
                     {{ 'save' | translate }}
