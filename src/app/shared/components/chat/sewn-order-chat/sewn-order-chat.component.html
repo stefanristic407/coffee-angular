@@ -49,7 +49,7 @@
                         <span class="new-date__bar"></span>
                     </div>
                     <!--Mesaage From-->
-                    <ng-container *ngIf="message.meta.type === 'NORMAL'">
+                    <ng-container *ngIf="message.meta.type !== 'DISPUTE_RAISED'">
                         <div *ngIf="!message.isActiveUser" class="main-message message-from">
                             <div class="message-info">
                                 <div *ngIf="message.showUserBadge" class="main-message__profile clearfix">
@@ -76,9 +76,29 @@
                                     <span *ngIf="!message.showUserBadge" class="live-time">{{
                                         message.computed_date
                                     }}</span>
-                                    <p class="message-text">
-                                        {{ message.content }}
-                                    </p>
+                                    <div class="message-block">
+                                        <img
+                                            *ngIf="
+                                                message.meta.type === 'PICTURE_ONLY' ||
+                                                message.meta.type === 'PICTURE_CAPTION'
+                                            "
+                                            class="message-image"
+                                            (click)="openImage(message.id)"
+                                            [attr.data-image-id]="message.id"
+                                            [attr.data-image-caption]="message.content"
+                                            [src]="message?.file?.url"
+                                            alt="Image"
+                                        />
+                                        <div
+                                            *ngIf="
+                                                message.meta.type === 'TEXT_ONLY' ||
+                                                message.meta.type === 'PICTURE_CAPTION'
+                                            "
+                                            class="message-text"
+                                        >
+                                            {{ message.content }}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -87,7 +107,29 @@
                             <div class="message-info">
                                 <div class="message-info__body position-relative">
                                     <span class="live-time">{{ message.computed_date }}</span>
-                                    <p class="message-text">{{ message.content }}</p>
+                                    <div class="message-block">
+                                        <img
+                                            *ngIf="
+                                                message.meta.type === 'PICTURE_ONLY' ||
+                                                message.meta.type === 'PICTURE_CAPTION'
+                                            "
+                                            class="message-image"
+                                            (click)="openImage(message.id)"
+                                            [attr.data-image-id]="message.id"
+                                            [attr.data-image-caption]="message.content"
+                                            [src]="message?.file?.url"
+                                            alt="Image"
+                                        />
+                                        <div
+                                            *ngIf="
+                                                message.meta.type === 'TEXT_ONLY' ||
+                                                message.meta.type === 'PICTURE_CAPTION'
+                                            "
+                                            class="message-text"
+                                        >
+                                            {{ message.content }}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -126,63 +168,78 @@
         </div>
     </ng-container>
     <div class="conversatio-form">
-        <div data-element="message-form">
-            <div class="messag-form position-relative">
-                <div class="offensive-lang active" *ngIf="showOffensiveMessageError">
-                    <span
-                        >Use of offensive language is strictly prohibited using within member to member messaging, on
-                        our public groups, non-compliance may lead to permanent / temporary suspension of your
-                        account.</span
-                    >
-                </div>
-                <div class="img-container">
-                    <span class="img-container__remove">&#10008;</span>
-                </div>
-                <ng-container *ngIf="!isClosedDispute">
-                    <ng-container *ngIf="threadDetails?.computed_activeUser?.user_id">
-                        <div class="chat-inputs">
-                            <!-- <label class="chat-inputs__img">
-                                <img src="assets/images/dm-img-upload.svg" />
-                                <input type="file" class="files" />
-                            </label> -->
-                            <textarea
-                                (keypress)="inputkeyPress($event)"
-                                (input)="inputChanges($event)"
-                                data-element="messag-text-area"
-                                type="text"
-                                rows="1"
-                                class="chat-inputs__text"
-                                placeholder="Type your message here..."
-                                [(ngModel)]="messageInput"
-                            ></textarea>
-                            <div class="send-message">
-                                <button (click)="sendMessage()" type="button" class="send-message__btn">
-                                    <img src="assets/images/dm-send2.svg" />
-                                </button>
-                            </div>
-                        </div>
-                    </ng-container>
-                    <ng-container *ngIf="!threadDetails?.computed_activeUser?.user_id">
-                        <div class="chat-inputs disable">
-                            <!-- <label class="chat-inputs__img">
-                                <img src="assets/images/dm-img-upload.svg" />
-                            </label> -->
-                            <textarea
-                                disabled
-                                data-element="messag-text-area"
-                                type="text"
-                                rows="1"
-                                class="chat-inputs__text"
-                                placeholder=""
-                            ></textarea>
-                            <div class="send-message"></div>
-                        </div>
-                    </ng-container>
-                </ng-container>
-                <ng-container *ngIf="isClosedDispute">
-                    <div class="order-chat-resolved">This dispute thread is closed!</div>
-                </ng-container>
+        <div class="messag-form position-relative" data-element="message-form">
+            <div class="offensive-lang active" *ngIf="showOffensiveMessageError">
+                <span
+                    >Use of offensive language is strictly prohibited using within member to member messaging, on our
+                    public groups, non-compliance may lead to permanent / temporary suspension of your account.</span
+                >
             </div>
+            <div class="oc-mb-image-view" *ngIf="(uploadFileMeta && uploadFileMeta?.url) || uploadProgressing">
+                <div class="oc-mb-image-wrapper" *ngIf="uploadFileMeta && uploadFileMeta?.url">
+                    <img
+                        class="oc-mb-image-close-button"
+                        (click)="removeFile()"
+                        src="assets/images/oc-remove-upload.svg"
+                        title="Remove"
+                    />
+                    <img class="oc-mb-image" [src]="uploadFileMeta?.url" />
+                </div>
+                <div class="oc-mb-image-uploader" *ngIf="uploadProgressing">
+                    <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+                    <span class="oc-mb-image-uploading-text">Uploading</span>
+                </div>
+            </div>
+            <ng-container *ngIf="!isClosedDispute">
+                <ng-container *ngIf="threadDetails?.computed_activeUser?.user_id">
+                    <div class="chat-inputs">
+                        <label class="chat-inputs__img">
+                            <img src="assets/images/oc-img-upload.svg" />
+                            <input
+                                multiple="false"
+                                capture="environment"
+                                (input)="uploadFile($event)"
+                                [accept]="acceptFileTypeString"
+                                type="file"
+                            />
+                        </label>
+                        <textarea
+                            (keypress)="inputkeyPress($event)"
+                            (input)="inputChanges($event)"
+                            data-element="messag-text-area"
+                            type="text"
+                            rows="1"
+                            class="chat-inputs__text"
+                            placeholder="Type your message here..."
+                            [(ngModel)]="messageInput"
+                        ></textarea>
+                        <div class="send-message">
+                            <button (click)="sendMessage()" type="button" class="send-message__btn">
+                                <img src="assets/images/dm-send2.svg" />
+                            </button>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="!threadDetails?.computed_activeUser?.user_id">
+                    <div class="chat-inputs disable">
+                        <label class="chat-inputs__img">
+                            <img src="assets/images/oc-img-upload.svg" />
+                        </label>
+                        <textarea
+                            disabled
+                            data-element="messag-text-area"
+                            type="text"
+                            rows="1"
+                            class="chat-inputs__text"
+                            placeholder=""
+                        ></textarea>
+                        <div class="send-message"></div>
+                    </div>
+                </ng-container>
+            </ng-container>
+            <ng-container *ngIf="isClosedDispute">
+                <div class="order-chat-resolved">This dispute thread is closed!</div>
+            </ng-container>
         </div>
     </div>
 </div>

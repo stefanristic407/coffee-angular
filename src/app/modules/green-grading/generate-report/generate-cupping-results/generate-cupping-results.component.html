@@ -128,7 +128,11 @@
                 Save as draft
             </button>
             <button type="submit" class="green-button btn-raised btn" (click)="onConfirmGenerate()">
-                {{ singleCuppingDetails?.status === 'DRAFT' ? 'Generate Report' : 'Continue' }}
+                {{
+                    singleCuppingDetails?.status === 'DRAFT' || singleCuppingDetails?.status === 'NEW'
+                        ? 'Generate Report'
+                        : 'Continue'
+                }}
             </button>
         </div>
     </div>

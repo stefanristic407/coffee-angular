@@ -52,7 +52,6 @@ export class ChatUtilService {
         '1F610',
         '1F611',
         '1F636',
-        '1F636',
         '1F60F',
         '1F612',
         '1F644',
@@ -74,7 +73,6 @@ export class ChatUtilService {
         '1F976',
         '1F974',
         '1F635',
-        '1F635',
         '1F92F',
         '1F920',
         '1F973',
@@ -85,7 +83,6 @@ export class ChatUtilService {
         '1F615',
         '1F61F',
         '1F641',
-        '1F62E',
         '1F62F',
         '1F632',
         '1F633',
@@ -175,202 +172,64 @@ export class ChatUtilService {
         '1F9B7',
         '1F9B4',
         '1F440',
-        '1F441',
         '1F445',
         '1F444',
         '1F64D',
-        '1F64D',
-        '1F64D',
-        '1F64E',
-        '1F64E',
         '1F64E',
         '1F645',
-        '1F645',
-        '1F645',
-        '1F646',
-        '1F646',
         '1F646',
         '1F481',
-        '1F481',
-        '1F481',
-        '1F64B',
-        '1F64B',
         '1F64B',
         '1F9CF',
-        '1F9CF',
-        '1F9CF',
-        '1F647',
-        '1F647',
         '1F647',
         '1F926',
-        '1F926',
-        '1F926',
-        '1F937',
-        '1F937',
         '1F937',
         '1F9D1',
         '1F468',
         '1F469',
-        '1F9D1',
-        '1F468',
-        '1F469',
-        '1F9D1',
-        '1F468',
-        '1F469',
-        '1F9D1',
-        '1F468',
-        '1F469',
-        '1F9D1',
-        '1F468',
-        '1F469',
-        '1F9D1',
-        '1F468',
-        '1F469',
-        '1F9D1',
-        '1F468',
-        '1F469',
-        '1F9D1',
-        '1F468',
-        '1F469',
-        '1F9D1',
-        '1F468',
-        '1F469',
-        '1F9D1',
-        '1F468',
-        '1F469',
-        '1F9D1',
-        '1F468',
-        '1F469',
-        '1F9D1',
-        '1F468',
-        '1F469',
-        '1F9D1',
-        '1F468',
-        '1F469',
-        '1F9D1',
-        '1F468',
-        '1F469',
-        '1F9D1',
-        '1F468',
-        '1F469',
-        '1F9D1',
-        '1F468',
-        '1F469',
-        '1F46E',
-        '1F46E',
         '1F46E',
         '1F575',
-        '1F575',
-        '1F575',
         '1F482',
-        '1F482',
-        '1F482',
-        '1F977',
-        '1F477',
-        '1F477',
         '1F477',
         '1F934',
         '1F478',
         '1F473',
-        '1F473',
-        '1F473',
         '1F472',
         '1F9D5',
         '1F935',
-        '1F935',
-        '1F935',
-        '1F470',
-        '1F470',
         '1F470',
         '1F930',
         '1F931',
-        '1F469',
-        '1F468',
-        '1F9D1',
         '1F47C',
         '1F385',
         '1F936',
-        '1F9D1',
-        '1F9B8',
-        '1F9B8',
         '1F9B8',
         '1F9B9',
-        '1F9B9',
-        '1F9B9',
-        '1F9D9',
-        '1F9D9',
         '1F9D9',
         '1F9DA',
-        '1F9DA',
-        '1F9DA',
-        '1F9DB',
-        '1F9DB',
         '1F9DB',
         '1F9DC',
-        '1F9DC',
-        '1F9DC',
-        '1F9DD',
-        '1F9DD',
         '1F9DD',
         '1F9DE',
-        '1F9DE',
-        '1F9DE',
-        '1F9DF',
-        '1F9DF',
         '1F9DF',
         '1F486',
-        '1F486',
-        '1F486',
-        '1F487',
-        '1F487',
         '1F487',
         '1F6B6',
-        '1F6B6',
-        '1F6B6',
-        '1F9CD',
-        '1F9CD',
         '1F9CD',
         '1F9CE',
-        '1F9CE',
-        '1F9CE',
-        '1F9D1',
-        '1F468',
-        '1F469',
-        '1F9D1',
-        '1F468',
-        '1F469',
-        '1F9D1',
-        '1F468',
-        '1F469',
-        '1F3C3',
-        '1F3C3',
         '1F3C3',
         '1F483',
         '1F57A',
         '1F574',
         '1F46F',
-        '1F46F',
-        '1F46F',
         '1F9D6',
-        '1F9D6',
-        '1F9D6',
-        '1F9D7',
-        '1F9D7',
         '1F9D7',
         '1F93A',
         '1F3C7',
         '1F3C2',
         '1F3CC',
-        '1F3CC',
-        '1F3CC',
-        '1F3C4',
-        '1F3C4',
         '1F3C4',
         '1F6A3',
-        '1F6A3',
-        '1F6A3',
-        '1F3CA',
-        '1F3CA',
         '1F3CA',
         '1F37C',
         '1F95B',
@@ -487,11 +346,19 @@ export class ChatUtilService {
         const httpOptions = {
             headers: new HttpHeaders({ Authorization: this.TOKEN }),
         };
-        const url = `${environment.chatUploadEndPoint}${this.ORGANIZATION_TYPE}/${this.ORGANIZATION_ID}/upload-files`;
+        let url = '';
+        if (
+            this.ORGANIZATION_TYPE === OrganizationType.SEWN_ADMIN ||
+            this.ORGANIZATION_TYPE === OrganizationType.CONSUMER
+        ) {
+            url = `${environment.chatUploadEndPoint}${this.ORGANIZATION_TYPE}/upload-files`;
+        } else {
+            url = `${environment.chatUploadEndPoint}${this.ORGANIZATION_TYPE}/${this.ORGANIZATION_ID}/upload-files`;
+        }
         return this.http.post(url, formData, httpOptions);
     }
 
-    public get ORGANIZATION_ID(): number | null {
+    public get ORGANIZATION_ID(): number {
         let idKey = '';
         if (this.ORGANIZATION_TYPE === OrganizationType.ROASTER) {
             idKey = 'roaster_id';
@@ -503,11 +370,19 @@ export class ChatUtilService {
             idKey = 'micro_roaster_id';
         } else if (this.ORGANIZATION_TYPE === OrganizationType.HORECA) {
             idKey = 'horeca_id';
+        } else if (this.ORGANIZATION_TYPE === OrganizationType.SEWN_ADMIN) {
+            return 0;
+        } else if (this.ORGANIZATION_TYPE === OrganizationType.CONSUMER) {
+            return 0;
         }
         return parseInt(this.cookieService.get(idKey), 10) || null;
     }
     public get TOKEN(): string {
         let userToken = this.cookieService.get('Auth')?.replace(/\r/g, '')?.split(/\n/)[0];
+        if (!userToken && this.ORGANIZATION_TYPE === OrganizationType.CONSUMER) {
+            // Check token from Local storage for consumer user
+            userToken = localStorage.getItem('coffeeToken') || '';
+        }
         if (!userToken) {
             console.error('User token parese error');
             userToken = '';
@@ -515,13 +390,21 @@ export class ChatUtilService {
         return userToken;
     }
     public get USER_ID(): number | null {
-        return parseInt(this.cookieService.get('user_id'), 10) || null;
+        let userId = parseInt(this.cookieService.get('user_id'), 10) || null;
+        if (!userId && this.ORGANIZATION_TYPE === OrganizationType.CONSUMER) {
+            let user = { id: null };
+            try {
+                user = JSON.parse(localStorage.getItem('coffeeUser') || '') || { id: null };
+            } catch (e) {
+                user = { id: null };
+            }
+            userId = user.id as number;
+        }
+        return userId;
     }
 
     getOrganization(orgType: OrganizationType) {
-        if (orgType === OrganizationType.EMPTY || orgType === OrganizationType.SEWN_ADMIN) {
-            return 'SEWN Admin';
-        } else if (orgType === OrganizationType.ROASTER) {
+        if (orgType === OrganizationType.ROASTER) {
             return 'Roaster';
         } else if (orgType === OrganizationType.MICRO_ROASTER) {
             return 'Micro Roaster';
@@ -531,6 +414,10 @@ export class ChatUtilService {
             return 'Coffee Estate';
         } else if (orgType === OrganizationType.HORECA) {
             return 'HoReCa';
+        } else if (orgType === OrganizationType.SEWN_ADMIN) {
+            return 'Admin';
+        } else if (orgType === OrganizationType.CONSUMER) {
+            return 'Consumer';
         } else {
             return 'Unknown';
         }

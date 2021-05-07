@@ -10,7 +10,7 @@ import { takeUntil } from 'rxjs/operators';
 import { OrganizationType } from '@enums';
 import { OrderTableComponent } from './order-table/order-table.component';
 import * as moment from 'moment';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TabView } from 'primeng/tabview/tabview';
 import { RequestTableComponent } from './request-table/request-table.component';
 
@@ -66,6 +66,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     }
 
     constructor(
+        private router: Router,
         private route: ActivatedRoute,
         private fb: FormBuilder,
         private orderService: OrderManagementService,
@@ -80,6 +81,12 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
 
         this.route.params.pipe(takeUntil(this.unsubscribeAll$)).subscribe((params) => {
             this.organizationType = params.orgType;
+            if (
+                this.organizationType !== OrganizationType.ESTATE &&
+                this.organizationType !== OrganizationType.MICRO_ROASTER
+            ) {
+                this.router.navigateByUrl('/orders/es');
+            }
 
             this.items = [
                 { label: 'Home', routerLink: '/features/welcome-aboard' },

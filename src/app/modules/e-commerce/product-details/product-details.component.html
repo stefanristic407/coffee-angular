@@ -5,117 +5,80 @@
         </div>
     </div>
     <div [formGroup]="productForm" (ngSubmit)="onSave()" novalidate>
-        <div class="row gutter-16 gutter-lg-24 productDiv">
-            <div class="col-12 col-sm-12 col-md-6 d-flex align-items-center">
-                <span class="fnt-16 fnt-md-18 fnt-700 fnt-muli black w-100 productLineDiv" *ngIf="productName === ''"
-                    >Add a new product</span
-                >
-                <span class="fnt-16 fnt-md-18 fnt-700 fnt-muli black w-100 productLineDiv" *ngIf="productName !== ''">{{
-                    productName | titlecase
-                }}</span>
-            </div>
-            <div *ngIf="productID" class="col-12 col-sm-12 col-md-6 d-none d-sm-none d-md-block">
-                <div class="float-right">
-                    <span class="primary_txt pr-3">Product Visibility : </span>
-                    <div class="btn-group toggleDiv">
-                        <div
-                            class="btn disbableBtn"
-                            [ngClass]="productForm['controls']['is_public']['value'] ? 'enableBtn' : ''"
-                            id="activeStatus"
-                            (click)="togglePublic(true)"
-                        >
-                            Public
-                        </div>
-                        <div
-                            class="btn disbableBtn"
-                            (click)="togglePublic(false)"
-                            [ngClass]="!productForm['controls']['is_public']['value'] ? 'enableBtn' : ''"
-                            id="disableStatus"
-                        >
-                            Private
-                        </div>
-                    </div>
+        <div class="d-flex flex-column flex-md-row justify-content-md-between">
+            <span class="fnt-16 fnt-md-18 fnt-700 fnt-muli fnt-clr334">
+                {{ (productName | titlecase) || ('add_new_product' | translate) }}
+            </span>
+            <div *ngIf="productID" class="">
+                <p-divider type="dashed" styleClass="d-block d-md-none"></p-divider>
+                <div class="pt-3 pt-md-0 d-flex justify-content-between align-items-center">
+                    <span class="fnt-muli fnt-14 fnt-md-18 fnt-bold text-clr334 pr-2"
+                        >{{ 'product_visibility' | translate }} :</span
+                    >
+                    <p-selectButton
+                        [options]="visibilityOptions"
+                        formControlName="is_public"
+                        optionLabel="label"
+                        optionValue="value"
+                        (onChange)="onSave()"
+                        styleClass="p-selectbutton-prebook"
+                    ></p-selectButton>
                 </div>
-            </div>
-            <div
-                *ngIf="productID"
-                class="col-12 col-sm-12 col-md-12 row d-flex d-sm-flex d-md-none pt-4 row gutter-16 gutter-lg-24"
-            >
-                <div class="col-6 d-flex align-items-center">
-                    <span class="primary_txt fnt-14">Product Visibility : </span>
-                </div>
-                <div class="col-6 p-0">
-                    <div class="btn-group toggleDiv float-right">
-                        <div
-                            class="btn disbableBtn"
-                            [ngClass]="productForm['controls']['is_public']['value'] ? 'enableBtn' : ''"
-                            id="activeStatus"
-                            (click)="togglePublic(true)"
-                        >
-                            Public
-                        </div>
-                        <div
-                            class="btn disbableBtn"
-                            (click)="togglePublic(false)"
-                            [ngClass]="!productForm['controls']['is_public']['value'] ? 'enableBtn' : ''"
-                            id="disableStatus"
-                        >
-                            Private
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 divSeperator w-100 ml-1 mt-4"></div>
+                <p-divider type="dashed" styleClass="d-block d-md-none"></p-divider>
             </div>
         </div>
-        <div class="row gutter-16 gutter-lg-24 mt-3 mt-md-2">
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
-                <label>Product Name<span class="star">*</span></label>
+        <div class="row gutter-16 gutter-lg-24 mt-3 mt-md-35">
+            <div class="col-12 col-md-6 sewn-form-field">
+                <label>{{ 'product_name' | translate }}<span class="star">*</span></label>
                 <input
                     type="text"
-                    placeholder="product name"
+                    [placeholder]="'product_name' | translate"
                     formControlName="name"
                     (input)="productNameValue($event)"
                     pInputText
                 />
-                <small *ngIf="productForm.controls['name'].errors?.required" class="p-error"> Required </small>
+                <small *ngIf="productForm.controls['name'].errors?.required" class="p-error">
+                    {{ 'required' | translate }}
+                </small>
             </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
-                <label>Product eligible for<span class="star">*</span></label>
+            <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
+                <label>{{ 'product_eligible_for' | translate }}<span class="star">*</span></label>
                 <p-dropdown
                     [options]="eligibleArray"
                     optionLabel="label"
-                    placeholder="Select subscription type"
-                    [style]="{ width: '100%' }"
+                    [placeholder]="'select_subscription_type' | translate"
                     formControlName="purchase_type"
                     optionValue="value"
                 ></p-dropdown>
-                <small *ngIf="productForm.controls['purchase_type'].errors?.required" class="p-error"> Required </small>
+                <small *ngIf="productForm.controls['purchase_type'].errors?.required" class="p-error">
+                    {{ 'required' | translate }}
+                </small>
             </div>
-        </div>
-        <div class="row gutter-16 gutter-lg-24 mt-2">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 sewn-form-field w-100 describePadding">
+            <div class="col-12 col-lg-6 mt-lg-3 sewn-form-field">
                 <div>
-                    <label>Product Description<span class="star">*</span></label>
-                    <label class="float-right limitFont">{{ productDescriptionLength }}/50 words</label>
+                    <label>{{ 'product_description' | translate }}<span class="star">*</span></label>
+                    <label class="float-right limitFont"
+                        >{{ productForm.get('description').value | wordCount }}/50 {{ 'words' | translate }}</label
+                    >
                 </div>
                 <textarea
                     type="text"
-                    class="descriptionText-area"
-                    placeholder="Tell us a bit about the product "
+                    [placeholder]="'tell_about_product' | translate"
                     formControlName="description"
-                    (keydown)="onPasteDescription('description')"
-                    (input)="onPasteDescription('description')"
+                    [rows]="3"
                     pInputText
                 ></textarea>
-                <small *ngIf="productForm.controls['description'].errors?.required" class="p-error"> Required </small>
+                <small *ngIf="productForm.controls['description'].errors?.required" class="p-error">
+                    {{ 'required' | translate }}
+                </small>
             </div>
         </div>
-        <div class="divSeperator"></div>
-        <div class="row no-gutters mb-4">
-            <div class="col-12 mb-2 mb-md-3">
-                <span class="primary_txt fnt-14 fnt-md-16">Variants</span>
+        <p-divider type="dashed" styleClass="mt-2 mb-4 mt-lg-4 mb-lg-475"></p-divider>
+        <div class="row no-gutters mb-3 mb-md-4">
+            <div class="col-12 mb-3">
+                <span class="primary_txt fnt-16">{{ 'variants' | translate }}</span>
             </div>
-            <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 d-flex align-items-center mb-3 mb-md-0 varientBox">
+            <div class="d-flex justify-content-between w-100">
                 <p-checkbox
                     formControlName="is_variants_included"
                     binary="true"
@@ -123,29 +86,21 @@
                     label="If this product has options like roasted coffee batch, flavour profile, availability etc."
                 >
                 </p-checkbox>
-            </div>
-            <div
-                *ngIf="productForm['value']['is_variants_included']"
-                class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 d-none d-sm-none d-md-block"
-            >
-                <div class="pull-right addNewWeightDiv variant-pos leftPos">
-                    <img class="mb-1" src="assets/images/add_grey.svg" />
+                <div class="d-none d-md-flex addNewWeightDiv" *ngIf="productForm.value.is_variants_included">
+                    <img src="assets/images/add_grey.svg" />
                     <span class="ml-2 fnt-muli fnt-700 fnt-14 text-clr334 cursor-pointer" (click)="addNewVarients()">
-                        Add a new variant
+                        {{ 'add_new_variant' | translate }}
                     </span>
                 </div>
             </div>
         </div>
-        <div
-            *ngIf="productForm['value']['is_variants_included']"
-            class="col-12 weight-varient-array d-flex d-sm-flex d-md-none p-0"
-        >
+        <div *ngIf="productForm.value.is_variants_included" class="weight-varient-array d-flex d-md-none">
             <p-dropdown
                 [options]="variantTypeArray"
                 optionLabel="label"
-                placeholder="Please select the variant"
+                [placeholder]="'select_variant' | translate"
                 class="w-100"
-                [style]="{ width: '100%' }"
+                styleClass="w-100 p-dropdown-variantType"
                 [(ngModel)]="currentVariant"
                 [ngModelOptions]="{ standalone: true }"
                 optionValue="value"
@@ -153,30 +108,27 @@
                 <ng-template let-weight pTemplate="item">
                     <span *ngIf="weight.label">{{ weight.label }}</span>
                     <span *ngIf="!weight.label" class="weightVariantBtn">
-                        <img class="" src="assets/images/add_grey.svg" />
+                        <img class="" src="assets/images/add_green_icon.svg" />
                         <span
                             class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer"
                             (click)="addNewVarients()"
                         >
-                            Add new variant
+                            {{ 'add_variant' | translate }}
                         </span>
                     </span>
                 </ng-template>
             </p-dropdown>
         </div>
-        <div
-            class="col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1 delete-varient sewn-form-field pl-md-0 pl-lg-2 delete-weight-varient-mb checkBoxDiv"
-            *ngIf="productForm['value']['is_variants_included']"
-        >
+        <div class="d-block d-md-none mt-3" *ngIf="productForm.value.is_variants_included">
             <span class="fnt-700 editBtn cursor-pointer align-items-center" (click)="removeVarientDrop(currentVariant)">
-                Delete Varient
+                {{ 'delete_variant' | translate }}
             </span>
         </div>
         <div
             class="pt-lg-0"
             [ngClass]="{
-                isProductOption: !productForm['value']['is_variants_included'],
-                'pt-md-3': productForm['value']['is_variants_included']
+                isProductOption: !productForm.value.is_variants_included,
+                'pt-md-3': productForm.value.is_variants_included
             }"
             *ngIf="productForm?.controls?.varients?.controls"
         >
@@ -194,187 +146,193 @@
                     </ng-template>
                     <div [formGroupName]="i">
                         <div class="row gutter-16 gutter-lg-24 mt-4">
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
-                                <label>Select roasted coffee batch<span class="star">*</span></label>
+                            <div class="col-12 col-md-6 sewn-form-field">
+                                <label>{{ 'select_roasted_batch' | translate }}<span class="star">*</span></label>
                                 <p-dropdown
                                     [options]="roastedBatches"
                                     optionLabel="roast_batch_name"
-                                    placeholder="Please select the batch"
-                                    [style]="{ width: '100%' }"
+                                    [placeholder]="'select_batch' | translate"
+                                    styleClass="w-100"
                                     formControlName="rc_batch_id"
                                     optionValue="id"
                                     (onChange)="onBatchChange(i)"
                                 ></p-dropdown>
-                                <small *ngIf="varient['controls']['rc_batch_id'].errors?.required" class="p-error">
-                                    Required
+                                <small *ngIf="varient.controls['rc_batch_id'].errors?.required" class="p-error">
+                                    {{ 'required' | translate }}
                                 </small>
                             </div>
-                            <div
-                                class="col-md-6 col-lg-6 sewn-form-field w-100 d-xl-none d-lg-block d-md-block d-sm-none d-none"
-                            ></div>
+                            <div class="col-md-6 sewn-form-field d-none d-md-block d-lg-none"></div>
 
-                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
-                                <label>Roaster Ref No.</label>
+                            <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
+                                <label>{{ 'roaster_ref_no' | translate }}</label>
                                 <input type="text" readonly formControlName="roaster_ref_no" pInputText />
                             </div>
-                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
-                                <label>Batch Ref No.</label>
+                            <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
+                                <label>{{ 'batch_ref_no' | translate }}</label>
                                 <input type="text" readonly formControlName="batch_ref_no" pInputText />
                             </div>
                         </div>
                         <div class="row gutter-16 gutter-lg-24">
-                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
-                                <label>Roaster Profile</label>
+                            <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
+                                <label>{{ 'roaster_profile' | translate }}</label>
                                 <input type="text" readonly formControlName="roasting_profile_name" pInputText />
                             </div>
-                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
-                                <label>Roaster level<span class="star">*</span></label>
+                            <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
+                                <label>{{ 'roaster_level' | translate }}<span class="star">*</span></label>
                                 <input type="text" readonly formControlName="roast_level" pInputText />
                             </div>
-                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
-                                <label>Roasting Time</label>
+                            <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
+                                <label>{{ 'roasting_time' | translate }}</label>
                                 <input type="text" readonly formControlName="roast_time" pInputText />
                             </div>
                         </div>
-                        <div class="row gutter-16 gutter-lg-24 mt-lg-2 e-comm-border-top pl-0 pr-0">
-                            <div class="col-12 mb-3 mt-3 mt-md-0">
-                                <span class="primary_txt fnt-14 fnt-md-16">Estate Details</span>
+                        <p-divider type="dashed" styleClass="d-md-none mt-2 mb-4"></p-divider>
+                        <div class="row gutter-16 gutter-lg-24 mt-md-2 mt-lg-3">
+                            <div class="col-12 mb-3">
+                                <span class="primary_txt fnt-14 fnt-md-16">{{ 'details_estate' | translate }}</span>
                             </div>
-                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
-                                <label>Estate Name</label>
+                            <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
+                                <label>{{ 'estate_name' | translate }}</label>
                                 <input type="text" readonly formControlName="estate_name" pInputText />
                             </div>
-                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
-                                <label>Origin</label>
+                            <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
+                                <label>{{ 'origin' | translate }}</label>
                                 <input type="text" readonly formControlName="origin" pInputText />
                             </div>
-                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
-                                <label>Region</label>
+                            <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
+                                <label>{{ 'region' | translate }}</label>
                                 <input type="text" readonly formControlName="region" pInputText />
                             </div>
-                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
-                                <label>Harvest year</label>
+                            <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
+                                <label>{{ 'harvest_year' | translate }}</label>
                                 <input type="text" readonly formControlName="harvest_year" pInputText />
                             </div>
                         </div>
-                        <div class="row gutter-16 gutter-lg-24 e-comm-border-top pl-0 pr-0">
-                            <div class="col-12 mb-3 mt-3 mt-md-0">
-                                <span class="primary_txt fnt-14 fnt-md-16">Tasting notes</span>
+                        <p-divider type="dashed" styleClass="d-md-none mt-2 mb-4"></p-divider>
+                        <div class="row gutter-16 gutter-lg-24 mt-md-2 mt-lg-3">
+                            <div class="col-12 mb-3">
+                                <span class="primary_txt fnt-14 fnt-md-16">{{ 'tasting_notes' | translate }}</span>
                             </div>
-                            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-3 sewn-form-field w-100">
-                                <label>Body</label>
+                            <div class="col-12 col-md-4 col-lg sewn-form-field">
+                                <label>{{ 'body' | translate }}</label>
                                 <input type="text" readonly formControlName="body" pInputText />
                             </div>
-                            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-3 sewn-form-field w-100">
-                                <label>Acidity</label>
+                            <div class="col-12 col-md-4 col-lg sewn-form-field">
+                                <label>{{ 'acidity' | translate }}</label>
                                 <input type="text" readonly formControlName="acidity" pInputText />
                             </div>
-                            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-3 sewn-form-field w-100">
-                                <label>Aroma</label>
+                            <div class="col-12 col-md-4 col-lg sewn-form-field">
+                                <label>{{ 'aroma' | translate }}</label>
                                 <input type="text" readonly formControlName="aroma" pInputText />
                             </div>
-                            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-3 sewn-form-field w-100">
-                                <label>Flavour</label>
+                            <div class="col-12 col-md-4 col-lg sewn-form-field">
+                                <label>{{ 'flavour' | translate }}</label>
                                 <input type="text" readonly formControlName="flavour" pInputText />
                             </div>
-                            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-3 sewn-form-field w-100">
-                                <label>Processing</label>
+                            <div class="col-12 col-md-4 col-lg sewn-form-field">
+                                <label>{{ 'processing' | translate }}</label>
                                 <input type="text" readonly formControlName="processing" pInputText />
                             </div>
                         </div>
-                        <div class="row gutter-16 gutter-lg-24 e-comm-border-top">
-                            <div
-                                class="col-12 col-sm-12 col-md-12 sewn-form-field w-100 pl-md-2 pr-md-3 pl-0 pr-0 mb-0 mt-2"
-                            >
-                                <label class="m-0">Flavour profile</label>
-                                <div>
-                                    <span
-                                        class="flavour-item d-inline-block"
-                                        *ngFor="let flavour of varient['controls']['flavour_profile']['value']"
-                                    >
-                                        {{ flavour.flavour_profile_name }}
-                                    </span>
-                                </div>
+                        <div class="w-100 sewn-form-field mt-0 mt-lg-3">
+                            <label class="mb-0 mb-md-2">{{ 'flavour_profile' | translate }}</label>
+                            <div>
+                                <span
+                                    class="flavour-item d-inline-block"
+                                    *ngFor="let flavour of varient.value.flavour_profile"
+                                >
+                                    {{ flavour.flavour_profile_name }}
+                                </span>
                             </div>
                         </div>
-                        <div class="row gutter-16 gutter-lg-24">
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 sewn-form-field w-100">
-                                <label>Roaster notes</label>
+                        <div class="row gutter-16 gutter-lg-24 mt-2 mt-lg-3">
+                            <div class="col-12 col-lg-6 sewn-form-field">
+                                <div>
+                                    <label>{{ 'roaster_notes' | translate }}</label>
+                                    <label class="float-right limitFont"
+                                        >{{ varient.value.roaster_notes | wordCount }}/50
+                                        {{ 'words' | translate }}</label
+                                    >
+                                </div>
                                 <textarea
                                     type="text"
-                                    class="roasterDivText-area"
+                                    [rows]="5"
                                     placeholder=""
                                     readonly
                                     formControlName="roaster_notes"
                                     pInputText
                                 ></textarea>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 sewn-form-field w-100">
+                            <div class="col-12 col-lg-6 sewn-form-field">
                                 <div>
-                                    <label>Recipes</label>
-                                    <label class="float-right limitFont">{{ recipeTextLength }}/50 words</label>
+                                    <label>{{ 'recipes' }}</label>
+                                    <label class="float-right limitFont"
+                                        >{{ varient.value.recipes | wordCount }}/50 {{ 'words' | translate }}</label
+                                    >
                                 </div>
 
                                 <textarea
                                     type="text"
-                                    class="roasterDivText-area"
-                                    placeholder="Add a recipe for your customer"
+                                    [rows]="5"
+                                    [placeholder]="'add_recipe_customer' | translate"
                                     formControlName="recipes"
-                                    (keydown)="onPasteDescription('recipes', i)"
-                                    (input)="onPasteDescription('recipes', i)"
                                     pInputText
                                 ></textarea>
                             </div>
                         </div>
-                        <div class="row gutter-16 gutter-lg-24 e-comm-border-top pl-0 pr-0 pt-2">
-                            <div class="col-12 mb-3 mt-3">
-                                <span class="primary_txt fnt-14 fnt-md-16">Recommended brewing method</span>
+                        <div class="row gutter-16 mt-2 mt-lg-3">
+                            <div class="col-12 mb-3">
+                                <span class="primary_txt fnt-14 fnt-md-16">{{
+                                    'recommended_brewing_method' | translate
+                                }}</span>
                             </div>
-                            <div class="col-sm-12 col-md-4 col-lg-5 col-xl-3 sewn-form-field w-100">
-                                <label class="text-nowrap">Select a brewing method<span class="star">*</span></label>
+                            <div class="col-sm-12 col-md-4 col-lg-3 sewn-form-field">
+                                <label class="text-nowrap"
+                                    >{{ 'select_brewing_method' | translate }}<span class="star">*</span></label
+                                >
                                 <p-dropdown
                                     [options]="brewingMethodArray"
                                     optionLabel="label"
-                                    placeholder="Please select a method"
-                                    [style]="{ width: '100%' }"
+                                    [placeholder]="'select_method' | translate"
+                                    styleClass="w-100"
                                     formControlName="brewing_method"
                                     optionValue="value"
                                 >
                                 </p-dropdown>
                                 <small *ngIf="varient['controls']['brewing_method'].errors?.required" class="p-error">
-                                    Required
+                                    {{ 'required' | translate }}
                                 </small>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-8 col-lg-7 col-xl-6 sewn-form-field w-100">
+                            <div class="col-12 col-md-8 col-lg-6 sewn-form-field">
                                 <div>
-                                    <label>Recommendation text<span class="star">*</span></label>
-                                    <label class="float-right limitFont">{{ recommendationTextLength }}/10 words</label>
+                                    <label>{{ 'recommendation_text' | translate }}<span class="star">*</span></label>
+                                    <label class="float-right limitFont"
+                                        >{{ varient.value.roaster_recommendation | wordCount }}/10
+                                        {{ 'words' | translate }}</label
+                                    >
                                 </div>
                                 <input
                                     type="text"
-                                    class="d-none d-sm-none d-md-block d-lg-block d-xl-block"
-                                    (keydown)="onPasteDescription('recommendation', i)"
-                                    (input)="onPasteDescription('recommendation', i)"
+                                    class="d-none d-md-block"
                                     formControlName="roaster_recommendation"
                                     pInputText
                                 />
                                 <textarea
                                     type="text"
-                                    class="descriptionText-area d-block d-sm-block d-md-none d-lg-none d-xl-none"
+                                    class="d-block d-md-none"
+                                    [rows]="3"
                                     formControlName="roaster_recommendation"
-                                    (keydown)="onPasteDescription('recommendation', i)"
-                                    (input)="onPasteDescription('recommendation', i)"
                                     pInputText
                                 ></textarea>
                                 <small
                                     *ngIf="varient['controls']['roaster_recommendation'].errors?.required"
                                     class="p-error"
                                 >
-                                    Required
+                                    {{ 'required' | translate }}
                                 </small>
                             </div>
                         </div>
-                        <div class="divSeperator"></div>
+                        <p-divider type="dashed" styleClass="mt-2 mt-lg-4 mb-4 mb-lg-475"></p-divider>
                         <div class="row gutter-16 gutter-lg-24">
                             <div class="col-12">
                                 <app-varient-details
@@ -391,8 +349,9 @@
             </p-tabView>
         </div>
         <div class="col-12 p-0 mb-3">
-            <span class="primary_txt fnt-14 fnt-md-16">Boxes details</span><br />
-            <span>Add values per crate to let your customer know</span>
+            <span class="primary_txt fnt-14 fnt-md-16">{{ 'boxes_details' | translate }}</span
+            ><br />
+            <span>{{ 'add_value_crate' | translate }}</span>
         </div>
         <div
             formArrayName="crates"
@@ -402,72 +361,87 @@
             <div [formGroupName]="i" class="row mt-2">
                 <div class="d-flex width-mob">
                     <div class="sewn-form-field w-100 pr-0 bags-width ml-3">
-                        <label class="text-nowrap">Box value</label>
+                        <label class="text-nowrap">{{ 'box_value' | translate }}</label>
                         <input type="text" placeholder="" readonly formControlName="boxField" pInputText />
                     </div>
                     <div class="equal-operators">=</div>
                 </div>
                 <div class="sewn-form-field w-100 pl-0 pr-0 boxCrateWidth boxCreatedMobile">
-                    <label>Weight</label>
+                    <label>{{ 'weight' | translate }}</label>
                     <input type="text" readonly placeholder="" formControlName="weight_name" pInputText />
                 </div>
                 <div class="equal-operators pl-2 pr-2">x</div>
                 <div class="sewn-form-field w-100 pl-0 boxCrateWidth">
-                    <label class="d-none d-sm-none d-md-block">Number of bags<span class="star">*</span></label>
-                    <label class="d-block d-sm-block d-md-none">No. of bags<span class="star">*</span></label>
+                    <label class="d-none d-sm-none d-md-block"
+                        >{{ 'number_of_bags' | translate }}<span class="star">*</span></label
+                    >
+                    <label class="d-block d-sm-block d-md-none"
+                        >{{ 'no_of_bags' | translate }}<span class="star">*</span></label
+                    >
                     <input type="number" placeholder="" formControlName="crate_capacity" pInputText />
-                    <small *ngIf="box.controls['crate_capacity'].errors?.required" class="p-error"> Required </small>
+                    <small *ngIf="box.controls['crate_capacity'].errors?.required" class="p-error">
+                        {{ 'required' | translate }}
+                    </small>
                 </div>
             </div>
         </div>
         <div class="divSeperator"></div>
         <div class="row gutter-16 gutter-lg-24 mt-4">
-            <div class="col-12 mb-3"><span class="primary_txt fnt-14 fnt-md-16">VAT Details</span><br /></div>
+            <div class="col-12 mb-3">
+                <span class="primary_txt fnt-14 fnt-md-16">{{ 'vat_details' | translate }}</span
+                ><br />
+            </div>
             <div class="col-12 col-sm-12 col-md-4 col-lg-6 col-xl-3 sewn-form-field w-100">
-                <label>Select VAT trasaction type<span class="star">*</span></label>
+                <label>{{ 'select_vat_type' }}<span class="star">*</span></label>
                 <p-dropdown
                     [options]="vatSettings"
                     optionLabel="label"
-                    placeholder="Select subscription type"
+                    [placeholder]="'select_subscription_type' | translate"
                     [style]="{ width: '100%' }"
                     formControlName="vat_setting_id"
                     optionValue="value"
                 ></p-dropdown>
                 <small *ngIf="productForm.controls['vat_setting_id'].errors?.required" class="p-error">
-                    Required
+                    {{ 'required' | translate }}
                 </small>
             </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100 pl-md-4">
                 <label class="fnt-14 fnt-600 fnt-muli txt-clr-554"
-                    >Is the product price inclusive of VAT<span class="star">*</span></label
+                    >{{ 'is_product_price_vat' | translate }}<span class="star">*</span></label
                 >
                 <p-checkbox
                     formControlName="is_price_including_vat"
                     binary="true"
                     class="mt-1"
-                    label="The price is inclusive of VAT"
+                    [label]="'price_inclusive_vat' | translate"
                 >
                 </p-checkbox>
             </div>
         </div>
         <div class="row gutter-16 gutter-lg-24 mt-4 d-none d-sm-none d-md-flex">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                <button type="button" class="btn btn-stroked" (click)="onCancel()">Cancel</button>
-                <button type="submit" class="btn btn-raised ml-3" (click)="onSave()">Save</button>
+                <button type="button" class="btn btn-stroked" (click)="onCancel()">{{ 'cancel' | translate }}</button>
+                <button type="submit" class="btn btn-raised ml-3" (click)="onSave()">{{ 'save' | translate }}</button>
             </div>
             <div *ngIf="!productID" class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                <button type="button" class="btn btn-raised pull-right" (click)="togglePublic(true)">Publish</button>
+                <button type="button" class="btn btn-raised pull-right" (click)="togglePublic(true)">
+                    {{ 'publish' | translate }}
+                </button>
             </div>
         </div>
         <div class="row gutter-16 gutter-lg-24 mt-4 d-block d-sm-block d-md-none">
             <div *ngIf="!productID" class="col-12 col-sm-12">
-                <button type="button" class="btn btn-raised w-100" (click)="togglePublic(true)">Publish</button>
+                <button type="button" class="btn btn-raised w-100" (click)="togglePublic(true)">
+                    {{ 'publish' | translate }}
+                </button>
             </div>
             <div class="col-12 col-sm-12 mt-3">
-                <button type="submit" class="btn btn-raised w-100" (click)="onSave()">Save</button>
+                <button type="submit" class="btn btn-raised w-100" (click)="onSave()">{{ 'save' | translate }}</button>
             </div>
             <div class="col-12 col-sm-12 mt-3">
-                <button type="button" class="btn btn-stroked w-100" (click)="onCancel()">Cancel</button>
+                <button type="button" class="btn btn-stroked w-100" (click)="onCancel()">
+                    {{ 'cancel' | translate }}
+                </button>
             </div>
         </div>
     </div>

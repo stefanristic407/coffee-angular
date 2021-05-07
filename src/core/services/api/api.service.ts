@@ -95,4 +95,8 @@ export class ApiService {
         }
         return str.join('&');
     }
+
+    protected getOrgId(): number {
+        return +this.cookieSrv.get('roaster_id');
+    }
 }

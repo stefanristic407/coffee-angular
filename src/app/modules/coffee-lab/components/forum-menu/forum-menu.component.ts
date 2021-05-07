@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { CoffeeLabService, GlobalsService } from '@services';
 import { environment } from '@env/environment';
@@ -22,7 +22,6 @@ export class ForumMenuComponent implements OnInit {
     @Input() enableSave = true;
     @Input() enableDeleteSave = false;
     @Input() enableTranslation = false;
-
     items: MenuItem[] = [];
 
     constructor(
@@ -78,7 +77,7 @@ export class ForumMenuComponent implements OnInit {
             this.items.push({
                 label: this.globalsService.languageJson.remove.concat(' ', this.globalsService.languageJson.save_post),
                 command: () => {
-                    this.onDelete();
+                    this.onRemoveSavedPosts();
                 },
             });
         }
@@ -132,7 +131,7 @@ export class ForumMenuComponent implements OnInit {
                 break;
             case 'recipe':
                 this.router.navigate(['/coffee-lab/create-post/translate-recipe'], {
-                    queryParams: { id: this.selectedItem.id },
+                    queryParams: { id: this.selectedItem.id, type: this.forumType },
                 });
                 break;
             case 'answer':
@@ -203,6 +202,34 @@ export class ForumMenuComponent implements OnInit {
                                 this.coffeeLabService.forumDeleteEvent.emit();
                             } else {
                                 this.toastService.error(`Failed to delete a ${this.forumType}.`);
+                            }
+                        });
+                }
+            });
+    }
+
+    onRemoveSavedPosts(): void {
+        this.dialogService
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'delete',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.coffeeLabService
+                        .unSaveFormByType(this.forumType, this.selectedItem.id)
+                        .subscribe((res: any) => {
+                            console.log('delete forum result >>>>>>>>>>>', res);
+                            if (res.success) {
+                                this.toastService.success(
+                                    `You have removed the ${this.forumType} successfully from saved posts.`,
+                                );
+                                this.coffeeLabService.forumDeleteEvent.emit();
+                            } else {
+                                this.toastService.error(`Failed to remmove a ${this.forumType} from saved posts.`);
                             }
                         });
                 }

@@ -15,7 +15,8 @@
                             forumType="question"
                             [enableEdit]="organizationId === question.org_id && question.org_type === 'ro'"
                             [enableDelete]="organizationId === question.org_id && question.org_type === 'ro'"
-                            [enableSave]="pageDesc!=='saved-posts'"
+                            [enableSave]="pageDesc !== 'saved-posts'"
+                            [enableDeleteSave]="pageDesc === 'saved-posts'"
                         ></app-forum-menu>
                     </div>
                 </div>
@@ -46,8 +47,8 @@
                         <a
                             [routerLink]="'/coffee-lab/questions/' + question.slug"
                             [queryParams]="{ answer: answer.id }"
-                            class="custom-link ml-1"
-                            >Read more</a
+                            class="brown-cta ml-1"
+                            >{{ 'read_more' | translate }}</a
                         >
                     </div>
                 </div>
@@ -56,7 +57,7 @@
                     [routerLink]="'/coffee-lab/questions/' + question.slug"
                     class="btn-f8 w-100"
                 >
-                    See all answers
+                    {{ 'see_all_answers' | translate }}
                 </button>
             </div>
         </div>

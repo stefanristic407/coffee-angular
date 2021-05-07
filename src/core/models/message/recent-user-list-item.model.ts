@@ -8,6 +8,7 @@ export interface RecentUserListItem {
     firstname: string;
     organization_id: number;
     organization_type: OrganizationType;
+    organization_name: string;
     profile_pic: string;
     id: number;
     user_id: number;

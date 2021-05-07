@@ -5,5 +5,6 @@ export enum OrganizationType {
     MICRO_ROASTER = 'mr',
     SEWN_ADMIN = 'sa',
     HORECA = 'hrc',
+    CONSUMER = 'co',
     EMPTY = '',
 }

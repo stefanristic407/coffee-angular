@@ -36,7 +36,6 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     ) {
         this.activatedRoute.params.subscribe((params) => {
             this.slug = params.slug;
-            console.log('slug >>>>>>>>>', this.slug);
             this.getRecentQuestions();
             if (!this.isLoading) {
                 this.getDetails();
@@ -45,7 +44,6 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
         this.activatedRoute.queryParams.subscribe((queryParams) => {
             const language = this.activatedRoute.snapshot.queryParamMap.get('language');
             this.language = language || this.coffeeLabService.currentForumLanguage;
-            console.log('question details page is being loaded........', language);
             if (!this.isLoading) {
                 this.getDetails();
             }
@@ -66,7 +64,6 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
             sort_order: 'desc',
         };
         this.coffeeLabService.getForumList('question', params).subscribe((res: any) => {
-            console.log('recent questions >>>>>>>>>>', res);
             if (res.success) {
                 this.recentQuestions = res.result?.questions
                     ?.filter((item: any) => item.id !== this.slug && item.slug !== this.slug)
@@ -80,7 +77,6 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     getDetails(): void {
         this.isLoading = true;
         this.coffeeLabService.getForumDetails('question', this.slug).subscribe((res: any) => {
-            console.log('get forum details result >>>>>>>>>>', res);
             this.isLoading = false;
             if (res.success) {
                 this.detailsData = res.result;

@@ -503,7 +503,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         this.threadList.forEach((x) => {
             x.members.forEach((m) => {
                 userPayload[`${m.user_id}_${m.org_type}_${m.org_id || 0}`] = {
-                    org_id: m.org_id,
+                    org_id: m.org_id || undefined,
                     org_type: m.org_type,
                     user_id: m.user_id,
                 };
@@ -528,7 +528,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             data: {
                 user_id: this.chatUtil.USER_ID,
                 org_type: this.chatUtil.ORGANIZATION_TYPE,
-                org_id: this.chatUtil.ORGANIZATION_ID,
+                org_id: this.chatUtil.ORGANIZATION_ID || undefined,
                 type: ThreadType.normal,
                 // page: this.threadListConfig.activePage,
                 // per_page: this.threadListConfig.perPage,
@@ -633,9 +633,10 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     processThreadUser(threadUser: ThreadMember): ThreadMember {
-        if (threadUser.org_type === OrganizationType.SEWN_ADMIN) {
+        if (threadUser.org_type === OrganizationType.SEWN_ADMIN || threadUser.org_type === OrganizationType.CONSUMER) {
             threadUser.org_id = 0;
         }
+        threadUser.org_name = threadUser.org_name || '';
         threadUser.last_seen = threadUser.last_seen || '';
         threadUser.computed_lastseen = this.chatUtil.getReadableTime(threadUser.last_seen || '');
         threadUser.computed_organization_name = this.chatUtil.getOrganization(threadUser.org_type);
@@ -653,7 +654,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             if (!mem.is_removed) {
                 if (
                     mem.org_type === this.chatUtil.ORGANIZATION_TYPE &&
-                    mem.org_id === this.chatUtil.ORGANIZATION_ID &&
+                    (mem.org_id || 0) === this.chatUtil.ORGANIZATION_ID &&
                     mem.user_id === this.chatUtil.USER_ID
                 ) {
                     activeUser.push(mem);
@@ -743,7 +744,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             !threadOpen.computed_targetedUser.online &&
             threadOpen.computed_targetedUser.user_id === sender.user_id &&
             threadOpen.computed_targetedUser.org_type === sender.org_type &&
-            (threadOpen.computed_targetedUser.org_id || 0 === sender.org_id || 0)
+            (threadOpen.computed_targetedUser.org_id || 0) === (sender.org_id || 0)
         ) {
             this.updateUserStatus();
         }
@@ -861,16 +862,19 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 [uniqueKey: string]: ResponseUserStatus;
             } = {};
             WSmsg.data.forEach((userStatus) => {
-                if (userStatus.org_type === OrganizationType.SEWN_ADMIN) {
+                if (
+                    userStatus.org_type === OrganizationType.SEWN_ADMIN ||
+                    userStatus.org_type === OrganizationType.CONSUMER
+                ) {
                     userStatus.org_id = 0;
                 }
                 userStatusMap[`${userStatus.user_id}_${userStatus.org_type}_${userStatus.org_id || 0}`] = userStatus;
             });
             this.filteredThreadList.forEach((thread) => {
                 thread.members.forEach((member) => {
-                    member.last_seen =
-                        userStatusMap[`${member.user_id}_${member.org_type}_${member.org_id || 0}`]?.last_seen || '';
-                    member.online = userStatusMap[`${member.user_id}_${member.org_type}_${member.org_id}`].online;
+                    const key = `${member.user_id}_${member.org_type}_${member.org_id || 0}`;
+                    member.last_seen = userStatusMap[key]?.last_seen || '';
+                    member.online = userStatusMap[key].online;
                     member.computed_lastseen = this.chatUtil.getReadableTime(member.last_seen || '');
                 });
             });
@@ -1395,7 +1399,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         if (this.unReadTimerRef) {
             clearTimeout(this.unReadTimerRef);
         }
-        this.viewerRef.destroy();
+        if (this.viewerRef) {
+            this.viewerRef.destroy();
+        }
     }
 
     chatServiceRequestHandling = (req: { requestType: ServiceCommunicationType; payload?: any }) => {
@@ -1410,7 +1416,15 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.openPanel();
             }
         } else if (req.requestType === ServiceCommunicationType.OPEN_THREAD) {
-            this.findThread(req.payload as OpenChatThread);
+            const pl = req.payload as OpenChatThread;
+            const key = `${pl.user_id}_${pl.org_type}_${pl.org_id || 0}`;
+            if (!!this.blockMap.blockedMe[key]) {
+                this.toast.error('The user has been blocked you', 'Unable to start the chat');
+            } else if (!!this.blockMap.myBlock[key]) {
+                this.toast.error('Remove the user from block list', 'Unable to start the chat');
+            } else {
+                this.findThread(req.payload as OpenChatThread);
+            }
         }
     };
 
@@ -1693,9 +1707,10 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 computed_fullname: target.computed_fullname,
                 computed_organization_name: target.computed_organization_name,
                 computed_profile_direct_url: target.computed_profile_direct_url,
+                organization_name: target.org_name || '',
                 firstname: target.first_name,
                 lastname: target.last_name,
-                organization_id: target.org_id,
+                organization_id: target.org_id || 0,
                 organization_type: target.org_type,
                 profile_pic: target.profile_pic,
                 blockedDetails: {
@@ -1705,7 +1720,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 id: target.id,
                 user_id: target.user_id,
             };
-            const key = `${user.user_id}_${user.organization_type}_${user.organization_id}`;
+            const key = `${user.user_id}_${user.organization_type}_${user.organization_id || 0}`;
             if (!recentListMap[key]) {
                 recentListMap[key] = user;
             }
@@ -1730,7 +1745,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             this.usersList = list
                 .filter((x) => {
                     return !(
-                        x.organization_id === this.chatUtil.ORGANIZATION_ID &&
+                        (x.organization_id || 0) === this.chatUtil.ORGANIZATION_ID &&
                         x.organization_name === this.chatUtil.ORGANIZATION_TYPE &&
                         x.user_id === this.chatUtil.USER_ID
                     );
@@ -1812,7 +1827,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             timestamp,
             type: ChatMessageType.getCreate,
             data: {
-                org_id: item.organization_id,
+                org_id: item.organization_id || undefined,
                 user_id: item.user_id,
                 org_type: item.organization_type,
             },
@@ -1927,20 +1942,22 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             actionHandler: (value) => {
                 if (value === 'yes') {
                     this.loader.reportAction = true;
-                    this.chatApi.reportUser(dataPayload.user_id, dataPayload.org_type, dataPayload.org_id).subscribe(
-                        (res) => {
-                            this.loader.reportAction = false;
-                            if (res.success) {
-                                this.toast.success('Successfully reported the user', 'Report');
-                            } else {
+                    this.chatApi
+                        .reportUser(dataPayload.user_id, dataPayload.org_type, dataPayload.org_id || undefined)
+                        .subscribe(
+                            (res) => {
+                                this.loader.reportAction = false;
+                                if (res.success) {
+                                    this.toast.success('Successfully reported the user', 'Report');
+                                } else {
+                                    this.toast.success('Failed to report the user', 'Report');
+                                }
+                            },
+                            () => {
+                                this.loader.reportAction = false;
                                 this.toast.success('Failed to report the user', 'Report');
-                            }
-                        },
-                        () => {
-                            this.loader.reportAction = false;
-                            this.toast.success('Failed to report the user', 'Report');
-                        },
-                    );
+                            },
+                        );
                 }
             },
         });
@@ -2315,5 +2332,12 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             return '\u25A3 Sticker';
         }
         return '';
+    }
+    conditionalHypen(str: string) {
+        if (str) {
+            return ' - ' + str;
+        } else {
+            return '';
+        }
     }
 }

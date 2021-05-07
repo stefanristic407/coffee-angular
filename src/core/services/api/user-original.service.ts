@@ -79,7 +79,7 @@ export class UserserviceService extends ApiService {
     // API Description: This API calls helps to Roaster User Profile.
 
     getRoasterProfile(roasterId, organization = 'ro', userId = null) {
-        const apiCall = userId ? `/general/${organization}/users/${userId}` : `/${organization}/${roasterId}/users/profile`;
+        const apiCall = userId ? `/general/${organization}/users/${userId}` : `/ro/${roasterId}/users/profile`;
         const data = {
             api_call: apiCall,
             token: this.cookieService.get('Auth'),

@@ -60,7 +60,7 @@ export class OrderSupportComponent implements OnInit {
         };
         const obj4: MenuItem = {
             label: 'Order ' + this.orderID,
-            routerLink: [`/orders/ro/${this.orderID}`],
+            routerLink: [`/orders/es/${this.orderID}`],
         };
         const obj5: MenuItem = {
             label: 'Order Support',

@@ -7,6 +7,7 @@ import { GlobalsService, ResizeService } from '@services';
 import { SourcingService } from '../sourcing.service';
 import { ResizeableComponent } from '@base-components';
 import { CURRENCY_LIST } from '@constants';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-coffee-details',
@@ -27,6 +28,7 @@ export class CoffeeDetailsComponent extends ResizeableComponent implements OnIni
         public globals: GlobalsService,
         protected resizeService: ResizeService,
         public sourcing: SourcingService,
+        public location: Location,
     ) {
         super(resizeService);
         this.route.paramMap.subscribe((params) => {

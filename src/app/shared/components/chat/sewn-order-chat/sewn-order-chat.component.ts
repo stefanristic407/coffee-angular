@@ -1,7 +1,9 @@
+import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { Subscription, Subject } from 'rxjs';
 import * as moment from 'moment';
+import Viewer from 'viewerjs';
 import {
     Component,
     OnInit,
@@ -24,7 +26,7 @@ import {
     OrderChatThreadListItem,
     MessageMeta,
 } from '@models';
-import { ThreadType, ThreadActivityType, ChatMessageType } from '@enums';
+import { ThreadType, ThreadActivityType, ChatMessageType, MessageMetaTypes } from '@enums';
 import { ChatHandlerService, GlobalsService, SocketService, ChatUtilService } from '@services';
 const badwordsRegExp = require('badwords/regexp') as RegExp;
 @Component({
@@ -49,10 +51,21 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     activeThreadType: 'ORDER' | 'DISPUTE' | 'UNSET' = 'UNSET';
     showOffensiveMessageError = false;
     offensiveTimeout = 0;
+
     messageListConfig = {
-        perPage: 300,
+        perPage: 400,
         activePage: 1,
     };
+    uploadFileMeta: {
+        url: string;
+        file_id: number;
+    } | null = null;
+    uploadProgressing = false;
+
+    public acceptFileTypeArray = ['image/jpeg', 'image/png'];
+    public acceptFileTypeString = '';
+    private viewerRef: Viewer | null = null;
+
     messageInputElement: HTMLTextAreaElement;
     chatMessageBodyElement: HTMLElement;
     lastMessageRendered = new Subject();
@@ -66,9 +79,11 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
         public chatUtil: ChatUtilService,
         private render: Renderer2,
         private router: Router,
+        private toast: ToastrService,
     ) {}
 
     ngOnInit(): void {
+        this.acceptFileTypeString = this.acceptFileTypeArray.join(',');
         this.SM.WSState = this.socket.socketState.subscribe((value) => {
             if (value === 'CONNECTED') {
                 this.initializeWebSocket();
@@ -168,12 +183,11 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
         const activeUser: ThreadMember[] = [];
         const targtedUserList: ThreadMember[] = [];
         thread.members = (thread.members || []).map((mem: any) => {
-            mem = { ...mem, ...mem.user } as ThreadListItem;
             mem = this.processThreadUser(mem);
             if (!mem.is_removed) {
                 if (
                     mem.org_type === this.chatUtil.ORGANIZATION_TYPE &&
-                    mem.org_id === this.chatUtil.ORGANIZATION_ID &&
+                    (mem.org_id || 0) === this.chatUtil.ORGANIZATION_ID &&
                     mem.user_id === this.chatUtil.USER_ID
                 ) {
                     activeUser.push(mem);
@@ -214,7 +228,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                         isRemoved = (member as any).removed_at !== '0001-01-01T00:00:00Z';
                     }
                     if (!isRemoved) {
-                        const key = member.user_id + '_' + member.org_id + '_' + member.org_type;
+                        const key = member.user_id + '_' + (member.org_id || 0) + '_' + member.org_type;
                         users[key] = member;
                     }
                 }
@@ -243,13 +257,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                 this.scrollbottom();
             });
 
-            this.messageList = WSmsg.data
-                .filter((x) => x.activity_type === ThreadActivityType.message && x.content.trim() !== '')
-                .reverse();
-
-            // this.messageList.forEach((message) => {
-            //     this.processChatMessages(message, this.threadDetails);
-            // });
+            this.messageList = WSmsg.data.filter((x) => x.activity_type === ThreadActivityType.message).reverse();
             for (let index = 0, len = this.messageList.length; index < len; index++) {
                 this.messageList[index] = this.processChatMessages(this.messageList[index], this.threadDetails);
                 const prevMessage = this.messageList[index - 1];
@@ -258,7 +266,8 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                     if (prevMessage) {
                         activeMessage.showUserBadge = !(
                             prevMessage.computed_author?.user_id === activeMessage.computed_author?.user_id &&
-                            prevMessage.computed_author?.org_id === activeMessage.computed_author?.org_id &&
+                            (prevMessage.computed_author?.org_id || 0) ===
+                                (activeMessage.computed_author?.org_id || 0) &&
                             prevMessage.computed_author?.org_type === activeMessage.computed_author?.org_type
                         );
                     } else {
@@ -286,7 +295,6 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
         const message = WSmsg.data;
         if (
             WSmsg.code === 201 &&
-            (message?.content || '').trim() !== '' &&
             (message.thread.type === ThreadType.dispute ||
                 message.thread.type === ThreadType.gc_order ||
                 message.thread.type === ThreadType.mr_order)
@@ -312,12 +320,13 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
                     if (lastMessage) {
                         message.showUserBadge = !(
                             lastMessage.computed_author?.user_id === message.computed_author?.user_id &&
-                            lastMessage.computed_author?.org_id === message.computed_author?.org_id &&
+                            (lastMessage.computed_author?.org_id || 0) === (message.computed_author?.org_id || 0) &&
                             lastMessage.computed_author?.org_type === message.computed_author?.org_type
                         );
                     } else {
                         message.showUserBadge = true;
                     }
+                    this.chatUtil.playNotificationSound('INCOMING');
                 } else {
                     message.showUserBadge = false;
                 }
@@ -337,14 +346,15 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
     processChatMessages(message: ChatMessage | IncomingChatMessage, thread: ThreadListItem) {
         message.dateString = moment(message.created_at).format('Do MMM YYYY');
         message.computed_date = this.chatUtil.getReadableTime(message.updated_at || message.created_at);
-        const meta = { type: 'NORMAL' };
+        const meta = { type: MessageMetaTypes.TEXT_ONLY };
         try {
             message.meta = (JSON.parse(message.meta_data) || meta) as MessageMeta;
         } catch (e) {
             message.meta = meta as MessageMeta;
         }
-        if (thread.computed_targetedUserList.find((tuser) => tuser.id === message.member.id)) {
-            message.computed_author = thread.computed_targetedUser;
+        const targetUser = thread.computed_targetedUserList.find((tuser) => tuser.id === message.member.id);
+        if (targetUser) {
+            message.computed_author = targetUser;
             message.isActiveUser = false;
         } else if (thread.computed_activeUser.id === message.member.id) {
             message.computed_author = thread.computed_activeUser;
@@ -410,10 +420,8 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
         }
     }
     updateChatMessageBodyElRef() {
-        if (!this.chatMessageBodyElement) {
-            const query = `[data-element="live-chat-message-body"]`;
-            this.chatMessageBodyElement = (this.elRef?.nativeElement?.querySelector(query) as HTMLElement) || null;
-        }
+        const query = `[data-element="live-chat-message-body"]`;
+        this.chatMessageBodyElement = (this.elRef?.nativeElement?.querySelector(query) as HTMLElement) || null;
     }
     scrollbottom() {
         this.updateChatMessageBodyElRef();
@@ -431,51 +439,180 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
         this.chatInputHeightAdjust();
     }
 
+    replaceOffensiveWord(message: string) {
+        const badWordArray = message.match(badwordsRegExp);
+        for (const badWord of badWordArray) {
+            message = message.replace(badWord, '*'.repeat(badWord.length));
+        }
+        return message;
+    }
+    detectOffensiveWords(msg) {
+        badwordsRegExp.lastIndex = 0;
+        if (badwordsRegExp.test(msg)) {
+            this.showOffensiveMessageError = true;
+            this.offensiveTimeout = window.setTimeout(this.offensiveTimeoutHandler, 3500);
+            msg = this.replaceOffensiveWord(msg);
+        }
+        return msg;
+    }
+    offensiveTimeoutHandler = () => {
+        this.showOffensiveMessageError = false;
+    };
+
     sendMessage() {
         clearTimeout(this.offensiveTimeout);
         this.showOffensiveMessageError = false;
         let msg = this.messageInput.trim();
-        if (msg !== '') {
-            badwordsRegExp.lastIndex = 0;
-            if (badwordsRegExp.test(msg)) {
-                this.showOffensiveMessageError = true;
-                this.offensiveTimeout = window.setTimeout(() => {
-                    this.showOffensiveMessageError = false;
-                }, 3500);
-                msg = msg.replace(badwordsRegExp, '****');
-            }
-            this.socket.orderChatSent.next(this.getMessagePayload(msg));
-            this.chatUtil.playNotificationSound('OUTGOING');
-            this.messageInput = '';
-            this.chatInputHeightAdjust();
-            if (this.SM.lastRender2 && this.SM.lastRender2.unsubscribe) {
-                this.SM.lastRender2.unsubscribe();
-            }
-            this.SM.lastRender2 = this.lastMessageRendered.pipe(first()).subscribe((x) => {
-                console.log('Last render chatInputHeightAdjust');
-                this.chatInputHeightAdjust(true);
-            });
+        const hasContent = !!msg;
+        const hasImage = !!this.uploadFileMeta?.file_id;
+        const payload = {
+            thread_id: this.threadDetails.id,
+            content: '',
+            meta_data: '',
+            file_id: undefined,
+        };
+        if (hasContent && hasImage) {
+            msg = this.detectOffensiveWords(msg);
+            payload.content = msg;
+            payload.file_id = this.uploadFileMeta?.file_id || '';
+            payload.meta_data = JSON.stringify({
+                type: MessageMetaTypes.PICTURE_CAPTION,
+            } as MessageMeta);
+        } else if (!hasContent && hasImage) {
+            payload.content = '';
+            payload.file_id = this.uploadFileMeta?.file_id || '';
+            payload.meta_data = JSON.stringify({
+                type: MessageMetaTypes.PICTURE_ONLY,
+            } as MessageMeta);
+        } else if (hasContent && !hasImage) {
+            msg = this.detectOffensiveWords(msg);
+            payload.content = msg;
+            delete payload.file_id;
+            payload.meta_data = JSON.stringify({
+                type: MessageMetaTypes.TEXT_ONLY,
+            } as MessageMeta);
+        } else {
+            this.toast.warning('Message text can not be blank', 'Unable to sent', { timeOut: 800 });
+            return;
         }
+        this.socket.orderChatSent.next(this.getMessagePayload(payload));
+        this.chatUtil.playNotificationSound('OUTGOING');
+        this.messageInput = '';
+        this.uploadFileMeta = null;
+        this.chatInputHeightAdjust();
+        if (this.SM.lastRender2 && this.SM.lastRender2.unsubscribe) {
+            this.SM.lastRender2.unsubscribe();
+        }
+        this.SM.lastRender2 = this.lastMessageRendered.pipe(first()).subscribe((x) => {
+            this.chatInputHeightAdjust(true);
+        });
     }
 
-    getMessagePayload(message: string) {
+    removeFile() {
+        this.uploadFileMeta = null;
+    }
+
+    uploadFile($event: any) {
+        const file = (event.target as HTMLInputElement).files[0];
+        (event.target as HTMLInputElement).value = null;
+        if (this.acceptFileTypeArray.includes(file.type)) {
+            this.uploadFileMeta = null;
+            this.uploadProgressing = true;
+            this.chatUtil.uploadFile(file, this.threadDetails.id).subscribe(
+                (res: any) => {
+                    this.uploadProgressing = false;
+                    if (res.success) {
+                        this.uploadFileMeta = {
+                            file_id: res.result.id,
+                            url: res.result.url,
+                        };
+                    } else {
+                        this.toast.error('Unable to sent files, please try aftersome time', 'Uploading failed', {
+                            timeOut: 400,
+                        });
+                    }
+                },
+                (error) => {
+                    this.uploadProgressing = false;
+                    console.log('upload error', error);
+                },
+            );
+        } else {
+            this.toast.error('Please choose a valid file type', 'Invalid File type', { timeOut: 400 });
+        }
+        return false;
+    }
+
+    getMessagePayload(data: any) {
         const timestamp = this.chatUtil.getTimeStamp();
         this.TIMESTAMP_MAP[ChatMessageType.message] = timestamp;
         return {
             type: ChatMessageType.message,
             timestamp,
-            data: {
-                thread_id: this.threadDetails.id,
-                content: message,
-                meta_data: '',
-            },
+            data,
         };
     }
     escalate() {
         this.escalateTicket.emit();
     }
 
+    openImage(messageId: number) {
+        if (this.viewerRef) {
+            this.viewerRef.destroy();
+        }
+        const imageEL: HTMLElement = document.querySelector(`[data-image-id="${messageId}"]`);
+        if (imageEL) {
+            this.viewerRef = new Viewer(imageEL, {
+                title: (image) => image.dataset.imageCaption || '',
+                toolbar: {
+                    zoomIn: true,
+                    zoomOut: true,
+                    oneToOne: true,
+                    reset: true,
+                    play: {
+                        show: true,
+                        size: 'large' as Viewer.ToolbarButtonSize.Large,
+                        click: () => {
+                            const url = (this.viewerRef as any)?.element?.src || '';
+                            if (url) {
+                                this.fileDownload(url);
+                            } else {
+                                this.toast.error('Failed to download the image', 'Chat Download');
+                            }
+                        },
+                    },
+                    rotateLeft: true,
+                    rotateRight: true,
+                    flipHorizontal: true,
+                    flipVertical: true,
+                },
+                navbar: false,
+                className: 'dm-image-view',
+                loop: false,
+            });
+            this.viewerRef.show(true);
+        } else {
+            console.log('ImageView error: image element not found');
+        }
+    }
+
+    fileDownload(url) {
+        const anchor = document.createElement('a');
+        anchor.href = url;
+        anchor.target = '_blank';
+        anchor.download = 'Sewn chat';
+        anchor.style.display = 'none';
+        document.body.append(anchor);
+        anchor.click();
+        setTimeout(() => {
+            anchor.remove();
+        }, 500);
+    }
+
     ngOnDestroy() {
+        if (this.viewerRef) {
+            this.viewerRef.destroy();
+        }
         for (const name in this.SM) {
             if (this.SM[name] && this.SM[name].unsubscribe) {
                 this.SM[name].unsubscribe();

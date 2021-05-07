@@ -19,7 +19,7 @@ export class ForumEditorComponent implements OnInit {
     @Output() imageIdListChange = new EventEmitter<any>();
     @Input() fileModule = 'qa-forum';
     @Input() placeholder: string;
-    @Input() height;
+    @Input() height = 213;
     @Input() images = [];
     imagesCount = 0;
 
@@ -29,22 +29,18 @@ export class ForumEditorComponent implements OnInit {
         private coffeeLabService: CoffeeLabService,
         private toastrService: ToastrService,
         public authService: AuthService,
-    ) {
-        if (!this.height) {
-            this.height = 213;
-        }
-    }
+    ) {}
 
     ngOnInit(): void {
         this.imagesCount = this.images?.length;
         this.imageIdList = this.images.map((item: any) => item.id);
-        console.log('images >>>>>>>>>>', this.images);
+        this.emitImagesChange();
     }
 
     onChangeContent(): void {
         this.contentChange.emit(this.content);
         const lastUploadedImage = this.getLastUploadedImage();
-        if (lastUploadedImage) {
+        if (lastUploadedImage && lastUploadedImage.includes('data:image')) {
             this.handleUploadImage(lastUploadedImage);
         }
     }
@@ -59,7 +55,6 @@ export class ForumEditorComponent implements OnInit {
             virtualId,
         });
         const file = this.coffeeLabService.dataURItoBlob(imageURL);
-        console.log('This is new images so lets upload this image through api', file);
         this.isUploadingImage = true;
         this.isUploadingImageChange.emit(true);
         this.coffeeLabService.uploadFile(file, this.fileModule).subscribe((res: any) => {

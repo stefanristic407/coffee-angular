@@ -55,7 +55,7 @@
                 <div class="row gutter-16">
                     <div class="col-md-6 col-lg-4">
                         <div class="d-none d-md-block" *ngIf="!isEditMode">
-                            <div class="avatar-name-container">
+                            <div class="avatar-name-container mb-45">
                                 <div>
                                     <img
                                             *ngIf="!previewUrl"
@@ -70,7 +70,7 @@
                                     {{ profileInfo?.firstname + ' ' + profileInfo?.lastname }}
                                 </div>
                             </div>
-                            <div class="pt-4">
+                            <div *ngIf="!queryUserId">
                                 <div class="px-0 px-md-3">
                                     <div class="d-flex align-items-center px-0 px-md-1">
                                         <img class="mr-4" src="assets/images/icon-email.svg" alt="icon" />
@@ -314,7 +314,7 @@
                 </div>
             </div>
 
-            <div class="py-3">
+            <div *ngIf="!queryUserId" class="py-3">
                 <div class="px-0 px-md-3">
                     <div class="d-flex align-items-center px-0 px-md-1">
                         <img class="mr-4" src="assets/images/icon-email.svg" alt="icon" />
@@ -353,7 +353,7 @@
             <app-loading></app-loading>
         </div>
 
-        <div class="d-block d-md-none">
+        <div *ngIf="!queryUserId" class="d-block d-md-none">
             <div *ngIf="!isEditMode">
                 <button (click)="isEditMode = true" type="button" class="btn-raised w-100">
                     {{ 'edit_profile' | translate }}

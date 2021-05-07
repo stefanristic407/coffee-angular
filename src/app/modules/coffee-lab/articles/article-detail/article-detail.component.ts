@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
+import { Location } from '@angular/common';
 @Component({
     selector: 'app-aticle-details',
     templateUrl: './article-detail.component.html',
@@ -26,6 +27,7 @@ export class ArticleDetailComponent implements OnInit {
         public globalsService: GlobalsService,
         private messageService: MessageService,
         private cookieService: CookieService,
+        public location: Location,
     ) {
         this.activatedRoute.params.subscribe((params) => {
             this.idOrSlug = params.idOrSlug;

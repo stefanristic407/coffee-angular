@@ -145,7 +145,9 @@
                 </div>
                 <div class="dm-udv-profile-name">
                     <div class="dm-udv-user-name">{{ selectedUser.computed_fullname }}</div>
-                    <div class="dm-udv-user-org">{{ selectedUser.computed_organization_name }}</div>
+                    <div class="dm-udv-user-org">
+                        {{ selectedUser.computed_organization_name }}{{conditionalHypen(selectedUser.org_name) }}
+                    </div>
                 </div>
             </div>
             <div class="dm-udv-option-list">
@@ -283,7 +285,7 @@
         </div>
         <div class="dm-start-chat-panel">
             <button (click)="startNewChat()" class="dm-start-chat-btn">
-                <span>Start chat</span>
+                <span>Search Users & Start Chat</span>
             </button>
         </div>
     </div>
@@ -401,7 +403,9 @@
                 />
             </div>
 
-            <div class="dm-hub-org-name">{{ openedThread.computed_targetedUser.computed_organization_name }}</div>
+            <div class="dm-hub-org-name">
+                {{ openedThread.computed_targetedUser.computed_organization_name }} {{ conditionalHypen(openedThread.computed_targetedUser.org_name) }}
+            </div>
         </div>
     </div>
 </ng-template>
@@ -536,9 +540,7 @@
                 </div>
             </div>
             <div class="dm-fli-content-row">
-                <div class="dm-fli-org-name">
-                    {{ user.computed_organization_name }}
-                </div>
+                <div class="dm-fli-org-name">{{ user.computed_organization_name }}{{ conditionalHypen(user.organization_name) }}</div>
             </div>
         </div>
     </div>
@@ -555,9 +557,7 @@
                 </div>
             </div>
             <div class="dm-fli-content-row">
-                <div class="dm-fli-org-name">
-                    {{ user.computed_organization_name }}
-                </div>
+                <div class="dm-fli-org-name">{{ user.computed_organization_name }}{{ conditionalHypen(user.organization_name) }}</div>
             </div>
         </div>
     </div>
@@ -597,7 +597,7 @@
                 </div>
                 <div class="dm-thi-content-row">
                     <div class="dm-thi-org-name">
-                        {{ thread.computed_targetedUser.computed_organization_name }}
+                        {{ thread.computed_targetedUser.computed_organization_name }}{{conditionalHypen(thread.computed_targetedUser.org_name)}}
                     </div>
                 </div>
                 <div class="dm-thi-content-row">

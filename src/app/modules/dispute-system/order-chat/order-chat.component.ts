@@ -226,6 +226,6 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
         //     },
         // };
         // this.router.navigate(['/orders/ro/' + this.orderID], navigationExtras);
-        this.router.navigateByUrl(`/orders/ro/${this.orderID}`);
+        this.router.navigateByUrl(`/orders/es/${this.orderID}`);
     }
 }

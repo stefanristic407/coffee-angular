@@ -51,7 +51,7 @@ export class AssignUserComponent implements OnInit {
         private toaster: ToastrService,
         private router: Router,
         private route: ActivatedRoute,
-        private location: Location,
+        public location: Location,
     ) {}
 
     ngOnInit(): void {
@@ -66,7 +66,7 @@ export class AssignUserComponent implements OnInit {
     }
 
     getRoleList() {
-        this.roasterService.getLoggedinUserRoles(this.roasterId).subscribe((res: any) => {
+        this.roasterService.getRoles(this.roasterId).subscribe((res: any) => {
             if (res.success === true) {
                 this.roleList = res.result;
             }

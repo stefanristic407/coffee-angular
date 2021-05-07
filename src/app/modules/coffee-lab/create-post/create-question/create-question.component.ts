@@ -45,7 +45,6 @@ export class CreateQuestionComponent implements OnInit {
             if (res.success) {
                 this.content = res.result.question;
                 this.languageCode = res.result.lang_code;
-                console.log('question >>>>>>>>>>>', res);
             } else {
                 this.toaster.error('Error while get question');
                 this.location.back();
@@ -76,7 +75,6 @@ export class CreateQuestionComponent implements OnInit {
         if (this.questionId) {
             this.coffeeLabService.updateForum('question', this.questionId, data).subscribe((res: any) => {
                 this.isPosting = false;
-                console.log('update question res >>>>>>>>>>>>', res);
                 if (res.success) {
                     this.toaster.success('You have updated a question successfully.');
                     this.location.back();
@@ -87,7 +85,6 @@ export class CreateQuestionComponent implements OnInit {
         } else {
             this.coffeeLabService.postForum('question', data).subscribe((res: any) => {
                 this.isPosting = false;
-                console.log('post question result >>>', res);
                 if (res.success) {
                     this.toastrService.success('You have posted a question successfully.');
                     this.router.navigate(['/coffee-lab']);

@@ -154,6 +154,9 @@
     height: 100px;
     -o-object-fit: contain;
     object-fit: contain;
+    &.show {
+        display: block !important;
+    }
 }
 .img-container .img-container__remove {
     cursor: pointer;
@@ -237,6 +240,12 @@
     visibility: hidden;
     display: none;
 }
+.conversatio-form {
+    position: relative;
+    .message-form {
+        position: relative;
+    }
+}
 .chat-inputs__img {
     width: 20px;
     height: 20px;
@@ -246,6 +255,63 @@
     justify-content: center;
     align-items: center;
     padding: 0px;
+    input[type='file'] {
+        display: none;
+    }
+}
+.oc-mb-image-view {
+    display: flex;
+    position: absolute;
+    height: 166px;
+    align-items: center;
+    justify-content: center;
+    background-color: #f2f2f2;
+    width: 100%;
+    top: -166px;
+    .oc-mb-image-uploader {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        ::ng-deep .p-progress-spinner {
+            width: 14px;
+            height: 14px;
+            display: block;
+        }
+        ::ng-deep .p-progress-spinner .p-progress-spinner-circle {
+            stroke: #3e5569;
+        }
+        .oc-mb-image-uploading-text {
+            margin-left: 5px;
+        }
+    }
+    .oc-mb-image-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .oc-mb-image-close-button {
+            display: block;
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            z-index: 2;
+        }
+        .oc-mb-image {
+            display: block;
+            position: relative;
+            border: 1px solid #dad2d2;
+            max-width: 80%;
+            max-height: 140px;
+            min-height: 100px;
+            min-width: 100px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+    }
 }
 .offensive-lang {
     border-radius: 2px;
@@ -255,14 +321,17 @@
     font-weight: 500;
     color: #ffffff;
     position: absolute;
-    width: calc(100% - 30px);
+    width: 0px;
     bottom: 100%;
     right: calc(-100% + 30px);
     opacity: 0;
     transition: 0.4s ease-in-out;
+    visibility: hidden;
     &.active {
         opacity: 1;
-        right: 0px;
+        right: 15px;
+        width: calc(100% - 30px);
+        visibility: visible;
     }
 }
 .main-message__profile {
@@ -334,18 +403,47 @@
         position: relative;
     }
 }
-.message-text {
-    word-break: break-all;
-    white-space: pre-wrap;
-    padding: 2px 5px;
-    font-size: 14px;
-    line-height: 22px;
-    font-weight: 600;
-    color: #232334;
+.message-block {
+    display: block;
+    position: relative;
+    min-width: 100%;
+    margin: 12px 0px;
+    height: auto;
+    padding: 12px 12px 12px 16px;
     border-radius: 4px;
-    margin-bottom: 0;
-    display: inline-block;
+    overflow: hidden;
+    .message-image {
+        display: block;
+        position: relative;
+        border: 1px solid #dad2d2;
+        max-width: 100%;
+        max-height: 400px;
+        min-height: 100px;
+        min-width: 100px;
+        object-fit: cover;
+        margin-bottom: 12px;
+        cursor: pointer;
+        border-radius: 4px;
+        background-image: url(../../../../../assets/images/dm-svg-image-loader.svg);
+        background-position: center;
+        background-size: 60px 60px;
+        background-repeat: no-repeat;
+        background-color: #efe0d1;
+    }
+    .message-text {
+        display: block;
+        position: relative;
+        width: 100%;
+        word-break: break-all;
+        white-space: pre-wrap;
+        padding: 2px 5px;
+        font-size: 14px;
+        line-height: 22px;
+        font-weight: 600;
+        color: #232334;
+    }
 }
+
 .main-message {
     clear: both;
     // margin: 12px 0 0;
@@ -354,15 +452,10 @@
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-    .message-text {
-        min-width: 100%;
-    }
 }
 .message-from {
     justify-content: flex-start;
-    .message-text {
-        margin: 12px 0 0;
-        padding: 12px 12px 12px 16px;
+    .message-block {
         background-color: #eeeeee;
     }
     .live-time {
@@ -377,9 +470,7 @@
 }
 .message-to {
     justify-content: flex-end;
-    .message-text {
-        margin: 12px 0 0;
-        padding: 12px 12px 12px 16px;
+    .message-block {
         background-color: #f2e2c5;
     }
     .live-time {
@@ -471,7 +562,7 @@
         padding: 5px 10px;
     }
 }
-@media (max-width: 777px) {
+@media (max-width: 767px) {
     .conversatio-body__messages {
         padding: 25px 16px 10px 16px;
         .dispute-raised-message {

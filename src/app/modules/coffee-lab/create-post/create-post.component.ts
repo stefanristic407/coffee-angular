@@ -17,7 +17,7 @@ export class CreatePostComponent implements OnInit {
         public location: Location,
         public dialogService: DialogService,
         private toastrService: ToastrService,
-        public coffeeLabService: CoffeeLabService
+        public coffeeLabService: CoffeeLabService,
     ) {}
 
     ngOnInit(): void {
@@ -26,7 +26,6 @@ export class CreatePostComponent implements OnInit {
 
     getDrafts(): void {
         this.coffeeLabService.getDrafts().subscribe((res: any) => {
-            console.log('drafts >>>>>>>>>', res);
             if (res.success) {
                 this.drafts = res.result || [];
             } else {
@@ -41,7 +40,7 @@ export class CreatePostComponent implements OnInit {
             styleClass: 'draft-posts',
             data: this.drafts,
         });
-        dialogRef.onClose.subscribe(res => {
+        dialogRef.onClose.subscribe((res) => {
             this.getDrafts();
         });
     }

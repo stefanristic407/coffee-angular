@@ -15,7 +15,7 @@
     </div>
     <div class="flex-1">
         <div class="d-flex align-items-center info-text-wrapper">
-            <div class="fnt-muli font-weight-bold fnt-14 text-clr24 mr-md-3 mr-1 ellipsis">
+            <div [ngClass]="{'ellipsis': enableEllipsis}" class="fnt-muli font-weight-bold fnt-14 text-clr24 mr-md-3 mr-1">
                 {{ prop?.user_name || prop?.question_user || prop?.posted_user || 'Unknown User' }}
             </div>
             <div class="fnt-muli fnt-12 text-clr588">

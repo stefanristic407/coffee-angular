@@ -7,6 +7,8 @@
         border-color: $primary-border-color;
         border-bottom-width: 0 !important;
         position: relative;
+        white-space: nowrap;
+        overflow-x: auto;
         &:before {
             content: '';
             display: block;

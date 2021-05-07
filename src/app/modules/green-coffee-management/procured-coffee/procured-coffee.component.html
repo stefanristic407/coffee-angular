@@ -79,12 +79,11 @@
                                         <ul class="clearfix">
                                             <li>
                                                 <label>Quantity Availabile</label>
-                                                <p>
-                                                    {{ orderDetails?.available_quantity_count }}
-                                                    {{ orderDetails?.available_quantity_type }},
-                                                    {{ orderDetails?.available_quantity }}
-                                                    {{ orderDetails?.available_quantity_unit }} each
-                                                </p>
+                                                <p>{{ orderDetails?.quantity_count * orderDetails?.quantity }} kg</p>
+                                            </li>
+                                            <li>
+                                                <label>Remaining Quantity Availabile</label>
+                                                <p>{{ orderDetails?.remaining_total_quantity }} kg</p>
                                             </li>
                                             <li>
                                                 <label>Buying price</label>
@@ -169,6 +168,7 @@
                                                                 {{
                                                                     orderDetails.altitude ? orderDetails.altitude : 'NA'
                                                                 }}
+                                                                meters above sea level
                                                             </p>
                                                         </li>
                                                         <li>
