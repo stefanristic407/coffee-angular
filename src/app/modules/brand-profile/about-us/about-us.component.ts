@@ -3,13 +3,11 @@ import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
-import { map } from 'rxjs/operators';
+import { DialogService } from 'primeng/dynamicdialog';
 import { maxWordCountValidator, fileCountValidator } from '@utils';
-import { GlobalsService } from '@services';
-import { RoasterserviceService } from '@services';
-import { UserserviceService } from '@services';
-import { rejects } from 'assert';
-import { promise } from 'protractor';
+import { GlobalsService, RoasterserviceService, UserserviceService } from '@services';
+import { ConfirmComponent } from '@shared';
+
 @Component({
     selector: 'app-about-us',
     templateUrl: './about-us.component.html',
@@ -23,12 +21,29 @@ export class AboutUsComponent implements OnInit {
     roasterUsers: any[] = [];
     topContacts: any[] = [];
     autoMembers: any[] = [];
+    certificates: any[];
+    certIndex = null;
+    certMenuItems = [
+        {
+            label: 'View',
+            command: () => {
+                window.open(this.certificates[this.certIndex].public_url);
+            },
+        },
+        {
+            label: 'Delete',
+            command: () => {
+                this.deleteCertificate(this.certificates[this.certIndex]);
+            },
+        },
+    ];
 
     get members() {
         return this.infoForm.get('members') as FormArray;
     }
 
     constructor(
+        public dialogSrv: DialogService,
         private fb: FormBuilder,
         public globals: GlobalsService,
         private toastrService: ToastrService,
@@ -62,6 +77,7 @@ export class AboutUsComponent implements OnInit {
         });
         this.getAboutDetails();
         this.getTopContacts();
+        this.getCertificates();
     }
 
     getAboutDetails() {
@@ -211,5 +227,38 @@ export class AboutUsComponent implements OnInit {
                 });
             }
         });
+    }
+
+    getCertificates() {
+        this.userService.getCompanyCertificates(this.roasterId).subscribe((res: any) => {
+            if (res.success) {
+                this.certificates = res.result;
+            }
+        });
+    }
+
+    deleteCertificate(certificate) {
+        console.log(certificate);
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    title: 'Confirm delete',
+                    desp: 'Are you sure want to delete certificate',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.roasterService.deleteCertificate(this.roasterId, certificate.id).subscribe((res: any) => {
+                        if (res.success) {
+                            this.toastrService.success('Certificate deleted successfully');
+                            this.getCertificates();
+                        } else {
+                            this.toastrService.error('Error while deleting certificate');
+                        }
+                    });
+                }
+            });
     }
 }
