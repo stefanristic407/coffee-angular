@@ -6,7 +6,6 @@ import { GlobalsService, ResizeService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { ResizeableComponent } from '@base-components';
-import * as $ from 'jquery';
 
 @Component({
     selector: 'app-varient-details',
@@ -90,21 +89,18 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
             { label: 'Medium', value: 'medium' },
             { label: 'Fine', value: 'fine' },
         ];
-        // disable mousewheel on a input number field when in focus
-        // (to prevent Cromium browsers change the value when scrolling)
-        $(document).on('wheel', 'input[type=number]', function (e) {
-            $(this).blur();
-        });
     }
-    onWeightChange(event) {
+    onWeightChange(value) {
         const weight = this.weightForm.get('weights') as FormArray;
-        const getObj = {
-            value: Number(event.value),
-            product_weight_variant_id: weight.controls[this.currentVarientIndex].value.product_weight_variant_id,
-            unit: weight.controls[this.currentVarientIndex].value.weight_unit,
-            modify: true,
-        };
-        this.onWeightCreate.emit(getObj);
+        if (weight.controls[this.currentVarientIndex]) {
+            const getObj = {
+                value,
+                product_weight_variant_id: weight.controls[this.currentVarientIndex].value.product_weight_variant_id,
+                unit: weight.controls[this.currentVarientIndex].value.weight_unit,
+                modify: true,
+            };
+            this.onWeightCreate.emit(getObj);
+        }
         this.createWeightVariantArray();
     }
     onWeightUnitChange() {
@@ -134,6 +130,9 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
             this.weights.removeAt(0);
             this.varientDetails.value.weight_variants.forEach((ele) => {
                 const weightForm = this.createEmptyWeights();
+                weightForm.get('weight').valueChanges.subscribe((value) => {
+                    this.onWeightChange(value);
+                });
                 weightForm.controls.product_weight_variant_id.setValue(ele.product_weight_variant_id);
                 weightForm.controls.weight_name.setValue('weight -' + ele.weight + '' + ele.weight_unit);
                 if (ele.featured_image) {
@@ -178,18 +177,24 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
         }
     }
     addNewWeights(): void {
-        this.weights = this.weightForm.get('weights') as FormArray;
-        this.weights.push(this.createEmptyWeights());
-        const weight = this.weightForm.get('weights') as FormArray;
-        weight.controls[this.currentVarientIndex + 1]['controls'].product_images.setValue(this.setProductImages([]));
+        const weights = this.weightForm.get('weights') as FormArray;
+        weights.push(this.createEmptyWeights());
+        this.weights = weights;
+        this.weights.controls[this.weights.length - 1].get('product_images').setValue(this.setProductImages([]));
+        this.weights.controls[this.weights.length - 1].get('weight').valueChanges.subscribe((value) => {
+            this.onWeightChange(value);
+        });
         this.updateCrate(this.weights.length - 1);
         this.createWeightVariantArray();
+        setTimeout(() => {
+            this.currentVarientIndex = this.weights.length - 1;
+        }, 300);
     }
     deleteWeightVarient(index) {
         this.weights.removeAt(index);
         this.onWeightDelete.emit(index);
         this.weightVariantArray.splice(index, 1);
-        this.currentVarientIndex = this.currentVarientIndex - 1;
+        this.currentVarientIndex = 0;
     }
     addNewGrindVarients(): void {
         this.displayDelete = true;
@@ -199,7 +204,7 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
     }
     createEmptyWeights() {
         const emptyVarientID = '_' + Math.random().toString(36).substr(2, 9);
-        return this.fb.group({
+        const emptyWeight: FormGroup = this.fb.group({
             weight_name: 'weight - 0 lb',
             weight_unit: 'lb',
             product_weight_variant_id: emptyVarientID,
@@ -213,6 +218,7 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
             is_default_product: [false, Validators.compose([Validators.required])],
             grind_variants: this.fb.array([this.createEmptyGrindVarient()]),
         });
+        return emptyWeight;
     }
     setProductImages(productArray) {
         const productEmptyArray = [];
@@ -335,13 +341,13 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
         }
     }
     createWeightVariantArray() {
-        this.weightVariantArray = [];
         const weight = this.weightForm.get('weights') as FormArray;
-        weight['value'].forEach((ele, index) => {
+        const weightVariantArray = weight.value.map((ele, index) => {
             const weightName = 'Weight -' + (ele.weight ? ele.weight : 0) + ' ' + ele.weight_unit;
-            this.weightVariantArray.push({ label: weightName, value: index });
+            return { label: weightName, value: index };
         });
-        this.weightVariantArray.push({ label: '', value: 'button' });
+        weightVariantArray.push({ label: '', value: 'button' });
+        this.weightVariantArray = weightVariantArray;
     }
 
     trackFileName(name) {

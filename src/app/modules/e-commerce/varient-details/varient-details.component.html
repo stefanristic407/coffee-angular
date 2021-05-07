@@ -7,11 +7,14 @@
         </div>
     </div>
 
-    <div class="d-flex flex-wrap flex-lg-nowrap">
+    <div
+        class="d-flex flex-wrap flex-lg-nowrap"
+        *ngIf="weightForm.get('weights') && weightForm.get('weights')['controls'][currentVarientIndex] as currentForm"
+    >
         <div class="d-none d-lg-block productWeightDiv">
             <div *ngFor="let weight of this.weightForm['value']['weights']; let i = index">
                 <a
-                    class="d-flex justify-content-between align-items-center p-3 br-4 border-main cursor-pointer mb-3"
+                    class="d-flex justify-content-between align-items-center p-3 br-4 border-main cursor-pointer mb-3 weight-item"
                     [ngClass]="{ active: currentVarientIndex == i }"
                     (click)="currentVarientIndex = i"
                 >
@@ -53,6 +56,7 @@
         </div>
         <span
             class="fnt-700 editBtn cursor-pointer align-items-center d-flex d-md-none mb-3"
+            *ngIf="weights?.length > 1"
             (click)="deleteWeightVarient(currentVarientIndex)"
         >
             {{ 'delete_weight_varient' | translate }}
@@ -61,18 +65,17 @@
             <p-tabView [(activeIndex)]="currentVarientIndex">
                 <p-tabPanel *ngFor="let weight of this.weightForm['value']['weights']; let i = index">
                     <ng-template pTemplate="header">
-                        <span (click)="deleteWeightVarient(currentVarientIndex)"
-                            >{{ 'weight' | translate }} - {{ weight.weight }} {{ weight.weight_unit }}
-                            <span><img src="assets/images/delete-varient-name.svg" alt="delete" /></span
-                        ></span>
+                        <span>
+                            {{ 'weight' | translate }} - {{ weight.weight }} {{ weight.weight_unit }}
+                            <span (click)="deleteWeightVarient(i)" *ngIf="weights?.length > 1">
+                                <img src="assets/images/delete-varient-name.svg" alt="delete" />
+                            </span>
+                        </span>
                     </ng-template>
                 </p-tabPanel>
             </p-tabView>
         </div>
-        <div
-            class="weight-form-wrapper pl-lg-4"
-            [formGroup]="weightForm['controls']['weights']['controls'][currentVarientIndex]"
-        >
+        <div class="weight-form-wrapper pl-lg-4" [formGroup]="currentForm">
             <div class="row gutter-16 mt-2 mt-md-3 mt-lg-0 position-relative">
                 <div class="col-12 mb-4 d-flex d-md-none">
                     <div class="col-6 pl-0">
@@ -92,13 +95,7 @@
                     <label>{{ 'weight' | translate }}<span class="star">*</span></label>
 
                     <div class="input-and-select gray">
-                        <input
-                            type="number"
-                            pInputText
-                            class="w-100"
-                            formControlName="weight"
-                            (onInput)="onWeightChange($event)"
-                        />
+                        <input type="number" pInputText class="w-100" formControlName="weight" />
                         <p-dropdown
                             [options]="weightTypeArray"
                             optionLabel="label"
@@ -108,10 +105,7 @@
                             (onChange)="onWeightUnitChange()"
                         ></p-dropdown>
                         <small
-                            *ngIf="
-                                weightForm['controls']['weights']['controls'][currentVarientIndex]['controls']['weight']
-                                    .errors?.required
-                            "
+                            *ngIf="currentForm?.controls['weight'].errors?.required"
                             class="position-absolute p-error"
                         >
                             {{ 'required' | translate }}
@@ -128,13 +122,7 @@
                         formControlName="status"
                         optionValue="value"
                     ></p-dropdown>
-                    <small
-                        *ngIf="
-                            weightForm['controls']['weights']['controls'][currentVarientIndex]['controls']['status']
-                                .errors?.required
-                        "
-                        class="p-error"
-                    >
+                    <small *ngIf="currentForm?.controls['status'].errors?.required" class="p-error">
                         {{ 'required' | translate }}
                     </small>
                 </div>
@@ -154,6 +142,7 @@
                 </div>
                 <span
                     class="fnt-700 delete-weight-varient cursor-pointer align-items-center d-none d-lg-flex"
+                    *ngIf="weights?.length > 1"
                     (click)="deleteWeightVarient(currentVarientIndex)"
                 >
                     <img src="assets/images/delete-varient.svg" alt="delete" />
@@ -163,9 +152,7 @@
             <div
                 formArrayName="grind_variants"
                 *ngFor="
-                    let grind_varient of weightForm['controls']['weights']['controls'][currentVarientIndex]['controls'][
-                        'grind_variants'
-                    ]['controls'];
+                    let grind_varient of currentForm?.controls['grind_variants']['controls'];
                     let i = index;
                     last as isLast
                 "

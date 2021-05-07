@@ -362,51 +362,6 @@ export class ProductDetailsComponent implements OnInit {
         this.router.navigate(['/e-commerce/product-list']);
     }
 
-    onPasteDescription(flag, idx?) {
-        if (flag === 'description') {
-            const getValue = this.productForm.controls.description.value;
-            const value = getValue.split(/\s+/);
-            const wordlimit = getValue ? 50 - value.length : 50;
-            if (wordlimit <= 0) {
-                value.splice(50);
-                let updatedString = '';
-                value.forEach((ele) => {
-                    updatedString = updatedString + ' ' + ele;
-                });
-                this.productForm.controls.description.setValue(updatedString);
-            }
-        } else if (flag === 'recommendation') {
-            const getValue = this.productForm.controls.varients['controls'][idx].controls.roaster_recommendation.value;
-            const value = getValue.split(/\s+/);
-            const wordlimit = getValue ? 10 - value.length : 10;
-            this.recommendationTextLength = value.length;
-            if (wordlimit <= 0) {
-                value.splice(10);
-                let updatedString = '';
-                value.forEach((ele) => {
-                    updatedString = updatedString + ' ' + ele;
-                });
-                this.recommendationTextLength = 10;
-                this.productForm.controls.varients['controls'][idx].controls.roaster_recommendation.setValue(
-                    updatedString,
-                );
-            }
-        } else if (flag === 'recipes') {
-            const getValue = this.productForm.controls.varients['controls'][idx].controls.recipes.value;
-            const value = getValue.split(/\s+/);
-            const wordlimit = getValue ? 50 - value.length : 50;
-            this.recipeTextLength = value.length;
-            if (wordlimit <= 0) {
-                value.splice(50);
-                let updatedString = '';
-                value.forEach((ele) => {
-                    updatedString = updatedString + ' ' + ele;
-                });
-                this.recipeTextLength = 50;
-                this.productForm.controls.varients['controls'][idx].controls.recipes.setValue(updatedString);
-            }
-        }
-    }
     onSave(): void {
         if (this.validateForms()) {
             const productObj = this.productForm.value;
