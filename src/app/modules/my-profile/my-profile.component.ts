@@ -73,6 +73,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         this.queryUserId = this.activateRoute.snapshot.queryParamMap.get('user_id');
         this.queryOrganization = this.activateRoute.snapshot.queryParamMap.get('organization') || 'ro';
         this.queryOrganizationId = this.activateRoute.snapshot.queryParamMap.get('organization_id');
+        console.log('queryOrganizationId >>>>>>', this.queryOrganizationId);
         this.getUserInfo();
     }
 
@@ -129,8 +130,9 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
     getCertificates(): void {
         this.userOriginalService
-            .getCertificates(this.queryOrganizationId || this.roasterId, this.userId)
+            .getCertificates(this.queryOrganizationId || this.roasterId, this.userId, this.queryOrganization)
             .subscribe((res: any) => {
+                console.log('get certificates result >>>>>>>>>>>>', res);
                 this.apiCount += 1;
                 if (res.success) {
                     this.certificationArray = res.result;
