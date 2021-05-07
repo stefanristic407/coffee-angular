@@ -1,337 +1,343 @@
-<div class="row gutter-16 gutter-lg-24">
-    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3 d-flex">
-        <span class="primary_txt fnt-14 fnt-md-16">Product Weights</span>
-    </div>
-    <div class="col-12 d-none d-sm-none d-md-flex d-lg-none">
-        <div class="ml-lg-auto addWeightDiv weight-pos cursor-pointer" (click)="addNewWeights()">
+<div>
+    <div class="col-12 mb-3 d-flex justify-content-between p-0">
+        <span class="primary_txt fnt-16">{{ 'product_weights' | translate }}</span>
+        <div class="d-none d-md-block d-lg-none addWeightDiv" (click)="addNewWeights()">
             <img class="mb-1" src="assets/images/add_grey.svg" />
-            <span class="ml-2 fnt-muli fnt-700 fnt-14 text-clr334"> Add weight variant </span>
+            <span class="ml-2 fnt-muli fnt-700 fnt-14 text-clr334"> {{ 'add_weight_variant' | translate }} </span>
         </div>
     </div>
 
-    <div class="d-none d-sm-none d-md-none d-lg-block productWeightDiv">
-        <div
-            class="nav flex-column nav-pills weightDiv"
-            *ngFor="let weight of this.weightForm['value']['weights']; let i = index"
-        >
-            <a
-                class="nav-link vat-link pointer"
-                [ngClass]="{ active: currentVarientIndex == i }"
-                (click)="currentVarientIndex = i"
+    <div class="d-flex flex-wrap flex-lg-nowrap">
+        <div class="d-none d-lg-block productWeightDiv">
+            <div *ngFor="let weight of this.weightForm['value']['weights']; let i = index">
+                <a
+                    class="d-flex justify-content-between align-items-center p-3 br-4 border-main cursor-pointer mb-3"
+                    [ngClass]="{ active: currentVarientIndex == i }"
+                    (click)="currentVarientIndex = i"
+                >
+                    <div class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334">
+                        {{ 'weight' | translate }} - {{ weight.weight }} {{ weight.weight_unit }}
+                    </div>
+                    <img src="assets/images/right-arrow.svg" alt="" />
+                </a>
+            </div>
+            <div class="addWeightDiv" (click)="addNewWeights()">
+                <img class="mb-1" src="assets/images/add_grey.svg" />
+                <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited">
+                    {{ 'add_weight_variant' | translate }}
+                </span>
+            </div>
+        </div>
+        <div class="col-12 d-block d-md-none mb-3 weight-varient-array p-0">
+            <p-dropdown
+                [options]="weightVariantArray"
+                optionLabel="label"
+                placeholder=""
+                styleClass="w-100 p-dropdown-variantType"
+                [(ngModel)]="currentVarientIndex"
+                optionValue="value"
             >
-                <div class="p-3 d-flex">
-                    <div class="pull-left weightNameFont">Weight - {{ weight.weight }} {{ weight.weight_unit }}</div>
-                    <div class="ml-auto pull-right">
-                        <img class="pl-1" src="assets/images/right-arrow.svg" alt="" />
+                <ng-template let-weight pTemplate="item">
+                    <span *ngIf="weight.label">{{ weight.label }}</span>
+                    <span *ngIf="!weight.label" class="weightVariantBtn w-100">
+                        <img class="" src="assets/images/add_green_icon.svg" />
+                        <span
+                            class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer"
+                            (click)="addNewWeights()"
+                        >
+                            {{ 'add_weight_variant' | translate }}
+                        </span>
+                    </span>
+                </ng-template>
+            </p-dropdown>
+        </div>
+        <span
+            class="fnt-700 editBtn cursor-pointer align-items-center d-flex d-md-none mb-3"
+            (click)="deleteWeightVarient(currentVarientIndex)"
+        >
+            {{ 'delete_weight_varient' | translate }}
+        </span>
+        <div class="col-12 d-none d-md-block d-lg-none isWeightTab p-0">
+            <p-tabView [(activeIndex)]="currentVarientIndex">
+                <p-tabPanel *ngFor="let weight of this.weightForm['value']['weights']; let i = index">
+                    <ng-template pTemplate="header">
+                        <span (click)="deleteWeightVarient(currentVarientIndex)"
+                            >{{ 'weight' | translate }} - {{ weight.weight }} {{ weight.weight_unit }}
+                            <span><img src="assets/images/delete-varient-name.svg" alt="delete" /></span
+                        ></span>
+                    </ng-template>
+                </p-tabPanel>
+            </p-tabView>
+        </div>
+        <div
+            class="weight-form-wrapper pl-lg-4"
+            [formGroup]="weightForm['controls']['weights']['controls'][currentVarientIndex]"
+        >
+            <div class="row gutter-16 mt-2 mt-md-3 mt-lg-0 position-relative">
+                <div class="col-12 mb-4 d-flex d-md-none">
+                    <div class="col-6 pl-0">
+                        <p-checkbox
+                            formControlName="is_default_product"
+                            binary="true"
+                            [label]="'set_default_product' | translate"
+                        >
+                        </p-checkbox>
+                    </div>
+                    <div class="col-6 pl-0">
+                        <p-checkbox formControlName="is_public" binary="true" [label]="'hide_product' | translate">
+                        </p-checkbox>
                     </div>
                 </div>
-            </a>
-        </div>
-        <div class="mt-3 pl-3 addWeightDiv cursor-pointer" (click)="addNewWeights()">
-            <img class="mb-1" src="assets/images/add_grey.svg" />
-            <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited"> Add weight variant </span>
-        </div>
-    </div>
-    <div class="col-12 d-block d-sm-block d-md-none d-lg-none mb-3 weight-varient-array">
-        <p-dropdown
-            [options]="weightVariantArray"
-            optionLabel="label"
-            placeholder=""
-            [style]="{ width: '100%' }"
-            [(ngModel)]="currentVarientIndex"
-            optionValue="value"
-        >
-            <ng-template let-weight pTemplate="item">
-                <span *ngIf="weight.label">{{ weight.label }}</span>
-                <span *ngIf="!weight.label" class="weightVariantBtn w-100">
-                    <img class="mb-1" src="assets/images/add_grey.svg" />
-                    <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer" (click)="addNewWeights()">
-                        Add weight variant
-                    </span>
-                </span>
-            </ng-template>
-        </p-dropdown>
-    </div>
-    <div class="col-12 d-none d-sm-none d-md-block d-lg-none isWeightTab">
-        <p-tabView [(activeIndex)]="currentVarientIndex">
-            <p-tabPanel *ngFor="let weight of this.weightForm['value']['weights']; let i = index">
-                <ng-template pTemplate="header">
-                    <span (click)="deleteWeightVarient(currentVarientIndex)"
-                        >Weight - {{ weight.weight }} {{ weight.weight_unit }}
-                        <span><img src="assets/images/delete-varient-name.svg" alt="delete" /></span
-                    ></span>
-                </ng-template>
-            </p-tabPanel>
-        </p-tabView>
-    </div>
-    <div
-        class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9"
-        [formGroup]="weightForm['controls']['weights']['controls'][currentVarientIndex]"
-    >
-        <div class="row gutter-16 gutter-lg-16 mt-sm-3 mt-md-3 mt-lg-0" style="position: relative">
-            <div class="col-12 mt-4 mb-4 d-flex d-sm-flex d-md-none">
-                <div class="col-6 pl-0">
-                    <p-checkbox formControlName="is_default_product" binary="true" label="Set as default product">
-                    </p-checkbox>
-                </div>
-                <div class="col-6 pl-0">
-                    <p-checkbox formControlName="is_public" binary="true" label="Hide product"> </p-checkbox>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-4 col-lg-3 col-xl-3 sewn-form-field w-100">
-                <label>Weight<span class="star">*</span></label>
+                <div class="col-12 col-md-4 col-lg-3 sewn-form-field">
+                    <label>{{ 'weight' | translate }}<span class="star">*</span></label>
 
-                <div class="p-inputgroup custom-addon dropdownClass inputFieldBox">
-                    <p-inputNumber formControlName="weight" (onInput)="onWeightChange($event)"></p-inputNumber>
-                    <span class="p-inputgroup-addon">
+                    <div class="input-and-select gray">
+                        <input
+                            type="number"
+                            pInputText
+                            class="w-100"
+                            formControlName="weight"
+                            (onInput)="onWeightChange($event)"
+                        />
                         <p-dropdown
                             [options]="weightTypeArray"
                             optionLabel="label"
                             placeholder=""
-                            [style]="{ width: '100%', height: '40px', border: '0px', background: '#f8f8f8' }"
                             formControlName="weight_unit"
                             optionValue="value"
                             (onChange)="onWeightUnitChange()"
                         ></p-dropdown>
-                    </span>
-                    <small
-                        *ngIf="
-                            weightForm['controls']['weights']['controls'][currentVarientIndex]['controls']['weight']
-                                .errors?.required
-                        "
-                        class="position-absolute p-error"
-                    >
-                        Required
-                    </small>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-4 col-lg-3 col-xl-3 sewn-form-field w-100">
-                <label>Status<span class="star">*</span></label>
-                <p-dropdown
-                    [options]="statusArray"
-                    optionLabel="label"
-                    placeholder=""
-                    [style]="{ width: '100%' }"
-                    formControlName="status"
-                    optionValue="value"
-                    class="inputFieldBox"
-                ></p-dropdown>
-                <small
-                    *ngIf="
-                        weightForm['controls']['weights']['controls'][currentVarientIndex]['controls']['status'].errors
-                            ?.required
-                    "
-                    class="p-error"
-                >
-                    Required
-                </small>
-            </div>
-            <div
-                class="col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1 sewn-form-field delete-weight-varient-mb pl-md-0 pl-lg-2 checkBoxDiv"
-            >
-                <span
-                    class="fnt-700 editBtn delete-weight-varient-mb cursor-pointer align-items-center"
-                    (click)="deleteWeightVarient(currentVarientIndex)"
-                >
-                    Delete
-                </span>
-            </div>
-
-            <div class="divSeperator d-lg-none d-md-none d-md-none d-sm-block d-block"></div>
-            <div class="col-sm-12 col-md-4 col-lg-6 col-xl-5 d-none d-sm-none d-md-flex mb-4 pl-lg-2 align-items-end">
-                <p-checkbox formControlName="is_public" binary="true" class="mr-4 hidePro" label="Hide product">
-                </p-checkbox>
-                <p-checkbox
-                    formControlName="is_default_product"
-                    binary="true "
-                    class="setDefaultPro"
-                    label="Set as default product"
-                >
-                </p-checkbox>
-            </div>
-            <span
-                class="fnt-700 editBtn delete-weight-varient cursor-pointer align-items-center"
-                (click)="deleteWeightVarient(currentVarientIndex)"
-            >
-                <img src="assets/images/delete-varient.svg" alt="delete" /> Delete Weight Varient
-            </span>
-        </div>
-        <div
-            formArrayName="grind_variants"
-            *ngFor="
-                let grind_varient of weightForm['controls']['weights']['controls'][currentVarientIndex]['controls'][
-                    'grind_variants'
-                ]['controls'];
-                let i = index;
-                last as isLast
-            "
-        >
-            <div [formGroupName]="i" class="row gutter-16 gutter-lg-16 mt-2">
-                <div class="col-sm-12 col-md-4 col-lg-3 col-xl-3 sewn-form-field w-100 mb-4 mb-lg-3">
-                    <label>Price<span class="star">*</span></label>
-                    <div class="weightInputGroupDiv d-flex inputFieldBox">
-                        <div class="daysInputDiv">
-                            <span>$</span>
-                        </div>
-                        <div>
-                            <input type="number" class="weightInputDiv" formControlName="price" pInputText />
-                            <small
-                                *ngIf="grind_varient['controls']['price'].errors?.required"
-                                class="position-absolute p-error"
-                            >
-                                Required
-                            </small>
-                        </div>
+                        <small
+                            *ngIf="
+                                weightForm['controls']['weights']['controls'][currentVarientIndex]['controls']['weight']
+                                    .errors?.required
+                            "
+                            class="position-absolute p-error"
+                        >
+                            {{ 'required' | translate }}
+                        </small>
                     </div>
                 </div>
-                <div
-                    class="col-sm-12 col-md-4 col-lg-3 col-xl-3 sewn-form-field w-100 mb-4 mb-lg-3 mr-sm-0 mr-md-4 mr-lg-0"
-                >
-                    <label>Grind<span class="star">*</span></label>
+                <div class="col-12 col-md-4 col-lg-3 sewn-form-field">
+                    <label>{{ 'status' | translate }}<span class="star">*</span></label>
                     <p-dropdown
-                        [options]="grindArray"
+                        [options]="statusArray"
                         optionLabel="label"
-                        placeholder="Please select the grind varient"
-                        [style]="{ width: '100%' }"
-                        formControlName="grind"
+                        placeholder=""
+                        styleClass="w-100"
+                        formControlName="status"
                         optionValue="value"
-                        class="inputFieldBox"
                     ></p-dropdown>
-                    <small *ngIf="grind_varient['controls']['grind'].errors?.required" class="p-error">
-                        Required
+                    <small
+                        *ngIf="
+                            weightForm['controls']['weights']['controls'][currentVarientIndex]['controls']['status']
+                                .errors?.required
+                        "
+                        class="p-error"
+                    >
+                        {{ 'required' | translate }}
                     </small>
                 </div>
-                <div class="col-sm-12 col-md-4 col-lg-3 col-xl-3 sewn-form-field w-100 mb-4 mb-lg-3">
-                    <label>Stock Available<span class="star">*</span></label>
+                <p-divider type="dashed" class="col-12 d-md-none" styleClass="mt-2 mb-4"></p-divider>
+                <div
+                    class="col-12 col-md-4 col-lg-6 d-none d-md-flex mb-4 justify-content-end justify-content-lg-start align-items-lg-end flex-column flex-lg-row pl-3"
+                >
+                    <p-checkbox
+                        formControlName="is_public"
+                        binary="true"
+                        class="mr-4 mb-3 mb-lg-0"
+                        label="Hide product"
+                    >
+                    </p-checkbox>
+                    <p-checkbox formControlName="is_default_product" binary="true " label="Set as default product">
+                    </p-checkbox>
+                </div>
+                <span
+                    class="fnt-700 delete-weight-varient cursor-pointer align-items-center d-none d-lg-flex"
+                    (click)="deleteWeightVarient(currentVarientIndex)"
+                >
+                    <img src="assets/images/delete-varient.svg" alt="delete" />
+                    {{ 'delete_weight_varient' | translate }}
+                </span>
+            </div>
+            <div
+                formArrayName="grind_variants"
+                *ngFor="
+                    let grind_varient of weightForm['controls']['weights']['controls'][currentVarientIndex]['controls'][
+                        'grind_variants'
+                    ]['controls'];
+                    let i = index;
+                    last as isLast
+                "
+            >
+                <div [formGroupName]="i" class="row gutter-16">
+                    <div class="col-12 col-md-4 col-lg-3 sewn-form-field mb-3 mb-lg-4">
+                        <label>{{ 'price' | translate }}<span class="star">*</span></label>
+                        <div class="border-primary br-4 d-flex">
+                            <div class="daysInputDiv">
+                                <span>$</span>
+                            </div>
+                            <div>
+                                <input type="number" class="weightInputDiv" formControlName="price" pInputText />
+                                <small
+                                    *ngIf="grind_varient['controls']['price'].errors?.required"
+                                    class="position-absolute p-error"
+                                >
+                                    {{ 'required' | translate }}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-lg-3 sewn-form-field mr-md-4 mr-lg-0 mb-3 mb-lg-4">
+                        <label>{{ 'grind' | translate }}<span class="star">*</span></label>
+                        <p-dropdown
+                            [options]="grindArray"
+                            optionLabel="label"
+                            placeholder="Please select the grind varient"
+                            styleClass="w-100"
+                            formControlName="grind"
+                            optionValue="value"
+                        ></p-dropdown>
+                        <small *ngIf="grind_varient['controls']['grind'].errors?.required" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-lg-3 sewn-form-field mb-3 mb-lg-4">
+                        <label>{{ 'stock_available' | translate }}<span class="star">*</span></label>
 
-                    <div class="p-inputgroup custom-addon dropdownClass inputFieldBox">
-                        <p-inputNumber formControlName="available_quantity"></p-inputNumber>
-                        <span class="p-inputgroup-addon">
+                        <div class="input-and-select gray">
+                            <input type="number" pInputText formControlName="available_quantity" />
                             <p-dropdown
                                 [options]="quantityTypeArray"
                                 optionLabel="label"
                                 placeholder=""
-                                [style]="{ width: '100%', height: '40px', border: '0px', background: '#f8f8f8' }"
                                 formControlName="available_quantity_type"
                                 optionValue="value"
                             ></p-dropdown>
-                        </span>
-                        <small
-                            *ngIf="grind_varient['controls']['available_quantity'].errors?.required"
-                            class="position-absolute p-error"
-                        >
-                            Required
+                            <small
+                                *ngIf="grind_varient['controls']['available_quantity'].errors?.required"
+                                class="position-absolute p-error"
+                            >
+                                {{ 'required' | translate }}
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-lg-2 sewn-form-field mb-3 mb-lg-4">
+                        <label>{{ 'sku_number' | translate }}<span class="star">*</span></label>
+                        <input type="text" formControlName="sku_number" pInputText />
+                        <small *ngIf="grind_varient['controls']['sku_number'].errors?.required" class="p-error">
+                            {{ 'required' | translate }}
                         </small>
                     </div>
-                </div>
-                <div class="col-sm-12 col-md-4 col-lg-2 col-xl-2 sewn-form-field w-100 mb-4 mb-lg-3">
-                    <label>SKU number<span class="star">*</span></label>
-                    <input type="text" formControlName="sku_number" class="inputFieldBox" pInputText />
-                    <small *ngIf="grind_varient['controls']['sku_number'].errors?.required" class="p-error">
-                        Required
-                    </small>
-                </div>
-                <div
-                    class="col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1 sewn-form-field pl-md-0 pl-lg-2 checkBoxDiv mb-3"
-                    *ngIf="i != 0 || !isLast"
-                >
-                    <span
-                        class="fnt-700 editBtn cursor-pointer delBtn"
+                    <div
+                        class="col-12 col-md-1 sewn-form-field pl-md-0 pl-lg-2 justify-content-end"
                         *ngIf="i != 0 || !isLast"
-                        (click)="deleteGrindVariant(i)"
                     >
-                        Delete
-                    </span>
+                        <span
+                            class="fnt-700 editBtn cursor-pointer mb-2"
+                            *ngIf="i != 0 || !isLast"
+                            (click)="deleteGrindVariant(i)"
+                        >
+                            {{ 'delete' | translate }}
+                        </span>
+                    </div>
+                    <p-divider type="dashed" class="col-12" styleClass="mt-2 mb-3 mb-md-4 d-lg-none"></p-divider>
+                    <div *ngIf="isLast" class="col-12">
+                        <img src="assets/images/add-partner.svg" />
+                        <span
+                            class="ml-2 fnt-muli fnt-700 fnt-14 editBtn cursor-pointer"
+                            (click)="addNewGrindVarients()"
+                        >
+                            {{ 'add_grind_variant' | translate }}
+                        </span>
+                    </div>
+                    <p-divider type="dashed" class="col-12" styleClass="mt-3 mb-0 d-md-none"></p-divider>
                 </div>
-                <div *ngIf="isLast" class="col-12 mt-md-0 mt-1 mb-1">
-                    <div class="divSeperator d-lg-none d-md-block d-sm-block d-block mx-md-2"></div>
-                    <img src="assets/images/add-partner.svg" />
-                    <span class="ml-2 fnt-muli fnt-700 fnt-14 editBtn cursor-pointer" (click)="addNewGrindVarients()">
-                        Add a grind variant
-                    </span>
-                </div>
-                <div class="divSeperator d-lg-none d-md-none d-md-none d-sm-block d-block"></div>
             </div>
-        </div>
-        <div class="row gutter-16 gutter-lg-24 imagePaddingDiv">
-            <div class="col-12 fnt-14 fnt-md-16 fnt-muli fnt-700 black mt-3 mt-lg-4 mb-3">Add Images</div>
-            <div
-                class="col-12 add-image-flex upload-feature-image d-flex d-sm-flex d-md-none d-lg-flex row gutter-16 gutter-lg-24"
-            >
-                <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
-                    <label class="text-nowrap">Upload Feature Image<span class="star">*</span></label>
-                    <div
-                        *ngIf="
-                            !weightForm['controls']['weights']['controls'][currentVarientIndex]['value']['fileDetails']
-                        "
-                        class="addImageContainer d-flex align-items-center justify-content-center imagesDiv"
-                    >
-                        <label class="d-flex align-items-center justify-content-center pointer-item">
-                            <input
-                                type="file"
-                                accept="image/png, image/jpeg"
-                                style="display: none"
-                                #featureImage
-                                (change)="handleRoasterFile($event, 0, 'featured_image')"
-                            />
-                            <div class="d-flex flex-wrap align-items-center justify-content-center">
-                                <img src="assets/images/upload_icon.svg" />
-                                <span class="d-none d-sm-none d-md-block secondary_txt dragColor mt-2 px-1"
-                                    >Drag and drop an image here or browse</span
-                                >
-                            </div>
-                        </label>
-                    </div>
-
-                    <div
-                        *ngIf="
-                            weightForm['controls']['weights']['controls'][currentVarientIndex]['value']['fileDetails']
-                        "
-                        class="addImageContainer imageContainer imagesDiv"
-                    >
-                        <div>
-                            <img
-                                [src]="
-                                    weightForm['controls']['weights']['controls'][currentVarientIndex]['value'][
-                                        'fileDetails'
-                                    ]['image_url']
-                                "
-                                alt=""
-                                class="uploadImg"
-                            />
-                        </div>
-
-                        <div class="imageLabel">
-                            <label class="mb-0 p-0.5">Image.png</label>
-                            <a
-                                class="menu-arrow float-right pointer"
-                                [popover]="documentTemplate2"
-                                placement="left"
-                                [outsideClick]="true"
-                                #pop="bs-popover"
-                            >
-                                <img class="img" src="assets/images/Ecom-Kebab-menu.svg" />
-                            </a>
-                            <ng-template #documentTemplate2>
-                                <div id="popover-mobile-content">
-                                    <ul class="list-group custom-popover">
-                                        <li *ngIf="false" class="list-group-item">
-                                            <a class="pointer-item">{{ globals.languageJson?.edit }} </a>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <a class="pointer-item" (click)="deleteImage(0, 'feature_image')">{{
-                                                globals.languageJson?.delete
-                                            }}</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </ng-template>
-                        </div>
-                    </div>
+            <div class="imagePaddingDiv mt-4 mt-lg-45">
+                <div class="fnt-16 fnt-muli fnt-700 text-clr334 mb-3">
+                    {{ 'add_images' | translate }}
                 </div>
-                <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 add-image-flex gutter-16 gutter-lg-24 px-1">
+                <div class="row gutter-16 gutter-lg-24 flex-nowrap overflow-auto pb-2 pb-md-25 pb-lg-3 w-100">
+                    <div class="col">
+                        <label class="text-nowrap"
+                            >{{ 'upload_feature_image' | translate }}<span class="star">*</span></label
+                        >
+                        <div
+                            *ngIf="
+                                !weightForm['controls']['weights']['controls'][currentVarientIndex]['value'][
+                                    'fileDetails'
+                                ]
+                            "
+                            class="addImageContainer d-flex align-items-center justify-content-center imagesDiv"
+                        >
+                            <label class="d-flex align-items-center justify-content-center pointer-item">
+                                <input
+                                    type="file"
+                                    accept="image/png, image/jpeg"
+                                    style="display: none"
+                                    #featureImage
+                                    (change)="handleRoasterFile($event, 0, 'featured_image')"
+                                />
+                                <div class="d-flex flex-wrap align-items-center justify-content-center">
+                                    <img src="assets/images/upload_icon.svg" />
+                                    <span class="d-none d-sm-none d-md-block secondary_txt text-clrab mt-2 px-1">{{
+                                        'drag_drop_image' | translate
+                                    }}</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div
+                            *ngIf="
+                                weightForm['controls']['weights']['controls'][currentVarientIndex]['value'][
+                                    'fileDetails'
+                                ]
+                            "
+                            class="addImageContainer imageContainer imagesDiv"
+                        >
+                            <div>
+                                <img
+                                    [src]="
+                                        weightForm['controls']['weights']['controls'][currentVarientIndex]['value'][
+                                            'fileDetails'
+                                        ]['image_url']
+                                    "
+                                    alt=""
+                                    class="uploadImg"
+                                />
+                            </div>
+
+                            <div class="imageLabel">
+                                <label class="mb-0 p-0.5">Image.png</label>
+                                <a
+                                    class="menu-arrow float-right pointer"
+                                    [popover]="documentTemplate2"
+                                    placement="left"
+                                    [outsideClick]="true"
+                                    #pop="bs-popover"
+                                >
+                                    <img class="img" src="assets/images/Ecom-Kebab-menu.svg" />
+                                </a>
+                                <ng-template #documentTemplate2>
+                                    <div id="popover-mobile-content">
+                                        <ul class="list-group custom-popover">
+                                            <li *ngIf="false" class="list-group-item">
+                                                <a class="pointer-item">{{ globals.languageJson?.edit }} </a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <a class="pointer-item" (click)="deleteImage(0, 'feature_image')">{{
+                                                    globals.languageJson?.delete
+                                                }}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
                     <div
-                        class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 sewn-form-field w-100 pl-2 pr-2 pr-lg-3"
+                        class="col"
                         *ngFor="
                             let product_image of weightForm['controls']['weights']['controls'][currentVarientIndex][
                                 'value'
@@ -339,7 +345,7 @@
                             let m = index
                         "
                     >
-                        <label>Product images<span class="star">*</span></label>
+                        <label>{{ 'product_images' | translate }}<span class="star">*</span></label>
                         <div
                             *ngIf="!product_image['fileDetails']"
                             class="addImageContainer d-flex align-items-center justify-content-center productImagesDiv"
@@ -354,9 +360,9 @@
                                 />
                                 <div class="d-flex flex-wrap align-items-center justify-content-center">
                                     <img src="assets/images/upload_icon.svg" />
-                                    <span class="d-none d-sm-none d-md-block secondary_txt dragColor mt-2 px-1"
-                                        >Drag and drop an image here or browse</span
-                                    >
+                                    <span class="d-none d-sm-none d-md-block secondary_txt text-clrab mt-2 px-1">{{
+                                        'drag_drop_image' | translate
+                                    }}</span>
                                 </div>
                             </label>
                         </div>
@@ -396,146 +402,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-12 add-image-flex d-none d-sm-none d-md-flex d-lg-none">
-                <div class="col-md-4 sewn-form-field w-100 p-0 pr-3 pr-lg-4">
-                    <label>Upload Feature Image<span class="star">*</span></label>
-                    <div
-                        *ngIf="
-                            !weightForm['controls']['weights']['controls'][currentVarientIndex]['value']['fileDetails']
-                        "
-                        class="addImageContainer d-flex align-items-center justify-content-center"
-                    >
-                        <label class="d-flex align-items-center justify-content-center pointer-item">
-                            <input
-                                type="file"
-                                accept="image/png, image/jpeg"
-                                style="display: none"
-                                #featureImage
-                                (change)="handleRoasterFile($event, 0, 'featured_image')"
-                            />
-                            <div class="d-flex flex-wrap align-items-center justify-content-center">
-                                <img src="assets/images/upload_icon.svg" />
-                                <span class="d-none d-sm-none d-md-block secondary_txt dragColor mt-2 px-1"
-                                    >Drag and drop an image here or browse</span
-                                >
-                            </div>
-                        </label>
-                    </div>
-
-                    <div
-                        *ngIf="
-                            weightForm['controls']['weights']['controls'][currentVarientIndex]['value']['fileDetails']
-                        "
-                        class="addImageContainer imageContainer"
-                    >
-                        <div>
-                            <img
-                                [src]="
-                                    weightForm['controls']['weights']['controls'][currentVarientIndex]['value'][
-                                        'fileDetails'
-                                    ]['image_url']
-                                "
-                                alt=""
-                                class="uploadImg"
-                            />
-                        </div>
-
-                        <div class="imageLabel">
-                            <label class="mb-0 p-0.5">Image.png</label>
-                            <a
-                                class="menu-arrow float-right pointer"
-                                [popover]="documentTemplate2"
-                                placement="left"
-                                [outsideClick]="true"
-                                #pop="bs-popover"
-                            >
-                                <img class="img" src="assets/images/Ecom-Kebab-menu.svg" />
-                            </a>
-                            <ng-template #documentTemplate2>
-                                <div id="popover-mobile-content">
-                                    <ul class="list-group custom-popover">
-                                        <li *ngIf="false" class="list-group-item">
-                                            <a class="pointer-item">{{ globals.languageJson?.edit }} </a>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <a class="pointer-item" (click)="deleteImage(0, 'feature_image')">{{
-                                                globals.languageJson?.delete
-                                            }}</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </ng-template>
-                        </div>
-                    </div>
-                </div>
-                <!--  <div class="col-md-12 add-image-flex"> -->
-                <div
-                    class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 pl-0 pr-3 pr-lg-4 sewn-form-field w-100"
-                    *ngFor="
-                        let product_image of weightForm['controls']['weights']['controls'][currentVarientIndex][
-                            'value'
-                        ]['product_images'];
-                        let m = index
-                    "
-                >
-                    <label>Product images<span class="star">*</span></label>
-                    <div
-                        *ngIf="!product_image['fileDetails']"
-                        class="addImageContainer d-flex align-items-center justify-content-center"
-                    >
-                        <label class="d-flex align-items-center justify-content-center pointer-item">
-                            <input
-                                type="file"
-                                accept="image/png, image/jpeg"
-                                style="display: none"
-                                #featureImage
-                                (change)="handleRoasterFile($event, m, 'product_image')"
-                            />
-                            <div class="d-flex flex-wrap align-items-center justify-content-center">
-                                <img src="assets/images/upload_icon.svg" />
-                                <span class="d-none d-sm-none d-md-block secondary_txt dragColor mt-2 px-1"
-                                    >Drag and drop an image here or browse</span
-                                >
-                            </div>
-                        </label>
-                    </div>
-                    <div *ngIf="product_image['fileDetails']" class="addImageContainer imageContainer">
-                        <div>
-                            <img [src]="product_image['fileDetails']['image_url']" alt="" class="uploadImg" />
-                        </div>
-                        <div class="imageLabel">
-                            <label class="mb-0 p-0.5">Image.png</label>
-                            <a
-                                class="menu-arrow float-right pointer"
-                                [popover]="documentTemplate2"
-                                placement="left"
-                                [outsideClick]="true"
-                                #pop="bs-popover"
-                            >
-                                <img class="img" src="assets/images/Ecom-Kebab-menu.svg" />
-                            </a>
-                            <ng-template #documentTemplate2>
-                                <div id="popover-mobile-content">
-                                    <ul class="list-group custom-popover">
-                                        <li *ngIf="false" class="list-group-item">
-                                            <a class="pointer-item">{{ globals.languageJson?.edit }} </a>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <a class="pointer-item" (click)="deleteImage(m, 'product_image')">{{
-                                                globals.languageJson?.delete
-                                            }}</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </ng-template>
-                        </div>
-                    </div>
-                </div>
-                <!-- </div> -->
-            </div>
-            <div class="col-12 col-12 mt-lg-2 mt-3 mb-lg-4">
-                <button type="button" (click)="uploadImages()" class="btn btn-stroked">Update</button>
+                <button type="button" (click)="uploadImages()" class="btn-stroked mt-2 mt-md-25 mt-lg-3">
+                    {{ 'update' | translate }}
+                </button>
             </div>
         </div>
     </div>
