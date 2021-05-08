@@ -78,7 +78,7 @@
     border: none !important;
 }
 .weightInputDivKg {
-    width: 130px;
+    width: 132px;
 }
 .weightInputDivKg,
 .daysInputDiv {
@@ -121,6 +121,7 @@
 
 .right_angle {
     background-color: $white !important;
+    padding: 0.75rem !important;
 }
 
 .right_angle i {
@@ -128,4 +129,20 @@
 }
 .pi-star {
     color: #ffc107;
+}
+.p-calendar .p-button-icon {
+    font-size: 22px;
+}
+@media (max-width: 767px) {
+    .breadcrumb-container {
+        overflow-x: scroll;
+    }
+}
+@media (min-width: 992px) {
+    .copy-link button {
+        padding: 15px 40px;
+    }
+    .copy-link input {
+        padding: 14px;
+    }
 }

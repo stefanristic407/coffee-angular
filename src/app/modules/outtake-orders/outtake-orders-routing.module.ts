@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from '@guards';
 import { AddNewOrderComponent } from './add-new-order/add-new-order.component';
 import { OuttakeOrdersComponent } from './outtake-orders.component';
 
@@ -10,6 +9,7 @@ const routes: Routes = [
         component: OuttakeOrdersComponent,
     },
     { path: 'add-order', component: AddNewOrderComponent },
+    { path: 'view-order/:id', component: AddNewOrderComponent },
 ];
 
 @NgModule({

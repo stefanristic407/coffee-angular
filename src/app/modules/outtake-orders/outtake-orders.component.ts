@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { GlobalsService, PrimeTableService, RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { COUNTRY_LIST } from '@constants';
@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
     selector: 'app-outtake-orders',
     templateUrl: './outtake-orders.component.html',
     styleUrls: ['./outtake-orders.component.scss'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class OuttakeOrdersComponent implements OnInit {
     searchTerm;
@@ -213,7 +214,7 @@ export class OuttakeOrdersComponent implements OnInit {
     }
     onEdit(item) {
         let link = [];
-        link = [`/green-coffee-management/green-coffee-for-sale-details/${item.order_id}`];
+        link = [`/outtake-orders/view-order/${item.id}`];
         return link;
     }
     formatStatus(stringVal) {
