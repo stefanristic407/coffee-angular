@@ -82,21 +82,26 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
             { label: 'kg', value: 'kg' },
         ];
         this.grindArray = [
-            { label: 'Whole beans', value: 'beans' },
             { label: 'Extra Coarse', value: 'extra-coarse' },
             { label: 'Coarse', value: 'coarse' },
             { label: 'Medium Coarse', value: 'medium-coarse' },
             { label: 'Medium', value: 'medium' },
             { label: 'Fine', value: 'fine' },
+            { label: 'Extra Fine', value: 'extra-fine' },
         ];
     }
     onWeightChange(value) {
-        const weight = this.weightForm.get('weights') as FormArray;
-        if (weight.controls[this.currentVarientIndex]) {
+        const weights = this.weightForm.get('weights') as FormArray;
+        const weight = weights.controls[this.currentVarientIndex];
+        if (weight) {
+            weight.patchValue({
+                weight_name: `weight - ${value}${weight.value.weight_unit}`,
+            });
             const getObj = {
                 value,
-                product_weight_variant_id: weight.controls[this.currentVarientIndex].value.product_weight_variant_id,
-                unit: weight.controls[this.currentVarientIndex].value.weight_unit,
+                product_weight_variant_id: weight.value.product_weight_variant_id,
+                unit: weight.value.weight_unit,
+                variant_name: this.varientDetails.value.varient_name,
                 modify: true,
             };
             this.handleWeightCreate.emit(getObj);
@@ -104,11 +109,16 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
         this.createWeightVariantArray();
     }
     onWeightUnitChange() {
-        const weight = this.weightForm.get('weights') as FormArray;
+        const weights = this.weightForm.get('weights') as FormArray;
+        const weight = weights.controls[this.currentVarientIndex];
+        weight.patchValue({
+            weight_name: `weight - ${weight.value.weight}${weight.value.weight_unit}`,
+        });
         const getObj = {
-            value: weight.controls[this.currentVarientIndex].value.weight,
-            product_weight_variant_id: weight.controls[this.currentVarientIndex].value.product_weight_variant_id,
-            unit: weight.controls[this.currentVarientIndex].value.weight_unit,
+            value: weight.value.weight,
+            product_weight_variant_id: weight.value.product_weight_variant_id,
+            unit: weight.value.weight_unit,
+            variant_name: this.varientDetails.value.varient_name,
             modify: true,
         };
         this.handleWeightCreate.emit(getObj);
@@ -120,6 +130,7 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
             value: weight.controls[idx].value.weight,
             unit: weight.controls[idx].value.weight_unit,
             product_weight_variant_id: weight.controls[idx].value.product_weight_variant_id,
+            variant_name: this.varientDetails.value.varient_name,
             modify: false,
         };
         this.handleWeightCreate.emit(getObj);

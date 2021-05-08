@@ -160,18 +160,14 @@ export class ProductDetailsComponent implements OnInit {
                         },
                         { label: res.result.name },
                     ];
-                    const productFields = [
-                        'name',
-                        'purchase_type',
-                        'description',
-                        'is_public',
-                        'is_variants_included',
-                        'vat_setting_id',
-                        'is_price_including_vat',
-                    ];
-                    productFields.forEach((ele) => {
-                        const getValue = productDetails[ele];
-                        this.productForm.controls[ele].setValue(getValue);
+                    this.productForm.patchValue({
+                        name: productDetails.name,
+                        purchase_type: productDetails.purchase_type,
+                        description: productDetails.description,
+                        is_public: productDetails.is_public,
+                        is_variants_included: productDetails.is_variants_included,
+                        vat_setting_id: productDetails.vat_setting_id,
+                        is_price_including_vat: productDetails.is_price_including_vat,
                     });
                     this.productName = productDetails.name;
                     this.varients = this.productForm.get('varients') as FormArray;
@@ -179,8 +175,7 @@ export class ProductDetailsComponent implements OnInit {
 
                     let increment = 0;
                     this.allCrates = [];
-                    // tslint:disable-next-line: forin
-                    for (const key in res.result.variants) {
+                    for (const key of Object.keys(res.result.variants)) {
                         const getVariant = res.result.variants[key];
                         const coffeeBatchID = getVariant[0].weight_variants[0].rc_batch_id;
                         const getBatchDetails = this.roastedBatches.find((ele) => ele.id === coffeeBatchID);
@@ -208,21 +203,22 @@ export class ProductDetailsComponent implements OnInit {
                         varient.roaster_recommendation = getVariant[0].variant_details.roaster_recommendation;
                         varient.brewing_method = getVariant[0].variant_details.brewing_method;
                         const variantForm = this.fb.group(varient);
-                        const weight_variants = getVariant[0].weight_variants;
-                        weight_variants.forEach((ele) => {
+                        const weightVariants = getVariant[0].weight_variants;
+                        weightVariants.forEach((ele) => {
                             const getCrate = productDetails.crates.find(
                                 (item) => item.weight === ele.weight && ele.weight_unit === item.crate_unit,
                             );
                             if (getCrate) {
                                 getCrate.has_weight = true;
                                 getCrate.product_weight_variant_id = ele.product_weight_variant_id;
+                                getCrate.variant_name = `Varient ${key}`;
                                 this.allCrates.push(getCrate);
                             }
                         });
                         if (getBatchDetails) {
-                            const flavour_profile = getBatchDetails.flavour_profile;
-                            variantForm.controls.flavour_profile.setValue(flavour_profile);
-                            variantForm.controls.weight_variants.setValue(weight_variants);
+                            const flavourProfile = getBatchDetails.flavour_profile;
+                            variantForm.controls.flavour_profile.setValue(flavourProfile);
+                            variantForm.controls.weight_variants.setValue(weightVariants);
                         }
                         this.varients.push(variantForm);
                         if (getBatchDetails) {
@@ -233,15 +229,18 @@ export class ProductDetailsComponent implements OnInit {
                     }
                     this.crates = this.productForm.get('crates') as FormArray;
                     this.crates.removeAt(0);
-                    this.allCrates = productDetails.crates;
                     productDetails.crates.forEach((crate) => {
                         if (crate.has_weight) {
                             const crateForm = this.createEmptyCrate();
-                            crateForm.controls.weight.setValue(crate.weight);
-                            crateForm.controls.id.setValue(crate.id);
-                            crateForm.controls.weight_name.setValue(crate.weight + ' ' + crate.crate_unit);
-                            crateForm.controls.product_weight_variant_id.setValue(crate.product_weight_variant_id);
-                            crateForm.controls.crate_capacity.setValue(crate.crate_capacity);
+                            crateForm.patchValue({
+                                weight: crate.weight,
+                                crate_unit: crate.crate_unit,
+                                id: crate.id,
+                                weight_name: `${crate.weight} ${crate.crate_unit}`,
+                                product_weight_variant_id: crate.product_weight_variant_id,
+                                crate_capacity: crate.crate_capacity,
+                                variant_name: crate.variant_name,
+                            });
                             this.crates.push(crateForm);
                         }
                     });
@@ -259,6 +258,10 @@ export class ProductDetailsComponent implements OnInit {
         this.createTypeVariantArray();
     }
     removeVarient(index: any) {
+        const variantName = this.varients.controls[index].value.varient_name;
+        while (this.crates.value.find((item) => item.variant_name === variantName)) {
+            this.crates.removeAt(this.crates.value.findIndex((item) => item.variant_name === variantName));
+        }
         this.varients.removeAt(index);
     }
     removeVarientDrop(index: any) {
@@ -327,6 +330,7 @@ export class ProductDetailsComponent implements OnInit {
             weight_name: '0 lb',
             product_weight_variant_id: '',
             crate_capacity: ['', Validators.compose([Validators.required])],
+            variant_name: '',
         });
     }
     onWeightDelete(event) {
@@ -336,10 +340,13 @@ export class ProductDetailsComponent implements OnInit {
         this.crates = this.productForm.get('crates') as FormArray;
         if (!event.modify) {
             const getCrate = this.createEmptyCrate();
-            getCrate.controls.weight.setValue(event.value);
-            getCrate.controls.crate_unit.setValue(event.unit);
-            getCrate.controls.weight_name.setValue(event.value + ' ' + event.unit);
-            getCrate.controls.product_weight_variant_id.setValue(event.product_weight_variant_id);
+            getCrate.patchValue({
+                weight: event.value,
+                crate_unit: event.unit,
+                weight_name: `${event.value} ${event.unit}`,
+                product_weight_variant_id: event.product_weight_variant_id,
+                variant_name: event.variant_name,
+            });
             this.crates.push(getCrate);
         } else {
             const getObj = this.crates.value.find(
@@ -425,7 +432,7 @@ export class ProductDetailsComponent implements OnInit {
             const getWeightArray = variantForm.weights;
             const getVarientDetails = child.varientDetails.value;
             getWeightArray.forEach((weight, index) => {
-                const weightObj = weight;
+                const weightObj = Object.assign({}, weight);
                 weightObj.featured_image_id = weight.featured_image_id ? weight.featured_image_id : undefined;
                 const productImagesArray = [];
                 if (weightObj && weightObj.product_images) {
