@@ -19,10 +19,13 @@
                             <input
                                 pInputText
                                 class="roastery-website-input border"
-                                formControlName="productName"
+                                [formControl]="addOrdersForm.controls['product_name']"
                                 type="text"
                                 pInputText
                             />
+                            <small *ngIf="addOrdersForm.controls['product_name'].errors?.required" class="p-error">
+                                Required
+                            </small>
                         </div>
                     </div>
                     <div class="col pl-2">
@@ -30,7 +33,15 @@
                             <div>
                                 <label>Date Placed<span class="text-clr-e5a">*</span></label>
                             </div>
-                            <p-calendar [(ngModel)]="date3" [showIcon]="true" inputId="icon"></p-calendar>
+                            <p-calendar
+                                [(ngModel)]="date3"
+                                [formControl]="addOrdersForm.controls['order_date']"
+                                [showIcon]="true"
+                                inputId="icon"
+                            ></p-calendar>
+                            <small *ngIf="addOrdersForm.controls['order_date'].errors?.required" class="p-error">
+                                Required
+                            </small>
                         </div>
                     </div>
                 </div>
@@ -49,10 +60,11 @@
                                         pInputText
                                         class="roastery-website-input border weightInputDiv"
                                         type="text"
+                                        [formControl]="addOrdersForm.controls['order_id']"
                                         pInputText
                                     />
                                 </div>
-                                <div class="daysInputDiv right_angle">
+                                <div class="daysInputDiv fnt-14 fnt-600 fnt-muli text-clr334 right_angle">
                                     <i (click)="showOrderPanel = true" class="pi pi-angle-right fnt-20"></i>
                                 </div>
                             </div>
@@ -63,7 +75,13 @@
                             <div>
                                 <label>Roaster ref no</label>
                             </div>
-                            <p-calendar [(ngModel)]="date3" [showIcon]="true" inputId="icon"></p-calendar>
+                            <input
+                                pInputText
+                                class="roastery-website-input border"
+                                type="text"
+                                [formControl]="addOrdersForm.controls['roaster_ref_no']"
+                                pInputText
+                            />
                         </div>
                     </div>
                 </div>
@@ -73,7 +91,20 @@
                             <div>
                                 <label>Order created by</label>
                             </div>
-                            <input pInputText class="roastery-website-input border" type="text" pInputText />
+                            <div class="weightInputGroupDiv d-flex inputFieldBox">
+                                <div class="w-100">
+                                    <input
+                                        pInputText
+                                        class="roastery-website-input border weightInputDiv"
+                                        [formControl]="addOrdersForm.controls['order_created_by']"
+                                        type="text"
+                                        pInputText
+                                    />
+                                </div>
+                                <div class="daysInputDiv fnt-14 fnt-600 fnt-muli text-clr334 right_angle">
+                                    <i class="pi pi-angle-right fnt-20"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col pl-2">
@@ -81,7 +112,27 @@
                             <div>
                                 <label>Select the sales member for the order<span class="text-clr-e5a">*</span></label>
                             </div>
-                            <p-calendar [(ngModel)]="date3" [showIcon]="true" inputId="icon"></p-calendar>
+                            <div class="weightInputGroupDiv d-flex inputFieldBox">
+                                <div class="w-100">
+                                    <input
+                                        pInputText
+                                        class="roastery-website-input border weightInputDiv"
+                                        type="text"
+                                        placeholder="Select a team member"
+                                        [formControl]="addOrdersForm.controls['sales_member_id']"
+                                        pInputText
+                                    />
+                                </div>
+                                <div class="daysInputDiv fnt-14 fnt-600 fnt-muli text-clr334 right_angle">
+                                    <i class="pi pi-angle-right fnt-20"></i>
+                                </div>
+                                <small
+                                    *ngIf="addOrdersForm.controls['sales_member_id'].errors?.required"
+                                    class="p-error"
+                                >
+                                    Required
+                                </small>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -90,7 +141,7 @@
                     <div class="fnt-14 fnt-400 text-clr334 fnt-muli mb-3">Select the green coffee order</div>
                 </div>
                 <div class="row padd-2r">
-                    <div class="col pl-3">
+                    <div class="col-6 pl-3">
                         <div class="sewn-form-field mb-0 w-100">
                             <div>
                                 <label>Select the type of customer<span class="text-clr-e5a">*</span></label>
@@ -98,26 +149,42 @@
                             <p-dropdown
                                 [options]="customerTypeArray"
                                 optionLabel="label"
-                                placeholder="Partner"
-                                formControlName="typeOfCustomer"
+                                placeholder="Select the type of customer"
+                                [formControl]="addOrdersForm.controls['customer_type']"
                                 optionValue="value"
                                 (onChange)="customerTypeChange($event)"
                             ></p-dropdown>
-                            <small *ngIf="addOrdersForm.controls['typeOfCustomer'].errors?.required" class="p-error">
-                                {{ 'required' | translate }}
+                            <small *ngIf="addOrdersForm.controls['customer_type'].errors?.required" class="p-error">
+                                Required
                             </small>
                         </div>
                     </div>
-                    <div class="col pl-2">
+                    <div *ngIf="typeOfCustomer === 'micro_roaster' || typeOfCustomer === 'partner'" class="col pl-2">
                         <div class="sewn-form-field mb-0 w-100">
                             <div>
                                 <label>Customer name<span class="text-clr-e5a">*</span></label>
                             </div>
-                            <input pInputText class="roastery-website-input border" type="text" pInputText />
+                            <div class="weightInputGroupDiv d-flex inputFieldBox">
+                                <div class="w-100">
+                                    <input
+                                        pInputText
+                                        class="roastery-website-input border weightInputDiv"
+                                        type="text"
+                                        [formControl]="addOrdersForm.controls['customer_name']"
+                                        pInputText
+                                    />
+                                </div>
+                                <div class="daysInputDiv fnt-14 fnt-600 fnt-muli text-clr334 right_angle">
+                                    <i class="pi pi-angle-right fnt-20"></i>
+                                </div>
+                                <small *ngIf="addOrdersForm.controls['customer_name'].errors?.required" class="p-error">
+                                    Required
+                                </small>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div *ngIf="typeOfCustomer !== 'micro_roaster'" class="row padd-2r">
+                <div *ngIf="typeOfCustomer === 'partner'" class="row padd-2r">
                     <div class="col-6 pl-3">
                         <div class="sewn-form-field mb-0 w-100">
                             <div>
@@ -127,13 +194,14 @@
                                 pInputText
                                 class="roastery-website-input border"
                                 type="text"
+                                [formControl]="addOrdersForm.controls['company_type']"
                                 placeholder="Office"
                                 pInputText
                             />
                         </div>
                     </div>
                 </div>
-                <div class="row padd-2r">
+                <div *ngIf="typeOfCustomer === 'micro_roaster' || typeOfCustomer === 'partner'" class="row padd-2r">
                     <div class="col pl-3">
                         <div class="sewn-form-field mb-0 w-100">
                             <div>
@@ -144,19 +212,17 @@
                                     <input
                                         type="number"
                                         class="weightInputDiv"
-                                        formControlName="totalPrice"
+                                        [formControl]="addOrdersForm.controls['unit_price']"
+                                        placeholder="Price paid by the customer per kg"
                                         pInputText
                                     />
-                                    <!-- <small
-                                        *ngIf="grind_varient['controls']['price'].errors?.required"
-                                        class="position-absolute p-error"
-                                    >
-                                        Required
-                                    </small> -->
                                 </div>
                                 <div class="weightInputDivKg">
                                     <span>SEK / kg</span>
                                 </div>
+                                <small *ngIf="addOrdersForm.controls['unit_price'].errors?.required" class="p-error">
+                                    Required
+                                </small>
                             </div>
                         </div>
                     </div>
@@ -166,38 +232,33 @@
                                 <label>Total price paid by the customer<span class="text-clr-e5a">*</span></label>
                             </div>
                             <div class="weightInputGroupDiv d-flex inputFieldBox">
-                                <div class="daysInputDiv">
+                                <div class="daysInputDiv fnt-14 fnt-600 fnt-muli text-clr334">
                                     <span>$</span>
                                 </div>
                                 <div class="w-100">
                                     <input
                                         type="number"
                                         class="weightInputDiv"
-                                        formControlName="totalPrice"
+                                        [formControl]="addOrdersForm.controls['total_price']"
+                                        placeholder="Total price paid by the customer"
                                         pInputText
                                     />
-                                    <!-- <small
-                                        *ngIf="grind_varient['controls']['price'].errors?.required"
-                                        class="position-absolute p-error"
-                                    >
-                                        Required
-                                    </small> -->
                                 </div>
+                                <small *ngIf="addOrdersForm.controls['total_price'].errors?.required" class="p-error">
+                                    Required
+                                </small>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div *ngIf="typeOfCustomer !== 'micro_roaster'" class="row padd-2r mb-md-3">
+                <div *ngIf="typeOfCustomer === 'partner'" class="row padd-2r mb-md-3">
                     <div class="col pl-3">
                         <div class="sewn-form-field mb-0 w-100">
                             <div>
                                 <label>Total weight of coffee sold<span class="text-clr-e5a">*</span></label>
                             </div>
                             <div class="p-inputgroup custom-addon dropdownClass inputFieldBox">
-                                <p-inputNumber
-                                    formControlName="weight"
-                                    (onInput)="onWeightChange($event)"
-                                ></p-inputNumber>
+                                <p-inputNumber [formControl]="addOrdersForm.controls['weight']"></p-inputNumber>
                                 <span class="p-inputgroup-addon">
                                     <p-dropdown
                                         [options]="weightTypeArray"
@@ -209,21 +270,13 @@
                                             border: '0px',
                                             background: '#f8f8f8'
                                         }"
-                                        formControlName="weight_unit"
+                                        [formControl]="addOrdersForm.controls['weight_unit']"
                                         optionValue="value"
-                                        (onChange)="onWeightUnitChange()"
                                     ></p-dropdown>
                                 </span>
-                                <!-- <small
-                                    *ngIf="
-                                        weightForm['controls']['weights']['controls'][currentVarientIndex]['controls'][
-                                            'weight'
-                                        ].errors?.required
-                                    "
-                                    class="position-absolute p-error"
-                                >
+                                <small *ngIf="addOrdersForm.controls['weight'].errors?.required" class="p-error">
                                     Required
-                                </small> -->
+                                </small>
                             </div>
                         </div>
                     </div>
@@ -234,8 +287,7 @@
                             </div>
                             <div class="p-inputgroup custom-addon dropdownClass inputFieldBox">
                                 <p-inputNumber
-                                    formControlName="weight"
-                                    (onInput)="onWeightChange($event)"
+                                    [formControl]="addOrdersForm.controls['roasted_coffee_total_quantity']"
                                 ></p-inputNumber>
                                 <span class="p-inputgroup-addon">
                                     <p-dropdown
@@ -248,26 +300,21 @@
                                             border: '0px',
                                             background: '#f8f8f8'
                                         }"
-                                        formControlName="weight_unit"
+                                        [formControl]="addOrdersForm.controls['roasted_coffee_total_quantity_unit']"
                                         optionValue="value"
-                                        (onChange)="onWeightUnitChange()"
                                     ></p-dropdown>
                                 </span>
-                                <!-- <small
-                                    *ngIf="
-                                        weightForm['controls']['weights']['controls'][currentVarientIndex]['controls'][
-                                            'weight'
-                                        ].errors?.required
-                                    "
-                                    class="position-absolute p-error"
+                                <small
+                                    *ngIf="addOrdersForm.controls['roasted_coffee_total_quantity'].errors?.required"
+                                    class="p-error"
                                 >
                                     Required
-                                </small> -->
+                                </small>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div *ngIf="typeOfCustomer !== 'micro_roaster'" class="br_top">
+                <div *ngIf="typeOfCustomer === 'partner'" class="br_top">
                     <div class="d-flex flex-column padd-2r mt-md-3">
                         <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1">Order details</div>
                     </div>
@@ -282,6 +329,7 @@
                                     placeholder="Select the date roasted"
                                     [showIcon]="true"
                                     inputId="icon"
+                                    [formControl]="addOrdersForm.controls['roasted_date']"
                                 ></p-calendar>
                             </div>
                         </div>
@@ -295,7 +343,8 @@
                                 <input
                                     pInputText
                                     class="roastery-website-input border"
-                                    placeholder="Select the date roasted"
+                                    placeholder="Enter roast level"
+                                    [formControl]="addOrdersForm.controls['roast_level']"
                                     type="text"
                                     pInputText
                                 />
@@ -310,6 +359,7 @@
                                     pInputText
                                     class="roastery-website-input border"
                                     placeholder="Enter a roasting time"
+                                    [formControl]="addOrdersForm.controls['roasting_time']"
                                     type="text"
                                     pInputText
                                 />
@@ -326,6 +376,7 @@
                                     pInputText
                                     class="roastery-website-input border"
                                     placeholder="Enter the roasting temperature"
+                                    [formControl]="addOrdersForm.controls['roasting_temperature']"
                                     type="text"
                                     pInputText
                                 />
@@ -340,6 +391,7 @@
                                     pInputText
                                     class="roastery-website-input border"
                                     placeholder="Entrer the machine name used"
+                                    [formControl]="addOrdersForm.controls['machine_used']"
                                     type="text"
                                     pInputText
                                 />
@@ -357,6 +409,7 @@
                                     class="roastery-website-input border"
                                     placeholder="Total waste produced"
                                     type="text"
+                                    [formControl]="addOrdersForm.controls['waste_produced']"
                                     pInputText
                                 />
                             </div>
@@ -369,13 +422,32 @@
                             <div>
                                 <label>Green coffee quantity sold<span class="text-clr-e5a">*</span></label>
                             </div>
-                            <input
-                                pInputText
-                                class="roastery-website-input border"
-                                placeholder="Select a customer type"
-                                type="text"
-                                pInputText
-                            />
+                            <div class="p-inputgroup custom-addon dropdownClass inputFieldBox">
+                                <p-inputNumber
+                                    [formControl]="addOrdersForm.controls['gc_total_quantity']"
+                                ></p-inputNumber>
+                                <span class="p-inputgroup-addon">
+                                    <p-dropdown
+                                        [options]="weightTypeArray"
+                                        optionLabel="label"
+                                        placeholder=""
+                                        [style]="{
+                                            width: '100%',
+                                            height: '40px',
+                                            border: '0px',
+                                            background: '#f8f8f8'
+                                        }"
+                                        [formControl]="addOrdersForm.controls['gc_total_quantity_unit']"
+                                        optionValue="value"
+                                    ></p-dropdown>
+                                </span>
+                                <small
+                                    *ngIf="addOrdersForm.controls['gc_total_quantity'].errors?.required"
+                                    class="p-error"
+                                >
+                                    Required
+                                </small>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -389,7 +461,7 @@
                                 [options]="preCleaned"
                                 optionLabel="label"
                                 placeholder="Yes"
-                                formControlName="preCleaned"
+                                [formControl]="addOrdersForm.controls['pre_cleaned']"
                                 optionValue="value"
                             ></p-dropdown>
                         </div>
@@ -403,14 +475,19 @@
                                 pInputText
                                 class="roastery-website-input border"
                                 placeholder="Total waste produced"
+                                [formControl]="addOrdersForm.controls['waste_produced']"
                                 type="text"
                                 pInputText
                             />
                         </div>
                     </div>
                 </div>
+                <div class="mt-md-4 mb-2">
+                    <button class="btn-stroked px-4 mr-3" (click)="location.back()">Cancel</button>
+                    <button class="btn-raised text-nowrap px-4" (click)="addOrderDetails()">Save</button>
+                </div>
             </div>
-            <div class="col-lg-5 col-md-12">
+            <div *ngIf="selectedOrderId !== ''" class="col-lg-5 col-md-12">
                 <div class="row ml-md-0 mr-md-0">
                     <div class="fnt-md-18 fnt-muli fnt-bold text-clr334 mb-4">Order details</div>
                     <div class="col-lg-12 bg-fa border-class p-45">
@@ -418,7 +495,7 @@
                             <div class="d-flex">
                                 <div class="img_circle mr-2 d-flex align-items-center">
                                     <img
-                                        src="{{ odrerDetails.estate_profile_image_thumbnail_url }}"
+                                        src="{{ orderDetails?.estate_profile_image_thumbnail_url }}"
                                         width="40"
                                         height="40"
                                         alt=""
@@ -426,10 +503,10 @@
                                 </div>
                                 <div>
                                     <div class="fnt-14 fnt-muli fnt-bold text-clr334">
-                                        {{ odrerDetails.estate_owner }}
+                                        {{ orderDetails?.estate_owner }}
                                     </div>
                                     <div class="fnt-14 fnt-muli fnt-bold text-clr588">
-                                        {{ odrerDetails.estate_name }}
+                                        {{ orderDetails?.estate_name }}
                                     </div>
                                 </div>
                             </div>
@@ -442,27 +519,27 @@
                             <ul class="clearfix">
                                 <li>
                                     <label>Order Id: </label>
-                                    <p>{{ odrerDetails.id }}</p>
+                                    <p>{{ orderDetails?.id }}</p>
                                 </li>
                                 <li>
                                     <label>{{ 'origin' | translate }}:</label>
-                                    <p>{{ odrerDetails.origin }}</p>
+                                    <p>{{ orderDetails?.origin }}</p>
                                 </li>
                                 <li>
                                     <label>{{ 'variety' | translate }}:</label>
-                                    <p>{{ odrerDetails.varieties }}kg</p>
+                                    <p>{{ orderDetails?.varieties }}kg</p>
                                 </li>
                                 <li>
                                     <label>{{ 'price' | translate }}:</label>
-                                    <p>${{ odrerDetails.price }}USD/kg</p>
+                                    <p>${{ orderDetails?.price }}USD/kg</p>
                                 </li>
                                 <li>
                                     <label>{{ 'quantity' | translate }}</label>
-                                    <p>{{ odrerDetails.quantity }}kg</p>
+                                    <p>{{ orderDetails?.quantity }}kg</p>
                                 </li>
                                 <li>
                                     <label>Remaining Quantity :</label>
-                                    <p>{{ odrerDetails.remaining_total_quantity }}kg</p>
+                                    <p>{{ orderDetails?.remaining_total_quantity }}kg</p>
                                 </li>
                             </ul>
                         </div>
@@ -477,7 +554,7 @@
                             <div class="d-flex br_left">
                                 <div class="pl-3 pr-2 img_circle d-flex align-items-center">
                                     <img
-                                        src="{{ odrerDetails.roaster_profile_image_thumbnail_url }}"
+                                        src="{{ orderDetails?.roaster_profile_image_thumbnail_url }}"
                                         width="40"
                                         height="40"
                                         alt=""
@@ -485,10 +562,10 @@
                                 </div>
                                 <div>
                                     <div class="fnt-md-16 fnt-14 fnt fnt-muli fnt-bold text-clr334 mb-2">
-                                        {{ odrerDetails.roaster_owner }}
+                                        {{ orderDetails?.roaster_owner }}
                                     </div>
                                     <div class="fnt-md-14 fnt-muli fnt-bold text-clr588">
-                                        {{ odrerDetails.roaster_name }}
+                                        {{ orderDetails?.roaster_name }}
                                     </div>
                                 </div>
                             </div>
@@ -594,10 +671,6 @@
                         </p>
                     </div>
                 </div>
-            </div>
-            <div class="mt-md-4 mb-2">
-                <button class="btn-stroked px-4 mr-3" (click)="location.back()">Cancel</button>
-                <button class="btn-raised text-nowrap px-4" (click)="addOrderDetails()">Save</button>
             </div>
         </div>
     </section>

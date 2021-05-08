@@ -216,18 +216,6 @@ export class OuttakeOrdersComponent implements OnInit {
         link = [`/green-coffee-management/green-coffee-for-sale-details/${item.order_id}`];
         return link;
     }
-    lotSaleReirection(item) {
-        // if (item.status !== 'SOLD') {
-        //     const navigationExtras: NavigationExtras = {
-        //         queryParams: {
-        //             orderId: encodeURIComponent(item.order_id),
-        //         },
-        //     };
-        //     this.router.navigate(['/green-coffee-management/lot-sale'], navigationExtras);
-        // } else {
-        //     this.toastrService.error('Cannot Edit! ,The item is already been sold');
-        // }
-    }
     formatStatus(stringVal) {
         let formatVal = '';
         if (stringVal) {
@@ -237,7 +225,6 @@ export class OuttakeOrdersComponent implements OnInit {
         return formatVal.replace('-', '');
     }
     deleteProductFromList(deleteId) {
-        console.log(deleteId);
         this.roasterService.deleteOuttakeOrders(this.roasterId, deleteId).subscribe(
             (response) => {
                 if (response && response.success) {
@@ -246,7 +233,6 @@ export class OuttakeOrdersComponent implements OnInit {
             },
             (err) => {
                 this.toastrService.error('Error while deleting the order');
-                console.log(err);
             },
         );
     }

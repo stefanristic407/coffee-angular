@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RoasterserviceService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { Location } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-add-new-order',
@@ -22,34 +23,37 @@ export class AddNewOrderComponent implements OnInit {
     customerTypeArray: any = [];
     preCleaned: any = [];
     addOrdersForm: FormGroup;
-    typeOfCustomer = 'partner';
+    typeOfCustomer: any;
     weightTypeArray: { label: string; value: string }[];
     orderId = 10;
     hrcId: any;
     date3: any;
-    odrerDetails: any;
+    orderDetails: any;
     outtakeOrderId: any;
-    selectedOrderId: any;
+    selectedOrderId = '';
     selectedOrderType: any;
     coffeeExperienceLink: any;
+    customerDetails: any;
     constructor(
         private roasterService: RoasterserviceService,
         private cookieService: CookieService,
         private fb: FormBuilder,
         public location: Location,
         private userService: UserserviceService,
+        private toaster: ToastrService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
     }
 
     ngOnInit(): void {
+        console.log(this.selectedOrderId);
         this.customerTypeArray = [
             { label: 'Partner', value: 'partner' },
             { label: 'Micro Roaster', value: 'micro_roaster' },
         ];
         this.preCleaned = [
-            { label: 'Yes', value: 'yes' },
-            { label: 'No', value: 'no' },
+            { label: 'Yes', value: true },
+            { label: 'No', value: false },
         ];
         this.weightTypeArray = [
             { label: 'lb', value: 'lb' },
@@ -57,18 +61,38 @@ export class AddNewOrderComponent implements OnInit {
         ];
         this.addOrdersForm = this.fb.group({
             product_name: ['', [Validators.required]],
-            order_date: [''],
-            order_id: [''],
+            order_date: ['', [Validators.required]],
+            order_id: ['', [Validators.required]],
             roaster_ref_no: [''],
-            typeOfCustomer: ['', [Validators.required]],
-            preCleaned: [''],
-            totalPrice: [''],
+            company_type: [''],
+            order_created_by: [''],
+            sales_member_id: ['', [Validators.required]],
             weight: [''],
             weight_unit: [''],
+            customer_id: [''],
+            customer_name: ['', [Validators.required]],
+            customer_type: ['', [Validators.required]],
+            gc_total_quantity: [''],
+            gc_total_quantity_unit: [''],
+            rc_total_quantity: [''],
+            rc_total_quantity_unit: [''],
+            total_price: [''],
+            total_price_currency: [''],
+            unit_price: [''],
+            unit_currency: [''],
+            quantity_unit: [''],
+            roasted_coffee_total_quantity: [''],
+            roasted_coffee_total_quantity_unit: [''],
+            pre_cleaned: [''],
+            roaster_id: [''],
+            roasted_date: [''],
+            roast_level: [''],
+            roasting_time: [''],
+            roasting_temperature: [''],
+            machine_used: [''],
+            waste_produced: [''],
         });
-        this.getOrderDetails();
         this.getCustomerDetails();
-        this.getListOrderDetails();
         this.userService.getCoffeeStory(this.roasterId, this.orderId, 'mr-orders').subscribe((res: any) => {
             if (res.success) {
                 this.coffeeExperienceLink = res.result;
@@ -77,98 +101,44 @@ export class AddNewOrderComponent implements OnInit {
     }
 
     getOrderDetails() {
-        this.roasterService.getViewOrderDetails(this.roasterId, 1).subscribe((res) => {
-            this.odrerDetails = res.result;
+        this.roasterService.getViewOrderDetails(this.roasterId, this.selectedOrderId).subscribe((res) => {
+            this.orderDetails = res.result;
         });
     }
     getCustomerDetails() {
-        this.roasterService.getViewCustomerDetails(this.roasterId, 157).subscribe((res) => {
-            console.log(res);
-        });
-    }
-    getListOrderDetails() {
-        this.roasterService.getListOrderDetails(this.roasterId).subscribe((res) => {
-            console.log(res);
+        this.roasterService.getViewCustomerDetails(this.roasterId, this.hrcId).subscribe((res) => {
+            this.customerDetails = res.result;
         });
     }
     customerTypeChange(event) {
         this.typeOfCustomer = event.value;
     }
     addOrderDetails() {
-        const data = {
-            company_type: 'office',
-            customer_id: 5,
-            customer_name: 'HoReCa5 - ABC',
-            customer_type: 'hrc',
-            gc_total_quantity: 13,
-            gc_total_quantity_unit: 'kg',
-            id: 30,
-            order_date: '2021-05-04',
-            order_id: 201,
-            product_name: 'May EVEN outtake order ',
-            rc_total_quantity: 6,
-            rc_total_quantity_unit: 'kg',
-            roaster_id: 42,
-            total_price: 600,
-            total_price_currency: 'SEK',
-            roaster_ref_no: 43,
-            order_created_by: 42,
-            sales_member_id: 42,
-            unit_price: 200,
-            unit_currency: 'SEK',
-            quantity_unit: 'kg',
-            roasted_coffee_total_quantity: 200,
-            roasted_coffee_total_quantity_unit: 'kg',
-            pre_cleaned: true,
-            roasted_date: '2020-06-11',
-            roast_level: 2,
-            roasting_time: 50,
-            roasting_temperature: 100,
-            machine_used: 'machine1, machine2',
-        };
+        const data = this.addOrdersForm.value;
         this.roasterService.addOrderDetails(this.roasterId, data).subscribe((res) => {
-            console.log(res);
+            if (res.success) {
+                this.toaster.success('Outtake Order added successfully');
+            } else {
+                this.toaster.success('Unable to add the outtake order');
+            }
         });
     }
     updateOrderDetails() {
-        const data = {
-            product_name: 'Prod2',
-            order_date: '2020-06-11',
-            order_id: 123,
-            roaster_ref_no: 'ref1',
-            order_created_by: 1,
-            sales_member_id: 2,
-            customer_type: 'hrc',
-            customer_id: 2,
-            unit_price: 200,
-            unit_currency: 'SEK',
-            quantity_unit: 'kg',
-            total_price: 10000,
-            total_price_currency: 'SEK',
-            roasted_coffee_total_quantity: 200,
-            roasted_coffee_total_quantity_unit: 'kg',
-            gc_total_quantity: 200,
-            gc_total_quantity_unit: 'kg',
-            pre_cleaned: true,
-            roasted_date: '2020-06-11',
-            roast_level: 2,
-            roasting_time: 50,
-            roasting_temperature: 100,
-            machine_used: 'machine1, machine2',
-            company_type: 'office',
-        };
-        this.roasterService.updateOrderDetails(this.roasterId, 132, data).subscribe((res) => {
-            console.log(res);
+        const data = this.addOrdersForm.value;
+        this.roasterService.updateOrderDetails(this.roasterId, this.outtakeOrderId, data).subscribe((res) => {
+            if (res.success) {
+                this.toaster.success('Outtake Order updated successfully');
+            } else {
+                this.toaster.success('Unable to update the outtake order');
+            }
         });
     }
     selectOrder(event) {
         this.selectedOrderId = event.orderId;
         this.selectedOrderType = event.orderType;
-        console.log(this.selectedOrderId);
-        console.log(this.selectedOrderType);
+        this.addOrdersForm.get('order_id').setValue(this.selectedOrderId);
+        this.getOrderDetails();
     }
-    onWeightChange(event) {}
-    onWeightUnitChange() {}
 
     handleCopyCoffeeExperienceLink(): void {
         const textArea = document.createElement('textarea');

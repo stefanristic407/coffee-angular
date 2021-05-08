@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { DataTableDirective } from 'angular-datatables';
+import { Router, ActivatedRoute } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from '@services';
+import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import * as moment from 'moment';
-import { CookieService } from 'ngx-cookie-service';
-import { ToastrService } from 'ngx-toastr';
 import { COUNTRY_LIST } from '@constants';
 
 @Component({
@@ -13,13 +14,16 @@ import { COUNTRY_LIST } from '@constants';
     styleUrls: ['./select-orders.component.scss'],
 })
 export class SelectOrdersComponent implements OnInit {
-    currentIndex = 0;
+    @Output() orderChange = new EventEmitter<any>();
+    @Output() closeEvent = new EventEmitter<any>();
+    estateterm: any;
+    estatetermStatus: any;
+    estatetermType: any;
+    estatetermOrigin: any;
+    displayNumbers: any;
+    selected: Date[];
     originArray = [];
-    orderTypeArray = [];
-    statusTypeArray = [];
     originFilter: any;
-    typeFilter: any;
-    statusFilter: any;
     rangeDates: any;
     displayArray = [];
     displayFilter: any;
@@ -30,24 +34,46 @@ export class SelectOrdersComponent implements OnInit {
     totalCount = 0;
     orderType: any;
     orderID: any;
+
+    @ViewChild(DataTableDirective, { static: false })
+    datatableElement: DataTableDirective;
+    showDateRange: any;
+    roasterId: any;
+    @ViewChild('calendar')
+    calendar: any;
+
+    public data: any;
+    selectedEntry: any;
+    selectId: any;
+    batchId: any;
+    ordId: any;
+
     constructor(
-        public globals: GlobalsService,
         public router: Router,
         public cookieService: CookieService,
         private roasterService: RoasterserviceService,
         private toastrService: ToastrService,
+        public globals: GlobalsService,
         public route: ActivatedRoute,
-        public activeRoute: ActivatedRoute,
-    ) {}
+    ) {
+        this.roasterId = this.cookieService.get('roaster_id');
+        this.data = {};
+    }
 
     ngOnInit(): void {
-        this.roasterID = this.cookieService.get('roaster_id');
+        this.estatetermStatus = '';
+        this.estatetermOrigin = '';
+        this.estatetermType = '';
+        this.displayNumbers = '10';
+        this.getTableData();
         this.loadFilterValues();
         this.createRoasterTable();
-        if (this.activeRoute.snapshot.queryParams.id) {
-            this.orderID = this.activeRoute.snapshot.queryParams.id;
+        if (this.route.snapshot.queryParams.batchId && this.route.snapshot.queryParams.ordId) {
+            this.batchId = decodeURIComponent(this.route.snapshot.queryParams.batchId);
+            this.ordId = decodeURIComponent(this.route.snapshot.queryParams.ordId);
         }
     }
+
     createRoasterTable() {
         this.tableColumns = [
             {
@@ -75,34 +101,18 @@ export class SelectOrdersComponent implements OnInit {
             },
             {
                 field: 'species',
-                header: 'Species',
+                header: 'Variety',
                 sortable: false,
                 width: 10,
             },
-            {
-                field: 'price',
-                header: 'Price',
-                sortable: false,
-                width: 8,
-            },
+
             {
                 field: 'quantity',
                 header: 'Quantity',
                 sortable: false,
                 width: 8,
             },
-            {
-                field: 'type',
-                header: 'Type of order',
-                sortable: false,
-                width: 10,
-            },
-            {
-                field: 'status',
-                header: 'Status',
-                sortable: false,
-                width: 10,
-            },
+
             {
                 field: 'cup_score',
                 header: 'Cupping Score',
@@ -111,72 +121,70 @@ export class SelectOrdersComponent implements OnInit {
             },
         ];
     }
-    onTabChange(event) {
-        if (event.index === 1) {
-            this.orderType = 'MR';
-        } else {
-            this.orderType = 'ro';
-        }
-        this.getTableData();
-    }
+
     filterCall() {
         this.getTableData();
     }
+
     loadFilterValues() {
         this.originArray = COUNTRY_LIST;
-        this.orderTypeArray = [
-            { label: 'Shipped', value: 'SHIPPED' },
-            { label: 'Confirmed', value: 'CONFIRMED' },
-            { label: 'Payment', value: 'PAYMENT' },
-            { label: 'Harvest Ready', value: 'HARVEST READY' },
-            { label: 'GRADED', value: 'RECEIVED' },
-        ];
-        this.statusTypeArray = [
-            { label: 'Sample', value: 'GC_ORDER_SAMPLE' },
-            { label: 'Booked', value: 'GC_ORDER' },
-            { label: 'Pre-Booked', value: 'PREBOOK_LOT' },
-        ];
         this.displayArray = [
             { label: '10', value: 10 },
             { label: '20', value: 20 },
             { label: '50', value: 50 },
         ];
     }
+    onSelect(orderData) {
+        console.log(orderData);
+    }
+    setOrigin(origindata: any) {
+        this.estatetermOrigin = origindata;
+        this.datatableElement.dtInstance.then((table) => {
+            table.column(4).search(origindata).draw();
+        });
+    }
+    setDisplay(data: any) {
+        this.displayNumbers = data;
+        $('select').val(data).trigger('change');
+    }
+
+    openCalendar(event: any) {
+        this.calendar.showOverlay(this.calendar.inputfieldViewChild.nativeElement);
+        event.stopPropagation();
+    }
+    onSelectionChange(value: any) {
+        this.selectedEntry = value;
+        console.log(this.selectedEntry);
+    }
+
     getTableData() {
         this.tableValue = [];
-        const postData: any = {};
-        postData.origin = this.originFilter ? this.originFilter : '';
-        postData.order_type = this.statusFilter ? this.statusFilter : '';
-        postData.status = this.typeFilter ? this.typeFilter : '';
-        postData.per_page = this.displayFilter ? this.displayFilter : 1000;
-        postData.start_date = '';
-        postData.end_date = '';
+        const postData: any = {
+            origin: this.originFilter ? this.originFilter : '',
+            per_page: this.displayFilter ? this.displayFilter : 1000,
+            start_date: '',
+            end_date: '',
+            status: 'RECEIVED',
+        };
         if (this.rangeDates && this.rangeDates.length === 2) {
             postData.start_date = moment(this.rangeDates[0], 'DD/MM/YYYY').format('YYYY-MM-DD');
             postData.end_date = moment(this.rangeDates[1], 'DD/MM/YYYY').format('YYYY-MM-DD');
         }
-        this.roasterService.getListOrderDetails(this.roasterID, postData, this.orderType).subscribe((data: any) => {
+        this.roasterService.getListOrderDetails(this.roasterId, postData, this.orderType).subscribe((data: any) => {
             if (data.success && data.result) {
-                data.result.map((ele) => {
-                    if (this.orderType === 'mr') {
-                        ele.price = ele.total_price;
-                    }
-                    const findOrderType = this.statusTypeArray.find((item) => item.value === ele.type);
-                    ele.type = findOrderType ? findOrderType.label : ele.type;
-                    ele.status = ele.status.charAt(0).toUpperCase() + ele.status.slice(1).toLowerCase();
-                    return ele;
-                });
                 this.totalCount = data.result_info.total_count;
                 this.tableValue = data.result;
             }
         });
     }
+
     onContinue() {
-        const navigationExtras: NavigationExtras = {
-            queryParams: {
-                orderType: this.orderType ? this.orderType : undefined,
-            },
-        };
-        this.router.navigate(['/dispute-system/raise-ticket', this.selectedOrder.id], navigationExtras);
+        this.selectId = this.selectedOrder.id;
+        this.orderChange.emit({ orderId: this.selectedOrder.id, orderType: this.selectedOrder.type });
+        this.close();
+    }
+
+    close() {
+        this.closeEvent.emit();
     }
 }
