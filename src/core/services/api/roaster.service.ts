@@ -635,21 +635,6 @@ export class RoasterserviceService extends ApiService {
         console.log(data);
         return this.http.post(this.url, data);
     }
-    getSelectProductDetails(roaster_id: any, type: any, postData?) {
-        const suffix = type === 'b2b' ? '' : `${type}-`;
-        const data = {};
-        data['api_call'] = `/ro/${roaster_id}/${suffix}products?${this.serlialise(postData)}`;
-        data['token'] = this.cookieService.get('Auth');
-        data['method'] = 'GET';
-        return this.http.post(this.url, data);
-    }
-    getProductDetails(roaster_id: any, productId: any): Observable<any> {
-        var data = {};
-        data['api_call'] = `/ro/${roaster_id}/products/${productId}`;
-        data['token'] = this.cookieService.get('Auth');
-        data['method'] = 'GET';
-        return this.http.post(this.url, data);
-    }
 
     // Get the list of all default products
     getDefaultProducts(roaster_id: any, postData?) {
@@ -840,82 +825,6 @@ export class RoasterserviceService extends ApiService {
         data['token'] = this.cookieService.get('Auth');
         return this.http.post(this.url, data);
     }
-
-    //E-com APIs
-    getVatSettings(roaster_id: any): Observable<any> {
-        const data = {};
-        data['api_call'] = `/ro/${roaster_id}/vat-settings`;
-        data['method'] = 'GET';
-        data['token'] = this.cookieService.get('Auth');
-        return this.http.post(this.url, data);
-    }
-    getRoastedBatches(roaster_id: any, params: any = {}): Observable<any> {
-        const data = {};
-        data['api_call'] = `/ro/${roaster_id}/roasted-batches?${this.serializeParams(params)}`;
-        data['method'] = 'GET';
-        data['token'] = this.cookieService.get('Auth');
-        return this.http.post(this.url, data);
-    }
-    getCoffeeBatchDetails(roaster_id: any, batch_id: any): Observable<any> {
-        const data = {};
-        data['api_call'] = `/ro/${roaster_id}/roasted-batches/${batch_id}`;
-        data['method'] = 'GET';
-        data['token'] = this.cookieService.get('Auth');
-        return this.http.post(this.url, data).pipe(map((res) => (res['result'] ? res['result'] : {})));
-    }
-    addProductDetails(roaster_id: any, body: any): Observable<any> {
-        const data = {};
-        data['api_call'] = `/ro/${roaster_id}/products`;
-        data['token'] = this.cookieService.get('Auth');
-        data['data'] = body;
-        return this.http.post(this.url, data);
-    }
-    deleteProductDetails(roaster_id: any, productId: any): Observable<any> {
-        const data = {};
-        data['api_call'] = `/ro/${roaster_id}/products/${productId}`;
-        data['token'] = this.cookieService.get('Auth');
-        return this.http.post(this.orgDeleteUrl, data);
-    }
-    updateProductDetails(roaster_id: any, productId: any, body: any): Observable<any> {
-        const data = {};
-        data['api_call'] = `/ro/${roaster_id}/products/${productId}`;
-        data['token'] = this.cookieService.get('Auth');
-        data['data'] = body;
-        return this.http.put(this.putUrl, data);
-    }
-    addProductWeightVarients(roaster_id: any, product_id: any, body: any): Observable<any> {
-        const data = {};
-        data['api_call'] = `/ro/${roaster_id}/products/${product_id}/weight-variants`;
-        data['token'] = this.cookieService.get('Auth');
-        data['data'] = body;
-        return this.http.post(this.url, data);
-    }
-    updateProductWeightVarients(roaster_id: any, product_id: any, body: any, weightVariantId: any): Observable<any> {
-        const data = {};
-        data['api_call'] = `/ro/${roaster_id}/products/${product_id}/weight-variants/${weightVariantId}`;
-        data['token'] = this.cookieService.get('Auth');
-        data['data'] = body;
-        return this.http.put(this.putUrl, data);
-    }
-    uploadProductImage(roaster_id: any, file: any): Observable<any> {
-        let data = new FormData();
-        const d = new Date();
-        const n = d.getTime();
-        data.append('api_call', `/ro/${roaster_id}/file-manager/files`);
-        data.append('token', this.cookieService.get('Auth'));
-        data.append('file', file);
-        data.append('file_module', 'Product');
-        data.append('name', n.toString());
-        return this.http.post(this.fileuploadUrl, data).pipe(map((res) => res));
-    }
-    deleteProductImage(roaster_id: any, file_id: any): Observable<any> {
-        let data = {};
-        data['api_call'] = `/ro/${roaster_id}/file-manager/files/${file_id}`;
-        data['method'] = 'DELETE';
-        data['token'] = this.cookieService.get('Auth');
-        return this.http.post(this.url, data).pipe(map((res) => res));
-    }
-    //E-com APIs-ends
 
     //Get Procured Coffees List
     getProcuredCoffeeList(roaster_id: any, origin?, displayCount?, searchString?): Observable<any> {

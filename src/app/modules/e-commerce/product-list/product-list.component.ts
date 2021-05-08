@@ -1,8 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
-import { RoasterserviceService, GlobalsService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
+import { GlobalsService, ECommerceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem, LazyLoadEvent } from 'primeng/api';
 import { ConfirmComponent } from '@shared';
@@ -15,7 +14,6 @@ import { COUNTRY_LIST } from '@constants';
 })
 export class ProductListComponent implements OnInit {
     appLanguage: any;
-    roasterId: any;
     breadCrumbItems: MenuItem[];
     tableData: any[] = [];
     tableColumns: any[] = [];
@@ -71,17 +69,15 @@ export class ProductListComponent implements OnInit {
     constructor(
         public dialogSrv: DialogService,
         public router: Router,
-        public cookieService: CookieService,
-        private roasterService: RoasterserviceService,
         private toastrService: ToastrService,
         public globals: GlobalsService,
         private activatedRoute: ActivatedRoute,
+        private eCommerceService: ECommerceService,
     ) {}
 
     ngOnInit(): void {
         this.type = this.activatedRoute.snapshot.params?.type;
         this.initializeTable();
-        this.roasterId = this.cookieService.get('roaster_id');
         this.breadCrumbItems = [
             { label: this.globals.languageJson?.home, routerLink: '/' },
             { label: this.globals.languageJson?.e_commerce_catalog_management },
@@ -167,7 +163,7 @@ export class ProductListComponent implements OnInit {
             sort_order: event?.sortOrder === 1 ? 'asc' : 'desc',
         };
 
-        this.roasterService.getSelectProductDetails(this.roasterId, this.type, options).subscribe(
+        this.eCommerceService.getSelectProductDetails(this.type, options).subscribe(
             (res: any) => {
                 if (res.success) {
                     this.tableData = res.result ?? [];
@@ -195,7 +191,7 @@ export class ProductListComponent implements OnInit {
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
-                    this.roasterService.deleteProductDetails(this.roasterId, deleteId).subscribe(
+                    this.eCommerceService.deleteProductDetails(deleteId, this.type).subscribe(
                         (res) => {
                             if (res.success) {
                                 this.toastrService.success('Product deleted successfully');

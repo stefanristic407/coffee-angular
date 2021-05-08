@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, QueryList, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GlobalsService, RoasterserviceService, UserserviceService } from '@services';
+import { GlobalsService, RoasterserviceService, UserserviceService, ECommerceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
@@ -59,13 +59,13 @@ export class ProductDetailsComponent implements OnInit {
     constructor(
         public globals: GlobalsService,
         private fb: FormBuilder,
-        public services: RoasterserviceService,
         private cookieService: CookieService,
         private toasterService: ToastrService,
         private route: ActivatedRoute,
         private router: Router,
         private roasterService: RoasterserviceService,
         private userService: UserserviceService,
+        private eCommerceService: ECommerceService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
     }
@@ -123,7 +123,7 @@ export class ProductDetailsComponent implements OnInit {
                 this.varients.push(this.createEmptyVarient());
             }
         });
-        this.services.getVatSettings(this.roasterId).subscribe((res) => {
+        this.eCommerceService.getVatSettings().subscribe((res) => {
             this.vatSettings = [];
             if (res && res.result) {
                 res.result.forEach((ele) => {
@@ -132,23 +132,23 @@ export class ProductDetailsComponent implements OnInit {
                 });
             }
         });
-        this.services.getRoastedBatches(this.roasterId, { per_page: 10000 }).subscribe(
+        this.eCommerceService.getRoastedBatches({ per_page: 10000 }).subscribe(
             (res) => {
                 this.roastedBatches = res.result ? res.result : [];
                 if (this.productID && this.productID !== 'add') {
-                    this.getProductDetails(this.productID);
+                    this.getProductDetails();
                 }
             },
             (err) => {
                 if (this.productID && this.productID !== 'add') {
-                    this.getProductDetails(this.productID);
+                    this.getProductDetails();
                 }
             },
         );
         this.supplyBreadCrumb();
     }
-    getProductDetails(id) {
-        this.services.getProductDetails(this.roasterId, id).subscribe(
+    getProductDetails() {
+        this.eCommerceService.getProductDetails(this.productID, this.type).subscribe(
             (res) => {
                 if (res && res.result) {
                     const productDetails = res.result;
@@ -384,7 +384,7 @@ export class ProductDetailsComponent implements OnInit {
         }
     }
     createNewProduct(productObj) {
-        this.services.addProductDetails(this.roasterId, productObj).subscribe(
+        this.eCommerceService.addProductDetails(productObj, this.type).subscribe(
             (res) => {
                 if (res && res.success) {
                     this.GrindVarientsDetails(res.result.id);
@@ -406,7 +406,7 @@ export class ProductDetailsComponent implements OnInit {
             delete ele.boxField;
             delete ele.product_weight_variant_id;
         });
-        this.services.updateProductDetails(this.roasterId, this.productID, productObj).subscribe(
+        this.eCommerceService.updateProductDetails(this.productID, productObj, this.type).subscribe(
             (res) => {
                 if (res && res.success) {
                     this.GrindVarientsDetails(this.productID);
@@ -465,7 +465,7 @@ export class ProductDetailsComponent implements OnInit {
             ele.id = undefined;
             ele.grind_variant_id = undefined;
         });
-        this.services.addProductWeightVarients(this.roasterId, productID, weigthObj).subscribe(
+        this.eCommerceService.addProductWeightVarients(productID, weigthObj, this.type).subscribe(
             (res) => {
                 if (res.success && showToaster) {
                     this.toasterService.success('Product created successfully');
@@ -486,17 +486,19 @@ export class ProductDetailsComponent implements OnInit {
         weightObj.grind_variants.map((ele) => {
             ele.id = ele.grind_variant_id ? ele.grind_variant_id : undefined;
         });
-        this.services.updateProductWeightVarients(this.roasterId, this.productID, weightObj, weightVariantID).subscribe(
-            (res) => {
-                if (showToaster && res.success) {
-                    this.toasterService.success('Product updated successfully');
-                    this.router.navigate([`/e-commerce/product-list/${this.type}`]);
-                }
-            },
-            (err) => {
-                this.toasterService.error('Errow while updating weight varients');
-            },
-        );
+        this.eCommerceService
+            .updateProductWeightVarients(this.productID, weightObj, weightVariantID, this.type)
+            .subscribe(
+                (res) => {
+                    if (showToaster && res.success) {
+                        this.toasterService.success('Product updated successfully');
+                        this.router.navigate([`/e-commerce/product-list/${this.type}`]);
+                    }
+                },
+                (err) => {
+                    this.toasterService.error('Errow while updating weight varients');
+                },
+            );
     }
     validateForms() {
         let returnFlag = true;

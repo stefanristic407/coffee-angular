@@ -1,8 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { RoasterserviceService } from 'src/core/services/api/roaster.service';
-import { GlobalsService, ResizeService } from '@services';
+import { GlobalsService, ResizeService, FileService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { ResizeableComponent } from '@base-components';
@@ -43,8 +42,8 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
         private route: ActivatedRoute,
         private toaster: ToastrService,
         public globals: GlobalsService,
-        public services: RoasterserviceService,
         private cookieService: CookieService,
+        private fileService: FileService,
         protected resizeService: ResizeService,
     ) {
         super(resizeService);
@@ -323,7 +322,12 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
     async uploadImage(fileObj, type, index, showToaster?) {
         const fileList: FileList = fileObj;
         const file: File = fileList[0];
-        const UploadedFile = await this.services.uploadProductImage(this.roasterID, file).toPromise();
+        const formData: FormData = new FormData();
+        formData.append('file', file, file.name);
+        formData.append('name', file.name);
+        formData.append('file_module', 'Product');
+
+        const UploadedFile = await this.fileService.uploadFiles(formData).toPromise();
         if (UploadedFile.success) {
             const weight = this.weightForm.get('weights') as FormArray;
             if (type === 'featured_image') {
