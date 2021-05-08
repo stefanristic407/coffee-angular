@@ -167,7 +167,7 @@ export class ProductListComponent implements OnInit {
             sort_order: event?.sortOrder === 1 ? 'asc' : 'desc',
         };
 
-        this.roasterService.getSelectProductDetails(this.roasterId, options).subscribe(
+        this.roasterService.getSelectProductDetails(this.roasterId, this.type, options).subscribe(
             (res: any) => {
                 if (res.success) {
                     this.tableData = res.result ?? [];
