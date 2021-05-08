@@ -24,6 +24,7 @@ export class ProductDetailsComponent implements OnInit {
     vatSettings: any = [];
     roastedBatches: any = [];
     productID = '';
+    type: string;
     variantTypeArray: any = [];
     recommendationTextLength = 0;
     recipeTextLength = 0;
@@ -82,6 +83,7 @@ export class ProductDetailsComponent implements OnInit {
             is_price_including_vat: [false],
         });
         this.route.params.subscribe((params) => {
+            this.type = params.type;
             if (params.id) {
                 this.productID = params.id;
             } else {
@@ -154,7 +156,7 @@ export class ProductDetailsComponent implements OnInit {
                         { label: this.globals.languageJson?.home, routerLink: '/' },
                         {
                             label: this.globals.languageJson?.e_commerce_catalog_management,
-                            routerLink: '/e-commerce/product-list',
+                            routerLink: `/e-commerce/product-list/${this.type}`,
                         },
                         { label: res.result.name },
                     ];
@@ -267,7 +269,10 @@ export class ProductDetailsComponent implements OnInit {
     supplyBreadCrumb(): void {
         this.breadCrumbItem = [
             { label: this.globals.languageJson?.home, routerLink: '/' },
-            { label: this.globals.languageJson?.e_commerce_catalog_management, routerLink: '/e-commerce/product-list' },
+            {
+                label: this.globals.languageJson?.e_commerce_catalog_management,
+                routerLink: `/e-commerce/product-list/${this.type}`,
+            },
             { label: 'product' },
         ];
     }
@@ -359,7 +364,7 @@ export class ProductDetailsComponent implements OnInit {
         }
     }
     onCancel(): void {
-        this.router.navigate(['/e-commerce/product-list']);
+        this.router.navigate([`/e-commerce/product-list/${this.type}`]);
     }
 
     onSave(): void {
@@ -464,7 +469,7 @@ export class ProductDetailsComponent implements OnInit {
             (res) => {
                 if (res.success && showToaster) {
                     this.toasterService.success('Product created successfully');
-                    this.router.navigate(['/e-commerce/product-list']);
+                    this.router.navigate([`/e-commerce/product-list/${this.type}`]);
                 }
                 if (!res.success) {
                     this.toasterService.error('Errow while adding weight varients');
@@ -485,7 +490,7 @@ export class ProductDetailsComponent implements OnInit {
             (res) => {
                 if (showToaster && res.success) {
                     this.toasterService.success('Product updated successfully');
-                    this.router.navigate(['/e-commerce/product-list']);
+                    this.router.navigate([`/e-commerce/product-list/${this.type}`]);
                 }
             },
             (err) => {
