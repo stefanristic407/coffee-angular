@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { BrandProfileComponent } from './brand-profile.component';
-import { HomePageComponent } from './home-page/home-page.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { FeaturedProductsComponent } from './featured-products/featured-products.component';
 import { LearnComponent } from './learn/learn.component';
@@ -13,10 +12,6 @@ const routes: Routes = [
     {
         path: '',
         component: BrandProfileComponent,
-    },
-    {
-        path: 'home-page',
-        component: HomePageComponent,
     },
     {
         path: 'about-us',

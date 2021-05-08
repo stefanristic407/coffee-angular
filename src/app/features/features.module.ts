@@ -28,9 +28,6 @@ import { CofeeExpeienceDetailsComponent } from './Farm Link/cofee-expeience-deta
 import { ProfileLicenseComponent } from './profile-edit/profile-license/profile-license.component';
 import { NotificationComponent } from './notification/notification.component';
 import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
-
-import { AddProductComponent } from './e-commerce/add-product/add-product.component';
-import { ProductsTableComponent } from './e-commerce/products-table/products-table.component';
 import { VatManagementComponent } from './vat-management/vat-management.component';
 import { VatDetailsComponent } from './vat-management/vat-details/vat-details.component';
 import { QAForumComponent } from './Farm Link/q-a-forum/q-a-forum.component';
@@ -43,9 +40,6 @@ import { EstateOrdersComponent } from './Farm Link/coffee-experience/estate-orde
 import { MicroRoasterOrdersComponent } from './Farm Link/coffee-experience/micro-roaster-orders/micro-roaster-orders.component';
 import { HorecaOrdersComponent } from './Farm Link/coffee-experience/horeca-orders/horeca-orders.component';
 import { DefaultSettingComponent } from './Farm Link/coffee-experience/default-setting/default-setting.component';
-import { ProductListComponent } from './e-commerce/product-list/product-list.component';
-import { ProductDetailsComponent } from './e-commerce/product-details/product-details.component';
-import { VarientDetailsComponent } from './e-commerce/varient-details/varient-details.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { RatingModule } from 'primeng/rating';
 import { ListboxModule } from 'primeng/listbox';
@@ -68,8 +62,6 @@ import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/ro
         ProfileLicenseComponent,
         NotificationComponent,
         RoasterOnboardComponent,
-        AddProductComponent,
-        ProductsTableComponent,
         VatManagementComponent,
         VatDetailsComponent,
         QAForumComponent,
@@ -82,9 +74,6 @@ import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/ro
         MicroRoasterOrdersComponent,
         HorecaOrdersComponent,
         DefaultSettingComponent,
-        ProductListComponent,
-        ProductDetailsComponent,
-        VarientDetailsComponent,
         RoasteryLicenseComponent,
     ],
     imports: [

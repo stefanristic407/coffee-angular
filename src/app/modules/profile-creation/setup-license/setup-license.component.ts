@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, Input, EventEmitter, ElementRef, ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
 import { UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
@@ -34,6 +35,7 @@ export class SetupLicenseComponent implements OnInit {
         public globals: GlobalsService,
         private cookieService: CookieService,
         private route: ActivatedRoute,
+        public location: Location,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
     }

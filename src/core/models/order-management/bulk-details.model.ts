@@ -13,4 +13,5 @@ export interface BulkDetails {
     weight: number;
     varieties: string;
     dry_milling: any;
+    wet_milling: any;
 }

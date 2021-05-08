@@ -635,9 +635,10 @@ export class RoasterserviceService extends ApiService {
         console.log(data);
         return this.http.post(this.url, data);
     }
-    getSelectProductDetails(roaster_id: any, postData?) {
+    getSelectProductDetails(roaster_id: any, type: any, postData?) {
+        const suffix = type === 'b2b' ? '' : `${type}-`;
         const data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/products?' + this.serlialise(postData);
+        data['api_call'] = `/ro/${roaster_id}/${suffix}products?${this.serlialise(postData)}`;
         data['token'] = this.cookieService.get('Auth');
         data['method'] = 'GET';
         return this.http.post(this.url, data);

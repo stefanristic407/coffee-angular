@@ -340,6 +340,9 @@
                             dropdownIcon="pi pi-plus"
                         >
                             <ng-template pTemplate="selectedItem">Add Descriptors</ng-template>
+                            <ng-template let-flavour pTemplate="item">
+                                {{ flavour.name | translate }}
+                            </ng-template>
                         </p-dropdown>
                         <p-chips
                             [(ngModel)]="langChips"
@@ -347,7 +350,11 @@
                             addOnBlur
                             [allowDuplicate]="false"
                             styleClass="p-descriptors-chips"
-                        ></p-chips>
+                        >
+                            <ng-template let-item pTemplate="item">
+                                {{ item.name | translate }}
+                            </ng-template>
+                        </p-chips>
                     </div>
                     <div class="col-lg-6 col-12 mt-lg-0 mt-3">
                         <label class="fnt-muli fnt-14 fnt-600 text-clr334">Add a comment</label>

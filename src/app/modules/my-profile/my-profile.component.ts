@@ -44,6 +44,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     apiCount = 0;
     queryUserId: any;
     queryOrganization: any;
+    queryOrganizationId: any;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -57,7 +58,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         private roasterService: RoasterserviceService,
         private activateRoute: ActivatedRoute,
         private router: Router,
-        private coffeeLabService: CoffeeLabService
+        private coffeeLabService: CoffeeLabService,
     ) {
         this.form = this.formBuilder.group({
             firstName: ['', Validators.required],
@@ -69,8 +70,9 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         });
         this.roasterId = this.cookieService.get('roaster_id');
         this.userId = this.cookieService.get('user_id');
-        this.queryUserId  = this.activateRoute.snapshot.queryParamMap.get('user_id');
-        this.queryOrganization  = this.activateRoute.snapshot.queryParamMap.get('organization') || 'ro';
+        this.queryUserId = this.activateRoute.snapshot.queryParamMap.get('user_id');
+        this.queryOrganization = this.activateRoute.snapshot.queryParamMap.get('organization') || 'ro';
+        this.queryOrganizationId = this.activateRoute.snapshot.queryParamMap.get('organization_id');
         this.getUserInfo();
     }
 
@@ -92,27 +94,25 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     }
 
     getRoasterProfile(): void {
-        this.userOriginalService.getRoasterProfile(
-            this.roasterId,
-            this.queryOrganization,
-            this.queryUserId
-        ).subscribe((res: any) => {
-            console.log('get user info response >>>>>>>>>>>>>>>', res);
-            this.apiCount += 1;
-            if (res.success) {
-                this.profileInfo = res.result;
-                this.previewUrl = this.profileInfo.profile_image_url;
-                if (this.queryUserId) {
-                    this.apiCount += 1;
+        this.userOriginalService
+            .getRoasterProfile(this.roasterId, this.queryOrganization, this.queryUserId)
+            .subscribe((res: any) => {
+                console.log('get user info response >>>>>>>>>>>>>>>', res);
+                this.apiCount += 1;
+                if (res.success) {
+                    this.profileInfo = res.result;
+                    this.previewUrl = this.profileInfo.profile_image_url;
+                    if (this.queryUserId) {
+                        this.apiCount += 1;
+                    } else {
+                        this.getUserBasedRoles();
+                    }
+                    this.checkApiCompletion();
                 } else {
-                    this.getUserBasedRoles();
+                    this.toastr.error('Error while fetching profile');
+                    this.router.navigate(['/']);
                 }
-                this.checkApiCompletion();
-            } else {
-                this.toastr.error('Error while fetching profile');
-                this.router.navigate(['/']);
-            }
-        });
+            });
     }
 
     getUserBasedRoles(): void {
@@ -128,16 +128,18 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     }
 
     getCertificates(): void {
-        this.userOriginalService.getCertificates(this.roasterId, this.userId).subscribe((res: any) => {
-            this.apiCount += 1;
-            if (res.success) {
-                this.certificationArray = res.result;
-            } else {
-                this.toastr.error('Error while fetching certificates');
-            }
-            console.log('certificates >>>>>>>>', res);
-            this.checkApiCompletion();
-        });
+        this.userOriginalService
+            .getCertificates(this.queryOrganizationId || this.roasterId, this.userId)
+            .subscribe((res: any) => {
+                this.apiCount += 1;
+                if (res.success) {
+                    this.certificationArray = res.result;
+                } else {
+                    this.toastr.error('Error while fetching certificates');
+                }
+                console.log('certificates >>>>>>>>', res);
+                this.checkApiCompletion();
+            });
     }
 
     checkApiCompletion(): void {
@@ -162,7 +164,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         this.avatarFileError = '';
         this.file = inputElement.files[0];
         console.log('file >>>>>', this.file);
-        this.coffeeLabService.uploadFile(this.file, 'qa-forum').subscribe(res => {
+        this.coffeeLabService.uploadFile(this.file, 'qa-forum').subscribe((res) => {
             console.log('file upload response >>>>>>>', res);
         });
         if (!this.file) {

@@ -24,6 +24,7 @@ export class ProductDetailsComponent implements OnInit {
     vatSettings: any = [];
     roastedBatches: any = [];
     productID = '';
+    type: string;
     variantTypeArray: any = [];
     recommendationTextLength = 0;
     recipeTextLength = 0;
@@ -82,6 +83,7 @@ export class ProductDetailsComponent implements OnInit {
             is_price_including_vat: [false],
         });
         this.route.params.subscribe((params) => {
+            this.type = params.type;
             if (params.id) {
                 this.productID = params.id;
             } else {
@@ -154,7 +156,7 @@ export class ProductDetailsComponent implements OnInit {
                         { label: this.globals.languageJson?.home, routerLink: '/' },
                         {
                             label: this.globals.languageJson?.e_commerce_catalog_management,
-                            routerLink: '/ecommerce/product-list',
+                            routerLink: `/e-commerce/product-list/${this.type}`,
                         },
                         { label: res.result.name },
                     ];
@@ -267,7 +269,10 @@ export class ProductDetailsComponent implements OnInit {
     supplyBreadCrumb(): void {
         this.breadCrumbItem = [
             { label: this.globals.languageJson?.home, routerLink: '/' },
-            { label: this.globals.languageJson?.e_commerce_catalog_management, routerLink: '/e-commerce/product-list' },
+            {
+                label: this.globals.languageJson?.e_commerce_catalog_management,
+                routerLink: `/e-commerce/product-list/${this.type}`,
+            },
             { label: 'product' },
         ];
     }
@@ -359,54 +364,9 @@ export class ProductDetailsComponent implements OnInit {
         }
     }
     onCancel(): void {
-        this.router.navigate(['/features/products-list']);
+        this.router.navigate([`/e-commerce/product-list/${this.type}`]);
     }
 
-    onPasteDescription(flag, idx?) {
-        if (flag === 'description') {
-            const getValue = this.productForm.controls.description.value;
-            const value = getValue.split(/\s+/);
-            const wordlimit = getValue ? 50 - value.length : 50;
-            if (wordlimit <= 0) {
-                value.splice(50);
-                let updatedString = '';
-                value.forEach((ele) => {
-                    updatedString = updatedString + ' ' + ele;
-                });
-                this.productForm.controls.description.setValue(updatedString);
-            }
-        } else if (flag === 'recommendation') {
-            const getValue = this.productForm.controls.varients['controls'][idx].controls.roaster_recommendation.value;
-            const value = getValue.split(/\s+/);
-            const wordlimit = getValue ? 10 - value.length : 10;
-            this.recommendationTextLength = value.length;
-            if (wordlimit <= 0) {
-                value.splice(10);
-                let updatedString = '';
-                value.forEach((ele) => {
-                    updatedString = updatedString + ' ' + ele;
-                });
-                this.recommendationTextLength = 10;
-                this.productForm.controls.varients['controls'][idx].controls.roaster_recommendation.setValue(
-                    updatedString,
-                );
-            }
-        } else if (flag === 'recipes') {
-            const getValue = this.productForm.controls.varients['controls'][idx].controls.recipes.value;
-            const value = getValue.split(/\s+/);
-            const wordlimit = getValue ? 50 - value.length : 50;
-            this.recipeTextLength = value.length;
-            if (wordlimit <= 0) {
-                value.splice(50);
-                let updatedString = '';
-                value.forEach((ele) => {
-                    updatedString = updatedString + ' ' + ele;
-                });
-                this.recipeTextLength = 50;
-                this.productForm.controls.varients['controls'][idx].controls.recipes.setValue(updatedString);
-            }
-        }
-    }
     onSave(): void {
         if (this.validateForms()) {
             const productObj = this.productForm.value;
@@ -509,7 +469,7 @@ export class ProductDetailsComponent implements OnInit {
             (res) => {
                 if (res.success && showToaster) {
                     this.toasterService.success('Product created successfully');
-                    this.router.navigate(['/features/products-list']);
+                    this.router.navigate([`/e-commerce/product-list/${this.type}`]);
                 }
                 if (!res.success) {
                     this.toasterService.error('Errow while adding weight varients');
@@ -530,7 +490,7 @@ export class ProductDetailsComponent implements OnInit {
             (res) => {
                 if (showToaster && res.success) {
                     this.toasterService.success('Product updated successfully');
-                    this.router.navigate(['/features/products-list']);
+                    this.router.navigate([`/e-commerce/product-list/${this.type}`]);
                 }
             },
             (err) => {

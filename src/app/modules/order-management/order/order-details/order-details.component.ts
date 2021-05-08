@@ -28,6 +28,15 @@ export class OrderDetailsComponent extends ResizeableComponent implements OnInit
     @Input() order: OrderDetails;
     @Input() needConfirmation = false;
 
+    get orderShipped(): boolean {
+        return (
+            this.order &&
+            (this.order.status === OrderStatus.Shipped ||
+                this.order.status === OrderStatus.Delivered ||
+                this.order.status === OrderStatus.Received)
+        );
+    }
+
     constructor(
         private resizeSrv: ResizeService,
         private orderService: OrderManagementService,

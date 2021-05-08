@@ -3,7 +3,7 @@ import { GlobalsService, GreenGradingService } from '@services';
 import { Router, NavigationExtras } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { GenerateReportService } from '../generate-report/generate-report.service';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, SortEvent } from 'primeng/api';
 import { ToastrService } from 'ngx-toastr';
 
 import { COUNTRY_LIST } from '@constants';
@@ -217,6 +217,15 @@ export class GradeSampleComponent implements OnInit {
         this.tableData =
             this.term.length === 0
                 ? filteredData
-                : filteredData.filter((item) => item.estate_name.indexOf(this.term) >= 0);
+                : filteredData.filter((item) => item.estate_name.toLowerCase().indexOf(this.term.toLowerCase()) >= 0);
+    }
+
+    customSort(event: SortEvent) {
+        event.data.sort((data1, data2) => {
+            const value1 = this.globals.getCountryName(data1[event.field]);
+            const value2 = this.globals.getCountryName(data2[event.field]);
+            const result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
+            return event.order * result;
+        });
     }
 }

@@ -636,6 +636,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         if (threadUser.org_type === OrganizationType.SEWN_ADMIN || threadUser.org_type === OrganizationType.CONSUMER) {
             threadUser.org_id = 0;
         }
+        threadUser.org_name = threadUser.org_name || '';
         threadUser.last_seen = threadUser.last_seen || '';
         threadUser.computed_lastseen = this.chatUtil.getReadableTime(threadUser.last_seen || '');
         threadUser.computed_organization_name = this.chatUtil.getOrganization(threadUser.org_type);
@@ -1398,7 +1399,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         if (this.unReadTimerRef) {
             clearTimeout(this.unReadTimerRef);
         }
-        this.viewerRef.destroy();
+        if (this.viewerRef) {
+            this.viewerRef.destroy();
+        }
     }
 
     chatServiceRequestHandling = (req: { requestType: ServiceCommunicationType; payload?: any }) => {
@@ -1413,7 +1416,15 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.openPanel();
             }
         } else if (req.requestType === ServiceCommunicationType.OPEN_THREAD) {
-            this.findThread(req.payload as OpenChatThread);
+            const pl = req.payload as OpenChatThread;
+            const key = `${pl.user_id}_${pl.org_type}_${pl.org_id || 0}`;
+            if (!!this.blockMap.blockedMe[key]) {
+                this.toast.error('The user has been blocked you', 'Unable to start the chat');
+            } else if (!!this.blockMap.myBlock[key]) {
+                this.toast.error('Remove the user from block list', 'Unable to start the chat');
+            } else {
+                this.findThread(req.payload as OpenChatThread);
+            }
         }
     };
 
@@ -1696,6 +1707,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 computed_fullname: target.computed_fullname,
                 computed_organization_name: target.computed_organization_name,
                 computed_profile_direct_url: target.computed_profile_direct_url,
+                organization_name: target.org_name || '',
                 firstname: target.first_name,
                 lastname: target.last_name,
                 organization_id: target.org_id || 0,
@@ -2320,5 +2332,12 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             return '\u25A3 Sticker';
         }
         return '';
+    }
+    conditionalHypen(str: string) {
+        if (str) {
+            return ' - ' + str;
+        } else {
+            return '';
+        }
     }
 }

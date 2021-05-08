@@ -41,6 +41,10 @@
                         </div>
                     </div>
 
+                    <div class="d-md-none">
+                        <ng-container *ngTemplateOutlet="certificatesBlock"></ng-container>
+                    </div>
+
                     <div class="border-main br-2 mt-4 mt-lg-45 p-3 p-lg-4">
                         <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">Intro</h4>
                         <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">Give yourself a small intro!</p>
@@ -232,9 +236,53 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-12 col-md-6 col-lg-4 order-1 order-lg-2 d-none d-md-block right-block">
+                    <ng-container *ngTemplateOutlet="certificatesBlock"></ng-container>
+                </div>
             </div>
         </form>
 
         <app-brand-profile-footer pageSlug="about-us" (saveClick)="savePageData()"></app-brand-profile-footer>
     </div>
 </section>
+
+<ng-template #certificatesBlock>
+    <div class="border-main br-4 p-1 mb-4 mb-lg-45">
+        <div class="bg-f8 br-4 d-flex align-items-center justify-content-between cert-header">
+            <h5 class="fnt-14 fnt-700 text-clr334 mb-0">Certificates</h5>
+            <div routerLink="/roastery-profile/certificate" class="cert-add d-flex align-items-center">
+                <span class="fnt-700 text-clr334">+</span>
+            </div>
+        </div>
+        <div class="p-3 p-lg-4">
+            <div *ngFor="let item of certificates; index as i">
+                <div *ngIf="i" class="w-100 solid-divider my-3"></div>
+                <div class="d-flex flex-md-column flex-lg-row justify-content-between align-items-lg-center">
+                    <div class="pr-3">
+                        <h4 class="fnt-14 lh-normal fnt-700 text-clr334 mb-1">{{ item.name }}</h4>
+                        <div class="fnt-12 lh-normal fnt-600 text-clr588">{{ item.year }}</div>
+                    </div>
+                    <div class="d-none d-md-block">
+                        <a class="brown-cta" [href]="item.public_url" target="_blank"> View </a>
+                        <span class="v-divider mx-2"></span>
+                        <a class="brown-cta" (click)="deleteCertificate(item)">Delete</a>
+                    </div>
+                    <div class="d-md-none">
+                        <div class="position-relative">
+                            <a (click)="certIndex = i; menu.toggle($event)">
+                                <img src="assets/images/menu-gray.svg" alt="menu" />
+                            </a>
+                            <p-menu
+                                #menu
+                                [popup]="true"
+                                [model]="certMenuItems"
+                                styleClass="left-menu-actions"
+                            ></p-menu>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

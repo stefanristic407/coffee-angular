@@ -1,5 +1,8 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { GlobalsService, GreenGradingService } from '@services';
+import { Location } from '@angular/common';
+import { GlobalsService, GreenGradingService, RoasterserviceService } from '@services';
+import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 import { GenerateReportService } from '../generate-report/generate-report.service';
 import { MenuItem, LazyLoadEvent } from 'primeng/api';
 import { LabelValue } from '@models';
@@ -42,6 +45,10 @@ export class AssignOrdersComponent implements OnInit {
         public globals: GlobalsService,
         public generateReportService: GenerateReportService,
         private greenGradingService: GreenGradingService,
+        private roasterService: RoasterserviceService,
+        private cookieService: CookieService,
+        private toaster: ToastrService,
+        private location: Location,
     ) {}
 
     ngOnInit(): void {
@@ -50,7 +57,7 @@ export class AssignOrdersComponent implements OnInit {
             { label: this.globals.languageJson?.green_grading, routerLink: '/green-grading' },
             { label: 'Green coffee orders' },
         ];
-        this.loadData();
+        this.getRoleList();
         this.initializeTable();
     }
 
@@ -131,6 +138,20 @@ export class AssignOrdersComponent implements OnInit {
         }
     }
 
+    getRoleList() {
+        const roasterId = this.cookieService.get('roaster_id');
+        this.roasterService.getLoggedinUserRoles(roasterId).subscribe((res: any) => {
+            if (res.success === true) {
+                if (res.result?.find((item) => item.name === 'Cupping Admin')) {
+                    this.loadData();
+                } else {
+                    this.toaster.error('You have no permission.');
+                    this.location.back();
+                }
+            }
+        });
+    }
+
     loadData(event?: LazyLoadEvent): void {
         let page = 1;
         if (event) {
@@ -145,7 +166,7 @@ export class AssignOrdersComponent implements OnInit {
             sort_by: event?.sortField,
             sort_order: event?.sortOrder === 1 ? 'asc' : 'desc',
         };
-        this.greenGradingService.getCuppingInviteList(options).subscribe((res: any) => {
+        this.greenGradingService.getAssignOrder(options).subscribe((res: any) => {
             if (res.success === true) {
                 this.tableData = res.result;
                 this.generateReportService.totalRequestList = res.success ? res.result : [];

@@ -39,7 +39,7 @@
                         #bannerFileInput
                         (change)="uploadImage($event, 0, 'recipeCoverImage')"
                     />
-                    <div class="d-flex flex-column align-items-center">
+                    <div class="d-flex flex-column align-items-center" *ngIf="!coverImageUrl">
                         <img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25" />
                         <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25"
                             >{{ 'add_cover_image' | translate }}<span class="star">*</span></span
@@ -213,7 +213,7 @@
                                     [(isUploadingImage)]="isUploadingImage"
                                     [(imageIdList)]="imageIdListStep[i]"
                                     fileModule="recipe-post"
-                                    [height]="103"
+                                    [height]="125"
                                 ></app-forum-editor>
                             </div>
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3 sewn-form-field w-100">
@@ -221,6 +221,7 @@
                                 <div
                                     class="stepAddImageContainer d-flex align-items-center justify-content-center imagesDiv"
                                 >
+                                    <img [src]="step?.coverImageUrl" *ngIf="step?.coverImageUrl" class="cover-image" />
                                     <label class="d-block align-items-center justify-content-center pointer-item">
                                         <input
                                             type="file"
@@ -229,7 +230,10 @@
                                             #featureImage
                                             (change)="uploadImage($event, 0, 'stepImage')"
                                         />
-                                        <div class="d-flex flex-column align-items-center">
+                                        <div
+                                            class="d-flex flex-column align-items-center px-25"
+                                            *ngIf="!step?.coverImageUrl"
+                                        >
                                             <img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25" />
                                             <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25">{{
                                                 'drag_drop_or_upload_image' | translate
@@ -290,10 +294,7 @@
                 </p-tabPanel>
             </p-tabView>
         </div>
-        <div
-            class="row col-sm-12 col-md-12 col-lg-12 col-xl-12 step-xs"
-            *ngIf="recipeForm?.value?.preparation_method === 'video'"
-        >
+        <div class="row col-sm-12 col-md-12 col-lg-12 col-xl-12 step-xs">
             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-0">
                 <label>{{ 'upload_recipe_video' | translate }}</label>
                 <div
@@ -343,7 +344,7 @@
                         [(isUploadingImage)]="isUploadingImage"
                         [(imageIdList)]="imageIdListStep[i]"
                         fileModule="recipe-post"
-                        [height]="103"
+                        [height]="125"
                         [images]="images"
                     ></app-forum-editor>
                 </div>
@@ -361,7 +362,7 @@
                                 #featureImage
                                 (change)="uploadImage($event, 0, 'stepImage')"
                             />
-                            <div class="d-flex flex-column align-items-center">
+                            <div class="d-flex flex-column align-items-center px-25" *ngIf="!step?.coverImageUrl">
                                 <img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25" />
                                 <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25">{{
                                     'drag_drop_or_upload_image' | translate

@@ -44,9 +44,7 @@ export class BarChartComponent implements OnInit, OnChanges {
             formatter: (params) => {
                 const icon0 = `<span data-tooltip="minimum" style="border-left: 2px solid #fff;display: inline-block;height: 12px;margin-right: 5px;width: 20px;"><span style="background-color:${params[0].color};display: block;height: 4px;margin-top: 4px;width: 20px;"></span></span>`;
                 const icon1 = `<span data-tooltip="implied-high" style="background-color:rgba(255,255,255,.75);border-radius: 2px;display: inline-block;height: 12px;margin-right:5px;width: 20px;"><span style="background-color:${params[0].color};border: 1px solid ${params[0].color};border-radius:50%;display:block;height:6px;margin-left:7px;margin-top:3px;width:6px;"></span></span>`;
-                return `${icon0} ${params[0].name}<br/> ${icon1} ${params[0].value
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+                return `${params[0].name}<br/> ${params[0].value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
             },
         },
         xAxis: {
