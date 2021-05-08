@@ -12,23 +12,23 @@ const routes: Routes = [
         path: '',
         children: [
             {
-                path: 'product-list',
+                path: 'product-list/:type',
                 component: ProductListComponent,
                 canActivate: [AuthGuard],
             },
             {
-                path: 'product-details/add',
+                path: 'product-details/:type/add',
                 component: ProductDetailsComponent,
                 canActivate: [AuthGuard],
             },
             {
-                path: 'product-details/:id',
+                path: 'product-details/:type/:id',
                 component: ProductDetailsComponent,
                 canActivate: [AuthGuard],
             },
             {
                 path: '',
-                redirectTo: 'product-list',
+                redirectTo: 'product-list/b2b',
                 pathMatch: 'full',
             },
             {
