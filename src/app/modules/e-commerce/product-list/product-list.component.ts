@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { RoasterserviceService, GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
@@ -61,6 +61,7 @@ export class ProductListComponent implements OnInit {
     ];
 
     originArray = COUNTRY_LIST;
+    type: string;
 
     @HostListener('window:resize', ['$event'])
     onResize(event?) {
@@ -74,9 +75,11 @@ export class ProductListComponent implements OnInit {
         private roasterService: RoasterserviceService,
         private toastrService: ToastrService,
         public globals: GlobalsService,
+        private activatedRoute: ActivatedRoute,
     ) {}
 
     ngOnInit(): void {
+        this.type = this.activatedRoute.snapshot.params?.type;
         this.initializeTable();
         this.roasterId = this.cookieService.get('roaster_id');
         this.breadCrumbItems = [
@@ -228,6 +231,6 @@ export class ProductListComponent implements OnInit {
     }
 
     onViewDetails(item) {
-        this.router.navigate([`/e-commerce/product-details/${item.id}`]);
+        this.router.navigate([`/e-commerce/product-details/${this.type}/${item.id}`]);
     }
 }
