@@ -7,6 +7,7 @@ export interface ThreadMember {
     last_name: string;
     org_id: number;
     org_type: OrganizationType;
+    org_name: string;
     profile_pic: string;
     profile_pic_thumb: string;
     last_seen?: string;

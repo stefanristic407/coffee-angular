@@ -2,20 +2,20 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RoasterserviceService } from 'src/core/services/api/roaster.service';
-import { GlobalsService } from '@services';
+import { GlobalsService, ResizeService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import * as $ from 'jquery';
+import { ResizeableComponent } from '@base-components';
 
 @Component({
     selector: 'app-varient-details',
     templateUrl: './varient-details.component.html',
     styleUrls: ['./varient-details.component.scss'],
 })
-export class VarientDetailsComponent implements OnInit {
+export class VarientDetailsComponent extends ResizeableComponent implements OnInit {
     weightForm: FormGroup;
     weights: FormArray;
-    grind_variants: FormArray;
+    grindVariants: FormArray;
     @Input() varientDetails: any;
     currentVarientIndex = 0;
     statusArray: any = [];
@@ -25,10 +25,8 @@ export class VarientDetailsComponent implements OnInit {
     roasterID: any = '';
     weightTypeArray: any = '';
     quantityTypeArray: any = '';
-    // tslint:disable-next-line: no-output-on-prefix
-    @Output() onWeightCreate = new EventEmitter<any>();
-    // tslint:disable-next-line: no-output-on-prefix
-    @Output() onWeightDelete = new EventEmitter<any>();
+    @Output() handleWeightCreate = new EventEmitter();
+    @Output() handleWeightDelete = new EventEmitter<any>();
     weightFields = ['weight_unit', 'weight', 'status', 'is_public', 'is_default_product', 'product_weight_variant_id'];
     grindVariantFields = [
         'price',
@@ -47,7 +45,9 @@ export class VarientDetailsComponent implements OnInit {
         public globals: GlobalsService,
         public services: RoasterserviceService,
         private cookieService: CookieService,
+        protected resizeService: ResizeService,
     ) {
+        super(resizeService);
         this.roasterID = this.cookieService.get('roaster_id');
     }
 
@@ -57,7 +57,10 @@ export class VarientDetailsComponent implements OnInit {
             weights: this.fb.array([this.createEmptyWeights()]),
         });
         const weight = this.weightForm.get('weights') as FormArray;
-        weight.controls[this.currentVarientIndex]['controls'].product_images.setValue(this.setProductImages([]));
+        weight.controls[this.currentVarientIndex].get('product_images').setValue(this.setProductImages([]));
+        weight.controls[this.currentVarientIndex].get('weight').valueChanges.subscribe((value) => {
+            this.onWeightChange(value);
+        });
         this.route.params.subscribe((params) => {
             if (params.id) {
                 this.productID = params.id;
@@ -87,21 +90,18 @@ export class VarientDetailsComponent implements OnInit {
             { label: 'Medium', value: 'medium' },
             { label: 'Fine', value: 'fine' },
         ];
-        // disable mousewheel on a input number field when in focus
-        // (to prevent Cromium browsers change the value when scrolling)
-        $(document).on('wheel', 'input[type=number]', function (e) {
-            $(this).blur();
-        });
     }
-    onWeightChange(event) {
+    onWeightChange(value) {
         const weight = this.weightForm.get('weights') as FormArray;
-        const getObj = {
-            value: Number(event.value),
-            product_weight_variant_id: weight.controls[this.currentVarientIndex].value.product_weight_variant_id,
-            unit: weight.controls[this.currentVarientIndex].value.weight_unit,
-            modify: true,
-        };
-        this.onWeightCreate.emit(getObj);
+        if (weight.controls[this.currentVarientIndex]) {
+            const getObj = {
+                value,
+                product_weight_variant_id: weight.controls[this.currentVarientIndex].value.product_weight_variant_id,
+                unit: weight.controls[this.currentVarientIndex].value.weight_unit,
+                modify: true,
+            };
+            this.handleWeightCreate.emit(getObj);
+        }
         this.createWeightVariantArray();
     }
     onWeightUnitChange() {
@@ -112,7 +112,7 @@ export class VarientDetailsComponent implements OnInit {
             unit: weight.controls[this.currentVarientIndex].value.weight_unit,
             modify: true,
         };
-        this.onWeightCreate.emit(getObj);
+        this.handleWeightCreate.emit(getObj);
         this.createWeightVariantArray();
     }
     updateCrate(idx) {
@@ -123,7 +123,7 @@ export class VarientDetailsComponent implements OnInit {
             product_weight_variant_id: weight.controls[idx].value.product_weight_variant_id,
             modify: false,
         };
-        this.onWeightCreate.emit(getObj);
+        this.handleWeightCreate.emit(getObj);
     }
     loadWeight() {
         if (this.varientDetails && this.varientDetails.value.weight_variants) {
@@ -131,6 +131,9 @@ export class VarientDetailsComponent implements OnInit {
             this.weights.removeAt(0);
             this.varientDetails.value.weight_variants.forEach((ele) => {
                 const weightForm = this.createEmptyWeights();
+                weightForm.get('weight').valueChanges.subscribe((value) => {
+                    this.onWeightChange(value);
+                });
                 weightForm.controls.product_weight_variant_id.setValue(ele.product_weight_variant_id);
                 weightForm.controls.weight_name.setValue('weight -' + ele.weight + '' + ele.weight_unit);
                 if (ele.featured_image) {
@@ -162,41 +165,47 @@ export class VarientDetailsComponent implements OnInit {
         }
     }
     loadGrindVariants(grindForm, item): void {
-        this.grind_variants = grindForm as FormArray;
-        this.grind_variants.removeAt(0);
+        this.grindVariants = grindForm as FormArray;
+        this.grindVariants.removeAt(0);
         if (item && item.length > 0) {
             item.forEach((variant) => {
                 const formGrind = this.createEmptyGrindVarient();
                 this.grindVariantFields.forEach((field) => {
                     formGrind.controls[field].setValue(variant[field]);
                 });
-                this.grind_variants.push(formGrind);
+                this.grindVariants.push(formGrind);
             });
         }
     }
     addNewWeights(): void {
-        this.weights = this.weightForm.get('weights') as FormArray;
-        this.weights.push(this.createEmptyWeights());
-        const weight = this.weightForm.get('weights') as FormArray;
-        weight.controls[this.currentVarientIndex + 1]['controls'].product_images.setValue(this.setProductImages([]));
+        const weights = this.weightForm.get('weights') as FormArray;
+        weights.push(this.createEmptyWeights());
+        this.weights = weights;
+        this.weights.controls[this.weights.length - 1].get('product_images').setValue(this.setProductImages([]));
+        this.weights.controls[this.weights.length - 1].get('weight').valueChanges.subscribe((value) => {
+            this.onWeightChange(value);
+        });
         this.updateCrate(this.weights.length - 1);
         this.createWeightVariantArray();
+        setTimeout(() => {
+            this.currentVarientIndex = this.weights.length - 1;
+        }, 300);
     }
     deleteWeightVarient(index) {
         this.weights.removeAt(index);
-        this.onWeightDelete.emit(index);
+        this.handleWeightDelete.emit(index);
         this.weightVariantArray.splice(index, 1);
-        this.currentVarientIndex = this.currentVarientIndex - 1;
+        this.currentVarientIndex = 0;
     }
     addNewGrindVarients(): void {
         this.displayDelete = true;
         const weight = this.weightForm.get('weights') as FormArray;
-        this.grind_variants = weight.controls[this.currentVarientIndex].get('grind_variants') as FormArray;
-        this.grind_variants.push(this.createEmptyGrindVarient());
+        this.grindVariants = weight.controls[this.currentVarientIndex].get('grind_variants') as FormArray;
+        this.grindVariants.push(this.createEmptyGrindVarient());
     }
     createEmptyWeights() {
         const emptyVarientID = '_' + Math.random().toString(36).substr(2, 9);
-        return this.fb.group({
+        const emptyWeight: FormGroup = this.fb.group({
             weight_name: 'weight - 0 lb',
             weight_unit: 'lb',
             product_weight_variant_id: emptyVarientID,
@@ -210,6 +219,7 @@ export class VarientDetailsComponent implements OnInit {
             is_default_product: [false, Validators.compose([Validators.required])],
             grind_variants: this.fb.array([this.createEmptyGrindVarient()]),
         });
+        return emptyWeight;
     }
     setProductImages(productArray) {
         const productEmptyArray = [];
@@ -233,8 +243,8 @@ export class VarientDetailsComponent implements OnInit {
 
     deleteGrindVariant(idx) {
         const weight = this.weightForm.get('weights') as FormArray;
-        this.grind_variants = weight.controls[this.currentVarientIndex].get('grind_variants') as FormArray;
-        this.grind_variants.removeAt(idx);
+        this.grindVariants = weight.controls[this.currentVarientIndex].get('grind_variants') as FormArray;
+        this.grindVariants.removeAt(idx);
     }
     handleRoasterFile(e, index, type) {
         if (e.target.files.length > 0) {
@@ -257,12 +267,14 @@ export class VarientDetailsComponent implements OnInit {
                     fileObj.fileID = '_' + Math.random().toString(36).substr(2, 9);
                     const weight = this.weightForm.get('weights') as FormArray;
                     if (type === 'featured_image') {
-                        weight.controls[this.currentVarientIndex]['controls'].fileDetails.setValue(fileObj);
-                        weight.controls[this.currentVarientIndex]['controls'].featured_image_id.setValue('');
-                    } else {
-                        weight.controls[this.currentVarientIndex]['controls'].product_images.value[index] = {
+                        weight.controls[this.currentVarientIndex].patchValue({
                             fileDetails: fileObj,
-                        };
+                            featured_image_id: '',
+                        });
+                    } else {
+                        weight.controls[this.currentVarientIndex].patchValue({
+                            fileDetails: fileObj,
+                        });
                     }
                 }
             }
@@ -275,10 +287,12 @@ export class VarientDetailsComponent implements OnInit {
             if (getValue && getValue.featured_image_id) {
                 this.deleteImageIDs.push(getValue.featured_image_id);
             }
-            weight.controls[this.currentVarientIndex]['controls'].fileDetails.setValue(null);
-            weight.controls[this.currentVarientIndex]['controls'].featured_image_id.setValue('');
+            weight.controls[this.currentVarientIndex].patchValue({
+                fileDetails: null,
+                featured_image_id: '',
+            });
         } else {
-            const productArray = weight.controls[this.currentVarientIndex]['controls'].product_images.value;
+            const productArray = weight.controls[this.currentVarientIndex].get('product_images').value;
             if (productArray[index].fileDetails && productArray[index].fileDetails.image_id) {
                 this.deleteImageIDs.push(productArray[index]);
             }
@@ -291,7 +305,7 @@ export class VarientDetailsComponent implements OnInit {
         if (!getValue.featured_image_id && getValue.fileDetails) {
             this.uploadImage(getValue.fileDetails, 'featured_image', 0, true);
         }
-        const productImageArray = weight.controls[this.currentVarientIndex]['controls'].product_images.value;
+        const productImageArray = weight.controls[this.currentVarientIndex].get('product_images').value;
         const getNewImage = productImageArray.filter(
             (ele) => ele.fileDetails && !ele.image_id && ele.fileDetails.image_url,
         );
@@ -313,12 +327,10 @@ export class VarientDetailsComponent implements OnInit {
         if (UploadedFile.success) {
             const weight = this.weightForm.get('weights') as FormArray;
             if (type === 'featured_image') {
-                weight.controls[this.currentVarientIndex]['controls'].featured_image_id.setValue(
-                    UploadedFile.result.id,
-                );
+                weight.controls[this.currentVarientIndex].get('featured_image_id').setValue(UploadedFile.result.id);
                 this.toaster.success('Image uploaded successfully');
             } else {
-                const productImageArray = weight.controls[this.currentVarientIndex]['controls'].product_images.value;
+                const productImageArray = weight.controls[this.currentVarientIndex].get('product_images').value;
                 const foundObj = productImageArray.find((ele) => ele.fileDetails.fileID === fileObj.fileID);
                 if (foundObj) {
                     foundObj.image_id = UploadedFile.result.id;
@@ -332,12 +344,21 @@ export class VarientDetailsComponent implements OnInit {
         }
     }
     createWeightVariantArray() {
-        this.weightVariantArray = [];
         const weight = this.weightForm.get('weights') as FormArray;
-        weight['value'].forEach((ele, index) => {
+        const weightVariantArray = weight.value.map((ele, index) => {
             const weightName = 'Weight -' + (ele.weight ? ele.weight : 0) + ' ' + ele.weight_unit;
-            this.weightVariantArray.push({ label: weightName, value: index });
+            return { label: weightName, value: index };
         });
-        this.weightVariantArray.push({ label: '', value: 'button' });
+        weightVariantArray.push({ label: '', value: 'button' });
+        this.weightVariantArray = weightVariantArray;
+    }
+
+    trackFileName(name) {
+        if (name) {
+            const strArr = name.split('/');
+            const lastItem = strArr[strArr.length - 1];
+            return lastItem.split('?')[0];
+        }
+        return '';
     }
 }

@@ -209,14 +209,30 @@ export class ForumMenuComponent implements OnInit {
     }
 
     onRemoveSavedPosts(): void {
-        this.coffeeLabService.unSaveFormByType(this.forumType, this.selectedItem.id).subscribe((res: any) => {
-            console.log('delete forum result >>>>>>>>>>>', res);
-            if (res.success) {
-                this.toastService.success(`You have removed the ${this.forumType} successfully from saved posts.`);
-                this.coffeeLabService.forumDeleteEvent.emit();
-            } else {
-                this.toastService.error(`Failed to remmove a ${this.forumType} from saved posts.`);
-            }
-        });
+        this.dialogService
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'delete',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.coffeeLabService
+                        .unSaveFormByType(this.forumType, this.selectedItem.id)
+                        .subscribe((res: any) => {
+                            console.log('delete forum result >>>>>>>>>>>', res);
+                            if (res.success) {
+                                this.toastService.success(
+                                    `You have removed the ${this.forumType} successfully from saved posts.`,
+                                );
+                                this.coffeeLabService.forumDeleteEvent.emit();
+                            } else {
+                                this.toastService.error(`Failed to remmove a ${this.forumType} from saved posts.`);
+                            }
+                        });
+                }
+            });
     }
 }

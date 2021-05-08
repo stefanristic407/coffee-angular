@@ -13,11 +13,6 @@ export class BrandProfileComponent implements OnInit {
     breadItems: any[];
     pages: any[] = [
         {
-            title: 'Home Page',
-            desp: 'This is your company’s main landing page, use interesting content to bring in your user',
-            slug: 'home-page',
-        },
-        {
             title: 'About Us',
             desp: 'Write about your origin, who you are and what makes your company special',
             slug: 'about-us',

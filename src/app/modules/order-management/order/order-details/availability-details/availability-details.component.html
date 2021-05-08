@@ -22,7 +22,7 @@
             <span class="list-que"> {{ 'processing' | translate }}: </span>
         </td>
         <td>
-            <span class="list-ans">{{ (bulk?.processing_types | strReplace: '_':' ' | titlecase) || '-' }}</span>
+            <span class="list-ans">{{ (bulk?.wet_milling?.process | strReplace: '_':' ' | titlecase) || '-' }}</span>
         </td>
     </tr>
 

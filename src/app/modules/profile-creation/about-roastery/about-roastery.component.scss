@@ -1,21 +1,17 @@
-.ownerNameError,
-.foundedInError,
-.phoneError,
-.countryError,
-.addressError,
-.cityError {
-    color: #d50000;
-}
-
 .btn-file-upload {
     background: transparent;
     font-size: 14px;
-    color: #747588;
-    line-height: normal;
-    padding: 7px 12px;
-    border: 1px solid #a6a6a6;
+    color: #232334;
+    line-height: 16px;
+    padding: 8px 12px;
+    border: 1px solid #747588;
+    border-radius: 2px;
     &:hover {
-        border: 1px solid #a6a6a6 !important;
+        border: 1px solid #747588 !important;
+    }
+    img {
+        height: 16px;
+        width: 16px;
     }
 }
 

@@ -95,7 +95,13 @@ export class RoasterDashboardComponent implements OnInit {
     }
 
     getEstateOrders() {
-        this.roasterSrv.getEstateOrders(this.roasterId).subscribe((res: any) => {
+        const params = {
+            page: 1,
+            per_page: 10,
+            sort_by: 'date_received',
+            sort_order: 'desc',
+        };
+        this.roasterSrv.getEstateOrders(this.roasterId, params).subscribe((res: any) => {
             if (res.success) {
                 this.welcomeSrv.orders.next(res.result);
             } else {

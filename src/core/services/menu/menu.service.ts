@@ -4,6 +4,8 @@ import { Location } from '@angular/common';
 import { Menu } from '@models';
 import { menuItems } from './menu';
 
+import * as _ from 'underscore';
+
 @Injectable()
 export class MenuService {
     constructor(private location: Location) {}
@@ -16,12 +18,17 @@ export class MenuService {
         const url = this.location.path();
         const routerLink = url;
         const activeMenuItem = menuItems.filter((item) => routerLink.startsWith(item.routerLink));
-        if (activeMenuItem[0]) {
-            let menuItem = activeMenuItem[0];
+        if (activeMenuItem?.length) {
+            let menuItem = _.reduce(
+                activeMenuItem,
+                (acc, val) => {
+                    return val.routerLink && val.routerLink.length > acc.routerLink.length ? val : acc;
+                },
+                activeMenuItem[0],
+            );
             if (menuItem.parentId !== 0 && menuItem.parentId !== 1000) {
                 while (menuItem.parentId !== 0) {
-                    const parentMenuItem = menuItems.filter((item) => item.id === menuItem.parentId)[0];
-                    menuItem = parentMenuItem;
+                    menuItem = menuItems.filter((item) => item.id === menuItem.parentId)[0];
                 }
             }
             const menuDom = document.getElementById('menu-item-' + menuItem.id);
@@ -50,7 +57,7 @@ export class MenuService {
 
     public closeOtherSubMenus(menu: Array<Menu>, menuId) {
         const currentMenuItem = menu.filter((item) => item.id === menuId)[0];
-        if (currentMenuItem.parentId === 0 && !currentMenuItem.target) {
+        if ((currentMenuItem.parentId === 0 || currentMenuItem.parentId === 1000) && !currentMenuItem.target) {
             menu.forEach((item) => {
                 if (item.id !== menuId) {
                     const subMenu = document.getElementById('sub-menu-' + item.id);

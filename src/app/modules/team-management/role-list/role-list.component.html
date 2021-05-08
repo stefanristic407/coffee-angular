@@ -41,9 +41,9 @@
             styleClass="ui-table-customers"
             [showCurrentPageReport]="false"
             [paginator]="true"
-            [rows]="25"
+            [rows]="10"
             [lazy]="true"
-            (onLazyLoad)="getTableData()"
+            (onLazyLoad)="getTableData($event)"
             [totalRecords]="totalCount"
             [responsive]="sharedService.isMobileView"
         >

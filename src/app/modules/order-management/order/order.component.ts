@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DestroyableComponent } from '@base-components';
 import { OrderStatus, OrderType, OrganizationType } from '@enums';
 import { OrderDetails, OrganizationProfile, OrganizationDetails } from '@models';
@@ -39,7 +39,7 @@ export class OrderComponent extends DestroyableComponent implements OnInit {
         return this.organizationType === OrganizationType.ESTATE;
     }
 
-    constructor(private route: ActivatedRoute, private ordersService: OrderManagementService) {
+    constructor(private router: Router, private route: ActivatedRoute, private ordersService: OrderManagementService) {
         super();
     }
 
@@ -47,6 +47,14 @@ export class OrderComponent extends DestroyableComponent implements OnInit {
         this.route.params.pipe(takeUntil(this.unsubscribeAll$)).subscribe((params) => {
             this.orderId = +params.id;
             this.organizationType = params.orgType;
+
+            if (
+                this.organizationType !== OrganizationType.ESTATE &&
+                this.organizationType !== OrganizationType.MICRO_ROASTER
+            ) {
+                this.router.navigateByUrl('/orders/es');
+            }
+
             this.roaster$ = this.ordersService
                 .getOrgProfile(this.organizationType)
                 .pipe(takeUntil(this.unsubscribeAll$));
