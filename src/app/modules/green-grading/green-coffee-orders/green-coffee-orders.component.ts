@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { GlobalsService, GreenGradingService } from '@services';
 import { GenerateReportService } from '../generate-report/generate-report.service';
 import { MenuItem, LazyLoadEvent } from 'primeng/api';
@@ -34,6 +34,7 @@ export class GreenCoffeeOrdersComponent implements OnInit {
     ];
 
     readonly orderTypeItems = ORDER_TYPE_ITEMS;
+    selectedCuppingReportId: any;
 
     @HostListener('window:resize', ['$event'])
     onResize(event?) {
@@ -46,9 +47,13 @@ export class GreenCoffeeOrdersComponent implements OnInit {
         private greenGradingService: GreenGradingService,
         private toastrService: ToastrService,
         private router: Router,
+        private activeRoute: ActivatedRoute,
     ) {}
 
     ngOnInit(): void {
+        this.activeRoute.queryParams.subscribe((params) => {
+            this.selectedCuppingReportId = params.cuppingReportId;
+        });
         this.breadCrumbItems = [
             { label: this.globals.languageJson?.home, routerLink: '/features/micro-roaster-dashboard' },
             { label: this.globals.languageJson?.green_grading, routerLink: '/green-grading' },
@@ -161,6 +166,11 @@ export class GreenCoffeeOrdersComponent implements OnInit {
                 this.totalCount = res.result_info.total_count;
             }
             this.loading = false;
+            if (this.selectedCuppingReportId) {
+                this.generateReportService.serviceRequestsList = this.generateReportService.totalRequestList.find(
+                    (item) => item.cupping_report_id === +this.selectedCuppingReportId,
+                );
+            }
             this.selectedRows = this.generateReportService.serviceRequestsList ?? [];
         });
     }
