@@ -16,7 +16,7 @@
                 <a
                     class="d-flex justify-content-between align-items-center p-3 br-4 border-main cursor-pointer mb-3 weight-item"
                     [ngClass]="{ active: currentVarientIndex == i }"
-                    (click)="currentVarientIndex = i"
+                    (click)="onChangeCurrentWeight(i)"
                 >
                     <div class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334">
                         {{ 'weight' | translate }} - {{ weight.weight }} {{ weight.weight_unit }}
@@ -39,6 +39,7 @@
                 styleClass="w-100 p-dropdown-variantType"
                 [(ngModel)]="currentVarientIndex"
                 optionValue="value"
+                (onChange)="onChangeCurrentWeight($event)"
             >
                 <ng-template let-weight pTemplate="item">
                     <span *ngIf="weight.label">{{ weight.label }}</span>
@@ -62,7 +63,7 @@
             {{ 'delete_weight_varient' | translate }}
         </span>
         <div class="col-12 d-none d-md-block d-lg-none isWeightTab p-0">
-            <p-tabView [(activeIndex)]="currentVarientIndex">
+            <p-tabView [(activeIndex)]="currentVarientIndex" (onChange)="onChangeCurrentWeight($event)">
                 <p-tabPanel *ngFor="let weight of this.weightForm['value']['weights']; let i = index">
                     <ng-template pTemplate="header">
                         <span>
@@ -152,7 +153,7 @@
             <div
                 formArrayName="grind_variants"
                 *ngFor="
-                    let grind_varient of currentForm?.controls['grind_variants']['controls'];
+                    let grind_varient of currentForm?.get('grind_variants')?.controls;
                     let i = index;
                     last as isLast
                 "
@@ -229,18 +230,15 @@
                         </span>
                     </div>
                     <p-divider type="dashed" class="col-12" styleClass="mt-2 mb-3 mb-md-4 d-lg-none"></p-divider>
-                    <div *ngIf="isLast" class="col-12">
-                        <img src="assets/images/add-partner.svg" />
-                        <span
-                            class="ml-2 fnt-muli fnt-700 fnt-14 editBtn cursor-pointer"
-                            (click)="addNewGrindVarients()"
-                        >
-                            {{ 'add_grind_variant' | translate }}
-                        </span>
-                    </div>
-                    <p-divider type="dashed" class="col-12" styleClass="mt-3 mb-0 d-md-none"></p-divider>
                 </div>
             </div>
+            <div>
+                <img src="assets/images/add-partner.svg" />
+                <span class="ml-2 fnt-muli fnt-700 fnt-14 editBtn cursor-pointer" (click)="addNewGrindVarients()">
+                    {{ 'add_grind_variant' | translate }}
+                </span>
+            </div>
+            <p-divider type="dashed" class="col-12 p-0" styleClass="mt-3 mb-0 d-md-none"></p-divider>
             <div class="imagePaddingDiv mt-4 mt-lg-45">
                 <div class="fnt-16 fnt-muli fnt-700 text-clr334 mb-3">
                     {{ 'add_images' | translate }}

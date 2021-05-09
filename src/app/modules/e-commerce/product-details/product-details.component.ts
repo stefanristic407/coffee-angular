@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, QueryList, ViewChildren } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Form, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalsService, RoasterserviceService, UserserviceService, ECommerceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
@@ -56,6 +56,7 @@ export class ProductDetailsComponent implements OnInit {
         { label: 'Public', value: true },
         { label: 'Private', value: false },
     ];
+    removedWeightVariants: any = [];
     constructor(
         public globals: GlobalsService,
         private fb: FormBuilder,
@@ -229,7 +230,7 @@ export class ProductDetailsComponent implements OnInit {
                     }
                     this.crates = this.productForm.get('crates') as FormArray;
                     this.crates.removeAt(0);
-                    productDetails.crates.forEach((crate) => {
+                    for (const crate of productDetails.crates) {
                         if (crate.has_weight) {
                             const crateForm = this.createEmptyCrate();
                             crateForm.patchValue({
@@ -243,7 +244,7 @@ export class ProductDetailsComponent implements OnInit {
                             });
                             this.crates.push(crateForm);
                         }
-                    });
+                    }
                     this.createTypeVariantArray();
                 }
             },
@@ -258,9 +259,16 @@ export class ProductDetailsComponent implements OnInit {
         this.createTypeVariantArray();
     }
     removeVarient(index: any) {
-        const variantName = this.varients.controls[index].value.varient_name;
+        const variant = this.varients.controls[index];
+        const variantName = variant.value.varient_name;
         while (this.crates.value.find((item) => item.variant_name === variantName)) {
             this.crates.removeAt(this.crates.value.findIndex((item) => item.variant_name === variantName));
+        }
+        if (variant.get('weight_variants')) {
+            const removedWeightVariants = variant
+                .get('weight_variants')
+                .value.map((item) => item.product_weight_variant_id);
+            this.removedWeightVariants = this.removedWeightVariants.concat(removedWeightVariants);
         }
         this.varients.removeAt(index);
     }
@@ -334,7 +342,7 @@ export class ProductDetailsComponent implements OnInit {
         });
     }
     onWeightDelete(event) {
-        this.crates.removeAt(event);
+        this.crates.removeAt(this.crates.value.findIndex((item) => item.product_weight_variant_id === event));
     }
     onWeightCreate(event) {
         this.crates = this.productForm.get('crates') as FormArray;
@@ -407,11 +415,14 @@ export class ProductDetailsComponent implements OnInit {
     updateProductDetails(productObj) {
         delete productObj.varients;
         const getOldCrate = this.allCrates.filter((ele) => ele.hasChanged || ele.has_weight);
-        productObj.crates = productObj.crates.concat(getOldCrate);
+        // productObj.crates = productObj.crates.concat(getOldCrate);
+        console.log(productObj.crates);
         productObj.crates.forEach((ele) => {
             delete ele.id;
             delete ele.boxField;
             delete ele.product_weight_variant_id;
+            delete ele.variant_name;
+            delete ele.weight_name;
         });
         this.eCommerceService.updateProductDetails(this.productID, productObj, this.type).subscribe(
             (res) => {
