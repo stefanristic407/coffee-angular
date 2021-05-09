@@ -143,14 +143,17 @@ export class GenerateCuppingReportComponent implements OnInit, OnChanges {
     }
 
     downloadReport() {
-        this.greenGradingService.downloadReport(this.roasterId, this.cuppingReportId).subscribe((res: any) => {
-            if (res.success === true) {
-                this.toastrService.success('The report has been downloaded');
-                this.downloadFile(res.result.url);
-            } else {
-                this.toastrService.error('Cupping Scores not found!');
-            }
-        });
+        const evalIds = this.evaluatorArray[this.cuppingReportId].map((item) => item.evaluator_id);
+        this.greenGradingService
+            .downloadReport(this.roasterId, this.cuppingReportId, evalIds.join(','))
+            .subscribe((res: any) => {
+                if (res.success === true) {
+                    this.toastrService.success('The report has been downloaded');
+                    this.downloadFile(res.result.url);
+                } else {
+                    this.toastrService.error('Cupping Scores not found!');
+                }
+            });
     }
 
     onOpen(event) {

@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { GlobalsService, GreenGradingService } from '@services';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { GenerateReportService } from '../generate-report/generate-report.service';
 import { MenuItem, SortEvent } from 'primeng/api';
@@ -36,6 +36,7 @@ export class GradeSampleComponent implements OnInit {
 
     countries: any[];
     clonedSamples: { [s: string]: any } = {};
+    selectedCuppingReportId: any;
 
     @HostListener('window:resize', ['$event'])
     onResize(event?) {
@@ -49,11 +50,15 @@ export class GradeSampleComponent implements OnInit {
         public generateReportService: GenerateReportService,
         private toastrService: ToastrService,
         private greenGradingService: GreenGradingService,
+        private activeRoute: ActivatedRoute,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
     }
 
     ngOnInit(): void {
+        this.activeRoute.queryParams.subscribe((params) => {
+            this.selectedCuppingReportId = params.cuppingReportId;
+        });
         this.breadCrumbItems = [
             { label: this.globals.languageJson?.home, routerLink: '/features/micro-roaster-dashboard' },
             { label: this.globals.languageJson?.green_grading, routerLink: '/green-grading' },
@@ -170,6 +175,11 @@ export class GradeSampleComponent implements OnInit {
                 }
             }
             this.loading = false;
+            if (this.selectedCuppingReportId) {
+                this.generateReportService.serviceRequestsList = this.cuppingRequestList.find(
+                    (item) => item.cupping_report_id === +this.selectedCuppingReportId,
+                );
+            }
             this.selectedRows = this.generateReportService.serviceRequestsList ?? [];
         });
     }

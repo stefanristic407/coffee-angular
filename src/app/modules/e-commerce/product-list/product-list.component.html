@@ -1,7 +1,7 @@
 <section class="main-block">
     <div class="pb-4 pb-md-0 pt-2 pt-md-0 d-flex flex-wrap justify-content-between">
         <p-breadcrumb [model]="breadCrumbItems"></p-breadcrumb>
-        <button class="btn-raised d-none d-md-block" routerLink="/e-commerce/product-details/add">
+        <button class="btn-raised d-none d-md-block" [routerLink]="'/e-commerce/product-details/' + type + '/add'">
             {{ 'add_product' | translate }}
         </button>
     </div>
@@ -133,13 +133,13 @@
                                             pButton
                                             pRipple
                                             type="button"
-                                            (click)="$event.stopPropagation(); menu.toggle($event)"
+                                            (click)="menu.toggle($event)"
                                             class="p-button-rounded p-button-text text-clr588 w-unset"
                                             icon="pi pi-ellipsis-v"
                                         ></button>
                                     </div>
                                 </div>
-                                <span class="d-none d-md-flex align-items-center">
+                                <span class="d-none d-md-flex align-items-center" (click)="onViewDetails(rowData)">
                                     <img class="product-image" src="{{ rowData['featured_image'] }}" />
                                     <div>
                                         {{ rowData[col.field] }}
@@ -152,7 +152,7 @@
                                     </div>
                                 </span>
                             </span>
-                            <span *ngSwitchCase="'featured_image'">
+                            <span *ngSwitchCase="'featured_image'" (click)="onViewDetails(rowData)">
                                 <div class="d-flex">
                                     <img class="product-image" src="{{ rowData['featured_image'] }}" />
                                     <div class="w-100">
@@ -179,21 +179,21 @@
                                 </div>
                             </span>
 
-                            <span *ngSwitchCase="'status'">
+                            <span *ngSwitchCase="'status'" (click)="onViewDetails(rowData)">
                                 <span>
                                     {{ rowData[col.field] | strReplace: '-':' ' | titlecase }}
                                 </span>
                             </span>
 
-                            <span *ngSwitchCase="'origin'">
+                            <span *ngSwitchCase="'origin'" (click)="onViewDetails(rowData)">
                                 <span>
                                     {{ globals.getCountryName(rowData[col.field]) || '_' }}
                                 </span>
                             </span>
-                            <span *ngSwitchCase="'weight'">
+                            <span *ngSwitchCase="'weight'" (click)="onViewDetails(rowData)">
                                 <span> {{ rowData[col.field] }} {{ rowData.weight_unit }} </span>
                             </span>
-                            <span *ngSwitchCase="'price'">
+                            <span *ngSwitchCase="'price'" (click)="onViewDetails(rowData)">
                                 <span> ${{ rowData[col.field] }} </span>
                             </span>
                             <span *ngSwitchCase="'actions'">

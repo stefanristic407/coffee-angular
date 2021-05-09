@@ -16,6 +16,7 @@ export class UserDetailComponent implements OnInit, OnChanges {
     @Input() shape: any;
     @Input() type: any;
     @Input() hasBorder: any;
+    @Input() isMessage: any;
     orgName: any;
     data: any;
     name: any;
