@@ -342,7 +342,12 @@ export class ProductDetailsComponent implements OnInit {
         });
     }
     onWeightDelete(event) {
-        this.crates.removeAt(this.crates.value.findIndex((item) => item.product_weight_variant_id === event));
+        this.crates.removeAt(
+            this.crates.value.findIndex((item) => item.product_weight_variant_id === event.productWeightVariantId),
+        );
+        if (event.isNew) {
+            this.removedWeightVariants.push(event);
+        }
     }
     onWeightCreate(event) {
         this.crates = this.productForm.get('crates') as FormArray;
@@ -474,6 +479,13 @@ export class ProductDetailsComponent implements OnInit {
                 }
             });
         });
+        for (const weightVariant of this.removedWeightVariants) {
+            this.eCommerceService.deleteProductWeightVarients(productID, weightVariant, this.type).subscribe((res) => {
+                if (!res.success) {
+                    this.toasterService.error('Errow while removing weight varients');
+                }
+            });
+        }
     }
     addNewGrindVariant(productID, weigthObj, showToaster) {
         delete weigthObj.product_weight_variant_id;

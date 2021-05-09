@@ -64,6 +64,14 @@ export class ECommerceService extends ApiService {
             body,
         );
     }
+    deleteProductWeightVarients(productId: any, weightVariantId: any, type: any): Observable<any> {
+        const suffix = type === 'b2b' ? '' : `${type}-`;
+        return this.postWithOrg(
+            this.orgPostUrl,
+            `${suffix}products/${productId}/weight-variants/${weightVariantId}`,
+            'DELETE',
+        );
+    }
     uploadProductImage(file: any): Observable<any> {
         const data = new FormData();
         data.append('api_call', `/ro/${this.getOrgId()}/file-manager/files`);
