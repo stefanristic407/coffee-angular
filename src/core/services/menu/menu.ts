@@ -28,7 +28,8 @@ export const menuItems = [
         [],
     ),
     new Menu(42, 'menu_rc_inventory', '/roasted-coffee-batch/roasted-coffee-batchs', null, null, null, false, 4, []),
-    new Menu(43, 'menu_product_settings', '/features/vat-management', null, null, null, false, 4, []),
+    new Menu(43, 'ecommerce_product_management', '/e-commerce/product-list/b2c', null, null, null, false, 4, []),
+    new Menu(44, 'menu_product_settings', '/features/vat-management', null, null, null, false, 4, []),
 
     new Menu(9, 'menu_ecommerce_management', '/e-commerce/product-list/b2b', null, null, null, false, 0, []),
 
