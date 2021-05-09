@@ -91,12 +91,6 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
         ];
     }
 
-    onChangeCurrentWeight(event) {
-        this.currentVarientIndex = event.value ?? event.index ?? event;
-        this.grindVariants = (this.weightForm.get('weights') as FormArray).controls[this.currentVarientIndex].get(
-            'grind_variants',
-        ) as FormArray;
-    }
     onWeightChange(value, index?) {
         const weights = this.weightForm.get('weights') as FormArray;
         const weight = weights.controls[!!index ? index : this.currentVarientIndex];
