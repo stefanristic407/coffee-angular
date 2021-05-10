@@ -1,17 +1,11 @@
 <div class="d-flex align-items-center w-100">
     <div class="mr-25">
-        <img
-            [src]="
-                prop?.profile_image_url ||
-                prop?.profile_image_thumb_url ||
-                prop?.posted_user_profile_image_url ||
-                'assets/images/default-avatar.png'
-            "
-            class="rounded-circle"
-            alt="avatar"
-            width="40"
-            height="40"
-        />
+        <app-user-detail
+            [imageUrl]="prop?.profile_image_url || prop?.profile_image_thumb_url || prop?.posted_user_profile_image_url"
+            [userId]="prop?.user_id || prop?.posted_by"
+            [orgType]="prop?.org_type || prop?.organisation_type || prop?.organization_type"
+            size="40"
+        ></app-user-detail>
     </div>
     <div class="flex-1">
         <div class="d-flex align-items-center info-text-wrapper">
