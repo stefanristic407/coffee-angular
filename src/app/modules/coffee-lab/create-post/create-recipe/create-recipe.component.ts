@@ -240,9 +240,9 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
             serves: ['', Validators.compose([Validators.required])],
             preparation_time_unit: ['mins'],
             cooking_time_unit: ['mins'],
-            preparation_time: ['', Validators.compose([Validators.required])],
-            cooking_time: ['', Validators.compose([Validators.required])],
-            preparation_method: ['', Validators.compose([Validators.required])],
+            preparation_time: [null, Validators.compose([Validators.required])],
+            cooking_time: [null, Validators.compose([Validators.required])],
+            preparation_method: [null, Validators.compose([Validators.required])],
             cover_image_id: [null, Validators.compose([Validators.required])],
             description: ['', Validators.compose([Validators.required])],
             ingredients: this.fb.array([this.createCoffeeIngredient()]),
@@ -337,24 +337,31 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
     onSave(status?: string): void {
         this.recipeForm.controls.description.setValue(this.description);
         console.log('save----', this.recipeForm.value);
-        if (this.validateForms()) {
-            this.isPosting = true;
-            if (status === 'draft') {
-                this.recipeForm.controls.publish.setValue(false);
-            }
-            if (this.isTranslate) {
-                console.log('translate recipe');
-                this.translateRecipe(this.recipeForm.value);
-            } else if (this.recipeId) {
-                console.log('update recipe');
-                this.updateRecipe(this.recipeForm.value);
+        if (status === 'draft') {
+            if (!this.recipeForm.value.name) {
+                this.toaster.error('Please fill recipe name');
             } else {
-                console.log('create new recipe');
+                this.isPosting = true;
+                this.recipeForm.controls.publish.setValue(false);
                 this.createNewRecipe(this.recipeForm.value);
             }
         } else {
-            this.recipeForm.markAllAsTouched();
-            this.toaster.error('Please fill all Data');
+            if (this.validateForms()) {
+                this.isPosting = true;
+                if (this.isTranslate) {
+                    console.log('translate recipe');
+                    this.translateRecipe(this.recipeForm.value);
+                } else if (this.recipeId) {
+                    console.log('update recipe');
+                    this.updateRecipe(this.recipeForm.value);
+                } else {
+                    console.log('create new recipe');
+                    this.createNewRecipe(this.recipeForm.value);
+                }
+            } else {
+                this.recipeForm.markAllAsTouched();
+                this.toaster.error('Please fill all Data');
+            }
         }
     }
 

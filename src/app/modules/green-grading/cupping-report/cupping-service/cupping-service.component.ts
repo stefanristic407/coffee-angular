@@ -407,7 +407,11 @@ export class CuppingServiceComponent implements OnInit {
             this.greenGradingService.recupSample(this.roasterId, this.serviceId).subscribe((res: any) => {
                 if (res.success === true) {
                     this.toastrService.success('Recupping has started');
-                    this.router.navigate(['/green-grading/cupping-reports']);
+                    this.router.navigate(['/green-grading/green-coffee-orders'], {
+                        queryParams: {
+                            cuppingReportId: res.result.id,
+                        },
+                    });
                 } else {
                     this.toastrService.error('Error while downloading report');
                 }
@@ -416,7 +420,11 @@ export class CuppingServiceComponent implements OnInit {
             this.greenGradingService.recupSampleRequest(this.roasterId, this.serviceId).subscribe((res: any) => {
                 if (res.success === true) {
                     this.toastrService.success('Recupping has started');
-                    this.router.navigate(['/green-grading/cupping-reports']);
+                    this.router.navigate(['/green-grading/grade-sample'], {
+                        queryParams: {
+                            cuppingReportId: res.result.id,
+                        },
+                    });
                 } else {
                     this.toastrService.error('Error while downloading report');
                 }

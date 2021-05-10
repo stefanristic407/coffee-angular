@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@guards';
 import { OnboardCustomersComponent } from './onboard-customers/onboard-customers.component';
-import { AddProductComponent } from './e-commerce/add-product/add-product.component';
-import { ProductsTableComponent } from './e-commerce/products-table/products-table.component';
 import { CofeeExpeienceDetailsComponent } from './Farm Link/cofee-expeience-details/cofee-expeience-details.component';
 import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-experience.component';
 import { QAForumComponent } from './Farm Link/q-a-forum/q-a-forum.component';
@@ -21,8 +19,6 @@ import { VatManagementComponent } from './vat-management/vat-management.componen
 import { BatchSelectAnOrderComponent } from './batch-select-an-order/batch-select-an-order.component';
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
 import { DefaultSettingComponent } from './Farm Link/coffee-experience/default-setting/default-setting.component';
-import { ProductListComponent } from './e-commerce/product-list/product-list.component';
-import { ProductDetailsComponent } from './e-commerce/product-details/product-details.component';
 
 const routes: Routes = [
     {
@@ -90,32 +86,6 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
 
-            {
-                path: 'add-product',
-                component: AddProductComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'product/:id',
-                component: AddProductComponent,
-                canActivate: [AuthGuard],
-            },
-
-            {
-                path: 'products-list',
-                component: ProductListComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'new-product',
-                component: ProductDetailsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'new-product/:id',
-                component: ProductDetailsComponent,
-                canActivate: [AuthGuard],
-            },
             {
                 path: 'vat-management',
                 component: VatManagementComponent,

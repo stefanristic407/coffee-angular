@@ -22,7 +22,7 @@ export class CuppingReportComponent implements OnInit {
     selectedOrigin: any;
     selectedDate: any;
 
-    regions: SelectItemGroup[];
+    regions: any[] = [];
     selectedRegion: any;
 
     tableData: any[] = [];
@@ -61,20 +61,6 @@ export class CuppingReportComponent implements OnInit {
             { label: this.globals.languageJson?.my_cupping_reports },
         ];
         this.countries = COUNTRY_LIST;
-        this.regions = [];
-        for (const country of COUNTRY_LIST) {
-            const groupItem = {
-                label: country.name,
-                value: country.isoCode,
-                items: country.cities.map((item: any) => {
-                    return {
-                        label: item,
-                        value: item,
-                    };
-                }),
-            };
-            this.regions.push(groupItem);
-        }
         this.getReportsData();
         this.initializeTable();
     }
@@ -121,6 +107,12 @@ export class CuppingReportComponent implements OnInit {
             if (res.success === true) {
                 this.serviceReportsData = res.result;
                 this.tableData = res.result;
+                this.regions = [];
+                for (const request of res.result) {
+                    if (!this.regions.find((item) => item.value === request.region)) {
+                        this.regions = [...this.regions, { value: request.region, label: request.region }];
+                    }
+                }
             } else {
                 this.toastrService.error('Error while listing service Reports.');
             }
@@ -253,6 +245,11 @@ export class CuppingReportComponent implements OnInit {
             this.greenGradingService.recupSample(this.roasterId, item.gc_order_id).subscribe((res: any) => {
                 if (res.success === true) {
                     this.toastrService.success('Recupping has started');
+                    this.router.navigate(['/green-grading/green-coffee-orders'], {
+                        queryParams: {
+                            cuppingReportId: res.result.id,
+                        },
+                    });
                 } else {
                     this.toastrService.error('Error while downloading report');
                 }
@@ -263,36 +260,16 @@ export class CuppingReportComponent implements OnInit {
                 .subscribe((res: any) => {
                     if (res.success === true) {
                         this.toastrService.success('Recupping has started');
+                        this.router.navigate(['/green-grading/grade-sample'], {
+                            queryParams: {
+                                cuppingReportId: res.result.id,
+                            },
+                        });
                     } else {
                         this.toastrService.error('Error while downloading report');
                     }
                 });
         }
-    }
-
-    evaluatorsList(item) {
-        this.greenGradingService
-            .getEvaluatorsList(this.roasterId, item.cupping_report_id)
-            .subscribe((response: any) => {
-                if (response.success === true) {
-                    this.uploadReport(item, response.result);
-                }
-            });
-    }
-
-    uploadReport(item, evaluatorArray) {
-        const ids = evaluatorArray.map((ele: any) => ele.evaluator_id);
-        const data = {
-            status: 'COMPLETED',
-            evaluator_ids: ids,
-        };
-        this.greenGradingService.updateStatus(this.roasterId, item.cupping_report_id, data).subscribe((res: any) => {
-            if (res.success === true) {
-                this.toastrService.success('The Report has been updated.');
-            } else {
-                this.toastrService.error('Error while updating the report');
-            }
-        });
     }
 
     getMenuItemsForItem(item) {
@@ -321,17 +298,7 @@ export class CuppingReportComponent implements OnInit {
                     this.reGrade(item);
                 },
             },
-            {
-                label: 'Generate new report',
-                command: () => {
-                    this.evaluatorsList(item);
-                },
-            },
         ];
-
-        if (this.activeIndex === 1) {
-            items.splice(3, 1);
-        }
         return [{ items }];
     }
 }
