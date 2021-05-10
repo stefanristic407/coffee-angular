@@ -30,7 +30,7 @@
                 </div>
                 <ng-container *ngFor="let agreement of agreements">
                     <a
-                        *ngIf="authService.currentUser?.roles?.includes(agreement.role)"
+                        *ngIf="agreement.isShow"
                         [href]="agreement.url"
                         target="_blank"
                         class="py-25 py-md-3 agreement-item"
