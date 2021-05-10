@@ -867,7 +867,7 @@ export class RoasterserviceService extends ApiService {
     }
     updateOrderDetails(roaster_id: any, outtake_order_id: any, body: any): Observable<any> {
         const data = {
-            api_call: `/ro/${roaster_id}/outtake-orders${outtake_order_id}`,
+            api_call: `/ro/${roaster_id}/outtake-orders/${outtake_order_id}`,
             token: this.cookieService.get('Auth'),
             method: 'PUT',
             data: body,

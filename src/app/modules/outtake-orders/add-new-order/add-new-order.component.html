@@ -98,7 +98,7 @@
                                 <div class="w-100">
                                     <p-dropdown
                                         [options]="userDetails"
-                                        optionLabel="firstname"
+                                        optionLabel="userName"
                                         [formControl]="addOrdersForm.controls['created_by']"
                                         optionValue="id"
                                     ></p-dropdown>
@@ -118,7 +118,7 @@
                                 <div class="w-100">
                                     <p-dropdown
                                         [options]="userDetails"
-                                        optionLabel="firstname"
+                                        optionLabel="userName"
                                         [formControl]="addOrdersForm.controls['sales_member_id']"
                                         optionValue="id"
                                     ></p-dropdown>
@@ -179,11 +179,11 @@
                                         [options]="customersDetails"
                                         optionLabel="name"
                                         placeholder="{{ 'select_the_type_of_customer' | translate }}"
-                                        [formControl]="addOrdersForm.controls['customer_name']"
+                                        [formControl]="addOrdersForm.controls['customer_id']"
                                         optionValue="id"
                                     ></p-dropdown>
                                 </div>
-                                <small *ngIf="addOrdersForm.controls['customer_name'].errors?.required" class="p-error">
+                                <small *ngIf="addOrdersForm.controls['customer_id'].errors?.required" class="p-error">
                                     {{ 'request' | translate }}
                                 </small>
                             </div>
@@ -233,7 +233,10 @@
                                     />
                                 </div>
                                 <div class="weightInputDivKg">
-                                    <span>SEK / kg</span>
+                                    <span
+                                        >{{ outtakeOrderDetails.unit_currency }} /
+                                        {{ outtakeOrderDetails.quantity_unit }}</span
+                                    >
                                 </div>
                                 <small *ngIf="addOrdersForm.controls['unit_price'].errors?.required" class="p-error">
                                     {{ 'request' | translate }}
@@ -553,20 +556,20 @@
                             <ul class="clearfix">
                                 <li>
                                     <label>{{ 'order_id' | translate }}: </label>
-                                    <p>{{ orderDetails?.id }}</p>
+                                    <p>{{ orderDetails?.id || '--' }}</p>
                                 </li>
                                 <li>
                                     <label>{{ 'origin' | translate }}:</label>
-                                    <p>{{ orderDetails?.origin }}</p>
+                                    <p>{{ orderDetails?.origin || '--' | country | translate }}</p>
                                 </li>
                                 <li>
                                     <label>{{ 'variety' | translate }}:</label>
-                                    <p>{{ orderDetails?.varieties }}</p>
+                                    <p>{{ orderDetails?.varieties || '--' | translate }}</p>
                                 </li>
                                 <li>
                                     <label>{{ 'price' | translate }}:</label>
                                     <p>
-                                        $ {{ orderDetails?.price }} {{ orderDetails?.unit_currency }}/{{
+                                        {{ orderDetails?.price }} {{ orderDetails?.unit_currency }}/{{
                                             orderDetails?.price_unit
                                         }}
                                     </p>
@@ -583,10 +586,14 @@
                         </div>
                         <div class="mt-3 d-md-flex justify-content-around cust-profile p-4 br-4">
                             <div>
-                                <div class="fnt-md-14 fnt-muli fnt-600 text-clr588 mb-2">12 Feb, 2020</div>
+                                <div class="fnt-md-14 fnt-muli fnt-600 text-clr588 mb-2">
+                                    {{ orderDetails?.cupped_at | date: 'd MMM yyyy' }}
+                                </div>
                                 <div class="fnt-md-14 fnt-muli fnt-600 text-clr588">
                                     {{ 'cup_score' | translate }} :
-                                    <span class="fnt-md-14 fnt fnt-muli fnt-bold text-clr334">87.0</span>
+                                    <span class="fnt-md-14 fnt fnt-muli fnt-bold text-clr334">{{
+                                        orderDetails?.cup_score | translate
+                                    }}</span>
                                 </div>
                             </div>
                             <div class="d-flex br_left">
@@ -649,7 +656,7 @@
                                 </li>
                                 <li>
                                     <label class="width-lable">{{ 'country' | translate }}</label>
-                                    <p>{{ customerDetails?.country }}</p>
+                                    <p>{{ customerDetails?.country | country | translate }}</p>
                                 </li>
                                 <li>
                                     <label class="width-lable">{{ 'address' | translate }}</label>

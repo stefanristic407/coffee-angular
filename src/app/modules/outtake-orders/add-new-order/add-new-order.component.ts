@@ -33,6 +33,7 @@ export class AddNewOrderComponent implements OnInit {
     customerType: any;
     userDetails: any;
     customersDetails: any;
+    outtakeOrderDetails: any;
 
     constructor(
         private roasterService: RoasterserviceService,
@@ -70,8 +71,7 @@ export class AddNewOrderComponent implements OnInit {
             sales_member_id: ['', [Validators.required]],
             weight: [''],
             weight_unit: [''],
-            customer_id: [''],
-            customer_name: ['', [Validators.required]],
+            customer_id: ['', [Validators.required]],
             customer_type: ['', [Validators.required]],
             gc_total_quantity: ['', [this.remainingQuantity.bind(this)]],
             gc_total_quantity_unit: [''],
@@ -84,7 +84,7 @@ export class AddNewOrderComponent implements OnInit {
             quantity_unit: [''],
             roasted_coffee_total_quantity: [''],
             roasted_coffee_total_quantity_unit: [''],
-            pre_cleaned: [''],
+            pre_cleaned: [true],
             roaster_id: [''],
             roasted_date: [''],
             roast_level: [''],
@@ -97,6 +97,12 @@ export class AddNewOrderComponent implements OnInit {
             this.getOrder();
         }
         this.getUserDetails();
+    }
+
+    remainingQuantity(control: AbstractControl) {
+        if (control.value) {
+            this.remainingTotalQuantity = this.orderDetails?.remaining_total_quantity - control.value;
+        }
     }
 
     getOrderDetails() {
@@ -127,9 +133,8 @@ export class AddNewOrderComponent implements OnInit {
                                 this.addOrdersForm.get('customer_id').value,
                             )
                             .subscribe((rep) => {
-                                this.customerDetails = rep.result;
                                 if (rep.success) {
-                                    this.addOrdersForm.get('customer_name').setValue(rep.result.customer_id);
+                                    this.customerDetails = rep.result;
                                 }
                             });
                     }
@@ -151,20 +156,30 @@ export class AddNewOrderComponent implements OnInit {
     getUserDetails() {
         this.roasterService.getUserDetails(this.roasterId).subscribe((res) => {
             this.userDetails = res.result;
+            this.userDetails = this.userDetails.map((item) => {
+                const userName = 'userName';
+                item[userName] = item.firstname.concat(' ', item.lastname);
+                return item;
+            });
         });
     }
 
     getOrder() {
         this.roasterService.getViewOrder(this.roasterId, this.outtakeOrderId).subscribe((res) => {
             if (res.success) {
-                res.result.order_date = new Date(res.result.order_date);
-                res.result.roasted_date = new Date(res.result.roasted_date);
-                this.addOrdersForm.patchValue(res.result);
+                this.outtakeOrderDetails = res.result;
+                this.outtakeOrderDetails.order_date = new Date(this.outtakeOrderDetails.order_date);
+                this.outtakeOrderDetails.roasted_date = new Date(this.outtakeOrderDetails.roasted_date);
+                this.addOrdersForm.patchValue(this.outtakeOrderDetails);
                 this.getCustomerDetails();
                 this.getOrderDetails();
                 this.getCoffeeStory();
             }
         });
+    }
+
+    selectMember(event) {
+        console.log(event);
     }
 
     selectOrder(event) {
@@ -175,29 +190,24 @@ export class AddNewOrderComponent implements OnInit {
 
     addOrderDetails() {
         const data = this.addOrdersForm.value;
-        this.roasterService.addOrderDetails(this.roasterId, data).subscribe((res) => {
-            if (res.success) {
-                this.toaster.success('Outtake Order added successfully');
-            } else {
-                this.toaster.error('Unable to add the outtake order');
-            }
-        });
-    }
-
-    updateOrderDetails() {
-        const data = this.addOrdersForm.value;
-        this.roasterService.updateOrderDetails(this.roasterId, this.outtakeOrderId, data).subscribe((res) => {
-            if (res.success) {
-                this.toaster.success('Outtake Order updated successfully');
-            } else {
-                this.toaster.error('Unable to update the outtake order');
-            }
-        });
-    }
-
-    remainingQuantity(control: AbstractControl) {
-        if (control.value) {
-            this.remainingTotalQuantity = this.orderDetails?.remaining_total_quantity - control.value;
+        const orderCreatedBy = 'order_created_by';
+        data[orderCreatedBy] = data.created_by;
+        if (this.outtakeOrderId) {
+            this.roasterService.updateOrderDetails(this.roasterId, this.outtakeOrderId, data).subscribe((res) => {
+                if (res.success) {
+                    this.toaster.success('Outtake Order updated successfully');
+                } else {
+                    this.toaster.error('Unable to update the outtake order');
+                }
+            });
+        } else {
+            this.roasterService.addOrderDetails(this.roasterId, data).subscribe((res) => {
+                if (res.success) {
+                    this.toaster.success('Outtake Order added successfully');
+                } else {
+                    this.toaster.error('Unable to add the outtake order');
+                }
+            });
         }
     }
 
