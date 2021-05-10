@@ -7,13 +7,13 @@
     *ngIf="type !== 'text'"
 >
     <img
-        *ngIf="data?.profile_image_thumb_url || data?.profile_image_url"
-        [src]="data?.profile_image_thumb_url || data?.profile_image_url"
+        *ngIf="data?.profile_image_thumb_url || data?.profile_image_url || imageUrl"
+        [src]="imageUrl || data?.profile_image_thumb_url || data?.profile_image_url"
         [alt]="name && name.length ? name.slice(0, 1) : 'AV'"
         [style.borderRadius]="shape === 'rectangle' ? 'unset' : '50%'"
     />
     <span
-        *ngIf="!data?.profile_image_thumb_url && !data?.profile_image_url"
+        *ngIf="!data?.profile_image_thumb_url && !data?.profile_image_url && !imageUrl"
         class="text-white"
         [style.font-size]="size / 1.5 + 'px'"
         >{{ name && name.length ? name.slice(0, 1) : '' }}</span
@@ -73,7 +73,7 @@
                         [queryParams]="{
                             user_id: userId,
                             organization: orgType,
-                            organization_id: data.organization_id
+                            organization_id: data?.organization_id
                         }"
                     >
                         {{ 'view_profile' | translate }}
