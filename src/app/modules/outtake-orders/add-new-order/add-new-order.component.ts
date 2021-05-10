@@ -182,13 +182,6 @@ export class AddNewOrderComponent implements OnInit {
         });
     }
 
-    // onCustomerTypeChange(event) {
-    //     console.log(event);
-    //     if (event) {
-    //         this.getCustomerDetails();
-    //     }
-    // }
-
     selectOrder(event) {
         this.addOrdersForm.get('order_id').setValue(event.orderId);
         this.getOrderDetails();
