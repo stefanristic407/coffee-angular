@@ -1,11 +1,10 @@
-import { AfterViewInit, Component, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RoasterserviceService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
-import { dataTool } from 'echarts';
 
 @Component({
     selector: 'app-add-new-order',
@@ -25,17 +24,12 @@ export class AddNewOrderComponent implements OnInit {
     customerTypeArray: any = [];
     preCleaned: any = [];
     addOrdersForm: FormGroup;
-    typeOfCustomer: any;
     weightTypeArray: { label: string; value: string }[];
-    hrcId: any;
     orderDetails: any;
     outtakeOrderId: any;
-    selectedOrderId = '';
-    selectedOrderType: any;
     coffeeExperienceLink: any;
     customerDetails: any;
     remainingTotalQuantity: any;
-    order: any;
     constructor(
         private roasterService: RoasterserviceService,
         private cookieService: CookieService,
@@ -98,52 +92,51 @@ export class AddNewOrderComponent implements OnInit {
         if (this.outtakeOrderId) {
             this.getOrder();
             this.getOrderDetails();
-            this.getCustomerDetails();
             this.getCoffeeStory();
         }
     }
 
     getOrderDetails() {
-        this.roasterService.getViewOrderDetails(this.roasterId, this.selectedOrderId).subscribe((res) => {
-            this.orderDetails = res.result;
-            this.remainingTotalQuantity = this.orderDetails.remaining_total_quantity;
-        });
+        this.roasterService
+            .getViewOrderDetails(this.roasterId, this.addOrdersForm.get('order_id').value)
+            .subscribe((res) => {
+                this.orderDetails = res.result;
+                this.remainingTotalQuantity = this.orderDetails.remaining_total_quantity;
+            });
     }
     getCustomerDetails() {
         this.customerDetails = [];
-        if (this.addOrdersForm.get('customer_type').value === 'mr') {
-            this.roasterService.getViewCustomerMicroRoastersDetails(this.roasterId).subscribe((res) => {
-                this.customerDetails = res.result;
-            });
-        } else if (this.addOrdersForm.get('customer_type').value === 'hrc') {
-            this.roasterService.getViewCustomerPartnerDetails(this.roasterId).subscribe((res) => {
-                this.customerDetails = res.result;
-            });
+        if (this.addOrdersForm.get('customer_type').value) {
+            this.roasterService
+                .getCustomerDetails(this.roasterId, this.addOrdersForm.get('customer_type').value)
+                .subscribe((res) => {
+                    this.customerDetails = res.result;
+                });
         }
     }
     getCoffeeStory() {
-        this.userService.getCoffeeStory(this.roasterId, this.selectedOrderId, 'mr-orders').subscribe((res: any) => {
-            if (res.success) {
-                this.coffeeExperienceLink = res.result;
-            }
-        });
+        this.userService
+            .getCoffeeStory(this.roasterId, this.addOrdersForm.get('order_id').value, 'mr-orders')
+            .subscribe((res: any) => {
+                if (res.success) {
+                    this.coffeeExperienceLink = res.result;
+                }
+            });
     }
 
     getOrder() {
-        this.selectedOrderId = this.outtakeOrderId;
         this.roasterService.getViewOrder(this.roasterId, this.outtakeOrderId).subscribe((res) => {
             if (res.success) {
                 res.result.order_date = new Date(res.result.order_date);
                 res.result.roasted_date = new Date(res.result.roasted_date);
                 this.addOrdersForm.patchValue(res.result);
+                this.getCustomerDetails();
             }
         });
     }
 
     selectOrder(event) {
-        this.selectedOrderId = event.orderId;
-        this.selectedOrderType = event.orderType;
-        this.addOrdersForm.get('order_id').setValue('#' + this.selectedOrderId);
+        this.addOrdersForm.get('order_id').setValue('#' + event.orderId);
         this.getOrderDetails();
         this.getCoffeeStory();
     }

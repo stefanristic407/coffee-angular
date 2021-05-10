@@ -813,22 +813,15 @@ export class RoasterserviceService extends ApiService {
         };
         return this.http.post(this.url, data);
     }
-    getViewCustomerMicroRoastersDetails(roaster_id: any, orderType = null): Observable<any> {
+    getCustomerDetails(roaster_id: any, customerType: string): Observable<any> {
         const data = {
-            api_call: `/ro/${roaster_id}/micro-roasters`,
+            api_call: `/ro/${roaster_id}/${customerType}`,
             token: this.cookieService.get('Auth'),
             method: 'GET',
         };
         return this.http.post(this.url, data);
     }
-    getViewCustomerPartnerDetails(roaster_id: any, orderType = null): Observable<any> {
-        const data = {
-            api_call: `/ro/${roaster_id}/micro-roasters`,
-            token: this.cookieService.get('Auth'),
-            method: 'GET',
-        };
-        return this.http.post(this.url, data);
-    }
+
     getListOrderDetails(roaster_id: any, postData = null, orderType = ''): Observable<any> {
         const data = {
             api_call: `/ro/${roaster_id}/orders?` + this.serlialise(postData),
