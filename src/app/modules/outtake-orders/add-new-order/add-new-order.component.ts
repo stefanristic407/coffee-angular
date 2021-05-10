@@ -110,7 +110,7 @@ export class AddNewOrderComponent implements OnInit {
         });
     }
     getCustomerDetails() {
-        this.customerDetails = '';
+        this.customerDetails = [];
         if (this.addOrdersForm.get('customer_type').value === 'mr') {
             this.roasterService.getViewCustomerMicroRoastersDetails(this.roasterId).subscribe((res) => {
                 this.customerDetails = res.result;
