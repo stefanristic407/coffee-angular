@@ -64,7 +64,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
     constructor(
         private toastService: ToastrService,
         private router: Router,
-        private coffeeLabService: CoffeeLabService,
+        public coffeeLabService: CoffeeLabService,
         private cookieService: CookieService,
         public authService: AuthService,
     ) {
