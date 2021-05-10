@@ -67,6 +67,9 @@
     .p-dropdown .p-inputtext {
         padding-right: 0;
     }
+    .p-inputnumber {
+        width: 100%;
+    }
     .p-error {
         display: none;
         font-size: 14px;
@@ -142,6 +145,10 @@
                 margin: 0;
                 .p-inputtext {
                     padding: 0.75rem 0 0.75rem 0.75rem;
+                    @media (max-width: 767px) {
+                        padding-top: 0.625rem;
+                        padding-bottom: 0.625rem;
+                    }
                 }
             }
         }
