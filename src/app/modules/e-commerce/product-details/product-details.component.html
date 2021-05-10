@@ -175,9 +175,17 @@
                                 </small>
                             </div>
                             <div
-                                class="col-md-6 sewn-form-field d-none d-md-block d-lg-none"
+                                class="col-12 col-md-6 col-lg-3 sewn-form-field"
                                 *ngIf="productForm.get('is_external_product').value"
-                            ></div>
+                            >
+                                <label>{{ 'remaining_batch_quantity' | translate }}</label>
+                                <input
+                                    type="text"
+                                    [readonly]="productForm.get('is_external_product').value"
+                                    formControlName="remained_quantity"
+                                    pInputText
+                                />
+                            </div>
 
                             <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
                                 <label>{{ 'roaster_ref_no' | translate }}</label>
@@ -197,8 +205,7 @@
                                     pInputText
                                 />
                             </div>
-                        </div>
-                        <div class="row gutter-16 gutter-lg-24">
+
                             <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
                                 <label>{{ 'roaster_profile' | translate }}</label>
                                 <input

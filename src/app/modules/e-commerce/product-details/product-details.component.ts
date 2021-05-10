@@ -334,6 +334,7 @@ export class ProductDetailsComponent implements OnInit {
             recipes: '',
             brewing_method: ['', Validators.compose([Validators.required])],
             roaster_recommendation: ['', Validators.compose([Validators.required])],
+            remained_quantity: '',
         });
     }
     createEmptyCrate() {
