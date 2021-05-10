@@ -86,18 +86,18 @@ export class ProductListComponent implements OnInit {
     ngOnInit(): void {
         this.activatedRoute.params.subscribe((params) => {
             this.type = params.type;
+            this.breadCrumbItems = [
+                { label: this.globals.languageJson?.home, routerLink: '/' },
+                {
+                    label: this.globals.languageJson?.ecommerce,
+                },
+                {
+                    label: this.globals.languageJson[`${this.type}_product_catalog`],
+                },
+            ];
             this.loadData();
         });
         this.initializeTable();
-        this.breadCrumbItems = [
-            { label: this.globals.languageJson?.home, routerLink: '/' },
-            {
-                label: this.globals.languageJson?.ecommerce,
-            },
-            {
-                label: this.globals.languageJson[`${this.type}_product_catalog`],
-            },
-        ];
     }
 
     initializeTable() {
