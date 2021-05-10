@@ -186,7 +186,10 @@ export class ProductDetailsComponent implements OnInit {
                     this.breadCrumbItem = [
                         { label: this.globals.languageJson?.home, routerLink: '/' },
                         {
-                            label: this.globals.languageJson?.e_commerce_catalog_management,
+                            label: this.globals.languageJson?.ecommerce,
+                        },
+                        {
+                            label: this.globals.languageJson[`${this.type}_product_catalog`],
                             routerLink: `/e-commerce/product-list/${this.type}`,
                         },
                         { label: res.result.name },
@@ -312,7 +315,10 @@ export class ProductDetailsComponent implements OnInit {
         this.breadCrumbItem = [
             { label: this.globals.languageJson?.home, routerLink: '/' },
             {
-                label: this.globals.languageJson?.e_commerce_catalog_management,
+                label: this.globals.languageJson?.ecommerce,
+            },
+            {
+                label: this.globals.languageJson[`${this.type}_product_catalog`],
                 routerLink: `/e-commerce/product-list/${this.type}`,
             },
             { label: 'product' },
