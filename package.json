@@ -54,6 +54,7 @@
     "ng2-search-filter": "^0.5.1",
     "ng2-tel-input": "^2.3.0",
     "ngx-bootstrap": "^5.6.1",
+    "ngx-clipboard": "^14.0.1",
     "ngx-cookie": "^4.1.2",
     "ngx-cookie-service": "^3.0.4",
     "ngx-device-detector": "^2.0.5",

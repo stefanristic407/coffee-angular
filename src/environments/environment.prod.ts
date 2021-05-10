@@ -15,5 +15,6 @@ export const environment = {
     roasterBrandProfileUrl: 'https://www.sewnstaging.com/roaster',
     endUserWeb: 'https://enduser.sewnstaging.com',
     googleTranslationAPIKey: 'AIzaSyBEDVxvYT9-dlcBz83jitndZ4xODAJiqO0',
+    supportEmailAddress: 'support@eraofwe.com',
     production: true,
 };
