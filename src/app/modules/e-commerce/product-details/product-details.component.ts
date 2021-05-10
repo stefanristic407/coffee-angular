@@ -46,6 +46,7 @@ export class ProductDetailsComponent implements OnInit {
         'flavour_profile',
         'roaster_notes',
         'recipes',
+        'remained_quantity',
     ];
     @ViewChildren(VarientDetailsComponent) varientComponent: QueryList<VarientDetailsComponent>;
     currentVariant = 0;
@@ -61,6 +62,8 @@ export class ProductDetailsComponent implements OnInit {
         { label: 'Yes', value: true },
         { label: 'No', value: false },
     ];
+    flavoursList: any[];
+    isPublished: boolean;
 
     constructor(
         public globals: GlobalsService,
@@ -91,6 +94,9 @@ export class ProductDetailsComponent implements OnInit {
         });
         this.route.params.subscribe((params) => {
             this.type = params.type;
+            if (this.type === 'b2c') {
+                this.getFlavoursData();
+            }
             if (params.id) {
                 this.productID = params.id;
             } else {
@@ -154,11 +160,29 @@ export class ProductDetailsComponent implements OnInit {
         );
         this.supplyBreadCrumb();
     }
+
+    getFlavoursData() {
+        this.userService.getFlavourProfile().subscribe(
+            (res: any) => {
+                this.flavoursList = res.result.map((item) => {
+                    return {
+                        flavour_profile_id: item.id,
+                        flavour_profile_name: item.name,
+                    };
+                });
+            },
+            (err) => {
+                console.log(err);
+            },
+        );
+    }
+
     getProductDetails() {
         this.eCommerceService.getProductDetails(this.productID, this.type).subscribe(
             (res) => {
                 if (res && res.result) {
                     const productDetails = res.result;
+                    this.isPublished = res.result.is_published;
                     this.breadCrumbItem = [
                         { label: this.globals.languageJson?.home, routerLink: '/' },
                         {
