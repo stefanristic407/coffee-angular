@@ -156,6 +156,7 @@
                                 placeholder="{{ 'select_the_type_of_customer' | translate }}"
                                 [formControl]="addOrdersForm.controls['customer_type']"
                                 optionValue="value"
+                                (onChange)="getCustomerDetails($event)"
                             ></p-dropdown>
                             <small *ngIf="addOrdersForm.controls['customer_type'].errors?.required" class="p-error">
                                 {{ 'request' | translate }}
@@ -234,8 +235,8 @@
                                 </div>
                                 <div class="weightInputDivKg">
                                     <span
-                                        >{{ outtakeOrderDetails.unit_currency }} /
-                                        {{ outtakeOrderDetails.quantity_unit }}</span
+                                        >{{ outtakeOrderDetails?.unit_currency }} /
+                                        {{ outtakeOrderDetails?.quantity_unit }}</span
                                     >
                                 </div>
                                 <small *ngIf="addOrdersForm.controls['unit_price'].errors?.required" class="p-error">

@@ -114,7 +114,7 @@ export class AddNewOrderComponent implements OnInit {
             });
     }
 
-    getCustomerDetails() {
+    getCustomerDetails(event?) {
         this.customerDetails = [];
         if (this.addOrdersForm.get('customer_type').value) {
             if (this.addOrdersForm.get('customer_type').value === 'mr') {
@@ -125,21 +125,25 @@ export class AddNewOrderComponent implements OnInit {
             this.roasterService.getCustomerDetails(this.roasterId, this.customerType).subscribe((res) => {
                 if (res.success) {
                     this.customersDetails = res.result;
-                    if (this.outtakeOrderId) {
-                        this.roasterService
-                            .getSingleCustomerDetails(
-                                this.roasterId,
-                                this.customerType,
-                                this.addOrdersForm.get('customer_id').value,
-                            )
-                            .subscribe((rep) => {
-                                if (rep.success) {
-                                    this.customerDetails = rep.result;
-                                }
-                            });
-                    }
+                    this.getSingleCustomerDeatils();
                 }
             });
+        }
+    }
+
+    getSingleCustomerDeatils() {
+        if (this.outtakeOrderId) {
+            this.roasterService
+                .getSingleCustomerDetails(
+                    this.roasterId,
+                    this.customerType,
+                    this.addOrdersForm.get('customer_id').value,
+                )
+                .subscribe((rep) => {
+                    if (rep.success) {
+                        this.customerDetails = rep.result;
+                    }
+                });
         }
     }
 
@@ -178,9 +182,12 @@ export class AddNewOrderComponent implements OnInit {
         });
     }
 
-    selectMember(event) {
-        console.log(event);
-    }
+    // onCustomerTypeChange(event) {
+    //     console.log(event);
+    //     if (event) {
+    //         this.getCustomerDetails();
+    //     }
+    // }
 
     selectOrder(event) {
         this.addOrdersForm.get('order_id').setValue(event.orderId);
