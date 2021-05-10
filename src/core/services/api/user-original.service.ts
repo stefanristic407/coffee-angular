@@ -322,10 +322,9 @@ export class UserserviceService extends ApiService {
     // API Function Name : Certificates
     // API Description: This API call helps to get the Certificates.
 
-    getCertificates(organizationId: any, userId: any, organization = 'ro') {
-        const url = organization === 'ro' ? `/ro/${organizationId}/users/${userId}/certificates` : `/general/${organization}/${organizationId}/certificates`;
+    getCertificates(organizationId: any, userId: any) {
         const data = {
-            api_call: url,
+            api_call: `/ro/${organizationId}/users/${userId}/certificates`,
             method: 'GET',
             token: this.cookieService.get('Auth'),
         };
