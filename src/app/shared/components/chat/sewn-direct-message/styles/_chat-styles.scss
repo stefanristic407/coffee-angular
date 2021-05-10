@@ -1648,7 +1648,6 @@
 .dm-header-user-badge {
     display: flex;
     position: relative;
-    cursor: pointer;
     .dm-hub-dp {
         display: block;
         position: relative;
@@ -1721,43 +1720,71 @@
     .dm-hcm-panel {
         position: absolute;
         background-color: #fff;
-        height: 168px;
-        width: 120px;
-        left: -62px;
+        height: 177px;
+        width: 232px;
+        left: -174px;
         top: 48px;
         z-index: 20;
         padding: 5px;
-        box-shadow: 0 0 14px 0 #0003;
-        border: solid 0.2px #ebebeb;
-        border-radius: 5px;
+        border-radius: 2px;
+        box-shadow: 0px -22px 34px 0 rgb(0 0 0 / 8%);
+        border: none;
+        text-align: left;
+        text-align: start;
+        line-break: auto;
+        font-size: 0.875rem;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: padding-box;
         .dm-hcm-panel-arrow {
-            display: inline-block;
-            height: 16px;
-            width: 16px;
-            background-color: #fff;
             position: absolute;
-            right: 24px;
-            top: 0px;
-            border-left: 1px solid #0003;
-            border-top: 1px solid #0003;
-            transform: translate(50%, -50%) rotate(45deg);
+            display: block;
+            right: 28px;
+            top: -24px;
+            width: 0.5rem;
+            height: 1rem;
+            margin: 0.3rem 0;
+            &::before {
+                top: 0px;
+                border-width: 10px;
+                border-color: #0000;
+                border-bottom-color: #00000014;
+                position: absolute;
+                display: block;
+                content: '';
+                border-style: solid;
+            }
+
+            &::after {
+                top: 0px;
+                border-width: 10px;
+                border-color: #0000;
+                border-bottom-color: #fdfdfd;
+                position: absolute;
+                display: block;
+                content: '';
+                border-style: solid;
+            }
         }
         .dm-hcm-menu-wrapper {
             display: block;
             position: relative;
             .dm-hcm-menu-item {
+                display: block;
                 position: relative;
-                width: 100%;
-                padding: 10px 5px;
-                text-align: center;
-                border-bottom: 1px solid #e0e0e0;
+                list-style: none;
+                padding-right: 4.5rem;
+                border: none !important;
+                font-weight: 600 !important;
+                font-family: Muli;
+                font-size: 14px;
+                color: #747588;
+                padding: 0.75rem 1.25rem;
+                background-color: #fff;
                 cursor: pointer;
-                transition: background-color 400ms linear;
-                &:last-child {
-                    border: none;
-                }
                 &:hover {
-                    background-color: #f6f6f6;
+                    color: #232334;
+                    background-color: #f8f8f8;
                 }
             }
         }

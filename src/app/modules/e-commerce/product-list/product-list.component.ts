@@ -58,6 +58,14 @@ export class ProductListComponent implements OnInit {
         { label: 'Sold', value: 'OUT-OF-STOCK' },
     ];
 
+    roastLevelArray = {
+        1: 'Light',
+        2: 'Light Medium',
+        3: 'Medium',
+        4: 'Medium Dark',
+        5: 'Dark',
+    };
+
     originArray = COUNTRY_LIST;
     type: string;
 
@@ -76,12 +84,20 @@ export class ProductListComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.type = this.activatedRoute.snapshot.params?.type;
+        this.activatedRoute.params.subscribe((params) => {
+            this.type = params.type;
+            this.breadCrumbItems = [
+                { label: this.globals.languageJson?.home, routerLink: '/' },
+                {
+                    label: this.globals.languageJson?.ecommerce,
+                },
+                {
+                    label: this.globals.languageJson[`${this.type}_product_catalog`],
+                },
+            ];
+            this.loadData();
+        });
         this.initializeTable();
-        this.breadCrumbItems = [
-            { label: this.globals.languageJson?.home, routerLink: '/' },
-            { label: this.globals.languageJson?.e_commerce_catalog_management },
-        ];
     }
 
     initializeTable() {
