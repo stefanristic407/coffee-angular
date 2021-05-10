@@ -324,7 +324,7 @@
                         </div>
                         <div class="w-100 sewn-form-field mt-0 mt-lg-3">
                             <label class="mb-0 mb-md-2">{{ 'flavour_profile' | translate }}</label>
-                            <div>
+                            <div *ngIf="productForm.get('is_external_product').value">
                                 <span
                                     class="flavour-item d-inline-block"
                                     *ngFor="let flavour of varient.value.flavour_profile"
@@ -332,6 +332,14 @@
                                     {{ flavour.flavour_profile_name }}
                                 </span>
                             </div>
+                            <app-multiselect-chips
+                                formControlName="flavour_profile"
+                                [placeholder]="'+ ' + ('add_descriptors' | translate)"
+                                optionLabel="flavour_profile_name"
+                                optionValue="flavour_profile_id"
+                                [itemList]="flavoursList"
+                                *ngIf="!productForm.get('is_external_product').value"
+                            ></app-multiselect-chips>
                         </div>
                         <div class="row gutter-16 gutter-lg-24 mt-2 mt-lg-3">
                             <div class="col-12 col-lg-6 sewn-form-field">
@@ -504,7 +512,7 @@
                 type="button"
                 class="btn btn-raised order-1 order-md-2 w-mob-100"
                 (click)="togglePublic(true)"
-                *ngIf="productID"
+                *ngIf="!isPublished && productID"
             >
                 {{ 'publish' | translate }}
             </button>
