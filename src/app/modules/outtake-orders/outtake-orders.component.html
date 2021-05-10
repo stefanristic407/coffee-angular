@@ -195,14 +195,16 @@
                                     <div id="popover-mobile-content">
                                         <ul class="list-group custom-popover">
                                             <li class="list-group-item">
-                                                <a class="text-clr588 fnt-600 fnt-14" (click)="onEdit(rowData)">{{
+                                                <a class="text-clr588 fnt-600 fnt-14" (click)="edit(rowData)">{{
                                                     'edit' | translate
                                                 }}</a>
                                             </li>
                                             <li class="list-group-item">
-                                                <a class="text-clr588 fnt-600 fnt-14">{{
-                                                    'view_green_coffee_order' | translate
-                                                }}</a>
+                                                <a
+                                                    class="text-clr588 fnt-600 fnt-14"
+                                                    (click)="onGreenCoffee(rowData)"
+                                                    >{{ 'view_green_coffee_order' | translate }}</a
+                                                >
                                             </li>
                                             <li class="list-group-item">
                                                 <a class="text-clr588 fnt-600 fnt-14">{{ 'export' | translate }}</a>

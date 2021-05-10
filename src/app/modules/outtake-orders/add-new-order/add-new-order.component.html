@@ -165,30 +165,32 @@
                                 placeholder="{{ 'select_the_type_of_customer' | translate }}"
                                 [formControl]="addOrdersForm.controls['customer_type']"
                                 optionValue="value"
-                                (onChange)="customerTypeChange($event)"
                             ></p-dropdown>
                             <small *ngIf="addOrdersForm.controls['customer_type'].errors?.required" class="p-error">
                                 {{ 'request' | translate }}
                             </small>
                         </div>
                     </div>
-                    <div *ngIf="typeOfCustomer === 'mr' || typeOfCustomer === 'hrc'" class="col-sm-12 col-md-6 pl-md-2">
+                    <div
+                        *ngIf="
+                            addOrdersForm.get('customer_type').value === 'mr' ||
+                            addOrdersForm.get('customer_type').value === 'hrc'
+                        "
+                        class="col-sm-12 col-md-6 pl-md-2"
+                    >
                         <div class="sewn-form-field mb-0 w-100">
                             <div>
                                 <label>{{ 'customer_name' | translate }}<span class="text-clr-e5a">*</span></label>
                             </div>
                             <div class="weightInputGroupDiv d-flex inputFieldBox">
                                 <div class="w-100">
-                                    <input
-                                        pInputText
-                                        class="roastery-website-input border weightInputDiv"
-                                        type="text"
+                                    <p-dropdown
+                                        [options]="customerDetails"
+                                        optionLabel="name"
+                                        placeholder="{{ 'select_the_type_of_customer' | translate }}"
                                         [formControl]="addOrdersForm.controls['customer_name']"
-                                        pInputText
-                                    />
-                                </div>
-                                <div class="daysInputDiv fnt-14 fnt-600 fnt-muli text-clr334 right_angle">
-                                    <i class="pi pi-angle-right fnt-20"></i>
+                                        optionValue="name"
+                                    ></p-dropdown>
                                 </div>
                                 <small *ngIf="addOrdersForm.controls['customer_name'].errors?.required" class="p-error">
                                     {{ 'request' | translate }}
@@ -197,7 +199,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="typeOfCustomer === 'hrc'" class="row padd-2r">
+                <div *ngIf="addOrdersForm.get('customer_type').value === 'hrc'" class="row padd-2r">
                     <div class="col-md-6 col-sm-12 pl-md-3">
                         <div class="sewn-form-field mb-0 w-100">
                             <div>
@@ -214,7 +216,13 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="typeOfCustomer === 'mr' || typeOfCustomer === 'hrc'" class="row padd-2r">
+                <div
+                    *ngIf="
+                        addOrdersForm.get('customer_type').value === 'mr' ||
+                        addOrdersForm.get('customer_type').value === 'hrc'
+                    "
+                    class="row padd-2r"
+                >
                     <div class="col-sm-12 col-md-6 pl-md-3">
                         <div class="sewn-form-field mb-0 w-100">
                             <div>
@@ -270,7 +278,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="typeOfCustomer === 'hrc'" class="row padd-2r mb-md-3">
+                <div *ngIf="addOrdersForm.get('customer_type').value === 'hrc'" class="row padd-2r mb-md-3">
                     <div class="col-md-6 col-sm-12 pl-md-3">
                         <div class="sewn-form-field mb-0 w-100">
                             <div>
@@ -341,7 +349,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="typeOfCustomer === 'hrc'" class="br_top">
+                <div *ngIf="addOrdersForm.get('customer_type').value === 'hrc'" class="br_top">
                     <div class="d-flex flex-column padd-2r mt-md-3">
                         <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1">
                             {{ 'order_details' | translate }}
@@ -444,7 +452,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="typeOfCustomer === 'mr'" class="row padd-2r">
+                <div *ngIf="addOrdersForm.get('customer_type').value === 'mr'" class="row padd-2r">
                     <div class="col-md-6 col-sm-12 pl-md-3">
                         <div class="sewn-form-field mb-0 w-100">
                             <div>
@@ -482,7 +490,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="typeOfCustomer === 'mr'" class="row padd-2r">
+                <div *ngIf="addOrdersForm.get('customer_type').value === 'mr'" class="row padd-2r">
                     <div class="col-sm-12 col-md-6 pl-md-3">
                         <div class="sewn-form-field mb-0 w-100">
                             <div>

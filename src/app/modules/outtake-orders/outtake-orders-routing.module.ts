@@ -10,6 +10,7 @@ const routes: Routes = [
     },
     { path: 'add-order', component: AddNewOrderComponent },
     { path: 'view-order/:id', component: AddNewOrderComponent },
+    { path: 'edit-order/:id', component: AddNewOrderComponent },
 ];
 
 @NgModule({
