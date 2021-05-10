@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RoasterserviceService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
     styleUrls: ['./add-new-order.component.scss'],
     encapsulation: ViewEncapsulation.None,
 })
-export class AddNewOrderComponent implements OnInit, AfterViewInit {
+export class AddNewOrderComponent implements OnInit {
     roasterId: any;
     showOrderPanel = false;
     breadItems = [
@@ -47,13 +47,10 @@ export class AddNewOrderComponent implements OnInit, AfterViewInit {
         this.roasterId = this.cookieService.get('roaster_id');
         this.outtakeOrderId = this.activeRoute.snapshot.params.id;
     }
-    ngAfterViewInit(): void {
-        this.getOrder();
-    }
 
     ngOnInit(): void {
         this.customerTypeArray = [
-            { label: 'Partner', value: 'partner' },
+            { label: 'Partner', value: 'hrc' },
             { label: 'Micro Roaster', value: 'mr' },
         ];
         this.preCleaned = [
@@ -97,6 +94,9 @@ export class AddNewOrderComponent implements OnInit, AfterViewInit {
             machine_used: [''],
             waste_produced: [''],
         });
+        if (this.outtakeOrderId) {
+            this.getOrder();
+        }
     }
 
     getOrderDetails() {
@@ -106,7 +106,7 @@ export class AddNewOrderComponent implements OnInit, AfterViewInit {
         });
     }
     getCustomerDetails() {
-        this.roasterService.getViewCustomerDetails(this.roasterId, this.hrcId).subscribe((res) => {
+        this.roasterService.getViewCustomerMicroRoastersDetails(this.roasterId).subscribe((res) => {
             this.customerDetails = res.result;
         });
     }
@@ -119,28 +119,28 @@ export class AddNewOrderComponent implements OnInit, AfterViewInit {
     }
     getOrder() {
         this.selectedOrderId = this.outtakeOrderId;
-        this.roasterService.getOrder(this.roasterId).subscribe((res) => {
-            this.order = res.result.find((ele) => {
-                return (ele.order_id = this.outtakeOrderId);
-            });
+        this.roasterService.getViewOrder(this.roasterId, this.outtakeOrderId).subscribe((res) => {
+            this.addOrdersForm.get('product_name').setValue(res.result?.product_name);
+            this.addOrdersForm.get('order_date').setValue(res.result?.order_date);
+            this.addOrdersForm.get('order_id').setValue(res.result?.order_id);
+            this.addOrdersForm.get('roaster_ref_no').setValue(res.result?.roaster_ref_no);
+            this.addOrdersForm.get('company_type').setValue(res.result?.company_type);
+            this.addOrdersForm.get('order_created_by').setValue(res.result?.created_by);
+            this.addOrdersForm.get('sales_member_id').setValue(res.result?.sales_member_id);
+            this.addOrdersForm.get('customer_type').setValue(res.result?.customer_type);
+            this.addOrdersForm.get('gc_total_quantity').setValue(res.result?.gc_total_quantity);
+            this.addOrdersForm.get('gc_total_quantity_unit').setValue(res.result?.gc_total_quantity_unit);
+            this.addOrdersForm.get('total_price').setValue(res.result?.total_price);
+            this.addOrdersForm.get('roasted_coffee_total_quantity').setValue(res.result?.roasted_coffee_total_quantity);
+            this.addOrdersForm.get('pre_cleaned').setValue(res.result?.pre_cleaned);
+            this.addOrdersForm.get('roaster_id').setValue(res.result?.roaster_id);
+            this.addOrdersForm.get('roast_level').setValue(res.result?.roast_level);
+            this.addOrdersForm.get('roasted_date').setValue(res.result?.roasted_date);
+            this.addOrdersForm.get('roasting_time').setValue(res.result?.roasting_time);
+            this.addOrdersForm.get('roasting_temperature').setValue(res.result?.roasting_temperature);
+            this.addOrdersForm.get('machine_used').setValue(res.result?.machine_used);
+            this.addOrdersForm.get('waste_produced').setValue(res.result?.waste_produced);
         });
-        this.addOrdersForm.get('product_name').setValue(this.order.product_name);
-        this.addOrdersForm.get('order_date').setValue(this.order.order_date);
-        this.addOrdersForm.get('order_id').setValue(this.order.order_id);
-        this.addOrdersForm.get('roaster_ref_no').setValue(this.order.roaster_ref_no);
-        this.addOrdersForm.get('company_type').setValue(this.order.company_type);
-        this.addOrdersForm.get('order_created_by').setValue(this.order.order_created_by);
-        this.addOrdersForm.get('sales_member_id').setValue(this.order.sales_member_id);
-        this.addOrdersForm.get('gc_total_quantity').setValue(this.order.gc_total_quantity);
-        this.addOrdersForm.get('total_price').setValue(this.order.total_price);
-        this.addOrdersForm.get('roasted_coffee_total_quantity').setValue(this.order.roasted_coffee_total_quantity);
-        this.addOrdersForm.get('pre_cleaned').setValue(this.order.pre_cleaned);
-        this.addOrdersForm.get('roaster_id').setValue(this.order.roaster_id);
-        this.addOrdersForm.get('roast_level').setValue(this.order.roast_level);
-        this.addOrdersForm.get('roasted_date').setValue(this.order.roasted_date);
-        this.addOrdersForm.get('roasting_time').setValue(this.order.roasting_time);
-        this.addOrdersForm.get('roasting_temperature').setValue(this.order.roasting_temperature);
-        this.addOrdersForm.get('machine_used').setValue(this.order.machine_used);
         this.getOrderDetails();
         this.getCustomerDetails();
         this.getCoffeeStory();

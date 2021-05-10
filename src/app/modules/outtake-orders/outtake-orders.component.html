@@ -20,18 +20,20 @@
             class="d-md-flex flex-column flex-md-row justify-content-between align-items-end mb-3 mt-md-3 mb-md-4 mb-lg-475"
         >
             <div>
-                <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1">Outtake Order</div>
+                <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1">
+                    {{ 'outtake_order' | translate }}
+                </div>
                 <div class="text-clr334 fnt-md-14 fnt-12 fnt-600 fnt-muli mb-3 mb-md-0">
-                    Maintain all your order inventory placed outside the platform.
+                    {{ 'maintain_all_your' | translate }}
                 </div>
             </div>
             <div>
-                <button class="btn-stroked px-4 mr-3 w-mob-100">Export</button>
+                <button class="btn-stroked px-4 mr-3 w-mob-100">{{ 'export' | translate }}</button>
                 <button
                     class="btn-raised text-nowrap px-4 w-mob-100 mt-3 mt-md-0"
                     routerLink="/outtake-orders/add-order"
                 >
-                    Add a new order
+                    {{ 'add_new_order' | translate }}
                 </button>
             </div>
         </div>
@@ -94,7 +96,7 @@
                         <span *ngSwitchCase="'order_id'" [routerLink]="onEdit(rowData)">
                             <div class="d-flex">
                                 <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    Order ID
+                                    {{ 'order_id' | translate }}
                                 </span>
 
                                 <span [class.w-50]="primeTableService.isMobileView">
@@ -105,7 +107,7 @@
                         <span *ngSwitchCase="'product_name'" [routerLink]="onEdit(rowData)">
                             <div class="d-flex">
                                 <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    Product Name
+                                    {{ 'product_name' | translate }}
                                 </span>
 
                                 <span [class.w-50]="primeTableService.isMobileView">
@@ -116,7 +118,7 @@
                         <span *ngSwitchCase="'type_of_customer'" [routerLink]="onEdit(rowData)">
                             <div class="d-flex">
                                 <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    Type of Customer
+                                    {{ 'type_of_ustomer' | translate }}
                                 </span>
 
                                 <span [class.w-50]="primeTableService.isMobileView">
@@ -127,7 +129,7 @@
                         <span *ngSwitchCase="'gc_odrer_id'" [routerLink]="onEdit(rowData)">
                             <div class="d-flex">
                                 <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    GC order ID
+                                    {{ 'gc_order_id' | translate }}
                                 </span>
 
                                 <span [class.w-50]="primeTableService.isMobileView">
@@ -138,7 +140,7 @@
                         <span *ngSwitchCase="'date_placed'" [routerLink]="onEdit(rowData)">
                             <div class="d-flex">
                                 <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    Date Placed
+                                    {{'date_placed'| translate}
                                 </span>
 
                                 <span [class.w-50]="primeTableService.isMobileView">
@@ -149,7 +151,7 @@
                         <span *ngSwitchCase="'price'" [routerLink]="onEdit(rowData)">
                             <div class="d-flex">
                                 <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    Price
+                                    {{ 'price' | translate }}
                                 </span>
 
                                 <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
@@ -160,7 +162,7 @@
                         <span *ngSwitchCase="'quantity'" [routerLink]="onEdit(rowData)">
                             <div class="d-flex">
                                 <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    Quantity
+                                    {{ 'quantity' | translate }}
                                 </span>
 
                                 <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
@@ -172,7 +174,7 @@
 
                         <span *ngSwitchCase="'actions'" class="text-center">
                             <ng-container *ngIf="!primeTableService.isMobileView">
-                                <span class="brown-cta" [routerLink]="onEdit(rowData)">View</span>
+                                <span class="brown-cta" [routerLink]="onEdit(rowData)">{{ 'view' | translate }}</span>
                             </ng-container>
                         </span>
 
@@ -193,19 +195,23 @@
                                     <div id="popover-mobile-content">
                                         <ul class="list-group custom-popover">
                                             <li class="list-group-item">
-                                                <a class="text-clr588 fnt-600 fnt-14" (click)="onEdit(rowData)">Edit</a>
+                                                <a class="text-clr588 fnt-600 fnt-14" (click)="onEdit(rowData)">{{
+                                                    'edit' | translate
+                                                }}</a>
                                             </li>
                                             <li class="list-group-item">
-                                                <a class="text-clr588 fnt-600 fnt-14">View green coffee order</a>
+                                                <a class="text-clr588 fnt-600 fnt-14">{{
+                                                    'view_green_coffee_order' | translate
+                                                }}</a>
                                             </li>
                                             <li class="list-group-item">
-                                                <a class="text-clr588 fnt-600 fnt-14">Export</a>
+                                                <a class="text-clr588 fnt-600 fnt-14">{{ 'export' | translate }}</a>
                                             </li>
                                             <li class="list-group-item">
                                                 <a
                                                     class="text-clr588 fnt-600 fnt-14"
                                                     (click)="deleteProductFromList(rowData['id'])"
-                                                    >Delete</a
+                                                    >{{ 'delete' | translate }}</a
                                                 >
                                             </li>
                                         </ul>

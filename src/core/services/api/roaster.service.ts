@@ -813,6 +813,14 @@ export class RoasterserviceService extends ApiService {
         };
         return this.http.post(this.url, data);
     }
+    getViewCustomerMicroRoastersDetails(roaster_id: any, orderType = null): Observable<any> {
+        const data = {
+            api_call: `/ro/${roaster_id}/micro-roasters`,
+            token: this.cookieService.get('Auth'),
+            method: 'GET',
+        };
+        return this.http.post(this.url, data);
+    }
     getListOrderDetails(roaster_id: any, postData = null, orderType = ''): Observable<any> {
         const data = {
             api_call: `/ro/${roaster_id}/orders?` + this.serlialise(postData),
@@ -830,9 +838,9 @@ export class RoasterserviceService extends ApiService {
         };
         return this.http.post(this.url, data);
     }
-    getOrder(roaster_id: any): Observable<any> {
+    getViewOrder(roaster_id: any, outtake_order_id: any): Observable<any> {
         const data = {
-            api_call: `/ro/${roaster_id}/outtake-orders`,
+            api_call: `/ro/${roaster_id}/outtake-orders/${outtake_order_id}`,
             token: this.cookieService.get('Auth'),
             method: 'GET',
         };
