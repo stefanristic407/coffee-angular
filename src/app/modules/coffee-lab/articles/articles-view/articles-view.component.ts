@@ -41,7 +41,7 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
     forumDeleteSub: Subscription;
     forumLanguage: string;
     constructor(
-        private coffeeLabService: CoffeeLabService,
+        public coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
         private router: Router,
         private coffeeLab: CoffeeLabService,

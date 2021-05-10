@@ -56,17 +56,19 @@ export class TranslateAnswerComponent implements OnInit {
         this.coffeeLabService.getForumDetails('answer', this.answerId).subscribe((res: any) => {
             if (res.success) {
                 this.answer = res.result;
-                this.originLanguage =  res.result?.original_details?.language ||  res.result.lang_code;
+                this.originLanguage = res.result?.original_details?.language || res.result.lang_code;
                 console.log('answer >>>>>>>>>>>>>', res.result);
                 if (res.result.parent_answer_id) {
-                    this.coffeeLabService.getForumDetails('answer', res.result.parent_answer_id).subscribe((originAnswerRes: any) => {
-                        if (originAnswerRes.success) {
-                            this.originAnswer = originAnswerRes.result;
-                            this.setLanguageOptions();
-                        } else {
-                            this.toastrService.error('Error while get origin answer');
-                        }
-                    });
+                    this.coffeeLabService
+                        .getForumDetails('answer', res.result.parent_answer_id)
+                        .subscribe((originAnswerRes: any) => {
+                            if (originAnswerRes.success) {
+                                this.originAnswer = originAnswerRes.result;
+                                this.setLanguageOptions();
+                            } else {
+                                this.toastrService.error('Error while get origin answer');
+                            }
+                        });
                 } else {
                     this.originAnswer = this.answer;
                     this.setLanguageOptions();
@@ -94,8 +96,9 @@ export class TranslateAnswerComponent implements OnInit {
         console.log('origin answer >>>>>>>', this.originAnswer);
         this.applicationLanguages = APP_LANGUAGES.filter((item: any) => {
             if (
-                item.value !== this.originLanguage
-                && this.originAnswer.translations?.findIndex(translate => translate.language === item.value) === -1) {
+                item.value !== this.originLanguage &&
+                (this.originAnswer.translations || []).findIndex((translate) => translate.language === item.value) === -1
+            ) {
                 return item;
             }
         });
@@ -108,7 +111,7 @@ export class TranslateAnswerComponent implements OnInit {
             return;
         }
         if (
-            this.answer.translations.find((item: any) => item.language === selectedLanguage) ||
+            (this.answer.translations || []).find((item: any) => item.language === selectedLanguage) ||
             this.answer.lang_code === selectedLanguage
         ) {
             this.toastrService.error('This answer was already translated in selected language');

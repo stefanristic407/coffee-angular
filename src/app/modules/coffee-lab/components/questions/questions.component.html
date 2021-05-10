@@ -13,8 +13,14 @@
                         <app-forum-menu
                             [selectedItem]="question"
                             forumType="question"
-                            [enableEdit]="organizationId === question.org_id && question.org_type === 'ro'"
-                            [enableDelete]="organizationId === question.org_id && question.org_type === 'ro'"
+                            [enableEdit]="
+                                organizationId === question.org_id &&
+                                question.org_type === coffeeLabService.organization
+                            "
+                            [enableDelete]="
+                                organizationId === question.org_id &&
+                                question.org_type === coffeeLabService.organization
+                            "
                             [enableSave]="pageDesc !== 'saved-posts'"
                             [enableDeleteSave]="pageDesc === 'saved-posts'"
                         ></app-forum-menu>

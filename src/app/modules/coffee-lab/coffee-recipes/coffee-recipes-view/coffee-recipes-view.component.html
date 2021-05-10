@@ -116,8 +116,14 @@
                     <app-forum-menu
                         [selectedItem]="coffee"
                         forumType="recipe"
-                        [enableEdit]="organizationId === coffee.organisation_id && coffee.organisation_type === 'ro'"
-                        [enableDelete]="organizationId === coffee.organisation_id && coffee.organisation_type === 'ro'"
+                        [enableEdit]="
+                            organizationId === coffee.organisation_id &&
+                            coffee.organisation_type === coffeeLabService.organization
+                        "
+                        [enableDelete]="
+                            organizationId === coffee.organisation_id &&
+                            coffee.organisation_type === coffeeLabService.organization
+                        "
                         [enableSave]="pageDesc !== 'saved-posts'"
                         [enableDeleteSave]="pageDesc === 'saved-posts'"
                     ></app-forum-menu>
@@ -145,9 +151,7 @@
                         [innerHTML]="coffee.description | convertToShortDescription: 10"
                     ></div>
 
-                    <label class="mb-0 brown-cta pt-2">{{
-                        'read_more' | translate
-                    }}</label>
+                    <label class="mb-0 brown-cta pt-2">{{ 'read_more' | translate }}</label>
                 </div>
             </div>
         </div>

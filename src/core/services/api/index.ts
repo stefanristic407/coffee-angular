@@ -24,3 +24,4 @@ export * from './coffee-lab.service';
 export * from './idm.service';
 export * from './invite-friends.service';
 export * from './e-commerce.service';
+export * from './coffee-story.service';

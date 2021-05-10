@@ -84,7 +84,7 @@ export class QaPostComponent implements OnInit, OnDestroy {
                 sort_order: this.sortBy === 'most_answered' ? 'desc' : this.sortBy === 'latest' ? 'desc' : 'asc',
             };
             console.log('getting my questions here..............', params);
-            this.coffeeLabService.getFOrganizationForumList('question', params).subscribe((res: any) => {
+            this.coffeeLabService.getOrganizationForumList('question', params).subscribe((res: any) => {
                 this.isLoading = false;
                 if (res.success) {
                     this.questions = res.result?.questions || [];

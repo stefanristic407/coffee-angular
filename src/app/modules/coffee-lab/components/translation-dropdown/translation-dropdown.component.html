@@ -15,7 +15,11 @@
     <ng-template let-translateItem pTemplate="item">
         <a class="d-flex align-items-center">
             <p-avatar
-                [image]="translateItem?.profile_image_thumb_url || translateItem?.profile_image_url || 'assets/images/default-avatar.png'"
+                [image]="
+                    translateItem?.profile_image_thumb_url ||
+                    translateItem?.profile_image_url ||
+                    'assets/images/default-avatar.png'
+                "
                 shape="circle"
                 styleClass="user-avatar"
             ></p-avatar>

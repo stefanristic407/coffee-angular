@@ -44,7 +44,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     apiCount = 0;
     queryUserId: any;
     queryOrganization: any;
-    queryOrganizationId: any;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -72,7 +71,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         this.userId = this.cookieService.get('user_id');
         this.queryUserId = this.activateRoute.snapshot.queryParamMap.get('user_id');
         this.queryOrganization = this.activateRoute.snapshot.queryParamMap.get('organization') || 'ro';
-        this.queryOrganizationId = this.activateRoute.snapshot.queryParamMap.get('organization_id');
         this.getUserInfo();
     }
 
@@ -90,7 +88,11 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         this.isLoading = true;
         this.apiCount = 0;
         this.getRoasterProfile();
-        this.getCertificates();
+        if (this.queryUserId) {
+            this.apiCount += 1;
+        } else {
+            this.getCertificates();
+        }
     }
 
     getRoasterProfile(): void {
@@ -104,6 +106,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
                     this.previewUrl = this.profileInfo.profile_image_url;
                     if (this.queryUserId) {
                         this.apiCount += 1;
+                        this.certificationArray = res.result?.certificates || [];
                     } else {
                         this.getUserBasedRoles();
                     }
@@ -129,8 +132,9 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
     getCertificates(): void {
         this.userOriginalService
-            .getCertificates(this.queryOrganizationId || this.roasterId, this.userId)
+            .getCertificates(this.roasterId, this.userId)
             .subscribe((res: any) => {
+                console.log('get certificates result >>>>>>>>>>>>', res);
                 this.apiCount += 1;
                 if (res.success) {
                     this.certificationArray = res.result;

@@ -1,0 +1,22 @@
+<p-chips
+    [formControl]="chipsControl"
+    [field]="optionLabel"
+    [addOnBlur]="addOnBlur"
+    [allowDuplicate]="allowDuplicate"
+    styleClass="p-descriptors-chips"
+    (onRemove)="chipsRemoved()"
+></p-chips>
+
+<p-dropdown
+    [class.d-none]="isDisabled"
+    [options]="itemList"
+    [optionLabel]="optionLabel"
+    [optionValue]="optionValue"
+    [filter]="true"
+    [autoDisplayFirst]="false"
+    [placeholder]="placeholder"
+    styleClass="p-dropdown-flavour w-auto ml-2"
+    (onChange)="itemSelected($event)"
+>
+    <ng-template pTemplate="selectedItem">{{ placeholder }}</ng-template>
+</p-dropdown>

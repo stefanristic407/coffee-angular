@@ -64,7 +64,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
     constructor(
         private toastService: ToastrService,
         private router: Router,
-        private coffeeLab: CoffeeLabService,
+        public coffeeLabService: CoffeeLabService,
         private cookieService: CookieService,
         public authService: AuthService,
     ) {
@@ -73,11 +73,11 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.organizationId = +this.cookieService.get('roaster_id');
-        this.coffeeLab.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
+        this.coffeeLabService.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
             this.forumLanguage = language;
             this.getCoffeeRecipesData();
         });
-        this.forumDeleteSub = this.coffeeLab.forumDeleteEvent.subscribe(() => {
+        this.forumDeleteSub = this.coffeeLabService.forumDeleteEvent.subscribe(() => {
             this.getCoffeeRecipesData();
         });
     }
@@ -93,7 +93,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
             level: this.label?.toLowerCase(),
         };
         if (this.pageDesc === 'saved-posts') {
-            this.coffeeLab.getSavedForumList('recipe').subscribe((res) => {
+            this.coffeeLabService.getSavedForumList('recipe').subscribe((res) => {
                 if (res.success) {
                     this.coffeeRecipeData = res.result;
                     this.coffeeRecipeData.map((item) => {
@@ -106,7 +106,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
                 this.isLoading = false;
             });
         } else if (this.pageDesc === 'my-posts') {
-            this.coffeeLab.getMyForumList('recipe').subscribe((res) => {
+            this.coffeeLabService.getMyForumList('recipe').subscribe((res) => {
                 if (res.success) {
                     this.coffeeRecipeData = res.result.filter((item) => item.publish === true);
                     this.coffeeRecipeData.map((item) => {
@@ -119,7 +119,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
                 this.isLoading = false;
             });
         } else {
-            this.coffeeLab.getFOrganizationForumList('recipe', params, this.forumLanguage).subscribe((res) => {
+            this.coffeeLabService.getOrganizationForumList('recipe', params, this.forumLanguage).subscribe((res) => {
                 if (res.success) {
                     console.log('response----->>>>>', res);
                     if (res.result) {

@@ -12,14 +12,12 @@ export class RecipeOriginalPostComponent implements OnInit, OnChanges {
     id: string | number = '';
     isLoading = true;
     detailsData: any;
-    roasterId: string;
     constructor(private coffeeLabService: CoffeeLabService, private cookieService: CookieService) {}
 
     ngOnInit(): void {}
 
     ngOnChanges(): void {
         console.log('recipeId', this.recipeId);
-        this.roasterId = this.cookieService.get('roaster_id');
         if (this.recipeId) {
             this.getCoffeeDetails(true);
         }
@@ -27,7 +25,7 @@ export class RecipeOriginalPostComponent implements OnInit, OnChanges {
 
     getCoffeeDetails(isReloading: boolean): void {
         this.isLoading = isReloading;
-        this.coffeeLabService.getRecipeById('recipe', this.recipeId, this.roasterId).subscribe((res: any) => {
+        this.coffeeLabService.getForumDetails('recipe', this.recipeId).subscribe((res: any) => {
             if (res.success) {
                 console.log('coffee details--------', res);
                 this.detailsData = res.result;

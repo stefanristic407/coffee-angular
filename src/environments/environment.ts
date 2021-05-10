@@ -16,5 +16,6 @@ export const environment = {
     endUserWeb: 'https://enduser.sewnstaging.com',
     encryptionKey: 'sewen_secrete_key',
     googleTranslationAPIKey: 'AIzaSyBEDVxvYT9-dlcBz83jitndZ4xODAJiqO0',
+    supportEmailAddress: 'support@eraofwe.com',
     production: false,
 };

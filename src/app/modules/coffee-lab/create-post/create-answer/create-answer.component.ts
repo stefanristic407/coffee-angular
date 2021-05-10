@@ -105,17 +105,15 @@ export class CreateAnswerComponent implements OnInit {
                 }
             });
         } else {
-            this.coffeeLabService
-                .postComment(this.parentForumType, this.parentForumId, data)
-                .subscribe((res: any) => {
-                    this.isPosting = false;
-                    if (res.success) {
-                        this.toastrService.success('You have posted a comment successfully.');
-                        this.location.back();
-                    } else {
-                        this.toastrService.error('Failed to post comment.');
-                    }
-                });
+            this.coffeeLabService.postComment(this.parentForumType, this.parentForumId, data).subscribe((res: any) => {
+                this.isPosting = false;
+                if (res.success) {
+                    this.toastrService.success('You have posted a comment successfully.');
+                    this.location.back();
+                } else {
+                    this.toastrService.error('Failed to post comment.');
+                }
+            });
         }
     }
 }

@@ -235,7 +235,6 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                     null,
                     Validators.compose([
                         Validators.required,
-                        // Validators.min(this.minimumQuantity),
                         (control: AbstractControl) => Validators.min(this.minimumQuantity)(control),
                         Validators.max(this.sourcing.harvestDetail.quantity_count),
                     ]),

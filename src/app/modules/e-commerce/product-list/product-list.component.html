@@ -7,7 +7,7 @@
     </div>
 
     <h4 class="fnt-16 fnt-md-18 fnt-muli fnt-bold text-clr334 lh-normal mb-3">
-        {{ 'e_commerce_catalog_management' | translate }}
+        {{ (type === 'b2b' ? 'e_commerce_catalog_management' : 'b2c_roasted_coffee') | translate }}
     </h4>
     <button class="btn-raised d-block d-md-none mb-3" routerLink="/e-commerce/product-details/add">
         {{ 'add_product' | translate }}
