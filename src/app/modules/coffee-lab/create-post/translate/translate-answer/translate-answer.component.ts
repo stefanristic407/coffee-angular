@@ -97,7 +97,7 @@ export class TranslateAnswerComponent implements OnInit {
         this.applicationLanguages = APP_LANGUAGES.filter((item: any) => {
             if (
                 item.value !== this.originLanguage &&
-                this.originAnswer.translations?.findIndex((translate) => translate.language === item.value) === -1
+                (this.originAnswer.translations || []).findIndex((translate) => translate.language === item.value) === -1
             ) {
                 return item;
             }
@@ -111,7 +111,7 @@ export class TranslateAnswerComponent implements OnInit {
             return;
         }
         if (
-            this.answer.translations.find((item: any) => item.language === selectedLanguage) ||
+            (this.answer.translations || []).find((item: any) => item.language === selectedLanguage) ||
             this.answer.lang_code === selectedLanguage
         ) {
             this.toastrService.error('This answer was already translated in selected language');
