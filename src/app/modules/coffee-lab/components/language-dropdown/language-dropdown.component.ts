@@ -14,7 +14,11 @@ export class LanguageDropdownComponent implements OnInit {
     languageList: any[] = APP_LANGUAGES;
     selectedLanguage: string;
 
-    constructor(public globalsService: GlobalsService, private router: Router, public coffeeLabService: CoffeeLabService) {}
+    constructor(
+        public globalsService: GlobalsService,
+        private router: Router,
+        public coffeeLabService: CoffeeLabService,
+    ) {}
 
     ngOnInit(): void {
         this.selectedLanguage = this.coffeeLabService.currentForumLanguage;

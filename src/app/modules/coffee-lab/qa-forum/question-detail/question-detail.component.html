@@ -13,8 +13,14 @@
                     <app-forum-menu
                         [selectedItem]="detailsData"
                         forumType="question"
-                        [enableEdit]="organizationId === detailsData.org_id && detailsData.org_type === 'ro'"
-                        [enableDelete]="organizationId === detailsData.org_id && detailsData.org_type === 'ro'"
+                        [enableEdit]="
+                            organizationId === detailsData.org_id &&
+                            detailsData.org_type === coffeeLabService.organization
+                        "
+                        [enableDelete]="
+                            organizationId === detailsData.org_id &&
+                            detailsData.org_type === coffeeLabService.organization
+                        "
                     ></app-forum-menu>
                 </div>
             </div>
@@ -71,8 +77,14 @@
                                     forumType="answer"
                                     [extraInfo]="slug"
                                     [enableSave]="false"
-                                    [enableEdit]="organizationId === answer.org_id && answer.org_type === 'ro'"
-                                    [enableDelete]="organizationId === answer.org_id && answer.org_type === 'ro'"
+                                    [enableEdit]="
+                                        organizationId === answer.org_id &&
+                                        answer.org_type === coffeeLabService.organization
+                                    "
+                                    [enableDelete]="
+                                        organizationId === answer.org_id &&
+                                        answer.org_type === coffeeLabService.organization
+                                    "
                                     [enableTranslation]="answer?.translations?.length < 3"
                                 ></app-forum-menu>
                             </div>

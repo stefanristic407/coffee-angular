@@ -21,7 +21,7 @@ export class ArticleDetailComponent implements OnInit {
     forumDeleteSub: Subscription;
 
     constructor(
-        private coffeeLabService: CoffeeLabService,
+        public coffeeLabService: CoffeeLabService,
         public router: Router,
         private activatedRoute: ActivatedRoute,
         public globalsService: GlobalsService,

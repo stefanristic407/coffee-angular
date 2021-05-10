@@ -35,10 +35,8 @@ export class DraftPostsComponent implements OnInit {
                 styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
-            if (action === 'yes') {
-                this.coffeeLabService
-                    .deleteForumById(draft.post_type, draft.post_id)
-                    .subscribe((res: any) => {
+                if (action === 'yes') {
+                    this.coffeeLabService.deleteForumById(draft.post_type, draft.post_id).subscribe((res: any) => {
                         if (res.success) {
                             this.drafts = this.drafts.filter((item: any) => item.post_id !== draft.post_id);
                             this.toastService.success(`You have deleted a forum successfully.`);
@@ -47,7 +45,7 @@ export class DraftPostsComponent implements OnInit {
                             this.toastService.error(`Failed to delete a forum.`);
                         }
                     });
-            }
-        });
+                }
+            });
     }
 }

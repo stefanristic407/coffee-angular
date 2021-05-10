@@ -84,9 +84,13 @@
                     <app-forum-menu
                         [selectedItem]="article"
                         forumType="article"
-                        [enableEdit]="organizationId === article.organisation_id && article.organisation_type === 'ro'"
+                        [enableEdit]="
+                            organizationId === article.organisation_id &&
+                            article.organisation_type === coffeeLabService.organization
+                        "
                         [enableDelete]="
-                            organizationId === article.organisation_id && article.organisation_type === 'ro'
+                            organizationId === article.organisation_id &&
+                            article.organisation_type === coffeeLabService.organization
                         "
                         [enableSave]="pageDesc !== 'saved-posts'"
                         [enableDeleteSave]="pageDesc === 'saved-posts'"

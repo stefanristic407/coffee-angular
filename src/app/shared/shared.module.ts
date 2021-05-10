@@ -201,6 +201,7 @@ const DIRECTIVES = [
     RatingDirective,
     LifecyclehookDirective,
     ChatHighlighterDirective,
+    CopyImageToClipboardDirective,
     FullImgWrapperDirective,
 ];
 
@@ -270,7 +271,6 @@ const PIPES = [
         ...COMPONENTS_NOROUNT,
         ...DIRECTIVES,
         ...PIPES,
-        CopyImageToClipboardDirective,
         FullImgWrapperDirective,
         WeightConvertPipe,
         ThousandSuffPipe,
@@ -288,7 +288,6 @@ const PIPES = [
         ...COMPONENTS,
         ...DIRECTIVES,
         ...PIPES,
-        CopyImageToClipboardDirective,
     ],
     providers: [DialogService],
 })

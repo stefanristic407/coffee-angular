@@ -19,8 +19,14 @@
                                     [enableTranslation]="
                                         !detailsData?.translations || detailsData?.translations.length < 3
                                     "
-                                    [enableEdit]="organizationId === detailsData?.organisation_id && detailsData?.organisation_type === 'ro'"
-                                    [enableDelete]="organizationId === detailsData?.organisation_id && detailsData?.organisation_type === 'ro'"
+                                    [enableEdit]="
+                                        organizationId === detailsData?.organisation_id &&
+                                        detailsData?.organisation_type === coffeeLabService.organization
+                                    "
+                                    [enableDelete]="
+                                        organizationId === detailsData?.organisation_id &&
+                                        detailsData?.organisation_type === coffeeLabService.organization
+                                    "
                                 ></app-forum-menu>
                             </div>
                             <div
