@@ -530,7 +530,7 @@
                     </button>
                 </div>
             </div>
-            <div *ngIf="selectedOrderId !== ''" class="col-lg-5 col-md-12">
+            <div *ngIf="addOrdersForm.get('order_id').value" class="col-lg-5 col-md-12">
                 <div class="row ml-md-0 mr-md-0">
                     <div class="fnt-md-18 fnt-muli fnt-bold text-clr334 mb-4">{{ 'order_details' | translate }}</div>
                     <div class="col-lg-12 bg-fa border-class p-45">
