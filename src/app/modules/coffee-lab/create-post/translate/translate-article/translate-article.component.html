@@ -17,7 +17,7 @@
                             optionLabel="label"
                             optionValue="value"
                         ></p-dropdown>
-                        <div *ngIf="articleForm.controls.language.invalid" class="p-error">Required field</div>
+                        <div *ngIf="articleForm.controls.language.invalid" class="p-error">{{ 'required' | translate }}</div>
                     </div>
                     <div class="col-12 sewn-form-field p-0">
                         <div class="addImageContainer d-flex align-items-center justify-content-center">
