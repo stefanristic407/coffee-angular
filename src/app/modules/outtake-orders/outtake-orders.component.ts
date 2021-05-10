@@ -217,16 +217,13 @@ export class OuttakeOrdersComponent implements OnInit {
         link = [`/outtake-orders/view-order/${item.id}`];
         return link;
     }
-    edit(item) {
-        let link = [];
-        link = [`/outtake-orders/edit-order/${item.id}`];
-        return link;
-    }
+
     onGreenCoffee(item) {
         let link = [];
         link = [`/green-coffee-management/procured-coffee/${item.order_id}`];
         return link;
     }
+
     formatStatus(stringVal) {
         let formatVal = '';
         if (stringVal) {
