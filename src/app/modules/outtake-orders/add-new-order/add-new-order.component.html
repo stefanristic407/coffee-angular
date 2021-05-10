@@ -96,16 +96,12 @@
                             </div>
                             <div class="weightInputGroupDiv d-flex inputFieldBox">
                                 <div class="w-100">
-                                    <input
-                                        pInputText
-                                        class="roastery-website-input border weightInputDiv"
-                                        [formControl]="addOrdersForm.controls['order_created_by']"
-                                        type="text"
-                                        pInputText
-                                    />
-                                </div>
-                                <div class="daysInputDiv fnt-14 fnt-600 fnt-muli text-clr334 right_angle">
-                                    <i class="pi pi-angle-right fnt-20"></i>
+                                    <p-dropdown
+                                        [options]="userDetails"
+                                        optionLabel="firstname"
+                                        [formControl]="addOrdersForm.controls['created_by']"
+                                        optionValue="id"
+                                    ></p-dropdown>
                                 </div>
                             </div>
                         </div>
@@ -120,17 +116,12 @@
                             </div>
                             <div class="weightInputGroupDiv d-flex inputFieldBox">
                                 <div class="w-100">
-                                    <input
-                                        pInputText
-                                        class="roastery-website-input border weightInputDiv"
-                                        type="text"
-                                        placeholder="{{ 'select_the_team_member' | translate }}"
+                                    <p-dropdown
+                                        [options]="userDetails"
+                                        optionLabel="firstname"
                                         [formControl]="addOrdersForm.controls['sales_member_id']"
-                                        pInputText
-                                    />
-                                </div>
-                                <div class="daysInputDiv fnt-14 fnt-600 fnt-muli text-clr334 right_angle">
-                                    <i class="pi pi-angle-right fnt-20"></i>
+                                        optionValue="id"
+                                    ></p-dropdown>
                                 </div>
                                 <small
                                     *ngIf="addOrdersForm.controls['sales_member_id'].errors?.required"
@@ -185,11 +176,11 @@
                             <div class="weightInputGroupDiv d-flex inputFieldBox">
                                 <div class="w-100">
                                     <p-dropdown
-                                        [options]="customerDetails"
+                                        [options]="customersDetails"
                                         optionLabel="name"
                                         placeholder="{{ 'select_the_type_of_customer' | translate }}"
                                         [formControl]="addOrdersForm.controls['customer_name']"
-                                        optionValue="name"
+                                        optionValue="id"
                                     ></p-dropdown>
                                 </div>
                                 <small *ngIf="addOrdersForm.controls['customer_name'].errors?.required" class="p-error">
@@ -619,18 +610,29 @@
                         </div>
                     </div>
                 </div>
-                <div class="row ml-md-0 mr-md-0">
+                <div *ngIf="customerDetails" class="row ml-md-0 mr-md-0">
                     <div class="fnt-md-18 fnt-muli fnt-bold text-clr334 mt-4 pb-3">
                         {{ 'customer_details' | translate }}
                     </div>
                     <div class="col-lg-12 bg-fa border-class p-45">
                         <div class="mb-4">
                             <div class="d-flex justify-content-between mb-4">
-                                <div class="d-flex">
-                                    <div><img src="" alt="" /></div>
+                                <div class="img_circle mr-2 d-flex align-items-center">
                                     <div>
-                                        <div class="fnt-14 fnt-muli fnt-bold text-clr334">Finca La Pampa</div>
-                                        <div class="fnt-14 fnt-muli fnt-bold text-clr588">Coffee Estate</div>
+                                        <img
+                                            src="{{ customerDetails?.company_image_thumbnail_url }}"
+                                            alt=""
+                                            width="40"
+                                            height="40"
+                                        />
+                                    </div>
+                                    <div>
+                                        <div class="fnt-14 fnt-muli fnt-bold text-clr334">
+                                            {{ customerDetails?.company_name }}
+                                        </div>
+                                        <div class="fnt-14 fnt-muli fnt-bold text-clr588">
+                                            {{ customerDetails?.company_type }}
+                                        </div>
                                     </div>
                                 </div>
                                 <div>
@@ -643,19 +645,23 @@
                             <ul class="clearfix">
                                 <li>
                                     <label class="width-lable">{{ 'owner' | translate }}</label>
-                                    <p>Timothy Moreno</p>
+                                    <p>{{ customerDetails.owner_name }}</p>
                                 </li>
                                 <li>
                                     <label class="width-lable">{{ 'country' | translate }}</label>
-                                    <p>Sweden</p>
+                                    <p>{{ customerDetails?.country }}</p>
                                 </li>
                                 <li>
                                     <label class="width-lable">{{ 'address' | translate }}</label>
-                                    <p>30 Emzu Grove Gothenburg, Sweden 34278</p>
+                                    <p>
+                                        {{ customerDetails?.address_line1 }} {{ customerDetails?.address_line2 }}
+                                        {{ customerDetails?.city }} {{ customerDetails?.state }}
+                                        {{ customerDetails?.zipcode }}
+                                    </p>
                                 </li>
                                 <li>
                                     <label class="width-lable">{{ 'contact_number' | translate }}</label>
-                                    <p>(355) 388-1919</p>
+                                    <p>{{ customerDetails?.phone }}</p>
                                 </li>
                             </ul>
                         </div>

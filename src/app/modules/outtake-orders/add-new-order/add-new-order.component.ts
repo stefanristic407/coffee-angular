@@ -30,6 +30,10 @@ export class AddNewOrderComponent implements OnInit {
     coffeeExperienceLink: any;
     customerDetails: any;
     remainingTotalQuantity: any;
+    customerType: any;
+    userDetails: any;
+    customersDetails: any;
+
     constructor(
         private roasterService: RoasterserviceService,
         private cookieService: CookieService,
@@ -62,7 +66,7 @@ export class AddNewOrderComponent implements OnInit {
             order_id: ['', [Validators.required]],
             roaster_ref_no: [''],
             company_type: [''],
-            order_created_by: [''],
+            created_by: [''],
             sales_member_id: ['', [Validators.required]],
             weight: [''],
             weight_unit: [''],
@@ -91,9 +95,8 @@ export class AddNewOrderComponent implements OnInit {
         });
         if (this.outtakeOrderId) {
             this.getOrder();
-            this.getOrderDetails();
-            this.getCoffeeStory();
         }
+        this.getUserDetails();
     }
 
     getOrderDetails() {
@@ -104,24 +107,51 @@ export class AddNewOrderComponent implements OnInit {
                 this.remainingTotalQuantity = this.orderDetails.remaining_total_quantity;
             });
     }
+
     getCustomerDetails() {
         this.customerDetails = [];
         if (this.addOrdersForm.get('customer_type').value) {
-            this.roasterService
-                .getCustomerDetails(this.roasterId, this.addOrdersForm.get('customer_type').value)
-                .subscribe((res) => {
-                    this.customerDetails = res.result;
-                });
+            if (this.addOrdersForm.get('customer_type').value === 'mr') {
+                this.customerType = 'micro-roasters';
+            } else if (this.addOrdersForm.get('customer_type').value === 'hrc') {
+                this.customerType = 'hrc';
+            }
+            this.roasterService.getCustomerDetails(this.roasterId, this.customerType).subscribe((res) => {
+                if (res.success) {
+                    this.customersDetails = res.result;
+                    if (this.outtakeOrderId) {
+                        this.roasterService
+                            .getSingleCustomerDetails(
+                                this.roasterId,
+                                this.customerType,
+                                this.addOrdersForm.get('customer_id').value,
+                            )
+                            .subscribe((rep) => {
+                                this.customerDetails = rep.result;
+                                if (rep.success) {
+                                    this.addOrdersForm.get('customer_name').setValue(rep.result.customer_id);
+                                }
+                            });
+                    }
+                }
+            });
         }
     }
+
     getCoffeeStory() {
         this.userService
-            .getCoffeeStory(this.roasterId, this.addOrdersForm.get('order_id').value, 'mr-orders')
+            .getCoffeeStory(this.roasterId, this.addOrdersForm.get('order_id').value, 'orders')
             .subscribe((res: any) => {
                 if (res.success) {
                     this.coffeeExperienceLink = res.result;
                 }
             });
+    }
+
+    getUserDetails() {
+        this.roasterService.getUserDetails(this.roasterId).subscribe((res) => {
+            this.userDetails = res.result;
+        });
     }
 
     getOrder() {
@@ -131,15 +161,18 @@ export class AddNewOrderComponent implements OnInit {
                 res.result.roasted_date = new Date(res.result.roasted_date);
                 this.addOrdersForm.patchValue(res.result);
                 this.getCustomerDetails();
+                this.getOrderDetails();
+                this.getCoffeeStory();
             }
         });
     }
 
     selectOrder(event) {
-        this.addOrdersForm.get('order_id').setValue('#' + event.orderId);
+        this.addOrdersForm.get('order_id').setValue(event.orderId);
         this.getOrderDetails();
         this.getCoffeeStory();
     }
+
     addOrderDetails() {
         const data = this.addOrdersForm.value;
         this.roasterService.addOrderDetails(this.roasterId, data).subscribe((res) => {
@@ -150,6 +183,7 @@ export class AddNewOrderComponent implements OnInit {
             }
         });
     }
+
     updateOrderDetails() {
         const data = this.addOrdersForm.value;
         this.roasterService.updateOrderDetails(this.roasterId, this.outtakeOrderId, data).subscribe((res) => {
