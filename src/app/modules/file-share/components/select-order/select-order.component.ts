@@ -158,11 +158,6 @@ export class SelectOrderComponent implements OnInit {
         this.selectedEntry = value;
         console.log(this.selectedEntry);
     }
-    continue() {
-        this.globals.selected_order_id = this.selectedEntry.id;
-        console.log(this.globals.selected_order_id);
-        this.router.navigate(['/roasted-coffee-batch/new-roasted-batch']);
-    }
 
     // select order table data
     getTableData() {
