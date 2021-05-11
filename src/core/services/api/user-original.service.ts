@@ -101,6 +101,10 @@ export class UserserviceService extends ApiService {
         return this.http.put(this.putUrl, data);
     }
 
+    getOrganizationTerm(organizationId: any): Observable<any> {
+        return this.post(this.orgPostUrl, `ro/${organizationId}/terms`, 'GET');
+    }
+
     // API Function Name : Update Password
     // API Description: This API calls helps to Updated the User Password.
 
