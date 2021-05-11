@@ -378,12 +378,16 @@ export class ProductDetailsComponent implements OnInit {
         });
     }
     onWeightDelete(event) {
+        let canRemove = true;
+        this.varientComponent.forEach((child) => {
+            const getWeightArray = child.weightForm.value.weights;
+            if (getWeightArray.find((item) => item.weight === event.weight && item.weight_unit === event.weight_unit)) {
+                canRemove = false;
+                return;
+            }
+        });
         this.crates = this.productForm.get('crates') as FormArray;
-        const getObj = this.crates.value.find((ele) => ele.product_weight_variant_id === event.productWeightVariantId);
-        const getObjs = this.crates.value.filter(
-            (ele) => ele.weight === getObj.weight && ele.crate_unit === getObj.weight_unit,
-        );
-        if (getObjs?.length < 2) {
+        if (canRemove) {
             this.crates.removeAt(
                 this.crates.value.findIndex((item) => item.product_weight_variant_id === event.productWeightVariantId),
             );
@@ -393,7 +397,6 @@ export class ProductDetailsComponent implements OnInit {
         }
     }
     onWeightCreate(event) {
-        console.log(event);
         this.crates = this.productForm.get('crates') as FormArray;
         const getObjs = this.crates.value.filter((ele) => ele.weight === event.value && ele.crate_unit === event.unit);
         if (!event.modify) {

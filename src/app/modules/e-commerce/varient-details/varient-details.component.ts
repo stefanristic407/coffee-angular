@@ -209,6 +209,8 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
         this.handleWeightDelete.emit({
             productWeightVariantId: weight.value.product_weight_variant_id,
             isNew: weight.value.isNew,
+            weight: weight.value.weight,
+            weight_unit: weight.value.weight_unit,
         });
         this.weightVariantArray.splice(index, 1);
         this.currentVarientIndex = 0;
