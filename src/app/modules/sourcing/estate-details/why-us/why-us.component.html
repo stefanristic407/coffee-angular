@@ -12,9 +12,9 @@
                     {{ 'why_us_award_desp' | translate }}
                 </p>
             </div>
-            <div class="btn-trans-icon zoom-icon" (click)="openPicture(sourcing.estateHomepage?.licence_file_url)">
+            <a class="btn-trans-icon zoom-icon" [href]="sourcing.estateHomepage?.licence_file_url" target="_blank">
                 {{ 'view_our_brand_guidelines' | translate }}
-            </div>
+            </a>
         </div>
         <div class="col-6 d-none d-md-block">
             <ng-container *ngTemplateOutlet="award"></ng-container>
