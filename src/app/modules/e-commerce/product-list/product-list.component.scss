@@ -9,8 +9,10 @@
         margin: 0 -6px;
         .dropdown-col {
             padding: 0 6px;
-            max-width: 50%;
             padding-bottom: 16px;
+            @media (max-width: 767px) {
+                max-width: 50%;
+            }
         }
     }
 

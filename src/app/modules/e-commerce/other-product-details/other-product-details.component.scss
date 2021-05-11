@@ -1,0 +1,13 @@
+.p-input-icon-left {
+    position: relative;
+    .left-icon {
+        position: absolute;
+        padding: 12px 20px;
+        background-color: #f8f8f8;
+        margin: 4px;
+        left: 0;
+    }
+    input {
+        padding-left: 56px;
+    }
+}

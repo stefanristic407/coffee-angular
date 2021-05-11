@@ -32,8 +32,8 @@ export class ForumEditorComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.imagesCount = this.images?.length;
-        this.imageIdList = this.images.map((item: any) => item.id);
+        this.imagesCount = (this.images || []).length;
+        this.imageIdList = (this.images || []).map((item: any) => item.id);
         this.emitImagesChange();
     }
 

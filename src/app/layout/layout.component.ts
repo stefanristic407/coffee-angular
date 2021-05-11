@@ -37,7 +37,6 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     searchString: string;
     showSearch = false;
     searchResults: string[];
-    roasterProfilePic: any;
     rolename: any;
     slugList: any;
     sideNavOpened = false;
@@ -202,7 +201,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     getRoasterProfile(resolve) {
         this.userService.getRoasterAccount(this.roasterId).subscribe((res: any) => {
             if (res.result) {
-                this.roasterProfilePic = res.result.company_image_thumbnail_url;
+                this.authService.organizationSubject.next(res.result);
                 resolve();
             } else {
                 this.router.navigate(['/auth/login']);

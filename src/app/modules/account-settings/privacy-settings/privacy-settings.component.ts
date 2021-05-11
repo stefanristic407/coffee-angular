@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalsService, UserService, UserserviceService } from '@services';
+import { AuthService, GlobalsService, UserserviceService } from '@services';
 import { Location } from '@angular/common';
-import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: 'app-privacy-settings',
@@ -10,43 +10,62 @@ import { MenuItem } from 'primeng/api';
     styleUrls: ['./privacy-settings.component.scss'],
 })
 export class PrivacySettingsComponent implements OnInit {
-    privacyTerms?: any = {};
-    isLoading?: boolean;
     breadcrumbItems: MenuItem[];
+    roasterId: any;
+    agreements: any[] = [
+        {
+            title: 'general_terms_and_conditions',
+            url: 'https://support.eraofwe.com/en/kb/articles/general-terms-conditions-user',
+            isShow: true,
+        },
+        {
+            title: 'general_terms_and_conditions_for_legal_entity',
+            url: 'https://support.eraofwe.com/en/kb/articles/general-terms-conditions-legal-entity',
+            isShow: this.authService.currentUser.id === this.authService.currentOrganization.admin_id,
+        },
+        {
+            title: 'cookie_policy',
+            url: 'https://support.eraofwe.com/en/kb/articles/cookie-policy',
+            isShow: true,
+        },
+        {
+            title: 'privacy_policy',
+            url: 'https://support.eraofwe.com/en/kb/articles/privacy-policy',
+            isShow: true,
+        },
+        {
+            title: 'data_processing_agreement',
+            url: 'https://support.eraofwe.com/en/kb/articles/data-processing-agreement',
+            isShow: this.authService.currentUser.id === this.authService.currentOrganization.admin_id,
+        },
+        // {
+        //     title: 'master_agreement_estate',
+        //     url: '',
+        //     isShow: this.authService.currentUser.id === this.authService.currentOrganization.admin_id,
+        // },
+    ];
 
     constructor(
-        private userService: UserService,
-        private userOriginalService: UserserviceService,
         public location: Location,
-        private toastr: ToastrService,
         public globals: GlobalsService,
+        public authService: AuthService,
+        private userService: UserserviceService,
+        private cookieService: CookieService
     ) {}
 
     ngOnInit(): void {
-        this.getPrivacyTerms();
+        this.roasterId = this.cookieService.get('roaster_id');
         this.breadcrumbItems = [
             { label: this.globals.languageJson?.home, routerLink: '/dashboard' },
             { label: this.globals.languageJson?.account_settings, routerLink: '../../account-settings' },
             { label: this.globals.languageJson?.privacy_settings },
         ];
+        // this.getOrganizationTerms();
     }
 
-    getPrivacyTerms(): void {
-        this.isLoading = true;
-        this.userOriginalService.getPrivacyTerms().subscribe((res: any) => {
-            console.log('get privacy terms >>>>>>>>>>>>>', res);
-            this.isLoading = false;
-            if (res.success) {
-                this.privacyTerms = res.result;
-            } else {
-                this.toastr.error('Failed to get data');
-            }
-        });
-    }
-
-    onChangeData(): void {
-        this.userOriginalService.updatePrivacyTerms(this.privacyTerms).subscribe((res: any) => {
-            console.log('update data result ??????????', res);
+    getOrganizationTerms(): void {
+        this.userService.getOrganizationTerm(this.roasterId).subscribe((res: any) => {
+            console.log('getOrganizationTerms >>>>>>>>>>', res);
         });
     }
 }
