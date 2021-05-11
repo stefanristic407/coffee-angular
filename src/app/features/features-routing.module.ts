@@ -13,7 +13,6 @@ import { RoasterCompleteSetupComponent } from './roaster-complete-setup/roaster-
 import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
 import { RoasterOnboardingComponent } from './roaster-onboarding/roaster-onboarding.component';
 import { RoasterQuickSetupComponent } from './roaster-quick-setup/roaster-quick-setup.component';
-import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/roastery-license.component';
 import { VatManagementComponent } from './vat-management/vat-management.component';
 import { BatchSelectAnOrderComponent } from './batch-select-an-order/batch-select-an-order.component';
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
@@ -67,11 +66,6 @@ const routes: Routes = [
             {
                 path: 'notification',
                 component: NotificationComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'license',
-                component: RoasteryLicenseComponent,
                 canActivate: [AuthGuard],
             },
             {
