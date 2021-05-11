@@ -1,20 +1,19 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
-import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { GlobalsService } from '@services';
 import * as moment from 'moment';
 import { COUNTRY_LIST } from '@constants';
 
 @Component({
-    selector: 'app-select-order',
-    templateUrl: './select-order.component.html',
-    styleUrls: ['./select-order.component.scss'],
+    selector: 'app-select-orders',
+    templateUrl: './select-orders.component.html',
+    styleUrls: ['./select-orders.component.scss'],
 })
-export class SelectOrderComponent implements OnInit {
+export class SelectOrdersComponent implements OnInit {
     @Output() orderChange = new EventEmitter<any>();
     @Output() closeEvent = new EventEmitter<any>();
     estateterm: any;
@@ -43,7 +42,6 @@ export class SelectOrderComponent implements OnInit {
     @ViewChild('calendar')
     calendar: any;
 
-    // Static Estate Orders Data List
     public data: any;
     selectedEntry: any;
     selectId: any;
@@ -159,7 +157,6 @@ export class SelectOrderComponent implements OnInit {
         console.log(this.selectedEntry);
     }
 
-    // select order table data
     getTableData() {
         this.tableValue = [];
         const postData: any = {
@@ -173,11 +170,10 @@ export class SelectOrderComponent implements OnInit {
             postData.start_date = moment(this.rangeDates[0], 'DD/MM/YYYY').format('YYYY-MM-DD');
             postData.end_date = moment(this.rangeDates[1], 'DD/MM/YYYY').format('YYYY-MM-DD');
         }
-        this.roasterService.getEstateOrders(this.roasterId, postData, this.orderType).subscribe((data: any) => {
+        this.roasterService.getListOrderDetails(this.roasterId, postData, this.orderType).subscribe((data: any) => {
             if (data.success && data.result) {
                 this.totalCount = data.result_info.total_count;
                 this.tableValue = data.result;
-                console.log(this.tableValue);
             }
         });
     }

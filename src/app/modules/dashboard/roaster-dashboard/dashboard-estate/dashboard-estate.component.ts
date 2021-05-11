@@ -39,7 +39,11 @@ export class DashboardEstateComponent implements OnInit, OnDestroy {
                     item.countryName = countryName;
                     if (item.variety) {
                         const tags = item.variety.split(',');
-                        item.tags = tags;
+                        if (tags.length > 3) {
+                            item.tags = tags.slice(0, 3);
+                        } else {
+                            item.tags = tags;
+                        }
                     } else {
                         item.tags = [];
                     }

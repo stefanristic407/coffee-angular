@@ -7,6 +7,7 @@ import { FilterComponent } from '../filter/filter.component';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { extend } from 'hammerjs';
 import { DestroyableComponent } from '@base-components';
+import { MONTH_LIST } from '@constants';
 
 @Component({
     selector: 'app-sourcing',
@@ -29,7 +30,7 @@ export class SourcingComponent extends DestroyableComponent implements OnInit, A
         { label: '87.0 - 89.0', value: ['87.0', '89.0'] },
         { label: '90+', value: ['90', '100'] },
     ];
-    cropItems: any[];
+    cropItems: any[] = MONTH_LIST;
     availableItems: any[] = [
         { label: 'Yes', value: 1 },
         { label: 'No', value: 0 },
@@ -62,7 +63,6 @@ export class SourcingComponent extends DestroyableComponent implements OnInit, A
                 routerLink: ['/sourcing/coffee-list'],
             },
         ];
-        this.cropItems = this.globals.monthList;
         this.sourcingSrv.clearQueryParams();
         this.queryParams = { ...this.sourcingSrv.queryParams.getValue() };
         this.viewMode = this.sourcingSrv.viewMode.getValue();

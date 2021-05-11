@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
-import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { GlobalsService } from '@services';
 import { COUNTRY_LIST } from '@constants';
 import * as moment from 'moment';
@@ -72,10 +71,6 @@ export class SelectOrderTableComponent implements OnInit {
         this.getTableData();
         this.loadFilterValues();
         this.createRoasterTable();
-        // if (this.route.snapshot.queryParams.batchId && this.route.snapshot.queryParams.ordId) {
-        //     this.batchId = decodeURIComponent(this.route.snapshot.queryParams.batchId);
-        //     this.ordId = decodeURIComponent(this.route.snapshot.queryParams.ordId);
-        // }
     }
 
     createRoasterTable() {
@@ -160,13 +155,6 @@ export class SelectOrderTableComponent implements OnInit {
         this.selectedEntry = value;
         console.log(this.selectedEntry);
     }
-    // continue() {
-    //     this.globals.selected_order_id = this.selectedEntry.id;
-    //     console.log(this.globals.selected_order_id);
-    //     this.router.navigate(['/roasted-coffee-batch/new-roasted-batch']);
-    // }
-
-    // select order table data
 
     getTableData() {
         this.tableValue = [];
@@ -188,40 +176,12 @@ export class SelectOrderTableComponent implements OnInit {
             }
         });
     }
+
     onContinue() {
         this.orderSelectEvent.emit(this.selectedOrder.id);
-        // if (this.batchId) {
-        //     this.selectId = this.selectedOrder.id;
-        //     const navigationExtras: NavigationExtras = {
-        //         queryParams: {
-        //             ordId: this.selectId ? this.selectId : '',
-        //             batchId: this.batchId ? this.batchId : '',
-        //         },
-        //     };
-        //     this.router.navigate(['/roasted-coffee-batch/new-roasted-batch'], navigationExtras);
-        // } else {
-        //     this.selectId = this.selectedOrder.id;
-        //     const navigationExtras: NavigationExtras = {
-        //         queryParams: {
-        //             ordId: this.selectId ? this.selectId : '',
-        //         },
-        //     };
-        //     this.router.navigate(['/roasted-coffee-batch/new-roasted-batch'], navigationExtras);
-        // }
     }
 
     backRoastedBatch() {
         this.orderSelectEvent.emit('');
-        // if (this.batchId && this.ordId) {
-        //     const navigationExtras: NavigationExtras = {
-        //         queryParams: {
-        //             batchId: this.batchId ? this.batchId : '',
-        //             ordId: this.ordId ? this.ordId : '',
-        //         },
-        //     };
-        //     this.router.navigate(['/roasted-coffee-batch/new-roasted-batch'], navigationExtras);
-        // } else {
-        //     this.router.navigate(['/roasted-coffee-batch/new-roasted-batch']);
-        // }
     }
 }
