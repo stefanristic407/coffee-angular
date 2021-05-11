@@ -158,28 +158,28 @@
                                                     routerLinkActive="highlight"
                                                     (click)="pop2.hide()"
                                                 >
-                                                    {{ 'roastery_profile' | translate }}
+                                                    {{ 'menu_roastery_profile' | translate }}
                                                 </li>
                                                 <li
                                                     [routerLink]="['/my-profile']"
                                                     routerLinkActive="highlight"
                                                     (click)="pop2.hide()"
                                                 >
-                                                    {{ 'my_profile' | translate }}
+                                                    {{ 'menu_my_profile' | translate }}
                                                 </li>
                                                 <li
                                                     [routerLink]="['/account-settings']"
                                                     routerLinkActive="highlight"
                                                     (click)="pop2.hide()"
                                                 >
-                                                    {{ 'account_settings' | translate }}
+                                                    {{ 'menu_account_settings' | translate }}
                                                 </li>
                                                 <li
                                                     *ngFor="let item of orgData"
                                                     (click)="switchPortal(item.orgType, item.id)"
                                                 >
                                                     {{ 'switch_to' | translate }}&nbsp;{{
-                                                        item.orgType | orgType
+                                                        item.orgType | orgType | lowercase
                                                     }}&nbsp;{{ 'portal' | translate }}
                                                 </li>
                                                 <li (click)="userLogout()">{{ 'logout' | translate }}</li>
@@ -211,7 +211,7 @@
                             class="nav-links__item d-md-inline-block position-relative mobile-farm settings-list mt-md-0 mt-5"
                         >
                             <a class="d-inline-block fnt-600" [routerLink]="['/features/account-settings']"
-                                >{{ 'account_settings' | translate }}
+                                >{{ 'menu_account_settings' | translate }}
                             </a>
                         </li>
                         <li class="nav-links__item d-md-inline-block position-relative mobile-farm help-list">
@@ -312,16 +312,19 @@
                                                 "
                                             />
                                         </div>
-                                        <span class="text-capitalize">{{ 'my_profile' | translate }}</span>
+                                        <span class="text-capitalize">{{ 'menu_my_profile' | translate }}</span>
                                     </a>
                                     <a
                                         [routerLink]="['/roastery-profile']"
                                         class="ft-dropdown__link active d-flex clearfix align-items-center"
                                     >
                                         <div class="img float-left mr-2">
-                                            <img class="profile-pic" src="{{ roasterProfilePic }}" />
+                                            <img
+                                                class="profile-pic"
+                                                [src]="authService.currentOrganization?.company_image_thumbnail_url"
+                                            />
                                         </div>
-                                        <span class="text-capitalize">{{ 'roastery_profile' | translate }}</span>
+                                        <span class="text-capitalize">{{ 'menu_roastery_profile' | translate }}</span>
                                     </a>
                                 </div>
                             </div>

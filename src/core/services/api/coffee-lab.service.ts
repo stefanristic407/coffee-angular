@@ -60,7 +60,7 @@ export class CoffeeLabService extends ApiService {
         return this.http.post(this.orgPostUrl, data, httpOptions);
     }
 
-    getFOrganizationForumList(type: string, options?: any, language = this.currentForumLanguage): Observable<any> {
+    getOrganizationForumList(type: string, options?: any, language = this.currentForumLanguage): Observable<any> {
         const data = {
             api_call: `/${this.organization}/${this.organizationId}/${type}s?${this.serializeParams(options)}`,
             method: 'GET',
@@ -74,10 +74,6 @@ export class CoffeeLabService extends ApiService {
 
     getForumDetails(type: string, idOrSlug: any): Observable<any> {
         return this.post(this.orgPostUrl, `general/${type}s/${idOrSlug}`, 'GET');
-    }
-
-    getRecipeById(type: string, idOrSlug: any, roasterId): Observable<any> {
-        return this.post(this.orgPostUrl, `ro/${roasterId}/${type}s/${idOrSlug}`, 'GET');
     }
 
     getCommentList(type: string, slug: any): any {

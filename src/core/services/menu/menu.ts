@@ -31,7 +31,10 @@ export const menuItems = [
     new Menu(42, 'menu_rc_inventory', '/roasted-coffee-batch/roasted-coffee-batchs', null, null, null, false, 4, []),
     new Menu(43, 'menu_product_settings', '/features/vat-management', null, null, null, false, 4, []),
 
-    new Menu(9, 'menu_ecommerce_management', '/e-commerce/product-list/b2b', null, null, null, false, 0, []),
+    new Menu(9, 'menu_ecommerce', null, null, null, null, true, 0, []),
+    new Menu(91, 'b2b_product_catalog', '/e-commerce/product-list/b2b', null, null, null, false, 9, []),
+    new Menu(92, 'b2c_product_catalog', '/e-commerce/product-list/b2c', null, null, null, false, 9, []),
+    new Menu(93, 'other_products', '/e-commerce/product-list/other', null, null, null, false, 9, []),
 
     new Menu(5, 'menu_sales_management', null, null, null, null, true, 0, []),
     new Menu(51, 'menu_sales', './', null, null, null, false, 5, []),
@@ -62,7 +65,7 @@ export const menuItems = [
     new Menu(83, 'menu_customer_management', '/people/customer-management', null, null, null, false, 8, []),
 
     // Dropdown Menu
-    new Menu(10001, 'roastery_profile', '/roastery-profile', null, null, null, false, 1000, []),
-    new Menu(10002, 'my_profile', '/features/myprofile', null, null, null, false, 1000, []),
-    new Menu(10003, 'account_settings', '/features/account-settings', null, null, null, false, 1000, []),
+    new Menu(10001, 'menu_roastery_profile', '/roastery-profile', null, null, null, false, 1000, []),
+    new Menu(10002, 'menu_my_profile', '/features/myprofile', null, null, null, false, 1000, []),
+    new Menu(10003, 'menu_account_settings', '/features/account-settings', null, null, null, false, 1000, []),
 ];

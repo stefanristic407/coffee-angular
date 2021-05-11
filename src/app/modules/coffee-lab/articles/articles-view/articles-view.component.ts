@@ -41,7 +41,7 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
     forumDeleteSub: Subscription;
     forumLanguage: string;
     constructor(
-        private coffeeLabService: CoffeeLabService,
+        public coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
         private router: Router,
         private coffeeLab: CoffeeLabService,
@@ -73,7 +73,7 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
         if (this.pageDesc === 'saved-posts') {
             this.coffeeLab.getSavedForumList('article').subscribe((res) => {
                 if (res.success) {
-                    this.articlesData = res.result;
+                    this.articlesData = res.result ?? [];
                     this.articlesData.map((item) => {
                         item.content = this.getJustText(item.content);
                         return item;
@@ -86,7 +86,7 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
         } else if (this.pageDesc === 'my-posts') {
             this.coffeeLab.getMyForumList('article').subscribe((res) => {
                 if (res.success) {
-                    this.articlesData = res.result;
+                    this.articlesData = res.result ?? [];
                     this.articlesData.map((item) => {
                         item.content = this.getJustText(item.content);
                         return item;
@@ -99,7 +99,7 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
         } else {
             this.coffeeLabService.getForumList('article', params, this.forumLanguage).subscribe((res) => {
                 if (res.success) {
-                    this.articlesData = res.result;
+                    this.articlesData = res.result ?? [];
                     this.articlesData.map((item) => {
                         item.content = this.getJustText(item.content);
                         return item;

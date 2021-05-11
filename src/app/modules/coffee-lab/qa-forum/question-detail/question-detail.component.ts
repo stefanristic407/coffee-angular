@@ -24,7 +24,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     destroy$: Subject<boolean> = new Subject<boolean>();
 
     constructor(
-        private coffeeLabService: CoffeeLabService,
+        public coffeeLabService: CoffeeLabService,
         private activatedRoute: ActivatedRoute,
         @Inject(DOCUMENT) private document: any,
         public globalsService: GlobalsService,

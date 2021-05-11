@@ -39,13 +39,13 @@ export class RoleListComponent implements OnInit {
         this.tableColumns = [
             {
                 field: 'user_count',
-                header: 'Number of Members',
+                header: 'number_of_members',
                 sortable: false,
                 width: 30,
             },
             {
                 field: 'name',
-                header: 'Roles',
+                header: 'roles',
                 sortable: false,
                 width: 50,
             },
@@ -56,7 +56,7 @@ export class RoleListComponent implements OnInit {
             },
             {
                 field: 'actions',
-                header: 'Actions',
+                header: 'actions',
                 sortable: false,
                 width: 10,
             },

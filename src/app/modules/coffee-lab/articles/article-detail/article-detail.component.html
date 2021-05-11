@@ -26,8 +26,14 @@
                                 [enableTranslation]="
                                     !detailsData?.translated_articles || detailsData?.translated_articles.length < 3
                                 "
-                                [enableEdit]="organizationId === detailsData?.organisation_id && detailsData?.organisation_type === 'ro'"
-                                [enableDelete]="organizationId === detailsData?.organisation_id && detailsData?.organisation_type === 'ro'"
+                                [enableEdit]="
+                                    organizationId === detailsData?.organisation_id &&
+                                    detailsData?.organisation_type === coffeeLabService.organization
+                                "
+                                [enableDelete]="
+                                    organizationId === detailsData?.organisation_id &&
+                                    detailsData?.organisation_type === coffeeLabService.organization
+                                "
                             ></app-forum-menu>
                             <div
                                 class="d-none d-md-block mt-2"

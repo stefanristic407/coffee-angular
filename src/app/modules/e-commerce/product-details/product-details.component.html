@@ -54,6 +54,16 @@
                     {{ 'required' | translate }}
                 </small>
             </div>
+            <div class="col-12 col-md-6 col-lg-3 sewn-form-field" *ngIf="type === 'b2c'">
+                <label>{{ 'is_product_bought_platform' | translate }}</label>
+                <p-dropdown
+                    [options]="boughtOnPlatformOptions"
+                    optionLabel="label"
+                    [placeholder]=""
+                    formControlName="is_external_product"
+                    optionValue="value"
+                ></p-dropdown>
+            </div>
             <div class="col-12 col-lg-6 mt-lg-3 sewn-form-field">
                 <div>
                     <label>{{ 'product_description' | translate }}<span class="star">*</span></label>
@@ -88,7 +98,7 @@
                 </p-checkbox>
                 <div class="d-none d-md-flex addNewWeightDiv" *ngIf="productForm.value.is_variants_included">
                     <img src="assets/images/add_grey.svg" />
-                    <span class="ml-2 fnt-muli fnt-700 fnt-14 text-clr334 cursor-pointer" (click)="addNewVarients()">
+                    <span class="ml-2 fnt-muli fnt-700 fnt-14 text-clr334 cursor-pointer" (click)="addNewVariants()">
                         {{ 'add_new_variant' | translate }}
                     </span>
                 </div>
@@ -111,7 +121,7 @@
                         <img class="" src="assets/images/add_green_icon.svg" />
                         <span
                             class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer"
-                            (click)="addNewVarients()"
+                            (click)="addNewVariants()"
                         >
                             {{ 'add_variant' | translate }}
                         </span>
@@ -120,7 +130,7 @@
             </p-dropdown>
         </div>
         <div class="d-block d-md-none mt-3" *ngIf="productForm.value.is_variants_included">
-            <span class="fnt-700 editBtn cursor-pointer align-items-center" (click)="removeVarientDrop(currentVariant)">
+            <span class="fnt-700 editBtn cursor-pointer align-items-center" (click)="removeVariantDrop(currentVariant)">
                 {{ 'delete_variant' | translate }}
             </span>
         </div>
@@ -130,23 +140,26 @@
                 isProductOption: !productForm.value.is_variants_included,
                 'pt-md-3': productForm.value.is_variants_included
             }"
-            *ngIf="productForm?.controls?.varients?.controls"
+            *ngIf="productForm?.controls?.variants?.controls"
         >
             <p-tabView [(activeIndex)]="currentVariant">
                 <p-tabPanel
-                    formArrayName="varients"
-                    *ngFor="let varient of productForm.controls['varients']['controls']; let i = index; last as isLast"
+                    formArrayName="variants"
+                    *ngFor="let variant of productForm.controls['variants']['controls']; let i = index; last as isLast"
                 >
                     <ng-template pTemplate="header">
                         <span
-                            >{{ varient['value']['varient_name'] }}
-                            <span (click)="removeVarient(i)"
-                                ><img src="assets/images/delete-varient-name.svg" alt="delete" /></span
+                            >{{ variant['value']['variant_name'] }}
+                            <span (click)="removeVariant(i)"
+                                ><img src="assets/images/delete-variant-name.svg" alt="delete" /></span
                         ></span>
                     </ng-template>
                     <div [formGroupName]="i">
                         <div class="row gutter-16 gutter-lg-24 mt-4">
-                            <div class="col-12 col-md-6 sewn-form-field">
+                            <div
+                                class="col-12 col-md-6 sewn-form-field"
+                                *ngIf="productForm.get('is_external_product').value"
+                            >
                                 <label>{{ 'select_roasted_batch' | translate }}<span class="star">*</span></label>
                                 <p-dropdown
                                     [options]="roastedBatches"
@@ -157,33 +170,68 @@
                                     optionValue="id"
                                     (onChange)="onBatchChange(i)"
                                 ></p-dropdown>
-                                <small *ngIf="varient.controls['rc_batch_id'].errors?.required" class="p-error">
+                                <small *ngIf="variant.controls['rc_batch_id'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
                             </div>
-                            <div class="col-md-6 sewn-form-field d-none d-md-block d-lg-none"></div>
+                            <div
+                                class="col-12 col-md-6 col-lg-3 sewn-form-field"
+                                *ngIf="productForm.get('is_external_product').value"
+                            >
+                                <label>{{ 'remaining_batch_quantity' | translate }}</label>
+                                <input
+                                    type="text"
+                                    [readonly]="productForm.get('is_external_product').value"
+                                    formControlName="remaining_quantity"
+                                    pInputText
+                                />
+                            </div>
 
                             <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
                                 <label>{{ 'roaster_ref_no' | translate }}</label>
-                                <input type="text" readonly formControlName="roaster_ref_no" pInputText />
+                                <input
+                                    type="text"
+                                    [readonly]="productForm.get('is_external_product').value"
+                                    formControlName="roaster_ref_no"
+                                    pInputText
+                                />
                             </div>
                             <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
                                 <label>{{ 'batch_ref_no' | translate }}</label>
-                                <input type="text" readonly formControlName="batch_ref_no" pInputText />
+                                <input
+                                    type="text"
+                                    [readonly]="productForm.get('is_external_product').value"
+                                    formControlName="batch_ref_no"
+                                    pInputText
+                                />
                             </div>
-                        </div>
-                        <div class="row gutter-16 gutter-lg-24">
+
                             <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
                                 <label>{{ 'roaster_profile' | translate }}</label>
-                                <input type="text" readonly formControlName="roasting_profile_name" pInputText />
+                                <input
+                                    type="text"
+                                    [readonly]="productForm.get('is_external_product').value"
+                                    formControlName="roasting_profile_name"
+                                    pInputText
+                                />
                             </div>
                             <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
                                 <label>{{ 'roaster_level' | translate }}<span class="star">*</span></label>
-                                <input type="text" readonly formControlName="roast_level" pInputText />
+                                <input
+                                    type="text"
+                                    [readonly]="productForm.get('is_external_product').value"
+                                    formControlName="roast_level"
+                                    pInputText
+                                />
                             </div>
                             <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
                                 <label>{{ 'roasting_time' | translate }}</label>
-                                <input type="text" readonly formControlName="roast_time" pInputText />
+                                <input
+                                    type="text"
+                                    [readonly]="productForm.get('is_external_product').value"
+                                    formControlName="roast_time"
+                                    pInputText
+                                />
                             </div>
                         </div>
                         <p-divider type="dashed" styleClass="d-md-none mt-2 mb-4"></p-divider>
@@ -193,15 +241,30 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
                                 <label>{{ 'estate_name' | translate }}</label>
-                                <input type="text" readonly formControlName="estate_name" pInputText />
+                                <input
+                                    type="text"
+                                    [readonly]="productForm.get('is_external_product').value"
+                                    formControlName="estate_name"
+                                    pInputText
+                                />
                             </div>
                             <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
                                 <label>{{ 'origin' | translate }}</label>
-                                <input type="text" readonly formControlName="origin" pInputText />
+                                <input
+                                    type="text"
+                                    [readonly]="productForm.get('is_external_product').value"
+                                    formControlName="origin"
+                                    pInputText
+                                />
                             </div>
                             <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
                                 <label>{{ 'region' | translate }}</label>
-                                <input type="text" readonly formControlName="region" pInputText />
+                                <input
+                                    type="text"
+                                    [readonly]="productForm.get('is_external_product').value"
+                                    formControlName="region"
+                                    pInputText
+                                />
                             </div>
                             <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
                                 <label>{{ 'harvest_year' | translate }}</label>
@@ -215,42 +278,75 @@
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
                                 <label>{{ 'body' | translate }}</label>
-                                <input type="text" readonly formControlName="body" pInputText />
+                                <input
+                                    type="text"
+                                    [readonly]="productForm.get('is_external_product').value"
+                                    formControlName="body"
+                                    pInputText
+                                />
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
                                 <label>{{ 'acidity' | translate }}</label>
-                                <input type="text" readonly formControlName="acidity" pInputText />
+                                <input
+                                    type="text"
+                                    [readonly]="productForm.get('is_external_product').value"
+                                    formControlName="acidity"
+                                    pInputText
+                                />
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
                                 <label>{{ 'aroma' | translate }}</label>
-                                <input type="text" readonly formControlName="aroma" pInputText />
+                                <input
+                                    type="text"
+                                    [readonly]="productForm.get('is_external_product').value"
+                                    formControlName="aroma"
+                                    pInputText
+                                />
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
                                 <label>{{ 'flavour' | translate }}</label>
-                                <input type="text" readonly formControlName="flavour" pInputText />
+                                <input
+                                    type="text"
+                                    [readonly]="productForm.get('is_external_product').value"
+                                    formControlName="flavour"
+                                    pInputText
+                                />
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
                                 <label>{{ 'processing' | translate }}</label>
-                                <input type="text" readonly formControlName="processing" pInputText />
+                                <input
+                                    type="text"
+                                    [readonly]="productForm.get('is_external_product').value"
+                                    formControlName="processing"
+                                    pInputText
+                                />
                             </div>
                         </div>
                         <div class="w-100 sewn-form-field mt-0 mt-lg-3">
                             <label class="mb-0 mb-md-2">{{ 'flavour_profile' | translate }}</label>
-                            <div>
+                            <div *ngIf="productForm.get('is_external_product').value">
                                 <span
                                     class="flavour-item d-inline-block"
-                                    *ngFor="let flavour of varient.value.flavour_profile"
+                                    *ngFor="let flavour of variant.value.flavour_profile"
                                 >
                                     {{ flavour.flavour_profile_name }}
                                 </span>
                             </div>
+                            <app-multiselect-chips
+                                formControlName="flavour_profile"
+                                [placeholder]="'+ ' + ('add_descriptors' | translate)"
+                                optionLabel="flavour_profile_name"
+                                optionValue="flavour_profile_id"
+                                [itemList]="flavoursList"
+                                *ngIf="!productForm.get('is_external_product').value"
+                            ></app-multiselect-chips>
                         </div>
                         <div class="row gutter-16 gutter-lg-24 mt-2 mt-lg-3">
                             <div class="col-12 col-lg-6 sewn-form-field">
                                 <div>
                                     <label>{{ 'roaster_notes' | translate }}</label>
                                     <label class="float-right limitFont"
-                                        >{{ varient.value.roaster_notes | wordCount }}/50
+                                        >{{ variant.value.roaster_notes | wordCount }}/50
                                         {{ 'words' | translate }}</label
                                     >
                                 </div>
@@ -258,7 +354,7 @@
                                     type="text"
                                     [rows]="5"
                                     placeholder=""
-                                    readonly
+                                    [readonly]="productForm.get('is_external_product').value"
                                     formControlName="roaster_notes"
                                     pInputText
                                 ></textarea>
@@ -267,7 +363,7 @@
                                 <div>
                                     <label>{{ 'recipes' }}</label>
                                     <label class="float-right limitFont"
-                                        >{{ varient.value.recipes | wordCount }}/50 {{ 'words' | translate }}</label
+                                        >{{ variant.value.recipes | wordCount }}/50 {{ 'words' | translate }}</label
                                     >
                                 </div>
 
@@ -297,7 +393,7 @@
                                     optionValue="value"
                                 >
                                 </p-dropdown>
-                                <small *ngIf="varient['controls']['brewing_method'].errors?.required" class="p-error">
+                                <small *ngIf="variant['controls']['brewing_method'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
                             </div>
@@ -305,7 +401,7 @@
                                 <div>
                                     <label>{{ 'recommendation_text' | translate }}<span class="star">*</span></label>
                                     <label class="float-right limitFont"
-                                        >{{ varient.value.roaster_recommendation | wordCount }}/10
+                                        >{{ variant.value.roaster_recommendation | wordCount }}/10
                                         {{ 'words' | translate }}</label
                                     >
                                 </div>
@@ -323,7 +419,7 @@
                                     pInputText
                                 ></textarea>
                                 <small
-                                    *ngIf="varient['controls']['roaster_recommendation'].errors?.required"
+                                    *ngIf="variant['controls']['roaster_recommendation'].errors?.required"
                                     class="p-error"
                                 >
                                     {{ 'required' | translate }}
@@ -331,12 +427,12 @@
                             </div>
                         </div>
                         <p-divider type="dashed" styleClass="mt-2 mt-lg-4 mb-4 mb-lg-475"></p-divider>
-                        <app-varient-details
+                        <app-variant-details
                             #cmp
-                            [varientDetails]="varient"
+                            [variantDetails]="variant"
                             (handleWeightCreate)="onWeightCreate($event)"
                             (handleWeightDelete)="onWeightDelete($event)"
-                        ></app-varient-details>
+                        ></app-variant-details>
                     </div>
                 </p-tabPanel>
             </p-tabView>
@@ -416,7 +512,7 @@
                 type="button"
                 class="btn btn-raised order-1 order-md-2 w-mob-100"
                 (click)="togglePublic(true)"
-                *ngIf="productID"
+                *ngIf="!isPublished && productID"
             >
                 {{ 'publish' | translate }}
             </button>

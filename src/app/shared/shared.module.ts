@@ -10,6 +10,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { ClipboardModule } from 'ngx-clipboard';
 
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
@@ -87,7 +88,8 @@ import { HorizontalBarComponent } from './components/horizontal-bar/horizontal-b
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { TimeRangeComponent } from './components/time-range/time-range.component';
 import { DayPickerComponent } from './components/day-picker/day-picker.component';
-import { PhoneNumberComponent } from './components/phone-number/phone-number.component';
+import { PhoneNumberComponent } from './components/form-controls/phone-number/phone-number.component';
+import { MultiselectChipsComponent } from './components/form-controls/multiselect-chips/multiselect-chips.component';
 import { ReviewSummaryComponent } from './components/review-summary/review-summary.component';
 import { ReviewsComponent } from './components/reviews/reviews.component';
 import { ArrayFilterPipe } from './pipes/array-filter.pipe';
@@ -110,6 +112,7 @@ const THIRDMODULES = [
     ModalModule,
     PopoverModule,
     TypeaheadModule,
+    ClipboardModule,
     AutoCompleteModule,
     BreadcrumbModule,
     ButtonModule,
@@ -186,6 +189,7 @@ const COMPONENTS = [
     BarChartComponent,
     HorizontalBarComponent,
     PhoneNumberComponent,
+    MultiselectChipsComponent,
     ReviewSummaryComponent,
     ReviewsComponent,
     SewnDirectMessageComponent,
@@ -201,6 +205,7 @@ const DIRECTIVES = [
     RatingDirective,
     LifecyclehookDirective,
     ChatHighlighterDirective,
+    CopyImageToClipboardDirective,
     FullImgWrapperDirective,
 ];
 
@@ -270,7 +275,6 @@ const PIPES = [
         ...COMPONENTS_NOROUNT,
         ...DIRECTIVES,
         ...PIPES,
-        CopyImageToClipboardDirective,
         FullImgWrapperDirective,
         WeightConvertPipe,
         ThousandSuffPipe,
@@ -288,7 +292,6 @@ const PIPES = [
         ...COMPONENTS,
         ...DIRECTIVES,
         ...PIPES,
-        CopyImageToClipboardDirective,
     ],
     providers: [DialogService],
 })

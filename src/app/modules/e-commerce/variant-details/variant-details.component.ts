@@ -1,23 +1,22 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { RoasterserviceService } from 'src/core/services/api/roaster.service';
-import { GlobalsService, ResizeService } from '@services';
+import { GlobalsService, ResizeService, FileService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { ResizeableComponent } from '@base-components';
 
 @Component({
-    selector: 'app-varient-details',
-    templateUrl: './varient-details.component.html',
-    styleUrls: ['./varient-details.component.scss'],
+    selector: 'app-variant-details',
+    templateUrl: './variant-details.component.html',
+    styleUrls: ['./variant-details.component.scss'],
 })
-export class VarientDetailsComponent extends ResizeableComponent implements OnInit {
+export class VariantDetailsComponent extends ResizeableComponent implements OnInit {
     weightForm: FormGroup;
     weights: FormArray;
     grindVariants: FormArray;
-    @Input() varientDetails: any;
-    currentVarientIndex = 0;
+    @Input() variantDetails: any;
+    currentVariantIndex = 0;
     statusArray: any = [];
     grindArray: any = [];
     productID: any = '';
@@ -43,8 +42,8 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
         private route: ActivatedRoute,
         private toaster: ToastrService,
         public globals: GlobalsService,
-        public services: RoasterserviceService,
         private cookieService: CookieService,
+        private fileService: FileService,
         protected resizeService: ResizeService,
     ) {
         super(resizeService);
@@ -57,8 +56,8 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
             weights: this.fb.array([this.createEmptyWeights()]),
         });
         const weight = this.weightForm.get('weights') as FormArray;
-        weight.controls[this.currentVarientIndex].get('product_images').setValue(this.setProductImages([]));
-        weight.controls[this.currentVarientIndex].get('weight').valueChanges.subscribe((value) => {
+        weight.controls[this.currentVariantIndex].get('product_images').setValue(this.setProductImages([]));
+        weight.controls[this.currentVariantIndex].get('weight').valueChanges.subscribe((value) => {
             this.onWeightChange(value);
         });
         this.route.params.subscribe((params) => {
@@ -83,21 +82,27 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
             { label: 'kg', value: 'kg' },
         ];
         this.grindArray = [
-            { label: 'Whole beans', value: 'beans' },
             { label: 'Extra Coarse', value: 'extra-coarse' },
             { label: 'Coarse', value: 'coarse' },
             { label: 'Medium Coarse', value: 'medium-coarse' },
             { label: 'Medium', value: 'medium' },
             { label: 'Fine', value: 'fine' },
+            { label: 'Extra Fine', value: 'extra-fine' },
         ];
     }
-    onWeightChange(value) {
-        const weight = this.weightForm.get('weights') as FormArray;
-        if (weight.controls[this.currentVarientIndex]) {
+
+    onWeightChange(value, index?) {
+        const weights = this.weightForm.get('weights') as FormArray;
+        const weight = weights.controls[!!index ? index : this.currentVariantIndex];
+        if (weight) {
+            weight.patchValue({
+                weight_name: `weight - ${value}${weight.value.weight_unit}`,
+            });
             const getObj = {
                 value,
-                product_weight_variant_id: weight.controls[this.currentVarientIndex].value.product_weight_variant_id,
-                unit: weight.controls[this.currentVarientIndex].value.weight_unit,
+                product_weight_variant_id: weight.value.product_weight_variant_id,
+                unit: weight.value.weight_unit,
+                variant_name: this.variantDetails.value.variant_name,
                 modify: true,
             };
             this.handleWeightCreate.emit(getObj);
@@ -105,34 +110,40 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
         this.createWeightVariantArray();
     }
     onWeightUnitChange() {
-        const weight = this.weightForm.get('weights') as FormArray;
+        const weights = this.weightForm.get('weights') as FormArray;
+        const weight = weights.controls[this.currentVariantIndex];
+        weight.patchValue({
+            weight_name: `weight - ${weight.value.weight}${weight.value.weight_unit}`,
+        });
         const getObj = {
-            value: weight.controls[this.currentVarientIndex].value.weight,
-            product_weight_variant_id: weight.controls[this.currentVarientIndex].value.product_weight_variant_id,
-            unit: weight.controls[this.currentVarientIndex].value.weight_unit,
+            value: weight.value.weight,
+            product_weight_variant_id: weight.value.product_weight_variant_id,
+            unit: weight.value.weight_unit,
+            variant_name: this.variantDetails.value.variant_name,
             modify: true,
         };
         this.handleWeightCreate.emit(getObj);
         this.createWeightVariantArray();
     }
     updateCrate(idx) {
-        const weight = this.weightForm.get('weights') as FormArray;
+        const weight = (this.weightForm.get('weights') as FormArray).controls[idx].value;
         const getObj = {
-            value: weight.controls[idx].value.weight,
-            unit: weight.controls[idx].value.weight_unit,
-            product_weight_variant_id: weight.controls[idx].value.product_weight_variant_id,
+            value: weight.weight,
+            unit: weight.weight_unit,
+            product_weight_variant_id: weight.product_weight_variant_id,
+            variant_name: this.variantDetails.value.variant_name,
             modify: false,
         };
         this.handleWeightCreate.emit(getObj);
     }
     loadWeight() {
-        if (this.varientDetails && this.varientDetails.value.weight_variants) {
+        if (this.variantDetails.value.weight_variants) {
             this.weights = this.weightForm.get('weights') as FormArray;
             this.weights.removeAt(0);
-            this.varientDetails.value.weight_variants.forEach((ele) => {
+            this.variantDetails.value.weight_variants.forEach((ele, index) => {
                 const weightForm = this.createEmptyWeights();
                 weightForm.get('weight').valueChanges.subscribe((value) => {
-                    this.onWeightChange(value);
+                    this.onWeightChange(value, index);
                 });
                 weightForm.controls.product_weight_variant_id.setValue(ele.product_weight_variant_id);
                 weightForm.controls.weight_name.setValue('weight -' + ele.weight + '' + ele.weight_unit);
@@ -162,6 +173,8 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
                 this.weights.push(weightForm);
             });
             this.createWeightVariantArray();
+        } else {
+            this.updateCrate(0);
         }
     }
     loadGrindVariants(grindForm, item): void {
@@ -169,7 +182,7 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
         this.grindVariants.removeAt(0);
         if (item && item.length > 0) {
             item.forEach((variant) => {
-                const formGrind = this.createEmptyGrindVarient();
+                const formGrind = this.createEmptyGrindVariant();
                 this.grindVariantFields.forEach((field) => {
                     formGrind.controls[field].setValue(variant[field]);
                 });
@@ -178,9 +191,8 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
         }
     }
     addNewWeights(): void {
-        const weights = this.weightForm.get('weights') as FormArray;
-        weights.push(this.createEmptyWeights());
-        this.weights = weights;
+        this.weights = this.weightForm.get('weights') as FormArray;
+        this.weights.push(this.createEmptyWeights());
         this.weights.controls[this.weights.length - 1].get('product_images').setValue(this.setProductImages([]));
         this.weights.controls[this.weights.length - 1].get('weight').valueChanges.subscribe((value) => {
             this.onWeightChange(value);
@@ -188,27 +200,34 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
         this.updateCrate(this.weights.length - 1);
         this.createWeightVariantArray();
         setTimeout(() => {
-            this.currentVarientIndex = this.weights.length - 1;
+            this.currentVariantIndex = this.weights.length - 1;
         }, 300);
     }
-    deleteWeightVarient(index) {
+    deleteWeightVariant(index) {
+        const weight = this.weights.controls[this.currentVariantIndex];
         this.weights.removeAt(index);
-        this.handleWeightDelete.emit(index);
+        this.handleWeightDelete.emit({
+            productWeightVariantId: weight.value.product_weight_variant_id,
+            isNew: weight.value.isNew,
+            weight: weight.value.weight,
+            weight_unit: weight.value.weight_unit,
+        });
         this.weightVariantArray.splice(index, 1);
-        this.currentVarientIndex = 0;
+        this.currentVariantIndex = 0;
     }
-    addNewGrindVarients(): void {
+    addNewGrindVariants(): void {
         this.displayDelete = true;
-        const weight = this.weightForm.get('weights') as FormArray;
-        this.grindVariants = weight.controls[this.currentVarientIndex].get('grind_variants') as FormArray;
-        this.grindVariants.push(this.createEmptyGrindVarient());
+        this.grindVariants = (this.weightForm.get('weights') as FormArray).controls[this.currentVariantIndex].get(
+            'grind_variants',
+        ) as FormArray;
+        this.grindVariants.push(this.createEmptyGrindVariant());
     }
     createEmptyWeights() {
-        const emptyVarientID = '_' + Math.random().toString(36).substr(2, 9);
+        const emptyVariantID = '_' + Math.random().toString(36).substr(2, 9);
         const emptyWeight: FormGroup = this.fb.group({
             weight_name: 'weight - 0 lb',
             weight_unit: 'lb',
-            product_weight_variant_id: emptyVarientID,
+            product_weight_variant_id: emptyVariantID,
             featured_image_id: '',
             fileDetails: null,
             isNew: true,
@@ -217,7 +236,7 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
             status: ['in-stock', Validators.compose([Validators.required])],
             is_public: [false, Validators.compose([Validators.required])],
             is_default_product: [false, Validators.compose([Validators.required])],
-            grind_variants: this.fb.array([this.createEmptyGrindVarient()]),
+            grind_variants: this.fb.array([this.createEmptyGrindVariant()]),
         });
         return emptyWeight;
     }
@@ -230,7 +249,7 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
         }
         return productArray.concat(productEmptyArray);
     }
-    createEmptyGrindVarient() {
+    createEmptyGrindVariant() {
         return this.fb.group({
             grind_variant_id: '',
             price: [0, Validators.compose([Validators.required])],
@@ -243,8 +262,8 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
 
     deleteGrindVariant(idx) {
         const weight = this.weightForm.get('weights') as FormArray;
-        this.grindVariants = weight.controls[this.currentVarientIndex].get('grind_variants') as FormArray;
-        this.grindVariants.removeAt(idx);
+        const grindVariants = weight.controls[this.currentVariantIndex].get('grind_variants') as FormArray;
+        grindVariants.removeAt(idx);
     }
     handleRoasterFile(e, index, type) {
         if (e.target.files.length > 0) {
@@ -267,12 +286,12 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
                     fileObj.fileID = '_' + Math.random().toString(36).substr(2, 9);
                     const weight = this.weightForm.get('weights') as FormArray;
                     if (type === 'featured_image') {
-                        weight.controls[this.currentVarientIndex].patchValue({
+                        weight.controls[this.currentVariantIndex].patchValue({
                             fileDetails: fileObj,
                             featured_image_id: '',
                         });
                     } else {
-                        weight.controls[this.currentVarientIndex].patchValue({
+                        weight.controls[this.currentVariantIndex].patchValue({
                             fileDetails: fileObj,
                         });
                     }
@@ -283,16 +302,16 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
     deleteImage(index, type?) {
         const weight = this.weightForm.get('weights') as FormArray;
         if (type === 'feature_image') {
-            const getValue = weight.controls[this.currentVarientIndex].value;
+            const getValue = weight.controls[this.currentVariantIndex].value;
             if (getValue && getValue.featured_image_id) {
                 this.deleteImageIDs.push(getValue.featured_image_id);
             }
-            weight.controls[this.currentVarientIndex].patchValue({
+            weight.controls[this.currentVariantIndex].patchValue({
                 fileDetails: null,
                 featured_image_id: '',
             });
         } else {
-            const productArray = weight.controls[this.currentVarientIndex].get('product_images').value;
+            const productArray = weight.controls[this.currentVariantIndex].get('product_images').value;
             if (productArray[index].fileDetails && productArray[index].fileDetails.image_id) {
                 this.deleteImageIDs.push(productArray[index]);
             }
@@ -301,11 +320,11 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
     }
     uploadImages() {
         const weight = this.weightForm.get('weights') as FormArray;
-        const getValue = weight.controls[this.currentVarientIndex].value;
+        const getValue = weight.controls[this.currentVariantIndex].value;
         if (!getValue.featured_image_id && getValue.fileDetails) {
             this.uploadImage(getValue.fileDetails, 'featured_image', 0, true);
         }
-        const productImageArray = weight.controls[this.currentVarientIndex].get('product_images').value;
+        const productImageArray = weight.controls[this.currentVariantIndex].get('product_images').value;
         const getNewImage = productImageArray.filter(
             (ele) => ele.fileDetails && !ele.image_id && ele.fileDetails.image_url,
         );
@@ -323,14 +342,19 @@ export class VarientDetailsComponent extends ResizeableComponent implements OnIn
     async uploadImage(fileObj, type, index, showToaster?) {
         const fileList: FileList = fileObj;
         const file: File = fileList[0];
-        const UploadedFile = await this.services.uploadProductImage(this.roasterID, file).toPromise();
+        const formData: FormData = new FormData();
+        formData.append('file', file, file.name);
+        formData.append('name', file.name);
+        formData.append('file_module', 'Product');
+
+        const UploadedFile = await this.fileService.uploadFiles(formData).toPromise();
         if (UploadedFile.success) {
             const weight = this.weightForm.get('weights') as FormArray;
             if (type === 'featured_image') {
-                weight.controls[this.currentVarientIndex].get('featured_image_id').setValue(UploadedFile.result.id);
+                weight.controls[this.currentVariantIndex].get('featured_image_id').setValue(UploadedFile.result.id);
                 this.toaster.success('Image uploaded successfully');
             } else {
-                const productImageArray = weight.controls[this.currentVarientIndex].get('product_images').value;
+                const productImageArray = weight.controls[this.currentVariantIndex].get('product_images').value;
                 const foundObj = productImageArray.find((ele) => ele.fileDetails.fileID === fileObj.fileID);
                 if (foundObj) {
                     foundObj.image_id = UploadedFile.result.id;

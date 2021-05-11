@@ -22,7 +22,7 @@ export class CoffeeDetailsComponent implements OnInit {
     constructor(
         public router: Router,
         private activatedRoute: ActivatedRoute,
-        private coffeeLabService: CoffeeLabService,
+        public coffeeLabService: CoffeeLabService,
         private cookieService: CookieService,
         private messageService: MessageService,
         public location: Location,

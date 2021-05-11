@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { DatePipe } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
-import { ToastrService } from 'ngx-toastr';
-import { UserserviceService, GlobalsService } from '@services';
+import { UserserviceService, GlobalsService, OriginService, CommonService } from '@services';
 import * as _ from 'underscore';
 import { OrganizationType, QuantityUnit } from '@enums';
+import { ApiResponse } from '@models';
+import { DropdownItem } from 'primeng/dropdown';
 
 @Injectable({
     providedIn: 'root',
@@ -30,6 +29,8 @@ export class SourcingService {
 
     flavourList: any = new BehaviorSubject([]);
     flavourList$: any = this.flavourList.asObservable();
+
+    origins: DropdownItem[] = [];
 
     // Details of an estate
     estateId: number;
@@ -58,15 +59,16 @@ export class SourcingService {
     lot: any;
 
     constructor(
-        private http: HttpClient,
         public userService: UserserviceService,
         public globals: GlobalsService,
+        private commonService: CommonService,
+        private originService: OriginService,
         private cookieService: CookieService,
-        private toastrService: ToastrService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.getEstateCertificates();
         this.flavourprofileList();
+        this.getOrigins();
     }
 
     clearQueryParams() {
@@ -263,5 +265,17 @@ export class SourcingService {
 
     getCertificateType(typeId) {
         return this.finalCertify ? this.finalCertify[typeId] : null;
+    }
+
+    getOrigins() {
+        this.originService.getOrigins().subscribe((res: ApiResponse<any>) => {
+            if (res.success) {
+                this.origins = _.chain(res.result.origins)
+                    .map((item) => {
+                        return { value: item, label: this.commonService.getCountryName(item) || item };
+                    })
+                    .value();
+            }
+        });
     }
 }

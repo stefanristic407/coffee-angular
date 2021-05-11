@@ -380,7 +380,7 @@
     </div>
 </ng-template>
 <ng-template #headerUserBadgeTL>
-    <div class="dm-header-user-badge" (click)="openUserInfoPanel(openedThread)">
+    <div class="dm-header-user-badge">
         <div class="dm-hub-dp">
             <!-- <img
                 class="dm-hub-dp-image"
@@ -426,7 +426,7 @@
             (click)="toggleChatMenu()"
             alt="Menu"
         />
-        <div class="dm-hcm-panel scale-up-top" *ngIf="chatMenuOpen">
+        <div class="dm-hcm-panel" *ngIf="chatMenuOpen">
             <span class="dm-hcm-panel-arrow"></span>
             <div class="dm-hcm-menu-wrapper">
                 <div class="dm-hcm-menu-item" (click)="menuAction('BLOCK')">Block User</div>
@@ -470,7 +470,7 @@
 </ng-template>
 <ng-template #searchBoxTL>
     <div class="dm-chat-search-box" [ngClass]="{ 'dm-csb-box-active': chatSearch.expand }">
-        <div class="dm-csb-box" [ngClass]="{ 'swing-in-right-fwd': chatSearch.expand }">
+        <div class="dm-csb-box">
             <img src="assets/images/search.svg" (click)="chatSearch.toggle()" class="dm-csb-seach-icon" />
             <ng-container *ngIf="chatSearch.expand">
                 <input

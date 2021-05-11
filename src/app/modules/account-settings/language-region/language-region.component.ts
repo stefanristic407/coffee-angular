@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment-timezone';
-import { GlobalsService, UserService, UserserviceService } from '@services';
+import { GlobalsService, I18NService, UserService, UserserviceService } from '@services';
 import { Location } from '@angular/common';
 import { APP_LANGUAGES, languages } from '@constants';
 import { ToastrService } from 'ngx-toastr';
@@ -26,6 +26,7 @@ export class LanguageRegionComponent implements OnInit {
     constructor(
         private userService: UserService,
         private userOriginalService: UserserviceService,
+        private i18n: I18NService,
         public location: Location,
         private toastr: ToastrService,
         private cookieService: CookieService,
@@ -94,6 +95,7 @@ export class LanguageRegionComponent implements OnInit {
     onChangeUserInfo(): void {
         console.log('update user info >>>', this.userInfo);
         this.userOriginalService.updateRoasterProfile(this.roasterId, this.userInfo).subscribe();
+        this.i18n.use(this.userInfo.language);
     }
 
     handleSaveConverseLanguages(): void {

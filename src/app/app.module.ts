@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import localeSe from '@angular/common/locales/se';
@@ -40,7 +40,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { getSaver, SAVER } from '@services';
 
-import { StartupService } from '@services';
+import { I18NService, StartupService } from '@services';
 export function StartupServiceFactory(startupService: StartupService) {
     return () => startupService.load();
 }
@@ -77,6 +77,7 @@ export function StartupServiceFactory(startupService: StartupService) {
     ],
     providers: [
         StartupService,
+        I18NService,
         {
             provide: APP_INITIALIZER,
             useFactory: StartupServiceFactory,
@@ -87,6 +88,11 @@ export function StartupServiceFactory(startupService: StartupService) {
             provide: HTTP_INTERCEPTORS,
             useClass: ErrorInterceptor,
             multi: true,
+        },
+        {
+            provide: LOCALE_ID,
+            deps: [I18NService],
+            useFactory: (i18n) => i18n.locale,
         },
         AuthGuard,
         { provide: SAVER, useFactory: getSaver },
