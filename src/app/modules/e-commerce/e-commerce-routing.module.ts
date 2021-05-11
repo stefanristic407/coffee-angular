@@ -4,6 +4,7 @@ import { AuthGuard } from '@guards';
 
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { OtherProductDetailsComponent } from './other-product-details/other-product-details.component';
 
 import { PageNotFoundComponent } from '@app/modules/error-module/page-not-found/page-not-found.component';
 
@@ -14,6 +15,16 @@ const routes: Routes = [
             {
                 path: 'product-list/:type',
                 component: ProductListComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'product-details/other/add',
+                component: OtherProductDetailsComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'product-details/other/:id',
+                component: OtherProductDetailsComponent,
                 canActivate: [AuthGuard],
             },
             {
