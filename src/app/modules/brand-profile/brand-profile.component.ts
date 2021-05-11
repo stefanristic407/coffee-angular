@@ -27,11 +27,11 @@ export class BrandProfileComponent implements OnInit {
             desp: 'Tell you users about your social responsibility and sustainability practices',
             slug: 'sustainability',
         },
-        {
-            title: 'Blog',
-            desp: 'Add images and videos of your estate to give the user a whole experience',
-            slug: 'blog',
-        },
+        // {
+        //     title: 'Blog',
+        //     desp: 'Add images and videos of your estate to give the user a whole experience',
+        //     slug: 'blog',
+        // },
         {
             title: 'Visit Us',
             desp: 'Add your contact details and basic FAQs of your estate',
