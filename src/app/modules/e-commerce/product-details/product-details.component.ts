@@ -26,8 +26,6 @@ export class ProductDetailsComponent implements OnInit {
     productID = '';
     type: string;
     variantTypeArray: any = [];
-    recommendationTextLength = 0;
-    recipeTextLength = 0;
     roastedFields = [
         'roaster_ref_no',
         'batch_ref_no',

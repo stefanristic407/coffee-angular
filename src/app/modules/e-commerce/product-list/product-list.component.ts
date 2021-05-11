@@ -92,12 +92,15 @@ export class ProductListComponent implements OnInit {
                     label: this.globals.languageJson?.ecommerce,
                 },
                 {
-                    label: this.globals.languageJson[`${this.type}_product_catalog`],
+                    label:
+                        this.type === 'other'
+                            ? this.globals.languageJson?.other_products
+                            : this.globals.languageJson[`${this.type}_product_catalog`],
                 },
             ];
+            this.initializeTable();
             this.loadData();
         });
-        this.initializeTable();
     }
 
     initializeTable() {
@@ -116,48 +119,88 @@ export class ProductListComponent implements OnInit {
                 },
             ];
         } else {
-            this.tableColumns = [
-                {
-                    field: 'name',
-                    header: 'Product Name',
-                    sortable: false,
-                    width: '190px',
-                },
-                {
-                    field: 'origin',
-                    header: 'Origin',
-                    sortable: false,
-                },
-                {
-                    field: 'estate_name',
-                    header: 'Estate Name',
-                },
-                {
-                    field: 'roast_level',
-                    header: 'Roast Level',
-                    sortable: false,
-                },
-                {
-                    field: 'weight',
-                    header: 'Weight',
-                    sortable: false,
-                },
-                {
-                    field: 'status',
-                    header: 'Status',
-                    sortable: false,
-                },
-                {
-                    field: 'price',
-                    header: 'Price',
-                    sortable: false,
-                },
-                {
-                    field: 'actions',
-                    header: 'Actions',
-                    sortable: false,
-                },
-            ];
+            this.tableColumns =
+                this.type === 'other'
+                    ? [
+                          {
+                              field: 'name',
+                              header: 'Product Name',
+                              sortable: false,
+                              width: '190px',
+                          },
+                          {
+                              field: 'business_type',
+                              header: 'Product for',
+                              sortable: false,
+                          },
+                          {
+                              field: 'manufacturer_name',
+                              header: 'Manufacturer name',
+                              sortable: false,
+                          },
+                          {
+                              field: 'sku_number',
+                              header: 'SKU number',
+                              sortable: false,
+                          },
+                          {
+                              field: 'status',
+                              header: 'Status',
+                              sortable: false,
+                          },
+                          {
+                              field: 'price',
+                              header: 'Price',
+                              sortable: false,
+                          },
+                          {
+                              field: 'actions',
+                              header: 'Actions',
+                              sortable: false,
+                          },
+                      ]
+                    : [
+                          {
+                              field: 'name',
+                              header: 'Product Name',
+                              sortable: false,
+                              width: '190px',
+                          },
+                          {
+                              field: 'origin',
+                              header: 'Origin',
+                              sortable: false,
+                          },
+                          {
+                              field: 'estate_name',
+                              header: 'Estate Name',
+                          },
+                          {
+                              field: 'roast_level',
+                              header: 'Roast Level',
+                              sortable: false,
+                          },
+                          {
+                              field: 'weight',
+                              header: 'Weight',
+                              sortable: false,
+                          },
+                          {
+                              field: 'status',
+                              header: 'Status',
+                              sortable: false,
+                          },
+                          {
+                              field: 'price',
+                              header: 'Price',
+                              sortable: false,
+                          },
+                          {
+                              field: 'actions',
+                              header: 'Actions',
+                              sortable: false,
+                          },
+                      ];
         }
     }
 
