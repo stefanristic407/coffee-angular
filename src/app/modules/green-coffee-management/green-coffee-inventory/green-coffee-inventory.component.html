@@ -31,7 +31,7 @@
             </div>
             <section class="mt-4 mt-lg-0">
                 <h5 class="fnt-16 fnt-md-18 text-clr334 fnt-bold">
-                    {{ globals.languageJson?.green_coffee_inventory }}
+                    {{ 'green_coffee_inventory' | translate }}
                 </h5>
                 <p class="fnt-14 text-clr334 fnt-normal mobile-lead">
                     Manage your procured coffee and mark coffee for sale
@@ -52,10 +52,10 @@
                     [(activeIndex)]="selectedTab"
                     (onChange)="handleChange($event)"
                 >
-                    <p-tabPanel header="{{ globals.languageJson?.procured_coffee }}">
+                    <p-tabPanel header="{{ 'sourced_coffee' | translate }}">
                         <app-coffee-procured-tab *ngIf="isProcuredTab"></app-coffee-procured-tab>
                     </p-tabPanel>
-                    <p-tabPanel header="{{ globals.languageJson?.marked_sale }}">
+                    <p-tabPanel header="{{ 'marked_for_sale_to_mr' | translate }}">
                         <app-marked-sale *ngIf="!isProcuredTab"></app-marked-sale>
                     </p-tabPanel>
                 </p-tabView>

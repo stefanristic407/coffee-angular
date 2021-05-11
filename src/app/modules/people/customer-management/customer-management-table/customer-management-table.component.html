@@ -7,27 +7,21 @@
         <ng-template pTemplate="header">
             <tr>
                 <th pSortableColumn="name_customer" class="pl-4 ml-3">
-                    {{
-                        customerType === 'micro-roasters'
-                            ? globals.languageJson?.name_customer
-                            : globals.languageJson?.horeca_name
-                    }}
+                    {{ (customerType === 'micro-roasters' ? 'customer_name' : 'horeca_name') | translate }}
                     <p-sortIcon field="name_customer"> </p-sortIcon>
                 </th>
                 <th pSortableColumn="created_on">
-                    {{ globals.languageJson?.created_on }} <p-sortIcon field="created_on"> </p-sortIcon>
+                    {{ 'created_on' | translate }} <p-sortIcon field="created_on"> </p-sortIcon>
                 </th>
-                <th pSortableColumn="status">
-                    {{ globals.languageJson?.status }} <p-sortIcon field="status"></p-sortIcon>
-                </th>
+                <th pSortableColumn="status">{{ 'status' | translate }} <p-sortIcon field="status"></p-sortIcon></th>
                 <th pSortableColumn="discount_percentage">
-                    Discount % <p-sortIcon field="discount_percentage"></p-sortIcon>
+                    {{ 'discount' | translate }} % <p-sortIcon field="discount_percentage"></p-sortIcon>
                 </th>
                 <th pSortableColumn="active_users">
-                    {{ globals.languageJson?.active_users }} <p-sortIcon field="active_users"> </p-sortIcon>
+                    {{ 'active_users' | translate }} <p-sortIcon field="active_users"> </p-sortIcon>
                 </th>
                 <th pSortableColumn="actions">
-                    {{ globals.languageJson?.actions }} <p-sortIcon field="actions"> </p-sortIcon>
+                    {{ 'actions' | translate }} <p-sortIcon field="actions"> </p-sortIcon>
                 </th>
                 <th style="width: 5%"></th>
             </tr>
@@ -57,7 +51,7 @@
                 <td class="fnt-14" (click)="shareDetails(item)">
                     {{ customerType === 'micro-roasters' ? item.total_employees : item.active_users }}
                 </td>
-                <td class="view-listing" (click)="shareDetails(item)">View Details</td>
+                <td class="view-listing" (click)="shareDetails(item)">{{ 'view_details' | translate }}</td>
                 <td id="customer-contract-popup">
                     <a
                         class="menu-arrow"

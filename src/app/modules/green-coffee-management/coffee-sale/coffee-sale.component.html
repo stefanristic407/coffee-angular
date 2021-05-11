@@ -12,7 +12,7 @@
                 <section class="create-role">
                     <div class="back-icon w-100">
                         <a (click)="onCancel()"
-                            ><img src="assets/images/back-arrow-confirm.svg" /> {{ globals.languageJson?.back }}</a
+                            ><img src="assets/images/back-arrow-confirm.svg" /> {{ 'back' | translate }}</a
                         >
                     </div>
                 </section>
@@ -33,7 +33,7 @@
                 <div *ngIf="orderDetails" class="border-div">
                     <div class="row tabViewModel">
                         <div class="col-12 fnt-16 fnt-md-18 text-clr334 fnt-bold pb-2 pl-0 pl-lg-3 web-sec">
-                            {{ globals.languageJson?.green_coffee_details }}
+                            {{ 'green_coffee_details' | translate }}
                         </div>
 
                         <div class="table-container userTable mx-2 mt-2 mb-2 px-1 pt-0 productListTable">
@@ -117,12 +117,12 @@
                                                     <div class="col-12 row p-3 m-0 weightInputGroupDiv">
                                                         <div class="cardBottom p-0 w-100">
                                                             <p class="fnt-14 fnt-md-16 text-clr334 fnt-bold">
-                                                                {{ globals.languageJson?.green_coffee_details }}
+                                                                {{ 'green_coffee_details' | translate }}
                                                             </p>
                                                             <div class="mobileCardBody pt-0">
                                                                 <div>
                                                                     <span class="secondary_txt">{{
-                                                                        globals.languageJson?.lot_id
+                                                                        'lot_id' | translate
                                                                     }}</span>
                                                                     <span
                                                                         class="float-right primary_txt mobileValueTxt text-underline"
@@ -132,7 +132,7 @@
                                                             </div>
                                                             <div class="mobileCardBody">
                                                                 <span class="secondary_txt">{{
-                                                                    globals.languageJson?.estate
+                                                                    'estate' | translate
                                                                 }}</span>
                                                                 <span class="float-right primary_txt mobileValueTxt">{{
                                                                     rowData['estate_name'] | titlecase
@@ -141,7 +141,7 @@
 
                                                             <div class="mobileCardBody">
                                                                 <span class="secondary_txt">{{
-                                                                    globals.languageJson?.roaster_ref_no
+                                                                    'roaster_ref_no' | translate
                                                                 }}</span>
                                                                 <span class="float-right primary_txt mobileValueTxt">{{
                                                                     rowData['order_reference']
@@ -149,7 +149,7 @@
                                                             </div>
                                                             <div class="mobileCardBody">
                                                                 <span class="secondary_txt">{{
-                                                                    globals.languageJson?.origin
+                                                                    'origin' | translate
                                                                 }}</span>
                                                                 <span class="float-right primary_txt mobileValueTxt">{{
                                                                     rowData['origin'] | titlecase
@@ -157,7 +157,7 @@
                                                             </div>
                                                             <div class="mobileCardBody">
                                                                 <span class="secondary_txt">{{
-                                                                    globals.languageJson?.species
+                                                                    'species' | translate
                                                                 }}</span>
                                                                 <span class="float-right primary_txt mobileValueTxt">{{
                                                                     rowData['species'] | titlecase
@@ -165,7 +165,7 @@
                                                             </div>
                                                             <div class="mobileCardBody">
                                                                 <span class="secondary_txt">{{
-                                                                    globals.languageJson?.variety
+                                                                    'variety' | translate
                                                                 }}</span>
                                                                 <span class="float-right primary_txt mobileValueTxt">{{
                                                                     rowData['varieties']
@@ -173,7 +173,7 @@
                                                             </div>
                                                             <div class="mobileCardBody">
                                                                 <span class="secondary_txt">{{
-                                                                    globals.languageJson?.buying_price
+                                                                    'buying_price' | translate
                                                                 }}</span>
                                                                 <span class="float-right primary_txt mobileValueTxt"
                                                                     >${{ rowData['price'] }}/{{
@@ -183,7 +183,7 @@
                                                             </div>
                                                             <div class="mobileCardBody">
                                                                 <span class="secondary_txt">{{
-                                                                    globals.languageJson?.cupping_score
+                                                                    'cupping_score' | translate
                                                                 }}</span>
                                                                 <span class="float-right primary_txt mobileValueTxt">{{
                                                                     rowData['cup_score']
@@ -191,7 +191,7 @@
                                                             </div>
                                                             <div class="pt-3">
                                                                 <span class="secondary_txt">{{
-                                                                    globals.languageJson?.stock_in_hand
+                                                                    'stock_in_hand' | translate
                                                                 }}</span>
                                                                 <span class="float-right primary_txt mobileValueTxt"
                                                                     >{{ rowData['quantity_count'] }}
@@ -250,7 +250,7 @@
                 <div class="row w-100 border-bottom-gray pb-4 pb-md-3 mx-0">
                     <div class="col-sm-12 col-md-9 col-lg-9 px-0 pt-lg-3">
                         <h1 class="text-clr334 fnt-16 fnt-md-18 fnt-bold">
-                            {{ globals.languageJson?.sale_information }}
+                            {{ 'sale_information' | translate }}
                         </h1>
                         <div class="col-12 pull-left p-0 text-clr334 fnt-14 fnt-normal">
                             Manage the price, quantity & delivery charges of coffee marked for sale
