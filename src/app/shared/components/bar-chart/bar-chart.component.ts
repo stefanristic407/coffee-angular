@@ -143,7 +143,6 @@ export class BarChartComponent implements OnInit, OnChanges {
             if (this.unitName === 'USD') {
                 return '$ ' + convertedValue;
             } else if (this.unitName === 'Ton') {
-                console.log('unitName: ', this.unitName);
                 return convertedValue + ' ton';
             } else {
                 return convertedValue;
