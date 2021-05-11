@@ -92,7 +92,9 @@
                             [style.width]="col.width ? col.width : 'unset'"
                         >
                             <div class="d-flex">
-                                <span class="primeng-table-header text-overflow-ellipsis">{{ col.header }}</span>
+                                <span class="primeng-table-header text-overflow-ellipsis">{{
+                                    col.header | translate
+                                }}</span>
                                 <p-sortIcon
                                     *ngIf="col.sortable === true"
                                     [field]="col.field"
@@ -161,7 +163,7 @@
                                             *ngFor="let item of mobileFields"
                                             [ngSwitch]="item.field"
                                         >
-                                            <span class="pr-2">{{ item.header }}:</span>
+                                            <span class="pr-2">{{ item.header | translate }}:</span>
                                             <span class="fnt-bold" *ngSwitchCase="'status'">
                                                 {{ rowData[item.field] | strReplace: '-':' ' | titlecase }}
                                             </span>
@@ -214,7 +216,7 @@
                             <span *ngSwitchDefault>
                                 <div class="d-flex justify-content-between align-items-center px-3 px-md-0">
                                     <span *ngIf="isMobileView" class="fnt-muli fnt-14 fnt-bold text-clr588">
-                                        {{ col['header'] }}
+                                        {{ col.header | translate }}
                                     </span>
 
                                     <span>

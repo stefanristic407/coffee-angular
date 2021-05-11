@@ -109,7 +109,7 @@ export class ProductListComponent implements OnInit {
             this.tableColumns = [
                 {
                     field: 'name',
-                    header: 'Product Name',
+                    header: 'product_name',
                     sortable: false,
                 },
                 {
@@ -124,7 +124,7 @@ export class ProductListComponent implements OnInit {
                     ? [
                           {
                               field: 'name',
-                              header: 'Product Name',
+                              header: 'product_name',
                               sortable: false,
                               width: '190px',
                           },
@@ -162,7 +162,7 @@ export class ProductListComponent implements OnInit {
                     : [
                           {
                               field: 'name',
-                              header: 'Product Name',
+                              header: 'product_name',
                               sortable: false,
                               width: '190px',
                           },
@@ -173,11 +173,11 @@ export class ProductListComponent implements OnInit {
                           },
                           {
                               field: 'estate_name',
-                              header: 'Estate Name',
+                              header: 'estate_name',
                           },
                           {
                               field: 'roast_level',
-                              header: 'Roast Level',
+                              header: 'roast_level',
                               sortable: false,
                           },
                           {
