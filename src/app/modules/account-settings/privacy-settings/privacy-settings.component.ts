@@ -60,12 +60,12 @@ export class PrivacySettingsComponent implements OnInit {
             { label: this.globals.languageJson?.account_settings, routerLink: '../../account-settings' },
             { label: this.globals.languageJson?.privacy_settings },
         ];
-        this.getOrganizationTerms();
+        // this.getOrganizationTerms();
     }
 
     getOrganizationTerms(): void {
         this.userService.getOrganizationTerm(this.roasterId).subscribe((res: any) => {
-            console.log('get organizatoin term >>>>>>>>>>', res);
+            console.log('getOrganizationTerms >>>>>>>>>>', res);
         });
     }
 }
