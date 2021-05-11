@@ -24,15 +24,15 @@ export class AddNewOrderComponent implements OnInit {
     customerTypeArray: any = [];
     preCleaned: any = [];
     addOrdersForm: FormGroup;
-    weightTypeArray: { label: string; value: string }[];
+    weightTypeArray = [];
     orderDetails: any;
     outtakeOrderId: any;
     coffeeExperienceLink: any;
     customerDetails: any;
     remainingTotalQuantity: any;
     customerType: any;
-    userDetails: any;
-    customersDetails: any;
+    userDetails: any = [];
+    allCustomer: any;
     outtakeOrderDetails: any;
 
     constructor(
@@ -69,29 +69,23 @@ export class AddNewOrderComponent implements OnInit {
             company_type: [''],
             created_by: [''],
             sales_member_id: ['', [Validators.required]],
-            weight: [''],
-            weight_unit: [''],
             customer_id: ['', [Validators.required]],
             customer_type: ['', [Validators.required]],
             gc_total_quantity: ['', [this.remainingQuantity.bind(this)]],
-            gc_total_quantity_unit: [''],
-            rc_total_quantity: [''],
-            rc_total_quantity_unit: [''],
+            gc_total_quantity_unit: ['kg'],
             total_price: [''],
-            total_price_currency: [''],
+            total_price_currency: ['SEK'],
             unit_price: [''],
             unit_currency: [''],
             quantity_unit: [''],
             roasted_coffee_total_quantity: [''],
-            roasted_coffee_total_quantity_unit: [''],
+            roasted_coffee_total_quantity_unit: ['kg'],
             pre_cleaned: [true],
-            roaster_id: [''],
             roasted_date: [''],
             roast_level: [''],
             roasting_time: [''],
             roasting_temperature: [''],
             machine_used: [''],
-            waste_produced: [''],
         });
         if (this.outtakeOrderId) {
             this.getOrder();
@@ -115,7 +109,7 @@ export class AddNewOrderComponent implements OnInit {
     }
 
     getCustomerDetails(event?) {
-        this.customerDetails = [];
+        this.allCustomer = [];
         if (this.addOrdersForm.get('customer_type').value) {
             if (this.addOrdersForm.get('customer_type').value === 'mr') {
                 this.customerType = 'micro-roasters';
@@ -124,37 +118,29 @@ export class AddNewOrderComponent implements OnInit {
             }
             this.roasterService.getCustomerDetails(this.roasterId, this.customerType).subscribe((res) => {
                 if (res.success) {
-                    this.customersDetails = res.result;
+                    this.allCustomer = res.result;
                     this.getSingleCustomerDeatils();
                 }
             });
         }
     }
 
-    getSingleCustomerDeatils() {
-        if (this.outtakeOrderId) {
-            this.roasterService
-                .getSingleCustomerDetails(
-                    this.roasterId,
-                    this.customerType,
-                    this.addOrdersForm.get('customer_id').value,
-                )
-                .subscribe((rep) => {
-                    if (rep.success) {
-                        this.customerDetails = rep.result;
-                    }
-                });
-        }
+    getSingleCustomerDeatils(event?) {
+        this.roasterService
+            .getSingleCustomerDetails(this.roasterId, this.customerType, this.addOrdersForm.get('customer_id').value)
+            .subscribe((rep) => {
+                if (rep.success) {
+                    this.customerDetails = rep.result;
+                }
+            });
     }
 
     getCoffeeStory() {
-        this.userService
-            .getCoffeeStory(this.roasterId, this.addOrdersForm.get('order_id').value, 'orders')
-            .subscribe((res: any) => {
-                if (res.success) {
-                    this.coffeeExperienceLink = res.result;
-                }
-            });
+        this.userService.getOuttakeCoffeeStory(this.roasterId, this.outtakeOrderId).subscribe((res: any) => {
+            if (res.success) {
+                this.coffeeExperienceLink = res.result;
+            }
+        });
     }
 
     getUserDetails() {
@@ -190,8 +176,20 @@ export class AddNewOrderComponent implements OnInit {
 
     addOrderDetails() {
         const data = this.addOrdersForm.value;
-        const orderCreatedBy = 'order_created_by';
-        data[orderCreatedBy] = data.created_by;
+        const orderDate = new Date(data.order_date);
+        const roastedDate = new Date(data.roasted_date);
+        data.order_date =
+            orderDate.getFullYear() +
+            '-' +
+            ('0' + (orderDate.getMonth() + 1)).slice(-2) +
+            '-' +
+            ('0' + orderDate.getDate()).slice(-2);
+        data.roasted_date =
+            roastedDate.getFullYear() +
+            '-' +
+            ('0' + (roastedDate.getMonth() + 1)).slice(-2) +
+            '-' +
+            ('0' + roastedDate.getDate()).slice(-2);
         if (this.outtakeOrderId) {
             this.roasterService.updateOrderDetails(this.roasterId, this.outtakeOrderId, data).subscribe((res) => {
                 if (res.success) {
@@ -201,6 +199,8 @@ export class AddNewOrderComponent implements OnInit {
                 }
             });
         } else {
+            data.unit_currency = 'SEK';
+            data.quantity_unit = 'kg';
             this.roasterService.addOrderDetails(this.roasterId, data).subscribe((res) => {
                 if (res.success) {
                     this.toaster.success('Outtake Order added successfully');

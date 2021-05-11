@@ -1168,6 +1168,15 @@ export class UserserviceService extends ApiService {
         };
         return this.http.post(this.roasterUrl, data);
     }
+
+    getOuttakeCoffeeStory(roasterId: any, outtakeOrderId: any) {
+        const data = {
+            api_call: `/ro/${roasterId}/outtake-orders/${outtakeOrderId}/coffee-story`,
+            method: 'GET',
+            token: this.cookieService.get('Auth'),
+        };
+        return this.http.post(this.roasterUrl, data);
+    }
     postMrOrdersCoffeeExperience(roaster_id: any, order_id: any, body: any) {
         const data = {
             api_call: `/ro/${roaster_id}/mr-orders/${order_id}/coffee-experience`,
