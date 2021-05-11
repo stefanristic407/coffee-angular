@@ -39,7 +39,7 @@
                             <p-tableCheckbox [value]="item"></p-tableCheckbox>
                         </td>
                         <td class="showcurser">
-                            {{ item.description }}
+                            {{ item.description | translate }}
                         </td>
                         <td>
                             {{ item.user_name }}
@@ -63,7 +63,9 @@
                     </p>
                     <p class="fnt-14 fnt-bold fnt-muli text-clr334 mb-0">{{ item.user_name }}</p>
                     <p class="fnt-12 fnt-600 fnt-muli text-clr588 mb-0">{{ item.organisation_name }}</p>
-                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 mb-2 text-break">{{ item.description }}</p>
+                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 mb-2 text-break">
+                        {{ item.description | translate }}
+                    </p>
                 </div>
             </div>
         </div>
