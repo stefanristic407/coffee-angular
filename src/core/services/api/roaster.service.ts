@@ -790,6 +790,75 @@ export class RoasterserviceService extends ApiService {
         data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
+    getViewCustomerDetails(roaster_id: any, hrc_id: any, orderType = null): Observable<any> {
+        const data = {
+            api_call: `/ro/${roaster_id}/hrc/${hrc_id}`,
+            token: this.cookieService.get('Auth'),
+            method: 'GET',
+        };
+        return this.http.post(this.url, data);
+    }
+    getCustomerDetails(roaster_id: any, customerType: string): Observable<any> {
+        const data = {
+            api_call: `/ro/${roaster_id}/${customerType}`,
+            token: this.cookieService.get('Auth'),
+            method: 'GET',
+        };
+        return this.http.post(this.url, data);
+    }
+
+    getSingleCustomerDetails(roaster_id: any, customerType: string, customerId: any): Observable<any> {
+        const data = {
+            api_call: `/ro/${roaster_id}/${customerType}/${customerId}`,
+            token: this.cookieService.get('Auth'),
+            method: 'GET',
+        };
+        return this.http.post(this.url, data);
+    }
+
+    getUserDetails(roaster_id: any): Observable<any> {
+        const data = {
+            api_call: `/ro/${roaster_id}/users`,
+            token: this.cookieService.get('Auth'),
+            method: 'GET',
+        };
+        return this.http.post(this.url, data);
+    }
+
+    getListOrderDetails(roaster_id: any, postData = null, orderType = ''): Observable<any> {
+        const data = {
+            api_call: `/ro/${roaster_id}/orders?` + this.serlialise(postData),
+            token: this.cookieService.get('Auth'),
+            method: 'GET',
+        };
+        return this.http.post(this.url, data);
+    }
+    addOrderDetails(roaster_id: any, body: any): Observable<any> {
+        const data = {
+            api_call: `/ro/${roaster_id}/outtake-orders`,
+            token: this.cookieService.get('Auth'),
+            method: 'POST',
+            data: body,
+        };
+        return this.http.post(this.url, data);
+    }
+    getViewOrder(roaster_id: any, outtake_order_id: any): Observable<any> {
+        const data = {
+            api_call: `/ro/${roaster_id}/outtake-orders/${outtake_order_id}`,
+            token: this.cookieService.get('Auth'),
+            method: 'GET',
+        };
+        return this.http.post(this.url, data);
+    }
+    updateOrderDetails(roaster_id: any, outtake_order_id: any, body: any): Observable<any> {
+        const data = {
+            api_call: `/ro/${roaster_id}/outtake-orders/${outtake_order_id}`,
+            token: this.cookieService.get('Auth'),
+            method: 'PUT',
+            data: body,
+        };
+        return this.http.post(this.url, data);
+    }
 
     getOrderDisputeList(roaster_id: any, order_id: any, orderType?) {
         var data = {};
@@ -1177,12 +1246,30 @@ export class RoasterserviceService extends ApiService {
         return this.http.post(this.url, data);
     }
 
+    deleteOuttakeOrders(roasterId: any, outTakeOrderId): Observable<any> {
+        const data = {
+            api_call: `/ro/${roasterId}/outtake-orders/${outTakeOrderId}`,
+            token: this.cookieService.get('Auth'),
+            method: 'DELETE',
+        };
+        return this.http.post(this.url, data);
+    }
+
     // Delete Procured Coffee.
     deleteProcuredCoffee(roaster_id: any, orderId: any): Observable<any> {
         const data = {
             api_call: `/ro/${roaster_id}/procured-coffees/${orderId}/sale`,
             method: 'DELETE',
             token: this.cookieService.get('Auth'),
+        };
+        return this.http.post(this.url, data);
+    }
+
+    getRoasterOuttakeOrders(roasterId) {
+        const data = {
+            api_call: `/ro/${roasterId}/outtake-orders`,
+            token: this.cookieService.get('Auth'),
+            method: 'GET',
         };
         return this.http.post(this.url, data);
     }
