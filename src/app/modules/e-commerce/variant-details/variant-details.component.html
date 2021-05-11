@@ -12,8 +12,8 @@
             <div *ngFor="let weight of this.weightForm['value']['weights']; let i = index">
                 <a
                     class="d-flex justify-content-between align-items-center p-3 br-4 border-main cursor-pointer mb-3 weight-item"
-                    [ngClass]="{ active: currentVarientIndex == i }"
-                    (click)="currentVarientIndex = i"
+                    [ngClass]="{ active: currentVariantIndex == i }"
+                    (click)="currentVariantIndex = i"
                 >
                     <div class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334">
                         {{ 'weight' | translate }} - {{ weight.weight }} {{ weight.weight_unit }}
@@ -28,13 +28,13 @@
                 </span>
             </div>
         </div>
-        <div class="col-12 d-block d-md-none mb-3 weight-varient-array p-0">
+        <div class="col-12 d-block d-md-none mb-3 weight-variant-array p-0">
             <p-dropdown
                 [options]="weightVariantArray"
                 optionLabel="label"
                 placeholder=""
                 styleClass="w-100 p-dropdown-variantType"
-                [(ngModel)]="currentVarientIndex"
+                [(ngModel)]="currentVariantIndex"
                 optionValue="value"
                 [ngModelOptions]="{ standalone: true }"
             >
@@ -55,18 +55,18 @@
         <span
             class="fnt-700 editBtn cursor-pointer align-items-center d-flex d-md-none mb-3"
             *ngIf="weights?.length > 1"
-            (click)="deleteWeightVarient(currentVarientIndex)"
+            (click)="deleteWeightVariant(currentVariantIndex)"
         >
-            {{ 'delete_weight_varient' | translate }}
+            {{ 'delete_weight_variant' | translate }}
         </span>
         <div class="col-12 d-none d-md-block d-lg-none isWeightTab p-0">
-            <p-tabView [(activeIndex)]="currentVarientIndex">
+            <p-tabView [(activeIndex)]="currentVariantIndex">
                 <p-tabPanel *ngFor="let weight of this.weightForm['value']['weights']; let i = index">
                     <ng-template pTemplate="header">
                         <span>
                             {{ 'weight' | translate }} - {{ weight.weight }} {{ weight.weight_unit }}
-                            <span (click)="deleteWeightVarient(i)" *ngIf="weights?.length > 1">
-                                <img src="assets/images/delete-varient-name.svg" alt="delete" />
+                            <span (click)="deleteWeightVariant(i)" *ngIf="weights?.length > 1">
+                                <img src="assets/images/delete-variant-name.svg" alt="delete" />
                             </span>
                         </span>
                     </ng-template>
@@ -78,7 +78,7 @@
             formArrayName="weights"
             *ngFor="let currentForm of weightForm.controls['weights']['controls']; let ii = index"
         >
-            <div [formGroupName]="ii" *ngIf="ii === currentVarientIndex">
+            <div [formGroupName]="ii" *ngIf="ii === currentVariantIndex">
                 <div class="row gutter-16 mt-2 mt-md-3 mt-lg-0 position-relative">
                     <div class="col-12 mb-4 d-flex d-md-none">
                         <div class="col-6 pl-0">
@@ -144,18 +144,18 @@
                         </p-checkbox>
                     </div>
                     <span
-                        class="fnt-700 delete-weight-varient cursor-pointer align-items-center d-none d-lg-flex"
+                        class="fnt-700 delete-weight-variant cursor-pointer align-items-center d-none d-lg-flex"
                         *ngIf="weights?.length > 1"
-                        (click)="deleteWeightVarient(currentVarientIndex)"
+                        (click)="deleteWeightVariant(currentVariantIndex)"
                     >
-                        <img src="assets/images/delete-varient.svg" alt="delete" />
-                        {{ 'delete_weight_varient' | translate }}
+                        <img src="assets/images/delete-variant.svg" alt="delete" />
+                        {{ 'delete_weight_variant' | translate }}
                     </span>
                 </div>
                 <div
                     formArrayName="grind_variants"
                     *ngFor="
-                        let grind_varient of currentForm?.get('grind_variants')?.controls;
+                        let grind_variant of currentForm?.get('grind_variants')?.controls;
                         let i = index;
                         last as isLast
                     "
@@ -170,7 +170,7 @@
                                 <div>
                                     <input type="number" class="weightInputDiv" formControlName="price" pInputText />
                                     <small
-                                        *ngIf="grind_varient['controls']['price'].errors?.required"
+                                        *ngIf="grind_variant['controls']['price'].errors?.required"
                                         class="position-absolute p-error"
                                     >
                                         {{ 'required' | translate }}
@@ -183,12 +183,12 @@
                             <p-dropdown
                                 [options]="grindArray"
                                 optionLabel="label"
-                                placeholder="Please select the grind varient"
+                                placeholder="Please select the grind variant"
                                 styleClass="w-100"
                                 formControlName="grind"
                                 optionValue="value"
                             ></p-dropdown>
-                            <small *ngIf="grind_varient['controls']['grind'].errors?.required" class="p-error">
+                            <small *ngIf="grind_variant['controls']['grind'].errors?.required" class="p-error">
                                 {{ 'required' | translate }}
                             </small>
                         </div>
@@ -205,7 +205,7 @@
                                     optionValue="value"
                                 ></p-dropdown>
                                 <small
-                                    *ngIf="grind_varient['controls']['available_quantity'].errors?.required"
+                                    *ngIf="grind_variant['controls']['available_quantity'].errors?.required"
                                     class="position-absolute p-error"
                                 >
                                     {{ 'required' | translate }}
@@ -215,7 +215,7 @@
                         <div class="col-sm-12 col-md-4 col-lg-2 sewn-form-field mb-3 mb-lg-4">
                             <label>{{ 'sku_number' | translate }}<span class="star">*</span></label>
                             <input type="text" formControlName="sku_number" pInputText />
-                            <small *ngIf="grind_varient['controls']['sku_number'].errors?.required" class="p-error">
+                            <small *ngIf="grind_variant['controls']['sku_number'].errors?.required" class="p-error">
                                 {{ 'required' | translate }}
                             </small>
                         </div>
@@ -236,7 +236,7 @@
                 </div>
                 <div>
                     <img src="assets/images/add-partner.svg" />
-                    <span class="ml-2 fnt-muli fnt-700 fnt-14 editBtn cursor-pointer" (click)="addNewGrindVarients()">
+                    <span class="ml-2 fnt-muli fnt-700 fnt-14 editBtn cursor-pointer" (click)="addNewGrindVariants()">
                         {{ 'add_grind_variant' | translate }}
                     </span>
                 </div>
@@ -253,7 +253,7 @@
                             >
                             <div
                                 *ngIf="
-                                    !weightForm['controls']['weights']['controls'][currentVarientIndex]['value'][
+                                    !weightForm['controls']['weights']['controls'][currentVariantIndex]['value'][
                                         'fileDetails'
                                     ]
                                 "
@@ -278,7 +278,7 @@
 
                             <div
                                 *ngIf="
-                                    weightForm['controls']['weights']['controls'][currentVarientIndex]['value'][
+                                    weightForm['controls']['weights']['controls'][currentVariantIndex]['value'][
                                         'fileDetails'
                                     ]
                                 "
@@ -286,7 +286,7 @@
                             >
                                 <img
                                     [src]="
-                                        weightForm['controls']['weights']['controls'][currentVarientIndex]['value'][
+                                        weightForm['controls']['weights']['controls'][currentVariantIndex]['value'][
                                             'fileDetails'
                                         ]['image_url']
                                     "
@@ -297,7 +297,7 @@
                                     <span class="ellipsis">
                                         {{
                                             trackFileName(
-                                                weightForm['controls']['weights']['controls'][currentVarientIndex][
+                                                weightForm['controls']['weights']['controls'][currentVariantIndex][
                                                     'value'
                                                 ]['fileDetails']['image_url']
                                             )
@@ -320,7 +320,7 @@
                         <div
                             class="col"
                             *ngFor="
-                                let product_image of weightForm['controls']['weights']['controls'][currentVarientIndex][
+                                let product_image of weightForm['controls']['weights']['controls'][currentVariantIndex][
                                     'value'
                                 ]['product_images'];
                                 let m = index
@@ -353,7 +353,7 @@
                                     <span class="ellipsis">
                                         {{
                                             trackFileName(
-                                                weightForm['controls']['weights']['controls'][currentVarientIndex][
+                                                weightForm['controls']['weights']['controls'][currentVariantIndex][
                                                     'value'
                                                 ]['fileDetails']['image_url']
                                             )

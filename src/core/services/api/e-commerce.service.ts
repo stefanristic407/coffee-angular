@@ -51,11 +51,11 @@ export class ECommerceService extends ApiService {
         const suffix = type === 'b2b' ? '' : `${type}-`;
         return this.postWithOrg(this.orgPostUrl, `${suffix}products/${productId}`, 'PUT', body);
     }
-    addProductWeightVarients(productId: any, body: any, type: any): Observable<any> {
+    addProductWeightVariants(productId: any, body: any, type: any): Observable<any> {
         const suffix = type === 'b2b' ? '' : `${type}-`;
         return this.postWithOrg(this.orgPostUrl, `${suffix}products/${productId}/weight-variants`, 'POST', body);
     }
-    updateProductWeightVarients(productId: any, body: any, weightVariantId: any, type: any): Observable<any> {
+    updateProductWeightVariants(productId: any, body: any, weightVariantId: any, type: any): Observable<any> {
         const suffix = type === 'b2b' ? '' : `${type}-`;
         return this.postWithOrg(
             this.orgPostUrl,
@@ -64,7 +64,7 @@ export class ECommerceService extends ApiService {
             body,
         );
     }
-    deleteProductWeightVarients(productId: any, weightVariantId: any, type: any): Observable<any> {
+    deleteProductWeightVariants(productId: any, weightVariantId: any, type: any): Observable<any> {
         const suffix = type === 'b2b' ? '' : `${type}-`;
         return this.postWithOrg(
             this.orgPostUrl,
