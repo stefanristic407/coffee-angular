@@ -228,7 +228,6 @@ export class ProductDetailsComponent implements OnInit {
                             variant.variant_name = 'Variant ' + (this.variants.length + 1);
                             this.roastedFields.forEach((ele) => {
                                 const getValue = getBatchDetails[ele] ? getBatchDetails[ele] : '';
-                                console.log(ele, getValue);
                                 variant[ele] = getValue;
                             });
                         }
@@ -292,23 +291,19 @@ export class ProductDetailsComponent implements OnInit {
         this.createTypeVariantArray();
     }
     removeVariant(index: any) {
-        const variant = this.variants.controls[index];
-        this.variants.removeAt(index);
-        // while (this.crates.value.find((item) => item.variant_name === variantName)) {
-        //     this.crates.removeAt(this.crates.value.findIndex((item) => item.variant_name === variantName));
-        // }
-        console.log(variant);
-        if (variant.get('weight_variants')) {
-            variant.get('weight_variants').value.forEach((element) => {
+        const weights = this.variantComponent.toArray()[index].weightForm.value.weights;
+        if (weights?.length) {
+            weights.forEach((element) => {
                 const event = {
                     productWeightVariantId: element.product_weight_variant_id,
                     isNew: element.isNew,
                     weight: element.weight,
                     weight_unit: element.weight_unit,
                 };
-                this.onWeightDelete(event);
+                this.onWeightDelete(event, element.product_weight_variant_id);
             });
         }
+        this.variants.removeAt(index);
     }
     removeVariantDrop(index: any) {
         this.variantTypeArray.splice(index, 1);
@@ -369,6 +364,7 @@ export class ProductDetailsComponent implements OnInit {
             brewing_method: ['', Validators.compose([Validators.required])],
             roaster_recommendation: ['', Validators.compose([Validators.required])],
             remaining_quantity: '',
+            weight_variants: [],
         });
     }
     createEmptyCrate() {
@@ -383,13 +379,15 @@ export class ProductDetailsComponent implements OnInit {
             variant_name: '',
         });
     }
-    onWeightDelete(event) {
+
+    onWeightDelete(event, productWeightVariantId?) {
         let canRemove = true;
-        this.variants.value.forEach((child) => {
+        this.variantComponent.forEach((child) => {
             if (
-                child.weight_variants.find(
+                child.weightForm.value.weights.find(
                     (item) => item.weight === event.weight && item.weight_unit === event.weight_unit,
-                )
+                ) &&
+                event.productWeightVariantId !== productWeightVariantId
             ) {
                 canRemove = false;
                 return;
@@ -403,13 +401,10 @@ export class ProductDetailsComponent implements OnInit {
         }
         if (!event.isNew) {
             this.removedWeightVariants.push(event.productWeightVariantId);
-            console.log(event.productWeightVariantId);
         }
     }
     onWeightCreate(event) {
         this.crates = this.productForm.get('crates') as FormArray;
-        this.variants = this.productForm.get('variants') as FormArray;
-        // const getVariant: any = this.variants.value((item) => item.variant_name === event.product_weight_variant_id);
         const getObjs = this.crates.value.filter((ele) => ele.weight === event.value && ele.crate_unit === event.unit);
         if (!event.modify) {
             if (!getObjs?.length) {
@@ -437,7 +432,10 @@ export class ProductDetailsComponent implements OnInit {
             }
             const indexValue = this.crates.value.indexOf(getObj);
             if (getObj) {
-                if (getObjs?.length) {
+                if (
+                    getObjs?.length &&
+                    getObjs.find((item) => item.product_weight_variant_id !== event.product_weight_variant_id)
+                ) {
                     this.crates.removeAt(indexValue);
                 } else {
                     this.crates.controls[indexValue].patchValue({
