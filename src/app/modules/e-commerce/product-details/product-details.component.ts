@@ -387,16 +387,19 @@ export class ProductDetailsComponent implements OnInit {
     }
     onWeightCreate(event) {
         this.crates = this.productForm.get('crates') as FormArray;
+        const getObjs = this.crates.value.filter((ele) => ele.weight === event.value && ele.crate_unit === event.unit);
         if (!event.modify) {
-            const getCrate = this.createEmptyCrate();
-            getCrate.patchValue({
-                weight: event.value,
-                crate_unit: event.unit,
-                weight_name: `${event.value} ${event.unit}`,
-                product_weight_variant_id: event.product_weight_variant_id,
-                variant_name: event.variant_name,
-            });
-            this.crates.push(getCrate);
+            if (!getObjs?.length) {
+                const getCrate = this.createEmptyCrate();
+                getCrate.patchValue({
+                    weight: event.value,
+                    crate_unit: event.unit,
+                    weight_name: `${event.value} ${event.unit}`,
+                    product_weight_variant_id: event.product_weight_variant_id,
+                    variant_name: event.variant_name,
+                });
+                this.crates.push(getCrate);
+            }
         } else {
             const getObj = this.crates.value.find(
                 (ele) => ele.product_weight_variant_id === event.product_weight_variant_id,
@@ -411,11 +414,25 @@ export class ProductDetailsComponent implements OnInit {
             }
             const indexValue = this.crates.value.indexOf(getObj);
             if (getObj) {
-                this.crates.controls[indexValue].patchValue({
-                    crate_unit: event.unit,
+                if (getObjs?.length) {
+                    this.crates.removeAt(indexValue);
+                } else {
+                    this.crates.controls[indexValue].patchValue({
+                        crate_unit: event.unit,
+                        weight: event.value,
+                        weight_name: `${event.value} ${event.unit}`,
+                    });
+                }
+            } else {
+                const getCrate = this.createEmptyCrate();
+                getCrate.patchValue({
                     weight: event.value,
+                    crate_unit: event.unit,
                     weight_name: `${event.value} ${event.unit}`,
+                    product_weight_variant_id: event.product_weight_variant_id,
+                    variant_name: event.variant_name,
                 });
+                this.crates.push(getCrate);
             }
         }
     }
