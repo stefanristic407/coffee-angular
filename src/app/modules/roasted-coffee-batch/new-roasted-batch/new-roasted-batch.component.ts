@@ -1,13 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { GlobalsService } from '@services';
+import { CoffeeStoryService, DownloadService, GlobalsService } from '@services';
 import { UserserviceService } from '@services';
 import { RoasterserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { MenuItem } from 'primeng/api';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { SelectOrderTableComponent } from '../select-order-table/select-order-table.component';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmComponent } from '@shared';
+import { Download } from '@models';
+import { environment } from '@env/environment';
+import { maxValidator, minValidator } from '@utils';
 
 @Component({
     selector: 'app-new-roasted-batch',
@@ -15,6 +20,7 @@ import { SelectOrderTableComponent } from '../select-order-table/select-order-ta
     styleUrls: ['./new-roasted-batch.component.scss'],
 })
 export class NewRoastedBatchComponent implements OnInit {
+    supportEmailAddress = environment.supportEmailAddress;
     langChips: any = [];
     selectable = true;
     removable = true;
@@ -25,11 +31,13 @@ export class NewRoastedBatchComponent implements OnInit {
     flavour: any;
     processing: any;
     quantity: any;
-    batchId: string;
+    batchId: number;
     flavourProfileArray: any = [];
     orderDetails: any = {};
     rating: any;
     flavourArray: any = [];
+    coffeeStory: any;
+    batchDetails: any;
 
     breadCrumbItem: MenuItem[] = [];
     batchForm: FormGroup;
@@ -50,6 +58,7 @@ export class NewRoastedBatchComponent implements OnInit {
     ];
     showOrder: boolean;
     constructor(
+        public dialogSrv: DialogService,
         public globals: GlobalsService,
         public userService: UserserviceService,
         public roasterService: RoasterserviceService,
@@ -58,6 +67,8 @@ export class NewRoastedBatchComponent implements OnInit {
         public route: ActivatedRoute,
         public cookieService: CookieService,
         private fb: FormBuilder,
+        private coffeeStorySrv: CoffeeStoryService,
+        public downloadService: DownloadService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
     }
@@ -67,12 +78,13 @@ export class NewRoastedBatchComponent implements OnInit {
         this.getRoastingProfiles();
 
         if (this.route.snapshot.queryParams.batchId && this.route.snapshot.queryParams.ordId) {
-            this.batchId = decodeURIComponent(this.route.snapshot.queryParams.batchId);
+            this.batchId = +decodeURIComponent(this.route.snapshot.queryParams.batchId);
             this.ordId = decodeURIComponent(this.route.snapshot.queryParams.ordId);
             if (this.ordId) {
                 this.getOrderDetails();
             }
             this.getRoastedBatch();
+            this.getRoastedBatchStory();
         } else if (this.route.snapshot.queryParams.ordId) {
             this.ordId = decodeURIComponent(this.route.snapshot.queryParams.ordId);
             this.getOrderDetails();
@@ -84,13 +96,23 @@ export class NewRoastedBatchComponent implements OnInit {
         this.batchForm = this.fb.group({
             roast_batch_name: ['', Validators.compose([Validators.required])],
             roasting_profile_id: ['', Validators.compose([Validators.required])],
-            roasting_profile_quantity: ['', Validators.compose([Validators.required])],
-            aroma: ['', Validators.compose([Validators.required])],
-            acidity: ['', Validators.compose([Validators.required])],
-            body: ['', Validators.compose([Validators.required])],
-            flavour: ['', Validators.compose([Validators.required])],
-            roaster_notes: ['', Validators.compose([Validators.required])],
+            green_coffee_quantity: [
+                null,
+                Validators.compose([Validators.required, minValidator('roasting_profile_quantity')]),
+            ],
+            green_coffee_unit: ['lb'],
+            roasting_profile_quantity: [
+                null,
+                Validators.compose([Validators.required, maxValidator('green_coffee_quantity')]),
+            ],
             roasting_profile_unit: ['lb'],
+            waste_quantity: [null],
+            waste_unit: ['lb'],
+            aroma: [''],
+            acidity: [''],
+            body: [''],
+            flavour: [''],
+            roaster_notes: ['', Validators.compose([Validators.required])],
             roaster_ref_no: [{ value: '', disabled: true }],
             batch_ref_no: [''],
             processing: [{ value: '', disabled: true }],
@@ -118,26 +140,9 @@ export class NewRoastedBatchComponent implements OnInit {
                     };
                     this.getFlavourArray.push(chips);
                 });
-                const batchDetails = res.result;
-                const batchFields = [
-                    'roast_batch_name',
-                    'roaster_notes',
-                    'flavour',
-                    'acidity',
-                    'aroma',
-                    'body',
-                    'roasting_profile_quantity',
-                    'roasting_profile_unit',
-                    'roasting_profile_id',
-                    // 'roaster_ref_no',
-                    'batch_ref_no',
-                    // 'processing',
-                ];
+                this.batchDetails = res.result;
 
-                batchFields.forEach((ele) => {
-                    const getValue = batchDetails[ele];
-                    this.batchForm.controls[ele].setValue(getValue);
-                });
+                this.batchForm.patchValue(this.batchDetails);
             }
             this.getRoasterFlavourProfile();
         });
@@ -203,6 +208,19 @@ export class NewRoastedBatchComponent implements OnInit {
                 this.rating = 0.0;
             }
         });
+    }
+
+    getRoastedBatchStory() {
+        this.coffeeStorySrv.getRoastedBatchStory(this.batchId).subscribe(
+            (res: any) => {
+                if (res.success && res.result) {
+                    this.coffeeStory = res.result;
+                }
+            },
+            (err) => {
+                console.log(err);
+            },
+        );
     }
 
     updateRoastedBatch(productObj) {
@@ -302,5 +320,31 @@ export class NewRoastedBatchComponent implements OnInit {
         if ((name || '').trim() && event.value) {
             this.langChips = [...this.langChips, event.value];
         }
+    }
+
+    onDownloadQr() {
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    title: 'Please confirm!',
+                    desp: 'Are you sure want to download',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.downloadService.download(this.coffeeStory.qr_code_url).subscribe(
+                        (res: Download) => {
+                            if (res.state === 'DONE') {
+                                this.toastrService.success('Downloaded successfully');
+                            }
+                        },
+                        (error) => {
+                            this.toastrService.error('Download failed');
+                        },
+                    );
+                }
+            });
     }
 }

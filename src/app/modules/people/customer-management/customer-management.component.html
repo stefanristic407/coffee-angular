@@ -14,7 +14,7 @@
                         pInputText
                         class="w-100 {{ searchTerm ? 'highlight' : '' }}"
                         [(ngModel)]="searchTerm"
-                        placeholder="{{ globals.languageJson?.search_name_role }}"
+                        placeholder="{{ 'search_name_role' | translate }}"
                     />
                 </span>
             </div>
@@ -58,7 +58,7 @@
                                 pInputText
                                 class="w-100 {{ searchTerm ? 'highlight' : '' }}"
                                 [(ngModel)]="searchTerm"
-                                placeholder="{{ globals.languageJson?.search_name_role }}"
+                                placeholder="{{ 'search_name_role' | translate }}"
                             />
                         </span>
                     </div>
@@ -79,7 +79,7 @@
 
                 <div class="col-lg-12 col-md-12 px-0" id="agreements-nav">
                     <p-tabView class="toggle" (onChange)="onTabChange($event)">
-                        <p-tabPanel header="{{ globals.languageJson?.micro_roasters }}">
+                        <p-tabPanel header="{{ 'micro_roasters' | translate }}">
                             <app-customer-management-table
                                 *ngIf="customerType === 'micro-roasters'"
                                 [searchTerm]="searchTerm"
@@ -88,7 +88,7 @@
                             >
                             </app-customer-management-table>
                         </p-tabPanel>
-                        <p-tabPanel header="{{ globals.languageJson?.horeca }}">
+                        <p-tabPanel header="{{ 'roasted_coffee_customers' | translate }}">
                             <app-customer-management-table
                                 *ngIf="customerType === 'hrc'"
                                 [searchTerm]="searchTerm"

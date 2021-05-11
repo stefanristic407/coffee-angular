@@ -2322,9 +2322,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             }
         } else if (meta.type === MessageMetaTypes.PICTURE_CAPTION) {
             if (thread) {
-                return '\u25A3 ' + thread.content;
+                return '\u25A3 ' + (thread.content || '');
             } else if (incomingMessage) {
-                return '\u25A3 ' + thread.content;
+                return '\u25A3 ' + (incomingMessage.content || '');
             }
         } else if (meta.type === MessageMetaTypes.PICTURE_ONLY) {
             return '\u25A3 Image';

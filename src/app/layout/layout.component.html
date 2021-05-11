@@ -319,7 +319,10 @@
                                         class="ft-dropdown__link active d-flex clearfix align-items-center"
                                     >
                                         <div class="img float-left mr-2">
-                                            <img class="profile-pic" src="{{ roasterProfilePic }}" />
+                                            <img
+                                                    class="profile-pic"
+                                                    [src]="authService.currentOrganization?.company_image_thumbnail_url"
+                                            />
                                         </div>
                                         <span class="text-capitalize">{{ 'roastery_profile' | translate }}</span>
                                     </a>

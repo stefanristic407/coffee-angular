@@ -3,9 +3,7 @@
         <div class="row no-gutters col-lg-6 px-0">
             <div class="col-6 col-md-3">
                 <p-multiSelect
-                    [options]="COUNTRY_LIST"
-                    optionLabel="name"
-                    optionValue="isoCode"
+                    [options]="sourcingSrv.origins"
                     [(ngModel)]="queryParams.origin"
                     defaultLabel="{{ 'select_origin' | translate }}"
                     [maxSelectedLabels]="1"

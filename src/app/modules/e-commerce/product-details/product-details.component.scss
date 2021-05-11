@@ -107,5 +107,23 @@
                 padding-right: 12px;
             }
         }
+        &.p-dropdown-flavour {
+            border: solid 1px #747558;
+
+            &:not(.p-disabled):hover .p-dropdown-label.p-placeholder,
+            .p-dropdown:not(.p-disabled).p-focus .p-dropdown-label.p-placeholder {
+                color: $dark-color;
+            }
+
+            .p-dropdown-label {
+                color: $dark-color;
+                font-weight: bold;
+                padding: 0.5rem 1rem;
+            }
+
+            .p-dropdown-trigger {
+                display: none;
+            }
+        }
     }
 }

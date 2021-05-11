@@ -10,6 +10,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { ClipboardModule } from 'ngx-clipboard';
 
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
@@ -110,6 +111,7 @@ const THIRDMODULES = [
     ModalModule,
     PopoverModule,
     TypeaheadModule,
+    ClipboardModule,
     AutoCompleteModule,
     BreadcrumbModule,
     ButtonModule,
