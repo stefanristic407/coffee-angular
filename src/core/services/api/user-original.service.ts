@@ -289,6 +289,10 @@ export class UserserviceService extends ApiService {
         return this.http.post(this.url, data);
     }
 
+    updateOrganizationPrivacyTerms(body: any): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, 'terms', 'PUT', body);
+    }
+
     // API Function Name : Privacy Settings
     // API Description: This API call helps to get the Privacy policy terms.
 
