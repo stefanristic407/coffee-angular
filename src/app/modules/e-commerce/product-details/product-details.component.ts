@@ -406,6 +406,7 @@ export class ProductDetailsComponent implements OnInit {
     onWeightCreate(event) {
         this.crates = this.productForm.get('crates') as FormArray;
         const getObjs = this.crates.value.filter((ele) => ele.weight === event.value && ele.crate_unit === event.unit);
+        console.log(this.variantComponent);
         if (!event.modify) {
             if (!getObjs?.length) {
                 const getCrate = this.createEmptyCrate();
@@ -671,5 +672,10 @@ export class ProductDetailsComponent implements OnInit {
     }
     productNameValue(event: any) {
         this.productName = event.target.value;
+    }
+
+    getSelectedBatchLabel(batchId: any) {
+        const batch = this.roastedBatches.find((item) => item.id === batchId);
+        return `Batch #${batchId} - ${batch.roast_batch_name}`;
     }
 }
