@@ -7,68 +7,103 @@
 </header>
 <div class="container">
     <div class="main-block">
-        <h1 class="fnt-play fnt-22 fnt-md-34 fnt-bold lh-normal text-clr334 mb-3 mb-md-4 text-center pt-lg-3">
-            Our privacy policy
-        </h1>
-        <p class="fnt-muli fnt-16 fnt-md-18 fnt-bold lh-normal text-clr334 mb-2 text-center">
-            We care about your privacy!
-        </p>
-        <p class="fnt-muli fnt-12 fnt-md-18 fnt-600 lh-normal text-clr588 mb-45 mb-md-5 text-center">
-            By agreeing to the following, you are giving permission to SEWN for
-        </p>
-        <div class="checkbox-wrapper mx-auto pb-z5 pb-md-0">
-            <div class="mb-4 pb-1 pb-md-0">
-                <p-checkbox
-                    [binary]="true"
-                    styleClass="p-checkbox-privacy"
-                    label="Accessing my account and it’s details"
-                    [(ngModel)]="accessDetails"
-                ></p-checkbox>
+        <div class="content-wrapper">
+            <h1 class="fnt-play fnt-22 fnt-md-34 fnt-bold lh-normal text-clr334 mb-2 mb-lg-3 text-center pt-lg-3">
+                Welcome to Era of We
+            </h1>
+            <p class="fnt-muli fnt-16 fnt-md-18 fnt-bold lh-normal text-clr334 mb-45 mb-lg-5 text-center">
+                {{ (type === 'org' ? 'our_terms_service' : 'we_care_personal_privacy') | translate }}
+            </p>
+            <p class="fnt-muli fnt-12 fnt-md-14 fnt-lg-16 fnt-600 lh-normal text-clr588 mb-45 text-center">
+                {{
+                    type === 'org'
+                        ? 'To use and access the platform and our services, you need to agree to our terms of service (including
+                our Master Agreement, the General Terms and Conditions and the Data Processing Agreement). Please ensure
+                that prior to checking the “I agree” tick box, you have read and understood these documents since they
+                contain important information regarding your legal rights, remedies and obligations. The documents
+                contain various limitations and exclusions as well as a binding arbitration agreement.'
+                        : 'When you use our services, you need to trust us with certain information regarding yourself. This is a responsibility we take seriously. We undertake that we will process your information in accordance with our Privacy policy. By checking the boxes below, you confirm that you have read the policy documents listed below. You also agree that your information will be processed in accordance with our Privacy policy and to adhere to our Terms and conditions.'
+                }}
+            </p>
+            <p-divider styleClass="mt-0 mb-45" type="dashed"></p-divider>
+            <div class="mx-auto pb-z5 pb-md-0 checkbox-wrapper" *ngIf="type === 'org'">
+                <div class="mb-4 pb-1 pb-md-0 d-flex flex-column flex-md-row">
+                    <p-checkbox
+                        [binary]="true"
+                        styleClass="p-checkbox-privacy"
+                        label="I have read and agree to the "
+                        [(ngModel)]="cookieAndPrivacy"
+                    ></p-checkbox>
+                    <label class="fnt-muli fnt-14 fnt-600 lh-normal text-clr60b mb-0 terms-text">
+                        <span class="terms-link" (click)="viewDocument('cookie')">Cookie Policy</span>
+                        <span [ngClass]="cookieAndPrivacy ? 'text-clr334' : 'text-clr588'"> and </span>
+                        <span class="terms-link" (click)="viewDocument('privacy')">Privacy Policy</span>
+                    </label>
+                </div>
+                <div class="mb-4 pb-1 pb-md-0 d-flex flex-column flex-md-row">
+                    <p-checkbox
+                        [binary]="true"
+                        styleClass="p-checkbox-privacy"
+                        label="I have read and agree to the General Terms and Conditions for "
+                        [(ngModel)]="legalEntity"
+                    ></p-checkbox>
+                    <label
+                        class="fnt-muli fnt-14 fnt-600 lh-normal text-clr60b mb-0 terms-text terms-link"
+                        (click)="viewDocument('legalEntity')"
+                    >
+                        Legal Entity.
+                    </label>
+                </div>
+                <div class="mb-4 pb-1 pb-md-0 d-flex flex-column flex-md-row">
+                    <p-checkbox
+                        [binary]="true"
+                        styleClass="p-checkbox-privacy"
+                        label="I have read and agree to the "
+                        [(ngModel)]="dataProcessingAgreement"
+                    ></p-checkbox>
+                    <label
+                        class="fnt-muli fnt-14 fnt-600 lh-normal text-clr60b mb-0 terms-text terms-link"
+                        (click)="viewDocument('dataProcessing')"
+                    >
+                        Data Processing Agreement
+                    </label>
+                </div>
             </div>
-            <div class="mb-4 pb-1 pb-md-0">
-                <p-checkbox
-                    [binary]="true"
-                    styleClass="p-checkbox-privacy"
-                    label="Collecting my data"
-                    [(ngModel)]="accessData"
-                ></p-checkbox>
+            <div class="mx-auto pb-z5 pb-md-0 checkbox-wrapper" *ngIf="type === 'user'">
+                <div class="mb-4 pb-1 pb-md-0 d-flex flex-column flex-md-row">
+                    <p-checkbox
+                        [binary]="true"
+                        styleClass="p-checkbox-privacy"
+                        label="I have read and agree to the "
+                        [(ngModel)]="cookieAndPrivacy"
+                    ></p-checkbox>
+                    <label class="fnt-muli fnt-14 fnt-600 lh-normal text-clr60b mb-0 terms-text">
+                        <span class="terms-link" (click)="viewDocument('cookie')">Cookie Policy</span>
+                        <span [ngClass]="cookieAndPrivacy ? 'text-clr334' : 'text-clr588'"> and </span>
+                        <span class="terms-link" (click)="viewDocument('privacy')">Privacy Policy</span>
+                    </label>
+                </div>
+                <div class="mb-4 pb-1 pb-md-0 d-flex flex-column flex-md-row">
+                    <p-checkbox
+                        [binary]="true"
+                        styleClass="p-checkbox-privacy"
+                        label="I have read and agree to the "
+                        [(ngModel)]="generalTermsUser"
+                    ></p-checkbox>
+                    <label
+                        class="fnt-muli fnt-14 fnt-600 lh-normal text-clr60b mb-0 terms-text terms-link"
+                        (click)="viewDocument('generalTermsUser')"
+                    >
+                        General Terms and Conditions User
+                    </label>
+                </div>
             </div>
-            <div class="mb-4 pb-25 pb-md-0">
-                <p-checkbox
-                    [binary]="true"
-                    styleClass="p-checkbox-privacy"
-                    label="Accessing my chat"
-                    [(ngModel)]="accessChat"
-                ></p-checkbox>
+
+            <div class="d-flex justify-content-center mx-auto pt-z5 pt-md-3 mt-2 pb-25 w-100">
+                <button class="btn-raised w-mob-100" (click)="next()">
+                    {{ (type === 'org' ? 'next' : 'done') | translate }}
+                </button>
             </div>
-        </div>
-        <p-divider styleClass="mt-0 mt-md-45 mb-4" type="dashed"></p-divider>
-        <div class="checkbox-wrapper mx-auto pt-1 pt-md-0">
-            <div class="mb-4 pt-2 pt-md-0 pb-1 pb-md-0 d-flex flex-column flex-md-row">
-                <p-checkbox
-                    [binary]="true"
-                    styleClass="p-checkbox-privacy"
-                    label="I have read and agree to the "
-                    [(ngModel)]="agreePolicy"
-                ></p-checkbox>
-                <label class="fnt-muli fnt-14 fnt-md-16 fnt-600 lh-normal text-clr60b mb-0 terms-text"
-                    >Privacy policy</label
-                >
-            </div>
-            <div class="mb-4 mb-md-5 pb-1 pb-md-0 d-flex flex-column flex-md-row">
-                <p-checkbox
-                    [binary]="true"
-                    styleClass="p-checkbox-privacy"
-                    label="I have read and agree to the "
-                    [(ngModel)]="agreeTerms"
-                ></p-checkbox>
-                <label class="fnt-muli fnt-14 fnt-md-16 fnt-600 lh-normal text-clr60b mb-0 terms-text"
-                    >Terms and conditions</label
-                >
-            </div>
-        </div>
-        <div class="d-flex justify-content-center mx-auto pt-z5 pt-md-0 mt-2 mt-md-0 pb-25">
-            <button class="btn-raised w-mob-100" (click)="next()">Done</button>
         </div>
     </div>
 </div>
