@@ -8,10 +8,10 @@
         *ngIf="checkPermissions(menu)"
     >
         <a *ngIf="!menu.hasSubMenu" class="d-inline-block fnt-600" [routerLink]="[menu.routerLink]"
-            >{{ globals.languageJson[menu.title] || menu.title }}
+            >{{ menu.title | translate }}
         </a>
         <a *ngIf="menu.hasSubMenu" class="d-inline-block fnt-600" href="javascript:void(0)" (click)="onClick(menu.id)"
-            >{{ globals.languageJson[menu.title] || menu.title | titlecase }}
+            >{{ menu.title | translate }}
         </a>
         <ul *ngIf="menu.hasSubMenu; &quot;sub-menu&quot;" class="nav-dropdown mb-0" [id]="'sub-menu-' + menu.id">
             <app-menu [menuParentId]="menu.id"></app-menu>

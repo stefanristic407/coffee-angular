@@ -53,7 +53,7 @@
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" [pSortableColumn]="col.sortable === true ? col.field : null">
-                    <span class="primeng-table-header">{{ col.header }}</span>
+                    <span class="primeng-table-header">{{ col.header | translate }}</span>
                     <p-sortIcon
                         *ngIf="col.sortable === true"
                         [field]="col.field"
@@ -76,7 +76,7 @@
                     <span *ngSwitchCase="'availability_name'" [routerLink]="availabilityPage(rowData)">
                         <div class="d-flex">
                             <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                Availability Name
+                                {{ 'availability_name' | translate }}
                             </span>
 
                             <span [class.w-50]="primeTableService.isMobileView">
@@ -87,7 +87,7 @@
                     <span *ngSwitchCase="'estate_name'" [routerLink]="availabilityPage(rowData)">
                         <div class="d-flex">
                             <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                Estate Name
+                                {{ 'estate_name' | translate }}
                             </span>
 
                             <span [class.w-50]="primeTableService.isMobileView">
@@ -110,14 +110,14 @@
                     <span *ngSwitchCase="'origin'" [routerLink]="availabilityPage(rowData)">
                         <div class="d-flex">
                             <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
-                                {{ rowData['origin'] }}
+                                {{ rowData.origin | country }}
                             </span>
                         </div>
                     </span>
                     <span *ngSwitchCase="'quantity'" [routerLink]="availabilityPage(rowData)">
                         <div class="d-flex">
                             <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                Quantity
+                                {{ 'quantity' | translate }}
                             </span>
 
                             <span *ngIf="primeTableService.isMobileView" class="w-50">
@@ -131,7 +131,7 @@
                     <span *ngSwitchCase="'remaining_total_quantity'" [routerLink]="availabilityPage(rowData)">
                         <div class="d-flex">
                             <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                Reamaining Quantity
+                                {{ 'remaining_quantity' | translate }}
                             </span>
 
                             <span *ngIf="primeTableService.isMobileView" class="w-50">
@@ -149,7 +149,7 @@
                                     *ngIf="primeTableService.isMobileView"
                                     class="fnt-16 fnt-md-18 txt-clr334 fnt-bold mb-0"
                                 >
-                                    Roaster Ref. No: {{ rowData['order_reference'] || '--' }}
+                                    {{ 'roaster_ref_no' | translate }}: {{ rowData['order_reference'] || '--' }}
                                 </p>
                             </span>
                             <span [routerLink]="availabilityPage(rowData)">
@@ -178,7 +178,7 @@
                                                         class="text-clr588 fnt-600 fnt-14"
                                                         [routerLink]="viewOrderPage(rowData)"
                                                         [queryParams]="{ type: rowData.status, order: rowData.id }"
-                                                        >View order page</a
+                                                        >{{ 'view_order_page' | translate }}</a
                                                     >
                                                 </li>
                                                 <li class="list-group-item">
@@ -186,7 +186,7 @@
                                                         class="text-clr588 fnt-600 fnt-14"
                                                         [routerLink]="sourcingRedirect(rowData)"
                                                     >
-                                                        Go to Availability page</a
+                                                        {{ 'go_to_availability_page' | translate }}</a
                                                     >
                                                 </li>
                                             </ul>
@@ -202,7 +202,7 @@
                         </span>
                         <div class="d-flex">
                             <span *ngIf="primeTableService.isMobileView" class="mobile-heading w-50">
-                                Order ID #{{ rowData[col.field] }}
+                                {{ 'order_id' | translate }} #{{ rowData[col.field] }}
                             </span>
                             <span
                                 *ngIf="!primeTableService.isMobileView; else mobile_name"
@@ -214,7 +214,7 @@
                                 <span class="ml-auto">
                                     <ng-container *ngIf="primeTableService.isMobileView">
                                         <span class="pull-right brown-cta" [routerLink]="availabilityPage(rowData)"
-                                            >View
+                                            >{{ 'view' | translate }}
                                         </span>
                                     </ng-container>
                                 </span>
@@ -247,7 +247,7 @@
                                                 class="text-clr588 fnt-600 fnt-14"
                                                 [routerLink]="viewOrderPage(rowData)"
                                                 [queryParams]="{ type: rowData.status, order: rowData.id }"
-                                                >View order page</a
+                                                >{{ 'view_order_page' | translate }}</a
                                             >
                                         </li>
                                         <li class="list-group-item">
@@ -255,7 +255,7 @@
                                                 class="text-clr588 fnt-600 fnt-14"
                                                 [routerLink]="sourcingRedirect(rowData)"
                                             >
-                                                Go to Availability page</a
+                                                {{ 'go_to_availability_page' | translate }}</a
                                             >
                                         </li>
                                     </ul>
