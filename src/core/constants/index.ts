@@ -6,3 +6,4 @@ export * from './lb-unit';
 export * from './quantity-unit-list';
 export * from './organization-types';
 export * from './validation-list';
+export * from './activity/activity';

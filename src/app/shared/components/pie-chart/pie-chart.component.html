@@ -22,7 +22,7 @@
     <div class="total-info text-center" [style.top]="view[1] / 2 + 'px'">
         <p *ngIf="isWeight && unit === 'kg'" class="fnt-24 fnt-bold fnt-muli text-clr334 mb-0">
             <span *ngIf="total >= 1000"> {{ ((total || 0) / 1000).toFixed(0) | number: '1.0':'en-US' }} Tonnes </span>
-            <span *ngIf="total < 1000"> {{ total.toFixed(0) | number: '1.0':'en-US' }} Kgs </span>
+            <span *ngIf="total < 1000"> {{ total | number: '1.0':'en-US' }} Kgs </span>
         </p>
         <p *ngIf="!isWeight" class="fnt-24 fnt-bold fnt-muli text-clr334 mb-0">
             {{ total }}

@@ -17,6 +17,8 @@ import { OrganizationType } from '@enums';
     styleUrls: ['./gate.component.scss'],
 })
 export class GateComponent extends DestroyableComponent implements OnInit {
+    isAddedDetails: string;
+    isAddedTeamMembers: string;
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -173,7 +175,16 @@ export class GateComponent extends DestroyableComponent implements OnInit {
             (res: any) => {
                 if (res.success) {
                     this.toastrService.success('Logged in Successfully');
-                    if (res.result.added_details && res.result.added_team_members) {
+                    this.isAddedDetails = localStorage.getItem('isAddedDetails')
+                        ? localStorage.getItem('isAddedDetails')
+                        : 'false';
+                    this.isAddedTeamMembers = localStorage.getItem('isAddedTeamMembers')
+                        ? localStorage.getItem('isAddedTeamMembers')
+                        : 'false';
+                    if (
+                        (res.result.added_details && res.result.added_team_members) ||
+                        (this.isAddedDetails === 'true' && this.isAddedTeamMembers === 'true')
+                    ) {
                         if (localStorage.getItem('redirectUrl')) {
                             const url = localStorage.getItem('redirectUrl');
                             localStorage.removeItem('redirectUrl');

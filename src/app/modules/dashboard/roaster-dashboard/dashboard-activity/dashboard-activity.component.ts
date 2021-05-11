@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { GlobalsService } from '@services';
 import { WelcomeService } from '../welcome.service';
 import { Table } from 'primeng/table';
+import { ACTIVITY_TYPE } from '@constants';
 
 @Component({
     selector: 'app-dashboard-activity',
@@ -16,6 +17,7 @@ export class DashboardActivityComponent implements OnInit, OnDestroy {
     loading = true;
     @ViewChild('activeDT') activeTable: Table;
     selectedMetaData: any[];
+    activityTypes = ACTIVITY_TYPE;
 
     constructor(public globals: GlobalsService, private welcomeSrv: WelcomeService) {}
 

@@ -1,8 +1,10 @@
 <div>
-    <p class="fnt-16 fnt-md-18 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-none d-md-block">Recent activity</p>
+    <p class="fnt-16 fnt-md-18 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-none d-md-block">
+        {{ 'recent_activity' | translate }}
+    </p>
 
     <div class="p-3 p-md-0 border-main border-md-none br-4 h-100">
-        <p class="fnt-14 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-md-none">Recent activity</p>
+        <p class="fnt-14 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-md-none">{{ 'recent_activity' | translate }}</p>
         <div class="d-none d-md-block">
             <p-table
                 *ngIf="recentActivities"
@@ -11,7 +13,6 @@
                 [value]="recentActivities.slice(0, 5)"
                 [(selection)]="selectedMetaData"
                 dataKey="name"
-                tableStyleClass="table"
                 [rowHover]="false"
                 [loading]="loading"
                 [filterDelay]="0"
@@ -24,12 +25,15 @@
                         <th style="width: 6rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
-                        <th pSortableColumn="description">Activity<p-sortIcon field="description"></p-sortIcon></th>
+                        <th pSortableColumn="description">
+                            {{ 'activity' | translate }}<p-sortIcon field="description"></p-sortIcon>
+                        </th>
                         <th scope="col" pSortableColumn="user_name">
-                            Action taken by<p-sortIcon field="user_name"></p-sortIcon>
+                            {{ 'action_taken_by' | translate }}<p-sortIcon field="user_name"></p-sortIcon>
                         </th>
                         <th scope="col" pSortableColumn="created_at">
-                            Date & Time<p-sortIcon field="created_at"></p-sortIcon>
+                            {{ 'date' | translate }} & {{ 'time' | translate
+                            }}<p-sortIcon field="created_at"></p-sortIcon>
                         </th>
                     </tr>
                 </ng-template>
@@ -39,7 +43,11 @@
                             <p-tableCheckbox [value]="item"></p-tableCheckbox>
                         </td>
                         <td class="showcurser">
-                            {{ item.description }}
+                            {{
+                                activityTypes[item.description]
+                                    ? activityTypes[item.description].name
+                                    : item.description
+                            }}
                         </td>
                         <td>
                             {{ item.user_name }}
@@ -63,7 +71,9 @@
                     </p>
                     <p class="fnt-14 fnt-bold fnt-muli text-clr334 mb-0">{{ item.user_name }}</p>
                     <p class="fnt-12 fnt-600 fnt-muli text-clr588 mb-0">{{ item.organisation_name }}</p>
-                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 mb-2 text-break">{{ item.description }}</p>
+                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 mb-2 text-break">
+                        {{ activityTypes[item.description] ? activityTypes[item.description].name : item.description }}
+                    </p>
                 </div>
             </div>
         </div>
