@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserserviceService } from '@services';
 
@@ -9,34 +9,71 @@ import { UserserviceService } from '@services';
     styleUrls: ['./privacy-policy.component.scss'],
 })
 export class PrivacyPolicyComponent implements OnInit {
-    agreeTerms = false;
-    agreePolicy = false;
-    accessChat = false;
-    accessData = false;
-    accessDetails = false;
-    constructor(private router: Router, public toastrService: ToastrService, private userService: UserserviceService) {}
+    cookieAndPrivacy = false;
+    legalEntity = false;
+    dataProcessingAgreement = false;
+    generalTermsUser = false;
+    type: string;
+    documents: any = {
+        cookie: 'https://support.eraofwe.com/en/kb/articles/cookie-policy',
+        privacy: 'https://support.eraofwe.com/en/kb/articles/privacy-policy',
+        legalEntity: 'https://support.eraofwe.com/en/kb/articles/general-terms-conditions-legal-entity',
+        dataProcessing: 'https://support.eraofwe.com/en/kb/articles/data-processing-agreement',
+        generalTermsUser: 'https://support.eraofwe.com/en/kb/articles/general-terms-conditions-user',
+    };
+    constructor(
+        private router: Router,
+        public toastrService: ToastrService,
+        private userService: UserserviceService,
+        private activatedRoute: ActivatedRoute,
+    ) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.type = this.activatedRoute.snapshot.queryParamMap.get('type');
+    }
 
     public next() {
-        if (!this.accessDetails || !this.accessChat || !this.accessData || !this.agreePolicy || !this.agreeTerms) {
-            this.toastrService.error('Please accept the terms and conditions');
+        if (this.type === 'org') {
+            if (!this.cookieAndPrivacy || !this.legalEntity || !this.dataProcessingAgreement) {
+                this.toastrService.error('Please accept the terms and conditions');
+            } else {
+                const data = {
+                    privacy_policy: this.cookieAndPrivacy,
+                    cookie_policy: this.cookieAndPrivacy,
+                    legal_entity: this.legalEntity,
+                    data_processing: this.dataProcessingAgreement,
+                };
+                this.userService.updateOrganizationPrivacyTerms(data).subscribe((res) => {
+                    if (res.success) {
+                        this.type = 'user';
+                        this.cookieAndPrivacy = false;
+                    } else {
+                        this.toastrService.error('Error in accepting privacy terms. Please try again');
+                    }
+                });
+            }
         } else {
-            const data = {
-                access_account: this.accessDetails,
-                access_data: this.accessData,
-                access_chat: this.accessChat,
-                agree_privacy: this.agreePolicy,
-                agree_terms: this.agreeTerms,
-            };
-            this.userService.privacyTerms(data).subscribe((res: any) => {
-                if (res.success) {
-                    this.toastrService.success('Privacy terms accepted.');
-                    this.router.navigate(['/features']);
-                } else {
-                    this.toastrService.error('Error in accepting privacy terms. Please try again');
-                }
-            });
+            if (!this.cookieAndPrivacy || !this.generalTermsUser) {
+                this.toastrService.error('Please accept the terms and conditions');
+            } else {
+                const data = {
+                    cookie_policy: this.cookieAndPrivacy,
+                    privacy_policy: this.cookieAndPrivacy,
+                    general_terms: this.generalTermsUser,
+                };
+                this.userService.updatePrivacyTerms(data).subscribe((res: any) => {
+                    if (res.success) {
+                        this.toastrService.success('Privacy terms accepted.');
+                        this.router.navigate(['/roaster-dashboard']);
+                    } else {
+                        this.toastrService.error('Error in accepting privacy terms. Please try again');
+                    }
+                });
+            }
         }
+    }
+
+    viewDocument(type) {
+        window.open(this.documents[type], '_blank');
     }
 }

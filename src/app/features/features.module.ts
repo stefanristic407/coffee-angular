@@ -9,7 +9,6 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OnboardCustomersComponent } from './onboard-customers/onboard-customers.component';
 import { FeaturesRoutingModule } from './features-routing.module';
 import { FeaturesComponent } from './features.component';
-import { MyprofileComponent } from './myprofile/myprofile.component';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 import { ProfilePicComponent } from './profile-edit/profile-pic/profile-pic.component';
 import { RoasterCompleteSetupComponent } from './roaster-complete-setup/roaster-complete-setup.component';
@@ -44,7 +43,6 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { RatingModule } from 'primeng/rating';
 import { ListboxModule } from 'primeng/listbox';
 import { PaginatorModule } from 'primeng/paginator';
-import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/roastery-license.component';
 
 @NgModule({
     declarations: [
@@ -53,7 +51,6 @@ import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/ro
         RoasterQuickSetupComponent,
         RoasterCompleteSetupComponent,
         FeaturesComponent,
-        MyprofileComponent,
         ProfileEditComponent,
         ProfilePicComponent,
         CoffeeExperienceComponent,
@@ -74,7 +71,6 @@ import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/ro
         MicroRoasterOrdersComponent,
         HorecaOrdersComponent,
         DefaultSettingComponent,
-        RoasteryLicenseComponent,
     ],
     imports: [
         PaginatorModule,
