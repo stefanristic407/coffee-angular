@@ -57,8 +57,8 @@ export class ProductDetailsComponent implements OnInit {
     ];
     removedWeightVariants: any = [];
     boughtOnPlatformOptions = [
-        { label: 'Yes', value: true },
-        { label: 'No', value: false },
+        { label: 'Yes', value: false },
+        { label: 'No', value: true },
     ];
     flavoursList: any[];
     isPublished: boolean;
@@ -88,7 +88,7 @@ export class ProductDetailsComponent implements OnInit {
             crates: this.fb.array([]),
             vat_setting_id: ['', Validators.compose([Validators.required])],
             is_price_including_vat: [false],
-            is_external_product: [true],
+            is_external_product: [false],
         });
         this.route.params.subscribe((params) => {
             this.type = params.type;
@@ -200,7 +200,7 @@ export class ProductDetailsComponent implements OnInit {
                         is_variants_included: productDetails.is_variants_included,
                         vat_setting_id: productDetails.vat_setting_id,
                         is_price_including_vat: productDetails.is_price_including_vat,
-                        is_external_product: this.type === 'b2b' ? true : productDetails.is_price_including_vat,
+                        is_external_product: this.type === 'b2b' ? false : productDetails.is_external_product,
                     });
                     this.productName = productDetails.name;
                     this.variants = this.productForm.get('variants') as FormArray;

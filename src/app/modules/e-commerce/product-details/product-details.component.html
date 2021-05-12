@@ -158,7 +158,7 @@
                         <div class="row gutter-16 gutter-lg-24 mt-4">
                             <div
                                 class="col-12 col-md-6 sewn-form-field"
-                                *ngIf="productForm.get('is_external_product').value"
+                                *ngIf="!productForm.get('is_external_product').value"
                             >
                                 <label>{{ 'select_roasted_batch' | translate }}<span class="star">*</span></label>
                                 <p-dropdown
@@ -183,12 +183,12 @@
                             </div>
                             <div
                                 class="col-12 col-md-6 col-lg-3 sewn-form-field"
-                                *ngIf="productForm.get('is_external_product').value"
+                                *ngIf="!productForm.get('is_external_product').value"
                             >
                                 <label>{{ 'remaining_batch_quantity' | translate }}</label>
                                 <input
                                     type="text"
-                                    [readonly]="productForm.get('is_external_product').value"
+                                    [readonly]="!productForm.get('is_external_product').value"
                                     formControlName="remaining_quantity"
                                     pInputText
                                 />
@@ -198,7 +198,7 @@
                                 <label>{{ 'roaster_ref_no' | translate }}</label>
                                 <input
                                     type="text"
-                                    [readonly]="productForm.get('is_external_product').value"
+                                    [readonly]="!productForm.get('is_external_product').value"
                                     formControlName="roaster_ref_no"
                                     pInputText
                                 />
@@ -207,7 +207,7 @@
                                 <label>{{ 'batch_ref_no' | translate }}</label>
                                 <input
                                     type="text"
-                                    [readonly]="productForm.get('is_external_product').value"
+                                    [readonly]="!productForm.get('is_external_product').value"
                                     formControlName="batch_ref_no"
                                     pInputText
                                 />
@@ -217,7 +217,7 @@
                                 <label>{{ 'roaster_profile' | translate }}</label>
                                 <input
                                     type="text"
-                                    [readonly]="productForm.get('is_external_product').value"
+                                    [readonly]="!productForm.get('is_external_product').value"
                                     formControlName="roasting_profile_name"
                                     pInputText
                                 />
@@ -226,7 +226,7 @@
                                 <label>{{ 'roaster_level' | translate }}<span class="star">*</span></label>
                                 <input
                                     type="text"
-                                    [readonly]="productForm.get('is_external_product').value"
+                                    [readonly]="!productForm.get('is_external_product').value"
                                     formControlName="roast_level"
                                     pInputText
                                 />
@@ -235,7 +235,7 @@
                                 <label>{{ 'roasting_time' | translate }}</label>
                                 <input
                                     type="text"
-                                    [readonly]="productForm.get('is_external_product').value"
+                                    [readonly]="!productForm.get('is_external_product').value"
                                     formControlName="roast_time"
                                     pInputText
                                 />
@@ -250,7 +250,7 @@
                                 <label>{{ 'estate_name' | translate }}</label>
                                 <input
                                     type="text"
-                                    [readonly]="productForm.get('is_external_product').value"
+                                    [readonly]="!productForm.get('is_external_product').value"
                                     formControlName="estate_name"
                                     pInputText
                                 />
@@ -259,7 +259,7 @@
                                 <label>{{ 'origin' | translate }}</label>
                                 <input
                                     type="text"
-                                    [readonly]="productForm.get('is_external_product').value"
+                                    [readonly]="!productForm.get('is_external_product').value"
                                     formControlName="origin"
                                     pInputText
                                 />
@@ -268,7 +268,7 @@
                                 <label>{{ 'region' | translate }}</label>
                                 <input
                                     type="text"
-                                    [readonly]="productForm.get('is_external_product').value"
+                                    [readonly]="!productForm.get('is_external_product').value"
                                     formControlName="region"
                                     pInputText
                                 />
@@ -287,7 +287,7 @@
                                 <label>{{ 'body' | translate }}</label>
                                 <input
                                     type="text"
-                                    [readonly]="productForm.get('is_external_product').value"
+                                    [readonly]="!productForm.get('is_external_product').value"
                                     formControlName="body"
                                     pInputText
                                 />
@@ -296,7 +296,7 @@
                                 <label>{{ 'acidity' | translate }}</label>
                                 <input
                                     type="text"
-                                    [readonly]="productForm.get('is_external_product').value"
+                                    [readonly]="!productForm.get('is_external_product').value"
                                     formControlName="acidity"
                                     pInputText
                                 />
@@ -305,7 +305,7 @@
                                 <label>{{ 'aroma' | translate }}</label>
                                 <input
                                     type="text"
-                                    [readonly]="productForm.get('is_external_product').value"
+                                    [readonly]="!productForm.get('is_external_product').value"
                                     formControlName="aroma"
                                     pInputText
                                 />
@@ -314,7 +314,7 @@
                                 <label>{{ 'flavour' | translate }}</label>
                                 <input
                                     type="text"
-                                    [readonly]="productForm.get('is_external_product').value"
+                                    [readonly]="!productForm.get('is_external_product').value"
                                     formControlName="flavour"
                                     pInputText
                                 />
@@ -323,7 +323,7 @@
                                 <label>{{ 'processing' | translate }}</label>
                                 <input
                                     type="text"
-                                    [readonly]="productForm.get('is_external_product').value"
+                                    [readonly]="!productForm.get('is_external_product').value"
                                     formControlName="processing"
                                     pInputText
                                 />
@@ -331,7 +331,7 @@
                         </div>
                         <div class="w-100 sewn-form-field mt-0 mt-lg-3">
                             <label class="mb-0 mb-md-2">{{ 'flavour_profile' | translate }}</label>
-                            <div *ngIf="productForm.get('is_external_product').value">
+                            <div *ngIf="!productForm.get('is_external_product').value">
                                 <span
                                     class="flavour-item d-inline-block"
                                     *ngFor="let flavour of variant.value.flavour_profile"
@@ -345,7 +345,7 @@
                                 optionLabel="flavour_profile_name"
                                 optionValue="flavour_profile_id"
                                 [itemList]="flavoursList"
-                                *ngIf="!productForm.get('is_external_product').value"
+                                *ngIf="productForm.get('is_external_product').value"
                             ></app-multiselect-chips>
                         </div>
                         <div class="row gutter-16 gutter-lg-24 mt-2 mt-lg-3">
@@ -361,7 +361,7 @@
                                     type="text"
                                     [rows]="5"
                                     placeholder=""
-                                    [readonly]="productForm.get('is_external_product').value"
+                                    [readonly]="!productForm.get('is_external_product').value"
                                     formControlName="roaster_notes"
                                     pInputText
                                 ></textarea>
