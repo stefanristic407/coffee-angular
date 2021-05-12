@@ -41,7 +41,9 @@
                                 </p>
                                 <p class="fnt-12 fnt-md-14 fnt-600 fnt-muli text-clr334 mb-2">
                                     <span class="text-clr588">Varieties:&nbsp;</span>
-                                    {{ item.varieties }}
+                                    <span *ngFor="let tag of item.tags; let i = index">
+                                        {{ tag }}<span *ngIf="i !== item.tags.length - 1">,</span>
+                                    </span>
                                 </p>
                             </div>
                         </div>
