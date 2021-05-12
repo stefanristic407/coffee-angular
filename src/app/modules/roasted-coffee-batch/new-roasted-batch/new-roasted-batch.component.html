@@ -287,7 +287,7 @@
                 </div>
             </div>
 
-            <div class="col-12 col-md-7 col-lg-12 col-xl-4">
+            <div class="col-12 col-md-7 col-lg-4">
                 <div *ngIf="ordId" class="d-none d-sm-none d-md-block d-lg-block d-xl-block mt-4 mt-lg-0">
                     <ng-container *ngTemplateOutlet="orderDetailsTpl"></ng-container>
                 </div>
@@ -307,7 +307,7 @@
                     <button type="submit" class="btn btn-raised ml-3" (click)="onSave()">Save</button>
                 </div>
             </div>
-            <div class="col-12 row no-gutters d-block d-sm-block d-md-none">
+            <div class="col-12 row no-gutters mt-4 d-block d-sm-block d-md-none">
                 <div class="col-12 col-sm-12">
                     <button type="submit" class="btn btn-raised w-100" (click)="onSave()">Save</button>
                 </div>
@@ -408,18 +408,18 @@
 </ng-template>
 
 <ng-template #shareStoryTemplate>
-    <div *ngIf="coffeeStory" class="story-wrapper mt-4">
-        <div class="col-12 col-md-6 col-lg-12 py-0 px-4 mb-45">
+    <div *ngIf="coffeeStory" class="story-wrapper">
+        <div class="py-0 px-3 px-md-4 mb-45">
             <p class="fnt-16 fnt-bold mb-3">{{ 'share_your_story' | translate }}</p>
             <p class="fnt-14 fnt-600 mb-2 text-clr588">{{ 'share_coffee_experience_link' | translate }}!</p>
-            <div class="link-wrapper flex-md-column flex-lg-row">
+            <div class="link-wrapper">
                 <span class="fnt-14 fnt-600 flex-1 link-text">{{ coffeeStory.coffee_story_url }}</span>
                 <button class="btn-raised" ngxClipboard [cbContent]="coffeeStory.coffee_story_url">
                     {{ 'copy_link' | translate }}
                 </button>
             </div>
         </div>
-        <div class="col-12 col-md-6 col-lg-12 py-0 px-4 mb-45">
+        <div class="py-0 px-3 px-md-4 mb-45">
             <p class="fnt-14 fnt-bold mb-4">
                 {{ 'scan_or_download_qr_code' | translate }}
             </p>
@@ -430,7 +430,7 @@
                 </a>
             </div>
         </div>
-        <div class="contact-us-wrapper px-4 pt-3 pb-0 pb-md-3">
+        <div class="contact-us-wrapper px-3 px-md-4 py-3">
             <span class="fnt-14 fnt-bold">{{ 'having_trouble' | translate }}?&nbsp;</span>
             <a class="custom-link" [href]="'mailto:' + supportEmailAddress">{{ 'contact_us' | translate }}</a>
         </div>

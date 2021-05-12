@@ -2,7 +2,7 @@
     <div class="main-block">
         <div class="">
             <div class="w-100 pt-lg-3">
-                <a class="back-page" routerLink="/sourcing/estate-list"> {{ globals.languageJson?.back }}</a>
+                <a class="back-page" routerLink="/sourcing/estate-list"> {{ 'back' | translate }}</a>
             </div>
 
             <div class="d-flex flex-wrap">
@@ -31,7 +31,7 @@
                         <div class="row gutter-16 gutter-md-12 mt-4 mt-md-0">
                             <div class="col-6 col-md-auto">
                                 <button class="btn-raised w-100" (click)="chatWithEstate()">
-                                    {{ globals.languageJson?.contact_us }}
+                                    {{ 'contact_us' | translate }}
                                 </button>
                             </div>
                             <div class="col-6 col-md-auto">
@@ -40,7 +40,7 @@
                                     [href]="sourcing.estate?.slug | estateBrandLink"
                                     target="_blank"
                                 >
-                                    {{ globals.languageJson?.know_more }}
+                                    {{ 'know_more' | translate }}
                                 </a>
                             </div>
                         </div>
@@ -51,37 +51,37 @@
                     <img
                         [src]="sourcing.estate?.banner_url || 'assets/images/banner-details.jpg'"
                         alt="Estate"
-                        class="w-100 br-2"
+                        class="banner-img w-100 br-2"
                     />
                 </div>
             </div>
         </div>
 
         <p-tabView styleClass="mt-45 mx-n3 mx-md-0" [(activeIndex)]="selectedTab">
-            <p-tabPanel header="{{ globals.languageJson?.overview }}">
+            <p-tabPanel header="{{ 'overview' | translate }}">
                 <app-overview></app-overview>
             </p-tabPanel>
-            <p-tabPanel header="{{ globals.languageJson?.about_the_farm }}">
+            <p-tabPanel header="{{ 'about_the_farm' | translate }}">
                 <ng-template pTemplate="contentAbout">
                     <app-about></app-about>
                 </ng-template>
             </p-tabPanel>
-            <p-tabPanel header="{{ globals.languageJson?.land_lots }}">
+            <p-tabPanel header="{{ 'land_lots' | translate }}">
                 <ng-template pTemplate="contentLots">
                     <app-land-lots></app-land-lots>
                 </ng-template>
             </p-tabPanel>
-            <p-tabPanel header="{{ globals.languageJson?.green_coffee_avilability }}">
+            <p-tabPanel header="{{ 'green_coffee_avilability' | translate }}">
                 <ng-template pTemplate="contentGreenCoffee">
                     <app-green-coffee></app-green-coffee>
                 </ng-template>
             </p-tabPanel>
-            <p-tabPanel header="{{ globals.languageJson?.gallery }}">
+            <p-tabPanel header="{{ 'gallery' | translate }}">
                 <ng-template pTemplate="contentGallery">
                     <app-gallery></app-gallery>
                 </ng-template>
             </p-tabPanel>
-            <p-tabPanel header="{{ globals.languageJson?.why_us }}">
+            <p-tabPanel header="{{ 'why_us' | translate }}">
                 <ng-template pTemplate="contentImages">
                     <app-why-us></app-why-us>
                 </ng-template>

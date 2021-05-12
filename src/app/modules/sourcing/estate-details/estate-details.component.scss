@@ -4,6 +4,7 @@
         font-size: 22px;
     }
 }
+
 .source-det-tit {
     @media (max-width: 767px) {
         width: 100%;
@@ -11,5 +12,17 @@
         margin-top: -3rem;
         position: relative;
         z-index: 9;
+    }
+}
+
+.banner-img {
+    object-fit: cover;
+    object-position: center;
+    height: 109px;
+    @media (min-width: 768px) {
+        height: 208px;
+    }
+    @media (min-width: 992px) {
+        height: 304px;
     }
 }
