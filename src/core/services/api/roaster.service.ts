@@ -674,6 +674,8 @@ export class RoasterserviceService extends ApiService {
             data.api_call = '/ro/' + roaster_id + '/mr-orders?' + this.serlialise(queryParams);
         } else if (orderType === 'hrc') {
             data.api_call = '/ro/' + roaster_id + '/hrc-orders?' + this.serlialise(queryParams);
+        } else if (orderType === 'outtake-orders') {
+            data.api_call = '/ro/' + roaster_id + '/outtake-orders?' + this.serlialise(queryParams);
         }
         data.method = 'GET';
         data.token = this.cookieService.get('Auth');

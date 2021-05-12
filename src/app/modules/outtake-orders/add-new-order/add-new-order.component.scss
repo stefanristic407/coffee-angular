@@ -173,11 +173,13 @@
     }
     .estate-focus .cust-profile li label,
     .estate-focus ul li label {
-        width: 60% !important;
+        width: 58% !important;
+        padding: 1rem 0.5rem;
     }
     .estate-focus .cust-profile li p,
     .estate-focus ul li p {
-        width: 40% !important;
+        width: 42% !important;
+        padding: 1rem 0.5rem;
     }
 }
 @media (min-width: 992px) {
@@ -235,5 +237,9 @@
     }
     .padd-2r {
         padding: 1rem 0;
+    }
+    .estate-focus .cust-profile li label,
+    .estate-focus ul li label {
+        padding: 1rem 0.8rem;
     }
 }

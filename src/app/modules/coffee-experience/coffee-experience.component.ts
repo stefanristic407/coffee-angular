@@ -49,6 +49,9 @@ export class CoffeeExperienceComponent implements OnInit {
         } else if (event.index === 2) {
             this.customerType = 'hrc';
             this.getEstateOrders();
+        } else if (event.index === 3) {
+            this.customerType = 'outtake-orders';
+            this.getEstateOrders();
         }
     }
 

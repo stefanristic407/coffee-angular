@@ -226,6 +226,19 @@ export class DefaultSettingsComponent implements OnInit {
                     this.coffeeExperienceLink = rep.result;
                 }
             });
+        } else if (this.route.snapshot.queryParams.outtake_order_id) {
+            this.userService.getHrcOrdersCoffeeExperience(this.roasterId, this.orderId).subscribe((response: any) => {
+                if (response.success) {
+                    this.setPageData(response);
+                } else {
+                    this.getDefaultSetting();
+                }
+            });
+            this.userService.getCoffeeStory(this.roasterId, this.orderId, 'hrc-orders').subscribe((rep: any) => {
+                if (rep.success) {
+                    this.coffeeExperienceLink = rep.result;
+                }
+            });
         }
     }
 

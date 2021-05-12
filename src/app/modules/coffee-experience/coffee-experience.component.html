@@ -79,6 +79,15 @@
                     >
                     </app-coffee-experience-table>
                 </p-tabPanel>
+                <p-tabPanel header="Outtake orders">
+                    <app-coffee-experience-table
+                        *ngIf="customerType === 'outtake-orders'"
+                        [searchTerm]="searchTerm"
+                        [coffeeExperienceData]="coffeeExperienceData"
+                        [customerType]="customerType"
+                    >
+                    </app-coffee-experience-table>
+                </p-tabPanel>
             </p-tabView>
         </div>
     </section>
