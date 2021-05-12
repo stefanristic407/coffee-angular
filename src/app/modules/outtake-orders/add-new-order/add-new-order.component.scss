@@ -168,6 +168,17 @@
         background: transparent !important;
         box-shadow: none !important;
     }
+    .download-qr-link {
+        margin-top: 10px;
+    }
+    .estate-focus .cust-profile li label,
+    .estate-focus ul li label {
+        width: 60% !important;
+    }
+    .estate-focus .cust-profile li p,
+    .estate-focus ul li p {
+        width: 40% !important;
+    }
 }
 @media (min-width: 992px) {
     .copy-link button {

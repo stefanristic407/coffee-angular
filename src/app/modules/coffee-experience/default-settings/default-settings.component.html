@@ -543,14 +543,10 @@
                                                         />
                                                         <div class="download-qr-link d-flex justify-content-center">
                                                             <a
-                                                                class="btn-trans-icon px-3 d-inline-flex align-items-center download"
-                                                                href="assets/images/dwnd.png"
-                                                                download
+                                                                class="btn-trans-icon download-icon"
+                                                                (click)="onDownloadQr()"
                                                             >
-                                                                <img src="assets/images/dwnd.png" />
-                                                                <span class="ml-2">
-                                                                    {{ 'download' | translate }}
-                                                                </span>
+                                                                {{ 'download' | translate }}
                                                             </a>
                                                         </div>
                                                     </div>

@@ -13,7 +13,7 @@ import { SourcingService } from '../sourcing/sourcing.service';
 export class CoffeeExperienceComponent implements OnInit {
     items = [
         { label: 'Home', routerLink: '/features/welcome-aboard' },
-        { label: 'Farm link' },
+        { label: 'Brand & Experience' },
         { label: 'The Coffee Experience' },
     ];
     queryParams: any;

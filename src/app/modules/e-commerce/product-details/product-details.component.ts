@@ -57,8 +57,8 @@ export class ProductDetailsComponent implements OnInit {
     ];
     removedWeightVariants: any = [];
     boughtOnPlatformOptions = [
-        { label: 'Yes', value: true },
-        { label: 'No', value: false },
+        { label: 'Yes', value: false },
+        { label: 'No', value: true },
     ];
     flavoursList: any[];
     isPublished: boolean;
@@ -88,7 +88,7 @@ export class ProductDetailsComponent implements OnInit {
             crates: this.fb.array([]),
             vat_setting_id: ['', Validators.compose([Validators.required])],
             is_price_including_vat: [false],
-            is_external_product: [true],
+            is_external_product: [false],
         });
         this.route.params.subscribe((params) => {
             this.type = params.type;
@@ -200,7 +200,7 @@ export class ProductDetailsComponent implements OnInit {
                         is_variants_included: productDetails.is_variants_included,
                         vat_setting_id: productDetails.vat_setting_id,
                         is_price_including_vat: productDetails.is_price_including_vat,
-                        is_external_product: this.type === 'b2b' ? true : productDetails.is_price_including_vat,
+                        is_external_product: this.type === 'b2b' ? false : productDetails.is_external_product,
                     });
                     this.productName = productDetails.name;
                     this.variants = this.productForm.get('variants') as FormArray;
@@ -406,6 +406,7 @@ export class ProductDetailsComponent implements OnInit {
     onWeightCreate(event) {
         this.crates = this.productForm.get('crates') as FormArray;
         const getObjs = this.crates.value.filter((ele) => ele.weight === event.value && ele.crate_unit === event.unit);
+        console.log(this.variantComponent);
         if (!event.modify) {
             if (!getObjs?.length) {
                 const getCrate = this.createEmptyCrate();
@@ -467,7 +468,7 @@ export class ProductDetailsComponent implements OnInit {
         if (this.validateForms()) {
             const productObj = this.productForm.value;
             if (this.productID) {
-                this.updateProductDetails(productObj);
+                this.GrindVariantsDetails(this.productID, false);
             } else {
                 this.createNewProduct(productObj);
             }
@@ -483,7 +484,7 @@ export class ProductDetailsComponent implements OnInit {
         this.eCommerceService.addProductDetails(productObj, this.type).subscribe(
             (res) => {
                 if (res && res.success) {
-                    this.GrindVariantsDetails(res.result.id);
+                    this.GrindVariantsDetails(res.result.id, true);
                 } else {
                     this.toasterService.error('Error while add a Product');
                 }
@@ -493,11 +494,9 @@ export class ProductDetailsComponent implements OnInit {
             },
         );
     }
-    updateProductDetails(productObj) {
+    updateProductDetails() {
+        const productObj = Object.assign({}, this.productForm.value);
         delete productObj.variants;
-        const getOldCrate = this.allCrates.filter((ele) => ele.hasChanged || ele.has_weight);
-        // productObj.crates = productObj.crates.concat(getOldCrate);
-        console.log(productObj.crates);
         productObj.crates.forEach((ele) => {
             delete ele.id;
             delete ele.boxField;
@@ -508,7 +507,8 @@ export class ProductDetailsComponent implements OnInit {
         this.eCommerceService.updateProductDetails(this.productID, productObj, this.type).subscribe(
             (res) => {
                 if (res && res.success) {
-                    this.GrindVariantsDetails(this.productID);
+                    this.toasterService.success(`Product updated successfully`);
+                    this.router.navigate([`/e-commerce/product-list/${this.type}`]);
                 } else {
                     this.toasterService.error('Error while add a Product');
                 }
@@ -518,7 +518,8 @@ export class ProductDetailsComponent implements OnInit {
             },
         );
     }
-    GrindVariantsDetails(productID) {
+    GrindVariantsDetails(productID, isNew) {
+        const promises: any[] = [];
         this.variantComponent.forEach((child, childIndex) => {
             const variantForm = child.weightForm.value;
             const getWeightArray = variantForm.weights;
@@ -544,26 +545,52 @@ export class ProductDetailsComponent implements OnInit {
                     roaster_recommendation: getVariantDetails.roaster_recommendation,
                     recipes: getVariantDetails.recipes,
                 };
-                let showToaster = false;
-                if (childIndex === this.variantComponent.length - 1 && index === getWeightArray.length - 1) {
-                    showToaster = true;
-                }
                 if (weight.isNew) {
-                    this.addNewGrindVariant(productID, weightObj, showToaster);
+                    promises.push(
+                        new Promise((resolve, reject) => {
+                            this.addNewGrindVariant(productID, weightObj, resolve, reject);
+                        }),
+                    );
                 } else if (weightVariantID) {
-                    this.updateGrindVariant(weightObj, showToaster, weightVariantID);
+                    promises.push(
+                        new Promise((resolve, reject) => {
+                            this.updateGrindVariant(weightObj, weightVariantID, resolve, reject);
+                        }),
+                    );
                 }
             });
         });
         for (const weightVariant of this.removedWeightVariants) {
-            this.eCommerceService.deleteProductWeightVariants(productID, weightVariant, this.type).subscribe((res) => {
-                if (!res.success) {
-                    this.toasterService.error('Errow while removing weight variants');
-                }
-            });
+            promises.push(
+                new Promise((resolve, reject) => {
+                    this.deleteWeightVariant(productID, weightVariant, resolve, reject);
+                }),
+            );
         }
+        Promise.all(promises)
+            .then(() => {
+                if (isNew) {
+                    this.toasterService.success(`Product created successfully`);
+                    this.router.navigate([`/e-commerce/product-list/${this.type}`]);
+                } else {
+                    this.updateProductDetails();
+                }
+            })
+            .catch(() => {});
     }
-    addNewGrindVariant(productID, weigthObj, showToaster) {
+
+    deleteWeightVariant(productID, weightVariant, resolve, reject) {
+        this.eCommerceService.deleteProductWeightVariants(productID, weightVariant, this.type).subscribe((res) => {
+            if (res.success) {
+                resolve();
+            } else {
+                this.toasterService.error('Errow while removing weight variants');
+                reject();
+            }
+        });
+    }
+
+    addNewGrindVariant(productID, weigthObj, resolve, reject) {
         delete weigthObj.product_weight_variant_id;
         delete weigthObj.fileDetails;
         weigthObj.status = weigthObj.status.toUpperCase();
@@ -573,20 +600,20 @@ export class ProductDetailsComponent implements OnInit {
         });
         this.eCommerceService.addProductWeightVariants(productID, weigthObj, this.type).subscribe(
             (res) => {
-                if (res.success && showToaster) {
-                    this.toasterService.success('Product created successfully');
-                    this.router.navigate([`/e-commerce/product-list/${this.type}`]);
-                }
-                if (!res.success) {
+                if (res.success) {
+                    resolve();
+                } else {
                     this.toasterService.error('Errow while adding weight variants');
+                    reject();
                 }
             },
             (err) => {
                 this.toasterService.error('Errow while adding weight variants');
+                reject();
             },
         );
     }
-    updateGrindVariant(weightObj, showToaster, weightVariantID) {
+    updateGrindVariant(weightObj, weightVariantID, resolve, reject) {
         delete weightObj.product_weight_variant_id;
         weightObj.status = weightObj.status.toUpperCase();
         weightObj.grind_variants.map((ele) => {
@@ -596,9 +623,11 @@ export class ProductDetailsComponent implements OnInit {
             .updateProductWeightVariants(this.productID, weightObj, weightVariantID, this.type)
             .subscribe(
                 (res) => {
-                    if (showToaster && res.success) {
-                        this.toasterService.success('Product updated successfully');
-                        this.router.navigate([`/e-commerce/product-list/${this.type}`]);
+                    if (res.success) {
+                        resolve();
+                    } else {
+                        this.toasterService.error('Errow while updating weight variants');
+                        reject();
                     }
                 },
                 (err) => {
@@ -671,5 +700,10 @@ export class ProductDetailsComponent implements OnInit {
     }
     productNameValue(event: any) {
         this.productName = event.target.value;
+    }
+
+    getSelectedBatchLabel(batchId: any) {
+        const batch = this.roastedBatches.find((item) => item.id === batchId);
+        return `Batch #${batchId} - ${batch.roast_batch_name}`;
     }
 }
