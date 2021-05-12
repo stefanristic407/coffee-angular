@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
-import { GlobalsService } from '@services';
+import { GlobalsService, PrimeTableService } from '@services';
 import { RoasterserviceService, ResizeService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ResizeableComponent } from '@base-components';
+import { Table } from 'primeng/table';
 
 @Component({
     selector: 'app-procured-coffee',
     templateUrl: './procured-coffee.component.html',
     styleUrls: ['./procured-coffee.component.scss'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class ProcuredCoffeeComponent extends ResizeableComponent implements OnInit {
     items: GalleryItem[];
@@ -23,6 +25,11 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
     selectedTab = 0;
     roasterNotes: any = [];
     saleInformation: any;
+    originArray: any;
+    form: any;
+    termStatus: any;
+    termOrigin: any;
+
     constructor(
         public gallery: Gallery,
         public lightbox: Lightbox,
@@ -32,9 +39,12 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
         public roasterService: RoasterserviceService,
         public cookieService: CookieService,
         protected resizeService: ResizeService,
+        public primeTableService: PrimeTableService,
     ) {
         super(resizeService);
         this.roasterID = this.cookieService.get('roaster_id');
+        this.primeTableService.rows = 10;
+        this.primeTableService.sortBy = 'created_at';
         this.route.params.subscribe((params) => {
             this.orderID = params.orderId;
         });
@@ -45,6 +55,62 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
             { label: `Order #${this.orderID}` },
         ];
     }
+    @ViewChild('markedTable', { static: true }) table: Table;
+    public isMobile = false;
+
+    @HostListener('window:resize', ['$event'])
+    onResize(event?) {
+        this.initializeTableProcuredCoffee();
+    }
+    initializeTableProcuredCoffee() {
+        this.primeTableService.windowWidth = window.innerWidth;
+
+        if (this.primeTableService.windowWidth <= this.primeTableService.responsiveStartsAt) {
+            this.primeTableService.isMobileView = true;
+            this.primeTableService.allColumns = [
+                {
+                    field: 'date',
+                    header: 'Date',
+                    sortable: false,
+                },
+                {
+                    field: 'location',
+                    header: 'Location',
+                    sortable: false,
+                },
+                {
+                    field: 'quantity',
+                    header: 'quantity',
+                    sortable: false,
+                },
+            ];
+        } else {
+            this.primeTableService.isMobileView = false;
+            this.primeTableService.allColumns = [
+                {
+                    field: 'date',
+                    header: 'Date',
+                    sortable: false,
+                },
+                {
+                    field: 'location',
+                    header: 'Location',
+                    sortable: false,
+                },
+                {
+                    field: 'quantity',
+                    header: 'Quantity',
+                    sortable: false,
+                },
+                {
+                    field: 'actions',
+                    header: 'Actions',
+                    sortable: false,
+                },
+            ];
+        }
+    }
+
     ngOnInit(): void {
         const lightboxRef = this.gallery.ref('lightbox');
         lightboxRef.setConfig({
@@ -56,7 +122,8 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
         this.getOrderDetails();
         this.getRoasterNotes();
         this.getSaleOrderDetails();
-        this.getActivityLogs();
+        this.primeTableService.url = `/ro/${this.roasterID}/orders/${this.orderID}/activity-logs`;
+        this.initializeTableProcuredCoffee();
     }
     getOrderDetails() {
         this.roasterService.getProcuredCoffeeDetails(this.roasterID, this.orderID).subscribe(
@@ -129,20 +196,18 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
         );
     }
 
-    getActivityLogs() {
-        this.roasterService.getRoasterActivityLogs(this.roasterID, this.orderID).subscribe((res: any) => {
-            console.log(res);
-            if (res.success) {
-                console.log(res);
-            }
-        });
-    }
     language() {
         this.appLanguage = this.globals.languageJson;
         this.procuredActive++;
     }
-    availabilityPage() {
-        return `/sourcing/coffee-details/${this.orderDetails.estate_id}/${this.orderDetails.harvest_id}`;
+    availabilityPage(data) {
+        if (data.catalogue === 'OUTTAKE_ORDER') {
+            return `/outtake-orders/view-order/${data.catalogue_id}`;
+        } else if (data.catalogue === 'RO_BATCH') {
+            return `/roasted-coffee-batch/new-roasted-batch/${data.catalogue_id}`;
+        } else if (data.catalogue === 'RO_GREEN_COFFEE') {
+            return `/green-coffee-management/green-coffee-for-sale-details/${data.catalogue_id}`;
+        }
     }
     viewReport() {
         this.roasterService.getCuppingReportDetails(this.orderDetails.harvest_id).subscribe(
