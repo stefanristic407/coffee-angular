@@ -101,10 +101,6 @@ export class UserserviceService extends ApiService {
         return this.http.put(this.putUrl, data);
     }
 
-    getOrganizationTerm(organizationId: any): Observable<any> {
-        return this.post(this.orgPostUrl, `ro/${organizationId}/terms`, 'GET');
-    }
-
     // API Function Name : Update Password
     // API Description: This API calls helps to Updated the User Password.
 
@@ -291,6 +287,10 @@ export class UserserviceService extends ApiService {
             data: body,
         };
         return this.http.post(this.url, data);
+    }
+
+    updateOrganizationPrivacyTerms(body: any): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, 'terms', 'PUT', body);
     }
 
     // API Function Name : Privacy Settings
@@ -1167,6 +1167,15 @@ export class UserserviceService extends ApiService {
     getCoffeeStory(roaster_id: any, order_id: any, type: string) {
         const data = {
             api_call: `/ro/${roaster_id}/${type}/${order_id}/coffee-story`,
+            method: 'GET',
+            token: this.cookieService.get('Auth'),
+        };
+        return this.http.post(this.roasterUrl, data);
+    }
+
+    getOuttakeCoffeeStory(roasterId: any, outtakeOrderId: any) {
+        const data = {
+            api_call: `/ro/${roasterId}/outtake-orders/${outtakeOrderId}/coffee-story`,
             method: 'GET',
             token: this.cookieService.get('Auth'),
         };

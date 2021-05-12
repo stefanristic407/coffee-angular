@@ -130,6 +130,11 @@ export const routes: Routes = [
                 path: 'e-commerce',
                 loadChildren: () => import('./modules/e-commerce/e-commerce.module').then((m) => m.ECommerceModule),
             },
+            {
+                path: 'outtake-orders',
+                loadChildren: () =>
+                    import('./modules/outtake-orders/outtake-orders.module').then((m) => m.OuttakeOrdersModule),
+            },
         ],
     },
     { path: 'gate', component: GateComponent },

@@ -1,6 +1,13 @@
 .main-block {
     display: flex;
     flex-direction: column;
+    .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 730px;
+        max-width: 100%;
+        margin: 0 auto;
+    }
     .terms-text {
         padding-left: 4px;
         @media (max-width: 767px) {
@@ -8,8 +15,12 @@
         }
     }
     .checkbox-wrapper {
-        width: 410px;
+        width: 525px;
         max-width: 100%;
+    }
+    .terms-link:hover {
+        text-decoration: underline;
+        cursor: pointer;
     }
     @media (min-width: 768px) and (max-width: 991px) {
         height: 820px;
@@ -43,7 +54,7 @@
             font-size: 14px;
             color: #747588;
             @media (min-width: 768px) {
-                font-size: 16px;
+                font-size: 14px;
             }
         }
         .p-checkbox-label-active {

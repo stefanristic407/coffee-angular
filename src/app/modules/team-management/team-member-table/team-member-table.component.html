@@ -33,7 +33,7 @@
                 </p-dropdown>
                 <div class="secondary_txt mt-1">{{ 'select_members_role' | translate }}</div>
             </div>
-            <div *ngIf="!isAddMember" class="d-inline primary_txt p-0">User Management</div>
+            <div *ngIf="!isAddMember" class="d-inline primary_txt p-0">{{ 'user_management' | translate }}</div>
             <div class="d-flex d-md-none mt-4 flex-column">
                 <button class="btn btn-raised mb-3" (click)="inviteNewMembers()" *ngIf="isAddMember">
                     <span class="update_text">{{ 'invite_new_members' | translate }}</span>

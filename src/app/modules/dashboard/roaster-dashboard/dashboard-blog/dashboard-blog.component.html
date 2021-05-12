@@ -1,5 +1,5 @@
 <div>
-    <p class="fnt-16 fnt-md-18 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2">SEWN blog</p>
+    <p class="fnt-16 fnt-md-18 fnt-bold text-clr334 mb-1 mb-md-2">{{ 'era_of_we_blog' | translate }}</p>
     <div class="row">
         <div
             *ngFor="let item of blogData"
@@ -18,10 +18,10 @@
                     <img src="assets/images/onboard-estate-2.jpg" alt="Card image cap" />
                 </div>
                 <div class="card-body">
-                    <h5 class="fnt-16 fnt-md-18 black fnt-700 fnt-muli">
+                    <h5 class="fnt-16 fnt-md-18 black fnt-700">
                         Using social platforms, coffee shops take arts & entertai..
                     </h5>
-                    <p class="fnt-14 fnt-muli text-clr588 pad-card">
+                    <p class="fnt-14 text-clr588 pad-card">
                         There are many variations of passages of Lorem Ipsum available, but the majority have suffered
                         alteration in some form, by inject..
                     </p>
@@ -37,10 +37,8 @@
                     <img src="assets/images/onboard-estate-3.jpg" alt="Card image cap" />
                 </div>
                 <div class="card-body">
-                    <h5 class="fnt-16 fnt-md-18 black fnt-700 fnt-muli">
-                        Open for service gives a voice to coffee workers..
-                    </h5>
-                    <p class="fnt-14 fnt-muli text-clr588 pad-card">
+                    <h5 class="fnt-16 fnt-md-18 black fnt-700">Open for service gives a voice to coffee workers..</h5>
+                    <p class="fnt-14 text-clr588 pad-card">
                         There are many variations of passages of Lorem Ipsum available, but the majority have suffered
                         alteration in some form, by inject..
                     </p>
@@ -50,10 +48,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-12">
+        <!-- <div class="col-12">
             <div class="text-center">
-                <button type="submit" class="btn-stroked" routerLink="/social-media/media/blogs">View all</button>
+                <button type="submit" class="btn-stroked" routerLink="/social-media/media/blogs">
+                    {{ 'view_all' | translate }}
+                </button>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>

@@ -18,7 +18,7 @@
         </div>
 
         <section class="estate-orders-heading">
-            <h5 class="fnt-18 fnt-bold fnt-muli text-clr24">{{ globals.languageJson?.agreements }}</h5>
+            <h5 class="fnt-18 fnt-bold fnt-muli text-clr24">{{ 'agreements' | translate }}</h5>
         </section>
 
         <div class="row">
@@ -32,7 +32,7 @@
                         </div>
                         <div class="col-lg-12 col-md-12 px-0 mt-4 pt-2" id="agreements-nav">
                             <p-tabView (onChange)="onTabChange($event)">
-                                <p-tabPanel header="{{ globals.languageJson?.horeca }}">
+                                <p-tabPanel header="{{ 'roasted_coffee_customers' | translate }}">
                                     <app-roaster-agreements
                                         *ngIf="customerType === 'hrc'"
                                         [searchTerm]="searchTerm"
@@ -40,7 +40,7 @@
                                     >
                                     </app-roaster-agreements>
                                 </p-tabPanel>
-                                <p-tabPanel header="{{ globals.languageJson?.micro_roasters }}">
+                                <p-tabPanel header="{{ 'micro_roasters' | translate }}">
                                     <app-roaster-agreements
                                         *ngIf="customerType === 'micro-roasters'"
                                         [searchTerm]="searchTerm"

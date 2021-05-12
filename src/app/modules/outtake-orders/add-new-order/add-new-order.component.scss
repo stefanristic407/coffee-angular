@@ -1,0 +1,239 @@
+@import 'variables';
+
+.estate-focus {
+    h3 {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 2rem;
+        margin-bottom: 13px;
+    }
+    .cust-profile,
+    ul {
+        margin-bottom: 0;
+        border: 0.3px solid #868686;
+        border-radius: 4px;
+        li {
+            width: 100%;
+            float: left;
+            border-bottom: 0.3px solid #868686;
+            padding: 0;
+            &:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+            &:first-child {
+                padding-top: 0;
+            }
+            label {
+                float: left;
+                width: 50%;
+                margin-bottom: 0;
+                color: $muted-text-color;
+                font-size: 14px;
+                font-weight: 500;
+                padding: 1rem 1.5rem;
+            }
+            p {
+                margin-bottom: 0;
+                width: 50%;
+                float: left;
+                font-size: 14px;
+                color: $dark-color;
+                border-left: 0.3px solid #868686;
+                font-weight: 600;
+                padding: 1rem 1.5rem;
+            }
+        }
+    }
+}
+.p-calendar {
+    width: 100% !important;
+}
+
+.br_top {
+    border-top: dotted 1px $primary-border-color;
+}
+.cust-profile {
+    border: 0.3px solid #868686;
+    border-radius: 4px;
+}
+
+::ng-deep .sewn-form-field .dropdownClass .p-inputgroup-addon {
+    padding: 5px !important;
+}
+::ng-deep .p-inputgroup-addon .p-dropdown .p-inputtext {
+    position: relative;
+    bottom: 4px;
+}
+
+.weightInputGroupDiv {
+    border: 1px solid $primary-border-color;
+    border-radius: 4px;
+}
+
+.weightInputDiv {
+    border: none !important;
+}
+.weightInputDivKg {
+    width: 132px;
+}
+.weightInputDivKg,
+.daysInputDiv {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    background-color: #fafafa;
+    margin: 3px;
+}
+.sewn-form-field .p-inputgroup.custom-addon .p-inputgroup-addon {
+    padding: 5px !important;
+}
+.sewn-form-field .p-inputgroup.custom-addon .p-inputgroup-addon .p-dropdown .p-inputtext {
+    padding: 0.7rem !important;
+}
+
+@media (min-width: 992px) {
+    .width-lable {
+        width: 40% !important;
+    }
+}
+
+.bg-fa {
+    border-radius: 0.5rem;
+}
+.cust-profile {
+    padding: 1.5rem;
+    border-radius: 4px;
+}
+
+.img_circle img {
+    border-radius: 50%;
+}
+
+.estate-focus ul li .br_left img {
+    border-radius: 50%;
+    width: fit-content;
+}
+.br_left {
+    border-left: 0.3px solid #868686;
+}
+
+.right_angle {
+    background-color: $white !important;
+    padding: 0.75rem !important;
+    cursor: pointer;
+}
+
+.right_angle i {
+    color: $button-icon-color;
+}
+.pi-star {
+    color: #ffc107;
+}
+.p-calendar .p-button-icon {
+    font-size: 22px;
+}
+@media (max-width: 767px) {
+    .breadcrumb-container {
+        overflow-x: scroll;
+    }
+    .sewn-form-field {
+        margin-top: 1rem;
+    }
+    .br_top {
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+    }
+    .tab-margin {
+        margin-top: 1rem;
+    }
+    .copy-link input {
+        width: 72% !important;
+
+        border-top-right-radius: 0px !important;
+        border-bottom-right-radius: 0px !important;
+    }
+    .copy-link button {
+        position: relative;
+        bottom: 8px;
+        border-top-left-radius: 0px !important;
+        border-bottom-left-radius: 0px !important;
+    }
+    ::-webkit-scrollbar-track {
+        box-shadow: none !important;
+        border-radius: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+    .download-qr-link {
+        margin-top: 10px;
+    }
+    .estate-focus .cust-profile li label,
+    .estate-focus ul li label {
+        width: 60% !important;
+    }
+    .estate-focus .cust-profile li p,
+    .estate-focus ul li p {
+        width: 40% !important;
+    }
+}
+@media (min-width: 992px) {
+    .copy-link button {
+        padding: 15px 40px;
+    }
+    .copy-link input {
+        padding: 14px;
+    }
+    .tab-width-rgt ul li lable {
+        width: 55%;
+    }
+    .padd-2r {
+        padding: 1rem 0;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .tab {
+        display: flex;
+    }
+    .tab-width {
+        width: 50%;
+    }
+    .tab-width-right {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+    }
+    .tab-btn {
+        width: 100%;
+        height: 45px;
+        border-radius: 0px !important;
+    }
+    .tab-input {
+        margin-bottom: 0 !important;
+        height: 45px;
+    }
+    .download-qr-link {
+        margin-top: 14px;
+        margin-bottom: 12px;
+    }
+    .tab-bottom-margin {
+        margin-bottom: 24px !important;
+    }
+    .contact-for-help__text {
+        padding-top: 16px !important;
+    }
+    .contact-for-help {
+        margin-bottom: -16px;
+    }
+    .tab-margin {
+        margin-top: 0 !important;
+        margin-left: 0.5rem !important;
+    }
+    .padd-2r {
+        padding: 1rem 0;
+    }
+}

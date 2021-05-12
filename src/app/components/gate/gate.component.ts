@@ -17,6 +17,10 @@ import { OrganizationType } from '@enums';
     styleUrls: ['./gate.component.scss'],
 })
 export class GateComponent extends DestroyableComponent implements OnInit {
+    userTermsAccepted: boolean;
+    orgTermsAccepted: boolean;
+    isAddedDetails: string;
+    isAddedTeamMembers: string;
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -85,7 +89,7 @@ export class GateComponent extends DestroyableComponent implements OnInit {
         );
         Promise.all(promises)
             .then(() => {
-                this.getPrivacyTerms();
+                this.checkTermsAccepted();
             })
             .catch(() => {
                 this.goToLogin();
@@ -115,6 +119,7 @@ export class GateComponent extends DestroyableComponent implements OnInit {
                 if (res.success) {
                     this.cookieService.set('name', res.result.name);
                     this.cookieService.set('roasterSlug', res.result.slug);
+                    this.orgTermsAccepted = res.result.terms_accepted || !('terms_accepted' in res.result);
                     if (res.result.status === 'ACTIVE') {
                         resolve();
                     } else if (res.result.status === 'INACTIVE') {
@@ -135,6 +140,7 @@ export class GateComponent extends DestroyableComponent implements OnInit {
         this.userSrv.getUserProfile().subscribe(
             (res: any) => {
                 if (res.success) {
+                    this.userTermsAccepted = res.result.terms_accepted;
                     this.cookieService.set('user_id', res.result.id);
                     this.cookieService.set('userName', res.result.firstname + ' ' + res.result.lastname);
                     this.cookieService.set('referral_code', res.result.referral_code);
@@ -149,23 +155,16 @@ export class GateComponent extends DestroyableComponent implements OnInit {
         );
     }
 
-    private getPrivacyTerms() {
-        this.userSrv.getPrivacyTerms().subscribe(
-            (response: any) => {
-                if (response.result.access_account === false) {
-                    this.router.navigate(['/auth/privacy-policy'], {
-                        queryParams: {
-                            data: encodeURIComponent('login'),
-                        },
-                    });
-                } else {
-                    this.getStats();
-                }
-            },
-            (err) => {
-                this.router.navigate(['/welcome-aboard']);
-            },
-        );
+    private checkTermsAccepted() {
+        if (this.orgTermsAccepted && this.userTermsAccepted) {
+            this.getStats();
+        } else {
+            this.router.navigate(['/auth/privacy-policy'], {
+                queryParams: {
+                    type: encodeURIComponent(this.orgTermsAccepted ? 'user' : 'org'),
+                },
+            });
+        }
     }
 
     private getStats() {
@@ -173,7 +172,16 @@ export class GateComponent extends DestroyableComponent implements OnInit {
             (res: any) => {
                 if (res.success) {
                     this.toastrService.success('Logged in Successfully');
-                    if (res.result.added_details && res.result.added_team_members) {
+                    this.isAddedDetails = localStorage.getItem('isAddedDetails')
+                        ? localStorage.getItem('isAddedDetails')
+                        : 'false';
+                    this.isAddedTeamMembers = localStorage.getItem('isAddedTeamMembers')
+                        ? localStorage.getItem('isAddedTeamMembers')
+                        : 'false';
+                    if (
+                        (res.result.added_details && res.result.added_team_members) ||
+                        (this.isAddedDetails === 'true' && this.isAddedTeamMembers === 'true')
+                    ) {
                         if (localStorage.getItem('redirectUrl')) {
                             const url = localStorage.getItem('redirectUrl');
                             localStorage.removeItem('redirectUrl');

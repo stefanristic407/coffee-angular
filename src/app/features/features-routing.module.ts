@@ -6,7 +6,6 @@ import { CofeeExpeienceDetailsComponent } from './Farm Link/cofee-expeience-deta
 import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-experience.component';
 import { QAForumComponent } from './Farm Link/q-a-forum/q-a-forum.component';
 import { FeaturesComponent } from './features.component';
-import { MyprofileComponent } from './myprofile/myprofile.component';
 import { NotificationComponent } from './notification/notification.component';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
@@ -14,7 +13,6 @@ import { RoasterCompleteSetupComponent } from './roaster-complete-setup/roaster-
 import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
 import { RoasterOnboardingComponent } from './roaster-onboarding/roaster-onboarding.component';
 import { RoasterQuickSetupComponent } from './roaster-quick-setup/roaster-quick-setup.component';
-import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/roastery-license.component';
 import { VatManagementComponent } from './vat-management/vat-management.component';
 import { BatchSelectAnOrderComponent } from './batch-select-an-order/batch-select-an-order.component';
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
@@ -46,11 +44,6 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'myprofile',
-                component: MyprofileComponent,
-                canActivate: [AuthGuard],
-            },
-            {
                 path: 'profile-edit',
                 component: ProfileEditComponent,
                 canActivate: [AuthGuard],
@@ -73,11 +66,6 @@ const routes: Routes = [
             {
                 path: 'notification',
                 component: NotificationComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'license',
-                component: RoasteryLicenseComponent,
                 canActivate: [AuthGuard],
             },
             {

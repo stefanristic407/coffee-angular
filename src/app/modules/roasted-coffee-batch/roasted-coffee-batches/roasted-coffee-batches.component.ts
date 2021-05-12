@@ -155,7 +155,6 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
     redirectToEdit(item) {
         if (!this.disableAction) {
             this.batchId = item.id;
-            this.globals.selected_order_id = item.order_id;
             this.ordId = item.order_id;
 
             const navigationExtras: NavigationExtras = {

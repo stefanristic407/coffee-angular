@@ -44,4 +44,8 @@ export class WelcomeAboardComponent implements OnInit {
             }
         });
     }
+
+    skip(value: string) {
+        localStorage.setItem(value, 'true');
+    }
 }

@@ -3,18 +3,18 @@
         <div class="col-lg-6 col-md-6">
             <div>
                 <h2 class="fnt-18 lh-normal fnt-bold text-clr334 mb-25 mb-md-3">
-                    {{ sourcing.estateHomepage?.award_title }}
+                    {{ 'why_us_award_title' | translate }}
                 </h2>
                 <div class="d-md-none mb-25">
                     <ng-container *ngTemplateOutlet="award"></ng-container>
                 </div>
                 <p class="fnt-14 fnt-md-16 text-clr334 mb-4">
-                    {{ sourcing.estateHomepage?.award_short_description }}
+                    {{ 'why_us_award_desp' | translate }}
                 </p>
             </div>
-            <div class="btn-trans-icon zoom-icon" (click)="openPicture(sourcing.estateHomepage?.licence_file_url)">
+            <a class="btn-trans-icon zoom-icon" [href]="sourcing.estateHomepage?.licence_file_url" target="_blank">
                 {{ 'view_our_brand_guidelines' | translate }}
-            </div>
+            </a>
         </div>
         <div class="col-6 d-none d-md-block">
             <ng-container *ngTemplateOutlet="award"></ng-container>

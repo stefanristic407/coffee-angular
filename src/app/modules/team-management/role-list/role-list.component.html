@@ -54,7 +54,7 @@
                         [style.width]="col.width ? col.width + '%' : '30%'"
                         [ngClass]="{ 'd-md-none': col.field == 'add_user' }"
                     >
-                        <span class="primeng-table-header">{{ col.header }}</span>
+                        <span class="primeng-table-header">{{ col.header | translate }}</span>
                         <p-sortIcon
                             *ngIf="col.sortable === true"
                             [field]="col.field"

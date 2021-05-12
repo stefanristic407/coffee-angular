@@ -155,6 +155,11 @@
             background-image: url('/assets/images/delete-role.svg');
         }
     }
+
+    &:hover {
+        color: $general-text-color;
+        text-decoration: none;
+    }
 }
 
 .btn-f8 {

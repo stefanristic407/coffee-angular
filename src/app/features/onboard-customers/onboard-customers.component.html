@@ -5,31 +5,31 @@
                 <a class="back-page" routerLink="/people/customer-management"> {{ 'back' | translate }}</a>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-12 onboard-section">
-                <h1 class="title">Onboard Customers</h1>
-                <p class="fnt-muli mb-3 mb-lg-5 pb-lg-0 pb-3 sub-text">Invite Mirco-Roaster and HoReCa's for setup</p>
-                <div class="row">
-                    <div class="col-sm-12 col-md-6 col-lg-3 mb-3 pr-md-0">
+                <h1 class="title">{{ 'onboard_customers' | translate }}</h1>
+                <p class="fnt-muli mb-3 mb-lg-5 pb-lg-0 pb-3 sub-text">Invite Mirco Roaster and HoReCa's for setup</p>
+                <div class="row gutter-16">
+                    <div class="col-md-8 col-lg-5 mb-3">
                         <button
                             class="btn dashboard-button"
                             routerLink="/features/roaster-quick-setup"
                             [queryParams]="{ buttonValue: 'Micro-Roaster' }"
                         >
                             <img class="logo-img float-left" src="assets/images/group-19.svg" />
-                            <span class="roaster">Micro-Roaster</span>
+                            <span class="roaster">{{ 'micro_roasters' | translate }}</span>
                             <img class="icon-img float-right" src="assets/images/cta-arrow.svg" /><img
                                 class="icon-img-filled float-right"
                                 src="assets/images/cta-arrow-hover.svg"
                             />
                         </button>
                     </div>
-                    <div class="col-sm-12 col-md-6 col-lg-3 mb-3 pl-md-3">
+                    <div class="col-md-8 col-lg-5 mb-3">
                         <button
                             class="btn dashboard-button"
                             routerLink="/features/roaster-quick-setup"
                             [queryParams]="{ buttonValue: 'HoReCa' }"
                         >
                             <img class="logo-img float-left" src="assets/images/group-7.svg" />
-                            <span class="facilitator">HoReCa</span>
+                            <span class="facilitator">{{ 'roasted_coffee_customers' | translate }}</span>
                             <img class="icon-img float-right" src="assets/images/cta-arrow.svg" /><img
                                 class="icon-img-filled float-right"
                                 src="assets/images/cta-arrow-hover.svg"

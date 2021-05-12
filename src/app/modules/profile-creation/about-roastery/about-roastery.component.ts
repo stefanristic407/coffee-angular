@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { RoasteryProfileService } from '../roastery-profile.service';
-import { UserserviceService } from '@services';
+import { ChatHandlerService, UserService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { maxWordCountValidator } from '@utils';
 import { ImageCroppedEvent, ImageCropperComponent, ImageTransform } from 'ngx-image-cropper';
+import { OrganizationType } from '@enums';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -93,12 +94,14 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
     constructor(
         public roasteryProfileService: RoasteryProfileService,
         public userService: UserserviceService,
+        private usrService: UserService,
         private cookieService: CookieService,
         private toastrService: ToastrService,
         public globals: GlobalsService,
         public roasterService: RoasterserviceService,
         private fb: FormBuilder,
         private router: Router,
+        private chatHandler: ChatHandlerService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.userId = this.cookieService.get('user_id');
@@ -515,5 +518,17 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
 
     selectBrandImage() {
         this.brandImageInput.nativeElement.click();
+    }
+
+    openChat(contactData): void {
+        this.usrService.getUserDetail(contactData.user_id, OrganizationType.ROASTER).subscribe((res: any) => {
+            if (res.success) {
+                this.chatHandler.openChatThread({
+                    user_id: contactData.user_id,
+                    org_type: OrganizationType.ROASTER,
+                    org_id: res.result.organization_id,
+                });
+            }
+        });
     }
 }

@@ -18,15 +18,4 @@ export class WhyUsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {}
-
-    openPicture(src) {
-        const items = [new ImageItem({ src, thumb: src })];
-        const lightboxRef = this.gallery.ref('lightbox');
-        lightboxRef.setConfig({
-            imageSize: ImageSize.Cover,
-            thumb: false,
-        });
-        lightboxRef.load(items);
-        this.lightbox.open(0);
-    }
 }
