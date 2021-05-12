@@ -423,14 +423,6 @@ export class ProductDetailsComponent implements OnInit {
             const getObj = this.crates.value.find(
                 (ele) => ele.product_weight_variant_id === event.product_weight_variant_id,
             );
-            if (this.productID) {
-                const getcrate = this.allCrates.find(
-                    (ele) => ele.product_weight_variant_id === event.product_weight_variant_id,
-                );
-                if (getcrate) {
-                    getcrate.hasChanged = true;
-                }
-            }
             const indexValue = this.crates.value.indexOf(getObj);
             if (getObj) {
                 if (
@@ -468,7 +460,7 @@ export class ProductDetailsComponent implements OnInit {
         if (this.validateForms()) {
             const productObj = this.productForm.value;
             if (this.productID) {
-                this.GrindVariantsDetails(this.productID, false);
+                this.updateProductDetails(productObj);
             } else {
                 this.createNewProduct(productObj);
             }
@@ -494,9 +486,15 @@ export class ProductDetailsComponent implements OnInit {
             },
         );
     }
-    updateProductDetails() {
-        const productObj = Object.assign({}, this.productForm.value);
+    updateProductDetails(productObj) {
         delete productObj.variants;
+        for (const crate of this.allCrates) {
+            if (
+                !productObj.crates.find((item) => item.weight === crate.weight && item.crate_unit === crate.crate_unit)
+            ) {
+                productObj.crates.push(crate);
+            }
+        }
         productObj.crates.forEach((ele) => {
             delete ele.id;
             delete ele.boxField;
@@ -507,8 +505,7 @@ export class ProductDetailsComponent implements OnInit {
         this.eCommerceService.updateProductDetails(this.productID, productObj, this.type).subscribe(
             (res) => {
                 if (res && res.success) {
-                    this.toasterService.success(`Product updated successfully`);
-                    this.router.navigate([`/e-commerce/product-list/${this.type}`]);
+                    this.GrindVariantsDetails(this.productID, false);
                 } else {
                     this.toasterService.error('Error while add a Product');
                 }
@@ -535,7 +532,7 @@ export class ProductDetailsComponent implements OnInit {
                         }
                     });
                 }
-                weightObj.variant_id = index + 1;
+                weightObj.variant_id = childIndex + 1;
                 weightObj.rc_batch_id = getVariantDetails.rc_batch_id;
                 weightObj.product_images = productImagesArray;
                 weightObj.is_public = !weight.is_public;
@@ -569,12 +566,8 @@ export class ProductDetailsComponent implements OnInit {
         }
         Promise.all(promises)
             .then(() => {
-                if (isNew) {
-                    this.toasterService.success(`Product created successfully`);
-                    this.router.navigate([`/e-commerce/product-list/${this.type}`]);
-                } else {
-                    this.updateProductDetails();
-                }
+                this.toasterService.success(`Product ${isNew ? 'created' : 'updated'} successfully`);
+                this.router.navigate([`/e-commerce/product-list/${this.type}`]);
             })
             .catch(() => {});
     }
