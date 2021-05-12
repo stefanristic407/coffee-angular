@@ -109,7 +109,7 @@
                             </li>
                             <li>
                                 <label>{{ 'access_to_agronomist' | translate }} :</label>
-                                <p>{{ sourcing.estate?.agronomist_access || 'NA' }}</p>
+                                <p>{{ (sourcing.estate?.agronomist_access | titlecase) || 'NA' }}</p>
                             </li>
                             <li>
                                 <label>{{ 'total_number_trees' | translate }} :</label>
