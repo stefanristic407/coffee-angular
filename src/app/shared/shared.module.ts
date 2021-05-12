@@ -232,6 +232,7 @@ import { CopyImageToClipboardDirective } from './directives/copy-image-to-clipbo
 import { FullImgWrapperDirective } from './directives/full-img-wrapper.directive';
 import { WeightConvertPipe } from './pipes/weight-convert.pipe';
 import { ThousandSuffPipe } from './pipes/thousand-suff.pipe';
+import { CertificateNamePipe } from './pipes';
 const PIPES = [
     AvailabilityListingStatusPipe,
     AvailabilityTypePipe,
@@ -254,6 +255,7 @@ const PIPES = [
     WordCountPipe,
     SearchFilterPipe,
     ConvertToShortDescriptionPipe,
+    CertificateNamePipe,
 ];
 // #endregion
 
