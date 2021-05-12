@@ -542,6 +542,13 @@ export class ProductDetailsComponent implements OnInit {
                     roaster_recommendation: getVariantDetails.roaster_recommendation,
                     recipes: getVariantDetails.recipes,
                 };
+                const grindVariants = weightObj.grind_variants.map((item) => {
+                    if (!item.grind_variant_id) {
+                        delete item.grind_variant_id;
+                    }
+                    return item;
+                });
+                weightObj.grind_variants = grindVariants;
                 if (weight.isNew) {
                     promises.push(
                         new Promise((resolve, reject) => {
