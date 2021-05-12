@@ -27,6 +27,18 @@ export class ResizeService {
         return this.isDesktopSubject.asObservable().pipe(distinctUntilChanged());
     }
 
+    isMobile(): boolean {
+        return this.isMobileSubject.getValue();
+    }
+
+    isTablet(): boolean {
+        return this.isTabletSubject.getValue();
+    }
+
+    isDesktop(): boolean {
+        return this.isDesktopSubject.getValue();
+    }
+
     onResize(width: number): void {
         this.isMobileSubject.next(width < this.tabletMinWidth);
         this.isTabletSubject.next(width < this.desktopMinWidth && width >= this.tabletMinWidth);

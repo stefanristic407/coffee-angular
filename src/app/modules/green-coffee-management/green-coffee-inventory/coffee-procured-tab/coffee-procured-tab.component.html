@@ -110,7 +110,7 @@
                     <span *ngSwitchCase="'origin'" [routerLink]="availabilityPage(rowData)">
                         <div class="d-flex">
                             <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
-                                {{ rowData.origin | country }}
+                                {{ rowData['origin'] | country | translate }}
                             </span>
                         </div>
                     </span>

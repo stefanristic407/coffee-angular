@@ -1,0 +1,6 @@
+<div class="upload-info-block">
+    <div *ngFor="let item of uploadService.processes$ | async" class="upload-wrap br-4 p-3 mt-2">
+        <div class="mb-2">{{ item.name || 'NA' }}</div>
+        <p-progressBar [style]="{ height: '6px', width: '100%' }" [value]="item.progress || 0"></p-progressBar>
+    </div>
+</div>

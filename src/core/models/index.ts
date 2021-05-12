@@ -7,4 +7,5 @@ export * from './order-chat';
 export * from './order-management';
 export * from './reviews';
 export * from './shipping-details';
+export * from './upload';
 export * from './user';

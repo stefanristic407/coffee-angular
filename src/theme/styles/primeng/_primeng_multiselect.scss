@@ -81,6 +81,13 @@
             display: block;
         }
     }
+
+    .all-mark {
+        position: absolute;
+        left: 40px;
+        font-weight: 600;
+        color: $muted-text-color;
+    }
 }
 .p-multiselect-panel .p-multiselect-header .p-multiselect-close {
     display: none;

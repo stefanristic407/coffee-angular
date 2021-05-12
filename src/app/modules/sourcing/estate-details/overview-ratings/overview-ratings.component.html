@@ -6,7 +6,11 @@
             </div>
         </div>
         <div class="col-lg-8 col-md-12 mt-3 mt-lg-0">
-            <app-reviews [reviews]="sourcing.reviewsList" [average]="sourcing.estateReviewsAverage"></app-reviews>
+            <app-reviews
+                [reviews]="sourcing.reviewsList"
+                [average]="sourcing.estateReviewsAverage"
+                [orgType]="OrgType.ESTATE"
+            ></app-reviews>
         </div>
     </div>
 </ng-container>

@@ -4,8 +4,10 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Gallery, ImageItem, ImageSize } from 'ng-gallery';
 import { ToastrService } from 'ngx-toastr';
 import { Lightbox } from 'ng-gallery/lightbox';
-import { RoasterserviceService } from '@services';
-import { GlobalsService } from '@services';
+import { FileService, ResizeService } from '@services';
+import { FileModule } from '@enums';
+import * as moment from 'moment';
+import { ResizeableComponent } from '@base-components';
 
 @Component({
     selector: 'app-uploader',
@@ -19,7 +21,7 @@ import { GlobalsService } from '@services';
         },
     ],
 })
-export class UploaderComponent implements OnInit, ControlValueAccessor {
+export class UploaderComponent extends ResizeableComponent implements OnInit, ControlValueAccessor {
     @ViewChild('fileInput', { static: false }) fileInput;
     inputId = Math.random() * 1000;
     onChange: any;
@@ -30,6 +32,7 @@ export class UploaderComponent implements OnInit, ControlValueAccessor {
     @Input() type = 'all';
     @Input() width = null;
     @Input() height = null;
+    @Input() fileModule = FileModule.BrandProfile;
     acceptType: string;
     items = [
         {
@@ -70,12 +73,18 @@ export class UploaderComponent implements OnInit, ControlValueAccessor {
         public gallery: Gallery,
         public lightbox: Lightbox,
         private toastrService: ToastrService,
-        private globalSrv: GlobalsService,
-        private roasterSrv: RoasterserviceService,
-    ) {}
+        private fileService: FileService,
+        protected resizeService: ResizeService,
+    ) {
+        super(resizeService);
+    }
 
     ngOnInit(): void {
-        if (this.type === 'video') {
+        if (this.type === 'file') {
+            this.acceptType = '*';
+        } else if (this.type === 'pdf') {
+            this.acceptType = '.pdf';
+        } else if (this.type === 'video') {
             this.acceptType = 'video/*';
         } else if (this.type === 'image') {
             this.acceptType = 'image/*';
@@ -91,34 +100,15 @@ export class UploaderComponent implements OnInit, ControlValueAccessor {
                 this.toastrService.error(`Please select the correct file`);
             }
             this.upload(file);
-            // if (file.type.startsWith('image') && (this.width || this.height)) {
-            //     const reader = new FileReader();
-            //     reader.onload = () => {
-            //         const img = new Image();
-            //         img.onload = () => {
-            //             if (
-            //                 (this.width && this.width !== img.naturalWidth) ||
-            //                 (this.height && this.height !== img.naturalHeight)
-            //             ) {
-            //                 this.toastrService.error(
-            //                     `Image should be ${this.width || 'NA'} x ${this.height || 'NA'} size`,
-            //                 );
-            //             } else {
-            //                 this.upload(file);
-            //             }
-            //             window.URL.revokeObjectURL(img.src);
-            //         };
-            //         img.src = window.URL.createObjectURL(file);
-            //     };
-            //     reader.readAsDataURL(file);
-            // } else {
-            //     this.upload(file);
-            // }
         }
     }
 
     upload(file) {
-        this.roasterSrv.uploadBrandProfile(file).subscribe(
+        const formData: FormData = new FormData();
+        formData.append('file', file, file.name);
+        formData.append('name', moment().format('YYYYMMDDHHmmss') + '.' + file.name.split('.').pop());
+        formData.append('file_module', this.fileModule);
+        this.fileService.uploadFiles(formData).subscribe(
             (res: any) => {
                 if (res.success) {
                     if (this.count > 1) {
@@ -171,7 +161,7 @@ export class UploaderComponent implements OnInit, ControlValueAccessor {
     }
 
     showUploader() {
-        if (this.globalSrv.device === 'mobile') {
+        if (this.resizeService.isMobile()) {
             return !(this.files?.length >= this.count);
         } else {
             return !(this.count > 1 && this.files?.length >= this.count);

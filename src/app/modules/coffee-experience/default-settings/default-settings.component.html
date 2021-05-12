@@ -301,7 +301,7 @@
                                         </div>
                                     </div>
                                     <div class="d-flex flex-column flex-md-row flex-lg-column">
-                                        <div class="media-container">
+                                        <div *ngif="isEstatePage && defaultDetails.image_url" class="media-container">
                                             <div *ngIf="isImagePreviewPanel" class="existing-media-container">
                                                 <div
                                                     class="content-container br-4"
@@ -360,7 +360,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="media-container">
+                                        <div *ngif="isEstatePage && defaultDetails.video_url" class="media-container">
                                             <div *ngIf="isVideoPreviewPanel" class="existing-media-container">
                                                 <div class="content-container br-4">
                                                     <img
@@ -497,7 +497,10 @@
                                     </div>
 
                                     <!--Share your story-->
-                                    <div *ngIf="isCoffeeDetailsPage" class="form-section__inputs">
+                                    <div
+                                        *ngIf="isCoffeeDetailsPage && coffeeExperienceLink"
+                                        class="form-section__inputs"
+                                    >
                                         <div class="roastery-fields tab">
                                             <div class="tab-width">
                                                 <h4 class="fnt-16 fnt-700 fnt-muli text-clr334 tab-bottom-margin">
@@ -543,14 +546,10 @@
                                                         />
                                                         <div class="download-qr-link d-flex justify-content-center">
                                                             <a
-                                                                class="btn-trans-icon px-3 d-inline-flex align-items-center download"
-                                                                href="assets/images/dwnd.png"
-                                                                download
+                                                                class="btn-trans-icon download-icon"
+                                                                (click)="onDownloadQr()"
                                                             >
-                                                                <img src="assets/images/dwnd.png" />
-                                                                <span class="ml-2">
-                                                                    {{ 'download' | translate }}
-                                                                </span>
+                                                                {{ 'download' | translate }}
                                                             </a>
                                                         </div>
                                                     </div>

@@ -13,6 +13,7 @@
                     styleClass="w-100 mb-3 mb-md-4 br-right-0 {{ queryParams.origin?.length ? 'highlight' : '' }}"
                 >
                     <ng-template pTemplate="header">
+                        <span class="all-mark">{{ 'all' | translate }}</span>
                         <span
                             class="clear-btn pi pi-times {{ queryParams.origin?.length ? 'show' : '' }}"
                             (click)="queryParams.origin = null; filterCall()"
@@ -35,6 +36,7 @@
                     }}"
                 >
                     <ng-template pTemplate="header">
+                        <span class="all-mark">{{ 'all' | translate }}</span>
                         <span
                             class="clear-btn pi pi-times {{ queryParams.species?.length ? 'show' : '' }}"
                             (click)="queryParams.species = null; filterCall()"

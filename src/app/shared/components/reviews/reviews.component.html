@@ -2,7 +2,7 @@
     <div class="d-flex flex-wrap">
         <div class="mr-3 mr-md-5">
             <p class="fnt-12 lh-normal fnt-600 text-clr588 mb-1 mb-md-2 text-nowrap">
-                {{ globals.languageJson?.overall_experience | titlecase }}
+                {{ 'overall_experience' | translate }}
             </p>
             <p class="fnt-14 lh-normal fnt-bold text-clr334">
                 <span class="fa fa-star mr-1"></span>
@@ -11,14 +11,14 @@
         </div>
         <div class="mr-3 mr-md-5">
             <p class="fnt-12 lh-normal fnt-600 text-clr588 mb-1 mb-md-2 text-nowrap">
-                {{ globals.languageJson?.communication | titlecase }}
+                {{ 'communication' | translate }}
             </p>
             <p class="fnt-14 lh-normal fnt-bold text-clr334">
                 <span class="fa fa-star mr-1"></span>
                 {{ average?.communication | number: '1.1-1' }}
             </p>
         </div>
-        <div class="mr-3 mr-md-5 d-none d-md-block">
+        <div *ngIf="orgType == OrgType.ESTATE" class="mr-3 mr-md-5 d-none d-md-block">
             <p class="fnt-12 lh-normal fnt-600 text-clr588 mb-1 mb-md-2 text-nowrap">Green coffee</p>
             <p class="fnt-14 lh-normal fnt-bold text-clr334">
                 <span class="fa fa-star mr-1"></span>
@@ -35,7 +35,7 @@
         </div>
     </div>
     <div class="review-list">
-        <div *ngFor="let review of reviews; let i = index">
+        <div *ngFor="let review of reviews | slice: 0:limit; let i = index">
             <div *ngIf="i" class="solid-divider message-space my-3 my-md-4"></div>
             <div class="d-flex justify-content-between">
                 <div class="d-flex">
@@ -76,6 +76,15 @@
             </div>
             <div class="fnt-12 fnt-md-14 lh-normal fnt-500 text-clr588 text-md-clr334 message-space">
                 <app-read-more [content]="review.comment" rows="3"></app-read-more>
+            </div>
+        </div>
+
+        <div *ngIf="limit < reviews.length" class="mt-4">
+            <div class="solid-divider message-space my-3 my-md-4"></div>
+            <div class="d-flex justify-content-end">
+                <div class="brown-cta" (click)="seeMore()">
+                    {{ 'more_reviews' | translate }}
+                </div>
             </div>
         </div>
     </div>

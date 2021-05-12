@@ -13,7 +13,7 @@ import { SourcingService } from '../sourcing/sourcing.service';
 export class CoffeeExperienceComponent implements OnInit {
     items = [
         { label: 'Home', routerLink: '/features/welcome-aboard' },
-        { label: 'Farm link' },
+        { label: 'Brand & Experience' },
         { label: 'The Coffee Experience' },
     ];
     queryParams: any;
@@ -48,6 +48,9 @@ export class CoffeeExperienceComponent implements OnInit {
             this.getEstateOrders();
         } else if (event.index === 2) {
             this.customerType = 'hrc';
+            this.getEstateOrders();
+        } else if (event.index === 3) {
+            this.customerType = 'outtake-orders';
             this.getEstateOrders();
         }
     }

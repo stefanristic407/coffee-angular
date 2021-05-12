@@ -62,7 +62,7 @@ export class GradeSampleComponent implements OnInit {
         this.breadCrumbItems = [
             { label: this.globals.languageJson?.home, routerLink: '/features/micro-roaster-dashboard' },
             { label: this.globals.languageJson?.green_grading, routerLink: '/green-grading' },
-            { label: this.globals.languageJson?.grade_sample },
+            { label: this.globals.languageJson?.score_sample },
         ];
         this.countries = COUNTRY_LIST;
         this.getExternalReports();

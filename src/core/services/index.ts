@@ -11,6 +11,7 @@ export * from './roastery-profile/profile-photo.service';
 export * from './roastery-profile/roastery-profile.service';
 export * from './socket/socket.service';
 export * from './startup/startup.service';
+export * from './upload';
 export * from './common.service';
 export * from './resize.service';
 export * from './api/api-request.service';
