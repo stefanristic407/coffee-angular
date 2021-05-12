@@ -17,6 +17,7 @@ import { Download } from '@models';
 })
 export class DefaultSettingsComponent implements OnInit {
     isCoffeeDetailsPage = this.route.snapshot.routeConfig.path !== 'default-settings';
+    isEstatePage = this.route.snapshot.routeConfig.path === 'estate_id';
     date1: Date;
     appLanguage?: any;
     coffeeDetailsActive: any = 0;
@@ -93,6 +94,8 @@ export class DefaultSettingsComponent implements OnInit {
                 this.orderId = decodeURIComponent(this.route.snapshot.queryParams.micro_roasters_id);
             } else if (this.route.snapshot.queryParams.hrc_id) {
                 this.orderId = decodeURIComponent(this.route.snapshot.queryParams.hrc_id);
+            } else if (this.route.snapshot.queryParams.outtake_orders_id) {
+                this.orderId = decodeURIComponent(this.route.snapshot.queryParams.outtake_orders_id);
             }
             this.getOrderExperience();
         } else {
@@ -231,15 +234,17 @@ export class DefaultSettingsComponent implements OnInit {
                     this.coffeeExperienceLink = rep.result;
                 }
             });
-        } else if (this.route.snapshot.queryParams.outtake_order_id) {
-            this.userService.getHrcOrdersCoffeeExperience(this.roasterId, this.orderId).subscribe((response: any) => {
-                if (response.success) {
-                    this.setPageData(response);
-                } else {
-                    this.getDefaultSetting();
-                }
-            });
-            this.userService.getCoffeeStory(this.roasterId, this.orderId, 'hrc-orders').subscribe((rep: any) => {
+        } else if (this.route.snapshot.queryParams.outtake_orders_id) {
+            this.userService
+                .getOuttakeOrdersCoffeeExperience(this.roasterId, this.orderId)
+                .subscribe((response: any) => {
+                    if (response.success) {
+                        this.setPageData(response);
+                    } else {
+                        this.getDefaultSetting();
+                    }
+                });
+            this.userService.getCoffeeStory(this.roasterId, this.orderId, 'outtake-orders').subscribe((rep: any) => {
                 if (rep.success) {
                     this.coffeeExperienceLink = rep.result;
                 }
@@ -445,6 +450,21 @@ export class DefaultSettingsComponent implements OnInit {
                     this.toastrService.error('Error while saving the details');
                 },
             );
+        } else if (this.route.snapshot.queryParams.outtake_orders_id) {
+            this.userService.postOuttakeOrdersCoffeeExperience(this.roasterId, this.orderId, data).subscribe(
+                (res: any) => {
+                    this.isSaving = false;
+                    if (res.success) {
+                        this.handleAfterSuccess();
+                    } else {
+                        this.toastrService.error('Error while saving the details');
+                    }
+                },
+                (err) => {
+                    this.isSaving = false;
+                    this.toastrService.error('Error while saving the details');
+                },
+            );
         } else {
             this.userService.postDefaultCoffeeExperienceDetail(this.roasterId, data).subscribe(
                 (res: any) => {
@@ -525,7 +545,6 @@ export class DefaultSettingsComponent implements OnInit {
                 if (action === 'yes') {
                     this.downloadService.imageDownload(this.coffeeExperienceLink.qr_code_url).subscribe(
                         (res: Download) => {
-                            console.log(res);
                             if (res.state === 'DONE') {
                                 this.toastrService.success('Downloaded successfully');
                             }

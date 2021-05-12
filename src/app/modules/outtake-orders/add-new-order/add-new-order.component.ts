@@ -1,10 +1,13 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RoasterserviceService, UserserviceService } from '@services';
+import { DownloadService, RoasterserviceService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmComponent } from '@app/shared';
+import { Download } from '@models';
 
 @Component({
     selector: 'app-add-new-order',
@@ -43,6 +46,8 @@ export class AddNewOrderComponent implements OnInit {
         private userService: UserserviceService,
         private toaster: ToastrService,
         private activeRoute: ActivatedRoute,
+        public downloadService: DownloadService,
+        public dialogSrv: DialogService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.outtakeOrderId = this.activeRoute.snapshot.params.id;
@@ -217,6 +222,35 @@ export class AddNewOrderComponent implements OnInit {
         document.body.appendChild(textArea);
         textArea.select();
         document.execCommand('Copy');
+        if (this.coffeeExperienceLink.coffee_story_url && document.execCommand('Copy')) {
+            this.toaster.success('Copied link successfully');
+        }
         textArea.remove();
+    }
+
+    onDownloadQr() {
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    title: 'Please confirm!',
+                    desp: 'Are you sure want to download',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.downloadService.imageDownload(this.coffeeExperienceLink.qr_code_url).subscribe(
+                        (res: Download) => {
+                            if (res.state === 'DONE') {
+                                this.toaster.success('Downloaded successfully');
+                            }
+                        },
+                        (error) => {
+                            this.toaster.error('Download failed');
+                        },
+                    );
+                }
+            });
     }
 }
