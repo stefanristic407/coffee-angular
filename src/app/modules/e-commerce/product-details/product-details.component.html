@@ -169,7 +169,14 @@
                                     formControlName="rc_batch_id"
                                     optionValue="id"
                                     (onChange)="onBatchChange(i)"
-                                ></p-dropdown>
+                                >
+                                    <ng-template pTemplate="selectedItem">
+                                        {{ getSelectedBatchLabel(variant.value.rc_batch_id) }}
+                                    </ng-template>
+                                    <ng-template let-roastBatch pTemplate="item">
+                                        {{ 'Batch #' + roastBatch.id + ' - ' + roastBatch.roast_batch_name }}
+                                    </ng-template>
+                                </p-dropdown>
                                 <small *ngIf="variant.controls['rc_batch_id'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
