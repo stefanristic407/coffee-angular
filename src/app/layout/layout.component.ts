@@ -48,6 +48,9 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
 
     activeLink: 'DASHBOARD' | 'MESSAGES' | 'NOTIFICATIONS' | 'PROFILES' | 'UNSET' = 'UNSET';
     resizeEvent: Subscription;
+    userTermsAccepted: boolean;
+    orgTermsAccepted: boolean;
+
     constructor(
         private cookieService: CookieService,
         private userService: UserserviceService,
@@ -104,11 +107,19 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         );
         const self = this;
         Promise.all(promises).then(() => {
-            self.loaded = true;
-            setTimeout(() => {
-                self.menuService.expandActiveSubMenu();
-            });
-            this.refreshMenuItems();
+            if (!self.orgTermsAccepted || !self.userTermsAccepted) {
+                this.router.navigate(['/auth/privacy-policy'], {
+                    queryParams: {
+                        type: encodeURIComponent(this.orgTermsAccepted ? 'user' : 'org'),
+                    },
+                });
+            } else {
+                self.loaded = true;
+                setTimeout(() => {
+                    self.menuService.expandActiveSubMenu();
+                });
+                this.refreshMenuItems();
+            }
         });
 
         this.getLoggedInUserRoles();
@@ -182,6 +193,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         this.globals.permissionMethod();
         this.userService.getRoasterProfile(this.roasterId).subscribe((res: any) => {
             if (res.success) {
+                this.userTermsAccepted = res.result.terms_accepted;
                 this.coffeeLabService.forumLanguage.next(res.result.language || 'en');
                 this.authService.userSubject.next(res.result);
                 this.i18NService.use(res.result.language || 'en');
@@ -201,6 +213,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     getRoasterProfile(resolve) {
         this.userService.getRoasterAccount(this.roasterId).subscribe((res: any) => {
             if (res.result) {
+                this.orgTermsAccepted = res.result.terms_accepted || !('terms_accepted' in res.result);
                 this.authService.organizationSubject.next(res.result);
                 resolve();
             } else {
