@@ -1,0 +1,14 @@
+@import 'variables';
+
+.upload-info-block {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+
+    .upload-wrap {
+        background-color: $brown-color;
+        color: $white;
+
+        width: 200px;
+    }
+}
