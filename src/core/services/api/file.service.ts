@@ -57,16 +57,6 @@ export class FileService extends ApiService {
 
     // ------------ Farmlink Files ------------
     // Upload Farmlink files
-    // uploadFiles(formData: FormData): Observable<ApiResponse<any>> {
-    //     const httpOptions = {
-    //         headers: new HttpHeaders({ Accept: 'application/json' }),
-    //     };
-    //     const roasterId = this.cookieService.get('roaster_id');
-    //     formData.append('api_call', `/ro/${roasterId}/file-manager/files`);
-    //     formData.append('token', this.cookieService.get('Auth'));
-    //     formData.append('method', 'POST');
-    //     return this.http.post<ApiResponse<any>>(this.fileUploadUrl, formData, httpOptions);
-    // }
     uploadFiles(formData: FormData) {
         formData.append('api_call', `/${this.orgType}/${this.getOrgId()}/file-manager/files`);
         formData.append('token', this.cookieService.get('Auth'));

@@ -18,7 +18,7 @@
                 {{ average?.communication | number: '1.1-1' }}
             </p>
         </div>
-        <div class="mr-3 mr-md-5 d-none d-md-block">
+        <div *ngIf="orgType == OrgType.ESTATE" class="mr-3 mr-md-5 d-none d-md-block">
             <p class="fnt-12 lh-normal fnt-600 text-clr588 mb-1 mb-md-2 text-nowrap">Green coffee</p>
             <p class="fnt-14 lh-normal fnt-bold text-clr334">
                 <span class="fa fa-star mr-1"></span>
