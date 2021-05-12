@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalsService, RoasterserviceService } from '@services';
+import { DownloadService, GlobalsService, RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { MenuItem } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmComponent } from '@app/shared';
+import { Download } from '@models';
 
 @Component({
     selector: 'app-default-settings',
@@ -65,6 +68,8 @@ export class DefaultSettingsComponent implements OnInit {
         public cookieService: CookieService,
         public route: ActivatedRoute,
         public location: Location,
+        public dialogSrv: DialogService,
+        public downloadService: DownloadService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.setMenuItems();
@@ -106,7 +111,7 @@ export class DefaultSettingsComponent implements OnInit {
         ];
         this.items = [
             { label: 'Home', routerLink: '/features/welcome-aboard' },
-            { label: 'Farm link' },
+            { label: 'Brand & Experience' },
             { label: 'The Coffee Experience', routerLink: '/coffee-experience' },
             { label: this.isCoffeeDetailsPage ? 'Order #' + this.orderId : 'Default Settings' },
         ];
@@ -487,6 +492,36 @@ export class DefaultSettingsComponent implements OnInit {
         document.body.appendChild(textArea);
         textArea.select();
         document.execCommand('Copy');
+        if (this.coffeeExperienceLink.coffee_story_url && document.execCommand('Copy')) {
+            this.toastrService.success('Copied link successfully');
+        }
         textArea.remove();
+    }
+
+    onDownloadQr() {
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    title: 'Please confirm!',
+                    desp: 'Are you sure want to download',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.downloadService.imageDownload(this.coffeeExperienceLink.qr_code_url).subscribe(
+                        (res: Download) => {
+                            console.log(res);
+                            if (res.state === 'DONE') {
+                                this.toastrService.success('Downloaded successfully');
+                            }
+                        },
+                        (error) => {
+                            this.toastrService.error('Download failed');
+                        },
+                    );
+                }
+            });
     }
 }
