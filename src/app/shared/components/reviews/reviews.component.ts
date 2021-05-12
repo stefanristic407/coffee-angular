@@ -9,8 +9,10 @@ import { GlobalsService } from '@services';
 export class ReviewsComponent implements OnInit {
     @Input() reviews: any[];
     @Input() average: any;
+    limit = 5;
     termStatus = 'Most relevant';
     termItems: any[];
+
     constructor(public globals: GlobalsService) {}
 
     ngOnInit(): void {
@@ -19,6 +21,10 @@ export class ReviewsComponent implements OnInit {
             { label: this.globals.languageJson?.recent_reviews, value: 'Recent reviews' },
             { label: this.globals.languageJson?.based_on_rating, value: 'Based on rating' },
         ];
+    }
+
+    seeMore() {
+        this.limit += 5;
     }
 
     filterCall() {
