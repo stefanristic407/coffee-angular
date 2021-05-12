@@ -1,10 +1,10 @@
 <div>
-    <p class="fnt-16 fnt-md-18 fnt-bold text-clr334 mb-1 mb-md-2 d-none d-md-block">
+    <p class="fnt-16 fnt-md-18 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-none d-md-block">
         {{ 'recent_activity' | translate }}
     </p>
 
     <div class="p-3 p-md-0 border-main border-md-none br-4 h-100">
-        <p class="fnt-14 fnt-bold text-clr334 mb-1 mb-md-2 d-md-none">{{ 'recent_activity' | translate }}</p>
+        <p class="fnt-14 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-md-none">{{ 'recent_activity' | translate }}</p>
         <div class="d-none d-md-block">
             <p-table
                 *ngIf="recentActivities"
@@ -13,7 +13,6 @@
                 [value]="recentActivities.slice(0, 5)"
                 [(selection)]="selectedMetaData"
                 dataKey="name"
-                tableStyleClass="table"
                 [rowHover]="false"
                 [loading]="loading"
                 [filterDelay]="0"
@@ -43,7 +42,11 @@
                             <p-tableCheckbox [value]="item"></p-tableCheckbox>
                         </td>
                         <td class="showcurser">
-                            {{ item.description | translate }}
+                            {{
+                                activityTypes[item.description]
+                                    ? activityTypes[item.description].name
+                                    : item.description
+                            }}
                         </td>
                         <td>
                             {{ item.user_name }}
@@ -65,10 +68,10 @@
                     <p class="fnt-12 fnt-bold text-clr588 mb-0">
                         {{ item.created_at | date: 'd MMM h:mm a' }}
                     </p>
-                    <p class="fnt-14 fnt-bold text-clr334 mb-0">{{ item.user_name }}</p>
-                    <p class="fnt-12 fnt-600 text-clr588 mb-0">{{ item.organisation_name }}</p>
-                    <p class="fnt-14 fnt-600 text-clr334 mb-2 text-break">
-                        {{ item.description | translate }}
+                    <p class="fnt-14 fnt-bold fnt-muli text-clr334 mb-0">{{ item.user_name }}</p>
+                    <p class="fnt-12 fnt-600 fnt-muli text-clr588 mb-0">{{ item.organisation_name }}</p>
+                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 mb-2 text-break">
+                        {{ activityTypes[item.description] ? activityTypes[item.description].name : item.description }}
                     </p>
                 </div>
             </div>

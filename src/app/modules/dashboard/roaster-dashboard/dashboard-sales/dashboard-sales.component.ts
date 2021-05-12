@@ -32,14 +32,14 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
             value: 'lastMonth',
             label: 'last 30 days',
         },
-        {
-            value: 'last3Month',
-            label: 'last 3 Months',
-        },
-        {
-            value: 'thisYear',
-            label: 'This year',
-        },
+        // {
+        //     value: 'last3Month',
+        //     label: 'last 3 Months',
+        // },
+        // {
+        //     value: 'thisYear',
+        //     label: 'This year',
+        // },
         // {
         //     value: 'lastYear',
         //     label: 'last Year',
