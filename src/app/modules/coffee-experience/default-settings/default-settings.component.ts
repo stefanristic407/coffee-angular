@@ -17,7 +17,6 @@ import { Download } from '@models';
 })
 export class DefaultSettingsComponent implements OnInit {
     isCoffeeDetailsPage = this.route.snapshot.routeConfig.path !== 'default-settings';
-    isEstatePage = this.route.snapshot.routeConfig.path === 'estate_id';
     date1: Date;
     appLanguage?: any;
     coffeeDetailsActive: any = 0;
@@ -84,7 +83,6 @@ export class DefaultSettingsComponent implements OnInit {
                 this.estateBtn = true;
             }
         });
-
         this.language();
         this.getMarketingMaterial();
         if (this.isCoffeeDetailsPage) {
