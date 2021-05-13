@@ -472,7 +472,7 @@ export class ProductDetailsComponent implements OnInit {
             this.variantComponent.forEach((child, childIndex) => {
                 child.weightForm.markAllAsTouched();
             });
-            this.toasterService.error('Please fill all Data');
+            this.toasterService.error('Please fill all Data and upload feature image.');
         }
     }
     createNewProduct(productObj) {

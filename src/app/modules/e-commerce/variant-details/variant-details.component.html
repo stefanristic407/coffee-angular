@@ -168,73 +168,95 @@
                             last as isLast
                         "
                     >
-                        <div [formGroupName]="i" class="row gutter-16">
-                            <div class="col-12 col-md-4 col-lg-3 sewn-form-field mb-3 mb-lg-4">
-                                <label>{{ 'price' | translate }}<span class="star">*</span></label>
-                                <div class="border-primary br-4 d-flex">
-                                    <div class="daysInputDiv">
-                                        <span>$</span>
+                        <div class="d-flex">
+                            <div [formGroupName]="i" class="row gutter-16 flex-1">
+                                <div class="col-12 col-md-4 col-lg-3 sewn-form-field mb-3 mb-lg-4">
+                                    <label>{{ 'price' | translate }}<span class="star">*</span></label>
+                                    <div class="border-primary br-4 d-flex">
+                                        <div class="daysInputDiv">
+                                            <span>$</span>
+                                        </div>
+                                        <div>
+                                            <input
+                                                type="number"
+                                                class="weightInputDiv"
+                                                formControlName="price"
+                                                pInputText
+                                            />
+                                            <small
+                                                *ngIf="grind_variant['controls']['price'].errors?.required"
+                                                class="position-absolute p-error"
+                                            >
+                                                {{ 'required' | translate }}
+                                            </small>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <input
-                                            type="number"
-                                            class="weightInputDiv"
-                                            formControlName="price"
-                                            pInputText
-                                        />
+                                </div>
+                                <div class="col-sm-12 col-md-4 col-lg-3 sewn-form-field mr-md-4 mr-lg-0 mb-3 mb-lg-4">
+                                    <label>{{ 'grind' | translate }}<span class="star">*</span></label>
+                                    <p-dropdown
+                                        [options]="grindArray"
+                                        optionLabel="label"
+                                        placeholder="Please select the grind variant"
+                                        styleClass="w-100"
+                                        formControlName="grind"
+                                        optionValue="value"
+                                    ></p-dropdown>
+                                    <small *ngIf="grind_variant['controls']['grind'].errors?.required" class="p-error">
+                                        {{ 'required' | translate }}
+                                    </small>
+                                </div>
+                                <div class="col-sm-12 col-md-4 col-lg-3 sewn-form-field mb-3 mb-lg-4">
+                                    <label>{{ 'stock_available' | translate }}<span class="star">*</span></label>
+
+                                    <div class="input-and-select gray">
+                                        <input type="number" pInputText formControlName="available_quantity" />
+                                        <p-dropdown
+                                            [options]="quantityTypeArray"
+                                            optionLabel="label"
+                                            placeholder=""
+                                            formControlName="available_quantity_type"
+                                            optionValue="value"
+                                            [readonly]="true"
+                                        ></p-dropdown>
                                         <small
-                                            *ngIf="grind_variant['controls']['price'].errors?.required"
+                                            *ngIf="grind_variant['controls']['available_quantity'].errors?.required"
                                             class="position-absolute p-error"
                                         >
                                             {{ 'required' | translate }}
                                         </small>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-12 col-md-4 col-lg-3 sewn-form-field mr-md-4 mr-lg-0 mb-3 mb-lg-4">
-                                <label>{{ 'grind' | translate }}<span class="star">*</span></label>
-                                <p-dropdown
-                                    [options]="grindArray"
-                                    optionLabel="label"
-                                    placeholder="Please select the grind variant"
-                                    styleClass="w-100"
-                                    formControlName="grind"
-                                    optionValue="value"
-                                ></p-dropdown>
-                                <small *ngIf="grind_variant['controls']['grind'].errors?.required" class="p-error">
-                                    {{ 'required' | translate }}
-                                </small>
-                            </div>
-                            <div class="col-sm-12 col-md-4 col-lg-3 sewn-form-field mb-3 mb-lg-4">
-                                <label>{{ 'stock_available' | translate }}<span class="star">*</span></label>
-
-                                <div class="input-and-select gray">
-                                    <input type="number" pInputText formControlName="available_quantity" />
-                                    <p-dropdown
-                                        [options]="quantityTypeArray"
-                                        optionLabel="label"
-                                        placeholder=""
-                                        formControlName="available_quantity_type"
-                                        optionValue="value"
-                                        [readonly]="true"
-                                    ></p-dropdown>
+                                <div class="col-sm-12 col-md-4 col-lg-3 sewn-form-field mb-3 mb-lg-4">
+                                    <label>{{ 'sku_number' | translate }}<span class="star">*</span></label>
+                                    <input type="text" formControlName="sku_number" pInputText />
                                     <small
-                                        *ngIf="grind_variant['controls']['available_quantity'].errors?.required"
-                                        class="position-absolute p-error"
+                                        *ngIf="grind_variant['controls']['sku_number'].errors?.required"
+                                        class="p-error"
                                     >
                                         {{ 'required' | translate }}
                                     </small>
                                 </div>
-                            </div>
-                            <div class="col-sm-12 col-md-4 col-lg-2 sewn-form-field mb-3 mb-lg-4">
-                                <label>{{ 'sku_number' | translate }}<span class="star">*</span></label>
-                                <input type="text" formControlName="sku_number" pInputText />
-                                <small *ngIf="grind_variant['controls']['sku_number'].errors?.required" class="p-error">
-                                    {{ 'required' | translate }}
-                                </small>
+                                <div
+                                    class="col-12 col-md-1 sewn-form-field pl-md-0 pl-lg-2 justify-content-end d-lg-none mb-3"
+                                    *ngIf="i != 0 || !isLast"
+                                >
+                                    <span
+                                        class="fnt-700 editBtn cursor-pointer mb-2"
+                                        *ngIf="i != 0 || !isLast"
+                                        (click)="deleteGrindVariant(i)"
+                                    >
+                                        {{ 'delete' | translate }}
+                                    </span>
+                                </div>
+                                <p-divider
+                                    type="dashed"
+                                    class="col-12"
+                                    styleClass="mt-2 mb-3 mb-md-4 d-lg-none"
+                                ></p-divider>
                             </div>
                             <div
-                                class="col-12 col-md-1 sewn-form-field pl-md-0 pl-lg-2 justify-content-end"
+                                class="sewn-form-field pl-3 justify-content-end d-none d-lg-inline-flex"
                                 *ngIf="i != 0 || !isLast"
                             >
                                 <span
@@ -245,11 +267,6 @@
                                     {{ 'delete' | translate }}
                                 </span>
                             </div>
-                            <p-divider
-                                type="dashed"
-                                class="col-12"
-                                styleClass="mt-2 mb-3 mb-md-4 d-lg-none"
-                            ></p-divider>
                         </div>
                     </div>
                     <div>
