@@ -64,7 +64,8 @@
                                 <img
                                     *ngFor="let cert of sourcing.availableCertify"
                                     [src]="cert.certificate_type_id | certificateImg"
-                                    class="cert-img mb-3 mr-4 mr-lg-45"
+                                    class="cert-img cursor-pointer mb-3 mr-4 mr-lg-45"
+                                    (click)="sourcing.openCert(cert.public_url)"
                                 />
                             </div>
                         </div>
@@ -90,7 +91,8 @@
                                         <img
                                             *ngFor="let cert of sourcing.availableCertify"
                                             [src]="cert.certificate_type_id | certificateImg"
-                                            class="cert-img mb-3 ml-25"
+                                            class="cert-img cursor-pointer mb-3 ml-25"
+                                            (click)="sourcing.openCert(cert.public_url)"
                                         />
                                     </div>
                                 </div>

@@ -278,4 +278,8 @@ export class SourcingService {
             }
         });
     }
+
+    openCert(url) {
+        window.open(url, '_blank');
+    }
 }
