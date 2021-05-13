@@ -11,9 +11,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     styleUrls: ['./vat-details.component.scss'],
 })
 export class VatDetailsComponent implements OnInit {
-    // tslint:disable: indent
-    // tslint:disable: variable-name
-
     roasterId: any;
     resetButtonValue = 'Save';
     eachId: any;

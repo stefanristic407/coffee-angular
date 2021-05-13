@@ -79,6 +79,11 @@ export const routes: Routes = [
                     ),
             },
             {
+                path: 'product-setting',
+                loadChildren: () =>
+                    import('./modules/product-setting/product-setting.module').then((m) => m.ProductSettingModule),
+            },
+            {
                 path: 'sales-contract',
                 loadChildren: () =>
                     import('./modules/sales-contract/sales-contract.module').then((m) => m.SalesContractModule),

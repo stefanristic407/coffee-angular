@@ -11,7 +11,6 @@ import { RoasterCompleteSetupComponent } from './roaster-complete-setup/roaster-
 import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
 import { RoasterOnboardingComponent } from './roaster-onboarding/roaster-onboarding.component';
 import { RoasterQuickSetupComponent } from './roaster-quick-setup/roaster-quick-setup.component';
-import { VatManagementComponent } from './vat-management/vat-management.component';
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
 import { DefaultSettingComponent } from './Farm Link/coffee-experience/default-setting/default-setting.component';
 
@@ -58,12 +57,6 @@ const routes: Routes = [
             {
                 path: 'roaster-onboard',
                 component: RoasterOnboardComponent,
-                canActivate: [AuthGuard],
-            },
-
-            {
-                path: 'vat-management',
-                component: VatManagementComponent,
                 canActivate: [AuthGuard],
             },
             {

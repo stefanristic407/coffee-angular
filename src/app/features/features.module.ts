@@ -23,8 +23,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { CofeeExpeienceDetailsComponent } from './Farm Link/cofee-expeience-details/cofee-expeience-details.component';
 import { NotificationComponent } from './notification/notification.component';
 import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
-import { VatManagementComponent } from './vat-management/vat-management.component';
-import { VatDetailsComponent } from './vat-management/vat-details/vat-details.component';
 import { QAForumComponent } from './Farm Link/q-a-forum/q-a-forum.component';
 import { AssignedComponent } from './Farm Link/q-a-forum/assigned/assigned.component';
 import { ForumComponent } from './Farm Link/q-a-forum/forum/forum.component';
@@ -50,8 +48,6 @@ import { PaginatorModule } from 'primeng/paginator';
         CofeeExpeienceDetailsComponent,
         NotificationComponent,
         RoasterOnboardComponent,
-        VatManagementComponent,
-        VatDetailsComponent,
         QAForumComponent,
         AssignedComponent,
         ForumComponent,

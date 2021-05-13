@@ -7,11 +7,11 @@ import { AnyARecord } from 'dns';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-    selector: 'app-vat-management',
-    templateUrl: './vat-management.component.html',
-    styleUrls: ['./vat-management.component.scss'],
+    selector: 'app-product-setting',
+    templateUrl: './product-setting.component.html',
+    styleUrls: ['./product-setting.component.scss'],
 })
-export class VatManagementComponent implements OnInit {
+export class ProductSettingComponent implements OnInit {
     // tslint:disable: indent
     saveshippingmode = false;
     editshippingmode = true;
@@ -78,7 +78,7 @@ export class VatManagementComponent implements OnInit {
         if (type) {
             this.breadItems = [
                 { label: 'Home', routerLink: '/' },
-                { label: 'Product Settings', routerLink: '/features/vat-management' },
+                { label: 'Product Settings', routerLink: '/product-setting' },
                 { label: type === 'VAT' ? 'VAT Management' : 'Shipping Details' },
             ];
         } else {
@@ -163,7 +163,7 @@ export class VatManagementComponent implements OnInit {
     // Mobile view methods
     selectMobileTab(feature) {
         this.selectedMobileTab = feature;
-        this.router.navigate(['/features/vat-management'], { queryParams: { type: feature } });
+        this.router.navigate(['/product-setting'], { queryParams: { type: feature } });
     }
     getHeading() {
         let header = 'Product Settings';
