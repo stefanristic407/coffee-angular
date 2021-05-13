@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { VariantDetailsComponent } from '../variant-details/variant-details.component';
 import { maxWordCountValidator } from '@utils';
-
+import { COUNTRY_LIST } from '@constants';
 @Component({
     selector: 'app-product-details',
     templateUrl: './product-details.component.html',
@@ -64,6 +64,7 @@ export class ProductDetailsComponent implements OnInit {
     flavoursList: any[];
     isPublished: boolean;
     thisYear = new Date().getFullYear();
+    countryArray: any[] = COUNTRY_LIST;
 
     constructor(
         public globals: GlobalsService,
@@ -693,14 +694,12 @@ export class ProductDetailsComponent implements OnInit {
         const getVariant = this.variants.controls[idx];
         getVariant.patchValue({
             origin: '',
-            region: '',
             harvest_year: '',
         });
         this.roasterService.getViewOrderDetails(this.roasterId, orderID).subscribe((res) => {
             if (res && res.result) {
                 getVariant.patchValue({
                     origin: res.result.origin,
-                    region: res.result.region,
                     harvest_year: new Date(res.result.harvest_date),
                 });
             }
