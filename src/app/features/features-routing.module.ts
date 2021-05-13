@@ -4,7 +4,6 @@ import { AuthGuard } from '@guards';
 import { OnboardCustomersComponent } from './onboard-customers/onboard-customers.component';
 import { CofeeExpeienceDetailsComponent } from './Farm Link/cofee-expeience-details/cofee-expeience-details.component';
 import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-experience.component';
-import { QAForumComponent } from './Farm Link/q-a-forum/q-a-forum.component';
 import { FeaturesComponent } from './features.component';
 import { NotificationComponent } from './notification/notification.component';
 import { RoasterCompleteSetupComponent } from './roaster-complete-setup/roaster-complete-setup.component';
@@ -57,11 +56,6 @@ const routes: Routes = [
             {
                 path: 'roaster-onboard',
                 component: RoasterOnboardComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'q-a-forum',
-                component: QAForumComponent,
                 canActivate: [AuthGuard],
             },
             {
