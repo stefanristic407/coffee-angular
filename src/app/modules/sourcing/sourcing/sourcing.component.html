@@ -108,7 +108,7 @@
         <div class="position-relative">
             <div class="filter-sort d-none d-md-block">
                 <p-dropdown
-                    [options]="sortItems"
+                    [options]="sourcingSrv.sortItems"
                     [(ngModel)]="sourcingSrv.sortParam"
                     (onChange)="sort()"
                     scrollHeight="225px"
