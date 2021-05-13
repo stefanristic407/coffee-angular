@@ -27,7 +27,7 @@
                 <p-divider type="dashed" styleClass="d-block d-md-none"></p-divider>
             </div>
         </div>
-        <div class="row gutter-16 gutter-lg-24 mt-3 mt-md-35">
+        <div class="row gutter-16 mt-3 mt-md-35">
             <div class="col-12 col-md-6 sewn-form-field">
                 <label>{{ 'product_name' | translate }}<span class="star">*</span></label>
                 <input
@@ -158,7 +158,7 @@
                         ></span>
                     </ng-template>
                     <div [formGroupName]="i">
-                        <div class="row gutter-16 gutter-lg-24 mt-4">
+                        <div class="row gutter-16 mt-4">
                             <div
                                 class="col-12 col-md-6 sewn-form-field"
                                 *ngIf="!productForm.get('is_external_product').value"
@@ -261,7 +261,7 @@
                             </div>
                         </div>
                         <p-divider type="dashed" styleClass="d-md-none mt-2 mb-4"></p-divider>
-                        <div class="row gutter-16 gutter-lg-24 mt-md-2 mt-lg-3">
+                        <div class="row gutter-16 mt-md-2 mt-lg-3">
                             <div class="col-12 mb-3">
                                 <span class="primary_txt fnt-16">{{ 'details_estate' | translate }}</span>
                             </div>
@@ -294,11 +294,21 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
                                 <label>{{ 'harvest_year' | translate }}</label>
-                                <input type="text" readonly formControlName="harvest_year" pInputText />
+                                <p-calendar
+                                    formControlName="harvest_year"
+                                    [disabled]="!productForm.get('is_external_product').value"
+                                    view="month"
+                                    dateFormat="MM yy"
+                                    [yearNavigator]="true"
+                                    [yearRange]="'2000:' + thisYear"
+                                    [readonlyInput]="true"
+                                    inputId="monthpicker"
+                                    styleClass="p-harvest-calendar"
+                                ></p-calendar>
                             </div>
                         </div>
                         <p-divider type="dashed" styleClass="d-md-none mt-2 mb-4"></p-divider>
-                        <div class="row gutter-16 gutter-lg-24 mt-md-2 mt-lg-3">
+                        <div class="row gutter-16 mt-md-2 mt-lg-3">
                             <div class="col-12 mb-3">
                                 <span class="primary_txt fnt-16">{{ 'tasting_notes' | translate }}</span>
                             </div>
@@ -353,13 +363,13 @@
                             <div *ngIf="!productForm.get('is_external_product').value">
                                 <span
                                     class="flavour-item d-inline-block"
-                                    *ngFor="let flavour of variant.value.flavour_profile"
+                                    *ngFor="let flavour of variant.value.flavour_profiles"
                                 >
                                     {{ flavour.flavour_profile_name }}
                                 </span>
                             </div>
                             <app-multiselect-chips
-                                formControlName="flavour_profile"
+                                formControlName="flavour_profiles"
                                 [placeholder]="'+ ' + ('add_descriptors' | translate)"
                                 optionLabel="flavour_profile_name"
                                 optionValue="flavour_profile_id"
@@ -367,7 +377,7 @@
                                 *ngIf="productForm.get('is_external_product').value"
                             ></app-multiselect-chips>
                         </div>
-                        <div class="row gutter-16 gutter-lg-24 mt-2 mt-lg-3">
+                        <div class="row gutter-16 mt-2 mt-lg-3">
                             <div class="col-12 col-lg-6 sewn-form-field">
                                 <div>
                                     <label>{{ 'roaster_notes' | translate }}</label>

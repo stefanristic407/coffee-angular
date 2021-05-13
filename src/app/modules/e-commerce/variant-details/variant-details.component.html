@@ -74,11 +74,11 @@
             </p-tabView>
         </div>
         <div
-            class="weight-form-wrapper pl-lg-4"
+            class="weight-form-wrapper"
             formArrayName="weights"
             *ngFor="let currentForm of weightForm.controls['weights']['controls']; let ii = index"
         >
-            <div [formGroupName]="ii" *ngIf="ii === currentVariantIndex">
+            <div class="pl-lg-4" [formGroupName]="ii" *ngIf="ii === currentVariantIndex">
                 <div class="row gutter-16 mt-2 mt-md-3 mt-lg-0 position-relative">
                     <div class="col-12 mb-4 d-flex d-md-none">
                         <div class="col-6 pl-0">
@@ -245,7 +245,7 @@
                     <div class="fnt-16 fnt-muli fnt-700 text-clr334 mb-3">
                         {{ 'add_images' | translate }}
                     </div>
-                    <div class="row gutter-16 gutter-lg-24 flex-nowrap overflow-auto pb-2 pb-md-25 pb-lg-3 w-100">
+                    <div class="row gutter-16 flex-nowrap overflow-auto pb-2 pb-md-25 pb-lg-3 w-100">
                         <div class="col">
                             <label class="text-nowrap"
                                 >{{ ((isMobile$ | async) ? 'feature_image' : 'upload_feature_image') | translate

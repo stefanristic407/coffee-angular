@@ -42,7 +42,7 @@ export class ProductDetailsComponent implements OnInit {
         'aroma',
         'flavour',
         'processing',
-        'flavour_profile',
+        'flavour_profiles',
         'roaster_notes',
         'recipes',
         'remaining_quantity',
@@ -63,6 +63,7 @@ export class ProductDetailsComponent implements OnInit {
     ];
     flavoursList: any[];
     isPublished: boolean;
+    thisYear = new Date().getFullYear();
 
     constructor(
         public globals: GlobalsService,
@@ -251,7 +252,7 @@ export class ProductDetailsComponent implements OnInit {
                         });
                         if (getBatchDetails) {
                             const flavourProfile = getBatchDetails.flavour_profile;
-                            variantForm.controls.flavour_profile.setValue(flavourProfile);
+                            variantForm.controls.flavour_profiles.setValue(flavourProfile);
                             variantForm.controls.weight_variants.setValue(weightVariants);
                         }
                         this.variants.push(variantForm);
@@ -359,7 +360,7 @@ export class ProductDetailsComponent implements OnInit {
             aroma: '',
             flavour: '',
             processing: '',
-            flavour_profile: [],
+            flavour_profiles: [],
             roaster_notes: ['', Validators.compose([maxWordCountValidator(300)])],
             recipes: ['', Validators.compose([maxWordCountValidator(300)])],
             brewing_method: ['', Validators.compose([Validators.required])],
@@ -543,6 +544,12 @@ export class ProductDetailsComponent implements OnInit {
                     roaster_recommendation: getVariantDetails.roaster_recommendation,
                     recipes: getVariantDetails.recipes,
                 };
+                if (this.type === 'b2c') {
+                    weightObj.variant_details.flavour_profiles = getVariantDetails.flavour_profiles.map(
+                        (item) => item.flavour_profile_id,
+                    );
+                    weightObj.variant_details.processing = getVariantDetails.processing;
+                }
                 const grindVariants = weightObj.grind_variants.map((item) => {
                     if (!item.grind_variant_id) {
                         delete item.grind_variant_id;
@@ -694,7 +701,7 @@ export class ProductDetailsComponent implements OnInit {
                 getVariant.patchValue({
                     origin: res.result.origin,
                     region: res.result.region,
-                    harvest_year: res.result.harvest_date,
+                    harvest_year: new Date(res.result.harvest_date),
                 });
             }
         });
