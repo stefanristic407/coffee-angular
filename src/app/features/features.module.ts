@@ -20,7 +20,6 @@ import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-
 
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CofeeExpeienceDetailsComponent } from './Farm Link/cofee-expeience-details/cofee-expeience-details.component';
 import { NotificationComponent } from './notification/notification.component';
 import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
@@ -48,7 +47,6 @@ import { PaginatorModule } from 'primeng/paginator';
         RoasterCompleteSetupComponent,
         FeaturesComponent,
         CoffeeExperienceComponent,
-        ResetPasswordComponent,
         CofeeExpeienceDetailsComponent,
         NotificationComponent,
         RoasterOnboardComponent,
