@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ResizeableComponent } from './resizeable.component';
-import { ResizeService } from '../services/resize.service';
+import { ResizeService } from '@services';
 import { ApiResponse, PageInfo } from '@models';
 import { takeUntil } from 'rxjs/operators';
 import { LazyLoadEvent } from 'primeng/api/public_api';

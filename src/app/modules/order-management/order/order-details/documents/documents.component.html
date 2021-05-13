@@ -11,13 +11,6 @@
                 optionLabel="label"
                 optionValue="value"
             ></p-dropdown>
-
-            <div>
-                <div class="btn-trans-icon cursor-pointer p-2" (click)="downloadAll()">
-                    <img class="svg" src="assets/images/download-icon.svg" />
-                    <span class="estate-message pl-2">{{ 'download_all' | translate }}</span>
-                </div>
-            </div>
         </div>
     </div>
     <div class="col-12 px-0">
@@ -35,7 +28,7 @@
             </ng-template>
 
             <ng-template pTemplate="body" let-document>
-                <tr>
+                <tr (click)="downloadFile(document)">
                     <td class="text-overflow-ellipsis border-0 card-column">
                         <span class="d-none d-md-inline">{{
                             document.doc_type | strReplace: '_':' ' | titlecase
@@ -57,9 +50,9 @@
                                 </div>
 
                                 <div class="download-icon-cell d-flex align-items-center">
-                                    <span class="ml-auto mr-auto" (click)="downloadFile(document)"
-                                        ><img class="pr-2" src="assets/images/pdf.svg" alt="download-icon"
-                                    /></span>
+                                    <span class="ml-auto mr-auto">
+                                        <img class="pr-2" src="assets/images/pdf.svg" alt="download-icon" />
+                                    </span>
                                 </div>
                             </div>
                         </div>

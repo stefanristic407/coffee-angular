@@ -3,6 +3,7 @@ import { GlobalsService } from '@services';
 import { SourcingService } from '../../sourcing.service';
 import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
+import { OrganizationType } from '@enums';
 
 @Component({
     selector: 'app-overview-ratings',
@@ -10,6 +11,7 @@ import { UserserviceService } from '@services';
     styleUrls: ['./overview-ratings.component.scss'],
 })
 export class OverviewRatingsComponent implements OnInit {
+    readonly OrgType = OrganizationType;
     totalstar = 5;
     termStatus = 'Most relevant';
     termItems: any[];

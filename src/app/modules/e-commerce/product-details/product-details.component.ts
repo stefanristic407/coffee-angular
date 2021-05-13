@@ -542,6 +542,13 @@ export class ProductDetailsComponent implements OnInit {
                     roaster_recommendation: getVariantDetails.roaster_recommendation,
                     recipes: getVariantDetails.recipes,
                 };
+                const grindVariants = weightObj.grind_variants.map((item) => {
+                    if (!item.grind_variant_id) {
+                        delete item.grind_variant_id;
+                    }
+                    return item;
+                });
+                weightObj.grind_variants = grindVariants;
                 if (weight.isNew) {
                     promises.push(
                         new Promise((resolve, reject) => {
@@ -583,15 +590,15 @@ export class ProductDetailsComponent implements OnInit {
         });
     }
 
-    addNewGrindVariant(productID, weigthObj, resolve, reject) {
-        delete weigthObj.product_weight_variant_id;
-        delete weigthObj.fileDetails;
-        weigthObj.status = weigthObj.status.toUpperCase();
-        weigthObj.grind_variants.forEach((ele) => {
+    addNewGrindVariant(productID, weightObj, resolve, reject) {
+        delete weightObj.product_weight_variant_id;
+        delete weightObj.fileDetails;
+        weightObj.status = weightObj.status.toUpperCase();
+        weightObj.grind_variants.forEach((ele) => {
             ele.id = undefined;
             ele.grind_variant_id = undefined;
         });
-        this.eCommerceService.addProductWeightVariants(productID, weigthObj, this.type).subscribe(
+        this.eCommerceService.addProductWeightVariants(productID, weightObj, this.type).subscribe(
             (res) => {
                 if (res.success) {
                     resolve();
@@ -608,6 +615,7 @@ export class ProductDetailsComponent implements OnInit {
     }
     updateGrindVariant(weightObj, weightVariantID, resolve, reject) {
         delete weightObj.product_weight_variant_id;
+        delete weightObj.fileDetails;
         weightObj.status = weightObj.status.toUpperCase();
         weightObj.grind_variants.map((ele) => {
             ele.id = ele.grind_variant_id ? ele.grind_variant_id : undefined;

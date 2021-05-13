@@ -1,11 +1,11 @@
 <div class="d-flex justify-content-between">
     <div class="font-bold text-clr334" [class.fnt-18]="!orderConfirmation" [class.fnt-14]="orderConfirmation">
-        {{ 'delivery_address' | translate }}
+        {{ (order?.is_fully_serviced_delivery ? 'pickup_address' : 'delivery_address') | translate }}
     </div>
     <div
         class="font-bold text-clr55c cursor-pointer"
         [routerLink]="['/orders', orgType, order?.id, 'edit']"
-        *ngIf="order && orgType === OrgType.ESTATE"
+        *ngIf="order && orgType === OrgType.ESTATE && !order.is_fully_serviced_delivery"
     >
         <img class="mb-1" src="assets/images/icon-edit.svg" />
         <span class="ml-1">{{ 'edit' | translate }}</span>

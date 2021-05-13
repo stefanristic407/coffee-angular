@@ -8,6 +8,7 @@ import { GlobalsService, ReviewsService, UserserviceService } from '@services';
     styleUrls: ['./estate-reviews.component.scss'],
 })
 export class EstateReviewsComponent implements OnInit {
+    readonly OrgType = OrganizationType;
     @Input() estateId;
 
     termStatus: any;

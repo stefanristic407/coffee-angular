@@ -260,7 +260,9 @@
                 <div *ngIf="i" class="w-100 solid-divider my-3"></div>
                 <div class="d-flex flex-md-column flex-lg-row justify-content-between align-items-lg-center">
                     <div class="pr-3">
-                        <h4 class="fnt-14 lh-normal fnt-700 text-clr334 mb-1">{{ item.name }}</h4>
+                        <h4 class="fnt-14 lh-normal fnt-700 text-clr334 mb-1">
+                            {{ item.certificate_type | certificateName }}
+                        </h4>
                         <div class="fnt-12 lh-normal fnt-600 text-clr588">{{ item.year }}</div>
                     </div>
                     <div class="d-none d-md-block">

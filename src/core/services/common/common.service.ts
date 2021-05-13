@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { COUNTRY_LIST, CONTINIENT_LIST } from '@constants';
-import { LabelValue, Country } from '../models/common';
+import { LabelValue, Country } from '@models';
 
 @Injectable({
     providedIn: 'root',

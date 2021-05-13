@@ -30,9 +30,13 @@
                                     [userId]="statusAuthor.id"
                                     [orgType]="statusAuthor.orgType"
                                     type="text"
+                                    class="text-clr334"
                                 ></app-user-detail>
                             </p>
-                            <p class="pt-1 fnt-12 d-lg-block d-md-none d-sm-block">
+                            <p
+                                class="pt-1 fnt-12 d-lg-block d-md-none d-sm-block"
+                                [class.text-muted]="index > currentPointIndex"
+                            >
                                 {{ getStatusDate(point) | date: 'd MMMM y' }}
                             </p>
                         </ng-template>

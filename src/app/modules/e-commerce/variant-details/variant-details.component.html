@@ -304,17 +304,17 @@
                                         }}
                                     </span>
                                     <i class="pi pi-ellipsis-v cursor-pointer" (click)="opMd.toggle($event)"></i>
-                                    <p-overlayPanel #opMd styleClass="p-overlaypanel-actions" appendTo="body">
-                                        <ng-template pTemplate>
-                                            <div
-                                                class="fnt-muli fnt-14 fnt-600 text-clr588 action-item cursor-pointer"
-                                                (click)="deleteImage(0, 'featured_image')"
-                                            >
-                                                Delete
-                                            </div>
-                                        </ng-template>
-                                    </p-overlayPanel>
                                 </div>
+                                <p-overlayPanel #opMd styleClass="p-overlaypanel-actions" appendTo="body">
+                                    <ng-template pTemplate>
+                                        <div
+                                            class="fnt-muli fnt-14 fnt-600 text-clr588 action-item cursor-pointer"
+                                            (click)="deleteImage(0, 'featured_image')"
+                                        >
+                                            Delete
+                                        </div>
+                                    </ng-template>
+                                </p-overlayPanel>
                             </div>
                         </div>
                         <div
@@ -351,26 +351,20 @@
                                 <img [src]="product_image['fileDetails']['image_url']" alt="" class="uploadImg" />
                                 <div class="imageLabel fnt-muli fnt-14 fnt-bold lh-normal text-white">
                                     <span class="ellipsis">
-                                        {{
-                                            trackFileName(
-                                                weightForm['controls']['weights']['controls'][currentVariantIndex][
-                                                    'value'
-                                                ]['fileDetails']['image_url']
-                                            )
-                                        }}
+                                        {{ trackFileName(product_image['fileDetails']['image_url']) }}
                                     </span>
                                     <i class="pi pi-ellipsis-v cursor-pointer" (click)="opMd.toggle($event)"></i>
-                                    <p-overlayPanel #opMd styleClass="p-overlaypanel-actions" appendTo="body">
-                                        <ng-template pTemplate>
-                                            <div
-                                                class="fnt-muli fnt-14 fnt-600 text-clr588 action-item cursor-pointer"
-                                                (click)="deleteImage(m, 'product_image')"
-                                            >
-                                                Delete
-                                            </div>
-                                        </ng-template>
-                                    </p-overlayPanel>
                                 </div>
+                                <p-overlayPanel #opMd styleClass="p-overlaypanel-actions" appendTo="body">
+                                    <ng-template pTemplate>
+                                        <div
+                                            class="fnt-muli fnt-14 fnt-600 text-clr588 action-item cursor-pointer"
+                                            (click)="deleteImage(m, 'product_image')"
+                                        >
+                                            Delete
+                                        </div>
+                                    </ng-template>
+                                </p-overlayPanel>
                             </div>
                         </div>
                     </div>
