@@ -1,59 +1,138 @@
-<h4 class="fnt-18 font-bold">{{ 'bulk_details' | translate }}</h4>
+<div class="d-flex flex-column flex-md-row">
+    <div class="w-50 mr-4">
+        <h4 class="fnt-18 font-bold">{{ 'exporter_details' | translate }}</h4>
 
-<table class="recent-time w-50">
-    <tr>
-        <td>
-            <span class="list-que"> {{ 'listing_status' | translate }}: </span>
-        </td>
-        <td>
-            <span class="list-ans">{{ (bulk?.processing_types | strReplace: '_':' ' | titlecase) || '-' }}</span>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <span class="list-que"> {{ 'processing' | translate }}: </span>
-        </td>
-        <td>
-            <span class="list-ans">{{ (bulk?.listing_status | strReplace: '_':' ' | titlecase) || '-' }}</span>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <span class="list-que"> {{ 'type' | translate }}: </span>
-        </td>
-        <td>
-            <span class="list-ans">{{ (bulk?.type | strReplace: '_':' ' | titlecase) || '-' }}</span>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <span class="list-que"> {{ 'species' | translate }}: </span>
-        </td>
-        <td>
-            <span class="list-ans"> {{ bulk?.species | strReplace: '_':' ' | titlecase }} </span>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <span class="list-que"> {{ 'flavours' | translate }}: </span>
-        </td>
-        <td>
-            <span class="list-ans">{{ (bulk?.flavours | strReplace: '_':' ' | titlecase) || '-' }}</span>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <span class="list-que"> {{ 'other' | translate }}: </span>
-        </td>
-        <td><span class="list-ans"> - </span></td>
-    </tr>
+        <table class="recent-time w-100">
+            <tr>
+                <td>
+                    <span class="list-que"> {{ 'exporter_company' | translate }}: </span>
+                </td>
+                <td>
+                    <span class="list-ans"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="list-que"> {{ 'ico_number' | translate }} : </span>
+                </td>
+                <td>
+                    <span class="list-ans"> {{ shippingDetails?.ico_number || '-' }} </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="list-que"> {{ 'marking_on_the_bag' | translate }}: </span>
+                </td>
+                <td>
+                    <span class="list-ans">{{ shippingDetails?.bag_markings || '-' }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="list-que"> {{ 'estimated_date_of_departure' | translate }}: </span>
+                </td>
+                <td>
+                    <span class="list-ans">{{
+                        (shippingDetails?.estimated_departure_date | date: 'dd/MM/yyyy') || '-'
+                    }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="list-que"> {{ 'estimated_date_of_arrival' | translate }}: </span>
+                </td>
+                <td>
+                    <span class="list-ans"> {{ shippingDetails?.estimated_arrival_date | date: 'dd/MM/yyyy' }} </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="list-que"> {{ 'shipping_id' | translate }}: </span>
+                </td>
+                <td>
+                    <span class="list-ans">{{ shippingDetails?.shipping_id || '-' }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="list-que"> {{ 'tracking_id' | translate }}: </span>
+                </td>
+                <td>
+                    <span class="list-ans">{{ shippingDetails?.tracking_id || '-' }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="list-que"> {{ 'shipping_line' | translate }}: </span>
+                </td>
+                <td>
+                    <span class="list-ans">{{ shippingDetails?.shipping_line || '-' }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="list-que"> {{ 'vessel_number' | translate }}: </span>
+                </td>
+                <td>
+                    <span class="list-ans">{{ shippingDetails?.vessel_number || '-' }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="list-que"> {{ 'container_number' | translate }}: </span>
+                </td>
+                <td>
+                    <span class="list-ans">{{ shippingDetails?.container_number || '-' }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="list-que"> {{ 'container_requirements' | translate }}: </span>
+                </td>
+                <td>
+                    <span class="list-ans">{{ shippingDetails?.container_requirements || '-' }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="list-que"> {{ 'process_description' | translate }}: </span>
+                </td>
+                <td>
+                    <span class="list-ans">{{ 'None' }}</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="w-50 ml-4">
+        <h4 class="fnt-18 font-bold">{{ 'importer_details' | translate }}</h4>
 
-    <tr>
-        <td>
-            <span class="list-que"> {{ 'ico' | translate | uppercase }} : </span>
-        </td>
-        <td>
-            <span class="list-ans"> {{ (bulk?.ico_number | strReplace: '_':' ' | titlecase) || '-' }} </span>
-        </td>
-    </tr>
-</table>
+        <table class="recent-time w-100">
+            <tr>
+                <td>
+                    <span class="list-que"> {{ 'importer_company' | translate }}: </span>
+                </td>
+                <td>
+                    <span class="list-ans"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="list-que"> {{ 'estimated_date_of_bulk' | translate }}: </span>
+                </td>
+                <td>
+                    <span class="list-ans">{{
+                        (shippingDetails?.estimated_pickup_date | date: 'dd/MM/yyyy') || '-'
+                    }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="list-que"> {{ 'shipment_status' | translate }}: </span>
+                </td>
+                <td>
+                    <span class="list-ans">{{ shippingDetails.shipment_status || 'N/A' }}</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
