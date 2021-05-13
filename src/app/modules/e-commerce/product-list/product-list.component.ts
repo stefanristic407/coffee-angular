@@ -66,7 +66,19 @@ export class ProductListComponent implements OnInit {
         5: 'Dark',
     };
 
-    originArray = COUNTRY_LIST;
+    visibilityArray: any[] = [
+        {
+            label: 'Public',
+            value: true,
+        },
+        {
+            label: 'Not Public',
+            value: false,
+        },
+    ];
+    visibilityStatus: boolean;
+
+    originArray: any[];
     type: string;
 
     @HostListener('window:resize', ['$event'])
@@ -218,6 +230,8 @@ export class ProductListComponent implements OnInit {
             origin: this.selectedOrigin ?? '',
             price_min: this.selectedPriceRange?.price_min ?? '',
             price_max: this.selectedPriceRange?.price_max ?? '',
+            is_public:
+                this.visibilityStatus === undefined || this.visibilityStatus === null ? '' : this.visibilityStatus,
             sort_by: event?.sortField,
             sort_order: event?.sortOrder === 1 ? 'asc' : 'desc',
         };
@@ -225,6 +239,9 @@ export class ProductListComponent implements OnInit {
         this.eCommerceService.getSelectProductDetails(this.type, options).subscribe(
             (res: any) => {
                 if (res.success) {
+                    this.originArray = COUNTRY_LIST.filter((item) =>
+                        res.result?.find((prod) => prod.origin.toLowerCase() === item.isoCode.toLocaleLowerCase()),
+                    );
                     this.tableData = res.result ?? [];
                     this.totalCount = res.result_info.total_count;
                 } else {
