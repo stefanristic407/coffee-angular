@@ -56,11 +56,11 @@
                                 </ng-template>
                             </div>
                         </div>
-                        <div class="certify-green d-none d-lg-block" *ngIf="sourcing.availableCertify != ''">
+                        <div class="certify-green d-none d-lg-block" *ngIf="sourcing.estateCertify != ''">
                             <h5 class="fnt-16 fnt-md-18 fnt-bold text-clr000">Certificates</h5>
                             <div class="pt-3">
                                 <img
-                                    *ngFor="let cert of sourcing.availableCertify"
+                                    *ngFor="let cert of sourcing.estateCertify"
                                     [src]="cert.certificate_type_id | certificateImg"
                                     class="cert-img cursor-pointer mb-3 mr-4 mr-lg-45"
                                     (click)="sourcing.openCert(cert.public_url)"
@@ -87,7 +87,7 @@
                                     </h2>
                                     <div class="d-lg-none d-flex">
                                         <img
-                                            *ngFor="let cert of sourcing.availableCertify"
+                                            *ngFor="let cert of sourcing.estateCertify"
                                             [src]="cert.certificate_type_id | certificateImg"
                                             class="cert-img cursor-pointer mb-3 ml-25"
                                             (click)="sourcing.openCert(cert.public_url)"

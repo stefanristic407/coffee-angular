@@ -52,7 +52,6 @@ export class SourcingService {
     harvestId: number;
     harvestDetail: any = {};
     otherGreenList: any;
-    availableCertify: any;
 
     // Details of an lot
     lotId: number;
@@ -228,14 +227,6 @@ export class SourcingService {
         this.userService.getGreenCoffee(this.roasterId, this.estateId).subscribe((res: any) => {
             if (res.success) {
                 this.otherGreenList = res.result.filter((element) => element.harvest_id !== this.harvestId);
-            }
-        });
-    }
-
-    getEachGreenCertify() {
-        this.userService.getEachEsateCertificates(this.estateId).subscribe((res: any) => {
-            if (res.success) {
-                this.availableCertify = res.result;
             }
         });
     }

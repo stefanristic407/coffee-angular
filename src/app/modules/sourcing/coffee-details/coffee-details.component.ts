@@ -59,7 +59,7 @@ export class CoffeeDetailsComponent extends ResizeableComponent implements OnIni
             });
         this.sourcing.estateDetailList();
         this.sourcing.otherAvailableCoffee();
-        this.sourcing.getEachGreenCertify();
+        this.sourcing.getEachEstateCertify();
     }
 
     galleryImages() {
