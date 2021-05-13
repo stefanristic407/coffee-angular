@@ -39,7 +39,6 @@
     border: 1px solid #d6d6d6;
     border-radius: 4px;
     text-align: center;
-    width: 200px;
     position: relative;
     overflow: hidden;
 }
@@ -97,6 +96,9 @@
     }
     .add-image-flex {
         display: flex;
+    }
+    .addImageContainer {
+        width: 212px;
     }
 }
 
