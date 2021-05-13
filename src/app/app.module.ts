@@ -19,11 +19,11 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { environment } from '@env/environment';
 import { AppComponent } from './app.component';
-import { LayoutComponent } from './layout/layout.component';
 import {
     FooterComponent,
     GateComponent,
     HealthCheckComponent,
+    LayoutComponent,
     MenuComponent,
     SearchPanelComponent,
     UploadInfoComponent,
