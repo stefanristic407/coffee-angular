@@ -225,7 +225,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             weight_name: 'weight - 0 lb',
             weight_unit: 'lb',
             product_weight_variant_id: emptyVariantID,
-            featured_image_id: '',
+            featured_image_id: ['', Validators.compose([Validators.required])],
             fileDetails: null,
             isNew: true,
             product_images: [],
