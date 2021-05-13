@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
+import { DestroyableComponent } from '@base-components';
 import { EstateService, GlobalsService } from '@services';
 import { SourcingService } from '../sourcing.service';
-import { DestroyableComponent } from '@base-components';
 
 @Component({
     selector: 'app-estate-list',
