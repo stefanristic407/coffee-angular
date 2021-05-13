@@ -396,7 +396,7 @@ export class OrderManagementService {
     }
 
     private loadUserProfile(): void {
-        this.userSrv.getUserProfile().subscribe({
+        this.userSrv.getUserDetail().subscribe({
             next: (res) => {
                 if (res.success) {
                     this.userProfileSubject.next(res.result);

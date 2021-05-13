@@ -9,8 +9,6 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OnboardCustomersComponent } from './onboard-customers/onboard-customers.component';
 import { FeaturesRoutingModule } from './features-routing.module';
 import { FeaturesComponent } from './features.component';
-import { ProfileEditComponent } from './profile-edit/profile-edit.component';
-import { ProfilePicComponent } from './profile-edit/profile-pic/profile-pic.component';
 import { RoasterCompleteSetupComponent } from './roaster-complete-setup/roaster-complete-setup.component';
 import { RoasterOnboardingComponent } from './roaster-onboarding/roaster-onboarding.component';
 import { RoasterQuickSetupComponent } from './roaster-quick-setup/roaster-quick-setup.component';
@@ -24,7 +22,6 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CofeeExpeienceDetailsComponent } from './Farm Link/cofee-expeience-details/cofee-expeience-details.component';
-import { ProfileLicenseComponent } from './profile-edit/profile-license/profile-license.component';
 import { NotificationComponent } from './notification/notification.component';
 import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
 import { VatManagementComponent } from './vat-management/vat-management.component';
@@ -51,12 +48,9 @@ import { PaginatorModule } from 'primeng/paginator';
         RoasterQuickSetupComponent,
         RoasterCompleteSetupComponent,
         FeaturesComponent,
-        ProfileEditComponent,
-        ProfilePicComponent,
         CoffeeExperienceComponent,
         ResetPasswordComponent,
         CofeeExpeienceDetailsComponent,
-        ProfileLicenseComponent,
         NotificationComponent,
         RoasterOnboardComponent,
         VatManagementComponent,

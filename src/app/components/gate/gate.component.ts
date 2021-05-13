@@ -84,7 +84,7 @@ export class GateComponent extends DestroyableComponent implements OnInit {
         );
         promises.push(
             new Promise((resolve, reject) => {
-                this.getUserProfile(resolve, reject);
+                this.getUserDetail(resolve, reject);
             }),
         );
         Promise.all(promises)
@@ -136,8 +136,8 @@ export class GateComponent extends DestroyableComponent implements OnInit {
         );
     }
 
-    private getUserProfile(resolve, reject) {
-        this.userSrv.getUserProfile().subscribe(
+    private getUserDetail(resolve, reject) {
+        this.userSrv.getUserDetail().subscribe(
             (res: any) => {
                 if (res.success) {
                     this.userTermsAccepted = res.result.terms_accepted;

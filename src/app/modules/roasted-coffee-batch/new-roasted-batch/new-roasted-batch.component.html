@@ -408,7 +408,7 @@
 </ng-template>
 
 <ng-template #shareStoryTemplate>
-    <div *ngIf="coffeeStory" class="story-wrapper">
+    <div *ngIf="coffeeStory" class="story-wrapper border-main br-4 pt-35 pt-md-4">
         <div class="py-0 px-3 px-md-4 mb-45">
             <p class="fnt-16 fnt-bold mb-3">{{ 'share_your_story' | translate }}</p>
             <p class="fnt-14 fnt-600 mb-2 text-clr588">{{ 'share_coffee_experience_link' | translate }}!</p>
@@ -430,9 +430,9 @@
                 </a>
             </div>
         </div>
-        <div class="contact-us-wrapper px-3 px-md-4 py-3">
+        <div class="d-flex justify-content-center border-top-main px-3 px-md-4 py-3 px-3 px-md-4 py-3">
             <span class="fnt-14 fnt-bold">{{ 'having_trouble' | translate }}?&nbsp;</span>
-            <a class="custom-link" [href]="'mailto:' + supportEmailAddress">{{ 'contact_us' | translate }}</a>
+            <a class="custom-link" [href]="'mailto:' + env.supportEmailAddress">{{ 'contact_us' | translate }}</a>
         </div>
     </div>
 </ng-template>

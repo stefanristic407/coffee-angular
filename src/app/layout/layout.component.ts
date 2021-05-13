@@ -16,6 +16,7 @@ import {
     RoasterserviceService,
     SocketService,
     UserserviceService,
+    UserService,
 } from '@services';
 import { DestroyableComponent } from '@base-components';
 import { OrganizationType } from '@enums';
@@ -53,7 +54,8 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
 
     constructor(
         private cookieService: CookieService,
-        private userService: UserserviceService,
+        private userOriginalService: UserserviceService,
+        private userService: UserService,
         private roasterService: RoasterserviceService,
         private router: Router,
         private toastrService: ToastrService,
@@ -97,12 +99,12 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         const promises = [];
         promises.push(
             new Promise((resolve) => {
-                this.getUserValue(resolve);
+                this.getUserDetail(resolve);
             }),
         );
         promises.push(
             new Promise((resolve) => {
-                this.getRoasterProfile(resolve);
+                this.getOrgProfile(resolve);
             }),
         );
         const self = this;
@@ -170,7 +172,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     }
 
     getNotificationList() {
-        this.userService.getNofitication().subscribe((res: any) => {});
+        this.userOriginalService.getNofitication().subscribe((res: any) => {});
     }
 
     showNotification() {}
@@ -189,9 +191,9 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         }
     }
 
-    getUserValue(resolve) {
+    getUserDetail(resolve) {
         this.globals.permissionMethod();
-        this.userService.getRoasterProfile(this.roasterId).subscribe((res: any) => {
+        this.userService.getUserDetail().subscribe((res: any) => {
             if (res.success) {
                 this.userTermsAccepted = res.result.terms_accepted;
                 this.coffeeLabService.forumLanguage.next(res.result.language || 'en');
@@ -210,8 +212,8 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         });
     }
 
-    getRoasterProfile(resolve) {
-        this.userService.getRoasterAccount(this.roasterId).subscribe((res: any) => {
+    getOrgProfile(resolve) {
+        this.userOriginalService.getRoasterAccount(this.roasterId).subscribe((res: any) => {
             if (res.result) {
                 this.orgTermsAccepted = res.result.terms_accepted || !('terms_accepted' in res.result);
                 this.authService.organizationSubject.next(res.result);
@@ -223,7 +225,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     }
 
     userLogout() {
-        this.userService.logOut().subscribe((res: any) => {
+        this.userOriginalService.logOut().subscribe((res: any) => {
             if (res.success) {
                 this.cookieService.deleteAll();
                 this.router.navigate(['/gate']);

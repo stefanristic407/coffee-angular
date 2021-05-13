@@ -43,7 +43,7 @@ export class LanguageRegionComponent implements OnInit {
                 value: item,
             };
         });
-        this.getUserInfo();
+        this.getUserDetail();
         this.getConverseLanguages();
         this.breadcrumbItems = [
             { label: this.globals.languageJson?.home, routerLink: '/dashboard' },
@@ -52,9 +52,9 @@ export class LanguageRegionComponent implements OnInit {
         ];
     }
 
-    getUserInfo(): void {
+    getUserDetail(): void {
         this.isLoading = true;
-        this.userOriginalService.getRoasterProfile(this.roasterId).subscribe((res: any) => {
+        this.userService.getUserDetail().subscribe((res: any) => {
             console.log('user info >>>>>>', res);
             this.apiCount += 1;
             if (this.apiCount === 2) {

@@ -7,7 +7,6 @@ import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-
 import { QAForumComponent } from './Farm Link/q-a-forum/q-a-forum.component';
 import { FeaturesComponent } from './features.component';
 import { NotificationComponent } from './notification/notification.component';
-import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { RoasterCompleteSetupComponent } from './roaster-complete-setup/roaster-complete-setup.component';
 import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
@@ -41,11 +40,6 @@ const routes: Routes = [
             {
                 path: 'roaster-complete-setup',
                 component: RoasterCompleteSetupComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'profile-edit',
-                component: ProfileEditComponent,
                 canActivate: [AuthGuard],
             },
             {

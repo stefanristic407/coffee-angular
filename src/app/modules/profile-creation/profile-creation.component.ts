@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ProfilePhotoService } from './profile-photo/profile-photo.service';
 import { RoasteryProfileService } from './roastery-profile.service';
-import { GlobalsService, UserserviceService } from '@services';
+import { GlobalsService, UserService, UserserviceService } from '@services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -37,7 +37,7 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
         public globals: GlobalsService,
         private fb: FormBuilder,
         public cookieService: CookieService,
-        private userService: UserserviceService,
+        private userService: UserService,
     ) {}
 
     ngOnInit(): void {
@@ -53,7 +53,7 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
     }
 
     checkAdminRole(userId) {
-        this.userService.getRoasterProfile(userId).subscribe((res: any) => {
+        this.userService.getUserDetail(userId).subscribe((res: any) => {
             console.log('check admin role: ', res);
             if (res.success) {
                 this.isAdminRole = res.result.has_system_role;

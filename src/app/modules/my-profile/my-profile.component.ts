@@ -8,6 +8,7 @@ import {
     CommonService,
     GlobalsService,
     RoasterserviceService,
+    UserService,
     UserserviceService,
 } from '@services';
 import { CookieService } from 'ngx-cookie-service';
@@ -50,6 +51,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         public location: Location,
         private toastr: ToastrService,
         public globals: GlobalsService,
+        private userService: UserService,
         private userOriginalService: UserserviceService,
         private cookieService: CookieService,
         public myProfileService: MyProfileService,
@@ -87,7 +89,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     getUserInfo(): void {
         this.isLoading = true;
         this.apiCount = 0;
-        this.getRoasterProfile();
+        this.getUserDetail();
         if (this.queryUserId) {
             this.apiCount += 1;
         } else {
@@ -95,27 +97,25 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         }
     }
 
-    getRoasterProfile(): void {
-        this.userOriginalService
-            .getRoasterProfile(this.roasterId, this.queryOrganization, this.queryUserId)
-            .subscribe((res: any) => {
-                console.log('get user info response >>>>>>>>>>>>>>>', res);
-                this.apiCount += 1;
-                if (res.success) {
-                    this.profileInfo = res.result;
-                    this.previewUrl = this.profileInfo.profile_image_url;
-                    if (this.queryUserId) {
-                        this.apiCount += 1;
-                        this.certificationArray = res.result?.certificates || [];
-                    } else {
-                        this.getUserBasedRoles();
-                    }
-                    this.checkApiCompletion();
+    getUserDetail(): void {
+        this.userService.getUserDetail(this.queryUserId, this.queryOrganization).subscribe((res: any) => {
+            console.log('get user info response >>>>>>>>>>>>>>>', res);
+            this.apiCount += 1;
+            if (res.success) {
+                this.profileInfo = res.result;
+                this.previewUrl = this.profileInfo.profile_image_url;
+                if (this.queryUserId) {
+                    this.apiCount += 1;
+                    this.certificationArray = res.result?.certificates || [];
                 } else {
-                    this.toastr.error('Error while fetching profile');
-                    this.router.navigate(['/']);
+                    this.getUserBasedRoles();
                 }
-            });
+                this.checkApiCompletion();
+            } else {
+                this.toastr.error('Error while fetching profile');
+                this.router.navigate(['/']);
+            }
+        });
     }
 
     getUserBasedRoles(): void {
@@ -131,19 +131,17 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     }
 
     getCertificates(): void {
-        this.userOriginalService
-            .getCertificates(this.roasterId, this.userId)
-            .subscribe((res: any) => {
-                console.log('get certificates result >>>>>>>>>>>>', res);
-                this.apiCount += 1;
-                if (res.success) {
-                    this.certificationArray = res.result;
-                } else {
-                    this.toastr.error('Error while fetching certificates');
-                }
-                console.log('certificates >>>>>>>>', res);
-                this.checkApiCompletion();
-            });
+        this.userOriginalService.getCertificates(this.roasterId, this.userId).subscribe((res: any) => {
+            console.log('get certificates result >>>>>>>>>>>>', res);
+            this.apiCount += 1;
+            if (res.success) {
+                this.certificationArray = res.result;
+            } else {
+                this.toastr.error('Error while fetching certificates');
+            }
+            console.log('certificates >>>>>>>>', res);
+            this.checkApiCompletion();
+        });
     }
 
     checkApiCompletion(): void {
@@ -223,7 +221,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     }
 
     handleProfileUpdateSuccess(): void {
-        this.userOriginalService.getRoasterProfile(this.roasterId).subscribe((res: any) => {
+        this.userService.getUserDetail().subscribe((res: any) => {
             this.isUpdatingProfile = false;
             this.profileInfo = res.result;
             this.isEditMode = false;

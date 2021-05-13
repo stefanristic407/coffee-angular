@@ -14,12 +14,8 @@ export class ECommerceService extends ApiService {
         super(cookieService, http);
     }
 
-    // ------------ USER ------------
+    // ------------ ECommerce ------------
 
-    // View user profile
-    getUserProfile(): Observable<ApiResponse<UserProfile>> {
-        return this.postWithOrg(this.orgPostUrl, `users/profile`, 'GET');
-    }
     getSelectProductDetails(type: any, postData?) {
         const suffix = type === 'b2b' ? '' : `${type}-`;
         return this.postWithOrg(this.orgPostUrl, `${suffix}products?${this.serializeParams(postData)}`, 'GET');

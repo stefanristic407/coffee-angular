@@ -75,19 +75,6 @@ export class UserserviceService extends ApiService {
         );
     }
 
-    // API Function Name :Roaster Profile
-    // API Description: This API calls helps to Roaster User Profile.
-
-    getRoasterProfile(roasterId, organization = 'ro', userId = null) {
-        const apiCall = userId ? `/general/${organization}/users/${userId}` : `/ro/${roasterId}/users/profile`;
-        const data = {
-            api_call: apiCall,
-            token: this.cookieService.get('Auth'),
-            method: 'GET',
-        };
-        return this.http.post(this.roasterUrl, data);
-    }
-
     // API Function Name :Update Roaster Profile
     // API Description: This API calls helps to update Roaster User Profile.
 

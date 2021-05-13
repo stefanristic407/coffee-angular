@@ -66,7 +66,7 @@ export class ApiService {
         const dto: RequestDto = {
             api_call: `/${this.orgType}/${orgId}/${apiCall}`,
             method,
-            token: this.cookieSrv.get('Auth'),
+            token: this.getToken(),
         };
         if (data) {
             dto.data = data;
@@ -78,7 +78,7 @@ export class ApiService {
         const dto: RequestDto = {
             api_call: `/${apiCall}`,
             method,
-            token: this.cookieSrv.get('Auth'),
+            token: this.getToken(),
         };
         if (data) {
             dto.data = data;
@@ -98,5 +98,9 @@ export class ApiService {
 
     protected getOrgId(): number {
         return +this.cookieSrv.get('roaster_id');
+    }
+
+    protected getToken(): string {
+        return this.cookieSrv.get('Auth');
     }
 }

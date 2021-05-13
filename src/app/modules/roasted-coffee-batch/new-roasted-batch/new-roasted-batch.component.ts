@@ -20,7 +20,7 @@ import { maxValidator, minValidator } from '@utils';
     styleUrls: ['./new-roasted-batch.component.scss'],
 })
 export class NewRoastedBatchComponent implements OnInit {
-    supportEmailAddress = environment.supportEmailAddress;
+    readonly env = environment;
     langChips: any = [];
     selectable = true;
     removable = true;
