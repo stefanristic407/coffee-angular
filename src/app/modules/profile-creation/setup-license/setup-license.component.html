@@ -5,7 +5,9 @@
         </a>
     </div>
     <div class="p-0">
-        <p class="fnt-18 fnt-muli mb-1 fnt-bold text-clr334 text-center text-md-left">License & certificates</p>
+        <p class="fnt-18 fnt-muli mb-1 fnt-bold text-clr334 text-center text-md-left">
+            {{ 'license' | translate }} & {{ 'certificates' | translate }}
+        </p>
         <p class="fnt-14 fnt-600 txt-clr588 mb-0">
             Please upload your certificates, if any. This helps in your profile getting more noticed.
         </p>
@@ -31,12 +33,12 @@
                     <div class="d-flex pt-2 pr-0 pb-2 pl-2 align-items-center">
                         <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr97 cursor-pointer" (click)="onEdit(i)">
                             <i class="pi pi-pencil mr-2"></i>
-                            Edit
+                            {{ 'edit' | translate }}
                         </span>
                         <p-divider class="divider border-none" layout="vertical"></p-divider>
                         <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr97 cursor-pointer" (click)="onDelete(i)">
                             <i class="pi pi-trash mr-2"></i>
-                            Delete
+                            {{ 'delete' | translate }}
                         </span>
                     </div>
                 </div>
@@ -45,14 +47,16 @@
                 <ng-container *ngTemplateOutlet="addAndEditTemplate"></ng-container>
             </div>
             <span class="fnt-muli fnt-14 fnt-bold text-clr60b cursor-pointer" (click)="onAdd()"
-                ><i class="pi pi-plus mr-25 fnt-bold fnt-14"></i>Add another certificate
+                ><i class="pi pi-plus mr-25 fnt-bold fnt-14"></i>{{ 'add_another_certificate' | translate }}
             </span>
         </div>
         <div class="py-2 py-lg-3">
             <p-divider type="dashed"></p-divider>
         </div>
         <div class="mt-1 mb-3 mb-md-5">
-            <button class="btn-stroked-transparent" routerLink="/roastery-profile/about_roastery">Cancel</button>
+            <button class="btn-stroked-transparent" routerLink="/roastery-profile/about_roastery">
+                {{ 'cancel' | translate }}
+            </button>
         </div>
         <input #myFileInput type="file" class="d-none" (change)="onFileChange($event)" />
     </div>
@@ -61,7 +65,9 @@
         <div class="d-flex flex-wrap flex-column flex-lg-row pb-3 pb-lg-0">
             <div class="d-flex flex-wrap pr-lg-25 certification-wrapper">
                 <div class="p-0 pr-md-2 pr-lg-25 sewn-form-field mb-3 certification-name">
-                    <label class="fnt-muli fnt-600 fnt-14 text-clr334 lh-normal mb-2"> Certification name </label>
+                    <label class="fnt-muli fnt-600 fnt-14 text-clr334 lh-normal mb-2">
+                        {{ 'certification_name' | translate }}
+                    </label>
                     <p-dropdown
                         [options]="certificateList"
                         optionLabel="type"
@@ -82,7 +88,9 @@
                     </p-dropdown>
                 </div>
                 <div class="p-0 pl-md-2 pl-lg-25 sewn-form-field mb-3 certification-year">
-                    <label class="fnt-muli fnt-600 fnt-14 text-clr334 lh-normal mb-2"> Year of certification </label>
+                    <label class="fnt-muli fnt-600 fnt-14 text-clr334 lh-normal mb-2">
+                        {{ 'year_of_certification' | translate }}
+                    </label>
                     <p-dropdown
                         [options]="yearList"
                         optionLabel="label"
@@ -98,7 +106,9 @@
                 </div>
             </div>
             <div class="pl-lg-25">
-                <label class="fnt-muli fnt-600 fnt-14 text-clr334 lh-normal mb-2"> Upload certificate </label>
+                <label class="fnt-muli fnt-600 fnt-14 text-clr334 lh-normal mb-2">
+                    {{ 'upload_certificate' | translate }}
+                </label>
                 <div
                     class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between"
                 >
@@ -114,16 +124,18 @@
                         *ngIf="!file && !certificationArray[editingRowIndex]?.public_url"
                     >
                         <i class="pi pi-upload fnt-14 mr-1"></i>
-                        Upload
+                        {{ 'upload' | translate }}
                     </div>
                     <div class="d-flex flex-column flex-md-row button-wrapper align-items-center">
-                        <button class="btn-raised ml-md-4 mt-3 mt-md-0" (click)="onSave()">Save</button>
+                        <button class="btn-raised ml-md-4 mt-3 mt-md-0" (click)="onSave()">
+                            {{ 'save' | translate }}
+                        </button>
                         <button
                             class="btn-stroked-transparent ml-md-3"
                             *ngIf="editingRowIndex > -1"
                             (click)="onCancel()"
                         >
-                            Cancel
+                            {{ 'cancel' | translate }}
                         </button>
                     </div>
                 </div>
