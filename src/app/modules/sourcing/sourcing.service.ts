@@ -19,6 +19,7 @@ export class SourcingService {
     // Lot data
     polygonId: string;
 
+    sortItems: any[];
     sortParam: string;
     quantityUnit = QuantityUnit.kg;
     queryParams: any = new BehaviorSubject({});

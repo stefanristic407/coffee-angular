@@ -14,6 +14,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 
 import { AccordionModule } from 'primeng/accordion';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AvatarModule } from 'primeng/avatar';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
@@ -21,8 +22,10 @@ import { CarouselModule } from 'primeng/carousel';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ChipsModule } from 'primeng/chips';
 import { DialogModule } from 'primeng/dialog';
+import { DividerModule } from 'primeng/divider';
 import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule, DialogService } from 'primeng/dynamicdialog';
+import { EditorModule } from 'primeng/editor';
 import { GalleriaModule } from 'primeng/galleria';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
@@ -33,6 +36,7 @@ import { MenuModule } from 'primeng/menu';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { PaginatorModule } from 'primeng/paginator';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
@@ -41,13 +45,9 @@ import { SliderModule } from 'primeng/slider';
 import { TableModule } from 'primeng/table';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TabViewModule } from 'primeng/tabview';
+import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { DividerModule } from 'primeng/divider';
-import { AvatarModule } from 'primeng/avatar';
-import { ToastModule } from 'primeng/toast';
-import { EditorModule } from 'primeng/editor';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
@@ -82,61 +82,61 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 
 const THIRDMODULES = [
-    AutocompleteLibModule,
+    AccordionModule,
+    AccumulationChartAllModule,
     AnimateOnScrollModule,
-    DragDropModule,
-    ModalModule,
-    PopoverModule,
-    TypeaheadModule,
-    ClipboardModule,
+    AutocompleteLibModule,
     AutoCompleteModule,
+    AvatarModule,
     BreadcrumbModule,
     ButtonModule,
     CalendarModule,
     CarouselModule,
+    ChartAllModule,
+    ChartsModule,
     CheckboxModule,
-    DialogModule,
     ChipsModule,
+    ClipboardModule,
+    DialogModule,
+    DividerModule,
+    DragDropModule,
     DropdownModule,
     DynamicDialogModule,
+    EditorModule,
     GalleriaModule,
+    GalleryModule,
+    ImageCropperModule,
     InputNumberModule,
     InputSwitchModule,
     InputTextareaModule,
     InputTextModule,
+    LightboxModule,
     ListboxModule,
+    MatVideoModule,
     MenuModule,
+    ModalModule,
+    MomentModule,
     MultiSelectModule,
+    Ng2TelInputModule,
+    NgxChartsModule,
     OverlayPanelModule,
     PaginatorModule,
+    PopoverModule,
+    ProgressBarModule,
     ProgressSpinnerModule,
     RadioButtonModule,
+    RangeNavigatorAllModule,
     RatingModule,
     SelectButtonModule,
     SliderModule,
     TableModule,
     TabMenuModule,
     TabViewModule,
-    TooltipModule,
-    TreeModule,
-    TranslateModule,
-    ChartAllModule,
-    AccumulationChartAllModule,
-    RangeNavigatorAllModule,
-    NgxChartsModule,
-    ImageCropperModule,
-    GalleryModule,
-    LightboxModule,
-    MatVideoModule,
-    Ng2TelInputModule,
-    ProgressBarModule,
-    AccordionModule,
-    DividerModule,
-    ChartsModule,
-    MomentModule,
-    AvatarModule,
     ToastModule,
-    EditorModule,
+    TooltipModule,
+    TranslateModule,
+    TreeModule,
+    TypeaheadModule,
 ];
 
 import { HorizontalBarComponent } from './components/horizontal-bar/horizontal-bar.component';

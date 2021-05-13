@@ -1,55 +1,53 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { CookieService } from 'ngx-cookie-service';
-import { GlobalsService } from '@services';
-import { UserserviceService } from '@services';
+import { Component, OnInit } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { EstateService, GlobalsService } from '@services';
 import { SourcingService } from '../sourcing.service';
+import { DestroyableComponent } from '@base-components';
 
 @Component({
     selector: 'app-estate-list',
     templateUrl: './estate-list.component.html',
     styleUrls: ['./estate-list.component.scss'],
 })
-export class EstateListComponent implements OnInit, OnDestroy {
+export class EstateListComponent extends DestroyableComponent implements OnInit {
     isLoaded = false;
-    roasterId: any;
     estateData: any[] = [];
     queryParams: any;
     rows = 15;
     pageNumber = 1;
     totalRecords;
-    queryParamsSub: Subscription;
 
     constructor(
         public sourcingSrv: SourcingService,
         public globals: GlobalsService,
-        private userService: UserserviceService,
-        private cookieService: CookieService,
-    ) {}
+        private estateService: EstateService,
+    ) {
+        super();
+    }
 
     ngOnInit(): void {
-        this.roasterId = this.cookieService.get('roaster_id');
+        setTimeout(() => {
+            this.sourcingSrv.sortItems = [
+                { label: 'Name (A-Z)', value: ['name', 'asc'] },
+                { label: 'Recently added', value: ['created_at', 'desc'] },
+                { label: 'Rating (High-Low)', value: ['rating', 'desc'] },
+            ];
+        });
         this.sourcingSrv.clearQueryParams();
-        this.queryParamsSub = this.sourcingSrv.queryParams$.subscribe((res: any) => {
-            this.queryParams = res;
+        this.sourcingSrv.queryParams$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((res: any) => {
+            this.queryParams = { ...res };
             this.getAvailableEstates();
         });
     }
 
-    ngOnDestroy() {
-        this.queryParamsSub.unsubscribe();
-    }
-
     getAvailableEstates() {
-        const query = [];
         this.queryParams = {
             ...this.queryParams,
             page: this.pageNumber,
             per_page: this.rows,
         };
-
         this.isLoaded = false;
-        this.userService.getAvailableEstates(this.roasterId, this.queryParams).subscribe((res: any) => {
+        this.estateService.getAvailableEstates(this.queryParams).subscribe((res: any) => {
             this.isLoaded = true;
             if (res.success) {
                 this.estateData = res.result;
