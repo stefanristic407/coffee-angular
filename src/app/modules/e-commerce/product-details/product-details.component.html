@@ -1,5 +1,5 @@
 <div class="main-block">
-    <div class="mb-3">
+    <div class="mb-3 mb-md-475 mb-lg-5">
         <div>
             <p-breadcrumb [model]="breadCrumbItem" class="w-100"></p-breadcrumb>
         </div>
@@ -68,7 +68,7 @@
                 <div>
                     <label>{{ 'product_description' | translate }}<span class="star">*</span></label>
                     <label class="float-right limitFont"
-                        >{{ productForm.get('description').value | wordCount }}/50 {{ 'words' | translate }}</label
+                        >{{ productForm.get('description').value | wordCount }}/300 {{ 'words' | translate }}</label
                     >
                 </div>
                 <textarea
@@ -80,6 +80,9 @@
                 ></textarea>
                 <small *ngIf="productForm.controls['description'].errors?.required" class="p-error">
                     {{ 'required' | translate }}
+                </small>
+                <small *ngIf="productForm.controls['description'].errors?.maxWordCount" class="p-error">
+                    Please input 300 words
                 </small>
             </div>
         </div>
@@ -203,7 +206,10 @@
                                     pInputText
                                 />
                             </div>
-                            <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
+                            <div
+                                class="col-12 col-md-6 col-lg-3 sewn-form-field"
+                                *ngIf="!productForm.get('is_external_product').value"
+                            >
                                 <label>{{ 'batch_ref_no' | translate }}</label>
                                 <input
                                     type="text"
@@ -213,7 +219,10 @@
                                 />
                             </div>
 
-                            <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
+                            <div
+                                class="col-12 col-md-6 col-lg-3 sewn-form-field"
+                                *ngIf="!productForm.get('is_external_product').value"
+                            >
                                 <label>{{ 'roaster_profile' | translate }}</label>
                                 <input
                                     type="text"
@@ -224,14 +233,24 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
                                 <label>{{ 'roaster_level' | translate }}<span class="star">*</span></label>
-                                <input
-                                    type="text"
-                                    [readonly]="!productForm.get('is_external_product').value"
+                                <p-dropdown
+                                    [options]="roastLevelArray"
+                                    optionLabel="label"
+                                    styleClass="w-100"
                                     formControlName="roast_level"
-                                    pInputText
-                                />
+                                    optionValue="value"
+                                    [autoDisplayFirst]="false"
+                                    [readonly]="!productForm.get('is_external_product').value"
+                                >
+                                </p-dropdown>
+                                <small *ngIf="variant['controls']['roast_level'].errors?.required" class="p-error">
+                                    {{ 'required' | translate }}
+                                </small>
                             </div>
-                            <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
+                            <div
+                                class="col-12 col-md-6 col-lg-3 sewn-form-field"
+                                *ngIf="!productForm.get('is_external_product').value"
+                            >
                                 <label>{{ 'roasting_time' | translate }}</label>
                                 <input
                                     type="text"
@@ -353,7 +372,7 @@
                                 <div>
                                     <label>{{ 'roaster_notes' | translate }}</label>
                                     <label class="float-right limitFont"
-                                        >{{ variant.value.roaster_notes | wordCount }}/50
+                                        >{{ variant.value.roaster_notes | wordCount }}/300
                                         {{ 'words' | translate }}</label
                                     >
                                 </div>
@@ -365,12 +384,18 @@
                                     formControlName="roaster_notes"
                                     pInputText
                                 ></textarea>
+                                <small
+                                    *ngIf="variant['controls']['roaster_notes'].errors?.maxWordCount"
+                                    class="p-error"
+                                >
+                                    Please input 300 words
+                                </small>
                             </div>
                             <div class="col-12 col-lg-6 sewn-form-field">
                                 <div>
                                     <label>{{ 'recipes' }}</label>
                                     <label class="float-right limitFont"
-                                        >{{ variant.value.recipes | wordCount }}/50 {{ 'words' | translate }}</label
+                                        >{{ variant.value.recipes | wordCount }}/300 {{ 'words' | translate }}</label
                                     >
                                 </div>
 
@@ -381,6 +406,9 @@
                                     formControlName="recipes"
                                     pInputText
                                 ></textarea>
+                                <small *ngIf="variant['controls']['recipes'].errors?.maxWordCount" class="p-error">
+                                    Please input 300 words
+                                </small>
                             </div>
                         </div>
                         <div class="row gutter-16 mt-2 mt-lg-3">
@@ -430,6 +458,12 @@
                                     class="p-error"
                                 >
                                     {{ 'required' | translate }}
+                                </small>
+                                <small
+                                    *ngIf="variant['controls']['roaster_recommendation'].errors?.maxWordCount"
+                                    class="p-error"
+                                >
+                                    Please input 10 words
                                 </small>
                             </div>
                         </div>

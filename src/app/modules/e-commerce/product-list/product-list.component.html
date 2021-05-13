@@ -64,6 +64,19 @@
                     (onChange)="loadData()"
                 ></p-dropdown>
             </div>
+            <div class="dropdown-col">
+                <p-dropdown
+                    [options]="visibilityArray"
+                    optionLabel="label"
+                    optionValue="value"
+                    [(ngModel)]="visibilityStatus"
+                    [autoDisplayFirst]="false"
+                    [showClear]="true"
+                    placeholder="{{ 'visibility' | translate }}"
+                    styleClass="round-border w-100"
+                    (onChange)="loadData()"
+                ></p-dropdown>
+            </div>
         </div>
     </div>
     <div class="pt-0 table-container">

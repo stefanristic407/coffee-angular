@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { VariantDetailsComponent } from '../variant-details/variant-details.component';
+import { maxWordCountValidator } from '@utils';
 
 @Component({
     selector: 'app-product-details',
@@ -82,7 +83,7 @@ export class ProductDetailsComponent implements OnInit {
             is_public: [false],
             name: ['', Validators.compose([Validators.required])],
             purchase_type: ['', Validators.compose([Validators.required])],
-            description: ['', Validators.compose([Validators.required])],
+            description: ['', Validators.compose([Validators.required, maxWordCountValidator(300)])],
             is_variants_included: [false],
             variants: this.fb.array([this.createEmptyVariant()]),
             crates: this.fb.array([]),
@@ -347,7 +348,7 @@ export class ProductDetailsComponent implements OnInit {
             roaster_ref_no: '',
             batch_ref_no: '',
             roasting_profile_name: '',
-            roast_level: '',
+            roast_level: ['', Validators.compose([Validators.required])],
             roast_time: '',
             estate_name: '',
             origin: '',
@@ -359,10 +360,10 @@ export class ProductDetailsComponent implements OnInit {
             flavour: '',
             processing: '',
             flavour_profile: [],
-            roaster_notes: '',
-            recipes: '',
+            roaster_notes: ['', Validators.compose([maxWordCountValidator(300)])],
+            recipes: ['', Validators.compose([maxWordCountValidator(300)])],
             brewing_method: ['', Validators.compose([Validators.required])],
-            roaster_recommendation: ['', Validators.compose([Validators.required])],
+            roaster_recommendation: ['', Validators.compose([Validators.required, maxWordCountValidator(10)])],
             remaining_quantity: '',
             weight_variants: [],
         });
@@ -673,9 +674,8 @@ export class ProductDetailsComponent implements OnInit {
         });
         this.userService.getRoastingProfileDetail(this.roasterId, profileID).subscribe((res) => {
             if (res && res.result) {
-                const level = this.roastLevelArray.find((ele) => ele.value === res.result.roast_level);
                 getVariant.patchValue({
-                    roast_level: level.label ?? '',
+                    roast_level: res.result.roast_level,
                     roast_time: res.result.roast_duration,
                 });
             }
