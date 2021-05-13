@@ -38,7 +38,6 @@
     background-color: #ffffff;
 }
 
-
 /* ====STEP FORM SECTION ===== */
 
 .form-section {
@@ -74,7 +73,7 @@ html.codepen body {
 
 .form-nav-list__item::after {
     position: absolute;
-    content: "";
+    content: '';
     top: 30%;
     left: 25%;
     transform: translateY(-50%);
@@ -99,7 +98,7 @@ html.codepen body {
 .form-nav-list__item .step__circle:after {
     display: block;
     position: absolute;
-    content: "";
+    content: '';
     height: 14px;
     width: 7px;
     top: -4px;
@@ -119,14 +118,12 @@ html.codepen body {
     display: none;
 }
 
-
 /*succesed circle color */
 
 .form-nav-list__item.succeed .step .step__circle {
     background-color: #c29d7a;
     text-indent: -200000px;
 }
-
 
 /*Cureent nav text color */
 
@@ -199,7 +196,6 @@ html.codepen body {
     margin-top: -4px;
 }
 
-
 /*  forms inputs */
 
 .rectangle_name {
@@ -250,7 +246,7 @@ html.codepen body {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
     background-color: #ffffff;
-    background: url(../../../assets/images/active.png) right 16px top 19px/10px no-repeat;
+    background: url(/assets/images/active.png) right 16px top 19px/10px no-repeat;
     -webkit-appearance: none;
     font-family: Muli;
     font-weight: 500;
@@ -277,8 +273,8 @@ html.codepen body {
     color: #747588;
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
@@ -380,7 +376,6 @@ input[type="number"]::-webkit-outer-spin-button {
     color: #747588;
 }
 
-
 /* ==FOOTER SECTION CSS== */
 
 .footer-que-text {
@@ -448,10 +443,9 @@ hr {
     padding: 1.25rem 1rem !important;
 }
 
- :host ::ng-deep .overlay {
+:host ::ng-deep .overlay {
     outline: var(--cropper-overlay-color, #919191) solid 100vw !important;
 }
-
 
 /* ==== Changes ==== */
 
@@ -482,14 +476,12 @@ hr {
     color: #d50000;
 }
 
-
 /* ======= MODAL ======= */
 
 :host ::ng-deep .ui-button {
     margin: 0.5em 0.5em 0.5em 0;
     width: 140px;
 }
-
 
 /* ============ALERT CSS BOX=========== */
 
@@ -516,7 +508,7 @@ hr {
 }
 
 @media screen and (max-width: 40em) {
-     :host ::ng-deep .ui-dialog {
+    :host ::ng-deep .ui-dialog {
         width: 75vw !important;
     }
 }
@@ -570,7 +562,6 @@ hr {
     font-weight: bold;
     color: #232334;
 }
-
 
 /* ======== MEDIA QUERIES ======= */
 
