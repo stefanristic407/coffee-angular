@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@guards';
 import { OnboardCustomersComponent } from './onboard-customers/onboard-customers.component';
-import { CofeeExpeienceDetailsComponent } from './Farm Link/cofee-expeience-details/cofee-expeience-details.component';
-import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-experience.component';
 import { FeaturesComponent } from './features.component';
 import { NotificationComponent } from './notification/notification.component';
 import { RoasterCompleteSetupComponent } from './roaster-complete-setup/roaster-complete-setup.component';
@@ -11,7 +9,6 @@ import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.compo
 import { RoasterOnboardingComponent } from './roaster-onboarding/roaster-onboarding.component';
 import { RoasterQuickSetupComponent } from './roaster-quick-setup/roaster-quick-setup.component';
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
-import { DefaultSettingComponent } from './Farm Link/coffee-experience/default-setting/default-setting.component';
 
 const routes: Routes = [
     {
@@ -39,16 +36,6 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'coffee-experience',
-                component: CoffeeExperienceComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'coffee-details',
-                component: CofeeExpeienceDetailsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
                 path: 'notification',
                 component: NotificationComponent,
                 canActivate: [AuthGuard],
@@ -61,11 +48,6 @@ const routes: Routes = [
             {
                 path: 'success-mail',
                 component: SuccessfulPageComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'default-setting',
-                component: DefaultSettingComponent,
                 canActivate: [AuthGuard],
             },
             {
