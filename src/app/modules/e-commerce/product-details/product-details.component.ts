@@ -81,20 +81,20 @@ export class ProductDetailsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.productForm = this.fb.group({
-            is_public: [false],
-            name: ['', Validators.compose([Validators.required])],
-            purchase_type: ['', Validators.compose([Validators.required])],
-            description: ['', Validators.compose([Validators.required, maxWordCountValidator(300)])],
-            is_variants_included: [false],
-            variants: this.fb.array([this.createEmptyVariant()]),
-            crates: this.fb.array([]),
-            vat_setting_id: ['', Validators.compose([Validators.required])],
-            is_price_including_vat: [false],
-            is_external_product: [false],
-        });
         this.route.params.subscribe((params) => {
             this.type = params.type;
+            this.productForm = this.fb.group({
+                is_public: [false],
+                name: ['', Validators.compose([Validators.required])],
+                purchase_type: ['', Validators.compose([Validators.required])],
+                description: ['', Validators.compose([Validators.required, maxWordCountValidator(300)])],
+                is_variants_included: [false],
+                variants: this.fb.array([this.createEmptyVariant()]),
+                crates: this.fb.array([]),
+                vat_setting_id: ['', Validators.compose([Validators.required])],
+                is_price_including_vat: [this.type === 'b2c'],
+                is_external_product: [false],
+            });
             if (this.type === 'b2c') {
                 this.getFlavoursData();
             }
