@@ -294,7 +294,16 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
                                 <label>{{ 'harvest_year' | translate }}</label>
-                                <input type="text" readonly formControlName="harvest_year" pInputText />
+                                <p-calendar
+                                    formControlName="harvest_year"
+                                    [disabled]="!productForm.get('is_external_product').value"
+                                    view="month"
+                                    dateFormat="MM yy"
+                                    [yearNavigator]="true"
+                                    [yearRange]="'2000:' + thisYear"
+                                    [readonlyInput]="true"
+                                    inputId="monthpicker"
+                                ></p-calendar>
                             </div>
                         </div>
                         <p-divider type="dashed" styleClass="d-md-none mt-2 mb-4"></p-divider>

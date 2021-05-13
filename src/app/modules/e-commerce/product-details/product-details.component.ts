@@ -63,6 +63,7 @@ export class ProductDetailsComponent implements OnInit {
     ];
     flavoursList: any[];
     isPublished: boolean;
+    thisYear = new Date().getFullYear();
 
     constructor(
         public globals: GlobalsService,
@@ -694,7 +695,7 @@ export class ProductDetailsComponent implements OnInit {
                 getVariant.patchValue({
                     origin: res.result.origin,
                     region: res.result.region,
-                    harvest_year: res.result.harvest_date,
+                    harvest_year: new Date(res.result.harvest_date),
                 });
             }
         });

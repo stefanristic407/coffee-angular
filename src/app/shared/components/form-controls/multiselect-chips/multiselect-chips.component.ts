@@ -52,8 +52,10 @@ export class MultiselectChipsComponent implements OnInit, ControlValueAccessor {
     }
 
     writeValue(value: any[]): void {
-        this.chipsControl.patchValue(value);
-        this.onChange(value.map((x) => x[this.optionValue]));
+        if (!!value) {
+            this.chipsControl.patchValue(value);
+            this.onChange(value.map((x) => x[this.optionValue]));
+        }
     }
 
     itemSelected(event: any): void {
