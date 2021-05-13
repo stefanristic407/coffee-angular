@@ -37,11 +37,10 @@
                                                 <div class="square-container">
                                                     <div class="content overflow-hidden">
                                                         <div
-                                                            class="social-post-farmlink__item w-100 h-100 position-relative"
+                                                            class="social-post-farmlink__item w-100 h-100 position-relative br-4"
                                                         >
-                                                            <!-- <div class="cover-fill br-4 w-100 h-auto"> -->
                                                             <div
-                                                                class="h-100 social-bg-image"
+                                                                class="h-100 social-bg-image br-4"
                                                                 [ngStyle]="{
                                                                     backgroundImage:
                                                                         'url(' +
@@ -50,8 +49,6 @@
                                                                         ')'
                                                                 }"
                                                             ></div>
-                                                            <!-- </div> -->
-
                                                             <p class="mb-0 post-info">
                                                                 {{ images.description }} &nbsp; @
                                                                 {{ images.owner_name }}
@@ -72,7 +69,7 @@
                                                 (click)="videosModal(videotemplate, videos)"
                                             >
                                                 <div
-                                                    class="social-post-farmlink__item w-100 h-100 position-relative square-container"
+                                                    class="social-post-farmlink__item w-100 h-100 position-relative square-container br-4"
                                                 >
                                                     <img
                                                         class="w-100 h-100 cover-fill"
@@ -280,23 +277,11 @@
                         </div>
                         <div class="m-0 mt-3 mt-md-4 m-xl-45">
                             <h4 class="fnt-16 font-bold text-clr334 mb-3">
-                                {{ selectedImage.description }} &nbsp; @ {{ selectedImage.owner_name }}
+                                <span *ngIf="selectedImage.description">{{ selectedImage.description }} &nbsp; </span>@
+                                {{ selectedImage.owner_name }}
                             </h4>
                             <p class="fnt-14 fnt-600 text-clr588 mb-4 mb-md-3125">#coffee #specialitycoffee #sewn</p>
                             <div class="d-flex">
-                                <span class="share-bor pt-2 pb-2 pl-25 pr-25 mr-3">
-                                    <a
-                                        class="text-decoration-none d-flex"
-                                        href="javascript:void(0);"
-                                        [cdkCopyToClipboard]="selectedImage.url"
-                                        (click)="copySuccessAlert()"
-                                        ><img class="share-img" src="assets/images/share-img.svg" alt="farm" />
-                                        <span class="fnt-14 fnt-500 text-clr334">
-                                            {{ 'share' | translate }}
-                                        </span>
-                                    </a>
-                                </span>
-
                                 <span class="share-bor pt-2 pb-2 pl-25 pr-25">
                                     <a
                                         class="text-decoration-none d-flex"
@@ -361,23 +346,11 @@
                         </div>
                         <div class="m-0 mt-3 mt-md-4 m-xl-45">
                             <h4 class="fnt-16 font-bold text-clr334 mb-3">
-                                {{ selectedVideo.description }} &nbsp; @ {{ selectedVideo.owner_name }}
+                                <span *ngIf="selectedImage.description">{{ selectedVideo.description }} &nbsp; </span>@
+                                {{ selectedVideo.owner_name }}
                             </h4>
                             <p class="fnt-14 fnt-600 text-clr588 mb-4 mb-md-3125">#coffee #specialitycoffee #sewn</p>
                             <div class="d-flex">
-                                <span class="share-bor pt-2 pb-2 pl-25 pr-25 mr-3">
-                                    <a
-                                        class="text-decoration-none d-flex"
-                                        href="javascript:void(0);"
-                                        [cdkCopyToClipboard]="selectedVideo.url"
-                                        (click)="copySuccessAlert()"
-                                        ><img class="share-img" src="assets/images/share-img.svg" alt="farm" />
-                                        <span class="fnt-14 fnt-500 text-clr334">
-                                            {{ 'share' | translate }}
-                                        </span>
-                                    </a>
-                                </span>
-
                                 <span class="share-bor pt-2 pb-2 pl-25 pr-25">
                                     <a
                                         class="text-decoration-none d-flex"
@@ -385,7 +358,9 @@
                                         (click)="download(selectedVideo)"
                                     >
                                         <img class="share-img" src="assets/images/dwnd.svg" alt="farm" />
-                                        <span class="fnt-14 fnt-500 text-clr334"> Download Video </span>
+                                        <span class="fnt-14 fnt-500 text-clr334">
+                                            {{ 'download_video' | translate }}
+                                        </span>
                                     </a>
                                 </span>
                             </div>

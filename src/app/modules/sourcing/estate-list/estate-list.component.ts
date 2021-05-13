@@ -47,15 +47,9 @@ export class EstateListComponent implements OnInit, OnDestroy {
             page: this.pageNumber,
             per_page: this.rows,
         };
-        Object.entries(this.queryParams).forEach(([key, value]) => {
-            this.queryParams[key] = value || '';
-            if (value) {
-                query.push(`${key}=${value}`);
-            }
-        });
-        const queryStr = '?' + query.join('&');
+
         this.isLoaded = false;
-        this.userService.getAvailableEstates(this.roasterId, queryStr).subscribe((res: any) => {
+        this.userService.getAvailableEstates(this.roasterId, this.queryParams).subscribe((res: any) => {
             this.isLoaded = true;
             if (res.success) {
                 this.estateData = res.result;
