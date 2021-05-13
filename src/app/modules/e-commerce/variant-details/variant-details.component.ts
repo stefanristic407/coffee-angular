@@ -74,13 +74,10 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             { label: 'Out of Stock', value: 'out-of-stock' },
         ];
         this.weightTypeArray = [
-            { label: 'lb', value: 'lb' },
-            { label: 'kg', value: 'kg' },
+            { label: 'lbs', value: 'lb' },
+            { label: 'kgs', value: 'kg' },
         ];
-        this.quantityTypeArray = [
-            { label: 'boxes', value: 'boxes' },
-            { label: 'kg', value: 'kg' },
-        ];
+        this.quantityTypeArray = [{ label: 'bags', value: 'bag' }];
         this.grindArray = [
             { label: 'Extra Coarse', value: 'extra-coarse' },
             { label: 'Coarse', value: 'coarse' },
@@ -255,7 +252,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             price: [0, Validators.compose([Validators.required])],
             grind: ['', Validators.compose([Validators.required])],
             available_quantity: [0, Validators.compose([Validators.required])],
-            available_quantity_type: 'crate',
+            available_quantity_type: 'bag',
             sku_number: ['', Validators.compose([Validators.required])],
         });
     }
