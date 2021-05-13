@@ -13,7 +13,6 @@ import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.compo
 import { RoasterOnboardingComponent } from './roaster-onboarding/roaster-onboarding.component';
 import { RoasterQuickSetupComponent } from './roaster-quick-setup/roaster-quick-setup.component';
 import { VatManagementComponent } from './vat-management/vat-management.component';
-import { BatchSelectAnOrderComponent } from './batch-select-an-order/batch-select-an-order.component';
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
 import { DefaultSettingComponent } from './Farm Link/coffee-experience/default-setting/default-setting.component';
 
@@ -76,11 +75,6 @@ const routes: Routes = [
             {
                 path: 'q-a-forum',
                 component: QAForumComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'batch-select-an-order',
-                component: BatchSelectAnOrderComponent,
                 canActivate: [AuthGuard],
             },
             {

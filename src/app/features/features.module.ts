@@ -30,7 +30,6 @@ import { QAForumComponent } from './Farm Link/q-a-forum/q-a-forum.component';
 import { AssignedComponent } from './Farm Link/q-a-forum/assigned/assigned.component';
 import { ForumComponent } from './Farm Link/q-a-forum/forum/forum.component';
 import { MyAnswersComponent } from './Farm Link/q-a-forum/my-answers/my-answers.component';
-import { BatchSelectAnOrderComponent } from './batch-select-an-order/batch-select-an-order.component';
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
 import { EstateOrdersComponent } from './Farm Link/coffee-experience/estate-orders/estate-orders.component';
 import { MicroRoasterOrdersComponent } from './Farm Link/coffee-experience/micro-roaster-orders/micro-roaster-orders.component';
@@ -59,7 +58,6 @@ import { PaginatorModule } from 'primeng/paginator';
         AssignedComponent,
         ForumComponent,
         MyAnswersComponent,
-        BatchSelectAnOrderComponent,
         SuccessfulPageComponent,
         EstateOrdersComponent,
         MicroRoasterOrdersComponent,
