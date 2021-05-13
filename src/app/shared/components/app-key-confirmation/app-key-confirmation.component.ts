@@ -9,10 +9,12 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 })
 export class AppKeyConfirmationComponent implements OnInit {
     orgName = '';
+    status = '';
     constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig, public globals: GlobalsService) {}
 
     ngOnInit(): void {
         this.orgName = this.config.data.orgName;
+        this.status = this.config.data?.status;
     }
 
     close(value = null) {

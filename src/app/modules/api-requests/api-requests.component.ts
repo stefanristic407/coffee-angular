@@ -28,7 +28,7 @@ export class ApiRequestsTableComponent implements OnInit, AfterViewInit {
     selectedTab = 0;
     FilterTypeList: any[] = [
         { org_type: 'Micro roaster', value: 'mr' },
-        { org_type: 'horeca', value: 'hrc' },
+        { org_type: 'Partner', value: 'hrc' },
     ];
     isApiRequestPage = true;
     displayArray = [];
