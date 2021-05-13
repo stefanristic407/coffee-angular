@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CoffeeLabService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
     templateUrl: './my-comments.component.html',
     styleUrls: ['./my-comments.component.scss'],
 })
-export class MyCommentsComponent implements OnInit {
+export class MyCommentsComponent implements OnInit, OnDestroy {
     comments: any[] = [];
     sortOptions = [
         { label: 'Latest', value: 'latest' },
@@ -60,5 +60,9 @@ export class MyCommentsComponent implements OnInit {
             });
             this.isLoading = false;
         });
+    }
+
+    ngOnDestroy(): void {
+        this.forumDeleteSub.unsubscribe();
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CoffeeLabService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
     templateUrl: './my-answers.component.html',
     styleUrls: ['./my-answers.component.scss'],
 })
-export class MyAnswersComponent implements OnInit {
+export class MyAnswersComponent implements OnInit, OnDestroy {
     answers: any[] = [];
     sortOptions = [
         { label: 'Latest', value: 'latest' },
@@ -52,5 +52,9 @@ export class MyAnswersComponent implements OnInit {
             });
             this.isLoading = false;
         });
+    }
+
+    ngOnDestroy(): void {
+        this.forumDeleteSub.unsubscribe();
     }
 }

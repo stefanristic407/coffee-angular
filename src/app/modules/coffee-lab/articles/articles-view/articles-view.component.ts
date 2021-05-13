@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { CoffeeLabService, AuthService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 @Component({
     selector: 'app-articles-view',
     templateUrl: './articles-view.component.html',
@@ -37,8 +38,7 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
     isLoading = false;
     pageDesc: string | undefined;
     organizationId: any;
-    forumLanguageSub: Subscription;
-    forumDeleteSub: Subscription;
+    destroy$: Subject<boolean> = new Subject<boolean>();
     forumLanguage: string;
     constructor(
         public coffeeLabService: CoffeeLabService,
@@ -53,11 +53,11 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.organizationId = +this.cookieService.get('roaster_id');
-        this.forumLanguageSub = this.coffeeLabService.forumLanguage.subscribe((language) => {
+        this.coffeeLabService.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
             this.forumLanguage = language;
             this.getData();
         });
-        this.forumDeleteSub = this.coffeeLabService.forumDeleteEvent.subscribe(() => {
+        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
             this.getData();
         });
     }
@@ -123,6 +123,7 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.forumLanguageSub.unsubscribe();
+        this.destroy$.next(true);
+        this.destroy$.unsubscribe();
     }
 }
