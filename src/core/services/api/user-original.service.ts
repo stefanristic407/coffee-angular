@@ -1148,9 +1148,9 @@ export class UserserviceService extends ApiService {
         };
         return this.http.post(this.orgDeleteUrl, data);
     }
-    getEstateOrdersCoffeeExperience(estate_id: any, order_id: any) {
+    getEstateOrdersCoffeeExperience(roasterId: any, orderId: any) {
         const data = {
-            api_call: `/es/${estate_id}/orders/${order_id}/coffee-experience`,
+            api_call: `/ro/${roasterId}/orders/${orderId}/coffee-experience`,
             method: 'GET',
             token: this.cookieService.get('Auth'),
         };

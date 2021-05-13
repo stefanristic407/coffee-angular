@@ -88,7 +88,7 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
             this.primeTableService.isMobileView = false;
             this.primeTableService.allColumns = [
                 {
-                    field: 'date',
+                    field: 'created_at',
                     header: 'Date',
                     sortable: false,
                 },
@@ -118,17 +118,19 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
             thumbPosition: ThumbnailsPosition.Top,
         });
         lightboxRef.load(this.items);
+        this.primeTableService.url = `/ro/${this.roasterID}/orders/${this.orderID}/activity-logs`;
+        this.primeTableService.isMarkedForSale = false;
+        console.log(this.primeTableService);
         this.language();
         this.getOrderDetails();
         this.getRoasterNotes();
         this.getSaleOrderDetails();
-        this.primeTableService.url = `/ro/${this.roasterID}/orders/${this.orderID}/activity-logs`;
         this.initializeTableProcuredCoffee();
     }
+
     getOrderDetails() {
         this.roasterService.getProcuredCoffeeDetails(this.roasterID, this.orderID).subscribe(
             (response) => {
-                console.log(response);
                 if (response.success && response.result) {
                     this.orderDetails = response.result;
                     if (this.orderDetails && this.orderDetails.harvest_id) {
@@ -141,6 +143,7 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
             },
         );
     }
+
     getSaleOrderDetails() {
         this.roasterService.getMarkForSaleDetails(this.roasterID, this.orderID).subscribe(
             (response) => {
@@ -154,6 +157,7 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
             },
         );
     }
+
     getGCAvailableDetails(harvestID) {
         this.roasterService.getGCAvailableDetails(harvestID).subscribe(
             (response) => {
@@ -183,6 +187,7 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
             },
         );
     }
+
     getRoasterNotes() {
         this.roasterService.getRoasterNotes(this.roasterID, this.orderID).subscribe(
             (response) => {
@@ -200,6 +205,7 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
         this.appLanguage = this.globals.languageJson;
         this.procuredActive++;
     }
+
     availabilityPage(data) {
         if (data.catalogue === 'OUTTAKE_ORDER') {
             return `/outtake-orders/view-order/${data.catalogue_id}`;
@@ -209,6 +215,7 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
             return `/green-coffee-management/green-coffee-for-sale-details/${data.catalogue_id}`;
         }
     }
+
     viewReport() {
         this.roasterService.getCuppingReportDetails(this.orderDetails.harvest_id).subscribe(
             (res) => {
