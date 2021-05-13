@@ -12,11 +12,12 @@ export class AuthGuard implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot,
     ): Observable<boolean> | Promise<boolean> | boolean {
-        if (this.cookieService.get('Auth')) {
+        const orgId = +this.cookieService.get('roaster_id');
+        if (orgId && this.cookieService.get('Auth')) {
             return true;
         } else {
             const token = this.cookieService.get('Authorization');
-            if (token) {
+            if (orgId && token) {
                 this.cookieService.set('Auth', token);
                 return true;
             }
