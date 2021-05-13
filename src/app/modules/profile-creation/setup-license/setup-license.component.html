@@ -23,7 +23,7 @@
                     <div class="d-flex pt-2 pr-0 pb-2 pl-2 align-items-center">
                         <img class="d-none d-lg-block mr-4" src="assets/images/reorder.svg" alt="certification" />
                         <label class="fnt-muli fnt-600 fnt-14 text-clr334 mb-0">{{
-                            certificationItem.certificate_type
+                            certificationItem.certificate_type | strReplace: '-':' ' | titlecase
                         }}</label>
                         <p-divider class="divider border-none" layout="vertical"></p-divider>
                         <label class="fnt-muli fnt-600 fnt-14 text-clr334 mb-0">{{ certificationItem.year }}</label>
@@ -75,7 +75,11 @@
                         placeholder="Enter certification name"
                         [autoDisplayFirst]="false"
                         (onChange)="onChangeType($event)"
-                    ></p-dropdown>
+                    >
+                        <ng-template let-item pTemplate="item">
+                            {{ item.type | strReplace: '-':' ' | titlecase }}
+                        </ng-template>
+                    </p-dropdown>
                 </div>
                 <div class="p-0 pl-md-2 pl-lg-25 sewn-form-field mb-3 certification-year">
                     <label class="fnt-muli fnt-600 fnt-14 text-clr334 lh-normal mb-2"> Year of certification </label>

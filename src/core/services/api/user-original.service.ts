@@ -532,9 +532,10 @@ export class UserserviceService extends ApiService {
         return this.http.post(this.roasterUrl, data);
     }
 
-    getAvailableEstates(roasterId: any, queryParams = '') {
+    getAvailableEstates(roasterId: any, query = {}) {
+        const queryParams = this.serializeParams(query);
         const data = {
-            api_call: `/ro/${roasterId}/estates/availability${queryParams}`,
+            api_call: `/ro/${roasterId}/estates/availability?${queryParams}`,
             method: 'GET',
             token: this.cookieService.get('Auth'),
         };

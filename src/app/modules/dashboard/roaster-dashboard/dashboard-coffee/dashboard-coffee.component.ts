@@ -69,6 +69,6 @@ export class DashboardCoffeeComponent implements OnInit, OnDestroy {
     }
 
     goToOrderDetails(item: any) {
-        this.router.navigateByUrl(`/orders/${item.type}/${item.id}`);
+        this.router.navigateByUrl(`/orders/es/${item.id}`);
     }
 }
