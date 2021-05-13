@@ -291,16 +291,12 @@
                                             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 v-report">
                                                 <a class="brown-cta" (click)="viewReport()">View report </a>
                                             </div>
-                                            <!-- <div
-                                                class="d-none d-sm-none d-xl-none d-lg-block d-md-none col-lg-3 col-md-6 col-sm-6 v-report"
-                                            >
-                                                <a class="brown-cta" (click)="viewReport()">View </a>
-                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row mt-4 ml-md-0 mr-md-0">
+                            <div class="row mt-4 ml-md-0 mr-md-0" *ngIf="primeTableService.records.length > 0">
+                                <div class="fnt-muli fnt-14 fnt-bold mb-2">{{ 'order_activity' | translate }}</div>
                                 <p-table
                                     #markedTable
                                     [class.table-mobile]="primeTableService.isMobileView"
@@ -347,7 +343,10 @@
                                     <ng-template pTemplate="body" let-rowData let-columns="columns">
                                         <tr>
                                             <td *ngFor="let col of columns" [ngSwitch]="col.field">
-                                                <span *ngSwitchCase="'date'" [routerLink]="availabilityPage(rowData)">
+                                                <span
+                                                    *ngSwitchCase="'created_at'"
+                                                    [routerLink]="availabilityPage(rowData)"
+                                                >
                                                     <div class="d-flex">
                                                         <span
                                                             *ngIf="primeTableService.isMobileView"
@@ -355,17 +354,8 @@
                                                         >
                                                             {{ 'date' | translate }}
                                                         </span>
-                                                        <span
-                                                            *ngIf="primeTableService.isMobileView"
-                                                            class="truncate break-word"
-                                                        >
-                                                            {{ rowData['date'] || '--' }}
-                                                        </span>
-                                                        <span
-                                                            *ngIf="!primeTableService.isMobileView"
-                                                            class="truncate break-word"
-                                                        >
-                                                            {{ rowData['date'] || '--' }}
+                                                        <span [class.w-50]="primeTableService.isMobileView">
+                                                            {{ rowData['created_at'] | date: 'd MMM yyyy' }}
                                                         </span>
                                                     </div>
                                                 </span>
@@ -381,32 +371,18 @@
                                                             {{ 'location' | translate }}
                                                         </span>
                                                         <span
-                                                            *ngIf="primeTableService.isMobileView"
+                                                            [class.w-50]="primeTableService.isMobileView"
                                                             class="truncate break-word"
                                                         >
-                                                            <span *ngIf="rowData.catalogue === 'RO_GREEN_COFFEE'"
-                                                                >Green inventory</span
-                                                            >
-                                                            <span *ngIf="rowData.catalogue === 'OUTTAKE_ORDER'"
-                                                                >Outtake order</span
-                                                            >
-                                                            <span *ngIf="rowData.catalogue === 'RO_BATCH'"
-                                                                >Roasted coffee batch</span
-                                                            >
-                                                        </span>
-                                                        <span
-                                                            *ngIf="!primeTableService.isMobileView"
-                                                            class="truncate break-word"
-                                                        >
-                                                            <span *ngIf="rowData.catalogue === 'RO_GREEN_COFFEE'"
-                                                                >Green inventory</span
-                                                            >
-                                                            <span *ngIf="rowData.catalogue === 'OUTTAKE_ORDER'"
-                                                                >Outtake order</span
-                                                            >
-                                                            <span *ngIf="rowData.catalogue === 'RO_BATCH'"
-                                                                >Roasted coffee batch</span
-                                                            >
+                                                            <span *ngIf="rowData.catalogue === 'RO_GREEN_COFFEE'">{{
+                                                                'green_inventory' | translate
+                                                            }}</span>
+                                                            <span *ngIf="rowData.catalogue === 'OUTTAKE_ORDER'">{{
+                                                                'outtake_order' | translate
+                                                            }}</span>
+                                                            <span *ngIf="rowData.catalogue === 'RO_BATCH'">{{
+                                                                'roasted_coffee_batch' | translate
+                                                            }}</span>
                                                         </span>
                                                     </div>
                                                 </span>
@@ -422,10 +398,7 @@
                                                             {{ 'quantity' | translate }}
                                                         </span>
 
-                                                        <span *ngIf="primeTableService.isMobileView" class="w-50">
-                                                            {{ rowData['total_quantity'] }}&nbsp; kg
-                                                        </span>
-                                                        <span *ngIf="!primeTableService.isMobileView" class="">
+                                                        <span [class.w-50]="primeTableService.isMobileView">
                                                             {{ rowData['total_quantity'] }}&nbsp; kg
                                                         </span>
                                                     </div>

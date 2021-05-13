@@ -17,7 +17,6 @@ import { Download } from '@models';
 })
 export class DefaultSettingsComponent implements OnInit {
     isCoffeeDetailsPage = this.route.snapshot.routeConfig.path !== 'default-settings';
-    isEstatePage = this.route.snapshot.routeConfig.path === 'estate_id';
     date1: Date;
     appLanguage?: any;
     coffeeDetailsActive: any = 0;
@@ -200,7 +199,7 @@ export class DefaultSettingsComponent implements OnInit {
     getOrderExperience() {
         if (this.route.snapshot.queryParams.estate_id) {
             this.userService
-                .getEstateOrdersCoffeeExperience(this.cookieService.get('estate_id'), this.orderId)
+                .getEstateOrdersCoffeeExperience(this.roasterId, this.orderId)
                 .subscribe((response: any) => {
                     if (response.success) {
                         this.setPageData(response);
@@ -208,6 +207,11 @@ export class DefaultSettingsComponent implements OnInit {
                         this.getDefaultSetting();
                     }
                 });
+            this.userService.getCoffeeStory(this.roasterId, this.orderId, 'orders').subscribe((rep: any) => {
+                if (rep.success) {
+                    this.coffeeExperienceLink = rep.result;
+                }
+            });
         } else if (this.route.snapshot.queryParams.micro_roasters_id) {
             this.userService.getMrOrdersCoffeeExperience(this.roasterId, this.orderId).subscribe((response: any) => {
                 if (response.success) {
@@ -525,10 +529,8 @@ export class DefaultSettingsComponent implements OnInit {
         document.body.appendChild(textArea);
         textArea.select();
         document.execCommand('Copy');
-        if (this.coffeeExperienceLink.coffee_story_url && document.execCommand('Copy')) {
-            this.toastrService.success('Copied link successfully');
-        }
         textArea.remove();
+        this.toastrService.success('Copied link successfully');
     }
 
     onDownloadQr() {
