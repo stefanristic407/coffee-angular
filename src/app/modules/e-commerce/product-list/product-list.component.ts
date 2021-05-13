@@ -45,7 +45,6 @@ export class ProductListComponent implements OnInit {
         {
             field: 'price',
             header: 'Price',
-            sortable: false,
         },
     ];
 
@@ -137,7 +136,7 @@ export class ProductListComponent implements OnInit {
                           {
                               field: 'name',
                               header: 'product_name',
-                              sortable: false,
+                              sortable: true,
                               width: '190px',
                           },
                           {
@@ -163,7 +162,7 @@ export class ProductListComponent implements OnInit {
                           {
                               field: 'price',
                               header: 'Price',
-                              sortable: false,
+                              sortable: true,
                           },
                           {
                               field: 'actions',
@@ -175,13 +174,13 @@ export class ProductListComponent implements OnInit {
                           {
                               field: 'name',
                               header: 'product_name',
-                              sortable: false,
+                              sortable: true,
                               width: '190px',
                           },
                           {
                               field: 'origin',
                               header: 'Origin',
-                              sortable: false,
+                              sortable: true,
                           },
                           {
                               field: 'estate_name',
@@ -195,7 +194,7 @@ export class ProductListComponent implements OnInit {
                           {
                               field: 'weight',
                               header: 'Weight',
-                              sortable: false,
+                              sortable: true,
                           },
                           {
                               field: 'status',
@@ -205,7 +204,7 @@ export class ProductListComponent implements OnInit {
                           {
                               field: 'price',
                               header: 'Price',
-                              sortable: false,
+                              sortable: true,
                           },
                           {
                               field: 'actions',

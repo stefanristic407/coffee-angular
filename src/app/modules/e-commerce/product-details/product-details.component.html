@@ -189,12 +189,15 @@
                                 *ngIf="!productForm.get('is_external_product').value"
                             >
                                 <label>{{ 'remaining_batch_quantity' | translate }}</label>
-                                <input
-                                    type="text"
-                                    [readonly]="!productForm.get('is_external_product').value"
-                                    formControlName="remaining_quantity"
-                                    pInputText
-                                />
+                                <div class="p-input-icon-right">
+                                    <input
+                                        type="text"
+                                        [readonly]="!productForm.get('is_external_product').value"
+                                        formControlName="remaining_quantity"
+                                        pInputText
+                                    />
+                                    <span class="right-icon fnt-muli fnt-14 fnt-normal text-clr334 lh-normal">kg</span>
+                                </div>
                             </div>
 
                             <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
@@ -493,45 +496,49 @@
                 </p-tabPanel>
             </p-tabView>
         </div>
-        <p-divider type="dashed" styleClass="my-4 my-lg-45"></p-divider>
-        <div class="col-12 p-0 mb-3">
-            <p class="primary_txt fnt-16 mb-2">
-                {{ 'boxes_details' | translate }}
-            </p>
-            <span>{{ 'add_value_crate' | translate }}</span>
-        </div>
-        <div
-            formArrayName="crates"
-            *ngFor="let box of productForm.controls['crates']['controls']; let i = index; last as isLast"
-            class="mt-4"
-        >
-            <div [formGroupName]="i" class="row mt-2">
-                <div class="d-flex w-mob-100">
-                    <div class="sewn-form-field w-100 bags-width ml-3">
-                        <label class="text-nowrap">{{ 'box_value' | translate }}</label>
-                        <input type="text" placeholder="" readonly formControlName="boxField" pInputText />
+        <div [ngClass]="type === 'b2b' ? 'd-block' : 'd-none'">
+            <p-divider type="dashed" styleClass="my-4 my-lg-45"></p-divider>
+            <div class="col-12 p-0">
+                <p class="primary_txt fnt-16 mb-2">
+                    {{ 'boxes_details' | translate }}
+                </p>
+                <span>{{ 'add_value_crate' | translate }}</span>
+            </div>
+            <div
+                formArrayName="crates"
+                *ngFor="let box of productForm.controls['crates']['controls']; let i = index; last as isLast"
+                class="mt-4"
+            >
+                <div [formGroupName]="i" class="row mt-2">
+                    <div class="d-flex w-mob-100">
+                        <div class="sewn-form-field w-100 bags-width ml-3">
+                            <label class="text-nowrap">{{ 'box_value' | translate }}</label>
+                            <input type="text" placeholder="" readonly formControlName="boxField" pInputText />
+                        </div>
+                        <div class="equal-operators">=</div>
                     </div>
-                    <div class="equal-operators">=</div>
-                </div>
-                <div class="sewn-form-field w-100 boxCrateWidth ml-3 ml-md-0">
-                    <label>{{ 'weight' | translate }}</label>
-                    <input type="text" readonly placeholder="" formControlName="weight_name" pInputText />
-                </div>
-                <div class="equal-operators px-1 px-md-2">x</div>
-                <div class="sewn-form-field w-100 boxCrateWidth mr-3 mr-md-0">
-                    <label class="d-none d-md-block">
-                        {{ 'number_of_bags' | translate }}
-                        <span class="star">*</span>
-                    </label>
-                    <label class="d-block d-md-none">{{ 'no_of_bags' | translate }}<span class="star">*</span></label>
-                    <input type="number" placeholder="" formControlName="crate_capacity" pInputText />
-                    <small *ngIf="box.controls['crate_capacity'].errors?.required" class="p-error">
-                        {{ 'required' | translate }}
-                    </small>
+                    <div class="sewn-form-field w-100 boxCrateWidth ml-3 ml-md-0">
+                        <label>{{ 'weight' | translate }}</label>
+                        <input type="text" readonly placeholder="" formControlName="weight_name" pInputText />
+                    </div>
+                    <div class="equal-operators px-1 px-md-2">x</div>
+                    <div class="sewn-form-field w-100 boxCrateWidth mr-3 mr-md-0">
+                        <label class="d-none d-md-block">
+                            {{ 'number_of_bags' | translate }}
+                            <span class="star">*</span>
+                        </label>
+                        <label class="d-block d-md-none"
+                            >{{ 'no_of_bags' | translate }}<span class="star">*</span></label
+                        >
+                        <input type="number" placeholder="" formControlName="crate_capacity" pInputText />
+                        <small *ngIf="box.controls['crate_capacity'].errors?.required" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
+                    </div>
                 </div>
             </div>
         </div>
-        <p-divider type="dashed" styleClass="mt-2 mt-lg-4 mb-4 mb-lg-475"></p-divider>
+        <p-divider type="dashed" styleClass="mt-4 mt-lg-4 mb-4 mb-lg-475"></p-divider>
         <div class="d-flex flex-wrap">
             <div class="col-12 mb-3 p-0">
                 <span class="primary_txt fnt-16">{{ 'vat_details' | translate }}</span
@@ -551,14 +558,15 @@
                     {{ 'required' | translate }}
                 </small>
             </div>
-            <div class="sewn-form-field ml-md-3 ml-lg-4 mt-2 mt-md-0">
-                <label class="fnt-14 fnt-600 fnt-muli txt-clr-554">
+            <div class="ml-md-3 ml-lg-4 mt-2 mt-md-0 mb-3">
+                <div class="fnt-14 fnt-600 fnt-muli text-clr588 mb-2">
                     {{ 'is_product_price_vat' | translate }}<span class="star">*</span>
-                </label>
+                </div>
                 <p-checkbox
                     formControlName="is_price_including_vat"
                     binary="true"
                     [label]="'price_inclusive_vat' | translate"
+                    [readonly]="type === 'b2c'"
                 >
                 </p-checkbox>
             </div>
