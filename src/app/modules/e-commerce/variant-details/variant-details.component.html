@@ -216,6 +216,7 @@
                                         placeholder=""
                                         formControlName="available_quantity_type"
                                         optionValue="value"
+                                        [readonly]="true"
                                     ></p-dropdown>
                                     <small
                                         *ngIf="grind_variant['controls']['available_quantity'].errors?.required"
