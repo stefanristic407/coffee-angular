@@ -198,19 +198,26 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         this.createWeightVariantArray();
         setTimeout(() => {
             this.currentVariantIndex = this.weights.length - 1;
-        }, 300);
+        }, 0);
     }
     deleteWeightVariant(index) {
-        const weight = this.weights.controls[this.currentVariantIndex];
-        this.weights.removeAt(index);
-        this.handleWeightDelete.emit({
-            productWeightVariantId: weight.value.product_weight_variant_id,
-            isNew: weight.value.isNew,
-            weight: weight.value.weight,
-            weight_unit: weight.value.weight_unit,
-        });
-        this.weightVariantArray.splice(index, 1);
-        this.currentVariantIndex = 0;
+        this.weights = this.weightForm.get('weights') as FormArray;
+        const weight = this.weights.controls[index];
+        if (index === this.currentVariantIndex) {
+            this.currentVariantIndex = index === 0 ? this.weights.length - 1 : 0;
+        }
+        const weightVariantArray = Object.assign([], this.weightVariantArray);
+        setTimeout(() => {
+            this.weights.removeAt(index);
+            this.handleWeightDelete.emit({
+                productWeightVariantId: weight.value.product_weight_variant_id,
+                isNew: weight.value.isNew,
+                weight: weight.value.weight,
+                weight_unit: weight.value.weight_unit,
+            });
+            weightVariantArray.splice(index, 1);
+            this.weightVariantArray = weightVariantArray;
+        }, 200);
     }
     addNewGrindVariants(): void {
         this.displayDelete = true;
