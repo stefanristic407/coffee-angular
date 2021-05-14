@@ -120,20 +120,20 @@
             >
                 <ng-template let-weight pTemplate="item">
                     <span *ngIf="weight.label">{{ weight.label }}</span>
-                    <span *ngIf="!weight.label" class="weightVariantBtn">
+                    <span *ngIf="!weight.label" class="weightVariantBtn" (click)="addNewVariants()">
                         <img class="" src="assets/images/add_green_icon.svg" />
-                        <span
-                            class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer"
-                            (click)="addNewVariants()"
-                        >
+                        <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer">
                             {{ 'add_variant' | translate }}
                         </span>
                     </span>
                 </ng-template>
             </p-dropdown>
         </div>
-        <div class="d-block d-md-none mt-3" *ngIf="productForm.value.is_variants_included">
-            <span class="fnt-700 editBtn cursor-pointer align-items-center" (click)="removeVariantDrop(currentVariant)">
+        <div
+            class="d-block d-md-none mt-3"
+            *ngIf="productForm.value.is_variants_included && productForm.get('variants').value.length > 1"
+        >
+            <span class="fnt-700 editBtn cursor-pointer align-items-center" (click)="removeVariant(currentVariant)">
                 {{ 'delete_variant' | translate }}
             </span>
         </div>
@@ -153,9 +153,13 @@
                     <ng-template pTemplate="header">
                         <span
                             >{{ variant['value']['variant_name'] }}
-                            <span (click)="removeVariant(i)"
-                                ><img src="assets/images/delete-variant-name.svg" alt="delete" /></span
-                        ></span>
+                            <span
+                                (click)="$event.stopPropagation(); removeVariant(i)"
+                                *ngIf="productForm.get('variants').value.length > 1"
+                            >
+                                <img src="assets/images/delete-variant-name.svg" alt="delete" />
+                            </span>
+                        </span>
                     </ng-template>
                     <div [formGroupName]="i">
                         <div class="row gutter-16 mt-4">
@@ -311,7 +315,7 @@
                                     [yearRange]="'2000:' + thisYear"
                                     [readonlyInput]="true"
                                     inputId="monthpicker"
-                                    styleClass="p-harvest-calendar"
+                                    styleClass="p-harvest-calendar w-100"
                                 ></p-calendar>
                             </div>
                         </div>
