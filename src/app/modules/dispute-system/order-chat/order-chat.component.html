@@ -6,20 +6,20 @@
                     {{ 'return_to_order' | translate }}
                 </a>
             </div>
-            <div class="col-4">
+            <div class="col-4 pr-0">
                 <button
                     *ngIf="currentDisputeID && showResolveBtn"
                     (click)="markResolved()"
                     class="btn pull-right btn-stroked"
                 >
-                    Mark as resolved
+                    {{ 'mark_as_resolved' | translate }}
                 </button>
                 <button
                     *ngIf="!currentDisputeID && orderDetails"
                     [routerLink]="['/dispute-system/order-support/', orderID]"
                     class="btn pull-right btn-raised"
                 >
-                    Have a problem?
+                    {{ 'have_a_problem' | translate }}
                 </button>
             </div>
         </div>
@@ -27,15 +27,19 @@
             <a class="back-page" href="javascript:void(0);" (click)="onReturnOrder()"> </a>
 
             <div class="orderDiv">
-                <span *ngIf="!currentDisputeID" class="fnt-18 font-bold-700 text-clr334 nowrap"
-                    >Order #{{ orderDetails?.id }}</span
+                <span *ngIf="!currentDisputeID" class="fnt-18 fnt-700 text-clr334 nowrap"
+                    >{{ 'order' | translate }} #{{ orderDetails?.id }}</span
                 >
-                <span *ngIf="currentDisputeID" class="fnt-18 font-bold-700 text-clr334 nowrap"
-                    >Ticket #{{ currentDisputeID }}</span
+                <span *ngIf="currentDisputeID" class="fnt-18 fnt-700 text-clr334 nowrap"
+                    >{{ 'ticket' | translate }} #{{ currentDisputeID }}</span
                 >
-                <span class="fnt-12">{{ orderDetails?.order_type }}</span>
-                <span *ngIf="isView" class="text-highlited mt-4" (click)="isView = false">Close tickets</span>
-                <span *ngIf="!isView" class="text-highlited mt-4" (click)="isView = true">View tickets</span>
+                <span class="fnt-12 text-clr588">{{ orderDetails?.order_type }}</span>
+                <span *ngIf="isView" class="text-highlited mt-2 mt-md-4" (click)="isView = false"
+                    >{{ 'close' | translate }} <span class="d-none d-md-flex">{{ 'tickets' | translate }}</span></span
+                >
+                <span *ngIf="!isView" class="text-highlited mt-2 mt-md-4" (click)="isView = true"
+                    >{{ 'view' | translate }} {{ 'tickets' | translate }}</span
+                >
             </div>
             <div class="imgMobileDiv orderDiv">
                 <div *ngIf="threadUserList.length" class="pr-3 imgDiv d-flex">
@@ -53,9 +57,33 @@
                         ></app-user-detail>
                     </div>
                 </div>
-                <span class="text-highlited mt-4" (click)="navigateAssignUser()"> Change assigned user</span>
-                <span *ngIf="currentDisputeID && showResolveBtn" class="text-highlited mt-2" (click)="markResolved()"
-                    >Mark as resolved</span
+                <a
+                    class="menu-arrow text-center"
+                    [popover]="listTemplate"
+                    placement="left"
+                    [outsideClick]="true"
+                    #pop1="bs-popover"
+                >
+                    <img class="message-icon" src="assets/images/ellipses.png" alt="Message" />
+                </a>
+                <ng-template #listTemplate>
+                    <div id="popover-mobile-content">
+                        <ul class="list-data custom-popover">
+                            <li
+                                class="list-item fnt-14 fnt-600 text-clr588 border-none"
+                                (click)="navigateAssignUser(); pop1.hide()"
+                            >
+                                <a class="pointer-item"> {{ 'change_assigned_user' | translate }} </a>
+                            </li>
+                        </ul>
+                    </div>
+                </ng-template>
+                <span
+                    *ngIf="currentDisputeID && showResolveBtn"
+                    class="text-highlited text-right"
+                    style="margin-top: 10px; margin-right: 18px"
+                    (click)="markResolved()"
+                    >{{ 'mark_as_resolved' | translate }}</span
                 >
             </div>
         </div>
@@ -70,11 +98,15 @@
                     >
                     <span class="statusLable fnt-12">Order Status - {{ orderDetails?.status }}</span>
                 </div>
+
                 <div *ngIf="threadUserList.length" class="pr-3 imgDiv d-flex">
                     <div
                         *ngFor="let user of threadUserList; let i = index"
                         [ngClass]="{ 'move-left': i !== 0 }"
-                        [ngStyle]="{ 'z-index': threadUserList.length - i }"
+                        [ngStyle]="{
+                            'z-index': threadUserList.length - i,
+                            'margin-left': i !== 0 ? -4 * threadUserList.length + 'px' : '0'
+                        }"
                     >
                         <app-user-detail
                             [imageUrl]="user.profile_pic || 'assets/images/profile.svg'"
@@ -96,40 +128,49 @@
             <div
                 class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 no-gutters d-flex align-items-center justify-content-end p-0"
             >
-                <span class="text-highlited pr-3 pr-md-0" (click)="navigateAssignUser()"> Change assigned user</span>
+                <span class="text-highlited pr-3 pr-md-0" (click)="navigateAssignUser()">
+                    {{ 'change_assigned_user' | translate }}</span
+                >
                 <div class="seperatorClass"></div>
-                <span *ngIf="isView" class="text-highlited" (click)="isView = false">Close tickets</span>
-                <span *ngIf="!isView" class="text-highlited" (click)="isView = true">View tickets</span>
+                <span *ngIf="isView" class="text-highlited" (click)="isView = false"
+                    >{{ 'close' | translate }} {{ 'tickets' | translate }}</span
+                >
+                <span *ngIf="!isView" class="text-highlited" (click)="isView = true"
+                    >{{ 'view' | translate }} {{ 'tickets' | translate }}</span
+                >
             </div>
         </div>
-        <div class="row m-0 bg-white floting-containerDiv">
+        <div class="row m-0 bg-white floting-containerDiv position-absolute w-100">
             <div *ngIf="isView" class="order-ticket">
                 <div class="card-width" (click)="clickOrder()" [ngClass]="!currentDisputeID ? 'cardSelect' : ''">
-                    <div class="fnt-14 m-0" [ngClass]="!currentDisputeID ? 'selected-data-font' : 'primary-label'">
-                        Order
+                    <div
+                        class="fnt-14 m-0 fnt-muli font-bold"
+                        [ngClass]="!currentDisputeID ? 'text-clr334' : 'primary-label'"
+                    >
+                        {{ 'order' | translate }}
                     </div>
-                    <div class="fnt-14" [ngClass]="!currentDisputeID ? 'selected-data-font' : 'primary-label'">
+                    <div
+                        class="fnt-14 font-bold fnt-muli mb-2 mb-md-3"
+                        [ngClass]="!currentDisputeID ? 'text-clr334' : 'primary-label text-clr588'"
+                    >
                         #{{ orderDetails?.id }}
                     </div>
-                    <div class="primary-label fnt-12 m-0 mb-3">
+                    <div class="primary-label font-bold fnt-12 mt-0 mb-0">
                         {{ orderDetails?.created_at | date: 'h:mm a' }}
                     </div>
                 </div>
                 <div
-                    *ngFor="let item of orderDisputes"
+                    *ngFor="let item of orderDisputes | reverse"
                     class="card-width"
                     (click)="clickDispute(item)"
                     [ngClass]="currentDisputeID == item.id ? 'cardSelect' : ''"
                 >
-                    <div
-                        class="fnt-14 m-0"
-                        [ngClass]="currentDisputeID == item.id ? 'selected-data-font' : 'primary-label'"
-                    >
-                        Ticket #{{ item.id }}
+                    <div class="fnt-14 m-0" [ngClass]="currentDisputeID == item.id ? 'text-clr334' : 'primary-label'">
+                        {{ 'ticket' | translate }} #{{ item.id }}
                     </div>
                     <div
-                        class="fnt-12 mb-3"
-                        [ngClass]="currentDisputeID == item.id ? 'selected-data-font' : 'primary-sub-label'"
+                        class="fnt-12 mb-2 mb-md-3"
+                        [ngClass]="currentDisputeID == item.id ? 'text-clr334' : 'primary-sub-label'"
                     >
                         {{ item.dispute_type }}
                     </div>
