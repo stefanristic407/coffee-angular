@@ -120,8 +120,17 @@
 
 .right_angle {
     background-color: $white !important;
-    padding: 0.75rem !important;
+    padding: 0.75rem 0.5rem !important;
+}
+
+.cursor-point,
+.cursor-point input {
     cursor: pointer;
+    padding-left: 0 !important;
+}
+
+.pr {
+    padding-right: 0 !important;
 }
 
 .right_angle i {
@@ -131,9 +140,12 @@
     color: #ffc107;
 }
 .p-calendar .p-button-icon {
-    font-size: 22px;
+    font-size: 20px;
 }
 @media (max-width: 767px) {
+    .mobile-w {
+        width: 70px;
+    }
     .breadcrumb-container {
         overflow-x: scroll;
     }

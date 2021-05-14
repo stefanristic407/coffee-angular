@@ -254,6 +254,7 @@ const PIPES = [
     SearchFilterPipe,
     ConvertToShortDescriptionPipe,
     CertificateNamePipe,
+    ThousandSuffPipe,
 ];
 
 @NgModule({
@@ -276,7 +277,6 @@ const PIPES = [
         ...PIPES,
         FullImgWrapperDirective,
         WeightConvertPipe,
-        ThousandSuffPipe,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [
