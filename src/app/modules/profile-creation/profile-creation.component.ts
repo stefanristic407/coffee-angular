@@ -44,7 +44,7 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
         this.detectMode();
         this.initialForm();
         this.roasterId = this.cookieService.get('roaster_id');
-        this.checkAdminRole(this.roasterId);
+        this.checkAdminRole();
     }
 
     ngOnDestroy() {
@@ -52,8 +52,8 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
         this.roasteryProfileService.editMode.next(true);
     }
 
-    checkAdminRole(userId) {
-        this.userService.getUserDetail(userId).subscribe((res: any) => {
+    checkAdminRole() {
+        this.userService.getUserDetail().subscribe((res: any) => {
             console.log('check admin role: ', res);
             if (res.success) {
                 this.isAdminRole = res.result.has_system_role;
