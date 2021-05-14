@@ -39,7 +39,6 @@
     border: 1px solid #d6d6d6;
     border-radius: 4px;
     text-align: center;
-    width: 200px;
     position: relative;
     overflow: hidden;
 }
@@ -51,8 +50,14 @@
     cursor: pointer;
 }
 
-::ng-deep .isWeightTab .p-tabview .p-tabview-nav {
-    display: flex;
+::ng-deep .weight-tabview.p-tabview .p-tabview-nav {
+    display: none;
+    @media screen and (max-width: 991px) {
+        display: flex;
+    }
+    @media screen and (max-width: 767px) {
+        display: none;
+    }
 }
 
 .weightInputDiv {
@@ -97,6 +102,9 @@
     }
     .add-image-flex {
         display: flex;
+    }
+    .addImageContainer {
+        width: 212px;
     }
 }
 

@@ -1,4 +1,3 @@
-export * from './acl.service';
 export * from './addresses.service';
 export * from './api-request.service';
 export * from './api.service';
@@ -10,6 +9,7 @@ export * from './coffee-story.service';
 export * from './dashboard.service';
 export * from './e-commerce.service';
 export * from './email.service';
+export * from './estate.service';
 export * from './file.service';
 export * from './general-cupping.service';
 export * from './general.service';

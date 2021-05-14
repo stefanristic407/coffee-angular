@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { HealthCheckComponent } from '@components';
-import { LayoutComponent } from './layout/layout.component';
+import { LayoutComponent } from '@components';
 import { GateComponent } from '@components';
 
 export const routes: Routes = [
@@ -15,7 +15,7 @@ export const routes: Routes = [
             },
             {
                 path: 'features',
-                loadChildren: () => import('./features/features.module').then((m) => m.FeaturesModule),
+                loadChildren: () => import('./modules/features/features.module').then((m) => m.FeaturesModule),
             },
             {
                 path: 'orders',
@@ -145,7 +145,7 @@ export const routes: Routes = [
     { path: 'gate', component: GateComponent },
     {
         path: 'auth',
-        loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+        loadChildren: () => import('./modules/auth/auth.module').then((m) => m.AuthModule),
     },
     { path: 'health-check', component: HealthCheckComponent },
     {

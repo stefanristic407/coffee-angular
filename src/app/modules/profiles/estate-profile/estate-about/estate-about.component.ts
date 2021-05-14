@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { OrganizationType } from '@enums';
-import { GlobalsService, RoasterserviceService, UserserviceService } from '@services';
+import { AclService, GlobalsService, RoasterserviceService, UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { EstateProfileService } from '../estate-profile.service';
 
@@ -23,6 +23,7 @@ export class EstateAboutComponent implements OnInit {
         public globals: GlobalsService,
         public roasterService: RoasterserviceService,
         private toastrService: ToastrService,
+        private aclService: AclService,
     ) {}
 
     ngOnInit(): void {
@@ -31,7 +32,7 @@ export class EstateAboutComponent implements OnInit {
     }
 
     getCertificates() {
-        if (this.globals.checkItem('certificate-list') || this.globals.checkItem('certificate-management')) {
+        if (this.aclService.checkPermission('certificate-list|certificate-management')) {
             this.userService.getGeneralCertificates(this.estateId, OrganizationType.ESTATE).subscribe((result: any) => {
                 if (result.success === true) {
                     this.certificatesArray = result.result;

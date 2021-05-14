@@ -8,6 +8,6 @@ export class Menu {
         public target: string,
         public hasSubMenu: boolean,
         public parentId: number,
-        public permissions: string[],
+        public permissions: string,
     ) {}
 }

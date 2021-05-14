@@ -5,7 +5,7 @@
         [class.position-relative]="!menuParentId"
         [class.arrow]="menu.hasSubMenu"
         [id]="'menu-item-' + menu.id"
-        *ngIf="checkPermissions(menu)"
+        *appAclIf="menu.permissions"
     >
         <a *ngIf="!menu.hasSubMenu" class="d-inline-block fnt-600" [routerLink]="[menu.routerLink]"
             >{{ menu.title | translate }}

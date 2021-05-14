@@ -17,6 +17,12 @@ export class AvailabilityService extends ApiService {
         super(cookieSrv, http);
     }
 
+    // Available Green Coffee
+    getAvailableGces(query: any = null) {
+        const params = this.serializeParams(query);
+        return this.postWithOrg(this.orgPostUrl, `${this.endpoint}?${params}`, 'GET');
+    }
+
     getAvailabilityList(): Observable<any[]> {
         return this.postWithOrg(this.orgPostUrl, this.endpoint).pipe(
             map((response) => {

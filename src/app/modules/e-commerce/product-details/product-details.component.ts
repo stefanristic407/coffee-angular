@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { VariantDetailsComponent } from '../variant-details/variant-details.component';
 import { maxWordCountValidator } from '@utils';
-
+import { COUNTRY_LIST } from '@constants';
 @Component({
     selector: 'app-product-details',
     templateUrl: './product-details.component.html',
@@ -64,6 +64,8 @@ export class ProductDetailsComponent implements OnInit {
     flavoursList: any[];
     isPublished: boolean;
     thisYear = new Date().getFullYear();
+    countryArray: any[] = COUNTRY_LIST;
+    count = 0;
 
     constructor(
         public globals: GlobalsService,
@@ -80,20 +82,20 @@ export class ProductDetailsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.productForm = this.fb.group({
-            is_public: [false],
-            name: ['', Validators.compose([Validators.required])],
-            purchase_type: ['', Validators.compose([Validators.required])],
-            description: ['', Validators.compose([Validators.required, maxWordCountValidator(300)])],
-            is_variants_included: [false],
-            variants: this.fb.array([this.createEmptyVariant()]),
-            crates: this.fb.array([]),
-            vat_setting_id: ['', Validators.compose([Validators.required])],
-            is_price_including_vat: [false],
-            is_external_product: [false],
-        });
         this.route.params.subscribe((params) => {
             this.type = params.type;
+            this.productForm = this.fb.group({
+                is_public: [false],
+                name: ['', Validators.compose([Validators.required])],
+                purchase_type: ['', Validators.compose([Validators.required])],
+                description: ['', Validators.compose([Validators.required, maxWordCountValidator(300)])],
+                is_variants_included: [false],
+                variants: this.fb.array([this.createEmptyVariant()]),
+                crates: this.fb.array([]),
+                vat_setting_id: ['', Validators.compose([Validators.required])],
+                is_price_including_vat: [this.type === 'b2c'],
+                is_external_product: [false],
+            });
             if (this.type === 'b2c') {
                 this.getFlavoursData();
             }
@@ -291,8 +293,16 @@ export class ProductDetailsComponent implements OnInit {
         this.variants = this.productForm.get('variants') as FormArray;
         this.variants.push(this.createEmptyVariant());
         this.createTypeVariantArray();
+        setTimeout(() => {
+            this.currentVariant = this.variants.length - 1;
+        }, 0);
     }
     removeVariant(index: any) {
+        this.variants = this.productForm.get('variants') as FormArray;
+        if (index === this.currentVariant) {
+            this.currentVariant = index === 0 ? this.variants.length - 1 : 0;
+        }
+        const variantTypeArray = Object.assign([], this.variantTypeArray);
         const weights = this.variantComponent.toArray()[index].weightForm.value.weights;
         if (weights?.length) {
             weights.forEach((element) => {
@@ -305,12 +315,11 @@ export class ProductDetailsComponent implements OnInit {
                 this.onWeightDelete(event, element.product_weight_variant_id);
             });
         }
-        this.variants.removeAt(index);
-    }
-    removeVariantDrop(index: any) {
-        this.variantTypeArray.splice(index, 1);
-        this.variants.removeAt(index);
-        this.currentVariant = this.currentVariant > 0 ? this.currentVariant - 1 : null;
+        setTimeout(() => {
+            this.variants.removeAt(index);
+            variantTypeArray.splice(index, 1);
+            this.variantTypeArray = variantTypeArray;
+        }, 200);
     }
     supplyBreadCrumb(): void {
         this.breadCrumbItem = [
@@ -342,10 +351,10 @@ export class ProductDetailsComponent implements OnInit {
         }
     }
     createEmptyVariant() {
-        const getVariants = this.productForm ? (this.productForm.get('variants') as FormArray) : [];
+        this.count++;
         return this.fb.group({
             rc_batch_id: ['', Validators.compose([Validators.required])],
-            variant_name: 'Variant ' + (getVariants.length + 1),
+            variant_name: 'Variant ' + this.count,
             roaster_ref_no: '',
             batch_ref_no: '',
             roasting_profile_name: '',
@@ -408,7 +417,6 @@ export class ProductDetailsComponent implements OnInit {
     onWeightCreate(event) {
         this.crates = this.productForm.get('crates') as FormArray;
         const getObjs = this.crates.value.filter((ele) => ele.weight === event.value && ele.crate_unit === event.unit);
-        console.log(this.variantComponent);
         if (!event.modify) {
             if (!getObjs?.length) {
                 const getCrate = this.createEmptyCrate();
@@ -471,7 +479,7 @@ export class ProductDetailsComponent implements OnInit {
             this.variantComponent.forEach((child, childIndex) => {
                 child.weightForm.markAllAsTouched();
             });
-            this.toasterService.error('Please fill all Data');
+            this.toasterService.error('Please fill all Data and upload feature image.');
         }
     }
     createNewProduct(productObj) {
@@ -670,7 +678,6 @@ export class ProductDetailsComponent implements OnInit {
         });
         variantTypeArray.push({ label: '', value: 'button' });
         this.variantTypeArray = variantTypeArray;
-        this.currentVariant = this.variantTypeArray.length - 2;
     }
     getRoastingProfile(idx, profileID) {
         this.variants = this.productForm.get('variants') as FormArray;
@@ -693,14 +700,12 @@ export class ProductDetailsComponent implements OnInit {
         const getVariant = this.variants.controls[idx];
         getVariant.patchValue({
             origin: '',
-            region: '',
             harvest_year: '',
         });
         this.roasterService.getViewOrderDetails(this.roasterId, orderID).subscribe((res) => {
             if (res && res.result) {
                 getVariant.patchValue({
                     origin: res.result.origin,
-                    region: res.result.region,
                     harvest_year: new Date(res.result.harvest_date),
                 });
             }

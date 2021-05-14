@@ -54,10 +54,7 @@
                         type="button"
                         class="btn-stroked w-100 mb-md-3"
                         routerLink="/brand-profile/{{ page.slug }}"
-                        *ngIf="
-                            globals.checkItem('brand-profile-management') &&
-                            globals.permissions['brand-profile-management'].manage
-                        "
+                        *appAclIf="'brand-profile-management'"
                     >
                         Go to {{ page.title }}
                     </button>

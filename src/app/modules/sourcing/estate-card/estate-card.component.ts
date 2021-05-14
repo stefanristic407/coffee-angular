@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { GlobalsService } from '@services';
+import { SourcingService } from '../sourcing.service';
 
 @Component({
     selector: 'app-estate-card',
@@ -12,7 +13,7 @@ export class EstateCardComponent implements OnInit {
         $: 'USD',
     };
 
-    constructor(public globals: GlobalsService) {}
+    constructor(public globals: GlobalsService, public sourcing: SourcingService) {}
 
     ngOnInit(): void {}
 }

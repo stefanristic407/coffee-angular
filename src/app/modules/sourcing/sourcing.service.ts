@@ -19,6 +19,7 @@ export class SourcingService {
     // Lot data
     polygonId: string;
 
+    sortItems: any[];
     sortParam: string;
     quantityUnit = QuantityUnit.kg;
     queryParams: any = new BehaviorSubject({});
@@ -52,7 +53,6 @@ export class SourcingService {
     harvestId: number;
     harvestDetail: any = {};
     otherGreenList: any;
-    availableCertify: any;
 
     // Details of an lot
     lotId: number;
@@ -232,14 +232,6 @@ export class SourcingService {
         });
     }
 
-    getEachGreenCertify() {
-        this.userService.getEachEsateCertificates(this.estateId).subscribe((res: any) => {
-            if (res.success) {
-                this.availableCertify = res.result;
-            }
-        });
-    }
-
     // Constant apis
     getEstateCertificates() {
         this.userService.getEstateCertificates().subscribe((res: any) => {
@@ -268,7 +260,7 @@ export class SourcingService {
     }
 
     getOrigins() {
-        this.originService.getOrigins().subscribe((res: ApiResponse<any>) => {
+        this.originService.getOrigins({ visibility: true }).subscribe((res: ApiResponse<any>) => {
             if (res.success) {
                 this.origins = _.chain(res.result.origins)
                     .map((item) => {
@@ -277,5 +269,9 @@ export class SourcingService {
                     .value();
             }
         });
+    }
+
+    openCert(url) {
+        window.open(url, '_blank');
     }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UserserviceService } from '@services';
+import { AclService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
@@ -24,6 +24,7 @@ export class MicroAboutComponent implements OnInit {
         private toastrService: ToastrService,
         public globals: GlobalsService,
         public roasterService: RoasterserviceService,
+        private aclService: AclService,
     ) {}
 
     ngOnInit(): void {
@@ -33,7 +34,7 @@ export class MicroAboutComponent implements OnInit {
     }
 
     getCertificates() {
-        if (this.globals.checkItem('certificate-list') || this.globals.checkItem('certificate-management')) {
+        if (this.aclService.checkPermission('certificate-list|certificate-management')) {
             this.userService
                 .getGeneralCertificates(this.microRoasterId, OrganizationType.MICRO_ROASTER)
                 .subscribe((result: any) => {

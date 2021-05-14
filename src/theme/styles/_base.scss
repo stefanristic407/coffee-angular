@@ -23,6 +23,11 @@ button:focus {
     box-shadow: none !important;
 }
 
+ul,
+p {
+    margin: 0;
+}
+
 // Layout style
 .container {
     @media (min-width: 768px) and (max-width: 992px) {

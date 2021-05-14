@@ -74,14 +74,12 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             { label: 'Out of Stock', value: 'out-of-stock' },
         ];
         this.weightTypeArray = [
-            { label: 'lb', value: 'lb' },
-            { label: 'kg', value: 'kg' },
+            { label: 'lbs', value: 'lb' },
+            { label: 'kgs', value: 'kg' },
         ];
-        this.quantityTypeArray = [
-            { label: 'boxes', value: 'boxes' },
-            { label: 'kg', value: 'kg' },
-        ];
+        this.quantityTypeArray = [{ label: 'bags', value: 'bag' }];
         this.grindArray = [
+            { label: 'Whole beans', value: 'whole-beans' },
             { label: 'Extra Coarse', value: 'extra-coarse' },
             { label: 'Coarse', value: 'coarse' },
             { label: 'Medium Coarse', value: 'medium-coarse' },
@@ -201,19 +199,26 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         this.createWeightVariantArray();
         setTimeout(() => {
             this.currentVariantIndex = this.weights.length - 1;
-        }, 300);
+        }, 0);
     }
     deleteWeightVariant(index) {
-        const weight = this.weights.controls[this.currentVariantIndex];
-        this.weights.removeAt(index);
-        this.handleWeightDelete.emit({
-            productWeightVariantId: weight.value.product_weight_variant_id,
-            isNew: weight.value.isNew,
-            weight: weight.value.weight,
-            weight_unit: weight.value.weight_unit,
-        });
-        this.weightVariantArray.splice(index, 1);
-        this.currentVariantIndex = 0;
+        this.weights = this.weightForm.get('weights') as FormArray;
+        const weight = this.weights.controls[index];
+        if (index === this.currentVariantIndex) {
+            this.currentVariantIndex = index === 0 ? this.weights.length - 1 : 0;
+        }
+        const weightVariantArray = Object.assign([], this.weightVariantArray);
+        setTimeout(() => {
+            this.weights.removeAt(index);
+            this.handleWeightDelete.emit({
+                productWeightVariantId: weight.value.product_weight_variant_id,
+                isNew: weight.value.isNew,
+                weight: weight.value.weight,
+                weight_unit: weight.value.weight_unit,
+            });
+            weightVariantArray.splice(index, 1);
+            this.weightVariantArray = weightVariantArray;
+        }, 200);
     }
     addNewGrindVariants(): void {
         this.displayDelete = true;
@@ -228,7 +233,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             weight_name: 'weight - 0 lb',
             weight_unit: 'lb',
             product_weight_variant_id: emptyVariantID,
-            featured_image_id: '',
+            featured_image_id: ['', Validators.compose([Validators.required])],
             fileDetails: null,
             isNew: true,
             product_images: [],
@@ -255,7 +260,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             price: [0, Validators.compose([Validators.required])],
             grind: ['', Validators.compose([Validators.required])],
             available_quantity: [0, Validators.compose([Validators.required])],
-            available_quantity_type: 'crate',
+            available_quantity_type: 'bag',
             sku_number: ['', Validators.compose([Validators.required])],
         });
     }

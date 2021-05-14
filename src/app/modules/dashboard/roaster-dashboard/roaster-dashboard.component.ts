@@ -63,7 +63,13 @@ export class RoasterDashboardComponent implements OnInit {
     }
 
     getAvailableEstates(resolve) {
-        this.userSrv.getAvailableEstates(this.roasterId).subscribe((res: any) => {
+        const params = {
+            page: 1,
+            per_page: 10,
+            sort_by: 'created_at',
+            sort_order: 'desc',
+        };
+        this.userSrv.getAvailableEstates(this.roasterId, params).subscribe((res: any) => {
             if (res.success) {
                 this.welcomeSrv.estates.next(res.result);
             } else {

@@ -89,6 +89,20 @@
     }
 }
 
+.p-input-icon-right {
+    position: relative;
+    .right-icon {
+        position: absolute;
+        padding: 12px 20px;
+        background-color: #f8f8f8;
+        margin: 4px;
+        right: 0;
+    }
+    input {
+        padding-right: 56px;
+    }
+}
+
 ::ng-deep {
     .p-breadcrumb {
         max-width: 100%;
@@ -130,5 +144,8 @@
                 display: none;
             }
         }
+    }
+    .platformLevel .p-dropdown .p-dropdown-trigger {
+        display: none;
     }
 }

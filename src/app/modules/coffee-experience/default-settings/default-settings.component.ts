@@ -83,7 +83,6 @@ export class DefaultSettingsComponent implements OnInit {
                 this.estateBtn = true;
             }
         });
-
         this.language();
         this.getMarketingMaterial();
         if (this.isCoffeeDetailsPage) {

@@ -1,6 +1,8 @@
 <div class="border-main br-4 h-100 d-flex flex-column">
     <div class="mt-3 mx-3">
-        <h3 class="fnt-16 fnt-md-18 fnt-bold text-clr334 px-2">What you customers want</h3>
+        <h3 class="fnt-16 fnt-md-18 fnt-bold text-clr334 px-2">
+            {{ 'what_your_customers_want' | translate }}
+        </h3>
         <p class="fnt-14 fnt-normal text-clr588 px-2">You get orders for these varieties most</p>
     </div>
     <ng-container *ngIf="varieties && varieties.variety_stats; else blank">
@@ -16,7 +18,9 @@
         </div>
 
         <div class="w-100 text-right text-md-left p-3 manage-coffee-link">
-            <a class="arrow-link fnt-12 fnt-md-14" routerLink="/sourcing"> Manage green coffee </a>
+            <a class="arrow-link fnt-12 fnt-md-14" routerLink="/sourcing">
+                {{ 'manage_green_coffee' | translate }}
+            </a>
         </div>
     </ng-container>
 
