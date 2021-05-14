@@ -231,6 +231,7 @@ import { ThousandSuffPipe } from './pipes/thousand-suff.pipe';
 import { CertificateNamePipe } from './pipes';
 import { ArrayFilterPipe } from './pipes/array-filter.pipe';
 import { StringReplacePipe } from './pipes/string-replace.pipe';
+import { ReversePipe } from './pipes/reverse.pipe';
 const PIPES = [
     AvailabilityListingStatusPipe,
     AvailabilityTypePipe,
@@ -255,6 +256,7 @@ const PIPES = [
     ConvertToShortDescriptionPipe,
     CertificateNamePipe,
     ThousandSuffPipe,
+    ReversePipe,
 ];
 
 @NgModule({
