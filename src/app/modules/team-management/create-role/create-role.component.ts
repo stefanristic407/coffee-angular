@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RoasterserviceService, UserserviceService } from '@services';
+import { AclService, RoasterserviceService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem, TreeNode } from 'primeng/api';
@@ -29,6 +29,7 @@ export class CreateRoleComponent implements OnInit {
     constructor(
         public globals: GlobalsService,
         private roasterService: RoasterserviceService,
+        private aclService: AclService,
         private cookieService: CookieService,
         private route: Router,
         private activeRoute: ActivatedRoute,
@@ -198,7 +199,7 @@ export class CreateRoleComponent implements OnInit {
             .subscribe((permissionResult: any) => {
                 if (permissionResult.success) {
                     this.toasterService.success('Permission Updated successfully for Edited role.');
-                    this.globals.permissionMethod();
+                    this.aclService.loadPermission();
                 } else {
                     if (!permissionResult.success) {
                         this.toasterService.error('System role permissions cannot be altered');

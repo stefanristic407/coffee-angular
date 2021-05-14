@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
-import { GlobalsService, RoasterserviceService } from '@services';
+import { AclService, GlobalsService, RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
@@ -29,6 +29,7 @@ export class RoleListComponent implements OnInit {
         public globals: GlobalsService,
         public sharedService: SharedServiceService,
         public dialogSrv: DialogService,
+        private aclService: AclService,
     ) {}
 
     ngOnInit(): void {
@@ -64,7 +65,7 @@ export class RoleListComponent implements OnInit {
         if (this.cookieService.get('Auth') === '') {
             this.router.navigate(['/auth/login']);
         }
-        if (!this.globals.checkItem('acl-management') && !this.globals.checkItem('acl-list')) {
+        if (!this.aclService.checkItem('acl-management') && !this.aclService.checkItem('acl-list')) {
             this.router.navigate(['/people/permission-error']);
         }
         this.supplyBreadCrumb();

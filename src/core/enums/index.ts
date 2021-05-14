@@ -7,5 +7,6 @@ export * from './message';
 export * from './order-chat';
 export * from './orders';
 export * from './organization';
+export * from './permission';
 export * from './shipping';
 export * from './unit';

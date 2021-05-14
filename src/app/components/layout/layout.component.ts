@@ -17,6 +17,7 @@ import {
     SocketService,
     UserserviceService,
     UserService,
+    AclService,
 } from '@services';
 import { DestroyableComponent } from '@base-components';
 import { OrganizationType } from '@enums';
@@ -68,6 +69,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         private coffeeLabService: CoffeeLabService,
         private idmService: IdmService,
         public authService: AuthService,
+        private aclService: AclService,
     ) {
         super();
     }
@@ -192,7 +194,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     }
 
     getUserDetail(resolve) {
-        this.globals.permissionMethod();
+        this.aclService.loadPermission();
         this.userService.getUserDetail().subscribe((res: any) => {
             if (res.success) {
                 this.userTermsAccepted = res.result.terms_accepted;

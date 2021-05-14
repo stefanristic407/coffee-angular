@@ -14,7 +14,8 @@ export class OriginService extends ApiService {
     }
 
     // List the origins of active estates for RO, ES and MR
-    getOrigins(): Observable<ApiResponse<any>> {
-        return this.postWithOrg(this.orgPostUrl, `estates/origins`, 'GET');
+    getOrigins(query: any = null): Observable<ApiResponse<any>> {
+        const params = this.serializeParams(query);
+        return this.postWithOrg(this.orgPostUrl, `estates/origins?${params}`, 'GET');
     }
 }

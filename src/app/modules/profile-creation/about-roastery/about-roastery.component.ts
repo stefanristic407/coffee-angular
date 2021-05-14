@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { RoasteryProfileService } from '../roastery-profile.service';
-import { ChatHandlerService, UserService, UserserviceService } from '@services';
+import { AclService, ChatHandlerService, UserService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
@@ -102,6 +102,7 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
         private fb: FormBuilder,
         private router: Router,
         private chatHandler: ChatHandlerService,
+        private aclService: AclService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.userId = this.cookieService.get('user_id');
@@ -228,7 +229,7 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
     }
 
     getCertificates() {
-        if (this.globals.checkItem('certificate-list') || this.globals.checkItem('certificate-management')) {
+        if (this.aclService.checkItem('certificate-list') || this.aclService.checkItem('certificate-management')) {
             this.userService.getCompanyCertificates(this.roasterId).subscribe((result: any) => {
                 console.log('certification: ', result);
                 if (result.success === true) {

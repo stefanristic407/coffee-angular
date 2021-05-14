@@ -565,10 +565,7 @@
 <ng-template #rightSidePanel>
     <div class="row m-0">
         <div class="col-12 col-md-6 col-lg-12 p-0 pl-md-0 pr-md-2 p-lg-0">
-            <div
-                class="border-main br-4 p-0"
-                *ngIf="this.globals.checkItem('certificate-list') || this.globals.checkItem('certificate-management')"
-            >
+            <div class="border-main br-4 p-0" *appAclIf="['certificate-list', 'certificate-management']">
                 <div class="header fnt-18 font-bold text-clr334 m-1">{{ 'awards_and_certificates' | translate }}</div>
                 <div class="row mt-3 m-0" *ngFor="let certificate of certificatesArray; let i = index">
                     <div class="col-12">
@@ -606,10 +603,7 @@
                                             <li
                                                 class="list-item fnt-14 fnt-600 fnt-muli text-clr588 border-none"
                                                 (click)="editCertificate($event, certificate); pop1.hide()"
-                                                *ngIf="
-                                                    this.globals.checkItem('certificate-management') &&
-                                                    this.globals.permissions['certificate-management'].manage
-                                                "
+                                                *appAclIf="'certificate-management.manage'"
                                             >
                                                 <a class="pointer-item">
                                                     {{ 'edit' | translate }}
@@ -618,10 +612,7 @@
                                             <li
                                                 class="list-item fnt-14 fnt-600 text-clr588 border-none"
                                                 (click)="deleteCertificate(certificate.id); pop1.hide()"
-                                                *ngIf="
-                                                    this.globals.checkItem('certificate-management') &&
-                                                    this.globals.permissions['certificate-management'].manage
-                                                "
+                                                *appAclIf="'certificate-management.manage'"
                                             >
                                                 <a class="pointer-item">{{ 'delete' | translate }}</a>
                                             </li>
@@ -632,17 +623,12 @@
                         </div>
                     </div>
                 </div>
-                <div
-                    class="add-brand-div p-25 p-md-4"
-                    *ngIf="
-                        this.globals.checkItem('certificate-management') &&
-                        this.globals.permissions['certificate-management'].manage &&
-                        isSaveMode
-                    "
-                >
-                    <a class="brand-tag add-link" routerLink="/roastery-profile/certificate">
-                        <span class="add-text ml-4">{{ 'add_another_certificate' | translate }}</span>
-                    </a>
+                <div *ngIf="isSaveMode">
+                    <div class="add-brand-div p-25 p-md-4" *appAclIf="'certificate-management.manage'">
+                        <a class="brand-tag add-link" routerLink="/roastery-profile/certificate">
+                            <span class="add-text ml-4">{{ 'add_another_certificate' | translate }}</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
