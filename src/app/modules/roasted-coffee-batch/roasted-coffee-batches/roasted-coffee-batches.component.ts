@@ -137,6 +137,8 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
         postData.roast_level = this.profileFilter ? this.profileFilter : '';
         postData.batch = this.termSearch ? this.termSearch : '';
         postData.per_page = 100;
+        postData.sort_by = 'created_at';
+        postData.sort_order = 'desc';
         this.tableValue = [];
         this.roasterService.getRoasterCoffeeBatchs(postData).subscribe(
             (data: any) => {

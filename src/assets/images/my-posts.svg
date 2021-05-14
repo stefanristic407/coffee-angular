@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
+    <defs>
+        <path id="pfqrfgfqua" d="M0 0H32V32H0z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <g>
+                    <g transform="translate(-583 -372) translate(148 369) translate(0 2) translate(435 1)">
+                        <mask id="ea2531849b" fill="#fff">
+                            <use xlink:href="#pfqrfgfqua"/>
+                        </mask>
+                        <g mask="url(#ea2531849b)">
+                            <g transform="translate(4 4)">
+                                <g transform="translate(6.6 3.3)">
+                                    <g stroke="#232334" stroke-linecap="round" stroke-linejoin="round" stroke-width=".8" transform="translate(3.85 3.08)">
+                                        <circle cx="1.837" cy=".77" r="1"/>
+                                        <path d="M3.85 4.233c0-.829-.84-1.54-1.925-1.54C.839 2.693 0 3.365 0 4.233"/>
+                                    </g>
+                                    <circle cx="5.39" cy="5.39" r="4.89" stroke="#2C2C3C"/>
+                                </g>
+                                <rect width="23.2" height="23.2" x=".5" y=".5" stroke="#2C2C3C" rx="2.2"/>
+                                <g stroke-linecap="round">
+                                    <path stroke="#2C2C3C" d="M0 .55L15.4.55M0 2.75L6.6 2.75" transform="translate(3.3 17.05)"/>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
