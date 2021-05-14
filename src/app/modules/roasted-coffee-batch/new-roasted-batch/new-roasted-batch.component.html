@@ -34,7 +34,7 @@
                                 </small>
                             </div>
                         </div>
-                        <div class="row mt-md-1 mt-2 pt-md-0 pt-1">
+                        <div class="row">
                             <div class="col-12 mb-1">
                                 <span class="primary_txt mb-1">{{ 'order_id' | translate }}*</span>
                             </div>
@@ -200,11 +200,11 @@
                                 }}</span>
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
-                                <label>Aroma/ Fragrance<span class="star">*</span></label>
+                                <label>Aroma/ Fragrance</label>
                                 <input type="number" placeholder="Enter a number" formControlName="aroma" pInputText />
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
-                                <label>Acidity<span class="star">*</span></label>
+                                <label>Acidity</label>
                                 <input
                                     type="number"
                                     placeholder="Enter a number"
@@ -213,12 +213,12 @@
                                 />
                             </div>
 
-                            <div class="col-12 col-sm-12 col-md-6 sewn-form-field">
-                                <label>Body<span class="star">*</span></label>
+                            <div class="col-12 col-sm-12 col-md-6 sewn-form-field mt-lg-3">
+                                <label>Body</label>
                                 <input type="number" placeholder="Enter a number" formControlName="body" pInputText />
                             </div>
-                            <div class="col-12 col-sm-12 col-md-6 sewn-form-field">
-                                <label>Flavour<span class="star">*</span></label>
+                            <div class="col-12 col-sm-12 col-md-6 sewn-form-field mt-lg-3">
+                                <label>Flavour</label>
                                 <input
                                     type="number"
                                     placeholder="Enter a number"
@@ -226,7 +226,7 @@
                                     pInputText
                                 />
                             </div>
-                            <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
+                            <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100 mt-lg-3">
                                 <label>Processing</label>
                                 <input type="text" placeholder="" formControlName="processing" pInputText />
                             </div>
@@ -391,6 +391,15 @@
                     </td>
                     <td class="recent-data-ans">
                         <span class="list-ans"> {{ orderDetails.quantity }} {{ orderDetails.quantity_type }} </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <span class="list-que"> {{ 'remaining_quantity' | translate }} : </span>
+                    </td>
+                    <td class="recent-data-ans">
+                        <span class="list-ans"> {{ orderDetails.remaining_total_quantity }} {{ orderDetails.quantity_type }} </span>
                     </td>
                 </tr>
 

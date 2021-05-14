@@ -137,7 +137,10 @@ export class NewRoastedBatchComponent implements OnInit {
 
     setWasteQuantityValue(): void {
         this.batchForm.controls.waste_quantity.setValue(
-            `${this.batchForm.controls.green_coffee_quantity.value - this.batchForm.controls.roasting_profile_quantity.value} ${this.unit}`
+            `${
+                this.batchForm.controls.green_coffee_quantity.value -
+                this.batchForm.controls.roasting_profile_quantity.value
+            } ${this.unit}`,
         );
     }
 
@@ -291,6 +294,9 @@ export class NewRoastedBatchComponent implements OnInit {
                 productObj.order_id = Number(this.ordId);
                 productObj.roasting_profile_unit = this.unit;
                 productObj.green_coffee_unit = this.unit;
+                productObj.waste_quantity =
+                    this.batchForm.controls.green_coffee_quantity.value -
+                    this.batchForm.controls.roasting_profile_quantity.value;
                 if (this.batchId) {
                     this.updateRoastedBatch(productObj);
                 } else {
