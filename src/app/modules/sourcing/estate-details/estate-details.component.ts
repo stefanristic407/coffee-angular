@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalsService, ChatHandlerService } from '@services';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { OrganizationType } from '@enums';
+import { GlobalsService, ChatHandlerService, ResizeService } from '@services';
 import { SourcingService } from '../sourcing.service';
+import { ResizeableComponent } from '@base-components';
 
 @Component({
     selector: 'app-estate-details',
     templateUrl: './estate-details.component.html',
     styleUrls: ['./estate-details.component.scss'],
 })
-export class EstateDetailsComponent implements OnInit {
+export class EstateDetailsComponent extends ResizeableComponent implements OnInit {
     appLanguage?: any;
     isLoaded = false;
     selectedTab = 0;
@@ -22,7 +23,9 @@ export class EstateDetailsComponent implements OnInit {
         private cookieSrv: CookieService,
         public sourcing: SourcingService,
         public chatSrv: ChatHandlerService,
+        protected resizeService: ResizeService,
     ) {
+        super(resizeService);
         this.userId = this.cookieSrv.get('user_id');
     }
 

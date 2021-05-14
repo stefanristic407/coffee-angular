@@ -22,7 +22,6 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
     coffeeRecipeData: any[] = [];
     isLoading = false;
     forumLanguage: string;
-    forumDeleteSub: Subscription;
     translationsList: any[] = [
         {
             label: 'Yes',
@@ -77,7 +76,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
             this.forumLanguage = language;
             this.getCoffeeRecipesData();
         });
-        this.forumDeleteSub = this.coffeeLabService.forumDeleteEvent.subscribe(() => {
+        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
             this.getCoffeeRecipesData();
         });
     }
@@ -119,7 +118,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
                 this.isLoading = false;
             });
         } else {
-            this.coffeeLabService.getOrganizationForumList('recipe', params, this.forumLanguage).subscribe((res) => {
+            this.coffeeLabService.getForumList('recipe', params, this.forumLanguage).subscribe((res) => {
                 if (res.success) {
                     console.log('response----->>>>>', res);
                     if (res.result) {
@@ -151,6 +150,5 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.destroy$.next(true);
         this.destroy$.unsubscribe();
-        this.forumDeleteSub?.unsubscribe();
     }
 }

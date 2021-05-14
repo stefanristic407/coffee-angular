@@ -301,10 +301,7 @@
                                         </div>
                                     </div>
                                     <div class="d-flex flex-column flex-md-row flex-lg-column">
-                                        <div
-                                            *ngIf="!route.snapshot.queryParams.estate_id && defaultDetails.image_url"
-                                            class="media-container"
-                                        >
+                                        <div class="media-container">
                                             <div *ngIf="isImagePreviewPanel" class="existing-media-container">
                                                 <div
                                                     class="content-container br-4"
@@ -327,7 +324,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div *ngIf="!isImagePreviewPanel" class="roastery-upload-files">
+                                            <div
+                                                *ngIf="!isImagePreviewPanel && !route.snapshot.queryParams.estate_id"
+                                                class="roastery-upload-files"
+                                            >
                                                 <div class="roastery-fields">
                                                     <div>
                                                         <div
@@ -363,10 +363,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div
-                                            *ngIf="!route.snapshot.queryParams.estate_id || defaultDetails.video_url"
-                                            class="media-container"
-                                        >
+                                        <div class="media-container">
                                             <div *ngIf="isVideoPreviewPanel" class="existing-media-container">
                                                 <div class="content-container br-4">
                                                     <img
@@ -397,7 +394,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div *ngIf="!isVideoPreviewPanel" class="roastery-upload-files">
+                                            <div
+                                                *ngIf="!isVideoPreviewPanel && !route.snapshot.queryParams.estate_id"
+                                                class="roastery-upload-files"
+                                            >
                                                 <div class="roastery-fields">
                                                     <div>
                                                         <div

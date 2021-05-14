@@ -89,6 +89,20 @@
     }
 }
 
+.p-input-icon-right {
+    position: relative;
+    .right-icon {
+        position: absolute;
+        padding: 12px 20px;
+        background-color: #f8f8f8;
+        margin: 4px;
+        right: 0;
+    }
+    input {
+        padding-right: 56px;
+    }
+}
+
 ::ng-deep {
     .p-breadcrumb {
         max-width: 100%;
@@ -96,6 +110,11 @@
 
     .isProductOption .p-tabview .p-tabview-nav {
         display: none;
+    }
+    .p-calendar {
+        &.p-harvest-calendar .p-component:disabled {
+            opacity: 1 !important;
+        }
     }
     .p-dropdown {
         &.p-dropdown-variantType {

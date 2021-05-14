@@ -12,7 +12,9 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { ClipboardModule } from 'ngx-clipboard';
 
+import { AccordionModule } from 'primeng/accordion';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AvatarModule } from 'primeng/avatar';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
@@ -20,17 +22,21 @@ import { CarouselModule } from 'primeng/carousel';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ChipsModule } from 'primeng/chips';
 import { DialogModule } from 'primeng/dialog';
+import { DividerModule } from 'primeng/divider';
 import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule, DialogService } from 'primeng/dynamicdialog';
+import { EditorModule } from 'primeng/editor';
 import { GalleriaModule } from 'primeng/galleria';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
+import { ListboxModule } from 'primeng/listbox';
 import { MenuModule } from 'primeng/menu';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { PaginatorModule } from 'primeng/paginator';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
@@ -39,13 +45,9 @@ import { SliderModule } from 'primeng/slider';
 import { TableModule } from 'primeng/table';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TabViewModule } from 'primeng/tabview';
+import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { DividerModule } from 'primeng/divider';
-import { AvatarModule } from 'primeng/avatar';
-import { ToastModule } from 'primeng/toast';
-import { EditorModule } from 'primeng/editor';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
@@ -55,11 +57,10 @@ import { GalleryModule } from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
 import { MatVideoModule } from 'mat-video';
 import { Ng2TelInputModule } from 'ng2-tel-input';
-
-import { RatingDirective } from './directives/rating.directive';
-import { WordLimitDirective } from './directives/word-limit.directive';
-import { LifecyclehookDirective } from './directives/lifecyclehook/lifecyclehook.directive';
-import { ChatHighlighterDirective } from './directives/chat-highlighter/chat-highlighter.directive';
+import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts';
+import { ChartsModule } from 'ng2-charts';
+import { MomentModule } from 'ngx-moment';
 
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { BlankComponent } from './components/blank/blank.component';
@@ -75,14 +76,68 @@ import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { MediaComponent } from './components/media/media.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
 import { ReadMoreComponent } from './components/read-more/read-more.component';
-
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { BlogCardComponent } from './components/blog-card/blog-card.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
-import { NgxEchartsModule } from 'ngx-echarts';
-import * as echarts from 'echarts';
-import { ChartsModule } from 'ng2-charts';
+
+const THIRDMODULES = [
+    AccordionModule,
+    AccumulationChartAllModule,
+    AnimateOnScrollModule,
+    AutocompleteLibModule,
+    AutoCompleteModule,
+    AvatarModule,
+    BreadcrumbModule,
+    ButtonModule,
+    CalendarModule,
+    CarouselModule,
+    ChartAllModule,
+    ChartsModule,
+    CheckboxModule,
+    ChipsModule,
+    ClipboardModule,
+    DialogModule,
+    DividerModule,
+    DragDropModule,
+    DropdownModule,
+    DynamicDialogModule,
+    EditorModule,
+    GalleriaModule,
+    GalleryModule,
+    ImageCropperModule,
+    InputNumberModule,
+    InputSwitchModule,
+    InputTextareaModule,
+    InputTextModule,
+    LightboxModule,
+    ListboxModule,
+    MatVideoModule,
+    MenuModule,
+    ModalModule,
+    MomentModule,
+    MultiSelectModule,
+    Ng2TelInputModule,
+    NgxChartsModule,
+    OverlayPanelModule,
+    PaginatorModule,
+    PopoverModule,
+    ProgressBarModule,
+    ProgressSpinnerModule,
+    RadioButtonModule,
+    RangeNavigatorAllModule,
+    RatingModule,
+    SelectButtonModule,
+    SliderModule,
+    TableModule,
+    TabMenuModule,
+    TabViewModule,
+    ToastModule,
+    TooltipModule,
+    TranslateModule,
+    TreeModule,
+    TypeaheadModule,
+];
 
 import { HorizontalBarComponent } from './components/horizontal-bar/horizontal-bar.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
@@ -92,78 +147,12 @@ import { PhoneNumberComponent } from './components/form-controls/phone-number/ph
 import { MultiselectChipsComponent } from './components/form-controls/multiselect-chips/multiselect-chips.component';
 import { ReviewSummaryComponent } from './components/review-summary/review-summary.component';
 import { ReviewsComponent } from './components/reviews/reviews.component';
-import { ArrayFilterPipe } from './pipes/array-filter.pipe';
-import { StringReplacePipe } from './pipes/string-replace.pipe';
-import { AccordionModule } from 'primeng/accordion';
-import { MomentModule } from 'ngx-moment';
-
 import { SewnDirectMessageComponent } from './components/chat/sewn-direct-message/sewn-direct-message.component';
 import { SewnOrderChatComponent } from './components/chat/sewn-order-chat/sewn-order-chat.component';
 import { PieAreaChartComponent } from './components/pie-area-chart/pie-area-chart.component';
 import { AppKeyConfirmationComponent } from './components/app-key-confirmation/app-key-confirmation.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { SelectOrdersComponent } from './components/select-orders/select-orders.component';
-
-// #region third libs
-const THIRDMODULES = [
-    AutocompleteLibModule,
-    AnimateOnScrollModule,
-    DragDropModule,
-    ModalModule,
-    PopoverModule,
-    TypeaheadModule,
-    ClipboardModule,
-    AutoCompleteModule,
-    BreadcrumbModule,
-    ButtonModule,
-    CalendarModule,
-    CarouselModule,
-    CheckboxModule,
-    DialogModule,
-    ChipsModule,
-    DropdownModule,
-    DynamicDialogModule,
-    GalleriaModule,
-    InputNumberModule,
-    InputSwitchModule,
-    InputTextareaModule,
-    InputTextModule,
-    MenuModule,
-    MultiSelectModule,
-    OverlayPanelModule,
-    PaginatorModule,
-    ProgressSpinnerModule,
-    RadioButtonModule,
-    RatingModule,
-    SelectButtonModule,
-    SliderModule,
-    TableModule,
-    TabMenuModule,
-    TabViewModule,
-    TooltipModule,
-    TreeModule,
-    TranslateModule,
-    ChartAllModule,
-    AccumulationChartAllModule,
-    RangeNavigatorAllModule,
-    NgxChartsModule,
-    ImageCropperModule,
-    GalleryModule,
-    LightboxModule,
-    MatVideoModule,
-    Ng2TelInputModule,
-    ProgressBarModule,
-    AccordionModule,
-    DividerModule,
-    ChartsModule,
-    MomentModule,
-    AvatarModule,
-    ToastModule,
-    EditorModule,
-];
-// #endregion
-
-// #region your componets & directives
 const COMPONENTS = [
     AvatarComponent,
     BlankComponent,
@@ -200,6 +189,13 @@ const COMPONENTS = [
     SelectOrdersComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
+
+import { RatingDirective } from './directives/rating.directive';
+import { WordLimitDirective } from './directives/word-limit.directive';
+import { LifecyclehookDirective } from './directives/lifecyclehook/lifecyclehook.directive';
+import { ChatHighlighterDirective } from './directives/chat-highlighter/chat-highlighter.directive';
+import { CopyImageToClipboardDirective } from './directives/copy-image-to-clipboard.directive';
+import { FullImgWrapperDirective } from './directives/full-img-wrapper.directive';
 const DIRECTIVES = [
     WordLimitDirective,
     RatingDirective,
@@ -228,10 +224,11 @@ import { MonthPipe } from './pipes/month/month.pipe';
 import { OrgTypePipe } from './pipes/org-type.pipe';
 import { WordCountPipe } from './pipes/word-count/word-count.pipe';
 import { ConvertToShortDescriptionPipe } from './pipes/convert-to-short-description.pipe';
-import { CopyImageToClipboardDirective } from './directives/copy-image-to-clipboard.directive';
-import { FullImgWrapperDirective } from './directives/full-img-wrapper.directive';
 import { WeightConvertPipe } from './pipes/weight-convert.pipe';
 import { ThousandSuffPipe } from './pipes/thousand-suff.pipe';
+import { CertificateNamePipe } from './pipes';
+import { ArrayFilterPipe } from './pipes/array-filter.pipe';
+import { StringReplacePipe } from './pipes/string-replace.pipe';
 const PIPES = [
     AvailabilityListingStatusPipe,
     AvailabilityTypePipe,
@@ -254,8 +251,9 @@ const PIPES = [
     WordCountPipe,
     SearchFilterPipe,
     ConvertToShortDescriptionPipe,
+    CertificateNamePipe,
+    ThousandSuffPipe,
 ];
-// #endregion
 
 @NgModule({
     imports: [
@@ -277,7 +275,6 @@ const PIPES = [
         ...PIPES,
         FullImgWrapperDirective,
         WeightConvertPipe,
-        ThousandSuffPipe,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [

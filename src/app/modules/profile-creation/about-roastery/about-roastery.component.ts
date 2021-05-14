@@ -230,6 +230,7 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
     getCertificates() {
         if (this.globals.checkItem('certificate-list') || this.globals.checkItem('certificate-management')) {
             this.userService.getCompanyCertificates(this.roasterId).subscribe((result: any) => {
+                console.log('certification: ', result);
                 if (result.success === true) {
                     this.certificatesArray = result.result;
                 } else {

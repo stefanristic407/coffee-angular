@@ -20,7 +20,7 @@ import { maxValidator, minValidator } from '@utils';
     styleUrls: ['./new-roasted-batch.component.scss'],
 })
 export class NewRoastedBatchComponent implements OnInit {
-    supportEmailAddress = environment.supportEmailAddress;
+    readonly env = environment;
     langChips: any = [];
     selectable = true;
     removable = true;
@@ -193,6 +193,7 @@ export class NewRoastedBatchComponent implements OnInit {
         this.roasterService.getViewOrderDetails(this.roasterId, this.ordId).subscribe((response) => {
             if (response.success) {
                 this.orderDetails = response.result;
+                console.log('Orderdetail:', this.orderDetails);
                 this.getRatingData(this.orderDetails.estate_id);
                 this.batchForm.controls.roaster_ref_no.setValue(this.orderDetails.order_reference);
             } else {

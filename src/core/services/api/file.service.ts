@@ -6,12 +6,17 @@ import { CookieService } from 'ngx-cookie-service';
 import { ApiResponse } from '@models';
 import { Observable } from 'rxjs';
 import { OrganizationType } from '@enums';
+import { UplaodService } from '../upload';
 
 @Injectable({
     providedIn: 'root',
 })
 export class FileService extends ApiService {
-    constructor(protected cookieService: CookieService, protected http: HttpClient) {
+    constructor(
+        protected cookieService: CookieService,
+        protected http: HttpClient,
+        private uploadService: UplaodService,
+    ) {
         super(cookieService, http);
     }
     // ------------ Farmlink Folders ------------
@@ -52,15 +57,18 @@ export class FileService extends ApiService {
 
     // ------------ Farmlink Files ------------
     // Upload Farmlink files
-    uploadFiles(formData: FormData): Observable<ApiResponse<any>> {
-        const httpOptions = {
-            headers: new HttpHeaders({ Accept: 'application/json' }),
-        };
-        const roasterId = this.cookieService.get('roaster_id');
-        formData.append('api_call', `/ro/${roasterId}/file-manager/files`);
+    uploadFiles(formData: FormData) {
+        formData.append('api_call', `/${this.orgType}/${this.getOrgId()}/file-manager/files`);
         formData.append('token', this.cookieService.get('Auth'));
         formData.append('method', 'POST');
-        return this.http.post<ApiResponse<any>>(this.fileUploadUrl, formData, httpOptions);
+        const processId = this.uploadService.addProcess(formData.get('name') as string);
+        return this.http
+            .post(this.fileUploadUrl, formData, {
+                headers: new HttpHeaders({ Accept: 'application/json' }),
+                reportProgress: true,
+                observe: 'events',
+            })
+            .pipe(this.uploadService.upload(processId));
     }
     // Update the file
     updateFile(fileId, formData: FormData) {

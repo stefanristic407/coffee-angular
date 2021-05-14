@@ -1239,15 +1239,6 @@ export class RoasterserviceService extends ApiService {
         return this.http.post(this.url, data);
     }
 
-    getRoasterActivityLogs(roasterId, orderId) {
-        const data = {
-            api_call: `/ro/${roasterId}/orders/${orderId}/activity-logs`,
-            token: this.cookieService.get('Auth'),
-            method: 'GET',
-        };
-        return this.http.post(this.url, data);
-    }
-
     deleteOuttakeOrders(roasterId: any, outTakeOrderId): Observable<any> {
         const data = {
             api_call: `/ro/${roasterId}/outtake-orders/${outTakeOrderId}`,

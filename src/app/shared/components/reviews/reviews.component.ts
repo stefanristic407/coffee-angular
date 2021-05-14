@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { OrganizationType } from '@enums';
 import { GlobalsService } from '@services';
 
 @Component({
@@ -7,8 +8,10 @@ import { GlobalsService } from '@services';
     styleUrls: ['./reviews.component.scss'],
 })
 export class ReviewsComponent implements OnInit {
+    readonly OrgType = OrganizationType;
     @Input() reviews: any[];
     @Input() average: any;
+    @Input() orgType: OrganizationType;
     limit = 5;
     termStatus = 'Most relevant';
     termItems: any[];

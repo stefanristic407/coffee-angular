@@ -6,7 +6,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { VariantDetailsComponent } from '../variant-details/variant-details.component';
-
+import { maxWordCountValidator } from '@utils';
+import { COUNTRY_LIST } from '@constants';
 @Component({
     selector: 'app-product-details',
     templateUrl: './product-details.component.html',
@@ -41,7 +42,7 @@ export class ProductDetailsComponent implements OnInit {
         'aroma',
         'flavour',
         'processing',
-        'flavour_profile',
+        'flavour_profiles',
         'roaster_notes',
         'recipes',
         'remaining_quantity',
@@ -62,6 +63,8 @@ export class ProductDetailsComponent implements OnInit {
     ];
     flavoursList: any[];
     isPublished: boolean;
+    thisYear = new Date().getFullYear();
+    countryArray: any[] = COUNTRY_LIST;
 
     constructor(
         public globals: GlobalsService,
@@ -78,20 +81,20 @@ export class ProductDetailsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.productForm = this.fb.group({
-            is_public: [false],
-            name: ['', Validators.compose([Validators.required])],
-            purchase_type: ['', Validators.compose([Validators.required])],
-            description: ['', Validators.compose([Validators.required])],
-            is_variants_included: [false],
-            variants: this.fb.array([this.createEmptyVariant()]),
-            crates: this.fb.array([]),
-            vat_setting_id: ['', Validators.compose([Validators.required])],
-            is_price_including_vat: [false],
-            is_external_product: [false],
-        });
         this.route.params.subscribe((params) => {
             this.type = params.type;
+            this.productForm = this.fb.group({
+                is_public: [false],
+                name: ['', Validators.compose([Validators.required])],
+                purchase_type: ['', Validators.compose([Validators.required])],
+                description: ['', Validators.compose([Validators.required, maxWordCountValidator(300)])],
+                is_variants_included: [false],
+                variants: this.fb.array([this.createEmptyVariant()]),
+                crates: this.fb.array([]),
+                vat_setting_id: ['', Validators.compose([Validators.required])],
+                is_price_including_vat: [this.type === 'b2c'],
+                is_external_product: [false],
+            });
             if (this.type === 'b2c') {
                 this.getFlavoursData();
             }
@@ -250,7 +253,7 @@ export class ProductDetailsComponent implements OnInit {
                         });
                         if (getBatchDetails) {
                             const flavourProfile = getBatchDetails.flavour_profile;
-                            variantForm.controls.flavour_profile.setValue(flavourProfile);
+                            variantForm.controls.flavour_profiles.setValue(flavourProfile);
                             variantForm.controls.weight_variants.setValue(weightVariants);
                         }
                         this.variants.push(variantForm);
@@ -347,7 +350,7 @@ export class ProductDetailsComponent implements OnInit {
             roaster_ref_no: '',
             batch_ref_no: '',
             roasting_profile_name: '',
-            roast_level: '',
+            roast_level: ['', Validators.compose([Validators.required])],
             roast_time: '',
             estate_name: '',
             origin: '',
@@ -358,11 +361,11 @@ export class ProductDetailsComponent implements OnInit {
             aroma: '',
             flavour: '',
             processing: '',
-            flavour_profile: [],
-            roaster_notes: '',
-            recipes: '',
+            flavour_profiles: [],
+            roaster_notes: ['', Validators.compose([maxWordCountValidator(300)])],
+            recipes: ['', Validators.compose([maxWordCountValidator(300)])],
             brewing_method: ['', Validators.compose([Validators.required])],
-            roaster_recommendation: ['', Validators.compose([Validators.required])],
+            roaster_recommendation: ['', Validators.compose([Validators.required, maxWordCountValidator(10)])],
             remaining_quantity: '',
             weight_variants: [],
         });
@@ -469,7 +472,7 @@ export class ProductDetailsComponent implements OnInit {
             this.variantComponent.forEach((child, childIndex) => {
                 child.weightForm.markAllAsTouched();
             });
-            this.toasterService.error('Please fill all Data');
+            this.toasterService.error('Please fill all Data and upload feature image.');
         }
     }
     createNewProduct(productObj) {
@@ -542,6 +545,19 @@ export class ProductDetailsComponent implements OnInit {
                     roaster_recommendation: getVariantDetails.roaster_recommendation,
                     recipes: getVariantDetails.recipes,
                 };
+                if (this.type === 'b2c') {
+                    weightObj.variant_details.flavour_profiles = getVariantDetails.flavour_profiles.map(
+                        (item) => item.flavour_profile_id,
+                    );
+                    weightObj.variant_details.processing = getVariantDetails.processing;
+                }
+                const grindVariants = weightObj.grind_variants.map((item) => {
+                    if (!item.grind_variant_id) {
+                        delete item.grind_variant_id;
+                    }
+                    return item;
+                });
+                weightObj.grind_variants = grindVariants;
                 if (weight.isNew) {
                     promises.push(
                         new Promise((resolve, reject) => {
@@ -583,15 +599,15 @@ export class ProductDetailsComponent implements OnInit {
         });
     }
 
-    addNewGrindVariant(productID, weigthObj, resolve, reject) {
-        delete weigthObj.product_weight_variant_id;
-        delete weigthObj.fileDetails;
-        weigthObj.status = weigthObj.status.toUpperCase();
-        weigthObj.grind_variants.forEach((ele) => {
+    addNewGrindVariant(productID, weightObj, resolve, reject) {
+        delete weightObj.product_weight_variant_id;
+        delete weightObj.fileDetails;
+        weightObj.status = weightObj.status.toUpperCase();
+        weightObj.grind_variants.forEach((ele) => {
             ele.id = undefined;
             ele.grind_variant_id = undefined;
         });
-        this.eCommerceService.addProductWeightVariants(productID, weigthObj, this.type).subscribe(
+        this.eCommerceService.addProductWeightVariants(productID, weightObj, this.type).subscribe(
             (res) => {
                 if (res.success) {
                     resolve();
@@ -608,6 +624,7 @@ export class ProductDetailsComponent implements OnInit {
     }
     updateGrindVariant(weightObj, weightVariantID, resolve, reject) {
         delete weightObj.product_weight_variant_id;
+        delete weightObj.fileDetails;
         weightObj.status = weightObj.status.toUpperCase();
         weightObj.grind_variants.map((ele) => {
             ele.id = ele.grind_variant_id ? ele.grind_variant_id : undefined;
@@ -665,9 +682,8 @@ export class ProductDetailsComponent implements OnInit {
         });
         this.userService.getRoastingProfileDetail(this.roasterId, profileID).subscribe((res) => {
             if (res && res.result) {
-                const level = this.roastLevelArray.find((ele) => ele.value === res.result.roast_level);
                 getVariant.patchValue({
-                    roast_level: level.label ?? '',
+                    roast_level: res.result.roast_level,
                     roast_time: res.result.roast_duration,
                 });
             }
@@ -678,15 +694,13 @@ export class ProductDetailsComponent implements OnInit {
         const getVariant = this.variants.controls[idx];
         getVariant.patchValue({
             origin: '',
-            region: '',
             harvest_year: '',
         });
         this.roasterService.getViewOrderDetails(this.roasterId, orderID).subscribe((res) => {
             if (res && res.result) {
                 getVariant.patchValue({
                     origin: res.result.origin,
-                    region: res.result.region,
-                    harvest_year: res.result.harvest_date,
+                    harvest_year: new Date(res.result.harvest_date),
                 });
             }
         });

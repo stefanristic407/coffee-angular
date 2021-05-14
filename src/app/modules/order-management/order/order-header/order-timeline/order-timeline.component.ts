@@ -128,7 +128,28 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
             }
         }
 
+        if (this.order && point.value === OrderStatus.Delivered) {
+            const date = this.order.estimated_pickup_date;
+
+            if (moment(date).startOf('day') <= moment()) {
+                return date;
+            } else {
+                return '';
+            }
+        }
+
         const activity = this.getLatestActivity(point);
+
+        if (!activity && this.order) {
+            if (point.value === OrderStatus.Shipped) {
+                return this.order.estimated_departure_date;
+            }
+
+            if (point.value === OrderStatus.Received) {
+                return this.order.estimated_pickup_date;
+            }
+        }
+
         return point.value !== OrderStatus.HarvestReady && activity ? activity.created_at : '';
     }
 

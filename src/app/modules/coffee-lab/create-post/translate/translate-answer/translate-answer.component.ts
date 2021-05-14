@@ -120,7 +120,7 @@ export class TranslateAnswerComponent implements OnInit {
         }
         this.isInvalidTranslation = false;
         if (
-            this.question.translations.find((item: any) => item.language === selectedLanguage) ||
+            (this.question.translations || []).find((item: any) => item.language === selectedLanguage) ||
             this.question.lang_code === selectedLanguage
         ) {
             this.needToTranslateQuestion = false;

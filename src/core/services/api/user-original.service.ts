@@ -75,19 +75,6 @@ export class UserserviceService extends ApiService {
         );
     }
 
-    // API Function Name :Roaster Profile
-    // API Description: This API calls helps to Roaster User Profile.
-
-    getRoasterProfile(roasterId, organization = 'ro', userId = null) {
-        const apiCall = userId ? `/general/${organization}/users/${userId}` : `/ro/${roasterId}/users/profile`;
-        const data = {
-            api_call: apiCall,
-            token: this.cookieService.get('Auth'),
-            method: 'GET',
-        };
-        return this.http.post(this.roasterUrl, data);
-    }
-
     // API Function Name :Update Roaster Profile
     // API Description: This API calls helps to update Roaster User Profile.
 
@@ -532,9 +519,10 @@ export class UserserviceService extends ApiService {
         return this.http.post(this.roasterUrl, data);
     }
 
-    getAvailableEstates(roasterId: any, queryParams = '') {
+    getAvailableEstates(roasterId: any, query = {}) {
+        const queryParams = this.serializeParams(query);
         const data = {
-            api_call: `/ro/${roasterId}/estates/availability${queryParams}`,
+            api_call: `/ro/${roasterId}/estates/availability?${queryParams}`,
             method: 'GET',
             token: this.cookieService.get('Auth'),
         };
@@ -1148,9 +1136,9 @@ export class UserserviceService extends ApiService {
         };
         return this.http.post(this.orgDeleteUrl, data);
     }
-    getEstateOrdersCoffeeExperience(estate_id: any, order_id: any) {
+    getEstateOrdersCoffeeExperience(roasterId: any, orderId: any) {
         const data = {
-            api_call: `/es/${estate_id}/orders/${order_id}/coffee-experience`,
+            api_call: `/ro/${roasterId}/orders/${orderId}/coffee-experience`,
             method: 'GET',
             token: this.cookieService.get('Auth'),
         };

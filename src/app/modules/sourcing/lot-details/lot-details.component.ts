@@ -53,7 +53,7 @@ export class LotDetailsComponent extends ResizeableComponent implements OnInit {
                 this.getPrebookBatch();
                 this.sourcing.estateDetailList();
                 this.sourcing.otherAvailableCoffee();
-                this.sourcing.getEachGreenCertify();
+                this.sourcing.getEachEstateCertify();
                 this.isLoaded = true;
             })
             .catch(() => {

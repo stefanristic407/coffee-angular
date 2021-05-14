@@ -1,70 +1,68 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { CookieService } from 'ngx-cookie-service';
-import { GlobalsService } from '@services';
-import { SourcingService } from '../sourcing.service';
-import { UserserviceService } from '@services';
+import { Component, OnInit } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { DestroyableComponent } from '@base-components';
 import { CURRENCY_LIST, LBUNIT } from '@constants';
 import { QuantityUnit } from '@enums';
+import { AvailabilityService, GlobalsService } from '@services';
+import { SourcingService } from '../sourcing.service';
 
 @Component({
     selector: 'app-coffee-list',
     templateUrl: './coffee-list.component.html',
     styleUrls: ['./coffee-list.component.scss'],
 })
-export class CoffeeListComponent implements OnInit, OnDestroy {
+export class CoffeeListComponent extends DestroyableComponent implements OnInit {
     public readonly CURRENCY_LIST = CURRENCY_LIST;
     public readonly QuantityUnit = QuantityUnit;
     public readonly LBUNIT = LBUNIT;
     isLoaded = false;
-    roasterId: any;
     coffeedata: any[] = [];
     queryParams: any;
     rows = 15;
     pageNumber = 1;
     totalRecords;
-    queryParamsSub: Subscription;
 
     constructor(
-        public sourcingSrv: SourcingService,
         public globals: GlobalsService,
-        private userService: UserserviceService,
-        private cookieService: CookieService,
-    ) {}
+        private availabilityService: AvailabilityService,
+        public sourcingSrv: SourcingService,
+    ) {
+        super();
+    }
 
     ngOnInit(): void {
-        this.roasterId = this.cookieService.get('roaster_id');
+        setTimeout(() => {
+            this.sourcingSrv.sortItems = [
+                { label: 'Name (A-Z)', value: ['name', 'asc'] },
+                { label: 'Recently added', value: ['available_at', 'desc'] },
+                { label: 'Cup score (High-Low)', value: ['cup_score', 'desc'] },
+                { label: 'Price (High - low)', value: ['price', 'desc'] },
+                { label: 'Quantity (High- Low)', value: ['total_quantity', 'desc'] },
+            ];
+        });
         this.sourcingSrv.clearQueryParams();
-        this.queryParamsSub = this.sourcingSrv.queryParams$.subscribe((res: any) => {
+        this.sourcingSrv.queryParams$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((res: any) => {
             this.queryParams = res;
             this.getAvailableCoffee();
         });
     }
 
-    ngOnDestroy() {
-        this.queryParamsSub.unsubscribe();
-    }
-
     getAvailableCoffee() {
-        const query = [];
         this.queryParams = {
             ...this.queryParams,
             page: this.pageNumber,
             per_page: this.rows,
         };
-        Object.entries(this.queryParams).forEach(([key, value]) => {
-            if (value) {
-                if (key === 'grade') {
-                    query.push(`cup_score_min=${value[0]}`);
-                    query.push(`cup_score_max=${value[1] || ''}`);
-                } else {
-                    query.push(`${key}=${value}`);
-                }
-            }
-        });
-        const queryStr = '?' + query.join('&');
+
+        const query = {
+            ...this.queryParams,
+        };
+        if (this.queryParams.grade) {
+            query.cup_score_min = this.queryParams.grade[0];
+            query.cup_score_max = this.queryParams.grade[1] || '';
+        }
         this.isLoaded = false;
-        this.userService.getAvailableGreenCoffee(this.roasterId, queryStr).subscribe((res: any) => {
+        this.availabilityService.getAvailableGces(query).subscribe((res: any) => {
             this.isLoaded = true;
             if (res.success) {
                 this.coffeedata = res.result;

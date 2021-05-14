@@ -19,12 +19,15 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { environment } from '@env/environment';
 import { AppComponent } from './app.component';
-import { LayoutComponent } from './layout/layout.component';
-import { FooterComponent } from '@components';
-import { GateComponent } from '@components';
-import { HealthCheckComponent } from '@components';
-import { MenuComponent } from '@components';
-import { SearchPanelComponent } from '@components';
+import {
+    FooterComponent,
+    GateComponent,
+    HealthCheckComponent,
+    LayoutComponent,
+    MenuComponent,
+    SearchPanelComponent,
+    UploadInfoComponent,
+} from '@components';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -48,12 +51,13 @@ export function StartupServiceFactory(startupService: StartupService) {
 @NgModule({
     declarations: [
         AppComponent,
-        HealthCheckComponent,
-        MenuComponent,
-        LayoutComponent,
         FooterComponent,
-        SearchPanelComponent,
         GateComponent,
+        HealthCheckComponent,
+        LayoutComponent,
+        MenuComponent,
+        SearchPanelComponent,
+        UploadInfoComponent,
     ],
     imports: [
         BrowserModule,

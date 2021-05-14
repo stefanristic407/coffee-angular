@@ -1,3 +1,5 @@
+@import 'variables';
+
 .footer-container {
     background-color: #f8f8f8;
     .text-content {
@@ -5,11 +7,16 @@
         font-size: 14px;
         font-weight: 600;
         font-stretch: normal;
-        color: #232334;
+        color: $general-text-color;
         line-height: 2;
-        & > div {
-            color: #747588;
+        & > a {
+            display: block;
+            color: $muted-text-color;
             font-weight: normal;
+
+            &:hover {
+                color: $general-text-color;
+            }
         }
     }
 
@@ -57,16 +64,4 @@
             }
         }
     }
-
-    // @media (max-width: 425px) {
-    //     .footer-content {
-    //         flex-direction: column;
-    //         .text-content:last-child {
-    //             margin-bottom: 2rem;
-    //         }
-    //     }
-    //     .log-wrapper {
-    //         display: none !important;
-    //     }
-    // }
 }

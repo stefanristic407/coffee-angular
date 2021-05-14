@@ -127,6 +127,7 @@ export class GeneratedKeysComponent implements OnInit, OnChanges {
             .open(AppKeyConfirmationComponent, {
                 data: {
                     orgName: item.org_name,
+                    status: 'resume',
                 },
                 showHeader: false,
                 styleClass: 'confirm-dialog',
@@ -143,6 +144,7 @@ export class GeneratedKeysComponent implements OnInit, OnChanges {
             .open(AppKeyConfirmationComponent, {
                 data: {
                     orgName: item.org_name,
+                    status: 'pause',
                 },
                 showHeader: false,
                 styleClass: 'confirm-dialog',

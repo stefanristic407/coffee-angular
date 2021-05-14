@@ -39,13 +39,6 @@ export class SourcingComponent extends DestroyableComponent implements OnInit, A
         { label: 'lb', value: 'lb' },
         { label: 'Kg', value: 'kg' },
     ];
-    sortItems: any[] = [
-        { label: 'Name (A-Z)', value: ['name', 'asc'] },
-        { label: 'Recently added', value: ['created_at', 'desc'] },
-        { label: 'Cup score (High-Low)', value: ['cup_score', 'desc'] },
-        { label: 'Price (High - low)', value: ['price', 'desc'] },
-        { label: 'Quantity (High- Low)', value: ['quantity', 'desc'] },
-    ];
 
     queryParams: any;
     viewMode = 'grid';

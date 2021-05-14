@@ -1,12 +1,6 @@
 @import 'variables';
 
 .story-wrapper {
-    border: solid 1px $secondary-border-color;
-    border-radius: 4px;
-    padding: 1.5rem 0 0;
-    @media (max-width: 767px) {
-        padding: 20px 0 0;
-    }
     .link-wrapper {
         display: flex;
         .link-text {
@@ -34,13 +28,6 @@
             height: 148px;
             margin: -11px;
         }
-    }
-
-    .contact-us-wrapper {
-        border-top: 1px solid $primary-border-color;
-        display: flex;
-        justify-content: center;
-        width: 100%;
     }
 }
 
@@ -138,15 +125,14 @@
     padding: 2rem;
 }
 
-.recent-time td {
-    padding: 1rem 1rem 1rem 1.5rem !important;
-    border: 1px solid #dddddd !important;
-}
-.recent-time .recent-data-ans {
-    padding: 1rem 1.6rem 1rem 2.5rem !important;
-}
-.btn-group {
-    display: table;
+.recent-time {
+    td {
+        padding: 1rem 1rem 1rem 1.5rem !important;
+        border: 1px solid #dddddd !important;
+    }
+    .recent-data-ans {
+        padding: 1rem 1.5rem 1rem 1.5rem !important;
+    }
 }
 
 .select-form-group-dropdown {
@@ -171,11 +157,6 @@
     font-size: 14px;
     font-weight: bold;
     color: #232334;
-}
-.profile-pic {
-    border-radius: 100%;
-    width: 32px;
-    height: 32px;
 }
 
 .weightDiv {
@@ -213,14 +194,8 @@
     position: relative;
     bottom: 4px;
 }
-::ng-deep .breadCrumb .p-breadcrumb ul {
-    width: max-content;
-}
 ::ng-deep .sewn-form-field .dropdownClass .p-inputgroup-addon {
     padding: 5px !important;
-}
-.sewn-form-field {
-    margin-bottom: 1rem !important;
 }
 @media screen and (max-width: 1200px) {
     .order_details_card {

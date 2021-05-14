@@ -27,8 +27,9 @@ export class SocialMediaComponent implements OnInit {
     mediaType = '';
     tabIndex = 0;
     breadItems = [
-        { label: this.globals.languageJson.home, routerLink: '/roaster-dashboard' },
-        { label: this.globals.languageJson.social_media_posts },
+        { label: 'Home', routerLink: '/roaster-dashboard' },
+        { label: 'Farm link' },
+        { label: 'Social media posts' },
     ];
     searchKey = '';
     selectedImage: any;

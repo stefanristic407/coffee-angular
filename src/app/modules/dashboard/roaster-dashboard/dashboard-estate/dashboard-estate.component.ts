@@ -28,17 +28,13 @@ export class DashboardEstateComponent implements OnInit, OnDestroy {
         this.estatesSub = this.welcomeSrv.estates$.subscribe((res: any) => {
             if (res) {
                 const estateData: any = res;
-                const sortedEstateData = estateData.sort((a: any, b: any) => {
-                    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-                });
-                sortedEstateData.length > 4
-                    ? (this.estates = sortedEstateData.slice(0, 4))
-                    : (this.estates = sortedEstateData);
+                console.log('estate data: ', res);
+                estateData.length > 4 ? (this.estates = estateData.slice(0, 4)) : (this.estates = estateData);
                 this.estates.map((item: any) => {
                     const countryName = this.globals.getCountryName(item.country);
                     item.countryName = countryName;
-                    if (item.variety) {
-                        const tags = item.variety.split(',');
+                    if (item.varieties) {
+                        const tags = item.varieties;
                         if (tags.length > 3) {
                             item.tags = tags.slice(0, 3);
                         } else {
