@@ -57,7 +57,16 @@
                             <div>
                                 <label>{{ 'select_the_green_coffee_order' | translate }}</label>
                             </div>
-                            <div class="weightInputGroupDiv d-flex inputFieldBox">
+                            <div
+                                class="weightInputGroupDiv d-flex inputFieldBox cursor-point"
+                                (click)="showOrderPanel = true"
+                            >
+                                <div class="daysInputDiv fnt-14 fnt-600 fnt-muli text-clr334 right_angle mt-0 mr-0 pr">
+                                    <span *ngIf="addOrdersForm.get('order_id').value" class="d-none d-md-block">#</span>
+                                    <span *ngIf="addOrdersForm.get('order_id').value" class="d-block d-md-none mobile-w"
+                                        >Order ID #</span
+                                    >
+                                </div>
                                 <div class="w-100">
                                     <input
                                         pInputText
@@ -68,7 +77,7 @@
                                     />
                                 </div>
                                 <div class="daysInputDiv fnt-14 fnt-600 fnt-muli text-clr334 right_angle">
-                                    <i (click)="showOrderPanel = true" class="pi pi-angle-right fnt-20"></i>
+                                    <i class="pi pi-angle-right fnt-20"></i>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +103,7 @@
                             <div>
                                 <label>{{ 'order_created_by' | translate }}</label>
                             </div>
-                            <div class="weightInputGroupDiv d-flex inputFieldBox">
+                            <div class="d-flex inputFieldBox">
                                 <div class="w-100">
                                     <p-dropdown
                                         [options]="userDetails"
@@ -115,7 +124,7 @@
                                     }}<span class="text-clr-e5a">*</span></label
                                 >
                             </div>
-                            <div class="weightInputGroupDiv d-flex inputFieldBox">
+                            <div class="d-flex inputFieldBox">
                                 <div class="w-100">
                                     <p-dropdown
                                         [options]="userDetails"
@@ -337,9 +346,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-block d-md-none mt-3 mx-3">
-                        <p-checkbox [binary]="true" label="Price is inclusive of VAT"></p-checkbox>
-                    </div>
+                </div>
+                <div class="row padd-2r mb-md-3 mx-0 mt-3">
+                    <p-checkbox [binary]="true" label="Price is inclusive of VAT"></p-checkbox>
                 </div>
                 <div *ngIf="addOrdersForm.get('customer_type').value === 'hrc'" class="row padd-2r mb-md-3">
                     <div class="col-md-6 col-sm-12 pl-md-3">
@@ -415,8 +424,8 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="addOrdersForm.get('order_id').value" class="d-block d-md-none mt-4">
-                    <div class="form-section__inputs mt-4 d-block d-md-none">
+                <div *ngIf="addOrdersForm.get('customer_type').value !== 'mr'" class="d-block d-md-none mt-4">
+                    <div *ngIf="coffeeExperienceLink" class="form-section__inputs mt-4 d-block d-md-none">
                         <div class="roastery-fields tab">
                             <div class="tab-width">
                                 <h4 class="fnt-16 fnt-700 fnt-muli text-clr334 tab-bottom-margin">
@@ -501,10 +510,14 @@
                                 <div>
                                     <label>{{ 'roast_level' | translate }}</label>
                                 </div>
-                                <p-inputNumber
+                                <input
+                                    pInputText
+                                    class="roastery-website-input border"
                                     [formControl]="addOrdersForm.controls['roast_level']"
                                     placeholder="{{ 'enter_roast_level' | translate }}"
-                                ></p-inputNumber>
+                                    type="text"
+                                    pInputText
+                                />
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6 pl-md-2">
@@ -512,10 +525,14 @@
                                 <div>
                                     <label>{{ 'roasting_time' | translate }}</label>
                                 </div>
-                                <p-inputNumber
+                                <input
+                                    pInputText
+                                    class="roastery-website-input border"
                                     [formControl]="addOrdersForm.controls['roasting_time']"
                                     placeholder="{{ 'enter_roasting_time' | translate }}"
-                                ></p-inputNumber>
+                                    type="text"
+                                    pInputText
+                                />
                             </div>
                         </div>
                     </div>
@@ -642,8 +659,11 @@
                     </button>
                 </div>
             </div>
-            <div *ngIf="addOrdersForm.get('order_id').value" class="col-lg-5 col-md-12">
-                <div class="d-md-flex d-lg-inline px-3 px-md-0 d-none d-md-block">
+            <div class="col-lg-5 col-md-12">
+                <div
+                    *ngIf="addOrdersForm.get('order_id').value"
+                    class="d-md-flex d-lg-inline px-3 px-md-0 d-none d-md-block"
+                >
                     <div class="row ml-md-0 mr-md-2 mr-lg-0">
                         <div class="fnt-md-18 fnt-muli fnt-bold text-clr334 mb-4">
                             {{ 'order_details' | translate }}
@@ -734,7 +754,10 @@
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="customerDetails" class="row ml-lg-0 mr-md-0 m-md-auto tab-margin">
+                    <div
+                        *ngIf="customerDetails && addOrdersForm.get('customer_id').value"
+                        class="row ml-lg-0 mr-md-0 m-md-auto tab-margin"
+                    >
                         <div class="fnt-md-18 fnt-muli fnt-bold text-clr334 mt-lg-4 pb-3 mt-md-2">
                             {{ 'customer_details' | translate }}
                         </div>
@@ -742,7 +765,7 @@
                             <div class="mb-4">
                                 <div class="d-flex justify-content-between mb-4">
                                     <div class="img_circle mr-2 d-flex align-items-center">
-                                        <div>
+                                        <div class="mr-2">
                                             <img
                                                 src="{{ customerDetails?.company_image_thumbnail_url }}"
                                                 alt=""
@@ -792,7 +815,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="outtakeOrderId" class="form-section__inputs mt-4 d-none d-md-block">
+                <div *ngIf="coffeeExperienceLink" class="form-section__inputs mt-4 d-none d-md-block">
                     <div class="roastery-fields tab">
                         <div class="tab-width">
                             <h4 class="fnt-16 fnt-700 fnt-muli text-clr334 tab-bottom-margin">
@@ -828,7 +851,7 @@
                                 </p>
                                 <div class="text-center d-lg-flex">
                                     <img class="img-fluid" src="{{ coffeeExperienceLink?.qr_code_url }}" />
-                                    <div class="download-qr-link d-flex justify-content-center">
+                                    <div class="download-qr-link d-flex justify-content-center align-items-end">
                                         <a class="btn-trans-icon download-icon" (click)="onDownloadQr()">
                                             {{ 'download' | translate }}
                                         </a>

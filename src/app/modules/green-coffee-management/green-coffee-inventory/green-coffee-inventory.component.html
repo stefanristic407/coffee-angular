@@ -15,18 +15,18 @@
                         <p-breadcrumb [model]="breadItems"></p-breadcrumb>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 mobile-lead">
-                    <div class="file-share-search">
-                        <img class="mr-1 mr-md-2" src="assets/images/search.svg" />
+                <div class="col-md-4 col-lg-3 px-0 web-farm">
+                    <span class="custom-search">
                         <input
-                            class="fadout-search"
-                            type="search"
-                            placeholder="Search by order id"
+                            type="text"
+                            pInputText
+                            class="w-100 {{ searchTerm ? 'highlight' : '' }}"
                             [(ngModel)]="searchString"
+                            placeholder="Search by order id"
                             (input)="onSearch()"
                             name="filesTerm"
                         />
-                    </div>
+                    </span>
                 </div>
             </div>
             <section class="mt-4 mt-lg-0">
@@ -36,16 +36,18 @@
                 <p class="fnt-14 text-clr334 fnt-normal mobile-lead">
                     Manage your procured coffee and mark coffee for sale
                 </p>
-                <div class="file-share-search web-lead w-100">
-                    <img class="mr-1 mr-md-2" src="assets/images/search.svg" />
-                    <input
-                        class="fadout-search"
-                        type="search"
-                        placeholder="Search by order id"
-                        [(ngModel)]="searchString"
-                        (input)="onSearch()"
-                        name="filesTerm"
-                    />
+                <div class="d-block d-md-none mb-3">
+                    <span class="custom-search mobile-bord">
+                        <input
+                            type="text"
+                            pInputText
+                            class="w-100 {{ searchTerm ? 'highlight' : '' }} "
+                            placeholder="Search by order id"
+                            [(ngModel)]="searchString"
+                            (input)="onSearch()"
+                            name="filesTerm"
+                        />
+                    </span>
                 </div>
                 <p-tabView
                     styleClass="mt-45 pb-3 pb-md-4"

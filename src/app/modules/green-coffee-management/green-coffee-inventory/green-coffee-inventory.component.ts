@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
     styleUrls: ['./green-coffee-inventory.component.scss'],
 })
 export class GreenCoffeeInventoryComponent implements OnInit {
+    searchTerm;
     appLanguage?: any = {};
     greenActive: any = 0;
     loader: boolean;
