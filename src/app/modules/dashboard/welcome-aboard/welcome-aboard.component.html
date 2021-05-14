@@ -8,7 +8,7 @@
                     <p class="fnt-16 fnt-md-18 black fnt-700 fnt-muli mb-0">
                         {{ 'add_roles_team_members' | translate }}
                     </p>
-                    <p class="fnt-14 light-gray fnt-muli create-txt mb-4">{{ 'dashboard_text' | translate }}!</p>
+                    <p class="fnt-14 light-gray fnt-muli create-txt mt-2 mb-4">{{ 'dashboard_text' | translate }}!</p>
                     <div class="text-center">
                         <button
                             class="btn cancel-butn fnt-14 fnt-600 fnt-muli"
@@ -16,17 +16,17 @@
                         >
                             {{ 'skip' | translate }}
                         </button>
-                        <button class="fnt-14 fnt-600 fnt-muli add-tem-butn" routerLink="/team-management/create-role">
+                        <button class="btn-raised" routerLink="/team-management/create-role">
                             {{ 'add_team_members' | translate }}
                         </button>
                     </div>
                 </ng-container>
                 <ng-container *ngIf="welcomeBoardStatus === 1">
                     <p class="fnt-16 fnt-md-18 black fnt-700 fnt-muli mb-0">
-                        {{ 'estate_profile' | translate }}
+                        {{ 'add' | translate }} {{ 'roastery_details' | translate }}
                     </p>
-                    <p class="fnt-14 light-gray fnt-muli create-txt mb-4">
-                        Complete your roastery profile for users on the platform to view more about your compnay
+                    <p class="fnt-14 light-gray fnt-muli create-txt mt-2 mb-4">
+                        {{ 'roaster_welcome_detail_description' | translate }}
                     </p>
                     <div class="text-center">
                         <button
@@ -36,8 +36,8 @@
                         >
                             {{ 'skip' | translate }}
                         </button>
-                        <button class="fnt-14 fnt-600 fnt-muli add-tem-butn" routerLink="/team-management/create-role">
-                            {{ 'completed' | translate }} {{ 'roastery_profile' | translate }}
+                        <button class="btn-raised" routerLink="/roastery-profile">
+                            {{ 'add_details' | translate }}
                         </button>
                     </div>
                 </ng-container>
