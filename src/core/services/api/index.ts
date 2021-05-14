@@ -1,4 +1,3 @@
-export * from './acl.service';
 export * from './addresses.service';
 export * from './api-request.service';
 export * from './api.service';

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Gallery, ImageItem, ImageSize } from 'ng-gallery';
@@ -16,48 +17,12 @@ export class GlobalsService {
     userInvitesArray: any = [];
     device = 'desktop';
 
-    constructor(
-        public gallery: Gallery,
-        public lightbox: Lightbox,
-        private cookieService: CookieService,
-        private deviceSrv: DeviceDetectorService,
-    ) {
+    constructor(public gallery: Gallery, public lightbox: Lightbox, private deviceSrv: DeviceDetectorService) {
         if (deviceSrv.isMobile()) {
             this.device = 'mobile';
         } else if (deviceSrv.isTablet()) {
             this.device = 'tablet';
         }
-    }
-
-    checkItem(data, listkey = null) {
-        if (!listkey) {
-            const flag3 = this.slugList.filter((elememts) => elememts.slug === data)[0];
-            const arr1 = ['manage', 'view'];
-            if (flag3 && arr1.includes(flag3.access_type)) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            const flag1 = this.slugList.filter((elememt) => elememt.slug === data)[0];
-            const flag2 = this.slugList.filter((element1) => element1.slug === data)[0];
-            const arr = ['manage', 'view'];
-            if ((flag1 && arr.includes(flag1.access_type)) || (flag2 && arr.includes(flag2.access_type))) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
-
-    permissionMethod() {
-        this.slugList = JSON.parse(this.cookieService.get('permissionSlug'));
-        this.slugList.forEach((element) => {
-            this.permissions[element.slug] = {
-                manage: element.access_type === 'manage' ? true : false,
-                view: element.access_type === 'view' ? true : false,
-            };
-        });
     }
 
     getCountry(data: string): Country {

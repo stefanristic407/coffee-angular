@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
-import { MenuService } from '@services';
+import { AclService, MenuService } from '@services';
 import { GlobalsService } from '@services';
 import { Menu } from '@models';
 
@@ -13,7 +13,7 @@ import { Menu } from '@models';
 export class MenuComponent implements OnInit {
     @Input() menuParentId;
     public menuItems: Array<any>;
-    constructor(public menuService: MenuService, public globals: GlobalsService) {}
+    constructor(public menuService: MenuService, public globals: GlobalsService, private aclService: AclService) {}
 
     ngOnInit() {
         this.menuItems = this.menuService.getMenuItems();
@@ -23,10 +23,10 @@ export class MenuComponent implements OnInit {
     checkPermissions(menu: Menu) {
         for (const key in menu.permissions) {
             if (menu.permissions[key]) {
-                if (!menu.hasSubMenu && !this.globals.checkItem(menu.permissions[key])) {
+                if (!menu.hasSubMenu && !this.aclService.checkItem(menu.permissions[key])) {
                     return false;
                 }
-                if (menu.hasSubMenu && this.globals.checkItem(menu.permissions[key])) {
+                if (menu.hasSubMenu && this.aclService.checkItem(menu.permissions[key])) {
                     return true;
                 }
             }

@@ -260,7 +260,7 @@ export class SourcingService {
     }
 
     getOrigins() {
-        this.originService.getOrigins().subscribe((res: ApiResponse<any>) => {
+        this.originService.getOrigins({ visibility: true }).subscribe((res: ApiResponse<any>) => {
             if (res.success) {
                 this.origins = _.chain(res.result.origins)
                     .map((item) => {

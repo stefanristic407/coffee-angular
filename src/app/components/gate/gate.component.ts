@@ -3,8 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { AclService } from '@services';
-import { DashboardService } from '@services';
+import { AclService, DashboardService } from '@services';
 import { GeneralService } from '@services';
 import { UserService } from '@services';
 import { DestroyableComponent } from '@base-components';
@@ -24,10 +23,10 @@ export class GateComponent extends DestroyableComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private aclSrv: AclService,
         private dashboardSrv: DashboardService,
         private generalSrv: GeneralService,
         private userSrv: UserService,
+        private aclService: AclService,
         private cookieService: CookieService,
         private toastrService: ToastrService,
     ) {
@@ -97,11 +96,10 @@ export class GateComponent extends DestroyableComponent implements OnInit {
     }
 
     private getUserPermissions(resolve, reject) {
-        this.aclSrv.getUserPermissions().subscribe(
+        this.userSrv.getUserPermissions().subscribe(
             (res: any) => {
                 if (res.success) {
-                    const permissionList = res.result;
-                    this.cookieService.set('permissionSlug', JSON.stringify(permissionList));
+                    this.aclService.updatePermission(res.result);
                     resolve();
                 } else {
                     reject();

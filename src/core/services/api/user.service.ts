@@ -33,4 +33,11 @@ export class UserService extends ApiService {
     getPrivacyTerms() {
         return this.post(this.orgPostUrl, `users/privacy-terms`, 'GET');
     }
+
+    // ------------ ACL ------------
+
+    // List of all permissions of user (duplicates removed)
+    getUserPermissions() {
+        return this.postWithOrg(this.orgPostUrl, `users/permissions`, 'GET');
+    }
 }

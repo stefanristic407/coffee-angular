@@ -392,7 +392,7 @@
                 class="btn-raised w-100"
                 routerLink="/sourcing/buy-gc"
                 [queryParams]="{ gc_id: sourcing.harvestId }"
-                *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage"
+                *appAclIf="'coffee-management.manage'"
             >
                 Buy
             </a>
