@@ -4,21 +4,39 @@ import { Pipe, PipeTransform } from '@angular/core';
     name: 'thousandSuff',
 })
 export class ThousandSuffPipe implements PipeTransform {
-    transform(input: any, args?: any): any {
-        let exp;
-        // let rounded;
-        const suffixes = ['k', 'M', 'G', 'T', 'P', 'E'];
-
-        if (Number.isNaN(input)) {
+    transform(value: number, args?: any): any {
+        if (isNaN(value)) {
+            return null;
+        } // will only work value is a number
+        if (value === null) {
             return null;
         }
-
-        if (input < 1000) {
-            return input;
+        if (value === 0) {
+            return 0;
         }
+        let abs = Math.abs(value);
+        const rounder = Math.pow(10, 1);
+        const isNegative = value < 0; // will also work for Negetive numbers
+        let key = '';
 
-        exp = Math.floor(Math.log(input) / Math.log(1000));
+        const powers = [
+            { key: 'Q', value: Math.pow(10, 15) },
+            { key: 'T', value: Math.pow(10, 12) },
+            { key: 'B', value: Math.pow(10, 9) },
+            { key: 'M', value: Math.pow(10, 6) },
+            { key: 'K', value: 1000 },
+        ];
 
-        return (input / Math.pow(1000, exp)).toFixed(args) + suffixes[exp - 1];
+        // tslint:disable-next-line: prefer-for-of
+        for (let i = 0; i < powers.length; i++) {
+            let reduced = abs / powers[i].value;
+            reduced = Math.round(reduced * rounder) / rounder;
+            if (reduced >= 1) {
+                abs = reduced;
+                key = powers[i].key;
+                break;
+            }
+        }
+        return (isNegative ? '-' : '') + abs + key;
     }
 }
