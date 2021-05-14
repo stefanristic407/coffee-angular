@@ -14,14 +14,14 @@
                         </div>
                         <div *ngIf="batchDetails">
                             <div class="fnt-500 mb-1">{{ 'batch' | translate }} # {{ batchDetails.id }}</div>
-                            <div class="primary_txt mb-1">{{ batchDetails.roast_batch_name }}</div>
+                            <div class="primary_txt mb-1">{{ batchForm.controls['roast_batch_name'].value }}</div>
                         </div>
                     </div>
                 </div>
                 <div class="mt-4 mt-md-35 pb-2" [formGroup]="batchForm" (ngSubmit)="onSave()" novalidate>
                     <div class="col-lg-9 px-0">
-                        <div class="row">
-                            <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
+                        <div class="max-560px">
+                            <div class="sewn-form-field w-100">
                                 <label>Roast batch name<span class="star">*</span></label>
                                 <input
                                     type="text"
@@ -46,7 +46,6 @@
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
                                 <div class="p-inputgroup custom-addon cursor-pointer" (click)="selectOrder()">
                                     <p-inputNumber
-                                        disabled
                                         placeholder="Select the order"
                                         [(ngModel)]="ordId"
                                         [ngModelOptions]="{ standalone: true }"
@@ -61,10 +60,10 @@
                             </div>
                         </div>
 
-                        <div class="row gutter-16 gutter-lg-24 mt-3 pt-lg-3">
+                        <div class="row gutter-16 gutter-lg-24 mt-lg-3">
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100" *ngIf="ordId">
                                 <label>Roaster ref no</label>
-                                <input type="number" placeholder="" formControlName="roaster_ref_no" pInputText />
+                                <input type="text" placeholder="" formControlName="roaster_ref_no" pInputText />
                                 <small *ngIf="batchForm.controls['roaster_ref_no'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
@@ -127,39 +126,13 @@
                                     <div class="input-and-select gray">
                                         <p-inputNumber
                                             type="number"
-                                            formControlName="roasting_profile_quantity"
-                                        ></p-inputNumber>
-                                        <p-dropdown
-                                            [options]="weightTypeArray"
-                                            [autoDisplayFirst]="false"
-                                            formControlName="roasting_profile_unit"
-                                            placeholder="{{ 'select_unit' | translate }}"
-                                        ></p-dropdown>
-                                        <small
-                                            *ngIf="batchForm.controls.roasting_profile_quantity.errors?.required"
-                                            class="p-error"
-                                        >
-                                            {{ 'required' | translate }}
-                                        </small>
-                                        <small
-                                            *ngIf="batchForm.controls.roasting_profile_quantity.errors?.max"
-                                            class="p-error"
-                                        >
-                                            Please enter quantity in range of roasted coffee
-                                        </small>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
-                                    <label>{{ 'roasted_coffee' | translate }}<span class="star">*</span></label>
-                                    <div class="input-and-select gray">
-                                        <p-inputNumber
-                                            type="number"
                                             formControlName="green_coffee_quantity"
                                         ></p-inputNumber>
                                         <p-dropdown
                                             [options]="weightTypeArray"
                                             [autoDisplayFirst]="false"
-                                            formControlName="green_coffee_unit"
+                                            [(ngModel)]="unit"
+                                            [ngModelOptions]="{ standalone: true }"
                                             placeholder="{{ 'select_unit' | translate }}"
                                         ></p-dropdown>
                                         <small
@@ -172,6 +145,34 @@
                                             *ngIf="batchForm.controls.green_coffee_quantity.errors?.min"
                                             class="p-error"
                                         >
+                                            Please enter quantity in range of roasted coffee
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
+                                    <label>{{ 'roasted_coffee' | translate }}<span class="star">*</span></label>
+                                    <div class="input-and-select gray">
+                                        <p-inputNumber
+                                            type="number"
+                                            formControlName="roasting_profile_quantity"
+                                        ></p-inputNumber>
+                                        <p-dropdown
+                                            [options]="weightTypeArray"
+                                            [autoDisplayFirst]="false"
+                                            [(ngModel)]="unit"
+                                            [ngModelOptions]="{ standalone: true }"
+                                            placeholder="{{ 'select_unit' | translate }}"
+                                        ></p-dropdown>
+                                        <small
+                                            *ngIf="batchForm.controls.roasting_profile_quantity.errors?.required"
+                                            class="p-error"
+                                        >
+                                            {{ 'required' | translate }}
+                                        </small>
+                                        <small
+                                            *ngIf="batchForm.controls.roasting_profile_quantity.errors?.max"
+                                            class="p-error"
+                                        >
                                             Please enter quantity above roasting coffee
                                         </small>
                                     </div>
@@ -182,13 +183,7 @@
                             <div class="sewn-form-field w-100">
                                 <label>{{ 'waste_produced' | translate }}</label>
                                 <div class="input-and-select gray">
-                                    <p-inputNumber type="number" formControlName="waste_quantity"></p-inputNumber>
-                                    <p-dropdown
-                                        [options]="weightTypeArray"
-                                        [autoDisplayFirst]="false"
-                                        formControlName="waste_unit"
-                                        placeholder="{{ 'select_unit' | translate }}"
-                                    ></p-dropdown>
+                                    <input pInputText type="text" formControlName="waste_quantity" />
                                     <small *ngIf="batchForm.controls.waste_quantity.errors?.required" class="p-error">
                                         {{ 'required' | translate }}
                                     </small>

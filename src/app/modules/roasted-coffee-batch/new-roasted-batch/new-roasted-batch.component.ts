@@ -57,6 +57,8 @@ export class NewRoastedBatchComponent implements OnInit {
         { label: 'New roasted coffee batch' },
     ];
     showOrder: boolean;
+    unit = 'lb';
+
     constructor(
         public dialogSrv: DialogService,
         public globals: GlobalsService,
@@ -100,14 +102,11 @@ export class NewRoastedBatchComponent implements OnInit {
                 null,
                 Validators.compose([Validators.required, minValidator('roasting_profile_quantity')]),
             ],
-            green_coffee_unit: ['lb'],
             roasting_profile_quantity: [
                 null,
                 Validators.compose([Validators.required, maxValidator('green_coffee_quantity')]),
             ],
-            roasting_profile_unit: ['lb'],
-            waste_quantity: [null],
-            waste_unit: ['lb'],
+            waste_quantity: [{ value: '', disabled: true }],
             aroma: [''],
             acidity: [''],
             body: [''],
@@ -121,16 +120,30 @@ export class NewRoastedBatchComponent implements OnInit {
         this.weightTypeArray = [
             { label: 'lb', value: 'lb' },
             { label: 'kg', value: 'kg' },
+            { label: 'g', value: 'g' },
         ];
         // disable mousewheel on a input number field when in focus
         // (to prevent Cromium browsers change the value when scrolling)
         $(document).on('wheel', 'input[type=number]', function (e) {
             $(this).blur();
         });
+        this.batchForm.controls.green_coffee_quantity.valueChanges.subscribe(() => {
+            this.setWasteQuantityValue();
+        });
+        this.batchForm.controls.roasting_profile_quantity.valueChanges.subscribe(() => {
+            this.setWasteQuantityValue();
+        });
+    }
+
+    setWasteQuantityValue(): void {
+        this.batchForm.controls.waste_quantity.setValue(
+            `${this.batchForm.controls.green_coffee_quantity.value - this.batchForm.controls.roasting_profile_quantity.value} ${this.unit}`
+        );
     }
 
     getRoastedBatch() {
         this.userService.getRoastedBatchDetail(this.roasterId, this.batchId).subscribe((res) => {
+            console.log('roasted batch >>>>>', res);
             if (res && res.result) {
                 this.flavourArray = res.result.flavour_profile;
                 this.flavourArray.forEach((element, index) => {
@@ -141,8 +154,9 @@ export class NewRoastedBatchComponent implements OnInit {
                     this.getFlavourArray.push(chips);
                 });
                 this.batchDetails = res.result;
-
                 this.batchForm.patchValue(this.batchDetails);
+                this.unit = res.result.roasting_profile_unit;
+                this.setWasteQuantityValue();
             }
             this.getRoasterFlavourProfile();
         });
@@ -226,6 +240,7 @@ export class NewRoastedBatchComponent implements OnInit {
     updateRoastedBatch(productObj) {
         this.userService.updateRoastedBatchDetail(this.roasterId, this.batchId, productObj).subscribe(
             (res) => {
+                console.log('update res >>>>>>>>>>>', res);
                 if (res && res.success) {
                     this.toastrService.success('The Roasted Batch has been updated.');
                     this.router.navigate(['/roasted-coffee-batch/roasted-coffee-batchs']);
@@ -273,6 +288,8 @@ export class NewRoastedBatchComponent implements OnInit {
                 productObj.flavour_profile = this.flavourProfileArray;
                 delete productObj.batch_ref_no;
                 productObj.order_id = Number(this.ordId);
+                productObj.roasting_profile_unit = this.unit;
+                productObj.green_coffee_unit = this.unit;
                 if (this.batchId) {
                     this.updateRoastedBatch(productObj);
                 } else {
@@ -334,9 +351,9 @@ export class NewRoastedBatchComponent implements OnInit {
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
-                    this.downloadService.download(this.coffeeStory.qr_code_url).subscribe(
+                    this.downloadService.imageDownload(this.coffeeStory.qr_code_url, 'qr-code.svg').subscribe(
                         (res: Download) => {
-                            if (res.state === 'DONE') {
+                            if (res.progress === 100) {
                                 this.toastrService.success('Downloaded successfully');
                             }
                         },
@@ -346,5 +363,9 @@ export class NewRoastedBatchComponent implements OnInit {
                     );
                 }
             });
+    }
+
+    onChangeQuantity(): void {
+        console.log('changing here...');
     }
 }
