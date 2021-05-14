@@ -5,6 +5,7 @@ import { GlobalsService, ResizeService, FileService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { ResizeableComponent } from '@base-components';
+import { trackFileName } from '@utils';
 
 @Component({
     selector: 'app-variant-details',
@@ -408,11 +409,6 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
     }
 
     trackFileName(name) {
-        if (name) {
-            const strArr = name.split('/');
-            const lastItem = strArr[strArr.length - 1];
-            return lastItem.split('?')[0];
-        }
-        return '';
+        return trackFileName(name);
     }
 }
