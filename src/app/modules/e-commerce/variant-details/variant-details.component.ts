@@ -79,6 +79,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         ];
         this.quantityTypeArray = [{ label: 'bags', value: 'bag' }];
         this.grindArray = [
+            { label: 'Whole beans', value: 'whole-beans' },
             { label: 'Extra Coarse', value: 'extra-coarse' },
             { label: 'Coarse', value: 'coarse' },
             { label: 'Medium Coarse', value: 'medium-coarse' },
