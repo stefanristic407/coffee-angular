@@ -1,54 +1,42 @@
+@import 'variables';
+
 .floting-containerDiv {
-    position: absolute;
-    width: 100%;
-    width: 100%;
     z-index: 41;
 }
-.header-group {
-    position: relative;
-    width: 100%;
-}
+
 .headerDiv {
-    border-bottom: 1px solid #d6d6d6;
+    border-bottom: 1px solid $primary-border-color;
     position: relative;
+    @media screen and (min-width: 768px) {
+        min-height: 79px;
+    }
 }
 .imgDiv {
-    @media screen and (min-width: 576px) {
-        border-right: 1px solid #d6d6d6;
+    @media screen and (min-width: 768px) {
+        border-right: 1px solid $primary-border-color;
+        width: 164px;
         .move-left {
             margin-left: -12px;
         }
     }
 }
-.font-bold-700 {
-    font-weight: 700;
-}
+
 .orderDiv {
     display: grid;
+    max-width: 165px;
 }
 .primary-label {
-    font-family: 'Muli';
-    font-size: 14px;
-    font-weight: bold;
     opacity: 0.7;
-    color: #232334;
+    color: $general-text-color;
 }
 .primary-sub-label {
-    font-family: 'Muli';
-    font-size: 14px;
-    font-weight: bold;
     opacity: 0.7;
-    color: #747588;
+    color: $muted-text-color;
 }
-.selected-data-font {
-    font-family: 'Muli';
-    font-size: 14px;
-    font-weight: bold;
-    color: #232334;
-}
+
 .text-highlited {
     font-weight: 700;
-    color: #80460b !important;
+    color: $brown-color !important;
     cursor: pointer;
     text-decoration: underline;
 }
@@ -70,32 +58,36 @@
     box-shadow: 0 12px 44px -10px rgba(143, 51, 11, 0.1);
     z-index: 40;
     border-radius: 2px;
-    border: dashed 1px #d6d6d6;
+    border: dashed 1px $primary-border-color;
 }
 .dispute-margin {
     margin: 10px;
 }
 .card-width {
-    padding: 12px 23px 12px 12px;
+    padding: 8px 12px 8px 8px;
     opacity: 0.7;
     border-radius: 4px;
-    border: solid 1px #ebebeb;
-    background-color: #ffffff;
+    border: solid 1px $secondary-border-color;
+    background-color: $white;
     margin: 6px;
-    width: 117px;
     cursor: pointer;
+    min-width: 77px;
+    @media screen and (min-width: 768px) {
+        padding: 12px 23px 12px 12px;
+        min-width: 117px;
+    }
 }
 .cardSelect {
     opacity: 0.9;
-    border: solid 1px #3a8561;
+    border: solid 1px $primary-color;
     background-color: rgba(61, 132, 98, 0.05);
 }
 .profileImg {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    border: solid 2px #ffffff;
-    background-color: #d8d8d8;
+    border: solid 2px $white;
+    background-color: $primary-bg-color;
 }
 .chat-page-wrapper {
     position: relative;
@@ -116,6 +108,10 @@
     }
     .imgMobileDiv {
         margin-left: auto;
+        .imgDiv {
+            width: 164px;
+            justify-content: flex-end;
+        }
     }
 }
 
@@ -125,13 +121,13 @@
     position: relative;
     padding: 2px 8px 2px 16px;
     border-radius: 10px;
-    border: solid 0.5px #747588;
+    border: solid 0.5px $muted-text-color;
     p {
         font-size: 10px;
         line-height: 14px;
         margin: 0px;
         font-weight: 600;
-        color: #747588;
+        color: $muted-text-color;
     }
     &::before {
         position: absolute;
@@ -140,8 +136,68 @@
         left: 7px;
         width: 4px;
         height: 4px;
-        background-color: #747588;
+        background-color: $muted-text-color;
         border-radius: 50%;
         z-index: 1;
     }
+}
+
+/**********popover*******/
+.menu-arrow {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    right: 16px;
+    top: 24px;
+}
+
+.list-data li {
+    width: auto !important;
+    padding: 10px 3rem 10px 10px !important;
+}
+
+.list-data {
+    margin-bottom: 0%;
+}
+
+::ng-deep .popover-body {
+    padding: 0.25rem 0.25rem !important;
+}
+
+::ng-deep .popover {
+    border: none !important;
+    border-radius: 6px !important;
+    box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
+    background-color: $white;
+}
+
+.list-item {
+    border: none;
+    font-family: 'Muli';
+    font-size: 14px;
+    font-weight: 600 !important;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: $muted-text-color;
+    &:hover {
+        color: $general-text-color !important;
+        font-weight: 600 !important;
+        background-color: $primary-bg-color !important;
+    }
+}
+
+.pointer-item {
+    cursor: pointer;
+}
+
+.brand-image {
+    height: 90px;
+    width: 90px;
+    border-radius: 100%;
+}
+
+.brand-meta-container {
+    height: 90px;
 }
