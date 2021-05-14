@@ -44,7 +44,6 @@ export class ProductDetailsComponent implements OnInit {
         'processing',
         'flavour_profiles',
         'roaster_notes',
-        'recipes',
         'remaining_quantity',
     ];
     @ViewChildren(VariantDetailsComponent) variantComponent: QueryList<VariantDetailsComponent>;
@@ -239,10 +238,11 @@ export class ProductDetailsComponent implements OnInit {
                         variant.weight_variants = getVariant[0].weight_variants;
                         variant.roaster_recommendation = getVariant[0].variant_details.roaster_recommendation;
                         variant.brewing_method = getVariant[0].variant_details.brewing_method;
+                        variant.recipes = getVariant[0].variant_details.recipes;
                         const variantForm = this.fb.group(variant);
                         const weightVariants = getVariant[0].weight_variants;
                         weightVariants.forEach((ele) => {
-                            const getCrate = productDetails.crates.find(
+                            const getCrate = productDetails.crates?.find(
                                 (item) => item.weight === ele.weight && ele.weight_unit === item.crate_unit,
                             );
                             if (getCrate) {
@@ -379,6 +379,9 @@ export class ProductDetailsComponent implements OnInit {
         });
     }
     createEmptyCrate() {
+        if (this.type === 'b2c') {
+            return this.fb.group({});
+        }
         return this.fb.group({
             id: '',
             weight: [0, Validators.compose([Validators.required])],
@@ -415,39 +418,12 @@ export class ProductDetailsComponent implements OnInit {
         }
     }
     onWeightCreate(event) {
-        this.crates = this.productForm.get('crates') as FormArray;
-        const getObjs = this.crates.value.filter((ele) => ele.weight === event.value && ele.crate_unit === event.unit);
-        if (!event.modify) {
-            if (!getObjs?.length) {
-                const getCrate = this.createEmptyCrate();
-                getCrate.patchValue({
-                    weight: event.value,
-                    crate_unit: event.unit,
-                    weight_name: `${event.value} ${event.unit}`,
-                    product_weight_variant_id: event.product_weight_variant_id,
-                    variant_name: event.variant_name,
-                });
-                this.crates.push(getCrate);
-            }
-        } else {
-            const getObj = this.crates.value.find(
-                (ele) => ele.product_weight_variant_id === event.product_weight_variant_id,
+        if (this.type === 'b2b') {
+            this.crates = this.productForm.get('crates') as FormArray;
+            const getObjs = this.crates.value.filter(
+                (ele) => ele.weight === event.value && ele.crate_unit === event.unit,
             );
-            const indexValue = this.crates.value.indexOf(getObj);
-            if (getObj) {
-                if (
-                    getObjs?.length &&
-                    getObjs.find((item) => item.product_weight_variant_id !== event.product_weight_variant_id)
-                ) {
-                    this.crates.removeAt(indexValue);
-                } else {
-                    this.crates.controls[indexValue].patchValue({
-                        crate_unit: event.unit,
-                        weight: event.value,
-                        weight_name: `${event.value} ${event.unit}`,
-                    });
-                }
-            } else {
+            if (!event.modify) {
                 if (!getObjs?.length) {
                     const getCrate = this.createEmptyCrate();
                     getCrate.patchValue({
@@ -458,6 +434,37 @@ export class ProductDetailsComponent implements OnInit {
                         variant_name: event.variant_name,
                     });
                     this.crates.push(getCrate);
+                }
+            } else {
+                const getObj = this.crates.value.find(
+                    (ele) => ele.product_weight_variant_id === event.product_weight_variant_id,
+                );
+                const indexValue = this.crates.value.indexOf(getObj);
+                if (getObj) {
+                    if (
+                        getObjs?.length &&
+                        getObjs.find((item) => item.product_weight_variant_id !== event.product_weight_variant_id)
+                    ) {
+                        this.crates.removeAt(indexValue);
+                    } else {
+                        this.crates.controls[indexValue].patchValue({
+                            crate_unit: event.unit,
+                            weight: event.value,
+                            weight_name: `${event.value} ${event.unit}`,
+                        });
+                    }
+                } else {
+                    if (!getObjs?.length) {
+                        const getCrate = this.createEmptyCrate();
+                        getCrate.patchValue({
+                            weight: event.value,
+                            crate_unit: event.unit,
+                            weight_name: `${event.value} ${event.unit}`,
+                            product_weight_variant_id: event.product_weight_variant_id,
+                            variant_name: event.variant_name,
+                        });
+                        this.crates.push(getCrate);
+                    }
                 }
             }
         }

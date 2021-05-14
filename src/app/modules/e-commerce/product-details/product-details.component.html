@@ -503,7 +503,7 @@
                 </p-tabPanel>
             </p-tabView>
         </div>
-        <div [ngClass]="type === 'b2b' ? 'd-block' : 'd-none'">
+        <div *ngIf="type === 'b2b'">
             <p-divider type="dashed" styleClass="my-4 my-lg-45"></p-divider>
             <div class="col-12 p-0">
                 <p class="primary_txt fnt-16 mb-2">

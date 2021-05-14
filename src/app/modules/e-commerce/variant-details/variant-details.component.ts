@@ -78,7 +78,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             { label: 'lbs', value: 'lb' },
             { label: 'kgs', value: 'kg' },
         ];
-        this.quantityTypeArray = [{ label: 'bags', value: 'bag' }];
+        this.quantityTypeArray = [{ label: 'bags', value: 'bags' }];
         this.grindArray = [
             { label: 'Whole beans', value: 'whole-beans' },
             { label: 'Extra Coarse', value: 'extra-coarse' },
@@ -185,6 +185,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
                 this.grindVariantFields.forEach((field) => {
                     formGrind.controls[field].setValue(variant[field]);
                 });
+                formGrind.get('available_quantity_type').setValue('bags');
                 this.grindVariants.push(formGrind);
             });
         }
@@ -261,7 +262,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             price: [0, Validators.compose([Validators.required])],
             grind: ['', Validators.compose([Validators.required])],
             available_quantity: [0, Validators.compose([Validators.required])],
-            available_quantity_type: 'bag',
+            available_quantity_type: 'bags',
             sku_number: ['', Validators.compose([Validators.required])],
         });
     }
