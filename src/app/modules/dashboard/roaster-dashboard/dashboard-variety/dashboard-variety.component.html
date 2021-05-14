@@ -18,7 +18,7 @@
         </div>
 
         <div class="w-100 text-right text-md-left p-3 manage-coffee-link">
-            <a class="arrow-link fnt-12 fnt-md-14" routerLink="/sourcing">
+            <a class="arrow-link fnt-12 fnt-md-14" routerLink="/green-coffee-management/green-coffee-inventory">
                 {{ 'manage_green_coffee' | translate }}
             </a>
         </div>
@@ -31,7 +31,9 @@
                 Mark green coffee available for selling to the micro-roasters.
             </p>
 
-            <button class="btn-raised" routerLink="/features/green-coffee-inventory">Manage green coffee</button>
+            <button class="btn-raised" routerLink="/green-coffee-management/green-coffee-inventory">
+                {{ 'manage_green_coffee' | translate }}
+            </button>
         </div>
     </ng-template>
 </div>
