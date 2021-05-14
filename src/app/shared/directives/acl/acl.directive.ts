@@ -1,12 +1,11 @@
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
-import { AccessType } from '@enums';
 import { AclService } from '@services';
 
 @Directive({
     selector: '[appAclIf]',
 })
 export class AclDirective {
-    private permission: any;
+    private permission: string;
 
     @Input()
     public set appAclIf(value: any) {
@@ -14,16 +13,12 @@ export class AclDirective {
         this.evaluate();
     }
 
-    @Input() accessType: AccessType = AccessType.View;
-
     private created = false;
 
     constructor(private template: TemplateRef<any>, private view: ViewContainerRef, private aclService: AclService) {}
 
     private evaluate(): void {
-        // const isAllowed = this.aclService.checkItem(this.permission, this.accessType);
-        console.log(this.permission);
-        const isAllowed = true;
+        const isAllowed = this.aclService.checkPermission(this.permission);
         if (isAllowed) {
             this.allow();
         } else {

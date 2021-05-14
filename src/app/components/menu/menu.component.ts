@@ -20,20 +20,6 @@ export class MenuComponent implements OnInit {
         this.menuItems = this.menuItems.filter((item) => item.parentId === this.menuParentId);
     }
 
-    checkPermissions(menu: Menu) {
-        for (const key in menu.permissions) {
-            if (menu.permissions[key]) {
-                if (!menu.hasSubMenu && !this.aclService.checkItem(menu.permissions[key])) {
-                    return false;
-                }
-                if (menu.hasSubMenu && this.aclService.checkItem(menu.permissions[key])) {
-                    return true;
-                }
-            }
-        }
-        return !menu.permissions.length || !menu.hasSubMenu;
-    }
-
     onClick(menuId) {
         if (this.globals.device === 'mobile') {
             this.menuService.toggleMenuItem(menuId);

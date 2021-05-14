@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { AccessType } from '@enums';
+import * as _ from 'underscore';
 
 @Injectable({
     providedIn: 'root',
@@ -11,26 +11,43 @@ export class AclService {
 
     constructor(private cookieService: CookieService, private router: Router) {}
 
-    checkItem(slug, accessType = AccessType.View) {
-        return (
-            this.permissions[slug] &&
-            (accessType === AccessType.View || accessType === this.permissions[slug][accessType])
-        );
+    checkPermission(permission) {
+        if (!permission) {
+            return true;
+        }
+        const multiPermissions = permission.split('|');
+        for (const key in multiPermissions) {
+            if (this.checkMultiPermission(multiPermissions[key].split('&'))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private checkMultiPermission(permissionArray): boolean {
+        for (const key in permissionArray) {
+            if (!this.permissions[permissionArray[key]]) {
+                return false;
+            }
+        }
+        return true;
     }
 
     loadPermission() {
         try {
-            this.permissions = JSON.parse(this.cookieService.get('permissionSlug'));
+            const permissionArray = JSON.parse(this.cookieService.get('permissionSlug'));
+            this.permissions = {};
+            permissionArray.forEach((element) => {
+                this.permissions[element] = true;
+            });
         } catch {
             this.router.navigateByUrl('/gate');
         }
     }
 
     updatePermission(permissionList: any[]) {
-        this.permissions = {};
-        permissionList.forEach((element) => {
-            this.permissions[element.slug] = element.access_type;
-        });
-        this.cookieService.set('permissionSlug', JSON.stringify(this.permissions));
+        const permissionArray = _.pluck(permissionList, 'slug');
+        this.cookieService.set('permissionSlug', JSON.stringify(permissionArray));
+        this.loadPermission();
     }
 }

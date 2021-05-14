@@ -18,10 +18,7 @@
             </p-tabPanel>
         </p-tabView>
 
-        <div
-            class="have-a-problem"
-            *ngIf="globals.permissions['sourcing-management'] && globals.permissions['sourcing-management'].manage"
-        >
+        <div class="have-a-problem" *appAclIf="'sourcing-management'">
             <button
                 type="button"
                 class="btn-raised"

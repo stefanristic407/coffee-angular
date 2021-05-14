@@ -278,7 +278,7 @@
 <ng-template #rightSidePanel>
     <div class="row m-0">
         <div class="col-12 col-md-6 col-lg-12 p-0 pl-md-0 pr-md-2 p-lg-0">
-            <div class="border-main br-4 p-0" *appAclIf="['certificate-list', 'certificate-management']">
+            <div class="border-main br-4 p-0" *appAclIf="'certificate-list&certificate-management'">
                 <div class="header fnt-18 font-bold text-clr334 m-1">{{ 'awards_and_certificates' | translate }}</div>
                 <div class="row mt-3 m-0" *ngFor="let certificate of certificatesArray; let i = index">
                     <div class="col-12">

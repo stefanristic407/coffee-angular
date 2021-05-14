@@ -32,7 +32,7 @@ export class EstateAboutComponent implements OnInit {
     }
 
     getCertificates() {
-        if (this.aclService.checkItem('certificate-list') || this.aclService.checkItem('certificate-management')) {
+        if (this.aclService.checkPermission('certificate-list|certificate-management')) {
             this.userService.getGeneralCertificates(this.estateId, OrganizationType.ESTATE).subscribe((result: any) => {
                 if (result.success === true) {
                     this.certificatesArray = result.result;

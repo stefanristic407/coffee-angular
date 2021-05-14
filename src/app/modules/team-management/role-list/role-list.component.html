@@ -153,39 +153,39 @@
                                     <div id="popover-mobile-content">
                                         <ul class="list-group custom-popover">
                                             <li
-                                                *appAclIf="'acl-management.manage'"
+                                                *appAclIf="'acl-management'"
                                                 class="list-group-item d-none d-sm-none d-md-block"
                                             >
                                                 <a class="pointer-item" (click)="teamMembers(rowData, true)">{{
                                                     globals.languageJson?.add_members
                                                 }}</a>
                                             </li>
-                                            <li *appAclIf="['acl-list', 'acl-management']" class="list-group-item">
+                                            <li *appAclIf="'acl-list&acl-management'" class="list-group-item">
                                                 <a class="pointer-item" (click)="teamMembers(rowData)">{{
                                                     globals.languageJson?.view_members
                                                 }}</a>
                                             </li>
-                                            <li *appAclIf="'acl-management.manage'" class="list-group-item">
+                                            <li *appAclIf="'acl-management'" class="list-group-item">
                                                 <a class="pointer-item" (click)="updateRole(rowData.id)">{{
                                                     globals.languageJson?.edit
                                                 }}</a>
                                             </li>
-                                            <li *appAclIf="'acl-management.manage'" class="list-group-item">
+                                            <li *appAclIf="'acl-management'" class="list-group-item">
                                                 <a class="pointer-item" (click)="updateRole(rowData.id)">{{
                                                     globals.languageJson?.rename
                                                 }}</a>
                                             </li>
-                                            <li *appAclIf="'acl-management.manage'" class="list-group-item">
+                                            <li *appAclIf="'acl-management'" class="list-group-item">
                                                 <a class="pointer-item" (click)="duplicateRole(rowData.id)">{{
                                                     globals.languageJson?.duplicate_role
                                                 }}</a>
                                             </li>
-                                            <li *appAclIf="'acl-management.manage'" class="list-group-item">
+                                            <li *appAclIf="'acl-management'" class="list-group-item">
                                                 <a class="pointer-item" (click)="updateRole(rowData.id)">{{
                                                     globals.languageJson?.manage_permissions
                                                 }}</a>
                                             </li>
-                                            <li *appAclIf="'acl-management.manage'" class="list-group-item">
+                                            <li *appAclIf="'acl-management'" class="list-group-item">
                                                 <a
                                                     class="pointer-item"
                                                     (click)="openDeleteModal(rowData.id); pop.hide()"
