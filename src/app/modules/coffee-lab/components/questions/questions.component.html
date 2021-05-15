@@ -23,6 +23,7 @@
                             "
                             [enableSave]="pageDesc !== 'saved-posts'"
                             [enableDeleteSave]="pageDesc === 'saved-posts'"
+                            [enableStopPropagation]="false"
                         ></app-forum-menu>
                     </div>
                 </div>
@@ -53,7 +54,7 @@
                         <a
                             [routerLink]="'/coffee-lab/questions/' + question.slug"
                             [queryParams]="{ answer: answer.id }"
-                            class="brown-cta ml-1"
+                            class="brown-cta ml-2"
                             >{{ 'read_more' | translate }}</a
                         >
                     </div>

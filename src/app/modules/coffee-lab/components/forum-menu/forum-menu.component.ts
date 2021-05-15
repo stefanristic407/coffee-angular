@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@shared';
+import { Menu } from 'primeng/menu';
 
 @Component({
     selector: 'app-forum-menu',
@@ -22,7 +23,9 @@ export class ForumMenuComponent implements OnInit {
     @Input() enableSave = true;
     @Input() enableDeleteSave = false;
     @Input() enableTranslation = false;
+    @Input() enableStopPropagation = true;
     items: MenuItem[] = [];
+    @ViewChild('menu', {static: false}) menu: Menu;
 
     constructor(
         public globalsService: GlobalsService,
@@ -81,6 +84,13 @@ export class ForumMenuComponent implements OnInit {
                 },
             });
         }
+    }
+
+    onClickMenu(event: any): void {
+        if (this.enableStopPropagation) {
+            event.stopPropagation();
+        }
+        this.menu.toggle(event);
     }
 
     onShare(): void {

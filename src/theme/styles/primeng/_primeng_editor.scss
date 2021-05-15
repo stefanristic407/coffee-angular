@@ -1,12 +1,12 @@
 @import 'variables';
 
 .forum-editor {
+    position: relative;
     .p-editor-toolbar {
         padding: 16px 24px;
         background-color: white;
         border-color: $primary-border-color;
         border-bottom-width: 0 !important;
-        position: relative;
         white-space: nowrap;
         overflow-x: auto;
         &:before {
@@ -14,7 +14,7 @@
             display: block;
             border-bottom: 1px dashed $primary-border-color;
             position: absolute;
-            bottom: 0;
+            top: 56px;
             width: calc(100% - 48px);
         }
     }

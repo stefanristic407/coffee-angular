@@ -21,6 +21,7 @@
                             organizationId === detailsData.org_id &&
                             detailsData.org_type === coffeeLabService.organization
                         "
+                        [enableStopPropagation]="false"
                     ></app-forum-menu>
                 </div>
             </div>
@@ -86,6 +87,7 @@
                                         answer.org_type === coffeeLabService.organization
                                     "
                                     [enableTranslation]="answer?.translations?.length < 3"
+                                    [enableStopPropagation]="false"
                                 ></app-forum-menu>
                             </div>
                             <div *ngIf="answer?.translations?.length" class="d-none d-md-block">
