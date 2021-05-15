@@ -221,7 +221,7 @@ export class ProductListComponent implements OnInit {
             page = event.first / event.rows + 1;
         }
         setTimeout(() => (this.loading = true), 0);
-        const options = {
+        const options: any = {
             page,
             per_page: 10,
             name: this.keywords ?? '',
@@ -234,13 +234,18 @@ export class ProductListComponent implements OnInit {
             sort_by: event?.sortField,
             sort_order: event?.sortOrder === 1 ? 'asc' : 'desc',
         };
+        if (this.type !== 'other') {
+            options.business_type = this.type;
+        }
 
         this.eCommerceService.getSelectProductDetails(this.type, options).subscribe(
             (res: any) => {
                 if (res.success) {
-                    this.originArray = COUNTRY_LIST.filter((item) =>
-                        res.result?.find((prod) => prod.origin.toLowerCase() === item.isoCode.toLocaleLowerCase()),
-                    );
+                    if (this.type !== 'other') {
+                        this.originArray = COUNTRY_LIST.filter((item) =>
+                            res.result?.find((prod) => prod.origin.toLowerCase() === item.isoCode.toLocaleLowerCase()),
+                        );
+                    }
                     this.tableData = res.result ?? [];
                     this.totalCount = res.result_info.total_count;
                 } else {

@@ -17,7 +17,7 @@ export class ECommerceService extends ApiService {
     // ------------ ECommerce ------------
 
     getSelectProductDetails(type: any, postData?) {
-        const suffix = type === 'b2b' ? '' : `${type}-`;
+        const suffix = type === 'other' ? `${type}-` : '';
         return this.postWithOrg(this.orgPostUrl, `${suffix}products?${this.serializeParams(postData)}`, 'GET');
     }
     getProductDetails(productId: any, type: any): Observable<any> {
