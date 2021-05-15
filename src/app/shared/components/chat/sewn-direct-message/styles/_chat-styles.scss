@@ -1,3 +1,5 @@
+@import 'variables';
+
 @mixin chat-list-styles {
     .chat-loading-result {
         position: relative;
@@ -172,7 +174,7 @@
 
 .dm-expand-backdrop {
     $dm-expand-panel-wrapper-margin: 32px;
-    background-color: #f1f1f1;
+    background-color: $body-bg-color;
     position: fixed;
     width: 100%;
     height: 100%;
@@ -183,7 +185,7 @@
     justify-content: center;
 
     .dm-expand-panel-wrapper {
-        background-color: #f1f1f1;
+        background-color: $body-bg-color;
         margin-top: $dm-expand-panel-wrapper-margin;
         position: relative;
         height: calc(100% - #{$dm-expand-panel-wrapper-margin});

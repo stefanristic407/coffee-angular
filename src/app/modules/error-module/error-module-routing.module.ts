@@ -4,33 +4,38 @@ import { InternalServerErrorComponent } from './internal-server-error/internal-s
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NoInternetConnectionComponent } from './no-internet-connection/no-internet-connection.component';
 import { EmptyTableComponent } from './empty-table/empty-table.component';
+import { PermissionErrorComponent } from './permission-error/permission-error.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    children: [
-        {
-            path: 'internal-server-error',
-            component: InternalServerErrorComponent
-        },
-        {
-          path: 'network-connection-error',
-          component: NoInternetConnectionComponent
-        },
-        {
-          path: 'empty-table',
-          component: EmptyTableComponent
-        },
-        {
-            path: '**',
-            component: PageNotFoundComponent
-        },
-    ]
-  }
+    {
+        path: '',
+        children: [
+            {
+                path: 'internal-server-error',
+                component: InternalServerErrorComponent,
+            },
+            {
+                path: 'network-connection-error',
+                component: NoInternetConnectionComponent,
+            },
+            {
+                path: 'empty-table',
+                component: EmptyTableComponent,
+            },
+            {
+                path: 'permission-error',
+                component: PermissionErrorComponent,
+            },
+            {
+                path: '**',
+                component: PageNotFoundComponent,
+            },
+        ],
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
-export class ErrorModuleRoutingModule { }
+export class ErrorModuleRoutingModule {}

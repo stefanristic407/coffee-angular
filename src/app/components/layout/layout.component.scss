@@ -26,7 +26,7 @@
 }
 
 .router-design {
-    background-color: #f1f1f1;
+    background-color: $body-bg-color;
     padding-top: calc(#{$mobile-header-height + $mobile-page-pt});
     padding-bottom: 16px;
     @media (min-width: 768px) {
@@ -151,7 +151,7 @@
                 div.notifi-cotainer {
                     padding: 4px;
                     &:hover {
-                        background-color: #f1f1f1;
+                        background-color: $body-bg-color;
                     }
                 }
                 div.notif-description {

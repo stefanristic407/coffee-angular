@@ -1,7 +1,9 @@
+@import 'variables';
+
 @media (max-width: 767px) {
     .dm-list-view {
         .dm-thread-listing {
-            background-color: #f1f1f1;
+            background-color: $body-bg-color;
             .dm-thread-listing-wrapper {
                 width: auto;
                 padding: 0px 0px;
@@ -24,7 +26,7 @@
 
     .dm-search-user-panel-view {
         .dm-sup-listing {
-            background-color: #f1f1f1;
+            background-color: $body-bg-color;
             .dm-sup-listing-wrapper {
                 width: auto;
                 padding: 0px 0px;
@@ -46,7 +48,7 @@
     }
     .dm-report-user-panel-view {
         .dm-rup-listing {
-            background-color: #f1f1f1;
+            background-color: $body-bg-color;
             .dm-rup-listing-wrapper {
                 width: auto;
                 padding: 0px 0px;

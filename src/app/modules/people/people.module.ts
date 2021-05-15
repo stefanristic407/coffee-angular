@@ -18,7 +18,6 @@ import { MicroRoasterDetailsComponent } from './customer-management/micro-roaste
 import { HorecaDetailsComponent } from './customer-management/horeca-details/horeca-details.component';
 import { HorecaTableComponent } from './customer-management/horeca-details/horeca-table/horeca-table.component';
 import { DiscountEditComponent } from './customer-management/discount-edit/discount-edit.component';
-import { PermissionErrorComponent } from './permission-error/permission-error.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CustomerManagementTableComponent } from './customer-management/customer-management-table/customer-management-table.component';
 import { DetailsUserComponent } from './customer-management/details-user/details-user.component';
@@ -35,7 +34,6 @@ import { ImportantContactsComponent } from './customer-management/important-cont
         HorecaDetailsComponent,
         HorecaTableComponent,
         DiscountEditComponent,
-        PermissionErrorComponent,
         CustomerManagementTableComponent,
         DetailsUserComponent,
         DetailsDiscountComponent,

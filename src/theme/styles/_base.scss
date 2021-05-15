@@ -13,7 +13,7 @@ body {
     line-height: normal;
     color: $general-text-color;
     text-align: left;
-    background-color: #f1f1f1;
+    background-color: $body-bg-color;
 }
 
 input:focus,
