@@ -81,7 +81,7 @@
                     <p-tabView class="toggle" (onChange)="onTabChange($event)">
                         <p-tabPanel header="{{ 'micro_roasters' | translate }}">
                             <app-customer-management-table
-                                *ngIf="customerType === 'micro-roasters'"
+                                *ngIf="customerType === OrgType.MICRO_ROASTER"
                                 [searchTerm]="searchTerm"
                                 [sortedMainData]="sortedMainData"
                                 [customerType]="customerType"
@@ -90,7 +90,7 @@
                         </p-tabPanel>
                         <p-tabPanel header="{{ 'roasted_coffee_customers' | translate }}">
                             <app-customer-management-table
-                                *ngIf="customerType === 'hrc'"
+                                *ngIf="customerType === OrgType.HORECA"
                                 [searchTerm]="searchTerm"
                                 [sortedMainData]="sortedMainData"
                                 [customerType]="customerType"

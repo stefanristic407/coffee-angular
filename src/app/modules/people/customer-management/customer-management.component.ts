@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OrganizationType } from '@enums';
 import { GlobalsService, RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +11,7 @@ import { MenuItem } from 'primeng/api';
     styleUrls: ['./customer-management.component.scss'],
 })
 export class CustomerManagementComponent implements OnInit {
+    readonly OrgType = OrganizationType;
     appLanguage?: any;
     customerActive: any = 0;
     searchTerm: any;
@@ -25,7 +27,7 @@ export class CustomerManagementComponent implements OnInit {
     roasterId: string;
     odd: boolean;
     horecaActive: any;
-    customerType: string;
+    customerType: OrganizationType;
     navItems: MenuItem[];
     selectedNav: MenuItem;
 
@@ -39,7 +41,7 @@ export class CustomerManagementComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.customerType = 'micro-roasters';
+        this.customerType = OrganizationType.MICRO_ROASTER;
         this.getMicroRoaster();
         this.language();
         this.navItems = [{ label: this.globals.languageJson?.people }, { label: 'Customer onboarding' }];
@@ -52,10 +54,10 @@ export class CustomerManagementComponent implements OnInit {
 
     onTabChange(event) {
         if (event.index === 0) {
-            this.customerType = 'micro-roasters';
+            this.customerType = OrganizationType.MICRO_ROASTER;
             this.getMicroRoaster();
         } else if (event.index === 1) {
-            this.customerType = 'hrc';
+            this.customerType = OrganizationType.HORECA;
             this.MicroRoastersHoreca();
         }
     }
