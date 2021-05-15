@@ -335,6 +335,9 @@
                                     formControlName="body"
                                     pInputText
                                 />
+                                <small *ngIf="variant['controls']['body'].errors?.required" class="p-error">
+                                    {{ 'required' | translate }}
+                                </small>
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
                                 <label>{{ 'acidity' | translate }}</label>
@@ -344,6 +347,9 @@
                                     formControlName="acidity"
                                     pInputText
                                 />
+                                <small *ngIf="variant['controls']['acidity'].errors?.required" class="p-error">
+                                    {{ 'required' | translate }}
+                                </small>
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
                                 <label>{{ 'aroma' | translate }}</label>
@@ -353,6 +359,9 @@
                                     formControlName="aroma"
                                     pInputText
                                 />
+                                <small *ngIf="variant['controls']['aroma'].errors?.required" class="p-error">
+                                    {{ 'required' | translate }}
+                                </small>
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
                                 <label>{{ 'flavour' | translate }}</label>
@@ -362,6 +371,9 @@
                                     formControlName="flavour"
                                     pInputText
                                 />
+                                <small *ngIf="variant['controls']['flavour'].errors?.required" class="p-error">
+                                    {{ 'required' | translate }}
+                                </small>
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
                                 <label>{{ 'processing' | translate }}</label>
@@ -371,6 +383,9 @@
                                     formControlName="processing"
                                     pInputText
                                 />
+                                <small *ngIf="variant['controls']['processing'].errors?.required" class="p-error">
+                                    {{ 'required' | translate }}
+                                </small>
                             </div>
                         </div>
                         <div class="w-100 sewn-form-field mt-0 mt-lg-3">
@@ -503,7 +518,7 @@
                 </p-tabPanel>
             </p-tabView>
         </div>
-        <div *ngIf="type === 'b2b'">
+        <div [ngClass]="this.type === 'b2b' ? 'd-block' : 'd-none'">
             <p-divider type="dashed" styleClass="my-4 my-lg-45"></p-divider>
             <div class="col-12 p-0">
                 <p class="primary_txt fnt-16 mb-2">
