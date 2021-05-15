@@ -238,7 +238,7 @@ export class ProductDetailsComponent implements OnInit {
                         variant.weight_variants = getVariant[0].weight_variants;
                         variant.roaster_recommendation = getVariant[0].variant_details.roaster_recommendation;
                         variant.brewing_method = getVariant[0].variant_details.brewing_method;
-                        variant.recipes = getVariant[0].variant_details.recipes;
+                        variant.recipes = getVariant[0].variant_details.recipes ?? '';
                         const variantForm = this.fb.group(variant);
                         const weightVariants = getVariant[0].weight_variants;
                         weightVariants.forEach((ele) => {
@@ -353,7 +353,7 @@ export class ProductDetailsComponent implements OnInit {
     createEmptyVariant() {
         this.count++;
         return this.fb.group({
-            rc_batch_id: ['', Validators.compose([Validators.required])],
+            rc_batch_id: '',
             variant_name: 'Variant ' + this.count,
             roaster_ref_no: '',
             batch_ref_no: '',
@@ -364,11 +364,11 @@ export class ProductDetailsComponent implements OnInit {
             origin: '',
             region: '',
             harvest_year: '',
-            body: '',
-            acidity: '',
-            aroma: '',
-            flavour: '',
-            processing: '',
+            body: ['', Validators.compose([Validators.required])],
+            acidity: ['', Validators.compose([Validators.required])],
+            aroma: ['', Validators.compose([Validators.required])],
+            flavour: ['', Validators.compose([Validators.required])],
+            processing: ['', Validators.compose([Validators.required])],
             flavour_profiles: [],
             roaster_notes: ['', Validators.compose([maxWordCountValidator(300)])],
             recipes: ['', Validators.compose([maxWordCountValidator(300)])],
@@ -379,17 +379,14 @@ export class ProductDetailsComponent implements OnInit {
         });
     }
     createEmptyCrate() {
-        if (this.type === 'b2c') {
-            return this.fb.group({});
-        }
         return this.fb.group({
             id: '',
-            weight: [0, Validators.compose([Validators.required])],
+            weight: [0, Validators.compose(this.type === 'b2c' ? [] : [Validators.required])],
             crate_unit: 'lb',
             boxField: '1 box',
             weight_name: '0 lb',
             product_weight_variant_id: '',
-            crate_capacity: ['', Validators.compose([Validators.required])],
+            crate_capacity: ['', Validators.compose(this.type === 'b2c' ? [] : [Validators.required])],
             variant_name: '',
         });
     }
@@ -490,6 +487,9 @@ export class ProductDetailsComponent implements OnInit {
         }
     }
     createNewProduct(productObj) {
+        if (this.type === 'b2c') {
+            delete productObj.crates;
+        }
         this.eCommerceService.addProductDetails(productObj, this.type).subscribe(
             (res) => {
                 if (res && res.success) {
@@ -505,20 +505,26 @@ export class ProductDetailsComponent implements OnInit {
     }
     updateProductDetails(productObj) {
         delete productObj.variants;
-        for (const crate of this.allCrates) {
-            if (
-                !productObj.crates.find((item) => item.weight === crate.weight && item.crate_unit === crate.crate_unit)
-            ) {
-                productObj.crates.push(crate);
+        if (this.type === 'b2b') {
+            for (const crate of this.allCrates) {
+                if (
+                    !productObj.crates.find(
+                        (item) => item.weight === crate.weight && item.crate_unit === crate.crate_unit,
+                    )
+                ) {
+                    productObj.crates.push(crate);
+                }
             }
+            productObj.crates.forEach((ele) => {
+                delete ele.id;
+                delete ele.boxField;
+                delete ele.product_weight_variant_id;
+                delete ele.variant_name;
+                delete ele.weight_name;
+            });
+        } else {
+            delete productObj.crates;
         }
-        productObj.crates.forEach((ele) => {
-            delete ele.id;
-            delete ele.boxField;
-            delete ele.product_weight_variant_id;
-            delete ele.variant_name;
-            delete ele.weight_name;
-        });
         this.eCommerceService.updateProductDetails(this.productID, productObj, this.type).subscribe(
             (res) => {
                 if (res && res.success) {
@@ -560,10 +566,13 @@ export class ProductDetailsComponent implements OnInit {
                     recipes: getVariantDetails.recipes,
                 };
                 if (this.type === 'b2c') {
-                    weightObj.variant_details.flavour_profiles = getVariantDetails.flavour_profiles.map(
-                        (item) => item.flavour_profile_id,
-                    );
+                    getVariantDetails.flavour_profiles.map((item) => item.flavour_profile_id);
+                    weightObj.variant_details.flavour_profiles = getVariantDetails.flavour_profiles;
                     weightObj.variant_details.processing = getVariantDetails.processing;
+                    weightObj.variant_details.body = getVariantDetails.body;
+                    weightObj.variant_details.acidity = getVariantDetails.acidity;
+                    weightObj.variant_details.aroma = getVariantDetails.aroma;
+                    weightObj.variant_details.flavour = getVariantDetails.flavour;
                 }
                 const grindVariants = weightObj.grind_variants.map((item) => {
                     if (!item.grind_variant_id) {
@@ -663,6 +672,7 @@ export class ProductDetailsComponent implements OnInit {
         let returnFlag = true;
         if (!this.productForm.valid) {
             returnFlag = false;
+            console.log(this.productForm);
             return returnFlag;
         }
         this.variantComponent.forEach((child) => {
