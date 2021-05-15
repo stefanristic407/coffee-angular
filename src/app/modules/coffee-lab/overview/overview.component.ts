@@ -28,8 +28,8 @@ export class OverviewComponent implements OnInit {
         {
             label: 'my_posts',
             routerLink: 'my-posts',
-            icon: 'assets/images/article.svg',
-            activeIcon: 'assets/images/article-active.svg',
+            icon: 'assets/images/my-posts.svg',
+            activeIcon: 'assets/images/my-posts-active.svg',
         },
         {
             label: 'saved_posts',
