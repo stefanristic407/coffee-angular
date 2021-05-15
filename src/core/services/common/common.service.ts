@@ -54,7 +54,7 @@ export class CommonService {
                 this.goSimulatedPortal(
                     OrganizationType.ROASTER,
                     res.result.token,
-                    this.authService.currentOrganization().org_id,
+                    this.authService.currentOrganization.id,
                 );
             }
         });

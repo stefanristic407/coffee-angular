@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, AfterViewInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
-import { GlobalsService, RoasterserviceService, UserserviceService } from '@services';
+import { CommonService, GlobalsService, RoasterserviceService, UserserviceService } from '@services';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -56,6 +56,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
         private messageService: ChatHandlerService,
         public sharedService: SharedServiceService,
         public dialogSrv: DialogService,
+        private commonService: CommonService,
     ) {}
 
     ngOnInit(): void {
@@ -428,5 +429,9 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
         if (findCurrentRoleID) {
             this.toastrService.error('This user has been already assigned.');
         }
+    }
+
+    simulatedLogin(userId) {
+        this.commonService.userSimulatedLogin(userId);
     }
 }
