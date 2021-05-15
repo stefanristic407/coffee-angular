@@ -4,7 +4,7 @@
             <p-breadcrumb [model]="breadCrumbItem" class="w-100"></p-breadcrumb>
         </div>
     </div>
-    <div [formGroup]="productForm" (ngSubmit)="onSave()" novalidate>
+    <div [formGroup]="productForm" (ngSubmit)="uploadImages()" novalidate>
         <div class="d-flex flex-column flex-md-row justify-content-md-between">
             <span class="fnt-16 fnt-md-18 fnt-700 fnt-muli fnt-clr334">
                 {{ (productName | titlecase) || ('add_new_product' | translate) }}
@@ -48,6 +48,7 @@
                     optionLabel="label"
                     formControlName="business_type"
                     optionValue="value"
+                    [autoDisplayFirst]="false"
                 ></p-dropdown>
                 <small *ngIf="productForm.controls['business_type'].errors?.required" class="p-error">
                     {{ 'required' | translate }}
@@ -136,6 +137,7 @@
                         placeholder=""
                         formControlName="available_quantity_type"
                         optionValue="value"
+                        [readonly]="true"
                     ></p-dropdown>
                     <small
                         *ngIf="productForm.controls['available_quantity'].errors?.required"
@@ -146,13 +148,14 @@
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-3 sewn-form-field mb-3 mb-lg-4">
-                <label>{{ 'stats' | translate }}<span class="star">*</span></label>
+                <label>{{ 'status' | translate }}<span class="star">*</span></label>
                 <p-dropdown
                     [options]="statusList"
                     optionLabel="label"
                     styleClass="w-100"
                     formControlName="status"
                     optionValue="value"
+                    [autoDisplayFirst]="false"
                 ></p-dropdown>
                 <small *ngIf="productForm.controls['status'].errors?.required" class="p-error">
                     {{ 'required' | translate }}
@@ -476,7 +479,7 @@
                     type="submit"
                     class="btn btn-raised ml-md-3 order-1 order-md-2 mt-md-0 w-mob-100"
                     [ngClass]="{ 'mt-3': productID }"
-                    (click)="onSave()"
+                    (click)="uploadImages()"
                 >
                     {{ 'save' | translate }}
                 </button>
