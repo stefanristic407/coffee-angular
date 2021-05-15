@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerServiceService } from '../customer-service.service';
-import { ChatHandlerService } from '@services';
+import { ChatHandlerService, CommonService } from '@services';
 import { OrganizationType } from '@enums';
 import { SourcingService } from '@app/modules/sourcing/sourcing.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
     styleUrls: ['./details-user.component.scss'],
 })
 export class DetailsUserComponent implements OnInit {
+    readonly OrgType = OrganizationType;
     orgType: any;
 
     constructor(
@@ -36,5 +37,12 @@ export class DetailsUserComponent implements OnInit {
             org_type: this.orgType,
             org_id: Number(this.cookieService.get('roaster_id')),
         });
+    }
+
+    simulatedLogin() {
+        this.customerService.customerSimulatedLogin(
+            this.orgType,
+            this.orgType === OrganizationType.HORECA ? this.customerService.horecaId : this.customerService.microId,
+        );
     }
 }

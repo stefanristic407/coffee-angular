@@ -78,7 +78,9 @@
     <!-- Certificates & Awards -->
     <section class="certificates">
         <div class="web-farm mt-4">
-            <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli black">Certificates & Awards</p>
+            <p class="fnt-16 fnt-md-18 fnt-700 fnt-muli black mb-3">
+                {{ 'certificates' | translate }} & {{ 'awards' | translate }}
+            </p>
 
             <div class="col-12 certificates-inner mb-3" *ngFor="let certify of listData">
                 <p class="fnt-14 fnt-muli fnt-700 black pull-left m-0">
@@ -102,7 +104,9 @@
                             <div class="col-12 mobile-ce p-0">
                                 <div class="d-flex justify-content-between bg-f4f4 py-2 px-3 name-header">
                                     <div>
-                                        <p class="black fnt-14">Certificates & Awards</p>
+                                        <p class="black fnt-14 mb-3">
+                                            {{ 'certificates' | translate }} & {{ 'awards' | translate }}
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-between micro-border">
