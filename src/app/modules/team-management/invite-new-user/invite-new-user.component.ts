@@ -3,10 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
-import { EmailService, GlobalsService } from '@services';
+import { GlobalsService } from '@services';
 import { RoasterserviceService, UserserviceService } from '@services';
 import { EditUserDetailsComponent } from '../edit-user-details/edit-user-details.component';
-import { environment } from '@env/environment';
 
 @Component({
     selector: 'app-invite-new-user',
@@ -25,7 +24,6 @@ export class InviteNewUserComponent implements OnInit {
         public roasterService: RoasterserviceService,
         public cookieService: CookieService,
         private router: Router,
-        private emailService: EmailService,
         public globals: GlobalsService,
         public route: ActivatedRoute,
         public userService: UserserviceService,

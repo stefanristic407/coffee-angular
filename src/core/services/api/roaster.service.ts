@@ -224,6 +224,10 @@ export class RoasterserviceService extends ApiService {
         return this.http.put(this.putUrl, data);
     }
 
+    sendRecoveryEmail(userId: any): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `users/${userId}/send-recovery-email`, 'POST');
+    }
+
     //API Function Name : Get Contacts
     //API Description: This API calls helps to get the contacts of the Roaster.
 

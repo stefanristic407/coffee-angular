@@ -264,7 +264,7 @@
                                                         >
                                                     </li>
                                                     <li class="list-group-item">
-                                                        <a class="cursor-pointer">{{
+                                                        <a class="cursor-pointer" (click)="sendMail(rowData.id)">{{
                                                             globals.languageJson?.send_recovery_email
                                                         }}</a>
                                                     </li>
@@ -387,7 +387,7 @@
                                                     >
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <a class="cursor-pointer">{{
+                                                    <a class="cursor-pointer" (click)="sendMail(rowData.id)">{{
                                                         globals.languageJson?.send_recovery_email
                                                     }}</a>
                                                 </li>

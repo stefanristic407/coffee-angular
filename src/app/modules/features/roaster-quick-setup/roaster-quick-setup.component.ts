@@ -4,7 +4,7 @@ import { RoasterserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GlobalsService } from '@services';
-import { EmailService, UserserviceService } from '@services';
+import { UserserviceService } from '@services';
 import { MenuItem } from 'primeng/api';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -34,7 +34,6 @@ export class RoasterQuickSetupComponent implements OnInit {
         private router: Router,
         private toastrService: ToastrService,
         public route: ActivatedRoute,
-        private emailService: EmailService,
         public userService: UserserviceService,
         public globals: GlobalsService,
         private fb: FormBuilder,
@@ -88,26 +87,10 @@ export class RoasterQuickSetupComponent implements OnInit {
                         .sendMicroRoasterInvite(this.roasterId, item.value.email, item.value.name)
                         .subscribe((data: any) => {
                             if (data.success) {
-                                const body = {
-                                    name: item.value.name,
-                                    portal: this.headerValue,
-                                    content_type: 'invite_with_url',
-                                    senders: [item.value.email],
-                                    url:
-                                        'https://qa-micro-roaster.sewnstaging.com/auth/setup?token=' +
-                                        data.result.token,
-                                };
-                                this.emailService.sendEmail(body).subscribe((res) => {
-                                    if (res.status === '200 OK') {
-                                        this.globals.userInvitesArray.push(item.value.email);
-                                        this.sendInviteButton = 'Send Invites';
-                                        this.toastrService.success('Email has been sent successfully');
-                                        this.router.navigate(['/features/success-mail']);
-                                    } else {
-                                        this.sendInviteButton = 'Send Invites';
-                                        this.toastrService.error('Error while sending email to the User');
-                                    }
-                                });
+                                this.globals.userInvitesArray.push(item.value.email);
+                                this.sendInviteButton = 'Send Invites';
+                                this.toastrService.success('Email has been sent successfully');
+                                this.router.navigate(['/features/success-mail']);
                             } else {
                                 this.sendInviteButton = 'Send Invites';
                                 this.toastrService.error('Error while sending email to the User');
@@ -123,26 +106,10 @@ export class RoasterQuickSetupComponent implements OnInit {
                         .sendHorecaInvite(this.roasterId, item.value.email, item.value.name, item.value.type)
                         .subscribe((data: any) => {
                             if (data.success) {
-                                const body = {
-                                    name: item.value.name,
-                                    portal: this.headerValue,
-                                    content_type: 'invite_with_url',
-                                    senders: [item.value.email],
-                                    url:
-                                        'https://qa-client-horeca.sewnstaging.com/auth/horeca-setup?token=' +
-                                        data.result.token,
-                                };
-                                this.emailService.sendEmail(body).subscribe((res) => {
-                                    if (res.status === '200 OK') {
-                                        this.globals.userInvitesArray.push(item.value.email);
-                                        this.sendInviteButton = 'Send Invites';
-                                        this.toastrService.success('Email has been sent successfully');
-                                        this.router.navigate(['/features/success-mail']);
-                                    } else {
-                                        this.sendInviteButton = 'Send Invites';
-                                        this.toastrService.error('Error while sending email to the User');
-                                    }
-                                });
+                                this.globals.userInvitesArray.push(item.value.email);
+                                this.sendInviteButton = 'Send Invites';
+                                this.toastrService.success('Email has been sent successfully');
+                                this.router.navigate(['/features/success-mail']);
                             } else {
                                 this.sendInviteButton = 'Send Invites';
                                 this.toastrService.error('Error while sending email to the User');

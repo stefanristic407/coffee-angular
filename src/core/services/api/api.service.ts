@@ -17,7 +17,6 @@ export class ApiService {
     protected orgDeleteUrl: string;
     protected fileUploadUrl: string;
     protected putFileUploadUrl: string;
-    protected sendEmailUrl: string;
     protected generalUrl: string;
 
     constructor(protected cookieSrv: CookieService, protected http: HttpClient) {
@@ -29,7 +28,6 @@ export class ApiService {
         this.orgDeleteUrl = `${environment.apiURL}/${this.orgType}/deleteapi`;
         this.fileUploadUrl = `${environment.apiURL}/${this.orgType}/filesfolders`;
         this.putFileUploadUrl = `${environment.apiURL}/${this.orgType}/putfilesfolders`;
-        this.sendEmailUrl = `${environment.apiURL}/sendemail`;
         this.generalUrl = `${environment.apiURL}/${this.orgType}/general`;
     }
 

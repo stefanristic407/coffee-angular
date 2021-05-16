@@ -4,9 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
-import { GlobalsService } from '@services';
-import { RoasterserviceService } from '@services';
-import { EmailService, UserserviceService } from '@services';
+import { GlobalsService, UserserviceService, RoasterserviceService } from '@services';
 import { Location } from '@angular/common';
 
 @Component({
@@ -32,7 +30,6 @@ export class SendRecoveryEmailComponent implements OnInit {
         private router: Router,
         public globals: GlobalsService,
         public route: ActivatedRoute,
-        private emailService: EmailService,
         public userService: UserserviceService,
         private toastrService: ToastrService,
         private fb: FormBuilder,
@@ -253,9 +250,7 @@ export class SendRecoveryEmailComponent implements OnInit {
             },
         );
     }
-    onSend(): void {
-        console.log('onSend');
-    }
+
     removeRole(idx): void {
         const getRole = this.userDetails.roles[idx];
         if (getRole) {
@@ -264,16 +259,9 @@ export class SendRecoveryEmailComponent implements OnInit {
         this.userDetails.roles.splice(idx, 1);
     }
     sendMail() {
-        const body = {
-            name: this.userForm.controls.name.value,
-            portal: 'Roaster',
-            content_type: 'invite_with_url',
-            senders: [this.userForm.controls.email.value],
-            url: 'https://qa-roaster-portal.sewnstaging.com/#/auth/update-password',
-        };
-        this.emailService.sendEmail(body).subscribe(
+        this.roasterService.sendRecoveryEmail(this.userID).subscribe(
             (res: any) => {
-                if (res.status === '200 OK') {
+                if (res.success) {
                     this.toastrService.success('Email has been sent successfully');
                 } else {
                     this.toastrService.error('Error while sending email to the User');

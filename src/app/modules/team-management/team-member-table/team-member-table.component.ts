@@ -429,4 +429,19 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
             this.toastrService.error('This user has been already assigned.');
         }
     }
+
+    sendMail(userID: any) {
+        this.roasterService.sendRecoveryEmail(userID).subscribe(
+            (res: any) => {
+                if (res.success) {
+                    this.toastrService.success('Email has been sent successfully');
+                } else {
+                    this.toastrService.error('Error while sending email to the User');
+                }
+            },
+            (err) => {
+                this.toastrService.error('Error while sending email to the User');
+            },
+        );
+    }
 }
