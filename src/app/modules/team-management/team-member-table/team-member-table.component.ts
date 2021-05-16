@@ -431,7 +431,6 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
         }
     }
 
-<<<<<<< HEAD
     sendMail(userID: any) {
         this.roasterService.sendRecoveryEmail(userID).subscribe(
             (res: any) => {
@@ -445,9 +444,9 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
                 this.toastrService.error('Error while sending email to the User');
             },
         );
-=======
+    }
+
     simulatedLogin(userId) {
         this.commonService.userSimulatedLogin(userId);
->>>>>>> b01f6d99e690626c0ac244f2a1f6299f631a2ed3
     }
 }
