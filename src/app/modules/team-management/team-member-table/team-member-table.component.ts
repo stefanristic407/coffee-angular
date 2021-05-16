@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, AfterViewInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
-import { GlobalsService, RoasterserviceService, UserserviceService } from '@services';
+import { CommonService, GlobalsService, RoasterserviceService, UserserviceService } from '@services';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -56,6 +56,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
         private messageService: ChatHandlerService,
         public sharedService: SharedServiceService,
         public dialogSrv: DialogService,
+        private commonService: CommonService,
     ) {}
 
     ngOnInit(): void {
@@ -430,6 +431,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
         }
     }
 
+<<<<<<< HEAD
     sendMail(userID: any) {
         this.roasterService.sendRecoveryEmail(userID).subscribe(
             (res: any) => {
@@ -443,5 +445,9 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
                 this.toastrService.error('Error while sending email to the User');
             },
         );
+=======
+    simulatedLogin(userId) {
+        this.commonService.userSimulatedLogin(userId);
+>>>>>>> b01f6d99e690626c0ac244f2a1f6299f631a2ed3
     }
 }

@@ -36,6 +36,7 @@ export const menuItems = [
     new Menu(51, 'menu_sales', './', null, null, null, false, 5, null),
     new Menu(52, 'menu_sales_contracts', '/sales-contract', null, null, null, false, 5, null),
     new Menu(53, 'menu_api_requests', '/api-requests-list', null, null, null, false, 5, null),
+    new Menu(54, 'menu_customer_management', '/people/customer-management', null, null, null, false, 5, null),
 
     new Menu(7, 'menu_brand_experience', null, null, null, null, true, 0, null),
     new Menu(71, 'menu_brand_profile', '/brand-profile', null, null, null, false, 7, null),
@@ -67,10 +68,9 @@ export const menuItems = [
         8,
         'user-management&user-reports',
     ),
-    new Menu(83, 'menu_customer_management', '/people/customer-management', null, null, null, false, 8, null),
 
     // Dropdown Menu
     new Menu(10001, 'menu_roastery_profile', '/roastery-profile', null, null, null, false, 1000, null),
-    new Menu(10002, 'menu_my_profile', '/features/myprofile', null, null, null, false, 1000, null),
-    new Menu(10003, 'menu_account_settings', '/features/account-settings', null, null, null, false, 1000, null),
+    new Menu(10002, 'menu_my_profile', '/my-profile', null, null, null, false, 1000, null),
+    new Menu(10003, 'menu_account_settings', '/account-settings', null, null, null, false, 1000, null),
 ];

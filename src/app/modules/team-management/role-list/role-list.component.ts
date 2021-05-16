@@ -66,7 +66,7 @@ export class RoleListComponent implements OnInit {
             this.router.navigate(['/auth/login']);
         }
         if (!this.aclService.checkPermission('acl-management|acl-list')) {
-            this.router.navigate(['/people/permission-error']);
+            this.router.navigate(['/error/permission-error']);
         }
         this.supplyBreadCrumb();
         this.roasterId = this.cookieService.get('roaster_id');

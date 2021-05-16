@@ -7,7 +7,7 @@
         <ng-template pTemplate="header">
             <tr>
                 <th pSortableColumn="name_customer" class="pl-4 ml-3">
-                    {{ (customerType === 'micro-roasters' ? 'customer_name' : 'horeca_name') | translate }}
+                    {{ (customerType === OrgType.MICRO_ROASTER ? 'customer_name' : 'horeca_name') | translate }}
                     <p-sortIcon field="name_customer"> </p-sortIcon>
                 </th>
                 <th pSortableColumn="created_on">
@@ -31,7 +31,7 @@
                 <td class="fnt-14" (click)="shareDetails(item)">{{ item.name }}</td>
                 <td class="fnt-14" (click)="shareDetails(item)">
                     {{
-                        customerType === 'micro-roasters'
+                        customerType === OrgType.MICRO_ROASTER
                             ? (item.founded_on | date: 'M/d/yy, h:mm a')
                             : (item.created_at | date: 'M/d/yy, h:mm a')
                     }}
@@ -49,7 +49,7 @@
                 </td>
                 <td class="fnt-14" (click)="shareDetails(item)">{{ item.discount_percentage }}</td>
                 <td class="fnt-14" (click)="shareDetails(item)">
-                    {{ customerType === 'micro-roasters' ? item.total_employees : item.active_users }}
+                    {{ customerType === OrgType.MICRO_ROASTER ? item.total_employees : item.active_users }}
                 </td>
                 <td class="view-listing" (click)="shareDetails(item)">{{ 'view_details' | translate }}</td>
                 <td id="customer-contract-popup">
@@ -66,9 +66,9 @@
                         <div id="popover-mobile-content">
                             <ul class="list-group custom-popover">
                                 <li class="list-group-item">
-                                    <a class="pointer-item" (click)="pop.hide(); customer.stimulatedLogin(item.id)"
-                                        >Simulated login</a
-                                    >
+                                    <a class="pointer-item" (click)="pop.hide(); stimulatedLogin(item)">{{
+                                        'simulated_login' | translate
+                                    }}</a>
                                 </li>
                             </ul>
                         </div>
@@ -99,7 +99,11 @@
                             </div>
                             <div class="col-7 p-0">
                                 <p class="fnt-14">
-                                    {{ customerType === 'micro-roasters' ? data.total_employees : data.active_users }}
+                                    {{
+                                        customerType === OrgType.MICRO_ROASTER
+                                            ? data.total_employees
+                                            : data.active_users
+                                    }}
                                 </p>
                             </div>
                         </div>
@@ -129,7 +133,7 @@
                                 <p class="fnt-12 pb-2">
                                     <span class="light-eight fnt-12">Created on : </span
                                     >{{
-                                        customerType === 'micro-roasters'
+                                        customerType === OrgType.MICRO_ROASTER
                                             ? (data.founded_on | date: 'M/d/yy, h:mm a')
                                             : (data.created_at | date: 'M/d/yy, h:mm a')
                                     }}

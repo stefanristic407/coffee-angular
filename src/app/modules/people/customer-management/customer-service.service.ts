@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { RoasterserviceService } from '@services';
+import { CommonService, RoasterserviceService, SimulatedLoginService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { ApiResponse } from '@models';
+import { OrganizationType } from '@enums';
 
 @Injectable({
     providedIn: 'root',
@@ -11,11 +13,10 @@ import { Router } from '@angular/router';
 export class CustomerServiceService {
     estateId: string;
     roasterId: string;
-    microRoasterWeb: string = 'https://microroaster.sewnstaging.com';
-    horecaWeb: string = 'https://partners.sewnstaging.com';
     microId: any;
     horecaId: any;
     name: any;
+    customerDetail: any;
     company_name: any;
     owner_name: any;
     company_image_url: any;
@@ -47,6 +48,8 @@ export class CustomerServiceService {
         private roasterService: RoasterserviceService,
         public cookieService: CookieService,
         private userService: UserserviceService,
+        private simulatedLoginService: SimulatedLoginService,
+        private commonService: CommonService,
         private toastrService: ToastrService,
         private router: Router,
     ) {
@@ -54,93 +57,56 @@ export class CustomerServiceService {
         this.roasterId = this.cookieService.get('roaster_id');
     }
 
-    stimulatedLogin(item: any) {
-        console.log(item);
-        var itemId = item;
-        this.roasterService.getMicroRoasterStimulatedLogin(itemId, this.roasterId).subscribe(
-            (res) => {
-                if (res['success']) {
-                    const data = res['result'];
-                    data['micro_roaster_id'] = itemId;
-                    const encryptedCode = this.roasterService.encryptData(data);
-                    const redirectUrl =
-                        this.microRoasterWeb + '/auth/login?simulated_token=' + encodeURIComponent(encryptedCode);
-                    this.roasterService.navigate(redirectUrl, true);
-                }
-            },
-            (err) => {
-                console.log(err);
-            },
-        );
-    }
-
-    horecaStimulatedLogin(item) {
-        var itemId = item;
-        this.roasterService.getHorecaStimulatedLogin(itemId, this.roasterId).subscribe(
-            (res) => {
-                if (res['success']) {
-                    const data = res['result'];
-                    data['horeca_id'] = itemId;
-                    const encryptedCode = this.roasterService.encryptData(data);
-                    // const decryptedCode = this.roasterService.decryptData(encryptedCode);
-                    // console.log(decryptedCode);
-                    const redirectUrl =
-                        this.horecaWeb + '/auth/login?simulated_token=' + encodeURIComponent(encryptedCode);
-                    this.roasterService.navigate(redirectUrl, true);
-                }
-            },
-            (err) => {
-                console.log(err);
-            },
-        );
-    }
-
     mrCustomerDetails() {
-        this.userService.getMicroDetails(this.roasterId, this.microId).subscribe((result) => {
-            console.log(result);
-            if (result['success'] == true) {
-                this.name = result['result'].name;
-                this.company_name = result['result'].company_name;
-                this.admin_name = result['result'].admin_name;
-                this.owner_name = result['result'].owner_name;
-                this.company_image_url = result['result'].company_image_url;
-                this.country = result['result'].country;
-                this.description = result['result'].description;
-                this.status = result['result'].status;
-                this.btnToggle = this.status == 'ACTIVE' ? true : false;
-                this.company_type = result['result'].company_type;
-                this.founded_on = result['result'].founded_on;
-                this.admin_id = result['result'].admin_id;
-                this.discount_percentage = result['result'].discount_percentage;
-                this.email = result['result'].email;
-                this.website = result['result'].website;
-                this.total_employees = result['result'].total_employees;
-                this.capacity = result['result'].capacity;
-                this.capacity_unit = result['result'].capacity_unit;
+        this.userService.getMicroDetails(this.roasterId, this.microId).subscribe((res: ApiResponse<any>) => {
+            if (res.success) {
+                const result = res.result;
+                this.customerDetail = res.result;
+                this.name = result.name;
+                this.company_name = result.company_name;
+                this.admin_name = result.admin_name;
+                this.owner_name = result.owner_name;
+                this.company_image_url = result.company_image_url;
+                this.country = result.country;
+                this.description = result.description;
+                this.status = result.status;
+                this.btnToggle = this.status === 'ACTIVE' ? true : false;
+                this.company_type = result.company_type;
+                this.founded_on = result.founded_on;
+                this.admin_id = result.admin_id;
+                this.discount_percentage = result.discount_percentage;
+                this.email = result.email;
+                this.website = result.website;
+                this.total_employees = result.total_employees;
+                this.capacity = result.capacity;
+                this.capacity_unit = result.capacity_unit;
             } else {
                 this.toastrService.error(' Error while getting the details');
                 this.router.navigate(['/features/customer-management']);
             }
         });
     }
+
     hrcCustomerDetails() {
-        this.userService.getHorecaDetails(this.roasterId, this.horecaId).subscribe((result) => {
-            if (result['success'] == true) {
-                this.name = result['result'].name;
-                this.company_name = result['result'].company_name;
-                this.owner_name = result['result'].owner_name;
-                this.admin_name = result['result'].admin_name;
-                this.company_image_url = result['result'].company_image_url;
-                this.country = result['result'].country;
-                this.description = result['result'].description;
-                this.status = result['result'].status;
-                this.btnToggle = this.status == 'ACTIVE' ? true : false;
-                this.company_type = result['result'].company_type;
-                this.founded_on = result['result'].founded_on;
-                this.admin_id = result['result'].admin_id;
-                this.discount_percentage = result['result'].discount_percentage;
-                this.email = result['result'].email;
-                this.website = result['result'].website;
+        this.userService.getHorecaDetails(this.roasterId, this.horecaId).subscribe((res: ApiResponse<any>) => {
+            if (res.success) {
+                const result = res.result;
+                this.customerDetail = res.result;
+                this.name = result.name;
+                this.company_name = result.company_name;
+                this.owner_name = result.owner_name;
+                this.admin_name = result.admin_name;
+                this.company_image_url = result.company_image_url;
+                this.country = result.country;
+                this.description = result.description;
+                this.status = result.status;
+                this.btnToggle = this.status === 'ACTIVE' ? true : false;
+                this.company_type = result.company_type;
+                this.founded_on = result.founded_on;
+                this.admin_id = result.admin_id;
+                this.discount_percentage = result.discount_percentage;
+                this.email = result.email;
+                this.website = result.website;
             } else {
                 this.toastrService.error(' Error while getting the details');
                 this.router.navigate(['/features/customer-management']);
@@ -149,88 +115,96 @@ export class CustomerServiceService {
     }
 
     activeStatus(value: any) {
-        if (value == 'horeca') {
+        if (value === 'horeca') {
             this.btnToggle = !this.btnToggle;
-            if (this.btnToggle == true) {
+            if (this.btnToggle) {
                 this.statusChange = 'ACTIVE';
-                this.userService.updateHorecaEnable(this.roasterId, this.horecaId).subscribe((res) => {
-                    if (res['success'] == true) {
-                        this.hrcCustomerDetails();
-                        this.toastrService.success('Company Account has been Enabled');
-                    } else {
-                        this.toastrService.error('Error while enabling the company account');
-                    }
-                });
+                this.userService
+                    .updateHorecaEnable(this.roasterId, this.horecaId)
+                    .subscribe((res: ApiResponse<any>) => {
+                        if (res.success) {
+                            this.hrcCustomerDetails();
+                            this.toastrService.success('Company Account has been Enabled');
+                        } else {
+                            this.toastrService.error('Error while enabling the company account');
+                        }
+                    });
             } else {
                 this.statusChange = 'INACTIVE';
-                this.userService.updateHorecaDisable(this.roasterId, this.horecaId).subscribe((res) => {
-                    if (res['success'] == true) {
-                        this.hrcCustomerDetails();
-                        this.toastrService.success('Company Account has been Disabled');
-                    } else {
-                        this.toastrService.error('Error while disabling the company account');
-                    }
-                });
+                this.userService
+                    .updateHorecaDisable(this.roasterId, this.horecaId)
+                    .subscribe((res: ApiResponse<any>) => {
+                        if (res.success) {
+                            this.hrcCustomerDetails();
+                            this.toastrService.success('Company Account has been Disabled');
+                        } else {
+                            this.toastrService.error('Error while disabling the company account');
+                        }
+                    });
             }
         } else {
             this.btnToggle = !this.btnToggle;
-            if (this.btnToggle == true) {
+            if (this.btnToggle) {
                 this.statusChange = 'ACTIVE';
-                this.userService.updateMicroRoasterEnable(this.roasterId, this.microId).subscribe((res) => {
-                    if (res['success'] == true) {
-                        this.mrCustomerDetails();
-                        this.toastrService.success('Company Account has been Enabled');
-                    } else {
-                        this.toastrService.error('Error while enabling the company account');
-                    }
-                });
+                this.userService
+                    .updateMicroRoasterEnable(this.roasterId, this.microId)
+                    .subscribe((res: ApiResponse<any>) => {
+                        if (res.success) {
+                            this.mrCustomerDetails();
+                            this.toastrService.success('Company Account has been Enabled');
+                        } else {
+                            this.toastrService.error('Error while enabling the company account');
+                        }
+                    });
             } else {
                 this.statusChange = 'INACTIVE';
-                this.userService.updateMicroRoasterDisable(this.roasterId, this.microId).subscribe((res) => {
-                    if (res['success'] == true) {
-                        this.mrCustomerDetails();
-                        this.toastrService.success('Company Account has been Disabled');
-                    } else {
-                        this.toastrService.error('Error while disabling the company account');
-                    }
-                });
+                this.userService
+                    .updateMicroRoasterDisable(this.roasterId, this.microId)
+                    .subscribe((res: ApiResponse<any>) => {
+                        if (res.success) {
+                            this.mrCustomerDetails();
+                            this.toastrService.success('Company Account has been Disabled');
+                        } else {
+                            this.toastrService.error('Error while disabling the company account');
+                        }
+                    });
             }
         }
     }
-    // activeStatus() {
-    // 	this.btnToggle = !this.btnToggle;
-    // 	if(this.btnToggle == true){
-    // 	  this.statusChange = "ACTIVE";
-    // 	  console.log(this.statusChange)
-    // 	}
-    // 	else{
-    // 	  this.statusChange = "INACTIVE";
-    // 	  console.log(this.statusChange)
-    // 	}
-    //   }
 
     pendingMrDetails() {
-        this.userService.getMrCustomerPendingDetails(this.roasterId, this.emailId).subscribe((res) => {
-            if (res['success'] == true) {
-                this.pendingList = res['result'][0];
-                this.pendingCompany = this.pendingList.name;
-                this.pendingEmail = this.pendingList.email;
-                this.pendingStatus = this.pendingList.status;
-                this.headerValue = 'Micro-Roaster';
-                console.log(this.pendingList);
-            }
-        });
+        this.userService
+            .getMrCustomerPendingDetails(this.roasterId, this.emailId)
+            .subscribe((res: ApiResponse<any>) => {
+                if (res.success) {
+                    this.pendingList = res.result[0];
+                    this.pendingCompany = this.pendingList.name;
+                    this.pendingEmail = this.pendingList.email;
+                    this.pendingStatus = this.pendingList.status;
+                    this.headerValue = 'Micro-Roaster';
+                    console.log(this.pendingList);
+                }
+            });
     }
+
     pendingHorecaDetails() {
-        this.userService.getCustomerPendingDetails(this.roasterId, this.emailId).subscribe((res) => {
-            if (res['success'] == true) {
-                this.pendingHorecaList = res['result'][0];
+        this.userService.getCustomerPendingDetails(this.roasterId, this.emailId).subscribe((res: ApiResponse<any>) => {
+            if (res.success) {
+                this.pendingHorecaList = res.result[0];
                 this.pendingCompany = this.pendingHorecaList.name;
                 this.pendingEmail = this.pendingHorecaList.email;
                 this.pendingStatus = this.pendingHorecaList.status;
                 this.pendingType = this.pendingHorecaList.type;
                 this.headerValue = 'HoReCa';
                 console.log(this.pendingHorecaList);
+            }
+        });
+    }
+
+    customerSimulatedLogin(orgType: OrganizationType, orgId: number) {
+        this.simulatedLoginService.customerSimulatedLogin(orgType, orgId).subscribe((res: any) => {
+            if (res.success) {
+                this.commonService.goSimulatedPortal(orgType, res.result.token, orgId);
             }
         });
     }

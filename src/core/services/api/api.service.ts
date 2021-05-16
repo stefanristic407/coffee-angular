@@ -18,6 +18,7 @@ export class ApiService {
     protected fileUploadUrl: string;
     protected putFileUploadUrl: string;
     protected generalUrl: string;
+    protected simulatedLoginUrl: string;
 
     constructor(protected cookieSrv: CookieService, protected http: HttpClient) {
         this.orgType = 'ro';
@@ -29,6 +30,7 @@ export class ApiService {
         this.fileUploadUrl = `${environment.apiURL}/${this.orgType}/filesfolders`;
         this.putFileUploadUrl = `${environment.apiURL}/${this.orgType}/putfilesfolders`;
         this.generalUrl = `${environment.apiURL}/${this.orgType}/general`;
+        this.simulatedLoginUrl = `${environment.apiURL}/simulated-login`;
     }
 
     protected post(url: string, apiCall: string, method: HttpMethod = '', data?: object): Observable<ApiResponse<any>> {

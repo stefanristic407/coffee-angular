@@ -3,6 +3,8 @@ import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { CustomerServiceService } from '../customer-service.service';
 import { NavigationExtras, Router } from '@angular/router';
+import { OrganizationType } from '@enums';
+import { OrgTypePipe } from '@app/shared/pipes/org-type.pipe';
 
 @Component({
     selector: 'app-customer-management-table',
@@ -11,13 +13,14 @@ import { NavigationExtras, Router } from '@angular/router';
     encapsulation: ViewEncapsulation.None,
 })
 export class CustomerManagementTableComponent implements OnInit {
+    readonly OrgType = OrganizationType;
     estatetermOrigin: any;
     appLanguage?: any;
     folderId: any;
 
     @Input() searchTerm = '';
     @Input() sortedMainData: any;
-    @Input() customerType: any;
+    @Input() customerType: OrganizationType;
     itemId: any;
 
     constructor(
@@ -40,7 +43,7 @@ export class CustomerManagementTableComponent implements OnInit {
     shareDetails(size: any) {
         if (size.status === 'PENDING') {
             this.customer.emailId = size.email;
-            if (this.customerType === 'micro-roasters') {
+            if (this.customerType === OrganizationType.MICRO_ROASTER) {
                 this.customer.pendingMrDetails();
             } else {
                 this.customer.pendingHorecaDetails();
@@ -48,7 +51,7 @@ export class CustomerManagementTableComponent implements OnInit {
 
             this.router.navigate(['/people/pending-details']);
         } else {
-            if (this.customerType === 'micro-roasters') {
+            if (this.customerType === OrganizationType.MICRO_ROASTER) {
                 this.folderId = size.id;
                 const navigationExtras: NavigationExtras = {
                     queryParams: {
@@ -67,5 +70,9 @@ export class CustomerManagementTableComponent implements OnInit {
                 this.router.navigate(['/people/horeca-details'], navigationExtras);
             }
         }
+    }
+
+    stimulatedLogin(org) {
+        this.customer.customerSimulatedLogin(this.customerType, org.id);
     }
 }

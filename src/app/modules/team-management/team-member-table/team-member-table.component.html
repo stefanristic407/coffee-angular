@@ -253,7 +253,7 @@
                                                 <ul class="list-group custom-popover">
                                                     <li class="list-group-item">
                                                         <a class="cursor-pointer" (click)="editMember(rowData.id)">{{
-                                                            globals.languageJson?.edit
+                                                            'edit' | translate
                                                         }}</a>
                                                     </li>
                                                     <li class="list-group-item" *ngIf="rowData.id != loginId">
@@ -265,7 +265,7 @@
                                                     </li>
                                                     <li class="list-group-item">
                                                         <a class="cursor-pointer" (click)="sendMail(rowData.id)">{{
-                                                            globals.languageJson?.send_recovery_email
+                                                            'send_recovery_email' | translate
                                                         }}</a>
                                                     </li>
                                                     <li
@@ -289,13 +289,15 @@
                                                         >
                                                     </li>
                                                     <li class="list-group-item">
-                                                        <a class="cursor-pointer">{{
-                                                            globals.languageJson?.simulated_login
-                                                        }}</a>
+                                                        <a
+                                                            class="cursor-pointer"
+                                                            (click)="simulatedLogin(rowData.id)"
+                                                            >{{ 'simulated_login' | translate }}</a
+                                                        >
                                                     </li>
                                                     <li class="list-group-item">
                                                         <a class="cursor-pointer" (click)="makeAdmin(rowData)">{{
-                                                            globals.languageJson?.make_admin
+                                                            'make_admin' | translate
                                                         }}</a>
                                                     </li>
                                                     <li *ngIf="rowData.id != loginId" class="list-group-item">
@@ -376,7 +378,7 @@
                                             <ul class="list-group custom-popover">
                                                 <li class="list-group-item">
                                                     <a class="cursor-pointer" (click)="editMember(rowData.id)">{{
-                                                        globals.languageJson?.edit
+                                                        'edit' | translate
                                                     }}</a>
                                                 </li>
                                                 <li class="list-group-item" *ngIf="rowData.id != loginId">
@@ -388,7 +390,7 @@
                                                 </li>
                                                 <li class="list-group-item">
                                                     <a class="cursor-pointer" (click)="sendMail(rowData.id)">{{
-                                                        globals.languageJson?.send_recovery_email
+                                                        'send_recovery_email' | translate
                                                     }}</a>
                                                 </li>
                                                 <li
@@ -412,13 +414,13 @@
                                                     >
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <a class="cursor-pointer">{{
-                                                        globals.languageJson?.simulated_login
+                                                    <a class="cursor-pointer" (click)="simulatedLogin(rowData.id)">{{
+                                                        'simulated_login' | translate
                                                     }}</a>
                                                 </li>
                                                 <li class="list-group-item">
                                                     <a class="cursor-pointer" (click)="makeAdmin(rowData)">{{
-                                                        globals.languageJson?.make_admin
+                                                        'make_admin' | translate
                                                     }}</a>
                                                 </li>
                                                 <li *ngIf="rowData.id != loginId" class="list-group-item">

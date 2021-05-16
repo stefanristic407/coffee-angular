@@ -62,17 +62,14 @@
                 <img class="svg" src="assets/images/message-icon.svg" />
                 <span class="estate-message pl-2">{{ 'message' | translate }}</span>
             </span>
-            <button class="btn-raised ml-3" (click)="customerService.horecaStimulatedLogin(customerService.horecaId)">
-                Simulated Login
+            <button class="btn-raised ml-3" (click)="simulatedLogin()">
+                {{ 'simulated_login' | translate }}
             </button>
         </div>
         <div class="mobile-farm">
             <div class="d-flex message-customer">
-                <button
-                    class="btn-raised mr-3"
-                    (click)="customerService.horecaStimulatedLogin(customerService.horecaId)"
-                >
-                    Simulated Login
+                <button class="btn-raised mr-3" (click)="simulatedLogin()">
+                    {{ 'simulated_login' | translate }}
                 </button>
 
                 <span class="btn-trans-icon br-4 cursor-pointer p-3 w-50" (click)="openChat()">

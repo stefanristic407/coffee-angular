@@ -356,7 +356,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             .then(() => {
                 Promise.all(promises)
                     .then(() => {
-                        this.toaster.success('Image uploaded successfully');
+                        // this.toaster.success('Image uploaded successfully');
                     })
                     .catch(() => {});
             })
@@ -370,17 +370,16 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         formData.append('name', file.name);
         formData.append('file_module', 'Product');
 
-        this.fileService.uploadFiles(formData).subscribe((UploadedFile) => {
-            if (UploadedFile.success) {
+        this.fileService.uploadFiles(formData).subscribe((uploadedFile) => {
+            if (uploadedFile.success) {
                 const weight = this.weightForm.get('weights') as FormArray;
                 if (type === 'featured_image') {
-                    weight.controls[this.currentVariantIndex].get('featured_image_id').setValue(UploadedFile.result.id);
-                    this.toaster.success('Image uploaded successfully');
+                    weight.controls[this.currentVariantIndex].get('featured_image_id').setValue(uploadedFile.result.id);
                 } else {
                     const productImageArray = weight.controls[this.currentVariantIndex].get('product_images').value;
                     const foundObj = productImageArray.find((ele) => ele.fileDetails.fileID === fileObj.fileID);
                     if (foundObj) {
-                        foundObj.image_id = UploadedFile.result.id;
+                        foundObj.image_id = uploadedFile.result.id;
                     }
                     resolve();
                 }

@@ -7,6 +7,7 @@ import { GlobalsService, RoasterserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CustomerServiceService } from '../../customer-service.service';
+import { OrganizationType } from '@enums';
 
 @Component({
     selector: 'app-horeca-table',
@@ -19,7 +20,6 @@ export class HorecaTableComponent implements OnInit {
     folderId: any;
     estateId: any;
     roasterId: any;
-    odd = false;
     itemId: any;
     estatetermOrigin: string;
 
@@ -37,10 +37,6 @@ export class HorecaTableComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // Auth checking
-        if (this.cookieService.get('Auth') === '') {
-            this.router.navigate(['/auth/login']);
-        }
         this.estatetermOrigin = '';
         this.getHorecaTableData();
     }
@@ -72,17 +68,14 @@ export class HorecaTableComponent implements OnInit {
             .getHorecaTable(this.roasterId, this.customerService.horecaId)
             .subscribe((tableData: any) => {
                 if (tableData.success) {
-                    if (tableData.result == null || tableData.result.length === 0) {
-                        this.odd = true;
-                        this.toastrService.error('Table Data is empty');
-                    } else {
-                        this.odd = false;
-                        this.mainData = tableData.result;
-                    }
+                    this.mainData = tableData.result || [];
                 } else {
-                    this.odd = true;
                     this.toastrService.error('Error while getting the agreement list!');
                 }
             });
+    }
+
+    simulatedLogin(orgId) {
+        this.customerService.customerSimulatedLogin(OrganizationType.HORECA, orgId);
     }
 }
