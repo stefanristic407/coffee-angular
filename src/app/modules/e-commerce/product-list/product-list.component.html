@@ -226,7 +226,7 @@
                                 </span>
                             </span>
 
-                            <span *ngSwitchDefault>
+                            <span *ngSwitchDefault (click)="onViewDetails(rowData)">
                                 <div class="d-flex justify-content-between align-items-center px-3 px-md-0">
                                     <span *ngIf="isMobileView" class="fnt-muli fnt-14 fnt-bold text-clr588">
                                         {{ col.header | translate }}
