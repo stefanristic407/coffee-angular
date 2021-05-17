@@ -126,8 +126,8 @@ export class GreenCoffeeOrdersComponent implements OnInit {
                     sortable: false,
                 },
                 {
-                    field: 'quantity',
-                    header: 'Quantity',
+                    field: 'cupping_status',
+                    header: 'Status',
                     sortable: false,
                 },
                 {
