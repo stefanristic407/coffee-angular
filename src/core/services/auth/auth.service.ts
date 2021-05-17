@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -16,6 +17,10 @@ export class AuthService {
         return this.organizationSubject.value;
     }
 
-    constructor() {
+    constructor(private cookieService: CookieService) {}
+
+    syncAuthorizationToken() {
+        const token = this.cookieService.get('Auth');
+        this.cookieService.set('Authorization', token);
     }
 }

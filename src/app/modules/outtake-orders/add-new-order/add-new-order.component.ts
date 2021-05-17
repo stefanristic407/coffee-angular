@@ -4,7 +4,7 @@ import { DownloadService, RoasterserviceService, UserserviceService } from '@ser
 import { CookieService } from 'ngx-cookie-service';
 import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@app/shared';
 import { Download } from '@models';
@@ -37,6 +37,7 @@ export class AddNewOrderComponent implements OnInit {
     userDetails: any = [];
     allCustomer: any;
     outtakeOrderDetails: any;
+    currentDate = new Date();
 
     constructor(
         private roasterService: RoasterserviceService,
@@ -48,6 +49,7 @@ export class AddNewOrderComponent implements OnInit {
         private activeRoute: ActivatedRoute,
         public downloadService: DownloadService,
         public dialogSrv: DialogService,
+        private router: Router,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.outtakeOrderId = this.activeRoute.snapshot.params.id;
@@ -123,7 +125,11 @@ export class AddNewOrderComponent implements OnInit {
             }
             this.roasterService.getCustomerDetails(this.roasterId, this.customerType).subscribe((res) => {
                 if (res.success) {
-                    this.allCustomer = res.result;
+                    this.allCustomer = res.result.filter((item) => {
+                        if (item.id > 0) {
+                            return item;
+                        }
+                    });
                     this.getSingleCustomerDeatils();
                 }
             });
@@ -136,6 +142,7 @@ export class AddNewOrderComponent implements OnInit {
             .subscribe((rep) => {
                 if (rep.success) {
                     this.customerDetails = rep.result;
+                    this.addOrdersForm.get('company_type').setValue = this.customerDetails.company_type;
                 }
             });
     }
@@ -198,6 +205,7 @@ export class AddNewOrderComponent implements OnInit {
                 ('0' + (roastedDate.getMonth() + 1)).slice(-2) +
                 '-' +
                 ('0' + roastedDate.getDate()).slice(-2);
+            data.roasting_time = parseInt(data.roasting_time, 10);
         } else {
             data.roasted_date = '';
             data.roasted_coffee_total_quantity = 0;
@@ -209,6 +217,7 @@ export class AddNewOrderComponent implements OnInit {
         if (this.outtakeOrderId) {
             this.roasterService.updateOrderDetails(this.roasterId, this.outtakeOrderId, data).subscribe((res) => {
                 if (res.success) {
+                    this.router.navigateByUrl('/outtake-orders');
                     this.toaster.success('Outtake Order updated successfully');
                 } else {
                     this.toaster.error('Unable to update the outtake order');
@@ -219,6 +228,7 @@ export class AddNewOrderComponent implements OnInit {
             data.quantity_unit = 'kg';
             this.roasterService.addOrderDetails(this.roasterId, data).subscribe((res) => {
                 if (res.success) {
+                    this.router.navigateByUrl('/outtake-orders');
                     this.toaster.success('Outtake Order added successfully');
                 } else {
                     this.toaster.error('Unable to add the outtake order');
