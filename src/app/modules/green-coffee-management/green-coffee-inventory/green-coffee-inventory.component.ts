@@ -20,7 +20,7 @@ export class GreenCoffeeInventoryComponent implements OnInit {
     breadItems = [
         { label: 'Home', routerLink: '/roaster-dashboard' },
         { label: 'Inventory' },
-        { label: 'Green coffee management' },
+        { label: 'Green Coffee Inventory' },
     ];
     selectedTab = 0;
     isProcuredTab = true;
