@@ -7,7 +7,7 @@ import { environment } from '@env/environment';
     styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent implements OnInit {
-    readonly environment = environment;
+    readonly env = environment;
     constructor() {}
 
     ngOnInit(): void {}
