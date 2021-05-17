@@ -181,20 +181,31 @@ export class AddNewOrderComponent implements OnInit {
 
     addOrderDetails() {
         const data = this.addOrdersForm.value;
-        const orderDate = new Date(data.order_date);
+        if (data.order_date) {
+            const orderDate = new Date(data.order_date);
+            data.order_date =
+                orderDate.getFullYear() +
+                '-' +
+                ('0' + (orderDate.getMonth() + 1)).slice(-2) +
+                '-' +
+                ('0' + orderDate.getDate()).slice(-2);
+        }
         const roastedDate = new Date(data.roasted_date);
-        data.order_date =
-            orderDate.getFullYear() +
-            '-' +
-            ('0' + (orderDate.getMonth() + 1)).slice(-2) +
-            '-' +
-            ('0' + orderDate.getDate()).slice(-2);
-        data.roasted_date =
-            roastedDate.getFullYear() +
-            '-' +
-            ('0' + (roastedDate.getMonth() + 1)).slice(-2) +
-            '-' +
-            ('0' + roastedDate.getDate()).slice(-2);
+        if (data.customer_type === 'hrc') {
+            data.roasted_date =
+                roastedDate.getFullYear() +
+                '-' +
+                ('0' + (roastedDate.getMonth() + 1)).slice(-2) +
+                '-' +
+                ('0' + roastedDate.getDate()).slice(-2);
+        } else {
+            data.roasted_date = '';
+            data.roasted_coffee_total_quantity = 0;
+            data.roasted_coffee_total_quantity_unit = '';
+            data.roast_level = 0;
+            data.roasting_time = 0;
+            data.roasting_temperature = 0;
+        }
         if (this.outtakeOrderId) {
             this.roasterService.updateOrderDetails(this.roasterId, this.outtakeOrderId, data).subscribe((res) => {
                 if (res.success) {
@@ -222,9 +233,7 @@ export class AddNewOrderComponent implements OnInit {
         document.body.appendChild(textArea);
         textArea.select();
         document.execCommand('Copy');
-        if (this.coffeeExperienceLink.coffee_story_url && document.execCommand('Copy')) {
-            this.toaster.success('Copied link successfully');
-        }
+        this.toaster.success('Copied link successfully');
         textArea.remove();
     }
 
