@@ -205,9 +205,9 @@
 
                                         <div class="p-input-icon-right">
                                             <input type="number" pInputText formControlName="available_quantity" />
-                                            <span class="right-icon fnt-muli fnt-14 fnt-normal text-clr334 lh-normal"
-                                                >bags</span
-                                            >
+                                            <span class="right-icon fnt-muli fnt-14 fnt-normal text-clr334 lh-normal">{{
+                                                grind_variant.value.available_quantity_type
+                                            }}</span>
                                             <small
                                                 *ngIf="grind_variant['controls']['available_quantity'].errors?.required"
                                                 class="position-absolute p-error"

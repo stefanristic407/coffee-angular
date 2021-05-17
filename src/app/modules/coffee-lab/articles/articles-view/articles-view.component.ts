@@ -71,7 +71,7 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
             sort_order: this.selectedOrder === 'latest' ? 'desc' : 'asc',
         };
         if (this.pageDesc === 'saved-posts') {
-            this.coffeeLab.getSavedForumList('article').subscribe((res) => {
+            this.coffeeLab.getSavedForumList('article', params).subscribe((res) => {
                 if (res.success) {
                     this.articlesData = res.result ?? [];
                     this.articlesData.map((item) => {

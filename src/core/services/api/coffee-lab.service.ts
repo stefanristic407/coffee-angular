@@ -118,8 +118,12 @@ export class CoffeeLabService extends ApiService {
         return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/${type}s`, 'GET');
     }
 
-    getSavedForumList(type: string): Observable<any> {
-        return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/${type}s/saved`, 'GET');
+    getSavedForumList(type: string, options: any): Observable<any> {
+        return this.post(
+            this.orgPostUrl,
+            `${this.organization}/${this.organizationId}/${type}s/saved?${this.serializeParams(options)}`,
+            'GET',
+        );
     }
 
     saveForum(type: any, id: any): Observable<any> {

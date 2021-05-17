@@ -39,6 +39,7 @@
                             <p-calendar
                                 [formControl]="addOrdersForm.controls['order_date']"
                                 [showIcon]="true"
+                                [maxDate]="currentDate"
                                 inputId="icon"
                             ></p-calendar>
                             <small *ngIf="addOrdersForm.controls['order_date'].errors?.required" class="p-error">
@@ -244,7 +245,7 @@
                             <div>
                                 <label>{{ 'customer_name' | translate }}<span class="text-clr-e5a">*</span></label>
                             </div>
-                            <div class="weightInputGroupDiv d-flex inputFieldBox">
+                            <div class="d-flex inputFieldBox">
                                 <div class="w-100">
                                     <p-dropdown
                                         [options]="allCustomer"
@@ -511,14 +512,10 @@
                                 <div>
                                     <label>{{ 'roast_level' | translate }}</label>
                                 </div>
-                                <input
-                                    pInputText
-                                    class="roastery-website-input border"
+                                <p-inputNumber
                                     [formControl]="addOrdersForm.controls['roast_level']"
                                     placeholder="{{ 'enter_roast_level' | translate }}"
-                                    type="text"
-                                    pInputText
-                                />
+                                ></p-inputNumber>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6 pl-md-2">

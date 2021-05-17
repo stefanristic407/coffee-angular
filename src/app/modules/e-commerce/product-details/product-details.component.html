@@ -7,7 +7,7 @@
     <div [formGroup]="productForm" (ngSubmit)="onSave()" novalidate>
         <div class="d-flex flex-column flex-md-row justify-content-md-between">
             <span class="fnt-16 fnt-md-18 fnt-700 fnt-muli fnt-clr334">
-                {{ (productName | titlecase) || ('add_new_product' | translate) }}
+                {{ productName || ('add_new_product' | translate) }}
             </span>
             <div *ngIf="productID" class="">
                 <p-divider type="dashed" styleClass="d-block d-md-none"></p-divider>
@@ -511,6 +511,7 @@
                         <app-variant-details
                             #cmp
                             [variantDetails]="variant"
+                            [type]="type"
                             (handleWeightCreate)="onWeightCreate($event)"
                             (handleWeightDelete)="onWeightDelete($event)"
                         ></app-variant-details>
