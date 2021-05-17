@@ -73,7 +73,7 @@ export class CoffeeLabService extends ApiService {
     }
 
     getForumDetails(type: string, idOrSlug: any): Observable<any> {
-        return this.post(this.orgPostUrl, `general/${type}s/${idOrSlug}`, 'GET');
+        return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/${type}s/${idOrSlug}`, 'GET');
     }
 
     getCommentList(type: string, slug: any): any {
@@ -172,9 +172,5 @@ export class CoffeeLabService extends ApiService {
             `${this.organization}/${this.organizationId}/file-manager/files/${fileId}/copy-image`,
             'POST',
         );
-    }
-
-    getComment(id: any): Observable<any> {
-        return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/comments/${id}`, 'GET');
     }
 }

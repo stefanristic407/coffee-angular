@@ -49,29 +49,21 @@ export class CreateAnswerComponent implements OnInit {
 
     getForumById(): void {
         this.isLoading = true;
-        if (this.forumType === 'comment') {
-            this.coffeeLabService.getComment(this.forumId).subscribe((res: any) => {
-                this.isLoading = false;
-                if (res.success) {
+        this.coffeeLabService.getForumDetails(this.forumType, this.forumId).subscribe((res: any) => {
+            this.isLoading = false;
+            if (res.success) {
+                if (this.forumType === 'comment') {
                     this.content = res.result.comment;
                 } else {
-                    this.toastrService.error('Error while get comment');
-                    this.location.back();
-                }
-            });
-        } else {
-            this.coffeeLabService.getForumDetails(this.forumType, this.forumId).subscribe((res: any) => {
-                this.isLoading = false;
-                if (res.success) {
                     this.language = res.result.lang_code;
                     this.content = res.result.answer;
                     this.images = res.result.images;
-                } else {
-                    this.toastrService.error('Error while get comment');
-                    this.location.back();
                 }
-            });
-        }
+            } else {
+                this.toastrService.error('Error while get comment');
+                this.location.back();
+            }
+        });
     }
 
     onPost(status: string): void {
