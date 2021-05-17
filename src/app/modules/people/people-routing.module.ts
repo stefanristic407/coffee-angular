@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddMembersComponent } from './add-members/add-members.component';
 import { PeopleComponent } from './people.component';
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
 import { MicroRoasterDetailsComponent } from './customer-management/micro-roaster-details/micro-roaster-details.component';
@@ -13,11 +12,6 @@ const routes: Routes = [
         path: '',
         component: PeopleComponent,
         children: [
-            {
-                path: 'add-members',
-                component: AddMembersComponent,
-                canActivate: [AuthGuard],
-            },
             {
                 path: 'customer-management',
                 component: CustomerManagementComponent,
@@ -40,7 +34,7 @@ const routes: Routes = [
             },
             {
                 path: '',
-                redirectTo: 'create-role',
+                redirectTo: 'customer-management',
                 pathMatch: 'full',
             },
         ],
