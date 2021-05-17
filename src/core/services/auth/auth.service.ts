@@ -18,9 +18,4 @@ export class AuthService {
     }
 
     constructor(private cookieService: CookieService) {}
-
-    syncAuthorizationToken() {
-        const token = this.cookieService.get('Auth');
-        this.cookieService.set('Authorization', token);
-    }
 }
