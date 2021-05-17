@@ -111,7 +111,7 @@
                                     </div>
                                 </div>
                                 <div class="fnt-muli fnt-14 text-clr24 lh-15 mt-2">
-                                    <span>{{ cmt?.comment | translate | convertToShortDescription: 20 }}</span>
+                                    <span [innerHTML]="cmt?.comment | translate | convertToShortDescription: 20"></span>
                                 </div>
                             </div>
                             <div class="fnt-muli fnt-12 text-clr588">

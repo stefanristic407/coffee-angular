@@ -52,6 +52,7 @@ export class MyCommentsComponent implements OnInit, OnDestroy {
                 }
                 if (item.comments) {
                     item.comments.map((ele) => {
+                        ele.comment = '<p>' + ele.comment + '</p>';
                         ele[id] = ele.comment_id;
                         return ele;
                     });
