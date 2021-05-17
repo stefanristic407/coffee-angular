@@ -92,7 +92,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
             level: this.label?.toLowerCase(),
         };
         if (this.pageDesc === 'saved-posts') {
-            this.coffeeLabService.getSavedForumList('recipe').subscribe((res) => {
+            this.coffeeLabService.getSavedForumList('recipe', params).subscribe((res) => {
                 if (res.success) {
                     this.coffeeRecipeData = res.result;
                     this.coffeeRecipeData.map((item) => {

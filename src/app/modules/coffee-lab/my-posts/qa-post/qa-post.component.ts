@@ -68,7 +68,13 @@ export class QaPostComponent implements OnInit, OnDestroy {
     getPosts(): void {
         this.isLoading = true;
         if (this.pageDesc === 'saved-posts') {
-            this.coffeeLabService.getSavedForumList('question').subscribe((res: any) => {
+            const params = {
+                query: this.keyword,
+                sort_by: this.sortBy === 'most_answered' ? 'most_answered' : 'created_at',
+                // org_type: 'ro',
+                sort_order: this.sortBy === 'most_answered' ? 'desc' : this.sortBy === 'latest' ? 'desc' : 'asc',
+            };
+            this.coffeeLabService.getSavedForumList('question', params).subscribe((res: any) => {
                 this.isLoading = false;
                 if (res.success) {
                     this.questions = res.result || [];
