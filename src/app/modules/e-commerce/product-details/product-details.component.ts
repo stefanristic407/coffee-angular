@@ -347,6 +347,7 @@ export class ProductDetailsComponent implements OnInit {
                     const getValue = getBatchDetails[ele] ? getBatchDetails[ele] : '';
                     getVariant.controls[ele].setValue(getValue);
                 });
+                getVariant.get('flavour_profiles').setValue(getBatchDetails.flavour_profile);
             }
         }
     }
@@ -556,7 +557,11 @@ export class ProductDetailsComponent implements OnInit {
                     });
                 }
                 weightObj.variant_id = childIndex + 1;
-                weightObj.rc_batch_id = getVariantDetails.rc_batch_id;
+                if (!!getVariantDetails.rc_batch_id) {
+                    weightObj.rc_batch_id = getVariantDetails.rc_batch_id;
+                } else {
+                    delete weightObj.rc_batch_id;
+                }
                 weightObj.product_images = productImagesArray;
                 weightObj.is_public = !weight.is_public;
                 const weightVariantID = weight.product_weight_variant_id ? weight.product_weight_variant_id : false;
@@ -566,8 +571,9 @@ export class ProductDetailsComponent implements OnInit {
                     recipes: getVariantDetails.recipes,
                 };
                 if (this.type === 'b2c') {
-                    getVariantDetails.flavour_profiles.map((item) => item.flavour_profile_id);
-                    weightObj.variant_details.flavour_profiles = getVariantDetails.flavour_profiles;
+                    weightObj.variant_details.flavour_profiles = this.productForm.value.is_external_product
+                        ? getVariantDetails.flavour_profiles
+                        : getVariantDetails.flavour_profiles.map((item) => item.flavour_profile_id);
                     weightObj.variant_details.processing = getVariantDetails.processing;
                     weightObj.variant_details.body = getVariantDetails.body;
                     weightObj.variant_details.acidity = getVariantDetails.acidity;
