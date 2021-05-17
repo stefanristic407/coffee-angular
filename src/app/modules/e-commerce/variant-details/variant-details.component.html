@@ -168,24 +168,17 @@
                                 <div [formGroupName]="i" class="row gutter-16 flex-1">
                                     <div class="col-12 col-md-4 col-lg-3 sewn-form-field mb-3 mb-lg-4">
                                         <label>{{ 'price' | translate }}<span class="star">*</span></label>
-                                        <div class="border-primary br-4 d-flex">
-                                            <div class="daysInputDiv">
-                                                <span>$</span>
-                                            </div>
-                                            <div>
-                                                <input
-                                                    type="number"
-                                                    class="weightInputDiv"
-                                                    formControlName="price"
-                                                    pInputText
-                                                />
-                                                <small
-                                                    *ngIf="grind_variant['controls']['price'].errors?.required"
-                                                    class="position-absolute p-error"
-                                                >
-                                                    {{ 'required' | translate }}
-                                                </small>
-                                            </div>
+                                        <div class="p-input-icon-left">
+                                            <input type="number" formControlName="price" pInputText />
+                                            <span class="left-icon fnt-muli fnt-14 fnt-normal text-clr334 lh-normal"
+                                                >$</span
+                                            >
+                                            <small
+                                                *ngIf="grind_variant['controls']['price'].errors?.required"
+                                                class="position-absolute p-error"
+                                            >
+                                                {{ 'required' | translate }}
+                                            </small>
                                         </div>
                                     </div>
                                     <div
@@ -210,16 +203,11 @@
                                     <div class="col-sm-12 col-md-4 col-lg-3 sewn-form-field mb-3 mb-lg-4">
                                         <label>{{ 'stock_available' | translate }}<span class="star">*</span></label>
 
-                                        <div class="input-and-select gray">
+                                        <div class="p-input-icon-right">
                                             <input type="number" pInputText formControlName="available_quantity" />
-                                            <p-dropdown
-                                                [options]="quantityTypeArray"
-                                                optionLabel="label"
-                                                placeholder=""
-                                                formControlName="available_quantity_type"
-                                                optionValue="value"
-                                                [readonly]="true"
-                                            ></p-dropdown>
+                                            <span class="right-icon fnt-muli fnt-14 fnt-normal text-clr334 lh-normal"
+                                                >bags</span
+                                            >
                                             <small
                                                 *ngIf="grind_variant['controls']['available_quantity'].errors?.required"
                                                 class="position-absolute p-error"
@@ -322,7 +310,11 @@
                                         />
                                         <div class="imageLabel fnt-muli fnt-14 fnt-bold lh-normal text-white">
                                             <span class="ellipsis">
-                                                {{ trackFileName(currentForm?.value?.fileDetails?.image_url) }}
+                                                {{
+                                                    (currentForm?.value?.fileDetails &&
+                                                        currentForm?.value?.fileDetails[0]?.name) ||
+                                                        trackFileName(currentForm?.value?.fileDetails?.image_url)
+                                                }}
                                             </span>
                                             <i
                                                 class="pi pi-ellipsis-v cursor-pointer"
@@ -345,7 +337,7 @@
                                     class="col"
                                     *ngFor="let product_image of currentForm?.value?.product_images; let m = index"
                                 >
-                                    <label>{{ 'product_images' | translate }}<span class="star">*</span></label>
+                                    <label>{{ 'product_images' | translate }}</label>
                                     <div
                                         *ngIf="!product_image['fileDetails']"
                                         class="addImageContainer d-flex align-items-center justify-content-center"
@@ -375,7 +367,11 @@
                                         />
                                         <div class="imageLabel fnt-muli fnt-14 fnt-bold lh-normal text-white">
                                             <span class="ellipsis">
-                                                {{ trackFileName(product_image['fileDetails']['image_url']) }}
+                                                {{
+                                                    (product_image?.fileDetails &&
+                                                        product_image?.fileDetails[0].name) ||
+                                                        trackFileName(product_image['fileDetails']['image_url'])
+                                                }}
                                             </span>
                                             <i
                                                 class="pi pi-ellipsis-v cursor-pointer"

@@ -266,19 +266,21 @@ export class ProductDetailsComponent implements OnInit {
                     }
                     this.crates = this.productForm.get('crates') as FormArray;
                     this.crates.removeAt(0);
-                    for (const crate of productDetails.crates) {
-                        if (crate.has_weight) {
-                            const crateForm = this.createEmptyCrate();
-                            crateForm.patchValue({
-                                weight: crate.weight,
-                                crate_unit: crate.crate_unit,
-                                id: crate.id,
-                                weight_name: `${crate.weight} ${crate.crate_unit}`,
-                                product_weight_variant_id: crate.product_weight_variant_id,
-                                crate_capacity: crate.crate_capacity,
-                                variant_name: crate.variant_name,
-                            });
-                            this.crates.push(crateForm);
+                    if (productDetails.crates) {
+                        for (const crate of productDetails.crates) {
+                            if (crate.has_weight) {
+                                const crateForm = this.createEmptyCrate();
+                                crateForm.patchValue({
+                                    weight: crate.weight,
+                                    crate_unit: crate.crate_unit,
+                                    id: crate.id,
+                                    weight_name: `${crate.weight} ${crate.crate_unit}`,
+                                    product_weight_variant_id: crate.product_weight_variant_id,
+                                    crate_capacity: crate.crate_capacity,
+                                    variant_name: crate.variant_name,
+                                });
+                                this.crates.push(crateForm);
+                            }
                         }
                     }
                     this.createTypeVariantArray();
