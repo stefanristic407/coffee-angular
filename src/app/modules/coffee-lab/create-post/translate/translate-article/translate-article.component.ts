@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { APP_LANGUAGES } from '@constants';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
+import { maxWordCountValidator } from '@utils';
 
 @Component({
     selector: 'app-translate-article',
@@ -40,7 +41,7 @@ export class TranslateArticleComponent implements OnInit {
         this.articleForm = this.articleForm = this.formBuilder.group({
             language: ['', Validators.required],
             title: ['', Validators.compose([Validators.required])],
-            subtitle: ['', Validators.compose([Validators.required])],
+            subtitle: ['', Validators.compose([Validators.required, maxWordCountValidator(30)])],
         });
     }
 
