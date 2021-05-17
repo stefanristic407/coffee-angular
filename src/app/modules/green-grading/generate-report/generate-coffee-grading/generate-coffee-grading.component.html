@@ -25,6 +25,7 @@
                 categoryIndex="1"
                 (handleChange)="handleChange($event)"
                 (handleDefectsChange)="handleDefectsChange($event)"
+                [readonly]="!isEditable"
             >
             </app-category-view>
             <div class="category-wrapper d-none d-lg-block">
@@ -39,6 +40,7 @@
                                 (focus)="$event.target.select()"
                                 placeholder="Type a number"
                                 [(ngModel)]="moistureContent"
+                                [readonly]="!isEditable"
                             />
                         </span>
                     </div>
@@ -53,6 +55,7 @@
                                 class="category-value"
                                 (focus)="$event.target.select()"
                                 [(ngModel)]="waterActivity"
+                                [readonly]="!isEditable"
                             />
                         </span>
                     </div>
@@ -66,6 +69,7 @@
                                 (focus)="$event.target.select()"
                                 class="category-value"
                                 [(ngModel)]="odor"
+                                [readonly]="!isEditable"
                             />
                         </div>
                     </div>
@@ -73,7 +77,13 @@
                         <label class="categ-label col-12 col-md-4">Color</label>
                         <div class="col-12 col-md-8 px-0 d-flex flex-wrap">
                             <span class="p-field-checkbox pb-3 pr-2 pr-lg-3" *ngFor="let color of colorList">
-                                <p-checkbox name="colors" [value]="color.value" [(ngModel)]="totalColors" inputId="sf">
+                                <p-checkbox
+                                    name="colors"
+                                    [value]="color.value"
+                                    [(ngModel)]="totalColors"
+                                    inputId="sf"
+                                    [readonly]="!isEditable"
+                                >
                                 </p-checkbox>
                                 <label class="fnt-14 fnt-600 mb-0 fnt-muli text-clr334 text-nowrap" for="sf">
                                     {{ color.label }}
@@ -92,6 +102,7 @@
                 categoryIndex="2"
                 (handleChange)="handleChange($event)"
                 (handleDefectsChange)="handleDefectsChange($event)"
+                [readonly]="!isEditable"
             >
             </app-category-view>
             <div class="category-inputs align-items-center mt-4 pt-2 d-none d-md-flex flex-wrap">
@@ -106,6 +117,7 @@
                         class="category-value"
                         (focus)="$event.target.select()"
                         [(ngModel)]="totalDefects"
+                        [readonly]="!isEditable"
                     />
                 </div>
             </div>
@@ -122,6 +134,7 @@
                             (focus)="$event.target.select()"
                             placeholder="Type a number"
                             [(ngModel)]="moistureContent"
+                            [readonly]="!isEditable"
                         />
                     </span>
                 </div>
@@ -136,6 +149,7 @@
                             class="category-value"
                             (focus)="$event.target.select()"
                             [(ngModel)]="waterActivity"
+                            [readonly]="!isEditable"
                         />
                     </span>
                 </div>
@@ -149,6 +163,7 @@
                             (focus)="$event.target.select()"
                             class="category-value"
                             [(ngModel)]="odor"
+                            [readonly]="!isEditable"
                         />
                     </div>
                 </div>
@@ -156,7 +171,13 @@
                     <label class="categ-label col-12 col-md-4">Color</label>
                     <div class="col-12 col-md-8 px-0 d-flex flex-wrap">
                         <span class="p-field-checkbox pb-3 pr-2 pr-lg-3" *ngFor="let color of colorList">
-                            <p-checkbox name="colors" [value]="color.value" [(ngModel)]="totalColors" inputId="sf">
+                            <p-checkbox
+                                name="colors"
+                                [value]="color.value"
+                                [(ngModel)]="totalColors"
+                                inputId="sf"
+                                [readonly]="!isEditable"
+                            >
                             </p-checkbox>
                             <label class="fnt-14 fnt-600 mb-0 fnt-muli text-clr334 text-nowrap" for="sf">
                                 {{ color.label }}
@@ -171,7 +192,12 @@
     <div class="d-flex justify-content-between flex-column flex-md-row pt-0 pt-md-4">
         <button type="submit" class="green-button btn-stroked btn order-1 order-md-0" (click)="cancel()">Cancel</button>
         <div class="d-flex flex-column flex-md-row">
-            <button type="submit" class="green-button btn-stroked btn mr-2 order-1 order-md-0" (click)="clear()">
+            <button
+                type="submit"
+                [disabled]="!isEditable"
+                class="green-button btn-stroked btn mr-2 order-1 order-md-0"
+                (click)="clear()"
+            >
                 Clear
             </button>
             <button type="submit" class="green-button btn-raised btn" (click)="goNext()">Next</button>
