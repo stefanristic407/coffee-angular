@@ -8,6 +8,7 @@ import { MenuItem } from 'primeng/api';
 import { VariantDetailsComponent } from '../variant-details/variant-details.component';
 import { maxWordCountValidator } from '@utils';
 import { COUNTRY_LIST } from '@constants';
+import * as moment from 'moment';
 @Component({
     selector: 'app-product-details',
     templateUrl: './product-details.component.html',
@@ -81,6 +82,7 @@ export class ProductDetailsComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        const promises: any[] = [];
         this.route.params.subscribe((params) => {
             this.type = params.type;
             this.productForm = this.fb.group({
@@ -96,7 +98,11 @@ export class ProductDetailsComponent implements OnInit {
                 is_external_product: [false],
             });
             if (this.type === 'b2c') {
-                this.getFlavoursData();
+                promises.push(
+                    new Promise((resolve, reject) => {
+                        this.getFlavoursData(resolve, reject);
+                    }),
+                );
             }
             if (params.id) {
                 this.productID = params.id;
@@ -137,6 +143,25 @@ export class ProductDetailsComponent implements OnInit {
                 this.variants.push(this.createEmptyVariant());
             }
         });
+        promises.push(
+            new Promise((resolve, reject) => {
+                this.getVatData(resolve, reject);
+            }),
+        );
+        promises.push(
+            new Promise((resolve, reject) => {
+                this.getRoasterBatches(resolve, reject);
+            }),
+        );
+        Promise.all(promises).then(() => {
+            if (this.productID && this.productID !== 'add') {
+                this.getProductDetails();
+            }
+        });
+        this.supplyBreadCrumb();
+    }
+
+    getVatData(resolve, reject) {
         this.eCommerceService.getVatSettings().subscribe((res) => {
             this.vatSettings = [];
             if (res && res.result) {
@@ -144,36 +169,47 @@ export class ProductDetailsComponent implements OnInit {
                     const vatObj = { label: ele.vat_percentage + '% ' + ele.transaction_type, value: ele.id };
                     this.vatSettings.push(vatObj);
                 });
+                resolve();
+            } else {
+                reject();
             }
         });
+    }
+
+    getRoasterBatches(resolve, reject) {
         this.eCommerceService.getRoastedBatches({ per_page: 10000 }).subscribe(
             (res) => {
-                this.roastedBatches = res.result ? res.result : [];
-                if (this.productID && this.productID !== 'add') {
-                    this.getProductDetails();
+                if (res.success) {
+                    this.roastedBatches = res.result ? res.result : [];
+                    resolve();
+                } else {
+                    reject();
                 }
             },
             (err) => {
-                if (this.productID && this.productID !== 'add') {
-                    this.getProductDetails();
-                }
+                reject();
             },
         );
-        this.supplyBreadCrumb();
     }
 
-    getFlavoursData() {
+    getFlavoursData(resolve, reject) {
         this.userService.getFlavourProfile().subscribe(
             (res: any) => {
-                this.flavoursList = res.result.map((item) => {
-                    return {
-                        flavour_profile_id: item.id,
-                        flavour_profile_name: item.name,
-                    };
-                });
+                if (res.success) {
+                    this.flavoursList = res.result.map((item) => {
+                        return {
+                            flavour_profile_id: item.id,
+                            flavour_profile_name: item.name,
+                        };
+                    });
+                    resolve();
+                } else {
+                    reject();
+                }
             },
             (err) => {
                 console.log(err);
+                reject();
             },
         );
     }
@@ -215,7 +251,7 @@ export class ProductDetailsComponent implements OnInit {
                         const getVariant = res.result.variants[key];
                         const coffeeBatchID = getVariant[0].weight_variants[0].rc_batch_id;
                         const getBatchDetails = this.roastedBatches.find((ele) => ele.id === coffeeBatchID);
-                        if (getBatchDetails === undefined) {
+                        if (!getBatchDetails && !productDetails.is_external_product) {
                             this.variants.push(this.createEmptyVariant());
                             const boxDetails = {
                                 modify: false,
@@ -227,59 +263,86 @@ export class ProductDetailsComponent implements OnInit {
                             return;
                         }
                         const variant: any = {};
-                        if (getBatchDetails) {
-                            variant.variant_name = 'Variant ' + (this.variants.length + 1);
-                            this.roastedFields.forEach((ele) => {
-                                const getValue = getBatchDetails[ele] ? getBatchDetails[ele] : '';
-                                variant[ele] = getValue;
-                            });
-                        }
                         variant.rc_batch_id = coffeeBatchID;
                         variant.weight_variants = getVariant[0].weight_variants;
                         variant.roaster_recommendation = getVariant[0].variant_details.roaster_recommendation;
                         variant.brewing_method = getVariant[0].variant_details.brewing_method;
                         variant.recipes = getVariant[0].variant_details.recipes ?? '';
-                        const variantForm = this.fb.group(variant);
-                        const weightVariants = getVariant[0].weight_variants;
-                        weightVariants.forEach((ele) => {
-                            const getCrate = productDetails.crates?.find(
-                                (item) => item.weight === ele.weight && ele.weight_unit === item.crate_unit,
-                            );
-                            if (getCrate) {
-                                getCrate.has_weight = true;
-                                getCrate.product_weight_variant_id = ele.product_weight_variant_id;
-                                getCrate.variant_name = `Variant ${key}`;
-                                this.allCrates.push(getCrate);
-                            }
-                        });
+                        variant.variant_name = 'Variant ' + (this.variants.length + 1);
                         if (getBatchDetails) {
-                            const flavourProfile = getBatchDetails.flavour_profile;
-                            variantForm.controls.flavour_profiles.setValue(flavourProfile);
-                            variantForm.controls.weight_variants.setValue(weightVariants);
+                            this.roastedFields.forEach((ele) => {
+                                const getValue = getBatchDetails[ele] ? getBatchDetails[ele] : '';
+                                variant[ele] = getValue;
+                            });
+                        }
+                        if (productDetails.is_external_product) {
+                            this.roastedFields.forEach((ele) => {
+                                let getValue;
+                                if (ele === 'flavour_profiles') {
+                                    getValue = getVariant[0].variant_details.flavour_profile
+                                        .split(',')
+                                        .map((item) => +item);
+                                    getValue = this.flavoursList.filter((item) =>
+                                        getValue.includes(item.flavour_profile_id),
+                                    );
+                                } else if (ele === 'harvest_year') {
+                                    getValue = new Date(getVariant[0].variant_details[ele]);
+                                } else {
+                                    getValue = getVariant[0].variant_details[ele] ?? '';
+                                }
+                                variant[ele] = getValue;
+                            });
+                        }
+                        const variantForm = this.fb.group(variant);
+                        if (!productDetails.is_external_product) {
+                            const weightVariants = getVariant[0].weight_variants;
+                            weightVariants.forEach((ele) => {
+                                const getCrate = productDetails.crates?.find(
+                                    (item) => item.weight === ele.weight && ele.weight_unit === item.crate_unit,
+                                );
+                                if (getCrate) {
+                                    getCrate.has_weight = true;
+                                    getCrate.product_weight_variant_id = ele.product_weight_variant_id;
+                                    getCrate.variant_name = `Variant ${key}`;
+                                    this.allCrates.push(getCrate);
+                                }
+                            });
+                            if (getBatchDetails) {
+                                const flavourProfile = getBatchDetails.flavour_profile;
+                                variantForm.controls.flavour_profiles.setValue(flavourProfile);
+                                variantForm.controls.weight_variants.setValue(weightVariants);
+                            }
+                        } else {
+                            variantForm.patchValue({
+                                weight_variants: getVariant[0].weight_variants,
+                                flavour_profiles: variant.flavour_profiles,
+                            });
                         }
                         this.variants.push(variantForm);
-                        if (getBatchDetails) {
+                        if (getBatchDetails && !productDetails.is_external_product) {
                             this.getRoastingProfile(increment, getBatchDetails.roasting_profile_id);
                             this.getOrderDetails(increment, getBatchDetails.order_id);
                         }
                         increment++;
                     }
-                    this.crates = this.productForm.get('crates') as FormArray;
-                    this.crates.removeAt(0);
-                    if (productDetails.crates) {
-                        for (const crate of productDetails.crates) {
-                            if (crate.has_weight) {
-                                const crateForm = this.createEmptyCrate();
-                                crateForm.patchValue({
-                                    weight: crate.weight,
-                                    crate_unit: crate.crate_unit,
-                                    id: crate.id,
-                                    weight_name: `${crate.weight} ${crate.crate_unit}`,
-                                    product_weight_variant_id: crate.product_weight_variant_id,
-                                    crate_capacity: crate.crate_capacity,
-                                    variant_name: crate.variant_name,
-                                });
-                                this.crates.push(crateForm);
+                    if (!productDetails.is_external_product) {
+                        this.crates = this.productForm.get('crates') as FormArray;
+                        this.crates.removeAt(0);
+                        if (productDetails.crates) {
+                            for (const crate of productDetails.crates) {
+                                if (crate.has_weight) {
+                                    const crateForm = this.createEmptyCrate();
+                                    crateForm.patchValue({
+                                        weight: crate.weight,
+                                        crate_unit: crate.crate_unit,
+                                        id: crate.id,
+                                        weight_name: `${crate.weight} ${crate.crate_unit}`,
+                                        product_weight_variant_id: crate.product_weight_variant_id,
+                                        crate_capacity: crate.crate_capacity,
+                                        variant_name: crate.variant_name,
+                                    });
+                                    this.crates.push(crateForm);
+                                }
                             }
                         }
                     }
@@ -559,7 +622,7 @@ export class ProductDetailsComponent implements OnInit {
                     });
                 }
                 weightObj.variant_id = childIndex + 1;
-                if (!!getVariantDetails.rc_batch_id) {
+                if (!!getVariantDetails.rc_batch_id && !this.productForm.value.is_external_product) {
                     weightObj.rc_batch_id = getVariantDetails.rc_batch_id;
                 } else {
                     delete weightObj.rc_batch_id;
@@ -573,14 +636,19 @@ export class ProductDetailsComponent implements OnInit {
                     recipes: getVariantDetails.recipes,
                 };
                 if (this.type === 'b2c') {
-                    weightObj.variant_details.flavour_profiles = this.productForm.value.is_external_product
-                        ? getVariantDetails.flavour_profiles
-                        : getVariantDetails.flavour_profiles.map((item) => item.flavour_profile_id);
+                    weightObj.variant_details.flavour_profiles = getVariantDetails.flavour_profiles.map(
+                        (item) => item.flavour_profile_id ?? item,
+                    );
                     weightObj.variant_details.processing = getVariantDetails.processing;
                     weightObj.variant_details.body = getVariantDetails.body;
                     weightObj.variant_details.acidity = getVariantDetails.acidity;
                     weightObj.variant_details.aroma = getVariantDetails.aroma;
                     weightObj.variant_details.flavour = getVariantDetails.flavour;
+                    weightObj.variant_details.roaster_ref_no = getVariantDetails.roaster_ref_no;
+                    weightObj.variant_details.estate_name = getVariantDetails.estate_name;
+                    weightObj.variant_details.harvest_year = getVariantDetails.harvest_year
+                        ? moment(getVariantDetails.harvest_year).format('yyyy-MM-DD')
+                        : '';
                 }
                 const grindVariants = weightObj.grind_variants.map((item) => {
                     if (!item.grind_variant_id) {
@@ -680,7 +748,6 @@ export class ProductDetailsComponent implements OnInit {
         let returnFlag = true;
         if (!this.productForm.valid) {
             returnFlag = false;
-            console.log(this.productForm);
             return returnFlag;
         }
         this.variantComponent.forEach((child) => {

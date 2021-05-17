@@ -38,6 +38,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
     ];
     weightVariantArray: any = [];
     displayDelete = false;
+    uploadDisabled = false;
     constructor(
         private fb: FormBuilder,
         private route: ActivatedRoute,
@@ -77,6 +78,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         this.weightTypeArray = [
             { label: 'lbs', value: 'lb' },
             { label: 'kgs', value: 'kg' },
+            { label: 'gs', value: 'g' },
         ];
         this.grindArray = [
             { label: 'Whole beans', value: 'whole-beans' },
@@ -287,6 +289,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
                         const imgURL = reader.result;
                         fileObj.image_url = imgURL;
                     };
+                    this.uploadDisabled = false;
                     const fileObj = e.target.files;
                     fileObj.isNew = true;
                     fileObj.fileID = '_' + Math.random().toString(36).substr(2, 9);
@@ -307,6 +310,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
     }
     deleteImage(index, type?) {
         const weight = this.weightForm.get('weights') as FormArray;
+        this.uploadDisabled = false;
         if (type === 'featured_image') {
             const getValue = weight.controls[this.currentVariantIndex].value;
             if (getValue && getValue.featured_image_id) {
@@ -327,14 +331,18 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
     uploadImages() {
         const weight = this.weightForm.get('weights') as FormArray;
         const getValue = weight.controls[this.currentVariantIndex].value;
+        const promises: any[] = [];
         if (!getValue.featured_image_id && getValue.fileDetails) {
-            this.uploadImage(getValue.fileDetails, 'featured_image', 0, true);
+            promises.push(
+                new Promise((resolve, reject) => {
+                    this.uploadImage(getValue.fileDetails, 'featured_image', resolve, reject);
+                }),
+            );
         }
         const productImageArray = weight.controls[this.currentVariantIndex].get('product_images').value;
         const getNewImages = productImageArray.filter(
             (ele) => ele.fileDetails && !ele.image_id && ele.fileDetails.image_url,
         );
-        const promises: any[] = [];
         for (const ele of getNewImages) {
             if (ele.fileDetails && !ele.fileDetails.image_id && ele.fileDetails.image_url) {
                 promises.push(
@@ -355,7 +363,10 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             .then(() => {
                 Promise.all(promises)
                     .then(() => {
-                        // this.toaster.success('Image uploaded successfully');
+                        if (promises.length) {
+                            this.toaster.success('Image uploaded successfully');
+                            this.uploadDisabled = true;
+                        }
                     })
                     .catch(() => {});
             })
@@ -380,8 +391,8 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
                     if (foundObj) {
                         foundObj.image_id = uploadedFile.result.id;
                     }
-                    resolve();
                 }
+                resolve();
             } else {
                 this.toaster.error('Error while uploading image.');
                 reject();

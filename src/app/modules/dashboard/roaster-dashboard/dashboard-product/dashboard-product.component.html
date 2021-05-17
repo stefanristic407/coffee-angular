@@ -1,22 +1,24 @@
 <div class="border-md-main border-lg-main br-4 h-100 d-md-flex flex-column">
     <div class="p-0 p-md-4">
-        <h3 class="fnt-16 fnt-lg-18 lh-normal fnt-muli fnt-bold text-clr334 title-wrap">E-commerce shop</h3>
+        <h3 class="fnt-16 fnt-lg-18 lh-normal fnt-muli fnt-bold text-clr334 title-wrap">
+            {{ 'ecommerce' | translate }} {{ 'shop' | translate }}
+        </h3>
     </div>
     <div class="card border-main border-md-none mb-0 flex-md-fill">
         <div class="overflow-hidden card-img-top">
-            <img class="" src="assets/images/manage-e-commerce.png" alt="Card image cap" />
+            <img class="" src="assets/images/ecommerce_product.png" alt="Card image cap" />
         </div>
         <div class="p-3">
             <p class="fnt-12 fnt-lg-14 fnt-muli text-clr588 p-lg-2 p-md-0 mb-0 mb-md-45 mb-lg-0">
                 You can sell your roasted coffee here. Add your roasted coffee, manage availability of the coffee you
                 want to sell and all your orders here.
             </p>
-            <div class="divider my-3"></div>
-            <p class="text-right text-md-left mb-0 pointer-text">
-                <a class="arrow-link fnt-12 fnt-lg-14" routerLink="/e-commerce/product-list/b2b">
+            <div class="divider my-3 my-md-2 my-lg-3"></div>
+            <div class="text-md-right text-left">
+                <a class="arrow-link fnt-12 fnt-lg-14 ml-lg-2" routerLink="/e-commerce/product-list/b2b">
                     {{ 'view_your_products' | translate }}
                 </a>
-            </p>
+            </div>
         </div>
     </div>
 </div>
