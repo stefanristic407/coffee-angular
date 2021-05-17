@@ -3,6 +3,7 @@
     flex-wrap: wrap;
     margin: -8px;
     .article-item {
+        height: 100%;
         img {
             height: 243px;
             object-fit: cover;
@@ -25,18 +26,13 @@
     -webkit-box-orient: vertical;
 }
 
-::ng-deep {
-    .article-content-wrapper {
-        & > div {
-            min-height: 42px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            p {
-                margin-bottom: 0 !important;
-            }
-        }
+.article-title-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    p {
+        margin-bottom: 0 !important;
     }
 }
