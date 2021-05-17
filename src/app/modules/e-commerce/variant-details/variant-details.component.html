@@ -391,7 +391,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" (click)="uploadImages()" class="btn-stroked mt-2 mt-md-25 mt-lg-3">
+                            <button
+                                type="button"
+                                (click)="uploadImages()"
+                                [disabled]="uploadDisabled"
+                                class="btn-stroked mt-2 mt-md-25 mt-lg-3"
+                            >
                                 {{ 'update' | translate }}
                             </button>
                         </div>
