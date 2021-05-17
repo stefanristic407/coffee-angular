@@ -17,6 +17,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
     weights: FormArray;
     grindVariants: FormArray;
     @Input() variantDetails: any;
+    @Input() type: string;
     currentVariantIndex = 0;
     statusArray: any = [];
     grindArray: any = [];
@@ -24,7 +25,6 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
     deleteImageIDs: any = [];
     roasterID: any = '';
     weightTypeArray: any = '';
-    quantityTypeArray: any = '';
     @Output() handleWeightCreate = new EventEmitter();
     @Output() handleWeightDelete = new EventEmitter<any>();
     weightFields = ['weight_unit', 'weight', 'status', 'is_public', 'is_default_product', 'product_weight_variant_id'];
@@ -78,7 +78,6 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             { label: 'lbs', value: 'lb' },
             { label: 'kgs', value: 'kg' },
         ];
-        this.quantityTypeArray = [{ label: 'bags', value: 'bags' }];
         this.grindArray = [
             { label: 'Whole beans', value: 'whole-beans' },
             { label: 'Extra Coarse', value: 'extra-coarse' },
@@ -185,7 +184,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
                 this.grindVariantFields.forEach((field) => {
                     formGrind.controls[field].setValue(variant[field]);
                 });
-                formGrind.get('available_quantity_type').setValue('bags');
+                formGrind.get('available_quantity_type').setValue(this.type === 'b2b' ? 'boxes' : 'bags');
                 this.grindVariants.push(formGrind);
             });
         }
@@ -262,7 +261,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             price: [0, Validators.compose([Validators.required])],
             grind: ['', Validators.compose([Validators.required])],
             available_quantity: [0, Validators.compose([Validators.required])],
-            available_quantity_type: 'bags',
+            available_quantity_type: this.type === 'b2b' ? 'boxes' : 'bags',
             sku_number: ['', Validators.compose([Validators.required])],
         });
     }
