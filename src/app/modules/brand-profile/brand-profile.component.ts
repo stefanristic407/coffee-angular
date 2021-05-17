@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from '@services';
+import { AuthService, GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 
 @Component({
@@ -42,6 +42,7 @@ export class BrandProfileComponent implements OnInit {
         public globals: GlobalsService,
         private cookieService: CookieService,
         private roasterSrv: RoasterserviceService,
+        private authService: AuthService,
     ) {
         this.roasterId = +this.cookieService.get('roaster_id');
         this.roasterSlug = this.cookieService.get('roasterSlug');
@@ -69,5 +70,9 @@ export class BrandProfileComponent implements OnInit {
         } else {
             this.toastrService.error('Please enter slug');
         }
+    }
+
+    editOnWebpage() {
+        this.authService.syncAuthorizationToken();
     }
 }

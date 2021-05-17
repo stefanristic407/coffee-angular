@@ -9,7 +9,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { DialogModule } from 'primeng/dialog';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { AddMembersComponent } from './add-members/add-members.component';
 import { PeopleRoutingModule } from './people-routing.module';
 import { PeopleComponent } from './people.component';
 
@@ -28,7 +27,6 @@ import { ImportantContactsComponent } from './customer-management/important-cont
 @NgModule({
     declarations: [
         PeopleComponent,
-        AddMembersComponent,
         CustomerManagementComponent,
         MicroRoasterDetailsComponent,
         HorecaDetailsComponent,
