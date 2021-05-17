@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CoffeeLabService, GlobalsService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
+import { maxWordCountValidator } from '@utils';
 
 @Component({
     selector: 'app-create-article',
@@ -42,7 +43,7 @@ export class CreateArticleComponent implements OnInit {
         }
         this.articleForm = this.fb.group({
             title: ['', Validators.compose([Validators.required])],
-            subtitle: ['', Validators.compose([Validators.required])],
+            subtitle: ['', Validators.compose([Validators.required, maxWordCountValidator(30)])],
             allow_translation: [true, Validators.compose([Validators.required])],
         });
         if (this.articleId) {

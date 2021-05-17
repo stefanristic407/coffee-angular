@@ -17,7 +17,9 @@
                             optionLabel="label"
                             optionValue="value"
                         ></p-dropdown>
-                        <div *ngIf="articleForm.controls.language.invalid" class="p-error">{{ 'required' | translate }}</div>
+                        <div *ngIf="articleForm.controls.language.invalid" class="p-error">
+                            {{ 'required' | translate }}
+                        </div>
                     </div>
                     <div class="col-12 sewn-form-field p-0">
                         <div class="addImageContainer d-flex align-items-center justify-content-center">
@@ -57,9 +59,17 @@
                         </small>
                     </div>
                     <div class="col-12 sewn-form-field p-0">
-                        <input type="text" placeholder="subtitle" pInputText formControlName="subtitle" />
+                        <textarea
+                            [placeholder]="'subtitle' | translate"
+                            pInputTextarea
+                            formControlName="subtitle"
+                            [rows]="1"
+                        ></textarea>
                         <small *ngIf="articleForm.controls['subtitle'].errors?.required" class="p-error">
                             {{ 'required' | translate }}
+                        </small>
+                        <small *ngIf="articleForm.controls['subtitle'].errors?.maxWordCount" class="p-error">
+                            Please input 30 words
                         </small>
                     </div>
                     <div class="col-12 sewn-form-field p-0">
