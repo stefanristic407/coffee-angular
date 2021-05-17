@@ -46,6 +46,7 @@ export class BrandProfileComponent implements OnInit {
         this.roasterId = +this.cookieService.get('roaster_id');
         this.roasterSlug = this.cookieService.get('roasterSlug');
         this.slug = this.roasterSlug;
+        this.cookieService.set('Authorization', 'abcsdflsdjfldskfjsdklfjsdflkdsjf');
     }
 
     ngOnInit(): void {
