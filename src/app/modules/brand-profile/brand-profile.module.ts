@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { BrandProfileRoutingModule } from './brand-profile-routing.module';
 import { SharedModule } from '@shared';
+import { AgmCoreModule } from '@agm/core';
 
 import { BrandProfileComponent } from './brand-profile.component';
 import { AboutUsComponent } from './about-us/about-us.component';
@@ -26,6 +27,6 @@ import { UploaderComponent } from './components/uploader/uploader.component';
         BrandProfileFooterComponent,
         UploaderComponent,
     ],
-    imports: [CommonModule, BrandProfileRoutingModule, SharedModule],
+    imports: [CommonModule, BrandProfileRoutingModule, SharedModule, AgmCoreModule],
 })
 export class BrandProfileModule {}

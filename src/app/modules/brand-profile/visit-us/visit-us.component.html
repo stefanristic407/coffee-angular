@@ -49,105 +49,137 @@
                             Address<span class="star">*</span>
                         </h4>
 
-                        <div class="row gutter-16 gutter-lg-24">
-                            <div class="col-12 col-md-6 sewn-form-field">
-                                <label>Country<span class="star">*</span></label>
-                                <p-dropdown
-                                    [options]="COUNTRY_LIST"
-                                    optionLabel="name"
-                                    optionValue="isoCode"
-                                    formControlName="country"
-                                    (onChange)="changeCountry()"
-                                    placeholder="{{ globals.languageJson?.select_country }}"
-                                ></p-dropdown>
-                                <small *ngIf="infoForm.controls.country.errors?.required" class="p-error">
-                                    Please select your country
-                                </small>
-                            </div>
-                            <div class="col-12 col-md-6 sewn-form-field">
-                                <label>State</label>
-                                <p-dropdown
-                                    [options]="cities"
-                                    formControlName="state"
-                                    placeholder="{{ globals.languageJson?.select_state }}"
-                                ></p-dropdown>
-                            </div>
-                            <div class="col-12 col-md-6 sewn-form-field">
-                                <label>{{ globals.languageJson?.address }}<span class="star">*</span></label>
-                                <input
-                                    type="text"
-                                    placeholder="Please enter your e-mail address"
-                                    formControlName="address1"
-                                    pInputText
-                                    placeholder="Line 1"
-                                />
-                                <small *ngIf="infoForm.controls.address1.errors?.required" class="p-error">
-                                    Please enter address
-                                </small>
-                            </div>
-                            <div class="col-12 col-md-6 sewn-form-field">
-                                <label>{{ globals.languageJson?.address }}</label>
-                                <input type="text" placeholder="Line 2" formControlName="address2" pInputText />
-                            </div>
-                            <div class="col-12 col-md-3 sewn-form-field">
-                                <label>City<span class="star">*</span></label>
-                                <input
-                                    type="text"
-                                    placeholder="{{ globals.languageJson?.enter_city }}"
-                                    formControlName="city"
-                                    pInputText
-                                />
-                                <small *ngIf="infoForm.controls.city.errors?.required" class="p-error">
-                                    Please enter city
-                                </small>
-                            </div>
-                            <div class="col-12 col-md-3 sewn-form-field">
-                                <label>{{ globals.languageJson?.zipcode }}<span class="star">*</span></label>
-                                <input
-                                    type="text"
-                                    placeholder="{{ globals.languageJson?.zipcode }}"
-                                    formControlName="zip_code"
-                                    pInputText
-                                />
-                                <small *ngIf="infoForm.controls.zip_code.errors?.required" class="p-error">
-                                    Please enter zipcode
-                                </small>
-                            </div>
-                        </div>
+                        <form [formGroup]="profileForm" novalidate>
+                            <div class="row gutter-16 gutter-lg-24">
+                                <div class="col-12 col-md-6 sewn-form-field">
+                                    <label>Country<span class="star">*</span></label>
+                                    <p-dropdown
+                                        [options]="COUNTRY_LIST"
+                                        optionLabel="name"
+                                        optionValue="isoCode"
+                                        formControlName="country"
+                                        (onChange)="changeCountry()"
+                                        placeholder="{{ 'select_country' | translate }}"
+                                    ></p-dropdown>
+                                    <small *ngIf="profileForm.controls.country.errors?.required" class="p-error">
+                                        Please select your country
+                                    </small>
+                                </div>
+                                <div class="col-12 col-md-6 sewn-form-field">
+                                    <label>State</label>
+                                    <p-dropdown
+                                        [options]="cities"
+                                        formControlName="state"
+                                        placeholder="{{ 'select_state' | translate }}"
+                                    ></p-dropdown>
+                                </div>
+                                <div class="col-12 col-md-6 sewn-form-field">
+                                    <label>{{ 'address' | translate }}<span class="star">*</span></label>
+                                    <input
+                                        type="text"
+                                        placeholder="Please enter your e-mail address"
+                                        formControlName="address_line1"
+                                        pInputText
+                                        placeholder="Line 1"
+                                    />
+                                    <small *ngIf="profileForm.controls.address_line1.errors?.required" class="p-error">
+                                        Please enter address
+                                    </small>
+                                </div>
+                                <div class="col-12 col-md-6 sewn-form-field">
+                                    <label>{{ 'address' | translate }}</label>
+                                    <input
+                                        type="text"
+                                        placeholder="Line 2"
+                                        formControlName="address_line2"
+                                        pInputText
+                                    />
+                                </div>
+                                <div class="col-12 col-md-3 sewn-form-field">
+                                    <label>City<span class="star">*</span></label>
+                                    <input
+                                        type="text"
+                                        placeholder="{{ 'enter_city' | translate }}"
+                                        formControlName="city"
+                                        pInputText
+                                    />
+                                    <small *ngIf="profileForm.controls.city.errors?.required" class="p-error">
+                                        Please enter city
+                                    </small>
+                                </div>
+                                <div class="col-12 col-md-3 sewn-form-field">
+                                    <label> {{ 'zipcode' | translate }}<span class="star">*</span> </label>
+                                    <input
+                                        type="text"
+                                        placeholder="{{ 'zipcode' | translate }}"
+                                        formControlName="zipcode"
+                                        pInputText
+                                    />
+                                    <small *ngIf="profileForm.controls.zipcode.errors?.required" class="p-error">
+                                        Please enter zipcode
+                                    </small>
+                                </div>
 
-                        <div class="divider mb-4"></div>
-                        <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-3 mb-md-4">
-                            Contact details<span class="star">*</span>
-                        </h4>
+                                <div class="col-12 sewn-form-field">
+                                    <label>
+                                        {{ 'estate_location' | translate }}<span class="star">*</span>
+                                        <span class="pull-right d-flex align-items-center">
+                                            <img class="mr-1" src="assets/images/locate-icon.svg" alt="locate" />
+                                            <span class="brown-cta" (click)="getCurrentLocation()">{{
+                                                'locate_me' | translate
+                                            }}</span>
+                                        </span>
+                                    </label>
 
-                        <div class="row gutter-16 gutter-lg-24">
-                            <div class="col-12 col-md-6 sewn-form-field">
-                                <label>Email Address<span class="star">*</span></label>
-                                <input
-                                    type="text"
-                                    placeholder="Roastery email"
-                                    formControlName="email"
-                                    pInputText
-                                    placeholder="Line 1"
-                                />
-                                <small *ngIf="infoForm.controls.email.errors?.required" class="p-error">
-                                    Please enter email
-                                </small>
-                                <small *ngIf="infoForm.controls.email.errors?.email" class="p-error">
-                                    Please enter valid email
-                                </small>
+                                    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                                        <agm-marker
+                                            [latitude]="latitude"
+                                            [longitude]="longitude"
+                                            [markerDraggable]="true"
+                                            (dragEnd)="markerDragEnd($event)"
+                                        ></agm-marker>
+                                    </agm-map>
+
+                                    <div class="fnt-600 text-clr588 mt-2">
+                                        {{ 'adjust_pin_estate_location' | translate }}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-12 col-md-6 sewn-form-field">
-                                <label
-                                    >Phone Number<span class="star">*</span>
-                                    <span class="flag-icon flag-icon-gr"></span>
-                                </label>
-                                <app-phone-number formControlName="phone"></app-phone-number>
-                                <small *ngIf="infoForm.controls.phone.invalid" class="p-error d-block">
-                                    Please enter valid phone number
-                                </small>
+
+                            <div class="divider mb-4"></div>
+                            <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-3 mb-md-4">
+                                Contact details<span class="star">*</span>
+                            </h4>
+
+                            <div class="row gutter-16 gutter-lg-24">
+                                <div class="col-12 col-md-6 sewn-form-field">
+                                    <label>Email Address<span class="star">*</span></label>
+                                    <input
+                                        type="text"
+                                        placeholder="Roastery email"
+                                        formControlName="email"
+                                        pInputText
+                                        placeholder="Line 1"
+                                    />
+                                    <small *ngIf="profileForm.controls.email.errors?.required" class="p-error">
+                                        Please enter email
+                                    </small>
+                                    <small *ngIf="profileForm.controls.email.errors?.email" class="p-error">
+                                        Please enter valid email
+                                    </small>
+                                </div>
+                                <div class="col-12 col-md-6 sewn-form-field">
+                                    <label
+                                        >Phone Number<span class="star">*</span>
+                                        <span class="flag-icon flag-icon-gr"></span>
+                                    </label>
+                                    <app-phone-number formControlName="phone"></app-phone-number>
+                                    <small *ngIf="profileForm.controls.phone.invalid" class="p-error d-block">
+                                        Please enter valid phone number
+                                    </small>
+                                </div>
                             </div>
-                        </div>
+                        </form>
 
                         <div class="divider mb-4"></div>
                         <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-3 mb-md-4">

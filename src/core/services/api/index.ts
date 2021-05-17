@@ -4,6 +4,7 @@ export * from './api.service';
 export * from './availability-request.service';
 export * from './availability.service';
 export * from './brand-profile.service';
+export * from './brand.service';
 export * from './coffee-lab.service';
 export * from './coffee-story.service';
 export * from './dashboard.service';

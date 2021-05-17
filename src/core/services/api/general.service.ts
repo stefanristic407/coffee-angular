@@ -18,4 +18,9 @@ export class GeneralService extends ApiService {
     getProfile() {
         return this.postWithOrg(this.orgPostUrl, `profile`, 'GET');
     }
+
+    // Edit organization profile
+    updateProfile(body: any) {
+        return this.postWithOrg(this.orgPostUrl, `profile`, 'PUT', body);
+    }
 }

@@ -5,13 +5,12 @@ import { Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
-import { maxWordCountValidator } from '@utils';
-import { GlobalsService } from '@services';
-import { RoasterserviceService } from '@services';
-import { UserserviceService } from '@services';
-import { ConfirmComponent } from '@shared';
 import { COUNTRY_LIST } from '@constants';
+import { maxWordCountValidator } from '@utils';
+import { BrandService, GeneralService, GlobalsService, UserserviceService } from '@services';
+import { ConfirmComponent } from '@shared';
 import * as _ from 'underscore';
+
 @Component({
     selector: 'app-visit-us',
     templateUrl: './visit-us.component.html',
@@ -23,12 +22,17 @@ export class VisitUsComponent implements OnInit {
     roasterSlug: string;
     breadItems: any[];
     infoForm: FormGroup;
+    profileForm: FormGroup;
     cities: any[] = [];
     questionForm: FormGroup;
     editQuestion = false;
     selQuestion = null;
 
     savedFaqArray: any[] = [];
+
+    latitude: number;
+    longitude: number;
+    zoom = 13;
 
     constructor(
         public dialogSrv: DialogService,
@@ -38,7 +42,8 @@ export class VisitUsComponent implements OnInit {
         private toastrService: ToastrService,
         private cookieService: CookieService,
         private userService: UserserviceService,
-        private roasterService: RoasterserviceService,
+        public generalService: GeneralService,
+        private brandService: BrandService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.roasterSlug = this.cookieService.get('roasterSlug');
@@ -52,18 +57,21 @@ export class VisitUsComponent implements OnInit {
         this.infoForm = this.fb.group({
             banner_file: [null, Validators.compose([Validators.required])],
             banner_title: ['', Validators.compose([Validators.required, maxWordCountValidator(15)])],
-            country: ['', Validators.compose([Validators.required])],
-            state: ['', Validators.compose([Validators.required])],
-            address1: ['', Validators.compose([Validators.required])],
-            address2: [''],
-            city: ['', Validators.compose([Validators.required])],
-            zip_code: ['', Validators.compose([Validators.required])],
-            email: ['', Validators.compose([Validators.required, Validators.email])],
-            phone: ['', Validators.compose([Validators.required])],
             store_open_days: ['', Validators.compose([Validators.required])],
             storeTime: [null],
         });
+        this.profileForm = this.fb.group({
+            country: ['', Validators.compose([Validators.required])],
+            state: ['', Validators.compose([Validators.required])],
+            address_line1: ['', Validators.compose([Validators.required])],
+            address_line2: [''],
+            city: ['', Validators.compose([Validators.required])],
+            zipcode: ['', Validators.compose([Validators.required])],
+            email: ['', Validators.compose([Validators.required, Validators.email])],
+            phone: ['', Validators.compose([Validators.required])],
+        });
         this.getVisitDetails();
+        this.getProfile();
         this.getFAQList();
     }
 
@@ -72,7 +80,6 @@ export class VisitUsComponent implements OnInit {
             if (res.success) {
                 this.infoForm.patchValue(res.result);
                 this.infoForm.get('storeTime').setValue([res.result.store_open_time, res.result.store_close_time]);
-                this.changeCountry();
                 if (res.result.banner_file) {
                     this.infoForm.controls.banner_file.setValue({
                         id: res.result.banner_file,
@@ -83,8 +90,18 @@ export class VisitUsComponent implements OnInit {
         });
     }
 
+    getProfile() {
+        this.generalService.getProfile().subscribe((res: any) => {
+            console.log('Profile data:', res.result);
+            this.profileForm.patchValue(res.result);
+            this.latitude = res.result.latitude;
+            this.longitude = res.result.longitude;
+            this.changeCountry();
+        });
+    }
+
     savePageData() {
-        if (this.infoForm.valid) {
+        if (this.infoForm.valid && this.profileForm.valid) {
             const postData = {
                 ...this.infoForm.value,
                 banner_file: this.infoForm.value.banner_file.id,
@@ -92,23 +109,52 @@ export class VisitUsComponent implements OnInit {
                 store_close_time: this.infoForm.value.storeTime[1],
             };
             delete postData.storeTime;
-            this.userService.updateHomeDetails(this.roasterId, postData, 'visit-us').subscribe((res: any) => {
-                if (res.success) {
+            const promises = [];
+            promises.push(
+                new Promise((resolve, reject) =>
+                    this.brandService.updatePageDetails('visit-us', postData).subscribe((res: any) => {
+                        if (res.success) {
+                            resolve(res.result);
+                        } else {
+                            reject();
+                        }
+                    }),
+                ),
+            );
+            const profileData = {
+                ...this.profileForm.value,
+                latitude: this.latitude,
+                longitude: this.longitude,
+            };
+            promises.push(
+                new Promise((resolve, reject) =>
+                    this.generalService.updateProfile(profileData).subscribe((res: any) => {
+                        if (res.success) {
+                            resolve(res.result);
+                        } else {
+                            reject();
+                        }
+                    }),
+                ),
+            );
+
+            Promise.all(promises)
+                .then((result) => {
                     this.toastrService.success('Visit page Details updated successfully');
                     this.router.navigate(['/brand-profile']);
-                } else {
+                })
+                .catch((error) => {
                     this.toastrService.error('Error while updating details');
-                }
-            });
+                });
         } else {
             this.infoForm.markAllAsTouched();
         }
     }
 
     changeCountry() {
-        if (this.infoForm.value.country) {
+        if (this.profileForm.value.country) {
             this.cities = [];
-            this.globals.getCountry(this.infoForm.value.country).cities.forEach((element) => {
+            this.globals.getCountry(this.profileForm.value.country).cities.forEach((element) => {
                 this.cities.push({ label: element, value: element });
             });
         }
@@ -225,5 +271,26 @@ export class VisitUsComponent implements OnInit {
                 this.toastrService.error('Something went wrong while update the FAQ order');
             }
         });
+    }
+
+    getCurrentLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    console.log('Current position:', position.coords);
+                    this.latitude = position.coords.latitude;
+                    this.longitude = position.coords.longitude;
+                },
+                (err) => {
+                    console.log('error', err);
+                },
+                { timeout: Infinity },
+            );
+        }
+    }
+
+    markerDragEnd(event) {
+        this.latitude = event.coords.lat;
+        this.longitude = event.coords.lng;
     }
 }

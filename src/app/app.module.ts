@@ -76,7 +76,7 @@ export function StartupServiceFactory(startupService: StartupService) {
         TypeaheadModule.forRoot(),
         SharedModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyAacYaKLrRdDZDzrQ5QAdNFMj9nQ2PgweU',
+            apiKey: 'AIzaSyBTMSQVrk0O2l5GDQGWqI5bOMBRY_RIBq0',
         }),
     ],
     providers: [
