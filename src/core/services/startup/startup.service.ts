@@ -18,7 +18,7 @@ export class StartupService {
 
     load(): Promise<any> {
         return new Promise((resolve) => {
-            zip(this.httpClient.get(`${environment.apiURL}/translations/${this.i18n.currentLang}/estate`))
+            zip(this.httpClient.get(`${environment.apiURL}/translations/${this.i18n.currentLang}/roaster`))
                 .pipe(
                     catchError((res) => {
                         console.warn(`StartupService.load: Network request failed`, res);
