@@ -30,7 +30,8 @@ export class StartupService {
                     }),
                 )
                 .subscribe(
-                    ([langData]) => {
+                    ([commonLangData, portalLangData]) => {
+                        const langData = { ...commonLangData, ...portalLangData };
                         this.translate.setTranslation(this.i18n.currentLang, langData);
                         this.globals.languageJson = langData;
                     },
