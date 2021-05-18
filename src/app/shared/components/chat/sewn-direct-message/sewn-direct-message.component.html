@@ -140,6 +140,7 @@
                     <img
                         class="dm-udv-profile-image"
                         [src]="selectedUser.computed_profile_direct_url"
+                        [appImageFallback]="defaultProfileImage"
                         alt="profile pic"
                     />
                 </div>
@@ -512,7 +513,12 @@
 <ng-template #blockListTL>
     <div class="dm-report-list-item" *ngFor="let blockedUser of myBlockList">
         <div class="dm-rli-dp-block dm-rli-extra-margin">
-            <img class="dm-rli-dp-image" [src]="blockedUser.computed_profile_direct_url" alt="Profile Picture" />
+            <img
+                class="dm-rli-dp-image"
+                [src]="blockedUser.computed_profile_direct_url"
+                [appImageFallback]="defaultProfileImage"
+                alt="Profile Picture"
+            />
         </div>
         <div class="dm-rli-content-block">
             <div class="dm-rli-content-row">
@@ -539,7 +545,12 @@
 <ng-template #findUserListTL>
     <div class="dm-find-list-item" *ngFor="let user of filteredUsersList" (click)="openThreadWithUser(user)">
         <div class="dm-fli-dp-block dm-fli-extra-margin">
-            <img class="dm-fli-dp-image" [src]="user.computed_profile_direct_url" alt="Profile Picture" />
+            <img
+                class="dm-fli-dp-image"
+                [src]="user.computed_profile_direct_url"
+                [appImageFallback]="defaultProfileImage"
+                alt="Profile Picture"
+            />
         </div>
         <div class="dm-fli-content-block">
             <div class="dm-fli-content-row">
@@ -558,7 +569,12 @@
 <ng-template #recentUserListTL>
     <div class="dm-find-list-item" *ngFor="let user of recentUserList" (click)="openThreadWithUser(user)">
         <div class="dm-fli-dp-block dm-fli-extra-margin">
-            <img class="dm-fli-dp-image" [src]="user.computed_profile_direct_url" alt="Profile Picture" />
+            <img
+                class="dm-fli-dp-image"
+                [src]="user.computed_profile_direct_url"
+                [appImageFallback]="defaultProfileImage"
+                alt="Profile Picture"
+            />
         </div>
         <div class="dm-fli-content-block">
             <div class="dm-fli-content-row">
@@ -587,6 +603,7 @@
                 <img
                     class="dm-thi-dp-image"
                     [src]="thread.computed_targetedUser.computed_profile_direct_url"
+                    [appImageFallback]="defaultProfileImage"
                     alt="Profile Picture"
                 />
                 <span

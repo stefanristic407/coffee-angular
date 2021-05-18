@@ -20,7 +20,7 @@ export class UserDetailComponent implements OnInit, OnChanges {
     orgName: any;
     data: any;
     name: any;
-
+    public defaultProfileImage = 'assets/images/profile.svg';
     constructor(
         public globalsService: GlobalsService,
         private userService: UserService,

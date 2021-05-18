@@ -9,6 +9,7 @@
     <img
         *ngIf="data?.profile_image_thumb_url || data?.profile_image_url || imageUrl"
         [src]="imageUrl || data?.profile_image_thumb_url || data?.profile_image_url"
+        [appImageFallback]="defaultProfileImage"
         [alt]="name && name.length ? name.slice(0, 1) : 'AV'"
         [style.borderRadius]="shape === 'rectangle' ? 'unset' : '50%'"
     />
@@ -34,6 +35,7 @@
                         data?.profile_image_url ||
                         'assets/images/default-avatar.png'
                     "
+                    [appImageFallback]="defaultProfileImage"
                 />
                 <div class="pl-4 w-100 d-flex justify-content-between">
                     <div>
