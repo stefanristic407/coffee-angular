@@ -7,7 +7,7 @@ import { FilterComponent } from '../filter/filter.component';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { extend } from 'hammerjs';
 import { DestroyableComponent } from '@base-components';
-import { MONTH_LIST } from '@constants';
+import { GRADE_ITEMS, MONTH_LIST } from '@constants';
 
 @Component({
     selector: 'app-sourcing',
@@ -24,12 +24,7 @@ export class SourcingComponent extends DestroyableComponent implements OnInit, A
         { label: 'asdasd', value: 'asdasd' },
         { label: 'Arabsdsica', value: 'Araasdbica' },
     ];
-    gradeItems: any[] = [
-        { label: '81.0 - 83.0', value: ['81.0', '83.0'] },
-        { label: '84.0 - 86.0', value: ['84.0', '86.0'] },
-        { label: '87.0 - 89.0', value: ['87.0', '89.0'] },
-        { label: '90+', value: ['90', '100'] },
-    ];
+    gradeItems = GRADE_ITEMS;
     cropItems: any[] = MONTH_LIST;
     availableItems: any[] = [
         { label: 'Yes', value: 1 },
