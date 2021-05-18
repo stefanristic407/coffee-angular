@@ -12,7 +12,7 @@ export const menuItems = [
     new Menu(32, 'menu_micro_roaster_orders', '/orders/mr', null, null, null, false, 3, null),
     new Menu(33, 'menu_outtake_orders', '/outtake-orders', null, null, null, false, 3, null),
 
-    new Menu(4, 'menu_inventory', null, null, null, null, true, 0, 'coffee-management|coffee-list|products-management'),
+    new Menu(4, 'menu_inventory', null, null, null, null, true, 0, 'roasting-management'),
     new Menu(
         41,
         'menu_gc_inventory',
