@@ -44,25 +44,25 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
     copiedCoverImageUrl: any;
     preparationMethods: any[] = [
         {
-            label: 'video',
+            label: 'Video Recipe',
             value: 'video',
         },
         {
-            label: 'steps',
+            label: 'Add step by step introduction & video',
             value: 'steps',
         },
     ];
     expertiseArray: any[] = [
         {
-            label: 'easy',
+            label: 'Easy',
             value: 'easy',
         },
         {
-            label: 'intermediate',
+            label: 'Intermediate',
             value: 'intermediate',
         },
         {
-            label: 'hard',
+            label: 'Hard',
             value: 'hard',
         },
     ];
@@ -242,7 +242,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
             cooking_time_unit: ['mins'],
             preparation_time: [null, Validators.compose([Validators.required])],
             cooking_time: [null, Validators.compose([Validators.required])],
-            preparation_method: [null, Validators.compose([Validators.required])],
+            preparation_method: ['steps', Validators.compose([Validators.required])],
             cover_image_id: [null, Validators.compose([Validators.required])],
             description: ['', Validators.compose([Validators.required])],
             ingredients: this.fb.array([this.createCoffeeIngredient()]),
@@ -268,6 +268,12 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         const fileList: FileList = this.fileEvent;
         if (fileList.length > 0) {
             const file: File = fileList[0];
+            const fsize = file.size;
+            const fileSize = Math.round(fsize / 1024);
+            if (fileSize >= 2048) {
+                this.toaster.error('File size exceeds 2mb');
+                return;
+            }
             this.coffeeLabService.uploadFile(file, 'recipe-post').subscribe((res: any) => {
                 console.log('image upload result---', res);
                 if (res.success === true) {
@@ -335,7 +341,6 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     onSave(status?: string): void {
-        this.recipeForm.controls.description.setValue(this.description);
         console.log('save----', this.recipeForm.value);
         if (status === 'draft') {
             if (!this.recipeForm.value.name) {
