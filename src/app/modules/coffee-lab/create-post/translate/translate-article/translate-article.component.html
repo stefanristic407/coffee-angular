@@ -26,6 +26,7 @@
                             <img [src]="coverImageUrl" *ngIf="coverImageUrl" class="cover-image" />
                             <label class="cursor-pointer">
                                 <input
+                                    #coverFileInput
                                     type="file"
                                     accept="image/png, image/jpeg"
                                     style="display: none"
@@ -41,6 +42,28 @@
                                     >
                                 </div>
                             </label>
+                            <img
+                                class="mv-change-icon d-md-none cursor-pointer"
+                                *ngIf="coverImageUrl"
+                                (click)="coverFileInput.click()"
+                                src="assets/images/camera.svg"
+                            />
+                            <div class="image-btn-group d-flex" *ngIf="coverImageUrl">
+                                <button
+                                    class="btn-raised d-none d-md-flex mr-2"
+                                    (click)="coverFileInput.click()"
+                                    pButton
+                                    label="{{ 'replace_image' | translate }}"
+                                ></button>
+                                <button
+                                    pButton
+                                    icon="pi pi-trash"
+                                    iconPos="left"
+                                    class="fnt-14 btn-trans-nb d-none d-md-flex"
+                                    (click)="deleteCoverImage(coverFileInput)"
+                                    label="{{ 'delete' | translate }}"
+                                ></button>
+                            </div>
                             <div
                                 class="bg-f8 br-4 py-2 px-3 d-flex align-items-center justify-content-center copy-paste-button"
                                 (click)="pasteCoverImage()"
