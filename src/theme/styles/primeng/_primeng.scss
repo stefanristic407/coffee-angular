@@ -144,8 +144,11 @@
                 border: none;
                 top: 4px;
                 right: 4px;
+                height: 42px;
                 border-radius: 4px;
                 margin: 0;
+                display: flex;
+                align-items: center;
                 .p-inputtext {
                     padding: 0.75rem 0 0.75rem 0.75rem;
                     @media (max-width: 767px) {

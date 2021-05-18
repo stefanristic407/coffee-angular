@@ -123,6 +123,9 @@
     border-radius: 8px;
     background-color: #faf8f4;
     padding: 2rem;
+    @media (max-width: 767px) {
+        margin: 0 -8px;
+    }
 }
 
 .recent-time {
