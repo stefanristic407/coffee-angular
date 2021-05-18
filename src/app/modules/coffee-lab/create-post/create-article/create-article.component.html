@@ -5,12 +5,13 @@
                 <img [src]="coverImageUrl" *ngIf="coverImageUrl" class="cover-image" />
                 <label class="cursor-pointer">
                     <input
+                        #coverFileInput
                         type="file"
                         accept="image/png, image/jpeg"
-                        style="display: none"
+                        class="d-none"
                         (change)="onFileChange($event)"
                     />
-                    <div class="d-flex flex-column align-items-center">
+                    <div class="d-flex flex-column align-items-center" *ngIf="!coverImageUrl">
                         <img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25" />
                         <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25"
                             >{{ 'add_cover_image' | translate }}<span class="star">*</span></span
@@ -20,6 +21,28 @@
                         >
                     </div>
                 </label>
+                <img
+                    class="mv-change-icon d-md-none cursor-pointer"
+                    *ngIf="coverImageUrl"
+                    (click)="coverFileInput.click()"
+                    src="assets/images/camera.svg"
+                />
+                <div class="image-btn-group d-flex" *ngIf="coverImageUrl">
+                    <button
+                        class="btn-raised d-none d-md-flex mr-2"
+                        (click)="coverFileInput.click()"
+                        pButton
+                        label="{{ 'replace_image' | translate }}"
+                    ></button>
+                    <button
+                        pButton
+                        icon="pi pi-trash"
+                        iconPos="left"
+                        class="fnt-14 btn-trans-nb d-none d-md-flex"
+                        (click)="deleteCoverImage(coverFileInput)"
+                        label="{{ 'delete' | translate }}"
+                    ></button>
+                </div>
             </div>
         </div>
         <div class="col-12 col-md-6 sewn-form-field p-0">
