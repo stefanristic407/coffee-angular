@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '@env/environment';
 import { TranslateService } from '@ngx-translate/core';
 import { zip } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -17,7 +18,7 @@ export class StartupService {
 
     load(): Promise<any> {
         return new Promise((resolve) => {
-            zip(this.httpClient.get(`https://fed-api.sewnstaging.com/translations/${this.i18n.currentLang}/roaster`))
+            zip(this.httpClient.get(`${environment.apiURL}/translations/${this.i18n.currentLang}/roaster`))
                 .pipe(
                     catchError((res) => {
                         console.warn(`StartupService.load: Network request failed`, res);
