@@ -35,6 +35,7 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
         { label: 'Inventory', routerLink: '/' },
         { label: 'Roasted coffee batchs' },
     ];
+    isLoadingRoastedBatches = false;
 
     constructor(
         public router: Router,
@@ -140,8 +141,10 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
         postData.sort_by = 'created_at';
         postData.sort_order = 'desc';
         this.tableValue = [];
+        this.isLoadingRoastedBatches = true;
         this.roasterService.getRoasterCoffeeBatchs(postData).subscribe(
             (data: any) => {
+                this.isLoadingRoastedBatches = false;
                 if (data.success) {
                     this.tableValue = data.result;
                 } else {
