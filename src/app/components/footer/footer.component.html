@@ -10,7 +10,7 @@
                     <a class="footer-link" [href]="env.termsUserUrl" target="_blank">
                         {{ 'terms_and_condition_user' | translate }}
                     </a>
-                    <a class="footer-link" [href]="env.termsEntityUrl" target="_blank">
+                    <a *ngIf="authService.isAdmin" class="footer-link" [href]="env.termsEntityUrl" target="_blank">
                         {{ 'terms_and_condition_entity' | translate }}
                     </a>
                     <a [href]="env.privacyPolicyUrl" target="_blank">
