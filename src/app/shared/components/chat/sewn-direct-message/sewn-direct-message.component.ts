@@ -75,7 +75,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     private blockThreadReferance: ThreadListItem | null = null;
     private clearThreadReferance: ThreadListItem | null = null;
     private deleteThreadReferance: ThreadListItem | null = null;
-
+    public defaultProfileImage = 'assets/images/profile.svg';
     public chatListScrollEventSubject = new Subject<Event>();
 
     public loader = {

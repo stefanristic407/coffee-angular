@@ -12,6 +12,9 @@ import { Subject, Subscription } from 'rxjs';
     styleUrls: ['./coffee-recipes-view.component.scss'],
 })
 export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
+    rows = 3;
+    pageNumber = 1;
+    totalRecords = 0;
     destroy$: Subject<boolean> = new Subject<boolean>();
     isAvailableTranslation?: string;
     organizationId: any;
@@ -90,6 +93,8 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
             sort_by: 'created_at',
             sort_order: this.selectedOrder === 'latest' ? 'desc' : 'asc',
             level: this.label?.toLowerCase(),
+            page: this.pageNumber,
+            per_page: this.rows,
         };
         if (this.pageDesc === 'saved-posts') {
             this.coffeeLabService.getSavedForumList('recipe', params).subscribe((res) => {
@@ -123,6 +128,8 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
                     console.log('response----->>>>>', res);
                     if (res.result) {
                         this.coffeeRecipeData = res.result.filter((item) => item.publish === true);
+                        this.totalRecords = res.result_info.total_count;
+                        this.rows = res.result_info.per_page;
                         this.coffeeRecipeData.map((item) => {
                             item.description = this.getJustText(item.description);
                             return item;
@@ -145,6 +152,14 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
             image.parentNode.removeChild(image);
         });
         return contentElement.innerHTML;
+    }
+
+    getData(event) {
+        if (event.page > -1) {
+            const currentPage = event.first / this.rows;
+            this.pageNumber = currentPage + 1;
+            this.getCoffeeRecipesData();
+        }
     }
 
     ngOnDestroy(): void {
