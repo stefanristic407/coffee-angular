@@ -606,13 +606,28 @@ export class ProductDetailsComponent implements OnInit {
     }
     GrindVariantsDetails(productID, isNew) {
         const promises: any[] = [];
+        let includeDefault = false;
+        for (const variantComponet of this.variantComponent) {
+            if (includeDefault) {
+                break;
+            }
+            const variantForm = variantComponet.weightForm.value;
+            const getWeightArray = variantForm.weights;
+            if (getWeightArray.find((item) => item.is_default_product)) {
+                includeDefault = true;
+                break;
+            }
+        }
         this.variantComponent.forEach((child, childIndex) => {
             const variantForm = child.weightForm.value;
             const getWeightArray = variantForm.weights;
             const getVariantDetails = child.variantDetails.value;
             getWeightArray.forEach((weight, index) => {
                 const weightObj = Object.assign({}, weight);
-                weightObj.featured_image_id = weight.featured_image_id ? weight.featured_image_id : undefined;
+                if (!includeDefault && childIndex === 0 && index === 0) {
+                    weightObj.is_default_product = true;
+                }
+                weightObj.featured_image_id = weight.featured_image_id ?? undefined;
                 const productImagesArray = [];
                 if (weightObj && weightObj.product_images) {
                     weightObj.product_images.forEach((ele) => {

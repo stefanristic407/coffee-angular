@@ -17,3 +17,21 @@
         height: 120px;
     }
 }
+
+.image-btn-group {
+    position: absolute;
+    right: 24px;
+    bottom: 24px;
+}
+.btn-trans-nb {
+    background-color: transparent;
+    border: none;
+    color: #ffffff;
+    padding: 11px 24px;
+}
+
+.mv-change-icon {
+    position: absolute;
+    right: 12px;
+    top: 7px;
+}

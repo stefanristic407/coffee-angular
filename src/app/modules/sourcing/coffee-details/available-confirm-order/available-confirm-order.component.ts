@@ -12,6 +12,7 @@ import { ConfirmComponent } from '@shared';
 import { COUNTRY_LIST } from '@constants';
 import { OrganizationType } from '@enums';
 import { ResizeableComponent } from '@base-components';
+import { environment } from '@env/environment';
 
 @Component({
     selector: 'app-available-confirm-order',
@@ -21,6 +22,7 @@ import { ResizeableComponent } from '@base-components';
 export class AvailableConfirmOrderComponent extends ResizeableComponent implements OnInit {
     public readonly COUNTRY_LIST = COUNTRY_LIST;
     public readonly OrganizationType = OrganizationType;
+    readonly env = environment;
     breadItems: any[];
     serviceItems: any[] = [
         { label: 'Import & Delivery service', value: true },

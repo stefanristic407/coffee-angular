@@ -150,4 +150,12 @@ export class TranslateArticleComponent implements OnInit {
         this.coverImageId = this.copiedCoverImageId;
         this.isCoverImageUploaded = true;
     }
+
+    deleteCoverImage(element: any) {
+        this.coverImage = null;
+        this.coverImageUrl = null;
+        this.isCoverImageUploaded = false;
+        this.coverImageId = null;
+        element.value = '';
+    }
 }

@@ -142,6 +142,32 @@
 .p-calendar .p-button-icon {
     font-size: 20px;
 }
+
+.order-details-clr {
+    border-radius: 8px;
+    background-color: #faf8f4;
+    padding: 2rem;
+}
+
+.recent-time {
+    td {
+        padding: 1rem 1rem 1rem 1.5rem !important;
+        border: 1px solid #dddddd !important;
+    }
+    .recent-data-ans {
+        padding: 1rem 1.5rem 1rem 1.5rem !important;
+    }
+}
+
+@media (max-width: 1199px) and (min-width: 768px) {
+    .recent-time {
+        width: 100%;
+    }
+    .order-details-clr {
+        padding: 32px 16px;
+    }
+}
+
 @media (max-width: 767px) {
     .mobile-w {
         width: 70px;
@@ -160,7 +186,7 @@
         margin-top: 1rem;
     }
     .copy-link input {
-        width: 72% !important;
+        width: 64% !important;
 
         border-top-right-radius: 0px !important;
         border-bottom-right-radius: 0px !important;
@@ -193,10 +219,25 @@
         width: 42% !important;
         padding: 1rem 0.5rem;
     }
+    .recent-time td {
+        border: 0px solid #dddddd !important;
+    }
+    .recent-time tr {
+        border-bottom: 1px dashed $primary-border-color;
+    }
+    .recent-time tr:last-child {
+        border-bottom: none;
+    }
+    .order-details-clr {
+        padding: 12px;
+    }
+    .recent-time td {
+        padding: 1rem 0rem 1rem 0rem !important;
+    }
 }
 @media (min-width: 992px) {
     .copy-link button {
-        padding: 15px 40px;
+        padding: 15px 24px;
     }
     .copy-link input {
         padding: 14px;

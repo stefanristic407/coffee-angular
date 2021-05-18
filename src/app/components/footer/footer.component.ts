@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '@env/environment';
+import { AuthService } from '@services';
 
 @Component({
     selector: 'app-footer',
@@ -7,8 +8,8 @@ import { environment } from '@env/environment';
     styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent implements OnInit {
-    readonly environment = environment;
-    constructor() {}
+    readonly env = environment;
+    constructor(public authService: AuthService) {}
 
     ngOnInit(): void {}
 }
