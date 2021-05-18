@@ -126,6 +126,7 @@
                                     <div class="input-and-select gray">
                                         <p-inputNumber
                                             type="number"
+                                            [min]="0"
                                             formControlName="green_coffee_quantity"
                                         ></p-inputNumber>
                                         <p-dropdown
@@ -145,7 +146,7 @@
                                             *ngIf="batchForm.controls.green_coffee_quantity.errors?.min"
                                             class="p-error"
                                         >
-                                            Please enter quantity in range of roasted coffee
+                                            Please enter quantity above roasted coffee
                                         </small>
                                     </div>
                                 </div>
@@ -154,6 +155,7 @@
                                     <div class="input-and-select gray">
                                         <p-inputNumber
                                             type="number"
+                                            [min]="0"
                                             formControlName="roasting_profile_quantity"
                                         ></p-inputNumber>
                                         <p-dropdown
@@ -173,7 +175,7 @@
                                             *ngIf="batchForm.controls.roasting_profile_quantity.errors?.max"
                                             class="p-error"
                                         >
-                                            Please enter quantity above roasting coffee
+                                            Please enter quantity in range of roasting coffee
                                         </small>
                                     </div>
                                 </div>
@@ -399,7 +401,9 @@
                         <span class="list-que"> {{ 'remaining_quantity' | translate }} : </span>
                     </td>
                     <td class="recent-data-ans">
-                        <span class="list-ans"> {{ orderDetails.remaining_total_quantity }} {{ orderDetails.quantity_type }} </span>
+                        <span class="list-ans">
+                            {{ orderDetails.remaining_total_quantity }} {{ orderDetails.quantity_type }}
+                        </span>
                     </td>
                 </tr>
 

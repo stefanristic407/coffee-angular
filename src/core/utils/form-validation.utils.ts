@@ -21,11 +21,12 @@ export function maxValidator(limitKey: string) {
         return control.value &&
             control.parent &&
             control.parent.get(limitKey) &&
-            control.value <= (control.parent.get(limitKey)?.value || Number.POSITIVE_INFINITY)
-            ? null
-            : {
+            control.parent.get(limitKey).value + '' &&
+            control.value > control.parent.get(limitKey).value
+            ? {
                   max: true,
-              };
+              }
+            : null;
     };
 }
 
@@ -34,10 +35,11 @@ export function minValidator(limitKey: string) {
         return control.value &&
             control.parent &&
             control.parent.get(limitKey) &&
-            control.value >= (control.parent.get(limitKey)?.value || Number.POSITIVE_INFINITY)
-            ? null
-            : {
+            control.parent.get(limitKey).value + '' &&
+            control.value < control.parent.get(limitKey).value
+            ? {
                   min: true,
-              };
+              }
+            : null;
     };
 }
