@@ -38,6 +38,7 @@ import {
     ChatMessageType,
     MessageMetaTypes,
 } from '@enums';
+import { trigger, transition, animate, style } from '@angular/animations';
 
 const badwordsRegExp = require('badwords/regexp') as RegExp;
 
@@ -45,6 +46,12 @@ const badwordsRegExp = require('badwords/regexp') as RegExp;
     selector: 'app-sewn-direct-message',
     templateUrl: './sewn-direct-message.component.html',
     styleUrls: ['./sewn-direct-message.component.scss'],
+    animations: [
+        trigger('buttonFade', [
+            transition(':enter', [style({ opacity: 0 }), animate('500ms', style({ opacity: 1 }))]),
+            transition(':leave', [style({ opacity: 1 }), animate('500ms', style({ opacity: 0 }))]),
+        ]),
+    ],
 })
 export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewInit {
     private UPDATE_USER_STATUS_INTERVAL = 1000 * 45; // Update  last seen and online status on every 45 sec

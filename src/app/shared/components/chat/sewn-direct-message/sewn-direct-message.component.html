@@ -924,6 +924,7 @@
             <div class="dm-mb-action-row">
                 <ng-container *ngIf="enableEmoji">
                     <img
+                        [@buttonFade]
                         *ngIf="showMessageBoxPanel !== 'EMOJI'"
                         (click)="showMessageBoxPanel = 'EMOJI'"
                         class="dm-mb-action-button-img dm-action-button"
@@ -931,6 +932,7 @@
                         alt="Emoji"
                     />
                     <img
+                        [@buttonFade]
                         *ngIf="showMessageBoxPanel === 'EMOJI'"
                         (click)="showMessageBoxPanel = 'OFF'"
                         class="dm-mb-action-button-img dm-action-button"
@@ -939,6 +941,7 @@
                     />
                 </ng-container>
                 <img
+                    [@buttonFade]
                     *ngIf="showMessageBoxPanel !== 'STICKER'"
                     (click)="showMessageBoxPanel = 'STICKER'"
                     class="dm-mb-action-button-img dm-action-button"
@@ -946,6 +949,7 @@
                     alt="Emoji"
                 />
                 <img
+                    [@buttonFade]
                     *ngIf="showMessageBoxPanel === 'STICKER'"
                     (click)="showMessageBoxPanel = 'OFF'"
                     class="dm-mb-action-button-img dm-action-button"
