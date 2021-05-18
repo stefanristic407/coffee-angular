@@ -107,7 +107,7 @@
         </p-tabView>
         <div class="row mt-2 px-2 px-md-4">
             <div class="col-md-6 order-2 order-md-1">
-                <button routerLink="/coffee-lab/overview/article" class="btn-stroked px-4 w-mob-100">
+                <button [routerLink]="'/coffee-lab/articles/' + article?.slug" class="btn-stroked px-4 w-mob-100">
                     {{ 'cancel' | translate }}
                 </button>
             </div>

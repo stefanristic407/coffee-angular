@@ -48,7 +48,7 @@ export class ArticleDetailComponent implements OnInit {
             if (res.success) {
                 this.relatedData = res.result
                     .filter((item: any) => item.id !== this.idOrSlug && item.slug !== this.idOrSlug)
-                    .slice(0, 5);
+                    .slice(0, 4);
             }
         });
     }
