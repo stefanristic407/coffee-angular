@@ -21,25 +21,6 @@
                 />
             </div>
         </div>
-
-        <div *ngIf="isDisplayTip" class="p-4 bg-f8 br-4 mt-4 mt-lg-4">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <div class="fnt-18 fnt-muli font-weight-bold text-clr334">
-                    {{ 'we_have_made_a_few_updates_to_the_forum' | translate }}
-                </div>
-                <img
-                    (click)="isDisplayTip = false"
-                    src="assets/images/close.svg"
-                    class="cursor-pointer"
-                    alt="icon"
-                    width="24"
-                    height="24"
-                />
-            </div>
-            <div class="fnt-14 fnt-muli text-clr334 lh-15">
-                {{ 'now_you_can_create_posts_description' | translate }}
-            </div>
-        </div>
     </div>
     <div class="col-lg-4">
         <div class="custom-search qa-forum-search d-none d-lg-block">
@@ -55,10 +36,10 @@
     </div>
 </div>
 
-<div class="pt-4 pt-md-3 mt-lg-45">
+<div class="mt-3 mt-lg-45">
     <div class="row gutter-32">
         <div class="col-lg-8" [ngClass]="{ 'col-lg-8': viewMode === 'list', 'col-12': viewMode === 'grid' }">
-            <div class="d-flex justify-content-between align-items-center mb-4 mb-md-35 mb-lg-4">
+            <div class="d-flex justify-content-between align-items-end mb-4 mb-md-35 mb-lg-4">
                 <div class="fnt-24 fnt-muli text-clr334 font-weight-bold d-none d-md-block">
                     {{ 'q_slash_a_forum' | translate }}
                 </div>
@@ -78,7 +59,7 @@
                         [options]="filterOptions"
                         [(ngModel)]="filterBy"
                         (ngModelChange)="getQuestions()"
-                        styleClass="round-border"
+                        styleClass="round-border text-clr588"
                         optionLabel="label"
                         optionValue="value"
                     ></p-dropdown>
@@ -88,7 +69,7 @@
                         [options]="sortOptions"
                         [(ngModel)]="sortBy"
                         (ngModelChange)="getQuestions()"
-                        styleClass="no-border no-padding"
+                        styleClass="no-border no-padding text-clr588"
                         optionLabel="label"
                         optionValue="value"
                     ></p-dropdown>

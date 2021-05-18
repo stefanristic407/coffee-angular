@@ -40,6 +40,14 @@
                             }
                         }
                     }
+                    &:hover {
+                        img {
+                            display: none;
+                            &.active-icon {
+                                display: inline-block;
+                            }
+                        }
+                    }
                     @media (max-width: 767px) {
                         flex: 1;
                         border-top: solid 1px #d6d6d6;
