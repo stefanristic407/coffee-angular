@@ -147,4 +147,12 @@ export class CreateArticleComponent implements OnInit {
             });
         }
     }
+
+    deleteCoverImage(element: any) {
+        this.coverImage = null;
+        this.coverImageUrl = null;
+        this.isCoverImageUploaded = false;
+        this.coverImageId = null;
+        element.value = '';
+    }
 }
