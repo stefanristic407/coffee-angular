@@ -28,6 +28,7 @@ export class AddNewOrderComponent implements OnInit {
     preCleaned: any = [];
     addOrdersForm: FormGroup;
     weightTypeArray = [];
+    rating: any;
     orderDetails: any;
     outtakeOrderId: any;
     coffeeExperienceLink: any;
@@ -111,6 +112,7 @@ export class AddNewOrderComponent implements OnInit {
             .getViewOrderDetails(this.roasterId, this.addOrdersForm.get('order_id').value)
             .subscribe((res) => {
                 this.orderDetails = res.result;
+                this.getRatingData(this.orderDetails.estate_id);
                 this.remainingTotalQuantity = this.orderDetails.remaining_total_quantity;
             });
     }
@@ -151,6 +153,16 @@ export class AddNewOrderComponent implements OnInit {
         this.userService.getOuttakeCoffeeStory(this.roasterId, this.outtakeOrderId).subscribe((res: any) => {
             if (res.success) {
                 this.coffeeExperienceLink = res.result;
+            }
+        });
+    }
+
+    getRatingData(value: any) {
+        this.userService.getAvailableEstateList(this.roasterId, value).subscribe((data) => {
+            if (data.success) {
+                this.rating = data.result.rating;
+            } else {
+                this.rating = 0.0;
             }
         });
     }
