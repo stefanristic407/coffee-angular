@@ -18,4 +18,10 @@ export class AuthService {
     }
 
     constructor(private cookieService: CookieService) {}
+
+    get isAdmin(): boolean {
+        return (
+            this.currentUser && this.currentOrganization && this.currentUser.id === this.currentOrganization.admin_id
+        );
+    }
 }

@@ -45,18 +45,8 @@ export const menuItems = [
     new Menu(74, 'menu_coffee_lab', '/coffee-lab', null, null, null, false, 7, null),
     new Menu(75, 'menu_social_pr', '/social-media', null, null, null, false, 7, null),
 
-    new Menu(
-        8,
-        'menu_team_management',
-        null,
-        null,
-        null,
-        null,
-        true,
-        0,
-        'acl-management&acl-list|user-management&user-reports',
-    ),
-    new Menu(81, 'menu_roles', '/team-management/manage-role', null, null, null, false, 8, 'acl-management&acl-list'),
+    new Menu(8, 'menu_team_management', null, null, null, null, true, 0, 'acl-management|user-management'),
+    new Menu(81, 'menu_roles', '/team-management/manage-role', null, null, null, false, 8, 'acl-management'),
     new Menu(
         82,
         'menu_user_management',
@@ -66,7 +56,7 @@ export const menuItems = [
         null,
         false,
         8,
-        'user-management&user-reports',
+        'user-management',
     ),
 
     // Dropdown Menu
