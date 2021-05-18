@@ -18,7 +18,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-4 mt-md-35 pb-2" [formGroup]="batchForm" (ngSubmit)="onSave()" novalidate>
+                <div class="mt-4 mt-md-35" [formGroup]="batchForm" (ngSubmit)="onSave()" novalidate>
                     <div class="col-lg-9 px-0">
                         <div class="max-560px">
                             <div class="sewn-form-field w-100">
@@ -182,13 +182,18 @@
                             </div>
                         </div>
                         <div class="mt-md-0 mt-lg-3 col-lg-3">
-                            <div class="sewn-form-field w-100">
-                                <label>{{ 'waste_produced' | translate }}</label>
-                                <div class="input-and-select gray">
-                                    <input pInputText type="text" formControlName="waste_quantity" />
-                                    <small *ngIf="batchForm.controls.waste_quantity.errors?.required" class="p-error">
-                                        {{ 'required' | translate }}
-                                    </small>
+                            <div class="row gutter-16">
+                                <div class="col-12 col-md-6 col-lg-12 sewn-form-field w-100">
+                                    <label>{{ 'waste_produced' | translate }}</label>
+                                    <div class="input-and-select gray">
+                                        <input pInputText type="text" formControlName="waste_quantity" />
+                                        <small
+                                            *ngIf="batchForm.controls.waste_quantity.errors?.required"
+                                            class="p-error"
+                                        >
+                                            {{ 'required' | translate }}
+                                        </small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -235,9 +240,7 @@
                         </div>
                         <div class="row pt-md-1 pb-1">
                             <div class="col-12 pb-2 tab-flavour-space">
-                                <span class="fnt-14 fnt-muli fnt-600 black"
-                                    >Flavour profile<span class="star">*</span></span
-                                >
+                                <span class="fnt-14 fnt-muli fnt-600 black">Flavour profile</span>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-12 col-lg-10 d-flex flex-column">
@@ -267,7 +270,7 @@
                         </div>
                         <div class="row gutter-16 gutter-lg-24 mt-lg-1">
                             <div class="col-12 col-sm-12 col-md-12 sewn-form-field w-100">
-                                <label>Roaster Notes<span class="star">*</span></label>
+                                <label>Roaster Notes</label>
                                 <textarea
                                     type="text"
                                     class="descriptionText-area"
@@ -288,40 +291,26 @@
                 <div *ngIf="ordId" class="d-none d-sm-none d-md-block d-lg-block d-xl-block mt-4 mt-lg-0">
                     <ng-container *ngTemplateOutlet="orderDetailsTpl"></ng-container>
                 </div>
-                <div class="mt-4">
+                <div *ngIf="ordId && batchId" class="mt-4 mb-3">
                     <ng-container *ngTemplateOutlet="shareStoryTemplate"></ng-container>
                 </div>
             </div>
-            <div class="col-12 row gutter-16 gutter-lg-24 mt-4 mt-md-4 mt-lg-3 mb-md-3 d-none d-sm-none d-md-flex">
-                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                    <button
-                        type="button"
-                        class="btn btn-stroked"
-                        [routerLink]="['/roasted-coffee-batch/roasted-coffee-batchs']"
-                    >
-                        {{ 'cancel' | translate }}
-                    </button>
-                    <button type="submit" class="btn btn-raised ml-3" (click)="onSave()">
-                        {{ 'save' | translate }}
-                    </button>
-                </div>
-            </div>
-            <div class="col-12 row no-gutters mt-4 d-block d-sm-block d-md-none">
-                <div class="col-12 col-sm-12">
-                    <button type="submit" class="btn btn-raised w-100" (click)="onSave()">
-                        {{ 'save' | translate }}
-                    </button>
-                </div>
-                <div class="col-12 col-sm-12 mt-3">
-                    <button
-                        type="button"
-                        class="btn btn-stroked w-100"
-                        [routerLink]="['/roasted-coffee-batch/roasted-coffee-batchs']"
-                    >
-                        {{ 'cancel' | translate }}
-                    </button>
-                </div>
-            </div>
+        </div>
+        <div class="d-flex justify-content-start flex-column flex-md-row mt-3 mt-lg-0">
+            <button
+                type="button"
+                class="btn btn-stroked px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0"
+                [routerLink]="['/roasted-coffee-batch/roasted-coffee-batchs']"
+            >
+                {{ 'cancel' | translate }}
+            </button>
+            <button
+                type="submit"
+                class="btn btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
+                (click)="onSave()"
+            >
+                {{ 'save' | translate }}
+            </button>
         </div>
     </div>
 </section>
@@ -330,7 +319,7 @@
 <ng-template #orderDetailsTpl>
     <div *ngIf="orderDetails">
         <label class="primary_txt mb-3">{{ 'order_details' | translate }}</label>
-        <div class="order-details-clr">
+        <div class="order-details-clr mb-4">
             <div class="d-flex justify-content-between mb-45 mb-475">
                 <div class="d-flex">
                     <app-avatar
@@ -341,7 +330,7 @@
                     <div>
                         <ul class="details-list ml-2">
                             <li class="fnt-14 lh-15 fnt-600">
-                                {{ orderDetails.estate_owner }}
+                                {{ orderDetails.estate_name }}
                             </li>
                             <li class="fnt-12 fnt-600 text-clr588 pt-1">
                                 {{ 'coffee_estate' | translate }}
@@ -352,7 +341,7 @@
                 <div>
                     <p>
                         <span class="cursor-pointer d-flex align-items-center">
-                            <img src="assets/images/star-1.png" alt="Star" />
+                            <img src="assets/images/star-1.svg" alt="Star" />
                             <span class="fnt-14 fnt-bold pl-1"> {{ rating | number: '1.2-2' }}</span>
                         </span>
                     </p>
@@ -383,7 +372,7 @@
                         <span class="list-que"> {{ 'price' | translate }} : </span>
                     </td>
                     <td class="recent-data-ans">
-                        <span class="list-ans"> ${{ orderDetails.price }} USD/kg </span>
+                        <span class="list-ans"> ${{ orderDetails.price + orderDetails.shipping_price }} USD/kg </span>
                     </td>
                 </tr>
 
@@ -392,7 +381,7 @@
                         <span class="list-que"> {{ 'quantity' | translate }} : </span>
                     </td>
                     <td class="recent-data-ans">
-                        <span class="list-ans"> {{ orderDetails.quantity }} {{ orderDetails.quantity_type }} </span>
+                        <span class="list-ans"> {{ orderDetails.quantity }} {{ orderDetails.quantity_unit }} </span>
                     </td>
                 </tr>
 
@@ -402,7 +391,7 @@
                     </td>
                     <td class="recent-data-ans">
                         <span class="list-ans">
-                            {{ orderDetails.remaining_total_quantity }} {{ orderDetails.quantity_type }}
+                            {{ orderDetails.remaining_total_quantity }} {{ orderDetails.quantity_unit }}
                         </span>
                     </td>
                 </tr>
