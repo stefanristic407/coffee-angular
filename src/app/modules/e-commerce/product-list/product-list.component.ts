@@ -101,6 +101,7 @@ export class ProductListComponent implements OnInit {
             this.selectedPriceRange = null;
             this.selectedStatus = null;
             this.keywords = '';
+            this.visibilityStatus = null;
             this.breadCrumbItems = [
                 { label: this.globals.languageJson?.home, routerLink: '/' },
                 {
