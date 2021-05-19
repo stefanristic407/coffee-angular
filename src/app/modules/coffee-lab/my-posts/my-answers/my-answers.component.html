@@ -68,7 +68,10 @@
                         class="mb-4 fnt-md-18 fnt-16 fnt-bold fnt-muli text-clr24 ml-md-5"
                         [innerHTML]="answer?.question"
                     ></div>
-                    <div class="border-main inner-bg br-4 p-md-4 p-3 mb-3">
+                    <div
+                        class="border-main inner-bg br-4 p-md-4 p-3 mb-3 pointer"
+                        [routerLink]="'/coffee-lab/questions/' + answer.question_slug"
+                    >
                         <div class="d-flex">
                             <div class="mr-md-25 mr-1">
                                 <img
