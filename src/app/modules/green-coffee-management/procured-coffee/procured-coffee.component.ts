@@ -166,6 +166,9 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
                     this.orderDetails.availability_name = result.name;
                     this.orderDetails.cup_score = result.cupping.cup_score;
                     this.orderDetails.cupping_at = result.cupping.cupped_at;
+                    this.orderDetails.dry_milling = result.dry_milling;
+                    this.orderDetails.dry_milling.moisture_content =
+                        this.orderDetails.dry_milling.moisture_content + '%';
                     this.orderDetails.evaluator_name = result.cupping.evaluator_name;
                     this.orderDetails.evaluator_dp_thumb = result.cupping.evaluator_dp_thumb;
                     this.orderDetails.altitude = result.min_altitude + '-' + result.max_altitude;
@@ -179,7 +182,9 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
                     this.orderDetails.available_quantity_type = result.quantity_type;
                     this.orderDetails.buying_price = result.price;
                     this.orderDetails.buying_price_unit = result.price_unit;
-                    this.items = result.images.map((item) => new ImageItem({ src: item.url, thumb: item.thumb_url }));
+                    this.items = result.images.map(
+                        (item) => new ImageItem({ src: item.url, thumb: item.thumb_url ? item.thumb_url : item.url }),
+                    );
                 }
             },
             (err) => {

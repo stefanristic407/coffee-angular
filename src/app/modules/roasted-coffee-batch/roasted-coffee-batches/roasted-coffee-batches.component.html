@@ -35,12 +35,13 @@
                 }}</span>
             </div>
 
-            <div [formGroup]="searchForm" class="d-none d-sm-none d-md-block col-5">
+            <div class="d-none d-sm-none d-md-block col-5">
                 <input
                     type="text"
                     name="search"
                     class="search-raised pull-right"
-                    formControlName="searchField"
+                    [(ngModel)]="termSearch"
+                    (ngModelChange)="roasterCoffeeBatchsData()"
                     placeholder="Search by batch name"
                 />
             </div>
@@ -66,12 +67,13 @@
             </div>
         </div>
         <div class="row">
-            <div class="d-block d-sm-block d-md-none col-12 mb-3" [formGroup]="searchForm">
+            <div class="d-block d-sm-block d-md-none col-12 mb-3">
                 <input
                     type="text"
                     name="search"
                     class="search-raised w-100 ml-0"
-                    formControlName="searchField"
+                    [(ngModel)]="termSearch"
+                    (ngModelChange)="roasterCoffeeBatchsData()"
                     placeholder="Search by batch name"
                 />
             </div>
@@ -83,7 +85,7 @@
                     optionLabel="label"
                     optionValue="value"
                     [(ngModel)]="profileFilter"
-                    (onChange)="filterCall()"
+                    (ngModelChange)="roasterCoffeeBatchsData()"
                     scrollHeight="225px"
                     [showClear]="true"
                     placeholder="Roast level"
@@ -123,7 +125,6 @@
                     [showCurrentPageReport]="false"
                     [paginator]="false"
                     [lazy]="true"
-                    (onLazyLoad)="roasterCoffeeBatchsData()"
                     [totalRecords]="totalCount"
                     selectionMode="multiple"
                     [responsive]="sharedService.isMobileView"

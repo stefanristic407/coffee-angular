@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CoffeeStoryService, DownloadService, GlobalsService } from '@services';
 import { UserserviceService } from '@services';
 import { RoasterserviceService } from '@services';
@@ -14,13 +14,15 @@ import { Download } from '@models';
 import { environment } from '@env/environment';
 import { maxValidator, minValidator } from '@utils';
 import { minMax } from '@syncfusion/ej2-angular-charts';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-new-roasted-batch',
     templateUrl: './new-roasted-batch.component.html',
     styleUrls: ['./new-roasted-batch.component.scss'],
 })
-export class NewRoastedBatchComponent implements OnInit {
+export class NewRoastedBatchComponent implements OnInit, OnDestroy {
     readonly env = environment;
     langChips: any = [];
     selectable = true;
@@ -56,6 +58,7 @@ export class NewRoastedBatchComponent implements OnInit {
     ];
     showOrder: boolean;
     unit = 'lb';
+    destroy$: Subject<boolean> = new Subject();
 
     constructor(
         public dialogSrv: DialogService,
@@ -126,10 +129,10 @@ export class NewRoastedBatchComponent implements OnInit {
             { label: 'kg', value: 'kg' },
             { label: 'g', value: 'g' },
         ];
-        this.batchForm.controls.green_coffee_quantity.valueChanges.subscribe(() => {
+        this.batchForm.controls.green_coffee_quantity.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
             this.setWasteQuantityValue();
         });
-        this.batchForm.controls.roasting_profile_quantity.valueChanges.subscribe(() => {
+        this.batchForm.controls.roasting_profile_quantity.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
             this.setWasteQuantityValue();
         });
     }
@@ -378,5 +381,10 @@ export class NewRoastedBatchComponent implements OnInit {
                     );
                 }
             });
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next(true);
+        this.destroy$.unsubscribe();
     }
 }

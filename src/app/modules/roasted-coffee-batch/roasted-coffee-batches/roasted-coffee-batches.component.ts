@@ -18,7 +18,6 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
     roasterId: string;
     batchId: string | number | boolean;
     deleteBatchId: '';
-    searchForm: FormGroup;
     profileArray: any = [];
     profileFilter;
     tableColumns = [];
@@ -47,6 +46,7 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
         public sharedService: SharedServiceService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterCoffeeBatchsData();
     }
 
     ngOnInit(): void {
@@ -55,14 +55,6 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
             this.sharedService.isMobileView = true;
         }
         this.appLanguage = this.globals.languageJson;
-        this.searchForm = this.fb.group({
-            searchField: new FormControl({ value: '' }, Validators.compose([Validators.required])),
-        });
-        this.searchForm.setValue({ searchField: '' });
-        this.searchForm.controls.searchField.valueChanges.subscribe((value) => {
-            this.termSearch = value;
-            this.roasterCoffeeBatchsData();
-        });
         this.loadFilterValues();
         this.tableColumns = [
             {
@@ -120,6 +112,7 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
             },
         ];
     }
+
 
     loadFilterValues() {
         this.profileArray = [
@@ -189,9 +182,7 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
             },
         );
     }
-    filterCall() {
-        this.roasterCoffeeBatchsData();
-    }
+
     menuClicked() {
         // Stop propagation
         this.disableAction = true;

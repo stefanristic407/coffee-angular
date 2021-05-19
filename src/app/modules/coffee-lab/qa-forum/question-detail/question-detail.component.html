@@ -1,5 +1,5 @@
-<div class="mb-4 mb-lg-45">
-    <a class="back-page" (click)="location.back()">
+<div class="back-page mt-1 mt-lg-3 pb-35 pb-lg-45 w-fit-content">
+    <a (click)="location.back()">
         {{ 'back' | translate }}
     </a>
 </div>
@@ -50,7 +50,7 @@
                                 parentForumType: 'question',
                                 forumType: 'answer'
                             }"
-                            [placeholder]="'leave_a_comment_bla' | translate"
+                            [placeholder]="'leave_a_comment' | translate"
                         />
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                     ></app-translation-dropdown>
                 </div>
                 <div
-                    class="fnt-muli fnt-14 text-clr334 lh-15 mb-3 mb-md-4"
+                    class="fnt-muli fnt-14 text-clr334 lh-15"
                     appFullImgWrapper
                     [innerHTML]="answer.answer"
                 ></div>

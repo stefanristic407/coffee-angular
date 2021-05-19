@@ -17,7 +17,7 @@
                             optionLabel="label"
                             optionValue="value"
                         ></p-dropdown>
-                        <div *ngIf="articleForm.controls.language.invalid" class="p-error">
+                        <div *ngIf="articleForm.controls.language.invalid" class="text-clrb1f">
                             {{ 'required' | translate }}
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                     </div>
                     <div class="col-12 col-md-6 sewn-form-field p-0">
                         <input type="text" placeholder="Give a title" pInputText formControlName="title" />
-                        <small *ngIf="articleForm.controls['title'].errors?.required" class="p-error">
+                        <small *ngIf="articleForm.controls['title'].errors?.required" class="text-clrb1f">
                             {{ 'required' | translate }}
                         </small>
                     </div>
@@ -88,10 +88,10 @@
                             formControlName="subtitle"
                             [rows]="1"
                         ></textarea>
-                        <small *ngIf="articleForm.controls['subtitle'].errors?.required" class="p-error">
+                        <small *ngIf="articleForm.controls['subtitle'].errors?.required" class="text-clrb1f">
                             {{ 'required' | translate }}
                         </small>
-                        <small *ngIf="articleForm.controls['subtitle'].errors?.maxWordCount" class="p-error">
+                        <small *ngIf="articleForm.controls['subtitle'].errors?.maxWordCount" class="text-clrb1f">
                             Please input 30 words
                         </small>
                     </div>

@@ -186,6 +186,15 @@
                                     <span class="d-flex" *ngSwitchCase="'cupping_version'">
                                         <span> Cupping {{ rowData[col.field] }}.0 </span>
                                     </span>
+                                    <span class="d-flex" *ngSwitchCase="'cupping_status'">
+                                        <span *ngIf="isMobileView" class="prime-table-label w-50">
+                                            {{ col.header }}
+                                        </span>
+
+                                        <span>
+                                            {{ rowData[col.field] | titlecase }}
+                                        </span>
+                                    </span>
                                     <span *ngSwitchCase="'type'">
                                         <div class="d-flex justify-content-between align-items-center px-3 px-md-0">
                                             <span
