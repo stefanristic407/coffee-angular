@@ -125,7 +125,7 @@
                                                         <li>
                                                             <label>Origin</label>
                                                             <p>
-                                                                {{ orderDetails.origin ? orderDetails.origin : 'NA' }}
+                                                                {{ orderDetails.origin | country }}
                                                             </p>
                                                         </li>
                                                         <li>
@@ -152,8 +152,8 @@
                                                         </li>
                                                         <li>
                                                             <label>Variety</label>
-                                                            <p>
-                                                                {{ orderDetails.variety ? orderDetails.variety : 'NA' }}
+                                                            <p *ngIf="orderDetails.varieties">
+                                                                {{ orderDetails.varieties | translate }}
                                                             </p>
                                                         </li>
                                                         <li>
@@ -203,8 +203,8 @@
                                                             <label>Moisture content</label>
                                                             <p>
                                                                 {{
-                                                                    orderDetails.moisture_content
-                                                                        ? orderDetails.moisture_content
+                                                                    orderDetails?.dry_milling?.moisture_content
+                                                                        ? orderDetails?.dry_milling?.moisture_content
                                                                         : 'NA'
                                                                 }}
                                                             </p>
