@@ -145,7 +145,7 @@ export class CoffeeLabService extends ApiService {
         formData.append('file', file);
         formData.append(
             'name',
-            Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
+            file.name ?? Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
         );
         formData.append('file_module', module);
         formData.append('api_call', `/${this.organization}/${this.organizationId}/file-manager/files`);

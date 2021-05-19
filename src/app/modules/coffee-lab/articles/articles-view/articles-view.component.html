@@ -80,7 +80,7 @@
         </p-dropdown>
     </div>
     <div class="articles-wrapper" *ngIf="!isLoading">
-        <div class="col-12 col-md-6 col-lg-4 px-0 py-25 p-md-2" *ngFor="let article of articlesData">
+        <div class="col-12 col-md-6 col-lg-4 px-0 py-25 p-md-2" *ngFor="let article of displayData">
             <div
                 class="border-main br-4 p-3 py-md-4 px-lg-4 article-item"
                 [routerLink]="'/coffee-lab/articles/' + article.slug"
@@ -116,6 +116,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div *ngIf="!isLoading" class="pt-3 pt-md-4">
+        <p-paginator [rows]="9" [totalRecords]="totalRecords" (onPageChange)="paginate($event)"></p-paginator>
     </div>
     <app-loading *ngIf="isLoading"></app-loading>
     <div *ngIf="!isLoading && !articlesData.length" class="text-center my-4 fnt-muli text-clr24">
