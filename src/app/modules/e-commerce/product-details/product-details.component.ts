@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { VariantDetailsComponent } from '../variant-details/variant-details.component';
 import { maxWordCountValidator } from '@utils';
-import { COUNTRY_LIST } from '@constants';
+import { COUNTRY_LIST, LBUNIT } from '@constants';
 import * as moment from 'moment';
 @Component({
     selector: 'app-product-details',
@@ -294,9 +294,9 @@ export class ProductDetailsComponent implements OnInit {
                             });
                         }
                         const variantForm = this.fb.group(variant);
-                        if (!productDetails.is_external_product) {
-                            const weightVariants = getVariant[0].weight_variants;
-                            weightVariants.forEach((ele) => {
+                        const weightVariants = getVariant[0].weight_variants;
+                        weightVariants.forEach((ele) => {
+                            if (!productDetails.is_external_product) {
                                 const getCrate = productDetails.crates?.find(
                                     (item) => item.weight === ele.weight && ele.weight_unit === item.crate_unit,
                                 );
@@ -304,18 +304,24 @@ export class ProductDetailsComponent implements OnInit {
                                     getCrate.has_weight = true;
                                     getCrate.product_weight_variant_id = ele.product_weight_variant_id;
                                     getCrate.variant_name = `Variant ${key}`;
+                                    getCrate.weight =
+                                        getCrate.weight_unit === 'lb' ? getCrate.weight / LBUNIT : getCrate.weight;
                                     this.allCrates.push(getCrate);
                                 }
-                            });
-                            if (getBatchDetails) {
-                                const flavourProfile = getBatchDetails.flavour_profile;
-                                variantForm.controls.flavour_profiles.setValue(flavourProfile);
-                                variantForm.controls.weight_variants.setValue(weightVariants);
                             }
-                        } else {
+
+                            ele.weight = ele.weight_unit === 'lb' ? ele.weight / LBUNIT : ele.weight;
+                        });
+                        if (productDetails.is_external_product) {
                             variantForm.patchValue({
-                                weight_variants: getVariant[0].weight_variants,
+                                weight_variants: weightVariants,
                                 flavour_profiles: variant.flavour_profiles,
+                            });
+                        } else if (getBatchDetails) {
+                            const flavourProfile = getBatchDetails.flavour_profile;
+                            variantForm.patchValue({
+                                weight_variants: weightVariants,
+                                flavour_profiles: flavourProfile,
                             });
                         }
                         this.variants.push(variantForm);
@@ -555,6 +561,11 @@ export class ProductDetailsComponent implements OnInit {
     createNewProduct(productObj) {
         if (this.type === 'b2c') {
             delete productObj.crates;
+        } else {
+            productObj.crates.map((item) => {
+                item.weight = item.weight_unit === 'lb' ? item.weight * LBUNIT : item.weight;
+                return item;
+            });
         }
         this.eCommerceService.addProductDetails(productObj, this.type).subscribe(
             (res) => {
@@ -644,6 +655,8 @@ export class ProductDetailsComponent implements OnInit {
                 }
                 weightObj.product_images = productImagesArray;
                 weightObj.is_public = !weight.is_public;
+                weightObj.weight = weightObj.weight_unit === 'lb' ? weightObj.weight * LBUNIT : weightObj.weight;
+
                 const weightVariantID = weight.product_weight_variant_id ? weight.product_weight_variant_id : false;
                 weightObj.variant_details = {
                     brewing_method: getVariantDetails.brewing_method,
