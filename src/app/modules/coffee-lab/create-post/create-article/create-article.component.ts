@@ -37,18 +37,21 @@ export class CreateArticleComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        const type = this.route.snapshot.queryParamMap.get('type');
-        if (type === 'article') {
-            this.articleId = this.route.snapshot.queryParamMap.get('id');
-        }
+        this.route.queryParams.subscribe((params) => {
+            const type = params.type;
+            if (type === 'article') {
+                this.articleId = params.id;
+            }
+            if (this.articleId) {
+                this.getArticleById();
+            }
+        });
+
         this.articleForm = this.fb.group({
             title: ['', Validators.compose([Validators.required])],
             subtitle: ['', Validators.compose([Validators.required, maxWordCountValidator(30)])],
             allow_translation: [true, Validators.compose([Validators.required])],
         });
-        if (this.articleId) {
-            this.getArticleById();
-        }
     }
 
     getArticleById(): void {

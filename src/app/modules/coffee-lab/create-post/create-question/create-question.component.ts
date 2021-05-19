@@ -29,13 +29,15 @@ export class CreateQuestionComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        const type = this.route.snapshot.queryParamMap.get('type');
-        if (type === 'question') {
-            this.questionId = this.route.snapshot.queryParamMap.get('id');
-        }
-        if (this.questionId) {
-            this.getQuestionById();
-        }
+        this.route.queryParams.subscribe((params) => {
+            const type = params.type;
+            if (type === 'question') {
+                this.questionId = params.id;
+            }
+            if (this.questionId) {
+                this.getQuestionById();
+            }
+        });
     }
 
     getQuestionById(): void {
