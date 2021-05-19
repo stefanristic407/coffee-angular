@@ -182,7 +182,9 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
                     this.orderDetails.available_quantity_type = result.quantity_type;
                     this.orderDetails.buying_price = result.price;
                     this.orderDetails.buying_price_unit = result.price_unit;
-                    this.items = result.images.map((item) => new ImageItem({ src: item.url, thumb: item.url }));
+                    this.items = result.images.map(
+                        (item) => new ImageItem({ src: item.url, thumb: item.thumb_url ? item.thumb_url : item.url }),
+                    );
                 }
             },
             (err) => {
