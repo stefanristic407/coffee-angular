@@ -97,6 +97,10 @@ export class ProductListComponent implements OnInit {
     ngOnInit(): void {
         this.activatedRoute.params.subscribe((params) => {
             this.type = params.type;
+            this.selectedOrigin = null;
+            this.selectedPriceRange = null;
+            this.selectedStatus = null;
+            this.keywords = '';
             this.breadCrumbItems = [
                 { label: this.globals.languageJson?.home, routerLink: '/' },
                 {
