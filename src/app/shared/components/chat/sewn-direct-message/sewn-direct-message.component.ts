@@ -38,7 +38,7 @@ import {
     ChatMessageType,
     MessageMetaTypes,
 } from '@enums';
-import { trigger, transition, animate, style } from '@angular/animations';
+import { trigger, transition, state, animate, style } from '@angular/animations';
 
 const badwordsRegExp = require('badwords/regexp') as RegExp;
 
