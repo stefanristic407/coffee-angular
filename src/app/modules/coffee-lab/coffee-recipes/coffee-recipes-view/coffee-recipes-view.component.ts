@@ -12,7 +12,7 @@ import { Subject, Subscription } from 'rxjs';
     styleUrls: ['./coffee-recipes-view.component.scss'],
 })
 export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
-    rows = 3;
+    rows = 9;
     pageNumber = 1;
     totalRecords = 0;
     destroy$: Subject<boolean> = new Subject<boolean>();

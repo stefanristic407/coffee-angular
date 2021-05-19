@@ -12,7 +12,7 @@ import { AuthService } from '../auth';
 export class CommonService {
     profileUpdateEvent: EventEmitter<any>;
 
-    constructor(private sumulatedLoginService: SimulatedLoginService, private authService: AuthService) {
+    constructor(private simulatedLoginService: SimulatedLoginService, private authService: AuthService) {
         this.profileUpdateEvent = new EventEmitter<any>();
     }
 
@@ -49,7 +49,7 @@ export class CommonService {
     }
 
     userSimulatedLogin(userId: number) {
-        this.sumulatedLoginService.simulatedLogin(userId).subscribe((res: any) => {
+        this.simulatedLoginService.simulatedLogin(userId).subscribe((res: any) => {
             if (res.success) {
                 this.goSimulatedPortal(
                     OrganizationType.ROASTER,
