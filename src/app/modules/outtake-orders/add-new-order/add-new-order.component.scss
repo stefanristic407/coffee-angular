@@ -54,7 +54,7 @@
     border-top: dotted 1px $primary-border-color;
 }
 .cust-profile {
-    border: 0.3px solid #868686;
+    border: 0.3px solid #dddddd;
     border-radius: 4px;
 }
 
@@ -95,6 +95,9 @@
 @media (min-width: 992px) {
     .width-lable {
         width: 40% !important;
+    }
+    .mrt {
+        margin-top: -1rem;
     }
 }
 
@@ -248,6 +251,27 @@
     .padd-2r {
         padding: 1rem 0;
     }
+    .col-lg-4 {
+        flex: 0 0 38% !important;
+        max-width: 38% !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .flex {
+        display: flex !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-xl-8 {
+        flex: 0 0 62% !important;
+        max-width: 62% !important;
+    }
+}
+
+.p-calendar-w-btn .p-inputtext {
+    margin-left: 0 !important;
 }
 
 @media (min-width: 768px) and (max-width: 991px) {

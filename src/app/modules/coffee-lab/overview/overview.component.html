@@ -1,6 +1,5 @@
-<div class="language-wrapper d-flex justify-content-between align-items-center d-md-none mb-3">
+<div class="language-wrapper d-md-none mb-3">
     <app-language-dropdown></app-language-dropdown>
-    <i class="pi pi-info-circle text-clr588 fnt-16 ml-3"></i>
 </div>
 <div class="d-flex flex-column flex-md-row justify-content-between pb-4">
     <div>
@@ -14,7 +13,6 @@
             class="w-100 fnt-16"
             type="text"
             pInputText
-            #searchInput
             [(ngModel)]="keyword"
             [placeholder]="'search_the_coffee_lab' | translate"
         />
@@ -22,9 +20,8 @@
 </div>
 <div class="d-none d-md-flex justify-content-between align-items-center pt-2 pb-45">
     <p class="fnt-14 fnt-muli fnt-600 text-clr334 mb-0">{{ 'discussions_knowledge_language' | translate }}</p>
-    <div class="d-flex align-items-center">
+    <div>
         <app-language-dropdown></app-language-dropdown>
-        <i class="pi pi-info-circle text-clr588 fnt-16 ml-3"></i>
     </div>
 </div>
 <div>

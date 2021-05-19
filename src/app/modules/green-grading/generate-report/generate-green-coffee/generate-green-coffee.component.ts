@@ -39,6 +39,8 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
     evaluatorId: any;
     cuppingItems: Cupping[];
     filteredUsers: any[];
+    isEditable = true;
+
     constructor(
         private roasterService: RoasterserviceService,
         private toastrService: ToastrService,
@@ -77,6 +79,7 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
 
     ngOnChanges(): void {
         this.cuppingReportId = this.cuppingDetails.cupping_report_id;
+        this.isEditable = this.cuppingDetails.status === 'DRAFT' || this.cuppingDetails.status === 'NEW';
         this.evaluatorsList();
         this.singleCuppingData();
         this.addBtnShow = this.cuppingDetails.type !== 'Invited';
@@ -176,7 +179,7 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
         if (!this.cupping || (this.cupping && this.cupping.key === '') || this.sampleSize === undefined) {
             this.toastrService.error('Please enter cupping type & Sample size');
         } else {
-            if (this.cuppingDetails.status === 'DRAFT' || this.cuppingDetails.status === 'NEW') {
+            if (this.isEditable) {
                 const data = {
                     cupping_type: this.cupping.key,
                     sample_size: this.sampleSize,

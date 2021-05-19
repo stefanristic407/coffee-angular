@@ -14,22 +14,22 @@ export class BrandProfileComponent implements OnInit {
     pages: any[] = [
         {
             title: 'about_us',
-            desp: 'Write about your origin, who you are and what makes your company special',
+            desp: 'about_us_overview',
             slug: 'about-us',
         },
         {
             title: 'learn',
-            desp: 'Share facts about your coffee vairety, lots coffee making techinques',
+            desp: 'learn_overview',
             slug: 'learn',
         },
         {
             title: 'sustainability',
-            desp: 'Tell you users about your social responsibility and sustainability practices',
+            desp: 'sustainability_overview',
             slug: 'sustainability',
         },
         {
             title: 'visit_us',
-            desp: 'Add your contact details and basic FAQs of your estate',
+            desp: 'visit_us_overview',
             slug: 'visit-us',
         },
     ];

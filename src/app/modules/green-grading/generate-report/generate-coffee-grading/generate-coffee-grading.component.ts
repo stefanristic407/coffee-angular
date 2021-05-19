@@ -147,6 +147,7 @@ export class GenerateCoffeeGradingComponent implements OnChanges {
     evaluatorData: any;
     evaluatorName: any;
     colorString: any;
+    isEditable = true;
 
     constructor(
         public greenGradingService: GreenGradingService,
@@ -158,6 +159,8 @@ export class GenerateCoffeeGradingComponent implements OnChanges {
     }
 
     ngOnChanges(): void {
+        this.isEditable =
+            this.cuppingDetails.cupping_status === 'DRAFT' || this.cuppingDetails.cupping_status === 'NEW';
         this.getEvaluatorData();
         this.physicalDefectsList();
     }
@@ -174,53 +177,57 @@ export class GenerateCoffeeGradingComponent implements OnChanges {
 
     goNext() {
         this.cuppingId = this.cuppingDetails.cupping_report_id;
-        const data: any = {};
-        if (this.moistureContent) {
-            data.moisture_content = this.moistureContent;
-        }
-        if (this.waterActivity) {
-            data.water_activity = this.waterActivity;
-        }
-        if (this.totalColors && this.totalColors.length > 0) {
-            data.colors = this.totalColors.toString();
-        }
-        if (this.odor) {
-            data.odor = this.odor;
-        }
-        if (this.totalDefects) {
-            data.total_green_defects = this.totalDefects;
-        }
+        if (this.isEditable) {
+            const data: any = {};
+            if (this.moistureContent) {
+                data.moisture_content = this.moistureContent;
+            }
+            if (this.waterActivity) {
+                data.water_activity = this.waterActivity;
+            }
+            if (this.totalColors && this.totalColors.length > 0) {
+                data.colors = this.totalColors.toString();
+            }
+            if (this.odor) {
+                data.odor = this.odor;
+            }
+            if (this.totalDefects) {
+                data.total_green_defects = this.totalDefects;
+            }
 
-        if (this.category1Defects) {
-            data.total_category_one = this.category1Defects;
+            if (this.category1Defects) {
+                data.total_category_one = this.category1Defects;
+            }
+            if (this.cat2Defects) {
+                data.total_category_two = this.cat2Defects;
+            }
+            for (const cat of this.category1List) {
+                if (this.dataObj[cat.key1]) {
+                    data[cat.key1] = this.dataObj[cat.key1];
+                }
+                if (this.dataObj[cat.key2]) {
+                    data[cat.key2] = this.dataObj[cat.key2];
+                }
+            }
+            for (const cat of this.category2List) {
+                if (this.dataObj[cat.key1]) {
+                    data[cat.key1] = this.dataObj[cat.key1];
+                }
+                if (this.dataObj[cat.key2]) {
+                    data[cat.key2] = this.dataObj[cat.key2];
+                }
+            }
+            this.greenGradingService.addPhysicalDefects(this.roasterId, this.cuppingId, data).subscribe((res: any) => {
+                if (res.success === true) {
+                    this.toastrService.success('Physical defects added/updated successfully');
+                    this.next.emit('screen2');
+                } else {
+                    this.toastrService.error('Error while adding/updating physical defects');
+                }
+            });
+        } else {
+            this.next.emit('screen2');
         }
-        if (this.cat2Defects) {
-            data.total_category_two = this.cat2Defects;
-        }
-        for (const cat of this.category1List) {
-            if (this.dataObj[cat.key1]) {
-                data[cat.key1] = this.dataObj[cat.key1];
-            }
-            if (this.dataObj[cat.key2]) {
-                data[cat.key2] = this.dataObj[cat.key2];
-            }
-        }
-        for (const cat of this.category2List) {
-            if (this.dataObj[cat.key1]) {
-                data[cat.key1] = this.dataObj[cat.key1];
-            }
-            if (this.dataObj[cat.key2]) {
-                data[cat.key2] = this.dataObj[cat.key2];
-            }
-        }
-        this.greenGradingService.addPhysicalDefects(this.roasterId, this.cuppingId, data).subscribe((res: any) => {
-            if (res.success === true) {
-                this.toastrService.success('Physical defects added/updated successfully');
-                this.next.emit('screen2');
-            } else {
-                this.toastrService.error('Error while adding/updating physical defects');
-            }
-        });
     }
 
     physicalDefectsList() {

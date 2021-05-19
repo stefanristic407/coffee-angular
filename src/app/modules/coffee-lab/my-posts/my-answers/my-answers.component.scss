@@ -9,6 +9,10 @@
     background-color: $white;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 .mobile-dot {
     @media (max-width: 480px) {
         display: flex;

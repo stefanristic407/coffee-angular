@@ -12,15 +12,17 @@ export class TabContainerComponent implements OnInit {
     constructor(private route: ActivatedRoute) {}
 
     ngOnInit(): void {
-        const type = this.route.snapshot.queryParamMap.get('type') || 'question';
-        if (type === 'question') {
-            this.selectedIndex = 0;
-        }
-        if (type === 'recipe') {
-            this.selectedIndex = 1;
-        }
-        if (type === 'article') {
-            this.selectedIndex = 2;
-        }
+        this.route.queryParams.subscribe((params) => {
+            const type = params.type || 'question';
+            if (type === 'question') {
+                this.selectedIndex = 0;
+            }
+            if (type === 'recipe') {
+                this.selectedIndex = 1;
+            }
+            if (type === 'article') {
+                this.selectedIndex = 2;
+            }
+        });
     }
 }
