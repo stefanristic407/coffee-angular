@@ -54,6 +54,18 @@
         & > label {
             z-index: 1;
         }
+        .step-img-delete {
+            z-index: 1;
+            position: absolute;
+            right: 0;
+            top: 0;
+            .btn-trans-nb {
+                background-color: transparent;
+                border: none;
+                color: #ffffff;
+                padding: 10px;
+            }
+        }
     }
     .cover-image {
         position: absolute;
@@ -73,6 +85,10 @@
     ::ng-deep .p-inputgroup-addon .p-dropdown .p-inputtext {
         position: relative;
         bottom: 4px;
+    }
+    .step-border {
+        margin: 4px 15px 16px 15px;
+        border-bottom: dashed 2px #d6d6d6;
     }
     .btn-controls {
         button {

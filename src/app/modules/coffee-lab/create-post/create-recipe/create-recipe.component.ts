@@ -314,7 +314,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         return this.fb.group({
             name: ['', Validators.compose([Validators.required])],
             quantity: ['', Validators.compose([Validators.required])],
-            quantity_unit: ['1 Lbs'],
+            quantity_unit: ['lbs'],
         });
     }
 
@@ -434,5 +434,19 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
     pasteCoverImage() {
         this.coverImageUrl = this.copiedCoverImageUrl;
         this.recipeForm.controls.cover_image_id.setValue(this.copiedCoverImageId);
+    }
+
+    deleteStepImage(index) {
+        const step = this.recipeForm.get('steps') as FormArray;
+        step.controls[index].value.image_id = null;
+        step.controls[index].value.coverImageUrl = null;
+    }
+
+    deleteIngredient(index) {
+        this.ingredients.removeAt(index);
+    }
+
+    deleteStep(index) {
+        this.steps.removeAt(index);
     }
 }
