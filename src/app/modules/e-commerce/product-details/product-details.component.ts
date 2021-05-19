@@ -128,7 +128,8 @@ export class ProductDetailsComponent implements OnInit {
             { label: 'AeroPress', value: 'aeropress' },
             { label: 'Moka Pot', value: 'mocha-pot' },
             { label: 'Chemix', value: 'chemex' },
-            { lable: 'Presskanna eller Chemex', value: 'Presskanna eller Chemex' },
+            { label: 'Presskanna eller Chemex', value: 'Presskanna eller Chemex' },
+            { label: 'None', value: 'none' },
         ];
         this.eligibleArray = [
             { label: 'One Time', value: 'one-time' },
@@ -861,5 +862,18 @@ export class ProductDetailsComponent implements OnInit {
     getSelectedBatchLabel(batchId: any) {
         const batch = this.roastedBatches.find((item) => item.id === batchId);
         return `Batch #${batchId} - ${batch.roast_batch_name}`;
+    }
+
+    handleChangeBrewingMethod(event: any, index) {
+        const variantForm = (this.productForm.get('variants') as FormArray).controls[index];
+        if (event.value === 'none') {
+            variantForm.get('roaster_recommendation').clearValidators();
+            variantForm.get('roaster_recommendation').setValue('');
+        } else {
+            variantForm
+                .get('roaster_recommendation')
+                .setValidators(Validators.compose([Validators.required, maxWordCountValidator(10)]));
+            variantForm.get('roaster_recommendation').updateValueAndValidity();
+        }
     }
 }
