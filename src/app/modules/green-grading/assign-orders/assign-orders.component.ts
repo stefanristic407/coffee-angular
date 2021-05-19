@@ -55,7 +55,7 @@ export class AssignOrdersComponent implements OnInit {
         this.breadCrumbItems = [
             { label: this.globals.languageJson?.home, routerLink: '/features/micro-roaster-dashboard' },
             { label: this.globals.languageJson?.green_grading, routerLink: '/green-grading' },
-            { label: 'Green coffee orders' },
+            { label: this.globals.languageJson?.assign_orders },
         ];
         this.getRoleList();
         this.initializeTable();

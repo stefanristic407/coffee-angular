@@ -62,7 +62,7 @@
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sewn-form-field w-100">
             <label>{{ 'recipe_name' | translate }}<span class="star">*</span></label>
             <input type="text" placeholder="Enter Recipe Name" pInputText formControlName="name" />
-            <small *ngIf="recipeForm.controls['name'].errors?.required" class="p-error"> Required </small>
+            <small *ngIf="recipeForm.controls['name'].errors?.required" class="text-clrb1f"> Required </small>
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sewn-form-field w-100">
             <label>{{ 'recipe_description' | translate }}<span class="star">*</span></label>
@@ -71,7 +71,7 @@
                 formControlName="description"
                 placeholder="Give a small description about the recipe..."
             ></textarea>
-            <small *ngIf="recipeForm.controls['description'].errors?.required" class="p-error"> Required </small>
+            <small *ngIf="recipeForm.controls['description'].errors?.required" class="text-clrb1f"> Required </small>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-md-2 pr-lg-3">
             <label>{{ 'expertise' | translate }}<span class="star">*</span></label>
@@ -84,12 +84,12 @@
                 class="inputFieldBox"
                 formControlName="expertise"
             ></p-dropdown>
-            <small *ngIf="recipeForm.controls['expertise'].errors?.required" class="p-error"> Required </small>
+            <small *ngIf="recipeForm.controls['expertise'].errors?.required" class="text-clrb1f"> Required </small>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pl-md-2 pl-lg-3">
             <label>{{ 'serves' | translate }}<span class="star">*</span></label>
             <input type="text" placeholder="Enter number of servings" formControlName="serves" pInputText />
-            <small *ngIf="recipeForm.controls['serves'].errors?.required" class="p-error"> Required </small>
+            <small *ngIf="recipeForm.controls['serves'].errors?.required" class="text-clrb1f"> Required </small>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-md-2 pr-lg-3">
             <label>{{ 'preparation_time' | translate }}<span class="star">*</span></label>
@@ -113,7 +113,7 @@
                 </span>
                 <small
                     *ngIf="recipeForm.controls['preparation_time'].errors?.required"
-                    class="p-error position-absolute"
+                    class="text-clrb1f position-absolute"
                 >
                     Required
                 </small>
@@ -134,7 +134,10 @@
                         class="inputFieldBox"
                     ></p-dropdown>
                 </span>
-                <small *ngIf="recipeForm.controls['cooking_time'].errors?.required" class="p-error position-absolute">
+                <small
+                    *ngIf="recipeForm.controls['cooking_time'].errors?.required"
+                    class="text-clrb1f position-absolute"
+                >
                     Required
                 </small>
             </div>
@@ -151,7 +154,7 @@
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-md-2 pr-lg-3">
                     <label>{{ 'ingredient' | translate }}<span class="star">*</span></label>
                     <input type="text" placeholder="Ingredient Name" pInputText formControlName="name" />
-                    <small *ngIf="ingredient.controls['name'].errors?.required" class="p-error"> Required </small>
+                    <small *ngIf="ingredient.controls['name'].errors?.required" class="text-clrb1f"> Required </small>
                 </div>
 
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pl-md-2 pl-lg-3">
@@ -171,7 +174,7 @@
                         </span>
                         <small
                             *ngIf="ingredient.controls['quantity'].errors?.required"
-                            class="p-error position-absolute"
+                            class="text-clrb1f position-absolute"
                         >
                             Required
                         </small>
@@ -201,7 +204,9 @@
                 class="inputFieldBox"
                 formControlName="preparation_method"
             ></p-dropdown>
-            <small *ngIf="recipeForm.controls['preparation_method'].errors?.required" class="p-error"> Required </small>
+            <small *ngIf="recipeForm.controls['preparation_method'].errors?.required" class="text-clrb1f">
+                Required
+            </small>
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 my-3 d-flex step-mb">
             <p-tabView styleClass="tabview-create-recipe" style="width: 100%">

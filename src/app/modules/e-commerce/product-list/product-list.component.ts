@@ -97,6 +97,11 @@ export class ProductListComponent implements OnInit {
     ngOnInit(): void {
         this.activatedRoute.params.subscribe((params) => {
             this.type = params.type;
+            this.selectedOrigin = null;
+            this.selectedPriceRange = null;
+            this.selectedStatus = null;
+            this.keywords = '';
+            this.visibilityStatus = null;
             this.breadCrumbItems = [
                 { label: this.globals.languageJson?.home, routerLink: '/' },
                 {
@@ -311,7 +316,7 @@ export class ProductListComponent implements OnInit {
     }
 
     getWeight(value, unit) {
-        const weight = unit === 'lb' ? value / LBUNIT : value;
+        const weight = unit === 'lb' ? value / LBUNIT : unit === 'g' ? value * 1000 : value;
         return Math.round(weight * 100) / 100;
     }
 }

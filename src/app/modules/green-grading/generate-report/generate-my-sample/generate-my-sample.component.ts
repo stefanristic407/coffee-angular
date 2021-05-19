@@ -57,6 +57,7 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
     isIncluded: any;
     isAdvance = true;
     availableValues: number[];
+    isEditable = true;
 
     constructor(
         private toastrService: ToastrService,
@@ -77,6 +78,7 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
 
     ngOnChanges() {
         this.cuppingReportId = this.cuppingDetails.cupping_report_id;
+        this.isEditable = this.cuppingDetails.status === 'DRAFT' || this.cuppingDetails.status === 'NEW';
         this.isAdvance = true;
         this.uniformityValue = [];
         this.cleancupValue = [];
@@ -189,52 +191,57 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
     }
 
     selectColor(event: any, section: any, value: any) {
-        if (section === 'acidity') {
-            if (this.acidityIntensity === value) {
-                this.acidityIntensity = 0;
-            } else {
-                this.acidityIntensity = value;
+        if (this.isEditable) {
+            if (section === 'acidity') {
+                if (this.acidityIntensity === value) {
+                    this.acidityIntensity = 0;
+                } else {
+                    this.acidityIntensity = value;
+                }
+            } else if (section === 'body') {
+                if (this.bodyLevel === value) {
+                    this.bodyLevel = 0;
+                } else {
+                    this.bodyLevel = value;
+                }
+            } else if (section === 'defects') {
+                if (this.defectsNoOfCups === value) {
+                    this.defectsNoOfCups = 0;
+                } else {
+                    this.defectsNoOfCups = value;
+                }
+                this.calculateFinalScore();
             }
-        } else if (section === 'body') {
-            if (this.bodyLevel === value) {
-                this.bodyLevel = 0;
-            } else {
-                this.bodyLevel = value;
-            }
-        } else if (section === 'defects') {
-            if (this.defectsNoOfCups === value) {
-                this.defectsNoOfCups = 0;
-            } else {
-                this.defectsNoOfCups = value;
-            }
-            this.calculateFinalScore();
         }
     }
 
     selectLevels(event: any, section: any, value: number) {
-        if (section === 'uniformity') {
-            if (event.target.checked) {
-                this.uniformityValue.push(value);
-            } else {
-                this.uniformityValue = this.uniformityValue.filter((item) => item !== value);
+        console.log(this.uniformityValue);
+        if (this.isEditable) {
+            if (section === 'uniformity') {
+                if (event.target.checked) {
+                    this.uniformityValue.push(value);
+                } else {
+                    this.uniformityValue = this.uniformityValue.filter((item) => item !== value);
+                }
+                this.uniformityScore = this.uniformityValue.length * 2;
+            } else if (section === 'cleanCup') {
+                if (event.target.checked) {
+                    this.cleancupValue.push(value);
+                } else {
+                    this.cleancupValue = this.cleancupValue.filter((item) => item !== value);
+                }
+                this.cleancupScore = this.cleancupValue.length * 2;
+            } else if (section === 'sweetness') {
+                if (event.target.checked) {
+                    this.sweetnessValue.push(value);
+                } else {
+                    this.sweetnessValue = this.sweetnessValue.filter((item) => item !== value);
+                }
+                this.sweetnessScore = this.sweetnessValue.length * 2;
             }
-            this.uniformityScore = this.uniformityValue.length * 2;
-        } else if (section === 'cleanCup') {
-            if (event.target.checked) {
-                this.cleancupValue.push(value);
-            } else {
-                this.cleancupValue = this.cleancupValue.filter((item) => item !== value);
-            }
-            this.cleancupScore = this.cleancupValue.length * 2;
-        } else if (section === 'sweetness') {
-            if (event.target.checked) {
-                this.sweetnessValue.push(value);
-            } else {
-                this.sweetnessValue = this.sweetnessValue.filter((item) => item !== value);
-            }
-            this.sweetnessScore = this.sweetnessValue.length * 2;
+            this.calculateFinalScore();
         }
-        this.calculateFinalScore();
     }
 
     changeMode() {
@@ -242,13 +249,15 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
     }
 
     changeDefectIntensity() {
-        this.btnToggle = !this.btnToggle;
-        if (this.btnToggle === true) {
-            this.defectIntensity = 'Taint';
-        } else {
-            this.defectIntensity = 'Fault';
+        if (this.isEditable) {
+            this.btnToggle = !this.btnToggle;
+            if (this.btnToggle === true) {
+                this.defectIntensity = 'Taint';
+            } else {
+                this.defectIntensity = 'Fault';
+            }
+            this.calculateFinalScore();
         }
-        this.calculateFinalScore();
     }
 
     evaluatorsList() {
@@ -294,8 +303,8 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
     }
 
     goNext() {
-        if (!!this.cuppingReportId && this.checkValidation()) {
-            if (this.cuppingDetails.status === 'DRAFT' || this.cuppingDetails.status === 'NEW') {
+        if (!!this.cuppingReportId) {
+            if (this.isEditable && this.checkValidation()) {
                 const data = {
                     roast_level: this.roastLevel[0],
                     fragrance_score: this.fragrance,
@@ -376,13 +385,5 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
             score = score - this.defectsNoOfCups * 4;
         }
         this.finalScore = score;
-
-        // score += this.fragranceDry ?? 0;
-        // score += this.fragranceBreak ?? 0;
-        // score += this.acidityIntensity ?? 0;
-        // score += this.bodyLevel ?? 0;
-        // score += this.cleancupValue ?? 0;
-        // score += this.sweetnessValue ?? 0;
-        // score += this.defectsNoOfCups ?? 0;
     }
 }
