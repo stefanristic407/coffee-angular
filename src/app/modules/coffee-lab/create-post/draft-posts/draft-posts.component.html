@@ -11,12 +11,33 @@
 </div>
 <div class="px-4">
     <div>
-        <div *ngFor="let draft of drafts" class="d-flex justify-content-between py-4 border-bottom-dashed">
-            <div class="d-flex">
+        <div
+            *ngFor="let draft of drafts"
+            class="d-flex justify-content-between py-4 border-bottom-dashed cursor-pointer"
+        >
+            <div class="d-flex" (click)="onClickDraft(draft)">
                 <div class="mr-3">
-                    <img *ngIf="draft.post_type === 'question'" src="assets/images/qa-forum.svg" alt="icon" width="32" height="32" />
-                    <img *ngIf="draft.post_type === 'article'" src="assets/images/article.svg" alt="icon" width="32" height="32" />
-                    <img *ngIf="draft.post_type === 'recipe'" src="assets/images/coffee-recipe.svg" alt="icon" width="32" height="32" />
+                    <img
+                        *ngIf="draft.post_type === 'question'"
+                        src="assets/images/qa-forum.svg"
+                        alt="icon"
+                        width="32"
+                        height="32"
+                    />
+                    <img
+                        *ngIf="draft.post_type === 'article'"
+                        src="assets/images/article.svg"
+                        alt="icon"
+                        width="32"
+                        height="32"
+                    />
+                    <img
+                        *ngIf="draft.post_type === 'recipe'"
+                        src="assets/images/coffee-recipe.svg"
+                        alt="icon"
+                        width="32"
+                        height="32"
+                    />
                 </div>
                 <div class="post-list-content">
                     <div
