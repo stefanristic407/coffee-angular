@@ -24,7 +24,6 @@ export class OriginalViewComponent implements OnInit {
             this.originalForumData = this.translations.find((item: any) => item.id === this.parentAnswerId);
             this.originalUrl = `/coffee-lab/${this.forumType}s/${this.originalForumData.question_slug}`;
             this.originalForumTitle = this.originalForumData.question;
-            console.log('originalUrl >>>>>>>>>>>>>>', this.originalUrl);
         } else {
             this.originalForumData = this.detailsData[`original_${this.forumType}`];
             this.getOriginalDetails();

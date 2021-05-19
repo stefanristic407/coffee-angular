@@ -197,6 +197,7 @@ export class ForumMenuComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
+                    desp: 'Are you sure you want to remove this post?'
                 },
                 showHeader: false,
                 styleClass: 'confirm-dialog',
@@ -223,6 +224,7 @@ export class ForumMenuComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
+                    desp: 'Are you sure you want to remove this post?'
                 },
                 showHeader: false,
                 styleClass: 'confirm-dialog',

@@ -25,11 +25,11 @@ export class DraftPostsComponent implements OnInit {
     }
 
     onDeleteDraft(draft: any): void {
-        console.log('deleting draft >>>>>>>>>', draft);
         this.dialogService
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
+                    desp: 'Are you sure you want to remove this post?'
                 },
                 showHeader: false,
                 styleClass: 'confirm-dialog',
