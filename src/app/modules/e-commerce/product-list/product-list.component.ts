@@ -311,7 +311,7 @@ export class ProductListComponent implements OnInit {
     }
 
     getWeight(value, unit) {
-        const weight = unit === 'lb' ? value / LBUNIT : value;
+        const weight = unit === 'lb' ? value / LBUNIT : unit === 'g' ? value * 1000 : value;
         return Math.round(weight * 100) / 100;
     }
 }
