@@ -305,12 +305,21 @@ export class ProductDetailsComponent implements OnInit {
                                     getCrate.product_weight_variant_id = ele.product_weight_variant_id;
                                     getCrate.variant_name = `Variant ${key}`;
                                     getCrate.weight =
-                                        getCrate.weight_unit === 'lb' ? getCrate.weight / LBUNIT : getCrate.weight;
+                                        getCrate.crate_unit === 'lb'
+                                            ? getCrate.weight / LBUNIT
+                                            : getCrate.crate_unit === 'g'
+                                            ? getCrate.weight * 1000
+                                            : getCrate.weight;
                                     this.allCrates.push(getCrate);
                                 }
                             }
 
-                            ele.weight = ele.weight_unit === 'lb' ? ele.weight / LBUNIT : ele.weight;
+                            ele.weight =
+                                ele.weight_unit === 'lb'
+                                    ? ele.weight / LBUNIT
+                                    : ele.weight_unit === 'g'
+                                    ? ele.weight * 1000
+                                    : ele.weight;
                         });
                         if (productDetails.is_external_product) {
                             variantForm.patchValue({
@@ -563,7 +572,12 @@ export class ProductDetailsComponent implements OnInit {
             delete productObj.crates;
         } else {
             productObj.crates.map((item) => {
-                item.weight = item.weight_unit === 'lb' ? item.weight * LBUNIT : item.weight;
+                item.weight =
+                    item.crate_unit === 'lb'
+                        ? item.weight * LBUNIT
+                        : item.crate_unit === 'g'
+                        ? item.weight / 1000
+                        : item.weight;
                 return item;
             });
         }
@@ -655,7 +669,12 @@ export class ProductDetailsComponent implements OnInit {
                 }
                 weightObj.product_images = productImagesArray;
                 weightObj.is_public = !weight.is_public;
-                weightObj.weight = weightObj.weight_unit === 'lb' ? weightObj.weight * LBUNIT : weightObj.weight;
+                weightObj.weight =
+                    weightObj.weight_unit === 'lb'
+                        ? weightObj.weight * LBUNIT
+                        : weightObj.weight_unit === 'g'
+                        ? weightObj.weight / 1000
+                        : weightObj.weight;
 
                 const weightVariantID = weight.product_weight_variant_id ? weight.product_weight_variant_id : false;
                 weightObj.variant_details = {
@@ -674,6 +693,10 @@ export class ProductDetailsComponent implements OnInit {
                     weightObj.variant_details.flavour = getVariantDetails.flavour;
                     weightObj.variant_details.roaster_ref_no = getVariantDetails.roaster_ref_no;
                     weightObj.variant_details.estate_name = getVariantDetails.estate_name;
+                    weightObj.variant_details.origin = getVariantDetails.origin;
+                    weightObj.variant_details.region = getVariantDetails.region;
+                    weightObj.variant_details.roaster_notes = getVariantDetails.roaster_notes;
+                    weightObj.variant_details.roast_level = getVariantDetails.roast_level;
                     weightObj.variant_details.harvest_year = getVariantDetails.harvest_year
                         ? moment(getVariantDetails.harvest_year).format('yyyy-MM-DD')
                         : '';
