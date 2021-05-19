@@ -211,6 +211,18 @@
                                                         </li>
                                                     </ul>
                                                 </div>
+                                                <div class="ml-2 pl-1 mt-3">
+                                                    <a
+                                                        class="brown-cta mt-"
+                                                        [routerLink]="
+                                                            '/sourcing/coffee-details/' +
+                                                            orderDetails.estate_id +
+                                                            '/' +
+                                                            orderDetails.harvest_id
+                                                        "
+                                                        >View more details
+                                                    </a>
+                                                </div>
                                             </div>
                                         </p-tabPanel>
                                         <p-tabPanel header="{{ globals.languageJson?.roaster_notes }}">
