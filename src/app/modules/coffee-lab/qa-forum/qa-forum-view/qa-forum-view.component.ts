@@ -10,7 +10,6 @@ import { takeUntil } from 'rxjs/operators';
     styleUrls: ['./qa-forum-view.component.scss'],
 })
 export class QaForumViewComponent implements OnInit, OnDestroy {
-    isDisplayTip = true;
     viewModeItems: any[] = [{ value: 'list' }, { value: 'grid' }];
     viewMode = 'list';
     sortOptions = [
