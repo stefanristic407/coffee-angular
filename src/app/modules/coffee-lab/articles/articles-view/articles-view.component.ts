@@ -34,12 +34,14 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
     ];
     isAvailableTranslation?: any;
     selectedOrder = 'latest';
-    articlesData: any = [];
+    articlesData: any[] = [];
+    displayData: any[] = [];
     isLoading = false;
     pageDesc: string | undefined;
     organizationId: any;
     destroy$: Subject<boolean> = new Subject<boolean>();
     forumLanguage: string;
+    totalRecords = 0;
     constructor(
         public coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
@@ -74,6 +76,8 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
             this.coffeeLab.getSavedForumList('article', params).subscribe((res) => {
                 if (res.success) {
                     this.articlesData = res.result ?? [];
+                    this.totalRecords = this.articlesData.length;
+                    this.displayData = this.articlesData.slice(0, 9);
                     this.articlesData.map((item) => {
                         item.content = this.getJustText(item.content);
                         return item;
@@ -87,6 +91,8 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
             this.coffeeLab.getMyForumList('article').subscribe((res) => {
                 if (res.success) {
                     this.articlesData = res.result ?? [];
+                    this.totalRecords = this.articlesData.length;
+                    this.displayData = this.articlesData.slice(0, 9);
                     this.articlesData.map((item) => {
                         item.content = this.getJustText(item.content);
                         return item;
@@ -100,6 +106,8 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
             this.coffeeLabService.getForumList('article', params, this.forumLanguage).subscribe((res) => {
                 if (res.success) {
                     this.articlesData = res.result ?? [];
+                    this.totalRecords = this.articlesData.length;
+                    this.displayData = this.articlesData.slice(0, 9);
                     this.articlesData.map((item) => {
                         item.content = this.getJustText(item.content);
                         return item;
@@ -120,6 +128,10 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
             image.parentNode.removeChild(image);
         });
         return contentElement.innerHTML;
+    }
+
+    paginate(event: any) {
+        this.displayData = this.articlesData.slice(event.first, event.first + event.rows);
     }
 
     ngOnDestroy(): void {

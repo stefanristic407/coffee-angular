@@ -7,6 +7,7 @@ import { ApiService } from './api.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '@env/environment';
 import { ApiResponse } from '@models';
+import { UplaodService } from '../upload';
 
 @Injectable({
     providedIn: 'root',
@@ -23,7 +24,12 @@ export class CoffeeLabService extends ApiService {
         return this.forumLanguage.value;
     }
 
-    constructor(protected cookieSrv: CookieService, protected http: HttpClient, private toastService: ToastrService) {
+    constructor(
+        protected cookieSrv: CookieService,
+        protected http: HttpClient,
+        private toastService: ToastrService,
+        private uploadService: UplaodService,
+    ) {
         super(cookieSrv, http);
     }
 
@@ -139,16 +145,20 @@ export class CoffeeLabService extends ApiService {
         formData.append('file', file);
         formData.append(
             'name',
-            Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
+            file.name ?? Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
         );
         formData.append('file_module', module);
         formData.append('api_call', `/${this.organization}/${this.organizationId}/file-manager/files`);
         formData.append('method', 'POST');
         formData.append('token', this.cookieSrv.get('Auth'));
-        const httpOptions = {
-            headers: new HttpHeaders({ Accept: 'application/json' }),
-        };
-        return this.http.post(this.fileUploadUrl, formData, httpOptions);
+        const processId = this.uploadService.addProcess(formData.get('name') as string);
+        return this.http
+            .post(this.fileUploadUrl, formData, {
+                headers: new HttpHeaders({ Accept: 'application/json' }),
+                reportProgress: true,
+                observe: 'events',
+            })
+            .pipe(this.uploadService.upload(processId));
     }
 
     getFileBlob(url: string): Observable<any> {
