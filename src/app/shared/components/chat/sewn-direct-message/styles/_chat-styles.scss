@@ -1639,10 +1639,18 @@
                     display: none !important;
                 }
             }
-            .dm-mb-action-button-img {
+            .dm-mb-action-button-container {
+                display: block;
+                position: relative;
                 margin-right: 8px;
-                width: 24px;
-                height: 24px;
+                min-width: 24px;
+                min-height: 24px;
+                .dm-mb-action-button-img {
+                    display: block;
+                    position: absolute;
+                    width: 24px;
+                    height: 24px;
+                }
             }
         }
     }
