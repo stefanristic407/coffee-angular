@@ -4,8 +4,8 @@
             <span>Back</span>
         </a>
     </div>
-    <span class="request-title-text">Green coffee grading</span>
-    <div style="margin-top: 18px">
+    <div class="request-title-text pb-z5">Green coffee grading</div>
+    <div class="mt-3">
         <app-estate-info
             [cuppingDetails]="cuppingDetails"
             [evaluatorName]="evaluatorName"
@@ -21,6 +21,7 @@
                 placeholder="Select type of cupping"
                 styleClass="p-cuppings-dropdown"
                 optionLabel="name"
+                [readonly]="!isEditable"
             ></p-dropdown>
         </div>
         <div class="sample-size-wrapper p-0">
@@ -28,13 +29,14 @@
                 Sample Size<span class="star">*</span>
             </p>
             <div class="p-inputgroup">
-                <input type="number" pInputText [(ngModel)]="sampleSize" class="sampleSize" />
+                <input type="number" pInputText [(ngModel)]="sampleSize" class="sampleSize" [readonly]="!isEditable" />
                 <p-dropdown
                     [options]="sampleUnitList"
                     [(ngModel)]="sampleSizeUnit"
                     styleClass="p-dropdown-sampleUnit"
                     optionLabel="value"
                     optionValue="value"
+                    [readonly]="!isEditable"
                 >
                 </p-dropdown>
             </div>
@@ -55,7 +57,11 @@
                         </p>
                         <p *ngIf="item">{{ item.evaluator_type }}</p>
                     </div>
-                    <span class="delete_btn" *ngIf="i != 0" (click)="deleteEvaluatorData(item.evaluator_id)">
+                    <span
+                        class="delete_btn"
+                        *ngIf="i != 0 && isEditable"
+                        (click)="deleteEvaluatorData(item.evaluator_id)"
+                    >
                         <i class="pi pi-trash"></i>
                         <span class="pl-2 fnt-muli text-clr334 fnt-600 d-none d-md-block">Delete</span>
                     </span>
@@ -83,7 +89,7 @@
                         </div>
                     </div>
                 </li>
-                <li *ngIf="addBtnShow">
+                <li *ngIf="addBtnShow && isEditable">
                     <span class="cursor-pointer">
                         <span class="pi pi-plus fnt-14 fnt-bold text-clr60b pr-1"></span>
                         <span class="fnt-muli fnt-14 fnt-bold text-clr60b pl-2" (click)="addBtnClick()"

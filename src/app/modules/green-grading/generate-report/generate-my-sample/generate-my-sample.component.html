@@ -1,10 +1,10 @@
 <section class="total-section prime-grid">
-    <div class="back-page pb-45" (click)="goBack()">
+    <div class="back-page pb-4 pb-md-45" (click)="goBack()">
         <a>
-            <span>Back</span>
+            <span class="pl-2">Back</span>
         </a>
     </div>
-    <span class="request-title-text">Green coffee grading</span>
+    <div class="request-title-text">Green coffee grading</div>
     <!-- Sample -->
     <div class="pt-3 pt-md-4">
         <app-estate-info
@@ -52,6 +52,7 @@
                             inputId="sf"
                             class="roast-checkbox"
                             styleClass="p-checkbox-roast"
+                            [readonly]="!isEditable"
                         >
                         </p-checkbox>
                     </span>
@@ -67,6 +68,7 @@
                             [(ngModel)]="fragrance"
                             [ngModelOptions]="{ standalone: true }"
                             (change)="calculateFinalScore()"
+                            [readonly]="!isEditable"
                         />
                         <div *ngIf="isAdvance" class="fragrance">
                             <div class="fragrance-border">
@@ -77,6 +79,7 @@
                                     [min]="-3"
                                     [max]="3"
                                     styleClass="p-frag-slider"
+                                    [disabled]="!isEditable"
                                 ></p-slider>
                                 <div class="dry-break-wrapper">
                                     <p
@@ -95,6 +98,7 @@
                                     [min]="-3"
                                     [max]="3"
                                     styleClass="p-frag-slider"
+                                    [disabled]="!isEditable"
                                 ></p-slider>
                                 <div class="dry-break-wrapper">
                                     <p
@@ -117,6 +121,7 @@
                                 [(ngModel)]="flavorScore"
                                 [ngModelOptions]="{ standalone: true }"
                                 (change)="calculateFinalScore()"
+                                [readonly]="!isEditable"
                             />
                         </div>
                         <div>
@@ -128,6 +133,7 @@
                                 [(ngModel)]="aftertasteScore"
                                 [ngModelOptions]="{ standalone: true }"
                                 (change)="calculateFinalScore()"
+                                [readonly]="!isEditable"
                             />
                         </div>
                     </div>
@@ -140,6 +146,7 @@
                             [(ngModel)]="acidityScore"
                             [ngModelOptions]="{ standalone: true }"
                             (change)="calculateFinalScore()"
+                            [readonly]="!isEditable"
                         />
                         <div *ngIf="isAdvance" class="level-wrapper">
                             <p class="fnt-10 fnt-700 fnt-muli mb-0 black">Intensity</p>
@@ -150,6 +157,7 @@
                                         name="intensity"
                                         [checked]="acidityIntensity === i"
                                         (click)="selectColor($event, 'acidity', i)"
+                                        [disabled]="!isEditable"
                                     />
                                     <span class="checkmark"></span>
                                 </label>
@@ -169,6 +177,7 @@
                             [(ngModel)]="bodyScore"
                             [ngModelOptions]="{ standalone: true }"
                             (change)="calculateFinalScore()"
+                            [readonly]="!isEditable"
                         />
                         <div *ngIf="isAdvance" class="level-wrapper">
                             <p class="fnt-10 fnt-700 fnt-muli mb-0 black">Level</p>
@@ -179,6 +188,7 @@
                                         name="level"
                                         [checked]="bodyLevel === i"
                                         (click)="selectColor($event, 'body', i)"
+                                        [disabled]="!isEditable"
                                     />
                                     <span class="checkmark"></span>
                                 </label>
@@ -198,6 +208,7 @@
                             [(ngModel)]="balanceScore"
                             [ngModelOptions]="{ standalone: true }"
                             (change)="calculateFinalScore()"
+                            [readonly]="!isEditable"
                         />
                     </div>
                     <div class="w-md-10">
@@ -208,7 +219,7 @@
                             placeholder="Enter score"
                             [(ngModel)]="uniformityScore"
                             [ngModelOptions]="{ standalone: true }"
-                            [readonly]="isAdvance"
+                            [readonly]="isAdvance && !isEditable"
                             (change)="calculateFinalScore()"
                         />
                         <div *ngIf="isAdvance" class="level-wrapper">
@@ -219,6 +230,7 @@
                                         name="Uniformity"
                                         [checked]="uniformityValue.includes(i)"
                                         (click)="selectLevels($event, 'uniformity', i)"
+                                        [disabled]="!isEditable"
                                     />
                                     <span class="checkmark">{{ i }}</span>
                                 </label>
@@ -233,7 +245,7 @@
                             placeholder="Enter score"
                             [(ngModel)]="cleancupScore"
                             [ngModelOptions]="{ standalone: true }"
-                            [readonly]="isAdvance"
+                            [readonly]="isAdvance && !isEditable"
                             (change)="calculateFinalScore()"
                         />
                         <div *ngIf="isAdvance" class="level-wrapper">
@@ -244,6 +256,7 @@
                                         name="clean-cup"
                                         [checked]="cleancupValue.includes(i)"
                                         (click)="selectLevels($event, 'cleanCup', i)"
+                                        [disabled]="!isEditable"
                                     />
                                     <span class="checkmark">{{ i }}</span>
                                 </label>
@@ -258,7 +271,7 @@
                             placeholder="Enter score"
                             [(ngModel)]="sweetnessScore"
                             [ngModelOptions]="{ standalone: true }"
-                            [readonly]="isAdvance"
+                            [readonly]="isAdvance && !isEditable"
                             (change)="calculateFinalScore()"
                         />
                         <div *ngIf="isAdvance" class="level-wrapper">
@@ -269,6 +282,7 @@
                                         name="sweetness"
                                         [checked]="sweetnessValue.includes(i)"
                                         (click)="selectLevels($event, 'sweetness', i)"
+                                        [disabled]="!isEditable"
                                     />
                                     <span class="checkmark">{{ i }}</span>
                                 </label>
@@ -284,6 +298,7 @@
                             [(ngModel)]="overallScore"
                             [ngModelOptions]="{ standalone: true }"
                             (change)="calculateFinalScore()"
+                            [readonly]="!isEditable"
                         />
                     </div>
                     <div class="w-md-10">
@@ -297,6 +312,7 @@
                                         name="Defects"
                                         [checked]="defectsNoOfCups === i"
                                         (click)="selectColor($event, 'defects', i)"
+                                        [disabled]="!isEditable"
                                     />
                                     <span class="checkmark">{{ i }}</span>
                                 </label>
@@ -338,11 +354,9 @@
                             [filter]="true"
                             filterBy="name"
                             dropdownIcon="pi pi-plus"
+                            [readonly]="!isEditable"
                         >
                             <ng-template pTemplate="selectedItem">Add Descriptors</ng-template>
-                            <ng-template let-flavour pTemplate="item">
-                                {{ flavour.name | translate }}
-                            </ng-template>
                         </p-dropdown>
                         <p-chips
                             [(ngModel)]="langChips"
@@ -350,11 +364,8 @@
                             addOnBlur
                             [allowDuplicate]="false"
                             styleClass="p-descriptors-chips"
-                        >
-                            <ng-template let-item pTemplate="item">
-                                {{ item.name | translate }}
-                            </ng-template>
-                        </p-chips>
+                            [disabled]="!isEditable"
+                        ></p-chips>
                     </div>
                     <div class="col-lg-6 col-12 mt-lg-0 mt-3">
                         <label class="fnt-muli fnt-14 fnt-600 text-clr334">Add a comment</label>
@@ -364,6 +375,7 @@
                             class="comment-input"
                             [(ngModel)]="comments"
                             [ngModelOptions]="{ standalone: true }"
+                            [readonly]="!isEditable"
                         />
                     </div>
                 </div>
