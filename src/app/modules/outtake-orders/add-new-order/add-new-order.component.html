@@ -146,8 +146,10 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="addOrdersForm.get('order_id').value" class="d-block d-md-none mt-4 px-3">
-                    <div class="row">
+                <div *ngIf="addOrdersForm.get('order_id').value" class="d-md-none mt-4 px-3">
+                    <ng-container *ngTemplateOutlet="orderDetailsTpl"></ng-container>
+
+                    <!-- <div class="row">
                         <div class="col-lg-12 bg-fa border-class py-4">
                             <div class="d-flex justify-content-between mb-4">
                                 <div class="d-flex">
@@ -202,7 +204,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="d-flex flex-column br_top mt-md-3 pt-md-3">
                     <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 pt-md-3 mb-md-1">
@@ -331,7 +333,15 @@
                             </div>
                             <div class="weightInputGroupDiv d-flex inputFieldBox">
                                 <div class="daysInputDiv fnt-14 fnt-600 fnt-muli text-clr334">
-                                    <span>$</span>
+                                    <span
+                                        *ngIf="
+                                            !outtakeOrderDetails?.unit_currency && !outtakeOrderDetails?.quantity_unit
+                                        "
+                                        >SEK</span
+                                    >
+                                    <span *ngIf="outtakeOrderDetails?.total_price_currency">{{
+                                        outtakeOrderDetails?.total_price_currency
+                                    }}</span>
                                 </div>
                                 <div class="w-100">
                                     <input
@@ -347,10 +357,10 @@
                                 </small>
                             </div>
                         </div>
+                        <div *ngIf="addOrdersForm.get('customer_type').value === 'hrc'" class="mt-2">
+                            <p-checkbox [binary]="true" label="Price is inclusive of VAT"></p-checkbox>
+                        </div>
                     </div>
-                </div>
-                <div class="row padd-2r mb-md-3 mx-0 mt-3">
-                    <p-checkbox [binary]="true" label="Price is inclusive of VAT"></p-checkbox>
                 </div>
                 <div *ngIf="addOrdersForm.get('customer_type').value === 'hrc'" class="row padd-2r mb-md-3">
                     <div class="col-md-6 col-sm-12 pl-md-3">
@@ -657,18 +667,20 @@
                     </button>
                 </div>
             </div>
-            <div class="col-12 col-md-7 col-lg-4">
-                <div
-                    *ngIf="addOrdersForm.get('order_id').value"
-                    class="d-none d-sm-none d-md-block d-lg-block d-xl-block mt-4 mt-lg-0"
-                >
-                    <ng-container *ngTemplateOutlet="orderDetailsTpl"></ng-container>
-                </div>
-                <div
-                    *ngIf="addOrdersForm.get('customer_id').value"
-                    class="d-none d-sm-none d-md-block d-lg-block d-xl-block mt-4 mt-lg-0"
-                >
-                    <ng-container *ngTemplateOutlet="customerOrderDetails"></ng-container>
+            <div class="col-12 col-lg-4">
+                <div class="d-md-flex d-lg-inline">
+                    <div
+                        *ngIf="addOrdersForm.get('order_id').value"
+                        class="mr-md-2 mr-lg-0 d-none d-sm-none d-md-block d-lg-block d-xl-block mt-4 mt-lg-0"
+                    >
+                        <ng-container *ngTemplateOutlet="orderDetailsTpl"></ng-container>
+                    </div>
+                    <div
+                        *ngIf="addOrdersForm.get('customer_id').value"
+                        class="ml-md-2 ml-lg-0 d-none d-sm-none d-md-block d-lg-block d-xl-block mt-4 mt-lg-0"
+                    >
+                        <ng-container *ngTemplateOutlet="customerOrderDetails"></ng-container>
+                    </div>
                 </div>
 
                 <div *ngIf="coffeeExperienceLink" class="form-section__inputs mt-4 d-none d-md-block">
@@ -737,13 +749,13 @@
 </div>
 
 <ng-template #orderDetailsTpl>
-    <div *ngIf="orderDetails">
+    <div *ngIf="orderDetails" class="mrt">
         <label class="primary_txt mb-3">{{ 'order_details' | translate }}</label>
         <div class="order-details-clr">
             <div class="d-flex justify-content-between mb-45 mb-475">
                 <div class="d-flex">
                     <app-avatar
-                        [size]="32"
+                        [size]="36"
                         [src]="orderDetails.estate_profile_image_thumbnail_url || 'assets/images/default-avatar.png'"
                     >
                     </app-avatar>
@@ -833,8 +845,8 @@
                     </td>
                 </tr>
             </table>
-            <div class="mt-3 d-md-flex justify-content-around cust-profile p-4 br-4 d-none d-md-block">
-                <div>
+            <div class="mt-3 d-md-flex cust-profile p-4 br-4 d-none d-md-block">
+                <div class="mr-3">
                     <div class="fnt-md-14 fnt-muli fnt-600 text-clr588 mb-2">
                         {{ orderDetails?.cupped_at | date: 'd MMM yyyy' }}
                     </div>
@@ -845,12 +857,16 @@
                         }}</span>
                     </div>
                 </div>
-                <div class="d-flex br_left">
+                <div class="flex br_left d-none d-md-block">
                     <div class="pl-3 pr-2 img_circle d-flex align-items-center">
-                        <img src="{{ orderDetails?.evaluator_profile_image }}" width="40" height="40" alt="" />
+                        <app-avatar
+                            [size]="36"
+                            [src]="orderDetails?.evaluator_profile_image || 'assets/images/default-avatar.png'"
+                        >
+                        </app-avatar>
                     </div>
                     <div>
-                        <div class="fnt-md-16 fnt-14 fnt fnt-muli fnt-bold text-clr334 mb-2">
+                        <div class="fnt-md-16 fnt-14 fnt fnt-muli fnt-bold text-clr334 mb-1">
                             {{ orderDetails?.evaluator_name }}
                         </div>
                         <div class="fnt-md-14 fnt-muli fnt-bold text-clr588">
@@ -864,12 +880,12 @@
 </ng-template>
 <ng-template #customerOrderDetails>
     <div *ngIf="customerDetails">
-        <label class="primary_txt mb-3">{{ 'customer_details' | translate }}</label>
+        <label class="primary_txt my-3 pt-2">{{ 'customer_details' | translate }}</label>
         <div class="order-details-clr">
             <div class="d-flex justify-content-between mb-45 mb-475">
                 <div class="d-flex">
                     <app-avatar
-                        [size]="32"
+                        [size]="36"
                         [src]="customerDetails?.company_image_thumbnail_url || 'assets/images/default-avatar.png'"
                     >
                     </app-avatar>

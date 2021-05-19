@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -12,6 +12,7 @@ import { COUNTRY_LIST } from '@constants';
     selector: 'app-select-orders',
     templateUrl: './select-orders.component.html',
     styleUrls: ['./select-orders.component.scss'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class SelectOrdersComponent implements OnInit {
     @Output() orderChange = new EventEmitter<any>();
@@ -22,6 +23,7 @@ export class SelectOrdersComponent implements OnInit {
     estatetermOrigin: any;
     displayNumbers: any;
     selected: Date[];
+    searchTerm = '';
     originArray = [];
     originFilter: any;
     rangeDates: any;
@@ -97,13 +99,13 @@ export class SelectOrdersComponent implements OnInit {
                 field: 'origin',
                 header: 'Origin',
                 sortable: false,
-                width: 10,
+                width: 8,
             },
             {
-                field: 'species',
+                field: 'varieties',
                 header: 'Variety',
                 sortable: false,
-                width: 10,
+                width: 12,
             },
 
             {
@@ -154,13 +156,13 @@ export class SelectOrdersComponent implements OnInit {
     }
     onSelectionChange(value: any) {
         this.selectedEntry = value;
-        console.log(this.selectedEntry);
     }
 
     getTableData() {
         this.tableValue = [];
         const postData: any = {
             origin: this.originFilter ? this.originFilter : '',
+            searchQuery: this.searchTerm ? this.searchTerm : '',
             per_page: this.displayFilter ? this.displayFilter : 1000,
             start_date: '',
             end_date: '',
