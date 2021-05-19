@@ -5,7 +5,7 @@ import { GlobalsService, ECommerceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem, LazyLoadEvent } from 'primeng/api';
 import { ConfirmComponent } from '@shared';
-import { COUNTRY_LIST } from '@constants';
+import { COUNTRY_LIST, LBUNIT } from '@constants';
 
 @Component({
     selector: 'app-product-list',
@@ -308,5 +308,10 @@ export class ProductListComponent implements OnInit {
 
     onViewDetails(item) {
         this.router.navigate([`/e-commerce/product-details/${this.type}/${item.id}`]);
+    }
+
+    getWeight(value, unit) {
+        const weight = unit === 'lb' ? value / LBUNIT : value;
+        return Math.round(weight * 100) / 100;
     }
 }

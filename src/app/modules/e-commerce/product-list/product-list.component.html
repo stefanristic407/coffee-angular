@@ -212,7 +212,10 @@
                                 </span>
                             </span>
                             <span *ngSwitchCase="'weight'" (click)="onViewDetails(rowData)">
-                                <span> {{ rowData[col.field] }} {{ rowData.weight_unit }} </span>
+                                <span>
+                                    {{ getWeight(rowData[col.field], rowData.weight_unit) }}
+                                    {{ rowData.weight_unit }}
+                                </span>
                             </span>
                             <span *ngSwitchCase="'price'" (click)="onViewDetails(rowData)">
                                 <span> ${{ rowData[col.field] }} </span>
