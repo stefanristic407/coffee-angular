@@ -58,8 +58,10 @@
                     <p-dropdown
                         [options]="filterOptions"
                         [(ngModel)]="filterBy"
+                        [showClear]="true"
                         (ngModelChange)="getQuestions()"
                         styleClass="round-border text-clr588"
+                        [placeholder]="'posted_by' | translate"
                         optionLabel="label"
                         optionValue="value"
                     ></p-dropdown>

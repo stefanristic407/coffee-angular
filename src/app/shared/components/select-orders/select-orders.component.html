@@ -1,4 +1,8 @@
-<div class="main-block">
+<div *ngIf="loader">
+    <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
+    <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
+</div>
+<div *ngIf="!loader" class="main-block">
     <div class="d-md-flex justify-content-between align-items-start">
         <div class="mb-4">
             <div class="back-page" (click)="close()">{{ 'back' | translate }}</div>
@@ -12,6 +16,7 @@
                     pInputText
                     class="w-100 {{ searchTerm ? 'highlight' : '' }} "
                     [(ngModel)]="searchTerm"
+                    (input)="getTableData()"
                     placeholder="{{ 'search_by_orders' | translate }}"
                 />
             </span>
@@ -106,7 +111,7 @@
                                 col.field == 'type'
                         }"
                     >
-                        <ng-container *ngSwitchCase="'estate_name'">
+                        <ng-container *ngSwitchCase="'id'">
                             <div class="d-md-none mb-4">
                                 <span class="fnt-16 fnt-md-18 fnt-bold mb-2"
                                     >{{ 'order_id' | translate }} #{{ rowData.id }}</span
@@ -130,11 +135,41 @@
                             <span>{{ rowData[col.field] | country | translate }}</span>
                         </ng-container>
 
+                        <ng-container *ngSwitchCase="'name'">
+                            <span class="p-column-title"> {{ col.header }} </span>
+                            <span>{{ rowData[col.field] }}</span>
+                        </ng-container>
+
+                        <ng-container *ngSwitchCase="'firstname'">
+                            <span class="p-column-title"> {{ col.header }} </span>
+                            <span>{{ rowData[col.field] }}</span>
+                        </ng-container>
+
+                        <ng-container *ngSwitchCase="'last_login_at'">
+                            <span class="p-column-title"> {{ col.header }} </span>
+                            <span>{{ rowData[col.field] | date: 'dd MMM yyyy' }}</span>
+                        </ng-container>
+
                         <ng-container *ngSwitchCase="'created_at'">
                             <span>{{ rowData[col.field] | date: 'dd MMM yyyy' }}</span>
                         </ng-container>
 
                         <ng-container *ngSwitchCase="'quantity'">
+                            <span class="p-column-title"> {{ col.header }} </span>
+                            <span>{{ rowData[col.field] }} {{ rowData['quantity_type'] }}</span>
+                        </ng-container>
+
+                        <ng-container *ngSwitchCase="'email'">
+                            <span class="p-column-title"> {{ col.header }} </span>
+                            <span>{{ rowData[col.field] }} {{ rowData['quantity_type'] }}</span>
+                        </ng-container>
+
+                        <ng-container *ngSwitchCase="'status'">
+                            <span class="p-column-title"> {{ col.header }} </span>
+                            <span>{{ rowData[col.field] }} {{ rowData['quantity_type'] }}</span>
+                        </ng-container>
+
+                        <ng-container *ngSwitchCase="'roles'">
                             <span class="p-column-title"> {{ col.header }} </span>
                             <span>{{ rowData[col.field] }} {{ rowData['quantity_type'] }}</span>
                         </ng-container>

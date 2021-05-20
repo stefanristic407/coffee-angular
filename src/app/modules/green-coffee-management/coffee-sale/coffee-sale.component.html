@@ -200,10 +200,10 @@
                                                                     'quantity' | translate
                                                                 }}</span>
                                                                 <span class="float-right primary_txt mobileValueTxt"
-                                                                    >{{ rowData['quantity_count'] }}
-                                                                    {{ rowData['quantity_type'] }}/
-                                                                    {{ rowData['quantity'] }}
-                                                                    {{ rowData['quantity_unit'] || 'kg' }}
+                                                                    >{{
+                                                                        rowData['quantity_count'] * rowData['quantity']
+                                                                    }}
+                                                                    'kg'
                                                                 </span>
                                                             </div>
                                                         </div>

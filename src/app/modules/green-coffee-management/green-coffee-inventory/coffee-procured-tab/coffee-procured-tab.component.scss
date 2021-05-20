@@ -17,6 +17,13 @@
     }
 }
 
+.custom-tooltip {
+    .ui-tooltip .ui-tooltip-text {
+        background-color: transparent;
+        color: #747588;
+    }
+}
+
 @media (max-width: 1270px) and (min-width: 768px) {
     ::ng-deep .coffee-procured .p-datatable table {
         border-collapse: collapse;

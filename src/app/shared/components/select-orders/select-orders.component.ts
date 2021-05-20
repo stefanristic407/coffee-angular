@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -17,7 +17,9 @@ import { COUNTRY_LIST } from '@constants';
 export class SelectOrdersComponent implements OnInit {
     @Output() orderChange = new EventEmitter<any>();
     @Output() closeEvent = new EventEmitter<any>();
+    @Input() selectedType;
     estateterm: any;
+    loader = true;
     estatetermStatus: any;
     estatetermType: any;
     estatetermOrigin: any;
@@ -49,6 +51,7 @@ export class SelectOrdersComponent implements OnInit {
     selectId: any;
     batchId: any;
     ordId: any;
+    selectedValue: any;
 
     constructor(
         public router: Router,
@@ -77,51 +80,110 @@ export class SelectOrdersComponent implements OnInit {
     }
 
     createRoasterTable() {
-        this.tableColumns = [
-            {
-                field: 'id',
-                header: 'Order ID',
-                sortable: false,
-                width: 7,
-            },
-            {
-                field: 'estate_name',
-                header: 'Estate name',
-                sortable: false,
-                width: 14,
-            },
-            {
-                field: 'created_at',
-                header: 'Date ordered',
-                width: 10,
-            },
-            {
-                field: 'origin',
-                header: 'Origin',
-                sortable: false,
-                width: 8,
-            },
-            {
-                field: 'varieties',
-                header: 'Variety',
-                sortable: false,
-                width: 12,
-            },
+        if (this.selectedType === 'orders') {
+            this.tableColumns = [
+                {
+                    field: 'id',
+                    header: 'Order ID',
+                    sortable: false,
+                    width: 7,
+                },
+                {
+                    field: 'estate_name',
+                    header: 'Estate name',
+                    sortable: false,
+                    width: 14,
+                },
+                {
+                    field: 'created_at',
+                    header: 'Date ordered',
+                    width: 10,
+                },
+                {
+                    field: 'origin',
+                    header: 'Origin',
+                    sortable: false,
+                    width: 8,
+                },
+                {
+                    field: 'varieties',
+                    header: 'Variety',
+                    sortable: false,
+                    width: 12,
+                },
 
-            {
-                field: 'quantity',
-                header: 'Quantity',
-                sortable: false,
-                width: 8,
-            },
+                {
+                    field: 'quantity',
+                    header: 'Quantity',
+                    sortable: false,
+                    width: 8,
+                },
 
-            {
-                field: 'cup_score',
-                header: 'Cupping Score',
-                sortable: false,
-                width: 10,
-            },
-        ];
+                {
+                    field: 'cup_score',
+                    header: 'Cupping Score',
+                    sortable: false,
+                    width: 10,
+                },
+            ];
+        } else if (this.selectedType === 'users') {
+            this.tableColumns = [
+                {
+                    field: 'firstname',
+                    header: 'Name',
+                    width: 10,
+                },
+                {
+                    field: 'last_login_at',
+                    header: 'Last Login',
+                    width: 18,
+                },
+                {
+                    field: 'email',
+                    header: 'Email',
+                    width: 14,
+                },
+                {
+                    field: 'status',
+                    header: 'Status',
+                    width: 8,
+                },
+                {
+                    field: 'roles',
+                    header: 'All Roles',
+                    width: 14,
+                },
+            ];
+        } else if (this.selectedType === 'micro-roaster' || this.selectedType === 'hrc') {
+            this.tableColumns = [
+                {
+                    field: 'id',
+                    header: 'Order ID',
+                    sortable: false,
+                    width: 7,
+                },
+                {
+                    field: 'name',
+                    header: 'Customer name',
+                    width: 14,
+                },
+                {
+                    field: 'created_at',
+                    header: 'Date ordered',
+                    width: 10,
+                },
+                {
+                    field: 'email',
+                    header: 'Email',
+                    width: 14,
+                },
+                {
+                    field: 'status',
+                    header: 'Status',
+                    width: 8,
+                },
+            ];
+        }
     }
 
     filterCall() {
@@ -162,18 +224,20 @@ export class SelectOrdersComponent implements OnInit {
         this.tableValue = [];
         const postData: any = {
             origin: this.originFilter ? this.originFilter : '',
-            searchQuery: this.searchTerm ? this.searchTerm : '',
+            search_query: this.searchTerm ? this.searchTerm : '',
             per_page: this.displayFilter ? this.displayFilter : 1000,
             start_date: '',
             end_date: '',
-            status: 'RECEIVED',
+            // status: 'RECEIVED',
         };
         if (this.rangeDates && this.rangeDates.length === 2) {
             postData.start_date = moment(this.rangeDates[0], 'DD/MM/YYYY').format('YYYY-MM-DD');
             postData.end_date = moment(this.rangeDates[1], 'DD/MM/YYYY').format('YYYY-MM-DD');
         }
-        this.roasterService.getListOrderDetails(this.roasterId, postData, this.orderType).subscribe((data: any) => {
-            if (data.success && data.result) {
+        this.roasterService.getListOrderDetails(this.roasterId, this.selectedType, postData).subscribe((data: any) => {
+            console.log(data);
+            if (data.success) {
+                this.loader = false;
                 this.totalCount = data.result_info.total_count;
                 this.tableValue = data.result;
             }
@@ -181,8 +245,19 @@ export class SelectOrdersComponent implements OnInit {
     }
 
     onContinue() {
-        this.selectId = this.selectedOrder.id;
-        this.orderChange.emit({ orderId: this.selectedOrder.id, orderType: this.selectedOrder.type });
+        if (this.selectedType === 'orders') {
+            this.selectedValue = {
+                orderId: this.selectedOrder.id,
+            };
+        } else {
+            this.selectedValue = {
+                orderId: this.selectedOrder.id,
+                userName: this.selectedOrder.firstname + ' ' + this.selectedOrder.lastname,
+            };
+        }
+        console.log(this.selectedOrder);
+        console.log(this.selectedValue);
+        this.orderChange.emit(this.selectedValue);
         this.close();
     }
 
