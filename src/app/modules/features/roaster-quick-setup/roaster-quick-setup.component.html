@@ -8,7 +8,12 @@
         <section class="team__total d-md-block">
             <div class="row">
                 <div class="col-12">
-                    <div class="add-team">Invite {{ headerValue }}</div>
+                    <div class="add-team">
+                        Invite
+                        {{
+                            headerValue === 'Micro-Roaster' ? 'Micro-Roaster' : ('roasted_coffee_customers' | translate)
+                        }}
+                    </div>
                     <div class="fnt-14 fnt-normal mb-4 pt-2 pt-lg-0 text-clr588">
                         Invite your customers to the platform for setup
                     </div>

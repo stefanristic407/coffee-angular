@@ -44,7 +44,10 @@ export class CustomerManagementComponent implements OnInit {
         this.customerType = OrganizationType.MICRO_ROASTER;
         this.getMicroRoaster();
         this.language();
-        this.navItems = [{ label: this.globals.languageJson?.people }, { label: 'Customer onboarding' }];
+        this.navItems = [
+            { label: this.globals.languageJson?.menu_sales_management },
+            { label: this.globals.languageJson?.customer_management },
+        ];
         this.selectedNav = { label: this.globals.languageJson?.home, routerLink: '/' };
     }
     language() {

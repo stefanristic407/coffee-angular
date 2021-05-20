@@ -17,9 +17,18 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
         { label: 'Most Answered', value: 'most_answered' },
         { label: 'Oldest', value: 'oldest' },
     ];
-    filterOptions = [{ label: 'Posted by: All', value: null }];
+    filterOptions = [
+        {
+            label: 'Coffee experts',
+            value: false
+        },
+        {
+            label: 'End consumers',
+            value: true
+        },
+    ];
     sortBy = 'latest';
-    filterBy = null;
+    filterBy: any;
     questions: any[] = [];
     isLoading = false;
     keyword = '';
@@ -34,7 +43,6 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         window.scroll(0, 0);
-        this.getAuthors();
         this.coffeeLabService.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
             this.forumLanguage = language;
             this.getQuestions();
@@ -44,32 +52,17 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
         });
     }
 
-    getAuthors(): void {
-        this.coffeeLabService.getAuthors('question').subscribe((res: any) => {
-            if (res.success) {
-                const filterArray = res.result.question_authors.map((item: any) => {
-                    return {
-                        label: `Posted by: ${item.name}`,
-                        value: item.id,
-                    };
-                });
-                this.filterOptions = [...this.filterOptions, ...filterArray];
-            } else {
-                this.toastService.error('Cannot get authors');
-            }
-        });
-    }
-
     getQuestions(): void {
         const params = {
             query: this.keyword,
-            posted_user_id: this.filterBy,
+            is_consumer: this.filterBy,
             sort_by: this.sortBy === 'most_answered' ? 'most_answered' : 'posted_at',
             sort_order: this.sortBy === 'most_answered' ? 'desc' : this.sortBy === 'latest' ? 'desc' : 'asc',
         };
         this.isLoading = true;
         this.coffeeLabService.getForumList('question', params, this.forumLanguage).subscribe((res: any) => {
             this.isLoading = false;
+            console.log('questions >>>', res);
             if (res.success) {
                 this.questions = res.result?.questions;
             } else {

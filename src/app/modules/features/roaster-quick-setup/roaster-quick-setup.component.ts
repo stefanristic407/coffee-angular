@@ -55,8 +55,15 @@ export class RoasterQuickSetupComponent implements OnInit {
         this.headerValue = decodeURIComponent(this.route.snapshot.queryParams.buttonValue);
         this.appLanguage = this.globals.languageJson;
         this.navItems = [
-            { label: 'Customer onboarding', routerLink: '/people/customer-management' },
-            { label: `Invite  ${this.headerValue}` },
+            { label: this.globals.languageJson?.menu_sales_management },
+            { label: this.globals.languageJson?.customer_management, routerLink: '/people/customer-management' },
+            {
+                label: `Invite  ${
+                    this.headerValue === 'Micro-Roaster'
+                        ? 'Micro-Roaster'
+                        : this.globals.languageJson?.roasted_coffee_customers
+                }`,
+            },
         ];
         this.selectedNav = { label: this.globals.languageJson?.home, routerLink: '/' };
     }

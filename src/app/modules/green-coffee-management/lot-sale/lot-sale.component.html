@@ -105,6 +105,12 @@
                                                 nameMobileHeader: col.field == 'lot_id'
                                             }"
                                         >
+                                            <span
+                                                *ngSwitchCase="'order_id'"
+                                                class="d-none d-sm-none d-md-inline-block text-clr588 fnt-600 text-underline"
+                                            >
+                                                {{ rowData['id'] }}
+                                            </span>
                                             <span *ngSwitchCase="'lot_id'" class="">
                                                 <span
                                                     class="d-none d-sm-none d-md-inline-block text-clr588 fnt-600 text-underline"

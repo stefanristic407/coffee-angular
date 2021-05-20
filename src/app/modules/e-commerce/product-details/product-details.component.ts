@@ -613,6 +613,12 @@ export class ProductDetailsComponent implements OnInit {
                 delete ele.product_weight_variant_id;
                 delete ele.variant_name;
                 delete ele.weight_name;
+                ele.weight =
+                    ele.crate_unit === 'lb'
+                        ? ele.weight * LBUNIT
+                        : ele.crate_unit === 'g'
+                        ? ele.weight / 1000
+                        : ele.weight;
             });
         } else {
             delete productObj.crates;
