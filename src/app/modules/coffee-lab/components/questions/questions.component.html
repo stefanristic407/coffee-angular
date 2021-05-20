@@ -15,11 +15,13 @@
                             forumType="question"
                             [enableEdit]="
                                 organizationId === question.org_id &&
-                                question.org_type === coffeeLabService.organization
+                                question.org_type === coffeeLabService.organization &&
+                                question.posted_by === authService.currentUser.id
                             "
                             [enableDelete]="
                                 organizationId === question.org_id &&
-                                question.org_type === coffeeLabService.organization
+                                question.org_type === coffeeLabService.organization &&
+                                question.posted_by === authService.currentUser.id
                             "
                             [enableSave]="pageDesc !== 'saved-posts'"
                             [enableDeleteSave]="pageDesc === 'saved-posts'"

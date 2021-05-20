@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CoffeeLabService, GlobalsService } from '@services';
+import { AuthService, CoffeeLabService, GlobalsService } from '@services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { CookieService } from 'ngx-cookie-service';
@@ -28,6 +28,7 @@ export class ArticleDetailComponent implements OnInit {
         private messageService: MessageService,
         private cookieService: CookieService,
         public location: Location,
+        public authService: AuthService,
     ) {
         this.activatedRoute.params.subscribe((params) => {
             this.idOrSlug = params.idOrSlug;

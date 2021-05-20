@@ -21,11 +21,13 @@
                                     "
                                     [enableEdit]="
                                         organizationId === detailsData?.organisation_id &&
-                                        detailsData?.organisation_type === coffeeLabService.organization
+                                        detailsData?.organisation_type === coffeeLabService.organization &&
+                                        detailsData.posted_by === authService.currentUser.id
                                     "
                                     [enableDelete]="
                                         organizationId === detailsData?.organisation_id &&
-                                        detailsData?.organisation_type === coffeeLabService.organization
+                                        detailsData?.organisation_type === coffeeLabService.organization &&
+                                        detailsData.posted_by === authService.currentUser.id
                                     "
                                 ></app-forum-menu>
                             </div>

@@ -101,23 +101,22 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
             { name: 'Inactive', value: 'Inactive' },
             { name: 'Pending', value: 'pending' },
         ];
-        this.currentRoleID = Number(this.route.snapshot.queryParams.roleID);
-        this.isAddMember =
-            this.route.snapshot.queryParams.isAddMember && this.route.snapshot.queryParams.isAddMember === 'true'
-                ? true
-                : false;
-        if (!this.isAddMember) {
-            this.tableColumns.push({
-                field: 'actions',
-                header: 'Actions',
-                sortable: false,
-                width: 10,
-            });
-        }
-        this.supplyBreadCrumb();
         this.loginId = this.cookieService.get('user_id');
         this.roasterID = this.cookieService.get('roaster_id');
-        this.listRoles();
+        this.route.queryParams.subscribe((params) => {
+            this.currentRoleID = Number(params.roleID);
+            this.isAddMember = params.isAddMember && params.isAddMember === 'true' ? true : false;
+            if (!this.isAddMember) {
+                this.tableColumns.push({
+                    field: 'actions',
+                    header: 'Actions',
+                    sortable: false,
+                    width: 10,
+                });
+            }
+            this.supplyBreadCrumb();
+            this.listRoles();
+        });
     }
     listRoles(): void {
         this.roasterService.getRoles(this.roasterID).subscribe(
@@ -220,7 +219,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
             disabled: false,
         };
         const obj2: MenuItem = {
-            label: this.globals.languageJson?.people,
+            label: this.globals.languageJson?.team_management,
             routerLink: '//team-management/manage-role',
             disabled: false,
         };
