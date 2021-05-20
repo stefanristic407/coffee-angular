@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CoffeeLabService } from '@services';
+import { AuthService, CoffeeLabService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 import { Location } from '@angular/common';
@@ -26,6 +26,7 @@ export class CoffeeDetailsComponent implements OnInit {
         private cookieService: CookieService,
         private messageService: MessageService,
         public location: Location,
+        public authService: AuthService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.activatedRoute.params.subscribe((params) => {

@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { GlobalsService } from '@services';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
     selector: 'app-overview',
     templateUrl: './overview.component.html',
     styleUrls: ['./overview.component.scss'],
+    providers: [TitleCasePipe],
 })
 export class OverviewComponent implements OnInit {
     menuItems = [
@@ -45,8 +49,15 @@ export class OverviewComponent implements OnInit {
         },
     ];
     keyword?: string;
+    breadcrumbItems: MenuItem[];
 
-    constructor() {}
+    constructor(public globals: GlobalsService, private titleCasePipe: TitleCasePipe) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.breadcrumbItems = [
+            { label: this.globals.languageJson?.home, routerLink: '/' },
+            { label: this.globals.languageJson?.brand_and_experience },
+            { label: this.titleCasePipe.transform(this.globals.languageJson?.the_coffee_lab) },
+        ];
+    }
 }

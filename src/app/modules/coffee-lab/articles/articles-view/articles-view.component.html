@@ -94,11 +94,13 @@
                         forumType="article"
                         [enableEdit]="
                             organizationId === article.organisation_id &&
-                            article.organisation_type === coffeeLabService.organization
+                            article.organisation_type === coffeeLabService.organization &&
+                            article.user_id === authService.currentUser.id
                         "
                         [enableDelete]="
                             organizationId === article.organisation_id &&
-                            article.organisation_type === coffeeLabService.organization
+                            article.organisation_type === coffeeLabService.organization &&
+                            article.user_id === authService.currentUser.id
                         "
                         [enableSave]="pageDesc !== 'saved-posts'"
                         [enableDeleteSave]="pageDesc === 'saved-posts'"
