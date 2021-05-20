@@ -17,11 +17,13 @@
                         forumType="question"
                         [enableEdit]="
                             organizationId === detailsData.org_id &&
-                            detailsData.org_type === coffeeLabService.organization
+                            detailsData.org_type === coffeeLabService.organization &&
+                            detailsData.posted_by === authService.currentUser.id
                         "
                         [enableDelete]="
                             organizationId === detailsData.org_id &&
-                            detailsData.org_type === coffeeLabService.organization
+                            detailsData.org_type === coffeeLabService.organization &&
+                            detailsData.posted_by === authService.currentUser.id
                         "
                         [enableStopPropagation]="false"
                     ></app-forum-menu>
@@ -31,7 +33,7 @@
                 class="fnt-muli fnt-16 fnt-md-18 font-weight-bold text-clr334 mb-4"
                 [innerHTML]="detailsData.question"
             ></div>
-            <div class="mb-4 border-top-main border-bottom-main py-4 px-0 px-md-45">
+            <div class="mb-2 border-top-main border-bottom-main py-4 px-0 px-md-45">
                 <div class="d-flex align-items-center">
                     <img
                         [src]="authService.currentUser?.profile_image_thumb_url || 'assets/images/default-avatar.png'"
@@ -55,13 +57,6 @@
                     </div>
                 </div>
             </div>
-            <div class="mb-2">
-                <span (click)="setPagePosition()" class="btn-f8 w-100">
-                    {{
-                        ('showing' | translate) + ' ' + detailsData.answers.length + ' ' + ('comments' | translate)
-                    }}</span
-                >
-            </div>
             <div
                 *ngFor="let answer of detailsData.answers; let last = last"
                 [id]="answer.id"
@@ -82,11 +77,13 @@
                                     [enableSave]="false"
                                     [enableEdit]="
                                         organizationId === answer.org_id &&
-                                        answer.org_type === coffeeLabService.organization
+                                        answer.org_type === coffeeLabService.organization &&
+                                        answer.user_id === authService.currentUser.id
                                     "
                                     [enableDelete]="
                                         organizationId === answer.org_id &&
-                                        answer.org_type === coffeeLabService.organization
+                                        answer.org_type === coffeeLabService.organization &&
+                                        answer.user_id === authService.currentUser.id
                                     "
                                     [enableTranslation]="answer?.translations?.length < 3"
                                     [enableStopPropagation]="false"
