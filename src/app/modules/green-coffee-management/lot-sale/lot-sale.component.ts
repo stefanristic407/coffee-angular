@@ -109,6 +109,12 @@ export class LotSaleComponent implements OnInit {
         }
         this.tableColumns = [
             {
+                field: 'order_id',
+                header: this.globals.languageJson?.order_id,
+                sortable: false,
+                width: 15,
+            },
+            {
                 field: 'lot_id',
                 header: this.globals.languageJson?.lot_id,
                 sortable: false,

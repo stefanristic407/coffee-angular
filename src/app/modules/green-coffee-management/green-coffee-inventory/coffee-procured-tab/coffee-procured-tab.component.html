@@ -103,7 +103,7 @@
                     <span *ngSwitchCase="'varieties'" [routerLink]="availabilityPage(rowData)">
                         <div class="d-flex">
                             <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
-                                {{ rowData['varieties'] || '--' }}
+                                {{ rowData['varieties'] || 'NA' }}
                             </span>
                         </div>
                     </span>
@@ -159,12 +159,12 @@
                                 [routerLink]="availabilityPage(rowData)"
                             >
                                 <p class="mb-0 prime-table-label">
-                                    {{ rowData['order_reference'] || '--' }}
+                                    {{ rowData['order_reference'] || 'NA' }}
                                 </p>
                             </span>
                             <span [routerLink]="availabilityPage(rowData)">
                                 <p *ngIf="!primeTableService.isMobileView" class="mb-0">
-                                    {{ rowData['order_reference'] || '--' }}
+                                    {{ rowData['order_reference'] || 'NA' }}
                                 </p>
                             </span>
                             <!-- <span class="ml-auto"> </span> -->

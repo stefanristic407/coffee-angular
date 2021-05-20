@@ -1,13 +1,13 @@
 <div>
-    <div>
+    <div class="d-none d-md-block">
         <h1 class="fnt-18 fnt-muli fnt-bold text-clr334 mb-0">{{ 'filter_by_content' | translate }}</h1>
     </div>
     <div class="d-md-none">
-        <h1 class="fnt-18 fnt-muli fnt-bold text-clr334 mb-0 mb-4">{{ 'my_posts' | translate }}</h1>
+        <h1 class="fnt-18 fnt-muli fnt-bold text-clr334 mb-0 mb-4">{{ 'saved_posts' | translate }}</h1>
         <h1 class="fnt-14 fnt-muli fnt-bold text-clr334 mb-0 mb-3">{{ 'filter_by_content' | translate }}</h1>
     </div>
 
-    <p-tabMenu [model]="menuItems" styleClass="inner-menu mt-3">
+    <p-tabMenu [model]="menuItems" styleClass="inner-menu remove-menu mt-3">
         <ng-template pTemplate="item" let-item let-i="index">
             <span class="pl-1">{{ item.label | translate }}</span>
         </ng-template>
