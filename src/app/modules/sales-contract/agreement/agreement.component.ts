@@ -19,7 +19,7 @@ export class AgreementComponent implements OnInit {
 
     ngOnInit(): void {
         this.customerType = 'hrc';
-        this.navItems = [{ label: this.globals.languageJson?.agreements }];
+        this.navItems = [{ label: 'Sales contracts' }];
 
         this.selectedNav = { label: this.globals.languageJson?.home, routerLink: '/' };
     }

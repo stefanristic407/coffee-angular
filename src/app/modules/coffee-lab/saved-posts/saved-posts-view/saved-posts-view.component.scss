@@ -35,8 +35,11 @@
 .p-tabmenu.inner-menu .p-tabmenu-nav .p-tabmenuitem:not(.p-highlight):not(.p-disabled):hover .p-menuitem-link,
 .p-tabmenu.inner-menu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
     background: #f8eedb;
-    color: $brown-color !important;
-    border: none !important;
+    color: $brown-color;
+    border-color: unset;
+    @media (max-width: 767px) {
+        border-radius: 4px;
+    }
 }
 
 .p-tabmenu.inner-menu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link::before {
