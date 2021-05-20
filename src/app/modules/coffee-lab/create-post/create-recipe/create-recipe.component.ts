@@ -123,34 +123,36 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         private route: ActivatedRoute,
         private location: Location,
     ) {
-        this.createRecipeForm();
         this.roasterId = this.cookieService.get('roaster_id');
+        this.createRecipeForm();
     }
 
     ngOnInit(): void {
-        const type = this.route.snapshot.queryParamMap.get('type');
-        if (type === 'recipe') {
-            this.recipeId = this.route.snapshot.queryParamMap.get('id');
-        }
-        if (this.recipeId) {
-            this.getRecipeById();
-        }
-        this.recipeSub?.unsubscribe();
-        const recipeSub = this.coffeeLabService.originalPost.subscribe((res) => {
-            console.log('response', res);
-            if (res && this.isTranslate) {
-                this.onSave();
+        this.route.queryParams.subscribe((params) => {
+            const type = params.type;
+            if (type === 'recipe') {
+                this.recipeId = params.id;
+                this.recipeSub?.unsubscribe();
+                const recipeSub = this.coffeeLabService.originalPost.subscribe((res) => {
+                    console.log('response', res);
+                    if (res && this.isTranslate) {
+                        this.onSave();
+                    }
+                });
+
+                const recipeCoverImage = this.coffeeLabService.copyCoverImage.subscribe((res) => {
+                    if (res && this.isTranslate) {
+                        this.copyCoverImage(res);
+                    }
+                });
+
+                this.recipeSub?.add(recipeSub);
+                this.recipeSub?.add(recipeCoverImage);
+            }
+            if (this.recipeId) {
+                this.getRecipeById();
             }
         });
-
-        const recipeCoverImage = this.coffeeLabService.copyCoverImage.subscribe((res) => {
-            if (res && this.isTranslate) {
-                this.copyCoverImage(res);
-            }
-        });
-
-        this.recipeSub?.add(recipeSub);
-        this.recipeSub?.add(recipeCoverImage);
     }
 
     getRecipeById(): void {
@@ -312,7 +314,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         return this.fb.group({
             name: ['', Validators.compose([Validators.required])],
             quantity: ['', Validators.compose([Validators.required])],
-            quantity_unit: ['1 Lbs'],
+            quantity_unit: ['lbs'],
         });
     }
 
@@ -432,5 +434,19 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
     pasteCoverImage() {
         this.coverImageUrl = this.copiedCoverImageUrl;
         this.recipeForm.controls.cover_image_id.setValue(this.copiedCoverImageId);
+    }
+
+    deleteStepImage(index) {
+        const step = this.recipeForm.get('steps') as FormArray;
+        step.controls[index].value.image_id = null;
+        step.controls[index].value.coverImageUrl = null;
+    }
+
+    deleteIngredient(index) {
+        this.ingredients.removeAt(index);
+    }
+
+    deleteStep(index) {
+        this.steps.removeAt(index);
     }
 }

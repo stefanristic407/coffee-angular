@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@shared';
 import { CoffeeLabService } from '@services';
@@ -18,6 +19,7 @@ export class DraftPostsComponent implements OnInit {
         private dialogService: DialogService,
         private coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
+        private router: Router,
     ) {}
 
     ngOnInit(): void {
@@ -29,7 +31,7 @@ export class DraftPostsComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: 'Are you sure you want to remove this post?'
+                    desp: 'Are you sure you want to remove this post?',
                 },
                 showHeader: false,
                 styleClass: 'confirm-dialog',
@@ -47,5 +49,15 @@ export class DraftPostsComponent implements OnInit {
                     });
                 }
             });
+    }
+
+    onClickDraft(draft: any): void {
+        this.router.navigate(['/coffee-lab/create-post/tab'], {
+            queryParams: {
+                id: draft.post_id,
+                type: draft.post_type,
+            },
+        });
+        this.ref.close();
     }
 }

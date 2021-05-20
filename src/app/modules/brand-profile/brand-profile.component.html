@@ -46,7 +46,9 @@
             <div *ngFor="let page of pages; index as i" class="col-md-6 col-lg-4 mb-3 mb-md-4 mb-lg-45">
                 <div class="page-wrap small d-flex flex-column">
                     <p class="title-wrap text-clr334 mb-3 mb-md-25">{{ page.title | translate }}</p>
-                    <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-2 mb-md-4">{{ page.desp }}</p>
+                    <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-2 mb-md-4">
+                        {{ page.desp | translate }}
+                    </p>
                     <div class="flex-fill">
                         <p *ngIf="page.slug === 'blog'" class="custom-chip">15 Blogs&nbsp;</p>
                     </div>
@@ -56,7 +58,7 @@
                         routerLink="/brand-profile/{{ page.slug }}"
                         *appAclIf="'brand-profile-management'"
                     >
-                        Go to {{ page.title | translate }}
+                        {{ 'go_to' | translate }} {{ page.title | translate }}
                     </button>
                 </div>
             </div>

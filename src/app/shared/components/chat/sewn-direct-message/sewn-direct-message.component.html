@@ -922,9 +922,8 @@
                 />
             </div>
             <div class="dm-mb-action-row">
-                <ng-container *ngIf="enableEmoji">
+                <div class="dm-mb-action-button-container" *ngIf="enableEmoji">
                     <img
-                        [@buttonFade]
                         *ngIf="showMessageBoxPanel !== 'EMOJI'"
                         (click)="showMessageBoxPanel = 'EMOJI'"
                         class="dm-mb-action-button-img dm-action-button"
@@ -932,30 +931,30 @@
                         alt="Emoji"
                     />
                     <img
-                        [@buttonFade]
                         *ngIf="showMessageBoxPanel === 'EMOJI'"
+                        [@buttonFade]="showMessageBoxPanel === 'EMOJI' ? 'show' : 'hide'"
                         (click)="showMessageBoxPanel = 'OFF'"
                         class="dm-mb-action-button-img dm-action-button"
                         src="assets/images/dm-mb-action-button-emoji-active.svg"
                         alt="Emoji"
                     />
-                </ng-container>
-                <img
-                    [@buttonFade]
-                    *ngIf="showMessageBoxPanel !== 'STICKER'"
-                    (click)="showMessageBoxPanel = 'STICKER'"
-                    class="dm-mb-action-button-img dm-action-button"
-                    src="assets/images/dm-mb-action-button-sticker.svg"
-                    alt="Emoji"
-                />
-                <img
-                    [@buttonFade]
-                    *ngIf="showMessageBoxPanel === 'STICKER'"
-                    (click)="showMessageBoxPanel = 'OFF'"
-                    class="dm-mb-action-button-img dm-action-button"
-                    src="assets/images/dm-mb-action-button-sticker-active.svg"
-                    alt="Emoji"
-                />
+                </div>
+                <div class="dm-mb-action-button-container" *ngIf="enableEmoji">
+                    <img
+                        *ngIf="showMessageBoxPanel !== 'STICKER'"
+                        (click)="showMessageBoxPanel = 'STICKER'"
+                        class="dm-mb-action-button-img dm-action-button"
+                        src="assets/images/dm-mb-action-button-sticker.svg"
+                        alt="Emoji"
+                    />
+                    <img
+                        *ngIf="showMessageBoxPanel === 'STICKER'"
+                        (click)="showMessageBoxPanel = 'OFF'"
+                        class="dm-mb-action-button-img dm-action-button"
+                        src="assets/images/dm-mb-action-button-sticker-active.svg"
+                        alt="Emoji"
+                    />
+                </div>
                 <label class="dm-mb-file-input-lable">
                     <img
                         class="dm-mb-action-button-img dm-action-button"

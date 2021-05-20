@@ -152,7 +152,7 @@
                                                                     'origin' | translate
                                                                 }}</span>
                                                                 <span class="float-right primary_txt mobileValueTxt">{{
-                                                                    rowData['origin'] | titlecase
+                                                                    rowData['origin'] | country
                                                                 }}</span>
                                                             </div>
                                                             <div class="mobileCardBody">
@@ -211,7 +211,7 @@
                                                 <span>{{ rowData[col.field] }}</span>
                                             </span>
                                             <span *ngSwitchCase="'origin'" class="text-clr588 fnt-600">
-                                                <span>{{ rowData[col.field] }}</span>
+                                                <span>{{ rowData[col.field] | country }}</span>
                                             </span>
                                             <span *ngSwitchCase="'species'" class="text-clr588 fnt-600">
                                                 <span>{{ rowData[col.field] }}</span>

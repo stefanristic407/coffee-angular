@@ -5,13 +5,16 @@
             <div class="primary_txt mt-4 mt-md-45 mb-2">{{ 'select_an_order' | translate }}</div>
             <div class="secondary_txt">{{ 'please_select_an_estate' | translate }}</div>
         </div>
-        <div class="d-flex flex-wrap mb-4" *ngIf="selectedOrder">
-            <button class="btn-stroked w-mob-100 mr-md-3 order-2 order-md-1" (click)="close()">
-                {{ 'cancel' | translate }}
-            </button>
-            <button class="btn-raised w-mob-100 mb-3 mb-md-0 order-1 order-md-2" (click)="onContinue()">
-                {{ 'continue' | translate }}
-            </button>
+        <div class="col-md-4 col-lg-4 px-0 mb-3">
+            <span class="custom-search mobile-bord">
+                <input
+                    type="text"
+                    pInputText
+                    class="w-100 {{ searchTerm ? 'highlight' : '' }} "
+                    [(ngModel)]="searchTerm"
+                    placeholder="{{ 'search_by_orders' | translate }}"
+                />
+            </span>
         </div>
     </div>
     <div class="row ml-0 w-100">
@@ -42,21 +45,13 @@
                     styleClass="round-border mb-3 mb-md-4"
                 ></p-calendar>
             </div>
-            <div>
-                <p-dropdown
-                    [options]="displayArray"
-                    optionLabel="label"
-                    optionValue="value"
-                    [(ngModel)]="displayFilter"
-                    (onChange)="filterCall()"
-                    scrollHeight="225px"
-                    [showClear]="true"
-                    placeholder="Display"
-                    styleClass="round-border d-none d-sm-none d-md-flex float-right {{
-                        displayFilter ? 'highlight' : ''
-                    }}"
-                >
-                </p-dropdown>
+            <div class="d-flex flex-wrap mb-4" *ngIf="selectedOrder">
+                <button class="btn-stroked w-mob-100 mr-md-3 order-2 order-md-1" (click)="close()">
+                    {{ 'cancel' | translate }}
+                </button>
+                <button class="btn-raised w-mob-100 mb-3 mb-md-0 order-1 order-md-2" (click)="onContinue()">
+                    {{ 'continue' | translate }}
+                </button>
             </div>
         </div>
     </div>
