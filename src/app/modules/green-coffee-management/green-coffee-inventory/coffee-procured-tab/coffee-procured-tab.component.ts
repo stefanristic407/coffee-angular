@@ -1,4 +1,13 @@
-import { Component, OnInit, Input, ViewChild, HostListener, AfterViewInit, AfterContentInit } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Input,
+    ViewChild,
+    HostListener,
+    AfterViewInit,
+    AfterContentInit,
+    ViewEncapsulation,
+} from '@angular/core';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
@@ -15,6 +24,7 @@ import { COUNTRY_LIST } from '@constants';
     selector: 'app-coffee-procured-tab',
     templateUrl: './coffee-procured-tab.component.html',
     styleUrls: ['./coffee-procured-tab.component.scss'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class CoffeeProcuredTabComponent implements OnInit {
     termStatus: any;
@@ -155,7 +165,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
                     field: 'quantity',
                     header: 'quantity',
                     sortable: false,
-                    width: 50,
+                    width: 60,
                 },
                 {
                     field: 'remaining_total_quantity',
