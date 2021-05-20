@@ -236,8 +236,8 @@ export class ProductListComponent implements OnInit {
             price_max: this.selectedPriceRange?.price_max ?? '',
             is_public:
                 this.visibilityStatus === undefined || this.visibilityStatus === null ? '' : this.visibilityStatus,
-            sort_by: event?.sortField,
-            sort_order: event?.sortOrder === 1 ? 'asc' : 'desc',
+            sort_by: event?.sortField || 'created_at',
+            sort_order: event?.sortField ? (event?.sortOrder === 1 ? 'asc' : 'desc') : 'desc',
         };
         if (this.type !== 'other') {
             options.business_type = this.type;
