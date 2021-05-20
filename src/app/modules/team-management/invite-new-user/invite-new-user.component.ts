@@ -64,7 +64,7 @@ export class InviteNewUserComponent implements OnInit {
             disabled: false,
         };
         const obj2: MenuItem = {
-            label: this.globals.languageJson?.people,
+            label: this.globals.languageJson?.team_management,
             routerLink: '/team-management/manage-role',
             disabled: false,
         };
