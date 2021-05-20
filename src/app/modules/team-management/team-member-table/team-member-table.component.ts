@@ -64,37 +64,6 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
         if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
             this.sharedService.isMobileView = true;
         }
-        this.tableColumns = [
-            {
-                field: 'name',
-                header: 'Name',
-                sortable: false,
-                width: 20,
-            },
-            {
-                field: 'last_login_at',
-                header: 'Last login',
-                sortable: false,
-                width: 15,
-            },
-            {
-                field: 'email',
-                header: 'Email',
-                width: 25,
-            },
-            {
-                field: 'status',
-                header: 'Status',
-                sortable: false,
-                width: 15,
-            },
-            {
-                field: 'roles',
-                header: '',
-                sortable: false,
-                width: 20,
-            },
-        ];
         this.tableRows = 10;
         this.statusFilterArray = [
             { name: 'Active', value: 'active' },
@@ -106,6 +75,38 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
         this.route.queryParams.subscribe((params) => {
             this.currentRoleID = Number(params.roleID);
             this.isAddMember = params.isAddMember && params.isAddMember === 'true' ? true : false;
+            this.assignedUsers = [];
+            this.tableColumns = [
+                {
+                    field: 'name',
+                    header: 'Name',
+                    sortable: false,
+                    width: 20,
+                },
+                {
+                    field: 'last_login_at',
+                    header: 'Last login',
+                    sortable: false,
+                    width: 15,
+                },
+                {
+                    field: 'email',
+                    header: 'Email',
+                    width: 25,
+                },
+                {
+                    field: 'status',
+                    header: 'Status',
+                    sortable: false,
+                    width: 15,
+                },
+                {
+                    field: 'roles',
+                    header: '',
+                    sortable: false,
+                    width: 20,
+                },
+            ];
             if (!this.isAddMember) {
                 this.tableColumns.push({
                     field: 'actions',
