@@ -449,4 +449,9 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
     deleteStep(index) {
         this.steps.removeAt(index);
     }
+    deleteVideo() {
+        this.videoUrl = null;
+        this.isShowVideo = false;
+        this.recipeForm.controls.video_id.setValue(null);
+    }
 }

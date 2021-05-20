@@ -13,8 +13,8 @@
         .edit-btn-group {
             z-index: 1;
             position: absolute;
-            right: 30px;
-            top: 30px;
+            right: 0;
+            top: 0;
             .btn-trans-nb {
                 background-color: transparent;
                 border: none;
@@ -54,19 +54,21 @@
         & > label {
             z-index: 1;
         }
-        .step-img-delete {
-            z-index: 1;
-            position: absolute;
-            right: 0;
-            top: 0;
-            .btn-trans-nb {
-                background-color: transparent;
-                border: none;
-                color: #ffffff;
-                padding: 10px;
-            }
+    }
+    .step-img-delete {
+        z-index: 1;
+        position: absolute;
+        right: 0;
+        top: 0;
+        .delete-icon {
+            border-radius: 50%;
+            padding: 6px 8px;
+            background-color: #f8f8f8;
+            cursor: pointer;
+            box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.16);
         }
     }
+
     .cover-image {
         position: absolute;
         left: 0;
@@ -160,6 +162,9 @@
         }
         .step-xs {
             display: none;
+        }
+        ::ng-deep .ql-toolbar.ql-snow .ql-formats {
+            margin-right: 0 !important;
         }
     }
 }
