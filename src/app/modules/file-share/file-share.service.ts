@@ -88,6 +88,28 @@ export class FileShareService {
         }
     }
 
+    getAllFiles() {
+        this.loading = true;
+        this.fileSrv
+            .getAllFiles({
+                file_module: 'File-Share',
+                sort_by: 'updated_at',
+                sort_order: 'desc',
+            })
+            .subscribe((res: any) => {
+                this.loading = false;
+                if (res.success) {
+                    this.allFiles = res.result;
+                    this.fileTree = {};
+                    this.makeFolderTree({ id: 0 });
+                    this.filterData();
+                    this.dataRetrieved();
+                } else {
+                    this.toastrService.error('Error while getting the Files and Folders');
+                }
+            });
+    }
+
     getFilesandFolders() {
         this.loading = true;
         this.fileSrv

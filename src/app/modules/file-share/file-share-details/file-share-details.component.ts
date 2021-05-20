@@ -1,19 +1,19 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { FileService, RoasterserviceService } from '@services';
-import { GlobalsService } from '@services';
+import { FileService, GlobalsService, ResizeService } from '@services';
 import { FileShareService } from '../file-share.service';
-import { Subscription } from 'rxjs';
 import { Action } from '@enums';
+import { ResizeableComponent } from '@base-components';
 
 @Component({
     selector: 'app-file-share-details',
     templateUrl: './file-share-details.component.html',
     styleUrls: ['./file-share-details.component.scss'],
 })
-export class FileShareDetailsComponent implements OnInit, OnDestroy {
+export class FileShareDetailsComponent extends ResizeableComponent implements OnInit {
     breadItems: any[] = [];
     menuItems: any[];
     folderDetail: any;
@@ -23,22 +23,31 @@ export class FileShareDetailsComponent implements OnInit, OnDestroy {
     ];
     queryParams: any = {};
     sharedUsers: any[];
-    roasterId: string;
     viewMode = 'grid';
     viewModeItems: any[] = [{ value: 'table' }, { value: 'grid' }];
-    actionSub: Subscription;
 
     constructor(
         private route: ActivatedRoute,
         private router: Router,
         public cookieService: CookieService,
         public toastrService: ToastrService,
-        public roasterService: RoasterserviceService,
         public fileShareSrv: FileShareService,
         public fileService: FileService,
         public globals: GlobalsService,
+        protected resizeService: ResizeService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        super(resizeService);
+    }
+
+    ngOnInit(): void {
+        this.changeViewMode();
+        this.fileShareSrv.action$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((action: Action) => {
+            if (action === Action.REFRESH) {
+                this.fileShareSrv.getAllFiles();
+            } else if (action === Action.DATA_RETRIEVED) {
+                this.refreshBreadCrumb();
+            }
+        });
         this.route.paramMap.subscribe((params) => {
             if (params.has('folderId')) {
                 this.fileShareSrv.folderId = params.get('folderId');
@@ -50,35 +59,18 @@ export class FileShareDetailsComponent implements OnInit, OnDestroy {
                 this.fileShareSrv.action.next(Action.REFRESH);
             }
         });
-    }
-
-    ngOnInit(): void {
-        this.changeViewMode();
-        this.actionSub = this.fileShareSrv.action$.subscribe((action: Action) => {
-            if (action === Action.REFRESH) {
-                this.fileShareSrv.getFilesandFolders();
-            } else if (action === Action.DATA_RETRIEVED) {
-                this.refreshBreadCrumb();
-            }
-        });
         this.sharedUsersLists();
-    }
-
-    ngOnDestroy() {
-        if (this.actionSub) {
-            this.actionSub.unsubscribe();
-        }
     }
 
     checkRoute() {
         const curUrl = this.router.url.split('/').pop();
         if (curUrl.startsWith('documents')) {
-            if (this.globals.device === 'mobile') {
+            if (this.resizeService.isMobile()) {
                 this.fileShareSrv.viewMode.next('table');
             }
             this.fileShareSrv.queryParams.next({ type: 'FOLDER,CSV,DOCUMENT,IMAGE' });
         } else {
-            if (this.globals.device === 'mobile') {
+            if (this.resizeService.isMobile()) {
                 this.fileShareSrv.viewMode.next('grid');
             }
             this.fileShareSrv.queryParams.next({ type: 'VIDEO' });
@@ -116,7 +108,7 @@ export class FileShareDetailsComponent implements OnInit, OnDestroy {
     }
 
     sharedUsersLists() {
-        this.roasterService.getSharedUserList(this.roasterId, this.fileShareSrv.folderId).subscribe((res: any) => {
+        this.fileService.getSharedUsers(this.fileShareSrv.folderId).subscribe((res: any) => {
             if (res.success) {
                 this.sharedUsers = res.result;
             } else {
