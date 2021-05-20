@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
-import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { FileService, GlobalsService, ResizeService } from '@services';
 import { FileShareService } from '../file-share.service';
@@ -29,7 +28,6 @@ export class FileShareDetailsComponent extends ResizeableComponent implements On
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        public cookieService: CookieService,
         public toastrService: ToastrService,
         public fileShareSrv: FileShareService,
         public fileService: FileService,
