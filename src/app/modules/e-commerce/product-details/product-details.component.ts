@@ -128,7 +128,8 @@ export class ProductDetailsComponent implements OnInit {
             { label: 'AeroPress', value: 'aeropress' },
             { label: 'Moka Pot', value: 'mocha-pot' },
             { label: 'Chemix', value: 'chemex' },
-            { lable: 'Presskanna eller Chemex', value: 'Presskanna eller Chemex' },
+            { label: 'Presskanna eller Chemex', value: 'Presskanna eller Chemex' },
+            { label: 'None', value: '' },
         ];
         this.eligibleArray = [
             { label: 'One Time', value: 'one-time' },
@@ -265,7 +266,7 @@ export class ProductDetailsComponent implements OnInit {
                         const variant: any = {};
                         variant.rc_batch_id = coffeeBatchID;
                         variant.weight_variants = getVariant[0].weight_variants;
-                        variant.roaster_recommendation = getVariant[0].variant_details.roaster_recommendation;
+                        variant.roaster_recommendation = getVariant[0].variant_details.roaster_recommendation ?? '';
                         variant.brewing_method = getVariant[0].variant_details.brewing_method;
                         variant.recipes = getVariant[0].variant_details.recipes ?? '';
                         variant.variant_name = 'Variant ' + (this.variants.length + 1);
@@ -453,8 +454,8 @@ export class ProductDetailsComponent implements OnInit {
             flavour_profiles: [],
             roaster_notes: ['', Validators.compose([maxWordCountValidator(300)])],
             recipes: ['', Validators.compose([maxWordCountValidator(300)])],
-            brewing_method: ['', Validators.compose([Validators.required])],
-            roaster_recommendation: ['', Validators.compose([Validators.required, maxWordCountValidator(10)])],
+            brewing_method: '',
+            roaster_recommendation: ['', Validators.compose([maxWordCountValidator(10)])],
             remaining_quantity: '',
             weight_variants: [],
         });
@@ -612,6 +613,12 @@ export class ProductDetailsComponent implements OnInit {
                 delete ele.product_weight_variant_id;
                 delete ele.variant_name;
                 delete ele.weight_name;
+                ele.weight =
+                    ele.crate_unit === 'lb'
+                        ? ele.weight * LBUNIT
+                        : ele.crate_unit === 'g'
+                        ? ele.weight / 1000
+                        : ele.weight;
             });
         } else {
             delete productObj.crates;
@@ -861,5 +868,18 @@ export class ProductDetailsComponent implements OnInit {
     getSelectedBatchLabel(batchId: any) {
         const batch = this.roastedBatches.find((item) => item.id === batchId);
         return `Batch #${batchId} - ${batch.roast_batch_name}`;
+    }
+
+    handleChangeBrewingMethod(event: any, index) {
+        const variantForm = (this.productForm.get('variants') as FormArray).controls[index];
+        if (!event.value) {
+            variantForm.get('roaster_recommendation').clearValidators();
+            variantForm.get('roaster_recommendation').setValue('');
+        } else {
+            variantForm
+                .get('roaster_recommendation')
+                .setValidators(Validators.compose([Validators.required, maxWordCountValidator(10)]));
+            variantForm.get('roaster_recommendation').updateValueAndValidity();
+        }
     }
 }

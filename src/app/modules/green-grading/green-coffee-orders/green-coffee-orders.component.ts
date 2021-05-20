@@ -4,7 +4,7 @@ import { GlobalsService, GreenGradingService } from '@services';
 import { GenerateReportService } from '../generate-report/generate-report.service';
 import { MenuItem, LazyLoadEvent } from 'primeng/api';
 import { LabelValue } from '@models';
-import { ORDER_TYPE_ITEMS } from '@constants';
+import { OrderType } from '@enums';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -33,7 +33,10 @@ export class GreenCoffeeOrdersComponent implements OnInit {
         { label: '50', value: 50 },
     ];
 
-    readonly orderTypeItems = ORDER_TYPE_ITEMS;
+    readonly orderTypeItems = [
+        { label: 'Sample', value: OrderType.Sample },
+        { label: 'Booked', value: OrderType.Booked },
+    ];
     selectedCuppingReportId: any;
 
     @HostListener('window:resize', ['$event'])

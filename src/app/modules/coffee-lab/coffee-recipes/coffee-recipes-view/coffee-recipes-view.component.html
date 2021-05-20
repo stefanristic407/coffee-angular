@@ -31,7 +31,7 @@
                     pInputText
                     [(ngModel)]="searchQuery"
                     (ngModelChange)="getCoffeeRecipesData()"
-                    [placeholder]="'search_recipes_bla' | translate"
+                    [placeholder]="'search_recipes' | translate"
                 />
             </div>
         </div>
@@ -51,7 +51,7 @@
                 pInputText
                 [(ngModel)]="searchQuery"
                 (ngModelChange)="getCoffeeRecipesData()"
-                [placeholder]="'search_recipes_bla' | translate"
+                [placeholder]="'search_recipes' | translate"
             />
         </span>
     </div>
@@ -118,7 +118,7 @@
                 [routerLink]="'/coffee-lab/recipes/' + coffee.slug"
             >
                 <div class="d-flex justify-content-between">
-                    <div class="flex-1">
+                    <div class="flex-1 overflow-hidden">
                         <app-user-header [prop]="coffee"></app-user-header>
                     </div>
                     <app-forum-menu
@@ -126,11 +126,13 @@
                         forumType="recipe"
                         [enableEdit]="
                             organizationId === coffee.organisation_id &&
-                            coffee.organisation_type === coffeeLabService.organization
+                            coffee.organisation_type === coffeeLabService.organization &&
+                            coffee.posted_by === authService.currentUser.id
                         "
                         [enableDelete]="
                             organizationId === coffee.organisation_id &&
-                            coffee.organisation_type === coffeeLabService.organization
+                            coffee.organisation_type === coffeeLabService.organization &&
+                            coffee.posted_by === authService.currentUser.id
                         "
                         [enableSave]="pageDesc !== 'saved-posts'"
                         [enableDeleteSave]="pageDesc === 'saved-posts'"

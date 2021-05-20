@@ -39,7 +39,7 @@
     </div>
     <div
         *ngIf="pageDesc === 'overview'"
-        class="d-none d-md-flex flex-column flex-md-row justify-content-md-between pt-md-4 pt-lg-45"
+        class="d-none d-md-flex flex-column flex-md-row justify-content-md-between pt-md-4 pt-lg-45 align-items-center"
     >
         <h1 class="fnt-18 fnt-md-24 fnt-muli fnt-bold text-clr334 mb-0">{{ 'articles' | translate }}</h1>
         <div class="custom-search h-fit-content mt-3 mt-md-0 d-lg-none">
@@ -86,7 +86,7 @@
                 [routerLink]="'/coffee-lab/articles/' + article.slug"
             >
                 <div class="d-flex justify-content-between">
-                    <div class="flex-1">
+                    <div class="flex-1 overflow-hidden">
                         <app-user-header [prop]="article"></app-user-header>
                     </div>
                     <app-forum-menu
@@ -94,11 +94,13 @@
                         forumType="article"
                         [enableEdit]="
                             organizationId === article.organisation_id &&
-                            article.organisation_type === coffeeLabService.organization
+                            article.organisation_type === coffeeLabService.organization &&
+                            article.user_id === authService.currentUser.id
                         "
                         [enableDelete]="
                             organizationId === article.organisation_id &&
-                            article.organisation_type === coffeeLabService.organization
+                            article.organisation_type === coffeeLabService.organization &&
+                            article.user_id === authService.currentUser.id
                         "
                         [enableSave]="pageDesc !== 'saved-posts'"
                         [enableDeleteSave]="pageDesc === 'saved-posts'"

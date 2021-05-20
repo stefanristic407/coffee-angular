@@ -8,7 +8,7 @@
                 <h1>{{ 'green_grading' | translate }}</h1>
                 <h3 class="mb-3">{{ 'grade_orders_view_reports' | translate }}</h3>
                 <div class="row gutter-16 gutter-lg-20 pt-2 pt-md-3">
-                    <div class="col-12 col-md-6 col-lg-4 pb-25 pb-md-3 pb-lg-35" *ngIf="isCuppingAdmin">
+                    <div class="col-12 col-md-6 col-lg-4 pb-25 pb-md-3 pb-lg-35" *appAclIf="'cupping-management'">
                         <button
                             class="btn green_grade_button"
                             routerLink="/green-grading/assign-orders"

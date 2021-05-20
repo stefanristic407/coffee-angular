@@ -95,6 +95,12 @@ export class CoffeeSaleComponent implements OnInit {
         }
         this.tableColumns = [
             {
+                field: 'order_id',
+                header: this.globals.languageJson?.order_id,
+                sortable: false,
+                width: 10,
+            },
+            {
                 field: 'lot_id',
                 header: this.globals.languageJson?.lot_id,
                 sortable: false,
@@ -195,17 +201,18 @@ export class CoffeeSaleComponent implements OnInit {
                         },
                     };
                     this.router.navigate(['/green-coffee-management/green-coffee-inventory'], navigationExtras);
-                }
-                if (
-                    response &&
-                    !response.success &&
-                    response.messages &&
-                    response.messages.sale_data &&
-                    response.messages.sale_data[0]
-                ) {
-                    this.toasterService.error('Sale data already exists.');
                 } else {
-                    this.toasterService.error('Error while updating mark for sale');
+                    if (
+                        response &&
+                        !response.success &&
+                        response.messages &&
+                        response.messages.sale_data &&
+                        response.messages.sale_data[0]
+                    ) {
+                        this.toasterService.error('Sale data already exists.');
+                    } else {
+                        this.toasterService.error('Error while updating mark for sale');
+                    }
                 }
             },
             (err) => {

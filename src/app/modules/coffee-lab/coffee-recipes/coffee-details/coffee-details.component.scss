@@ -81,6 +81,13 @@
         letter-spacing: normal;
         color: $general-text-color;
     }
+    @media (max-width: 767px) {
+        .expert-sm {
+            .expertise {
+                width: 50px;
+            }
+        }
+    }
     @media (max-width: 768px) {
         padding-bottom: 0 !important;
         .expert-sm {
@@ -89,9 +96,6 @@
             padding: 0 16px 16px 0 !important;
             white-space: break-spaces;
             width: 50%;
-            .expertise {
-                width: 50px;
-            }
         }
         .preparation-sm {
             width: 50%;

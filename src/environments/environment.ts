@@ -13,7 +13,6 @@ export const environment = {
     agroUrl: 'https://api.agromonitoring.com/agro/1.0/',
     estateBrandProfileUrl: 'http://localhost:4207/estate',
     roasterBrandProfileUrl: 'http://localhost:4208/roaster',
-    endUserWeb: 'https://enduser.sewnstaging.com',
     termsUserUrl: 'https://support.eraofwe.com/en/kb/articles/general-terms-conditions-user',
     termsEntityUrl: 'https://support.eraofwe.com/en/kb/articles/general-terms-conditions-legal-entity',
     privacyPolicyUrl: 'https://support.eraofwe.com/en/kb/articles/privacy-policy',

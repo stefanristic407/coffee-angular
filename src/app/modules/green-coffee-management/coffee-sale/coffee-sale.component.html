@@ -106,6 +106,12 @@
                                                 nameMobileHeader: col.field == 'lot_id'
                                             }"
                                         >
+                                            <span
+                                                *ngSwitchCase="'order_id'"
+                                                class="d-none d-sm-none d-md-inline-block text-clr588 fnt-600 text-underline"
+                                            >
+                                                {{ rowData['id'] }}
+                                            </span>
                                             <span *ngSwitchCase="'lot_id'" class="">
                                                 <span
                                                     class="d-none d-sm-none d-md-inline-block text-clr588 fnt-600 text-underline"
@@ -152,7 +158,7 @@
                                                                     'origin' | translate
                                                                 }}</span>
                                                                 <span class="float-right primary_txt mobileValueTxt">{{
-                                                                    rowData['origin'] | titlecase
+                                                                    rowData['origin'] | country
                                                                 }}</span>
                                                             </div>
                                                             <div class="mobileCardBody">
@@ -191,7 +197,7 @@
                                                             </div>
                                                             <div class="pt-3">
                                                                 <span class="secondary_txt">{{
-                                                                    'stock_in_hand' | translate
+                                                                    'quantity' | translate
                                                                 }}</span>
                                                                 <span class="float-right primary_txt mobileValueTxt"
                                                                     >{{ rowData['quantity_count'] }}
@@ -211,7 +217,7 @@
                                                 <span>{{ rowData[col.field] }}</span>
                                             </span>
                                             <span *ngSwitchCase="'origin'" class="text-clr588 fnt-600">
-                                                <span>{{ rowData[col.field] }}</span>
+                                                <span>{{ rowData[col.field] | country }}</span>
                                             </span>
                                             <span *ngSwitchCase="'species'" class="text-clr588 fnt-600">
                                                 <span>{{ rowData[col.field] }}</span>
@@ -330,10 +336,11 @@
                         </small>
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
-                        <label>Selling price<span class="star">*</span>(in USD)</label>
+                        <label>Selling price<span class="star">*</span>(in SEK)</label>
 
                         <div class="p-inputgroup custom-addon dropdownClass">
                             <p-inputNumber
+                                mode="decimal"
                                 formControlName="price"
                                 placeholder="Enter the selling price"
                             ></p-inputNumber>

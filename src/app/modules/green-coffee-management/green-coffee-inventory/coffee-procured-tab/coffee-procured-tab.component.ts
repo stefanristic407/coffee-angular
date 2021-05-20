@@ -188,19 +188,24 @@ export class CoffeeProcuredTabComponent implements OnInit {
     ngOnInit(): void {
         this.primeTableService.isMarkedForSale = true;
         this.primeTableService.url = `/ro/${this.roasterID}/procured-coffees`;
-
         this.initializeTableProcuredCoffee();
-
         this.primeTableService.form = this.form;
-
-        this.originArray = COUNTRY_LIST;
-
         this.primeTableService.form?.valueChanges.subscribe((data) =>
             setTimeout(() => {
                 this.table.reset();
             }, 100),
         );
         this.appLanguage = this.globals.languageJson;
+        this.roasterService.getProcuredCoffeeList(this.roasterID).subscribe((res) => {
+            res.result.map((org) => {
+                COUNTRY_LIST.find((item) => {
+                    if (org.origin.toUpperCase() === item.isoCode) {
+                        this.originArray.push(item);
+                    }
+                });
+            });
+            this.originArray = this.originArray.filter((v, i, a) => a.findIndex((t) => t.isoCode === v.isoCode) === i);
+        });
     }
 
     setStatus() {

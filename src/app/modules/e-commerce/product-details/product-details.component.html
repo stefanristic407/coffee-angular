@@ -469,6 +469,7 @@
                                     styleClass="w-100"
                                     formControlName="brewing_method"
                                     optionValue="value"
+                                    (onChange)="handleChangeBrewingMethod($event, i)"
                                 >
                                 </p-dropdown>
                                 <small *ngIf="variant['controls']['brewing_method'].errors?.required" class="p-error">

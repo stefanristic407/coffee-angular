@@ -169,7 +169,6 @@ export class MarkedSaleComponent implements OnInit {
         this.primeTableService.url = `/ro/${this.roasterID}/marked-sale-coffees`;
 
         this.initializeTable();
-        this.originArray = COUNTRY_LIST;
         this.primeTableService.form = this.form;
 
         this.primeTableService.form?.valueChanges.subscribe((data) =>
@@ -179,6 +178,16 @@ export class MarkedSaleComponent implements OnInit {
         );
 
         this.appLanguage = this.globals.languageJson;
+        this.roasterService.getCoffeeSaleList(this.roasterID).subscribe((res) => {
+            res.result.map((org) => {
+                COUNTRY_LIST.find((item) => {
+                    if (org.origin.toUpperCase() === item.isoCode) {
+                        this.originArray.push(item);
+                    }
+                });
+            });
+            this.originArray = this.originArray.filter((v, i, a) => a.findIndex((t) => t.isoCode === v.isoCode) === i);
+        });
     }
     setStatus() {
         this.primeTableService.status = this.termStatus;

@@ -103,7 +103,7 @@
                     <span *ngSwitchCase="'varieties'" [routerLink]="availabilityPage(rowData)">
                         <div class="d-flex">
                             <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
-                                {{ rowData['varieties'] || '--' }}
+                                {{ rowData['varieties'] || 'NA' }}
                             </span>
                         </div>
                     </span>
@@ -144,56 +144,30 @@
                     </span>
                     <span *ngSwitchCase="'order_reference'">
                         <div class="d-flex">
-                            <span [routerLink]="availabilityPage(rowData)">
-                                <p
-                                    *ngIf="primeTableService.isMobileView"
-                                    class="fnt-16 fnt-md-18 txt-clr334 fnt-bold mb-0"
-                                >
-                                    {{ 'roaster_ref_no' | translate }}: {{ rowData['order_reference'] || '--' }}
+                            <span
+                                *ngIf="primeTableService.isMobileView"
+                                class="w-50"
+                                [routerLink]="availabilityPage(rowData)"
+                            >
+                                <p class="prime-table-label text-clr588 mb-0">
+                                    {{ 'roaster_ref_no' | translate }}
+                                </p>
+                            </span>
+                            <span
+                                *ngIf="primeTableService.isMobileView"
+                                class="w-50"
+                                [routerLink]="availabilityPage(rowData)"
+                            >
+                                <p class="mb-0 prime-table-label">
+                                    {{ rowData['order_reference'] || 'NA' }}
                                 </p>
                             </span>
                             <span [routerLink]="availabilityPage(rowData)">
                                 <p *ngIf="!primeTableService.isMobileView" class="mb-0">
-                                    {{ rowData['order_reference'] || '--' }}
+                                    {{ rowData['order_reference'] || 'NA' }}
                                 </p>
                             </span>
-                            <span class="ml-auto">
-                                <ng-container *ngIf="primeTableService.isMobileView">
-                                    <a
-                                        class="menu-arrow"
-                                        [popover]="poplistTemplate"
-                                        placement="left"
-                                        [outsideClick]="true"
-                                        #pop="bs-popover"
-                                    >
-                                        <p class="mb-0">
-                                            <img class="ellipse-image" src="assets/images/ellipses.png" alt="" />
-                                        </p>
-                                    </a>
-                                    <ng-template #poplistTemplate>
-                                        <div id="popover-mobile-content">
-                                            <ul class="list-group custom-popover">
-                                                <li class="list-group-item">
-                                                    <a
-                                                        class="text-clr588 fnt-600 fnt-14"
-                                                        [routerLink]="viewOrderPage(rowData)"
-                                                        [queryParams]="{ type: rowData.status, order: rowData.id }"
-                                                        >{{ 'view_order_page' | translate }}</a
-                                                    >
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <a
-                                                        class="text-clr588 fnt-600 fnt-14"
-                                                        [routerLink]="sourcingRedirect(rowData)"
-                                                    >
-                                                        {{ 'go_to_availability_page' | translate }}</a
-                                                    >
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </ng-template>
-                                </ng-container>
-                            </span>
+                            <!-- <span class="ml-auto"> </span> -->
                         </div>
                     </span>
                     <span *ngSwitchCase="'id'" [routerLink]="availabilityPage(rowData)">
@@ -213,9 +187,39 @@
                             <ng-template #mobile_name>
                                 <span class="ml-auto">
                                     <ng-container *ngIf="primeTableService.isMobileView">
-                                        <span class="pull-right brown-cta" [routerLink]="availabilityPage(rowData)"
-                                            >{{ 'view' | translate }}
-                                        </span>
+                                        <a
+                                            class="menu-arrow"
+                                            [popover]="poplistTemplate"
+                                            placement="left"
+                                            [outsideClick]="true"
+                                            #pop="bs-popover"
+                                        >
+                                            <span class="mb-0">
+                                                <img class="ellipse-image" src="assets/images/ellipses.png" alt="" />
+                                            </span>
+                                        </a>
+                                        <ng-template #poplistTemplate>
+                                            <div id="popover-mobile-content">
+                                                <ul class="list-group custom-popover">
+                                                    <li class="list-group-item">
+                                                        <a
+                                                            class="text-clr588 fnt-600 fnt-14"
+                                                            [routerLink]="viewOrderPage(rowData)"
+                                                            [queryParams]="{ type: rowData.status, order: rowData.id }"
+                                                            >{{ 'view_order_page' | translate }}</a
+                                                        >
+                                                    </li>
+                                                    <li class="list-group-item">
+                                                        <a
+                                                            class="text-clr588 fnt-600 fnt-14"
+                                                            [routerLink]="sourcingRedirect(rowData)"
+                                                        >
+                                                            {{ 'go_to_availability_page' | translate }}</a
+                                                        >
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </ng-template>
                                     </ng-container>
                                 </span>
                             </ng-template>

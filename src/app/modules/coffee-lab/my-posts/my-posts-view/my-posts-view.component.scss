@@ -39,7 +39,7 @@
 .p-tabmenu.inner-menu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
     background: #f8eedb;
     color: $brown-color;
-    border-color: none;
+    border-color: unset;
 }
 
 .p-tabmenu.inner-menu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link::before {
