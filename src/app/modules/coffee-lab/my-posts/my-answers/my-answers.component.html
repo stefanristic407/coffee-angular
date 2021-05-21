@@ -15,7 +15,7 @@
         </div>
     </div>
     <div *ngIf="!isLoading">
-        <div class="gutter-24" *ngFor="let answer of answers; let last = last">
+        <div class="gutter-24" *ngFor="let answer of displayData; let last = last">
             <div class="w-100 br-4 border-main mb-4 mb-md-3 mb-lg-4">
                 <div class="p-md-4 p-3 bg">
                     <div class="mb-2 d-flex justify-content-between">
@@ -130,6 +130,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div *ngIf="!isLoading" class="pt-3 pt-md-4">
+        <p-paginator [rows]="10" [totalRecords]="totalRecords" (onPageChange)="paginate($event)"></p-paginator>
     </div>
     <div *ngIf="isLoading">
         <app-loading></app-loading>
