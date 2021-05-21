@@ -123,7 +123,7 @@
 
 .right_angle {
     background-color: $white !important;
-    padding: 0.75rem 0.5rem !important;
+    padding: 0.75rem !important;
 }
 
 .cursor-point,
@@ -152,6 +152,10 @@
     padding: 2rem;
 }
 
+.sewn-form-field .p-inputtext {
+    padding: 0.9375rem 1rem !important;
+}
+
 .recent-time {
     td {
         padding: 1rem 1rem 1rem 1.5rem !important;
@@ -177,6 +181,21 @@
     }
     .breadcrumb-container {
         overflow-x: scroll;
+    }
+    .recent-time {
+        border: 1px solid #dddddd;
+        border-radius: 4px;
+    }
+    .col-sm-12 {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+    .padd {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .recent-time td {
+        padding: 1rem !important;
     }
     .sewn-form-field {
         margin-top: 1rem;
@@ -261,12 +280,21 @@
     .flex {
         display: flex !important;
     }
+    .pl-md {
+        padding-left: 0.75rem !important;
+    }
+    .pr-md {
+        padding-right: 0.75rem !important;
+    }
 }
 
 @media (min-width: 1200px) {
     .col-xl-8 {
         flex: 0 0 62% !important;
         max-width: 62% !important;
+    }
+    .margin-left {
+        margin-left: -1rem !important;
     }
 }
 

@@ -131,30 +131,30 @@ export class SelectOrdersComponent implements OnInit {
                 {
                     field: 'firstname',
                     header: 'Name',
-                    width: 10,
+                    width: 14,
                 },
                 {
                     field: 'last_login_at',
                     header: 'Last Login',
-                    width: 18,
+                    width: 10,
                 },
                 {
                     field: 'email',
                     header: 'Email',
-                    width: 14,
+                    width: 12,
                 },
                 {
                     field: 'status',
                     header: 'Status',
-                    width: 8,
+                    width: 10,
                 },
                 {
                     field: 'roles',
                     header: 'All Roles',
-                    width: 14,
+                    width: 16,
                 },
             ];
-        } else if (this.selectedType === 'micro-roaster' || this.selectedType === 'hrc') {
+        } else {
             this.tableColumns = [
                 {
                     field: 'id',
@@ -164,7 +164,7 @@ export class SelectOrdersComponent implements OnInit {
                 },
                 {
                     field: 'name',
-                    header: 'Customer name',
+                    header: 'Customer Name',
                     width: 14,
                 },
                 {
@@ -175,12 +175,12 @@ export class SelectOrdersComponent implements OnInit {
                 {
                     field: 'email',
                     header: 'Email',
-                    width: 14,
+                    width: 16,
                 },
                 {
                     field: 'status',
                     header: 'Status',
-                    width: 8,
+                    width: 12,
                 },
             ];
         }
@@ -228,18 +228,23 @@ export class SelectOrdersComponent implements OnInit {
             per_page: this.displayFilter ? this.displayFilter : 1000,
             start_date: '',
             end_date: '',
-            // status: 'RECEIVED',
         };
         if (this.rangeDates && this.rangeDates.length === 2) {
             postData.start_date = moment(this.rangeDates[0], 'DD/MM/YYYY').format('YYYY-MM-DD');
             postData.end_date = moment(this.rangeDates[1], 'DD/MM/YYYY').format('YYYY-MM-DD');
         }
         this.roasterService.getListOrderDetails(this.roasterId, this.selectedType, postData).subscribe((data: any) => {
-            console.log(data);
             if (data.success) {
+                console.log(this.selectedType);
+                if (this.selectedType === 'micro-roasters' || this.selectedType === 'hrc') {
+                    this.tableValue = data.result.filter((item) => {
+                        return (item = item.id > 0);
+                    });
+                } else {
+                    this.totalCount = data.result_info?.total_count;
+                    this.tableValue = data.result;
+                }
                 this.loader = false;
-                this.totalCount = data.result_info.total_count;
-                this.tableValue = data.result;
             }
         });
     }
@@ -249,14 +254,17 @@ export class SelectOrdersComponent implements OnInit {
             this.selectedValue = {
                 orderId: this.selectedOrder.id,
             };
-        } else {
+        } else if (this.selectedType === 'users') {
             this.selectedValue = {
-                orderId: this.selectedOrder.id,
+                userId: this.selectedOrder.id,
                 userName: this.selectedOrder.firstname + ' ' + this.selectedOrder.lastname,
             };
+        } else {
+            this.selectedValue = {
+                customerId: this.selectedOrder.id,
+                customerName: this.selectedOrder.name,
+            };
         }
-        console.log(this.selectedOrder);
-        console.log(this.selectedValue);
         this.orderChange.emit(this.selectedValue);
         this.close();
     }
