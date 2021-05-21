@@ -98,7 +98,7 @@ export class CoffeeSaleComponent implements OnInit {
                 field: 'order_id',
                 header: this.globals.languageJson?.order_id,
                 sortable: false,
-                width: 10,
+                width: 15,
             },
             {
                 field: 'lot_id',
@@ -109,7 +109,7 @@ export class CoffeeSaleComponent implements OnInit {
             {
                 field: 'estate_name',
                 header: this.globals.languageJson?.estate,
-                width: 25,
+                width: 20,
             },
             {
                 field: 'order_reference',
@@ -149,9 +149,9 @@ export class CoffeeSaleComponent implements OnInit {
             },
             {
                 field: 'quantity',
-                header: this.globals.languageJson?.stock_in_hand,
+                header: this.globals.languageJson?.quantity_bought,
                 sortable: false,
-                width: 15,
+                width: 20,
             },
         ];
     }
@@ -192,7 +192,6 @@ export class CoffeeSaleComponent implements OnInit {
     createMarkForSale(productObj) {
         this.roasterService.CreateMarkForSale(this.roasterID, this.orderID, productObj).subscribe(
             (response) => {
-                console.log(response);
                 if (response && response.success) {
                     this.toasterService.success('Successfully marked the sale');
                     const navigationExtras: NavigationExtras = {
@@ -261,7 +260,6 @@ export class CoffeeSaleComponent implements OnInit {
         return returnFlag;
     }
     onSave(): void {
-        console.log(this.coffeeSaleForm.value);
         if (this.validateForms()) {
             const productObj = this.coffeeSaleForm.value;
             this.createMarkForSale(productObj);

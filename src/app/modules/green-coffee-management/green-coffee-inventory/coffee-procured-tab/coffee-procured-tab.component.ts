@@ -129,19 +129,19 @@ export class CoffeeProcuredTabComponent implements OnInit {
                     field: 'id',
                     header: 'Order ID',
                     sortable: false,
-                    width: 40,
+                    width: 45,
                 },
                 {
                     field: 'availability_name',
                     header: 'availability_name',
                     sortable: false,
-                    width: 80,
+                    width: 60,
                 },
                 {
                     field: 'estate_name',
                     header: 'estate_name',
                     sortable: false,
-                    width: 90,
+                    width: 70,
                 },
                 {
                     field: 'origin',
@@ -159,19 +159,19 @@ export class CoffeeProcuredTabComponent implements OnInit {
                     field: 'varieties',
                     header: 'variety',
                     sortable: false,
-                    width: 50,
+                    width: 40,
                 },
                 {
                     field: 'quantity',
                     header: 'quantity',
                     sortable: false,
-                    width: 60,
+                    width: 40,
                 },
                 {
                     field: 'remaining_total_quantity',
                     header: 'remaining_quantity',
                     sortable: false,
-                    width: 50,
+                    width: 70,
                 },
                 // {
                 //     field: 'cup_score',
@@ -183,13 +183,13 @@ export class CoffeeProcuredTabComponent implements OnInit {
                     field: 'actions',
                     header: 'actions',
                     sortable: false,
-                    width: 50,
+                    width: 40,
                 },
                 {
                     field: 'options',
                     header: '',
                     sortable: false,
-                    width: 30,
+                    width: 15,
                 },
             ];
         }
