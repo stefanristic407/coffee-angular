@@ -72,6 +72,6 @@
         </div>
     </div>
 </div>
-<div class="pt-3 pt-md-4 text-center">
+<div *ngIf="totalRecords" class="pt-3 pt-md-4 text-center">
     <p-paginator [rows]="10" [totalRecords]="totalRecords" (onPageChange)="paginate($event)"></p-paginator>
 </div>
