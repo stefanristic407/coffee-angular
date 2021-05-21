@@ -1,10 +1,13 @@
 import { Component, HostListener, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { GlobalsService, PrimeTableService, RoasterserviceService } from '@services';
+import { GlobalsService, PrimeTableService, ResizeService, RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { COUNTRY_LIST } from '@constants';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Table } from 'primeng/table';
 import { ToastrService } from 'ngx-toastr';
+import { takeUntil } from 'rxjs/operators';
+import * as moment from 'moment';
+import { ResizeableComponent } from '@base-components';
 
 @Component({
     selector: 'app-outtake-orders',
@@ -12,8 +15,9 @@ import { ToastrService } from 'ngx-toastr';
     styleUrls: ['./outtake-orders.component.scss'],
     encapsulation: ViewEncapsulation.None,
 })
-export class OuttakeOrdersComponent implements OnInit {
-    searchTerm;
+export class OuttakeOrdersComponent extends ResizeableComponent implements OnInit {
+    searchTerm = '';
+    statusItems;
     breadItems = [
         { label: 'Home', routerLink: '/dashboard' },
         { label: 'Order Management', routerLink: '/dashboard' },
@@ -32,6 +36,9 @@ export class OuttakeOrdersComponent implements OnInit {
     termStatus: any;
     termOrigin: any;
     display: number;
+    startDate: string;
+    endDate: string;
+    queryParams: any = {};
     @Input('form')
     set form(value: FormGroup) {
         this.forms = value;
@@ -40,14 +47,19 @@ export class OuttakeOrdersComponent implements OnInit {
     get form() {
         return this.forms;
     }
-
+    readonly searchForm = this.fb.group({
+        dates: this.fb.control(''),
+    });
     constructor(
+        private fb: FormBuilder,
         private roasterService: RoasterserviceService,
         private cookieService: CookieService,
         public globals: GlobalsService,
         public primeTableService: PrimeTableService,
         private toastrService: ToastrService,
+        protected resizeService: ResizeService,
     ) {
+        super(resizeService);
         this.roasterId = this.cookieService.get('roaster_id');
         this.primeTableService.rows = 10;
         this.primeTableService.sortBy = 'created_at';
@@ -170,10 +182,6 @@ export class OuttakeOrdersComponent implements OnInit {
             ];
         }
     }
-    openModal(item) {
-        // this.popupDisplay = true;
-        // this.deleteId = item.order_id;
-    }
 
     ngOnInit(): void {
         this.primeTableService.isMarkedForSale = false;
@@ -190,6 +198,29 @@ export class OuttakeOrdersComponent implements OnInit {
         );
 
         this.appLanguage = this.globals.languageJson;
+        this.searchForm.valueChanges.pipe(takeUntil(this.unsubscribeAll$)).subscribe((value) => {
+            this.startDate = value.dates && value.dates[0] ? moment(value.dates[0]).format('yyyy-MM-DD') : '';
+
+            // Adding 1 day to include selected date into API filter range
+            this.endDate =
+                value.dates && value.dates[1] ? moment(value.dates[1]).add(1, 'day').format('yyyy-MM-DD') : '';
+
+            this.queryParams = {
+                ...value,
+                page: 1,
+                from_date: this.startDate,
+                to_date: this.endDate,
+            };
+
+            delete this.queryParams.dates;
+
+            this.searchForm.patchValue({ page: 1 }, { emitEvent: false });
+            this.primeTableService.from_date = this.startDate;
+            this.primeTableService.to_date = this.endDate;
+            setTimeout(() => {
+                this.table.reset();
+            }, 0);
+        });
     }
     setStatus() {
         this.primeTableService.status = this.termStatus;
@@ -199,8 +230,8 @@ export class OuttakeOrdersComponent implements OnInit {
         this.primeTableService.origin = this.termOrigin;
         this.table.reset();
     }
-    search(item) {
-        this.primeTableService.searchQuery = item;
+    search() {
+        this.primeTableService.searchQuery = this.searchTerm;
         this.table.reset();
     }
     setDisplay() {
