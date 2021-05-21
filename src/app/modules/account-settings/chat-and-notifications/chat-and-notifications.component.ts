@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { GlobalsService, UserService, UserserviceService } from '@services';
+import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { GlobalsService, UserService, UserserviceService, ChatHandlerService } from '@services';
 import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
@@ -10,7 +11,7 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './chat-and-notifications.component.html',
     styleUrls: ['./chat-and-notifications.component.scss'],
 })
-export class ChatAndNotificationsComponent implements OnInit {
+export class ChatAndNotificationsComponent implements OnInit, OnDestroy {
     preference?: any = {};
     isLoading?: boolean;
     textSizes = [
@@ -20,7 +21,7 @@ export class ChatAndNotificationsComponent implements OnInit {
     ];
     breadcrumbItems: MenuItem[];
     roasterId?: any;
-
+    settingUpdateSubscription: Subscription;
     constructor(
         private userService: UserService,
         private userOriginalService: UserserviceService,
@@ -28,6 +29,7 @@ export class ChatAndNotificationsComponent implements OnInit {
         private toastr: ToastrService,
         private cookieService: CookieService,
         public globals: GlobalsService,
+        public chatHandlerService: ChatHandlerService,
     ) {}
 
     ngOnInit(): void {
@@ -38,6 +40,17 @@ export class ChatAndNotificationsComponent implements OnInit {
             { label: this.globals.languageJson?.account_settings, routerLink: '../../account-settings' },
             { label: this.globals.languageJson?.preferences },
         ];
+
+        this.settingUpdateSubscription = this.chatHandlerService.settingUpdated.subscribe(() => {
+            const setting = this.chatHandlerService.setting;
+            if (this.preference && setting) {
+                for (const key in setting) {
+                    if (setting.hasOwnProperty(key)) {
+                        this.preference[key] = setting[key];
+                    }
+                }
+            }
+        });
     }
 
     getPreferences(): void {
@@ -55,8 +68,16 @@ export class ChatAndNotificationsComponent implements OnInit {
     }
 
     onChangeData(): void {
-        this.userOriginalService.updatePreferences(this.roasterId, this.preference).subscribe((res) => {
+        this.userOriginalService.updatePreferences(this.roasterId, this.preference).subscribe((res: any) => {
+            if (res.success) {
+                this.chatHandlerService.updateSetting(this.preference);
+            }
             console.log('chat and notification change res >>>>>>', res);
         });
+    }
+    ngOnDestroy() {
+        if (this.settingUpdateSubscription && this.settingUpdateSubscription.unsubscribe) {
+            this.settingUpdateSubscription.unsubscribe();
+        }
     }
 }

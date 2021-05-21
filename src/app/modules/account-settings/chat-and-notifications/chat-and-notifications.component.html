@@ -130,6 +130,17 @@
                     </div>
                 </div>
 
+                <div class="py-25 py-md-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="fnt-14 fnt-md-16 mr-4 mb-0 mb-md-1">Chat sound</div>
+                        <p-inputSwitch
+                            [(ngModel)]="preference.notification_sound"
+                            (ngModelChange)="onChangeData()"
+                        ></p-inputSwitch>
+                    </div>
+                    <div class="text-clr588 fnt-14 mr-5">Play sound for sent or receive messages</div>
+                </div>
+
                 <div class="py-2 py-md-25 border-bottom-dashed-primary">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="fnt-14 fnt-md-16 mr-4">
@@ -191,21 +202,6 @@
                     </div>
                     <div class="text-clr588 fnt-14 mr-5">
                         {{ 'push_notification_subtext' | translate }}
-                    </div>
-                </div>
-
-                <div class="py-25 py-md-3">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="fnt-14 fnt-md-16 mr-4 mb-0 mb-md-1">
-                            {{ 'notification_sound' | translate }}
-                        </div>
-                        <p-inputSwitch
-                            [(ngModel)]="preference.notification_sound"
-                            (ngModelChange)="onChangeData()"
-                        ></p-inputSwitch>
-                    </div>
-                    <div class="text-clr588 fnt-14 mr-5">
-                        {{ 'notification_sound_subtext' | translate }}
                     </div>
                 </div>
             </div>
