@@ -39,7 +39,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
     ];
     weightVariantArray: any = [];
     displayDelete = false;
-    uploadDisabled = false;
+    uploadDisabled = true;
     constructor(
         private fb: FormBuilder,
         private route: ActivatedRoute,

@@ -225,6 +225,7 @@ export class ProductDetailsComponent implements OnInit {
             (res) => {
                 if (res && res.result) {
                     const productDetails = res.result;
+                    this.count = Object.keys(res.result?.variants).length;
                     this.isPublished = res.result.is_published;
                     this.breadCrumbItem = [
                         { label: this.globals.languageJson?.home, routerLink: '/' },
