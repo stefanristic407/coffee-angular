@@ -11,7 +11,6 @@
             </div>
         </div>
     </ng-container>
-    <app-loading *ngIf="!isLoaded"></app-loading>
 </div>
 
 <ng-template #tableView>
@@ -49,7 +48,9 @@
                     {{ item.lot?.varieties?.length > 1 ? ' +' + (item.lot.varieties.length - 1) : '' }}
                 </td>
                 <td>
-                    <span>{{ item.price * (sourcingSrv.quantityUnit == QuantityUnit.lb ? LBUNIT : 1) }}</span>
+                    <span>{{
+                        item.price * (sourcingSrv.quantityUnit == QuantityUnit.lb ? LBUNIT : 1) | number: '1.0-2'
+                    }}</span>
                     <span>{{ item.price_unit }}&nbsp;/&nbsp;{{ sourcingSrv.quantityUnit }}</span>
                 </td>
                 <td>{{ item.quantity_count }}&nbsp;{{ item.quantity_type | lowercase }}</td>
