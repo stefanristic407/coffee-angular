@@ -107,40 +107,27 @@
                                                         <label class="fnt-14 fnt-muli fnt-600 text-clr334"
                                                             >Shipping Price<span>*</span></label
                                                         >
-                                                        <div class="input-group">
-                                                            <input
-                                                                type="number"
-                                                                placeholder="Please enter shipping amount"
-                                                                class="form-control input-group-right-border"
-                                                                aria-label="Text input with dropdown button"
+                                                        <div class="input-and-select gray">
+                                                            <p-inputNumber
+                                                                mode="decimal"
+                                                                locale="en-US"
+                                                                [minFractionDigits]="2"
                                                                 formControlName="price"
-                                                            />
-                                                            <div class="input-group-append">
-                                                                <select
-                                                                    name="Year"
-                                                                    required=""
-                                                                    class="form-control select-region select-form-group-dropdown select-region-local"
-                                                                >
-                                                                    <option value="USD">USD</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <small
-                                                            class="text-clrb1f fnt-14 fnt-muli"
-                                                            *ngIf="
-                                                                detailsFormControl.price.touched &&
-                                                                detailsFormControl.price.errors?.required
-                                                            "
-                                                        >
-                                                            Shipment price is required
-                                                        </small>
-                                                        <div>
+                                                            ></p-inputNumber>
                                                             <p-dropdown
                                                                 [options]="shippingPriceUnitArray"
-                                                                optionLabel="label"
-                                                                [style]="{ width: '100%', border: '0px' }"
-                                                                optionValue="value"
+                                                                [autoDisplayFirst]="false"
+                                                                formControlName="price_unit"
                                                             ></p-dropdown>
+                                                            <small
+                                                                *ngIf="
+                                                                    detailsFormControl.price.touched &&
+                                                                    detailsFormControl.price.errors?.required
+                                                                "
+                                                                class="p-error"
+                                                            >
+                                                                Shipment price is required
+                                                            </small>
                                                         </div>
                                                     </div>
                                                 </div>

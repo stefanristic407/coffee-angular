@@ -78,7 +78,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         this.weightTypeArray = [
             { label: 'lbs', value: 'lb' },
             { label: 'kgs', value: 'kg' },
-            { label: 'gs', value: 'g' },
+            { label: 'g', value: 'g' },
         ];
         this.grindArray = [
             { label: 'Whole beans', value: 'whole-beans' },

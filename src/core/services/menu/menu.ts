@@ -1,3 +1,4 @@
+import { MenuType } from '@enums';
 import { Menu } from '@models';
 
 export const menuItems = [
@@ -11,6 +12,7 @@ export const menuItems = [
     new Menu(31, 'menu_estate_orders', '/orders/es', null, null, null, false, 3, null),
     new Menu(32, 'menu_micro_roaster_orders', '/orders/mr', null, null, null, false, 3, null),
     new Menu(33, 'menu_outtake_orders', '/outtake-orders', null, null, null, false, 3, null),
+    new Menu(33, 'menu_ecom_orders', null, null, '/secure/orders', null, false, 3, null, MenuType.SHOPLINK),
 
     new Menu(4, 'menu_inventory', null, null, null, null, true, 0, 'roasting-management'),
     new Menu(
@@ -33,7 +35,7 @@ export const menuItems = [
     new Menu(93, 'other_products', '/e-commerce/product-list/other', null, null, null, false, 9, null),
 
     new Menu(5, 'menu_sales_management', null, null, null, null, true, 0, null),
-    new Menu(51, 'menu_sales', './', null, null, null, false, 5, null),
+    new Menu(51, 'menu_sales', null, null, '/se/produkter', null, false, 5, null, MenuType.SHOPLINK),
     new Menu(52, 'menu_sales_contracts', '/sales-contract', null, null, null, false, 5, null),
     new Menu(53, 'menu_api_requests', '/api-requests-list', null, null, null, false, 5, null),
     new Menu(54, 'menu_customer_management', '/people/customer-management', null, null, null, false, 5, null),

@@ -182,6 +182,11 @@ export class ProductDetailsComponent implements OnInit {
             (res) => {
                 if (res.success) {
                     this.roastedBatches = res.result ? res.result : [];
+                    this.roastedBatches.map((item) => {
+                        item.roast_batch_name = `Batch #${item.id} - ${item.roast_batch_name}`;
+                        return item;
+                    });
+                    // console.log(roastedBatches);
                     resolve();
                 } else {
                     reject();
@@ -267,7 +272,7 @@ export class ProductDetailsComponent implements OnInit {
                         variant.rc_batch_id = coffeeBatchID;
                         variant.weight_variants = getVariant[0].weight_variants;
                         variant.roaster_recommendation = getVariant[0].variant_details.roaster_recommendation ?? '';
-                        variant.brewing_method = getVariant[0].variant_details.brewing_method;
+                        variant.brewing_method = getVariant[0].variant_details.brewing_method ?? '';
                         variant.recipes = getVariant[0].variant_details.recipes ?? '';
                         variant.variant_name = 'Variant ' + (this.variants.length + 1);
                         if (getBatchDetails) {
@@ -855,7 +860,7 @@ export class ProductDetailsComponent implements OnInit {
         this.roasterService.getViewOrderDetails(this.roasterId, orderID).subscribe((res) => {
             if (res && res.result) {
                 getVariant.patchValue({
-                    origin: res.result.origin,
+                    origin: res.result.origin?.toUpperCase(),
                     harvest_year: new Date(res.result.harvest_date),
                 });
             }
