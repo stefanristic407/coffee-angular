@@ -41,7 +41,7 @@ export class SavedPostsViewComponent implements OnInit, AfterViewInit {
         if (this.router.url.split('/')[this.router.url.split('/').length - 1] === 'qa-post') {
             ele[0].children[0].children[0].className = ele[0].children[0].children[0].className.concat(' p-highlight');
             if (window.innerWidth <= 767) {
-                ele[0].children[0].scrollLeft = -30;
+                ele[0].children[0].scrollLeft = -10;
             }
         } else if (this.router.url.split('/')[this.router.url.split('/').length - 1] === 'article') {
             ele[0].children[0].children[1].className = ele[0].children[0].children[1].className.concat(' p-highlight');
@@ -58,11 +58,11 @@ export class SavedPostsViewComponent implements OnInit, AfterViewInit {
 
     removeClass(event) {
         const ele = document.getElementsByClassName('remove-menu');
-        if (event.item.label === 'qa-post') {
+        if (event.item.label === 'qa_post') {
             ele[0].children[0].children[1].className = 'p-tabmenuitem';
             ele[0].children[0].children[2].className = 'p-tabmenuitem';
             if (window.innerWidth <= 767) {
-                ele[0].children[0].scrollLeft = -80;
+                ele[0].children[0].scrollLeft = -10;
             }
         } else if (event.item.label === 'article') {
             ele[0].children[0].children[0].className = 'p-tabmenuitem';
@@ -77,22 +77,5 @@ export class SavedPostsViewComponent implements OnInit, AfterViewInit {
                 ele[0].children[0].scrollLeft = 80;
             }
         }
-        console.log(ele);
-        // const container = document.getElementById('container');
-        // let scrollCompleted = 0;
-        // const slideVar = setInterval(() => {
-        //     if (event.item.label === 'qa-post') {
-        //         container.scrollLeft -= 10;
-        //     } else if (event.item.label === 'article') {
-        //         container.scrollLeft += 10;
-        //     } else if (event.item.label === 'recipe') {
-        //         container.scrollLeft += 10;
-        //     }
-
-        //     scrollCompleted += 10;
-        //     if (scrollCompleted >= 100) {
-        //         window.clearInterval(slideVar);
-        //     }
-        // }, 50);
     }
 }
