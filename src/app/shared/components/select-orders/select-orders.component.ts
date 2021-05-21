@@ -126,7 +126,7 @@ export class SelectOrdersComponent implements OnInit {
                     width: 10,
                 },
             ];
-        } else if (this.selectedType === 'users') {
+        } else if (this.selectedType === 'users' || this.selectedType === 'created') {
             this.tableColumns = [
                 {
                     field: 'firstname',
@@ -233,6 +233,9 @@ export class SelectOrdersComponent implements OnInit {
             postData.start_date = moment(this.rangeDates[0], 'DD/MM/YYYY').format('YYYY-MM-DD');
             postData.end_date = moment(this.rangeDates[1], 'DD/MM/YYYY').format('YYYY-MM-DD');
         }
+        if (this.selectedType === 'created') {
+            this.selectedType = 'users';
+        }
         this.roasterService.getListOrderDetails(this.roasterId, this.selectedType, postData).subscribe((data: any) => {
             if (data.success && data.result && data.result.length > 0) {
                 console.log(this.selectedType);
@@ -258,6 +261,11 @@ export class SelectOrdersComponent implements OnInit {
             this.selectedValue = {
                 userId: this.selectedOrder.id,
                 userName: this.selectedOrder.firstname + ' ' + this.selectedOrder.lastname,
+            };
+        } else if (this.selectedType === 'created') {
+            this.selectedValue = {
+                userId: this.selectedOrder.id,
+                createduserName: this.selectedOrder.this.selectedOrder.firstname + ' ' + this.selectedOrder.lastname,
             };
         } else {
             this.selectedValue = {

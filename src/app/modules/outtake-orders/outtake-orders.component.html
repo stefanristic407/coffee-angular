@@ -52,8 +52,20 @@
     </section>
 
     <div class="mt-4 d-flex justify-content-between">
-        <div>
+        <div class="d-flex">
             <p-dropdown
+                [options]="originArray"
+                [showClear]="true"
+                optionLabel="name"
+                optionValue="isoCode"
+                [(ngModel)]="termStatus"
+                (onChange)="setStatus()"
+                scrollHeight="225px"
+                placeholder="{{ globals.languageJson?.all_origins }}"
+                [autoDisplayFirst]="false"
+                styleClass="round-border mr-2 mb-3 {{ termStatus ? 'highlight' : '' }}"
+            ></p-dropdown>
+            <!-- <p-dropdown
                 [options]="statusItems"
                 [showClear]="true"
                 [(ngModel)]="termStatus"
@@ -62,7 +74,7 @@
                 placeholder="{{ globals.languageJson?.status }}"
                 [autoDisplayFirst]="false"
                 styleClass="round-border mr-2 mb-3 {{ termStatus ? 'highlight' : '' }}"
-            ></p-dropdown>
+            ></p-dropdown> -->
             <p-calendar
                 [readonlyInput]="true"
                 placeholder="Date range"
@@ -205,8 +217,8 @@
                                 </span>
 
                                 <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
-                                    {{ rowData['rc_total_quantity'] || '--' }}
-                                    {{ rowData['rc_total_quantity_unit'] || '--' }}
+                                    {{ rowData['gc_total_quantity'] || '--' }}
+                                    {{ rowData['gc_total_quantity_unit'] || '--' }}
                                 </span>
                             </div>
                         </span>
