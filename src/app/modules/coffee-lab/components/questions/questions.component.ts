@@ -15,6 +15,8 @@ export class QuestionsComponent implements OnInit {
     questionMenuItems: MenuItem[] = [];
     organizationId: any;
     pageDesc: string;
+    totalRecords = 0;
+    displayData: any[] = [];
 
     constructor(
         private cookieService: CookieService,
@@ -27,5 +29,11 @@ export class QuestionsComponent implements OnInit {
 
     ngOnInit(): void {
         this.organizationId = +this.cookieService.get('roaster_id');
+        this.displayData = this.questions.slice(0, 10);
+        this.totalRecords = this.questions.length;
+    }
+
+    paginate(event: any) {
+        this.displayData = this.questions.slice(event.first, event.first + event.rows);
     }
 }

@@ -94,7 +94,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
                 {
                     label:
                         this.organizationType === OrganizationType.ESTATE
-                            ? 'Purchased orders of Estates'
+                            ? 'Purchased Orders of Estates'
                             : 'Orders & Requests by Micro Roasters',
                 },
             ];

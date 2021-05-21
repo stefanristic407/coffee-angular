@@ -69,12 +69,20 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
 
     qualityArray: any[] = [
         {
+            label: 'ounces',
+            value: 'ounces',
+        },
+        {
             label: 'lbs',
             value: 'lbs',
         },
         {
             label: 'tbsp',
             value: 'tbsp',
+        },
+        {
+            label: 'cups',
+            value: 'cups',
         },
         {
             label: 'grams',
