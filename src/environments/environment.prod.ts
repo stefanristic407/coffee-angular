@@ -20,5 +20,6 @@ export const environment = {
     cookiePolicyUrl: 'https://support.eraofwe.com/en/kb/articles/cookie-policy',
     googleTranslationAPIKey: 'AIzaSyBEDVxvYT9-dlcBz83jitndZ4xODAJiqO0',
     supportEmailAddress: 'support@eraofwe.com',
+    shopWeb: 'https://sewnstagingshop.com/shop',
     production: true,
 };

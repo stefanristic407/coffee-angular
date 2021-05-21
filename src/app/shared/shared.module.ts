@@ -213,15 +213,6 @@ import { AvailabilityListingStatusPipe } from './pipes/availability/availability
 import { AvailabilityTypePipe } from './pipes/availability/availability-type.pipe';
 import { SearchFilterPipe } from './pipes/chat/search-filter.pipe';
 import { CountryPipe } from './pipes/country/country.pipe';
-import { EstateBrandLinkPipe } from './pipes/link/estate-brand-link.pipe';
-import { GcBrandLinkPipe } from './pipes/link/gc-brand-link.pipe';
-import { LotBrandLinkPipe } from './pipes/link/lot-brand-link.pipe';
-import { ProfileLinkPipe } from './pipes/link/profile-link.pipe';
-import { ReviewLinkPipe } from './pipes/link/review-link.pipe';
-import { RoasterBrandLinkPipe } from './pipes/link/roaster-brand-link.pipe';
-import { RoasterBrandCmsLinkPipe } from './pipes/link/roaster-brand-cms-link.pipe';
-import { OrderRatingLinkPipe } from './pipes/link/order-rating-link.pipe';
-import { OrderLinkPipe } from './pipes/link/order-link.pipe';
 import { FileIconPipe } from './pipes/file-icon.pipe';
 import { FileNamePipe } from './pipes/file-name.pipe';
 import { MonthPipe } from './pipes/month/month.pipe';
@@ -234,31 +225,44 @@ import { CertificateNamePipe } from './pipes';
 import { ArrayFilterPipe } from './pipes/array-filter.pipe';
 import { StringReplacePipe } from './pipes/string-replace.pipe';
 import { ReversePipe } from './pipes/reverse.pipe';
-const PIPES = [
-    AvailabilityListingStatusPipe,
-    AvailabilityTypePipe,
-    ArrayFilterPipe,
-    CountryPipe,
+import {
     EstateBrandLinkPipe,
     GcBrandLinkPipe,
     LotBrandLinkPipe,
-    FileIconPipe,
-    FileNamePipe,
-    MonthPipe,
+    OrderLinkPipe,
+    OrderRatingLinkPipe,
     ProfileLinkPipe,
     ReviewLinkPipe,
-    RoasterBrandLinkPipe,
     RoasterBrandCmsLinkPipe,
-    OrderRatingLinkPipe,
-    OrderLinkPipe,
-    OrgTypePipe,
-    StringReplacePipe,
-    WordCountPipe,
-    SearchFilterPipe,
-    ConvertToShortDescriptionPipe,
+    RoasterBrandLinkPipe,
+    ShopLinkPipe,
+} from './pipes';
+const PIPES = [
+    ArrayFilterPipe,
+    AvailabilityListingStatusPipe,
+    AvailabilityTypePipe,
     CertificateNamePipe,
-    ThousandSuffPipe,
+    ConvertToShortDescriptionPipe,
+    CountryPipe,
+    EstateBrandLinkPipe,
+    FileIconPipe,
+    FileNamePipe,
+    GcBrandLinkPipe,
+    LotBrandLinkPipe,
+    MonthPipe,
+    OrderLinkPipe,
+    OrderRatingLinkPipe,
+    OrgTypePipe,
+    ProfileLinkPipe,
     ReversePipe,
+    ReviewLinkPipe,
+    RoasterBrandCmsLinkPipe,
+    RoasterBrandLinkPipe,
+    SearchFilterPipe,
+    ShopLinkPipe,
+    StringReplacePipe,
+    ThousandSuffPipe,
+    WordCountPipe,
 ];
 
 @NgModule({

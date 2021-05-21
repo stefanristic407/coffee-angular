@@ -26,7 +26,7 @@ export class UserService extends ApiService {
     // View user profile
     getUserDetail(
         userId: string | number = null,
-        orgType: string = OrganizationType.ROASTER,
+        orgType: string = this.orgType,
     ): Observable<ApiResponse<UserProfile>> {
         if (userId) {
             return this.post(this.orgPostUrl, `general/${orgType}/users/${userId}`, 'GET');

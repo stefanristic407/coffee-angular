@@ -18,10 +18,7 @@ export class StartupService {
 
     load(): Promise<any> {
         return new Promise((resolve) => {
-            zip(
-                this.httpClient.get(`${environment.apiURL}/translations/${this.i18n.currentLang}/common`),
-                this.httpClient.get(`${environment.apiURL}/translations/${this.i18n.currentLang}/roaster`),
-            )
+            zip(this.httpClient.get(`${environment.apiURL}/translations/${this.i18n.currentLang}/roaster`))
                 .pipe(
                     catchError((res) => {
                         console.warn(`StartupService.load: Network request failed`, res);
@@ -30,8 +27,7 @@ export class StartupService {
                     }),
                 )
                 .subscribe(
-                    ([commonLangData, portalLangData]) => {
-                        const langData = { ...commonLangData, ...portalLangData };
+                    ([langData]) => {
                         this.translate.setTranslation(this.i18n.currentLang, langData);
                         this.globals.languageJson = langData;
                     },
