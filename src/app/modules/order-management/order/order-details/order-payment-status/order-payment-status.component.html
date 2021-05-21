@@ -28,9 +28,6 @@
             <span class="fnt-400">{{ 'lot_has_been_prebooked' | translate }}</span>
         </div>
     </div>
-    <p class="mt-sm-2 mt-md-0 mt-lg-3">
-        <a class="navigation-link mt-2">{{ 'view_payment_procedure' | translate }}</a>
-    </p>
     <div
         class="w-100 track-info mt-45 pt-45"
         *ngIf="trackingUrl && (order?.status === OrderStatuses.Shipped || order?.status === OrderStatuses.Received)"
