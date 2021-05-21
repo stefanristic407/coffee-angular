@@ -76,6 +76,7 @@ export class CreateRoastingProfileComponent implements OnInit {
     createRoastingProfile(productObj) {
         this.userService.addRoastingProfile(this.roasterId, productObj).subscribe(
             (res) => {
+                console.log('create roasting profile response <>>>>>>>>>>>', res);
                 if (res && res.success) {
                     this.toastrService.success('The Roasting Profile has been added.');
                     this.router.navigate(['/roasted-coffee-batch/roasting-profile']);
