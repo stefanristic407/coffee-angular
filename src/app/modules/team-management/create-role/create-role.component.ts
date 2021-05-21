@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MenuItem, TreeNode } from 'primeng/api';
 import { GlobalsService } from '@services';
 import { ManagePermissionComponent } from '../manage-permission/manage-permission.component';
+import { PERMISSION_DESCRIPTION } from '@constants';
 
 @Component({
     selector: 'app-create-role',
@@ -82,6 +83,7 @@ export class CreateRoleComponent implements OnInit {
                             obj.label = childLabel + ' (' + item.access_type + ')';
                             obj.key = item.id;
                             obj.data = item.slug;
+                            obj.description = PERMISSION_DESCRIPTION[item.slug];
                             if (selectedPermission) {
                                 const findSelected = selectedPermission.find((m) => m.id === item.id);
                                 if (findSelected) {
