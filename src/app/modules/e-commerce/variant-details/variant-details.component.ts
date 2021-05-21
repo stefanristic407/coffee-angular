@@ -18,6 +18,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
     grindVariants: FormArray;
     @Input() variantDetails: any;
     @Input() type: string;
+    @Input() isPublished: boolean;
     currentVariantIndex = 0;
     statusArray: any = [];
     grindArray: any = [];
@@ -63,6 +64,17 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             this.onWeightChange(value);
         });
         this.route.params.subscribe((params) => {
+            this.statusArray = this.isPublished
+                ? [
+                      { label: 'In Stock', value: 'IN-STOCK' },
+                      { label: 'Out of Stock', value: 'OUT-OF-STOCK' },
+                  ]
+                : [
+                      {
+                          label: 'In Draft',
+                          value: 'IN-DRAFT',
+                      },
+                  ];
             if (params.id) {
                 this.productID = params.id;
                 this.loadWeight();
@@ -71,10 +83,6 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
                 this.createWeightVariantArray();
             }
         });
-        this.statusArray = [
-            { label: 'In Stock', value: 'in-stock' },
-            { label: 'Out of Stock', value: 'out-of-stock' },
-        ];
         this.weightTypeArray = [
             { label: 'lbs', value: 'lb' },
             { label: 'kgs', value: 'kg' },
@@ -241,7 +249,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             isNew: true,
             product_images: [],
             weight: [0, Validators.compose([Validators.required])],
-            status: ['in-stock', Validators.compose([Validators.required])],
+            status: [this.isPublished ? 'IN-STOCK' : 'IN-DRAFT', Validators.compose([Validators.required])],
             is_public: [false, Validators.compose([Validators.required])],
             is_default_product: [false, Validators.compose([Validators.required])],
             grind_variants: this.fb.array([this.createEmptyGrindVariant()]),
