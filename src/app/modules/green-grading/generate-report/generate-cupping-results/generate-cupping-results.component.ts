@@ -18,57 +18,6 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
     @Input() cuppingDetails;
     @Input() fromQueryParam;
 
-    labels: any[] = [
-        {
-            label: 'Aroma',
-            key: 'fragrance_score',
-        },
-        {
-            label: 'Dry',
-            key: 'fragrance_dry',
-        },
-        {
-            label: 'Break',
-            key: 'fragrance_break',
-        },
-        {
-            label: 'Flavour',
-            key: 'flavour_score',
-        },
-        {
-            label: 'Aftertaste',
-            key: 'aftertaste_score',
-        },
-        {
-            label: 'Acidity',
-            key: 'acidity_score',
-        },
-        {
-            label: 'Body',
-            key: 'body_score',
-        },
-        {
-            label: 'Balance',
-            key: 'balance_score',
-        },
-        {
-            label: 'Uniformirty',
-            key: 'uniformity_score',
-        },
-        {
-            label: 'Clean cup',
-            key: 'cleancup_score',
-        },
-        {
-            label: 'Sweetness',
-            key: 'sweetness_score',
-        },
-        {
-            label: 'Overall',
-            key: 'overall_score',
-        },
-    ];
-
     roasterId: string;
     cuppingReportId: any;
     evaluatorsList: any;
@@ -125,7 +74,7 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
             },
             {
                 field: 'flavour_score',
-                header: 'Flavour',
+                header: 'flavor',
                 sortable: false,
             },
             {

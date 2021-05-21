@@ -88,25 +88,19 @@
                     >
                         <ng-template pTemplate="header" let-columns>
                             <tr>
-                                <th style="width: 45px" *ngIf="!isMobileView">
+                                <th style="width: 54px" *ngIf="!isMobileView">
                                     <p-checkbox (click)="selectRows(e.checked)" #e></p-checkbox>
                                 </th>
 
                                 <th
                                     *ngFor="let col of columns"
-                                    [pSortableColumn]="col.sortable === true ? col.field : null"
-                                    [style.width]="col.width ? col.width : 'unset'"
+                                    [style.width]="col.width ? col.width : '30%'"
                                     [ngClass]="{ ellipsis: col.isCut }"
                                 >
-                                    <span class="primeng-table-header">{{ col.header }}</span>
-                                    <p-sortIcon
-                                        *ngIf="col.sortable === true"
-                                        [field]="col.field"
-                                        ariaLabel="Activate to sort"
-                                        ariaLabelDesc="Activate to sort in descending order"
-                                        ariaLabelAsc="Activate to sort in ascending order"
-                                    >
-                                    </p-sortIcon>
+                                    <span [pSortableColumn]="col.sortable ? col.field : ''"
+                                        >{{ col.header | translate
+                                        }}<p-sortIcon *ngIf="col.sortable" [field]="col.field"> </p-sortIcon
+                                    ></span>
                                 </th>
                             </tr>
                         </ng-template>
