@@ -1,5 +1,5 @@
 <div class="mt-4">
-    <div class="fnt-14 lh-normal fnt-600 text-clr588 mb-2">Altitude Range</div>
+    <div class="fnt-14 fnt-600 text-clr588 mb-2">{{ 'altitude_range' | translate }}</div>
     <div class="altitude-block d-flex justify-content-between">
         <div class="sewn-form-field mb-0 altitude-wrap">
             <div class="p-inputgroup custom-addon">
@@ -10,7 +10,7 @@
         <div class="d-flex align-items-center justify-content-center fnt-14 fnt-600 text-clr588">to</div>
         <div class="sewn-form-field mb-0 altitude-wrap">
             <div class="p-inputgroup custom-addon">
-                <p-inputNumber [(ngModel)]="queryParams.altitude_end" placeholder="1600"> </p-inputNumber>
+                <p-inputNumber [(ngModel)]="queryParams.altitude_end" placeholder="2000"> </p-inputNumber>
                 <span class="p-inputgroup-addon text-clr334">m</span>
             </div>
         </div>
@@ -18,24 +18,22 @@
 
     <div class="solid-divider-de my-4"></div>
 
-    <h3 class="fnt-14 fnt-md-16 lh-normal fnt-bold text-clr334 mb-4">Flavour profile (A-Z)</h3>
+    <h3 class="fnt-14 fnt-md-16 fnt-bold text-clr334 mb-4">{{ 'flavor_profile' | translate }} (A-Z)</h3>
     <div class="row no-gutters flavour-block">
         <div
-            *ngFor="
-                let item of limitFlavour
-                    ? (sourcingSrv.flavourList$ | async | slice: 0:((isMobile$ | async) ? 8 : 20))
-                    : (sourcingSrv.flavourList$ | async)
-            "
+            *ngFor="let item of limitFlavour ? sourcingSrv.generalFlavourList : sourcingSrv.flavourList"
             class="col-6 col-md-4 col-lg-3 mb-4"
         >
             <p-checkbox [value]="item.id" [(ngModel)]="queryParams.flavours" [label]="item.name"></p-checkbox>
         </div>
-        <div class="custom-link" (click)="limitFlavour = !limitFlavour">Load {{ limitFlavour ? 'More' : 'Less' }}</div>
+        <div class="custom-link" (click)="limitFlavour = !limitFlavour">
+            {{ limitFlavour ? ('load_more' | translate) : ('load_less' | translate) }}
+        </div>
     </div>
 
     <div class="solid-divider-de my-4"></div>
 
-    <h3 class="fnt-14 fnt-md-16 lh-normal fnt-bold text-clr334 mb-4">Listing status</h3>
+    <h3 class="fnt-14 fnt-md-16 fnt-bold text-clr334 mb-4">{{ 'listing_status' | translate }}</h3>
     <div class="row no-gutters">
         <div *ngFor="let item of listingStatusItems" class="col-6 col-md-4 col-lg-3 mb-4">
             <p-checkbox [value]="item.value" [(ngModel)]="queryParams.listing_status" [label]="item.label"></p-checkbox>
@@ -44,12 +42,14 @@
 
     <div class="solid-divider-de mb-4"></div>
 
-    <h3 class="fnt-14 fnt-md-16 lh-normal fnt-bold text-clr334 mb-4">Certificates</h3>
+    <h3 class="fnt-14 fnt-md-16 fnt-bold text-clr334 mb-4">{{ 'certificates' | translate }}</h3>
     <p-checkbox value="1" [(ngModel)]="queryParams.certificates" label="Show listings with certificates"></p-checkbox>
 </div>
 
 <div class="solid-divider-de mt-4 mb-3"></div>
 <div class="d-flex justify-content-between">
-    <button type="submit" class="btn-stroked" style="width: 77px" (click)="clear()">Clear</button>
-    <button type="submit" class="btn-raised" style="width: 77px" (click)="filterCall()">Save</button>
+    <button type="submit" class="btn-stroked" style="width: 77px" (click)="clear()">{{ 'clear' | translate }}</button>
+    <button type="submit" class="btn-raised" style="width: 77px" (click)="filterCall()">
+        {{ 'save' | translate }}
+    </button>
 </div>

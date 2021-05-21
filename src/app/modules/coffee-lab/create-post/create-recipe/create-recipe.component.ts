@@ -69,12 +69,20 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
 
     qualityArray: any[] = [
         {
+            label: 'ounces',
+            value: 'ounces',
+        },
+        {
             label: 'lbs',
             value: 'lbs',
         },
         {
             label: 'tbsp',
             value: 'tbsp',
+        },
+        {
+            label: 'cups',
+            value: 'cups',
         },
         {
             label: 'grams',
@@ -448,5 +456,10 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
 
     deleteStep(index) {
         this.steps.removeAt(index);
+    }
+    deleteVideo() {
+        this.videoUrl = null;
+        this.isShowVideo = false;
+        this.recipeForm.controls.video_id.setValue(null);
     }
 }

@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { CookieService } from 'ngx-cookie-service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { FileService } from '@services';
 import { DownloadService, GlobalsService } from '@services';
 import { Download } from '@models';
 import { ConfirmComponent } from '@shared';
-import { Action, FileType } from '@enums';
+import { Action, FileModule, FileType } from '@enums';
 import { MediaPreviewComponent } from './components/media-preview/media-preview.component';
 import { FolderDialogComponent } from './components/folder-dialog/folder-dialog.component';
 import { EditFileComponent } from './components/edit-file/edit-file.component';
@@ -23,7 +21,6 @@ export class FileShareService {
     pinnedData: any = [];
     filesTerm: any;
     filterTerm: any;
-    roasterId: any;
     folderId: any = null;
     allFiles: any;
     fileTree: any = {};
@@ -43,10 +40,8 @@ export class FileShareService {
         public fileSrv: FileService,
         public globals: GlobalsService,
         public toastrService: ToastrService,
-        public cookieService: CookieService,
         public downloadService: DownloadService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
         this.queryParams$.subscribe((params: any) => {
             this.filterData();
         });
@@ -88,11 +83,33 @@ export class FileShareService {
         }
     }
 
+    getAllFiles() {
+        this.loading = true;
+        this.fileSrv
+            .getAllFiles({
+                file_module: FileModule.FileShare,
+                sort_by: 'updated_at',
+                sort_order: 'desc',
+            })
+            .subscribe((res: any) => {
+                this.loading = false;
+                if (res.success) {
+                    this.allFiles = res.result;
+                    this.fileTree = {};
+                    this.makeFolderTree({ id: 0 });
+                    this.filterData();
+                    this.dataRetrieved();
+                } else {
+                    this.toastrService.error('Error while getting the Files and Folders');
+                }
+            });
+    }
+
     getFilesandFolders() {
         this.loading = true;
         this.fileSrv
             .getFilesandFolders({
-                file_module: 'File-Share',
+                file_module: FileModule.FileShare,
                 sort_by: 'updated_at',
                 sort_order: 'desc',
             })
@@ -114,7 +131,7 @@ export class FileShareService {
         this.loading = true;
         this.fileSrv
             .getSharedFilesandFolders({
-                file_module: 'File-Share',
+                file_module: FileModule.FileShare,
                 sort_by: 'updated_at',
                 sort_order: 'desc',
             })
@@ -133,7 +150,7 @@ export class FileShareService {
     }
 
     makeFolderTree(folder, originParents: any[] = []): number {
-        if (folder.id !== 0 && folder.type !== 'FOLDER') {
+        if (folder.id !== 0 && folder.type !== FileType.FOLDER) {
             return;
         }
         const parents = JSON.parse(JSON.stringify(originParents));
@@ -145,10 +162,10 @@ export class FileShareService {
         const children = [];
         items.forEach((element) => {
             children.push(element);
-            if (element.type === 'VIDEO') {
+            if (element.type === FileType.VIDEO) {
                 videoCnt++;
             }
-            if (element.type === 'FOLDER') {
+            if (element.type === FileType.FOLDER) {
                 videoCnt += this.makeFolderTree(element, parents);
             }
         });
@@ -159,7 +176,7 @@ export class FileShareService {
     getPinnedFilesorFolders() {
         this.fileSrv
             .getPinnedFilesandFolders({
-                file_module: 'File-Share',
+                file_module: FileModule.FileShare,
                 sort_by: 'updated_at',
                 sort_order: 'desc',
             })
@@ -180,7 +197,7 @@ export class FileShareService {
             const formData: FormData = new FormData();
             formData.append('file', file, file.name);
             formData.append('name', fileName);
-            formData.append('file_module', 'File-Share');
+            formData.append('file_module', FileModule.FileShare);
             formData.append('parent_id', this.folderId);
             this.fileSrv.uploadFiles(formData).subscribe((res: any) => {
                 if (res.success) {
@@ -308,7 +325,7 @@ export class FileShareService {
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
-                    if (item.type === 'FOLDER') {
+                    if (item.type === FileType.FOLDER) {
                         this.deleteFolder(item.id);
                     } else {
                         this.deleteFile(item.id);

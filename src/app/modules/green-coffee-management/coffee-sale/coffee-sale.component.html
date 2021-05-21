@@ -200,10 +200,10 @@
                                                                     'quantity' | translate
                                                                 }}</span>
                                                                 <span class="float-right primary_txt mobileValueTxt"
-                                                                    >{{ rowData['quantity_count'] }}
-                                                                    {{ rowData['quantity_type'] }}/
-                                                                    {{ rowData['quantity'] }}
-                                                                    {{ rowData['quantity_unit'] || 'kg' }}
+                                                                    >{{
+                                                                        rowData['quantity_count'] * rowData['quantity']
+                                                                    }}
+                                                                    'kg'
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -227,7 +227,7 @@
                                             </span>
                                             <span *ngSwitchCase="'price'" class="text-clr588 fnt-600">
                                                 <span
-                                                    >${{ rowData[col.field] }}/{{
+                                                    >$ &nbsp; {{ rowData['unit_price'] }}/{{
                                                         rowData['quantity_unit'] || 'kg'
                                                     }}</span
                                                 >
@@ -236,9 +236,9 @@
                                                 <span>{{ rowData[col.field] }} </span>
                                             </span>
                                             <span *ngSwitchCase="'quantity'" class="text-clr588 fnt-600">
-                                                <span
-                                                    >{{ rowData['quantity_count'] }} {{ rowData['quantity_type'] }}/
-                                                    {{ rowData['quantity'] }} {{ rowData['quantity_unit'] || 'kg' }}
+                                                <span>
+                                                    {{ rowData['quantity_count'] * rowData['quantity'] }}
+                                                    {{ rowData['quantity_unit'] || 'kg' }}
                                                 </span>
                                             </span>
                                             <span *ngSwitchDefault>

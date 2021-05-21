@@ -90,13 +90,11 @@
                                     <span class="d-md-none"><img src="/assets/images/p-time-mb.svg" /></span>
                                     <div class="expertise pl-2">{{ 'preparation_time' | translate }}</div>
                                 </div>
-                                <div class="expertise-level m-0">
+                                <div class="expertise-level m-0 d-flex">
                                     <span class="visibility-hidden"
                                         ><img src="/assets/images/beginner-expertise.svg"
                                     /></span>
-                                    <span class="pl-2">{{
-                                        detailsData?.preparation_time + ' ' + detailsData?.preparation_time_unit
-                                    }}</span>
+                                    <span class="pl-2">{{ detailsData?.preparation_time }}</span>
                                 </div>
                             </div>
                         </div>
@@ -109,9 +107,8 @@
                                 </div>
                                 <div class="expertise-level m-0 d-flex">
                                     <span class="visibility-hidden"><img src="/assets/images/cooking-time.svg" /></span>
-                                    <div class="nowrap pl-2">
+                                    <div class="pl-2 cooking-time">
                                         {{ detailsData?.cooking_time }}
-                                        {{ detailsData?.cooking_time_unit }}
                                     </div>
                                 </div>
                             </div>
@@ -134,7 +131,7 @@
                     <p class="m-0 fnt-14 fnt-muli fnt-bold text-clr334">{{ 'ingredients' | translate }}</p>
                     <div class="ingredient-details">
                         <div class="m-0" *ngFor="let ing of detailsData?.ingredients; let last = last">
-                            <span class="d-flex">
+                            <span class="d-flex justify-content-between">
                                 <div class="name fnt-14 fnt-muli">{{ ing?.name }}</div>
                                 <div class="qty fnt-14 fnt-muli fnt-bold">
                                     {{ ing?.quantity }}{{ ing?.quantity_unit }}
@@ -145,7 +142,7 @@
                     </div>
                 </div>
                 <div class="directions pt-45" *ngIf="detailsData?.steps && detailsData?.steps.length">
-                    <p class="m-0 fnt-14 fnt-muli fnt-bold text-clr334 pb-2">{{ 'directions' | translate }}</p>
+                    <p class="m-0 fnt-14 fnt-muli fnt-bold text-clr334 pb-3 pb-md-2">{{ 'directions' | translate }}</p>
                     <div *ngFor="let st of detailsData?.steps; index as i">
                         <p class="m-0 pb-1">{{ 'step' | translate }} {{ i + 1 }}:</p>
                         <p class="m-0 pb-2" [innerHTML]="st?.description"></p>

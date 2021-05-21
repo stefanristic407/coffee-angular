@@ -1,6 +1,6 @@
-.p-datatable .p-datatable-tbody > tr > td:first-child {
-    padding-left: 0rem !important;
-}
+// .p-datatable .p-datatable-tbody > tr > td:first-child {
+//     padding-left: 0rem !important;
+// }
 .break-word {
     word-break: break-all;
 }
@@ -14,6 +14,13 @@
             color: #232334 !important;
             text-decoration: none;
         }
+    }
+}
+
+.custom-tooltip {
+    .ui-tooltip .ui-tooltip-text {
+        background-color: transparent;
+        color: #747588;
     }
 }
 

@@ -277,14 +277,15 @@
 }
 
 .p-sortable-column-icon.pi.pi-fw {
+    font-size: 14px;
     &.pi-sort-alt:before {
-        content: '';
-    }
-
-    &.pi-sort-amount-up-alt:before,
-    &.pi-sort-amount-down:before {
         content: url('/assets/images/sort-icon.svg');
     }
+
+    // &.pi-sort-amount-up-alt:before,
+    // &.pi-sort-amount-down:before {
+    //     content: url('/assets/images/sort-icon.svg');
+    // }
 }
 
 @media all and (min-width: 768px) and (max-width: 991px) {

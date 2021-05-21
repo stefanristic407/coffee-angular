@@ -11,59 +11,70 @@
             </div>
         </div>
     </ng-container>
-    <app-loading *ngIf="!isLoaded"></app-loading>
 </div>
 
 <ng-template #tableView>
     <p-table
         [value]="coffeedata"
+        [columns]="tableColumns"
         [loading]="!isLoaded"
         [lazy]="true"
         [lazyLoadOnInit]="false"
         (onLazyLoad)="getData($event)"
         [resizableColumns]="true"
-        [autoLayout]="true"
+        [autoLayout]="isTablet$ | async"
         styleClass="mt-25"
     >
-        <ng-template pTemplate="header">
+        <ng-template pTemplate="header" let-columns>
             <tr>
-                <th>{{ 'name' | translate }}</th>
-                <th>{{ 'estate_name' | translate }}</th>
-                <th>{{ 'origin' | translate }}</th>
-                <th>{{ 'variety' | translate }}</th>
-                <th pSortableColumn="price">{{ 'price' | translate }}<p-sortIcon field="price"></p-sortIcon></th>
-                <th pSortableColumn="quantity">
-                    {{ 'quantity' | translate }}<p-sortIcon field="quantity"></p-sortIcon>
+                <th *ngFor="let col of columns" [style.width]="col.width ? col.width + '%' : '30%'">
+                    <span [pSortableColumn]="col.sortable ? col.field : ''"
+                        >{{ col.header | translate }}<p-sortIcon *ngIf="col.sortable" [field]="col.field"> </p-sortIcon>
+                    </span>
                 </th>
-                <th>{{ 'flavour_profile' | translate }}</th>
-                <th>{{ 'cup_score' | translate }}</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-item>
-            <tr class="cursor-pointer" routerLink="/sourcing/coffee-details/{{ item.estate.id }}/{{ item.harvest_id }}">
-                <td>{{ item.name }}</td>
-                <td>{{ item.estate?.name || 'NA' }}</td>
-                <td>{{ item.lot?.country | country }}</td>
-                <td>
-                    {{ item.lot?.varieties[0] || 'NA' }}
-                    {{ item.lot?.varieties?.length > 1 ? ' +' + (item.lot.varieties.length - 1) : '' }}
-                </td>
-                <td>
-                    <span>{{ item.price * (sourcingSrv.quantityUnit == QuantityUnit.lb ? LBUNIT : 1) }}</span>
-                    <span>{{ item.price_unit }}&nbsp;/&nbsp;{{ sourcingSrv.quantityUnit }}</span>
-                </td>
-                <td>{{ item.quantity_count }}&nbsp;{{ item.quantity_type | lowercase }}</td>
-                <td>
-                    <div *ngIf="item.flavours?.length" class="row gutter-12 v-gutter-8">
-                        <div *ngFor="let flavour of item.flavours" class="col-auto">
-                            <div class="custom-chip">
-                                {{ flavour | flavour }}
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+                <td
+                    *ngFor="let col of columns"
+                    [ngSwitch]="col.field"
+                    [style.width]="col.width ? col.width + '%' : '30%'"
+                    class="ellipsis"
+                >
+                    <span *ngSwitchCase="'estate_name'">
+                        {{ rowData.estate?.name || 'NA' }}
+                    </span>
+                    <span *ngSwitchCase="'origin'">
+                        {{ rowData.lot?.country | country }}
+                    </span>
+                    <span *ngSwitchCase="'variety'">
+                        {{ rowData.lot?.varieties[0] || 'NA' }}
+                        {{ rowData.lot?.varieties?.length > 1 ? ' +' + (rowData.lot.varieties.length - 1) : '' }}
+                    </span>
+                    <span *ngSwitchCase="'price'">
+                        {{
+                            rowData.price * (sourcingSrv.quantityUnit == QuantityUnit.lb ? LBUNIT : 1) | number: '1.0-2'
+                        }}
+                        {{ rowData.price_unit }}&nbsp;/&nbsp;{{ sourcingSrv.quantityUnit }}
+                    </span>
+                    <span *ngSwitchCase="'quantity'">
+                        {{ rowData.quantity_count }}&nbsp;{{ rowData.quantity_type | lowercase }}
+                    </span>
+                    <span *ngSwitchCase="'flavour_profile'">
+                        <div *ngIf="rowData.flavours?.length" class="row gutter-12 v-gutter-8">
+                            <div *ngFor="let flavour of rowData.flavours" class="col-auto">
+                                <div class="custom-chip">
+                                    {{ flavour | flavour }}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <span *ngIf="!item.flavours?.length"> NA </span>
+                        <span *ngIf="!rowData.flavours?.length"> NA </span>
+                    </span>
+                    <ng-container *ngSwitchDefault>
+                        <span class="ellipsis">{{ rowData[col.field] || 'NA' }}</span>
+                    </ng-container>
                 </td>
-                <td>{{ item.cup_score }}</td>
             </tr>
         </ng-template>
     </p-table>

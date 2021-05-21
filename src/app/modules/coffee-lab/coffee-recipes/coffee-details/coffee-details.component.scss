@@ -87,7 +87,15 @@
                 width: 50px;
             }
         }
+        .ingredient-block {
+            .ingredient-details {
+                .name {
+                    width: auto;
+                }
+            }
+        }
     }
+
     @media (max-width: 768px) {
         padding-bottom: 0 !important;
         .expert-sm {
@@ -118,6 +126,9 @@
         .expertise-level-block {
             flex-wrap: wrap;
             padding: 12px 22px !important;
+        }
+        .cooking-time {
+            white-space: initial;
         }
     }
 }

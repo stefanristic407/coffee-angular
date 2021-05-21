@@ -1,5 +1,5 @@
 <section *ngIf="!showOrder">
-    <div class="main-block">
+    <div *ngIf="!isLoadingCoffeeBatch" class="main-block">
         <div class="row pb-md-3 pb-1">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 overflow-auto d-flex flex-nowrap breadCrumb">
                 <p-breadcrumb [model]="breadItems"></p-breadcrumb>
@@ -51,7 +51,7 @@
                                         [ngModelOptions]="{ standalone: true }"
                                     ></p-inputNumber>
                                     <span class="p-inputgroup-addon">
-                                        <img src="assets/images/arrow-1.png" alt="" />
+                                        <img src="assets/images/icon-arrow-right.svg" alt="" />
                                     </span>
                                 </div>
                             </div>
@@ -69,7 +69,7 @@
                                 </small>
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
-                                <label>Batch Ref no.</label>
+                                <label>Batch ref no.</label>
                                 <input
                                     type="text"
                                     placeholder="Enter a new batch number"
@@ -133,6 +133,7 @@
                                             [options]="weightTypeArray"
                                             [autoDisplayFirst]="false"
                                             [(ngModel)]="unit"
+                                            (ngModelChange)="setWasteQuantityValue()"
                                             [ngModelOptions]="{ standalone: true }"
                                             placeholder="{{ 'select_unit' | translate }}"
                                         ></p-dropdown>
@@ -162,6 +163,7 @@
                                             [options]="weightTypeArray"
                                             [autoDisplayFirst]="false"
                                             [(ngModel)]="unit"
+                                            (ngModelChange)="setWasteQuantityValue()"
                                             [ngModelOptions]="{ standalone: true }"
                                             placeholder="{{ 'select_unit' | translate }}"
                                         ></p-dropdown>
@@ -225,7 +227,7 @@
                                 <input type="number" placeholder="Enter a number" formControlName="body" pInputText />
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field mt-lg-3">
-                                <label>Flavour</label>
+                                <label>{{ 'flavor' | translate }}</label>
                                 <input
                                     type="number"
                                     placeholder="Enter a number"
@@ -240,7 +242,7 @@
                         </div>
                         <div class="row pt-md-1 pb-1">
                             <div class="col-12 pb-2 tab-flavour-space">
-                                <span class="fnt-14 fnt-muli fnt-600 black">Flavour profile</span>
+                                <span class="fnt-14 fnt-muli fnt-600 black">{{ 'flavor_profile' | translate }}</span>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-12 col-lg-10 d-flex flex-column">
@@ -287,12 +289,18 @@
                 </div>
             </div>
 
-            <div class="col-12 col-md-7 col-lg-4">
-                <div *ngIf="ordId" class="d-none d-sm-none d-md-block d-lg-block d-xl-block mt-4 mt-lg-0">
-                    <ng-container *ngTemplateOutlet="orderDetailsTpl"></ng-container>
-                </div>
-                <div *ngIf="ordId && batchId" class="mt-4 mb-3">
-                    <ng-container *ngTemplateOutlet="shareStoryTemplate"></ng-container>
+            <div class="col-12 col-lg-4">
+                <div class="row gutter-16">
+                    <div class="col-12 col-md-6 col-lg-12">
+                        <div *ngIf="ordId" class="d-none d-sm-none d-md-block d-lg-block d-xl-block mt-4 mt-lg-0">
+                            <ng-container *ngTemplateOutlet="orderDetailsTpl"></ng-container>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-12">
+                        <div *ngIf="ordId && batchId" class="mt-4 mb-3">
+                            <ng-container *ngTemplateOutlet="shareStoryTemplate"></ng-container>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -312,6 +320,9 @@
                 {{ 'save' | translate }}
             </button>
         </div>
+    </div>
+    <div *ngIf="isLoadingCoffeeBatch">
+        <app-loading></app-loading>
     </div>
 </section>
 <app-select-order-table *ngIf="showOrder" (orderSelectEvent)="setOrder($event)"></app-select-order-table>
@@ -381,7 +392,9 @@
                         <span class="list-que"> {{ 'quantity' | translate }} : </span>
                     </td>
                     <td class="recent-data-ans">
-                        <span class="list-ans"> {{ orderDetails.quantity }} {{ orderDetails.quantity_unit }} </span>
+                        <span class="list-ans">
+                            {{ orderDetails?.quantity_count * orderDetails?.quantity }} {{ orderDetails.quantity_unit }}
+                        </span>
                     </td>
                 </tr>
 

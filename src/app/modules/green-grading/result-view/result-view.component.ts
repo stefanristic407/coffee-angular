@@ -1,4 +1,5 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { GlobalsService } from '@services';
 import * as Chart from 'chart.js';
 
 @Component({
@@ -26,7 +27,7 @@ export class ResultViewComponent implements OnInit, OnChanges {
             key: 'fragrance_score',
         },
         {
-            label: 'Flavour',
+            label: this.globals.languageJson.flavor,
             key: 'flavour_score',
         },
         {
@@ -95,7 +96,7 @@ export class ResultViewComponent implements OnInit, OnChanges {
         },
     ];
 
-    constructor() {}
+    constructor(public globals: GlobalsService) {}
 
     ngOnInit(): void {
         const self = this;
