@@ -277,6 +277,7 @@
 }
 
 .p-sortable-column-icon.pi.pi-fw {
+    font-size: 14px;
     &.pi-sort-alt:before {
         content: url('/assets/images/sort-icon.svg');
     }
