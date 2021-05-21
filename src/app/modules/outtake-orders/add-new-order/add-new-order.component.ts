@@ -45,6 +45,7 @@ export class AddNewOrderComponent implements OnInit {
     customerID: any;
     salesMember: string;
     userDetails: any;
+    createdBy = false;
 
     constructor(
         private roasterService: RoasterserviceService,
@@ -212,12 +213,14 @@ export class AddNewOrderComponent implements OnInit {
             this.addOrdersForm.get('order_id').setValue(event.orderId);
         }
         if (event.userName) {
-            this.addOrdersForm.get('sales_member_id').setValue(event.userName);
-            this.userID = event.userId;
-        }
-        if (event.createduserName) {
-            this.addOrdersForm.get('created_by').setValue(event.createduserName);
-            this.userID = event.userId;
+            if (this.createdBy === true) {
+                this.addOrdersForm.get('created_by').setValue(event.userName);
+                this.userID = event.userId;
+                this.createdBy = false;
+            } else {
+                this.addOrdersForm.get('sales_member_id').setValue(event.userName);
+                this.userID = event.userId;
+            }
         }
         if (event.customerName) {
             this.addOrdersForm.get('customer_id').setValue(event.customerName);
