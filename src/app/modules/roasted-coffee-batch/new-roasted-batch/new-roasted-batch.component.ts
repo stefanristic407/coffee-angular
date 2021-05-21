@@ -201,7 +201,7 @@ export class NewRoastedBatchComponent implements OnInit, OnDestroy {
                     });
                 }
             } else {
-                this.toastrService.error('Error while getting the roasting Flavour Profile');
+                this.toastrService.error('Error while getting the roasting Flavor Profile');
             }
         });
     }

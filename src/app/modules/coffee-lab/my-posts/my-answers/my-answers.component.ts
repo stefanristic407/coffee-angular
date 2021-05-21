@@ -19,6 +19,8 @@ export class MyAnswersComponent implements OnInit, OnDestroy {
     isMyPostsPage = false;
     isLoading = false;
     forumDeleteSub: Subscription;
+    totalRecords = 0;
+    displayData: any[] = [];
 
     constructor(
         private coffeeLabService: CoffeeLabService,
@@ -50,8 +52,14 @@ export class MyAnswersComponent implements OnInit, OnDestroy {
                 }
                 return item;
             });
+            this.totalRecords = this.answers.length;
+            this.displayData = this.answers.slice(0, 10);
             this.isLoading = false;
         });
+    }
+
+    paginate(event: any) {
+        this.displayData = this.answers.slice(event.first, event.first + event.rows);
     }
 
     ngOnDestroy(): void {

@@ -20,6 +20,8 @@ export class PrimeTableService {
     public form: FormGroup;
     public _allColumns: any[];
     public roasterId: any;
+    public from_date: any;
+    public to_date: any;
     set allColumns(value: any[]) {
         this._allColumns = value;
     }
@@ -88,6 +90,14 @@ export class PrimeTableService {
         // If origin is required
         if (this.origin) {
             postData = { ...postData, ...{ origin: this.origin } };
+        }
+
+        if (this.from_date) {
+            postData = { ...postData, ...{ from_date: this.from_date, to_date: '' } };
+        }
+
+        if (this.to_date) {
+            postData = { ...postData, ...{ to_date: this.to_date } };
         }
 
         // If status is required

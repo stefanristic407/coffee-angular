@@ -40,7 +40,7 @@
                 <div class="row">
                     <div class="col-lg-5 left-block">
                         <div class="d-flex justify-content-center">
-                            <div class="prodect-gal w-100 mb-4 mb-md-5">
+                            <div class="product-gal w-100 mb-4 mb-md-5">
                                 <gallery
                                     *ngIf="sourcing.harvestDetail?.images?.length; else noImages"
                                     class="bg-white gallery-wrap"
@@ -145,9 +145,9 @@
                                     </div>
                                 </div>
 
-                                <div class="produect-pro br-2 p-3 p-md-4 mt-45 mt-md-5">
+                                <div class="product-pro br-2 p-3 p-md-4 mt-45 mt-md-5">
                                     <div class="row">
-                                        <div class="col-lg-4 col-md-4 col-sm-6">
+                                        <div class="col-lg-3 col-md-3 col-sm-6">
                                             <div class="real-estate mt-0">
                                                 <h6 class="mt-0">
                                                     {{
@@ -161,7 +161,7 @@
                                                 </h3>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-4 col-sm-6 mb-2 mb-md-0">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 mb-2 mb-md-0">
                                             <div class="real-estate d-flex mt-3 mt-md-0">
                                                 <div class="mr-2 mr-md-3">
                                                     <app-user-detail
@@ -171,15 +171,15 @@
                                                         [size]="(isMobile$ | async) ? 32 : 40"
                                                     ></app-user-detail>
                                                 </div>
-                                                <div>
-                                                    <h3 class="mb-1">
+                                                <div class="ellipsis">
+                                                    <h3 class="ellipsis mb-1">
                                                         {{ sourcing.harvestDetail?.cupping?.evaluator_name }}
                                                     </h3>
                                                     <h6 class="my-0">Facilitator</h6>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-4 col-sm-6 mt-2 text-left text-md-right">
+                                        <div class="col-lg-3 col-md-3 col-sm-6 mt-2 text-left text-md-right">
                                             <a class="custom-link">{{ 'view_report' | translate }} </a>
                                         </div>
                                     </div>
@@ -234,7 +234,7 @@
                                     <div class="col-6 col-md-4 col-lg-4">
                                         <div class="real-estate">
                                             <img src="assets/images/flavour-image.svg" />
-                                            <h6>{{ 'flavour_profile' | translate }}</h6>
+                                            <h6>{{ 'flavor_profile' | translate }}</h6>
                                             <div
                                                 *ngIf="sourcing.harvestDetail?.flavours?.length"
                                                 class="row gutter-12 v-gutter-8"

@@ -14,12 +14,19 @@ export class UserService extends ApiService {
         super(cookieSrv, http);
     }
 
+    // ------------ General ------------
+
+    // Display the details of organization
+    getOrgDetail() {
+        return this.postWithOrg(this.orgPostUrl, `profile`, 'GET');
+    }
+
     // ------------ USER ------------
 
     // View user profile
     getUserDetail(
         userId: string | number = null,
-        orgType: string = OrganizationType.ROASTER,
+        orgType: string = this.orgType,
     ): Observable<ApiResponse<UserProfile>> {
         if (userId) {
             return this.post(this.orgPostUrl, `general/${orgType}/users/${userId}`, 'GET');

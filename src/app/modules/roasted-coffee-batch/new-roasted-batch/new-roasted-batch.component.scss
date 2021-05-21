@@ -29,6 +29,12 @@
             margin: -11px;
         }
     }
+    @media (max-width: 991px) {
+        margin-top: 64px;
+    }
+    @media (max-width: 767px) {
+        margin-top: 0;
+    }
 }
 
 .list-group-item {

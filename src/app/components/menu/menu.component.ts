@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
-import { AclService, MenuService } from '@services';
+import { MenuService, ResizeService } from '@services';
 import { GlobalsService } from '@services';
 import { Menu } from '@models';
+import { MenuType } from '@enums';
 
 @Component({
     selector: 'app-menu',
@@ -11,9 +12,14 @@ import { Menu } from '@models';
     providers: [MenuService],
 })
 export class MenuComponent implements OnInit {
+    readonly MenuType = MenuType;
     @Input() menuParentId;
-    public menuItems: Array<any>;
-    constructor(public menuService: MenuService, public globals: GlobalsService, private aclService: AclService) {}
+    public menuItems: Array<Menu>;
+    constructor(
+        public menuService: MenuService,
+        public globals: GlobalsService,
+        private resizeService: ResizeService,
+    ) {}
 
     ngOnInit() {
         this.menuItems = this.menuService.getMenuItems();
@@ -21,7 +27,7 @@ export class MenuComponent implements OnInit {
     }
 
     onClick(menuId) {
-        if (this.globals.device === 'mobile') {
+        if (this.resizeService.isMobile()) {
             this.menuService.toggleMenuItem(menuId);
             this.menuService.closeOtherSubMenus(this.menuItems, menuId);
         }

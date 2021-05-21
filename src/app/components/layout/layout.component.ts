@@ -49,7 +49,6 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     readNotification: any;
 
     activeLink: 'DASHBOARD' | 'MESSAGES' | 'NOTIFICATIONS' | 'PROFILES' | 'UNSET' = 'UNSET';
-    resizeEvent: Subscription;
     userTermsAccepted: boolean;
     orgTermsAccepted: boolean;
 
@@ -148,7 +147,8 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     }
 
     ngAfterViewInit() {
-        this.resizeEvent = fromEvent(window, 'resize')
+        fromEvent(window, 'resize')
+            .pipe(takeUntil(this.unsubscribeAll$))
             .pipe(debounce(() => interval(500)))
             .subscribe(this.viewPortSizeChanged);
         this.viewPortSizeChanged();
@@ -215,7 +215,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     }
 
     getOrgProfile(resolve) {
-        this.userOriginalService.getRoasterAccount(this.roasterId).subscribe((res: any) => {
+        this.userService.getOrgDetail().subscribe((res: any) => {
             if (res.result) {
                 this.orgTermsAccepted = res.result.terms_accepted || !('terms_accepted' in res.result);
                 this.authService.organizationSubject.next(res.result);
@@ -290,9 +290,6 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     }
 
     ngOnDestroy(): void {
-        if (this.resizeEvent && this.resizeEvent.unsubscribe) {
-            this.resizeEvent.unsubscribe();
-        }
         this.socket.destorySocket();
     }
 

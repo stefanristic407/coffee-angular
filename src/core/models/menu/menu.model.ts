@@ -1,3 +1,5 @@
+import { MenuType } from '@enums';
+
 export class Menu {
     constructor(
         public id: number,
@@ -9,5 +11,6 @@ export class Menu {
         public hasSubMenu: boolean,
         public parentId: number,
         public permissions: string,
+        public type: MenuType = MenuType.GENERAL,
     ) {}
 }

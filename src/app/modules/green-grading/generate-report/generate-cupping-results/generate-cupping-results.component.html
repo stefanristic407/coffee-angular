@@ -41,7 +41,7 @@
                         class="ellipsis"
                         [pSortableColumn]="col.sortable === true ? col.field : null"
                     >
-                        <span class="primeng-table-header">{{ col.header }}</span>
+                        <span class="primeng-table-header">{{ col.header | translate }}</span>
                     </th>
                 </tr>
             </ng-template>

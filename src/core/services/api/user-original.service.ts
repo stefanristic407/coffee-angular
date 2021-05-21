@@ -635,6 +635,7 @@ export class UserserviceService extends ApiService {
         // return this.http.post(this.roasterUrl, data);
         return this.post(this.postUrl, `general/flavour-profile`);
     }
+
     updateLearnDetails(roaster_id: any, body: any, slug: any) {
         const data = {
             api_call: '/ro/' + roaster_id + '/brand-profile/' + slug,

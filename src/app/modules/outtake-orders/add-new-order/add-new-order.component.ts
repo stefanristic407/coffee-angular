@@ -18,6 +18,8 @@ import { Download } from '@models';
 export class AddNewOrderComponent implements OnInit {
     roasterId: any;
     showOrderPanel = false;
+    showCustomerPanel = false;
+    selectedType: string;
     breadItems = [
         { label: 'Home', routerLink: '/dashboard' },
         { label: 'Order Management', routerLink: '/outtake-orders' },
@@ -25,6 +27,7 @@ export class AddNewOrderComponent implements OnInit {
         { label: 'Add a new order' },
     ];
     customerTypeArray: any = [];
+    roasterLableypeArray: any = [];
     preCleaned: any = [];
     addOrdersForm: FormGroup;
     weightTypeArray = [];
@@ -35,10 +38,14 @@ export class AddNewOrderComponent implements OnInit {
     customerDetails: any;
     remainingTotalQuantity: any;
     customerType: any;
-    userDetails: any = [];
-    allCustomer: any;
     outtakeOrderDetails: any;
+    vatField: any;
     currentDate = new Date();
+    userID: any;
+    customerID: any;
+    salesMember: string;
+    userDetails: any;
+    createdBy = false;
 
     constructor(
         private roasterService: RoasterserviceService,
@@ -60,6 +67,13 @@ export class AddNewOrderComponent implements OnInit {
         this.customerTypeArray = [
             { label: 'Partner', value: 'hrc' },
             { label: 'Micro Roaster', value: 'mr' },
+        ];
+        this.roasterLableypeArray = [
+            { label: 'Light', value: 'light' },
+            { label: 'Light Medium', value: 'light-medium' },
+            { label: 'Medium', value: 'medium' },
+            { label: 'Medium Dark', value: 'medium-dark' },
+            { label: 'Dark', value: 'dark' },
         ];
         this.preCleaned = [
             { label: 'Yes', value: true },
@@ -112,41 +126,31 @@ export class AddNewOrderComponent implements OnInit {
             .getViewOrderDetails(this.roasterId, this.addOrdersForm.get('order_id').value)
             .subscribe((res) => {
                 this.orderDetails = res.result;
-                this.getRatingData(this.orderDetails.estate_id);
+                this.addOrdersForm.get('roaster_ref_no').setValue(this.orderDetails?.order_reference);
+                this.addOrdersForm.get('roaster_ref_no').disable();
+                this.getRatingData(this.orderDetails?.estate_id);
                 this.remainingTotalQuantity = this.orderDetails.remaining_total_quantity;
             });
     }
 
     getCustomerDetails(event?) {
-        this.allCustomer = [];
-        if (this.addOrdersForm.get('customer_type').value) {
-            if (this.addOrdersForm.get('customer_type').value === 'mr') {
+        this.addOrdersForm.get('customer_id').setValue('');
+        if (this.addOrdersForm.get('customer_type').value || this.outtakeOrderDetails.customer_type) {
+            if ((this.addOrdersForm.get('customer_type').value || this.outtakeOrderDetails.customer_type) === 'mr') {
                 this.customerType = 'micro-roasters';
-            } else if (this.addOrdersForm.get('customer_type').value === 'hrc') {
+            } else {
                 this.customerType = 'hrc';
             }
-            this.roasterService.getCustomerDetails(this.roasterId, this.customerType).subscribe((res) => {
-                if (res.success) {
-                    this.allCustomer = res.result.filter((item) => {
-                        if (item.id > 0) {
-                            return item;
-                        }
-                    });
-                    this.getSingleCustomerDeatils();
-                }
-            });
+            this.roasterService
+                .getCustomerDetails(this.roasterId, this.customerType, this.customerID)
+                .subscribe((res) => {
+                    if (res.success) {
+                        this.customerDetails = res.result;
+                        this.addOrdersForm.get('customer_id').setValue(this.customerDetails.name);
+                        this.addOrdersForm.get('company_type').setValue(this.customerDetails.company_type);
+                    }
+                });
         }
-    }
-
-    getSingleCustomerDeatils(event?) {
-        this.roasterService
-            .getSingleCustomerDetails(this.roasterId, this.customerType, this.addOrdersForm.get('customer_id').value)
-            .subscribe((rep) => {
-                if (rep.success) {
-                    this.customerDetails = rep.result;
-                    this.addOrdersForm.get('company_type').setValue = this.customerDetails.company_type;
-                }
-            });
     }
 
     getCoffeeStory() {
@@ -168,7 +172,7 @@ export class AddNewOrderComponent implements OnInit {
     }
 
     getUserDetails() {
-        this.roasterService.getUserDetails(this.roasterId).subscribe((res) => {
+        this.roasterService.getUserDetails(this.roasterId).subscribe((res: any) => {
             this.userDetails = res.result;
             this.userDetails = this.userDetails.map((item) => {
                 const userName = 'userName';
@@ -178,14 +182,26 @@ export class AddNewOrderComponent implements OnInit {
         });
     }
 
+    getSalesMember() {
+        this.roasterService
+            .getsalesMemberDetails(this.roasterId, this.outtakeOrderDetails.sales_member_id)
+            .subscribe((res: any) => {
+                this.salesMember = res.result;
+                this.addOrdersForm.get('sales_member_id').setValue(res.result.firstname + ' ' + res.result.lastname);
+                this.addOrdersForm.get('created_by').setValue(res.result.firstname + ' ' + res.result.lastname);
+            });
+    }
+
     getOrder() {
         this.roasterService.getViewOrder(this.roasterId, this.outtakeOrderId).subscribe((res) => {
             if (res.success) {
                 this.outtakeOrderDetails = res.result;
+                this.customerID = this.outtakeOrderDetails.customer_id;
+                this.getSalesMember();
+                this.getCustomerDetails();
                 this.outtakeOrderDetails.order_date = new Date(this.outtakeOrderDetails.order_date);
                 this.outtakeOrderDetails.roasted_date = new Date(this.outtakeOrderDetails.roasted_date);
                 this.addOrdersForm.patchValue(this.outtakeOrderDetails);
-                this.getCustomerDetails();
                 this.getOrderDetails();
                 this.getCoffeeStory();
             }
@@ -193,13 +209,44 @@ export class AddNewOrderComponent implements OnInit {
     }
 
     selectOrder(event) {
-        this.addOrdersForm.get('order_id').setValue(event.orderId);
+        if (event.orderId) {
+            this.addOrdersForm.get('order_id').setValue(event.orderId);
+        }
+        if (event.userName) {
+            if (this.createdBy === true) {
+                this.addOrdersForm.get('created_by').setValue(event.userName);
+                this.userID = event.userId;
+                this.createdBy = false;
+            } else {
+                this.addOrdersForm.get('sales_member_id').setValue(event.userName);
+                this.userID = event.userId;
+            }
+        }
+        if (event.customerName) {
+            this.addOrdersForm.get('customer_id').setValue(event.customerName);
+            this.customerID = event.customerId;
+        }
         this.getOrderDetails();
         this.getCoffeeStory();
     }
 
+    onSelectType(type) {
+        if (type === 'customer-name') {
+            if (this.addOrdersForm.get('customer_type').value === 'mr') {
+                this.selectedType = 'micro-roasters';
+            } else if (this.addOrdersForm.get('customer_type').value === 'hrc') {
+                this.selectedType = 'hrc';
+            }
+        } else {
+            this.selectedType = type;
+        }
+    }
+
     addOrderDetails() {
         const data = this.addOrdersForm.value;
+        data.sales_member_id = this.userID;
+        data.created_by = this.userID;
+        data.customer_id = this.customerID;
         if (data.order_date) {
             const orderDate = new Date(data.order_date);
             data.order_date =
@@ -247,6 +294,10 @@ export class AddNewOrderComponent implements OnInit {
                 }
             });
         }
+    }
+
+    onVatField(event) {
+        this.vatField = event.checked;
     }
 
     handleCopyCoffeeExperienceLink(): void {

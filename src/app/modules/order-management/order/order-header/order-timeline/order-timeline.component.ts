@@ -172,6 +172,13 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
         });
     }
 
+    viewLotStatusClicked() {
+        let el = document.querySelector('app-remote-sensoring');
+        if (el) {
+            el.scrollIntoView();
+        }
+    }
+
     private getLatestActivity(point: LabelValue): RecentActivity {
         if (!this.activities) {
             return null;

@@ -97,6 +97,7 @@ export class ProductSettingComponent implements OnInit {
                         day_min: [this.shippingDetails.day_min, Validators.compose([Validators.required])],
                         day_max: [this.shippingDetails.day_max, Validators.compose([Validators.required])],
                         price: [this.shippingDetails.price, Validators.compose([Validators.required])],
+                        price_unit: ['USD', Validators.compose([Validators.required])],
                     });
                 } else {
                     this.details = this.fb.group({
@@ -104,6 +105,7 @@ export class ProductSettingComponent implements OnInit {
                         day_min: [null, Validators.compose([Validators.required])],
                         day_max: [null, Validators.compose([Validators.required])],
                         price: [null, Validators.compose([Validators.required])],
+                        price_unit: ['USD', Validators.compose([Validators.required])],
                     });
                 }
             }
