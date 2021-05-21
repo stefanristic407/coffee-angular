@@ -59,6 +59,7 @@ export class NewRoastedBatchComponent implements OnInit, OnDestroy {
     showOrder: boolean;
     unit = 'lb';
     destroy$: Subject<boolean> = new Subject();
+    isLoadingCoffeeBatch = false;
 
     constructor(
         public dialogSrv: DialogService,
@@ -101,17 +102,11 @@ export class NewRoastedBatchComponent implements OnInit, OnDestroy {
             roasting_profile_id: ['', Validators.compose([Validators.required])],
             green_coffee_quantity: [
                 null,
-                Validators.compose([
-                    Validators.required,
-                    minValidator('roasting_profile_quantity')
-                ]),
+                Validators.compose([Validators.required, minValidator('roasting_profile_quantity')]),
             ],
             roasting_profile_quantity: [
                 null,
-                Validators.compose([
-                    Validators.required,
-                    maxValidator('green_coffee_quantity')
-                ]),
+                Validators.compose([Validators.required, maxValidator('green_coffee_quantity')]),
             ],
             waste_quantity: [{ value: '', disabled: true }],
             aroma: [''],
@@ -147,10 +142,13 @@ export class NewRoastedBatchComponent implements OnInit, OnDestroy {
     }
 
     getRoastedBatch() {
+        this.isLoadingCoffeeBatch = true;
         this.userService.getRoastedBatchDetail(this.roasterId, this.batchId).subscribe((res) => {
-            console.log('roasted batch >>>>>', res);
+            console.log('roasted batch >>>>', res);
+            this.isLoadingCoffeeBatch = false;
             if (res && res.result) {
-                this.flavourArray = res.result.flavour_profile;
+                this.breadItems[2].label = res.result.roast_batch_name;
+                this.flavourArray = res.result.flavour_profile || [];
                 this.flavourArray.forEach((element, index) => {
                     const chips = {
                         id: element.flavour_profile_id,
