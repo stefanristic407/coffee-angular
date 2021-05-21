@@ -111,6 +111,7 @@ export class GreenCoffeeOrdersComponent implements OnInit {
                     field: 'order_date',
                     header: 'Date ordered',
                     sortable: true,
+                    width: '140px',
                 },
                 {
                     field: 'origin',
@@ -127,6 +128,7 @@ export class GreenCoffeeOrdersComponent implements OnInit {
                     field: 'cupping_version',
                     header: 'Cupping version',
                     sortable: false,
+                    width: '128px',
                 },
                 {
                     field: 'cupping_status',

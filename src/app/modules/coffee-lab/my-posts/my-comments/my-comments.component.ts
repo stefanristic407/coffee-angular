@@ -21,6 +21,9 @@ export class MyCommentsComponent implements OnInit, OnDestroy {
     isMyPostsPage = false;
     pageDesc: string;
     forumDeleteSub: Subscription;
+    totalRecords = 0;
+    displayData: any[] = [];
+
     constructor(
         private coffeeLabService: CoffeeLabService,
         private cookieService: CookieService,
@@ -59,8 +62,14 @@ export class MyCommentsComponent implements OnInit, OnDestroy {
                 }
                 return item;
             });
+            this.totalRecords = this.comments.length;
+            this.displayData = this.comments.slice(0, 10);
             this.isLoading = false;
         });
+    }
+
+    paginate(event: any) {
+        this.displayData = this.comments.slice(event.first, event.first + event.rows);
     }
 
     ngOnDestroy(): void {

@@ -14,7 +14,6 @@ export class SourcingService {
     roasterId: string;
 
     finalCertify: any;
-    certLoaded = false;
 
     // Lot data
     polygonId: string;
@@ -28,8 +27,8 @@ export class SourcingService {
     viewMode: any = new BehaviorSubject('grid');
     viewMode$: any = this.viewMode.asObservable();
 
-    flavourList: any = new BehaviorSubject([]);
-    flavourList$: any = this.flavourList.asObservable();
+    flavourList: any[];
+    generalFlavourList: any[];
 
     origins: DropdownItem[] = [];
 
@@ -237,7 +236,6 @@ export class SourcingService {
         this.userService.getEstateCertificates().subscribe((res: any) => {
             if (res.success) {
                 this.finalCertify = res.result;
-                this.certLoaded = true;
             }
         });
     }
@@ -245,14 +243,14 @@ export class SourcingService {
     flavourprofileList() {
         this.userService.getFlavourProfile().subscribe((res: any) => {
             if (res.success) {
-                this.flavourList.next(res.result);
+                this.flavourList = res.result;
+                this.generalFlavourList = this.flavourList.filter((element) => !element.parent_id);
             }
         });
     }
 
     getFlavour(flavourId) {
-        const flavours = this.flavourList.getValue();
-        return flavours.length ? flavours.find((element) => element.id === flavourId) : null;
+        return this.flavourList?.length ? this.flavourList.find((element) => element.id === flavourId) : null;
     }
 
     getCertificateType(typeId) {

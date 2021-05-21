@@ -23,57 +23,6 @@ export class CuppingServiceComponent implements OnInit {
     requestType: string;
     showMobileView = false;
 
-    labels: any[] = [
-        {
-            label: 'Aroma',
-            key: 'fragrance_score',
-        },
-        {
-            label: 'Dry',
-            key: 'fragrance_dry',
-        },
-        {
-            label: 'Break',
-            key: 'fragrance_break',
-        },
-        {
-            label: 'Flavour',
-            key: 'flavour_score',
-        },
-        {
-            label: 'Aftertaste',
-            key: 'aftertaste_score',
-        },
-        {
-            label: 'Acidity',
-            key: 'acidity_score',
-        },
-        {
-            label: 'Body',
-            key: 'body_score',
-        },
-        {
-            label: 'Balance',
-            key: 'balance_score',
-        },
-        {
-            label: 'Uniformirty',
-            key: 'uniformity_score',
-        },
-        {
-            label: 'Clean cup',
-            key: 'cleancup_score',
-        },
-        {
-            label: 'Sweetness',
-            key: 'sweetness_score',
-        },
-        {
-            label: 'Overall',
-            key: 'overall_score',
-        },
-    ];
-
     dataObj: { [key: string]: any } = {};
     category1List = [
         {
@@ -107,6 +56,7 @@ export class CuppingServiceComponent implements OnInit {
             key2: 'severe_insect_damage_eqv',
         },
     ];
+
     category2List = [
         {
             label: 'Partial Black',
@@ -247,7 +197,7 @@ export class CuppingServiceComponent implements OnInit {
             },
             {
                 field: 'flavour_score',
-                header: 'Flavour',
+                header: 'flavor',
                 sortable: false,
             },
             {

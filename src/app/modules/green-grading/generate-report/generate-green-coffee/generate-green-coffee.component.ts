@@ -79,7 +79,8 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
 
     ngOnChanges(): void {
         this.cuppingReportId = this.cuppingDetails.cupping_report_id;
-        this.isEditable = this.cuppingDetails.status === 'DRAFT' || this.cuppingDetails.status === 'NEW';
+        this.isEditable =
+            this.cuppingDetails.cupping_status === 'DRAFT' || this.cuppingDetails.cupping_status === 'NEW';
         this.evaluatorsList();
         this.singleCuppingData();
         this.addBtnShow = this.cuppingDetails.type !== 'Invited';

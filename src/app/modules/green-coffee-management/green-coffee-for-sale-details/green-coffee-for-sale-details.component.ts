@@ -68,7 +68,6 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
     getSaleOrderDetails() {
         this.roasterService.getMarkForSaleDetails(this.roasterID, this.orderID).subscribe(
             (response) => {
-                console.log(response);
                 if (response.success && response.result) {
                     this.saleInformation = response.result;
                     this.refreshData();
@@ -82,7 +81,6 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
     getProcuredOrderDetails() {
         this.roasterService.getProcuredCoffeeDetails(this.roasterID, this.orderID).subscribe(
             (response) => {
-                console.log(response);
                 if (response.success && response.result) {
                     this.orderDetails = response.result;
                     if (this.orderDetails && this.orderDetails.harvest_id) {
@@ -101,18 +99,15 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
                 if (response && response.success && response.result) {
                     const result = response.result;
                     this.orderDetails.availability_name = result.name;
-                    this.orderDetails.cup_score = result.cupping.cup_score;
-                    this.orderDetails.cupping_at = result.cupping.cupped_at;
-                    this.orderDetails.evaluator_name = result.cupping.evaluator_name;
-                    this.orderDetails.evaluator_dp_thumb = result.cupping.evaluator_dp_thumb;
+                    this.orderDetails.crop_year = result.harvest_date;
                     this.orderDetails.altitude = result.min_altitude + '-' + result.max_altitude;
-                    this.orderDetails.flavour_profile = result.flavours;
+                    this.orderDetails.flavours = result.flavours;
                     this.orderDetails.wet_mill = result.wet_milling.name;
-                    this.orderDetails.processing = result.processing_types;
+                    this.orderDetails.processing = result.wet_milling.process + ',' + result.dry_milling.process;
+                    this.orderDetails.moisture = result.dry_milling.moisture_content;
                     this.orderDetails.images = result.images;
                     this.items = result.images.map((item) => new ImageItem({ src: item.url, thumb: item.thumb_url }));
                 }
-                console.log(this.orderDetails);
             },
             (err) => {
                 console.log(err);
