@@ -192,7 +192,6 @@ export class CoffeeSaleComponent implements OnInit {
     createMarkForSale(productObj) {
         this.roasterService.CreateMarkForSale(this.roasterID, this.orderID, productObj).subscribe(
             (response) => {
-                console.log(response);
                 if (response && response.success) {
                     this.toasterService.success('Successfully marked the sale');
                     const navigationExtras: NavigationExtras = {
@@ -261,7 +260,6 @@ export class CoffeeSaleComponent implements OnInit {
         return returnFlag;
     }
     onSave(): void {
-        console.log(this.coffeeSaleForm.value);
         if (this.validateForms()) {
             const productObj = this.coffeeSaleForm.value;
             this.createMarkForSale(productObj);

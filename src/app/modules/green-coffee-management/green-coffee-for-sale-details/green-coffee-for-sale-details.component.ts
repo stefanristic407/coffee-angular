@@ -68,7 +68,6 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
     getSaleOrderDetails() {
         this.roasterService.getMarkForSaleDetails(this.roasterID, this.orderID).subscribe(
             (response) => {
-                console.log(response);
                 if (response.success && response.result) {
                     this.saleInformation = response.result;
                     this.refreshData();
@@ -82,7 +81,6 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
     getProcuredOrderDetails() {
         this.roasterService.getProcuredCoffeeDetails(this.roasterID, this.orderID).subscribe(
             (response) => {
-                console.log(response);
                 if (response.success && response.result) {
                     this.orderDetails = response.result;
                     if (this.orderDetails && this.orderDetails.harvest_id) {
