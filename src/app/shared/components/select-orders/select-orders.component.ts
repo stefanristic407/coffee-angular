@@ -234,7 +234,7 @@ export class SelectOrdersComponent implements OnInit {
             postData.end_date = moment(this.rangeDates[1], 'DD/MM/YYYY').format('YYYY-MM-DD');
         }
         this.roasterService.getListOrderDetails(this.roasterId, this.selectedType, postData).subscribe((data: any) => {
-            if (data.success) {
+            if (data.success && data.result && data.result.length > 0) {
                 console.log(this.selectedType);
                 if (this.selectedType === 'micro-roasters' || this.selectedType === 'hrc') {
                     this.tableValue = data.result.filter((item) => {
