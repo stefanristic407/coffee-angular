@@ -64,7 +64,7 @@ export class LotSaleComponent implements OnInit {
         });
         this.quantityUnitArray = [
             { label: 'Bags', value: 'bags' },
-            { label: 'Kg', value: 'kg' },
+            { label: 'kg', value: 'kg' },
         ];
         this.priceTypeArray = [
             { label: 'Per kg', value: 'kg' },

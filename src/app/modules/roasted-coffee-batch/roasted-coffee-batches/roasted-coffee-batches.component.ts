@@ -32,7 +32,7 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
     breadItems = [
         { label: 'Home', routerLink: '/' },
         { label: 'Inventory', routerLink: '/' },
-        { label: 'Roasted coffee batchs' },
+        { label: 'Roasted coffee batches' },
     ];
     isLoadingRoastedBatches = false;
 

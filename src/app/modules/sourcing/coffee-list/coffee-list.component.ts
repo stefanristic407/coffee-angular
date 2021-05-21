@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { DestroyableComponent } from '@base-components';
+import { ResizeableComponent } from '@base-components';
 import { CURRENCY_LIST, LBUNIT } from '@constants';
 import { QuantityUnit } from '@enums';
-import { AvailabilityService, GlobalsService } from '@services';
+import { AvailabilityService, GlobalsService, ResizeService } from '@services';
 import { SourcingService } from '../sourcing.service';
 
 @Component({
@@ -11,11 +11,12 @@ import { SourcingService } from '../sourcing.service';
     templateUrl: './coffee-list.component.html',
     styleUrls: ['./coffee-list.component.scss'],
 })
-export class CoffeeListComponent extends DestroyableComponent implements OnInit {
+export class CoffeeListComponent extends ResizeableComponent implements OnInit {
     public readonly CURRENCY_LIST = CURRENCY_LIST;
     public readonly QuantityUnit = QuantityUnit;
     public readonly LBUNIT = LBUNIT;
     isLoaded = false;
+    tableColumns: any[] = [];
     coffeedata: any[] = [];
     queryParams: any;
     rows = 15;
@@ -26,8 +27,9 @@ export class CoffeeListComponent extends DestroyableComponent implements OnInit 
         public globals: GlobalsService,
         private availabilityService: AvailabilityService,
         public sourcingSrv: SourcingService,
+        protected resizeService: ResizeService,
     ) {
-        super();
+        super(resizeService);
     }
 
     ngOnInit(): void {
@@ -45,6 +47,54 @@ export class CoffeeListComponent extends DestroyableComponent implements OnInit 
             this.queryParams = res;
             this.getAvailableCoffee();
         });
+        this.initializeTable();
+    }
+
+    initializeTable() {
+        this.tableColumns = [
+            {
+                field: 'name',
+                header: 'name',
+                width: 17,
+            },
+            {
+                field: 'estate_name',
+                header: 'estate_name',
+                width: 14,
+            },
+            {
+                field: 'origin',
+                header: 'origin',
+                width: 10,
+            },
+            {
+                field: 'variety',
+                header: 'variety',
+                width: 17,
+            },
+            {
+                field: 'price',
+                header: 'price',
+                width: 12,
+                sortable: true,
+            },
+            {
+                field: 'quantity',
+                header: 'quantity',
+                width: 8,
+                sortable: true,
+            },
+            {
+                field: 'flavour_profile',
+                header: 'flavour_profile',
+                width: 14,
+            },
+            {
+                field: 'cup_score',
+                header: 'cup_score',
+                width: 8,
+            },
+        ];
     }
 
     getAvailableCoffee() {

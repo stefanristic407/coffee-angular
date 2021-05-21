@@ -1,5 +1,5 @@
 <section *ngIf="!showOrder">
-    <div class="main-block">
+    <div *ngIf="!isLoadingCoffeeBatch" class="main-block">
         <div class="row pb-md-3 pb-1">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 overflow-auto d-flex flex-nowrap breadCrumb">
                 <p-breadcrumb [model]="breadItems"></p-breadcrumb>
@@ -69,7 +69,7 @@
                                 </small>
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
-                                <label>Batch Ref no.</label>
+                                <label>Batch ref no.</label>
                                 <input
                                     type="text"
                                     placeholder="Enter a new batch number"
@@ -133,6 +133,7 @@
                                             [options]="weightTypeArray"
                                             [autoDisplayFirst]="false"
                                             [(ngModel)]="unit"
+                                            (ngModelChange)="setWasteQuantityValue()"
                                             [ngModelOptions]="{ standalone: true }"
                                             placeholder="{{ 'select_unit' | translate }}"
                                         ></p-dropdown>
@@ -162,6 +163,7 @@
                                             [options]="weightTypeArray"
                                             [autoDisplayFirst]="false"
                                             [(ngModel)]="unit"
+                                            (ngModelChange)="setWasteQuantityValue()"
                                             [ngModelOptions]="{ standalone: true }"
                                             placeholder="{{ 'select_unit' | translate }}"
                                         ></p-dropdown>
@@ -313,6 +315,9 @@
             </button>
         </div>
     </div>
+    <div *ngIf="isLoadingCoffeeBatch">
+        <app-loading></app-loading>
+    </div>
 </section>
 <app-select-order-table *ngIf="showOrder" (orderSelectEvent)="setOrder($event)"></app-select-order-table>
 
@@ -381,7 +386,9 @@
                         <span class="list-que"> {{ 'quantity' | translate }} : </span>
                     </td>
                     <td class="recent-data-ans">
-                        <span class="list-ans"> {{ orderDetails.quantity }} {{ orderDetails.quantity_unit }} </span>
+                        <span class="list-ans">
+                            {{ orderDetails?.quantity_count * orderDetails?.quantity }} {{ orderDetails.quantity_unit }}
+                        </span>
                     </td>
                 </tr>
 
