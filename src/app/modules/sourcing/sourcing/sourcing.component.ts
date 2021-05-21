@@ -32,7 +32,7 @@ export class SourcingComponent extends DestroyableComponent implements OnInit, A
     ];
     weightItems: any[] = [
         { label: 'lb', value: 'lb' },
-        { label: 'Kg', value: 'kg' },
+        { label: 'kg', value: 'kg' },
     ];
 
     queryParams: any;
