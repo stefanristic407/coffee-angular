@@ -78,7 +78,8 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
 
     ngOnChanges() {
         this.cuppingReportId = this.cuppingDetails.cupping_report_id;
-        this.isEditable = this.cuppingDetails.status === 'DRAFT' || this.cuppingDetails.status === 'NEW';
+        this.isEditable =
+            this.cuppingDetails.cupping_status === 'DRAFT' || this.cuppingDetails.cupping_status === 'NEW';
         this.isAdvance = true;
         this.uniformityValue = [];
         this.cleancupValue = [];
