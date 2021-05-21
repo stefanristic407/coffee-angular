@@ -119,7 +119,7 @@ export class MarkedSaleComponent implements OnInit {
                     field: 'origin',
                     header: 'Origin',
                     sortable: false,
-                    width: 50,
+                    width: 70,
                 },
                 {
                     field: 'varieties',
@@ -131,13 +131,13 @@ export class MarkedSaleComponent implements OnInit {
                     field: 'quantity',
                     header: 'Availability',
                     sortable: false,
-                    width: 50,
+                    width: 40,
                 },
                 {
                     field: 'cup_score',
                     header: 'Cup score',
                     sortable: false,
-                    width: 50,
+                    width: 40,
                 },
                 {
                     field: 'status',
@@ -155,7 +155,7 @@ export class MarkedSaleComponent implements OnInit {
                     field: 'options',
                     header: '',
                     sortable: false,
-                    width: 30,
+                    width: 15,
                 },
             ];
         }
