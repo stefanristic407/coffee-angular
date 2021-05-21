@@ -14,6 +14,13 @@ export class UserService extends ApiService {
         super(cookieSrv, http);
     }
 
+    // ------------ General ------------
+
+    // Display the details of organization
+    getOrgDetail() {
+        return this.postWithOrg(this.orgPostUrl, `profile`, 'GET');
+    }
+
     // ------------ USER ------------
 
     // View user profile
