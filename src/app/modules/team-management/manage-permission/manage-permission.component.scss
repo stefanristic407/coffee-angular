@@ -102,10 +102,8 @@
                             }
                         }
                         .p-treenode-content {
-                            padding: 8px 0 !important;
-                            @media screen and (max-width: 767px) {
-                                padding: 14px 0 !important;
-                            }
+                            padding: 10px 0 !important;
+                            align-items: flex-start;
                         }
                     }
                     p-treenode:first-child {
@@ -115,7 +113,7 @@
                     }
                     p-treenode:last-child {
                         .p-treenode-content {
-                            padding-bottom: 16px !important;
+                            padding-bottom: 20px !important;
                         }
                     }
                 }
