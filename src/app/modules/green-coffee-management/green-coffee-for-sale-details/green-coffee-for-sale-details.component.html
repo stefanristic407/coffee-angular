@@ -111,15 +111,15 @@
                                                 <p>
                                                     {{ saleInformation.quantity_count }}
                                                     {{ saleInformation.quantity_type }}/ {{ saleInformation.quantity }}
-                                                    {{ saleInformation.price_unit }}
+                                                    {{ saleInformation.quantity_unit }}
                                                 </p>
                                             </li>
                                             <li>
                                                 <label>Remaining coffee</label>
                                                 <p>
                                                     {{
-                                                        saleInformation.remaining_quantity
-                                                            ? saleInformation.remaining_quantity
+                                                        saleInformation.quantity && saleInformation.quantity_count
+                                                            ? saleInformation.quantity * saleInformation.quantity_count
                                                             : 'NA'
                                                     }}
                                                 </p>
@@ -127,18 +127,30 @@
                                             <li>
                                                 <label>Minimum quantity for sale</label>
                                                 <p>
+                                                    {{ saleInformation?.minimum_order_quantity_count }}
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <label>Selling price</label>
+                                                <p>
+                                                    {{ saleInformation.price_unit ? saleInformation.price_unit : 'NA' }}
+                                                    {{ saleInformation.price ? saleInformation.price : 'NA' }}
+                                                    /
                                                     {{
-                                                        saleInformation.minimum_order_quantity_count
-                                                            ? saleInformation.minimum_order_quantity_count
+                                                        saleInformation.price_per_unit
+                                                            ? saleInformation.price_per_unit
                                                             : 'NA'
                                                     }}
                                                 </p>
                                             </li>
-
                                             <li>
                                                 <label>VAT</label>
                                                 <p>
-                                                    {{ saleInformation.vat_rate ? saleInformation.vat_rate : 'NA' }}
+                                                    {{
+                                                        saleInformation.vat_percentage
+                                                            ? saleInformation.vat_percentage
+                                                            : 'NA'
+                                                    }}
                                                 </p>
                                             </li>
                                         </ul>
@@ -198,14 +210,18 @@
                                                         <li>
                                                             <label>Variety</label>
                                                             <p>
-                                                                {{ orderDetails.variety ? orderDetails.variety : 'NA' }}
+                                                                {{
+                                                                    orderDetails.varieties
+                                                                        ? orderDetails.varieties
+                                                                        : 'NA'
+                                                                }}
                                                             </p>
                                                         </li>
                                                         <li>
                                                             <label>Crop year</label>
                                                             <p>
                                                                 {{
-                                                                    orderDetails.harvest_date
+                                                                    orderDetails.crop_year
                                                                         | date
                                                                             : 'MMM,
                                                                             y'
@@ -222,18 +238,31 @@
                                                         </li>
                                                         <li>
                                                             <label>{{ 'flavor_profile' | translate }}</label>
-                                                            <p>
-                                                                {{
-                                                                    orderDetails.flavour_profile
-                                                                        ? orderDetails.flavour_profile
-                                                                        : 'NA'
-                                                                }}
+                                                            <p
+                                                                *ngIf="
+                                                                    orderDetails.flavours &&
+                                                                    orderDetails.flavours.length > 0
+                                                                "
+                                                            >
+                                                                <span *ngFor="let item of orderDetails.flavours">
+                                                                    {{ item.name }}</span
+                                                                >
+                                                            </p>
+                                                            <p
+                                                                *ngIf="
+                                                                    !orderDetails.flavours ||
+                                                                    orderDetails.flavours.length < 0
+                                                                "
+                                                            >
+                                                                <span> NA</span>
                                                             </p>
                                                         </li>
                                                         <li>
-                                                            <label>Mill</label>
+                                                            <label>Wet Mill</label>
                                                             <p>
-                                                                {{ orderDetails.mill ? orderDetails.wet_mill : 'NA' }}
+                                                                {{
+                                                                    orderDetails.wet_mill ? orderDetails.wet_mill : 'NA'
+                                                                }}
                                                             </p>
                                                         </li>
                                                         <li>
@@ -247,7 +276,7 @@
                                                             </p>
                                                         </li>
                                                         <li>
-                                                            <label>Moisture</label>
+                                                            <label>Moisture content</label>
                                                             <p>
                                                                 {{
                                                                     orderDetails.moisture ? orderDetails.moisture : 'NA'
@@ -305,8 +334,8 @@
                                         <div *ngIf="orderDetails" class="row">
                                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                                 <div class="real-estate">
-                                                    <h6 class="mt-0" *ngIf="orderDetails['cupping_at']">
-                                                        {{ orderDetails['cupping_at'] | date: 'dd MMM, yyyy' }}
+                                                    <h6 class="mt-0" *ngIf="orderDetails.cupped_at">
+                                                        {{ orderDetails.cupped_at | date: 'dd MMM, yyyy' }}
                                                     </h6>
                                                     <p class="text-clr334 fnt-600 fnt-14 mb-0">
                                                         <span
@@ -322,7 +351,7 @@
                                                     <div class="p-photo">
                                                         <img
                                                             class="img-procured mb-0"
-                                                            [src]="orderDetails.evaluator_dp_thumb"
+                                                            [src]="orderDetails.evaluator_profile_image"
                                                         />
                                                     </div>
 
@@ -333,7 +362,13 @@
                                                                 : 'NA'
                                                         }}
                                                     </h3>
-                                                    <h6 class="mt-0">Facilitator</h6>
+                                                    <h6 class="mt-0">
+                                                        {{
+                                                            orderDetails.evaluator_facilitator_name
+                                                                ? orderDetails.evaluator_facilitator_name
+                                                                : 'NA'
+                                                        }}
+                                                    </h6>
                                                 </div>
                                             </div>
                                             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 v-report">
