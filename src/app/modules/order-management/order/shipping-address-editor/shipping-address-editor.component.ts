@@ -1,3 +1,4 @@
+import { OrderStatus } from '@enums';
 import { Component, OnInit } from '@angular/core';
 import { OrganizationType } from '@enums';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -28,6 +29,7 @@ export class ShippingAddressEditorComponent extends DestroyableComponent impleme
     orderId: number;
     orgType: OrganizationType;
     breadcrumbs: MenuItem[];
+    status: string;
 
     constructor(
         private route: ActivatedRoute,
@@ -51,6 +53,7 @@ export class ShippingAddressEditorComponent extends DestroyableComponent impleme
                 this.orderSrv.orderDetails$.pipe(takeUntil(this.unsubscribeAll$)).subscribe({
                     next: (details) => {
                         if (details && details.shipping_address) {
+                            this.status = details.status;
                             this.editorForm.patchValue({
                                 ...details.shipping_address,
                                 country: details.shipping_address.country.toUpperCase(),
@@ -72,20 +75,26 @@ export class ShippingAddressEditorComponent extends DestroyableComponent impleme
     save(): void {
         if (this.editorForm.invalid) {
             this.toastrSrv.error('Please fill in all required fields.');
-
+            return;
+        } else if (
+            this.status == OrderStatus.Placed ||
+            this.status == OrderStatus.Confirmed ||
+            this.status == OrderStatus.Rejected
+        ) {
+            this.orderSrv.updateShippingAddress(this.orderId, this.editorForm.value).subscribe({
+                next: (response) => {
+                    if (response.success) {
+                        this.toastrSrv.success('Shipping address has been updated.');
+                        this.orderSrv.loadOrderDetails(this.orderId, this.orgType);
+                        this.router.navigate(['/orders', this.orgType, this.orderId]);
+                    } else {
+                        this.toastrSrv.error('Error while updating shipping address.');
+                    }
+                },
+            });
+        } else {
+            this.toastrSrv.error('Order is already shipped and you can not edit the shipping address now.');
             return;
         }
-
-        this.orderSrv.updateShippingAddress(this.orderId, this.editorForm.value).subscribe({
-            next: (response) => {
-                if (response.success) {
-                    this.toastrSrv.success('Shipping address has been updated.');
-                    this.orderSrv.loadOrderDetails(this.orderId, this.orgType);
-                    this.router.navigate(['/orders', this.orgType, this.orderId]);
-                } else {
-                    this.toastrSrv.error('Error while updating shipping address.');
-                }
-            },
-        });
     }
 }
