@@ -28,7 +28,7 @@
                                 optionLabel="label"
                                 optionValue="value"
                             ></p-dropdown>
-                            <div *ngIf="form.controls.language.invalid" class="text-clrb1f">
+                            <div *ngIf="form.controls.language.invalid" class="p-error">
                                 {{ 'required' | translate }}
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                                 [placeholder]="'translate_the_question' | translate"
                                 formControlName="question"
                             />
-                            <div *ngIf="form.controls.question.invalid" class="text-clrb1f">
+                            <div *ngIf="form.controls.question.invalid" class="p-error">
                                 {{ 'required' | translate }}
                             </div>
                         </div>
