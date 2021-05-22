@@ -99,7 +99,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
         if (this.pageDesc === 'saved-posts') {
             this.coffeeLabService.getSavedForumList('recipe', params).subscribe((res) => {
                 if (res.success) {
-                    this.coffeeRecipeData = res.result;
+                    this.coffeeRecipeData = res.result ?? [];
                     this.coffeeRecipeData.map((item) => {
                         item.description = this.getJustText(item.description);
                         return item;
@@ -112,7 +112,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
         } else if (this.pageDesc === 'my-posts') {
             this.coffeeLabService.getMyForumList('recipe').subscribe((res) => {
                 if (res.success) {
-                    this.coffeeRecipeData = res.result.filter((item) => item.publish === true);
+                    this.coffeeRecipeData = (res.result ?? []).filter((item) => item.publish === true);
                     this.coffeeRecipeData.map((item) => {
                         item.description = this.getJustText(item.description);
                         return item;
@@ -127,7 +127,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
                 if (res.success) {
                     console.log('response----->>>>>', res);
                     if (res.result) {
-                        this.coffeeRecipeData = res.result.filter((item) => item.publish === true);
+                        this.coffeeRecipeData = (res.result ?? []).filter((item) => item.publish === true);
                         this.totalRecords = res.result_info.total_count;
                         this.rows = res.result_info.per_page;
                         this.coffeeRecipeData.map((item) => {

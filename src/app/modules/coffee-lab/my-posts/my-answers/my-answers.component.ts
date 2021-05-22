@@ -43,7 +43,7 @@ export class MyAnswersComponent implements OnInit, OnDestroy {
     getAnswers(): void {
         this.isLoading = true;
         this.coffeeLabService.getMyForumList('answer').subscribe((res) => {
-            this.answers = res.result.map((item) => {
+            this.answers = (res.result ?? []).map((item) => {
                 if (item.question_slug) {
                     const slug = 'slug';
                     const id = 'id';
