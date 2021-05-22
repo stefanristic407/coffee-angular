@@ -42,7 +42,6 @@ export class AddNewOrderComponent implements OnInit {
     currentDate = new Date();
     userID: any;
     customerID: any;
-    salesMember: string;
     createdID: any;
     loginUserID: string;
 
@@ -128,12 +127,10 @@ export class AddNewOrderComponent implements OnInit {
     }
 
     getAllUsers() {
-        // this.roasterService.getListOrderDetails(this.roasterId, this.selectedType).subscribe((res) => {
-        //     console.log(res);
-        //     console.log();
-        // });
         this.roasterService.getsalesMemberDetails(this.roasterId, this.loginUserID).subscribe((res: any) => {
-            this.addOrdersForm.get('created_by').setValue(res.result.firstname + ' ' + res.result.lastname);
+            if (res.success) {
+                this.addOrdersForm.get('created_by').setValue(res.result.firstname + ' ' + res.result.lastname);
+            }
         });
     }
     getOrderDetails() {
@@ -206,9 +203,18 @@ export class AddNewOrderComponent implements OnInit {
         this.roasterService
             .getsalesMemberDetails(this.roasterId, this.outtakeOrderDetails.sales_member_id)
             .subscribe((res: any) => {
-                this.salesMember = res.result;
-                this.addOrdersForm.get('sales_member_id').setValue(res.result.firstname + ' ' + res.result.lastname);
-                this.addOrdersForm.get('created_by').setValue(res.result.firstname + ' ' + res.result.lastname);
+                if (res.success) {
+                    this.addOrdersForm
+                        .get('sales_member_id')
+                        .setValue(res.result.firstname + ' ' + res.result.lastname);
+                }
+            });
+        this.roasterService
+            .getsalesMemberDetails(this.roasterId, this.outtakeOrderDetails.created_by)
+            .subscribe((res: any) => {
+                if (res.success) {
+                    this.addOrdersForm.get('created_by').setValue(res.result.firstname + ' ' + res.result.lastname);
+                }
             });
     }
 
