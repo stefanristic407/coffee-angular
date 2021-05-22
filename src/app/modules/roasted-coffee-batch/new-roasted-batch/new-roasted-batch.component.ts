@@ -79,24 +79,9 @@ export class NewRoastedBatchComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.appLanguage = this.globals.languageJson;
-        this.getRoastingProfiles();
-
-        if (this.route.snapshot.queryParams.batchId && this.route.snapshot.queryParams.ordId) {
-            this.batchId = +decodeURIComponent(this.route.snapshot.queryParams.batchId);
-            this.ordId = decodeURIComponent(this.route.snapshot.queryParams.ordId);
-            if (this.ordId) {
-                this.getOrderDetails();
-            }
-            this.getRoastedBatch();
-            this.getRoastedBatchStory();
-        } else if (this.route.snapshot.queryParams.ordId) {
-            this.ordId = decodeURIComponent(this.route.snapshot.queryParams.ordId);
-            this.getOrderDetails();
-            this.getRoasterFlavourProfile();
-        } else {
-            //  this.ordId = 'select the order';
-            this.getRoasterFlavourProfile();
-        }
+        this.batchId = this.route.snapshot.queryParams.batchId;
+        this.ordId = this.route.snapshot.queryParams.ordId;
+        this.getData();
         this.batchForm = this.fb.group({
             roast_batch_name: ['', Validators.compose([Validators.required])],
             roasting_profile_id: ['', Validators.compose([Validators.required])],
@@ -116,7 +101,6 @@ export class NewRoastedBatchComponent implements OnInit, OnDestroy {
             roaster_notes: [''],
             roaster_ref_no: [{ value: '', disabled: true }],
             batch_ref_no: [''],
-            processing: [{ value: '', disabled: true }],
         });
 
         this.weightTypeArray = [
@@ -141,13 +125,17 @@ export class NewRoastedBatchComponent implements OnInit, OnDestroy {
         );
     }
 
+    capitalizeFirstLetter(str: string) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
     getRoastedBatch() {
         this.isLoadingCoffeeBatch = true;
         this.userService.getRoastedBatchDetail(this.roasterId, this.batchId).subscribe((res) => {
             console.log('roasted batch >>>>', res);
             this.isLoadingCoffeeBatch = false;
             if (res && res.result) {
-                this.breadItems[2].label = res.result.roast_batch_name;
+                this.breadItems[2].label = this.capitalizeFirstLetter(res.result.roast_batch_name);
                 this.flavourArray = res.result.flavour_profile || [];
                 this.flavourArray.forEach((element, index) => {
                     const chips = {
@@ -165,22 +153,35 @@ export class NewRoastedBatchComponent implements OnInit, OnDestroy {
         });
     }
 
-    getRoastingProfiles() {
+    getData() {
+        this.isLoadingCoffeeBatch = true;
         this.roasterService.getRoastingProfile().subscribe((data) => {
             if (data.success) {
                 this.roastingProfile = data.result;
-                this.roastingProfile.forEach((element) => {
-                    const sample = {
-                        label: element.roast_profile_name,
-                        value: element.id,
+                this.roastProfileArray = this.roastingProfile.map((item: any) => {
+                    return {
+                        label: item.roast_profile_name,
+                        value: item.id,
                     };
-                    this.roastProfileArray.push(sample);
                 });
                 const button = {
                     label: '',
                     value: 'button',
                 };
                 this.roastProfileArray.push(button);
+                if (this.ordId) {
+                    console.log('get order details ...', this.ordId);
+                    this.getOrderDetails();
+                }
+                if (this.batchId) {
+                    this.getRoastedBatch();
+                } else {
+                    this.isLoadingCoffeeBatch = false;
+                }
+                if (this.ordId && this.batchId) {
+                    this.getRoastedBatchStory();
+                }
+                this.getRoasterFlavourProfile();
             } else {
                 this.toastrService.error('Error while getting the roasting profiles');
             }
@@ -337,7 +338,7 @@ export class NewRoastedBatchComponent implements OnInit, OnDestroy {
 
     setOrder(id: string) {
         this.showOrder = false;
-        if (id !== '') {
+        if (id) {
             this.ordId = id;
             this.getOrderDetails();
         }

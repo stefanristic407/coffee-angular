@@ -220,7 +220,7 @@
                                 <div class="dm-ltm-option-description">See read recipient in a chat</div>
                             </div>
                             <div class="dm-ltm-block-action">
-                                <p-inputSwitch [(ngModel)]="enableReadRecipient"></p-inputSwitch>
+                                <p-inputSwitch [(ngModel)]="chatHandler.setting.read_recipient"></p-inputSwitch>
                             </div>
                         </div>
                         <div class="dm-itm-item">
@@ -229,7 +229,7 @@
                                 <div class="dm-ltm-option-description">Enable or disable emoticon keyboard in chat</div>
                             </div>
                             <div class="dm-ltm-block-action">
-                                <p-inputSwitch [(ngModel)]="enableEmoji"></p-inputSwitch>
+                                <p-inputSwitch [(ngModel)]="chatHandler.setting.enable_emoticons"></p-inputSwitch>
                             </div>
                         </div>
                         <div class="dm-itm-item">
@@ -239,18 +239,19 @@
                             <div class="dm-ltm-block-action">
                                 <p-dropdown
                                     [options]="fontSizeList"
-                                    [(ngModel)]="activeFontSize"
-                                    optionLabel="name"
-                                    value="code"
+                                    [(ngModel)]="chatHandler.setting.chat_text_size"
+                                    optionLabel="label"
+                                    optionValue="value"
+                                    value="value"
                                 ></p-dropdown>
                             </div>
                         </div>
                         <div class="dm-ltm-enable-chatsound dm-itm-item">
                             <div class="dm-ltm-block-content">
-                                <div class="dm-ltm-option-name">New chat sounds</div>
+                                <div class="dm-ltm-option-name">Chat sound</div>
                             </div>
                             <div class="dm-ltm-block-action">
-                                <p-inputSwitch [(ngModel)]="notificationSound"></p-inputSwitch>
+                                <p-inputSwitch [(ngModel)]="chatHandler.setting.notification_sound"></p-inputSwitch>
                             </div>
                         </div>
                         <button (click)="openBlockedListPanel()" class="dm-gray-button dm-ltm-show-blocked-user">
@@ -670,9 +671,9 @@
                     <div
                         class="dm-ci-content-block"
                         [ngClass]="{
-                            'dm-ci-content-size-small': activeFontSize.value === 'SMALL',
-                            'dm-ci-content-size-normal': activeFontSize.value === 'NORMAL',
-                            'dm-ci-content-size-large': activeFontSize.value === 'LARGE'
+                            'dm-ci-content-size-small': chatHandler.setting.chat_text_size === 'small',
+                            'dm-ci-content-size-normal': chatHandler.setting.chat_text_size === 'normal',
+                            'dm-ci-content-size-large': chatHandler.setting.chat_text_size === 'large'
                         }"
                     >
                         <!-- <a
@@ -721,7 +722,7 @@
                         >
                     </div>
                     <div class="dm-ci-message-stamp">
-                        <ng-container *ngIf="enableReadRecipient && message.isActiveUser">
+                        <ng-container *ngIf="chatHandler.setting.read_recipient && message.isActiveUser">
                             <span *ngIf="!message.is_read">Delivered</span>
                             <span *ngIf="message.is_read">Read</span>
                             <span class="dm-ci-message-stamp-seprator"></span>
@@ -775,9 +776,9 @@
                         <div
                             class="dm-ci-content-block"
                             [ngClass]="{
-                                'dm-ci-content-size-small': activeFontSize.value === 'SMALL',
-                                'dm-ci-content-size-normal': activeFontSize.value === 'NORMAL',
-                                'dm-ci-content-size-large': activeFontSize.value === 'LARGE'
+                                'dm-ci-content-size-small': chatHandler.setting.chat_text_size === 'SMALL',
+                                'dm-ci-content-size-normal': chatHandler.setting.chat_text_size === 'NORMAL',
+                                'dm-ci-content-size-large': chatHandler.setting.chat_text_size === 'LARGE'
                             }"
                         >
                             <!-- <a
@@ -838,7 +839,7 @@
                             >
                         </div>
                         <div class="dm-ci-message-stamp">
-                            <ng-container *ngIf="enableReadRecipient">
+                            <ng-container *ngIf="chatHandler.setting.read_recipient">
                                 <span>Delivered</span>
                                 <span *ngIf="false">Read</span>
                                 <span class="dm-ci-message-stamp-seprator"></span>
@@ -882,7 +883,7 @@
                 'open-stickers': showMessageBoxPanel === 'STICKER'
             }"
         >
-            <div class="dm-mb-emoji-panel-wrapper" *ngIf="enableEmoji">
+            <div class="dm-mb-emoji-panel-wrapper" *ngIf="chatHandler.setting.enable_emoticons">
                 <div class="dm-mb-emoji-panel">
                     <span
                         class="dm-mb-emoji-item"
@@ -922,7 +923,7 @@
                 />
             </div>
             <div class="dm-mb-action-row">
-                <div class="dm-mb-action-button-container" *ngIf="enableEmoji">
+                <div class="dm-mb-action-button-container" *ngIf="chatHandler.setting.enable_emoticons">
                     <img
                         *ngIf="showMessageBoxPanel !== 'EMOJI'"
                         (click)="showMessageBoxPanel = 'EMOJI'"
@@ -939,7 +940,7 @@
                         alt="Emoji"
                     />
                 </div>
-                <div class="dm-mb-action-button-container" *ngIf="enableEmoji">
+                <div class="dm-mb-action-button-container" *ngIf="chatHandler.setting.enable_emoticons">
                     <img
                         *ngIf="showMessageBoxPanel !== 'STICKER'"
                         (click)="showMessageBoxPanel = 'STICKER'"

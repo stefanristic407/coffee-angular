@@ -163,7 +163,7 @@
             </div>
         </div>
     </div>
-    <div class="w-100" [class.hide-paginator]="isLoading" *ngIf="totalRecords > rows">
+    <div class="w-100" *ngIf="!isLoading && totalRecords">
         <p-paginator
             [rows]="rows"
             [totalRecords]="totalRecords"

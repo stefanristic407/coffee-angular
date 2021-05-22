@@ -82,6 +82,8 @@
                                         formControlName="is_default_product"
                                         binary="true"
                                         [label]="'set_default_product' | translate"
+                                        (onChange)="handleSetDefault.emit($event)"
+                                        *ngIf="currentForm?.value.is_default_product || !isSetDefault"
                                     >
                                     </p-checkbox>
                                 </div>
@@ -144,6 +146,8 @@
                                     formControlName="is_default_product"
                                     binary="true "
                                     label="Set as default product"
+                                    (onChange)="handleSetDefault.emit($event)"
+                                    *ngIf="currentForm?.value.is_default_product || !isSetDefault"
                                 >
                                 </p-checkbox>
                             </div>
@@ -268,11 +272,11 @@
                             </span>
                         </div>
                         <p-divider type="dashed" class="col-12 p-0" styleClass="mt-3 mb-0 d-md-none"></p-divider>
-                        <div class="imagePaddingDiv mt-4 mt-lg-45">
+                        <div class="w-100 mt-4 mt-lg-45 d-flex flex-wrap">
                             <div class="fnt-16 fnt-muli fnt-700 text-clr334 mb-3">
                                 {{ 'add_images' | translate }}
                             </div>
-                            <div class="row gutter-16 flex-nowrap overflow-auto pb-2 pb-md-25 pb-lg-3 w-100">
+                            <div class="row gutter-16 flex-nowrap overflow-auto pb-2 pb-md-25 pb-lg-3">
                                 <div class="col">
                                     <label class="text-nowrap"
                                         >{{
@@ -404,13 +408,5 @@
                 </p-tabPanel>
             </p-tabView>
         </div>
-        <!-- <div class="pl-lg-4 weight-form-wrapper">
-            <div
-                formArrayName="weights"
-                *ngFor="let currentForm of weightForm.controls['weights']['controls']; let ii = index"
-            >
-                
-            </div>
-        </div> -->
     </div>
 </div>

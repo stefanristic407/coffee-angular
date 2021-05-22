@@ -105,13 +105,33 @@
                         </div>
                     </div>
                 </div>
-                <div class="row my-md-45">
+                <div class="row mt-md-3 mb-md-4 my-lg-45">
                     <div class="col-sm-12 col-md-6 pl-md">
                         <div class="sewn-form-field mb-0 w-100">
                             <div>
                                 <label>{{ 'order_created_by' | translate }}</label>
                             </div>
-                            <div class="d-flex inputFieldBox">
+                            <div
+                                class="weightInputGroupDiv d-flex inputFieldBox cursor-point"
+                                (click)="showOrderPanel = true; onSelectType('users'); createdBy = true"
+                            >
+                                <div class="w-100">
+                                    <input
+                                        pInputText
+                                        class="roastery-website-input border weightInputDiv"
+                                        type="text"
+                                        [formControl]="addOrdersForm.controls['created_by']"
+                                        pInputText
+                                    />
+                                </div>
+                                <div class="daysInputDiv fnt-14 fnt-600 fnt-muli text-clr334 right_angle">
+                                    <i class="pi pi-angle-right fnt-20"></i>
+                                </div>
+                                <small *ngIf="addOrdersForm.controls['created_by'].errors?.required" class="p-error">
+                                    {{ 'request' | translate }}
+                                </small>
+                            </div>
+                            <!-- <div class="d-flex inputFieldBox">
                                 <div class="w-100">
                                     <p-dropdown
                                         [options]="userDetails"
@@ -123,7 +143,7 @@
                                         optionValue="firstname"
                                     ></p-dropdown>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 pl-md">
@@ -740,7 +760,7 @@
                     </div>
                     <div
                         *ngIf="addOrdersForm.get('customer_id').value"
-                        class="ml-md-2 ml-lg-0 d-none d-sm-none d-md-block d-lg-block d-xl-block mt-4 mt-lg-0"
+                        class="col-lg-12 col-md-6 d-lg-block d-md-block d-none d-sm-none d-xl-block ml-lg-0 ml-md-2 mt-4 mt-lg-0 px-0"
                     >
                         <ng-container *ngTemplateOutlet="customerOrderDetails"></ng-container>
                     </div>
@@ -813,7 +833,7 @@
 
 <ng-template #orderDetailsTpl>
     <div *ngIf="orderDetails" class="mrt col-sm-12 px-0">
-        <label class="primary_txt mb-3">{{ 'order_details' | translate }}</label>
+        <label class="primary_txt mb-lg-3">{{ 'order_details' | translate }}</label>
         <div class="order-details-clr">
             <div class="d-flex justify-content-between mb-45 mb-475">
                 <div class="d-flex">
@@ -877,7 +897,7 @@
                         <span class="list-que"> {{ 'price' | translate }} : </span>
                     </td>
                     <td class="recent-data-ans">
-                        <span class="list-ans"> ${{ orderDetails.price }} {{ orderDetails.unit_price }}</span>
+                        <span class="list-ans"> ${{ orderDetails.unit_price }}</span>
                     </td>
                 </tr>
 

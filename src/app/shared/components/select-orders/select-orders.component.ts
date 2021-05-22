@@ -126,7 +126,7 @@ export class SelectOrdersComponent implements OnInit {
                     width: 10,
                 },
             ];
-        } else if (this.selectedType === 'users') {
+        } else if (this.selectedType === 'users' || this.selectedType === 'created') {
             this.tableColumns = [
                 {
                     field: 'firstname',

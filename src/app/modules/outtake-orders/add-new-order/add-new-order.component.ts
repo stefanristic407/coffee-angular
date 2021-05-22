@@ -38,7 +38,6 @@ export class AddNewOrderComponent implements OnInit {
     customerDetails: any;
     remainingTotalQuantity: any;
     customerType: any;
-    allCustomer: any;
     outtakeOrderDetails: any;
     vatField: any;
     currentDate = new Date();
@@ -46,6 +45,7 @@ export class AddNewOrderComponent implements OnInit {
     customerID: any;
     salesMember: string;
     userDetails: any;
+    createdBy = false;
 
     constructor(
         private roasterService: RoasterserviceService,
@@ -134,36 +134,23 @@ export class AddNewOrderComponent implements OnInit {
     }
 
     getCustomerDetails(event?) {
-        this.allCustomer = [];
         this.addOrdersForm.get('customer_id').setValue('');
-        if (this.addOrdersForm.get('customer_type').value) {
-            if (this.addOrdersForm.get('customer_type').value === 'mr') {
+        if (this.addOrdersForm.get('customer_type').value || this.outtakeOrderDetails.customer_type) {
+            if ((this.addOrdersForm.get('customer_type').value || this.outtakeOrderDetails.customer_type) === 'mr') {
                 this.customerType = 'micro-roasters';
-            } else if (this.addOrdersForm.get('customer_type').value === 'hrc') {
+            } else {
                 this.customerType = 'hrc';
             }
             this.roasterService
-                .getCustomerDetails(this.roasterId, this.customerType, this.outtakeOrderDetails.customer_id)
+                .getCustomerDetails(this.roasterId, this.customerType, this.customerID)
                 .subscribe((res) => {
                     if (res.success) {
-                        this.allCustomer = res.result.filter((item) => {
-                            return (item = item.id > 0);
-                        });
-                        this.getSingleCustomerDeatils();
+                        this.customerDetails = res.result;
+                        this.addOrdersForm.get('customer_id').setValue(this.customerDetails.name);
+                        this.addOrdersForm.get('company_type').setValue(this.customerDetails.company_type);
                     }
                 });
         }
-    }
-
-    getSingleCustomerDeatils(event?) {
-        this.roasterService
-            .getSingleCustomerDetails(this.roasterId, this.customerType, this.addOrdersForm.get('customer_id').value)
-            .subscribe((rep) => {
-                if (rep.success) {
-                    this.customerDetails = rep.result;
-                    this.addOrdersForm.get('company_type').setValue(this.customerDetails.company_type);
-                }
-            });
     }
 
     getCoffeeStory() {
@@ -199,8 +186,9 @@ export class AddNewOrderComponent implements OnInit {
         this.roasterService
             .getsalesMemberDetails(this.roasterId, this.outtakeOrderDetails.sales_member_id)
             .subscribe((res: any) => {
-                this.salesMember = res.result.firstname + ' ' + res.result.lastname;
-                this.addOrdersForm.get('sales_member_id').setValue(this.salesMember);
+                this.salesMember = res.result;
+                this.addOrdersForm.get('sales_member_id').setValue(res.result.firstname + ' ' + res.result.lastname);
+                this.addOrdersForm.get('created_by').setValue(res.result.firstname + ' ' + res.result.lastname);
             });
     }
 
@@ -208,6 +196,7 @@ export class AddNewOrderComponent implements OnInit {
         this.roasterService.getViewOrder(this.roasterId, this.outtakeOrderId).subscribe((res) => {
             if (res.success) {
                 this.outtakeOrderDetails = res.result;
+                this.customerID = this.outtakeOrderDetails.customer_id;
                 this.getSalesMember();
                 this.getCustomerDetails();
                 this.outtakeOrderDetails.order_date = new Date(this.outtakeOrderDetails.order_date);
@@ -224,8 +213,14 @@ export class AddNewOrderComponent implements OnInit {
             this.addOrdersForm.get('order_id').setValue(event.orderId);
         }
         if (event.userName) {
-            this.addOrdersForm.get('sales_member_id').setValue(event.userName);
-            this.userID = event.userId;
+            if (this.createdBy === true) {
+                this.addOrdersForm.get('created_by').setValue(event.userName);
+                this.userID = event.userId;
+                this.createdBy = false;
+            } else {
+                this.addOrdersForm.get('sales_member_id').setValue(event.userName);
+                this.userID = event.userId;
+            }
         }
         if (event.customerName) {
             this.addOrdersForm.get('customer_id').setValue(event.customerName);
@@ -250,6 +245,7 @@ export class AddNewOrderComponent implements OnInit {
     addOrderDetails() {
         const data = this.addOrdersForm.value;
         data.sales_member_id = this.userID;
+        data.created_by = this.userID;
         data.customer_id = this.customerID;
         if (data.order_date) {
             const orderDate = new Date(data.order_date);

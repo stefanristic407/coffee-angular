@@ -1,7 +1,11 @@
+import { UserserviceService } from './../api/user-original.service';
+import { ChatUtilService } from './chat-util.service';
+
 import { OpenChatThread } from '@models';
 import { ServiceCommunicationType, OrganizationType } from '@enums';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Subject, BehaviorSubject, of } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
@@ -16,8 +20,22 @@ export class ChatHandlerService {
     public isExpand = new BehaviorSubject<boolean>(false);
     public isMobileView = new BehaviorSubject<boolean>(false);
     public unReadCount = new BehaviorSubject<number>(0);
+    public settingUpdated = new Subject();
 
-    constructor() {}
+    public setting = {
+        chat_text_size: 'normal',
+        enable_desktop_notification: true,
+        enable_emoticons: true,
+        farm_size_unit: 'hectares',
+        new_answer_notification: false,
+        new_chat_notification: false,
+        notification_sound: true,
+        order_related_updates: false,
+        quantity_unit: 'lb',
+        read_recipient: false,
+    };
+
+    constructor(private userService: UserserviceService, private util: ChatUtilService) {}
 
     public showChatPanel() {
         this.chatSubject.next({
@@ -51,5 +69,31 @@ export class ChatHandlerService {
         this.chatSubject.next({
             requestType: ServiceCommunicationType.TOGGLE,
         });
+    }
+
+    updateSetting(setting: any) {
+        if (this.setting && setting) {
+            for (const key in setting) {
+                if (setting.hasOwnProperty(key)) {
+                    this.setting[key] = setting[key];
+                }
+            }
+        }
+        this.settingUpdated.next();
+    }
+
+    public fetchSettings() {
+        this.userService.getPreferences(this.util.ORGANIZATION_ID).subscribe((res: any) => {
+            console.log('PREF', res.result);
+            if (res.success) {
+                this.updateSetting(res.result);
+            }
+        });
+    }
+    public saveSettings() {
+        return this.userService.updatePreferences(this.util.ORGANIZATION_ID, this.setting).pipe(
+            map((x: any) => x.success),
+            catchError(() => of(false)),
+        );
     }
 }

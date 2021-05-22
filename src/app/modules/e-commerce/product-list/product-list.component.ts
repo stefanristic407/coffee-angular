@@ -55,6 +55,7 @@ export class ProductListComponent implements OnInit {
     statusArray: any[] = [
         { label: 'In Stock', value: 'IN-STOCK' },
         { label: 'Sold', value: 'OUT-OF-STOCK' },
+        { label: 'In Draft', value: 'IN-DRAFT' },
     ];
 
     roastLevelArray = {

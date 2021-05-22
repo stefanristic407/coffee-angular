@@ -66,6 +66,7 @@ export class ProductDetailsComponent implements OnInit {
     thisYear = new Date().getFullYear();
     countryArray: any[] = COUNTRY_LIST;
     count = 0;
+    isSetDefault = false;
 
     constructor(
         public globals: GlobalsService,
@@ -225,7 +226,9 @@ export class ProductDetailsComponent implements OnInit {
             (res) => {
                 if (res && res.result) {
                     const productDetails = res.result;
+                    this.count = Object.keys(res.result?.variants).length - 1;
                     this.isPublished = res.result.is_published;
+                    this.isSetDefault = true;
                     this.breadCrumbItem = [
                         { label: this.globals.languageJson?.home, routerLink: '/' },
                         {
@@ -433,7 +436,9 @@ export class ProductDetailsComponent implements OnInit {
                     const getValue = getBatchDetails[ele] ? getBatchDetails[ele] : '';
                     getVariant.controls[ele].setValue(getValue);
                 });
-                getVariant.get('flavour_profiles').setValue(getBatchDetails.flavour_profile);
+                getVariant.patchValue({
+                    flavour_profiles: getBatchDetails.flavour_profile,
+                });
             }
         }
     }
@@ -886,5 +891,19 @@ export class ProductDetailsComponent implements OnInit {
                 .setValidators(Validators.compose([Validators.required, maxWordCountValidator(10)]));
             variantForm.get('roaster_recommendation').updateValueAndValidity();
         }
+    }
+
+    onChangeSetDefault(value) {
+        console.log(value);
+        this.isSetDefault = value.checked;
+    }
+
+    getFlavourName(id) {
+        const flavour = this.flavoursList.find((item) => item.flavour_profile_id === id);
+        return flavour.flavour_profile_name;
+    }
+
+    onChangeExternal(event) {
+        console.log(event);
     }
 }

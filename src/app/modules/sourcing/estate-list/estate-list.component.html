@@ -71,7 +71,7 @@
 </ng-template>
 
 <p-paginator
-    *ngIf="totalRecords > rows"
+    *ngIf="totalRecords"
     [rows]="rows"
     [totalRecords]="totalRecords"
     (onPageChange)="getData($event)"
