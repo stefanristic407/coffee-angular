@@ -31,7 +31,7 @@ export class OtherProductDetailsComponent extends ResizeableComponent implements
         { label: 'Both', value: 'both' },
     ];
     statusList: any[] = [
-        { label: 'In stoke', value: 'in-stock' },
+        { label: 'In stock', value: 'in-stock' },
         { label: 'Out of stock', value: 'out-of-stock' },
     ];
     lengthUnitList: any[] = [
