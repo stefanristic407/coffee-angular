@@ -46,7 +46,7 @@ export class MyCommentsComponent implements OnInit, OnDestroy {
     getComments(): void {
         this.isLoading = true;
         this.coffeeLabService.getMyForumList('my-comment').subscribe((res) => {
-            this.comments = res.result.map((item) => {
+            this.comments = (res.result ?? []).map((item) => {
                 const id = 'id';
                 if (item.post_slug) {
                     const slug = 'slug';
