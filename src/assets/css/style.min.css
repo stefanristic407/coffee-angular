@@ -14798,90 +14798,6 @@ button:focus {
 /* chat css common ends*/
 
 
-/***********Slider Css***********/
-
-.g-image-item {
-    background-size: cover !important;
-}
-
-.gallery-core[thumbPosition=bottom] .gallery-thumb {
-    padding: 9px 12px 0px 1px !important;
-}
-
-.g-nav-prev,
-.g-nav-next {
-    position: absolute;
-    top: auto !important;
-    bottom: 4%;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    z-index: 999;
-    transform: none !important;
-}
-
-.g-nav-prev {
-    right: 2.75em;
-    left: auto !important;
-}
-
-.g-nav-prev svg,
-.g-nav-next svg {
-    display: none;
-}
-
-.g-nav-prev:before,
-.g-nav-next:before {
-    content: "";
-    position: absolute;
-    z-index: 99;
-    width: 40px;
-    height: 40px;
-    top: 0;
-    right: 5px;
-}
-
-.g-nav-prev:before {
-    background: url(../../assets/images/slider-left-arrow.svg) no-repeat !important;
-}
-
-.g-nav-next:before {
-    background: url(../../assets/images/slider-right-arrow.svg) no-repeat !important;
-}
-
-.g-items-container .g-slider {
-    left: 0;
-}
-
-.g-slider {
-    left: 11% !important;
-}
-
-.g-counter {
-    display: none;
-}
-
-.g-items-container .g-slider {
-    left: 0 !important;
-}
-
-
-
-.g-box .ng-star-inserted {
-    padding-right: 0px !important;
-    border-radius: 2px;
-}
-
-.g-box {
-    margin-bottom: 10px;
-}
-
-.g-thumbs-container .ng-star-inserted {
-    padding-right: 12px !important;
-    border-radius: 4px;
-}
-
-
 /*********Carousel Available List**********/
 
 .cardpanel-detail .carousel-indicators li {
@@ -15235,9 +15151,6 @@ button:focus {
     }
     .dispute-order__conversation.open {
         left: 0 !important;
-    }
-    .g-box {
-    margin-bottom: 10px;
     }
 }
 
