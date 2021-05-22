@@ -101,7 +101,6 @@ export class NewRoastedBatchComponent implements OnInit, OnDestroy {
             roaster_notes: [''],
             roaster_ref_no: [{ value: '', disabled: true }],
             batch_ref_no: [''],
-            processing: [{ value: '', disabled: true }],
         });
 
         this.weightTypeArray = [
@@ -339,7 +338,7 @@ export class NewRoastedBatchComponent implements OnInit, OnDestroy {
 
     setOrder(id: string) {
         this.showOrder = false;
-        if (id !== '') {
+        if (id) {
             this.ordId = id;
             this.getOrderDetails();
         }
