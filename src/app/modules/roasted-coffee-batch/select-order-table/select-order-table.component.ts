@@ -21,7 +21,7 @@ export class SelectOrderTableComponent implements OnInit {
     displayNumbers: any;
     selected: Date[];
     originArray = [];
-    originFilter: any;
+    originFilter = '';
     rangeDates: any;
     displayArray = [];
     displayFilter: any;
@@ -50,6 +50,8 @@ export class SelectOrderTableComponent implements OnInit {
     @Input() ordId: any;
     @Input() batchId: any;
     @Output() orderSelectEvent = new EventEmitter<string>();
+    isLoadingTableData = false;
+
     constructor(
         public router: Router,
         public cookieService: CookieService,
@@ -68,9 +70,9 @@ export class SelectOrderTableComponent implements OnInit {
         this.estatetermOrigin = '';
         this.estatetermType = '';
         this.displayNumbers = '10';
-        this.getTableData();
         this.loadFilterValues();
         this.createRoasterTable();
+        this.getTableData();
     }
 
     createRoasterTable() {
@@ -99,7 +101,7 @@ export class SelectOrderTableComponent implements OnInit {
                 width: 10,
             },
             {
-                field: 'species',
+                field: 'varieties',
                 header: 'Variety',
                 sortable: false,
                 width: 10,
@@ -121,10 +123,6 @@ export class SelectOrderTableComponent implements OnInit {
         ];
     }
 
-    filterCall() {
-        this.getTableData();
-    }
-
     loadFilterValues() {
         this.originArray = COUNTRY_LIST;
         this.displayArray = [
@@ -133,15 +131,18 @@ export class SelectOrderTableComponent implements OnInit {
             { label: '50', value: 50 },
         ];
     }
+
     onSelect(orderData) {
         console.log(orderData);
     }
+
     setOrigin(origindata: any) {
         this.estatetermOrigin = origindata;
         this.datatableElement.dtInstance.then((table) => {
             table.column(4).search(origindata).draw();
         });
     }
+
     setDisplay(data: any) {
         this.displayNumbers = data;
         $('select').val(data).trigger('change');
@@ -151,6 +152,7 @@ export class SelectOrderTableComponent implements OnInit {
         this.calendar.showOverlay(this.calendar.inputfieldViewChild.nativeElement);
         event.stopPropagation();
     }
+
     onSelectionChange(value: any) {
         this.selectedEntry = value;
         console.log(this.selectedEntry);
@@ -159,16 +161,20 @@ export class SelectOrderTableComponent implements OnInit {
     getTableData() {
         this.tableValue = [];
         const postData: any = {};
-        postData.origin = this.originFilter ? this.originFilter : '';
-        postData.per_page = this.displayFilter ? this.displayFilter : 1000;
+        postData.origin = this.originFilter;
+        postData.per_page = this.displayFilter || 1000;
         postData.start_date = '';
         postData.end_date = '';
         postData.status = 'RECEIVED';
+        postData.sort_by = 'created_at';
+        postData.sort_order = 'desc';
         if (this.rangeDates && this.rangeDates.length === 2) {
             postData.start_date = moment(this.rangeDates[0], 'DD/MM/YYYY').format('YYYY-MM-DD');
             postData.end_date = moment(this.rangeDates[1], 'DD/MM/YYYY').format('YYYY-MM-DD');
         }
+        this.isLoadingTableData = true;
         this.roasterService.getEstateOrders(this.roasterId, postData, this.orderType).subscribe((data: any) => {
+            this.isLoadingTableData = false;
             if (data.success && data.result) {
                 this.totalCount = data.result_info.total_count;
                 this.tableValue = data.result;

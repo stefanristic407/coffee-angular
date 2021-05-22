@@ -91,10 +91,10 @@
                                     <p-dropdown
                                         [options]="roastProfileArray"
                                         optionLabel="label"
+                                        optionValue="value"
                                         placeholder="Select the roasting profile"
                                         [style]="{ width: '100%' }"
                                         formControlName="roasting_profile_id"
-                                        optionValue="value"
                                     >
                                         <ng-template let-weight pTemplate="item">
                                             <span *ngIf="weight.label">{{ weight.label }}</span>
