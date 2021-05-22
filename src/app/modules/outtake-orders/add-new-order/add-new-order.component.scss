@@ -53,6 +53,7 @@
 .br_top {
     border-top: dotted 1px $primary-border-color;
 }
+
 .cust-profile {
     border: 0.3px solid #dddddd;
     border-radius: 4px;
@@ -157,6 +158,9 @@
     padding: 2rem;
 }
 
+.p-calendar .p-inputtext {
+    padding: 0.9375rem 0 !important;
+}
 .sewn-form-field .p-inputtext {
     padding: 0.9375rem 1rem !important;
 }

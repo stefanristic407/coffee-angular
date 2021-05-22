@@ -44,6 +44,7 @@ export class AddNewOrderComponent implements OnInit {
     customerID: any;
     salesMember: string;
     createdID: any;
+    loginUserID: string;
 
     constructor(
         private roasterService: RoasterserviceService,
@@ -59,6 +60,7 @@ export class AddNewOrderComponent implements OnInit {
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.outtakeOrderId = this.activeRoute.snapshot.params.id;
+        this.loginUserID = this.cookieService.get('user_id');
     }
 
     ngOnInit(): void {
@@ -112,6 +114,7 @@ export class AddNewOrderComponent implements OnInit {
         if (this.outtakeOrderId) {
             this.getOrder();
         }
+        this.getAllUsers();
     }
 
     remainingQuantity(control: AbstractControl) {
@@ -119,11 +122,20 @@ export class AddNewOrderComponent implements OnInit {
             if (control.value > this.remainingTotalQuantity) {
                 return { isInvalid: true };
             } else {
-                this.remainingTotalQuantity = this.orderDetails.remaining_total_quantity - control.value;
+                this.remainingTotalQuantity = this.orderDetails?.remaining_total_quantity - control.value;
             }
         }
     }
 
+    getAllUsers() {
+        // this.roasterService.getListOrderDetails(this.roasterId, this.selectedType).subscribe((res) => {
+        //     console.log(res);
+        //     console.log();
+        // });
+        this.roasterService.getsalesMemberDetails(this.roasterId, this.loginUserID).subscribe((res: any) => {
+            this.addOrdersForm.get('created_by').setValue(res.result.firstname + ' ' + res.result.lastname);
+        });
+    }
     getOrderDetails() {
         this.roasterService
             .getViewOrderDetails(this.roasterId, this.addOrdersForm.get('order_id').value)
@@ -132,7 +144,7 @@ export class AddNewOrderComponent implements OnInit {
                 this.addOrdersForm.get('roaster_ref_no').setValue(this.orderDetails?.order_reference);
                 this.addOrdersForm.get('roaster_ref_no').disable();
                 this.getRatingData(this.orderDetails?.estate_id);
-                this.remainingTotalQuantity = this.orderDetails.remaining_total_quantity;
+                this.remainingTotalQuantity = this.orderDetails?.remaining_total_quantity;
             });
     }
 
