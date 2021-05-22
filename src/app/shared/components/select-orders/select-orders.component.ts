@@ -126,7 +126,7 @@ export class SelectOrdersComponent implements OnInit {
                     width: 10,
                 },
             ];
-        } else if (this.selectedType === 'users' || this.selectedType === 'created') {
+        } else if (this.selectedType === 'users' || this.selectedType === 'sales-member') {
             this.tableColumns = [
                 {
                     field: 'firstname',
@@ -158,7 +158,7 @@ export class SelectOrdersComponent implements OnInit {
             this.tableColumns = [
                 {
                     field: 'id',
-                    header: 'Order ID',
+                    header: 'Customer ID',
                     sortable: false,
                     width: 7,
                 },
@@ -228,14 +228,21 @@ export class SelectOrdersComponent implements OnInit {
             per_page: this.displayFilter ? this.displayFilter : 1000,
             start_date: '',
             end_date: '',
+            status: 'RECEIVED',
         };
+        if (this.selectedType !== 'orders') {
+            delete postData.status;
+        }
         if (this.rangeDates && this.rangeDates.length === 2) {
             postData.start_date = moment(this.rangeDates[0], 'DD/MM/YYYY').format('YYYY-MM-DD');
             postData.end_date = moment(this.rangeDates[1], 'DD/MM/YYYY').format('YYYY-MM-DD');
         }
-        this.roasterService.getListOrderDetails(this.roasterId, this.selectedType, postData).subscribe((data: any) => {
+        let selectedType = this.selectedType;
+        if (this.selectedType === 'sales-member') {
+            selectedType = 'users';
+        }
+        this.roasterService.getListOrderDetails(this.roasterId, selectedType, postData).subscribe((data: any) => {
             if (data.success && data.result && data.result.length > 0) {
-                console.log(this.selectedType);
                 if (this.selectedType === 'micro-roasters' || this.selectedType === 'hrc') {
                     this.tableValue = data.result.filter((item) => {
                         return (item = item.id > 0);
@@ -253,9 +260,17 @@ export class SelectOrdersComponent implements OnInit {
         if (this.selectedType === 'orders') {
             this.selectedValue = {
                 orderId: this.selectedOrder.id,
+                selectedType: this.selectedType,
             };
         } else if (this.selectedType === 'users') {
             this.selectedValue = {
+                selectedType: this.selectedType,
+                userId: this.selectedOrder.id,
+                userName: this.selectedOrder.firstname + ' ' + this.selectedOrder.lastname,
+            };
+        } else if (this.selectedType === 'sales-member') {
+            this.selectedValue = {
+                selectedType: this.selectedType,
                 userId: this.selectedOrder.id,
                 userName: this.selectedOrder.firstname + ' ' + this.selectedOrder.lastname,
             };
