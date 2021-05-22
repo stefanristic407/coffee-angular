@@ -205,15 +205,11 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     public chatMenuOpen = false;
 
-    public enableReadRecipient = false;
-    public enableEmoji = true;
-    public notificationSound = true;
     public fontSizeList = [
-        { name: 'Small', value: 'SMALL' },
-        { name: 'Normal', value: 'NORMAL' },
-        { name: 'Large', value: 'LARGE' },
+        { label: 'Small', value: 'small' },
+        { label: 'Normal', value: 'normal' },
+        { label: 'Large', value: 'large' },
     ];
-    public activeFontSize = this.fontSizeList[1];
     public panelVisibility: 'THREAD' | 'CHAT' | 'BLOCKED_USERS' | 'SEARCH_USER' | 'USER_DETAILS' = 'THREAD';
     public modelConfig = {
         display: false,
@@ -269,8 +265,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     ) {}
 
     ngOnInit(): void {
+        this.chatHandler.fetchSettings();
         this.loader.auth = true;
-        this.readSettings();
+
         this.acceptFileTypeString = this.acceptFileTypeArray.join(',');
         this.emojiList = this.chatUtil.emojiList;
         this.stickerList = this.chatUtil.stickerList;
@@ -280,6 +277,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             }
         });
         this.SM.ChatHandlerService = this.chatHandler.chatSubject.subscribe(this.chatServiceRequestHandling);
+        this.SM.settingUpdated = this.chatHandler.settingUpdated.subscribe(this.settingUpdatedHandler);
         this.SM.expandStateListner = this.chatHandler.isExpand.subscribe(() => {
             setTimeout(() => {
                 this.uiUpdateOnStateChange();
@@ -320,39 +318,22 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     saveSettings() {
-        const setting: any = {
-            enableReadRecipient: this.enableReadRecipient,
-            enableEmoji: this.enableEmoji,
-            notificationSound: this.notificationSound,
-            activeFontSize: this.activeFontSize.value,
-        };
+        this.settingUpdatedHandler();
+        this.SM.saveSetting = this.chatHandler.saveSettings().subscribe((res: boolean) => {
+            // if (res) {
+            //     this.toast.success('The setting changes saved successfully', 'Settings');
+            // } else {
+            //     this.toast.error('Failed to save the setting changes', 'Settings');
+            // }
+        });
+        this.chatHandler.settingUpdated.next();
+    }
 
-        if (!this.enableEmoji && this.showMessageBoxPanel === 'EMOJI') {
+    settingUpdatedHandler = () => {
+        if (!this.chatHandler.setting.enable_emoticons && this.showMessageBoxPanel === 'EMOJI') {
             this.showMessageBoxPanel = 'OFF';
         }
-        localStorage.setItem('setting', JSON.stringify(setting));
-    }
-
-    readSettings() {
-        let setting: any = {};
-        try {
-            setting = JSON.parse(localStorage.getItem('setting')) || {};
-        } catch (e) {
-            setting = {};
-        }
-        if (setting.hasOwnProperty('enableReadRecipient')) {
-            this.enableReadRecipient = setting.enableReadRecipient;
-        } else if (setting.hasOwnProperty('enableEmoji')) {
-            this.enableEmoji = setting.enableEmoji;
-            if (!this.enableEmoji && this.showMessageBoxPanel === 'EMOJI') {
-                this.showMessageBoxPanel = 'OFF';
-            }
-        } else if (setting.hasOwnProperty('notificationSound')) {
-            this.notificationSound = setting.notificationSound;
-        } else if (setting.hasOwnProperty('activeFontSize')) {
-            this.activeFontSize = this.fontSizeList.find((x) => x.value === setting.activeFontSize);
-        }
-    }
+    };
 
     menuAction(action: 'BLOCK' | 'CLEAR' | 'DELETE' | 'MUTE' | 'UNMUTE') {
         this.chatMenuOpen = false;
@@ -372,7 +353,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     toggleMenu() {
         this.contextMenuOpen = !this.contextMenuOpen;
         if (this.contextMenuOpen) {
-            this.readSettings();
             this.listenBodyClickMenuClose();
         } else {
             this.saveSettings();
@@ -406,6 +386,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                         const closest = target.closest('[data-element="context-menu-panel"]');
                         if (target !== contentMenuPanel && closest !== contentMenuPanel) {
                             this.contextMenuOpen = false;
+                            this.saveSettings();
                         }
                     }
                     const chatMenuPanel = this.elRef.nativeElement.querySelector('[data-element="chat-menu-panel"]');
@@ -722,7 +703,11 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                         this.sendReadToken(message.id);
                     } else {
                         inThread.computed_lastActivityText = this.getLastActivityText(message, 'MESSAGE');
-                        if (!inThread.computed_mute && !message.isActiveUser && this.notificationSound) {
+                        if (
+                            !inThread.computed_mute &&
+                            !message.isActiveUser &&
+                            this.chatHandler.setting.notification_sound
+                        ) {
                             this.chatUtil.playNotificationSound('INCOMING');
                         }
                     }
@@ -1293,7 +1278,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                     this.updateBlockStatusOnThreadList();
                     this.updateMuteStatusOnThreadList();
                 }
-                if (!thread.computed_mute && this.notificationSound) {
+                if (!thread.computed_mute && this.chatHandler.setting.notification_sound) {
                     this.chatUtil.playNotificationSound('INCOMING');
                 }
                 this.updateUserStatus();
@@ -1626,7 +1611,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         }
 
         this.socket.directMessageSent.next(this.getMessagePayload(payload));
-        if (this.notificationSound) {
+        if (this.chatHandler.setting.notification_sound) {
             this.chatUtil.playNotificationSound('OUTGOING');
         }
         this.messageInput = '';

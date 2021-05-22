@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserserviceService } from '@services';
+import { UserserviceService, ChatHandlerService } from '@services';
 import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
 import { RoasterserviceService } from '@services';
@@ -33,6 +33,7 @@ export class ChatNotificationComponent implements OnInit {
         public toastrService: ToastrService,
         public cookieService: CookieService,
         public globals: GlobalsService,
+        private chatHandlerService: ChatHandlerService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
     }
@@ -90,8 +91,10 @@ export class ChatNotificationComponent implements OnInit {
             notification_sound: this.sound,
         };
         console.log(data);
+
         this.userService.updatePreferences(this.roasterId, data).subscribe((result) => {
             if (result['success'] == true) {
+                this.chatHandlerService.updateSetting(data);
                 this.resetButtonValue = 'Save changes';
                 this.toastrService.success('Preferences updated successfully!');
                 this.router.navigate(['/features/account-settings']);

@@ -46,7 +46,6 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
         public sharedService: SharedServiceService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
-        this.roasterCoffeeBatchsData();
     }
 
     ngOnInit(): void {
@@ -60,48 +59,49 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
             {
                 field: 'id',
                 header: 'batch_id',
-                sortable: false,
-                width: 12,
+                sortable: true,
+                width: 9,
             },
             {
                 field: 'roast_batch_name',
                 header: 'Batch name',
-                sortable: false,
-                width: 12,
+                sortable: true,
+                width: 15,
             },
             {
                 field: 'order_id',
                 header: 'Order ID',
-                sortable: false,
+                sortable: true,
                 width: 8,
             },
             {
                 field: 'estate_name',
                 header: 'Estate name',
+                sortable: true,
                 width: 15,
             },
             {
                 field: 'roaster_ref_no',
                 header: 'Roaster Ref. No.',
-                sortable: false,
+                sortable: true,
                 width: 15,
             },
             {
                 field: 'created_at',
                 header: 'Created on',
-                sortable: false,
+                sortable: true,
                 width: 10,
             },
             {
                 field: 'roasting_profile_quantity',
                 header: 'Quantity',
-                sortable: false,
+                sortable: true,
                 width: 8,
             },
             {
                 field: 'roasting_profile_name',
                 header: 'Roasting profile',
-                sortable: false,
+                sortable: true,
                 width: 15,
             },
             {
@@ -124,15 +124,28 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
         ];
     }
 
-    // Table data
-    roasterCoffeeBatchsData() {
-        const postData: any = {};
+    getData(event) {
+        setTimeout(() => {
+            let queryParams = {};
+            if (event.sortField) {
+                queryParams = {
+                    sort_by: event.sortField,
+                    sort_order: event.sortOrder === -1 ? 'desc' : 'asc',
+                };
+            }
+            this.roasterCoffeeBatchsData(queryParams);
+        });
+    }
 
-        postData.roast_level = this.profileFilter ? this.profileFilter : '';
-        postData.batch = this.termSearch ? this.termSearch : '';
+    // Table data
+    roasterCoffeeBatchsData(postData: any) {
+        postData.roast_level = this.profileFilter || '';
+        postData.query = this.termSearch || '';
         postData.per_page = 100;
-        postData.sort_by = 'created_at';
-        postData.sort_order = 'desc';
+        if (!postData.sort_by) {
+            postData.sort_by = 'created_at';
+            postData.sort_order = 'desc';
+        }
         this.tableValue = [];
         this.isLoadingRoastedBatches = true;
         this.roasterService.getRoasterCoffeeBatchs(postData).subscribe(
@@ -170,7 +183,7 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
             (res) => {
                 if (res.success) {
                     this.toastrService.success('Roasted Coffee Batch deleted successfully');
-                    this.roasterCoffeeBatchsData();
+                    this.roasterCoffeeBatchsData({});
                 } else {
                     this.toastrService.error('Error while deletign the roasting profile');
                 }
