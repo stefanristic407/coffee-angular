@@ -61,13 +61,13 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
                 field: 'id',
                 header: 'batch_id',
                 sortable: false,
-                width: 12,
+                width: 9,
             },
             {
                 field: 'roast_batch_name',
                 header: 'Batch name',
                 sortable: false,
-                width: 12,
+                width: 15,
             },
             {
                 field: 'order_id',
