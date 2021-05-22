@@ -42,7 +42,9 @@ export class PrimeTableService {
     public paginationValue = false;
     public origin: any;
     public status: any;
+    public query: any;
     public searchQuery: any;
+    public customer_type: any;
     public isMarkedForSale = false;
     constructor(public http: HttpClient, public cookieService: CookieService) {
         this.roasterId = this.cookieService.get('roaster_id');
@@ -105,8 +107,16 @@ export class PrimeTableService {
             postData = { ...postData, ...{ status: this.status } };
         }
         // If search_query is required
+        if (this.query) {
+            postData = { ...postData, ...{ query: this.query } };
+        }
+
         if (this.searchQuery) {
             postData = { ...postData, ...{ search_query: this.searchQuery } };
+        }
+
+        if (this.customer_type) {
+            postData = { ...postData, ...{ customer_type: this.customer_type } };
         }
 
         if (this.isMarkedForSale) {

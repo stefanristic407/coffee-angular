@@ -32,8 +32,14 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
         { label: 'Display 25', value: 25 },
         { label: 'Display 50', value: 50 },
     ];
+
+    customerType = [
+        { label: 'Micro Roaster', value: 'mr' },
+        { label: 'Horeca', value: 'hrc' },
+    ];
     forms: FormGroup;
     termStatus: any;
+    customerStatus: any;
     termOrigin: any;
     display: number;
     startDate: string;
@@ -223,7 +229,7 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
         });
     }
     setStatus() {
-        this.primeTableService.status = this.termStatus;
+        this.primeTableService.customer_type = this.customerStatus;
         this.table.reset();
     }
     setOrigin() {
@@ -231,7 +237,7 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
         this.table.reset();
     }
     search() {
-        this.primeTableService.searchQuery = this.searchTerm;
+        this.primeTableService.query = this.searchTerm;
         this.table.reset();
     }
     setDisplay() {

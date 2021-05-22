@@ -39,13 +39,11 @@ export class AddNewOrderComponent implements OnInit {
     remainingTotalQuantity: any;
     customerType: any;
     outtakeOrderDetails: any;
-    vatField: any;
     currentDate = new Date();
     userID: any;
     customerID: any;
     salesMember: string;
-    userDetails: any;
-    createdBy = false;
+    createdID: any;
 
     constructor(
         private roasterService: RoasterserviceService,
@@ -69,11 +67,11 @@ export class AddNewOrderComponent implements OnInit {
             { label: 'Micro Roaster', value: 'mr' },
         ];
         this.roasterLableypeArray = [
-            { label: 'Light', value: 'light' },
-            { label: 'Light Medium', value: 'light-medium' },
-            { label: 'Medium', value: 'medium' },
-            { label: 'Medium Dark', value: 'medium-dark' },
-            { label: 'Dark', value: 'dark' },
+            { label: 'Light', value: 1 },
+            { label: 'Light Medium', value: 2 },
+            { label: 'Medium', value: 3 },
+            { label: 'Medium Dark', value: 4 },
+            { label: 'Dark', value: 5 },
         ];
         this.preCleaned = [
             { label: 'Yes', value: true },
@@ -95,9 +93,9 @@ export class AddNewOrderComponent implements OnInit {
             customer_type: ['', [Validators.required]],
             gc_total_quantity: ['', [this.remainingQuantity.bind(this)]],
             gc_total_quantity_unit: ['kg'],
-            total_price: [''],
-            total_price_currency: [],
-            unit_price: [''],
+            total_price: ['', [Validators.required]],
+            total_price_currency: ['SEK'],
+            unit_price: ['', [Validators.required]],
             unit_currency: [''],
             quantity_unit: [''],
             roasted_coffee_total_quantity: [''],
@@ -107,17 +105,22 @@ export class AddNewOrderComponent implements OnInit {
             roast_level: [''],
             roasting_time: [''],
             roasting_temperature: [''],
+            tax_included_in_price: [false],
+            vat_percentage: [''],
             machine_used: [''],
         });
         if (this.outtakeOrderId) {
             this.getOrder();
         }
-        this.getUserDetails();
     }
 
     remainingQuantity(control: AbstractControl) {
         if (control.value) {
-            this.remainingTotalQuantity = this.orderDetails?.remaining_total_quantity - control.value;
+            if (control.value > this.remainingTotalQuantity) {
+                return { isInvalid: true };
+            } else {
+                this.remainingTotalQuantity = this.orderDetails.remaining_total_quantity - control.value;
+            }
         }
     }
 
@@ -153,14 +156,6 @@ export class AddNewOrderComponent implements OnInit {
         }
     }
 
-    getCoffeeStory() {
-        this.userService.getOuttakeCoffeeStory(this.roasterId, this.outtakeOrderId).subscribe((res: any) => {
-            if (res.success) {
-                this.coffeeExperienceLink = res.result;
-            }
-        });
-    }
-
     getRatingData(value: any) {
         this.userService.getAvailableEstateList(this.roasterId, value).subscribe((data) => {
             if (data.success) {
@@ -171,14 +166,27 @@ export class AddNewOrderComponent implements OnInit {
         });
     }
 
-    getUserDetails() {
-        this.roasterService.getUserDetails(this.roasterId).subscribe((res: any) => {
-            this.userDetails = res.result;
-            this.userDetails = this.userDetails.map((item) => {
-                const userName = 'userName';
-                item[userName] = item.firstname.concat(' ', item.lastname);
-                return item;
-            });
+    getCoffeeStory() {
+        this.userService.getOuttakeCoffeeStory(this.roasterId, this.outtakeOrderId).subscribe((res: any) => {
+            if (res.success) {
+                this.coffeeExperienceLink = res.result;
+            }
+        });
+    }
+
+    getOrder() {
+        this.roasterService.getViewOrder(this.roasterId, this.outtakeOrderId).subscribe((res) => {
+            if (res.success) {
+                this.outtakeOrderDetails = res.result;
+                this.customerID = this.outtakeOrderDetails.customer_id;
+                this.outtakeOrderDetails.order_date = new Date(this.outtakeOrderDetails.order_date);
+                this.outtakeOrderDetails.roasted_date = new Date(this.outtakeOrderDetails.roasted_date);
+                this.addOrdersForm.patchValue(this.outtakeOrderDetails);
+                this.getSalesMember();
+                this.getCustomerDetails();
+                this.getOrderDetails();
+                this.getCoffeeStory();
+            }
         });
     }
 
@@ -192,45 +200,7 @@ export class AddNewOrderComponent implements OnInit {
             });
     }
 
-    getOrder() {
-        this.roasterService.getViewOrder(this.roasterId, this.outtakeOrderId).subscribe((res) => {
-            if (res.success) {
-                this.outtakeOrderDetails = res.result;
-                this.customerID = this.outtakeOrderDetails.customer_id;
-                this.getSalesMember();
-                this.getCustomerDetails();
-                this.outtakeOrderDetails.order_date = new Date(this.outtakeOrderDetails.order_date);
-                this.outtakeOrderDetails.roasted_date = new Date(this.outtakeOrderDetails.roasted_date);
-                this.addOrdersForm.patchValue(this.outtakeOrderDetails);
-                this.getOrderDetails();
-                this.getCoffeeStory();
-            }
-        });
-    }
-
-    selectOrder(event) {
-        if (event.orderId) {
-            this.addOrdersForm.get('order_id').setValue(event.orderId);
-        }
-        if (event.userName) {
-            if (this.createdBy === true) {
-                this.addOrdersForm.get('created_by').setValue(event.userName);
-                this.userID = event.userId;
-                this.createdBy = false;
-            } else {
-                this.addOrdersForm.get('sales_member_id').setValue(event.userName);
-                this.userID = event.userId;
-            }
-        }
-        if (event.customerName) {
-            this.addOrdersForm.get('customer_id').setValue(event.customerName);
-            this.customerID = event.customerId;
-        }
-        this.getOrderDetails();
-        this.getCoffeeStory();
-    }
-
-    onSelectType(type) {
+    onSelectType(type: string) {
         if (type === 'customer-name') {
             if (this.addOrdersForm.get('customer_type').value === 'mr') {
                 this.selectedType = 'micro-roasters';
@@ -242,10 +212,33 @@ export class AddNewOrderComponent implements OnInit {
         }
     }
 
+    selectOrder(event) {
+        if (event.selectedType === 'orders') {
+            this.addOrdersForm.get('order_id').setValue(event.orderId);
+            this.getOrderDetails();
+        } else if (event.selectedType === 'users') {
+            this.addOrdersForm.get('created_by').setValue(event.userName);
+            this.createdID = event.userId;
+        } else if (event.selectedType === 'sales-member') {
+            this.addOrdersForm.get('sales_member_id').setValue(event.userName);
+            this.userID = event.userId;
+        } else if (event.customerId) {
+            this.addOrdersForm.get('customer_id').setValue(event.customerName);
+            this.customerID = event.customerId;
+            this.getCustomerDetails();
+        }
+    }
+
     addOrderDetails() {
+        this.addOrdersForm.get('roaster_ref_no').enable();
         const data = this.addOrdersForm.value;
+        this.addOrdersForm.get('roaster_ref_no').disable();
         data.sales_member_id = this.userID;
-        data.created_by = this.userID;
+        data.order_created_by = this.createdID;
+        data.company_type = this.addOrdersForm.get('company_type').value
+            ? this.addOrdersForm.get('company_type').value
+            : '';
+        delete data.created_by;
         data.customer_id = this.customerID;
         if (data.order_date) {
             const orderDate = new Date(data.order_date);
@@ -294,10 +287,6 @@ export class AddNewOrderComponent implements OnInit {
                 }
             });
         }
-    }
-
-    onVatField(event) {
-        this.vatField = event.checked;
     }
 
     handleCopyCoffeeExperienceLink(): void {

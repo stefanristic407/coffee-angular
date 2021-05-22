@@ -67,8 +67,13 @@
 }
 
 .weightInputGroupDiv {
-    border: 1px solid $primary-border-color;
+    border: 1px solid $primary-border-color !important;
     border-radius: 4px;
+}
+
+.weightInputGroupDiv:enabled:hover,
+.weightInputGroupDiv:enabled:focus {
+    border-color: #30855c !important;
 }
 
 .weightInputDiv {
@@ -156,6 +161,12 @@
     padding: 0.9375rem 1rem !important;
 }
 
+.sewn-form-field .p-inputnumber-input {
+    border: 0px !important;
+}
+.recent-time .list-ans {
+    word-break: break-all;
+}
 .recent-time {
     td {
         padding: 1rem 1rem 1rem 1.5rem !important;

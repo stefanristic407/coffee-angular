@@ -9,10 +9,10 @@
             <div *ngIf="this.selectedType === 'orders'" class="primary_txt mt-4 mt-md-45 mb-2">
                 {{ 'select_an_order' | translate }}
             </div>
-            <div
-                *ngIf="this.selectedType === 'users' || this.selectedType === 'hrc'"
-                class="primary_txt mt-4 mt-md-45 mb-2"
-            >
+            <div *ngIf="this.selectedType === 'users'" class="primary_txt mt-4 mt-md-45 mb-2">
+                {{ 'select_the_users' | translate }}
+            </div>
+            <div *ngIf="this.selectedType === 'sales-member'" class="primary_txt mt-4 mt-md-45 mb-2">
                 {{ 'select_the_sales_member' | translate }}
             </div>
             <div
@@ -85,7 +85,6 @@
             selectionMode="single"
             [(selection)]="selectedOrder"
             [showCurrentPageReport]="false"
-            [paginator]="false"
             [totalRecords]="totalCount"
             [responsive]="true"
         >
@@ -173,17 +172,17 @@
 
                         <ng-container *ngSwitchCase="'email'">
                             <span class="p-column-title"> {{ col.header }} </span>
-                            <span>{{ rowData[col.field] }} {{ rowData['quantity_type'] }}</span>
+                            <span>{{ rowData[col.field] }}</span>
                         </ng-container>
 
                         <ng-container *ngSwitchCase="'status'">
                             <span class="p-column-title"> {{ col.header }} </span>
-                            <span>{{ rowData[col.field] }} {{ rowData['quantity_type'] }}</span>
+                            <span>{{ rowData[col.field] | lowercase }}</span>
                         </ng-container>
 
                         <ng-container *ngSwitchCase="'roles'">
                             <span class="p-column-title"> {{ col.header }} </span>
-                            <span>{{ rowData[col.field] }} {{ rowData['quantity_type'] }}</span>
+                            <span>{{ rowData[col.field] }}</span>
                         </ng-container>
 
                         <ng-container *ngSwitchDefault>
