@@ -137,13 +137,13 @@ export class ProductDetailsComponent implements OnInit {
             { label: 'Subscription', value: 'subscription' },
         ];
         this.productForm.controls.is_variants_included.valueChanges.subscribe((value) => {
-            if (!value) {
-                this.variants = this.productForm.get('variants') as FormArray;
-                while (this.variants.length !== 0) {
-                    this.variants.removeAt(0);
-                }
-                this.variants.push(this.createEmptyVariant());
-            }
+            // if (!value) {
+            //     this.variants = this.productForm.get('variants') as FormArray;
+            //     while (this.variants.length !== 0) {
+            //         this.variants.removeAt(0);
+            //     }
+            //     this.variants.push(this.createEmptyVariant());
+            // }
         });
         promises.push(
             new Promise((resolve, reject) => {
@@ -226,7 +226,7 @@ export class ProductDetailsComponent implements OnInit {
             (res) => {
                 if (res && res.result) {
                     const productDetails = res.result;
-                    this.count = Object.keys(res.result?.variants).length - 1;
+                    this.count = Object.keys(res.result?.variants).length;
                     this.isPublished = res.result.is_published;
                     this.isSetDefault = true;
                     this.breadCrumbItem = [
@@ -460,7 +460,7 @@ export class ProductDetailsComponent implements OnInit {
             acidity: ['', Validators.compose([Validators.required])],
             aroma: ['', Validators.compose([Validators.required])],
             flavour: ['', Validators.compose([Validators.required])],
-            processing: ['', Validators.compose([Validators.required])],
+            processing: ['', Validators.compose(this.type === 'b2c' ? [Validators.required] : [])],
             flavour_profiles: [],
             roaster_notes: ['', Validators.compose([maxWordCountValidator(300)])],
             recipes: ['', Validators.compose([maxWordCountValidator(300)])],
@@ -839,6 +839,7 @@ export class ProductDetailsComponent implements OnInit {
         variantTypeArray.push({ label: '', value: 'button' });
         this.variantTypeArray = variantTypeArray;
     }
+
     getRoastingProfile(idx, profileID) {
         this.variants = this.productForm.get('variants') as FormArray;
         const getVariant = this.variants.controls[idx];
@@ -901,9 +902,5 @@ export class ProductDetailsComponent implements OnInit {
     getFlavourName(id) {
         const flavour = this.flavoursList.find((item) => item.flavour_profile_id === id);
         return flavour.flavour_profile_name;
-    }
-
-    onChangeExternal(event) {
-        console.log(event);
     }
 }
