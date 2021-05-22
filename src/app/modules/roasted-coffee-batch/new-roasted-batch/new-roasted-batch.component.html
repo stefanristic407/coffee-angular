@@ -237,7 +237,7 @@
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100 mt-lg-3">
                                 <label>Processing</label>
-                                <input type="text" placeholder="" formControlName="processing" pInputText />
+                                <input type="text" placeholder="" disabled [value]="orderDetails?.processing || ''" pInputText />
                             </div>
                         </div>
                         <div class="row pt-md-1 pb-1">
