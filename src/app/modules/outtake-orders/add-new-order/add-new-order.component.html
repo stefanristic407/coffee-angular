@@ -1,5 +1,5 @@
 <div *ngIf="!showOrderPanel" class="main-block">
-    <div class="d-flex justify-content-between mb-45 pb-2">
+    <div class="d-flex justify-content-between pb-2">
         <div class="breadcrumb-container">
             <p-breadcrumb [model]="breadItems"></p-breadcrumb>
         </div>
@@ -213,9 +213,9 @@
                             ></p-dropdown>
                             <small
                                 *ngIf="
-                                    addOrdersForm.controls['customer_type'].errors?.required &&
                                     addOrdersForm.controls['customer_type'].invalid &&
-                                    addOrdersForm.controls['customer_type'].touched
+                                    addOrdersForm.controls['customer_type'].touched &&
+                                    addOrdersForm.controls['customer_type'].errors?.required
                                 "
                                 class="p-error"
                             >
@@ -955,7 +955,10 @@
                     <p>
                         <span class="cursor-pointer d-flex align-items-center">
                             <img src="assets/images/star-1.png" alt="Star" />
-                            <span class="fnt-14 fnt-bold pl-1"> {{ rating | number: '1.2-2' }}</span>
+                            <span *ngIf="customerDetails.rating" class="fnt-14 fnt-bold pl-1">
+                                {{ customerDetails.rating | number: '1.2-2' }}</span
+                            >
+                            <span *ngIf="!customerDetails.rating" class="fnt-14 fnt-bold pl-1"> 00</span>
                         </span>
                     </p>
                 </div>

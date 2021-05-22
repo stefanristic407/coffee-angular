@@ -259,7 +259,7 @@
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ micro_roasters_id: item.id }"
                 >
-                    {{ item.varieties || '--' }}
+                    {{ item.varieties || 'NA' }}
                 </td>
                 <td
                     *ngIf="customerType === 'hrc'"
@@ -267,7 +267,7 @@
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ hrc_id: item.order_id }"
                 >
-                    {{ item.roast_level || '--' }}
+                    {{ item.roast_level || 'NA' }}
                 </td>
                 <td
                     *ngIf="customerType === 'outtake-orders'"
@@ -275,7 +275,7 @@
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ outtake_orders_id: item.id }"
                 >
-                    {{ item.order_id || '--' }}
+                    {{ item.order_id || 'NA' }}
                 </td>
 
                 <td
@@ -284,7 +284,7 @@
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ estate_id: item.id }"
                 >
-                    {{ item.quantity || '--' }} <span *ngIf="item.quantity">kg</span>
+                    {{ item.quantity || 'NA' }} <span *ngIf="item.quantity">kg</span>
                 </td>
                 <td
                     *ngIf="customerType === 'micro-roasters'"
@@ -292,7 +292,7 @@
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ micro_roasters_id: item.id }"
                 >
-                    {{ item.quantity || '--' }} <span *ngIf="item.quantity">kg</span>
+                    {{ item.quantity || 'NA' }} <span *ngIf="item.quantity">kg</span>
                 </td>
                 <td
                     *ngIf="customerType === 'hrc'"
@@ -300,7 +300,7 @@
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ hrc_id: item.order_id }"
                 >
-                    {{ item.quantity || '--' }} <span *ngIf="item.quantity">kg</span>
+                    {{ item.quantity || 'NA' }} <span *ngIf="item.quantity">kg</span>
                 </td>
                 <td
                     *ngIf="customerType === 'outtake-orders'"
@@ -308,7 +308,12 @@
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ outtake_orders_id: item.id }"
                 >
-                    {{ item.rc_total_quantity || '--' }} {{ item.rc_total_quantity_unit }}
+                    <span *ngIf="item.customer_type == 'hrc'"
+                        >{{ item.rc_total_quantity || 'NA' }} {{ item.rc_total_quantity_unit }}</span
+                    >
+                    <span *ngIf="item.customer_type == 'mr'"
+                        >{{ item.gc_total_quantity || 'NA' }} {{ item.gc_total_quantity_unit }}</span
+                    >
                 </td>
 
                 <td
@@ -317,7 +322,7 @@
                     [queryParams]="{ estate_id: item.id }"
                     class="fnt-14"
                 >
-                    {{ item.cup_score || '--' }}
+                    {{ item.cup_score || 'NA' }}
                 </td>
                 <td
                     *ngIf="customerType === 'micro-roasters'"
@@ -325,7 +330,7 @@
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ micro_roasters_id: item.id }"
                 >
-                    {{ item.cup_score || '--' }}
+                    {{ item.cup_score || 'NA' }}
                 </td>
                 <td
                     *ngIf="customerType === 'estate'"
