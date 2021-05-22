@@ -393,7 +393,7 @@
                                     class="flavour-item d-inline-block"
                                     *ngFor="let flavour of variant.value.flavour_profiles"
                                 >
-                                    {{ flavour.flavour_profile_name }}
+                                    {{ flavour.flavour_profile_name || getFlavourName(flavour) }}
                                 </span>
                             </div>
                             <app-multiselect-chips
@@ -515,8 +515,10 @@
                             [variantDetails]="variant"
                             [type]="type"
                             [isPublished]="isPublished"
+                            [isSetDefault]="isSetDefault"
                             (handleWeightCreate)="onWeightCreate($event)"
                             (handleWeightDelete)="onWeightDelete($event)"
+                            (handleSetDefault)="onChangeSetDefault($event)"
                         ></app-variant-details>
                     </div>
                 </p-tabPanel>
@@ -618,7 +620,7 @@
                 <button
                     type="submit"
                     class="btn btn-raised ml-md-3 order-1 order-md-2 mt-md-0 w-mob-100"
-                    [ngClass]="{ 'mt-3': !isPublished && productID }"
+                    [ngClass]="{ 'mt-3': !isPublished }"
                     (click)="onSave()"
                 >
                     {{ 'save_as_draft' | translate }}
