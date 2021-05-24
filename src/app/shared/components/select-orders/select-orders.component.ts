@@ -84,44 +84,44 @@ export class SelectOrdersComponent implements OnInit {
             this.tableColumns = [
                 {
                     field: 'id',
-                    header: 'Order ID',
+                    header: this.globals.languageJson?.order_id,
                     sortable: false,
                     width: 7,
                 },
                 {
                     field: 'estate_name',
-                    header: 'Estate name',
+                    header: this.globals.languageJson?.estate_name,
                     sortable: false,
                     width: 14,
                 },
                 {
                     field: 'created_at',
-                    header: 'Date ordered',
+                    header: this.globals.languageJson?.ordered_date,
                     width: 10,
                 },
                 {
                     field: 'origin',
-                    header: 'Origin',
+                    header: this.globals.languageJson?.origin,
                     sortable: false,
                     width: 8,
                 },
                 {
                     field: 'varieties',
-                    header: 'Variety',
+                    header: this.globals.languageJson?.variety,
                     sortable: false,
                     width: 12,
                 },
 
                 {
                     field: 'quantity',
-                    header: 'Quantity',
+                    header: this.globals.languageJson?.quantity,
                     sortable: false,
                     width: 8,
                 },
 
                 {
                     field: 'cup_score',
-                    header: 'Cupping Score',
+                    header: this.globals.languageJson?.cupping_score,
                     sortable: false,
                     width: 10,
                 },
@@ -130,27 +130,27 @@ export class SelectOrdersComponent implements OnInit {
             this.tableColumns = [
                 {
                     field: 'firstname',
-                    header: 'Name',
+                    header: this.globals.languageJson?.name,
                     width: 14,
                 },
                 {
                     field: 'last_login_at',
-                    header: 'Last Login',
+                    header: this.globals.languageJson?.last_login,
                     width: 10,
                 },
                 {
                     field: 'email',
-                    header: 'Email',
+                    header: this.globals.languageJson?.email,
                     width: 12,
                 },
                 {
                     field: 'status',
-                    header: 'Status',
+                    header: this.globals.languageJson?.status,
                     width: 10,
                 },
                 {
                     field: 'roles',
-                    header: 'All Roles',
+                    header: this.globals.languageJson?.all_roles,
                     width: 16,
                 },
             ];
@@ -158,28 +158,28 @@ export class SelectOrdersComponent implements OnInit {
             this.tableColumns = [
                 {
                     field: 'id',
-                    header: 'Customer ID',
+                    header: this.globals.languageJson?.customer_id,
                     sortable: false,
                     width: 7,
                 },
                 {
                     field: 'name',
-                    header: 'Customer Name',
+                    header: this.globals.languageJson?.customer_name,
                     width: 14,
                 },
                 {
                     field: 'created_at',
-                    header: 'Date ordered',
+                    header: this.globals.languageJson?.ordered_date,
                     width: 10,
                 },
                 {
                     field: 'email',
-                    header: 'Email',
+                    header: this.globals.languageJson?.email,
                     width: 16,
                 },
                 {
                     field: 'status',
-                    header: 'Status',
+                    header: this.globals.languageJson?.status,
                     width: 12,
                 },
             ];

@@ -19,23 +19,23 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
     searchTerm = '';
     statusItems;
     breadItems = [
-        { label: 'Home', routerLink: '/dashboard' },
-        { label: 'Order Management', routerLink: '/dashboard' },
-        { label: 'Outtake Order' },
+        { label: this.globals.languageJson?.home, routerLink: '/dashboard' },
+        { label: this.globals.languageJson?.order_management, routerLink: '/dashboard' },
+        { label: this.globals.languageJson?.outtake_order },
     ];
     appLanguage?: any;
     originArray: any = [];
     roasterId: any;
     displayItems = [
-        { label: 'Display 10', value: 10 },
-        { label: 'Display 20', value: 20 },
-        { label: 'Display 25', value: 25 },
-        { label: 'Display 50', value: 50 },
+        { label: this.globals.languageJson?.display + ' ' + 10, value: 10 },
+        { label: this.globals.languageJson?.display + ' ' + 20, value: 20 },
+        { label: this.globals.languageJson?.display + ' ' + 25, value: 25 },
+        { label: this.globals.languageJson?.display + ' ' + 50, value: 50 },
     ];
 
     customerType = [
-        { label: 'Micro Roaster', value: 'mr' },
-        { label: 'Horeca', value: 'hrc' },
+        { label: this.globals.languageJson?.micro_roaster, value: this.globals.languageJson?.mr },
+        { label: this.globals.languageJson?.horeca, value: this.globals.languageJson?.hrc },
     ];
     forms: FormGroup;
     termStatus: any;
@@ -87,37 +87,37 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
             this.primeTableService.allColumns = [
                 {
                     field: 'order_id',
-                    header: 'Order Id',
+                    header: this.globals.languageJson?.order_id,
                     sortable: false,
                     width: 40,
                 },
                 {
                     field: 'product_name',
-                    header: 'Product Name',
+                    header: this.globals.languageJson?.product_name,
                     sortable: false,
                     width: 50,
                 },
                 {
                     field: 'customer_name',
-                    header: 'Customer Name',
+                    header: this.globals.languageJson?.customer_name,
                     sortable: false,
                     width: 50,
                 },
                 {
                     field: 'type_of_customer',
-                    header: 'Type of Customer',
+                    header: this.globals.languageJson?.type_of_customer,
                     sortable: false,
                     width: 50,
                 },
                 {
                     field: 'gc_odrer_id',
-                    header: 'GC odrer ID',
+                    header: this.globals.languageJson?.gc_odrer_id,
                     sortable: false,
                     width: 80,
                 },
                 {
                     field: 'date_placed',
-                    header: 'Date Placed',
+                    header: this.globals.languageJson?.date_paced,
                     sortable: false,
                     width: 80,
                 },
@@ -127,55 +127,55 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
             this.primeTableService.allColumns = [
                 {
                     field: 'order_id',
-                    header: 'Order ID',
+                    header: this.globals.languageJson?.order_id,
                     sortable: false,
                     width: 50,
                 },
                 {
                     field: 'product_name',
-                    header: 'Product Name',
+                    header: this.globals.languageJson?.product_name,
                     sortable: false,
                     width: 80,
                 },
                 {
                     field: 'customer_name',
-                    header: 'Customer Name',
+                    header: this.globals.languageJson?.customer_name,
                     sortable: false,
                     width: 80,
                 },
                 {
                     field: 'type_of_customer',
-                    header: 'Type of Customer',
+                    header: this.globals.languageJson?.type_of_customer,
                     sortable: false,
                     width: 80,
                 },
                 {
                     field: 'gc_odrer_id',
-                    header: 'GC odrer ID',
+                    header: this.globals.languageJson?.gc_odrer_id,
                     sortable: false,
                     width: 80,
                 },
                 {
                     field: 'date_placed',
-                    header: 'Date Placed',
+                    header: this.globals.languageJson?.date_paced,
                     sortable: false,
                     width: 60,
                 },
                 {
                     field: 'price',
-                    header: 'Price',
+                    header: this.globals.languageJson?.price,
                     sortable: false,
                     width: 50,
                 },
                 {
                     field: 'quantity',
-                    header: 'Quantity',
+                    header: this.globals.languageJson?.quantity,
                     sortable: false,
                     width: 50,
                 },
                 {
                     field: 'actions',
-                    header: 'Actions',
+                    header: this.globals.languageJson?.action,
                     sortable: false,
                     width: 40,
                 },
@@ -190,7 +190,6 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
     }
 
     ngOnInit(): void {
-        this.primeTableService.isMarkedForSale = false;
         this.primeTableService.url = `/ro/${this.roasterId}/outtake-orders`;
 
         this.initializeTable();
@@ -273,11 +272,11 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
         this.roasterService.deleteOuttakeOrders(this.roasterId, deleteId).subscribe(
             (response) => {
                 if (response && response.success) {
-                    this.toastrService.success('Product deleted successfully');
+                    this.toastrService.success(this.globals.languageJson?.product_deleted);
                 }
             },
             (err) => {
-                this.toastrService.error('Error while deleting the order');
+                this.toastrService.error(this.globals.languageJson?.product_deleting_err);
             },
         );
     }

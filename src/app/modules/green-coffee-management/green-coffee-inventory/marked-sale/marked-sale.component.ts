@@ -241,7 +241,13 @@ export class MarkedSaleComponent implements OnInit {
             (response) => {
                 if (response && response.success) {
                     this.toastrService.success('Product deleted successfully');
-                    this.popupDisplay = true;
+                    this.popupDisplay = false;
+                    this.primeTableService.url = `/ro/${this.roasterID}/marked-sale-coffees`;
+                    const event = {
+                        sortOrder: this.primeTableService.sortOrder,
+                        first: this.primeTableService.currentPage,
+                    };
+                    this.primeTableService.getData(event);
                 }
             },
             (err) => {
