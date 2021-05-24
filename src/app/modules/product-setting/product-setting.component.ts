@@ -12,7 +12,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     styleUrls: ['./product-setting.component.scss'],
 })
 export class ProductSettingComponent implements OnInit {
-    // tslint:disable: indent
     saveshippingmode = false;
     editshippingmode = true;
     roasterId: any;
