@@ -1,6 +1,6 @@
 import { UserserviceService } from './../api/user-original.service';
 import { ChatUtilService } from './chat-util.service';
-
+import { ToastrService } from 'ngx-toastr';
 import { OpenChatThread } from '@models';
 import { ServiceCommunicationType, OrganizationType } from '@enums';
 import { Subject, BehaviorSubject, of } from 'rxjs';
@@ -35,7 +35,7 @@ export class ChatHandlerService {
         read_recipient: false,
     };
 
-    constructor(private userService: UserserviceService, private util: ChatUtilService) {}
+    constructor(private userService: UserserviceService, private util: ChatUtilService, private toast: ToastrService) {}
 
     public showChatPanel() {
         this.chatSubject.next({
@@ -56,9 +56,27 @@ export class ChatHandlerService {
      * @param payload.org_id - Organization id of targted user; provide 0 for admin users
      */
     public openChatThread(payload: OpenChatThread) {
-        if (payload.org_type === OrganizationType.SEWN_ADMIN || payload.org_type === OrganizationType.CONSUMER) {
+        const NoOrg =
+            payload.org_type === OrganizationType.SEWN_ADMIN || payload.org_type === OrganizationType.CONSUMER;
+
+        if (NoOrg) {
             delete payload.org_id;
+            payload.user_id = parseInt(payload.user_id + '', 10);
+        } else {
+            payload.user_id = parseInt(payload.user_id + '', 10);
+            payload.org_id = parseInt(payload.org_id + '', 10);
         }
+        const sameOrgTypeUserId =
+            this.util.USER_ID === payload.user_id && this.util.ORGANIZATION_TYPE === payload.org_type;
+
+        if (
+            (NoOrg && sameOrgTypeUserId) ||
+            (!NoOrg && sameOrgTypeUserId && payload.org_id === this.util.ORGANIZATION_ID)
+        ) {
+            this.toast.error(`You can't chat with yourself`);
+            return;
+        }
+
         this.chatSubject.next({
             requestType: ServiceCommunicationType.OPEN_THREAD,
             payload,

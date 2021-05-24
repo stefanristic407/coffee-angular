@@ -211,7 +211,7 @@
                 />
 
                 <div class="dm-ltm-panel scale-up-top" *ngIf="contextMenuOpen" data-element="context-menu-panel">
-                    <span class="dm-ltm-pane-arrow"></span>
+                    <span class="dm-ltm-panel-arrow"></span>
                     <div class="dm-ltm-panel-listing">
                         <div class="dm-ltm-panel-title">Chat settings</div>
                         <div class="dm-itm-item">
@@ -926,6 +926,7 @@
                 <div class="dm-mb-action-button-container" *ngIf="chatHandler.setting.enable_emoticons">
                     <img
                         *ngIf="showMessageBoxPanel !== 'EMOJI'"
+                        @buttonFade
                         (click)="showMessageBoxPanel = 'EMOJI'"
                         class="dm-mb-action-button-img dm-action-button"
                         src="assets/images/dm-mb-action-button-emoji.svg"
@@ -933,7 +934,7 @@
                     />
                     <img
                         *ngIf="showMessageBoxPanel === 'EMOJI'"
-                        [@buttonFade]="showMessageBoxPanel === 'EMOJI' ? 'show' : 'hide'"
+                        @buttonFade
                         (click)="showMessageBoxPanel = 'OFF'"
                         class="dm-mb-action-button-img dm-action-button"
                         src="assets/images/dm-mb-action-button-emoji-active.svg"
@@ -943,6 +944,7 @@
                 <div class="dm-mb-action-button-container" *ngIf="chatHandler.setting.enable_emoticons">
                     <img
                         *ngIf="showMessageBoxPanel !== 'STICKER'"
+                        @buttonFade
                         (click)="showMessageBoxPanel = 'STICKER'"
                         class="dm-mb-action-button-img dm-action-button"
                         src="assets/images/dm-mb-action-button-sticker.svg"
@@ -950,6 +952,7 @@
                     />
                     <img
                         *ngIf="showMessageBoxPanel === 'STICKER'"
+                        @buttonFade
                         (click)="showMessageBoxPanel = 'OFF'"
                         class="dm-mb-action-button-img dm-action-button"
                         src="assets/images/dm-mb-action-button-sticker-active.svg"
