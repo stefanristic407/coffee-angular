@@ -39,8 +39,8 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-45">
                             <div class="real-estate">
-                                <img src="assets/images/estate.svg" />
-                                <h6>Total farm area</h6>
+                                <img src="assets/images/total-farm.svg" />
+                                <h6>{{ 'total_farm_area' | translate }}</h6>
                                 <h3 *ngIf="sourcing.estate?.total_area != ''">
                                     {{ sourcing.estate?.total_area + ' acres' || 'NA' }}
                                 </h3>
@@ -48,8 +48,8 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-45">
                             <div class="real-estate">
-                                <img src="assets/images/estate.svg" />
-                                <h6>Farm yield / Ha</h6>
+                                <img src="assets/images/farm-yield.svg" />
+                                <h6>{{ 'farm_yield' | translate }} / Ha</h6>
                                 <h3 *ngIf="sourcing.estate?.total_area != ''">
                                     {{ sourcing.estate?.farm_yield || 'NA' }}
                                 </h3>
