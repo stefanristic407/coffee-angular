@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@app/shared';
 import { Download } from '@models';
+import { GlobalsService } from '@services';
 
 @Component({
     selector: 'app-add-new-order',
@@ -21,10 +22,10 @@ export class AddNewOrderComponent implements OnInit {
     showCustomerPanel = false;
     selectedType: string;
     breadItems = [
-        { label: 'Home', routerLink: '/dashboard' },
-        { label: 'Order Management', routerLink: '/outtake-orders' },
-        { label: 'Outtake Order', routerLink: '/outtake-orders' },
-        { label: 'Add a new order' },
+        { label: this.globals.languageJson?.home, routerLink: '/dashboard' },
+        { label: this.globals.languageJson?.order_management, routerLink: '/outtake-orders' },
+        { label: this.globals.languageJson?.outtake_order, routerLink: '/outtake-orders' },
+        { label: this.globals.languageJson?.add_new_order },
     ];
     customerTypeArray: any = [];
     roasterLableypeArray: any = [];
@@ -56,6 +57,7 @@ export class AddNewOrderComponent implements OnInit {
         public downloadService: DownloadService,
         public dialogSrv: DialogService,
         private router: Router,
+        public globals: GlobalsService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.outtakeOrderId = this.activeRoute.snapshot.params.id;
@@ -64,23 +66,23 @@ export class AddNewOrderComponent implements OnInit {
 
     ngOnInit(): void {
         this.customerTypeArray = [
-            { label: 'Partner', value: 'hrc' },
-            { label: 'Micro Roaster', value: 'mr' },
+            { label: this.globals.languageJson?.partner, value: this.globals.languageJson?.hrc },
+            { label: this.globals.languageJson?.micro_roaster, value: this.globals.languageJson?.mr },
         ];
         this.roasterLableypeArray = [
-            { label: 'Light', value: 1 },
-            { label: 'Light Medium', value: 2 },
-            { label: 'Medium', value: 3 },
-            { label: 'Medium Dark', value: 4 },
-            { label: 'Dark', value: 5 },
+            { label: this.globals.languageJson?.light, value: 1 },
+            { label: this.globals.languageJson?.light + ' ' + this.globals.languageJson?.medium, value: 2 },
+            { label: this.globals.languageJson?.medium, value: 3 },
+            { label: this.globals.languageJson?.medium + ' ' + this.globals.languageJson?.dark, value: 4 },
+            { label: this.globals.languageJson?.dark, value: 5 },
         ];
         this.preCleaned = [
-            { label: 'Yes', value: true },
-            { label: 'No', value: false },
+            { label: this.globals.languageJson?.yes, value: true },
+            { label: this.globals.languageJson?.no, value: false },
         ];
         this.weightTypeArray = [
-            { label: 'kg', value: 'kg' },
-            { label: 'lb', value: 'lb' },
+            { label: this.globals.languageJson?.kg, value: this.globals.languageJson?.kg },
+            { label: this.globals.languageJson?.lb, value: this.globals.languageJson?.lb },
         ];
         this.addOrdersForm = this.fb.group({
             product_name: ['', [Validators.required]],
@@ -221,7 +223,7 @@ export class AddNewOrderComponent implements OnInit {
     onSelectType(type: string) {
         if (type === 'customer-name') {
             if (this.addOrdersForm.get('customer_type').value === 'mr') {
-                this.selectedType = 'micro-roasters';
+                this.selectedType = this.globals.languageJson?.micro_roasters;
             } else if (this.addOrdersForm.get('customer_type').value === 'hrc') {
                 this.selectedType = 'hrc';
             }
@@ -288,9 +290,9 @@ export class AddNewOrderComponent implements OnInit {
             this.roasterService.updateOrderDetails(this.roasterId, this.outtakeOrderId, data).subscribe((res) => {
                 if (res.success) {
                     this.router.navigateByUrl('/outtake-orders');
-                    this.toaster.success('Outtake Order updated successfully');
+                    this.toaster.success(this.globals.languageJson?.successfully_update);
                 } else {
-                    this.toaster.error('Unable to update the outtake order');
+                    this.toaster.error(this.globals.languageJson?.unable_to_update);
                 }
             });
         } else {
@@ -299,9 +301,9 @@ export class AddNewOrderComponent implements OnInit {
             this.roasterService.addOrderDetails(this.roasterId, data).subscribe((res) => {
                 if (res.success) {
                     this.router.navigateByUrl('/outtake-orders');
-                    this.toaster.success('Outtake Order added successfully');
+                    this.toaster.success(this.globals.languageJson?.successfully_added);
                 } else {
-                    this.toaster.error('Unable to add the outtake order');
+                    this.toaster.error(this.globals.languageJson?.unable_to_add);
                 }
             });
         }
@@ -312,8 +314,8 @@ export class AddNewOrderComponent implements OnInit {
         textArea.value = this.coffeeExperienceLink.coffee_story_url;
         document.body.appendChild(textArea);
         textArea.select();
-        document.execCommand('Copy');
-        this.toaster.success('Copied link successfully');
+        document.execCommand(this.globals.languageJson?.copy);
+        this.toaster.success(this.globals.languageJson?.copied);
         textArea.remove();
     }
 
@@ -321,22 +323,22 @@ export class AddNewOrderComponent implements OnInit {
         this.dialogSrv
             .open(ConfirmComponent, {
                 data: {
-                    title: 'Please confirm!',
-                    desp: 'Are you sure want to download',
+                    title: this.globals.languageJson?.please_confirm,
+                    desp: this.globals.languageJson?.are_you,
                 },
                 showHeader: false,
-                styleClass: 'confirm-dialog',
+                styleClass: this.globals.languageJson?.confirm_dialog,
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
                     this.downloadService.imageDownload(this.coffeeExperienceLink.qr_code_url).subscribe(
                         (res: Download) => {
-                            if (res.state === 'DONE') {
-                                this.toaster.success('Downloaded successfully');
+                            if (res.state === this.globals.languageJson?.done) {
+                                this.toaster.success(this.globals.languageJson?.downloaded_successfully);
                             }
                         },
                         (error) => {
-                            this.toaster.error('Download failed');
+                            this.toaster.error(this.globals.languageJson?.download_failed);
                         },
                     );
                 }
