@@ -413,7 +413,7 @@ export class ChatUtilService {
         } else if (orgType === OrganizationType.ESTATE) {
             return 'Coffee Estate';
         } else if (orgType === OrganizationType.HORECA) {
-            return 'HoReCa';
+            return 'Partner';
         } else if (orgType === OrganizationType.SEWN_ADMIN) {
             return 'Admin';
         } else if (orgType === OrganizationType.CONSUMER) {
