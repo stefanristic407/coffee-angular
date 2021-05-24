@@ -8,4 +8,5 @@ export const ORDER_STATUS_ITEMS: LabelValue[] = [
     { label: 'Harvest Ready', value: OrderStatus.HarvestReady },
     { label: 'Shipped', value: OrderStatus.Shipped },
     { label: 'Received', value: OrderStatus.Received },
+    { label: 'Rejected', value: OrderStatus.Rejected },
 ];
