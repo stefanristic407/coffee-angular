@@ -66,6 +66,7 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
             this.order &&
             this.order.status &&
             this.order.order_type !== OrderType.Prebook &&
+            this.order.status !== OrderStatus.Rejected &&
             (this.order.status === OrderStatus.Delivered || this.order.status === OrderStatus.Received)
         );
     }
@@ -76,6 +77,7 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
             this.order &&
             this.order.status &&
             this.order.order_type !== OrderType.Prebook &&
+            this.order.status !== OrderStatus.Rejected &&
             (this.order.status === OrderStatus.Delivered || this.order.status === OrderStatus.Received)
         );
     }
