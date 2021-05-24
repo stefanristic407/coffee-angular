@@ -119,7 +119,7 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
         });
         lightboxRef.load(this.items);
         this.primeTableService.url = `/ro/${this.roasterID}/orders/${this.orderID}/activity-logs`;
-        this.primeTableService.isMarkedForSale = false;
+        // this.primeTableService.isMarkedForSale = false;
         this.language();
         this.getOrderDetails();
         this.getRoasterNotes();
