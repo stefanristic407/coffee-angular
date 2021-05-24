@@ -137,13 +137,13 @@ export class ProductDetailsComponent implements OnInit {
             { label: 'Subscription', value: 'subscription' },
         ];
         this.productForm.controls.is_variants_included.valueChanges.subscribe((value) => {
-            if (!value) {
-                this.variants = this.productForm.get('variants') as FormArray;
-                while (this.variants.length !== 0) {
-                    this.variants.removeAt(0);
-                }
-                this.variants.push(this.createEmptyVariant());
-            }
+            // if (!value) {
+            //     this.variants = this.productForm.get('variants') as FormArray;
+            //     while (this.variants.length !== 0) {
+            //         this.variants.removeAt(0);
+            //     }
+            //     this.variants.push(this.createEmptyVariant());
+            // }
         });
         promises.push(
             new Promise((resolve, reject) => {
@@ -226,7 +226,7 @@ export class ProductDetailsComponent implements OnInit {
             (res) => {
                 if (res && res.result) {
                     const productDetails = res.result;
-                    this.count = Object.keys(res.result?.variants).length - 1;
+                    this.count = Object.keys(res.result?.variants).length;
                     this.isPublished = res.result.is_published;
                     this.isSetDefault = true;
                     this.breadCrumbItem = [
@@ -285,7 +285,7 @@ export class ProductDetailsComponent implements OnInit {
                             });
                         }
                         if (productDetails.is_external_product) {
-                            this.roastedFields.forEach((ele) => {
+                            for (const ele of this.roastedFields) {
                                 let getValue;
                                 if (ele === 'flavour_profiles') {
                                     getValue = getVariant[0].variant_details.flavour_profile
@@ -294,13 +294,15 @@ export class ProductDetailsComponent implements OnInit {
                                     getValue = this.flavoursList.filter((item) =>
                                         getValue.includes(item.flavour_profile_id),
                                     );
+                                    variant.external_flavour_profiles = getValue;
                                 } else if (ele === 'harvest_year') {
                                     getValue = new Date(getVariant[0].variant_details[ele]);
+                                    variant[ele] = getValue;
                                 } else {
                                     getValue = getVariant[0].variant_details[ele] ?? '';
+                                    variant[ele] = getValue;
                                 }
-                                variant[ele] = getValue;
-                            });
+                            }
                         }
                         const variantForm = this.fb.group(variant);
                         const weightVariants = getVariant[0].weight_variants;
@@ -460,8 +462,9 @@ export class ProductDetailsComponent implements OnInit {
             acidity: ['', Validators.compose([Validators.required])],
             aroma: ['', Validators.compose([Validators.required])],
             flavour: ['', Validators.compose([Validators.required])],
-            processing: ['', Validators.compose([Validators.required])],
+            processing: ['', Validators.compose(this.type === 'b2c' ? [Validators.required] : [])],
             flavour_profiles: [],
+            external_flavour_profiles: [],
             roaster_notes: ['', Validators.compose([maxWordCountValidator(300)])],
             recipes: ['', Validators.compose([maxWordCountValidator(300)])],
             brewing_method: '',
@@ -700,9 +703,15 @@ export class ProductDetailsComponent implements OnInit {
                     recipes: getVariantDetails.recipes,
                 };
                 if (this.type === 'b2c') {
-                    weightObj.variant_details.flavour_profiles = getVariantDetails.flavour_profiles.map(
-                        (item) => item.flavour_profile_id ?? item,
-                    );
+                    if (this.productForm.value.is_external_product) {
+                        weightObj.variant_details.flavour_profiles = getVariantDetails.external_flavour_profiles.map(
+                            (item) => item.flavour_profile_id ?? item,
+                        );
+                    } else {
+                        weightObj.variant_details.flavour_profiles = getVariantDetails.flavour_profiles.map(
+                            (item) => item.flavour_profile_id ?? item,
+                        );
+                    }
                     weightObj.variant_details.processing = getVariantDetails.processing;
                     weightObj.variant_details.body = getVariantDetails.body;
                     weightObj.variant_details.acidity = getVariantDetails.acidity;
@@ -839,6 +848,7 @@ export class ProductDetailsComponent implements OnInit {
         variantTypeArray.push({ label: '', value: 'button' });
         this.variantTypeArray = variantTypeArray;
     }
+
     getRoastingProfile(idx, profileID) {
         this.variants = this.productForm.get('variants') as FormArray;
         const getVariant = this.variants.controls[idx];
@@ -901,9 +911,5 @@ export class ProductDetailsComponent implements OnInit {
     getFlavourName(id) {
         const flavour = this.flavoursList.find((item) => item.flavour_profile_id === id);
         return flavour.flavour_profile_name;
-    }
-
-    onChangeExternal(event) {
-        console.log(event);
     }
 }

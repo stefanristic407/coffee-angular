@@ -220,6 +220,9 @@
                             <span *ngSwitchCase="'price'" (click)="onViewDetails(rowData)">
                                 <span> ${{ rowData[col.field] }} </span>
                             </span>
+                            <span *ngSwitchCase="'business_type'" (click)="onViewDetails(rowData)">
+                                <span> {{ rowData[col.field]?.toUpperCase() }} </span>
+                            </span>
                             <span *ngSwitchCase="'actions'">
                                 <span
                                     class="fnt-muli fnt-14 fnt-bold lh-normal text-clr60b view-details"
