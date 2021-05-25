@@ -21,12 +21,7 @@ export class AddNewOrderComponent implements OnInit {
     showOrderPanel = false;
     showCustomerPanel = false;
     selectedType: string;
-    breadItems = [
-        { label: this.globals.languageJson?.home, routerLink: '/dashboard' },
-        { label: this.globals.languageJson?.order_management, routerLink: '/outtake-orders' },
-        { label: this.globals.languageJson?.outtake_order, routerLink: '/outtake-orders' },
-        { label: this.globals.languageJson?.add_new_order },
-    ];
+    breadItems = [];
     customerTypeArray: any = [];
     roasterLableypeArray: any = [];
     preCleaned: any = [];
@@ -65,6 +60,16 @@ export class AddNewOrderComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.breadItems = [
+            { label: this.globals.languageJson?.home, routerLink: '/dashboard' },
+            { label: this.globals.languageJson?.order_management, routerLink: '/outtake-orders' },
+            { label: this.globals.languageJson?.outtake_order, routerLink: '/outtake-orders' },
+            {
+                label: this.outtakeOrderId
+                    ? this.globals.languageJson?.order_id + '#' + this.outtakeOrderId
+                    : this.globals.languageJson?.add_new_order,
+            },
+        ];
         this.customerTypeArray = [
             { label: this.globals.languageJson?.partner, value: this.globals.languageJson?.hrc },
             { label: this.globals.languageJson?.micro_roaster, value: this.globals.languageJson?.mr },
@@ -81,8 +86,8 @@ export class AddNewOrderComponent implements OnInit {
             { label: this.globals.languageJson?.no, value: false },
         ];
         this.weightTypeArray = [
-            { label: this.globals.languageJson?.kg, value: 'kg' },
-            { label: this.globals.languageJson?.lb, value: 'lb' },
+            { label: 'Kg', value: 'kg' },
+            { label: 'Ton', value: 'ton' },
         ];
         this.addOrdersForm = this.fb.group({
             product_name: ['', [Validators.required]],

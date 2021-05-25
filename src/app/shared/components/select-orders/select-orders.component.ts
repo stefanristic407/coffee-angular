@@ -157,7 +157,7 @@ export class SelectOrdersComponent implements OnInit {
                 {
                     field: 'email',
                     header: this.globals.languageJson?.email,
-                    width: 12,
+                    width: 20,
                 },
                 {
                     field: 'status',
@@ -167,7 +167,7 @@ export class SelectOrdersComponent implements OnInit {
                 {
                     field: 'roles',
                     header: this.globals.languageJson?.all_roles,
-                    width: 16,
+                    width: 33,
                 },
             ];
         } else {
@@ -242,6 +242,8 @@ export class SelectOrdersComponent implements OnInit {
             origin: this.originFilter ? this.originFilter : '',
             search_query: this.searchTerm ? this.searchTerm : '',
             per_page: this.displayFilter ? this.displayFilter : 1000,
+            sort_by: 'created_at',
+            sort_order: 'desc',
             start_date: '',
             end_date: '',
             status: 'RECEIVED',

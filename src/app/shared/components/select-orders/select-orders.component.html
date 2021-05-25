@@ -207,7 +207,12 @@
 
                         <ng-container *ngSwitchCase="'status'">
                             <span class="p-column-title"> {{ col.header }} </span>
-                            <span>{{ rowData[col.field] | lowercase }}</span>
+                            <span *ngIf="rowData['status'] == 'ACTIVE'" class="tableDataFont typeofStatus-active"
+                                >&#9679; {{ 'active' | translate }}
+                            </span>
+                            <span *ngIf="rowData['status'] == 'INACTIVE'" class="tableDataFont typeofStatus-disabled"
+                                >&#9679; Disabled
+                            </span>
                         </ng-container>
 
                         <ng-container *ngSwitchCase="'roles'">
