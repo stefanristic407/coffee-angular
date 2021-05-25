@@ -82,6 +82,7 @@ export class AssignUserComponent implements OnInit {
         setTimeout(() => (this.loading = true), 0); // To prevent expression has been checked error
         const options = {
             page,
+            per_page: 10,
             name: this.keywords ?? '',
             status: this.selectedStatus ?? '',
             role_id: this.selectedRole ?? '',
@@ -103,7 +104,7 @@ export class AssignUserComponent implements OnInit {
             this.tableColumns = [
                 {
                     field: 'name',
-                    header: 'name',
+                    header: 'Name',
                     sortable: true,
                 },
                 {
@@ -121,7 +122,7 @@ export class AssignUserComponent implements OnInit {
             this.tableColumns = [
                 {
                     field: 'name',
-                    header: 'name',
+                    header: 'Name',
                     sortable: true,
                 },
                 {
