@@ -41,19 +41,19 @@ export class ProcessDetailsComponent implements OnInit {
             star: true,
         },
         {
-            label: 'Dry Mill Processing*',
+            label: 'Dry Mill Processing',
             key: 'process',
         },
         {
-            label: 'Dry Mill Process description*',
+            label: 'Dry Mill Process description',
             key: 'description',
         },
         {
-            label: 'Drying Period*',
+            label: 'Drying Period',
             key: 'drying_period',
         },
         {
-            label: 'Screen Size*',
+            label: 'Screen Size',
             key: 'screen_size',
         },
         {
@@ -61,24 +61,24 @@ export class ProcessDetailsComponent implements OnInit {
             key: 'density',
         },
         {
-            label: 'Number of Defects*',
+            label: 'Number of Defects',
             key: 'no_of_defects',
         },
         {
-            label: 'Preparation*',
+            label: 'Preparation',
             key: 'preparation',
         },
         {
-            label: 'Quality grade*',
+            label: 'Quality grade',
             key: 'quality_grade',
         },
         {
-            label: 'Moisture content*',
+            label: 'Moisture content',
             key: 'moisture_content',
             isPercent: true,
         },
         {
-            label: 'Water activity*',
+            label: 'Water activity',
             key: 'water_activity',
         },
     ];

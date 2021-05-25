@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { GenerateReportService } from '../generate-report/generate-report.service';
 import { MenuItem, LazyLoadEvent } from 'primeng/api';
 import { LabelValue } from '@models';
-import { ORDER_TYPE_ITEMS } from '@constants';
+import { OrderType } from '@enums';
 
 @Component({
     selector: 'app-assign-orders',
@@ -33,7 +33,10 @@ export class AssignOrdersComponent implements OnInit {
         { label: '50', value: 50 },
     ];
 
-    readonly orderTypeItems = ORDER_TYPE_ITEMS;
+    readonly orderTypeItems = [
+        { label: 'Sample', value: OrderType.Sample },
+        { label: 'Booked', value: OrderType.Booked },
+    ];
 
     @HostListener('window:resize', ['$event'])
     onResize(event?) {
@@ -52,6 +55,7 @@ export class AssignOrdersComponent implements OnInit {
     ngOnInit(): void {
         this.breadCrumbItems = [
             { label: this.globals.languageJson?.home, routerLink: '/features/micro-roaster-dashboard' },
+            { label: this.globals.languageJson?.menu_sourcing },
             { label: this.globals.languageJson?.green_grading, routerLink: '/green-grading' },
             { label: this.globals.languageJson?.assign_orders },
         ];
@@ -150,8 +154,8 @@ export class AssignOrdersComponent implements OnInit {
             per_page: this.displayRowCounts,
             query: this.term,
             order_type: this.selectedOrderType,
-            sort_by: event?.sortField,
-            sort_order: event?.sortOrder === 1 ? 'asc' : 'desc',
+            sort_by: event?.sortField ?? 'order_date',
+            sort_order: event?.sortField ? (event?.sortOrder === 1 ? 'asc' : 'desc') : 'desc',
         };
         this.greenGradingService.getAssignOrder(options).subscribe((res: any) => {
             if (res.success === true) {

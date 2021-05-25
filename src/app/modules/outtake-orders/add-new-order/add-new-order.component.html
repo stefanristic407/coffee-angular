@@ -1,11 +1,11 @@
 <div *ngIf="!showOrderPanel" class="main-block">
-    <div class="d-flex justify-content-between pb-2">
+    <div class="d-flex justify-content-between pb-2 mb-45">
         <div class="breadcrumb-container">
             <p-breadcrumb [model]="breadItems"></p-breadcrumb>
         </div>
     </div>
     <section>
-        <div class="d-flex mb-md-3 pb-md-2">
+        <div class="d-flex mb-md-3 mt-4 pb-md-2">
             <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1">
                 <span *ngIf="!outtakeOrderId">
                     <span *ngIf="!addOrdersForm.get('product_name').value">{{ 'add_new_order' | translate }}</span>
@@ -90,6 +90,7 @@
                                 <div class="w-100">
                                     <input
                                         pInputText
+                                        placeholder="Select the order"
                                         class="roastery-website-input border weightInputDiv"
                                         [formControl]="addOrdersForm.controls['order_id']"
                                     />
@@ -161,6 +162,7 @@
                                 <div class="w-100">
                                     <input
                                         pInputText
+                                        placeholder="{{ 'select_the_sales_member' | translate }}"
                                         class="roastery-website-input border weightInputDiv"
                                         [formControl]="addOrdersForm.controls['sales_member_id']"
                                     />
@@ -188,7 +190,7 @@
                 </div>
                 <div class="d-flex flex-column br_top mt-md-3 pt-md-3">
                     <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 pt-md-3 mb-md-1">
-                        {{ 'order_details' | translate }}
+                        {{ 'roast_details' | translate }}
                     </div>
                     <div class="fnt-14 fnt-400 text-clr334 fnt-muli mb-3">
                         {{ 'select_the_green_coffee_order' | translate }}
@@ -293,6 +295,7 @@
                                     </div>
                                     <div class="weightInputDivKg">
                                         <span
+                                            class="fnt-600"
                                             *ngIf="
                                                 !outtakeOrderDetails?.unit_currency &&
                                                 !outtakeOrderDetails?.quantity_unit
@@ -369,20 +372,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row padd-2r mb-md-3">
+                    <div *ngIf="addOrdersForm.get('tax_included_in_price').value" class="row padd-2r">
                         <div class="col-md-6 col-sm-12 pl-md-3">
                             <div class="sewn-form-field mb-0 w-100">
                                 <div>
                                     <label>{{ 'vat_percentage' | translate }}<span class="text-clr-e5a">*</span></label>
                                 </div>
-                                <div class="weightInputGroupDiv p-inputgroup custom-addon dropdownClass inputFieldBox">
+                                <div
+                                    class="weightInputGroupDiv d-flex p-inputgroup custom-addon dropdownClass inputFieldBox"
+                                >
                                     <div class="w-100">
                                         <p-inputNumber
                                             class="bdr"
                                             [formControl]="addOrdersForm.controls['vat_percentage']"
-                                            placeholder="{{ 'total_price_paid_by_the_customer' | translate }}"
                                         ></p-inputNumber>
                                     </div>
+                                    <div class="daysInputDiv fnt-14 fnt-600 fnt-muli text-clr334 right_angle">%</div>
                                 </div>
                             </div>
                         </div>
@@ -422,12 +427,12 @@
                                             addOrdersForm.controls['gc_total_quantity'].touched &&
                                             addOrdersForm.controls['gc_total_quantity'].hasError('isInvalid')
                                         "
-                                        class="p-error"
+                                        class="p-error position-absolute"
                                         >{{ 'weight_gc_coffee' | translate }}</small
                                     >
                                     <small
                                         *ngIf="addOrdersForm.controls['gc_total_quantity'].errors?.required"
-                                        class="p-error"
+                                        class="p-error position-absolute"
                                     >
                                         {{ 'request' | translate }}
                                     </small>
@@ -664,12 +669,12 @@
                                             addOrdersForm.controls['gc_total_quantity'].touched &&
                                             addOrdersForm.controls['gc_total_quantity'].hasError('isInvalid')
                                         "
-                                        class="p-error"
+                                        class="position-absolute p-error"
                                         >{{ 'weight_gc_coffee' | translate }}</small
                                     >
                                     <small
                                         *ngIf="addOrdersForm.controls['gc_total_quantity'].errors?.required"
-                                        class="p-error"
+                                        class="p-error position-absolute"
                                     >
                                         {{ 'request' | translate }}
                                     </small>
@@ -811,7 +816,7 @@
                     <div>
                         <ul class="details-list ml-2">
                             <li class="fnt-14 lh-15 fnt-600">
-                                {{ orderDetails.estate_owner }}
+                                {{ orderDetails.estate_name }}
                             </li>
                             <li class="fnt-12 fnt-600 text-clr588 pt-1">
                                 {{ 'coffee_estate' | translate }}
