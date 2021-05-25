@@ -267,7 +267,7 @@ export class SelectOrdersComponent implements OnInit {
                     this.tableValue = data.result.filter((item) => {
                         return (item = item.id > 0);
                     });
-                    this.totalCount = data.result_info.length;
+                    this.totalCount = this.tableValue.length;
                 } else {
                     this.totalCount = data.result_info?.total_count;
                     this.tableValue = data.result;

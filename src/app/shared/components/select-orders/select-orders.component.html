@@ -44,7 +44,8 @@
     <div class="row ml-0 w-100">
         <div class="d-flex justify-content-between w-100">
             <div class="d-flex">
-                <!-- <p-dropdown
+                <p-dropdown
+                    *ngIf="selectedType === 'orders'"
                     [options]="originArray"
                     optionLabel="name"
                     optionValue="isoCode"
@@ -57,6 +58,7 @@
                 >
                 </p-dropdown>
                 <p-calendar
+                    *ngIf="selectedType === 'orders' || selectedType === 'micro-roasters' || selectedType === 'hrc'"
                     class="calender"
                     styleClass="only-icon"
                     [(ngModel)]="rangeDates"
@@ -68,8 +70,9 @@
                     [showButtonBar]="true"
                     placeholder="{{ 'date_range' | translate }}"
                     styleClass="round-border mb-3 mb-md-4"
-                ></p-calendar> -->
+                ></p-calendar>
                 <p-dropdown
+                    *ngIf="selectedType !== 'orders'"
                     [options]="roleType"
                     [showClear]="true"
                     [(ngModel)]="roles"
@@ -80,6 +83,7 @@
                     styleClass="round-border mr-2 mb-3 {{ roles ? 'highlight' : '' }}"
                 ></p-dropdown>
                 <p-dropdown
+                    *ngIf="selectedType !== 'orders'"
                     [options]="statusType"
                     [showClear]="true"
                     [(ngModel)]="customerStatus"
@@ -106,7 +110,7 @@
             [columns]="tableColumns"
             dataKey="id"
             [resizableColumns]="true"
-            [paginator]="true"
+            [paginator]="false"
             [rows]="displayFilter"
             selectionMode="single"
             [(selection)]="selectedOrder"
