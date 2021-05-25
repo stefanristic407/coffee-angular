@@ -11,7 +11,7 @@
                 type="text"
                 class="w-100"
                 pInputText
-                placeholder="Search"
+                [placeholder]="'search_by_name' | translate"
                 [(ngModel)]="keywords"
                 (ngModelChange)="loadData()"
             />
@@ -27,7 +27,7 @@
             type="text"
             class="w-100"
             pInputText
-            placeholder="Search"
+            [placeholder]="'search_by_name' | translate"
             [(ngModel)]="keywords"
             (ngModelChange)="loadData()"
         />

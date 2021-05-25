@@ -134,7 +134,14 @@
     </h2>
     <div class="d-flex flex-wrap justify-content-between justify-content-md-start contact-block">
         <div class="contact-wrap" *ngFor="let contact of sourcing.estateContacts">
-            <img class="contact-img mb-25" src="{{ contact.profile_image_url || 'assets/images/profile.svg' }}" />
+            <div class="contact-img-wrap mb-25">
+                <img *ngIf="contact.profile_image_url" class="contact-img" [src]="contact.profile_image_url" />
+                <img
+                    *ngIf="!contact.profile_image_url"
+                    class="placeholder"
+                    src="assets/images/contact-placeholder.svg"
+                />
+            </div>
             <h4 class="fnt-14 fnt-md-16 lh-normal fnt-bold text-clr334 ellipsis mb-1">
                 {{ contact.name | titlecase }}
             </h4>

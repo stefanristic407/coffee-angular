@@ -110,10 +110,12 @@
             [columns]="tableColumns"
             dataKey="id"
             [resizableColumns]="true"
-            [paginator]="false"
+            [paginator]="true"
             [rows]="displayFilter"
             selectionMode="single"
             [(selection)]="selectedOrder"
+            [lazy]="true"
+            (onLazyLoad)="getTableData($event)"
             [showCurrentPageReport]="false"
             [totalRecords]="totalCount"
             [responsive]="true"
@@ -133,7 +135,7 @@
             <ng-template pTemplate="body" let-rowData let-columns="columns">
                 <tr class="">
                     <td class="d-none d-md-table-cell">
-                        <p-tableRadioButton [value]="rowData" (onChange)="onSelect(rowData)"> </p-tableRadioButton>
+                        <p-tableRadioButton [value]="rowData"> </p-tableRadioButton>
                     </td>
                     <td
                         *ngFor="let col of columns"
@@ -157,11 +159,7 @@
                                 <span class="fnt-16 fnt-md-18 fnt-bold mb-2"
                                     >{{ 'order_id' | translate }} #{{ rowData.id }}</span
                                 >
-                                <p-tableRadioButton
-                                    class="float-right"
-                                    [value]="rowData"
-                                    (onChange)="onSelect(rowData)"
-                                ></p-tableRadioButton>
+                                <p-tableRadioButton class="float-right" [value]="rowData"></p-tableRadioButton>
                                 <div class="fnt-12 mt-2">
                                     <span class="text-clr588">{{ 'created_on' | translate }} : </span>
                                     <span>{{ rowData.created_at | date: 'dd MMM yyyy h:mma' }}</span>

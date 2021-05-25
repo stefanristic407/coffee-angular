@@ -36,31 +36,26 @@
                         </p>
                     </div>
                 </li>
-                <li>
+                <li *ngIf="cuppingDetails?.estate_name">
                     <div>
                         <label class="fnt-muli fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0">Estate Name :</label>
-                        <p class="fnt-muli fnt-12 fnt-600 text-clr334 col-5 p-0 mb-0" *ngIf="cuppingDetails">
+                        <p class="fnt-muli fnt-12 fnt-600 text-clr334 col-5 p-0 mb-0">
                             {{ cuppingDetails['estate_name'] }}
                         </p>
                     </div>
                 </li>
-                <li>
+                <li *ngIf="cuppingDetails?.origin">
                     <div>
                         <label class="fnt-muli fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0">Origin :</label>
-                        <p class="fnt-muli fnt-12 fnt-600 text-clr334 col-5 p-0 mb-0" *ngIf="cuppingDetails">
+                        <p class="fnt-muli fnt-12 fnt-600 text-clr334 col-5 p-0 mb-0">
                             {{ generateReportService.getCountryName(cuppingDetails['origin']) }}
                         </p>
                     </div>
                 </li>
-                <li>
+                <li *ngIf="cuppingDetails?.harvest_date">
                     <div>
-                        <label class="fnt-muli fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0" *ngIf="cuppingDetails"
-                            >Harvest year :</label
-                        >
-                        <p
-                            class="fnt-muli fnt-12 fnt-600 text-clr334 col-5 p-0 mb-0"
-                            *ngIf="cuppingDetails?.harvest_date"
-                        >
+                        <label class="fnt-muli fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0">Harvest year :</label>
+                        <p class="fnt-muli fnt-12 fnt-600 text-clr334 col-5 p-0 mb-0">
                             {{ cuppingDetails['harvest_date'] | date: 'MMMM y' }}
                         </p>
                     </div>
@@ -72,7 +67,7 @@
         <div class="evaluator mt-3 ml-md-3">
             <div class="info_list">
                 <ul class="clearfix mb-0">
-                    <li *ngIf="singleCuppingDetails">
+                    <li *ngIf="singleCuppingDetails?.cupping_type">
                         <div>
                             <label class="fnt-muli fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0">Cupping type :</label>
                             <p class="fnt-muli fnt-12 fnt-600 text-clr334 col-5 p-0 mb-0">
@@ -80,10 +75,10 @@
                             </p>
                         </div>
                     </li>
-                    <li>
+                    <li *ngIf="evaluatorName">
                         <div>
                             <label class="fnt-muli fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0">Evaluator :</label>
-                            <p class="fnt-muli fnt-12 fnt-600 text-clr334 col-5 p-0 mb-0" *ngIf="evaluatorName">
+                            <p class="fnt-muli fnt-12 fnt-600 text-clr334 col-5 p-0 mb-0">
                                 {{ evaluatorName | titlecase }}
                             </p>
                         </div>

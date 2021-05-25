@@ -30,7 +30,7 @@ export class SelectOrdersComponent implements OnInit {
     originFilter: any;
     rangeDates: any;
     displayArray = [];
-    displayFilter: any;
+    displayFilter = 10;
     tableValue = [];
     tableColumns = [];
     selectedOrder: any;
@@ -78,17 +78,12 @@ export class SelectOrdersComponent implements OnInit {
             { label: this.globals.languageJson?.active, value: 'active' },
             { label: this.globals.languageJson?.inactive, value: 'inactive' },
         ];
-        this.roleType = [
-            { label: this.globals.languageJson?.active, value: 1 },
-            { label: this.globals.languageJson?.inactive, value: 2 },
-            { label: this.globals.languageJson?.inactive, value: 3 },
-            { label: this.globals.languageJson?.inactive, value: 4 },
-            { label: this.globals.languageJson?.inactive, value: 5 },
-            { label: this.globals.languageJson?.inactive, value: 6 },
-        ];
-        this.getTableData();
         this.loadFilterValues();
         this.createRoasterTable();
+        this.getTableData();
+        if (this.selectedType !== 'orders') {
+            this.getRoleList();
+        }
         if (this.route.snapshot.queryParams.batchId && this.route.snapshot.queryParams.ordId) {
             this.batchId = decodeURIComponent(this.route.snapshot.queryParams.batchId);
             this.ordId = decodeURIComponent(this.route.snapshot.queryParams.ordId);
@@ -214,9 +209,7 @@ export class SelectOrdersComponent implements OnInit {
             { label: '50', value: 50 },
         ];
     }
-    onSelect(orderData) {
-        console.log(orderData);
-    }
+
     setOrigin(origindata: any) {
         this.estatetermOrigin = origindata;
         this.datatableElement.dtInstance.then((table) => {
@@ -236,12 +229,18 @@ export class SelectOrdersComponent implements OnInit {
         this.selectedEntry = value;
     }
 
-    getTableData() {
+    getTableData(event?) {
         this.tableValue = [];
+        let page = 1;
+        if (event) {
+            page = event.first / event.rows + 1;
+        }
+        // setTimeout(() => (this.loader = true), 0);
         const postData: any = {
             origin: this.originFilter ? this.originFilter : '',
             search_query: this.searchTerm ? this.searchTerm : '',
-            per_page: this.displayFilter ? this.displayFilter : 1000,
+            page,
+            per_page: 10,
             sort_by: 'created_at',
             sort_order: 'desc',
             start_date: '',
@@ -265,6 +264,7 @@ export class SelectOrdersComponent implements OnInit {
         }
         this.roasterService.getListOrderDetails(this.roasterId, selectedType, postData).subscribe((data: any) => {
             if (data.success && data.result && data.result.length > 0) {
+                this.tableValue = [];
                 if (this.selectedType === 'micro-roasters' || this.selectedType === 'hrc') {
                     this.tableValue = data.result.filter((item) => {
                         return (item = item.id > 0);
@@ -274,7 +274,24 @@ export class SelectOrdersComponent implements OnInit {
                     this.totalCount = data.result_info?.total_count;
                     this.tableValue = data.result;
                 }
+                // this.roleType = this.tableValue.map((resp) => {
+                //     if (resp.roles) {
+                //         const type = { label: resp.roles, value: resp.roles };
+                //         return type;
+                //     }
+                // });
                 this.loader = false;
+            }
+        });
+    }
+
+    getRoleList() {
+        this.roasterService.getRoles(this.roasterId).subscribe((res: any) => {
+            if (res.success) {
+                this.roleType = res.result.map((item) => {
+                    const type = { label: item.name, value: item.id };
+                    return type;
+                });
             }
         });
     }
