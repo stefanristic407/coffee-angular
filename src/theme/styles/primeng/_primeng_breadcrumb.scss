@@ -7,15 +7,12 @@ p-breadcrumb {
     padding: 0;
     width: max-content;
 }
-.p-breadcrumb ul li .p-menuitem-link:hover {
+.p-breadcrumb ul li .p-menuitem-link.p-menuitem-link-active:hover {
     text-decoration: underline;
     color: $general-text-color;
     .p-menuitem-text {
         color: $general-text-color;
     }
-}
-.p-breadcrumb ul li:last-child .p-menuitem-link:hover {
-    text-decoration: none;
 }
 .p-breadcrumb ul li .p-menuitem-link:focus {
     box-shadow: none;

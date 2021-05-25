@@ -422,7 +422,7 @@ export class ProductDetailsComponent implements OnInit {
                 label: this.globals.languageJson[`${this.type}_product_catalog`],
                 routerLink: `/e-commerce/product-list/${this.type}`,
             },
-            { label: 'product' },
+            { label: 'Add product' },
         ];
     }
     onBatchChange(idx) {

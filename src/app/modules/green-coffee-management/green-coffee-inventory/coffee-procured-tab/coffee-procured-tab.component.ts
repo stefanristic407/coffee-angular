@@ -196,7 +196,6 @@ export class CoffeeProcuredTabComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.primeTableService.isMarkedForSale = true;
         this.primeTableService.url = `/ro/${this.roasterID}/procured-coffees`;
         this.initializeTableProcuredCoffee();
         this.primeTableService.form = this.form;
