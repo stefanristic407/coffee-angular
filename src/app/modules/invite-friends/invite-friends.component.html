@@ -10,10 +10,10 @@
                     <div class="col-md-7 col-lg-8 mb-4 pb-2">
                         <div class="mb-md-4">
                             <p class="fnt-16 fnt-md-18 lh-normal fnt-muli fnt-700 text-clr334 mb-2 mb-md-25">
-                                Invite friend`s and colleagues
+                                {{ 'invite_a_new_end-user' | translate }}
                             </p>
                             <p class="fnt-14 lh-normal fnt-muli fnt-400 text-clr588 mb-0">
-                                Invite your friend`s or colleagues from here
+                                {{ 'invite_others_desp' | translate }}
                             </p>
                         </div>
                         <div class="pt-4" formArrayName="emails">
@@ -27,7 +27,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-10 sewn-form-field mb-4 mb-md-45">
+                                    <div class="col-md-10 col-lg-6 sewn-form-field mb-4 mb-md-45">
                                         <label>Enter e-mail address<span class="star">*</span></label>
                                         <input
                                             type="text"

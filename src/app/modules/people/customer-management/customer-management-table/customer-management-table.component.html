@@ -53,26 +53,28 @@
                 </td>
                 <td class="view-listing" (click)="shareDetails(item)">{{ 'view_details' | translate }}</td>
                 <td id="customer-contract-popup">
-                    <a
-                        class="menu-arrow"
-                        [popover]="poplistTemplate"
-                        placement="left"
-                        [outsideClick]="true"
-                        #pop="bs-popover"
-                    >
-                        <p><img src="assets/images/kebab-menu.svg" alt="" /></p>
-                    </a>
-                    <ng-template #poplistTemplate id="{{ item.id }}">
-                        <div id="popover-mobile-content">
-                            <ul class="list-group custom-popover">
-                                <li class="list-group-item">
-                                    <a class="pointer-item" (click)="pop.hide(); stimulatedLogin(item)">{{
-                                        'simulated_login' | translate
-                                    }}</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </ng-template>
+                    <ng-container *ngIf="item.status !== 'PENDING'">
+                        <a
+                            class="menu-arrow"
+                            [popover]="poplistTemplate"
+                            placement="left"
+                            [outsideClick]="true"
+                            #pop="bs-popover"
+                        >
+                            <p><img src="assets/images/kebab-menu.svg" alt="" /></p>
+                        </a>
+                        <ng-template #poplistTemplate id="{{ item.id }}">
+                            <div id="popover-mobile-content">
+                                <ul class="list-group custom-popover">
+                                    <li class="list-group-item">
+                                        <a class="pointer-item" (click)="pop.hide(); stimulatedLogin(item)">{{
+                                            'simulated_login' | translate
+                                        }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </ng-template>
+                    </ng-container>
                 </td>
             </tr>
         </ng-template>

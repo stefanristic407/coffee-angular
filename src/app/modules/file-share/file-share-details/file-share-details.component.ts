@@ -91,6 +91,7 @@ export class FileShareDetailsComponent extends ResizeableComponent implements On
     refreshBreadCrumb() {
         this.breadItems = [
             { label: this.globals.languageJson?.home, routerLink: '/' },
+            { label: this.globals.languageJson?.brand_experience },
             { label: this.globals.languageJson?.file_share, routerLink: '/file-share' },
         ];
         const folder = this.fileShareSrv.fileTree[this.fileShareSrv.folderId];
