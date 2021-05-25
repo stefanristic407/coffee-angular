@@ -229,7 +229,6 @@ export class SelectOrdersComponent implements OnInit {
     }
 
     getTableData(event?) {
-        console.log(event);
         this.tableValue = [];
         let page = 1;
         if (event) {
@@ -280,7 +279,6 @@ export class SelectOrdersComponent implements OnInit {
                         return type;
                     }
                 });
-                console.log(this.roleType);
                 this.loader = false;
             }
         });
