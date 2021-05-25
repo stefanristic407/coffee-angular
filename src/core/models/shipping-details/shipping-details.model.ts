@@ -14,4 +14,6 @@ export interface ShippingDetails {
     shipping_instructions: string;
     shipment_status: ShippingStatus;
     estimated_pickup_date: string;
+    exporter_fc_name: string;
+    import_fc_name: string;
 }
