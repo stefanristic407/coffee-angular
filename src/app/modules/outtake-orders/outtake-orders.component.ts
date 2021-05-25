@@ -34,8 +34,8 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
     ];
 
     customerType = [
-        { label: this.globals.languageJson?.micro_roaster, value: this.globals.languageJson?.mr },
-        { label: this.globals.languageJson?.horeca, value: this.globals.languageJson?.hrc },
+        { label: this.globals.languageJson?.micro_roaster, value: 'mr' },
+        { label: this.globals.languageJson?.horeca, value: 'hrc' },
     ];
     forms: FormGroup;
     termStatus: any;

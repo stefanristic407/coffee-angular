@@ -120,7 +120,7 @@
                 <label>{{ 'price' | translate }}<span class="star">*</span></label>
                 <div class="p-input-icon-left">
                     <input type="number" formControlName="price" pInputText />
-                    <span class="left-icon fnt-muli fnt-14 fnt-normal text-clr334 lh-normal">$</span>
+                    <span class="left-icon fnt-muli fnt-14 fnt-normal text-clr334 lh-normal">SEK</span>
                     <small *ngIf="productForm.controls['price'].errors?.required" class="position-absolute p-error">
                         {{ 'required' | translate }}
                     </small>
@@ -128,17 +128,11 @@
             </div>
             <div class="col-sm-12 col-md-6 col-lg-3 sewn-form-field mb-3 mb-lg-4">
                 <label>{{ 'stock_available' | translate }}<span class="star">*</span></label>
-
-                <div class="input-and-select gray">
+                <div class="p-input-icon-right">
                     <input type="number" pInputText formControlName="available_quantity" />
-                    <p-dropdown
-                        [options]="availableTypeList"
-                        optionLabel="label"
-                        placeholder=""
-                        formControlName="available_quantity_type"
-                        optionValue="value"
-                        [readonly]="true"
-                    ></p-dropdown>
+                    <span class="right-icon fnt-muli fnt-14 fnt-normal text-clr334 lh-normal">{{
+                        productForm.value.available_quantity_type
+                    }}</span>
                     <small
                         *ngIf="productForm.controls['available_quantity'].errors?.required"
                         class="position-absolute p-error"
@@ -237,23 +231,14 @@
             </div>
             <div class="col-sm-12 col-md-6 col-lg-3 sewn-form-field mb-3 mb-lg-4">
                 <label>{{ 'weight' | translate }}</label>
-                <div class="input-and-select gray">
+                <div class="p-input-icon-right">
                     <input
                         type="number"
                         pInputText
                         formControlName="weight"
                         [placeholder]="'enter_number' | translate"
                     />
-                    <p-dropdown
-                        [options]="weightUnitList"
-                        optionLabel="label"
-                        placeholder=""
-                        formControlName="weight_unit"
-                        optionValue="value"
-                    ></p-dropdown>
-                    <small *ngIf="productForm.controls['weight'].errors?.required" class="position-absolute p-error">
-                        {{ 'required' | translate }}
-                    </small>
+                    <span class="right-icon fnt-muli fnt-14 fnt-normal text-clr334 lh-normal">kg</span>
                 </div>
             </div>
         </div>
