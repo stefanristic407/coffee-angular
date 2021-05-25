@@ -77,7 +77,7 @@
                                         applicable to all green coffee and roasted coffee you sell on the platform.
                                     </p>
                                 </div>
-                                <form [formGroup]="details" novalidate>
+                                <form [formGroup]="details" novalidate class="w-100">
                                     <div class="col-md-12 p-0 mt-43">
                                         <div>
                                             <div class="row">
@@ -102,73 +102,68 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-12 col-md-4">
-                                                    <div class="form-input sewn-form-field">
-                                                        <label class="fnt-14 fnt-muli fnt-600 text-clr334"
-                                                            >Shipping Price<span>*</span></label
+                                                <div class="col-12 col-md-6 sewn-form-field">
+                                                    <label class="fnt-14 fnt-muli fnt-600 text-clr334"
+                                                        >Shipping Price<span class="star">*</span></label
+                                                    >
+                                                    <div class="input-and-select gray">
+                                                        <p-inputNumber
+                                                            mode="decimal"
+                                                            locale="en-US"
+                                                            [minFractionDigits]="2"
+                                                            formControlName="price"
+                                                        ></p-inputNumber>
+                                                        <p-dropdown
+                                                            [options]="shippingPriceUnitArray"
+                                                            [autoDisplayFirst]="false"
+                                                            formControlName="price_unit"
+                                                        ></p-dropdown>
+                                                        <small
+                                                            *ngIf="detailsFormControl.price.errors?.required"
+                                                            class="p-error"
                                                         >
-                                                        <div class="input-and-select gray">
-                                                            <p-inputNumber
-                                                                mode="decimal"
-                                                                locale="en-US"
-                                                                [minFractionDigits]="2"
-                                                                formControlName="price"
-                                                            ></p-inputNumber>
-                                                            <p-dropdown
-                                                                [options]="shippingPriceUnitArray"
-                                                                [autoDisplayFirst]="false"
-                                                                formControlName="price_unit"
-                                                            ></p-dropdown>
-                                                            <small
-                                                                *ngIf="
-                                                                    detailsFormControl.price.touched &&
-                                                                    detailsFormControl.price.errors?.required
-                                                                "
-                                                                class="p-error"
-                                                            >
-                                                                Shipment price is required
-                                                            </small>
-                                                        </div>
+                                                            Shipment price is required
+                                                        </small>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-md-6 sewn-form-field">
+                                                <div class="col-12 col-md-6">
                                                     <label>Estimated delivery time<span class="star">*</span></label>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="weightInputGroupDiv d-flex">
-                                                            <input
-                                                                type="number"
-                                                                placeholder=""
-                                                                class="weightInputDiv"
-                                                                formControlName="day_min"
-                                                                pInputText
-                                                            />
-                                                            <small
-                                                                *ngIf="details['controls']['day_min'].errors?.required"
-                                                                class="p-error"
-                                                            >
-                                                                Estimated delivery time is required
-                                                            </small>
-                                                            <div class="daysInputDiv">
-                                                                <span>Days</span>
+                                                    <div class="delivery-time-wrap">
+                                                        <div class="sewn-form-field">
+                                                            <div class="p-inputgroup custom-addon">
+                                                                <input
+                                                                    type="number"
+                                                                    formControlName="day_min"
+                                                                    pInputText
+                                                                />
+                                                                <span class="p-inputgroup-addon gray">days</span>
+                                                                <small
+                                                                    *ngIf="
+                                                                        detailsFormControl['day_min'].errors?.required
+                                                                    "
+                                                                    class="p-error"
+                                                                >
+                                                                    {{ 'required' | translate }}
+                                                                </small>
                                                             </div>
                                                         </div>
-                                                        <div class="pl-2 pr-2">-</div>
-                                                        <div class="weightInputGroupDiv d-flex">
-                                                            <input
-                                                                type="number"
-                                                                placeholder=""
-                                                                class="weightInputDiv"
-                                                                formControlName="day_max"
-                                                                pInputText
-                                                            />
-                                                            <small
-                                                                *ngIf="details['controls']['day_max'].errors?.required"
-                                                                class="p-error"
-                                                            >
-                                                                Estimated delivery time is required
-                                                            </small>
-                                                            <div class="daysInputDiv">
-                                                                <span>Days</span>
+                                                        <div class="form-middle">-</div>
+                                                        <div class="sewn-form-field">
+                                                            <div class="p-inputgroup custom-addon">
+                                                                <input
+                                                                    type="number"
+                                                                    formControlName="day_max"
+                                                                    pInputText
+                                                                />
+                                                                <span class="p-inputgroup-addon gray">days</span>
+                                                                <small
+                                                                    *ngIf="
+                                                                        detailsFormControl['day_max'].errors?.required
+                                                                    "
+                                                                    class="p-error"
+                                                                >
+                                                                    {{ 'required' | translate }}
+                                                                </small>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -291,7 +286,7 @@
                         <div class="col-md-12 p-0 Onboard-rows mt-43">
                             <div class="Onboard-rows__inputs">
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-6 form-group sewn-form-field pr-md-3">
+                                    <div class="col-sm-12 col-md-6 sewn-form-field pr-md-3">
                                         <label class="fnt-14 fnt-muli fnt-600 text-clr334">Shipping type *</label>
                                         <input
                                             type="text"
@@ -310,7 +305,7 @@
                                             Shipment type is required
                                         </span>
                                     </div>
-                                    <div class="col-sm-12 col-md-6 form-group sewn-form-field">
+                                    <div class="col-sm-12 col-md-6 sewn-form-field">
                                         <label>Shipping Price<span class="star">*</span></label>
                                         <div class="weightInputGroupDiv d-flex">
                                             <input
@@ -338,42 +333,30 @@
                                     </div>
                                     <div class="col-12 sewn-form-field">
                                         <label>Estimated delivery time<span class="star">*</span></label>
-                                        <div class="d-flex align-items-center">
-                                            <div class="weightInputGroupDiv d-flex">
-                                                <input
-                                                    type="number"
-                                                    placeholder=""
-                                                    class="weightInputDiv"
-                                                    formControlName="day_min"
-                                                    pInputText
-                                                />
-                                                <small
-                                                    *ngIf="details['controls']['day_min'].errors?.required"
-                                                    class="p-error"
-                                                >
-                                                    Estimated delivery time is required
-                                                </small>
-                                                <div class="daysInputDiv">
-                                                    <span>Days</span>
+                                        <div class="delivery-time-wrap">
+                                            <div class="sewn-form-field">
+                                                <div class="p-inputgroup custom-addon">
+                                                    <input type="number" formControlName="day_min" pInputText />
+                                                    <span class="p-inputgroup-addon gray">days</span>
+                                                    <small
+                                                        *ngIf="detailsFormControl['day_min'].errors?.required"
+                                                        class="p-error"
+                                                    >
+                                                        {{ 'required' | translate }}
+                                                    </small>
                                                 </div>
                                             </div>
-                                            <div class="pl-2 pr-2">-</div>
-                                            <div class="weightInputGroupDiv d-flex">
-                                                <input
-                                                    type="number"
-                                                    placeholder=""
-                                                    class="weightInputDiv"
-                                                    formControlName="day_max"
-                                                    pInputText
-                                                />
-                                                <small
-                                                    *ngIf="details['controls']['day_max'].errors?.required"
-                                                    class="p-error"
-                                                >
-                                                    Estimated delivery time is required
-                                                </small>
-                                                <div class="daysInputDiv">
-                                                    <span>Days</span>
+                                            <div class="form-middle">-</div>
+                                            <div class="sewn-form-field">
+                                                <div class="p-inputgroup custom-addon">
+                                                    <input type="number" formControlName="day_max" pInputText />
+                                                    <span class="p-inputgroup-addon gray">days</span>
+                                                    <small
+                                                        *ngIf="detailsFormControl['day_max'].errors?.required"
+                                                        class="p-error"
+                                                    >
+                                                        {{ 'required' | translate }}
+                                                    </small>
                                                 </div>
                                             </div>
                                         </div>

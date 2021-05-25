@@ -139,3 +139,24 @@
     border: 1px solid #ebebeb;
     margin-bottom: 1.5rem;
 }
+
+.delivery-time-wrap {
+    display: flex;
+    .sewn-form-field {
+        width: calc(100% - 1rem);
+
+        @media (min-width: 768px) {
+            width: calc(100% - 2rem);
+        }
+    }
+
+    .form-middle {
+        padding-top: 17px;
+        min-width: 1rem;
+        text-align: center;
+
+        @media (min-width: 768px) {
+            min-width: 2rem;
+        }
+    }
+}
