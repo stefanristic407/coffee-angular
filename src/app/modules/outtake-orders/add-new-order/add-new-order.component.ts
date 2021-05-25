@@ -81,8 +81,8 @@ export class AddNewOrderComponent implements OnInit {
             { label: this.globals.languageJson?.no, value: false },
         ];
         this.weightTypeArray = [
-            { label: this.globals.languageJson?.kg, value: this.globals.languageJson?.kg },
-            { label: this.globals.languageJson?.lb, value: this.globals.languageJson?.lb },
+            { label: this.globals.languageJson?.kg, value: 'kg' },
+            { label: this.globals.languageJson?.lb, value: 'lb' },
         ];
         this.addOrdersForm = this.fb.group({
             product_name: ['', [Validators.required]],

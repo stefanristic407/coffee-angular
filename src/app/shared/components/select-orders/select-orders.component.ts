@@ -52,6 +52,10 @@ export class SelectOrdersComponent implements OnInit {
     batchId: any;
     ordId: any;
     selectedValue: any;
+    customerStatus: any;
+    statusType: any = [];
+    roleType: { label: any; value: number }[];
+    roles: any;
 
     constructor(
         public router: Router,
@@ -70,6 +74,18 @@ export class SelectOrdersComponent implements OnInit {
         this.estatetermOrigin = '';
         this.estatetermType = '';
         this.displayNumbers = '10';
+        this.statusType = [
+            { label: this.globals.languageJson?.active, value: 'active' },
+            { label: this.globals.languageJson?.inactive, value: 'inactive' },
+        ];
+        this.roleType = [
+            { label: this.globals.languageJson?.active, value: 1 },
+            { label: this.globals.languageJson?.inactive, value: 2 },
+            { label: this.globals.languageJson?.inactive, value: 3 },
+            { label: this.globals.languageJson?.inactive, value: 4 },
+            { label: this.globals.languageJson?.inactive, value: 5 },
+            { label: this.globals.languageJson?.inactive, value: 6 },
+        ];
         this.getTableData();
         this.loadFilterValues();
         this.createRoasterTable();
@@ -233,6 +249,10 @@ export class SelectOrdersComponent implements OnInit {
         if (this.selectedType !== 'orders') {
             delete postData.status;
         }
+        if (this.selectedType === 'users' || this.selectedType === 'sales-member') {
+            postData.status = this.customerStatus ? this.customerStatus : '';
+            postData.role_id = this.roles ? this.roles : '';
+        }
         if (this.rangeDates && this.rangeDates.length === 2) {
             postData.start_date = moment(this.rangeDates[0], 'DD/MM/YYYY').format('YYYY-MM-DD');
             postData.end_date = moment(this.rangeDates[1], 'DD/MM/YYYY').format('YYYY-MM-DD');
@@ -247,6 +267,7 @@ export class SelectOrdersComponent implements OnInit {
                     this.tableValue = data.result.filter((item) => {
                         return (item = item.id > 0);
                     });
+                    this.totalCount = data.result_info.length;
                 } else {
                     this.totalCount = data.result_info?.total_count;
                     this.tableValue = data.result;

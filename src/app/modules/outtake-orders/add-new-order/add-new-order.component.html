@@ -1,11 +1,11 @@
 <div *ngIf="!showOrderPanel" class="main-block">
-    <div class="d-flex justify-content-between pb-2">
+    <div class="d-flex justify-content-between pb-3">
         <div class="breadcrumb-container">
             <p-breadcrumb [model]="breadItems"></p-breadcrumb>
         </div>
     </div>
     <section>
-        <div class="d-flex mb-md-3 pb-md-2">
+        <div class="d-flex mb-md-3 mt-4 pb-md-2">
             <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1">
                 <span *ngIf="!outtakeOrderId">
                     <span *ngIf="!addOrdersForm.get('product_name').value">{{ 'add_new_order' | translate }}</span>
@@ -369,20 +369,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row padd-2r mb-md-3">
+                    <div *ngIf="addOrdersForm.get('tax_included_in_price').value" class="row padd-2r">
                         <div class="col-md-6 col-sm-12 pl-md-3">
                             <div class="sewn-form-field mb-0 w-100">
                                 <div>
                                     <label>{{ 'vat_percentage' | translate }}<span class="text-clr-e5a">*</span></label>
                                 </div>
-                                <div class="weightInputGroupDiv p-inputgroup custom-addon dropdownClass inputFieldBox">
+                                <div
+                                    class="weightInputGroupDiv d-flex p-inputgroup custom-addon dropdownClass inputFieldBox"
+                                >
                                     <div class="w-100">
                                         <p-inputNumber
                                             class="bdr"
                                             [formControl]="addOrdersForm.controls['vat_percentage']"
-                                            placeholder="{{ 'total_price_paid_by_the_customer' | translate }}"
                                         ></p-inputNumber>
                                     </div>
+                                    <div class="daysInputDiv fnt-14 fnt-600 fnt-muli text-clr334 right_angle">%</div>
                                 </div>
                             </div>
                         </div>
@@ -422,12 +424,12 @@
                                             addOrdersForm.controls['gc_total_quantity'].touched &&
                                             addOrdersForm.controls['gc_total_quantity'].hasError('isInvalid')
                                         "
-                                        class="p-error"
+                                        class="p-error position-absolute"
                                         >{{ 'weight_gc_coffee' | translate }}</small
                                     >
                                     <small
                                         *ngIf="addOrdersForm.controls['gc_total_quantity'].errors?.required"
-                                        class="p-error"
+                                        class="p-error position-absolute"
                                     >
                                         {{ 'request' | translate }}
                                     </small>
@@ -664,12 +666,12 @@
                                             addOrdersForm.controls['gc_total_quantity'].touched &&
                                             addOrdersForm.controls['gc_total_quantity'].hasError('isInvalid')
                                         "
-                                        class="p-error"
+                                        class="position-absolute p-error"
                                         >{{ 'weight_gc_coffee' | translate }}</small
                                     >
                                     <small
                                         *ngIf="addOrdersForm.controls['gc_total_quantity'].errors?.required"
-                                        class="p-error"
+                                        class="p-error position-absolute"
                                     >
                                         {{ 'request' | translate }}
                                     </small>
