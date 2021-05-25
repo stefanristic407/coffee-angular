@@ -206,9 +206,7 @@ export class SelectOrdersComponent implements OnInit {
             { label: '50', value: 50 },
         ];
     }
-    onSelect(orderData) {
-        console.log(orderData);
-    }
+
     setOrigin(origindata: any) {
         this.estatetermOrigin = origindata;
         this.datatableElement.dtInstance.then((table) => {
