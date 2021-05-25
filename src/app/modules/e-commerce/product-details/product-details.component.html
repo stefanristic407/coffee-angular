@@ -622,7 +622,7 @@
                     [ngClass]="{ 'mt-3': !isPublished }"
                     (click)="onSave()"
                 >
-                    {{ 'save_as_draft' | translate }}
+                    {{ (isPublished ? 'save' : 'save_as_draft') | translate }}
                 </button>
             </div>
         </div>
