@@ -346,75 +346,78 @@
                     <hr class="mt-2 mb-2" />
                 </form>
                 <!-- Brand Profile -->
-                <input
-                    type="file"
-                    class="file-inpt"
-                    hidden
-                    #brandImageInput
-                    (click)="setFormat($event)"
-                    (change)="handleRoasterFile($event)"
-                />
-                <!-- new brand form -->
-                <div class="row mt-md-45 mb-4 mb-md-45">
-                    <div class="col-12">
-                        <p class="fnt-18 font-bold text-clr334 w-100 mt-2 mt-md-0 mb-1">
-                            {{ 'brands' | translate }}
-                        </p>
-                        <p class="fnt-14 fnt-600 text-clr588 w-100 m-0" *ngIf="isSaveMode">
-                            {{ 'list_down_brands' | translate }}.
-                        </p>
-                    </div>
-                </div>
-                <div *ngIf="isSaveMode && isAddBrandMode">
-                    <ng-template *ngTemplateOutlet="brandFormTemplate"></ng-template>
-                </div>
-                <!-- end new brand form -->
-                <hr class="mt-2 mb-4 mb-md-45" *ngIf="isSaveMode && isAddBrandMode" />
 
-                <div class="mb-3" *ngFor="let brand of filteredBrands">
-                    <div
-                        class="brand-item-container"
-                        *ngIf="(isEditBrandMode && brand.id !== toEditBrand?.id) || !isEditBrandMode"
-                    >
+                <ng-container *ngIf="filteredBrands?.length || isSaveMode">
+                    <input
+                        type="file"
+                        class="file-inpt"
+                        hidden
+                        #brandImageInput
+                        (click)="setFormat($event)"
+                        (change)="handleRoasterFile($event)"
+                    />
+                    <!-- new brand form -->
+                    <div class="row mt-md-45 mb-4 mb-md-45">
+                        <div class="col-12">
+                            <p class="fnt-18 font-bold text-clr334 w-100 mt-2 mt-md-0 mb-1">
+                                {{ 'brands' | translate }}
+                            </p>
+                            <p class="fnt-14 fnt-600 text-clr588 w-100 m-0" *ngIf="isSaveMode">
+                                {{ 'list_down_brands' | translate }}.
+                            </p>
+                        </div>
+                    </div>
+                    <div *ngIf="isSaveMode && isAddBrandMode">
+                        <ng-template *ngTemplateOutlet="brandFormTemplate"></ng-template>
+                    </div>
+                    <!-- end new brand form -->
+                    <hr class="mt-2 mb-4 mb-md-45" *ngIf="isSaveMode && isAddBrandMode" />
+
+                    <div class="mb-3" *ngFor="let brand of filteredBrands">
                         <div
-                            class="border-md-main br-4 brand-item pl-md-3 p-md-4 d-flex align-items-center"
-                            [ngClass]="{ 'mr-3125': isSaveMode }"
+                            class="brand-item-container"
+                            *ngIf="(isEditBrandMode && brand.id !== toEditBrand?.id) || !isEditBrandMode"
                         >
-                            <div class="mr-3">
-                                <img [src]="brand.url" class="brand-image" />
+                            <div
+                                class="border-md-main br-4 brand-item pl-md-3 p-md-4 d-flex align-items-center"
+                                [ngClass]="{ 'mr-3125': isSaveMode }"
+                            >
+                                <div class="mr-3">
+                                    <img [src]="brand.url" class="brand-image" />
+                                </div>
+                                <div class="brand-meta-container">
+                                    <p class="fnt-16 font-bold text-clr334 mb-2">
+                                        {{ brand.name }}
+                                    </p>
+                                    <p class="fnt-14 fnt-600 text-clr334">
+                                        {{ brand.description }}
+                                    </p>
+                                </div>
                             </div>
-                            <div class="brand-meta-container">
-                                <p class="fnt-16 font-bold text-clr334 mb-2">
-                                    {{ brand.name }}
-                                </p>
-                                <p class="fnt-14 fnt-600 text-clr334">
-                                    {{ brand.description }}
-                                </p>
+                            <div class="brand-edit-btn" [ngClass]="{ 'visiblity-hidden': !isSaveMode }">
+                                <a class="view-order cursor-pointer hover-underline" (click)="editBrand(brand)">
+                                    {{ 'edit' | translate }}
+                                </a>
                             </div>
                         </div>
-                        <div class="brand-edit-btn" [ngClass]="{ 'visiblity-hidden': !isSaveMode }">
-                            <a class="view-order cursor-pointer hover-underline" (click)="editBrand(brand)">
-                                {{ 'edit' | translate }}
+                        <div *ngIf="isSaveMode && isEditBrandMode && brand.id === toEditBrand.id">
+                            <ng-template *ngTemplateOutlet="brandFormTemplate"></ng-template>
+                        </div>
+                        <div *ngIf="!brands?.length" class="text-center p-2">
+                            <span> No brands found.</span>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="isSaveMode && !isAddBrandMode">
+                        <div class="col-12 mt-4 mt-md-2 mb-4 mb-md-4 text-left">
+                            <a class="add-link" href="javascript:void(0);" (click)="addBrandProfileMode()">
+                                <span class="fnt-14 font-bold add-text ml-4">Add another brand</span>
                             </a>
                         </div>
                     </div>
-                    <div *ngIf="isSaveMode && isEditBrandMode && brand.id === toEditBrand.id">
-                        <ng-template *ngTemplateOutlet="brandFormTemplate"></ng-template>
-                    </div>
-                    <div *ngIf="!brands?.length" class="text-center p-2">
-                        <span> No brands found.</span>
-                    </div>
-                </div>
 
-                <div class="row" *ngIf="isSaveMode && !isAddBrandMode">
-                    <div class="col-12 mt-4 mt-md-2 mb-4 mb-md-4 text-left">
-                        <a class="add-link" href="javascript:void(0);" (click)="addBrandProfileMode()">
-                            <span class="fnt-14 font-bold add-text ml-4">Add another brand</span>
-                        </a>
-                    </div>
-                </div>
-
-                <hr [ngClass]="[isAddBrandMode ? 'mt-4 mt-md-45 mb-4 mb-md-45' : 'mt-0 mb-0']" />
+                    <hr [ngClass]="[isAddBrandMode ? 'mt-4 mt-md-45 mb-4 mb-md-45' : 'mt-0 mb-0']" />
+                </ng-container>
 
                 <div class="" *ngIf="isSaveMode">
                     <div class="row mt-3 mb-md-4 mb-3">
