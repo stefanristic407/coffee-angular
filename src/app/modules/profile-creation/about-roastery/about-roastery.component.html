@@ -347,15 +347,15 @@
                 </form>
                 <!-- Brand Profile -->
 
+                <input
+                    type="file"
+                    class="file-inpt"
+                    hidden
+                    #brandImageInput
+                    (click)="setFormat($event)"
+                    (change)="handleRoasterFile($event)"
+                />
                 <ng-container *ngIf="filteredBrands?.length || isSaveMode">
-                    <input
-                        type="file"
-                        class="file-inpt"
-                        hidden
-                        #brandImageInput
-                        (click)="setFormat($event)"
-                        (change)="handleRoasterFile($event)"
-                    />
                     <!-- new brand form -->
                     <div class="row mt-md-45 mb-4 mb-md-45">
                         <div class="col-12">
@@ -504,6 +504,7 @@
                                         [userId]="contact?.user_id"
                                         orgType="ro"
                                         shape="rectangle"
+                                        type="contact"
                                         size="150"
                                     ></app-user-detail>
                                     <div class="profile-des">
@@ -568,7 +569,7 @@
 <ng-template #rightSidePanel>
     <div class="row m-0">
         <div class="col-12 col-md-6 col-lg-12 p-0 pl-md-0 pr-md-2 p-lg-0">
-            <div class="border-main br-4 p-0" *appAclIf="'certificate-list'">
+            <div class="border-main br-4 p-0">
                 <div class="header fnt-18 font-bold text-clr334 m-1">{{ 'awards_and_certificates' | translate }}</div>
                 <div class="row mt-3 m-0" *ngFor="let certificate of certificatesArray; let i = index">
                     <div class="col-12">
@@ -606,7 +607,7 @@
                                             <li
                                                 class="list-item fnt-14 fnt-600 fnt-muli text-clr588 border-none"
                                                 (click)="editCertificate($event, certificate); pop1.hide()"
-                                                *appAclIf="'certificate-management'"
+                                                *appAclIf="'brand-profile-management'"
                                             >
                                                 <a class="pointer-item">
                                                     {{ 'edit' | translate }}
@@ -615,7 +616,7 @@
                                             <li
                                                 class="list-item fnt-14 fnt-600 text-clr588 border-none"
                                                 (click)="deleteCertificate(certificate.id); pop1.hide()"
-                                                *appAclIf="'certificate-management'"
+                                                *appAclIf="'brand-profile-management'"
                                             >
                                                 <a class="pointer-item">{{ 'delete' | translate }}</a>
                                             </li>
@@ -627,7 +628,7 @@
                     </div>
                 </div>
                 <div *ngIf="isSaveMode">
-                    <div class="add-brand-div p-25 p-md-4" *appAclIf="'certificate-management'">
+                    <div class="add-brand-div p-25 p-md-4" *appAclIf="'brand-profile-management'">
                         <a class="brand-tag add-link" routerLink="/roastery-profile/certificate">
                             <span class="add-text ml-4">{{ 'add_another_certificate' | translate }}</span>
                         </a>
