@@ -69,7 +69,7 @@
                                             </li>
                                             <li>
                                                 <label>Buying price</label>
-                                                <p>$ {{ orderDetails.price }}/kg USD</p>
+                                                <p>{{ orderDetails.price }} USD/kg</p>
                                             </li>
                                             <li>
                                                 <label>Roaster Ref. No.</label>
@@ -84,7 +84,7 @@
                                                 <p>
                                                     {{ saleInformation.quantity_count }}
                                                     {{ saleInformation.quantity_type }}/ {{ saleInformation.quantity }}
-                                                    {{ saleInformation.price_unit }}
+                                                    {{ saleInformation.quantity_unit }}
                                                 </p>
                                             </li>
                                             <li>
@@ -122,6 +122,12 @@
                                                             ? saleInformation.quantity * saleInformation.quantity_count
                                                             : 'NA'
                                                     }}
+                                                    <span
+                                                        *ngIf="
+                                                            saleInformation.quantity && saleInformation.quantity_count
+                                                        "
+                                                        >{{ saleInformation.quantity_unit }}</span
+                                                    >
                                                 </p>
                                             </li>
                                             <li>
@@ -151,6 +157,7 @@
                                                             ? saleInformation.vat_percentage
                                                             : 'NA'
                                                     }}
+                                                    <span *ngIf="saleInformation.vat_percentage">%</span>
                                                 </p>
                                             </li>
                                         </ul>
@@ -182,7 +189,10 @@
                                                         <li>
                                                             <label>Origin</label>
                                                             <p>
-                                                                {{ orderDetails.origin ? orderDetails.origin : 'NA' }}
+                                                                <span *ngIf="orderDetails.origin">{{
+                                                                    orderDetails.origin | country | translate
+                                                                }}</span>
+                                                                <span *ngIf="!orderDetails.origin">NA</span>
                                                             </p>
                                                         </li>
                                                         <li>

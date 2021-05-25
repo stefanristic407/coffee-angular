@@ -24,11 +24,13 @@
                             <div class="d-flex align-items-start">
                                 <div class="d-inline-block col-sm-12 col-md-8 col-lg-9 px-0">
                                     <div class="page-title">
-                                        {{ isCoffeeDetailsPage ? 'Order #' + orderId : 'Default Settings' }}
+                                        <span *ngIf="isCoffeeDetailsPage"
+                                            >{{ 'default_settings' | translate }} #{{ orderId | translate }}</span
+                                        >
+                                        <span *ngIf="!isCoffeeDetailsPage">{{ 'default_settings' | translate }}</span>
                                     </div>
                                     <div class="page-description">
-                                        Set your default settings for your coffee expereice page. these would be used
-                                        when you haven’t updated details for the order related coffee experience page
+                                        {{ 'set_default_settings' | translate }}
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4 col-lg-3 butn-prev-save butn-prev-save--desktop">
@@ -375,7 +377,7 @@
                                                     <video
                                                         #video
                                                         [src]="defaultDetails.video_url"
-                                                        class="w-100"
+                                                        class="w-100 br-4"
                                                     ></video>
                                                     <div class="grey-gradient-container text-white">
                                                         <div>Video</div>
@@ -505,7 +507,7 @@
                                     <!--Share your story-->
                                     <div
                                         *ngIf="isCoffeeDetailsPage && coffeeExperienceLink"
-                                        class="form-section__inputs"
+                                        class="form-section__inputs mt"
                                     >
                                         <div class="roastery-fields tab">
                                             <div class="tab-width">
@@ -545,12 +547,16 @@
                                                     >
                                                         {{ 'scan_download_text' | translate }}
                                                     </p>
-                                                    <div class="text-center">
-                                                        <img
-                                                            class="img-fluid"
-                                                            src="{{ coffeeExperienceLink?.qr_code_url }}"
-                                                        />
-                                                        <div class="download-qr-link d-flex justify-content-center">
+                                                    <div class="text-center d-flex">
+                                                        <div>
+                                                            <img
+                                                                class="img-fluid"
+                                                                src="{{ coffeeExperienceLink?.qr_code_url }}"
+                                                            />
+                                                        </div>
+                                                        <div
+                                                            class="download-qr-link d-flex justify-content-center align-items-end mb-md-3"
+                                                        >
                                                             <a
                                                                 class="btn-trans-icon download-icon"
                                                                 (click)="onDownloadQr()"
