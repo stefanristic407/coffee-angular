@@ -48,8 +48,8 @@ const badwordsRegExp = require('badwords/regexp') as RegExp;
     styleUrls: ['./sewn-direct-message.component.scss'],
     animations: [
         trigger('buttonFade', [
-            transition(':enter', [style({ opacity: 0 }), animate('500ms', style({ opacity: 1 }))]),
-            transition(':leave', [style({ opacity: 1 }), animate('500ms', style({ opacity: 0 }))]),
+            transition(':enter', [style({ opacity: 0 }), animate('.5s', style({ opacity: 1 }))]),
+            transition(':leave', [style({ opacity: 1 }), animate('.5s', style({ opacity: 0 }))]),
         ]),
     ],
 })
@@ -82,7 +82,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     private blockThreadReferance: ThreadListItem | null = null;
     private clearThreadReferance: ThreadListItem | null = null;
     private deleteThreadReferance: ThreadListItem | null = null;
-    public defaultProfileImage = 'assets/images/profile.svg';
+    public defaultProfileImage = 'assets/images/dm-default-profile.svg';
+    public bokenImage = 'assets/images/dm-broken-image.svg';
     public chatListScrollEventSubject = new Subject<Event>();
 
     public loader = {

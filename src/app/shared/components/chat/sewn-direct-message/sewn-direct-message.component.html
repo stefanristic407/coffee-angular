@@ -211,7 +211,7 @@
                 />
 
                 <div class="dm-ltm-panel scale-up-top" *ngIf="contextMenuOpen" data-element="context-menu-panel">
-                    <span class="dm-ltm-pane-arrow"></span>
+                    <span class="dm-ltm-panel-arrow"></span>
                     <div class="dm-ltm-panel-listing">
                         <div class="dm-ltm-panel-title">Chat settings</div>
                         <div class="dm-itm-item">
@@ -664,7 +664,11 @@
             <div class="dm-ci-unit">
                 <ng-container *ngIf="message.meta.type === 'STICKER' && message.meta.sticker">
                     <div class="dm-ci-sticker-block">
-                        <img class="dm-ci-sticker-image" [src]="message.meta?.sticker?.stickerItem?.path" />
+                        <img
+                            class="dm-ci-sticker-image"
+                            [src]="message.meta?.sticker?.stickerItem?.path"
+                            [appImageFallback]="bokenImage"
+                        />
                     </div>
                 </ng-container>
                 <ng-container *ngIf="!(message.meta.type === 'STICKER' && message.meta.sticker)">
@@ -695,6 +699,7 @@
                                 [attr.data-image-id]="message.id"
                                 [attr.data-image-caption]="message.content"
                                 [src]="message?.file?.url"
+                                [appImageFallback]="bokenImage"
                                 alt="Image"
                             />
                         </a>
@@ -769,7 +774,11 @@
                 <div class="dm-ci-unit">
                     <ng-container *ngIf="unit.message.meta.type === 'STICKER' && unit.message.meta.sticker">
                         <div class="dm-ci-sticker-block">
-                            <img class="dm-ci-sticker-image" [src]="unit.message.meta?.sticker?.stickerItem?.path" />
+                            <img
+                                class="dm-ci-sticker-image"
+                                [src]="unit.message.meta?.sticker?.stickerItem?.path"
+                                [appImageFallback]="bokenImage"
+                            />
                         </div>
                     </ng-container>
                     <ng-container *ngIf="!(unit.message.meta.type === 'STICKER' && unit.message.meta.sticker)">
@@ -800,6 +809,7 @@
                                     [attr.data-image-id]="unit.message.id"
                                     [attr.data-image-caption]="unit.message.content"
                                     [src]="unit.message?.file?.url"
+                                    [appImageFallback]="bokenImage"
                                     alt="Image"
                                 />
                             </a>
@@ -868,7 +878,7 @@
                     src="assets/images/dm-remove-upload.svg"
                     title="Remove"
                 />
-                <img class="dm-mb-image" [src]="uploadFileMeta?.url" />
+                <img class="dm-mb-image" [src]="uploadFileMeta?.url" [appImageFallback]="bokenImage" />
             </div>
             <div class="dm-mb-image-uploader" *ngIf="uploadProgressing">
                 <p-progressSpinner strokeWidth="5"></p-progressSpinner>
@@ -926,6 +936,7 @@
                 <div class="dm-mb-action-button-container" *ngIf="chatHandler.setting.enable_emoticons">
                     <img
                         *ngIf="showMessageBoxPanel !== 'EMOJI'"
+                        @buttonFade
                         (click)="showMessageBoxPanel = 'EMOJI'"
                         class="dm-mb-action-button-img dm-action-button"
                         src="assets/images/dm-mb-action-button-emoji.svg"
@@ -933,7 +944,7 @@
                     />
                     <img
                         *ngIf="showMessageBoxPanel === 'EMOJI'"
-                        [@buttonFade]="showMessageBoxPanel === 'EMOJI' ? 'show' : 'hide'"
+                        @buttonFade
                         (click)="showMessageBoxPanel = 'OFF'"
                         class="dm-mb-action-button-img dm-action-button"
                         src="assets/images/dm-mb-action-button-emoji-active.svg"
@@ -943,6 +954,7 @@
                 <div class="dm-mb-action-button-container" *ngIf="chatHandler.setting.enable_emoticons">
                     <img
                         *ngIf="showMessageBoxPanel !== 'STICKER'"
+                        @buttonFade
                         (click)="showMessageBoxPanel = 'STICKER'"
                         class="dm-mb-action-button-img dm-action-button"
                         src="assets/images/dm-mb-action-button-sticker.svg"
@@ -950,6 +962,7 @@
                     />
                     <img
                         *ngIf="showMessageBoxPanel === 'STICKER'"
+                        @buttonFade
                         (click)="showMessageBoxPanel = 'OFF'"
                         class="dm-mb-action-button-img dm-action-button"
                         src="assets/images/dm-mb-action-button-sticker-active.svg"

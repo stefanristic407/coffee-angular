@@ -4,6 +4,7 @@ import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { SourcingService } from '../sourcing.service';
 import { GlobalsService, ResizeService } from '@services';
 import { ResizeableComponent } from '@base-components';
+import { AVAILABILITY_LISTING_STATUS_ITEMS } from '@constants';
 
 @Component({
     selector: 'app-filter',
@@ -13,11 +14,7 @@ import { ResizeableComponent } from '@base-components';
 export class FilterComponent extends ResizeableComponent implements OnInit {
     queryParams: any;
     limitFlavour = true;
-    listingStatusItems = [
-        { label: 'At Estate', value: 'ESTATE' },
-        { label: 'At mill', value: 'MILL' },
-        { label: 'Warehouse', value: 'WAREHOUSE' },
-    ];
+    listingStatusItems = AVAILABILITY_LISTING_STATUS_ITEMS;
 
     constructor(
         public ref: DynamicDialogRef,

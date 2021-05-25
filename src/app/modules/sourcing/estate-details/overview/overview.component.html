@@ -39,8 +39,8 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-45">
                             <div class="real-estate">
-                                <img src="assets/images/estate.svg" />
-                                <h6>Total farm area</h6>
+                                <img src="assets/images/total-farm.svg" />
+                                <h6>{{ 'total_farm_area' | translate }}</h6>
                                 <h3 *ngIf="sourcing.estate?.total_area != ''">
                                     {{ sourcing.estate?.total_area + ' acres' || 'NA' }}
                                 </h3>
@@ -48,8 +48,8 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-45">
                             <div class="real-estate">
-                                <img src="assets/images/estate.svg" />
-                                <h6>Farm yield / Ha</h6>
+                                <img src="assets/images/farm-yield.svg" />
+                                <h6>{{ 'farm_yield' | translate }} / Ha</h6>
                                 <h3 *ngIf="sourcing.estate?.total_area != ''">
                                     {{ sourcing.estate?.farm_yield || 'NA' }}
                                 </h3>
@@ -129,7 +129,7 @@
                                 <p>{{ sourcing.estate?.wild_animals || 'NA' }}</p>
                             </li>
                             <li>
-                                <label>{{ 'average_annual_prodcution_crops' | translate }} :</label>
+                                <label>{{ 'average_annual_production_crops' | translate }} :</label>
                                 <p>{{ sourcing.estate?.total_production + ' tons' || 'NA' }}</p>
                             </li>
                         </ul>
@@ -164,7 +164,7 @@
                                     [href]="sourcing.estate?.slug | estateBrandLink"
                                     target="_blank"
                                 >
-                                    {{ 'know_more' | translate }}
+                                    {{ 'learn_more' | translate }}
                                 </a>
                             </div>
                         </div>
@@ -195,7 +195,7 @@
                                     [href]="sourcing.estate?.slug | estateBrandLink"
                                     target="_blank"
                                 >
-                                    {{ 'know_more' | translate }}
+                                    {{ 'learn_more' | translate }}
                                 </a>
                             </div>
                         </div>

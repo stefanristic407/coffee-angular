@@ -56,5 +56,6 @@ export class GreenCoffeeInventoryComponent implements OnInit {
         } else {
             this.isProcuredTab = false;
         }
+        this.primeTableService.records = [];
     }
 }

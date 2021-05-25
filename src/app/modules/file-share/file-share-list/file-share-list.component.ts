@@ -20,6 +20,7 @@ export class FileShareListComponent implements OnInit {
         this.fileShareSrv.folderId = 0;
         this.breadItems = [
             { label: this.globals.languageJson?.home, routerLink: '/' },
+            { label: this.globals.languageJson?.brand_experience },
             { label: this.globals.languageJson?.file_share },
         ];
         this.menuItems = [
