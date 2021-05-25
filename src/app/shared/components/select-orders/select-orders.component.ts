@@ -81,6 +81,9 @@ export class SelectOrdersComponent implements OnInit {
         this.loadFilterValues();
         this.createRoasterTable();
         this.getTableData();
+        if (this.selectedType !== 'orders') {
+            this.getRoleList();
+        }
         if (this.route.snapshot.queryParams.batchId && this.route.snapshot.queryParams.ordId) {
             this.batchId = decodeURIComponent(this.route.snapshot.queryParams.batchId);
             this.ordId = decodeURIComponent(this.route.snapshot.queryParams.ordId);
@@ -271,13 +274,24 @@ export class SelectOrdersComponent implements OnInit {
                     this.totalCount = data.result_info?.total_count;
                     this.tableValue = data.result;
                 }
-                this.roleType = this.tableValue.map((resp) => {
-                    if (resp.roles) {
-                        const type = { label: resp.roles, value: resp.roles };
-                        return type;
-                    }
-                });
+                // this.roleType = this.tableValue.map((resp) => {
+                //     if (resp.roles) {
+                //         const type = { label: resp.roles, value: resp.roles };
+                //         return type;
+                //     }
+                // });
                 this.loader = false;
+            }
+        });
+    }
+
+    getRoleList() {
+        this.roasterService.getRoles(this.roasterId).subscribe((res: any) => {
+            if (res.success) {
+                this.roleType = res.result.map((item) => {
+                    const type = { label: item.name, value: item.id };
+                    return type;
+                });
             }
         });
     }
