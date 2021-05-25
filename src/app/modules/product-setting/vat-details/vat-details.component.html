@@ -57,7 +57,6 @@
                                     optionLabel="name"
                                     optionValue="isoCode"
                                     formControlName="country"
-                                    (onChange)="changeCountry()"
                                     placeholder="{{ 'select_country' | translate }}"
                                 ></p-dropdown>
                                 <span class="p-error" *ngIf="detailsFormControl.country.errors?.required">
@@ -124,7 +123,6 @@
                                 optionLabel="name"
                                 optionValue="isoCode"
                                 formControlName="country"
-                                (onChange)="changeCountry()"
                                 placeholder="{{ 'select_country' | translate }}"
                             ></p-dropdown>
                             <small *ngIf="detailsFormControl.country.errors?.required" class="p-error">
