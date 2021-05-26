@@ -214,7 +214,7 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
         while (this.members.length !== 0) {
             this.members.removeAt(0);
         }
-        this.roasteryProfileService.roasterContacts.forEach((element) => {
+        this.roasteryProfileService.topContacts.forEach((element) => {
             this.members.push(this.fb.control(element.user_id, Validators.compose([Validators.required])));
         });
     }

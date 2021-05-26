@@ -36,7 +36,7 @@ export class RoasteryProfileService {
     userId: string;
     roasterId: string;
     roasterUsers: any = [];
-    roasterContacts: any = [];
+    topContacts: any = [];
     updatedContacts: number[] = [];
     single: { name: string; value: any }[];
     showDelete = false;
@@ -110,7 +110,7 @@ export class RoasteryProfileService {
     getcontactList() {
         this.roasterService.getRoasterContacts(this.roasterId).subscribe((res: any) => {
             if (res.success) {
-                this.roasterContacts = res.result;
+                this.topContacts = res.result;
             }
         });
     }
@@ -168,7 +168,7 @@ export class RoasteryProfileService {
         const promises = [];
         // add top contacts
         this.updatedContacts.forEach((element) => {
-            const idx = this.roasterContacts.findIndex((item) => item.user_id === element);
+            const idx = this.topContacts.findIndex((item) => item.user_id === element);
             if (element && element && idx === -1) {
                 const payload = {
                     user_id: element,
@@ -192,7 +192,7 @@ export class RoasteryProfileService {
             }
         });
         // remove top contacts
-        this.roasterContacts.forEach((element) => {
+        this.topContacts.forEach((element) => {
             const idx = this.updatedContacts.findIndex((item) => item === element.user_id);
             if (idx === -1) {
                 promises.push(
