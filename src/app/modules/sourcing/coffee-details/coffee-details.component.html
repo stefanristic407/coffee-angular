@@ -113,14 +113,14 @@
                                             <h3 class="ellipsis mb-0">
                                                 {{ CURRENCY_LIST[sourcing.harvestDetail?.price_unit]
                                                 }}{{ sourcing.harvestDetail?.price }}
-                                                {{ sourcing.harvestDetail?.price_unit }}&nbsp;/&nbsp;kg
+                                                {{ sourcing.harvestDetail?.price_unit }}/kg
                                             </h3>
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-2 col-6 d-none d-md-block">
                                         <div class="real-estate">
                                             <h6>Inco :</h6>
-                                            <h3 class="mb-0">{{ sourcing.harvestDetail?.incoterm }}</h3>
+                                            <h3 class="mb-0">{{ sourcing.harvestDetail?.incoterm || 'NA' }}</h3>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-7 border-left-primary">
@@ -128,7 +128,7 @@
                                             <h6>{{ 'available_quantity' | translate }} :</h6>
                                             <h3 class="ellipsis mb-0">
                                                 {{ sourcing.harvestDetail?.quantity_count }}
-                                                {{ sourcing.harvestDetail?.quantity_type }} of
+                                                {{ sourcing.harvestDetail?.quantity_type | quantityType }} of
                                                 {{ sourcing.harvestDetail?.quantity
                                                 }}{{ sourcing.harvestDetail?.quantity_unit }}
                                             </h3>
@@ -138,8 +138,8 @@
                                         <div class="real-estate">
                                             <h6>{{ 'minimum_quantity' | translate }} :</h6>
                                             <h3 class="mb-0">
-                                                {{ sourcing.harvestDetail?.minimum_purchase_quantity
-                                                }}{{ sourcing.harvestDetail?.quantity_type }}
+                                                {{ sourcing.harvestDetail?.minimum_purchase_quantity }}
+                                                {{ sourcing.harvestDetail?.quantity_type | quantityType }}
                                             </h3>
                                         </div>
                                     </div>

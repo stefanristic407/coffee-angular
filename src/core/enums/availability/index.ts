@@ -1,2 +1,3 @@
 export * from './availability-listing-status.enum';
 export * from './availability-type.enum';
+export * from './quantity-type.enum';

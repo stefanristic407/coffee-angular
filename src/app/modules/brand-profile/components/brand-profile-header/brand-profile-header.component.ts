@@ -17,7 +17,7 @@ export class BrandProfileHeaderComponent implements OnInit {
         'home-page': 'Add details according to respective sections to create your brand profile website',
         'about-us': 'Add details according to respective sections to create your brand profile website',
         learn: 'Add details about your estate to give yours a view.',
-        sustainability: 'Add details about your estate to give yours a view.',
+        sustainability: 'Add details about your sustainability practices.',
         'visit-us': 'Add details according to respective sections to create your brand profile website',
     };
 

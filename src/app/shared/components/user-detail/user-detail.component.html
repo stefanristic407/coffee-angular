@@ -11,14 +11,18 @@
         [src]="imageUrl || data?.profile_image_thumb_url || data?.profile_image_url"
         [appImageFallback]="defaultProfileImage"
         [alt]="name && name.length ? name.slice(0, 1) : 'AV'"
-        [style.borderRadius]="shape === 'rectangle' ? 'unset' : '50%'"
+        [style.borderRadius]="shape === 'rectangle' ? '2px' : '50%'"
     />
-    <span
-        *ngIf="!data?.profile_image_thumb_url && !data?.profile_image_url && !imageUrl"
-        class="text-white"
-        [style.font-size]="size / 1.5 + 'px'"
-        >{{ name && name.length ? name.slice(0, 1) : '' }}</span
-    >
+    <ng-container *ngIf="!data?.profile_image_thumb_url && !data?.profile_image_url && !imageUrl">
+        <div *ngIf="type == 'contact'; else noContact" class="contact-img-wrap">
+            <img class="placeholder" src="assets/images/contact-placeholder.svg" />
+        </div>
+        <ng-template #noContact>
+            <span class="text-white" [style.font-size]="size / 1.5 + 'px'">{{
+                name && name.length ? name.slice(0, 1) : ''
+            }}</span></ng-template
+        >
+    </ng-container>
 </div>
 <span class="text-underline cursor-pointer" *ngIf="type === 'text' && data" (mouseenter)="showPopup(myOp, $event)">
     {{ name }}

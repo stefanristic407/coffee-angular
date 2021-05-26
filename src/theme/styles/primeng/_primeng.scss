@@ -109,10 +109,25 @@
             border: none;
             line-height: 18px;
             color: $muted-text-color;
+            &.gray {
+                padding: 0.5rem 0.75rem 0.5rem 0.5rem;
+                background-color: $primary-bg-color;
+                border: none;
+                top: 4px;
+                right: 4px;
+                height: 42px;
+                border-radius: 4px;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                color: $general-text-color;
+            }
         }
+        .p-inputtext,
         .p-inputnumber {
             width: 100%;
         }
+        .p-inputtext,
         .p-inputnumber-input {
             padding-right: 4rem;
         }

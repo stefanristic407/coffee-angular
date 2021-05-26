@@ -13,7 +13,7 @@
                             Image/Video banner<span class="star">*</span>
                         </p>
                         <p class="fnt-12 fnt-md-14 lh-normal fnt-600 fnt-muli text-clr588 mb-2">
-                            Upload a banner cover about your roaster
+                            {{ 'upload_banner_cover_about_your_roastery' | translate }}
                         </p>
                         <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 1440 x 465 px</p>
 
@@ -77,7 +77,7 @@
 
                     <div class="border-main br-2 mt-4 mt-lg-45 p-3 p-lg-4">
                         <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">
-                            Info about your sustainability work
+                            {{ 'your_work_in_sustainability' | translate | titlecase }}
                         </h4>
                         <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">
                             Give a brief intro about your sustainability practises
@@ -99,7 +99,7 @@
 
                         <div class="w-100 sewn-form-field mb-0">
                             <label>
-                                Sub heading<span class="star">*</span>
+                                {{ 'subheading' | translate }}<span class="star">*</span>
                                 <span class="pull-right text-clr588">
                                     {{ infoForm.get('short_description').value | wordCount }}/100 words
                                 </span>
@@ -156,7 +156,7 @@
 
                             <div class="w-100 sewn-form-field">
                                 <label>
-                                    Sub heading<span class="star">*</span>
+                                    {{ 'subheading' | translate }}<span class="star">*</span>
                                     <span class="pull-right text-clr588">
                                         {{ infoForm.get('section' + i + '_description').value | wordCount }}/70 words
                                     </span>
@@ -217,7 +217,7 @@
 
                         <div class="w-100 sewn-form-field">
                             <label>
-                                A short description*<span class="star">*</span>
+                                {{ 'short_description' | translate | titlecase }}<span class="star">*</span>
                                 <span class="pull-right text-clr588">
                                     {{ infoForm.get('product_short_description').value | wordCount }}/40 words
                                 </span>
@@ -243,7 +243,8 @@
 
                         <div class="w-100 sewn-form-field mb-0">
                             <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
-                                Upload 4 label icons<span class="star">*</span>
+                                {{ 'upload' | translate }} 4 {{ 'label' | translate }} {{ 'icons' | translate
+                                }}<span class="star">*</span>
                             </p>
                             <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">
                                 Size - 100 x 100 px

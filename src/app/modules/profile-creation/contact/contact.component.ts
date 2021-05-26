@@ -14,6 +14,10 @@ export class ContactComponent implements OnInit {
     isSaveMode: boolean;
     countryList = COUNTRY_LIST;
     cityList = [];
+    latitude: number;
+    longitude: number;
+    zoom = 13;
+
     constructor(
         private fb: FormBuilder,
         public roasteryProfileService: RoasteryProfileService,
@@ -90,6 +94,9 @@ export class ContactComponent implements OnInit {
         };
 
         this.contactForm.patchValue(formValue);
+
+        this.latitude = this.roasteryProfileService.roasteryProfileData.latitude;
+        this.longitude = this.roasteryProfileService.roasteryProfileData.longitude;
     }
 
     isControlHasError(controlName: string, validationType: string): boolean {
@@ -100,5 +107,28 @@ export class ContactComponent implements OnInit {
 
         const result = control.hasError(validationType) && (control.dirty || control.touched);
         return result;
+    }
+
+    getCurrentLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    console.log('Current position:', position.coords);
+                    this.latitude = position.coords.latitude;
+                    this.longitude = position.coords.longitude;
+                },
+                (err) => {
+                    console.log('error', err);
+                },
+                { timeout: Infinity },
+            );
+        }
+    }
+
+    markerDragEnd(event) {
+        this.latitude = event.coords.lat;
+        this.longitude = event.coords.lng;
+        this.roasteryProfileService.toUpdateProfileData.latitude = this.latitude;
+        this.roasteryProfileService.toUpdateProfileData.longitude = this.longitude;
     }
 }
