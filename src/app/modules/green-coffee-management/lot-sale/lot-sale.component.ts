@@ -318,7 +318,12 @@ export class LotSaleComponent implements OnInit {
             (response) => {
                 if (response && response.success) {
                     this.toasterService.success('Product deleted successfully');
-                    this.router.navigate(['/green-coffee-management/green-coffee-inventory']);
+                    const navigationExtras: NavigationExtras = {
+                        queryParams: {
+                            markSale: 'yes',
+                        },
+                    };
+                    this.router.navigate(['/green-coffee-management/green-coffee-inventory'], navigationExtras);
                 }
             },
             (err) => {

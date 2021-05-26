@@ -35,6 +35,7 @@ export class MarkedSaleComponent implements OnInit {
         { label: 'Display 25', value: 25 },
         { label: 'Display 50', value: 50 },
     ];
+    disableAction: boolean;
     @Input('form')
     set form(value: FormGroup) {
         this._form = value;
@@ -213,10 +214,19 @@ export class MarkedSaleComponent implements OnInit {
     }
 
     onEdit(item) {
-        let link = [];
-        link = [`/green-coffee-management/green-coffee-for-sale-details/${item.order_id}`];
-        return link;
+        if (!this.disableAction) {
+            this.router.navigateByUrl('/green-coffee-management/green-coffee-for-sale-details/' + item.order_id);
+        }
     }
+
+    menuClicked() {
+        // Stop propagation
+        this.disableAction = true;
+        setTimeout(() => {
+            this.disableAction = false;
+        }, 100);
+    }
+
     lotSaleReirection(item) {
         if (item.status !== 'SOLD') {
             const navigationExtras: NavigationExtras = {
