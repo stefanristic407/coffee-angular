@@ -18,7 +18,7 @@
             [(ngModel)]="display"
             (onChange)="setDisplay()"
             scrollHeight="225px"
-            placeholder="Display"
+            placeholder="{{ globals.languageJson?.display }}"
             [autoDisplayFirst]="false"
             styleClass="round-border mb-3 {{ display ? 'highlight' : '' }}"
         ></p-dropdown>
