@@ -91,8 +91,7 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
     }
 
     setFormValue() {
-        this.subProfileForm.controls.name.setValue(this.roasteryProfileService.roasteryProfileData.name);
-        this.subProfileForm.controls.website.setValue(this.roasteryProfileService.roasteryProfileData.website);
+        this.subProfileForm.patchValue(this.roasteryProfileService.toUpdateProfileData);
     }
 
     handleFile(e) {

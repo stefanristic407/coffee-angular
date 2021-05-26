@@ -127,14 +127,14 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
                 this.chartData = [
                     {
                         name: 'Female',
-                        value: this.roasteryProfileService.roasteryProfileData
-                            ? this.roasteryProfileService.roasteryProfileData.female_employee_count
+                        value: this.roasteryProfileService.organizationProfile
+                            ? this.roasteryProfileService.organizationProfile.female_employee_count
                             : 0,
                     },
                     {
                         name: 'Male',
-                        value: this.roasteryProfileService.roasteryProfileData
-                            ? this.roasteryProfileService.roasteryProfileData.male_employee_count
+                        value: this.roasteryProfileService.organizationProfile
+                            ? this.roasteryProfileService.organizationProfile.male_employee_count
                             : 0,
                     },
                 ];
@@ -195,22 +195,7 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
     }
 
     setFormValue() {
-        const formValue = {
-            owner_name: this.roasteryProfileService.roasteryProfileData.owner_name,
-            founded_on: this.roasteryProfileService.roasteryProfileData.founded_on,
-            description: this.roasteryProfileService.roasteryProfileData.description,
-            total_employees: this.roasteryProfileService.roasteryProfileData.total_employees,
-            avg_employee_age: this.roasteryProfileService.roasteryProfileData.avg_employee_age,
-            female_employee_count: this.roasteryProfileService.roasteryProfileData.female_employee_count,
-            male_employee_count: this.roasteryProfileService.roasteryProfileData.male_employee_count,
-            company_details_public: this.roasteryProfileService.roasteryProfileData.company_details_public,
-            vat_number: this.roasteryProfileService.roasteryProfileData.vat_number,
-            registration_id: this.roasteryProfileService.roasteryProfileData.registration_id,
-            capacity: this.roasteryProfileService.roasteryProfileData.capacity,
-            capacity_unit: this.roasteryProfileService.roasteryProfileData.capacity_unit,
-            capabilities: this.roasteryProfileService.roasteryProfileData.capabilities,
-        };
-        this.aboutForm.setValue(formValue);
+        this.aboutForm.patchValue(this.roasteryProfileService.toUpdateProfileData);
 
         this.chartData = this.roasteryProfileService.single;
     }

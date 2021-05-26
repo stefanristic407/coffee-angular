@@ -13,7 +13,7 @@ import { OrganizationType } from '@enums';
     providedIn: 'root',
 })
 export class MicroProfileService {
-    public roasteryProfileData: MicroOrganizationProfile;
+    public organizationProfile: MicroOrganizationProfile;
 
     userId: string;
     roasterContacts: any = [];
@@ -35,18 +35,18 @@ export class MicroProfileService {
         this.userService.getMicroDetails(this.roasterId, microRoasterId).subscribe((result: any) => {
             console.log('micro roaster details: ', result);
             if (result.success) {
-                this.roasteryProfileData = result.result;
+                this.organizationProfile = result.result;
                 this.single = [
                     {
                         name: 'Female',
-                        value: this.roasteryProfileData.female_employee_count
-                            ? this.roasteryProfileData.female_employee_count
+                        value: this.organizationProfile.female_employee_count
+                            ? this.organizationProfile.female_employee_count
                             : 0,
                     },
                     {
                         name: 'Male',
-                        value: this.roasteryProfileData.male_employee_count
-                            ? this.roasteryProfileData.male_employee_count
+                        value: this.organizationProfile.male_employee_count
+                            ? this.organizationProfile.male_employee_count
                             : 0,
                     },
                 ];

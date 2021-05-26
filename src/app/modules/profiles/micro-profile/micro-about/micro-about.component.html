@@ -11,7 +11,7 @@
                             {{ 'founded_in' | translate }}
                         </label>
                         <p class="fnt-14 fnt-600 text-clr334 mb-1">
-                            {{ profileCreationService.roasteryProfileData?.founded_on }}
+                            {{ profileCreationService.organizationProfile?.founded_on }}
                         </p>
                     </div>
 
@@ -20,7 +20,7 @@
                             {{ 'owner_name' | translate }}
                         </label>
                         <p class="fnt-14 fnt-600 text-clr334 mb-1">
-                            {{ profileCreationService.roasteryProfileData?.owner_name }}
+                            {{ profileCreationService.organizationProfile?.owner_name }}
                         </p>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                     <div class="sewn-form-field col-md-12 mt-md-45 p-0 mb-0">
                         <label class="fnt-12 fnt-md-14" for="summary">{{ 'roastery_summary' | translate }} </label>
                         <p class="fnt-14 fnt-600 text-clr334">
-                            {{ profileCreationService.roasteryProfileData?.description }}
+                            {{ profileCreationService.organizationProfile?.description }}
                         </p>
                     </div>
                 </div>
@@ -51,13 +51,13 @@
                     <div class="sewn-form-field col-6 col-md-6 p-0 pr-md-2 mb-3 mb-md-4">
                         <label class="fnt-12 fnt-md-14" for="vat_nos">VAT number</label>
                         <p class="fnt-14 fnt-600 text-clr334 mb-0">
-                            {{ profileCreationService.roasteryProfileData?.vat_number }}
+                            {{ profileCreationService.organizationProfile?.vat_number }}
                         </p>
                     </div>
                     <div class="sewn-form-field col-6 col-md-6 p-0 pl-md-2 mb-0 mb-md-4">
                         <label for="cmpy_rid" class="fnt-12 fnt-md-14">Company registration ID</label>
                         <p class="fnt-14 fnt-600 text-clr334 mb-0">
-                            {{ profileCreationService.roasteryProfileData?.registration_id }}
+                            {{ profileCreationService.organizationProfile?.registration_id }}
                         </p>
                     </div>
                 </div>
@@ -85,11 +85,11 @@
                                     {{ 'roaster_capacity' | translate }}
                                 </label>
                                 <p class="fnt-md-38 fnt-28 font-bold text-clr334">
-                                    {{ profileCreationService.roasteryProfileData?.capacity }} Kgs
+                                    {{ profileCreationService.organizationProfile?.capacity }} Kgs
                                 </p>
                             </div>
                             <div class="capability-content font-bold pl-25 pt-md-3 pl-md-4 text-clr334">
-                                {{ profileCreationService.roasteryProfileData?.capabilities }}
+                                {{ profileCreationService.organizationProfile?.capabilities }}
                             </div>
                         </div>
                     </div>
@@ -209,13 +209,13 @@
                     <div class="d-flex employee-details-container pt-45 pb-45 pl-4 pr-4">
                         <div class="w-50 border-right">
                             <p class="m-0 fnt-32 font-bold text-clr334">
-                                {{ profileCreationService.roasteryProfileData?.total_employees }}
+                                {{ profileCreationService.organizationProfile?.total_employees }}
                             </p>
                             <p class="mt-2 mb-0 fnt-18 font-600 text-clr588">{{ 'total_employees' | translate }}</p>
                         </div>
                         <div class="w-50 pl-45">
                             <p class="m-0 fnt-24 fnt-md-32 font-bold text-clr334">
-                                {{ profileCreationService.roasteryProfileData?.avg_employee_age }}
+                                {{ profileCreationService.organizationProfile?.avg_employee_age }}
                             </p>
                             <p class="mt-2 mb-0 fnt-14 fnt-md-18 font-600 text-clr588">
                                 {{ 'average_age' | translate }}
@@ -227,8 +227,8 @@
                 <div class="w-100">
                     <div
                         *ngIf="
-                            this.profileCreationService.roasteryProfileData?.male_employee_count == null &&
-                            this.profileCreationService.roasteryProfileData?.female_employee_count == null
+                            this.profileCreationService.organizationProfile?.male_employee_count == null &&
+                            this.profileCreationService.organizationProfile?.female_employee_count == null
                         "
                     >
                         <p class="fnt-18 font-bold text-center">{{ 'no_data_display' | translate }}</p>
