@@ -17,8 +17,8 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
     agreementfileId: any;
     itemId: any;
     horecaFormGroup: FormGroup;
-    uploadButtonValue = 'Upload Agreement';
-    updateButtonValue = 'Update Agreement';
+    uploadButtonValue = this.globals.languageJson?.upload_agreement;
+    updateButtonValue = this.globals.languageJson?.update_agreement;
     fileEvent: any;
     fileNameValue: any;
     horecaList: any;
@@ -64,7 +64,7 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
     }
 
     getSingleAgreement(): void {
-        this.updateButtonValue = 'Update Agreement';
+        this.updateButtonValue = this.globals.languageJson?.update_agreement;
         this.roasterService
             .getAgreementValue(this.roasterId, this.customerType, this.selectedItemId)
             .subscribe((resp: any) => {
@@ -119,7 +119,7 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
                     a.value.toString().localeCompare(b.value.toString()),
                 );
             } else {
-                this.toastrService.error('Error while getting Micro-Roaster list');
+                this.toastrService.error(this.globals.languageJson?.error_getting_mr_list);
             }
         });
     }
@@ -144,7 +144,7 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
                     a.value.toString().localeCompare(b.value.toString()),
                 );
             } else {
-                this.toastrService.error('Error while getting HoReCa list');
+                this.toastrService.error(this.globals.languageJson?.error_getting_horeca_list);
             }
         });
     }
@@ -159,7 +159,7 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
         const fileList: FileList = this.fileEvent;
         if (this.horecaFormGroup.valid) {
             if (fileList && fileList.length > 0) {
-                this.uploadButtonValue = 'Uploading';
+                this.uploadButtonValue = this.globals.languageJson?.uploading;
                 const file: File = fileList[0];
                 const formData: FormData = new FormData();
                 formData.append('file', file, file.name);
@@ -180,23 +180,23 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
                             .uploadAgreements(this.roasterId, this.customerType, requestBody)
                             .subscribe((res: any) => {
                                 if (res.success) {
-                                    this.uploadButtonValue = 'Upload Agreement';
-                                    this.toastrService.success('The Agreement has been uploaded successfully');
+                                    this.uploadButtonValue = this.globals.languageJson?.upload_agreement;
+                                    this.toastrService.success(this.globals.languageJson?.agreement_upload_success);
                                     this.getAgreements.emit();
                                     this.onUpdateModalClose();
                                     this.fileNameValue = '';
                                 } else {
-                                    this.uploadButtonValue = 'Upload Agreement';
-                                    this.toastrService.error('Error while uploading Agreegement');
+                                    this.uploadButtonValue = this.globals.languageJson?.upload_agreement;
+                                    this.toastrService.error(this.globals.languageJson?.error_uploading_agreement);
                                 }
                             });
                     } else {
-                        this.uploadButtonValue = 'Upload Agreement';
-                        this.toastrService.error('Error while uploading the file');
+                        this.uploadButtonValue = this.globals.languageJson?.upload_agreement;
+                        this.toastrService.error(this.globals.languageJson?.error_uploading_file);
                     }
                 });
             } else {
-                this.toastrService.error('Please browse file');
+                this.toastrService.error(this.globals.languageJson?.browseFile);
             }
         } else {
             this.horecaFormGroup.markAllAsTouched();
@@ -225,21 +225,21 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
                         .updateAgreements(this.roasterId, this.customerType, this.itemId, dataBody)
                         .subscribe((res: any) => {
                             if (res.success) {
-                                this.updateButtonValue = 'Update Agreement';
-                                this.toastrService.success('The Agreement updated successfully');
+                                this.updateButtonValue = this.globals.languageJson?.update_agreement;
+                                this.toastrService.success(this.globals.languageJson?.agreement_update_success);
                                 this.getAgreements.emit();
                                 this.onUpdateModalClose();
                                 this.fileNameValue = '';
                             } else {
-                                this.updateButtonValue = 'Upload Agreement';
-                                this.toastrService.error('Error while updating the agreement details');
+                                this.updateButtonValue = this.globals.languageJson?.upload_agreement;
+                                this.toastrService.error(this.globals.languageJson?.error_updating_agreement_details);
                             }
                         });
                     this.toastrService.success('The file ' + this.fileNameValue + ' uploaded successfully');
                 }
             });
         } else {
-            this.toastrService.error('Please browse file');
+            this.toastrService.error(this.globals.languageJson?.browseFile);
         }
     }
 
