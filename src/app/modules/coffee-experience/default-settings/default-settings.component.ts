@@ -111,10 +111,14 @@ export class DefaultSettingsComponent implements OnInit {
             { select: false, label: 'Pocket friendly' },
         ];
         this.items = [
-            { label: 'Home', routerLink: '/features/welcome-aboard' },
-            { label: 'Brand & Experience' },
-            { label: 'The Coffee Experience', routerLink: '/coffee-experience' },
-            { label: this.isCoffeeDetailsPage ? 'Order #' + this.orderId : 'Default Settings' },
+            { label: this.globals.languageJson.home, routerLink: '/features/welcome-aboard' },
+            { label: this.globals.languageJson.brand_experience },
+            { label: this.globals.languageJson.the_coffee_experience, routerLink: '/coffee-experience' },
+            {
+                label: this.isCoffeeDetailsPage
+                    ? this.globals.languageJson.orders + ' #' + this.orderId
+                    : this.globals.languageJson.default_settings,
+            },
         ];
         this.defaultDetails = {
             website: '',

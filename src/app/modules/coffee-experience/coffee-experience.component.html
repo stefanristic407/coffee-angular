@@ -10,7 +10,7 @@
                     pInputText
                     class="w-100 {{ searchTerm ? 'highlight' : '' }}"
                     [(ngModel)]="searchTerm"
-                    placeholder="{{ 'search_name_role' | translate }}"
+                    placeholder="{{ 'search_name_order_id' | translate }}"
                 />
             </span>
         </div>
@@ -22,8 +22,7 @@
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-end mb-3 mb-md-4 mb-lg-475">
             <div>
                 <div class="give-your-end-users fnt-muli mb-3 mb-md-0">
-                    Give your end users the coffee story experience they have been waiting for! Update and personalise
-                    your story related to an order.
+                    {{ 'give_end_users' | translate }}
                 </div>
             </div>
             <div class="default-settings-container">
@@ -32,7 +31,7 @@
                     type="button"
                     routerLink="./default-settings"
                 >
-                    Default settings
+                    {{ 'default_settings' | translate }}
                 </button>
             </div>
         </div>
@@ -52,34 +51,34 @@
     <section>
         <div class="col-lg-12 col-md-12 px-0 mobile-taggle">
             <p-tabView class="toggle" (onChange)="onTabChange($event)">
-                <p-tabPanel header="Estate orders">
+                <p-tabPanel header="{{ 'estate_orders' | translate }}">
                     <app-coffee-experience-table
-                        *ngIf="customerType === 'estate'"
+                        *ngIf="customerType === 'orders'"
                         [searchTerm]="searchTerm"
                         [coffeeExperienceData]="coffeeExperienceData"
                         [customerType]="customerType"
                     >
                     </app-coffee-experience-table>
                 </p-tabPanel>
-                <p-tabPanel header="Micro Roaster orders">
+                <p-tabPanel header="{{ 'micro_roaster_orders' | translate }}">
                     <app-coffee-experience-table
-                        *ngIf="customerType === 'micro-roasters'"
+                        *ngIf="customerType === 'mr-orders'"
                         [searchTerm]="searchTerm"
                         [coffeeExperienceData]="coffeeExperienceData"
                         [customerType]="customerType"
                     >
                     </app-coffee-experience-table>
                 </p-tabPanel>
-                <p-tabPanel header="HoReCa orders">
+                <p-tabPanel header="{{ 'partner_orders' | translate }}">
                     <app-coffee-experience-table
-                        *ngIf="customerType === 'hrc'"
+                        *ngIf="customerType === 'hrc-orders'"
                         [searchTerm]="searchTerm"
                         [coffeeExperienceData]="coffeeExperienceData"
                         [customerType]="customerType"
                     >
                     </app-coffee-experience-table>
                 </p-tabPanel>
-                <p-tabPanel header="Outtake orders">
+                <p-tabPanel header="{{ 'outtake_orders' | translate }}">
                     <app-coffee-experience-table
                         *ngIf="customerType === 'outtake-orders'"
                         [searchTerm]="searchTerm"

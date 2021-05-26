@@ -142,6 +142,11 @@
     .recent-data-ans {
         padding: 1rem 1.5rem 1rem 1.5rem !important;
     }
+    tr {
+        td:first-child {
+            white-space: nowrap;
+        }
+    }
 }
 
 .select-form-group-dropdown {
@@ -326,4 +331,23 @@
 
 .max-560px {
     max-width: 560px;
+}
+
+.new-batch-container {
+    display: flex;
+    flex-direction: row;
+    .left-container {
+        width: 100%;
+    }
+    .right-container {
+        width: 398px;
+        margin-left: 24px;
+        @media (max-width: 1199px) {
+            width: 100%;
+            margin-left: 0;
+        }
+    }
+    @media (max-width: 1199px) {
+        flex-direction: column;
+    }
 }

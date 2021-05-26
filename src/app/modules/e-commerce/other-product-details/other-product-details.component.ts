@@ -32,7 +32,7 @@ export class OtherProductDetailsComponent extends ResizeableComponent implements
     ];
     statusList: any[] = [
         { label: 'In stock', value: 'in-stock' },
-        { label: 'Out of stock', value: 'out-of-stock' },
+        { label: 'Out of stock', value: 'sold' },
     ];
     lengthUnitList: any[] = [
         { label: 'mm', value: 'mm' },
@@ -196,7 +196,7 @@ export class OtherProductDetailsComponent extends ResizeableComponent implements
                 label: this.globals.languageJson?.other_products,
                 routerLink: '/e-commerce/product-list/other',
             },
-            { label: 'product' },
+            { label: 'Add product' },
         ];
     }
 

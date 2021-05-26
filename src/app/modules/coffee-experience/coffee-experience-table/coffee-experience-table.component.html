@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between filter">
     <div class="d-flex">
-        <div *ngIf="customerType === 'estate'">
+        <div *ngIf="customerType === 'orders'">
             <p-dropdown
                 scrollHeight="225px"
                 (onChange)="filterOrigin()"
@@ -30,6 +30,7 @@
     <div class="web-farm">
         <p-dropdown
             [options]="displayItems"
+            [showClear]="true"
             [(ngModel)]="filterDisplay"
             (onChange)="getOrdersData()"
             scrollHeight="225px"
@@ -54,19 +55,19 @@
                 <th *ngIf="customerType === 'outtake-orders'" pSortableColumn="product_name">
                     {{ 'product_name' | translate }}<p-sortIcon field="product_name"></p-sortIcon>
                 </th>
-                <th *ngIf="customerType === 'estate'" pSortableColumn="estate_name">
+                <th *ngIf="customerType === 'orders'" pSortableColumn="estate_name">
                     {{ 'estate_name' | translate }}
                     <p-sortIcon field="estate_name"> </p-sortIcon>
                 </th>
-                <th *ngIf="customerType !== 'estate'" pSortableColumn="name_customer">
+                <th *ngIf="customerType !== 'orders'" pSortableColumn="name_customer">
                     {{ 'name_customer' | translate }}
                     <p-sortIcon field="name_customer"> </p-sortIcon>
                 </th>
-                <th *ngIf="customerType === 'estate'" pSortableColumn="origin" class="variety">
+                <th *ngIf="customerType === 'orders'" pSortableColumn="origin" class="variety">
                     {{ 'origin' | translate }}<p-sortIcon field="origin"> </p-sortIcon>
                 </th>
                 <th
-                    *ngIf="customerType !== 'estate' && customerType !== 'outtake-orders'"
+                    *ngIf="customerType !== 'orders' && customerType !== 'outtake-orders'"
                     pSortableColumn="product_name"
                 >
                     {{ 'product_name' | translate }}<p-sortIcon field="product_name"></p-sortIcon>
@@ -75,17 +76,17 @@
                 <th pSortableColumn="date_ordered">
                     {{ 'date_ordered' | translate }}<p-sortIcon field="date_ordered"></p-sortIcon>
                 </th>
-                <th *ngIf="customerType === 'estate'" pSortableColumn="date_recieved">
+                <th *ngIf="customerType === 'orders'" pSortableColumn="date_recieved">
                     Date recieved<p-sortIcon field="date_recieved"></p-sortIcon>
                 </th>
                 <th
-                    *ngIf="customerType !== 'hrc' && customerType !== 'outtake-orders'"
+                    *ngIf="customerType !== 'hrc-orders' && customerType !== 'outtake-orders'"
                     pSortableColumn="variety"
                     class="variety"
                 >
                     {{ 'variety' | translate }}<p-sortIcon field="variety"></p-sortIcon>
                 </th>
-                <th *ngIf="customerType === 'hrc'" pSortableColumn="roast_level">
+                <th *ngIf="customerType === 'hrc-orders'" pSortableColumn="roast_level">
                     {{ 'roast_level' | translate }}<p-sortIcon field="roast_level"></p-sortIcon>
                 </th>
                 <th *ngIf="customerType === 'outtake-orders'" pSortableColumn="order_id">
@@ -94,12 +95,18 @@
                 <th pSortableColumn="quantity" class="quantity">
                     {{ 'quantity' | translate }}<p-sortIcon field="quantity"> </p-sortIcon>
                 </th>
-                <th *ngIf="customerType !== 'hrc' && customerType !== 'outtake-orders'" pSortableColumn="cupping_score">
+                <th
+                    *ngIf="customerType !== 'hrc-orders' && customerType !== 'outtake-orders'"
+                    pSortableColumn="cupping_score"
+                >
                     {{ 'cupping_score' | translate }}<p-sortIcon field="cupping_score"> </p-sortIcon>
                 </th>
                 <th
                     pSortableColumn="actions"
-                    [ngClass]="{ order: customerType === 'estate', 'update-details': customerType !== 'estate' }"
+                    [ngClass]="{
+                        order: customerType === 'orders',
+                        'update-details': customerType !== 'orders'
+                    }"
                 >
                     {{ 'actions' | translate }}<p-sortIcon field="actions"> </p-sortIcon>
                 </th>
@@ -108,7 +115,7 @@
         <ng-template pTemplate="body" let-item>
             <tr>
                 <td
-                    *ngIf="customerType === 'estate'"
+                    *ngIf="customerType === 'orders'"
                     class="fnt-14"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ estate_id: item.id }"
@@ -116,7 +123,7 @@
                     {{ item.id }}
                 </td>
                 <td
-                    *ngIf="customerType === 'micro-roasters'"
+                    *ngIf="customerType === 'mr-orders'"
                     class="fnt-14"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ micro_roasters_id: item.id }"
@@ -124,7 +131,7 @@
                     {{ item.id }}
                 </td>
                 <td
-                    *ngIf="customerType === 'hrc'"
+                    *ngIf="customerType === 'hrc-orders'"
                     class="fnt-14"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ hrc_id: item.order_id }"
@@ -141,7 +148,7 @@
                 </td>
 
                 <td
-                    *ngIf="customerType === 'estate'"
+                    *ngIf="customerType === 'orders'"
                     class="fnt-14"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ estate_id: item.id }"
@@ -149,7 +156,7 @@
                     {{ item.estate_name }}
                 </td>
                 <td
-                    *ngIf="customerType === 'micro-roasters'"
+                    *ngIf="customerType === 'mr-orders'"
                     class="fnt-14"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ micro_roasters_id: item.id }"
@@ -157,7 +164,7 @@
                     {{ item.estate_name }}
                 </td>
                 <td
-                    *ngIf="customerType === 'hrc'"
+                    *ngIf="customerType === 'hrc-orders'"
                     class="fnt-14"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ hrc_id: item.order_id }"
@@ -173,7 +180,7 @@
                     {{ item.product_name }}
                 </td>
                 <td
-                    *ngIf="customerType === 'estate'"
+                    *ngIf="customerType === 'orders'"
                     class="fnt-14"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ estate_id: item.id }"
@@ -181,7 +188,7 @@
                     {{ item.origin | country }}
                 </td>
                 <td
-                    *ngIf="customerType === 'estate'"
+                    *ngIf="customerType === 'orders'"
                     class="fnt-14"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ estate_id: item.id }"
@@ -189,7 +196,7 @@
                     {{ item.created_at | date: 'mediumDate' }}
                 </td>
                 <td
-                    *ngIf="customerType === 'micro-roasters'"
+                    *ngIf="customerType === 'mr-orders'"
                     class="fnt-14"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ micro_roasters_id: item.id }"
@@ -197,7 +204,7 @@
                     {{ item.product_name }}
                 </td>
                 <td
-                    *ngIf="customerType === 'hrc'"
+                    *ngIf="customerType === 'hrc-orders'"
                     class="fnt-14"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ hrc_id: item.order_id }"
@@ -214,7 +221,7 @@
                 </td>
 
                 <td
-                    *ngIf="customerType === 'estate'"
+                    *ngIf="customerType === 'orders'"
                     class="fnt-14"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ estate_id: item.id }"
@@ -222,7 +229,7 @@
                     {{ item.date_received | date: 'mediumDate' }}
                 </td>
                 <td
-                    *ngIf="customerType === 'micro-roasters'"
+                    *ngIf="customerType === 'mr-orders'"
                     class="fnt-14"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ micro_roasters_id: item.id }"
@@ -230,7 +237,7 @@
                     {{ item.created_at | date: 'mediumDate' }}
                 </td>
                 <td
-                    *ngIf="customerType === 'hrc'"
+                    *ngIf="customerType === 'hrc-orders'"
                     class="fnt-14"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ hrc_id: item.order_id }"
@@ -246,23 +253,23 @@
                     {{ item.order_date | date: 'mediumDate' }}
                 </td>
                 <td
-                    *ngIf="customerType === 'estate'"
-                    class="fnt-14"
+                    *ngIf="customerType === 'orders'"
+                    class="fnt-14 overflow-word"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ estate_id: item.id }"
                 >
                     {{ item.varieties }}
                 </td>
                 <td
-                    *ngIf="customerType === 'micro-roasters'"
-                    class="fnt-14"
+                    *ngIf="customerType === 'mr-orders'"
+                    class="fnt-14 overflow-word"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ micro_roasters_id: item.id }"
                 >
                     {{ item.varieties || 'NA' }}
                 </td>
                 <td
-                    *ngIf="customerType === 'hrc'"
+                    *ngIf="customerType === 'hrc-orders'"
                     class="fnt-14"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ hrc_id: item.order_id }"
@@ -279,7 +286,7 @@
                 </td>
 
                 <td
-                    *ngIf="customerType === 'estate'"
+                    *ngIf="customerType === 'orders'"
                     class="fnt-14"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ estate_id: item.id }"
@@ -287,7 +294,7 @@
                     {{ item.quantity || 'NA' }} <span *ngIf="item.quantity">kg</span>
                 </td>
                 <td
-                    *ngIf="customerType === 'micro-roasters'"
+                    *ngIf="customerType === 'mr-orders'"
                     class="fnt-14"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ micro_roasters_id: item.id }"
@@ -295,7 +302,7 @@
                     {{ item.quantity || 'NA' }} <span *ngIf="item.quantity">kg</span>
                 </td>
                 <td
-                    *ngIf="customerType === 'hrc'"
+                    *ngIf="customerType === 'hrc-orders'"
                     class="fnt-14"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ hrc_id: item.order_id }"
@@ -308,7 +315,7 @@
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ outtake_orders_id: item.id }"
                 >
-                    <span *ngIf="item.customer_type == 'hrc'"
+                    <span *ngIf="item.customer_type == 'hrc-orders'"
                         >{{ item.rc_total_quantity || 'NA' }} {{ item.rc_total_quantity_unit }}</span
                     >
                     <span *ngIf="item.customer_type == 'mr'"
@@ -317,7 +324,7 @@
                 </td>
 
                 <td
-                    *ngIf="customerType === 'estate'"
+                    *ngIf="customerType === 'orders'"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ estate_id: item.id }"
                     class="fnt-14"
@@ -325,7 +332,7 @@
                     {{ item.cup_score || 'NA' }}
                 </td>
                 <td
-                    *ngIf="customerType === 'micro-roasters'"
+                    *ngIf="customerType === 'mr-orders'"
                     class="fnt-14"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ micro_roasters_id: item.id }"
@@ -333,7 +340,7 @@
                     {{ item.cup_score || 'NA' }}
                 </td>
                 <td
-                    *ngIf="customerType === 'estate'"
+                    *ngIf="customerType === 'orders'"
                     class="brown-cta fnt-bold ng-star-inserted"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ estate_id: item.id }"
@@ -341,7 +348,7 @@
                     View Details
                 </td>
                 <td
-                    *ngIf="customerType === 'micro-roasters'"
+                    *ngIf="customerType === 'mr-orders'"
                     class="brown-cta fnt-bold ng-star-inserted"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ micro_roasters_id: item.id }"
@@ -349,7 +356,7 @@
                     Update Details
                 </td>
                 <td
-                    *ngIf="customerType === 'hrc'"
+                    *ngIf="customerType === 'hrc-orders'"
                     class="brown-cta fnt-bold ng-star-inserted"
                     routerLink="/coffee-experience/coffee-details/"
                     [queryParams]="{ hrc_id: item.order_id }"
@@ -378,7 +385,7 @@
                         <div class="d-flex justify-content-between bg-f4f4 py-2 px-3 name-header">
                             <div>
                                 <p class="black fnt-14">
-                                    Order #{{ customerType === 'hrc' ? item.order_id : item.id }}
+                                    Order #{{ customerType === 'hrc-orders' ? item.order_id : item.id }}
                                 </p>
                             </div>
                             <div>
@@ -387,27 +394,27 @@
                                 </a>
                                 <ng-template
                                     #poplistTemplate
-                                    id="{{ customerType === 'hrc' ? item.order_id : item.id }}"
+                                    id="{{ customerType === 'hrc-orders' ? item.order_id : item.id }}"
                                 >
                                     <div id="popover-mobile-content">
                                         <ul class="list-group custom-popover">
                                             <li class="list-group-item">
                                                 <a
-                                                    *ngIf="customerType === 'estate'"
+                                                    *ngIf="customerType === 'orders'"
                                                     class="light-eight fnt-14"
                                                     routerLink="/coffee-experience/coffee-details/"
                                                     [queryParams]="{ estate_id: item.id }"
                                                     >View Details</a
                                                 >
                                                 <a
-                                                    *ngIf="customerType === 'micro-roasters'"
+                                                    *ngIf="customerType === 'mr-orders'"
                                                     class="light-eight fnt-14"
                                                     routerLink="/coffee-experience/coffee-details/"
                                                     [queryParams]="{ micro_roasters_id: item.id }"
                                                     >Update Details</a
                                                 >
                                                 <a
-                                                    *ngIf="customerType === 'hrc'"
+                                                    *ngIf="customerType === 'hrc-orders'"
                                                     class="light-eight fnt-14"
                                                     routerLink="/coffee-experience/coffee-details/"
                                                     [queryParams]="{ hrc_id: item.order_id }"
@@ -423,7 +430,7 @@
                             <div class="col-5 p-0">
                                 <p
                                     class="light-eight fnt-14"
-                                    *ngIf="customerType === 'estate'"
+                                    *ngIf="customerType === 'orders'"
                                     routerLink="/coffee-experience/coffee-details/"
                                     [queryParams]="{ estate_id: item.id }"
                                 >
@@ -431,7 +438,7 @@
                                 </p>
                                 <p
                                     class="light-eight fnt-14"
-                                    *ngIf="customerType === 'micro-roasters'"
+                                    *ngIf="customerType === 'mr-orders'"
                                     routerLink="/coffee-experience/coffee-details/"
                                     [queryParams]="{ micro_roasters_id: item.id }"
                                 >
@@ -439,7 +446,7 @@
                                 </p>
                                 <p
                                     class="light-eight fnt-14"
-                                    *ngIf="customerType === 'hrc'"
+                                    *ngIf="customerType === 'hrc-orders'"
                                     routerLink="/coffee-experience/coffee-details/"
                                     [queryParams]="{ hrc_id: item.order_id }"
                                 >
@@ -448,7 +455,7 @@
                             </div>
                             <div class="col-7 p-0">
                                 <p
-                                    *ngIf="customerType === 'estate'"
+                                    *ngIf="customerType === 'orders'"
                                     class="fnt-14"
                                     routerLink="/coffee-experience/coffee-details/"
                                     [queryParams]="{ estate_id: item.id }"
@@ -456,7 +463,7 @@
                                     {{ item.estate_name }}
                                 </p>
                                 <p
-                                    *ngIf="customerType === 'micro-roasters'"
+                                    *ngIf="customerType === 'mr-orders'"
                                     class="fnt-14"
                                     routerLink="/coffee-experience/coffee-details/"
                                     [queryParams]="{ micro_roasters_id: item.id }"
@@ -464,7 +471,7 @@
                                     {{ item.estate_name }}
                                 </p>
                                 <p
-                                    *ngIf="customerType === 'hrc'"
+                                    *ngIf="customerType === 'hrc-orders'"
                                     class="fnt-14"
                                     routerLink="/coffee-experience/coffee-details/"
                                     [queryParams]="{ hrc_id: item.order_id }"
@@ -473,7 +480,7 @@
                                 </p>
                             </div>
                         </div>
-                        <div *ngIf="customerType === 'estate'" class="bor-bot-d6d6 mx-3 py-3 row">
+                        <div *ngIf="customerType === 'orders'" class="bor-bot-d6d6 mx-3 py-3 row">
                             <div class="col-5 p-0">
                                 <p
                                     class="light-eight fnt-14"
@@ -497,7 +504,7 @@
                             <div class="col-5 p-0">
                                 <p
                                     class="light-eight fnt-14"
-                                    *ngIf="customerType === 'estate'"
+                                    *ngIf="customerType === 'orders'"
                                     routerLink="/coffee-experience/coffee-details/"
                                     [queryParams]="{ estate_id: item.id }"
                                 >
@@ -505,7 +512,7 @@
                                 </p>
                                 <p
                                     class="light-eight fnt-14"
-                                    *ngIf="customerType === 'micro-roasters'"
+                                    *ngIf="customerType === 'mr-orders'"
                                     routerLink="/coffee-experience/coffee-details/"
                                     [queryParams]="{ micro_roasters_id: item.id }"
                                 >
@@ -513,7 +520,7 @@
                                 </p>
                                 <p
                                     class="light-eight fnt-14"
-                                    *ngIf="customerType === 'hrc'"
+                                    *ngIf="customerType === 'hrc-orders'"
                                     routerLink="/coffee-experience/coffee-details/"
                                     [queryParams]="{ hrc_id: item.order_id }"
                                 >
@@ -522,7 +529,7 @@
                             </div>
                             <div class="col-7 p-0">
                                 <p
-                                    *ngIf="customerType === 'estate'"
+                                    *ngIf="customerType === 'orders'"
                                     class="fnt-14"
                                     routerLink="/coffee-experience/coffee-details/"
                                     [queryParams]="{ estate_id: item.id }"
@@ -530,7 +537,7 @@
                                     {{ item.date_received | date: 'mediumDate' }}
                                 </p>
                                 <p
-                                    *ngIf="customerType === 'micro-roasters'"
+                                    *ngIf="customerType === 'mr-orders'"
                                     class="fnt-14"
                                     routerLink="/coffee-experience/coffee-details/"
                                     [queryParams]="{ micro_roasters_id: item.id }"
@@ -538,7 +545,7 @@
                                     {{ item.created_at | date: 'mediumDate' }}
                                 </p>
                                 <p
-                                    *ngIf="customerType === 'hrc'"
+                                    *ngIf="customerType === 'hrc-orders'"
                                     class="fnt-14"
                                     routerLink="/coffee-experience/coffee-details/"
                                     [queryParams]="{ hrc_id: item.order_id }"

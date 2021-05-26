@@ -229,7 +229,7 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
     }
 
     getCertificates() {
-        if (this.aclService.checkPermission('certificate-list|certificate-management')) {
+        if (this.aclService.checkPermission('brand-profile-management')) {
             this.userService.getCompanyCertificates(this.roasterId).subscribe((result: any) => {
                 console.log('certification: ', result);
                 if (result.success === true) {

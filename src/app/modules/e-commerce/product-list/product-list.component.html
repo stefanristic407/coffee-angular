@@ -184,7 +184,7 @@
                                                 {{ globals.getCountryName(rowData[item.field]) }}
                                             </span>
                                             <span class="fnt-bold" *ngSwitchCase="'price'">
-                                                ${{ rowData[item.field] }}
+                                                {{ rowData[item.field] }} kr
                                             </span>
                                             <span class="fnt-bold" *ngSwitchDefault>
                                                 {{ rowData[item.field] }}
@@ -218,7 +218,7 @@
                                 </span>
                             </span>
                             <span *ngSwitchCase="'price'" (click)="onViewDetails(rowData)">
-                                <span> ${{ rowData[col.field] }} </span>
+                                <span> {{ rowData[col.field] }} kr </span>
                             </span>
                             <span *ngSwitchCase="'business_type'" (click)="onViewDetails(rowData)">
                                 <span> {{ rowData[col.field]?.toUpperCase() }} </span>

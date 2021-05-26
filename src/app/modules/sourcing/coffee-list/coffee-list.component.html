@@ -59,7 +59,7 @@
                         {{ rowData.price_unit }}&nbsp;/&nbsp;{{ sourcingSrv.quantityUnit }}
                     </span>
                     <span *ngSwitchCase="'quantity'">
-                        {{ rowData.quantity_count }}&nbsp;{{ rowData.quantity_type | lowercase }}
+                        {{ rowData.quantity_count }}&nbsp;{{ rowData.quantity_type | quantityType }}
                     </span>
                     <span *ngSwitchCase="'flavour_profile'">
                         <div *ngIf="rowData.flavours?.length" class="row gutter-12 v-gutter-8">

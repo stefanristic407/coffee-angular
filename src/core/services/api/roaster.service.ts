@@ -670,17 +670,9 @@ export class RoasterserviceService extends ApiService {
         return this.http.post(this.url, data);
     }
 
-    getCoffeeExperienceOrders(roaster_id: any, orderType: string, queryParams = '') {
+    getCoffeeExperienceOrders(roasterId: any, orderType: string, queryParams = '') {
         const data = { api_call: '', method: '', token: '' };
-        if (orderType === 'estate') {
-            data.api_call = '/ro/' + roaster_id + `/orders?` + this.serlialise(queryParams);
-        } else if (orderType === 'micro-roasters') {
-            data.api_call = '/ro/' + roaster_id + '/mr-orders?' + this.serlialise(queryParams);
-        } else if (orderType === 'hrc') {
-            data.api_call = '/ro/' + roaster_id + '/hrc-orders?' + this.serlialise(queryParams);
-        } else if (orderType === 'outtake-orders') {
-            data.api_call = '/ro/' + roaster_id + '/outtake-orders?' + this.serlialise(queryParams);
-        }
+        data.api_call = `/ro/${roasterId}/${orderType}?` + this.serlialise(queryParams);
         data.method = 'GET';
         data.token = this.cookieService.get('Auth');
         return this.http.post(this.url, data);

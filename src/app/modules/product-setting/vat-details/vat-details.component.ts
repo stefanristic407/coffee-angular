@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { RoasteryProfileService } from '@services';
 import { UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { COUNTRY_LIST } from '@constants';
 
 @Component({
     selector: 'app-vat-details',
@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     styleUrls: ['./vat-details.component.scss'],
 })
 export class VatDetailsComponent implements OnInit {
+    public readonly COUNTRY_LIST = COUNTRY_LIST;
     roasterId: any;
     resetButtonValue = 'Save';
     eachId: any;
@@ -23,7 +24,6 @@ export class VatDetailsComponent implements OnInit {
     constructor(
         private toastrService: ToastrService,
         public cookieService: CookieService,
-        public roasteryProfileService: RoasteryProfileService,
         public userService: UserserviceService,
         private fb: FormBuilder,
     ) {
@@ -74,13 +74,6 @@ export class VatDetailsComponent implements OnInit {
         }
     }
 
-    getCountryName(code: any) {
-        const country = this.roasteryProfileService.countryList.find((con) => con.isoCode === code);
-        return country ? country.name : '';
-    }
-    changeCountry() {
-        this.roasteryProfileService.changeCountry(this.roasteryProfileService.country);
-    }
     addNewVatItem(body) {
         this.userService.addVatDetails(this.roasterId, body).subscribe((result) => {
             if (result.success) {

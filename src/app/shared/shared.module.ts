@@ -209,8 +209,6 @@ const DIRECTIVES = [
     ImageFallbackDirective,
 ];
 
-import { AvailabilityListingStatusPipe } from './pipes/availability/availability-listing-status.pipe';
-import { AvailabilityTypePipe } from './pipes/availability/availability-type.pipe';
 import { SearchFilterPipe } from './pipes/chat/search-filter.pipe';
 import { CountryPipe } from './pipes/country/country.pipe';
 import { FileIconPipe } from './pipes/file-icon.pipe';
@@ -226,17 +224,21 @@ import { ArrayFilterPipe } from './pipes/array-filter.pipe';
 import { StringReplacePipe } from './pipes/string-replace.pipe';
 import { ReversePipe } from './pipes/reverse.pipe';
 import {
+    AvailabilityListingStatusPipe,
+    AvailabilityTypePipe,
     EstateBrandLinkPipe,
     GcBrandLinkPipe,
     LotBrandLinkPipe,
     OrderLinkPipe,
     OrderRatingLinkPipe,
     ProfileLinkPipe,
+    QuantityTypePipe,
     ReviewLinkPipe,
     RoasterBrandCmsLinkPipe,
     RoasterBrandLinkPipe,
     ShopLinkPipe,
 } from './pipes';
+
 const PIPES = [
     ArrayFilterPipe,
     AvailabilityListingStatusPipe,
@@ -254,6 +256,7 @@ const PIPES = [
     OrderRatingLinkPipe,
     OrgTypePipe,
     ProfileLinkPipe,
+    QuantityTypePipe,
     ReversePipe,
     ReviewLinkPipe,
     RoasterBrandCmsLinkPipe,

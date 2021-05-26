@@ -166,6 +166,7 @@ export class CuppingServiceComponent implements OnInit {
         this.initializeTable();
         this.breadCrumbItems = [
             { label: this.globals.languageJson?.home, routerLink: '/features/micro-roaster-dashboard' },
+            { label: this.globals.languageJson?.menu_sourcing },
             { label: this.globals.languageJson?.green_grading, routerLink: '/green-grading' },
             { label: 'My Cupping Reports', routerLink: '/green-grading/cupping-reports' },
             { label: `Order iD #${this.serviceId}` },

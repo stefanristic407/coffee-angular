@@ -157,7 +157,7 @@
                                                                     globals.languageJson?.origin
                                                                 }}</span>
                                                                 <span class="float-right primary_txt mobileValueTxt">{{
-                                                                    rowData['origin'] | titlecase
+                                                                    rowData['origin'] | country | titlecase
                                                                 }}</span>
                                                             </div>
                                                             <div class="mobileCardBody">
@@ -216,7 +216,7 @@
                                                 <span>{{ rowData[col.field] }}</span>
                                             </span>
                                             <span *ngSwitchCase="'origin'" class="text-clr588 fnt-600">
-                                                <span>{{ rowData[col.field] }}</span>
+                                                <span>{{ rowData[col.field] | country | translate }}</span>
                                             </span>
                                             <span *ngSwitchCase="'species'" class="text-clr588 fnt-600">
                                                 <span>{{ rowData[col.field] }}</span>

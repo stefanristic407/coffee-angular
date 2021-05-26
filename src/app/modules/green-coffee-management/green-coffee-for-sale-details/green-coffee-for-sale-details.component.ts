@@ -43,6 +43,7 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
             thumbPosition: ThumbnailsPosition.Top,
         });
         lightboxRef.load(this.items);
+        console.log(this.items);
         this.language();
     }
     public refreshData() {
