@@ -229,7 +229,6 @@ export class RoasteryProfileService {
 
         const base64Rejex = /^data:image\/(?:gif|png|jpeg|bmp|webp)(?:;charset=utf-8)?;base64,(?:[A-Za-z0-9]|[+/])+={0,2}/;
         const isBase64Valid = base64Rejex.test(this.profilePhotoService.croppedImage); // base64Data is the base64 string
-        console.log(this.profilePhotoService.croppedImage, isBase64Valid);
         if (isBase64Valid) {
             const ImageURL = this.profilePhotoService.croppedImage;
             const block = ImageURL.split(';');
