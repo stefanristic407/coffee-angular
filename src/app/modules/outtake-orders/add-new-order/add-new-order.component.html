@@ -81,7 +81,9 @@
                                 class="weightInputGroupDiv d-flex inputFieldBox cursor-point"
                                 (click)="showOrderPanel = true; onSelectType('orders')"
                             >
-                                <div class="daysInputDiv fnt-14 fnt-600 fnt-muli text-clr334 right_angle mt-0 mr-0 pr">
+                                <div
+                                    class="daysInputDiv fnt-14 fnt-600 fnt-muli text-clr334 right_angle mt-0 mr-0 pr-0"
+                                >
                                     <span *ngIf="addOrdersForm.get('order_id').value" class="d-none d-md-block">#</span>
                                     <span *ngIf="addOrdersForm.get('order_id').value" class="d-block d-md-none mobile-w"
                                         >{{ 'order_id' | translate }} #</span
