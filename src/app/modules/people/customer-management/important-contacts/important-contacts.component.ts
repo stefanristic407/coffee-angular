@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ChatHandlerService, UserserviceService } from '@services';
 import { CustomerServiceService } from '../customer-service.service';
 import { OrganizationType } from '@enums';
@@ -26,6 +26,7 @@ export class ImportantContactsComponent implements OnInit, OnChanges {
             this.orgType = OrganizationType.HORECA;
         }
     }
+
     ngOnChanges(): void {
         this.horecaEmployees();
     }

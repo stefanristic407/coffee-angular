@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GlobalsService } from '@services';
 import { ActivatedRoute } from '@angular/router';
 import { CustomerServiceService } from '../customer-service.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Location } from '@angular/common';
+import { ImportantContactsComponent } from '../important-contacts/important-contacts.component';
 
 @Component({
     selector: 'app-horeca-details',
@@ -14,6 +15,8 @@ export class HorecaDetailsComponent implements OnInit {
     appLanguage?: any;
     roasterId: any;
     showTable = '';
+    customerType = 'hrc';
+    @ViewChild(ImportantContactsComponent) importantContact;
     constructor(
         public globals: GlobalsService,
         private route: ActivatedRoute,
@@ -31,5 +34,9 @@ export class HorecaDetailsComponent implements OnInit {
 
     ngOnInit(): void {
         this.appLanguage = this.globals.languageJson;
+    }
+
+    getCustomerType(value) {
+        this.importantContact.horecaEmployees();
     }
 }

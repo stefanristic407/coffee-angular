@@ -11,7 +11,7 @@
         <div class="invite-to">
             <div class="pb-2 mt-md-4 pt-md-3 sewn-form-field">
                 <label class="fnt-16 fnt-700 fnt-muli text-clr02 mb-0">
-                    Select the type of customer you want to upload the agreement for
+                    {{ 'customer_type_upload_agreement' | translate }}
                 </label>
 
                 <div class="row mt-3 pl-3">
@@ -41,7 +41,7 @@
                 >
                 </p-dropdown>
                 <small class="p-error" *ngIf="horecaFormGroup.controls.customerId.errors?.required">
-                    Please Select a Customer
+                    {{ 'please_select_customer' | translate }}
                 </small>
             </div>
             <div class="mb-0">
@@ -90,7 +90,7 @@
                             </div>
                             <div class="mobile-farm mt-3">
                                 <button type="button" [routerLink]="['/sales-contract']" class="btn-stroked btn-width">
-                                    Cancel
+                                    {{ 'cancel' | translate }}
                                 </button>
                             </div>
                         </div>

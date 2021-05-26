@@ -33,12 +33,6 @@ export class CoffeeProcuredTabComponent implements OnInit {
     roasterID: string;
     mainData: any[] = [];
     originArray: any[] = [];
-    searchString = '';
-    // sellerItems = [
-    //     { label: 'Sweden', value: 'SE' },
-    //     { label: 'UK', value: 'UK' },
-    //     { label: 'India', value: 'IN' },
-    // ];
     displayItems = [
         { label: 'Display 10', value: 10 },
         { label: 'Display 20', value: 20 },
@@ -46,6 +40,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
         { label: 'Display 50', value: 50 },
     ];
     procuredCoffeeListArray: any[];
+    disableAction = false;
     @Input('form')
     set form(value: FormGroup) {
         this._form = value;
@@ -236,8 +231,19 @@ export class CoffeeProcuredTabComponent implements OnInit {
     }
 
     availabilityPage(item) {
-        return `/green-coffee-management/procured-coffee/${item.id}`;
+        if (!this.disableAction) {
+            this.router.navigateByUrl('/green-coffee-management/procured-coffee/' + item.id);
+        }
     }
+
+    menuClicked() {
+        // Stop propagation
+        this.disableAction = true;
+        setTimeout(() => {
+            this.disableAction = false;
+        }, 100);
+    }
+
     sourcingRedirect(item) {
         this.userService.getGreenCoffeeDetails(this.roasterID, item.harvest_id).subscribe((res) => {
             if (res.success) {

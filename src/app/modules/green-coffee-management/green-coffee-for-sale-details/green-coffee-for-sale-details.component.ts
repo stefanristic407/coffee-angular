@@ -43,13 +43,12 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
             thumbPosition: ThumbnailsPosition.Top,
         });
         lightboxRef.load(this.items);
-        console.log(this.items);
         this.language();
     }
     public refreshData() {
         this.breadItems = [
             { label: 'Home', routerLink: '/roaster-dashboard' },
-            { label: 'Sourcing Module', routerLink: '/sourcing/estate-list' },
+            { label: 'Inventory' },
             { label: 'Green coffee Inventory', routerLink: '/green-coffee-management/green-coffee-inventory' },
             {
                 label: 'Marked for sale',
@@ -107,7 +106,9 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
                     this.orderDetails.processing = result.wet_milling.process + ',' + result.dry_milling.process;
                     this.orderDetails.moisture = result.dry_milling.moisture_content;
                     this.orderDetails.images = result.images;
-                    this.items = result.images.map((item) => new ImageItem({ src: item.url, thumb: item.thumb_url }));
+                    this.items = result.images.map(
+                        (item) => new ImageItem({ src: item.url, thumb: item.thumb_url ? item.thumb_url : item.url }),
+                    );
                 }
             },
             (err) => {

@@ -140,7 +140,11 @@ export class PrimeTableService {
                 (result) => {
                     if (result && result.result) {
                         this.records = [...result.result];
-                        this.totalRecords = result.result_info.total_count;
+                        if (result.result_info) {
+                            this.totalRecords = result.result_info.total_count;
+                        } else {
+                            this.totalRecords = result.result.length;
+                        }
                         this.currentPage = result.result_info.page;
                         if (this.totalRecords < 10) {
                             this.paginationValue = false;

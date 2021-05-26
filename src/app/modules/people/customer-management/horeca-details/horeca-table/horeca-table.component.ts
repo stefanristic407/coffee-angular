@@ -1,8 +1,6 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { DataTableDirective, DataTablesModule } from 'angular-datatables';
-import { data } from 'jquery';
 import { GlobalsService, RoasterserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -22,7 +20,7 @@ export class HorecaTableComponent implements OnInit {
     roasterId: any;
     itemId: any;
     estatetermOrigin: string;
-
+    @Output() changeCustomerType = new EventEmitter();
     constructor(
         public router: Router,
         public cookieService: CookieService,
@@ -54,10 +52,11 @@ export class HorecaTableComponent implements OnInit {
                 this.customerService.company_name = res.result.company_name;
                 this.customerService.owner_name = res.result.owner_name;
                 this.customerService.admin_name = res.result.admin_name;
+                this.customerService.horecaId = res.result.id;
                 this.customerService.discount_percentage = res.result.discount_percentage;
                 this.customerService.status = res.result.status;
                 this.customerService.company_image_url = res.result.company_image_url;
-                // document.getElementById('showTable').style.display = 'none';
+                this.changeCustomerType.emit('hrc');
                 this.router.navigate(['/people/horeca-details'], navigationExtras);
             });
         }

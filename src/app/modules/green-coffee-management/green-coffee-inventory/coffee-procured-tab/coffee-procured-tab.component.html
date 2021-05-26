@@ -18,7 +18,7 @@
             [(ngModel)]="display"
             (onChange)="setDisplay()"
             scrollHeight="225px"
-            placeholder="Display"
+            placeholder="{{ globals.languageJson?.display }}"
             [autoDisplayFirst]="false"
             styleClass="round-border mb-3 {{ display ? 'highlight' : '' }}"
         ></p-dropdown>
@@ -72,8 +72,9 @@
                     *ngFor="let col of columns"
                     [ngSwitch]="col.field"
                     [ngClass]="{ borderNone: col.field === 'order_reference' }"
+                    (click)="availabilityPage(rowData)"
                 >
-                    <span *ngSwitchCase="'availability_name'" [routerLink]="availabilityPage(rowData)">
+                    <span *ngSwitchCase="'availability_name'">
                         <div class="d-flex">
                             <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
                                 {{ 'availability_name' | translate }}
@@ -84,7 +85,7 @@
                             </span>
                         </div>
                     </span>
-                    <span *ngSwitchCase="'estate_name'" [routerLink]="availabilityPage(rowData)">
+                    <span *ngSwitchCase="'estate_name'">
                         <div class="d-flex">
                             <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
                                 {{ 'estate_name' | translate }}
@@ -95,26 +96,26 @@
                             </span>
                         </div>
                     </span>
-                    <span *ngSwitchCase="'status'" [routerLink]="availabilityPage(rowData)">
+                    <span *ngSwitchCase="'status'">
                         <span *ngIf="!primeTableService.isMobileView">
                             {{ rowData['status'] | titlecase }}
                         </span>
                     </span>
-                    <span *ngSwitchCase="'varieties'" [routerLink]="availabilityPage(rowData)">
+                    <span *ngSwitchCase="'varieties'">
                         <div class="d-flex">
                             <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
                                 {{ rowData['varieties'] || 'NA' }}
                             </span>
                         </div>
                     </span>
-                    <span *ngSwitchCase="'origin'" [routerLink]="availabilityPage(rowData)">
+                    <span *ngSwitchCase="'origin'">
                         <div class="d-flex">
                             <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
                                 {{ rowData['origin'] | country | translate }}
                             </span>
                         </div>
                     </span>
-                    <span *ngSwitchCase="'quantity'" [routerLink]="availabilityPage(rowData)">
+                    <span *ngSwitchCase="'quantity'">
                         <div
                             class="d-flex"
                             tooltipStyleClass="custom-tooltip"
@@ -134,7 +135,7 @@
                             </span>
                         </div>
                     </span>
-                    <span *ngSwitchCase="'remaining_total_quantity'" [routerLink]="availabilityPage(rowData)">
+                    <span *ngSwitchCase="'remaining_total_quantity'">
                         <div class="d-flex">
                             <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
                                 {{ 'remaining_quantity' | translate }}
@@ -150,25 +151,17 @@
                     </span>
                     <span *ngSwitchCase="'order_reference'">
                         <div class="d-flex">
-                            <span
-                                *ngIf="primeTableService.isMobileView"
-                                class="w-50"
-                                [routerLink]="availabilityPage(rowData)"
-                            >
+                            <span *ngIf="primeTableService.isMobileView" class="w-50">
                                 <p class="prime-table-label text-clr588 mb-0">
                                     {{ 'roaster_ref_no' | translate }}
                                 </p>
                             </span>
-                            <span
-                                *ngIf="primeTableService.isMobileView"
-                                class="w-50"
-                                [routerLink]="availabilityPage(rowData)"
-                            >
+                            <span *ngIf="primeTableService.isMobileView" class="w-50">
                                 <p class="mb-0 prime-table-label">
                                     {{ rowData['order_reference'] || 'NA' }}
                                 </p>
                             </span>
-                            <span [routerLink]="availabilityPage(rowData)">
+                            <span>
                                 <p *ngIf="!primeTableService.isMobileView" class="mb-0">
                                     {{ rowData['order_reference'] || 'NA' }}
                                 </p>
@@ -176,7 +169,7 @@
                             <!-- <span class="ml-auto"> </span> -->
                         </div>
                     </span>
-                    <span *ngSwitchCase="'id'" [routerLink]="availabilityPage(rowData)">
+                    <span *ngSwitchCase="'id'">
                         <span *ngIf="!primeTableService.isMobileView">
                             {{ rowData[col.field] }}
                         </span>
@@ -231,9 +224,9 @@
                             </ng-template>
                         </div>
                     </span>
-                    <span *ngSwitchCase="'actions'" class="text-center" [routerLink]="availabilityPage(rowData)">
+                    <span *ngSwitchCase="'actions'" class="text-center">
                         <ng-container *ngIf="!primeTableService.isMobileView">
-                            <span class="brown-cta" [routerLink]="availabilityPage(rowData)">View</span>
+                            <span class="brown-cta">View</span>
                         </ng-container>
                     </span>
                     <span *ngSwitchCase="'options'" class="text-center">
@@ -244,6 +237,7 @@
                                 placement="left"
                                 [outsideClick]="true"
                                 #pop="bs-popover"
+                                (click)="menuClicked()"
                             >
                                 <p class="mb-0">
                                     <img class="ellipse-image" src="assets/images/ellipses.png" alt="" />

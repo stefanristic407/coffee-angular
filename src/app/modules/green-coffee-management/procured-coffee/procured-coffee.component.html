@@ -21,20 +21,11 @@
                             </div>
                             <div class="text-white pull-right">
                                 <button
-                                    *ngIf="!saleInformation"
                                     class="btn-raised"
                                     routerLink="/green-coffee-management/coffee-sale"
                                     [queryParams]="{ orderId: orderDetails?.id }"
                                 >
                                     Mark for sale
-                                </button>
-                                <button
-                                    *ngIf="saleInformation && saleInformation.status !== 'SOLD'"
-                                    class="btn-raised"
-                                    routerLink="/green-coffee-management/lot-sale"
-                                    [queryParams]="{ orderId: orderDetails?.id }"
-                                >
-                                    {{ globals.languageJson?.edit }}
                                 </button>
                             </div>
                         </div>
@@ -44,20 +35,11 @@
                             </h2>
                             <div class="col-sm-12">
                                 <button
-                                    *ngIf="!saleInformation"
                                     class="btn-raised w-100"
                                     routerLink="/green-coffee-management/coffee-sale"
                                     [queryParams]="{ orderId: orderDetails?.id }"
                                 >
                                     Mark for sale
-                                </button>
-                                <button
-                                    *ngIf="saleInformation && saleInformation.status !== 'SOLD'"
-                                    class="btn-raised"
-                                    routerLink="/green-coffee-management/lot-sale"
-                                    [queryParams]="{ orderId: orderDetails?.id }"
-                                >
-                                    {{ globals.languageJson?.edit }}
                                 </button>
                             </div>
                         </div>
@@ -319,7 +301,7 @@
                                     styleClass="ui-table-customers"
                                     [rows]="primeTableService.rows"
                                     [showCurrentPageReport]="false"
-                                    [paginator]="primeTableService.paginationValue"
+                                    [paginator]="false"
                                     [lazy]="true"
                                     (onLazyLoad)="primeTableService.getData($event)"
                                     [totalRecords]="primeTableService.totalRecords"
@@ -355,10 +337,7 @@
                                     <ng-template pTemplate="body" let-rowData let-columns="columns">
                                         <tr>
                                             <td *ngFor="let col of columns" [ngSwitch]="col.field">
-                                                <span
-                                                    *ngSwitchCase="'created_at'"
-                                                    [routerLink]="availabilityPage(rowData)"
-                                                >
+                                                <span *ngSwitchCase="'created_at'">
                                                     <div class="d-flex">
                                                         <span
                                                             *ngIf="primeTableService.isMobileView"
@@ -371,10 +350,7 @@
                                                         </span>
                                                     </div>
                                                 </span>
-                                                <span
-                                                    *ngSwitchCase="'location'"
-                                                    [routerLink]="availabilityPage(rowData)"
-                                                >
+                                                <span *ngSwitchCase="'location'">
                                                     <div class="d-flex">
                                                         <span
                                                             *ngIf="primeTableService.isMobileView"
@@ -398,10 +374,7 @@
                                                         </span>
                                                     </div>
                                                 </span>
-                                                <span
-                                                    *ngSwitchCase="'quantity'"
-                                                    [routerLink]="availabilityPage(rowData)"
-                                                >
+                                                <span *ngSwitchCase="'quantity'">
                                                     <div class="d-flex">
                                                         <span
                                                             *ngIf="primeTableService.isMobileView"
@@ -418,12 +391,10 @@
                                                 <span
                                                     *ngSwitchCase="'actions'"
                                                     class="text-center"
-                                                    [routerLink]="availabilityPage(rowData)"
+                                                    (click)="availabilityPage(rowData)"
                                                 >
                                                     <ng-container *ngIf="!primeTableService.isMobileView">
-                                                        <span class="brown-cta" [routerLink]="availabilityPage(rowData)"
-                                                            >View</span
-                                                        >
+                                                        <span class="brown-cta">View</span>
                                                     </ng-container>
                                                 </span>
                                                 <span *ngSwitchDefault>

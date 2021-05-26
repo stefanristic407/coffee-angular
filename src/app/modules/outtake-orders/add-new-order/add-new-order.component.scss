@@ -1,53 +1,16 @@
 @import 'variables';
 
-.estate-focus {
-    h3 {
-        font-size: 18px;
-        font-weight: bold;
-        margin-top: 2rem;
-        margin-bottom: 13px;
-    }
-    .cust-profile,
-    ul {
-        margin-bottom: 0;
-        border: 0.3px solid #868686;
-        border-radius: 4px;
-        li {
-            width: 100%;
-            float: left;
-            border-bottom: 0.3px solid #868686;
-            padding: 0;
-            &:last-child {
-                border-bottom: none;
-                padding-bottom: 0;
-            }
-            &:first-child {
-                padding-top: 0;
-            }
-            label {
-                float: left;
-                width: 50%;
-                margin-bottom: 0;
-                color: $muted-text-color;
-                font-size: 14px;
-                font-weight: 500;
-                padding: 1rem 1.5rem;
-            }
-            p {
-                margin-bottom: 0;
-                width: 50%;
-                float: left;
-                font-size: 14px;
-                color: $dark-color;
-                border-left: 0.3px solid #868686;
-                font-weight: 600;
-                padding: 1rem 1.5rem;
-            }
-        }
-    }
-}
 .p-calendar {
     width: 100% !important;
+    .p-button-icon {
+        font-size: 20px;
+    }
+    .p-inputtext {
+        padding: 0.9375rem 0 !important;
+    }
+    .sewn-form-field .p-inputtext {
+        padding: 0.9375rem 1rem !important;
+    }
 }
 
 .br_top {
@@ -56,6 +19,8 @@
 
 .cust-profile {
     border: 0.3px solid #dddddd;
+    border-radius: 4px;
+    padding: 1.5rem;
     border-radius: 4px;
 }
 
@@ -99,30 +64,11 @@
 }
 
 @media (min-width: 992px) {
-    .width-lable {
-        width: 40% !important;
-    }
     .mrt {
         margin-top: -1rem;
     }
 }
 
-.bg-fa {
-    border-radius: 0.5rem;
-}
-.cust-profile {
-    padding: 1.5rem;
-    border-radius: 4px;
-}
-
-.img_circle img {
-    border-radius: 50%;
-}
-
-.estate-focus ul li .br_left img {
-    border-radius: 50%;
-    width: fit-content;
-}
 .br_left {
     border-left: 0.3px solid #868686;
 }
@@ -138,18 +84,8 @@
     padding-left: 0 !important;
 }
 
-.pr {
-    padding-right: 0 !important;
-}
-
 .right_angle i {
     color: $button-icon-color;
-}
-.pi-star {
-    color: #ffc107;
-}
-.p-calendar .p-button-icon {
-    font-size: 20px;
 }
 
 .order-details-clr {
@@ -158,18 +94,8 @@
     padding: 2rem;
 }
 
-.p-calendar .p-inputtext {
-    padding: 0.9375rem 0 !important;
-}
-.sewn-form-field .p-inputtext {
-    padding: 0.9375rem 1rem !important;
-}
-
 .sewn-form-field .p-inputnumber-input {
     border: 0px !important;
-}
-.recent-time .list-ans {
-    word-break: break-word;
 }
 .recent-time {
     td {
@@ -178,6 +104,9 @@
     }
     .recent-data-ans {
         padding: 1rem 1.5rem 1rem 1.5rem !important;
+        .list-ans {
+            word-break: break-word;
+        }
     }
 }
 
@@ -200,17 +129,20 @@
     .recent-time {
         border: 1px solid #dddddd;
         border-radius: 4px;
-    }
-    .col-sm-12 {
-        flex: 0 0 100% !important;
-        max-width: 100% !important;
+        tr {
+            border-bottom: 1px dashed $primary-border-color;
+        }
+        tr:last-child {
+            border-bottom: none;
+        }
+        td {
+            padding: 1rem 0rem 1rem 1rem !important;
+            border: 0px solid #dddddd !important;
+        }
     }
     .padd {
         padding-left: 0 !important;
         padding-right: 0 !important;
-    }
-    .recent-time td {
-        padding: 1rem !important;
     }
     .sewn-form-field {
         margin-top: 1rem;
@@ -218,9 +150,6 @@
     .br_top {
         margin-top: 1.5rem;
         padding-top: 1.5rem;
-    }
-    .tab-margin {
-        margin-top: 1rem;
     }
     .copy-link input {
         width: 70% !important;
@@ -247,28 +176,9 @@
     .download-qr-link {
         margin-top: 10px;
     }
-    .estate-focus .cust-profile li label,
-    .estate-focus ul li label {
-        width: 58% !important;
-        padding: 1rem 0.5rem;
-    }
-    .estate-focus .cust-profile li p,
-    .estate-focus ul li p {
-        width: 42% !important;
-        padding: 1rem 0.5rem;
-    }
-    .recent-time tr {
-        border-bottom: 1px dashed $primary-border-color;
-    }
-    .recent-time tr:last-child {
-        border-bottom: none;
-    }
+
     .order-details-clr {
         padding: 12px;
-    }
-    .recent-time td {
-        padding: 1rem 0rem 1rem 1rem !important;
-        border: 0px solid #dddddd !important;
     }
 }
 @media (min-width: 992px) {
@@ -277,9 +187,6 @@
     }
     .copy-link input {
         padding: 14px;
-    }
-    .tab-width-rgt ul li lable {
-        width: 55%;
     }
     .padd-2r {
         padding: 1rem 0;
@@ -310,10 +217,6 @@
     .margin-left {
         margin-left: -1rem !important;
     }
-}
-
-.p-calendar-w-btn .p-inputtext {
-    margin-left: 0 !important;
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
@@ -356,9 +259,5 @@
     }
     .padd-2r {
         padding-top: 1rem;
-    }
-    .estate-focus .cust-profile li label,
-    .estate-focus ul li label {
-        padding: 1rem 0.8rem;
     }
 }

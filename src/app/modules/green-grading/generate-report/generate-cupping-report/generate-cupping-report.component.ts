@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 export class GenerateCuppingReportComponent implements OnInit, OnChanges {
     @Output() next = new EventEmitter<any>();
     @Output() showDetail = new EventEmitter<any>();
+    @Output() afterUpload = new EventEmitter<any>();
     @Input() cuppingDetails;
     @Input() selectedCuppingId;
     @Input() fromQueryParam;
@@ -154,6 +155,22 @@ export class GenerateCuppingReportComponent implements OnInit, OnChanges {
                     this.toastrService.error('Cupping Scores not found!');
                 }
             });
+    }
+
+    completeReport() {
+        const ids = this.evaluatorArray[this.cuppingReportId].map((item: any) => item.evaluator_id);
+        const data = {
+            status: 'COMPLETED',
+            evaluator_ids: ids,
+        };
+        this.greenGradingService.updateStatus(this.roasterId, this.cuppingReportId, data).subscribe((res: any) => {
+            if (res.success === true) {
+                this.toastrService.success('The Report has been completed.');
+                this.afterUpload.emit();
+            } else {
+                this.toastrService.error('Error while updating the report');
+            }
+        });
     }
 
     onOpen(event) {
