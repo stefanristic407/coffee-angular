@@ -51,11 +51,6 @@ export class RoasterAgreementsComponent implements OnInit {
         this.estatetermOrigin = '';
         this.customerMob = '';
         this.getAgreements();
-        // if (this.customerType === 'micro-roasters') {
-        //     this.getMicroRoastersList();
-        // } else if (this.customerType === 'hrc') {
-        //     this.getHorecaList();
-        // }
     }
 
     getCountryName(code: any): void {
@@ -80,51 +75,10 @@ export class RoasterAgreementsComponent implements OnInit {
                 this.newList = this.newList.filter((v, i, a) => a.findIndex((t) => t.label === v.label) === i);
                 this.newList = this.newList.sort((a, b) => a.label.localeCompare(b.label));
             } else {
-                this.toastrService.error('Error while getting the agreement list!');
+                this.toastrService.error(this.globals.languageJson?.error_getting_horeca_list);
             }
         });
     }
-
-    // getMicroRoastersList(): void {
-    //     this.roasterService.getMicroRoastersList(this.roasterId).subscribe((res: any) => {
-    //         this.newList = [];
-    //         if (res.success) {
-    //             this.horecaList = res.result;
-    //             this.horecaList.forEach((element) => {
-    //                 if (element.id > 0) {
-    //                     this.newList.push(element);
-    //                 }
-    //             });
-    //         } else {
-    //             this.toastrService.error('Error while getting HoReCa list');
-    //         }
-    //     });
-    // }
-
-    // getHorecaList(): void {
-    //     this.roasterService.getMicroRoastersHoreca(this.roasterId).subscribe((res: any) => {
-    //         this.newList = [];
-    //         if (res.success) {
-    //             this.horecaList = res.result;
-    //             this.horecaList.forEach((element) => {
-    //                 if (element.id > 0) {
-    //                     this.newList.push(element);
-    //                 }
-    //             });
-    //             this.newList = this.newList.map((item) => {
-    //                 const transformItem = { label: '', value: '' };
-    //                 transformItem.label = item.name;
-    //                 transformItem.value = item.name;
-    //                 return transformItem;
-    //             });
-    //             const allOption = { label: 'All', value: 'All' };
-    //             this.newList.push(allOption);
-    //             this.newList = this.newList.sort((a, b) => a.label.localeCompare(b.label));
-    //         } else {
-    //             this.toastrService.error('Error while getting HoReCa list');
-    //         }
-    //     });
-    // }
 
     onUpdateModal(itemId: any) {
         this.displayAddEditModal = true;
@@ -166,10 +120,10 @@ export class RoasterAgreementsComponent implements OnInit {
                         .subscribe((res: any) => {
                             if (res.success) {
                                 // this.displayDeleteModal = false;
-                                this.toastrService.success('The Selected agreement deleted successfully!');
+                                this.toastrService.success(this.globals.languageJson?.success_deleting_agreement);
                                 this.getAgreements();
                             } else {
-                                this.toastrService.error('Error while deleting the agreement');
+                                this.toastrService.error(this.globals.languageJson?.error_deleting_agreement);
                             }
                         });
                 }
