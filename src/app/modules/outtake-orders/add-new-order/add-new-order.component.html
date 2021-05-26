@@ -52,6 +52,7 @@
                                 [showIcon]="true"
                                 [maxDate]="currentDate"
                                 inputId="icon"
+                                placeholder="{{ 'select_date' | translate }}"
                             ></p-calendar>
                             <small
                                 *ngIf="
@@ -110,6 +111,7 @@
                             </div>
                             <input
                                 pInputText
+                                placeholder="{{ 'roaster_ref_no' | translate }}"
                                 class="roastery-website-input border"
                                 [formControl]="addOrdersForm.controls['roaster_ref_no']"
                             />
@@ -192,7 +194,7 @@
                 </div>
                 <div class="d-flex flex-column br_top mt-md-3 pt-md-3">
                     <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 pt-md-3 mb-md-1">
-                        {{ 'roast_details' | translate }}
+                        {{ 'order_details' | translate }}
                     </div>
                     <div class="fnt-14 fnt-400 text-clr334 fnt-muli mb-3">
                         {{ 'select_the_green_coffee_order' | translate }}
@@ -246,6 +248,7 @@
                                     <input
                                         class="roastery-website-input border weightInputDiv"
                                         [formControl]="addOrdersForm.controls['customer_id']"
+                                        placeholder="{{ 'customer_name' | translate }}"
                                         pInputText
                                     />
                                 </div>
@@ -542,7 +545,7 @@
                     <div *ngIf="addOrdersForm.get('customer_type').value === 'hrc'" class="br_top">
                         <div class="d-flex flex-column padd-2r mt-md-3">
                             <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1 d-none d-md-block">
-                                {{ 'order_details' | translate }}
+                                {{ 'roast_details' | translate }}
                             </div>
                             <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1 d-block d-md-none">
                                 {{ 'roast_details' | translate }}
