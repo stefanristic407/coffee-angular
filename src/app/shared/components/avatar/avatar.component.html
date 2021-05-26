@@ -1,6 +1,9 @@
 <div class="avatar" [style.width]="size + 'px'" [style.height]="size + 'px'">
     <img *ngIf="src" [src]="src" [alt]="name && name.length ? name.slice(0, 1) : 'AV'" />
-    <p *ngIf="!src" class="text-white" [style.font-size]="size / 1.5 + 'px'" style="margin: auto">
-        {{ name && name.length ? name.slice(0, 1) : '' }}
-    </p>
+    <img
+        *ngIf="!src"
+        class="placeholder"
+        src="assets/images/avatar-placeholder.svg"
+        [alt]="name && name.length ? name.slice(0, 1) : 'AV'"
+    />
 </div>

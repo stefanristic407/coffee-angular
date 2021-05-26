@@ -13,7 +13,9 @@
 .filter {
     margin-top: 1.5rem;
 }
-
+.overflow-word {
+    word-break: break-word;
+}
 ::ng-deep .range-picker {
     height: 43px !important;
     width: 138px !important;

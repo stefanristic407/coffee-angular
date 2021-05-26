@@ -24,7 +24,6 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
     breadItems: any = [];
     selectedTab = 0;
     roasterNotes: any = [];
-    saleInformation: any;
     originArray: any;
     form: any;
     termStatus: any;
@@ -44,7 +43,6 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
         super(resizeService);
         this.roasterID = this.cookieService.get('roaster_id');
         this.primeTableService.rows = 10;
-        this.primeTableService.sortBy = 'created_at';
         this.route.params.subscribe((params) => {
             this.orderID = params.orderId;
         });
@@ -123,7 +121,6 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
         this.language();
         this.getOrderDetails();
         this.getRoasterNotes();
-        this.getSaleOrderDetails();
         this.initializeTableProcuredCoffee();
     }
 
@@ -135,20 +132,6 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
                     if (this.orderDetails && this.orderDetails.harvest_id) {
                         this.getGCAvailableDetails(this.orderDetails.harvest_id);
                     }
-                }
-            },
-            (err) => {
-                console.log(err);
-            },
-        );
-    }
-
-    getSaleOrderDetails() {
-        this.roasterService.getMarkForSaleDetails(this.roasterID, this.orderID).subscribe(
-            (response) => {
-                console.log(response);
-                if (response.success && response.result) {
-                    this.saleInformation = response.result;
                 }
             },
             (err) => {
@@ -212,11 +195,13 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
 
     availabilityPage(data) {
         if (data.catalogue === 'OUTTAKE_ORDER') {
-            return `/outtake-orders/view-order/${data.catalogue_id}`;
-        } else if (data.catalogue === 'RO_BATCH') {
-            return `/roasted-coffee-batch/new-roasted-batch/${data.catalogue_id}`;
-        } else if (data.catalogue === 'RO_GREEN_COFFEE') {
-            return `/green-coffee-management/green-coffee-for-sale-details/${data.catalogue_id}`;
+            this.router.navigateByUrl(`/outtake-orders/view-order/${data.catalogue_id}`);
+        }
+        if (data.catalogue === 'RO_BATCH') {
+            this.router.navigateByUrl(`/roasted-coffee-batch/new-roasted-batch/${data.catalogue_id}`);
+        }
+        if (data.catalogue === 'RO_GREEN_COFFEE') {
+            this.router.navigateByUrl(`/green-coffee-management/green-coffee-for-sale-details/${data.catalogue_id}`);
         }
     }
 

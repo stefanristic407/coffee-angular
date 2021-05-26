@@ -17,7 +17,7 @@ export class BrandProfileHeaderComponent implements OnInit {
         'home-page': 'Add details according to respective sections to create your brand profile website',
         'about-us': 'Add details according to respective sections to create your brand profile website',
         learn: 'Add details about your estate to give yours a view.',
-        sustainability: 'Add details about your estate to give yours a view.',
+        sustainability: 'Add details about your sustainability practices.',
         'visit-us': 'Add details according to respective sections to create your brand profile website',
     };
 
@@ -29,6 +29,7 @@ export class BrandProfileHeaderComponent implements OnInit {
     ngOnInit(): void {
         this.breadItems = [
             { label: this.globals.languageJson?.home, routerLink: '/' },
+            { label: this.globals.languageJson?.brand_experience },
             { label: this.globals.languageJson?.brand_profile, routerLink: '/brand-profile' },
             { label: this.globals.languageJson[this.pageSlug.replace('-', '_')] || this.pageSlug },
         ];

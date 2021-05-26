@@ -69,7 +69,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             this.statusArray = this.isPublished
                 ? [
                       { label: 'In Stock', value: 'IN-STOCK' },
-                      { label: 'Out of Stock', value: 'OUT-OF-STOCK' },
+                      { label: 'Out of Stock', value: 'SOLD' },
                   ]
                 : [
                       {

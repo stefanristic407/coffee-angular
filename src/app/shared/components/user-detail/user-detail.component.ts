@@ -13,9 +13,9 @@ export class UserDetailComponent implements OnInit, OnChanges {
     @Input() orgType: any;
     @Input() size: any;
     @Input() imageUrl: any;
-    @Input() shape: any;
-    @Input() type: any;
-    @Input() hasBorder: any;
+    @Input() shape: 'rectangle' | 'circle' = 'circle';
+    @Input() type: 'text' | 'contact' | '' = '';
+    @Input() hasBorder: boolean;
     @Input() isMessage: any;
     orgName: any;
     data: any;

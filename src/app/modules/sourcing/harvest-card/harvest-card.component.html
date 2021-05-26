@@ -12,8 +12,9 @@
         <h5 class="fnt-16 fnt-md-18 black fnt-700 mb-1 ellipsis">{{ data.name }}</h5>
         <div class="fnt-14 fnt-md-16 fnt-500 text-clr588 mb-3">{{ data.estate?.name || '-' }}</div>
         <div class="fnt-16 fnt-md-18 fnt-bold text-clr334">
-            <span>{{ data.price * (sourcingSrv.quantityUnit == QuantityUnit.lb ? LBUNIT : 1) | number: '1.0-2' }}</span>
-            <span>{{ data.price_unit }}&nbsp;/&nbsp;{{ sourcingSrv.quantityUnit }}</span>
+            <span>{{ data.price * (sourcingSrv.quantityUnit == QuantityUnit.lb ? LBUNIT : 1) | number: '1.0-2' }}</span
+            >&nbsp;
+            <span>{{ data.price_unit }}/{{ sourcingSrv.quantityUnit }}</span>
         </div>
         <div class="pad-card">
             <div class="d-flex flex-wrap">
@@ -60,7 +61,8 @@
         <div class="fnt-14 fnt-md-16 fnt-600 text-clr588">
             {{ 'available_quantity' | translate }} :
             <span class="fnt-bold text-clr334">
-                {{ data.quantity_count }}&nbsp;{{ data.quantity_type }} of {{ data.quantity }}{{ data.quantity_unit }}
+                {{ data.quantity_count }}&nbsp;{{ data.quantity_type | quantityType }} of {{ data.quantity
+                }}{{ data.quantity_unit }}
             </span>
         </div>
     </div>

@@ -34,17 +34,15 @@ export class MicroAboutComponent implements OnInit {
     }
 
     getCertificates() {
-        if (this.aclService.checkPermission('certificate-list|certificate-management')) {
-            this.userService
-                .getGeneralCertificates(this.microRoasterId, OrganizationType.MICRO_ROASTER)
-                .subscribe((result: any) => {
-                    if (result.success === true) {
-                        this.certificatesArray = result.result;
-                    } else {
-                        this.toastrService.error('Error in loading Roaster Certificates');
-                    }
-                });
-        }
+        this.userService
+            .getGeneralCertificates(this.microRoasterId, OrganizationType.MICRO_ROASTER)
+            .subscribe((result: any) => {
+                if (result.success === true) {
+                    this.certificatesArray = result.result;
+                } else {
+                    this.toastrService.error('Error in loading Roaster Certificates');
+                }
+            });
     }
 
     getBranches() {

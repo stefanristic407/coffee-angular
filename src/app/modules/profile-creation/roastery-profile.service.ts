@@ -216,12 +216,8 @@ export class RoasteryProfileService {
         reader.onload = (event: any) => {
             const img = new Image();
             img.onload = () => {
-                if (img.naturalWidth !== 1144 || img.naturalHeight !== 160) {
-                    this.toastrService.error(`Image should be 1144 x 160 size`);
-                } else {
-                    this.bannerFile = inputElement.files[0];
-                    this.bannerUrl = event.target.result;
-                }
+                this.bannerFile = inputElement.files[0];
+                this.bannerUrl = event.target.result;
             };
             img.src = window.URL.createObjectURL(file);
         };

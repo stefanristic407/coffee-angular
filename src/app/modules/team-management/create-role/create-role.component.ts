@@ -63,7 +63,8 @@ export class CreateRoleComponent implements OnInit {
     getRoasterPermission(selectedPermission = []): void {
         this.roasterService.getRoasterPermissions(this.roasterID).subscribe(
             (res: any) => {
-                const groupedCategory = this.groupByArray(res.result, 'category');
+                const sortedPermission = res.result?.sort((a: any, b: any) => (a.category > b.category ? -1 : 1));
+                const groupedCategory = this.groupByArray(sortedPermission, 'category');
                 const groupPermission = [];
                 this.selectedPermission = [];
                 groupedCategory.forEach((ele) => {

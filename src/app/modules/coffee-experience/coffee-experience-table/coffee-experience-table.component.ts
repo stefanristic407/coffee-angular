@@ -22,17 +22,16 @@ export class CoffeeExperienceTableComponent implements OnInit, OnChanges {
     rangeDates: any;
     selectedOrigin: string;
     items = [
-        { label: 'Home', routerLink: '/features/welcome-aboard' },
-        { label: 'Farm link' },
-        { label: 'The Coffee Experience' },
+        { label: this.globals.languageJson.home, routerLink: '/features/welcome-aboard' },
+        { label: this.globals.languageJson.brand_experience },
+        { label: this.globals.languageJson.the_coffee_experience },
     ];
     originData = [];
     displayItems = [
-        { label: 'All', value: '' },
-        { label: 'Display 10', value: 10 },
-        { label: 'Display 20', value: 20 },
-        { label: 'Display 25', value: 25 },
-        { label: 'Display 50', value: 50 },
+        { label: this.globals.languageJson.display + ' ' + 10, value: 10 },
+        { label: this.globals.languageJson.display + ' ' + 20, value: 20 },
+        { label: this.globals.languageJson.display + ' ' + 25, value: 25 },
+        { label: this.globals.languageJson.display + ' ' + 50, value: 50 },
     ];
     roasterId: any;
     filteredCoffeeData: any[];
@@ -79,11 +78,7 @@ export class CoffeeExperienceTableComponent implements OnInit, OnChanges {
     }
 
     getOrdersData() {
-        if (this.selectedOrigin === '') {
-            this.filteredCoffeeData = this.coffeeExperienceData;
-        } else {
-            this.filteredCoffeeData = this.coffeeExperienceData.slice(0, this.filterDisplay);
-        }
+        this.filteredCoffeeData = this.coffeeExperienceData.slice(0, this.filterDisplay);
     }
 
     language() {
@@ -97,7 +92,7 @@ export class CoffeeExperienceTableComponent implements OnInit, OnChanges {
             if (startDate.getTime() === endDate.getTime()) {
                 this.filteredCoffeeData = this.coffeeExperienceData.filter((res) => {
                     let dataDate;
-                    if (this.customerType === 'hrc') {
+                    if (this.customerType === 'hrc-orders') {
                         dataDate = new Date(res.order_date);
                     } else {
                         dataDate = new Date(res.created_at);
@@ -112,7 +107,7 @@ export class CoffeeExperienceTableComponent implements OnInit, OnChanges {
             } else {
                 this.filteredCoffeeData = this.coffeeExperienceData.filter((res) => {
                     let dataDate;
-                    if (this.customerType === 'hrc') {
+                    if (this.customerType === 'hrc-orders') {
                         dataDate = new Date(res.order_date);
                     } else {
                         dataDate = new Date(res.created_at);

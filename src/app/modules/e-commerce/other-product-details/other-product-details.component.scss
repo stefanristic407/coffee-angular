@@ -12,6 +12,20 @@
     }
 }
 
+.p-input-icon-right {
+    position: relative;
+    .right-icon {
+        position: absolute;
+        padding: 12px;
+        background-color: #f8f8f8;
+        margin: 4px;
+        right: 0;
+    }
+    input {
+        padding-right: 56px;
+    }
+}
+
 .addImageContainer {
     height: 130px;
     border: 1px solid #d6d6d6;

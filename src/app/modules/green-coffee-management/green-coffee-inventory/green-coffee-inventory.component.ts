@@ -16,6 +16,7 @@ export class GreenCoffeeInventoryComponent implements OnInit {
     appLanguage?: any = {};
     greenActive: any = 0;
     loader: boolean;
+    searchText: string;
     searchString = '';
     breadItems = [
         { label: 'Home', routerLink: '/roaster-dashboard' },
@@ -38,8 +39,10 @@ export class GreenCoffeeInventoryComponent implements OnInit {
         if (this.route.snapshot.queryParams.markSale === 'yes') {
             this.selectedTab = 1;
             this.isProcuredTab = false;
+            this.searchText = 'Search by estate name';
         } else {
             this.selectedTab = 0;
+            this.searchText = 'Search by order ID';
         }
     }
     language() {
@@ -47,14 +50,19 @@ export class GreenCoffeeInventoryComponent implements OnInit {
         this.greenActive++;
     }
     onSearch() {
-        this.procureTab.search(this.searchString);
-        this.markForSaleTab.search(this.searchString);
+        if (this.procureTab) {
+            this.procureTab.search(this.searchString);
+        } else if (this.markForSaleTab) {
+            this.markForSaleTab.search(this.searchString);
+        }
     }
     handleChange(event: any) {
         if (event.index === 0) {
             this.isProcuredTab = true;
+            this.searchText = 'Search by order ID';
         } else {
             this.isProcuredTab = false;
+            this.searchText = 'Search by estate name';
         }
         this.primeTableService.records = [];
     }

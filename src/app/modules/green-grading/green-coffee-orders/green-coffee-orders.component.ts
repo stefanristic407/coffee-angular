@@ -59,6 +59,7 @@ export class GreenCoffeeOrdersComponent implements OnInit {
         });
         this.breadCrumbItems = [
             { label: this.globals.languageJson?.home, routerLink: '/features/micro-roaster-dashboard' },
+            { label: this.globals.languageJson?.menu_sourcing },
             { label: this.globals.languageJson?.green_grading, routerLink: '/green-grading' },
             { label: 'Green coffee orders' },
         ];
@@ -161,8 +162,8 @@ export class GreenCoffeeOrdersComponent implements OnInit {
             per_page: this.displayRowCounts,
             query: this.term,
             order_type: this.selectedOrderType,
-            sort_by: event?.sortField,
-            sort_order: event?.sortOrder === 1 ? 'asc' : 'desc',
+            sort_by: event?.sortField ?? 'order_date',
+            sort_order: event?.sortField ? (event?.sortOrder === 1 ? 'asc' : 'desc') : 'desc',
         };
         this.greenGradingService.getCuppingInviteList(options).subscribe((res: any) => {
             if (res.success === true) {

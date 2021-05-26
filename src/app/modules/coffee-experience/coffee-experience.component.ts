@@ -12,16 +12,16 @@ import { SourcingService } from '../sourcing/sourcing.service';
 })
 export class CoffeeExperienceComponent implements OnInit {
     items = [
-        { label: 'Home', routerLink: '/features/welcome-aboard' },
-        { label: 'Brand & Experience' },
-        { label: 'The Coffee Experience' },
+        { label: this.globals.languageJson.home, routerLink: '/features/welcome-aboard' },
+        { label: this.globals.languageJson.brand_experience },
+        { label: this.globals.languageJson.the_coffee_experience },
     ];
     queryParams: any;
     rows = 15;
     pageNumber = 1;
     totalRecords;
     searchTerm: any;
-    customerType = 'estate';
+    customerType = 'orders';
     coffeeExperienceData: any;
     roasterId: string;
     params: any;
@@ -41,13 +41,13 @@ export class CoffeeExperienceComponent implements OnInit {
 
     onTabChange(event) {
         if (event.index === 0) {
-            this.customerType = 'estate';
+            this.customerType = 'orders';
             this.getEstateOrders();
         } else if (event.index === 1) {
-            this.customerType = 'micro-roasters';
+            this.customerType = 'mr-orders';
             this.getEstateOrders();
         } else if (event.index === 2) {
-            this.customerType = 'hrc';
+            this.customerType = 'hrc-orders';
             this.getEstateOrders();
         } else if (event.index === 3) {
             this.customerType = 'outtake-orders';
@@ -56,17 +56,19 @@ export class CoffeeExperienceComponent implements OnInit {
     }
 
     getEstateOrders() {
-        if (this.customerType === 'hrc') {
+        if (this.customerType === 'hrc-orders') {
             this.params = {
                 page: this.pageNumber,
                 per_page: this.rows,
                 status: 'DELIVERED',
+                sort_order: 'desc',
             };
         } else {
             this.params = {
                 page: this.pageNumber,
                 per_page: this.rows,
                 status: 'RECEIVED',
+                sort_order: 'desc',
             };
         }
         this.coffeeExperienceData = [];
@@ -77,7 +79,7 @@ export class CoffeeExperienceComponent implements OnInit {
                     this.coffeeExperienceData = res.result;
                     this.totalRecords = res.result_info.total_count;
                 } else {
-                    this.toastrService.error('Error while getting orders');
+                    this.toastrService.error(this.globals.languageJson.error_while_getting_orders);
                 }
             });
     }

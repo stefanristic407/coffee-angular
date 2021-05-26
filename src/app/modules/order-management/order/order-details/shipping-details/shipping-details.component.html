@@ -8,7 +8,7 @@
                     <span class="list-que"> {{ 'exporter_company' | translate }}: </span>
                 </td>
                 <td>
-                    <span class="list-ans"></span>
+                    <span class="list-ans">{{ shippingDetails?.exporter_fc_name || '-' }}</span>
                 </td>
             </tr>
             <tr>
@@ -112,7 +112,7 @@
                     <span class="list-que"> {{ 'importer_company' | translate }}: </span>
                 </td>
                 <td>
-                    <span class="list-ans"></span>
+                    <span class="list-ans">{{ shippingDetails?.import_fc_name || '-' }}</span>
                 </td>
             </tr>
             <tr>

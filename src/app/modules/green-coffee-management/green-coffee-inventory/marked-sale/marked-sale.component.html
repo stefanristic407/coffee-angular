@@ -135,6 +135,8 @@
 
                             <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
                                 {{ rowData['quantity'] || 'NA' }}
+
+                                <span *ngIf="rowData['quantity']">{{ rowData['quantity_type'] }}</span>
                             </span>
                         </div>
                     </span>

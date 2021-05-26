@@ -1,13 +1,15 @@
+@import 'variables';
+
 .btn-file-upload {
     background: transparent;
     font-size: 14px;
-    color: #232334;
+    color: $general-text-color;
     line-height: 16px;
     padding: 8px 12px;
-    border: 1px solid #747588;
+    border: 1px solid $muted-text-color;
     border-radius: 2px;
     &:hover {
-        border: 1px solid #747588 !important;
+        border: 1px solid $muted-text-color !important;
     }
     img {
         height: 16px;
@@ -18,24 +20,24 @@
 .header {
     height: 50px;
     border-radius: 4px;
-    background-color: #f8f8f8;
+    background-color: $primary-bg-color;
     padding: 0.75rem;
 }
 
 hr {
-    border-top: 1px dashed #d6d6d6 !important;
+    border-top: 1px dashed $primary-border-color !important;
 }
 
 .border-right {
-    border-right: 1px solid #d6d6d6;
+    border-right: 1px solid $primary-border-color;
 }
 
 .star {
-    color: #ff1e5a;
+    color: $invalid-color;
 }
 
 .add-text {
-    color: #80460b;
+    color: $brown-color;
 }
 
 .brand-tag {
@@ -57,7 +59,7 @@ hr {
 }
 
 .border-div {
-    border-bottom: 1px dashed #d6d6d6;
+    border-bottom: 1px dashed $primary-border-color;
 }
 
 /**********popover*******/
@@ -79,23 +81,23 @@ hr {
     border: none !important;
     border-radius: 6px !important;
     box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
-    background-color: #ffffff;
+    background-color: $white;
 }
 
 .list-item {
     border: none;
-    font-family: 'Muli';
+    font-family: $general-font-family;
     font-size: 14px;
     font-weight: 600 !important;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #747588;
+    color: $muted-text-color;
     &:hover {
-        color: #232334 !important;
+        color: $general-text-color !important;
         font-weight: 600 !important;
-        background-color: #f8f8f8 !important;
+        background-color: $primary-bg-color !important;
     }
 }
 
@@ -117,7 +119,7 @@ hr {
 
 .add-partner {
     cursor: pointer;
-    color: #80460b;
+    color: $brown-color;
 }
 
 .unit-dropdown {
@@ -133,7 +135,7 @@ hr {
     .p-dropdown {
         height: 42px;
         min-width: 87px;
-        background: #f8f8f8;
+        background: $primary-bg-color;
         border: none;
     }
 }
@@ -191,7 +193,7 @@ hr {
     .btn-delete-avatar {
         background-color: transparent;
         border: none;
-        color: #3d8462;
+        color: $primary-color;
         padding: 8px 12px 0 12px;
     }
 }
@@ -216,7 +218,7 @@ hr {
 
 .sewn-form-field {
     label {
-        color: #747588;
+        color: $muted-text-color;
     }
 }
 
@@ -229,7 +231,7 @@ hr {
 .upload-button {
     padding: 8px 12px;
     border-radius: 2px;
-    border: solid 1px #747588;
+    border: solid 1px $muted-text-color;
     cursor: pointer;
 }
 

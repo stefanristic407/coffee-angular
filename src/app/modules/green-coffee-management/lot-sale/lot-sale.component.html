@@ -157,7 +157,7 @@
                                                                     globals.languageJson?.origin
                                                                 }}</span>
                                                                 <span class="float-right primary_txt mobileValueTxt">{{
-                                                                    rowData['origin'] | titlecase
+                                                                    rowData['origin'] | country | titlecase
                                                                 }}</span>
                                                             </div>
                                                             <div class="mobileCardBody">
@@ -216,7 +216,7 @@
                                                 <span>{{ rowData[col.field] }}</span>
                                             </span>
                                             <span *ngSwitchCase="'origin'" class="text-clr588 fnt-600">
-                                                <span>{{ rowData[col.field] }}</span>
+                                                <span>{{ rowData[col.field] | country | translate }}</span>
                                             </span>
                                             <span *ngSwitchCase="'species'" class="text-clr588 fnt-600">
                                                 <span>{{ rowData[col.field] }}</span>
@@ -334,7 +334,7 @@
                         <small *ngIf="lotSaleForm.controls['name'].errors?.required" class="p-error"> Required </small>
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
-                        <label>Selling price<span class="star">*</span>(in USD)</label>
+                        <label>Selling price<span class="star">*</span>(in SEK)</label>
 
                         <div class="p-inputgroup custom-addon dropdownClass">
                             <p-inputNumber

@@ -21,7 +21,10 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
         { label: 'contact', routerLink: '/roastery-profile/contact' },
         { label: 'reviews', routerLink: '/roastery-profile/reviews' },
     ];
-    breadItems = [{ label: 'home', routerLink: '/' }, { label: 'Roastery Profile' }];
+    breadItems = [
+        { label: this.globals.languageJson?.home, routerLink: '/' },
+        { label: this.globals.languageJson?.roastery_profile },
+    ];
     isSaveMode: boolean;
     isEditMode: boolean;
 
