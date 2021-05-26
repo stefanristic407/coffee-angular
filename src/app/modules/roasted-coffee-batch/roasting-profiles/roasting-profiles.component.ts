@@ -45,6 +45,7 @@ export class RoastingProfilesComponent implements OnInit {
     termSearch = '';
     selectedProfiles = [];
     disableAction = false;
+    isLoadingProfiles = false;
 
     constructor(
         public router: Router,
@@ -114,16 +115,34 @@ export class RoastingProfilesComponent implements OnInit {
         this.roleId = roleId;
     }
 
-    getRoastingProfile() {
-        const postData: any = {};
-        postData.roast_level = this.roastLevelFilter ? this.roastLevelFilter : '';
-        postData.search_query = this.termSearch ? this.termSearch : '';
-        postData.per_page = 100;
+    getData(event = null): void {
+        const queryParams = {
+            sort_by: 'created_at',
+            sort_order: 'desc',
+            page: 1,
+            per_page: 10,
+            search_query: this.termSearch,
+            roast_level: this.roastLevelFilter,
+        };
+        if (event) {
+            if (event.sortField) {
+                queryParams.sort_by = event.sortField;
+                queryParams.sort_order = event.sortOrder === -1 ? 'desc' : 'asc';
+            }
+            queryParams.page = event.first / event.rows + 1;
+        }
+        this.getRoastingProfile(queryParams);
+    }
+
+    getRoastingProfile(queryParams: any) {
         this.tableValue = [];
-        this.roasterService.getRoastingProfile(postData).subscribe(
+        this.isLoadingProfiles = true;
+        this.roasterService.getRoastingProfile(queryParams).subscribe(
             (data: any) => {
+                this.isLoadingProfiles = false;
                 if (data.success) {
-                    this.tableValue = data.result.reverse();
+                    this.tableValue = data.result;
+                    this.totalCount = data.result_info.total_count;
                 } else {
                     this.toastrService.error('Error while getting the roasting profile list!');
                 }
@@ -175,7 +194,7 @@ export class RoastingProfilesComponent implements OnInit {
                     (res) => {
                         if (res.success) {
                             this.toastrService.success('Roasted profile deleted successfully');
-                            this.getRoastingProfile();
+                            this.getData();
                         } else {
                             this.toastrService.error('Error while deleting roasting profile');
                         }
@@ -186,9 +205,5 @@ export class RoastingProfilesComponent implements OnInit {
                 );
             }
         });
-    }
-
-    filterCall() {
-        this.getRoastingProfile();
     }
 }

@@ -41,7 +41,7 @@
                     name="search"
                     class="search-raised pull-right"
                     [(ngModel)]="termSearch"
-                    (ngModelChange)="roasterCoffeeBatchsData({})"
+                    (ngModelChange)="getData()"
                     placeholder="Search by batch name or ID"
                 />
             </div>
@@ -73,7 +73,7 @@
                     name="search"
                     class="search-raised w-100 ml-0"
                     [(ngModel)]="termSearch"
-                    (ngModelChange)="roasterCoffeeBatchsData({})"
+                    (ngModelChange)="getData()"
                     placeholder="Search by batch name"
                 />
             </div>
@@ -85,7 +85,7 @@
                     optionLabel="label"
                     optionValue="value"
                     [(ngModel)]="profileFilter"
-                    (ngModelChange)="roasterCoffeeBatchsData({})"
+                    (ngModelChange)="getData()"
                     scrollHeight="225px"
                     [showClear]="true"
                     placeholder="Roast level"
@@ -123,7 +123,8 @@
                     [resizableColumns]="true"
                     styleClass="ui-table-customers"
                     [showCurrentPageReport]="false"
-                    [paginator]="false"
+                    [paginator]="true"
+                    [rows]="10"
                     [loading]="isLoadingRoastedBatches"
                     [lazy]="true"
                     (onLazyLoad)="getData($event)"
