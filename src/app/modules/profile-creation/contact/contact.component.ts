@@ -67,7 +67,6 @@ export class ContactComponent implements OnInit {
         });
 
         this.contactForm.valueChanges.subscribe((changedData: any) => {
-            console.log('value changed: ', this.contactForm.invalid, changedData);
             this.roasteryProfileService.contactFormInvalid = this.contactForm.invalid;
             this.roasteryProfileService.editProfileData(changedData);
         });
@@ -75,28 +74,15 @@ export class ContactComponent implements OnInit {
 
     setFormValue() {
         this.countryList.forEach((item: Country) => {
-            if (item.isoCode === this.roasteryProfileService.roasteryProfileData.country.toUpperCase()) {
+            if (item.isoCode === this.roasteryProfileService.toUpdateProfileData.country.toUpperCase()) {
                 this.cityList = item.cities;
             }
         });
 
-        const formValue = {
-            email: this.roasteryProfileService.roasteryProfileData.email,
-            phone: this.roasteryProfileService.roasteryProfileData.phone,
-            country: this.roasteryProfileService.roasteryProfileData.country.toUpperCase(),
-            state: this.roasteryProfileService.roasteryProfileData.state,
-            address_line1: this.roasteryProfileService.roasteryProfileData.address_line1,
-            address_line2: this.roasteryProfileService.roasteryProfileData.address_line2,
-            city: this.roasteryProfileService.roasteryProfileData.city,
-            zipcode: this.roasteryProfileService.roasteryProfileData.zipcode,
-            fb_profile: this.roasteryProfileService.roasteryProfileData.fb_profile,
-            ig_profile: this.roasteryProfileService.roasteryProfileData.ig_profile,
-        };
+        this.contactForm.patchValue(this.roasteryProfileService.toUpdateProfileData);
 
-        this.contactForm.patchValue(formValue);
-
-        this.latitude = this.roasteryProfileService.roasteryProfileData.latitude;
-        this.longitude = this.roasteryProfileService.roasteryProfileData.longitude;
+        this.latitude = this.roasteryProfileService.toUpdateProfileData.latitude;
+        this.longitude = this.roasteryProfileService.toUpdateProfileData.longitude;
     }
 
     isControlHasError(controlName: string, validationType: string): boolean {

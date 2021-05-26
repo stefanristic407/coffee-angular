@@ -27,7 +27,7 @@ export class RoasteryProfileService {
     public aboutFormInvalid = false;
     public contactFormInvalid = false;
     public toUpdateProfileData: OrganizationProfile;
-    public roasteryProfileData: OrganizationProfile;
+    public organizationProfile: OrganizationProfile;
 
     public invalidSumEmployee = false;
 
@@ -60,7 +60,7 @@ export class RoasteryProfileService {
 
     public editProfileData(subData: any) {
         this.toUpdateProfileData = {
-            ...this.roasteryProfileData,
+            ...this.toUpdateProfileData,
             ...subData,
         };
     }
@@ -69,22 +69,22 @@ export class RoasteryProfileService {
         this.userService.getRoasterAccount(this.roasterId).subscribe((result: any) => {
             if (result.success) {
                 console.log('roaster details: ', result);
-                this.roasteryProfileData = result.result;
+                this.organizationProfile = result.result;
                 this.toUpdateProfileData = result.result;
 
-                this.profilePhotoService.croppedImage = this.roasteryProfileData.company_image_url;
+                this.profilePhotoService.croppedImage = this.organizationProfile.company_image_url;
 
                 this.single = [
                     {
                         name: 'Female',
-                        value: this.roasteryProfileData.female_employee_count
-                            ? this.roasteryProfileData.female_employee_count
+                        value: this.organizationProfile.female_employee_count
+                            ? this.organizationProfile.female_employee_count
                             : 0,
                     },
                     {
                         name: 'Male',
-                        value: this.roasteryProfileData.male_employee_count
-                            ? this.roasteryProfileData.male_employee_count
+                        value: this.organizationProfile.male_employee_count
+                            ? this.organizationProfile.male_employee_count
                             : 0,
                     },
                 ];
@@ -225,12 +225,12 @@ export class RoasteryProfileService {
     }
 
     handleDeleteBannerImage(): void {
-        if (this.roasteryProfileData.banner_url && this.roasteryProfileData.banner_file_id !== 0) {
+        if (this.organizationProfile.banner_url && this.organizationProfile.banner_file_id !== 0) {
             this.userService.deleteBanner(this.roasterId).subscribe(
                 (res) => {
                     this.toastrService.success('Deleted Banner Image');
-                    this.roasteryProfileData.banner_file_id = 0;
-                    this.roasteryProfileData.banner_url = '';
+                    this.organizationProfile.banner_file_id = 0;
+                    this.organizationProfile.banner_url = '';
                     this.bannerUrl = '';
                 },
                 (error) => {
@@ -242,6 +242,7 @@ export class RoasteryProfileService {
     }
 
     editRoasterProfile() {
+        this.toUpdateProfileData = this.organizationProfile;
         this.isSaving = false;
         this.showDelete = true;
         this.editMode.next(false);
@@ -249,8 +250,8 @@ export class RoasteryProfileService {
     }
 
     preview() {
-        this.bannerUrl = this.roasteryProfileData.banner_url;
-        this.profilePhotoService.croppedImage = this.roasteryProfileData.company_image_url;
+        this.bannerUrl = this.organizationProfile.banner_url;
+        this.profilePhotoService.croppedImage = this.organizationProfile.company_image_url;
         this.editMode.next(true);
         this.saveMode.next(false);
     }
