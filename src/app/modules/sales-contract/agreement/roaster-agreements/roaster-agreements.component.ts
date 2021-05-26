@@ -70,7 +70,7 @@ export class RoasterAgreementsComponent implements OnInit {
                 this.mainData = resp.result;
                 this.sortedMainData = this.mainData.sort((a, b) => b.created_at.localeCompare(a.created_at));
             } else {
-                this.toastrService.error('Error while getting the agreement list!');
+                this.toastrService.error(this.globals.languageJson?.error_message);
             }
         });
     }
@@ -95,7 +95,7 @@ export class RoasterAgreementsComponent implements OnInit {
                 this.newList.push(allOption);
                 this.newList = this.newList.sort((a, b) => a.label.localeCompare(b.label));
             } else {
-                this.toastrService.error('Error while getting HoReCa list');
+                this.toastrService.error(this.globals.languageJson?.error_getting_horeca_list);
             }
         });
     }
@@ -120,7 +120,7 @@ export class RoasterAgreementsComponent implements OnInit {
                 this.newList.push(allOption);
                 this.newList = this.newList.sort((a, b) => a.label.localeCompare(b.label));
             } else {
-                this.toastrService.error('Error while getting HoReCa list');
+                this.toastrService.error(this.globals.languageJson?.error_getting_horeca_list);
             }
         });
     }
@@ -165,10 +165,10 @@ export class RoasterAgreementsComponent implements OnInit {
                         .subscribe((res: any) => {
                             if (res.success) {
                                 // this.displayDeleteModal = false;
-                                this.toastrService.success('The Selected agreement deleted successfully!');
+                                this.toastrService.success(this.globals.languageJson?.success_deleting_agreement);
                                 this.getAgreements();
                             } else {
-                                this.toastrService.error('Error while deleting the agreement');
+                                this.toastrService.error(this.globals.languageJson?.error_deleting_agreement);
                             }
                         });
                 }
