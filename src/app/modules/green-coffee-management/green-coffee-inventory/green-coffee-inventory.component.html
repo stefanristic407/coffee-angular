@@ -22,7 +22,7 @@
                             pInputText
                             class="w-100 {{ searchTerm ? 'highlight' : '' }}"
                             [(ngModel)]="searchString"
-                            placeholder="Search by order ID"
+                            placeholder="{{ searchText }}"
                             (input)="onSearch()"
                             name="filesTerm"
                         />
@@ -34,7 +34,7 @@
                     {{ 'green_coffee_inventory' | translate | titlecase }}
                 </h5>
                 <p class="fnt-14 text-clr334 fnt-normal mobile-lead">
-                    Manage your procured coffee and mark coffee for sale
+                    {{ 'manage_your_procured' | translate }}
                 </p>
                 <div class="d-block d-md-none mb-3">
                     <span class="custom-search mobile-bord">
@@ -42,7 +42,7 @@
                             type="text"
                             pInputText
                             class="w-100 {{ searchTerm ? 'highlight' : '' }} "
-                            placeholder="Search by order id"
+                            placeholder="{{ searchText }}"
                             [(ngModel)]="searchString"
                             (input)="onSearch()"
                             name="filesTerm"

@@ -33,12 +33,6 @@ export class CoffeeProcuredTabComponent implements OnInit {
     roasterID: string;
     mainData: any[] = [];
     originArray: any[] = [];
-    searchString = '';
-    // sellerItems = [
-    //     { label: 'Sweden', value: 'SE' },
-    //     { label: 'UK', value: 'UK' },
-    //     { label: 'India', value: 'IN' },
-    // ];
     displayItems = [
         { label: 'Display 10', value: 10 },
         { label: 'Display 20', value: 20 },

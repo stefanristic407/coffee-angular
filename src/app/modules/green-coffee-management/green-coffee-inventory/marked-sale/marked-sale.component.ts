@@ -198,6 +198,7 @@ export class MarkedSaleComponent implements OnInit {
         this.table.reset();
     }
     search(item) {
+        console.log();
         this.primeTableService.searchQuery = item;
         this.table.reset();
     }

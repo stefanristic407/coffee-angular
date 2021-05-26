@@ -78,11 +78,7 @@ export class CoffeeExperienceTableComponent implements OnInit, OnChanges {
     }
 
     getOrdersData() {
-        if (this.selectedOrigin === '') {
-            this.filteredCoffeeData = this.coffeeExperienceData;
-        } else {
-            this.filteredCoffeeData = this.coffeeExperienceData.slice(0, this.filterDisplay);
-        }
+        this.filteredCoffeeData = this.coffeeExperienceData.slice(0, this.filterDisplay);
     }
 
     language() {
