@@ -37,6 +37,10 @@
     border-radius: 4px;
 }
 
+.weightInputGroupDiv .weightInputDiv {
+    margin-left: 1rem;
+}
+
 .weightInputGroupDiv:enabled:hover,
 .weightInputGroupDiv:enabled:focus {
     border-color: #30855c !important;
@@ -108,6 +112,10 @@
             word-break: break-word;
         }
     }
+}
+
+.mr input {
+    margin-left: 0 !important;
 }
 
 @media (max-width: 1199px) and (min-width: 768px) {
@@ -195,17 +203,14 @@
         flex: 0 0 38% !important;
         max-width: 38% !important;
     }
+    .weightInputGroupDiv {
+        height: 50px;
+    }
 }
 
 @media (min-width: 768px) {
     .flex {
         display: flex !important;
-    }
-    .pl-md {
-        padding-left: 0.75rem !important;
-    }
-    .pr-md {
-        padding-right: 0.75rem !important;
     }
 }
 
