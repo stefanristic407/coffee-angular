@@ -37,6 +37,7 @@ export class RoasteryProfileService {
     roasterId: string;
     roasterUsers: any = [];
     roasterContacts: any = [];
+    updatedContacts: number[] = [];
     single: { name: string; value: any }[];
     showDelete = false;
     bannerUrl?: string;
@@ -63,6 +64,10 @@ export class RoasteryProfileService {
             ...this.toUpdateProfileData,
             ...subData,
         };
+    }
+
+    public editTopContacts(subData: any) {
+        this.updatedContacts = subData;
     }
 
     roasterProfile() {
@@ -160,42 +165,106 @@ export class RoasteryProfileService {
     }
 
     updateRoasterAccount(): void {
-        const data: OrganizationProfile = this.toUpdateProfileData;
-        this.userService.updateRoasterAccount(this.roasterId, data).subscribe((response: any) => {
-            if (response.success === true) {
-                const base64Rejex = /^data:image\/(?:gif|png|jpeg|bmp|webp)(?:;charset=utf-8)?;base64,(?:[A-Za-z0-9]|[+/])+={0,2}/;
-                const isBase64Valid = base64Rejex.test(this.profilePhotoService.croppedImage); // base64Data is the base64 string
-
-                if (isBase64Valid === false) {
-                    this.toastrService.success('Roaster profile details updated successfully');
-
-                    this.roasterProfile();
-                } else {
-                    const ImageURL = this.profilePhotoService.croppedImage;
-                    const block = ImageURL.split(';');
-                    const contentType = block[0].split(':')[1];
-                    const realData = block[1].split(',')[1];
-                    // Convert it to a blob to upload
-                    const blob = this.b64toBlob(realData, contentType, 0);
-                    const formData: FormData = new FormData();
-                    formData.append('file', blob);
-                    formData.append('api_call', '/ro/' + this.roasterId + '/company-image');
-                    formData.append('token', this.cookieService.get('Auth'));
-                    this.userService.uploadProfileImage(formData).subscribe((result: any) => {
-                        if (result.success) {
-                            this.toastrService.success('Roaster profile details updated successfully');
-                            this.roasterProfile();
-                        } else {
-                            this.isSaving = false;
-                            this.toastrService.error('Error while uploading company image, please try again.');
-                        }
-                    });
-                }
-            } else {
-                this.isSaving = false;
-                this.toastrService.error('Error while updating details, please try again.');
+        const promises = [];
+        // add top contacts
+        this.updatedContacts.forEach((element) => {
+            const idx = this.roasterContacts.findIndex((item) => item.user_id === element);
+            if (element && element && idx === -1) {
+                const payload = {
+                    user_id: element,
+                };
+                promises.push(
+                    new Promise((resolve, reject) =>
+                        this.roasterService.addRoasterContacts(this.roasterId, payload).subscribe(
+                            (res: any) => {
+                                if (res.success) {
+                                    resolve(res.result);
+                                } else {
+                                    reject();
+                                }
+                            },
+                            (err) => {
+                                reject();
+                            },
+                        ),
+                    ),
+                );
             }
         });
+        // remove top contacts
+        this.roasterContacts.forEach((element) => {
+            const idx = this.updatedContacts.findIndex((item) => item === element.user_id);
+            if (idx === -1) {
+                promises.push(
+                    new Promise((resolve, reject) => {
+                        this.roasterService.deleteRoasterContacts(this.roasterId, element.id).subscribe(
+                            (res: any) => {
+                                if (res.success) {
+                                    resolve(res.result);
+                                }
+                            },
+                            (err) => {
+                                reject();
+                            },
+                        );
+                    }),
+                );
+            }
+        });
+
+        const data: OrganizationProfile = this.toUpdateProfileData;
+        delete data.company_image_url;
+        delete data.company_image_thumbnail_url;
+        promises.push(
+            new Promise((resolve, reject) => {
+                this.userService.updateRoasterAccount(this.roasterId, data).subscribe((response: any) => {
+                    if (response.success) {
+                        resolve(response.success);
+                    } else {
+                        reject();
+                    }
+                });
+            }),
+        );
+
+        const base64Rejex = /^data:image\/(?:gif|png|jpeg|bmp|webp)(?:;charset=utf-8)?;base64,(?:[A-Za-z0-9]|[+/])+={0,2}/;
+        const isBase64Valid = base64Rejex.test(this.profilePhotoService.croppedImage); // base64Data is the base64 string
+        console.log(this.profilePhotoService.croppedImage, isBase64Valid);
+        if (isBase64Valid) {
+            const ImageURL = this.profilePhotoService.croppedImage;
+            const block = ImageURL.split(';');
+            const contentType = block[0].split(':')[1];
+            const realData = block[1].split(',')[1];
+            // Convert it to a blob to upload
+            const blob = this.b64toBlob(realData, contentType, 0);
+            const formData: FormData = new FormData();
+            formData.append('file', blob);
+            formData.append('api_call', '/ro/' + this.roasterId + '/company-image');
+            formData.append('token', this.cookieService.get('Auth'));
+            promises.push(
+                new Promise((resolve, reject) => {
+                    this.userService.uploadProfileImage(formData).subscribe((result: any) => {
+                        if (result.success) {
+                            resolve(result.success);
+                        } else {
+                            reject();
+                        }
+                    });
+                }),
+            );
+        }
+
+        Promise.all(promises)
+            .then(() => {
+                this.roasterProfile();
+                this.isSaving = false;
+                this.toastrService.success('Roaster profile details updated successfully');
+            })
+            .catch(() => {
+                this.roasterProfile();
+                this.isSaving = false;
+                this.toastrService.error('Error while updating details, please try again.');
+            });
     }
 
     handleBannerImageFile(inputElement: any) {

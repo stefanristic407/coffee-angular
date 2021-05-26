@@ -419,75 +419,76 @@
                     <hr [ngClass]="[isAddBrandMode ? 'mt-4 mt-md-45 mb-4 mb-md-45' : 'mt-0 mb-0']" />
                 </ng-container>
 
-                <div class="" *ngIf="isSaveMode">
-                    <div class="row mt-3 mb-md-4 mb-3">
-                        <div class="col-12">
-                            <p class="fnt-18 font-bold text-clr334 w-100 mb-1">
-                                {{ 'contacts' | translate }}<span class="star">*</span>
-                            </p>
-                            <p class="fnt-14 fnt-600 text-clr588 w-100 m-0 mb-0">{{ 'list_contacts' | translate }}!</p>
+                <form [formGroup]="membersForm" novalidate>
+                    <div class="" *ngIf="isSaveMode" formArrayName="members">
+                        <div class="row mt-3 mb-md-4 mb-3">
+                            <div class="col-12">
+                                <p class="fnt-18 font-bold text-clr334 w-100 mb-1">
+                                    {{ 'contacts' | translate }}<span class="star">*</span>
+                                </p>
+                                <p class="fnt-14 fnt-600 text-clr588 w-100 m-0 mb-0">
+                                    {{ 'list_contacts' | translate }}!
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mb-1" *ngFor="let role of roasteryProfileService.roasterContacts; let i = index">
-                        <div class="sewn-form-field col-md-6 mb-3 mb-md-3">
-                            <input
-                                type="text"
-                                pInputText
-                                required
-                                [(ngModel)]="role.name"
-                                [ngModelOptions]="{ standalone: true }"
-                            />
+                        <ng-container *ngFor="let member of members.controls; let i = index">
+                            <div class="row mb-1">
+                                <div class="sewn-form-field col-md-6 mb-3 mb-md-3">
+                                    <p-dropdown
+                                        [options]="usersOptions(i)"
+                                        optionLabel="name"
+                                        optionValue="value"
+                                        [autoDisplayFirst]="false"
+                                        [formControlName]="i"
+                                    ></p-dropdown>
+                                </div>
+                                <div class="add-partner mb-3 mb-md-0 mt-md-3 col-12 col-md-6 p-md-0 text-left">
+                                    <span class="ml-2 brown-cta" (click)="deleteMember(i)">
+                                        {{ 'remove' | translate }} {{ 'contact' | translate }}
+                                    </span>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <div class="row mt-3" *ngIf="assignRow">
+                            <div class="sewn-form-field col-md-6">
+                                <label for="emp_name">{{ 'select_employee' | translate }}</label>
+                                <p-dropdown
+                                    class="w-100"
+                                    id="emp_name"
+                                    name="emp_name"
+                                    [options]="usersOptions()"
+                                    optionLabel="name"
+                                    optionValue="value"
+                                    [autoDisplayFirst]="false"
+                                    [ngModelOptions]="{ standalone: true }"
+                                    [(ngModel)]="employeeId"
+                                ></p-dropdown>
+                            </div>
+                            <div class="col-12 col-md-6 mt-md-4 p-md-0 add-contact-group">
+                                <button
+                                    type="submit"
+                                    pButton
+                                    class="btn-raised ml-md-2 mr-2"
+                                    [label]="'add_contact' | translate | titlecase"
+                                    [disabled]="!employeeId"
+                                    (click)="addContact()"
+                                ></button>
+                                <button
+                                    pButton
+                                    type="submit"
+                                    class="btn-stroked-transparent"
+                                    (click)="cancelAssign()"
+                                    [label]="'cancel' | translate"
+                                ></button>
+                            </div>
                         </div>
-                        <div
-                            class="add-partner mb-3 mb-md-0 mt-md-3 col-12 col-md-6 p-md-0 text-left"
-                            *ngIf="
-                                roasteryProfileService.showDelete && roasteryProfileService.roasterContacts.length > 1
-                            "
-                        >
-                            <a class="ml-2 brown-cta" href="javascript:void(0);" (click)="removeContact(role.id)">
-                                {{ 'remove' | translate }} {{ 'contact' | translate }}
+                        <div class="add-brand-div mt-3 mb-3 text-left">
+                            <a class="brand-tag add-link" (click)="showContact()">
+                                <span class="add-text ml-4">{{ 'add_another_contact' | translate }}</span>
                             </a>
                         </div>
                     </div>
-                    <div class="row mt-3" *ngIf="assignRow">
-                        <div class="sewn-form-field col-md-6">
-                            <label for="emp_name">{{ 'select_employee' | translate }}</label>
-                            <p-dropdown
-                                class="w-100"
-                                id="emp_name"
-                                name="emp_name"
-                                [options]="roasterUsersOptions"
-                                optionLabel="name"
-                                optionValue="value"
-                                [autoDisplayFirst]="false"
-                                [ngModelOptions]="{ standalone: true }"
-                                [(ngModel)]="employeeId"
-                            ></p-dropdown>
-                        </div>
-                        <div class="col-12 col-md-6 mt-md-4 p-md-0 add-contact-group">
-                            <button
-                                type="submit"
-                                pButton
-                                class="btn-raised ml-md-2 mr-2"
-                                [label]="assignButtonValue"
-                                [disabled]="assignButtonValue === 'Adding'"
-                                (click)="addContact()"
-                            ></button>
-                            <button
-                                pButton
-                                type="submit"
-                                class="btn-stroked-transparent"
-                                (click)="cancelAssign()"
-                                [label]="'cancel' | translate"
-                            ></button>
-                        </div>
-                    </div>
-                    <div class="add-brand-div mt-3 mb-3 text-left">
-                        <a class="brand-tag add-link" (click)="showContact()">
-                            <span class="add-text ml-4">{{ 'add_another_contact' | translate }}</span>
-                        </a>
-                    </div>
-                </div>
+                </form>
 
                 <div class="d-block" *ngIf="isEditMode">
                     <div class="employer mt-4">
