@@ -52,13 +52,12 @@ export class HorecaTableComponent implements OnInit {
                 this.customerService.company_name = res.result.company_name;
                 this.customerService.owner_name = res.result.owner_name;
                 this.customerService.admin_name = res.result.admin_name;
+                this.customerService.horecaId = res.result.id;
                 this.customerService.discount_percentage = res.result.discount_percentage;
                 this.customerService.status = res.result.status;
                 this.customerService.company_image_url = res.result.company_image_url;
-                // document.getElementById('showTable').style.display = 'none';
                 this.changeCustomerType.emit('hrc');
                 this.router.navigate(['/people/horeca-details'], navigationExtras);
-                // this.contactComp.customerType = 'hrc';
             });
         }
     }
