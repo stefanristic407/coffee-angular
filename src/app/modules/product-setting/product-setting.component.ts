@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { UserserviceService } from '@services';
+import { GlobalsService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { AnyARecord } from 'dns';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -40,6 +40,7 @@ export class ProductSettingComponent implements OnInit {
         public cookieService: CookieService,
         private route: ActivatedRoute,
         public fb: FormBuilder,
+        public globals: GlobalsService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
     }
@@ -74,16 +75,13 @@ export class ProductSettingComponent implements OnInit {
         });
     }
     settingBreadCrumb(type = null) {
-        if (type) {
-            this.breadItems = [
-                { label: 'Home', routerLink: '/' },
-                { label: 'Product Settings', routerLink: '/product-setting' },
-                { label: type === 'VAT' ? 'VAT Management' : 'Shipping Details' },
-            ];
-        } else {
-            this.breadItems = [{ label: 'Home', routerLink: '/' }, { label: 'Product Settings' }];
-        }
+        this.breadItems = [
+            { label: this.globals.languageJson?.home, routerLink: '/' },
+            { label: this.globals.languageJson?.inventory },
+            { label: this.globals.languageJson?.product_settings },
+        ];
     }
+
     getShippingInfo() {
         this.userService.getRoasterShippingTypes(this.roasterId).subscribe((result) => {
             if (result.success) {
