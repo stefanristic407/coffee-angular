@@ -75,6 +75,29 @@
                         <input type="text" pInputText formControlName="zipcode" placeholder="eg:23134" />
                     </div>
                 </div>
+
+                <div class="w-100 sewn-form-field mt-4 mt-lg-45">
+                    <label>
+                        {{ 'roaster_location' | translate }}<span class="star">*</span>
+                        <span class="pull-right d-flex align-items-center">
+                            <img class="mr-1" src="assets/images/locate-icon.svg" alt="locate" />
+                            <span class="brown-cta" (click)="getCurrentLocation()">{{ 'locate_me' | translate }}</span>
+                        </span>
+                    </label>
+
+                    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                        <agm-marker
+                            [latitude]="latitude"
+                            [longitude]="longitude"
+                            [markerDraggable]="true"
+                            (dragEnd)="markerDragEnd($event)"
+                        ></agm-marker>
+                    </agm-map>
+
+                    <div class="fnt-600 text-clr588 mt-2">
+                        {{ 'adjust_pin_roaster_location' | translate }}
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -101,29 +124,6 @@
                             />
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="w-100 sewn-form-field mt-4 mt-lg-45">
-                <label>
-                    {{ 'roaster_location' | translate }}<span class="star">*</span>
-                    <span class="pull-right d-flex align-items-center">
-                        <img class="mr-1" src="assets/images/locate-icon.svg" alt="locate" />
-                        <span class="brown-cta" (click)="getCurrentLocation()">{{ 'locate_me' | translate }}</span>
-                    </span>
-                </label>
-
-                <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-                    <agm-marker
-                        [latitude]="latitude"
-                        [longitude]="longitude"
-                        [markerDraggable]="true"
-                        (dragEnd)="markerDragEnd($event)"
-                    ></agm-marker>
-                </agm-map>
-
-                <div class="fnt-600 text-clr588 mt-2">
-                    {{ 'adjust_pin_roaster_location' | translate }}
                 </div>
             </div>
         </div>

@@ -1,18 +1,19 @@
-import { FileService, UserserviceService } from '@services';
-import { ToastrService } from 'ngx-toastr';
+import { FileService } from '@services';
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { takeUntil } from 'rxjs/operators';
 import { GlobalsService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
 import { RoasteryProfileService } from '../roastery-profile.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { MediaPreviewComponent } from '@app/modules/file-share/components/media-preview/media-preview.component';
+import { DestroyableComponent } from '@base-components';
 
 @Component({
     selector: 'app-sewn-virtual-tour',
     templateUrl: './virtual-tour.component.html',
     styleUrls: ['./virtual-tour.component.scss'],
 })
-export class VirtualTourComponent implements OnInit {
+export class VirtualTourComponent extends DestroyableComponent implements OnInit {
     tourMedias: any = [];
     isLoading?: boolean;
     isSaveMode: boolean;
@@ -23,7 +24,9 @@ export class VirtualTourComponent implements OnInit {
         private fileService: FileService,
         private toasterService: ToastrService,
         public dialogSrv: DialogService,
-    ) {}
+    ) {
+        super();
+    }
 
     async ngOnInit() {
         this.getFiles();
@@ -31,7 +34,7 @@ export class VirtualTourComponent implements OnInit {
     }
 
     detectMode() {
-        this.roasteryProfileService.saveMode$.subscribe((res: boolean) => {
+        this.roasteryProfileService.saveMode$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((res: boolean) => {
             this.isSaveMode = res;
         });
     }
