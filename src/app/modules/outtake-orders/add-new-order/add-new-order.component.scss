@@ -37,6 +37,10 @@
     border-radius: 4px;
 }
 
+.weightInputGroupDiv .weightInputDiv {
+    margin-left: 1rem;
+}
+
 .weightInputGroupDiv:enabled:hover,
 .weightInputGroupDiv:enabled:focus {
     border-color: #30855c !important;
@@ -65,7 +69,7 @@
 
 @media (min-width: 992px) {
     .mrt {
-        margin-top: -1rem;
+        margin-top: -1rem !important;
     }
 }
 
@@ -110,6 +114,10 @@
     }
 }
 
+.mr input {
+    margin-left: 0 !important;
+}
+
 @media (max-width: 1199px) and (min-width: 768px) {
     .recent-time {
         width: 100%;
@@ -121,7 +129,7 @@
 
 @media (max-width: 767px) {
     .mobile-w {
-        width: 70px;
+        width: 135px;
     }
     .breadcrumb-container {
         overflow-x: scroll;
@@ -195,17 +203,14 @@
         flex: 0 0 38% !important;
         max-width: 38% !important;
     }
+    .weightInputGroupDiv {
+        height: 50px;
+    }
 }
 
 @media (min-width: 768px) {
     .flex {
         display: flex !important;
-    }
-    .pl-md {
-        padding-left: 0.75rem !important;
-    }
-    .pr-md {
-        padding-right: 0.75rem !important;
     }
 }
 

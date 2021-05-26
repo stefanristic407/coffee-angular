@@ -132,7 +132,7 @@
 
             <ng-template pTemplate="body" let-rowData let-columns="columns">
                 <tr>
-                    <td *ngFor="let col of columns" [ngSwitch]="col.field">
+                    <td *ngFor="let col of columns" class="word-break" [ngSwitch]="col.field">
                         <span *ngSwitchCase="'order_id'" [routerLink]="onEdit(rowData)">
                             <div class="d-flex">
                                 <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">

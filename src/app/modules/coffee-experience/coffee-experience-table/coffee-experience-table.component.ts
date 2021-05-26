@@ -58,7 +58,6 @@ export class CoffeeExperienceTableComponent implements OnInit, OnChanges {
                 });
             });
             this.originArray = this.originArray.filter((v, i, a) => a.findIndex((t) => t.isoCode === v.isoCode) === i);
-            console.log(this.originArray);
         }
     }
 
