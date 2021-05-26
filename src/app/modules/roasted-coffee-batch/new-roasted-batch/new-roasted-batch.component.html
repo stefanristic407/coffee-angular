@@ -5,8 +5,8 @@
                 <p-breadcrumb [model]="breadItems"></p-breadcrumb>
             </div>
         </div>
-        <div class="row gutter-16 gutter-lg-24">
-            <div class="col-12 col-md-12 col-lg-12 col-xl-8">
+        <div class="new-batch-container">
+            <div class="left-container">
                 <div class="row mt-4">
                     <div class="col-12">
                         <div *ngIf="!batchDetails" class="primary_txt mb-1">
@@ -289,15 +289,15 @@
                 </div>
             </div>
 
-            <div class="col-12 col-lg-4">
+            <div class="right-container">
                 <div class="row gutter-16">
                     <div class="col-12 col-md-6 col-lg-12">
-                        <div *ngIf="ordId" class="d-none d-sm-none d-md-block d-lg-block d-xl-block mt-4 mt-lg-0">
+                        <div *ngIf="ordId" class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
                             <ng-container *ngTemplateOutlet="orderDetailsTpl"></ng-container>
                         </div>
                     </div>
                     <div class="col-12 col-md-6 col-lg-12">
-                        <div *ngIf="ordId && batchId" class="mt-4 mb-3">
+                        <div *ngIf="ordId && batchId">
                             <ng-container *ngTemplateOutlet="shareStoryTemplate"></ng-container>
                         </div>
                     </div>

@@ -30,16 +30,15 @@
                 </button>
             </div>
         </div>
-        <div class="row">
-            <div class="d-block d-sm-block d-md-none col-12 mb-3" [formGroup]="searchForm">
-                <input
+        <div class="d-block d-sm-block d-md-none mb-3">
+            <input
                     type="text"
                     name="search"
                     class="search-raised w-100 ml-0"
-                    formControlName="searchField"
+                    [(ngModel)]="termSearch"
+                    (ngModelChange)="getRoastingProfile()"
                     placeholder="Search by roast name"
-                />
-            </div>
+            />
         </div>
         <div class="row mt-md-4 mt-0 pb-2 pb-md-0">
             <div class="col-12 col-sm-12 col-md-6 filterLayout">
@@ -56,12 +55,13 @@
                 >
                 </p-dropdown>
             </div>
-            <div [formGroup]="searchForm" class="d-none d-sm-none d-md-block col-6">
+            <div class="d-none d-sm-none d-md-block col-6">
                 <input
                     type="text"
                     name="search"
                     class="search-raised pull-right"
-                    formControlName="searchField"
+                    [(ngModel)]="termSearch"
+                    (ngModelChange)="getRoastingProfile()"
                     placeholder="Search by roast name"
                 />
             </div>
@@ -156,7 +156,7 @@
                                                             <li class="list-group-item">
                                                                 <a
                                                                     class="pointer-item"
-                                                                    (click)="openDeleteModal(rowData['id']); pop.hide()"
+                                                                    (click)="deleteRoastingProfile(rowData['id']); pop.hide()"
                                                                     >{{ globals.languageJson?.delete }}</a
                                                                 >
                                                             </li>
@@ -216,7 +216,7 @@
                                                     <li class="list-group-item">
                                                         <a
                                                             class="pointer-item"
-                                                            (click)="openDeleteModal(rowData['id']); pop.hide()"
+                                                            (click)="deleteRoastingProfile(rowData['id']); pop.hide()"
                                                             >{{ globals.languageJson?.delete }}</a
                                                         >
                                                     </li>
@@ -245,27 +245,3 @@
         </div>
     </div>
 </section>
-<div class="deleteProductDiv">
-    <p-dialog
-        *ngIf="popupDisplay"
-        header=""
-        position="center"
-        [style]="{ width: '28.12rem' }"
-        styleClass="userDialog no-padding"
-        [(visible)]="popupDisplay"
-    >
-        <div class="mt-5 mb-5 text-center fnt-muli">
-            <div><img src="assets/images/delete-role.svg" alt="" /></div>
-            <div class="fnt-play fnt-24 fnt-bold mt-2">Oh noh :(</div>
-            <div class="fnt-muli fnt-16 fnt-md-18 fnt-400 mt-2 pb-3">You sure you really want to delete this?</div>
-            <div class="mt-4">
-                <button class="btn btn-stroked" (click)="popupDisplay = false">
-                    {{ globals.languageJson?.cancel }}
-                </button>
-                <button class="btn btn-raised ml-3" (click)="deleteRoastingProfile()">
-                    {{ globals.languageJson?.delete }}
-                </button>
-            </div>
-        </div>
-    </p-dialog>
-</div>
