@@ -248,7 +248,7 @@ export class GenerateCoffeeGradingComponent implements OnChanges {
                 this.cat2Defects = defectsList.total_category_two;
                 this.waterActivity = defectsList.water_activity;
                 this.odor = defectsList.odor;
-                this.totalColors = defectsList.colors.split(',');
+                this.totalColors = defectsList.colors?.split(',');
                 this.totalDefects = defectsList.total_green_defects;
                 this.moistureContent = defectsList.moisture_content;
             } else {
