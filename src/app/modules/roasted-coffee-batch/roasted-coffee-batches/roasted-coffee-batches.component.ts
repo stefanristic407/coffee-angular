@@ -7,6 +7,8 @@ import { GlobalsService } from '@services';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
 import { MenuItem } from 'primeng/api';
+import {ConfirmComponent} from '@shared';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
     selector: 'app-roasted-coffee-batches',
@@ -17,7 +19,6 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
     appLanguage?: any;
     roasterId: string;
     batchId: string | number | boolean;
-    deleteBatchId: '';
     profileArray: any = [];
     profileFilter;
     tableColumns = [];
@@ -25,7 +26,6 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
     totalCount = 0;
     termSearch = '';
     selectedProfiles = [];
-    popupDisplay = false;
     breadCrumbItem: MenuItem[] = [];
     disableAction = false;
     ordId: any;
@@ -44,6 +44,7 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
         public globals: GlobalsService,
         private fb: FormBuilder,
         public sharedService: SharedServiceService,
+        private dialogService: DialogService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
     }
@@ -113,7 +114,6 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
         ];
     }
 
-
     loadFilterValues() {
         this.profileArray = [
             { label: 'Light', value: 1 },
@@ -124,35 +124,35 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
         ];
     }
 
-    getData(event) {
-        setTimeout(() => {
-            let queryParams = {};
+    getData(event = null): void {
+        const queryParams = {
+            sort_by: 'created_at',
+            sort_order: 'desc',
+            page: 1,
+            per_page: 10,
+            query: this.termSearch,
+            roast_level: this.profileFilter,
+        };
+        if (event) {
             if (event.sortField) {
-                queryParams = {
-                    sort_by: event.sortField,
-                    sort_order: event.sortOrder === -1 ? 'desc' : 'asc',
-                };
+                queryParams.sort_by = event.sortField;
+                queryParams.sort_order = event.sortOrder === -1 ? 'desc' : 'asc';
             }
-            this.roasterCoffeeBatchsData(queryParams);
-        });
+            queryParams.page = event.first / event.rows + 1;
+        }
+        this.roasterCoffeeBatchsData(queryParams);
     }
 
     // Table data
-    roasterCoffeeBatchsData(postData: any) {
-        postData.roast_level = this.profileFilter || '';
-        postData.query = this.termSearch || '';
-        postData.per_page = 100;
-        if (!postData.sort_by) {
-            postData.sort_by = 'created_at';
-            postData.sort_order = 'desc';
-        }
+    roasterCoffeeBatchsData(queryParams: any) {
         this.tableValue = [];
         this.isLoadingRoastedBatches = true;
-        this.roasterService.getRoasterCoffeeBatchs(postData).subscribe(
+        this.roasterService.getRoasterCoffeeBatchs(queryParams).subscribe(
             (data: any) => {
                 this.isLoadingRoastedBatches = false;
                 if (data.success) {
                     this.tableValue = data.result;
+                    this.totalCount = data.result_info.total_count;
                 } else {
                     this.toastrService.error('Error while getting the roasted coffee batch list!');
                 }
@@ -178,22 +178,33 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
         }
     }
 
-    deleteRoastedBatch() {
-        this.roasterService.deleteRoastedCoffeeBatch(this.roasterId, this.deleteBatchId).subscribe(
-            (res) => {
-                if (res.success) {
-                    this.toastrService.success('Roasted Coffee Batch deleted successfully');
-                    this.roasterCoffeeBatchsData({});
-                } else {
-                    this.toastrService.error('Error while deletign the roasting profile');
-                }
-                this.popupDisplay = false;
-            },
-            (err) => {
-                this.popupDisplay = false;
-                this.toastrService.error('Error while deletign the roasting profile');
-            },
-        );
+    deleteRoastedBatch(id: number) {
+        this.dialogService
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'delete',
+                    desp: 'Are you sure you want to delete this batch?'
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+            if (action === 'yes') {
+                this.roasterService.deleteRoastedCoffeeBatch(this.roasterId, id).subscribe(
+                    (res) => {
+                        if (res.success) {
+                            this.toastrService.success('Roasted Coffee Batch deleted successfully');
+                            this.roasterCoffeeBatchsData({});
+                        } else {
+                            this.toastrService.error('Error while deletign the roasting profile');
+                        }
+                    },
+                    (err) => {
+                        this.toastrService.error('Error while deletign the roasting profile');
+                    },
+                );
+            }
+        });
     }
 
     menuClicked() {
@@ -202,10 +213,5 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
         setTimeout(() => {
             this.disableAction = false;
         }, 100);
-    }
-
-    openDeleteModal(deleteId: any) {
-        this.popupDisplay = true;
-        this.deleteBatchId = deleteId;
     }
 }

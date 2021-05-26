@@ -17,6 +17,7 @@ export class CreateRoastingProfileComponent implements OnInit {
     profileId: string;
     roastingForm: FormGroup;
     roastLevelArray: any = [];
+    isLoading = false;
 
     constructor(
         public globals: GlobalsService,
@@ -55,6 +56,7 @@ export class CreateRoastingProfileComponent implements OnInit {
     }
 
     getRoastingProfile() {
+        this.isLoading = true;
         this.userService.getRoastingProfileDetail(this.roasterId, this.profileId).subscribe((res) => {
             if (res && res.result) {
                 const productDetails = res.result;
@@ -70,6 +72,7 @@ export class CreateRoastingProfileComponent implements OnInit {
                     this.roastingForm.controls[ele].setValue(getValue);
                 });
             }
+            this.isLoading = false;
         });
     }
 

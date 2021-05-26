@@ -41,7 +41,7 @@
                     name="search"
                     class="search-raised pull-right"
                     [(ngModel)]="termSearch"
-                    (ngModelChange)="roasterCoffeeBatchsData({})"
+                    (ngModelChange)="getData()"
                     placeholder="Search by batch name or ID"
                 />
             </div>
@@ -73,7 +73,7 @@
                     name="search"
                     class="search-raised w-100 ml-0"
                     [(ngModel)]="termSearch"
-                    (ngModelChange)="roasterCoffeeBatchsData({})"
+                    (ngModelChange)="getData()"
                     placeholder="Search by batch name"
                 />
             </div>
@@ -85,7 +85,7 @@
                     optionLabel="label"
                     optionValue="value"
                     [(ngModel)]="profileFilter"
-                    (ngModelChange)="roasterCoffeeBatchsData({})"
+                    (ngModelChange)="getData()"
                     scrollHeight="225px"
                     [showClear]="true"
                     placeholder="Roast level"
@@ -123,7 +123,8 @@
                     [resizableColumns]="true"
                     styleClass="ui-table-customers"
                     [showCurrentPageReport]="false"
-                    [paginator]="false"
+                    [paginator]="true"
+                    [rows]="10"
                     [loading]="isLoadingRoastedBatches"
                     [lazy]="true"
                     (onLazyLoad)="getData($event)"
@@ -214,7 +215,7 @@
                                                             <li class="list-group-item">
                                                                 <a
                                                                         class="pointer-item"
-                                                                        (click)="openDeleteModal(rowData['id']); pop.hide()"
+                                                                        (click)="deleteRoastedBatch(rowData['id']);"
                                                                 >{{ 'delete' | translate }}</a
                                                                 >
                                                             </li>
@@ -281,7 +282,7 @@
                                                     <li class="list-group-item">
                                                         <a
                                                                 class="pointer-item"
-                                                                (click)="openDeleteModal(rowData['id']); pop.hide()"
+                                                                (click)="deleteRoastedBatch(rowData['id']); pop.hide()"
                                                         >{{ 'delete' | translate }}</a
                                                         >
                                                     </li>
@@ -308,26 +309,3 @@
         </div>
     </div>
 </section>
-
-<p-dialog
-    *ngIf="popupDisplay"
-    header=""
-    position="center"
-    [style]="{ width: '28.12rem' }"
-    styleClass="userDialog no-padding"
-    [(visible)]="popupDisplay"
->
-    <div class="mt-5 mb-5 text-center fnt-muli">
-        <div><img src="assets/images/delete-role.svg" alt="" /></div>
-        <div class="popupExpression_txt mt-2">Oh noh :(</div>
-        <div class="popupMessage_txt mt-2 pb-3">Are you sure you want to delete this product?</div>
-        <div class="mt-4">
-            <button class="btn btn-stroked" (click)="popupDisplay = false">
-                {{ 'cancel' | translate }}
-            </button>
-            <button class="btn btn-raised ml-3" (click)="deleteRoastedBatch()">
-                {{ 'delete' | translate }}
-            </button>
-        </div>
-    </div>
-</p-dialog>
