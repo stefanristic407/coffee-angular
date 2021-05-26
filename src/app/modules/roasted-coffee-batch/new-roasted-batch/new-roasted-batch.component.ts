@@ -50,8 +50,9 @@ export class NewRoastedBatchComponent implements OnInit, OnDestroy {
     selectOrd: SelectOrderTableComponent;
     breadItems = [
         { label: 'Home', routerLink: '/' },
+        { label: 'Inventory', routerLink: '/' },
         {
-            label: 'Roasted coffee',
+            label: 'Roasted coffee batches',
             routerLink: '/roasted-coffee-batch/roasted-coffee-batchs',
         },
         { label: 'New roasted coffee batch' },
@@ -135,7 +136,7 @@ export class NewRoastedBatchComponent implements OnInit, OnDestroy {
             console.log('roasted batch >>>>', res);
             this.isLoadingCoffeeBatch = false;
             if (res && res.result) {
-                this.breadItems[2].label = this.capitalizeFirstLetter(res.result.roast_batch_name);
+                this.breadItems[3].label = this.capitalizeFirstLetter(res.result.roast_batch_name);
                 this.flavourArray = res.result.flavour_profile || [];
                 this.flavourArray.forEach((element, index) => {
                     const chips = {
