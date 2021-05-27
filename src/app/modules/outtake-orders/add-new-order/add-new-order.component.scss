@@ -60,12 +60,6 @@
     background-color: #fafafa;
     margin: 3px;
 }
-.sewn-form-field .p-inputgroup.custom-addon .p-inputgroup-addon {
-    padding: 5px !important;
-}
-.sewn-form-field .p-inputgroup.custom-addon .p-inputgroup-addon .p-dropdown .p-inputtext {
-    padding: 0.7rem !important;
-}
 
 @media (min-width: 992px) {
     .mrt {
@@ -77,9 +71,13 @@
     border-left: 0.3px solid #868686;
 }
 
-.right_angle {
-    background-color: $white !important;
-    padding: 0.75rem !important;
+.sewn-form-field .p-inputgroup.custom-addon .p-inputtext,
+.sewn-form-field .p-inputgroup.custom-addon .p-inputnumber-input {
+    padding-right: 0 !important;
+}
+
+.sewn-form-field .p-inputgroup.custom-addon .p-inputgroup-addon {
+    padding: 0.9375rem 0.25rem;
 }
 
 .cursor-point,
@@ -88,8 +86,9 @@
     padding-left: 0 !important;
 }
 
-.right_angle i {
-    color: $button-icon-color;
+.order-h {
+    margin-top: 7px;
+    padding-right: 0;
 }
 
 .order-details-clr {
@@ -133,6 +132,10 @@
     }
     .breadcrumb-container {
         overflow-x: scroll;
+    }
+    .col-sm-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
     }
     .recent-time {
         border: 1px solid #dddddd;
@@ -257,10 +260,6 @@
     }
     .contact-for-help {
         margin-bottom: -16px;
-    }
-    .tab-margin {
-        margin-top: 0 !important;
-        margin-left: 0.5rem !important;
     }
     .padd-2r {
         padding-top: 1rem;

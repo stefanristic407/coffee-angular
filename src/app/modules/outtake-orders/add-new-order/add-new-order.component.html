@@ -35,9 +35,9 @@
                                     addOrdersForm.controls['product_name'].invalid &&
                                     addOrdersForm.controls['product_name'].touched
                                 "
-                                class="p-error"
+                                class="p-error my-1"
                             >
-                                {{ 'request' | translate }}
+                                {{ 'product_name' | translate }} {{ 'is' | translate }} {{ 'required' | translate }}
                             </small>
                         </div>
                     </div>
@@ -57,9 +57,9 @@
                                     addOrdersForm.controls['order_date'].invalid &&
                                     addOrdersForm.controls['order_date'].touched
                                 "
-                                class="p-error"
+                                class="p-error my-1"
                             >
-                                {{ 'request' | translate }}
+                                {{ 'date_placed' | translate }} {{ 'is' | translate }} {{ 'required' | translate }}
                             </small>
                         </div>
                     </div>
@@ -79,12 +79,12 @@
                             >
                                 <span
                                     *ngIf="addOrdersForm.get('order_id').value"
-                                    class="d-none d-md-block border-0 text-center pt-25 p-inputgroup-addon"
+                                    class="d-none d-md-block border-0 text-center order-h p-inputgroup-addon"
                                     >#</span
                                 >
                                 <span
                                     *ngIf="addOrdersForm.get('order_id').value"
-                                    class="d-block d-md-none fnt-14 text-center pt-25 fnt-600 fnt-muli text-clr334 mobile-w p-inputgroup-addon"
+                                    class="d-block d-md-none fnt-14 text-center fnt-600 fnt-muli text-clr334 mobile-w p-inputgroup-addon"
                                     >{{ 'order_id' | translate }} #</span
                                 >
                                 <input
@@ -136,9 +136,10 @@
                                         addOrdersForm.controls['created_by'].invalid &&
                                         addOrdersForm.controls['created_by'].touched
                                     "
-                                    class="p-error"
+                                    class="p-error my-1"
                                 >
-                                    {{ 'request' | translate }}
+                                    {{ 'order_created_by' | translate }} {{ 'is' | translate }}
+                                    {{ 'required' | translate }}
                                 </small>
                             </div>
                         </div>
@@ -167,9 +168,10 @@
                                         addOrdersForm.controls['sales_member_id'].invalid &&
                                         addOrdersForm.controls['sales_member_id'].touched
                                     "
-                                    class="p-error"
+                                    class="p-error my-1"
                                 >
-                                    {{ 'request' | translate }}
+                                    {{ 'select_the_sales_member' | translate }} {{ 'is' | translate }}
+                                    {{ 'required' | translate }}
                                 </small>
                             </div>
                         </div>
@@ -208,9 +210,9 @@
                                     addOrdersForm.controls['customer_type'].touched &&
                                     addOrdersForm.controls['customer_type'].errors?.required
                                 "
-                                class="p-error"
+                                class="p-error my-1"
                             >
-                                {{ 'request' | translate }}
+                                {{ 'type_of_customer' | translate }} {{ 'is' | translate }} {{ 'required' | translate }}
                             </small>
                         </div>
                     </div>
@@ -300,9 +302,10 @@
                                             addOrdersForm.controls['unit_price'].invalid &&
                                             addOrdersForm.controls['unit_price'].touched
                                         "
-                                        class="p-error"
+                                        class="p-error my-1"
                                     >
-                                        {{ 'request' | translate }}
+                                        {{ 'price_paid_by_the_customer' | translate }} {{ 'is' | translate }}
+                                        {{ 'required' | translate }}
                                     </small>
                                 </div>
                             </div>
@@ -339,9 +342,10 @@
                                             addOrdersForm.controls['total_price'].invalid &&
                                             addOrdersForm.controls['total_price'].touched
                                         "
-                                        class="p-error"
+                                        class="p-error my-1"
                                     >
-                                        {{ 'request' | translate }}
+                                        {{ 'total_price_paid_by_the_customer' | translate }} {{ 'is' | translate }}
+                                        {{ 'required' | translate }}
                                     </small>
                                 </div>
                             </div>
@@ -405,14 +409,15 @@
                                             addOrdersForm.controls['gc_total_quantity'].touched &&
                                             addOrdersForm.controls['gc_total_quantity'].hasError('isInvalid')
                                         "
-                                        class="p-error position-absolute"
+                                        class="p-error my-1"
                                         >{{ 'weight_gc_coffee' | translate }}</small
                                     >
                                     <small
                                         *ngIf="addOrdersForm.controls['gc_total_quantity'].errors?.required"
-                                        class="p-error position-absolute"
+                                        class="p-error my-1"
                                     >
-                                        {{ 'request' | translate }}
+                                        {{ 'total_weight_of_coffee' | translate }} {{ 'is' | translate }}
+                                        {{ 'required' | translate }}
                                     </small>
                                 </div>
                             </div>
@@ -449,9 +454,10 @@
                                             addOrdersForm.controls['roasted_coffee_total_quantity'].invalid &&
                                             addOrdersForm.controls['roasted_coffee_total_quantity'].touched
                                         "
-                                        class="p-error"
+                                        class="p-error my-1"
                                     >
-                                        {{ 'request' | translate }}
+                                        {{ 'total_weight_roasted_of_coffee' | translate }} {{ 'is' | translate }}
+                                        {{ 'required' | translate }}
                                     </small>
                                 </div>
                             </div>
@@ -515,10 +521,7 @@
                     </div>
                     <div *ngIf="addOrdersForm.get('customer_type').value === 'hrc'" class="br_top">
                         <div class="d-flex flex-column padd-2r mt-md-3">
-                            <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1 d-none d-md-block">
-                                {{ 'roast_details' | translate }}
-                            </div>
-                            <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1 d-block d-md-none">
+                            <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1">
                                 {{ 'roast_details' | translate }}
                             </div>
                         </div>
@@ -633,14 +636,15 @@
                                             addOrdersForm.controls['gc_total_quantity'].touched &&
                                             addOrdersForm.controls['gc_total_quantity'].hasError('isInvalid')
                                         "
-                                        class="position-absolute p-error"
+                                        class="p-error my-1"
                                         >{{ 'weight_gc_coffee' | translate }}</small
                                     >
                                     <small
                                         *ngIf="addOrdersForm.controls['gc_total_quantity'].errors?.required"
-                                        class="p-error position-absolute"
+                                        class="p-error my-1"
                                     >
-                                        {{ 'request' | translate }}
+                                        {{ 'green_coffee_quantity_sold' | translate }} {{ 'is' | translate }}
+                                        {{ 'required' | translate }}
                                     </small>
                                 </div>
                             </div>
@@ -766,7 +770,7 @@
     <div *ngIf="orderDetails" class="mrt col-sm-12 px-0 mt-md-4 mt-lg-0">
         <label class="primary_txt mb-lg-3">{{ 'order_details' | translate }}</label>
         <div class="order-details-clr">
-            <div class="d-flex justify-content-between mb-md-45 mb-lg-475">
+            <div class="d-flex justify-content-between mb-md-45 mb-2 mb-lg-475">
                 <div class="d-flex">
                     <app-avatar
                         [size]="36"
@@ -898,7 +902,7 @@
     <div *ngIf="customerDetails" class="col-sm-12 px-0 mt-md-3 mt-lg-0">
         <label class="primary_txt mb-2 my-lg-3 pt-2">{{ 'customer_details' | translate }}</label>
         <div class="order-details-clr">
-            <div class="d-flex justify-content-between mb-md-45 mb-lg-475">
+            <div class="d-flex justify-content-between mb-md-45 mb-2 mb-lg-475">
                 <div class="d-flex">
                     <app-avatar
                         [size]="36"
