@@ -56,16 +56,15 @@ export class ApiRequestsTableComponent implements OnInit, AfterViewInit {
     }
 
     supplyBreadCrumb(): void {
-        const obj1: MenuItem = {
-            label: this.globals.languageJson?.home,
-            routerLink: '/',
-        };
-        const obj2: MenuItem = {
-            label: this.globals.languageJson?.api_request,
-            routerLink: 'features/api-request',
-        };
-        this.breadCrumbItem.push(obj1);
-        this.breadCrumbItem.push(obj2);
+        this.breadCrumbItem = [
+            {
+                label: this.globals.languageJson?.home,
+                routerLink: '/',
+            },
+            {
+                label: this.globals.languageJson?.api_requests,
+            }
+        ];
     }
 
     ngAfterViewInit() {
