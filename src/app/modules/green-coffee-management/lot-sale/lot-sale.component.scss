@@ -39,6 +39,14 @@
     white-space: normal;
 }
 
+.sewn-form-field .p-dropdown .p-inputtext {
+    padding-right: 0 !important;
+}
+
+.sewn-form-field .p-inputgroup.custom-addon .p-inputgroup-addon {
+    padding: 0.9375rem 0.25rem;
+}
+
 /****************************    Media Queries   ****************************/
 
 @media screen and (max-width: 767px) {
