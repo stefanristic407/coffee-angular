@@ -2,20 +2,19 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from '@services';
+import { GlobalsService, ResizeService } from '@services';
 import { FileShareService } from '../../file-share.service';
 import { FileType } from '@enums';
+import { ResizeableComponent } from '@base-components';
 
 @Component({
     selector: 'app-file-table',
     templateUrl: './file-table.component.html',
     styleUrls: ['./file-table.component.scss'],
 })
-export class FileTableComponent implements OnInit {
+export class FileTableComponent extends ResizeableComponent implements OnInit {
     @Input() listType = '';
     tableColumns = [];
-    selectedItems = [];
-    selectedFile: any;
     disableAction = false;
 
     constructor(
@@ -24,10 +23,15 @@ export class FileTableComponent implements OnInit {
         public toastrService: ToastrService,
         public fileShareSrv: FileShareService,
         public globals: GlobalsService,
-    ) {}
+        protected resizeService: ResizeService,
+    ) {
+        super(resizeService);
+    }
 
     ngOnInit(): void {
-        this.createTable();
+        this.isDesktop$.subscribe((value) => {
+            this.createTable();
+        });
     }
 
     createTable() {
@@ -36,31 +40,31 @@ export class FileTableComponent implements OnInit {
                 field: 'name',
                 header: 'files',
                 sortable: true,
-                width: this.globals.device === 'desktop' ? 34 : 33,
+                width: this.resizeService.isDesktop() ? 34 : 33,
             },
             {
                 field: 'order_ids',
                 header: 'order_id',
                 sortable: true,
-                width: this.globals.device === 'desktop' ? 12 : 12,
+                width: this.resizeService.isDesktop() ? 12 : 12,
             },
             {
                 field: 'updated_at',
                 header: 'modified',
                 sortable: true,
-                width: this.globals.device === 'desktop' ? 22 : 25,
+                width: this.resizeService.isDesktop() ? 22 : 25,
             },
             {
                 field: 'type',
                 header: 'type',
                 sortable: true,
-                width: this.globals.device === 'desktop' ? 10 : 12,
+                width: this.resizeService.isDesktop() ? 10 : 12,
             },
             {
                 field: 'actions',
                 header: '',
                 sortable: false,
-                width: this.globals.device === 'desktop' ? 14 : 10,
+                width: this.resizeService.isDesktop() ? 14 : 10,
             },
         ];
     }
