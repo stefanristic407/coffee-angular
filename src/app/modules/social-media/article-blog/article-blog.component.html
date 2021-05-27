@@ -1,17 +1,15 @@
 <div class="card border-main br-4 m-0">
     <img class="card-img-top" src="{{ articleImageUrl }}" alt="Card image cap" />
     <div class="card-body">
-        <p class="fnt-12 fnt-600 text-clr97">{{ articleDate }}</p>
+        <p class="fnt-12 fnt-600 text-clr97">{{ articleDate | date: 'MMMM y' }}</p>
         <h5 class="fnt-18 black fnt-700 fnt-muli">{{ title }}</h5>
-        <p class="fnt-14 light-gray fnt-muli pad-card">
-            {{ description }}
-        </p>
+        <p class="fnt-14 light-gray fnt-muli pad-card mb-4" [innerHTML]="description"></p>
         <p class="mobile-farm grey-bor"></p>
         <p class="float-right mb-0">
             <a
                 class="fnt-14 font-bold position-relative text-clr55c pt-1 article-read-link"
                 routerLink="{{ articleUrl }}"
-                >Read Article</a
+                >{{ 'read_article' | translate }}</a
             >
             <span>
                 <img class="green arrow icon" src="assets/images/green-arrow-icon.svg" alt="farm" />
