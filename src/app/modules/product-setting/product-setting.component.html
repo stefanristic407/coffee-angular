@@ -7,7 +7,7 @@
         </div>
         <div class="row">
             <div class="col-md-9 col-12">
-                <p class="primary_txt mb-2">{{ getHeading() }}</p>
+                <p class="primary_txt mb-2">{{ getHeading() | titlecase }}</p>
                 <p class="secondary_txt fnt-14 mb-0">
                     {{ getDescription() }}
                 </p>
@@ -56,7 +56,7 @@
                         <div *ngIf="selectedTab.index == 0">
                             <div class="col-lg-12 col-md-12">
                                 <p-tabView styleClass="pb-3" [(activeIndex)]="selectedIndex">
-                                    <p-tabPanel header="Micro roaster">
+                                    <p-tabPanel [header]="'micro-roaster' | translate">
                                         <div class="pt-3">
                                             <app-vat-details feature="mr"> </app-vat-details>
                                         </div>
@@ -261,7 +261,7 @@
             <div class="row pt-4" *ngIf="selectedMobileTab == 'VAT'">
                 <div class="col-12">
                     <p-tabView styleClass="pb-4" [(activeIndex)]="selectedIndex">
-                        <p-tabPanel header="Micro roaster">
+                        <p-tabPanel [header]="'micro-roaster' | translate">
                             <div class="pt-3">
                                 <app-vat-details [mobile]="true" feature="mr"> </app-vat-details>
                             </div>
