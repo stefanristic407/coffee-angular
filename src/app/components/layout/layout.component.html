@@ -15,8 +15,7 @@
                     <input
                         type="text"
                         [(ngModel)]="searchString"
-                        styleClass=""
-                        placeholder="Search.."
+                        [placeholder]="'search' | translate"
                         (keyup)="search()"
                         pInputText
                     />
