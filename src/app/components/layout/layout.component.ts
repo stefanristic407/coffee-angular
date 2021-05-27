@@ -174,10 +174,172 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     }
 
     getNotificationList() {
-        this.userOriginalService.getNofitication().subscribe((res: any) => {});
+        this.userOriginalService.getNofitication().subscribe((res: any) => {
+            if (res.success) {
+                this.notifications = res.result ?? [];
+            }
+        });
     }
 
-    showNotification() {}
+    makeAsAllRead(element: any) {
+        this.userOriginalService.makeAsAllRead().subscribe((res: any) => {
+            if (res.success) {
+                element.hide();
+                this.getNotificationList();
+            }
+        });
+    }
+
+    onClickNotification(data: any, element: any, notification: any) {
+        if (data.is_read) {
+            element.hide();
+        } else {
+            this.userOriginalService.makeAsRead(data.id).subscribe((res: any) => {
+                if (res.success) {
+                    element.hide();
+                    this.getNotificationList();
+                }
+            });
+        }
+        if (notification.url) {
+            this.router.navigate([notification.url], {
+                queryParams: notification.queryParams,
+            });
+        }
+    }
+
+    getContent(data) {
+        let content = '';
+        let url = '';
+        let queryParams: any = {};
+        if (data.event === 'cupping_request') {
+            if (data.action === 'ASSIGNED') {
+                content = `You have been assigned to grade Order #${data.content.order_id}.`;
+                // url = `/operator-services/requests/${data.content.request_name}/${data.content.request_id}`;
+            }
+        } else if (data.event === 'dispute') {
+            if (data.action === 'RAISED') {
+                content = `A dispute against Order #${data.content.order_id} has been raised by ${
+                    data.content.order_type === 'RO-MR' ? data.content.micro_roaster_name : data.content.estate_name
+                }. View dispute for more details.`;
+                url = `dispute-system/order-chat/${data.content.order_id}`;
+                queryParams = {
+                    orderType: data.content.order_type,
+                    disputeID: data.dispute_id,
+                };
+            } else if (data.action === 'RESOLVED') {
+                content = `${
+                    data.content.order_type === 'RO-MR' ? data.content.micro_roaster_name : data.content.estate_name
+                } has resolved the dispute against Order #${data.content.order_id}`;
+                url = `dispute-system/order-chat/${data.content.order_id}`;
+                queryParams = {
+                    orderType: data.content.order_type,
+                    disputeID: data.dispute_id,
+                };
+            } else if (data.action === 'ESCALATED') {
+                content = `A dispute against Order #${data.content.order_id} has been escalated by ${
+                    data.content.order_type === 'RO-MR' ? data.content.micro_roaster_name : data.content.estate_name
+                }. View dispute for more details.`;
+                url = `dispute-system/order-chat/${data.content.order_id}`;
+                queryParams = {
+                    orderType: data.content.order_type,
+                    disputeID: data.dispute_id,
+                };
+            }
+        } else if (data.event === 'invite') {
+            if (data.action === 'COMPLETED') {
+                content = `Your invite ${data.content.user_name} has successfully joined the platform.`;
+                url = `/profile`;
+                queryParams = {
+                    user_id: data.content.user_id,
+                    organization: 'ro',
+                    organization_id: this.roasterId,
+                };
+            }
+        } else if (data.event === 'api_key') {
+            if (data.action === 'REQUESTED') {
+                content = `${data.content.org_type === 'hrc' ? 'Partner' : 'Micro-roaster'} ${
+                    data.content.org_name
+                } has placed a request for API access.`;
+                url = `/api-requests-list`;
+            }
+        } else if (data.event === 'onboarding') {
+            if (data.action === 'COMPLETED') {
+                content = `${data.content.horeca_name ? 'Partner' : 'Micro-roaster'} ${
+                    data.content.horeca_name ?? data.content.micro_roaster_name
+                } has successfully joined the platform.`;
+                url = `/people/customer-management`;
+            }
+        } else if (data.event === 'prebook_order' || data.event === 'sample_order' || data.event === 'gc_order') {
+            if (data.action === 'GRADE_REPORT_UPLOADED') {
+                content = `A grade report has been uploaded to order #${data.content.order_id}.`;
+                url = `/orders/es/${data.content.order_id}`;
+            } else if (data.action === 'CONFIRM') {
+                content = `${data.content.estate_name} has confirmed your order #${data.content.order_id}`;
+                url = `/orders/es/${data.content.order_id}`;
+            } else if (data.action === 'INVOICE_GENERATED') {
+                content = `A proforma invoice has been generated for order #${data.content.order_id}`;
+            } else if (data.action === 'REJECTED') {
+                content = `${data.content.estate_name} has rejected your order #${data.content.order_id}`;
+                url = `/orders/es`;
+            } else if (data.action === 'CANCELLED') {
+                content = `Era of We admin has cancelled your order #${data.content.order_id} with ${data.content.estate_name}.`;
+                url = `/orders/es`;
+            } else if (data.action === 'SHIPPED') {
+                content = `${data.content.estate_name} has shipped order #${data.content.order_id}`;
+                url = `/orders/es/${data.content.order_id}`;
+            } else if (data.action === 'SHIPPED_INFO_UPDATED') {
+                content = `Shipping information has been released for order #${data.content.order_id}.`;
+                url = `/orders/es/${data.content.order_id}`;
+            } else if (data.action === 'CREATED') {
+                content = `The prebooked lot you requested is available. An order will automatically be created shortly.`;
+                url = `/orders/es`;
+            }
+        } else if (data.event === 'mr_gc_order') {
+            if (data.action === 'PLACED') {
+                content = `Micro roaster ${data.content.micro_roaster_name} has placed a new order #${data.content.order_id}.`;
+            } else if (data.action === 'RECEIVED') {
+                content = `Micro roaster ${data.content.micro_roaster_name} has confirmed delivery of order #${data.content.order_id}.`;
+                url = `/orders/mr`;
+            } else if (data.action === 'COMPLETED') {
+                content = `A QR code for your coffee experience story has been generated for order #${data.content.order_id}.`;
+            }
+        } else if (data.event === 'hrc_order') {
+            if (data.action === 'PLACED') {
+                content = `Customer ${data.content.horeca_name} has placed an order via EoW marketplace.`;
+            } else if (data.action === 'RECEIVED') {
+                content = `Customer ${data.content.horeca_name} has confirmed delivery of order #${data.content.order_id}.`;
+            } else if (data.action === 'CANCELLED') {
+                content = `Customer ${data.content.horeca_name} has cancelled order #${data.content.order_id}.`;
+            } else if (data.action === 'COMPLETED') {
+                content = `A QR code for your coffee experience story has been generated for order #${data.content.order_id}.`;
+            }
+        } else if (data.event === 'question') {
+            if (data.action === 'ASSIGNED') {
+                content = `Era of We Admin has assigned you a question in The Coffee Lab.`;
+                url = `/coffee-lab/overview/assigned-to-me`;
+            } else if (data.action === 'ANSWERED') {
+                content = `A question in The Coffee Lab has been answered.`;
+                url = `/coffee-lab/overview/qa-forum`;
+            }
+        } else if (data.event === 'cupping') {
+            if (data.action === 'INVITED') {
+                content = `You have been invited to grade Order #${data.content.cupping_request_id}`;
+            }
+        } else if (data.event === 'rating') {
+            if (data.action === 'RECEIVED') {
+                content = `You have a new rating for ${data.content.product_id ? 'product' : 'order'} #${
+                    data.content.product_id ?? data.content.order_id
+                }`;
+                url = `/operator-profile/reviews`;
+            }
+        } else if (data.event === 'commission_invoice') {
+            if (data.action === 'PAID') {
+                content = `Payment for your commission invoice #${data.content.invoice_number} has been confirmed.`;
+            }
+        }
+        return { content, url };
+    }
 
     updateActiveLinkState() {
         if (this.chat.isOpen.value) {

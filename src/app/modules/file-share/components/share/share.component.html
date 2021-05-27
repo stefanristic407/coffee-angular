@@ -6,6 +6,7 @@
                 formControlName="user"
                 [suggestions]="usersList"
                 field="name"
+                [forceSelection]="true"
                 (completeMethod)="getUsersList($event)"
                 (onShow)="isOpened = true"
                 (onHide)="isOpened = false"

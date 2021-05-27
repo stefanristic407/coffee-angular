@@ -48,73 +48,53 @@
                             <img class="img" *ngIf="chat.isOpen.value" src="assets/images/mess-desktop-active.svg" />
                         </a>
                     </li>
-                    <!-- <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
-                        <a
-                            href="javascript:void(0)"
-                            class="d-inline-block image-card"
-                            role="button"
-                            [popover]="notifList"
-                            placement="bottom"
-                            container="body"
-                            [outsideClick]="true"
-                        >
+                    <li
+                        class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container position-relative overflow-visible"
+                    >
+                        <a href="javascript:void(0)" class="d-inline-block image-card" (click)="myOp.toggle($event)">
                             <img class="img" src="assets/images/notification.svg " />
                         </a>
-                        <ng-template #notifList>
+                        <p-overlayPanel #myOp styleClass="notification-overlay">
                             <div class="notification-header">
-                                <span
-                                    class="notfi-header-title fnt-16 fnt-md-18 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 ng-star-inserted"
-                                    >Notifications</span
+                                <span class="fnt-16 fnt-md-18 fnt-bold fnt-muli text-clr334">Notifications</span>
+                                <div class="d-flex">
+                                    <div class="custom-link fnt-14 mr-3" (click)="makeAsAllRead(myOp)">
+                                        Mark all read
+                                    </div>
+                                    <div class="cursor-pointer" (click)="myOp.hide()">
+                                        <img src="assets/images/notif-close-icon.svg" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="notification-body px-1 py-2">
+                                <div
+                                    *ngFor="let notification of notifications"
+                                    [ngClass]="{ 'd-none': !getContent(notification)?.content }"
                                 >
-                                <a href="javascript:void(0)" class="notif-close">
-                                    <img src="assets/images/notif-close-icon.svg" />
-                                </a>
-                                <a href="javascript:void(0)" class="mark-all under-mark">Mark all read</a>
-                            </div>
-                            <div class="notification-body">
-                                <ul class="p-0">
-                                    <li>
-                                        <div class="border-container">
-                                            <div class="notifi-cotainer">
-                                                <p
-                                                    class="fnt-14 fnt-md-16 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-none d-md-block"
-                                                >
-                                                    Order Shipped!
-                                                </p>
-                                                <div class="notif-description">
-                                                    <p class="fnt-14 fnt-normal fnt-muli text-clr588 mb-2">
-                                                        Your green coffee order placed with Finca La Pampa estate has
-                                                        been shipped
-                                                    </p>
-                                                </div>
-                                                <p class="under-mark">Order #13213</p>
-                                                <p class="fnt-12 fnt-normal fnt-muli text-clr588 mb-2">2 hours ago</p>
-                                            </div>
+                                    <div
+                                        class="notifi-cotainer pl-25 pr-4 py-2"
+                                        (click)="onClickNotification(notification, myOp, getContent(notification))"
+                                    >
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <p class="fnt-14 fnt-normal fnt-muli text-clr588 mb-0 pr-4">
+                                                {{ getContent(notification).content }}
+                                            </p>
+                                            <p
+                                                class="fnt-18"
+                                                [ngClass]="notification.is_read ? 'text-clrcb' : 'text-clr55c'"
+                                            >
+                                                &#9679;
+                                            </p>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="border-container">
-                                            <div class="notifi-cotainer">
-                                                <p
-                                                    class="fnt-14 fnt-md-16 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-none d-md-block"
-                                                >
-                                                    Order Shipped!
-                                                </p>
-                                                <div class="notif-description active">
-                                                    <p class="fnt-14 fnt-normal fnt-muli text-clr588 mb-2">
-                                                        Your green coffee order placed with Finca La Pampa estate has
-                                                        been shipped
-                                                    </p>
-                                                </div>
-                                                <p class="under-mark">Order #13213</p>
-                                                <p class="fnt-12 fnt-normal fnt-muli text-clr588 mb-2">2 hours ago</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
+                                        <p class="fnt-12 fnt-normal fnt-muli text-clr588 mt-3">
+                                            {{ notification.status_updated_at | amTimeAgo }}
+                                        </p>
+                                    </div>
+                                    <p-divider type="dashed" styleClass="my-2"></p-divider>
+                                </div>
                             </div>
-                        </ng-template>
-                    </li> -->
+                        </p-overlayPanel>
+                    </li>
                     <li class="header-profile-links__item d-inline-block ml-md-3 pl-xl-2">
                         <div class="profile-link d-flex align-items-center">
                             <div class="d-inline-block mr-md-2">

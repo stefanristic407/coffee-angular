@@ -121,78 +121,19 @@
 }
 .notification-header {
     background-color: #f8f8f8;
-    height: 50px;
-    width: 100%;
-    margin-bottom: 4px;
-    .notfi-header-title {
-        position: absolute;
-        transform: translate(12px, 12px);
-    }
-    .mark-all {
-        padding: 14px;
-        float: right;
-        padding-right: 4px;
-    }
-
-    .notif-close {
-        float: right;
-        padding: 12px;
-    }
+    margin: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 12px;
 }
 .notification-body {
-    ul {
-        max-height: 85vh;
-        overflow: auto;
-        li {
-            padding: 4px;
-            div.border-container {
-                border-bottom: 1px dashed #cccccc;
-                padding-bottom: 8px;
-                div.notifi-cotainer {
-                    padding: 4px;
-                    &:hover {
-                        background-color: $body-bg-color;
-                    }
-                }
-                div.notif-description {
-                    position: relative;
-                    p {
-                        width: 75%;
-                    }
-                    &.active:before {
-                        content: '';
-                        position: absolute;
-                        top: 50%;
-                        right: 20px;
-                        transform: translateY(-50%);
-                        width: 8px;
-                        height: 8px;
-                        border-radius: 50%;
-                        background-color: #30855c;
-                    }
-                    &:before {
-                        content: '';
-                        position: absolute;
-                        top: 50%;
-                        right: 20px;
-                        transform: translateY(-50%);
-                        width: 8px;
-                        height: 8px;
-                        border-radius: 50%;
-                        background-color: #cbcbcb;
-                    }
-                }
-                .notif-description:before {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    width: 6px;
-                    height: 6px;
-                    border-radius: 50%;
-                    background-color: #e02f1f;
-                }
-            }
+    max-height: 85vh;
+    overflow: auto;
+    .notifi-cotainer {
+        cursor: pointer;
+        &:hover {
+            background-color: #f1f1f1;
         }
     }
 }
@@ -202,4 +143,27 @@
     font-weight: bold;
     color: #80460b;
     text-decoration: underline;
+}
+
+.overflow-visible {
+    overflow: visible !important;
+}
+
+::ng-deep {
+    .p-overlaypanel.notification-overlay {
+        width: 422px;
+        left: -350px !important;
+        top: 45px !important;
+        --overlayArrowLeft: 340px !important;
+        border-radius: 2px;
+        border: none;
+        box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
+        .p-overlaypanel-content {
+            padding: 0;
+        }
+        &:before {
+            box-shadow: 0 22px 34px 0 rgb(0 0 0 / 8%);
+            border-bottom-color: transparent;
+        }
+    }
 }
