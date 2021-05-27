@@ -333,6 +333,10 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 }`;
                 url = `/operator-profile/reviews`;
             }
+        } else if (data.event === 'commission_invoice') {
+            if (data.action === 'PAID') {
+                content = `Payment for your commission invoice #${data.content.invoice_number} has been confirmed.`;
+            }
         }
         return { content, url };
     }
