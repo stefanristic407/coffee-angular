@@ -216,6 +216,7 @@
                                             [formControlName]="i"
                                             [suggestions]="autoMembers"
                                             field="name"
+                                            [forceSelection]="true"
                                             completeOnFocus="true"
                                             (completeMethod)="search($event)"
                                             placeholder="Please enter the name of your employee"
