@@ -66,6 +66,11 @@
                                             <app-vat-details feature="b2b_ecommerce"> </app-vat-details>
                                         </div>
                                     </p-tabPanel>
+                                    <p-tabPanel header="B2C e-commerce">
+                                        <div class="pt-3">
+                                            <app-vat-details feature="b2c_ecommerce"> </app-vat-details>
+                                        </div>
+                                    </p-tabPanel>
                                 </p-tabView>
                             </div>
                         </div>
@@ -269,6 +274,11 @@
                         <p-tabPanel header="B2B e-commerce">
                             <div class="pt-3">
                                 <app-vat-details [mobile]="true" feature="b2b_ecommerce"> </app-vat-details>
+                            </div>
+                        </p-tabPanel>
+                        <p-tabPanel header="B2C e-commerce">
+                            <div class="pt-3">
+                                <app-vat-details [mobile]="true" feature="b2c_ecommerce"> </app-vat-details>
                             </div>
                         </p-tabPanel>
                     </p-tabView>
