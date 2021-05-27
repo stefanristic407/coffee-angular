@@ -76,7 +76,7 @@
                                     </td>
                                     <td>
                                         <span class="list-answ float-right">
-                                            {{ requestDetailData?.org_type }}
+                                            {{ requestDetailData?.org_type | orgType }}
                                         </span>
                                     </td>
                                 </tr>
@@ -116,7 +116,7 @@
                 </div>
             </div>
 
-            <div class="d-flex pt-45" *ngIf="apikeyStatus == 'active'">
+            <!--<div class="d-flex pt-45" *ngIf="apikeyStatus == 'active'">
                 <div class="generate-border col-12">
                     <p class="fnt-14 fnt-muli fnt-700 text-clr334 float-left m-0">
                         <span
@@ -126,7 +126,7 @@
                         </span>
                     </p>
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
 </section>

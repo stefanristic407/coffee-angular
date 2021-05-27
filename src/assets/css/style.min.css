@@ -14096,6 +14096,9 @@ a.b-cum:hover {
 
 .menu-arrow {
     cursor: pointer;
+    display: inline-block;
+    width: 20px;
+    text-align: center;
 }
 
 ::ng-deep .popover-body {
