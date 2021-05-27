@@ -4,11 +4,9 @@
     </div>
     <div class="card-body">
         <h5 class="fnt-16 fnt-md-18 fnt-md-18 black fnt-700 fnt-muli">{{ title }}</h5>
-        <p class="fnt-14 fnt-muli text-clr588 pad-card">
-            {{ description }}
-        </p>
+        <p class="fnt-14 fnt-muli text-clr588 pad-card" [innerHTML]="description"></p>
         <p class="float-right mb-0 pointer-text mt-25">
-            <a class="arrow-link" [routerLink]="link"> Read more </a>
+            <a class="arrow-link" [routerLink]="link"> {{'read_more' | translate}} </a>
         </p>
     </div>
 </div>

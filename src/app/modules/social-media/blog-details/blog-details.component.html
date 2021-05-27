@@ -1,6 +1,6 @@
 <section>
     <div class="sewn-container">
-        <div class="bg-white p-lg-5 pt-md-4 pb-md-4 pl-md-3 pr-md-3 p-3 br-4">
+        <div *ngIf="blog" class="bg-white p-lg-5 pt-md-4 pb-md-4 pl-md-3 pr-md-3 p-3 br-4">
             <div class="d-flex justify-content-between">
                 <a class="back-page" routerLink="/social-media/media/blogs"> {{ 'back' | translate }}</a>
                 <div class="text-right float-md-right d-none d-sm-flex">
@@ -36,9 +36,9 @@
                     <div class="d-block pl-2 pr-2 bg-white">
                         <div class="position-relative mt-3 mb-3 mt-md-0 mb-xs-0">
                             <h3 class="social-head p-0 fnt-16 fnt-md-18 fnt-lg-24 fnt-bold text-clr334">
-                                Coffee Trends in Latin America: Analysing PDG Español Data
+                                {{ blog.title }}
                             </h3>
-                            <p class="fnt-12 fnt-600 text-clr97 article-date">December 2019</p>
+                            <p class="fnt-12 fnt-600 text-clr97 article-date">{{ blog.created_at | date: 'MMMM y' }}</p>
                         </div>
                         <div class="text-right float-md-right d-flex d-sm-none pb-3">
                             <span class="share-bor pt-2 pb-2 pl-25 pr-25 mr-3">
@@ -68,56 +68,13 @@
                         </div>
 
                         <div class="border-md-main br-md-4 main-article-container">
-                            <div class="pt-lg-4 pl-lg-4 pr-lg-4 p-0">
-                                <img class="w-100 br-md-4" src="assets/images/blog-details-1.jpg" alt="farm" />
+                            <div class="pt-lg-4 pl-lg-4 pr-lg-4 p-0 mb-3 mb-md-45">
+                                <img class="w-100 br-md-4" [src]="blog.imgUrl" alt="farm" />
                             </div>
-                            <div class="p-3 pt-md-0 pl-md-3 pr-md-3 pb-md-0 pb-lg-4 pl-lg-4 pr-lg-4">
-                                <p class="fnt-14 fnt-600 text-clr334 pt-md-4">
-                                    When someone mentions barbecue images comes to the mind like cooking at the backyard
-                                    grill, a social gathering, cooking outdoors and cooking meat slowly over wood and
-                                    smoke that adds flavor to the food. Different cooks have different preferences and
-                                    style in their cooking. Some prefer rubbing the seasoning whether wet or dry prior
-                                    to cooking and some prefers to soak the meat first in special marinades that could
-                                    be sops, mops and finishing. The preparation and ingredients for marinating may
-                                    differ from region to region the preferred wood to be used can also differ. However,
-                                    no perfect barbecue will taste as good without the perfect barbecue sauce.
-                                </p>
-
-                                <p class="fnt-14 fnt-600 text-clr334">
-                                    Barbecue sauces can generally be categorized by what they are based on. Common
-                                    examples are tomato, vinegar and mustard based sauces. To give the barbecue its
-                                    distinctive taste and prevent the meat from burning easily, barbecue sauces are
-                                    applied to the meat while being cooked with the exemption of tomato based barbecue
-                                    sauces as tomato based sauces burns easier than the other kinds of sauces. Barbecue
-                                    sauce preparation can either be sweet, sour, tangy, spicy, hot, thick or thin. The
-                                    varieties are almost endless which makes barbecues popular because anyone can make
-                                    his own special preparation depending on taste and anyone can create his own way of
-                                    serving the barbecue. Recipes for barbecues can also be guarded. And good barbecue
-                                    sauces can be purchased at almost any store. But the only perfect barbecue sauce is
-                                    the one that you can create for yourself. Remember whatever works for you and your
-                                    family can be a great barbecue sauce. So start experimenting that is the only way to
-                                    start good cooking.
-                                </p>
-
-                                <p class="fnt-14 fnt-600 text-clr334">The basics of Barbecue sauces…</p>
-
-                                <p class="fnt-14 fnt-600 text-clr334">
-                                    Tomato based barbecue sauce is the most widely used. Some say that it is the most
-                                    popular. Its popularity however may be due to the simplicity of preparation and
-                                    besides; tomatoes are ingredients that could easily be found. The point to remember
-                                    in preparing tomato-based barbecue sauces is to cook the tomatoes very well in order
-                                    for the flavor to blend with the other ingredients. Tomato based barbecue sauces are
-                                    acidic. Because of this, it has the property to breakdown all the flavor of other
-                                    ingredients blending them with its own. But because of its propensity to burn, limit
-                                    the usage of tomato based barbecue sauce while cooking. To make it even more
-                                    flavorful, prepare tomato barbecue sauces a day in advance.
-                                </p>
-
-                                <p class="fnt-14 fnt-600 text-clr334">
-                                    ke flavor” label that many bottled tomato sauces advertise itself. Smoke flavor is
-                                    what is barbecuing all about. The flavor has to come from the wood not the bottle.
-                                </p>
-                            </div>
+                            <div
+                                class="p-3 pt-md-0 pl-md-3 pr-md-3 pb-md-0 pb-lg-4 pl-lg-4 pr-lg-4"
+                                [innerHTML]="blog.description"
+                            ></div>
                         </div>
                     </div>
                     <div class="d-block pl-2 pr-2 bg-white mt-lg-45 relatived-article-container">
@@ -126,30 +83,16 @@
                         </h3>
                         <div class="border-lg-main br-4 p-0 p-lg-4 relative-blog-container">
                             <div class="row pl-md-2 pr-md-2">
-                                <div class="col-lg-12 col-md-6 col-12 pl-2 pr-2 mb-3">
+                                <div
+                                    *ngFor="let recentBlog of recentBlogs"
+                                    class="col-lg-12 col-md-6 col-12 pl-2 pr-2 mb-3"
+                                >
                                     <app-article-blog
-                                        [articleDate]="'December 2019'"
-                                        [title]="' Coffee Trends in Latin America: Analysing PDG Español Data'"
-                                        [description]="
-                                            'From Colombia’s thriving coffee farms to Uruguay’s
-                                micro-roasters, Latin America has a diverse and constantly
-                                evolving..'
-                                        "
-                                        [articleUrl]="'/social-media/blog-details'"
-                                        [articleImageUrl]="'assets/images/blog-1.png'"
-                                    ></app-article-blog>
-                                </div>
-                                <div class="col-lg-12 col-md-6 col-12 pl-2 pr-2 mb-3">
-                                    <app-article-blog
-                                        [articleDate]="'December 2019'"
-                                        [title]="' Coffee Trends in Latin America: Analysing PDG Español Data'"
-                                        [description]="
-                                            'From Colombia’s thriving coffee farms to Uruguay’s
-                            micro-roasters, Latin America has a diverse and constantly
-                            evolving..'
-                                        "
-                                        [articleUrl]="'/social-media/blog-details'"
-                                        [articleImageUrl]="'assets/images/blog-1.png'"
+                                        [articleDate]="recentBlog.created_at"
+                                        [title]="recentBlog.title"
+                                        [description]="recentBlog.description | convertToShortDescription: 18"
+                                        [articleUrl]="'/social-media/blog-details/' + recentBlog.id"
+                                        [articleImageUrl]="recentBlog.imgUrl"
                                     ></app-article-blog>
                                 </div>
                             </div>
@@ -157,6 +100,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div *ngIf="!blog">
+            <app-loading></app-loading>
         </div>
     </div>
 </section>

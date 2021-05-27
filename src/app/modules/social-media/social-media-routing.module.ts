@@ -13,7 +13,7 @@ const routes: Routes = [
         component: SocialMediaComponent,
     },
     {
-        path: 'blog-details',
+        path: 'blog-details/:id',
         component: BlogDetailsComponent,
     },
     {

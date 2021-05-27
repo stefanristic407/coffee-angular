@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Download } from '@models';
 import { DownloadService } from '@services';
+import { DUMMY_BLOGS } from '@constants';
 
 @Component({
     selector: 'app-social-media',
@@ -23,7 +24,6 @@ export class SocialMediaComponent implements OnInit {
     videosListArray: any = [];
     filteredVideosList: any = [];
     roasterId: any;
-
     mediaType = '';
     tabIndex = 0;
     breadItems = [
@@ -36,6 +36,7 @@ export class SocialMediaComponent implements OnInit {
     selectedVideo: any;
     isDownload = false;
     downloadStatus: Download;
+    blogs = DUMMY_BLOGS;
 
     constructor(
         private modalService: BsModalService,

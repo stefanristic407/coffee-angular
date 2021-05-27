@@ -49,10 +49,10 @@
                                                                         ')'
                                                                 }"
                                                             ></div>
-                                                            <p class="mb-0 post-info">
+                                                          <!--  <p class="mb-0 post-info">
                                                                 {{ images.description }} &nbsp; @
                                                                 {{ images.owner_name }}
-                                                            </p>
+                                                            </p>-->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -90,51 +90,13 @@
                                 <p-tabPanel header="{{ globals.languageJson?.blogs }}">
                                     <ng-template pTemplate="content">
                                         <div class="row cursor-pointer custom-media-container mt-2 mt-md-3">
-                                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 p-2">
+                                            <div *ngFor="let blog of blogs" class="col-lg-4 col-md-6 col-sm-12 col-12 p-2">
                                                 <app-article-blog
-                                                    [articleDate]="'December 2019'"
-                                                    [title]="
-                                                        ' Coffee Trends in Latin America: Analysing PDG Español Data'
-                                                    "
-                                                    [description]="
-                                                        'From Colombia’s thriving coffee farms to Uruguay’s
-                                                    micro-roasters, Latin America has a diverse and constantly
-                                                    evolving..'
-                                                    "
-                                                    [articleUrl]="'/social-media/blog-details'"
-                                                    [articleImageUrl]="'assets/images/blog-1.png'"
-                                                ></app-article-blog>
-                                            </div>
-
-                                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 p-2">
-                                                <app-article-blog
-                                                    [articleDate]="'December 2019'"
-                                                    [title]="
-                                                        ' Coffee Trends in Latin America: Analysing PDG Español Data'
-                                                    "
-                                                    [description]="
-                                                        'From Colombia’s thriving coffee farms to Uruguay’s
-                                                micro-roasters, Latin America has a diverse and constantly
-                                                evolving..'
-                                                    "
-                                                    [articleUrl]="'/social-media/blog-details'"
-                                                    [articleImageUrl]="'assets/images/blog-2.png'"
-                                                ></app-article-blog>
-                                            </div>
-
-                                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 p-2">
-                                                <app-article-blog
-                                                    [articleDate]="'December 2019'"
-                                                    [title]="
-                                                        ' Coffee Trends in Latin America: Analysing PDG Español Data'
-                                                    "
-                                                    [description]="
-                                                        'From Colombia’s thriving coffee farms to Uruguay’s
-                                                micro-roasters, Latin America has a diverse and constantly
-                                                evolving..'
-                                                    "
-                                                    [articleUrl]="'/social-media/blog-details'"
-                                                    [articleImageUrl]="'assets/images/blog-2.png'"
+                                                        [articleDate]="blog.created_at"
+                                                        [title]="blog.title"
+                                                        [description]="blog.description | convertToShortDescription: 18"
+                                                        [articleUrl]="'/social-media/blog-details/' + blog.id"
+                                                        [articleImageUrl]="blog.imgUrl"
                                                 ></app-article-blog>
                                             </div>
                                         </div>
