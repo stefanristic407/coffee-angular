@@ -50,7 +50,7 @@
     border: none !important;
 }
 .weightInputDivKg {
-    width: 132px;
+    width: 135px;
 }
 .weightInputDivKg,
 .daysInputDiv {
@@ -59,12 +59,6 @@
     padding: 0.75rem 1.5rem;
     background-color: #fafafa;
     margin: 3px;
-}
-
-@media (min-width: 992px) {
-    .mrt {
-        margin-top: -1rem !important;
-    }
 }
 
 .br_left {
@@ -208,6 +202,9 @@
     }
     .weightInputGroupDiv {
         height: 50px;
+    }
+    .mrt {
+        margin-top: -1rem !important;
     }
 }
 

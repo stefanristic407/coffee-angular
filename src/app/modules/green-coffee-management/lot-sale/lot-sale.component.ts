@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
@@ -12,6 +12,7 @@ import { SharedServiceService } from '@app/shared/services/shared-service.servic
     selector: 'app-lot-sale',
     templateUrl: './lot-sale.component.html',
     styleUrls: ['./lot-sale.component.scss'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class LotSaleComponent implements OnInit {
     appLanguage?: any;
