@@ -20,11 +20,11 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
     filterOptions = [
         {
             label: 'Coffee experts',
-            value: false
+            value: false,
         },
         {
             label: 'End consumers',
-            value: true
+            value: true,
         },
     ];
     sortBy = 'latest';

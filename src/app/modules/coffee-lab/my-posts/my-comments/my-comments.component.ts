@@ -16,7 +16,7 @@ export class MyCommentsComponent implements OnInit, OnDestroy {
         { label: 'Oldest', value: 'oldest' },
     ];
     sortBy = 'latest';
-    roasterId: string;
+    organizationId: string;
     isLoading = false;
     isMyPostsPage = false;
     pageDesc: string;
@@ -29,7 +29,7 @@ export class MyCommentsComponent implements OnInit, OnDestroy {
         private cookieService: CookieService,
         private router: Router,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.organizationId = this.cookieService.get('roaster_id');
         this.pageDesc = this.router.url.split('/')[this.router.url.split('/').length - 2];
     }
 

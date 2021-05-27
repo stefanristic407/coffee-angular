@@ -18,15 +18,15 @@
                 </div>
                 <div class="d-flex flex-wrap w-100">
                     <div class="d-flex justify-content-between align-items-end w-100">
-                        <div class="flex-1">
-                            <app-user-header [prop]="detailsData" [enableEllipsis]="false"></app-user-header>
+                        <div class="flex-1 overflow-hidden">
+                            <app-user-header [prop]="detailsData"></app-user-header>
                         </div>
                         <div class="d-flex flex-column align-items-end">
                             <app-forum-menu
                                 [selectedItem]="detailsData"
                                 forumType="article"
                                 [enableTranslation]="
-                                    !detailsData?.translated_articles || detailsData?.translated_articles.length < 3
+                                    detailsData?.allow_translation && (detailsData?.translated_articles || []).length < 3
                                 "
                                 [enableEdit]="
                                     organizationId === detailsData?.organisation_id &&
@@ -41,11 +41,7 @@
                             ></app-forum-menu>
                             <div
                                 class="d-none d-md-block mt-2"
-                                *ngIf="
-                                    detailsData?.allow_translation &&
-                                    detailsData?.translated_articles &&
-                                    detailsData?.translated_articles.length > 0
-                                "
+                                *ngIf="detailsData?.allow_translation && detailsData?.translated_articles?.length > 0"
                             >
                                 <app-translation-dropdown
                                     forumType="article"
@@ -56,11 +52,7 @@
                     </div>
                     <div
                         class="w-100 d-block d-md-none mt-3 py-3 pr-0 border-top-main border-bottom-main"
-                        *ngIf="
-                            detailsData?.allow_translation &&
-                            detailsData?.translated_articles &&
-                            detailsData?.translated_articles.length > 0
-                        "
+                        *ngIf="detailsData?.allow_translation && detailsData?.translated_articles?.length > 0"
                     >
                         <app-translation-dropdown
                             forumType="article"

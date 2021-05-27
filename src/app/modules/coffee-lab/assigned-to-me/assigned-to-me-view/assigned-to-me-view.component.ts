@@ -15,7 +15,6 @@ export class AssignedToMeViewComponent implements OnInit {
         { label: 'Most Answered', value: 'most_answered' },
         { label: 'Oldest', value: 'oldest' },
     ];
-    filterOptions = [{ label: 'Posted by: All', value: null }];
     sortBy = 'latest';
     filterBy = null;
     questions: any[] = [];
@@ -26,24 +25,7 @@ export class AssignedToMeViewComponent implements OnInit {
 
     ngOnInit(): void {
         window.scroll(0, 0);
-        this.getAuthors();
         this.getQuestions();
-    }
-
-    getAuthors(): void {
-        this.coffeeLabService.getAuthors('question').subscribe((res: any) => {
-            if (res.success) {
-                const filterArray = res.result.question_authors.map((item: any) => {
-                    return {
-                        label: `Posted by: ${item.name}`,
-                        value: item.id,
-                    };
-                });
-                this.filterOptions = [...this.filterOptions, ...filterArray];
-            } else {
-                this.toastService.error('Cannot get authors');
-            }
-        });
     }
 
     getQuestions(): void {

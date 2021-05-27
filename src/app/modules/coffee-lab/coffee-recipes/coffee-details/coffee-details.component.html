@@ -10,34 +10,30 @@
             <div class="p-3 py-md-45 px-lg-45 border-main br-4">
                 <div class="d-flex flex-wrap w-100 pb-45">
                     <div class="d-flex justify-content-between align-items-end w-100">
-                        <app-user-header [prop]="detailsData" [enableEllipsis]="false"></app-user-header>
+                        <div class="flex-1 overflow-hidden">
+                            <app-user-header [prop]="detailsData"></app-user-header>
+                        </div>
                         <div class="d-flex flex-column align-items-end">
-                            <div class="position-relative mb-2">
-                                <app-forum-menu
+                            <app-forum-menu
                                     [selectedItem]="detailsData"
                                     forumType="recipe"
                                     [enableTranslation]="
-                                        !detailsData?.translations || detailsData?.translations.length < 3
+                                        detailsData?.allow_translation && (detailsData?.translations || []).length < 3
                                     "
                                     [enableEdit]="
-                                        organizationId === detailsData?.organisation_id &&
+                                        organizationId == detailsData?.organisation_id &&
                                         detailsData?.organisation_type === coffeeLabService.organization &&
-                                        detailsData.posted_by === authService.currentUser.id
+                                        detailsData.user_id == authService.currentUser.id
                                     "
                                     [enableDelete]="
-                                        organizationId === detailsData?.organisation_id &&
+                                        organizationId == detailsData?.organisation_id &&
                                         detailsData?.organisation_type === coffeeLabService.organization &&
-                                        detailsData.posted_by === authService.currentUser.id
+                                        detailsData.user_id == authService.currentUser.id
                                     "
-                                ></app-forum-menu>
-                            </div>
+                            ></app-forum-menu>
                             <div
-                                class="d-none d-md-block"
-                                *ngIf="
-                                    detailsData?.allow_translation &&
-                                    detailsData?.translations &&
-                                    detailsData?.translations.length > 0
-                                "
+                                class="d-none d-md-block mt-2"
+                                *ngIf="detailsData?.allow_translation && detailsData?.translations?.length > 0"
                             >
                                 <app-translation-dropdown
                                     forumType="recipe"
@@ -48,11 +44,7 @@
                     </div>
                     <div
                         class="w-100 d-block d-md-none mt-3 py-3 pr-0 border-top-main border-bottom-main"
-                        *ngIf="
-                            detailsData?.allow_translation &&
-                            detailsData?.translations &&
-                            detailsData?.translations.length > 0
-                        "
+                        *ngIf="detailsData?.allow_translation && detailsData?.translations?.length > 0"
                     >
                         <app-translation-dropdown
                             forumType="recipe"
@@ -125,7 +117,7 @@
                             </div>
                         </div>
                     </div>
-                    <p class="fnt-14 fnt-muli pt-3 mb-2" [innerHTML]="detailsData?.description"></p>
+                    <p class="fnt-14 fnt-muli pt-3" [innerHTML]="detailsData?.description"></p>
                 </div>
                 <div class="ingredient-block">
                     <p class="m-0 fnt-14 fnt-muli fnt-bold text-clr334">{{ 'ingredients' | translate }}</p>
@@ -141,7 +133,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="directions pt-45" *ngIf="detailsData?.steps && detailsData?.steps.length">
+                <div *ngIf="detailsData.video_url" class="pt-3 pt-md-4 pt-lg-45">
+                    <div class="fnt-14 fnt-muli fnt-bold text-clr334 mb-3">{{ 'see_recipe_video' | translate }}</div>
+                    <video class="w-100" [src]="detailsData.video_url" controls></video>
+                </div>
+                <div class="directions pt-3 pt-md-4 pt-lg-45" *ngIf="detailsData?.steps && detailsData?.steps.length">
                     <p class="m-0 fnt-14 fnt-muli fnt-bold text-clr334 pb-3 pb-md-2">{{ 'directions' | translate }}</p>
                     <div *ngFor="let st of detailsData?.steps; index as i">
                         <p class="m-0 pb-1">{{ 'step' | translate }} {{ i + 1 }}:</p>
@@ -149,7 +145,7 @@
                         <span *ngIf="st.image_url"><img [src]="st.image_url" class="w-100 pb-3" /></span>
                     </div>
                 </div>
-                <div class="pt-4">
+                <div class="pt-3 pt-md-4 pt-lg-45">
                     <app-comments
                         [commentData]="commentData"
                         [forumId]="detailsData?.id"

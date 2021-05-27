@@ -14,18 +14,12 @@ export class QaPostComponent implements OnInit, OnDestroy {
     viewMode = 'list';
     questions = [];
     isLoading = false;
-    isDisplayTip = true;
-    viewModeItems: any[] = [{ value: 'list' }, { value: 'grid' }];
     sortOptions = [
         { label: 'Latest', value: 'latest' },
         { label: 'Most Answered', value: 'most_answered' },
         { label: 'Oldest', value: 'oldest' },
     ];
-    filterOptions = [{ label: 'Posted by: All', value: null }];
     sortBy = 'latest';
-    filterBy = null;
-    keyword = '';
-    filteredData = [];
     pageDesc: string | undefined;
     destroy$: Subject<boolean> = new Subject<boolean>();
     forumLanguage: string;
@@ -39,7 +33,6 @@ export class QaPostComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.getAuthors();
         this.coffeeLabService.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
             this.forumLanguage = language;
             this.getPosts();
@@ -49,27 +42,10 @@ export class QaPostComponent implements OnInit, OnDestroy {
         });
     }
 
-    getAuthors(): void {
-        this.coffeeLabService.getAuthors('question').subscribe((res: any) => {
-            if (res.success) {
-                const filterArray = res.result.question_authors.map((item: any) => {
-                    return {
-                        label: `Posted by: ${item.name}`,
-                        value: item.id,
-                    };
-                });
-                this.filterOptions = [...this.filterOptions, ...filterArray];
-            } else {
-                this.toastService.error('Cannot get authors');
-            }
-        });
-    }
-
     getPosts(): void {
         this.isLoading = true;
         if (this.pageDesc === 'saved-posts') {
             const params = {
-                query: this.keyword,
                 sort_by: this.sortBy === 'most_answered' ? 'most_answered' : 'created_at',
                 // org_type: 'ro',
                 sort_order: this.sortBy === 'most_answered' ? 'desc' : this.sortBy === 'latest' ? 'desc' : 'asc',
@@ -123,7 +99,6 @@ export class QaPostComponent implements OnInit, OnDestroy {
             });
         } else {
             const params = {
-                query: this.keyword,
                 sort_by: this.sortBy === 'most_answered' ? 'most_answered' : 'posted_at',
                 // org_type: 'ro',
                 sort_order: this.sortBy === 'most_answered' ? 'desc' : this.sortBy === 'latest' ? 'desc' : 'asc',

@@ -36,7 +36,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
     imageFileData: any;
     imageFileName: any;
     languageArray = [];
-    roasterId: string;
+    organizationId: string;
     imageIdListStep = [];
     recipeId: any;
     recipe: any;
@@ -131,7 +131,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         private route: ActivatedRoute,
         private location: Location,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.organizationId = this.cookieService.get('roaster_id');
         this.createRecipeForm();
     }
 
@@ -257,7 +257,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
             description: ['', Validators.compose([Validators.required])],
             ingredients: this.fb.array([this.createCoffeeIngredient()]),
             steps: this.fb.array([this.createCoffeeStep()]),
-            allow_translation: [false],
+            allow_translation: [true],
             video_id: [null],
             inline_images: [[]],
             language: this.coffeeLabService.currentForumLanguage,
@@ -276,12 +276,13 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         console.log(this.fileEvent);
         this.imageFileName = this.files[0].name;
         const fileList: FileList = this.fileEvent;
+        const maximumFileSize = (type === 'recipeVideo' ? 15 * 1024 : 2 * 1024);
         if (fileList.length > 0) {
             const file: File = fileList[0];
             const fsize = file.size;
             const fileSize = Math.round(fsize / 1024);
-            if (fileSize >= 2048) {
-                this.toaster.error('File size exceeds 2mb');
+            if (fileSize >= maximumFileSize) {
+                this.toaster.error(`Maximum file size is ${maximumFileSize / 1024}mb`);
                 return;
             }
             this.coffeeLabService.uploadFile(file, 'recipe-post').subscribe((res: any) => {

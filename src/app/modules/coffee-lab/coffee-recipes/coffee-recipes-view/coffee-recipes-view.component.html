@@ -58,10 +58,10 @@
 
     <div
         *ngIf="pageDesc === 'overview'"
-        class="d-flex align-items-md-center justify-content-between py-4 pt-lg-0 pb-md-4 pt-md-0 pb-lg-45"
+        class="d-flex align-items-md-center justify-content-between pb-4 pb-lg-45 pt-3 pt-lg-0"
     >
         <div class="d-block flex-wrap d-md-flex">
-            <div class="mt-md-4 mt-lg-0">
+            <div class="mb-25 mb-md-0">
                 <p-dropdown
                     [options]="labels"
                     optionLabel="label"
@@ -74,7 +74,7 @@
                 >
                 </p-dropdown>
             </div>
-            <div class="pl-md-3 mt-3 mt-lg-0 mt-md-4 mt-lg-0">
+            <div class="pl-md-3 mb-25 mb-md-0">
                 <p-dropdown
                     [options]="translationsList"
                     optionLabel="label"
@@ -87,7 +87,7 @@
                 >
                 </p-dropdown>
             </div>
-            <div class="pl-md-3 mt-3 mt-lg-0 mt-md-4 mt-lg-0 ingredient-field">
+            <div class="pl-md-3 ingredient-field">
                 <input
                     class="w-100 fnt-16"
                     type="text"
@@ -99,7 +99,7 @@
                 />
             </div>
         </div>
-        <div class="mt-md-4 mt-lg-0">
+        <div class="">
             <p-dropdown
                 [options]="orderList"
                 optionLabel="label"
@@ -112,7 +112,7 @@
         </div>
     </div>
     <div class="coffee-wrapper" *ngIf="!isLoading">
-        <div class="col-12 col-md-6 col-lg-4 px-0 py-2 p-md-2" *ngFor="let coffee of coffeeRecipeData">
+        <div class="col-12 col-md-6 col-lg-4 px-0 py-2 p-md-2" *ngFor="let coffee of displayData">
             <div
                 class="border-main br-4 p-3 py-md-4 px-lg-4 coffee-item"
                 [routerLink]="'/coffee-lab/recipes/' + coffee.slug"
@@ -125,21 +125,21 @@
                         [selectedItem]="coffee"
                         forumType="recipe"
                         [enableEdit]="
-                            organizationId === coffee.organisation_id &&
+                            organizationId == coffee.organisation_id &&
                             coffee.organisation_type === coffeeLabService.organization &&
-                            coffee.posted_by === authService.currentUser.id
+                            coffee.posted_by == authService.currentUser.id
                         "
                         [enableDelete]="
-                            organizationId === coffee.organisation_id &&
+                            organizationId == coffee.organisation_id &&
                             coffee.organisation_type === coffeeLabService.organization &&
-                            coffee.posted_by === authService.currentUser.id
+                            coffee.posted_by == authService.currentUser.id
                         "
                         [enableSave]="pageDesc !== 'saved-posts'"
                         [enableDeleteSave]="pageDesc === 'saved-posts'"
                     ></app-forum-menu>
                 </div>
                 <div class="w-100 position-relative">
-                    <img [src]="coffee.cover_image_url" class="w-100 my-3 my-md-4" />
+                    <img [src]="coffee.cover_image_url" class="w-100 my-3 my-md-4 object-fit-cover" />
                     <span class="expertise fnt-12"> {{ coffee.expertise }} </span>
                 </div>
                 <a class="fnt-muli fnt-lg-14 fnt-16 fnt-bold text-clr334 cursor-pointer">
@@ -163,16 +163,33 @@
             </div>
         </div>
     </div>
-    <div class="w-100" *ngIf="!isLoading && totalRecords">
+    <div class="w-100" *ngIf="totalRecords && !isLoading">
         <p-paginator
             [rows]="rows"
             [totalRecords]="totalRecords"
-            (onPageChange)="getData($event)"
+            (onPageChange)="paginate($event)"
             styleClass="mt-45"
         ></p-paginator>
     </div>
     <app-loading *ngIf="isLoading"></app-loading>
     <div *ngIf="!isLoading && !coffeeRecipeData.length" class="text-center my-4 fnt-muli text-clr24">
-        {{ 'no_data_is_available' | translate }}
+        <app-empty
+                [title]="
+                (pageDesc === 'saved-posts'
+                    ? 'you_have_not_saved_any_post'
+                    : 'my-posts'
+                    ? 'you_have_not_posted_anything_yet'
+                    : 'there_are_no_posts_to_show'
+                ) | translate
+            "
+                [description]="
+                (pageDesc === 'saved-posts'
+                    ? 'no_saved_posts_description'
+                    : 'my-posts'
+                    ? 'no_my_posts_description'
+                    : 'no_any_posts_to_show_description'
+                ) | translate
+            "
+        ></app-empty>
     </div>
 </div>

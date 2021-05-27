@@ -31,6 +31,7 @@ export class QuestionsComponent implements OnInit {
         this.organizationId = +this.cookieService.get('roaster_id');
         this.displayData = this.questions.slice(0, 10);
         this.totalRecords = this.questions.length;
+        console.log('totalRecords >>>>>>', this.totalRecords);
     }
 
     paginate(event: any) {

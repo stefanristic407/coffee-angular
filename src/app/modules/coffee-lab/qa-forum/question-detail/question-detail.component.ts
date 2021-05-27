@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, AfterViewInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService, CoffeeLabService, GlobalsService } from '@services';
 import { DOCUMENT, Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
@@ -33,6 +33,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
         public authService: AuthService,
         private messageService: MessageService,
         private cookieService: CookieService,
+        public router: Router,
     ) {
         this.activatedRoute.params.subscribe((params) => {
             this.slug = params.slug;
@@ -54,7 +55,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
         window.scroll(0, 0);
         this.organizationId = +this.cookieService.get('roaster_id');
         this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
-            this.getDetails();
+            this.router.navigate(['/coffee-lab/overview/qa-forum']);
         });
     }
 

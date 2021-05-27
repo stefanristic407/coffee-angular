@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class EmptyComponent implements OnInit {
     @Input() title = '';
+    @Input() description = '';
     @Input() button = '';
     @Input() link = '';
 
