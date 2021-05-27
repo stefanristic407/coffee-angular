@@ -98,6 +98,7 @@
                 styleClass="round-border mr-25 mb-25 mb-md-4 {{ queryParams.available_coffee ? 'highlight' : '' }}"
             ></p-dropdown>
             <p-selectButton
+                *ngIf="sourcingSrv.showUnitFilter"
                 [options]="weightItems"
                 [(ngModel)]="sourcingSrv.quantityUnit"
                 styleClass="round-select  mb-25 mb-md-4 "
