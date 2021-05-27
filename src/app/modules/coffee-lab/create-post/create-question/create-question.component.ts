@@ -47,6 +47,7 @@ export class CreateQuestionComponent implements OnInit {
             if (res.success) {
                 this.content = res.result.question;
                 this.languageCode = res.result.lang_code;
+                this.isAllowTranslation = res.result?.allow_translation;
             } else {
                 this.toaster.error('Error while get question');
                 this.location.back();

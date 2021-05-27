@@ -70,6 +70,7 @@ export class CreateAnswerComponent implements OnInit {
                     this.language = res.result.lang_code;
                     this.content = res.result.answer;
                     this.images = res.result.images;
+                    this.isAllowTranslation = res.result?.allow_translation;
                 }
             } else {
                 this.toastrService.error('Error while get comment');
