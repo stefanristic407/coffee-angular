@@ -112,7 +112,7 @@
                                         globals.languageJson?.customer_type
                                     }}</span>
                                     <span class="text-clr334 fnt-14">{{
-                                        item.org_type == 'hrc' ? 'horeca' : 'Micro roaster'
+                                        item.org_type | orgType
                                     }}</span>
                                 </div>
                                 <div class="py-3 d-flex">
@@ -127,7 +127,7 @@
                     <span class="d-none d-md-inline">{{ item.org_name }} </span>
                 </td>
                 <td class="d-none d-md-table-cell text-overflow-ellipsis">
-                    {{ item.org_type == 'hrc' ? 'horeca' : 'Micro roaster' }}
+                    {{ item.org_type == 'hrc' ? 'Partner' : 'Micro roaster' }}
                 </td>
                 <td class="d-none d-md-table-cell text-overflow-ellipsis">
                     {{ item.requested_at | date: 'MMM d, y' }}

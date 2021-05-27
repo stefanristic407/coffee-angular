@@ -38,6 +38,7 @@ import { TranslateRecipeComponent } from './create-post/translate/translate-reci
 import { TranslateAnswerComponent } from './create-post/translate/translate-answer/translate-answer.component';
 import { RecipeOriginalPostComponent } from './create-post/translate/translate-recipe/recipe-original-post/recipe-original-post.component';
 import { TranslateToastComponent } from './components/translate-toast/translate-toast.component';
+import { InfoTooltipComponent } from './components/info-tooltip/info-tooltip.component';
 
 @NgModule({
     declarations: [
@@ -76,6 +77,7 @@ import { TranslateToastComponent } from './components/translate-toast/translate-
         TranslateAnswerComponent,
         RecipeOriginalPostComponent,
         TranslateToastComponent,
+        InfoTooltipComponent,
     ],
     imports: [CommonModule, CoffeeLabRoutingModule, SharedModule, FormsModule],
 })

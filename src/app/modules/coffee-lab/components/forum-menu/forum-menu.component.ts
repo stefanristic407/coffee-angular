@@ -177,6 +177,7 @@ export class ForumMenuComponent implements OnInit {
                     queryParams: {
                         forumId: this.selectedItem.answer_id || this.selectedItem.id,
                         parentForumType: 'question',
+                        parentForumId: this.extraInfo,
                         forumType: 'answer',
                     },
                 });
@@ -197,7 +198,8 @@ export class ForumMenuComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: 'Are you sure you want to remove this post?'
+                    desp: 'Are you sure you want to remove this post?',
+                    yesButton: 'Remove'
                 },
                 showHeader: false,
                 styleClass: 'confirm-dialog',

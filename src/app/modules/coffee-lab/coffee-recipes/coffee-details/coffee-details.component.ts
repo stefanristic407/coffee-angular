@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService, CoffeeLabService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 import { Location } from '@angular/common';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-coffee-details',
@@ -11,14 +13,15 @@ import { Location } from '@angular/common';
     styleUrls: ['./coffee-details.component.scss'],
     providers: [MessageService],
 })
-export class CoffeeDetailsComponent implements OnInit {
+export class CoffeeDetailsComponent implements OnInit, OnDestroy {
     relatedData: any[] = [];
     organizationId: any;
     detailsData: any;
     id: string | number = '';
     isLoading = true;
     commentData: any[] = [];
-    roasterId: string;
+    destroy$: Subject<boolean> = new Subject<boolean>();
+
     constructor(
         public router: Router,
         private activatedRoute: ActivatedRoute,
@@ -28,7 +31,7 @@ export class CoffeeDetailsComponent implements OnInit {
         public location: Location,
         public authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.organizationId = this.cookieService.get('roaster_id');
         this.activatedRoute.params.subscribe((params) => {
             this.id = params.id;
             this.getCoffeeDetails(true);
@@ -36,9 +39,17 @@ export class CoffeeDetailsComponent implements OnInit {
         });
     }
 
+    ngOnInit(): void {
+        window.scroll(0, 0);
+        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
+            this.router.navigate(['/coffee-lab/overview/articles']);
+        });
+    }
+
     getCoffeeDetails(isReloading: boolean): void {
         this.isLoading = isReloading;
         this.coffeeLabService.getForumDetails('recipe', this.id).subscribe((res: any) => {
+            console.log('coffee details >>>>>>>', res);
             if (res.success) {
                 this.detailsData = res.result;
                 this.detailsData.description = this.getJustText(this.detailsData.description);
@@ -83,10 +94,6 @@ export class CoffeeDetailsComponent implements OnInit {
         });
     }
 
-    ngOnInit(): void {
-        this.organizationId = +this.cookieService.get('roaster_id');
-    }
-
     getJustText(content: any) {
         const contentElement = document.createElement('div');
         contentElement.innerHTML = content;
@@ -95,5 +102,10 @@ export class CoffeeDetailsComponent implements OnInit {
             image.parentNode.removeChild(image);
         });
         return contentElement.innerHTML;
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next(true);
+        this.destroy$.unsubscribe();
     }
 }

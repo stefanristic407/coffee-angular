@@ -69,8 +69,7 @@
                         [innerHTML]="answer?.question"
                     ></div>
                     <div
-                        class="border-main inner-bg br-4 p-md-4 p-3 mb-3 pointer"
-                        [routerLink]="'/coffee-lab/questions/' + answer.question_slug"
+                        class="border-main inner-bg br-4 p-md-4 p-3 mb-3"
                     >
                         <div class="d-flex">
                             <div class="mr-md-25 mr-1">
@@ -121,7 +120,7 @@
                     </div>
                     <div class="mt-4">
                         <a
-                            class="custom-link ml-1"
+                            class="brown-cta ml-1"
                             [routerLink]="'/coffee-lab/questions/' + answer.question_slug"
                             [queryParams]="{ answer: answer.answer_id }"
                             >{{ 'read_complete_answer' | translate }}</a
@@ -138,6 +137,9 @@
         <app-loading></app-loading>
     </div>
     <div *ngIf="!isLoading && !answers.length" class="text-center my-4 fnt-muli text-clr24">
-        {{ 'no_data_is_available' | translate }}
+        <app-empty
+                [title]="'you_have_not_posted_anything_yet' | translate"
+                [description]="'no_my_posts_description' | translate"
+        ></app-empty>
     </div>
 </div>

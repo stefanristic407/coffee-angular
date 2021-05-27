@@ -65,7 +65,16 @@
                                 ></button>
                             </div>
                             <div
-                                class="bg-f8 br-4 py-2 px-3 d-flex align-items-center justify-content-center copy-paste-button"
+                                class="
+                                    bg-f8
+                                    br-4
+                                    py-2
+                                    px-3
+                                    d-flex
+                                    align-items-center
+                                    justify-content-center
+                                    copy-paste-button
+                                "
                                 (click)="pasteCoverImage()"
                             >
                                 <img src="assets/images/paste.svg" class="mr-1" />
@@ -93,7 +102,7 @@
                         </small>
                         <small
                             *ngIf="articleForm.controls['subtitle'].errors?.maxWordCount"
-                            class="p-error"
+                            class="p-error text-clrb1f"
                         >
                             Please input 30 words
                         </small>
@@ -114,7 +123,16 @@
                         <div class="position-relative">
                             <img [src]="article?.cover_image_url" class="banner-image" />
                             <div
-                                class="bg-f8 br-4 py-2 px-3 d-flex align-items-center justify-content-center copy-paste-button"
+                                class="
+                                    bg-f8
+                                    br-4
+                                    py-2
+                                    px-3
+                                    d-flex
+                                    align-items-center
+                                    justify-content-center
+                                    copy-paste-button
+                                "
                                 (click)="copyCoverImage()"
                             >
                                 <img src="assets/images/copy.svg" class="mr-1" />
@@ -123,8 +141,11 @@
                                 }}</span>
                             </div>
                         </div>
-                        <p class="fnt-muli fnt-14 fnt-md-18 fnt-bold lh-normal text-clr334 pt-3 mb-3 mb-md-4">
+                        <p class="fnt-muli fnt-14 fnt-md-18 fnt-bold lh-normal text-clr334 pt-3 mb-2">
                             {{ article?.title }}
+                        </p>
+                        <p class="fnt-muli fnt-14 fnt-md-18 fnt-normal lh-normal text-clr334 mb-3 mb-md-4">
+                            {{ article?.subtitle }}
                         </p>
                         <div class="article-content" appCopyImageToClipboard [innerHTML]="article.content"></div>
                     </div>

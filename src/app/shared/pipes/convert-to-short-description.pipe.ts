@@ -24,6 +24,7 @@ export class ConvertToShortDescriptionPipe implements PipeTransform {
                 // console.log(`Found match, group ${groupIndex}: ${match}`);
             });
         }
+        plainString = plainString || description;
         plainString = plainString.trim();
         const wordCount = plainString.split(' ').length;
         if (wordCount <= count) {

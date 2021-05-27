@@ -67,14 +67,6 @@
         background-color: $primary-bg-color;
     }
 
-    .Give-your-end-users {
-        font-family: Muli;
-        font-size: 14px;
-        font-weight: normal;
-        color: $muted-text-color;
-        padding-top: 0.75rem;
-    }
-
     .api-requests {
         background-color: #ffffff;
         overflow: hidden;
@@ -115,6 +107,19 @@
     }
 }
 
+
+.give-your-end-users {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: normal;
+    color: $muted-text-color;
+    padding-top: 0.75rem;
+    margin-bottom: 16px;
+    @media (max-width: 991px) {
+        margin-bottom: 24px;
+    }
+}
+
 ::ng-deep .popover-body {
     padding: 0.25rem 0.25rem !important;
 }
@@ -141,11 +146,11 @@
     }
 }
 
-.Search-tab-view {
+.search-tab-view {
     display: none;
 }
 
-.Search {
+.search {
     display: inherit;
 }
 
@@ -158,11 +163,6 @@
     .header-inner {
         display: flex;
         align-items: center;
-    }
-
-    .Give-your-end-users {
-        padding-bottom: 24px;
-        margin: 0;
     }
 }
 
@@ -186,11 +186,11 @@
         justify-content: space-between;
     }
 
-    .Search-tab-view {
+    .search-tab-view {
         display: inherit;
     }
 
-    .Search {
+    .search {
         display: none;
     }
 }

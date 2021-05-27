@@ -1,24 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService, CoffeeLabService, GlobalsService } from '@services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { CookieService } from 'ngx-cookie-service';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { Location } from '@angular/common';
+import { takeUntil } from 'rxjs/operators';
 @Component({
     selector: 'app-aticle-details',
     templateUrl: './article-detail.component.html',
     styleUrls: ['./article-detail.component.scss'],
     providers: [MessageService],
 })
-export class ArticleDetailComponent implements OnInit {
+export class ArticleDetailComponent implements OnInit, OnDestroy {
     relatedData: any[] = [];
     detailsData: any;
     idOrSlug: string | number = '';
     commentData?: any[];
     isLoading = true;
     organizationId: any;
-    forumDeleteSub: Subscription;
+    destroy$: Subject<boolean> = new Subject<boolean>();
 
     constructor(
         public coffeeLabService: CoffeeLabService,
@@ -38,8 +39,9 @@ export class ArticleDetailComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        window.scroll(0, 0);
         this.organizationId = +this.cookieService.get('roaster_id');
-        this.forumDeleteSub = this.coffeeLabService.forumDeleteEvent.subscribe(() => {
+        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
             this.router.navigate(['/coffee-lab/overview/articles']);
         });
     }
@@ -87,5 +89,10 @@ export class ArticleDetailComponent implements OnInit {
                 this.getDetails(false);
             }
         });
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next(true);
+        this.destroy$.unsubscribe();
     }
 }

@@ -16,7 +16,10 @@
             [binary]="true"
             [label]="'allow_translations_by_other_authors' | translate"
         ></p-checkbox>
-        <i class="pi pi-info-circle text-clr588 fnt-16 ml-2"></i>
+        <app-info-tooltip
+                [title]="'translations' | translate"
+                [description]="'translation-tooltip' | translate"
+        ></app-info-tooltip>
     </div>
     <div class="row">
         <div class="col-md-6 order-2 order-md-1">

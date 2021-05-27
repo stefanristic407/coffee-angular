@@ -35,7 +35,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
             value: false,
         },
     ];
-
+    displayData: any[] = [];
     labels: any[] = [
         {
             label: 'Easy',
@@ -89,17 +89,18 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
         const params = {
             query: this.searchQuery,
             ingredient: this.searchIngredient,
-            translations_available: this.isAvailableTranslation,
+            translations_available: this.isAvailableTranslation ? 'yes' : 'no',
             sort_by: 'created_at',
             sort_order: this.selectedOrder === 'latest' ? 'desc' : 'asc',
             level: this.label?.toLowerCase(),
-            page: this.pageNumber,
-            per_page: this.rows,
         };
+        console.log('query param >>>>>>> ', params);
         if (this.pageDesc === 'saved-posts') {
             this.coffeeLabService.getSavedForumList('recipe', params).subscribe((res) => {
                 if (res.success) {
                     this.coffeeRecipeData = res.result ?? [];
+                    this.totalRecords = this.coffeeRecipeData.length;
+                    this.displayData = this.coffeeRecipeData.slice(0, 9);
                     this.coffeeRecipeData.map((item) => {
                         item.description = this.getJustText(item.description);
                         return item;
@@ -113,6 +114,8 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
             this.coffeeLabService.getMyForumList('recipe').subscribe((res) => {
                 if (res.success) {
                     this.coffeeRecipeData = (res.result ?? []).filter((item) => item.publish === true);
+                    this.totalRecords = this.coffeeRecipeData.length;
+                    this.displayData = this.coffeeRecipeData.slice(0, 9);
                     this.coffeeRecipeData.map((item) => {
                         item.description = this.getJustText(item.description);
                         return item;
@@ -128,8 +131,8 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
                     console.log('response----->>>>>', res);
                     if (res.result) {
                         this.coffeeRecipeData = (res.result ?? []).filter((item) => item.publish === true);
-                        this.totalRecords = res.result_info.total_count;
-                        this.rows = res.result_info.per_page;
+                        this.totalRecords = this.coffeeRecipeData.length;
+                        this.displayData = this.coffeeRecipeData.slice(0, 9);
                         this.coffeeRecipeData.map((item) => {
                             item.description = this.getJustText(item.description);
                             return item;
@@ -160,6 +163,10 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
             this.pageNumber = currentPage + 1;
             this.getCoffeeRecipesData();
         }
+    }
+
+    paginate(event: any) {
+        this.displayData = this.coffeeRecipeData.slice(event.first, event.first + event.rows);
     }
 
     ngOnDestroy(): void {
