@@ -1,3 +1,12 @@
 .existing-min {
     min-height: 200px;
 }
+
+:host ::ng-deep {
+    .p-autocomplete-input {
+        padding-right: 8.429rem;
+    }
+    .p-autocomplete-loader {
+        right: 8rem;
+    }
+}
