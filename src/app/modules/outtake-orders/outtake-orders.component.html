@@ -18,7 +18,7 @@
     </div>
     <section>
         <div
-            class="d-md-flex flex-column flex-md-row justify-content-between align-items-end mb-3 mt-3 mb-md-4 mb-lg-475"
+            class="d-md-flex flex-column flex-md-row justify-content-between align-items-end mb-3 mt-45 mt-md-3 mb-md-4 mb-lg-475"
         >
             <div>
                 <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1">
@@ -28,17 +28,18 @@
                     {{ 'maintain_all_your' | translate }}
                 </div>
             </div>
-            <div class="d-lg-inline d-md-flex">
-                <button class="btn-stroked px-4 mr-3 w-mob-100">{{ 'export' | translate }}</button>
+            <div class="d-md-flex">
+                <button class="btn-stroked px-4 mr-3 w-mob-100 d-none d-md-block">{{ 'export' | translate }}</button>
                 <button
                     class="btn-raised text-nowrap px-4 w-mob-100 mt-3 mt-md-0"
                     routerLink="/outtake-orders/add-order"
                 >
                     {{ 'add_new_order' | translate }}
                 </button>
+                <button class="btn-stroked px-4 mt-3 mr-3 w-mob-100 d-md-none">{{ 'export' | translate }}</button>
             </div>
         </div>
-        <div class="d-block d-md-none mb-3">
+        <div class="d-block d-md-none mb-3 mt-4 pt-4 border-top-dashed-d6">
             <span class="custom-search mobile-bord">
                 <input
                     type="text"
@@ -52,7 +53,7 @@
     </section>
 
     <div class="mt-4 d-flex justify-content-between">
-        <div class="d-flex">
+        <div class="d-md-flex">
             <p-dropdown
                 [options]="customerType"
                 [showClear]="true"
@@ -92,6 +93,7 @@
     </div>
     <div>
         <p-table
+            id="tabTable"
             #markedTable
             [class.table-mobile]="primeTableService.isMobileView"
             [value]="primeTableService?.records"
@@ -132,7 +134,7 @@
 
             <ng-template pTemplate="body" let-rowData let-columns="columns">
                 <tr>
-                    <td *ngFor="let col of columns" class="word-break" [ngSwitch]="col.field">
+                    <td *ngFor="let col of columns" [ngSwitch]="col.field">
                         <span *ngSwitchCase="'order_id'" [routerLink]="onEdit(rowData)">
                             <div class="d-flex">
                                 <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
@@ -155,8 +157,88 @@
                                 </span>
                             </div>
                         </span>
-                        <span *ngSwitchCase="'type_of_customer'" [routerLink]="onEdit(rowData)">
+                        <span *ngSwitchCase="'customer_name'" [routerLink]="onEdit(rowData)">
                             <div class="d-flex">
+                                <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                    {{ 'customer_name' | translate }}
+                                </span>
+
+                                <span [class.w-50]="primeTableService.isMobileView">
+                                    {{ rowData['customer_name'] }}
+                                </span>
+                            </div>
+                        </span>
+                        <span *ngSwitchCase="'type_of_customer'">
+                            <div class="d-md-none">
+                                <div class="d-flex justify-content-between mobile-header br-4 p-2 fnt-14">
+                                    <div [routerLink]="onEdit(rowData)">
+                                        <span class="pl-1">
+                                            {{ rowData['customer_name'] }}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <ng-container>
+                                            <a
+                                                class="menu-arrow"
+                                                [popover]="poplistTemplate"
+                                                placement="left"
+                                                [outsideClick]="true"
+                                                #pop="bs-popover"
+                                            >
+                                                <p class="mb-0">
+                                                    <img
+                                                        class="ellipse-image"
+                                                        src="assets/images/ellipses.png"
+                                                        alt=""
+                                                    />
+                                                </p>
+                                            </a>
+                                            <ng-template #poplistTemplate>
+                                                <div id="popover-mobile-content">
+                                                    <ul class="list-group custom-popover">
+                                                        <li class="list-group-item">
+                                                            <a
+                                                                class="text-clr588 fnt-600 fnt-14"
+                                                                [routerLink]="onEdit(rowData)"
+                                                                >{{ 'edit' | translate }}</a
+                                                            >
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <a
+                                                                class="text-clr588 fnt-600 fnt-14"
+                                                                [routerLink]="onGreenCoffee(rowData)"
+                                                                >{{ 'view_gc_order' | translate }}</a
+                                                            >
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <a
+                                                                class="text-clr588 fnt-600 fnt-14"
+                                                                (click)="deleteProductFromList(rowData['id'])"
+                                                                >{{ 'delete' | translate }}</a
+                                                            >
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </ng-template>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                                <div class="mb-2" [routerLink]="onEdit(rowData)">
+                                    <span class="prime-table-label fnt-bold fnt-16 text-clr334">
+                                        {{ 'gc_order_id' | translate }}
+                                    </span>
+                                    <span class="fnt-16 text-clr334 fnt-bold"> #{{ rowData['order_id'] }} </span>
+                                </div>
+                                <div class="mb-425" [routerLink]="onEdit(rowData)">
+                                    <span class="prime-table-label text-clr588 fnt-12">
+                                        {{ 'placed_on' | translate }}:
+                                    </span>
+                                    <span class="fnt-12">
+                                        {{ rowData['order_date'] | date: 'd MMM yyyy' }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="d-flex" [routerLink]="onEdit(rowData)">
                                 <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
                                     {{ 'type_of_ustomer' | translate }}
                                 </span>
@@ -193,8 +275,7 @@
                                 <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
                                     {{ 'price' | translate }}
                                 </span>
-
-                                <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
+                                <span [class.w-50]="primeTableService.isMobileView" class="truncate break-word">
                                     {{ rowData['total_price'] || '--' }} {{ rowData['total_price_currency'] || '--' }}
                                 </span>
                             </div>
@@ -204,8 +285,7 @@
                                 <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
                                     {{ 'quantity' | translate }}
                                 </span>
-
-                                <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
+                                <span [class.w-50]="primeTableService.isMobileView" class="truncate break-word">
                                     {{ rowData['gc_total_quantity'] || '--' }}
                                     {{ rowData['gc_total_quantity_unit'] || '--' }}
                                 </span>
