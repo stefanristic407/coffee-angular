@@ -1557,6 +1557,28 @@ export class UserserviceService extends ApiService {
         return this.http.post(this.roasterUrl, data);
     }
 
+    makeAsAllRead() {
+        const organization = 'ro';
+        const organizationId = this.cookieService.get('roaster_id');
+        const data = {
+            api_call: `/${organization}/${organizationId}/notifications/read`,
+            method: 'PUT',
+            token: this.cookieService.get('Auth'),
+        };
+        return this.http.post(this.roasterUrl, data);
+    }
+
+    makeAsRead(notificationId) {
+        const organization = 'ro';
+        const organizationId = this.cookieService.get('roaster_id');
+        const data = {
+            api_call: `/${organization}/${organizationId}/notifications/${notificationId}/read`,
+            method: 'PUT',
+            token: this.cookieService.get('Auth'),
+        };
+        return this.http.post(this.roasterUrl, data);
+    }
+
     uploadFile(roasterId: any, file: any, fileModule: string): Observable<any> {
         const name = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         const headers = new HttpHeaders({ Accept: 'application/json' });
