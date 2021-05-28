@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { GlobalsService } from '@services';
+import { GlobalsService, ResizeService } from '@services';
 import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserserviceService } from '@services';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
+import { ResizeableComponent } from '@base-components';
 
 @Component({
     selector: 'app-lot-sale',
@@ -14,7 +15,7 @@ import { SharedServiceService } from '@app/shared/services/shared-service.servic
     styleUrls: ['./lot-sale.component.scss'],
     encapsulation: ViewEncapsulation.None,
 })
-export class LotSaleComponent implements OnInit {
+export class LotSaleComponent extends ResizeableComponent implements OnInit {
     appLanguage?: any;
     lotSaleActive: any = 0;
     roasterID: any = '';
@@ -48,7 +49,9 @@ export class LotSaleComponent implements OnInit {
         private fb: FormBuilder,
         private userService: UserserviceService,
         public sharedService: SharedServiceService,
+        protected resizeService: ResizeService,
     ) {
+        super(resizeService);
         this.roasterID = this.cookieService.get('roaster_id');
         this.orderID = decodeURIComponent(this.route.snapshot.queryParams.orderId);
         this.lotSaleForm = this.fb.group({
@@ -110,63 +113,54 @@ export class LotSaleComponent implements OnInit {
         }
         this.tableColumns = [
             {
-                field: 'order_id',
+                field: 'id',
                 header: this.globals.languageJson?.order_id,
-                sortable: false,
-                width: 15,
+                width: 10,
             },
             {
                 field: 'lot_id',
                 header: this.globals.languageJson?.lot_id,
-                sortable: false,
-                width: 15,
+                width: 6,
             },
             {
                 field: 'estate_name',
                 header: this.globals.languageJson?.estate,
-                width: 25,
+                width: 10,
             },
             {
                 field: 'order_reference',
                 header: this.globals.languageJson?.roaster_ref_no,
-                sortable: false,
-                width: 20,
+                width: 12,
             },
             {
                 field: 'origin',
                 header: this.globals.languageJson?.origin,
-                sortable: false,
-                width: 15,
+                width: 12,
             },
             {
                 field: 'species',
                 header: this.globals.languageJson?.species,
-                sortable: false,
-                width: 15,
+                width: 8,
             },
             {
                 field: 'varieties',
                 header: this.globals.languageJson?.variety,
-                sortable: false,
-                width: 15,
+                width: 8,
             },
             {
                 field: 'price',
                 header: this.globals.languageJson?.buying_price,
-                sortable: false,
-                width: 15,
+                width: 10,
             },
             {
                 field: 'cup_score',
                 header: this.globals.languageJson?.cupping_score,
-                sortable: false,
-                width: 15,
+                width: 11,
             },
             {
                 field: 'quantity',
                 header: this.globals.languageJson?.stock_in_hand,
-                sortable: false,
-                width: 15,
+                width: 13,
             },
         ];
     }
@@ -246,6 +240,7 @@ export class LotSaleComponent implements OnInit {
                 if (response.success && response.result) {
                     this.orderDetails = response.result;
                     this.tableValue.push(this.orderDetails);
+                    console.log(this.tableValue);
                 }
             },
             (err) => {
