@@ -110,7 +110,7 @@ export class RoasteryProfileService {
     getcontactList() {
         this.roasterService.getRoasterContacts(this.roasterId).subscribe((res: any) => {
             if (res.success) {
-                this.topContacts = res.result;
+                this.topContacts = res.result || [];
             }
         });
     }
