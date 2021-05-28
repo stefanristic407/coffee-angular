@@ -56,10 +56,12 @@
                         </a>
                         <p-overlayPanel #myOp styleClass="notification-overlay">
                             <div class="notification-header">
-                                <span class="fnt-16 fnt-md-18 fnt-bold fnt-muli text-clr334">Notifications</span>
+                                <span class="fnt-16 fnt-md-18 fnt-bold fnt-muli text-clr334">
+                                    {{ 'notifications' | translate }}
+                                </span>
                                 <div class="d-flex">
                                     <div class="custom-link fnt-14 mr-3" (click)="makeAsAllRead(myOp)">
-                                        Mark all read
+                                        {{ 'mark_all_read' | translate }}
                                     </div>
                                     <div class="cursor-pointer" (click)="myOp.hide()">
                                         <img src="assets/images/notif-close-icon.svg" />

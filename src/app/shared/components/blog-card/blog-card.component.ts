@@ -10,6 +10,7 @@ export class BlogCardComponent implements OnInit {
     @Input() title: string;
     @Input() description: string;
     @Input() link: string;
+    @Input() date: any;
     constructor() {}
 
     ngOnInit(): void {}

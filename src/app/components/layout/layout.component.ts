@@ -215,7 +215,6 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         if (data.event === 'cupping_request') {
             if (data.action === 'ASSIGNED') {
                 content = `You have been assigned to grade Order #${data.content.order_id}.`;
-                // url = `/operator-services/requests/${data.content.request_name}/${data.content.request_id}`;
             }
         } else if (data.event === 'dispute') {
             if (data.action === 'RAISED') {
@@ -338,7 +337,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 content = `Payment for your commission invoice #${data.content.invoice_number} has been confirmed.`;
             }
         }
-        return { content, url };
+        return { content, url, queryParams };
     }
 
     updateActiveLinkState() {

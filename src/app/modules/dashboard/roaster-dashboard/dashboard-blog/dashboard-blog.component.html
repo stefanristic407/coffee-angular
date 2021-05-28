@@ -6,9 +6,9 @@
             class="col-md-6 col-lg-4 col-sm-12 mt-md-1 mt-sm-3 mt-xs-3 pl-md-3 pr-md-2 p-lg-3"
         >
             <app-blog-card
-                [imgUrl]="blog.imgUrl"
+                [imgUrl]="blog.img_url"
                 [title]="blog.title"
-                [description]="blog.description | convertToShortDescription: 18"
+                [description]="blog.description | convertToShortDescription: 20"
                 [link]="'/social-media/blog-details/' + blog.id"
             ></app-blog-card>
         </div>

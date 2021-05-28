@@ -20,7 +20,11 @@ export class ProductSettingComponent implements OnInit {
     resetButtonValue = 'Save';
     breadItems: any[];
     options: any;
-    selectedTab = { name: 'Vat Management', code: '', index: 0 };
+    selectedTab = {
+        name: this.globals.languageJson?.vat + ' ' + this.globals.languageJson?.management,
+        code: '',
+        index: 0,
+    };
     selectedIndex = 0;
     details: FormGroup;
     shippingDetails = {
@@ -48,8 +52,8 @@ export class ProductSettingComponent implements OnInit {
     ngOnInit(): void {
         this.getShippingInfo();
         this.options = [
-            { name: 'Vat Management', code: '', index: 0 },
-            { name: 'Shipping Details', code: '', index: 1 },
+            { name: this.globals.languageJson?.vat + ' ' + this.globals.languageJson?.management, code: '', index: 0 },
+            { name: this.globals.languageJson?.shipping_details, code: '', index: 1 },
         ];
         this.shippingPriceUnitArray = [
             {
@@ -167,7 +171,10 @@ export class ProductSettingComponent implements OnInit {
     getHeading() {
         let header = 'Product Settings';
         if (this.selectedMobileTab) {
-            header = this.selectedMobileTab === 'VAT' ? 'VAT Management' : 'Shipment Details';
+            header =
+                this.selectedMobileTab === 'VAT'
+                    ? this.globals.languageJson?.vat + ' ' + this.globals.languageJson?.management
+                    : 'Shipment Details';
         }
         return header;
     }
