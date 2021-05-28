@@ -862,6 +862,7 @@
     }
     &.dm-thi-active {
         background-color: #f8f8f8;
+        border-radius: 4px;
         .dm-thi-content-block {
             border: none;
         }
@@ -893,6 +894,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            margin-top: 2px;
         }
         .dm-thi-name-block {
             display: flex;
@@ -1730,7 +1732,7 @@
     .dm-hcm-panel {
         position: absolute;
         background-color: #fff;
-        height: 191px;
+        height: 172px;
         width: 232px;
         left: -174px;
         top: 48px;
