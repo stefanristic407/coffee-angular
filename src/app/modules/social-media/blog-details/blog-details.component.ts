@@ -14,22 +14,17 @@ export class BlogDetailsComponent implements OnInit {
     recentBlogs: any[] = [];
     blog: any;
 
-    constructor(private location: Location, private toastrService: ToastrService, private route: ActivatedRoute) {}
+    constructor(public location: Location, private toastrService: ToastrService, private route: ActivatedRoute) {}
 
     ngOnInit(): void {
         this.route.params.subscribe((param) => {
             this.blog = this.blogs.find((blog) => blog.id === Number(param.id));
-            console.log('blog >>>>>>>>>', this.blog);
             this.getRecentBlogs();
         });
     }
 
     getRecentBlogs(): void {
         this.recentBlogs = this.blogs.filter((blog) => blog.id !== this.blog.id);
-    }
-
-    back() {
-        this.location.back();
     }
 
     copySuccessAlert() {
