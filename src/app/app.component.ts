@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
         const dynamicScripts = [];
         if (environment.production) {
             dynamicScripts.push('https://www.bugherd.com/sidebarv2.js?apikey=tm7bqtpbmlhxkgxgen68xg');
+            dynamicScripts.push('https://cmp.osano.com/6olZFSThsdZWqs/d3243605-8fd0-446a-9b25-a172e9ae3d67/osano.js');
         }
 
         for (const value of dynamicScripts) {
