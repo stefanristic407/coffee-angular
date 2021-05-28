@@ -14120,16 +14120,6 @@ a.b-cum:hover {
     cursor: pointer;
 }
 
-
-/*new design common css */
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-
 /* Lineheight 0 */
 
 .line-h-0 {

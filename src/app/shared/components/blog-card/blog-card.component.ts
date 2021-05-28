@@ -9,7 +9,8 @@ export class BlogCardComponent implements OnInit {
     @Input() imgUrl: string;
     @Input() title: string;
     @Input() description: string;
-    @Input() link: string;
+    @Input() routerLink: string;
+    @Input() date: any;
     constructor() {}
 
     ngOnInit(): void {}
