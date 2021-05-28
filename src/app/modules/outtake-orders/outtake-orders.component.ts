@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { GlobalsService, PrimeTableService, ResizeService, RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { COUNTRY_LIST } from '@constants';
@@ -13,7 +13,6 @@ import { ResizeableComponent } from '@base-components';
     selector: 'app-outtake-orders',
     templateUrl: './outtake-orders.component.html',
     styleUrls: ['./outtake-orders.component.scss'],
-    encapsulation: ViewEncapsulation.None,
 })
 export class OuttakeOrdersComponent extends ResizeableComponent implements OnInit {
     searchTerm = '';

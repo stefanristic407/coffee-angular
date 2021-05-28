@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DownloadService, RoasterserviceService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
@@ -14,7 +14,6 @@ import { GlobalsService } from '@services';
     selector: 'app-add-new-order',
     templateUrl: './add-new-order.component.html',
     styleUrls: ['./add-new-order.component.scss'],
-    encapsulation: ViewEncapsulation.None,
 })
 export class AddNewOrderComponent implements OnInit {
     roasterId: any;
