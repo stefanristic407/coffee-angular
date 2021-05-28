@@ -19,7 +19,7 @@
                         <div class="row">
                             <div class="col-md-6 pl-0 pr-0">
                                 <div
-                                    class="order__id d-flex align-items-center pt-2 fnt-16 fnt-md-18 font-bold text-clr334"
+                                    class="order__id d-flex align-items-center pt-2 fnt-16 fnt-md-18 fnt-bold text-clr334"
                                 >
                                     {{ 'order' | translate }} #{{ orderId }}
                                     <span class="ml-2 fnt-12 fnt-md-14 fnt-600" [ngClass]="typeClass"
@@ -35,7 +35,7 @@
                         </div>
                         <div class="row" *ngIf="orderType === OrderTypes.Prebook">
                             <div class="col-12 p-0 mb-2 text-clr-invalid fnt-12">
-                                <span class="font-bold">{{ 'note' | translate }}</span>
+                                <span class="fnt-bold">{{ 'note' | translate }}</span>
                                 <span class="fnt-400">{{ 'lot_has_been_prebooked' | translate }}</span>
                             </div>
                         </div>

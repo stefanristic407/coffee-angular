@@ -102,10 +102,10 @@
                     src="assets/images/plus-circle.svg"
                     (click)="bannerFileInput.click()"
                 />
-                <p class="fnt-12 fnt-md-14 font-bold text-clr588 pt-0 pt-md-2 mb-1">
+                <p class="fnt-12 fnt-md-14 fnt-bold text-clr588 pt-0 pt-md-2 mb-1">
                     {{ 'add_cover_image' | translate }}
                 </p>
-                <p class="fnt-12 fnt-md-14 font-bold text-clr588 m-0">{{ 'dimension' | translate }} 1144 x 160</p>
+                <p class="fnt-12 fnt-md-14 fnt-bold text-clr588 m-0">{{ 'dimension' | translate }} 1144 x 160</p>
             </div>
             <input
                 type="file"
@@ -170,11 +170,11 @@
             </div>
 
             <div class="profile-metadata-container pl-3 pr-3 pb-3 p-md-0">
-                <p class="fnt-18 font-bold text-clr334 d-none d-md-block m-0 pt-4" *ngIf="isEditMode">
+                <p class="fnt-18 fnt-bold text-clr334 d-none d-md-block m-0 pt-4" *ngIf="isEditMode">
                     {{ roasteryProfileService.organizationProfile?.name }}
                 </p>
                 <a
-                    class="d-md-none font-16 text-clr334 font-bold"
+                    class="d-md-none font-16 text-clr334 fnt-bold"
                     href="{{ roasteryProfileService.organizationProfile?.website }}"
                     target="blank"
                     >{{ roasteryProfileService.organizationProfile?.name }}</a
@@ -196,10 +196,10 @@
                         />
                     </div>
                 </form>
-                <p class="fnt-14 text-clr334 mt-2 font-bold d-md-none underline" *ngIf="isEditMode">
+                <p class="fnt-14 text-clr334 mt-2 fnt-bold d-md-none underline" *ngIf="isEditMode">
                     {{ roasteryProfileService.organizationProfile?.website }}
                 </p>
-                <p class="fnt-14 text-clr588 mt-2 font-bold d-none d-md-block" *ngIf="isEditMode">
+                <p class="fnt-14 text-clr588 mt-2 fnt-bold d-none d-md-block" *ngIf="isEditMode">
                     {{ roasteryProfileService.organizationProfile?.website }}
                 </p>
                 <a target="blank" href="{{ roasteryProfileService.organizationProfile?.website }}" #link hidden></a>

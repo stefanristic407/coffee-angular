@@ -90,10 +90,10 @@
         <div class="row m-0 p-3 headerDiv bg-white d-none d-md-flex">
             <div class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8 no-gutters d-flex align-items-center p-0">
                 <div class="orderDiv pr-5">
-                    <span *ngIf="!currentDisputeID" class="fnt-18 font-bold-700 text-clr334 nowrap"
+                    <span *ngIf="!currentDisputeID" class="fnt-18 fnt-bold-700 text-clr334 nowrap"
                         >Order #{{ orderDetails?.id }}</span
                     >
-                    <span *ngIf="currentDisputeID" class="fnt-18 font-bold-700 text-clr334 nowrap"
+                    <span *ngIf="currentDisputeID" class="fnt-18 fnt-bold-700 text-clr334 nowrap"
                         >Ticket #{{ currentDisputeID }}</span
                     >
                     <span class="statusLable fnt-12">Order Status - {{ orderDetails?.status }}</span>
@@ -120,7 +120,7 @@
 
                 <div class="orderDiv pl-3">
                     <p class="fnt-14 fnt-600 text-clr588 nowrap m-0">{{ 'order_type' | translate }}</p>
-                    <p class="fnt-14 font-bold text-clr334 m-0" style="margin-top: 2px !important">
+                    <p class="fnt-14 fnt-bold text-clr334 m-0" style="margin-top: 2px !important">
                         {{ orderDetails?.order_type }}&nbsp;
                     </p>
                 </div>
@@ -144,18 +144,18 @@
             <div *ngIf="isView" class="order-ticket">
                 <div class="card-width" (click)="clickOrder()" [ngClass]="!currentDisputeID ? 'cardSelect' : ''">
                     <div
-                        class="fnt-14 m-0 fnt-muli font-bold"
+                        class="fnt-14 m-0 fnt-muli fnt-bold"
                         [ngClass]="!currentDisputeID ? 'text-clr334' : 'primary-label'"
                     >
                         {{ 'order' | translate }}
                     </div>
                     <div
-                        class="fnt-14 font-bold fnt-muli mb-2 mb-md-3"
+                        class="fnt-14 fnt-bold fnt-muli mb-2 mb-md-3"
                         [ngClass]="!currentDisputeID ? 'text-clr334' : 'primary-label text-clr588'"
                     >
                         #{{ orderDetails?.id }}
                     </div>
-                    <div class="primary-label font-bold fnt-12 mt-0 mb-0">
+                    <div class="primary-label fnt-bold fnt-12 mt-0 mb-0">
                         {{ orderDetails?.created_at | date: 'h:mm a' }}
                     </div>
                 </div>

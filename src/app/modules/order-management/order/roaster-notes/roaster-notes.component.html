@@ -4,7 +4,7 @@
         <app-add-note [class.border-b-dashed]="notes.length" [orderId]="orderId"></app-add-note>
     </div>
     <div class="mt-4" *ngIf="notes.length">
-        <div class="d-flex justify-content-between text-clr334 font-bold">
+        <div class="d-flex justify-content-between text-clr334 fnt-bold">
             <div class="fnt-16">{{ 'older_notes' | translate }}</div>
             <div class="fnt-14">
                 {{ currentIndex }} {{ 'of' | translate | lowercase }} {{ notes.length }}

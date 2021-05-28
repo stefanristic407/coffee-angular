@@ -1,4 +1,4 @@
-<h4 class="fnt-18 fnt-sm-16 font-bold text-clr334">{{ 'payment_status' | translate }}</h4>
+<h4 class="fnt-18 fnt-sm-16 fnt-bold text-clr334">{{ 'payment_status' | translate }}</h4>
 <div class="w-100 mt-2 mt-md-3">
     <p class="fnt-18 fnt-sm-16 fnt-500">{{ order?.payment_status | translate | uppercase }}</p>
     <div *ngIf="order?.receipt_url">
@@ -24,7 +24,7 @@
     </div>
     <div class="mt-25 mb-4" *ngIf="order?.order_type === OrderTypes.Prebook">
         <div class="p-0 text-clr-invalid fnt-12">
-            <span class="font-bold">{{ 'note' | translate }}</span>
+            <span class="fnt-bold">{{ 'note' | translate }}</span>
             <span class="fnt-400">{{ 'lot_has_been_prebooked' | translate }}</span>
         </div>
     </div>
@@ -38,7 +38,7 @@
                 <img src="assets/images/external-link.svg" />
             </div>
             <button class="btn-stroked" (click)="openLink(trackingUrl)">
-                <span class="font-bold">{{ 'track_shipment' | translate }}</span>
+                <span class="fnt-bold">{{ 'track_shipment' | translate }}</span>
             </button>
         </div>
     </div>
