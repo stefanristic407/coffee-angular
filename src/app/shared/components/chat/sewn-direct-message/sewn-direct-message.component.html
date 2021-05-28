@@ -613,7 +613,7 @@
                 ></span>
             </div>
             <div class="dm-thi-content-block">
-                <div class="dm-thi-content-row">
+                <div class="dm-thi-content-row ">
                     <div class="dm-thi-name-block">
                         <div class="dm-thi-name">{{ thread.computed_targetedUser.computed_fullname }}</div>
                         <img
@@ -631,7 +631,7 @@
                         }}{{ conditionalHypen(thread.computed_targetedUser.org_name) }}
                     </div>
                 </div>
-                <div class="dm-thi-content-row">
+                <div class="dm-thi-content-row dm-thi-cr-extra-margin" >
                     <div class="dm-thi-lastmsg">
                         <span class="dm-thi-lastmsg-content">
                             {{ thread.computed_lastActivityText }}

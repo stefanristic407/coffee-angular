@@ -84,4 +84,13 @@
             }
         }
     }
+    .dm-thread-list-item {
+        .dm-thi-content-block {
+            .dm-thi-content-row {
+                &.dm-thi-cr-extra-margin {
+                    margin-top: 5px !important;
+                }
+            }
+        }
+    }
 }
