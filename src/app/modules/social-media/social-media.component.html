@@ -95,7 +95,7 @@
                                                         [imgUrl]="blog.img_url"
                                                         [title]="blog.title"
                                                         [description]="blog.description | convertToShortDescription: 20"
-                                                        [routerLink]="'/social-media/blog-details/' + blog.id"
+                                                        [link]="'/social-media/blog-details/' + blog.id"
                                                 ></app-blog-card>
                                             </div>
                                         </div>
@@ -140,10 +140,10 @@
                         </div>
                         <div class="m-0 mt-3 mt-md-4 m-xl-45">
                             <h4 class="fnt-16 font-bold text-clr334 mb-3">
-                                <span *ngIf="selectedImage.description">{{ selectedImage.description }} &nbsp; </span>@
+                                <span *ngIf="selectedImage.description">{{ selectedImage.description }}</span>
                                 {{ selectedImage.owner_name }}
                             </h4>
-                            <p class="fnt-14 fnt-600 text-clr588 mb-4 mb-md-3125">#coffee #specialitycoffee #sewn</p>
+                            <p class="fnt-14 fnt-600 text-clr588 mb-4 mb-md-3125">#coffee #specialitycoffee #eraofwe</p>
                             <div class="d-flex">
                                 <span class="share-bor pt-2 pb-2 pl-25 pr-25">
                                     <a

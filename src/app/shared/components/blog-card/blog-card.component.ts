@@ -9,7 +9,7 @@ export class BlogCardComponent implements OnInit {
     @Input() imgUrl: string;
     @Input() title: string;
     @Input() description: string;
-    @Input() routerLink: string;
+    @Input() link: string;
     @Input() date: any;
     constructor() {}
 

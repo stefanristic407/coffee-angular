@@ -26,8 +26,4 @@ export class BlogDetailsComponent implements OnInit {
     getRecentBlogs(): void {
         this.recentBlogs = this.blogs.filter((blog) => blog.id !== this.blog.id);
     }
-
-    copySuccessAlert() {
-        this.toastrService.success('Media url is copied');
-    }
 }
