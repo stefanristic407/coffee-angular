@@ -72,7 +72,7 @@
                             </div>
                             <div class="col-12 sewn-form-field px-2">
                                 <label class="required">VAT Percentage</label>
-                                <input type="text" formControlName="vat_percentage" pInputText />
+                                <input type="number" formControlName="vat_percentage" pInputText />
                                 <span class="p-error" *ngIf="detailsFormControl.vat_percentage.errors?.required">
                                     {{ 'required' | translate }}
                                 </span>
@@ -142,7 +142,7 @@
                     <td>
                         <span *ngIf="editIndex != i"> {{ item.vat_percentage }}%</span>
                         <div class="sewn-form-field w-100 mb-0" *ngIf="editIndex == i">
-                            <input type="text" formControlName="vat_percentage" pInputText />
+                            <input type="number" formControlName="vat_percentage" pInputText />
                             <span class="p-error" *ngIf="detailsFormControl.vat_percentage.errors?.required">
                                 {{ 'required' | translate }}
                             </span>
