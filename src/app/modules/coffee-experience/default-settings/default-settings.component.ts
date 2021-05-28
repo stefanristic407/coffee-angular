@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DownloadService, GlobalsService, RoasterserviceService } from '@services';
+import { DownloadService, FileService, GlobalsService, RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
@@ -70,6 +70,7 @@ export class DefaultSettingsComponent implements OnInit {
         public location: Location,
         public dialogSrv: DialogService,
         public downloadService: DownloadService,
+        private fileService: FileService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.setMenuItems();
@@ -375,7 +376,12 @@ export class DefaultSettingsComponent implements OnInit {
             this.totalFilesNumber++;
         }
         if (this.fileVideo) {
-            this.userService.uploadFile(this.roasterId, this.fileVideo, 'Coffee-Story').subscribe(
+            const name = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+            const formData = new FormData();
+            formData.append('file', this.fileVideo);
+            formData.append('name', name);
+            formData.append('file_module', 'Coffee-Story');
+            this.fileService.uploadFiles(formData).subscribe(
                 (res: any) => {
                     this.fileVideoId = res.result?.id;
                     this.filesCount++;
@@ -391,7 +397,12 @@ export class DefaultSettingsComponent implements OnInit {
             );
         }
         if (this.fileImage) {
-            this.userService.uploadFile(this.roasterId, this.fileImage, 'Coffee-Story').subscribe(
+            const name = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+            const formData = new FormData();
+            formData.append('file', this.fileImage);
+            formData.append('name', name);
+            formData.append('file_module', 'Coffee-Story');
+            this.fileService.uploadFiles(formData).subscribe(
                 (res: any) => {
                     this.fileImageId = res.result?.id;
                     this.filesCount++;
@@ -497,7 +508,12 @@ export class DefaultSettingsComponent implements OnInit {
         const fileList: FileList = this.fileEvent;
         if (fileList.length > 0) {
             const file: File = fileList[0];
-            this.userService.uploadFile(this.roasterId, file, 'marketing-materials').subscribe((result) => {
+            const name = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('name', name);
+            formData.append('file_module', 'marketing-materials');
+            this.fileService.uploadFiles(formData).subscribe((result) => {
                 if (result.success) {
                     this.toastrService.success('The file ' + this.materialFileName + ' uploaded successfully');
                     this.materialFileData = result.result;
