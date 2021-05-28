@@ -265,18 +265,16 @@
 
                     <hr class="mt-4 mb-4 mt-md-3" />
 
-                    <div class="row mt-md-45 mb-3 mb-md-4 ml-0 mr-0">
-                        <div class="col-12 p-0">
-                            <p class="fnt-18 fnt-bold text-clr334 w-100 mb-1">
-                                {{ 'roastery_capabilities' | translate }}
-                            </p>
-                            <p class="fnt-14 fnt-600 text-clr588 w-100 m-0" *ngIf="isSaveMode">
-                                {{ 'tell_us_capability_text' | translate }}.
-                            </p>
-                            <p class="fnt-14 fnt-600 text-clr588 w-100 m-0" *ngIf="isEditMode">
-                                {{ 'our_roastery_capabilities_storage' | translate }}.
-                            </p>
-                        </div>
+                    <div class="mt-md-45 mb-4">
+                        <p class="fnt-18 fnt-bold text-clr334 w-100 mb-1">
+                            {{ 'roastery_capabilities' | translate }}
+                        </p>
+                        <p class="fnt-14 fnt-600 text-clr588 w-100 m-0" *ngIf="isSaveMode">
+                            {{ 'tell_us_capability_text' | translate }}.
+                        </p>
+                        <p class="fnt-14 fnt-600 text-clr588 w-100 m-0" *ngIf="isEditMode">
+                            {{ 'our_roastery_capabilities_storage' | translate }}.
+                        </p>
                     </div>
 
                     <div class="row" *ngIf="isSaveMode">
