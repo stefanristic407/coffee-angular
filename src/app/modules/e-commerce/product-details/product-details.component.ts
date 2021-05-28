@@ -335,7 +335,7 @@ export class ProductDetailsComponent implements OnInit {
                         if (productDetails.is_external_product) {
                             variantForm.patchValue({
                                 weight_variants: weightVariants,
-                                flavour_profiles: variant.flavour_profiles,
+                                external_flavour_profiles: variant.external_flavour_profiles,
                             });
                         } else if (getBatchDetails) {
                             const flavourProfile = getBatchDetails.flavour_profile;
@@ -382,7 +382,7 @@ export class ProductDetailsComponent implements OnInit {
     }
     addNewVariants(): void {
         this.variants = this.productForm.get('variants') as FormArray;
-        this.variants.push(this.createEmptyVariant());
+        this.variants.push(this.createEmptyVariant(this.productForm.value.is_external_product));
         this.createTypeVariantArray();
         setTimeout(() => {
             this.currentVariant = this.variants.length - 1;
@@ -444,7 +444,7 @@ export class ProductDetailsComponent implements OnInit {
             }
         }
     }
-    createEmptyVariant() {
+    createEmptyVariant(isExternalProduct?: boolean) {
         this.count++;
         return this.fb.group({
             rc_batch_id: '',
@@ -462,7 +462,7 @@ export class ProductDetailsComponent implements OnInit {
             acidity: ['', Validators.compose([Validators.required])],
             aroma: ['', Validators.compose([Validators.required])],
             flavour: ['', Validators.compose([Validators.required])],
-            processing: ['', Validators.compose(this.type === 'b2c' ? [Validators.required] : [])],
+            processing: ['', Validators.compose(isExternalProduct ? [Validators.required] : [])],
             flavour_profiles: [],
             external_flavour_profiles: [],
             roaster_notes: ['', Validators.compose([maxWordCountValidator(300)])],
@@ -681,6 +681,8 @@ export class ProductDetailsComponent implements OnInit {
                         }
                     });
                 }
+                weightObj.status =
+                    weightObj.status === 'IN-DRAFT' && this.productForm.value.is_public ? 'IN-STOCK' : weightObj.status;
                 weightObj.variant_id = childIndex + 1;
                 if (!!getVariantDetails.rc_batch_id && !this.productForm.value.is_external_product) {
                     weightObj.rc_batch_id = getVariantDetails.rc_batch_id;
@@ -904,12 +906,23 @@ export class ProductDetailsComponent implements OnInit {
     }
 
     onChangeSetDefault(value) {
-        console.log(value);
         this.isSetDefault = value.checked;
     }
 
     getFlavourName(id) {
         const flavour = this.flavoursList.find((item) => item.flavour_profile_id === id);
         return flavour.flavour_profile_name;
+    }
+
+    onChangeExternalProduct(event) {
+        (this.productForm.get('variants') as FormArray).controls.forEach((variantForm) => {
+            if (event.value) {
+                variantForm.get('processing').setValidators(Validators.compose([Validators.required]));
+                variantForm.get('processing').updateValueAndValidity();
+            } else {
+                variantForm.get('processing').clearValidators();
+                variantForm.get('processing').setValue('');
+            }
+        });
     }
 }

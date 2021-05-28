@@ -58,8 +58,9 @@
                 >
                 </p-dropdown>
                 <p-calendar
+                    id="calender"
                     *ngIf="selectedType === 'orders' || selectedType === 'micro-roasters' || selectedType === 'hrc'"
-                    class="calender mr-3"
+                    class="mr-3"
                     styleClass="only-icon"
                     [(ngModel)]="rangeDates"
                     [showIcon]="true"
