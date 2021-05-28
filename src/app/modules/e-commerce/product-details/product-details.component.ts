@@ -681,6 +681,8 @@ export class ProductDetailsComponent implements OnInit {
                         }
                     });
                 }
+                weightObj.status =
+                    weightObj.status === 'IN-DRAFT' && this.productForm.value.is_public ? 'IN-STOCK' : weightObj.status;
                 weightObj.variant_id = childIndex + 1;
                 if (!!getVariantDetails.rc_batch_id && !this.productForm.value.is_external_product) {
                     weightObj.rc_batch_id = getVariantDetails.rc_batch_id;
@@ -904,12 +906,15 @@ export class ProductDetailsComponent implements OnInit {
     }
 
     onChangeSetDefault(value) {
-        console.log(value);
         this.isSetDefault = value.checked;
     }
 
     getFlavourName(id) {
         const flavour = this.flavoursList.find((item) => item.flavour_profile_id === id);
         return flavour.flavour_profile_name;
+    }
+
+    onChangeExternalProduct(event) {
+        console.log(event);
     }
 }

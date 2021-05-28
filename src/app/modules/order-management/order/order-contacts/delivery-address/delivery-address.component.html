@@ -1,9 +1,9 @@
 <div class="d-flex justify-content-between">
-    <div class="font-bold text-clr334" [class.fnt-18]="!orderConfirmation" [class.fnt-14]="orderConfirmation">
+    <div class="fnt-bold text-clr334" [class.fnt-18]="!orderConfirmation" [class.fnt-14]="orderConfirmation">
         {{ (order?.is_fully_serviced_delivery ? 'pickup_address' : 'delivery_address') | translate }}
     </div>
     <div
-        class="font-bold text-clr55c cursor-pointer"
+        class="fnt-bold text-clr55c cursor-pointer"
         [routerLink]="['/orders', orgType, order?.id, 'edit']"
         *ngIf="order && orgType === OrgType.ESTATE && !order.is_fully_serviced_delivery"
     >

@@ -223,6 +223,7 @@ import { CertificateNamePipe } from './pipes';
 import { ArrayFilterPipe } from './pipes/array-filter.pipe';
 import { StringReplacePipe } from './pipes/string-replace.pipe';
 import { ReversePipe } from './pipes/reverse.pipe';
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import {
     AvailabilityListingStatusPipe,
     AvailabilityTypePipe,
@@ -266,6 +267,7 @@ const PIPES = [
     StringReplacePipe,
     ThousandSuffPipe,
     WordCountPipe,
+    SafeHtmlPipe,
 ];
 
 @NgModule({
@@ -288,6 +290,7 @@ const PIPES = [
         ...PIPES,
         FullImgWrapperDirective,
         WeightConvertPipe,
+        SafeHtmlPipe,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [

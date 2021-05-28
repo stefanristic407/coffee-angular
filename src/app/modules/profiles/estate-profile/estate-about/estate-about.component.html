@@ -46,7 +46,7 @@
                 <!-- estate details -->
                 <div class="row mt-4 mt-md-45 mb-3 mb-md-4 ml-0 mr-0">
                     <div class="col-12 p-0">
-                        <p class="fnt-18 font-bold text-clr334 w-100 mb-1">Estate details</p>
+                        <p class="fnt-18 fnt-bold text-clr334 w-100 mb-1">Estate details</p>
                     </div>
                 </div>
 
@@ -55,7 +55,7 @@
                         <div class="estate-items pl-2 pl-md-0">
                             <img src="assets/images/total_farm_area.svg" />
                             <p class="fnt-14 fnt-600 text-clr588 mt-25 mb-1">Total from area</p>
-                            <p class="fnt-14 font-bold text-clr73c mt-0 mb-0">
+                            <p class="fnt-14 fnt-bold text-clr73c mt-0 mb-0">
                                 {{ profileCreationService.organizationProfile?.total_area }}
                                 {{ profileCreationService.organizationProfile?.total_area_unit }}
                             </p>
@@ -65,7 +65,7 @@
                         <div class="estate-items">
                             <img src="assets/images/total_coffee_area.svg" />
                             <p class="fnt-14 fnt-600 text-clr588 mt-25 mb-1">Total coffee area</p>
-                            <p class="fnt-14 font-bold text-clr73c mt-0 mb-0">
+                            <p class="fnt-14 fnt-bold text-clr73c mt-0 mb-0">
                                 {{ profileCreationService.organizationProfile?.coffee_area }}
                                 {{ profileCreationService.organizationProfile?.coffee_area_unit }}
                             </p>
@@ -75,7 +75,7 @@
                         <div class="estate-items pl-2 pl-md-0">
                             <img src="assets/images/altitude_range.svg" />
                             <p class="fnt-14 fnt-600 text-clr588 mt-25 mb-1">Altitude range</p>
-                            <p class="fnt-14 font-bold text-clr73c mt-0 mb-0">
+                            <p class="fnt-14 fnt-bold text-clr73c mt-0 mb-0">
                                 {{ profileCreationService.organizationProfile?.altitude_start }} -
                                 {{ profileCreationService.organizationProfile?.altitude_end }}
                                 m
@@ -86,7 +86,7 @@
                         <div class="estate-items">
                             <img src="assets/images/harvested_year.svg" />
                             <p class="fnt-14 fnt-600 text-clr588 mt-25 mb-1">Harvested year</p>
-                            <p class="fnt-14 font-bold text-clr73c mt-0 mb-0">
+                            <p class="fnt-14 fnt-bold text-clr73c mt-0 mb-0">
                                 {{ profileCreationService.organizationProfile?.crop_year_start | month: 'MMMM' }} -
                                 {{ profileCreationService.organizationProfile?.crop_year_end | month: 'MMMM' }}
                             </p>
@@ -229,7 +229,7 @@
 
                 <div class="d-block">
                     <div class="employer mt-4">
-                        <p class="fnt-18 font-bold text-clr334 w-100 mb-1">{{ 'contacts' | translate }}</p>
+                        <p class="fnt-18 fnt-bold text-clr334 w-100 mb-1">{{ 'contacts' | translate }}</p>
                         <p class="fnt-14 fnt-600 text-clr588 w-100 m-0 mb-4">
                             {{ 'list_down_top_employees' | translate }}
                         </p>
@@ -249,7 +249,7 @@
                                         ></app-user-detail>
                                     </div>
                                     <div class="profile-des">
-                                        <p class="fnt-16 font-bold mb-1 mt-3 text-clr334">
+                                        <p class="fnt-16 fnt-bold mb-1 mt-3 text-clr334">
                                             {{ contact.name | titlecase }}
                                         </p>
                                         <p class="fnt-14 fnt-500 text-clr588 mb-0">
@@ -279,7 +279,7 @@
     <div class="row m-0">
         <div class="col-12 col-md-6 col-lg-12 p-0 pl-md-0 pr-md-2 p-lg-0">
             <div class="border-main br-4 p-0">
-                <div class="header fnt-18 font-bold text-clr334 m-1">{{ 'awards_and_certificates' | translate }}</div>
+                <div class="header fnt-18 fnt-bold text-clr334 m-1">{{ 'awards_and_certificates' | translate }}</div>
                 <div class="row mt-3 m-0" *ngFor="let certificate of certificatesArray; let i = index">
                     <div class="col-12">
                         <div
@@ -305,11 +305,11 @@
 
         <div class="col-12 col-md-6 col-lg-12 p-0 pl-md-2 pr-md-0 p-lg-0">
             <div class="border-main br-4 mt-3 mt-md-0 mt-lg-3 p-0">
-                <div class="header fnt-18 font-bold text-clr334 m-1">{{ 'employee_details' | translate }}</div>
+                <div class="header fnt-18 fnt-bold text-clr334 m-1">{{ 'employee_details' | translate }}</div>
                 <div class="w-100">
                     <div class="d-flex employee-details-container pt-45 pb-45 pl-4 pr-4">
                         <div class="w-50 border-right">
-                            <p class="m-0 fnt-24 fnt-md-32 font-bold text-clr334">
+                            <p class="m-0 fnt-24 fnt-md-32 fnt-bold text-clr334">
                                 {{ profileCreationService.organizationProfile?.total_employees }}
                             </p>
                             <p class="mt-2 mb-0 fnt-14 fnt-md-18 fnt-600 text-clr588">
@@ -317,7 +317,7 @@
                             </p>
                         </div>
                         <div class="w-50 pl-45">
-                            <p class="m-0 fnt-32 font-bold text-clr334">
+                            <p class="m-0 fnt-32 fnt-bold text-clr334">
                                 <!-- {{ profileCreationService.organizationProfile?.avg_employee_age }} -->
                             </p>
                             <!-- <p class="mt-2 mb-0 fnt-18 fnt-600 text-clr588">{{ 'average_age' | translate }}</p> -->
@@ -332,7 +332,7 @@
                             this.profileCreationService.organizationProfile?.full_time_employee_count == null
                         "
                     >
-                        <p class="fnt-18 font-bold text-center">{{ 'no_data_display' | translate }}</p>
+                        <p class="fnt-18 fnt-bold text-center">{{ 'no_data_display' | translate }}</p>
                     </div>
                     <div class="custom-chart-container">
                         <app-pie-area-chart [results]="profileCreationService.single"></app-pie-area-chart>

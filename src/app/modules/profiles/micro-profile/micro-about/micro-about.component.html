@@ -45,7 +45,7 @@
                 <hr class="d-none d-lg-block" />
                 <div class="row border-md-main border-md-none br-4 mt-md-45 mb-2 m-0 p-0 p-md-0">
                     <div class="col-9 mb-3 mb-md-45 p-0">
-                        <p class="fnt-18 font-bold text-clr334 w-100 mb-1">Company details</p>
+                        <p class="fnt-18 fnt-bold text-clr334 w-100 mb-1">Company details</p>
                     </div>
 
                     <div class="sewn-form-field col-6 col-md-6 p-0 pr-md-2 mb-3 mb-md-4">
@@ -66,7 +66,7 @@
 
                 <div class="row mt-md-45 mb-3 mb-md-4 ml-0 mr-0">
                     <div class="col-12 p-0">
-                        <p class="fnt-18 font-bold text-clr334 w-100 mb-1">
+                        <p class="fnt-18 fnt-bold text-clr334 w-100 mb-1">
                             {{ 'roastery_capabilities' | translate }}
                         </p>
                         <p class="fnt-14 fnt-600 text-clr588 w-100 m-0">
@@ -84,11 +84,11 @@
                                 <label class="fnt-600 text-clr588">
                                     {{ 'roaster_capacity' | translate }}
                                 </label>
-                                <p class="fnt-md-38 fnt-28 font-bold text-clr334">
+                                <p class="fnt-md-38 fnt-28 fnt-bold text-clr334">
                                     {{ profileCreationService.organizationProfile?.capacity }} Kgs
                                 </p>
                             </div>
-                            <div class="capability-content font-bold pl-25 pt-md-3 pl-md-4 text-clr334">
+                            <div class="capability-content fnt-bold pl-25 pt-md-3 pl-md-4 text-clr334">
                                 {{ profileCreationService.organizationProfile?.capabilities }}
                             </div>
                         </div>
@@ -108,7 +108,7 @@
                         <div class="brand-item-container">
                             <div class="border-main br-4 brand-item pl-md-3 p-md-4 d-flex align-items-center">
                                 <div class="brand-meta-container">
-                                    <p class="fnt-16 font-bold text-clr334 mb-2">
+                                    <p class="fnt-16 fnt-bold text-clr334 mb-2">
                                         {{ branch.name }}
                                     </p>
                                     <p class="fnt-14 fnt-600 text-clr334">
@@ -131,7 +131,7 @@
 
                 <div class="d-block">
                     <div class="employer mt-4">
-                        <p class="fnt-18 font-bold text-clr334 w-100 mb-1">{{ 'contacts' | translate }}</p>
+                        <p class="fnt-18 fnt-bold text-clr334 w-100 mb-1">{{ 'contacts' | translate }}</p>
                         <p class="fnt-14 fnt-600 text-clr588 w-100 m-0 mb-4">
                             {{ 'list_down_top_employees' | translate }}
                         </p>
@@ -148,7 +148,7 @@
                                         />
                                     </div>
                                     <div class="profile-des">
-                                        <p class="fnt-16 font-bold mb-1 mt-3 text-clr334">
+                                        <p class="fnt-16 fnt-bold mb-1 mt-3 text-clr334">
                                             {{ contact.name | titlecase }}
                                         </p>
                                         <p class="fnt-14 fnt-500 text-clr588 mb-0">
@@ -178,7 +178,7 @@
     <div class="row m-0">
         <div class="col-12 col-md-6 col-lg-12 p-0 pl-md-0 pr-md-2 p-lg-0">
             <div class="border-main br-4 p-0">
-                <div class="header fnt-18 font-bold text-clr334 m-1">{{ 'awards_and_certificates' | translate }}</div>
+                <div class="header fnt-18 fnt-bold text-clr334 m-1">{{ 'awards_and_certificates' | translate }}</div>
                 <div class="row mt-3 m-0" *ngFor="let certificate of certificatesArray; let i = index">
                     <div class="col-12">
                         <div
@@ -204,17 +204,17 @@
 
         <div class="col-12 col-md-6 col-lg-12 p-0 pl-md-2 pr-md-0 p-lg-0">
             <div class="border-main br-4 mt-3 mt-md-0 mt-lg-3 p-0">
-                <div class="header fnt-18 font-bold text-clr334 m-1">{{ 'employee_details' | translate }}</div>
+                <div class="header fnt-18 fnt-bold text-clr334 m-1">{{ 'employee_details' | translate }}</div>
                 <div class="w-100">
                     <div class="d-flex employee-details-container pt-45 pb-45 pl-4 pr-4">
                         <div class="w-50 border-right">
-                            <p class="m-0 fnt-32 font-bold text-clr334">
+                            <p class="m-0 fnt-32 fnt-bold text-clr334">
                                 {{ profileCreationService.organizationProfile?.total_employees }}
                             </p>
                             <p class="mt-2 mb-0 fnt-18 fnt-600 text-clr588">{{ 'total_employees' | translate }}</p>
                         </div>
                         <div class="w-50 pl-45">
-                            <p class="m-0 fnt-24 fnt-md-32 font-bold text-clr334">
+                            <p class="m-0 fnt-24 fnt-md-32 fnt-bold text-clr334">
                                 {{ profileCreationService.organizationProfile?.avg_employee_age }}
                             </p>
                             <p class="mt-2 mb-0 fnt-14 fnt-md-18 fnt-600 text-clr588">
@@ -231,7 +231,7 @@
                             this.profileCreationService.organizationProfile?.female_employee_count == null
                         "
                     >
-                        <p class="fnt-18 font-bold text-center">{{ 'no_data_display' | translate }}</p>
+                        <p class="fnt-18 fnt-bold text-center">{{ 'no_data_display' | translate }}</p>
                     </div>
                     <div class="custom-chart-container">
                         <app-pie-area-chart [results]="profileCreationService.single"></app-pie-area-chart>
