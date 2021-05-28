@@ -1,111 +1,82 @@
-<section>
-    <div class="sewn-container">
-        <div *ngIf="blog" class="bg-white p-lg-5 pt-md-4 pb-md-4 pl-md-3 pr-md-3 p-3 br-4">
-            <div class="d-flex justify-content-between mb-4">
-                <a class="back-page" (click)="location.back()"> {{ 'back' | translate }}</a>
-                <div class="text-right float-md-right d-none d-sm-flex">
-                    <span class="share-bor pt-2 pb-2 pl-25 pr-25 mr-3">
-                        <a
-                            class="underline"
-                            href="javascript:void(0);"
-                            [cdkCopyToClipboard]="'article url'"
-                            (click)="copySuccessAlert()"
-                            ><img class="share-img mr-2" src="assets/images/share-img.svg" alt="share-icon" />
-                            <span class="share-txt fnt-500 text-clr334">
-                                {{ 'share' | translate }}
-                            </span>
-                        </a>
-                    </span>
+<div class="main-block">
+    <div *ngIf="blog">
+        <div class="d-flex justify-content-between mb-4">
+            <a class="back-page" (click)="location.back()"> {{ 'back' | translate }}</a>
+            <div class="text-right float-md-right d-none d-sm-flex">
                     <span class="share-bor pt-2 pb-2 pl-25 pr-25">
                         <a
-                            class="underline"
-                            href="javascript:void(0);"
-                            [cdkCopyToClipboard]="'article url'"
-                            (click)="copySuccessAlert()"
-                            ><img class="share-img mr-2" src="assets/images/dwnd.svg" alt="download-icon" />
+                                class="underline"
+                                href="javascript:void(0);"
+                                [cdkCopyToClipboard]="'article url'"
+                        ><img class="share-img mr-2" src="assets/images/dwnd.svg" alt="download-icon" />
                             <span class="share-txt fnt-500 text-clr334">
                                 {{ 'download_as_doc' | translate }}
                             </span>
                         </a>
                     </span>
-                </div>
             </div>
+        </div>
 
-            <div class="mb-3">
-                <div class="position-relative">
-                    <h3 class="social-head fnt-16 fnt-md-18 mb-2 mb-md-0 fnt-lg-24 fnt-bold text-clr334">
-                        {{ blog.title }}
-                    </h3>
-                </div>
-                <div class="text-right float-md-right d-flex d-sm-none">
-                    <span class="share-bor pt-2 pb-2 pl-25 pr-25 mr-3">
+        <div class="mb-3">
+            <div class="position-relative">
+                <h3 class="social-head fnt-16 fnt-md-18 mb-2 mb-md-0 fnt-lg-24 fnt-bold text-clr334">
+                    {{ blog.title }}
+                </h3>
+            </div>
+            <div class="text-right float-md-right d-flex d-sm-none">
+                    <span class="share-bor pt-2 pb-2 pl-25 pr-25">
                         <a
                                 class="underline"
                                 href="javascript:void(0);"
                                 [cdkCopyToClipboard]="'article url'"
-                                (click)="copySuccessAlert()"
-                        ><img class="share-img mr-2" src="assets/images/share-img.svg" alt="share-icon" />
+                        ><img class="share-img mr-2" src="assets/images/dwnd.svg" alt="download-icon" />
                             <span class="share-txt fnt-500 text-clr334">
-                                {{ 'share' | translate }}
+                                {{ 'download_as_doc' | translate }}
                             </span>
                         </a>
-            </span>
-                    <span class="share-bor pt-2 pb-2 pl-25 pr-25">
-                                <a
-                                        class="underline"
-                                        href="javascript:void(0);"
-                                        [cdkCopyToClipboard]="'article url'"
-                                        (click)="copySuccessAlert()"
-                                ><img class="share-img mr-2" src="assets/images/dwnd.svg" alt="download-icon" />
-                                    <span class="share-txt fnt-500 text-clr334">
-                                        {{ 'download_as_doc' | translate }}
-                                    </span>
-                                </a>
-                            </span>
-                </div>
+                    </span>
             </div>
+        </div>
 
-            <div class="row gutter-16">
-                <div class="col-lg-8 mb-4 mb-md-45 mb-lg-0">
-                    <div class="d-block bg-white">
-                        <div class="border-md-main br-4">
-                            <div class="mb-3 mb-md-0 mb-lg-2">
-                                <div class="p-0 px-lg-4 pt-lg-4">
-                                    <img class="w-100 br-md-4" [src]="blog.img_url" alt="farm" />
-                                </div>
+        <div class="row gutter-16">
+            <div class="col-lg-8 mb-4 mb-md-45 mb-lg-0">
+                <div class="d-block bg-white">
+                    <div class="border-md-main br-4">
+                        <div class="mb-3 mb-md-0 mb-lg-2">
+                            <div class="p-0 px-lg-4 pt-lg-4">
+                                <img class="w-100 br-md-4" [src]="blog.img_url" alt="farm" />
                             </div>
-                            <div class="p-0 px-md-3 py-md-4 p-lg-4">
-                                <div [innerHTML]="blog.description"></div>
-                            </div>
+                        </div>
+                        <div class="p-0 px-md-3 py-md-4 p-lg-4">
+                            <div [innerHTML]="blog.description | safeHtml"></div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="d-block d-lg-none">
-                        <div class="fnt-muli fnt-16 text-clr334 fnt-bold mb-3">{{ 'related_posts' | translate }}</div>
-                    </div>
-                    <div class="border-lg-main br-4 p-lg-4">
-                        <div class="row">
-                            <div
+            </div>
+            <div class="col-lg-4">
+                <div class="d-block d-lg-none">
+                    <div class="fnt-muli fnt-16 text-clr334 fnt-bold mb-3">{{ 'related_posts' | translate }}</div>
+                </div>
+                <div class="border-lg-main br-4 p-lg-4">
+                    <div class="row">
+                        <div
                                 *ngFor="let recentBlog of recentBlogs; let last = last"
                                 class="col-md-6 col-lg-12"
-                                [ngClass]="{'mb-3': !last}"
-                            >
-                                <app-blog-card
-                                        [date]="recentBlog.created_at"
-                                        [title]="recentBlog.title"
-                                        [description]="recentBlog.description | convertToShortDescription: 20"
-                                        [routerLink]="'/social-media/blog-details/' + recentBlog.id"
-                                        [imgUrl]="recentBlog.img_url"
-                                ></app-blog-card>
-                            </div>
+                                [ngClass]="{ 'mb-3': !last }"
+                        >
+                            <app-blog-card
+                                    [title]="recentBlog.title"
+                                    [description]="recentBlog.description | convertToShortDescription: 20"
+                                    [link]="'/social-media/blog-details/' + recentBlog.id"
+                                    [imgUrl]="recentBlog.img_url"
+                            ></app-blog-card>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div *ngIf="!blog">
-            <app-loading></app-loading>
-        </div>
     </div>
-</section>
+    <div *ngIf="!blog">
+        <app-loading></app-loading>
+    </div>
+</div>
