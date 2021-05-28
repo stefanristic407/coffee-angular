@@ -1548,10 +1548,31 @@ export class UserserviceService extends ApiService {
     getNofitication() {
         const organization = 'ro';
         const organizationId = this.cookieService.get('roaster_id');
-        const userId = this.cookieService.get('user_id');
         const data = {
-            api_call: `/${organization}/${organizationId}/notifications?from_user_id=${userId}&from_org_type=ro&is_read=false`,
+            api_call: `/${organization}/${organizationId}/notifications`,
             method: 'GET',
+            token: this.cookieService.get('Auth'),
+        };
+        return this.http.post(this.roasterUrl, data);
+    }
+
+    makeAsAllRead() {
+        const organization = 'ro';
+        const organizationId = this.cookieService.get('roaster_id');
+        const data = {
+            api_call: `/${organization}/${organizationId}/notifications/read`,
+            method: 'PUT',
+            token: this.cookieService.get('Auth'),
+        };
+        return this.http.post(this.roasterUrl, data);
+    }
+
+    makeAsRead(notificationId) {
+        const organization = 'ro';
+        const organizationId = this.cookieService.get('roaster_id');
+        const data = {
+            api_call: `/${organization}/${organizationId}/notifications/${notificationId}/read`,
+            method: 'PUT',
             token: this.cookieService.get('Auth'),
         };
         return this.http.post(this.roasterUrl, data);

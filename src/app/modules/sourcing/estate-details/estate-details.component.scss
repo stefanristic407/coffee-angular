@@ -1,3 +1,5 @@
+@import 'variables';
+
 .checked {
     font-size: 16px;
     @media (min-width: 768px) {
@@ -26,5 +28,16 @@
     }
     @media (min-width: 992px) {
         height: 304px;
+    }
+}
+
+.reviews-position {
+    position: absolute;
+    top: calc(#{-$mobile-header-height - $mobile-page-pt});
+    @media (min-width: 768px) {
+        top: calc(#{-$tablet-header-height - $tablet-page-pt});
+    }
+    @media (min-width: 992px) {
+        top: calc(#{-$desktop-header-height - $desktop-nav-height - $desktop-page-pt});
     }
 }

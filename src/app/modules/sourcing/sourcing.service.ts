@@ -27,6 +27,8 @@ export class SourcingService {
     viewMode: any = new BehaviorSubject('grid');
     viewMode$: any = this.viewMode.asObservable();
 
+    showUnitFilter = false;
+
     flavourList: any[];
     generalFlavourList: any[];
 

@@ -1,3 +1,4 @@
+@import 'variables';
 @media (max-width: 1270px) and (min-width: 768px) {
     ::ng-deep .selectOrderTableList .p-datatable {
         position: relative !important;
@@ -19,7 +20,7 @@
     color: #979797;
 }
 
-.calender .p-calendar-w-btn .p-inputtext {
+::ng-deep #calender .p-calendar-w-btn .p-inputtext {
     margin-left: 1rem !important;
     padding: 0.625rem 0rem !important;
 }

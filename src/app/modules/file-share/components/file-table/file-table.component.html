@@ -1,5 +1,12 @@
 <ng-container *ngIf="fileShareSrv.mainData?.length">
     <div *ngIf="(fileShareSrv.viewMode$ | async) === 'table'; else gridView">
+        <span
+            *ngIf="fileShareSrv.selectedItems?.length"
+            class="btn-trans-icon green delete-icon mb-2"
+            (click)="fileShareSrv.deleteItems()"
+        >
+            <span> {{ 'delete_selected_items' | translate }} </span>
+        </span>
         <p-table
             [value]="fileShareSrv.mainData"
             [columns]="tableColumns"
@@ -7,11 +14,12 @@
             dataKey="id"
             [resizableColumns]="true"
             selectionMode="multiple"
-            [(selection)]="selectedItems"
+            [(selection)]="fileShareSrv.selectedItems"
             [showCurrentPageReport]="false"
             [paginator]="fileShareSrv.mainData?.length > 10"
             [rows]="10"
             [responsive]="true"
+            styleClass="mt-lg-2"
         >
             <ng-template pTemplate="header" let-columns>
                 <tr>
@@ -29,7 +37,7 @@
             <ng-template pTemplate="body" let-rowData let-columns="columns">
                 <tr (click)="onClick(rowData)">
                     <td class="d-none d-sm-none d-md-table-cell">
-                        <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                        <p-tableCheckbox [value]="rowData" (click)="$event.stopPropagation()"></p-tableCheckbox>
                     </td>
                     <td
                         *ngFor="let col of columns"

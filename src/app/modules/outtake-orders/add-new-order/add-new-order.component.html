@@ -1,12 +1,12 @@
 <div *ngIf="!showOrderPanel" class="main-block">
-    <div class="d-flex justify-content-between pb-2 mb-45">
+    <div class="d-flex justify-content-between pb-md-2 mb-md-45">
         <div class="breadcrumb-container">
             <p-breadcrumb [model]="breadItems"></p-breadcrumb>
         </div>
     </div>
     <section>
         <div class="d-flex mb-md-3 mt-4 pb-md-2">
-            <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1">
+            <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-md-1">
                 <span *ngIf="!outtakeOrderId">
                     <span *ngIf="!addOrdersForm.get('product_name').value">{{ 'add_new_order' | translate }}</span>
                     <span *ngIf="addOrdersForm.get('product_name').value">{{
@@ -19,13 +19,11 @@
         <div class="row">
             <div class="col-12 col-md-12 col-lg-12 col-xl-8">
                 <div class="row mb-45">
-                    <div class="col-sm-12 col-md-6 pr-md-25">
+                    <div class="col-sm-12 col-md-6 mob-form-top-margin pr-md-25">
                         <div class="sewn-form-field mb-0 w-100">
                             <label>{{ 'product_name' | translate }}<span class="text-clr-e5a">*</span></label>
-
                             <input
                                 pInputText
-                                class="roastery-website-input border"
                                 [formControl]="addOrdersForm.controls['product_name']"
                                 placeholder="{{ 'enter_a_roast' | translate }}"
                             />
@@ -35,16 +33,17 @@
                                     addOrdersForm.controls['product_name'].invalid &&
                                     addOrdersForm.controls['product_name'].touched
                                 "
-                                class="p-error"
+                                class="p-error my-1"
                             >
-                                {{ 'request' | translate }}
+                                {{ 'product_name' | translate }} {{ 'is' | translate }} {{ 'required' | translate }}
                             </small>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-6 pl-md-25">
+                    <div class="col-sm-12 col-md-6 mob-form-top-margin pl-md-25">
                         <div class="sewn-form-field mb-0 w-100">
                             <label>{{ 'date_placed' | translate }}<span class="text-clr-e5a">*</span></label>
                             <p-calendar
+                                class="date-calender"
                                 [formControl]="addOrdersForm.controls['order_date']"
                                 [showIcon]="true"
                                 [maxDate]="currentDate"
@@ -57,9 +56,9 @@
                                     addOrdersForm.controls['order_date'].invalid &&
                                     addOrdersForm.controls['order_date'].touched
                                 "
-                                class="p-error"
+                                class="p-error my-1"
                             >
-                                {{ 'request' | translate }}
+                                {{ 'date_placed' | translate }} {{ 'is' | translate }} {{ 'required' | translate }}
                             </small>
                         </div>
                     </div>
@@ -70,27 +69,27 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12 col-md-6 pr-md-25">
+                    <div class="col-sm-12 col-md-6 mob-form-top-margin pr-md-25">
                         <div class="sewn-form-field mb-0 w-100">
                             <label>{{ 'select_the_green_coffee_order' | translate }}</label>
                             <div
-                                class="weightInputGroupDiv d-flex inputFieldBox cursor-point"
+                                class="p-inputgroup custom-addon cursor-pointer"
                                 (click)="showOrderPanel = true; onSelectType('orders')"
                             >
-                                <span
+                                <!-- <span
                                     *ngIf="addOrdersForm.get('order_id').value"
-                                    class="d-none d-md-block border-0 text-center pt-25 p-inputgroup-addon"
+                                    class="d-none d-md-block border-0 text-center order-h p-inputgroup-addon"
                                     >#</span
                                 >
                                 <span
                                     *ngIf="addOrdersForm.get('order_id').value"
-                                    class="d-block d-md-none fnt-14 text-center pt-25 fnt-600 fnt-muli text-clr334 mobile-w p-inputgroup-addon"
+                                    class="d-block d-md-none fnt-14 text-center fnt-600 fnt-muli order-h text-clr334 mobile-w p-inputgroup-addon"
                                     >{{ 'order_id' | translate }} #</span
-                                >
+                                > -->
                                 <input
+                                    class="cursor-pointer"
                                     pInputText
                                     placeholder="Select the order"
-                                    class="roastery-website-input border weightInputDiv ml-0"
                                     [formControl]="addOrdersForm.controls['order_id']"
                                 />
                                 <span
@@ -99,79 +98,77 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-6 pl-md-25">
+                    <div class="col-sm-12 col-md-6 mob-form-top-margin pl-md-25">
                         <div class="sewn-form-field mb-0 w-100">
                             <label>{{ 'roaster_ref_no' | translate }}</label>
-
                             <input
                                 pInputText
                                 placeholder="{{ 'roaster_ref_no' | translate }}"
-                                class="roastery-website-input border"
                                 [formControl]="addOrdersForm.controls['roaster_ref_no']"
                             />
                         </div>
                     </div>
                 </div>
                 <div class="row mt-md-3 mb-md-4 my-lg-45">
-                    <div class="col-sm-12 col-md-6 pr-md-25">
+                    <div class="col-sm-12 col-md-6 mob-form-top-margin pr-md-25">
                         <div class="sewn-form-field mb-0 w-100">
                             <label>{{ 'order_created_by' | translate }}</label>
-
                             <div
-                                class="weightInputGroupDiv d-flex inputFieldBox cursor-point"
+                                class="p-inputgroup custom-addon"
                                 (click)="showOrderPanel = true; onSelectType('users')"
                             >
                                 <input
+                                    class="cursor-pointer"
                                     pInputText
-                                    class="roastery-website-input border weightInputDiv"
                                     [formControl]="addOrdersForm.controls['created_by']"
                                 />
-                                <span
-                                    class="p-inputgroup-addon border-0 pi pi-angle-right text-clr97 fnt-100 fnt-20"
-                                ></span>
-
-                                <small
-                                    *ngIf="
-                                        addOrdersForm.controls['created_by'].errors?.required &&
-                                        addOrdersForm.controls['created_by'].invalid &&
-                                        addOrdersForm.controls['created_by'].touched
-                                    "
-                                    class="p-error"
-                                >
-                                    {{ 'request' | translate }}
-                                </small>
+                                <span class="p-inputgroup-addon border-0 cursor-pointer">
+                                    <i class="pi pi-angle-right text-clr97 fnt-100 fnt-20"></i>
+                                </span>
                             </div>
+                            <small
+                                *ngIf="
+                                    addOrdersForm.controls['created_by'].errors?.required &&
+                                    addOrdersForm.controls['created_by'].invalid &&
+                                    addOrdersForm.controls['created_by'].touched
+                                "
+                                class="p-error my-1"
+                            >
+                                {{ 'order_created_by' | translate }} {{ 'is' | translate }}
+                                {{ 'required' | translate }}
+                            </small>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-6 pl-md-25">
+                    <div class="col-sm-12 col-md-6 mob-form-top-margin pl-md-25">
                         <div class="sewn-form-field mb-0 w-100">
                             <label
                                 >{{ 'select_the_sales_member' | translate }}<span class="text-clr-e5a">*</span></label
                             >
                             <div
-                                class="weightInputGroupDiv d-flex inputFieldBox cursor-point"
+                                class="p-inputgroup custom-addon"
                                 (click)="showOrderPanel = true; onSelectType('sales-member')"
                             >
                                 <input
                                     pInputText
+                                    class="cursor-pointer"
                                     placeholder="{{ 'select_the_sales_member' | translate }}"
-                                    class="roastery-website-input border weightInputDiv"
                                     [formControl]="addOrdersForm.controls['sales_member_id']"
                                 />
-                                <span
-                                    class="p-inputgroup-addon border-0 pi pi-angle-right text-clr97 fnt-100 fnt-20"
-                                ></span>
-                                <small
-                                    *ngIf="
-                                        addOrdersForm.controls['sales_member_id'].errors?.required &&
-                                        addOrdersForm.controls['sales_member_id'].invalid &&
-                                        addOrdersForm.controls['sales_member_id'].touched
-                                    "
-                                    class="p-error"
-                                >
-                                    {{ 'request' | translate }}
-                                </small>
+                                <span class="p-inputgroup-addon border-0 cursor-pointer">
+                                    <i class="pi pi-angle-right text-clr97 fnt-100 fnt-20"></i>
+                                </span>
                             </div>
+                            <small
+                                *ngIf="
+                                    addOrdersForm.controls['sales_member_id'].errors?.required &&
+                                    addOrdersForm.controls['sales_member_id'].invalid &&
+                                    addOrdersForm.controls['sales_member_id'].touched
+                                "
+                                class="p-error my-1"
+                            >
+                                {{ 'select_the_sales_member' | translate }} {{ 'is' | translate }}
+                                {{ 'required' | translate }}
+                            </small>
                         </div>
                     </div>
                 </div>
@@ -179,7 +176,7 @@
                     <ng-container *ngTemplateOutlet="orderDetailsTpl"></ng-container>
                     <ng-container *ngTemplateOutlet="customerOrderDetails"></ng-container>
                 </div>
-                <div class="d-flex flex-column br_top mt-md-3 pt-md-3">
+                <div class="d-flex flex-column border-top-dashed-d6 mt-4 pt-4 mt-md-3 pt-md-3">
                     <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 pt-md-3 mb-md-1">
                         {{ 'order_details' | translate }}
                     </div>
@@ -188,7 +185,7 @@
                     </div>
                 </div>
                 <div class="row padd-2r">
-                    <div class="col-md-6 col-sm-12 pr-md-25">
+                    <div class="col-md-6 mob-form-top-margin col-sm-12 pr-md-25">
                         <div class="sewn-form-field mb-0 w-100">
                             <label
                                 >{{ 'select_the_type_of_customer' | translate
@@ -208,9 +205,9 @@
                                     addOrdersForm.controls['customer_type'].touched &&
                                     addOrdersForm.controls['customer_type'].errors?.required
                                 "
-                                class="p-error"
+                                class="p-error my-1"
                             >
-                                {{ 'request' | translate }}
+                                {{ 'type_of_customer' | translate }} {{ 'is' | translate }} {{ 'required' | translate }}
                             </small>
                         </div>
                     </div>
@@ -219,23 +216,23 @@
                             addOrdersForm.get('customer_type').value === 'mr' ||
                             addOrdersForm.get('customer_type').value === 'hrc'
                         "
-                        class="col-sm-12 col-md-6 pl-md-25"
+                        class="col-sm-12 col-md-6 mob-form-top-margin pl-md-25"
                     >
                         <div class="sewn-form-field mb-0 w-100">
                             <label>{{ 'customer_name' | translate }}<span class="text-clr-e5a">*</span></label>
 
                             <div
-                                class="weightInputGroupDiv d-flex inputFieldBox cursor-point"
+                                class="p-inputgroup custom-addon"
                                 (click)="showOrderPanel = true; onSelectType('customer-name')"
                             >
                                 <input
-                                    class="roastery-website-input border weightInputDiv"
+                                    class="cursor-pointer"
                                     [formControl]="addOrdersForm.controls['customer_id']"
                                     placeholder="{{ 'customer_name' | translate }}"
                                     pInputText
                                 />
                                 <span
-                                    class="p-inputgroup-addon border-0 pi pi-angle-right text-clr97 fnt-100 fnt-20"
+                                    class="p-inputgroup-addon border-0 cursor-pointer pi pi-angle-right text-clr97 fnt-100 fnt-20"
                                 ></span>
                             </div>
                         </div>
@@ -243,12 +240,11 @@
                 </div>
                 <div *ngIf="addOrdersForm.get('customer_id').value && addOrdersForm.get('customer_id').value !== ''">
                     <div *ngIf="addOrdersForm.get('customer_type').value === 'hrc'" class="row padd-2r">
-                        <div class="col-md-6 col-sm-12 pr-md-25">
+                        <div class="col-md-6 mob-form-top-margin col-sm-12 pr-md-25">
                             <div class="sewn-form-field mb-0 w-100">
                                 <label>{{ 'type_of_company' | translate }}</label>
 
                                 <input
-                                    class="roastery-website-input border"
                                     [formControl]="addOrdersForm.controls['company_type']"
                                     placeholder="{{ 'type_of_company' | translate }}"
                                     pInputText
@@ -263,85 +259,77 @@
                         "
                         class="row padd-2r"
                     >
-                        <div class="col-sm-12 col-md-6 pr-md-25">
+                        <div class="col-sm-12 col-md-6 mob-form-top-margin pr-md-25">
                             <div class="sewn-form-field mb-0 w-100">
                                 <label
                                     >{{ 'price_paid_by_the_customer' | translate
                                     }}<span class="text-clr-e5a">*</span></label
                                 >
-                                <div class="weightInputGroupDiv d-flex inputFieldBox">
-                                    <div class="w-100">
-                                        <p-inputNumber
-                                            class="bdr"
-                                            [formControl]="addOrdersForm.controls['unit_price']"
-                                            placeholder="{{ 'price_paid_by_the_customer' | translate }}"
-                                        ></p-inputNumber>
-                                    </div>
-                                    <div class="weightInputDivKg">
-                                        <span
-                                            class="fnt-600"
-                                            *ngIf="
-                                                !outtakeOrderDetails?.unit_currency &&
-                                                !outtakeOrderDetails?.quantity_unit
-                                            "
-                                            >SEK / kg</span
-                                        >
-                                        <span
-                                            *ngIf="
-                                                outtakeOrderDetails?.unit_currency && outtakeOrderDetails?.quantity_unit
-                                            "
-                                            >{{ outtakeOrderDetails?.unit_currency }} /
-                                            {{ outtakeOrderDetails?.quantity_unit }}</span
-                                        >
-                                    </div>
+                                <div class="p-inputgroup custom-addon">
+                                    <p-inputNumber
+                                        [formControl]="addOrdersForm.controls['unit_price']"
+                                        placeholder="{{ 'price_paid_by_the_customer' | translate }}"
+                                    ></p-inputNumber>
+                                    <span
+                                        class="fnt-600 p-inputgroup-addon text-clr334 br-4 m-1 right-dropdown-background"
+                                        *ngIf="
+                                            !outtakeOrderDetails?.unit_currency && !outtakeOrderDetails?.quantity_unit
+                                        "
+                                        >SEK / kg</span
+                                    >
+                                    <span
+                                        class="p-inputgroup-addon br-4 text-clr334 m-1 right-dropdown-background"
+                                        *ngIf="outtakeOrderDetails?.unit_currency && outtakeOrderDetails?.quantity_unit"
+                                        >{{ outtakeOrderDetails?.unit_currency }} /
+                                        {{ outtakeOrderDetails?.quantity_unit }}</span
+                                    >
                                     <small
                                         *ngIf="
                                             addOrdersForm.controls['unit_price'].errors?.required &&
                                             addOrdersForm.controls['unit_price'].invalid &&
                                             addOrdersForm.controls['unit_price'].touched
                                         "
-                                        class="p-error"
+                                        class="p-error my-1"
                                     >
-                                        {{ 'request' | translate }}
+                                        {{ 'price_paid_by_the_customer' | translate }} {{ 'is' | translate }}
+                                        {{ 'required' | translate }}
                                     </small>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-6 pl-md-25">
+                        <div class="col-sm-12 col-md-6 mob-form-top-margin pl-md-25">
                             <div class="sewn-form-field mb-0 w-100">
                                 <label
                                     >{{ 'total_price_paid_by_the_customer' | translate
                                     }}<span class="text-clr-e5a">*</span></label
                                 >
-                                <div class="weightInputGroupDiv d-flex inputFieldBox">
-                                    <div class="daysInputDiv fnt-14 fnt-600 fnt-muli text-clr334">
-                                        <span
-                                            *ngIf="
-                                                !outtakeOrderDetails?.unit_currency &&
-                                                !outtakeOrderDetails?.quantity_unit
-                                            "
-                                            >SEK</span
-                                        >
-                                        <span *ngIf="outtakeOrderDetails?.total_price_currency">{{
-                                            outtakeOrderDetails?.total_price_currency
-                                        }}</span>
-                                    </div>
-                                    <div class="w-100">
-                                        <p-inputNumber
-                                            class="bdr"
-                                            [formControl]="addOrdersForm.controls['total_price']"
-                                            placeholder="{{ 'total_price_paid_by_the_customer' | translate }}"
-                                        ></p-inputNumber>
-                                    </div>
+                                <div class="p-inputgroup custom-addon">
+                                    <span
+                                        class="p-inputgroup-addon fnt-14 fnt-600 fnt-muli text-clr334 br-4 m-1 right-dropdown-background"
+                                        *ngIf="
+                                            !outtakeOrderDetails?.unit_currency && !outtakeOrderDetails?.quantity_unit
+                                        "
+                                        >SEK</span
+                                    >
+                                    <span
+                                        class="p-inputgroup-addon fnt-14 fnt-600 fnt-muli text-clr334 br-4 m-1 right-dropdown-background"
+                                        *ngIf="outtakeOrderDetails?.total_price_currency"
+                                        >{{ outtakeOrderDetails?.total_price_currency }}</span
+                                    >
+                                    <p-inputNumber
+                                        [formControl]="addOrdersForm.controls['total_price']"
+                                        placeholder="{{ 'total_price_paid_by_the_customer' | translate }}"
+                                    ></p-inputNumber>
                                     <small
                                         *ngIf="
                                             addOrdersForm.controls['total_price'].errors?.required &&
                                             addOrdersForm.controls['total_price'].invalid &&
                                             addOrdersForm.controls['total_price'].touched
                                         "
-                                        class="p-error"
+                                        class="p-error my-1"
                                     >
-                                        {{ 'request' | translate }}
+                                        {{ 'total_price_paid_by_the_customer' | translate }} {{ 'is' | translate }}
+                                        {{ 'required' | translate }}
                                     </small>
                                 </div>
                             </div>
@@ -355,37 +343,34 @@
                         </div>
                     </div>
                     <div *ngIf="addOrdersForm.get('tax_included_in_price').value" class="row padd-2r">
-                        <div class="col-md-6 col-sm-12 pr-md-25">
+                        <div class="col-md-6 mob-form-top-margin col-sm-12 pr-md-25">
                             <div class="sewn-form-field mb-0 w-100">
                                 <label>{{ 'vat_percentage' | translate }}<span class="text-clr-e5a">*</span></label>
-                                <div
-                                    class="weightInputGroupDiv d-flex p-inputgroup custom-addon dropdownClass inputFieldBox"
-                                >
-                                    <div class="w-100">
-                                        <p-inputNumber
-                                            class="bdr"
-                                            [formControl]="addOrdersForm.controls['vat_percentage']"
-                                        ></p-inputNumber>
-                                    </div>
-                                    <div class="daysInputDiv fnt-14 fnt-600 fnt-muli text-clr334 right_angle">%</div>
+                                <div class="p-inputgroup custom-addon">
+                                    <p-inputNumber
+                                        [formControl]="addOrdersForm.controls['vat_percentage']"
+                                    ></p-inputNumber>
+                                    <div class="p-inputgroup-addon fnt-14 fnt-600 fnt-muli text-clr334">%</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div *ngIf="addOrdersForm.get('customer_type').value === 'hrc'" class="row padd-2r mb-md-3">
-                        <div class="col-md-6 col-sm-12 pr-md-25">
+                        <div class="col-md-6 mob-form-top-margin col-sm-12 pr-md-25">
                             <div class="sewn-form-field mb-0 w-100">
                                 <label
                                     >{{ 'total_weight_of_coffee' | translate
                                     }}<span class="text-clr-e5a">*</span></label
                                 >
-                                <div class="weightInputGroupDiv p-inputgroup custom-addon dropdownClass inputFieldBox">
+                                <div class="p-inputgroup custom-addon">
                                     <p-inputNumber
-                                        class="bdr"
                                         [formControl]="addOrdersForm.controls['gc_total_quantity']"
                                     ></p-inputNumber>
-                                    <span class="p-inputgroup-addon">
+                                    <span class="p-inputgroup-addon pr-1 right-dropdown">
                                         <p-dropdown
+                                            [ngClass]="{
+                                                'invalid-gc-order': addOrdersForm.controls['gc_total_quantity'].invalid
+                                            }"
                                             [options]="weightTypeArray"
                                             optionLabel="label"
                                             placeholder=""
@@ -405,30 +390,30 @@
                                             addOrdersForm.controls['gc_total_quantity'].touched &&
                                             addOrdersForm.controls['gc_total_quantity'].hasError('isInvalid')
                                         "
-                                        class="p-error position-absolute"
+                                        class="p-error my-1"
                                         >{{ 'weight_gc_coffee' | translate }}</small
                                     >
                                     <small
                                         *ngIf="addOrdersForm.controls['gc_total_quantity'].errors?.required"
-                                        class="p-error position-absolute"
+                                        class="p-error my-1"
                                     >
-                                        {{ 'request' | translate }}
+                                        {{ 'total_weight_of_coffee' | translate }} {{ 'is' | translate }}
+                                        {{ 'required' | translate }}
                                     </small>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-6 pl-md-25">
+                        <div class="col-sm-12 col-md-6 mob-form-top-margin pl-md-25">
                             <div class="sewn-form-field mb-0 w-100">
                                 <label
                                     >{{ 'total_weight_roasted_of_coffee' | translate
                                     }}<span class="text-clr-e5a">*</span></label
                                 >
-                                <div class="weightInputGroupDiv p-inputgroup custom-addon dropdownClass inputFieldBox">
+                                <div class="p-inputgroup custom-addon">
                                     <p-inputNumber
-                                        class="bdr"
                                         [formControl]="addOrdersForm.controls['roasted_coffee_total_quantity']"
                                     ></p-inputNumber>
-                                    <span class="p-inputgroup-addon">
+                                    <span class="p-inputgroup-addon pr-1 right-dropdown">
                                         <p-dropdown
                                             [options]="weightTypeArray"
                                             optionLabel="label"
@@ -449,9 +434,10 @@
                                             addOrdersForm.controls['roasted_coffee_total_quantity'].invalid &&
                                             addOrdersForm.controls['roasted_coffee_total_quantity'].touched
                                         "
-                                        class="p-error"
+                                        class="p-error my-1"
                                     >
-                                        {{ 'request' | translate }}
+                                        {{ 'total_weight_roasted_of_coffee' | translate }} {{ 'is' | translate }}
+                                        {{ 'required' | translate }}
                                     </small>
                                 </div>
                             </div>
@@ -513,20 +499,21 @@
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="addOrdersForm.get('customer_type').value === 'hrc'" class="br_top">
+                    <div
+                        *ngIf="addOrdersForm.get('customer_type').value === 'hrc'"
+                        class="border-top-dashed-d6 mt-4 pt-4 mt-md-0 pt-md-0"
+                    >
                         <div class="d-flex flex-column padd-2r mt-md-3">
-                            <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1 d-none d-md-block">
-                                {{ 'roast_details' | translate }}
-                            </div>
-                            <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1 d-block d-md-none">
+                            <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1">
                                 {{ 'roast_details' | translate }}
                             </div>
                         </div>
                         <div class="row padd-2r">
-                            <div class="col-md-6 col-sm-12 col-md-6 pr-md-25">
+                            <div class="col-md-6 mob-form-top-margin col-sm-12 col-md-6 mob-form-top-margin pr-md-25">
                                 <div class="sewn-form-field mb-0 w-100">
                                     <label>{{ 'date_roasted' | translate }}</label>
                                     <p-calendar
+                                        class="date-calender"
                                         placeholder="{{ 'select_date_roasted' | translate }}"
                                         [showIcon]="true"
                                         inputId="icon"
@@ -536,7 +523,7 @@
                             </div>
                         </div>
                         <div class="row padd-2r">
-                            <div class="col-sm-12 col-md-6 pr-md-25">
+                            <div class="col-sm-12 col-md-6 mob-form-top-margin pr-md-25">
                                 <div class="sewn-form-field mb-0 w-100">
                                     <label>{{ 'roast_level' | translate }}</label>
                                     <p-dropdown
@@ -548,11 +535,10 @@
                                     ></p-dropdown>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-6 pl-md-25">
+                            <div class="col-sm-12 col-md-6 mob-form-top-margin pl-md-25">
                                 <div class="sewn-form-field mb-0 w-100">
                                     <label>{{ 'roasting_time' | translate }}</label>
                                     <input
-                                        class="roastery-website-input border"
                                         [formControl]="addOrdersForm.controls['roasting_time']"
                                         placeholder="{{ 'enter_roasting_time' | translate }}"
                                         pInputText
@@ -561,23 +547,22 @@
                             </div>
                         </div>
                         <div class="row padd-2r">
-                            <div class="col-sm-12 col-md-6 pr-md-25">
+                            <div class="col-sm-12 col-md-6 mob-form-top-margin pr-md-25">
                                 <div class="sewn-form-field mb-0 w-100">
                                     <label>{{ 'roasting_temperature' | translate }}</label>
-                                    <p-inputNumber
-                                        class="roastery-website-input border"
+                                    <input
                                         [formControl]="addOrdersForm.controls['roasting_temperature']"
                                         placeholder="{{ 'enter_roasting_temperature' | translate }}"
-                                    ></p-inputNumber>
+                                        pInputText
+                                    />
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-6 pl-md-25">
+                            <div class="col-sm-12 col-md-6 mob-form-top-margin pl-md-25">
                                 <div class="sewn-form-field mb-0 w-100">
                                     <div>
                                         <label>{{ 'machine_used' | translate }}</label>
                                     </div>
                                     <input
-                                        class="roastery-website-input border"
                                         placeholder="{{ 'enter_machine_used' | translate }}"
                                         [formControl]="addOrdersForm.controls['machine_used']"
                                         pInputText
@@ -586,34 +571,32 @@
                             </div>
                         </div>
                         <div class="row padd-2r">
-                            <div class="col-md-6 col-sm-12 pr-md-25">
+                            <div class="col-md-6 mob-form-top-margin col-sm-12 pr-md-25">
                                 <div class="sewn-form-field mb-0 w-100">
                                     <div>
                                         <label>{{ 'waste_produced' | translate }}</label>
                                     </div>
-                                    <input
-                                        pInputText
-                                        class="roastery-website-input border"
-                                        placeholder="{{ 'total_waste_produced' | translate }}"
-                                    />
+                                    <input pInputText placeholder="{{ 'total_waste_produced' | translate }}" />
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div *ngIf="addOrdersForm.get('customer_type').value === 'mr'" class="row padd-2r">
-                        <div class="col-md-6 col-sm-12 pl-md-3">
+                        <div class="col-md-6 mob-form-top-margin col-sm-12 pl-md-3">
                             <div class="sewn-form-field mb-0 w-100">
                                 <label
                                     >{{ 'green_coffee_quantity_sold' | translate
                                     }}<span class="text-clr-e5a">*</span></label
                                 >
-                                <div class="weightInputGroupDiv p-inputgroup custom-addon dropdownClass inputFieldBox">
+                                <div class="p-inputgroup custom-addon">
                                     <p-inputNumber
-                                        class="bdr"
                                         [formControl]="addOrdersForm.controls['gc_total_quantity']"
                                     ></p-inputNumber>
-                                    <span class="p-inputgroup-addon">
+                                    <span class="p-inputgroup-addon pr-1 right-dropdown">
                                         <p-dropdown
+                                            [ngClass]="{
+                                                'invalid-gc-order': addOrdersForm.controls['gc_total_quantity'].invalid
+                                            }"
                                             [options]="weightTypeArray"
                                             optionLabel="label"
                                             placeholder=""
@@ -633,21 +616,22 @@
                                             addOrdersForm.controls['gc_total_quantity'].touched &&
                                             addOrdersForm.controls['gc_total_quantity'].hasError('isInvalid')
                                         "
-                                        class="position-absolute p-error"
+                                        class="p-error my-1"
                                         >{{ 'weight_gc_coffee' | translate }}</small
                                     >
                                     <small
                                         *ngIf="addOrdersForm.controls['gc_total_quantity'].errors?.required"
-                                        class="p-error position-absolute"
+                                        class="p-error my-1"
                                     >
-                                        {{ 'request' | translate }}
+                                        {{ 'green_coffee_quantity_sold' | translate }} {{ 'is' | translate }}
+                                        {{ 'required' | translate }}
                                     </small>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div *ngIf="addOrdersForm.get('customer_type').value === 'mr'" class="row padd-2r">
-                        <div class="col-sm-12 col-md-6 pl-md-3">
+                        <div class="col-sm-12 col-md-6 mob-form-top-margin pl-md-3">
                             <div class="sewn-form-field mb-0 w-100">
                                 <label>{{ 'pre_cleaned' | translate }}</label>
                                 <p-dropdown
@@ -659,12 +643,11 @@
                                 ></p-dropdown>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-6 pl-md-3">
+                        <div class="col-sm-12 col-md-6 mob-form-top-margin pl-md-3">
                             <div class="sewn-form-field mb-0 w-100">
                                 <label>{{ 'waste_produced' | translate }}</label>
                                 <input
                                     pInputText
-                                    class="roastery-website-input border"
                                     placeholder="{{ 'total_waste_produced' | translate }}"
                                     [formControl]="addOrdersForm.controls['waste_produced']"
                                 />
@@ -691,7 +674,7 @@
                     </div>
                     <div
                         *ngIf="addOrdersForm.get('customer_id').value"
-                        class="col-lg-12 col-md-6 d-lg-block d-md-block d-none d-sm-none d-xl-block ml-lg-0 ml-md-2 px-0"
+                        class="col-lg-12 col-md-6 mob-form-top-margin d-lg-block d-md-block d-none d-sm-none d-xl-block ml-lg-0 ml-md-2 px-0"
                     >
                         <ng-container *ngTemplateOutlet="customerOrderDetails"></ng-container>
                     </div>
@@ -753,7 +736,7 @@
                     <button class="btn-raised text-nowrap px-4 w-mob-100 mt-3 mt-md-0" (click)="addOrderDetails()">
                         {{ 'save' | translate }}
                     </button>
-                    <button class="btn-stroked px-4 mr-3 w-mob-100" (click)="location.back()">
+                    <button class="btn-stroked px-4 mt-3 ml-md-3 w-mob-100" (click)="location.back()">
                         {{ 'cancel' | translate }}
                     </button>
                 </div>
@@ -763,10 +746,10 @@
 </div>
 
 <ng-template #orderDetailsTpl>
-    <div *ngIf="orderDetails" class="mrt col-sm-12 px-0 mt-md-4 mt-lg-0">
+    <div *ngIf="orderDetails" class="order-box px-0 mt-md-4 mt-lg-0">
         <label class="primary_txt mb-lg-3">{{ 'order_details' | translate }}</label>
         <div class="order-details-clr">
-            <div class="d-flex justify-content-between mb-md-45 mb-lg-475">
+            <div class="d-flex justify-content-between mb-md-45 mb-2 mb-lg-475">
                 <div class="d-flex">
                     <app-avatar
                         [size]="36"
@@ -774,7 +757,7 @@
                     >
                     </app-avatar>
                     <div>
-                        <ul class="details-list ml-2">
+                        <ul class="details-list pl-0 ml-2">
                             <li class="fnt-14 lh-15 fnt-600">
                                 {{ orderDetails.estate_name }}
                             </li>
@@ -873,7 +856,7 @@
                         }}</span>
                     </div>
                 </div>
-                <div class="flex br_left d-none d-md-block">
+                <div class="cupping-header cupping-border-left d-none d-md-block">
                     <div class="pl-3 pr-2 img_circle d-flex align-items-center">
                         <app-avatar
                             [size]="36"
@@ -895,10 +878,10 @@
     </div>
 </ng-template>
 <ng-template #customerOrderDetails>
-    <div *ngIf="customerDetails" class="col-sm-12 px-0 mt-md-3 mt-lg-0">
-        <label class="primary_txt mb-2 my-lg-3 pt-2">{{ 'customer_details' | translate }}</label>
+    <div *ngIf="customerDetails" class="order-box px-0 mt-md-3 mt-lg-0">
+        <label class="primary_txt mb-2 my-lg-3">{{ 'customer_details' | translate }}</label>
         <div class="order-details-clr">
-            <div class="d-flex justify-content-between mb-md-45 mb-lg-475">
+            <div class="d-flex justify-content-between mb-md-45 mb-2 mb-lg-475">
                 <div class="d-flex">
                     <app-avatar
                         [size]="36"
@@ -906,7 +889,7 @@
                     >
                     </app-avatar>
                     <div>
-                        <ul class="details-list ml-2">
+                        <ul class="details-list pl-0 ml-2">
                             <li class="fnt-14 lh-15 fnt-600">
                                 {{ customerDetails.name }}
                             </li>

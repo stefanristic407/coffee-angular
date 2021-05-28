@@ -1,95 +1,28 @@
 @import 'variables';
 
-.p-calendar {
-    width: 100% !important;
+::ng-deep.p-calendar {
+    width: 100%;
+    .p-inputtext {
+        margin-left: 0 !important;
+    }
     .p-button-icon {
         font-size: 20px;
     }
-    .p-inputtext {
-        padding: 0.9375rem 0 !important;
-    }
-    .sewn-form-field .p-inputtext {
-        padding: 0.9375rem 1rem !important;
-    }
 }
 
-.br_top {
-    border-top: dotted 1px $primary-border-color;
+.border-top-dashed-d6 {
+    border-top: 1px dashed #d6d6d6 !important;
+    border-radius: 0 !important;
 }
 
 .cust-profile {
     border: 0.3px solid #dddddd;
     border-radius: 4px;
     padding: 1.5rem;
-    border-radius: 4px;
 }
 
-::ng-deep .sewn-form-field .dropdownClass .p-inputgroup-addon {
-    padding: 5px !important;
-}
-::ng-deep .p-inputgroup-addon .p-dropdown .p-inputtext {
-    position: relative;
-    bottom: 4px;
-}
-
-.weightInputGroupDiv {
-    border: 1px solid $primary-border-color !important;
-    border-radius: 4px;
-}
-
-.weightInputGroupDiv .weightInputDiv {
-    margin-left: 1rem;
-}
-
-.weightInputGroupDiv:enabled:hover,
-.weightInputGroupDiv:enabled:focus {
-    border-color: #30855c !important;
-}
-
-.weightInputDiv {
-    border: none !important;
-}
-.weightInputDivKg {
-    width: 132px;
-}
-.weightInputDivKg,
-.daysInputDiv {
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 1.5rem;
-    background-color: #fafafa;
-    margin: 3px;
-}
-.sewn-form-field .p-inputgroup.custom-addon .p-inputgroup-addon {
-    padding: 5px !important;
-}
-.sewn-form-field .p-inputgroup.custom-addon .p-inputgroup-addon .p-dropdown .p-inputtext {
-    padding: 0.7rem !important;
-}
-
-@media (min-width: 992px) {
-    .mrt {
-        margin-top: -1rem !important;
-    }
-}
-
-.br_left {
-    border-left: 0.3px solid #868686;
-}
-
-.right_angle {
-    background-color: $white !important;
-    padding: 0.75rem !important;
-}
-
-.cursor-point,
-.cursor-point input {
-    cursor: pointer;
-    padding-left: 0 !important;
-}
-
-.right_angle i {
-    color: $button-icon-color;
+.cupping-border-left {
+    border-left: 1px solid #868686;
 }
 
 .order-details-clr {
@@ -98,8 +31,20 @@
     padding: 2rem;
 }
 
-.sewn-form-field .p-inputnumber-input {
-    border: 0px !important;
+::ng-deep.right-dropdown {
+    .p-dropdown-label {
+        padding-right: 0 !important;
+        padding-top: 10px !important;
+    }
+}
+
+.invalid-gc-order {
+    position: relative;
+    bottom: 22px;
+}
+
+.right-dropdown-background {
+    background-color: $primary-bg-color;
 }
 .recent-time {
     td {
@@ -112,10 +57,6 @@
             word-break: break-word;
         }
     }
-}
-
-.mr input {
-    margin-left: 0 !important;
 }
 
 @media (max-width: 1199px) and (min-width: 768px) {
@@ -134,6 +75,13 @@
     .breadcrumb-container {
         overflow-x: scroll;
     }
+    .mob-form-top-margin {
+        margin-top: 1rem;
+    }
+    .order-box {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
     .recent-time {
         border: 1px solid #dddddd;
         border-radius: 4px;
@@ -147,17 +95,6 @@
             padding: 1rem 0rem 1rem 1rem !important;
             border: 0px solid #dddddd !important;
         }
-    }
-    .padd {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-    }
-    .sewn-form-field {
-        margin-top: 1rem;
-    }
-    .br_top {
-        margin-top: 1.5rem;
-        padding-top: 1.5rem;
     }
     .copy-link input {
         width: 70% !important;
@@ -184,11 +121,11 @@
     .download-qr-link {
         margin-top: 10px;
     }
-
     .order-details-clr {
         padding: 12px;
     }
 }
+
 @media (min-width: 992px) {
     .copy-link button {
         padding: 15px 24px;
@@ -203,13 +140,13 @@
         flex: 0 0 38% !important;
         max-width: 38% !important;
     }
-    .weightInputGroupDiv {
-        height: 50px;
+    .order-box {
+        margin-top: -1rem !important;
     }
 }
 
 @media (min-width: 768px) {
-    .flex {
+    .cupping-header {
         display: flex !important;
     }
 }
@@ -257,10 +194,6 @@
     }
     .contact-for-help {
         margin-bottom: -16px;
-    }
-    .tab-margin {
-        margin-top: 0 !important;
-        margin-left: 0.5rem !important;
     }
     .padd-2r {
         padding-top: 1rem;

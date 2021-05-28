@@ -28,6 +28,14 @@
                 {{ 'select_team_member' | translate }}
             </div>
         </div>
+        <div class="d-md-none border-btm-dashed-d6 mb-4" *ngIf="selectedOrder">
+            <button class="btn-raised w-mob-100 mb-3 mb-md-0 order-1 order-md-2" (click)="onContinue()">
+                {{ 'continue' | translate }}
+            </button>
+            <button class="btn-stroked w-mob-100 mb-2 order-2 order-md-1" (click)="close()">
+                {{ 'cancel' | translate }}
+            </button>
+        </div>
         <div class="col-md-4 col-lg-4 px-0 mb-3">
             <span class="custom-search mobile-bord">
                 <input
@@ -58,8 +66,9 @@
                 >
                 </p-dropdown>
                 <p-calendar
+                    id="calender"
                     *ngIf="selectedType === 'orders' || selectedType === 'micro-roasters' || selectedType === 'hrc'"
-                    class="calender"
+                    class="mr-3"
                     styleClass="only-icon"
                     [(ngModel)]="rangeDates"
                     [showIcon]="true"
@@ -94,13 +103,15 @@
                     styleClass="round-border mr-2 mb-3 {{ customerStatus ? 'highlight' : '' }}"
                 ></p-dropdown>
             </div>
-            <div class="d-flex flex-wrap mb-4" *ngIf="selectedOrder">
-                <button class="btn-stroked w-mob-100 mr-md-3 order-2 order-md-1" (click)="close()">
-                    {{ 'cancel' | translate }}
-                </button>
-                <button class="btn-raised w-mob-100 mb-3 mb-md-0 order-1 order-md-2" (click)="onContinue()">
-                    {{ 'continue' | translate }}
-                </button>
+            <div class="d-none d-md-block">
+                <div class="d-flex flex-wrap mb-4" *ngIf="selectedOrder">
+                    <button class="btn-stroked w-mob-100 mr-md-3 order-2 order-md-1" (click)="close()">
+                        {{ 'cancel' | translate }}
+                    </button>
+                    <button class="btn-raised w-mob-100 mb-3 mb-md-0 order-1 order-md-2" (click)="onContinue()">
+                        {{ 'continue' | translate }}
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -154,7 +165,7 @@
                                 col.field == 'type'
                         }"
                     >
-                        <ng-container *ngSwitchCase="'id'">
+                        <ng-container *ngSwitchCase="'estate_name'">
                             <div class="d-md-none mb-4">
                                 <span class="fnt-16 fnt-md-18 fnt-bold mb-2"
                                     >{{ 'order_id' | translate }} #{{ rowData.id }}</span
@@ -169,19 +180,43 @@
                             <span>{{ rowData[col.field] }}</span>
                         </ng-container>
 
-                        <ng-container *ngSwitchCase="'origin'">
+                        <ng-container *ngSwitchCase="'firstname'">
+                            <div class="d-md-none mb-4">
+                                <div>
+                                    <span class="fnt-16 fnt-md-18 fnt-bold mb-2"
+                                        >{{ 'order_id' | translate }} #{{ rowData.id }}</span
+                                    >
+                                    <p-tableRadioButton class="float-right" [value]="rowData"></p-tableRadioButton>
+                                </div>
+                                <div class="fnt-12 mt-2">
+                                    <span class="text-clr588">{{ 'created_on' | translate }} : </span>
+                                    <span>{{ rowData.created_at | date: 'dd MMM yyyy h:mma' }}</span>
+                                </div>
+                            </div>
                             <span class="p-column-title"> {{ col.header }} </span>
-                            <span>{{ rowData[col.field] | country | translate }}</span>
+                            <span>{{ rowData[col.field] }}</span>
                         </ng-container>
 
                         <ng-container *ngSwitchCase="'name'">
+                            <div class="d-md-none mb-4">
+                                <div>
+                                    <span class="fnt-16 fnt-md-18 fnt-bold mb-2"
+                                        >{{ 'order_id' | translate }} #{{ rowData.id }}</span
+                                    >
+                                    <p-tableRadioButton class="float-right" [value]="rowData"></p-tableRadioButton>
+                                </div>
+                                <div class="fnt-12 mt-2">
+                                    <span class="text-clr588">{{ 'created_on' | translate }} : </span>
+                                    <span>{{ rowData.created_at | date: 'dd MMM yyyy h:mma' }}</span>
+                                </div>
+                            </div>
                             <span class="p-column-title"> {{ col.header }} </span>
                             <span>{{ rowData[col.field] }}</span>
                         </ng-container>
 
-                        <ng-container *ngSwitchCase="'firstname'">
+                        <ng-container *ngSwitchCase="'origin'">
                             <span class="p-column-title"> {{ col.header }} </span>
-                            <span>{{ rowData[col.field] }}</span>
+                            <span>{{ rowData[col.field] | country | translate }}</span>
                         </ng-container>
 
                         <ng-container *ngSwitchCase="'last_login_at'">
@@ -196,6 +231,11 @@
                         <ng-container *ngSwitchCase="'quantity'">
                             <span class="p-column-title"> {{ col.header }} </span>
                             <span>{{ rowData[col.field] }} {{ rowData['quantity_type'] }}</span>
+                        </ng-container>
+
+                        <ng-container *ngSwitchCase="'varieties'">
+                            <span class="p-column-title"> {{ col.header }} </span>
+                            <span>{{ rowData[col.field] }}</span>
                         </ng-container>
 
                         <ng-container *ngSwitchCase="'email'">

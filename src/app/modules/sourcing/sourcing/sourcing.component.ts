@@ -51,6 +51,7 @@ export class SourcingComponent extends DestroyableComponent implements OnInit, A
                 routerLink: ['/sourcing/coffee-list'],
             },
         ];
+        this.sourcingSrv.showUnitFilter = false;
         this.sourcingSrv.clearQueryParams();
         this.queryParams = { ...this.sourcingSrv.queryParams.getValue() };
         this.viewMode = this.sourcingSrv.viewMode.getValue();

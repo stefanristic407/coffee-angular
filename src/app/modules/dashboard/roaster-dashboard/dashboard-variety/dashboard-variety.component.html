@@ -3,7 +3,7 @@
         <h3 class="fnt-16 fnt-md-18 fnt-bold text-clr334 px-2">
             {{ 'what_your_customers_want' | translate }}
         </h3>
-        <p class="fnt-14 fnt-normal text-clr588 px-2">You get orders for these varieties most</p>
+        <p class="fnt-14 fnt-normal text-clr588 px-2">{{ 'dashboard_varieties_desp' | translate }}</p>
     </div>
     <ng-container *ngIf="varieties && varieties.variety_stats; else blank">
         <div class="chart-block mt-3 ml-3 mr-3 mb-0 flex-fill">

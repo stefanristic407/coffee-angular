@@ -32,6 +32,7 @@ export class EstateListComponent extends DestroyableComponent implements OnInit 
                 { label: 'Recently added', value: ['created_at', 'desc'] },
                 { label: 'Rating (High-Low)', value: ['rating', 'desc'] },
             ];
+            this.sourcingSrv.showUnitFilter = false;
         });
         this.sourcingSrv.clearQueryParams();
         this.sourcingSrv.queryParams$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((res: any) => {

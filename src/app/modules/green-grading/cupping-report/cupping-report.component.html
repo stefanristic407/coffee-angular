@@ -15,7 +15,7 @@
         <section class="grading__total pt-4 pt-lg-25">
             <div class="d-flex flex-wrap justify-content-between flex-column flex-md-row">
                 <div class="green_grading_cont">
-                    <h1 class="fnt-muli fnt-18 font-bold mb-2">{{ globals.languageJson?.my_cupping_reports }}</h1>
+                    <h1 class="fnt-muli fnt-18 fnt-bold mb-2">{{ globals.languageJson?.my_cupping_reports }}</h1>
                     <h3 class="mb-0 pt-1">Select cupping type, add or edit evaluators before you start the cupping</h3>
                 </div>
                 <span class="custom-search d-inline-block d-lg-none mt-3">
@@ -73,7 +73,7 @@
             </div>
             <div class="mt-3 mt-md-4">
                 <p-tabView (onChange)="handleTabChange($event)" styleClass="p-tabview-report">
-                    <p-tabPanel *ngFor="let header of ['Service Reports', 'Other Reports']" [header]="header">
+                    <p-tabPanel *ngFor="let header of ['Order Reports', 'Other Reports']" [header]="header">
                         <div class="table-container">
                             <div class="table-responsive">
                                 <p-table

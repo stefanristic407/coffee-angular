@@ -1,13 +1,30 @@
+@import 'variables';
 @media screen and (max-width: 767px) {
-    .p-datatable.p-datatable-responsive .p-datatable-tbody > tr {
-        width: 297px;
+    ::ng-deep .p-datatable.p-datatable-responsive .p-datatable-tbody > tr {
+        width: 297px !important;
+    }
+    ::ng-deep #tabTable .p-datatable table {
+        margin-top: 1rem !important;
+    }
+    ::ng-deep .menu-arrow {
+        top: 0px !important;
     }
 }
-.calender .p-calendar .p-inputtext {
-    margin: 0 1rem;
+::ng-deep.calender .p-calendar .p-inputtext {
+    margin: 0 1rem !important;
     padding: 0.625rem 0rem !important;
 }
 
-.word-break {
-    word-break: break-word;
+.mobile-header {
+    background-color: $primary-bg-color;
+    margin: -0.75rem -0.75rem 1rem -0.75rem;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    ::ng-deep #tabTable .p-datatable-wrapper {
+        overflow-x: scroll !important;
+    }
+    ::ng-deep #tabTable .p-datatable table {
+        width: 180% !important;
+    }
 }

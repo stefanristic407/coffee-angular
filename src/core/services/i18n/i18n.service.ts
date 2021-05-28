@@ -1,6 +1,8 @@
 import { registerLocaleData } from '@angular/common';
 import ngEn from '@angular/common/locales/en';
 import ngSe from '@angular/common/locales/se';
+import ngPt from '@angular/common/locales/pt';
+import ngEs from '@angular/common/locales/es';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -21,6 +23,16 @@ const LANGS: { [key: string]: LangData } = {
         text: 'Swedish',
         ng: ngSe,
         locale: 'se',
+    },
+    pt: {
+        text: 'Portuguese',
+        ng: ngPt,
+        locale: 'pt',
+    },
+    es: {
+        text: 'Portuguese',
+        ng: ngEs,
+        locale: 'es',
     },
 };
 
@@ -61,7 +73,7 @@ export class I18NService {
 
     private updateLangData(lang: string) {
         const item = LANGS[lang];
-        registerLocaleData(item.ng);
+        registerLocaleData(item.ng || ngEn);
     }
 
     use(lang: string): void {
@@ -87,6 +99,6 @@ export class I18NService {
     }
 
     get locale() {
-        return LANGS[this.currentLang].locale;
+        return LANGS[this.currentLang]?.locale || 'en-US';
     }
 }

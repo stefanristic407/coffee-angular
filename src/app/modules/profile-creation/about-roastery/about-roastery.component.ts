@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { maxWordCountValidator } from '@utils';
 import { ImageCroppedEvent, ImageCropperComponent, ImageTransform } from 'ngx-image-cropper';
 import { OrganizationType } from '@enums';
+import { QUANTIRY_UNIT_LIST } from '@constants';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -18,6 +19,7 @@ import { OrganizationType } from '@enums';
     styleUrls: ['./about-roastery.component.scss'],
 })
 export class AboutRoasteryComponent implements OnInit, AfterViewInit {
+    readonly QUANTIRY_UNIT_LIST = QUANTIRY_UNIT_LIST;
     ownerName?: string;
     foundedIn?: any;
     summary: string;

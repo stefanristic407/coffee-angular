@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { OrganizationType } from '@enums';
@@ -12,7 +12,7 @@ import { ResizeableComponent } from '@base-components';
     styleUrls: ['./estate-details.component.scss'],
 })
 export class EstateDetailsComponent extends ResizeableComponent implements OnInit {
-    appLanguage?: any;
+    @ViewChild('reviewsPosition') reviewsPosition: ElementRef;
     isLoaded = false;
     selectedTab = 0;
     userId: string;
@@ -67,5 +67,14 @@ export class EstateDetailsComponent extends ResizeableComponent implements OnIni
                 org_id: +this.sourcing.estateId,
             });
         }
+    }
+
+    goToReviews() {
+        if (this.selectedTab) {
+            this.selectedTab = 0;
+        }
+        setTimeout(() => {
+            this.reviewsPosition.nativeElement.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
     }
 }
