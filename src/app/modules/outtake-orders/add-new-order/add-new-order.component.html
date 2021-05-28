@@ -1,12 +1,12 @@
 <div *ngIf="!showOrderPanel" class="main-block">
-    <div class="d-flex justify-content-between pb-2 mb-45">
+    <div class="d-flex justify-content-between pb-md-2 mb-md-45">
         <div class="breadcrumb-container">
             <p-breadcrumb [model]="breadItems"></p-breadcrumb>
         </div>
     </div>
     <section>
         <div class="d-flex mb-md-3 mt-4 pb-md-2">
-            <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1">
+            <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-md-1">
                 <span *ngIf="!outtakeOrderId">
                     <span *ngIf="!addOrdersForm.get('product_name').value">{{ 'add_new_order' | translate }}</span>
                     <span *ngIf="addOrdersForm.get('product_name').value">{{
@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-12 col-md-12 col-lg-12 col-xl-8">
                 <div class="row mb-45">
-                    <div class="col-sm-12 col-md-6 pr-md-25">
+                    <div class="col-sm-12 col-md-6 mob-form-top-margin pr-md-25">
                         <div class="sewn-form-field mb-0 w-100">
                             <label>{{ 'product_name' | translate }}<span class="text-clr-e5a">*</span></label>
                             <input
@@ -39,7 +39,7 @@
                             </small>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-6 pl-md-25">
+                    <div class="col-sm-12 col-md-6 mob-form-top-margin pl-md-25">
                         <div class="sewn-form-field mb-0 w-100">
                             <label>{{ 'date_placed' | translate }}<span class="text-clr-e5a">*</span></label>
                             <p-calendar
@@ -69,7 +69,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12 col-md-6 pr-md-25">
+                    <div class="col-sm-12 col-md-6 mob-form-top-margin pr-md-25">
                         <div class="sewn-form-field mb-0 w-100">
                             <label>{{ 'select_the_green_coffee_order' | translate }}</label>
                             <div
@@ -98,7 +98,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-6 pl-md-25">
+                    <div class="col-sm-12 col-md-6 mob-form-top-margin pl-md-25">
                         <div class="sewn-form-field mb-0 w-100">
                             <label>{{ 'roaster_ref_no' | translate }}</label>
                             <input
@@ -110,7 +110,7 @@
                     </div>
                 </div>
                 <div class="row mt-md-3 mb-md-4 my-lg-45">
-                    <div class="col-sm-12 col-md-6 pr-md-25">
+                    <div class="col-sm-12 col-md-6 mob-form-top-margin pr-md-25">
                         <div class="sewn-form-field mb-0 w-100">
                             <label>{{ 'order_created_by' | translate }}</label>
                             <div
@@ -139,7 +139,7 @@
                             </small>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-6 pl-md-25">
+                    <div class="col-sm-12 col-md-6 mob-form-top-margin pl-md-25">
                         <div class="sewn-form-field mb-0 w-100">
                             <label
                                 >{{ 'select_the_sales_member' | translate }}<span class="text-clr-e5a">*</span></label
@@ -185,7 +185,7 @@
                     </div>
                 </div>
                 <div class="row padd-2r">
-                    <div class="col-md-6 col-sm-12 pr-md-25">
+                    <div class="col-md-6 mob-form-top-margin col-sm-12 pr-md-25">
                         <div class="sewn-form-field mb-0 w-100">
                             <label
                                 >{{ 'select_the_type_of_customer' | translate
@@ -216,7 +216,7 @@
                             addOrdersForm.get('customer_type').value === 'mr' ||
                             addOrdersForm.get('customer_type').value === 'hrc'
                         "
-                        class="col-sm-12 col-md-6 pl-md-25"
+                        class="col-sm-12 col-md-6 mob-form-top-margin pl-md-25"
                     >
                         <div class="sewn-form-field mb-0 w-100">
                             <label>{{ 'customer_name' | translate }}<span class="text-clr-e5a">*</span></label>
@@ -240,7 +240,7 @@
                 </div>
                 <div *ngIf="addOrdersForm.get('customer_id').value && addOrdersForm.get('customer_id').value !== ''">
                     <div *ngIf="addOrdersForm.get('customer_type').value === 'hrc'" class="row padd-2r">
-                        <div class="col-md-6 col-sm-12 pr-md-25">
+                        <div class="col-md-6 mob-form-top-margin col-sm-12 pr-md-25">
                             <div class="sewn-form-field mb-0 w-100">
                                 <label>{{ 'type_of_company' | translate }}</label>
 
@@ -259,7 +259,7 @@
                         "
                         class="row padd-2r"
                     >
-                        <div class="col-sm-12 col-md-6 pr-md-25">
+                        <div class="col-sm-12 col-md-6 mob-form-top-margin pr-md-25">
                             <div class="sewn-form-field mb-0 w-100">
                                 <label
                                     >{{ 'price_paid_by_the_customer' | translate
@@ -297,7 +297,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-6 pl-md-25">
+                        <div class="col-sm-12 col-md-6 mob-form-top-margin pl-md-25">
                             <div class="sewn-form-field mb-0 w-100">
                                 <label
                                     >{{ 'total_price_paid_by_the_customer' | translate
@@ -343,7 +343,7 @@
                         </div>
                     </div>
                     <div *ngIf="addOrdersForm.get('tax_included_in_price').value" class="row padd-2r">
-                        <div class="col-md-6 col-sm-12 pr-md-25">
+                        <div class="col-md-6 mob-form-top-margin col-sm-12 pr-md-25">
                             <div class="sewn-form-field mb-0 w-100">
                                 <label>{{ 'vat_percentage' | translate }}<span class="text-clr-e5a">*</span></label>
                                 <div class="p-inputgroup custom-addon">
@@ -356,7 +356,7 @@
                         </div>
                     </div>
                     <div *ngIf="addOrdersForm.get('customer_type').value === 'hrc'" class="row padd-2r mb-md-3">
-                        <div class="col-md-6 col-sm-12 pr-md-25">
+                        <div class="col-md-6 mob-form-top-margin col-sm-12 pr-md-25">
                             <div class="sewn-form-field mb-0 w-100">
                                 <label
                                     >{{ 'total_weight_of_coffee' | translate
@@ -403,7 +403,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-6 pl-md-25">
+                        <div class="col-sm-12 col-md-6 mob-form-top-margin pl-md-25">
                             <div class="sewn-form-field mb-0 w-100">
                                 <label
                                     >{{ 'total_weight_roasted_of_coffee' | translate
@@ -509,7 +509,7 @@
                             </div>
                         </div>
                         <div class="row padd-2r">
-                            <div class="col-md-6 col-sm-12 col-md-6 pr-md-25">
+                            <div class="col-md-6 mob-form-top-margin col-sm-12 col-md-6 mob-form-top-margin pr-md-25">
                                 <div class="sewn-form-field mb-0 w-100">
                                     <label>{{ 'date_roasted' | translate }}</label>
                                     <p-calendar
@@ -523,7 +523,7 @@
                             </div>
                         </div>
                         <div class="row padd-2r">
-                            <div class="col-sm-12 col-md-6 pr-md-25">
+                            <div class="col-sm-12 col-md-6 mob-form-top-margin pr-md-25">
                                 <div class="sewn-form-field mb-0 w-100">
                                     <label>{{ 'roast_level' | translate }}</label>
                                     <p-dropdown
@@ -535,7 +535,7 @@
                                     ></p-dropdown>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-6 pl-md-25">
+                            <div class="col-sm-12 col-md-6 mob-form-top-margin pl-md-25">
                                 <div class="sewn-form-field mb-0 w-100">
                                     <label>{{ 'roasting_time' | translate }}</label>
                                     <input
@@ -547,16 +547,17 @@
                             </div>
                         </div>
                         <div class="row padd-2r">
-                            <div class="col-sm-12 col-md-6 pr-md-25">
+                            <div class="col-sm-12 col-md-6 mob-form-top-margin pr-md-25">
                                 <div class="sewn-form-field mb-0 w-100">
                                     <label>{{ 'roasting_temperature' | translate }}</label>
-                                    <p-inputNumber
+                                    <input
                                         [formControl]="addOrdersForm.controls['roasting_temperature']"
                                         placeholder="{{ 'enter_roasting_temperature' | translate }}"
-                                    ></p-inputNumber>
+                                        pInputText
+                                    />
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-6 pl-md-25">
+                            <div class="col-sm-12 col-md-6 mob-form-top-margin pl-md-25">
                                 <div class="sewn-form-field mb-0 w-100">
                                     <div>
                                         <label>{{ 'machine_used' | translate }}</label>
@@ -570,7 +571,7 @@
                             </div>
                         </div>
                         <div class="row padd-2r">
-                            <div class="col-md-6 col-sm-12 pr-md-25">
+                            <div class="col-md-6 mob-form-top-margin col-sm-12 pr-md-25">
                                 <div class="sewn-form-field mb-0 w-100">
                                     <div>
                                         <label>{{ 'waste_produced' | translate }}</label>
@@ -581,7 +582,7 @@
                         </div>
                     </div>
                     <div *ngIf="addOrdersForm.get('customer_type').value === 'mr'" class="row padd-2r">
-                        <div class="col-md-6 col-sm-12 pl-md-3">
+                        <div class="col-md-6 mob-form-top-margin col-sm-12 pl-md-3">
                             <div class="sewn-form-field mb-0 w-100">
                                 <label
                                     >{{ 'green_coffee_quantity_sold' | translate
@@ -630,7 +631,7 @@
                         </div>
                     </div>
                     <div *ngIf="addOrdersForm.get('customer_type').value === 'mr'" class="row padd-2r">
-                        <div class="col-sm-12 col-md-6 pl-md-3">
+                        <div class="col-sm-12 col-md-6 mob-form-top-margin pl-md-3">
                             <div class="sewn-form-field mb-0 w-100">
                                 <label>{{ 'pre_cleaned' | translate }}</label>
                                 <p-dropdown
@@ -642,7 +643,7 @@
                                 ></p-dropdown>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-6 pl-md-3">
+                        <div class="col-sm-12 col-md-6 mob-form-top-margin pl-md-3">
                             <div class="sewn-form-field mb-0 w-100">
                                 <label>{{ 'waste_produced' | translate }}</label>
                                 <input
@@ -673,7 +674,7 @@
                     </div>
                     <div
                         *ngIf="addOrdersForm.get('customer_id').value"
-                        class="col-lg-12 col-md-6 d-lg-block d-md-block d-none d-sm-none d-xl-block ml-lg-0 ml-md-2 px-0"
+                        class="col-lg-12 col-md-6 mob-form-top-margin d-lg-block d-md-block d-none d-sm-none d-xl-block ml-lg-0 ml-md-2 px-0"
                     >
                         <ng-container *ngTemplateOutlet="customerOrderDetails"></ng-container>
                     </div>
@@ -735,7 +736,7 @@
                     <button class="btn-raised text-nowrap px-4 w-mob-100 mt-3 mt-md-0" (click)="addOrderDetails()">
                         {{ 'save' | translate }}
                     </button>
-                    <button class="btn-stroked px-4 mt-3 mr-3 w-mob-100" (click)="location.back()">
+                    <button class="btn-stroked px-4 mt-3 ml-md-3 w-mob-100" (click)="location.back()">
                         {{ 'cancel' | translate }}
                     </button>
                 </div>
@@ -756,7 +757,7 @@
                     >
                     </app-avatar>
                     <div>
-                        <ul class="details-list ml-2">
+                        <ul class="details-list pl-0 ml-2">
                             <li class="fnt-14 lh-15 fnt-600">
                                 {{ orderDetails.estate_name }}
                             </li>
@@ -888,7 +889,7 @@
                     >
                     </app-avatar>
                     <div>
-                        <ul class="details-list ml-2">
+                        <ul class="details-list pl-0 ml-2">
                             <li class="fnt-14 lh-15 fnt-600">
                                 {{ customerDetails.name }}
                             </li>
