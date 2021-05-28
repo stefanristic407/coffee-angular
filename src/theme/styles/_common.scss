@@ -504,3 +504,9 @@ span.star {
         height: 256px;
     }
 }
+
+.no-bullet-ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
