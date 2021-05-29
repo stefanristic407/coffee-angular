@@ -143,5 +143,5 @@
 </ng-container>
 
 <ng-container *ngIf="!fileShareSrv.mainData?.length">
-    <app-empty title="No data available"></app-empty>
+    <app-empty [title]="emptyTitle"></app-empty>
 </ng-container>

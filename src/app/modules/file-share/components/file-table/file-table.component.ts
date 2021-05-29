@@ -14,6 +14,7 @@ import { ResizeableComponent } from '@base-components';
 })
 export class FileTableComponent extends ResizeableComponent implements OnInit {
     @Input() listType = '';
+    @Input() emptyTitle = this.globals.languageJson?.no_data_available;
     tableColumns = [];
     disableAction = false;
 
