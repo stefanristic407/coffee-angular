@@ -26,7 +26,7 @@
         <a *ngIf="menu.hasSubMenu" class="d-inline-block fnt-600" href="javascript:void(0)" (click)="onClick(menu.id)"
             >{{ menu.title | translate }}
         </a>
-        <ul *ngIf="menu.hasSubMenu; &quot;sub-menu&quot;" class="nav-dropdown mb-0" [id]="'sub-menu-' + menu.id">
+        <ul *ngIf="menu.hasSubMenu; &quot;sub-menu&quot;" class="nav-dropdown mb-0 no-bullet-ul" [id]="'sub-menu-' + menu.id">
             <app-menu [menuParentId]="menu.id"></app-menu>
         </ul>
     </li>
