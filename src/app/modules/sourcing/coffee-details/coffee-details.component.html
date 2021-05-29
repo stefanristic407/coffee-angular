@@ -388,9 +388,14 @@
             </button>
         </div>
         <div class="col-6 col-md-auto">
-            <a class="btn-raised w-100" routerLink="/sourcing/buy-gc" [queryParams]="{ gc_id: sourcing.harvestId }">
+            <button
+                class="btn-raised w-100"
+                routerLink="/sourcing/buy-gc"
+                [queryParams]="{ gc_id: sourcing.harvestId }"
+                [disabled]="sourcing.harvestDetail?.minimum_purchase_quantity > sourcing.harvestDetail?.quantity_count"
+            >
                 {{ 'buy' | translate }}
-            </a>
+            </button>
         </div>
     </div>
 </ng-template>
