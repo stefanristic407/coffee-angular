@@ -39,6 +39,7 @@ export class AddNewOrderComponent implements OnInit {
     customerID: any;
     createdID: any;
     loginUserID: string;
+    wasteProduced: string;
 
     constructor(
         private roasterService: RoasterserviceService,
@@ -91,7 +92,7 @@ export class AddNewOrderComponent implements OnInit {
         this.addOrdersForm = this.fb.group({
             product_name: ['', [Validators.required]],
             order_date: ['', [Validators.required]],
-            order_id: ['', [Validators.required]],
+            order_id: [''],
             roaster_ref_no: [''],
             company_type: [''],
             created_by: [''],
@@ -195,6 +196,8 @@ export class AddNewOrderComponent implements OnInit {
             if (res.success) {
                 this.outtakeOrderDetails = res.result;
                 this.customerID = this.outtakeOrderDetails.customer_id;
+                this.wasteProduced =
+                    this.outtakeOrderDetails.waste_produced + ' ' + this.outtakeOrderDetails.waste_produced_unit;
                 this.outtakeOrderDetails.order_date = new Date(this.outtakeOrderDetails.order_date);
                 this.outtakeOrderDetails.roasted_date = new Date(this.outtakeOrderDetails.roasted_date);
                 this.addOrdersForm.patchValue(this.outtakeOrderDetails);
@@ -228,7 +231,7 @@ export class AddNewOrderComponent implements OnInit {
     onSelectType(type: string) {
         if (type === 'customer-name') {
             if (this.addOrdersForm.get('customer_type').value === 'mr') {
-                this.selectedType = this.globals.languageJson?.micro_roasters;
+                this.selectedType = 'micro-roasters';
             } else if (this.addOrdersForm.get('customer_type').value === 'hrc') {
                 this.selectedType = 'hrc';
             }
@@ -260,8 +263,12 @@ export class AddNewOrderComponent implements OnInit {
         const data = this.addOrdersForm.value;
         this.addOrdersForm.get('roaster_ref_no').disable();
         this.addOrdersForm.get('company_type').disable();
-        data.sales_member_id = this.userID;
-        data.order_created_by = this.createdID;
+        data.order_created_by = this.createdID || this.outtakeOrderDetails.created_by;
+        data.sales_member_id = this.userID || this.outtakeOrderDetails.sales_member_id;
+        if (this.outtakeOrderDetails) {
+            data.order_id = this.outtakeOrderDetails.order_id;
+            data.customer_id = this.outtakeOrderDetails.customer_id;
+        }
         data.company_type = this.addOrdersForm.get('company_type').value
             ? this.addOrdersForm.get('company_type').value
             : '';

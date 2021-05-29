@@ -113,24 +113,24 @@ export class LotSaleComponent implements OnInit {
                 field: 'order_id',
                 header: this.globals.languageJson?.order_id,
                 sortable: false,
-                width: 15,
+                width: 12,
             },
             {
                 field: 'lot_id',
                 header: this.globals.languageJson?.lot_id,
                 sortable: false,
-                width: 15,
+                width: 10,
             },
             {
                 field: 'estate_name',
                 header: this.globals.languageJson?.estate,
-                width: 25,
+                width: 15,
             },
             {
                 field: 'order_reference',
                 header: this.globals.languageJson?.roaster_ref_no,
                 sortable: false,
-                width: 20,
+                width: 15,
             },
             {
                 field: 'origin',
@@ -142,19 +142,19 @@ export class LotSaleComponent implements OnInit {
                 field: 'species',
                 header: this.globals.languageJson?.species,
                 sortable: false,
-                width: 15,
+                width: 12,
             },
             {
                 field: 'varieties',
                 header: this.globals.languageJson?.variety,
                 sortable: false,
-                width: 15,
+                width: 12,
             },
             {
                 field: 'price',
                 header: this.globals.languageJson?.buying_price,
                 sortable: false,
-                width: 15,
+                width: 12,
             },
             {
                 field: 'cup_score',
@@ -166,7 +166,7 @@ export class LotSaleComponent implements OnInit {
                 field: 'quantity',
                 header: this.globals.languageJson?.stock_in_hand,
                 sortable: false,
-                width: 15,
+                width: 18,
             },
         ];
     }

@@ -570,13 +570,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row padd-2r">
+                        <div *ngIf="outtakeOrderDetails?.waste_produced" class="row padd-2r">
                             <div class="col-md-6 mob-form-top-margin col-sm-12 pr-md-25">
                                 <div class="sewn-form-field mb-0 w-100">
                                     <div>
                                         <label>{{ 'waste_produced' | translate }}</label>
                                     </div>
-                                    <input pInputText placeholder="{{ 'total_waste_produced' | translate }}" />
+                                    <input
+                                        pInputText
+                                        placeholder="{{ 'total_waste_produced' | translate }}"
+                                        [value]="wasteProduced"
+                                        disabled
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -643,13 +648,17 @@
                                 ></p-dropdown>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-6 mob-form-top-margin pl-md-3">
+                        <div
+                            *ngIf="outtakeOrderDetails?.waste_produced"
+                            class="col-sm-12 col-md-6 mob-form-top-margin pl-md-3"
+                        >
                             <div class="sewn-form-field mb-0 w-100">
                                 <label>{{ 'waste_produced' | translate }}</label>
                                 <input
                                     pInputText
                                     placeholder="{{ 'total_waste_produced' | translate }}"
-                                    [formControl]="addOrdersForm.controls['waste_produced']"
+                                    [value]="wasteProduced"
+                                    disabled
                                 />
                             </div>
                         </div>
@@ -878,7 +887,7 @@
     </div>
 </ng-template>
 <ng-template #customerOrderDetails>
-    <div *ngIf="customerDetails" class="order-box px-0 mt-md-3 mt-lg-0">
+    <div *ngIf="customerDetails" class="order-box px-0 mt-md-3">
         <label class="primary_txt mb-2 my-lg-3">{{ 'customer_details' | translate }}</label>
         <div class="order-details-clr">
             <div class="d-flex justify-content-between mb-md-45 mb-2 mb-lg-475">
