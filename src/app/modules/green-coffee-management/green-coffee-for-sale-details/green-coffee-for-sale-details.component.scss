@@ -119,9 +119,18 @@ ul {
     border-radius: 4px;
     padding: 14px;
 }
+
 ::ng-deep .breadCrumb .p-breadcrumb ul {
     width: max-content;
 }
+
+.lot-link {
+    color: #80460b;
+}
+.lot-link:hover {
+    text-decoration: underline;
+}
+
 @media (max-width: 767px) {
     .source-cont-available {
         padding: 24px 8px;

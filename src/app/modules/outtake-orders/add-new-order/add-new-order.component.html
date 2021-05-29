@@ -342,7 +342,7 @@
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="addOrdersForm.get('tax_included_in_price').value" class="row padd-2r">
+                    <div class="row padd-2r">
                         <div class="col-md-6 mob-form-top-margin col-sm-12 pr-md-25">
                             <div class="sewn-form-field mb-0 w-100">
                                 <label>{{ 'vat_percentage' | translate }}<span class="text-clr-e5a">*</span></label>
@@ -887,7 +887,7 @@
     </div>
 </ng-template>
 <ng-template #customerOrderDetails>
-    <div *ngIf="customerDetails" class="order-box px-0 mt-md-3">
+    <div *ngIf="customerDetails" class="order-box px-0 mt-md-4 pt-lg-35">
         <label class="primary_txt mb-2 my-lg-3">{{ 'customer_details' | translate }}</label>
         <div class="order-details-clr">
             <div class="d-flex justify-content-between mb-md-45 mb-2 mb-lg-475">
