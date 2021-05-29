@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="mt-1 mt-lg-3 col-lg-12 col-md-12 p-0">
                             <p-tabView [(activeIndex)]="tabIndex" (onChange)="handleChange($event)">
-                                <p-tabPanel header="{{ globals.languageJson?.images }}">
+                                <p-tabPanel header="{{ 'images' | translate }}">
                                     <ng-template pTemplate="content">
                                         <div
                                             class="row mt-25 mt-md-4 gutter-8 gutter-md-20 v-gutter-8 v-gutter-md-20 social-post-farmlink"
@@ -87,7 +87,7 @@
                                         </div>
                                     </ng-template>
                                 </p-tabPanel> -->
-                                <p-tabPanel header="{{ globals.languageJson?.blogs }}">
+                                <p-tabPanel header="{{ 'blogs' | translate }}">
                                     <ng-template pTemplate="content">
                                         <div class="row mt-2 mt-md-3">
                                             <div

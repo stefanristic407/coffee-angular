@@ -203,8 +203,19 @@
                                                         </li>
                                                         <li>
                                                             <label>Lot ID</label>
-                                                            <p>
+                                                            <p
+                                                                class="cursor-pointer lot-link"
+                                                                [routerLink]="'/green-coffee-management/lot-sale'"
+                                                                [queryParams]="{ orderId: orderDetails.id }"
+                                                            >
                                                                 {{ orderDetails.lot_id ? orderDetails.lot_id : 'NA' }}
+                                                            </p>
+                                                        </li>
+
+                                                        <li>
+                                                            <label>{{ 'gc_order_id' | translate }}</label>
+                                                            <p>
+                                                                {{ orderDetails.id ? orderDetails.id : 'NA' }}
                                                             </p>
                                                         </li>
                                                         <li>
