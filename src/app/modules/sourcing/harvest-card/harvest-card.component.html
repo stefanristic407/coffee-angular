@@ -13,8 +13,7 @@
         <div class="fnt-14 fnt-md-16 fnt-500 text-clr588 mb-3">{{ data.estate?.name || '-' }}</div>
         <div class="fnt-16 fnt-md-18 fnt-bold text-clr334">
             <span>{{ data.price * (sourcingSrv.quantityUnit == QuantityUnit.lb ? LBUNIT : 1) | number: '1.0-2' }}</span
-            >&nbsp;
-            <span>{{ data.price_unit }}/{{ sourcingSrv.quantityUnit }}</span>
+            >&nbsp;<span>{{ data.price_unit }}/{{ sourcingSrv.quantityUnit }}</span>
         </div>
         <div class="pad-card">
             <div class="d-flex flex-wrap">

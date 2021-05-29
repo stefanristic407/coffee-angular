@@ -5,11 +5,12 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { maxWordCountValidator } from '@utils';
 import { ImageCroppedEvent, ImageCropperComponent, ImageTransform } from 'ngx-image-cropper';
 import { OrganizationType } from '@enums';
+import { QUANTIRY_UNIT_LIST } from '@constants';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -18,6 +19,7 @@ import { OrganizationType } from '@enums';
     styleUrls: ['./about-roastery.component.scss'],
 })
 export class AboutRoasteryComponent implements OnInit, AfterViewInit {
+    readonly QUANTIRY_UNIT_LIST = QUANTIRY_UNIT_LIST;
     ownerName?: string;
     foundedIn?: any;
     summary: string;
@@ -53,7 +55,6 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
     ];
     addBtn = true;
     assignRow = false;
-    assignButtonValue = 'Add Contact';
     brands = [];
     filteredBrands = [];
     chartData: any;
@@ -67,6 +68,7 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
     roasterUsersOptions?: any[];
     aboutForm: FormGroup;
     brandForm: FormGroup;
+    membersForm: FormGroup;
 
     isSaveMode: boolean;
     isEditMode: boolean;
@@ -90,6 +92,10 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
     imageChangedEvent: any = '';
     @ViewChild(ImageCropperComponent, { static: false })
     imageCropper: ImageCropperComponent;
+
+    get members() {
+        return this.membersForm.get('members') as FormArray;
+    }
 
     constructor(
         public roasteryProfileService: RoasteryProfileService,
@@ -127,14 +133,14 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
                 this.chartData = [
                     {
                         name: 'Female',
-                        value: this.roasteryProfileService.roasteryProfileData
-                            ? this.roasteryProfileService.roasteryProfileData.female_employee_count
+                        value: this.roasteryProfileService.organizationProfile
+                            ? this.roasteryProfileService.organizationProfile.female_employee_count
                             : 0,
                     },
                     {
                         name: 'Male',
-                        value: this.roasteryProfileService.roasteryProfileData
-                            ? this.roasteryProfileService.roasteryProfileData.male_employee_count
+                        value: this.roasteryProfileService.organizationProfile
+                            ? this.roasteryProfileService.organizationProfile.male_employee_count
                             : 0,
                     },
                 ];
@@ -192,27 +198,27 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
             name: ['', Validators.compose([Validators.required])],
             description: ['', Validators.compose([Validators.required, maxWordCountValidator(50)])],
         });
+
+        this.membersForm = this.fb.group({
+            members: this.fb.array([]),
+        });
+
+        this.members.valueChanges.subscribe((changedData: any) => {
+            this.roasteryProfileService.editTopContacts(changedData);
+        });
     }
 
     setFormValue() {
-        const formValue = {
-            owner_name: this.roasteryProfileService.roasteryProfileData.owner_name,
-            founded_on: this.roasteryProfileService.roasteryProfileData.founded_on,
-            description: this.roasteryProfileService.roasteryProfileData.description,
-            total_employees: this.roasteryProfileService.roasteryProfileData.total_employees,
-            avg_employee_age: this.roasteryProfileService.roasteryProfileData.avg_employee_age,
-            female_employee_count: this.roasteryProfileService.roasteryProfileData.female_employee_count,
-            male_employee_count: this.roasteryProfileService.roasteryProfileData.male_employee_count,
-            company_details_public: this.roasteryProfileService.roasteryProfileData.company_details_public,
-            vat_number: this.roasteryProfileService.roasteryProfileData.vat_number,
-            registration_id: this.roasteryProfileService.roasteryProfileData.registration_id,
-            capacity: this.roasteryProfileService.roasteryProfileData.capacity,
-            capacity_unit: this.roasteryProfileService.roasteryProfileData.capacity_unit,
-            capabilities: this.roasteryProfileService.roasteryProfileData.capabilities,
-        };
-        this.aboutForm.setValue(formValue);
+        this.aboutForm.patchValue(this.roasteryProfileService.toUpdateProfileData);
 
         this.chartData = this.roasteryProfileService.single;
+
+        while (this.members.length !== 0) {
+            this.members.removeAt(0);
+        }
+        this.roasteryProfileService.topContacts.forEach((element) => {
+            this.members.push(this.fb.control(element.user_id, Validators.compose([Validators.required])));
+        });
     }
 
     getRoasterUsers() {
@@ -226,6 +232,17 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
                 });
             }
         });
+    }
+
+    usersOptions(curIdx = null): number[] {
+        const localArray = [];
+        this.roasterUsersOptions.forEach((element) => {
+            const idx = this.members.value.findIndex((item, index) => item === element.value && curIdx !== index);
+            if (idx < 0) {
+                localArray.push(element);
+            }
+        });
+        return localArray;
     }
 
     getCertificates() {
@@ -257,58 +274,26 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
         });
     }
 
-    onSelect(data): void {
-        console.log('Item clicked', JSON.parse(JSON.stringify(data)));
-    }
-
-    onActivate(data): void {
-        console.log('Activate', JSON.parse(JSON.stringify(data)));
-    }
-
-    onDeactivate(data): void {
-        console.log('Deactivate', JSON.parse(JSON.stringify(data)));
+    deleteMember(idx) {
+        this.members.removeAt(idx);
     }
 
     addContact() {
-        const contactData = {
-            user_id: this.employeeId,
-        };
-        this.assignButtonValue = 'Adding';
-        this.roasterService.addRoasterContacts(this.roasterId, contactData).subscribe((result: any) => {
-            if (result.success === true) {
-                this.assignButtonValue = 'Add Contact';
-                this.toastrService.success('Contact has been added.');
-                this.roasteryProfileService.getcontactList();
-                this.assignRow = false;
-                this.addBtn = true;
-                this.roasteryProfileService.showDelete = true;
-            } else {
-                this.assignButtonValue = 'Add Contact';
-                this.toastrService.error('Error while assigning the role');
-            }
-        });
+        this.members.push(this.fb.control(this.employeeId, Validators.compose([Validators.required])));
+        this.employeeId = null;
+        this.assignRow = false;
+        this.addBtn = true;
     }
 
     showContact() {
         this.addBtn = false;
         this.assignRow = true;
-        // this.showDelete = true;
     }
 
     cancelAssign() {
         this.addBtn = true;
         this.assignRow = false;
-    }
-
-    removeContact(contactId: any) {
-        this.roasterService.deleteRoasterContacts(this.roasterId, contactId).subscribe((data: any) => {
-            if (data.success === true) {
-                this.toastrService.success('The selected contact has been removed successfully');
-                this.roasteryProfileService.getcontactList();
-            } else {
-                this.toastrService.error('Error while deleting the contact');
-            }
-        });
+        this.employeeId = null;
     }
 
     editBrand(brand) {

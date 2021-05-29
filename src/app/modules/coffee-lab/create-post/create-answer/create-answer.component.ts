@@ -19,6 +19,7 @@ export class CreateAnswerComponent implements OnInit {
     forumId: any;
     isLoading: boolean;
     language: string;
+    parentQuestionIsAllowTranslation = false;
 
     // these 4 parameters are mandatory to use forum-editor
     content: any;
@@ -45,12 +46,23 @@ export class CreateAnswerComponent implements OnInit {
         if (this.forumId) {
             this.getForumById();
         }
+        if (this.parentForumType === 'question') {
+            this.getQuestionById();
+        }
+    }
+
+    getQuestionById(): void {
+        this.coffeeLabService.getForumDetails('question', this.parentForumId).subscribe(res => {
+            console.log('parent question >>>>>>>>', res);
+            this.parentQuestionIsAllowTranslation = res?.result?.allow_translation;
+        });
     }
 
     getForumById(): void {
         this.isLoading = true;
         this.coffeeLabService.getForumDetails(this.forumType, this.forumId).subscribe((res: any) => {
             this.isLoading = false;
+            console.log('forum detail >>>>>>>', res);
             if (res.success) {
                 if (this.forumType === 'comment') {
                     this.content = res.result.comment;
@@ -58,6 +70,7 @@ export class CreateAnswerComponent implements OnInit {
                     this.language = res.result.lang_code;
                     this.content = res.result.answer;
                     this.images = res.result.images;
+                    this.isAllowTranslation = res.result?.allow_translation;
                 }
             } else {
                 this.toastrService.error('Error while get comment');
@@ -75,7 +88,7 @@ export class CreateAnswerComponent implements OnInit {
         if (this.forumType === 'answer') {
             data = {
                 answer: this.content,
-                allow_translation: this.isAllowTranslation ? 1 : 0,
+                allow_translation: this.parentQuestionIsAllowTranslation ? (this.isAllowTranslation ? 1 : 0) : 0,
                 status,
                 images: this.imageIdList,
                 language: this.language,

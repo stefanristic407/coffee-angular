@@ -36,7 +36,7 @@
                     name="search"
                     class="search-raised w-100 ml-0"
                     [(ngModel)]="termSearch"
-                    (ngModelChange)="getRoastingProfile()"
+                    (ngModelChange)="getData()"
                     placeholder="Search by roast name"
             />
         </div>
@@ -47,7 +47,7 @@
                     optionLabel="label"
                     optionValue="value"
                     [(ngModel)]="roastLevelFilter"
-                    (onChange)="filterCall()"
+                    (onChange)="getData()"
                     scrollHeight="225px"
                     [showClear]="true"
                     placeholder="Roast level"
@@ -61,7 +61,7 @@
                     name="search"
                     class="search-raised pull-right"
                     [(ngModel)]="termSearch"
-                    (ngModelChange)="getRoastingProfile()"
+                    (ngModelChange)="getData()"
                     placeholder="Search by roast name"
                 />
             </div>
@@ -78,9 +78,11 @@
                 [resizableColumns]="true"
                 styleClass="ui-table-customers"
                 [showCurrentPageReport]="false"
-                [paginator]="false"
+                [paginator]="true"
+                [rows]="10"
                 [lazy]="true"
-                (onLazyLoad)="getRoastingProfile()"
+                [loading]="isLoadingProfiles"
+                (onLazyLoad)="getData($event)"
                 [totalRecords]="totalCount"
                 selectionMode="multiple"
                 [responsive]="sharedService.isMobileView"
@@ -179,14 +181,14 @@
                                             <div class="mobileCardBody d-flex">
                                                 <span class="width-head secondary_txt">Temperature</span>
                                                 <span class="width-desc primary_txt mobileValueTxt fnt-600"
-                                                    >{{ rowData['temperature'] }}°C</span
+                                                    >{{ rowData['temperature'] }}</span
                                                 >
                                             </div>
 
                                             <div class="pt-3 d-flex">
                                                 <span class="width-head secondary_txt">Duration</span>
                                                 <span class="width-desc primary_txt mobileValueTxt fnt-600"
-                                                    >{{ rowData['roast_duration'] }} min</span
+                                                    >{{ rowData['roast_duration'] }}</span
                                                 >
                                             </div>
                                         </div>
@@ -230,10 +232,10 @@
                                 <span>{{ getRoastLevel(rowData[col.field]) }}</span>
                             </span>
                             <span *ngSwitchCase="'temperature'" class="">
-                                <span>{{ rowData[col.field] }}°C</span>
+                                <span>{{ rowData[col.field] }}</span>
                             </span>
                             <span *ngSwitchCase="'roast_duration'" class="">
-                                <span>{{ rowData[col.field] }} min</span>
+                                <span>{{ rowData[col.field] }}</span>
                             </span>
                             <span *ngSwitchDefault>
                                 <span>{{ rowData[col.field] }}</span>

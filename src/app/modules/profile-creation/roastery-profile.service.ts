@@ -27,7 +27,7 @@ export class RoasteryProfileService {
     public aboutFormInvalid = false;
     public contactFormInvalid = false;
     public toUpdateProfileData: OrganizationProfile;
-    public roasteryProfileData: OrganizationProfile;
+    public organizationProfile: OrganizationProfile;
 
     public invalidSumEmployee = false;
 
@@ -36,7 +36,8 @@ export class RoasteryProfileService {
     userId: string;
     roasterId: string;
     roasterUsers: any = [];
-    roasterContacts: any = [];
+    topContacts: any = [];
+    updatedContacts: number[] = [];
     single: { name: string; value: any }[];
     showDelete = false;
     bannerUrl?: string;
@@ -60,31 +61,35 @@ export class RoasteryProfileService {
 
     public editProfileData(subData: any) {
         this.toUpdateProfileData = {
-            ...this.roasteryProfileData,
+            ...this.toUpdateProfileData,
             ...subData,
         };
+    }
+
+    public editTopContacts(subData: any) {
+        this.updatedContacts = subData;
     }
 
     roasterProfile() {
         this.userService.getRoasterAccount(this.roasterId).subscribe((result: any) => {
             if (result.success) {
                 console.log('roaster details: ', result);
-                this.roasteryProfileData = result.result;
+                this.organizationProfile = result.result;
                 this.toUpdateProfileData = result.result;
 
-                this.profilePhotoService.croppedImage = this.roasteryProfileData.company_image_url;
+                this.profilePhotoService.croppedImage = this.organizationProfile.company_image_url;
 
                 this.single = [
                     {
                         name: 'Female',
-                        value: this.roasteryProfileData.female_employee_count
-                            ? this.roasteryProfileData.female_employee_count
+                        value: this.organizationProfile.female_employee_count
+                            ? this.organizationProfile.female_employee_count
                             : 0,
                     },
                     {
                         name: 'Male',
-                        value: this.roasteryProfileData.male_employee_count
-                            ? this.roasteryProfileData.male_employee_count
+                        value: this.organizationProfile.male_employee_count
+                            ? this.organizationProfile.male_employee_count
                             : 0,
                     },
                 ];
@@ -105,7 +110,7 @@ export class RoasteryProfileService {
     getcontactList() {
         this.roasterService.getRoasterContacts(this.roasterId).subscribe((res: any) => {
             if (res.success) {
-                this.roasterContacts = res.result;
+                this.topContacts = res.result || [];
             }
         });
     }
@@ -160,42 +165,105 @@ export class RoasteryProfileService {
     }
 
     updateRoasterAccount(): void {
-        const data: OrganizationProfile = this.toUpdateProfileData;
-        this.userService.updateRoasterAccount(this.roasterId, data).subscribe((response: any) => {
-            if (response.success === true) {
-                const base64Rejex = /^data:image\/(?:gif|png|jpeg|bmp|webp)(?:;charset=utf-8)?;base64,(?:[A-Za-z0-9]|[+/])+={0,2}/;
-                const isBase64Valid = base64Rejex.test(this.profilePhotoService.croppedImage); // base64Data is the base64 string
-
-                if (isBase64Valid === false) {
-                    this.toastrService.success('Roaster profile details updated successfully');
-
-                    this.roasterProfile();
-                } else {
-                    const ImageURL = this.profilePhotoService.croppedImage;
-                    const block = ImageURL.split(';');
-                    const contentType = block[0].split(':')[1];
-                    const realData = block[1].split(',')[1];
-                    // Convert it to a blob to upload
-                    const blob = this.b64toBlob(realData, contentType, 0);
-                    const formData: FormData = new FormData();
-                    formData.append('file', blob);
-                    formData.append('api_call', '/ro/' + this.roasterId + '/company-image');
-                    formData.append('token', this.cookieService.get('Auth'));
-                    this.userService.uploadProfileImage(formData).subscribe((result: any) => {
-                        if (result.success) {
-                            this.toastrService.success('Roaster profile details updated successfully');
-                            this.roasterProfile();
-                        } else {
-                            this.isSaving = false;
-                            this.toastrService.error('Error while uploading company image, please try again.');
-                        }
-                    });
-                }
-            } else {
-                this.isSaving = false;
-                this.toastrService.error('Error while updating details, please try again.');
+        const promises = [];
+        // add top contacts
+        this.updatedContacts.forEach((element) => {
+            const idx = this.topContacts.findIndex((item) => item.user_id === element);
+            if (element && element && idx === -1) {
+                const payload = {
+                    user_id: element,
+                };
+                promises.push(
+                    new Promise((resolve, reject) =>
+                        this.roasterService.addRoasterContacts(this.roasterId, payload).subscribe(
+                            (res: any) => {
+                                if (res.success) {
+                                    resolve(res.result);
+                                } else {
+                                    reject();
+                                }
+                            },
+                            (err) => {
+                                reject();
+                            },
+                        ),
+                    ),
+                );
             }
         });
+        // remove top contacts
+        this.topContacts.forEach((element) => {
+            const idx = this.updatedContacts.findIndex((item) => item === element.user_id);
+            if (idx === -1) {
+                promises.push(
+                    new Promise((resolve, reject) => {
+                        this.roasterService.deleteRoasterContacts(this.roasterId, element.id).subscribe(
+                            (res: any) => {
+                                if (res.success) {
+                                    resolve(res.result);
+                                }
+                            },
+                            (err) => {
+                                reject();
+                            },
+                        );
+                    }),
+                );
+            }
+        });
+
+        const data: OrganizationProfile = this.toUpdateProfileData;
+        delete data.company_image_url;
+        delete data.company_image_thumbnail_url;
+        promises.push(
+            new Promise((resolve, reject) => {
+                this.userService.updateRoasterAccount(this.roasterId, data).subscribe((response: any) => {
+                    if (response.success) {
+                        resolve(response.success);
+                    } else {
+                        reject();
+                    }
+                });
+            }),
+        );
+
+        const base64Rejex = /^data:image\/(?:gif|png|jpeg|bmp|webp)(?:;charset=utf-8)?;base64,(?:[A-Za-z0-9]|[+/])+={0,2}/;
+        const isBase64Valid = base64Rejex.test(this.profilePhotoService.croppedImage); // base64Data is the base64 string
+        if (isBase64Valid) {
+            const ImageURL = this.profilePhotoService.croppedImage;
+            const block = ImageURL.split(';');
+            const contentType = block[0].split(':')[1];
+            const realData = block[1].split(',')[1];
+            // Convert it to a blob to upload
+            const blob = this.b64toBlob(realData, contentType, 0);
+            const formData: FormData = new FormData();
+            formData.append('file', blob);
+            formData.append('api_call', '/ro/' + this.roasterId + '/company-image');
+            formData.append('token', this.cookieService.get('Auth'));
+            promises.push(
+                new Promise((resolve, reject) => {
+                    this.userService.uploadProfileImage(formData).subscribe((result: any) => {
+                        if (result.success) {
+                            resolve(result.success);
+                        } else {
+                            reject();
+                        }
+                    });
+                }),
+            );
+        }
+
+        Promise.all(promises)
+            .then(() => {
+                this.roasterProfile();
+                this.isSaving = false;
+                this.toastrService.success('Roaster profile details updated successfully');
+            })
+            .catch(() => {
+                this.roasterProfile();
+                this.isSaving = false;
+                this.toastrService.error('Error while updating details, please try again.');
+            });
     }
 
     handleBannerImageFile(inputElement: any) {
@@ -225,12 +293,12 @@ export class RoasteryProfileService {
     }
 
     handleDeleteBannerImage(): void {
-        if (this.roasteryProfileData.banner_url && this.roasteryProfileData.banner_file_id !== 0) {
+        if (this.organizationProfile.banner_url && this.organizationProfile.banner_file_id !== 0) {
             this.userService.deleteBanner(this.roasterId).subscribe(
                 (res) => {
                     this.toastrService.success('Deleted Banner Image');
-                    this.roasteryProfileData.banner_file_id = 0;
-                    this.roasteryProfileData.banner_url = '';
+                    this.organizationProfile.banner_file_id = 0;
+                    this.organizationProfile.banner_url = '';
                     this.bannerUrl = '';
                 },
                 (error) => {
@@ -242,6 +310,7 @@ export class RoasteryProfileService {
     }
 
     editRoasterProfile() {
+        this.toUpdateProfileData = this.organizationProfile;
         this.isSaving = false;
         this.showDelete = true;
         this.editMode.next(false);
@@ -249,8 +318,8 @@ export class RoasteryProfileService {
     }
 
     preview() {
-        this.bannerUrl = this.roasteryProfileData.banner_url;
-        this.profilePhotoService.croppedImage = this.roasteryProfileData.company_image_url;
+        this.bannerUrl = this.organizationProfile.banner_url;
+        this.profilePhotoService.croppedImage = this.organizationProfile.company_image_url;
         this.editMode.next(true);
         this.saveMode.next(false);
     }

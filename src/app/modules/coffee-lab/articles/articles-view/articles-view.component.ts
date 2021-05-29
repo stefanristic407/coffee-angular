@@ -104,6 +104,7 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
             });
         } else {
             this.coffeeLabService.getForumList('article', params, this.forumLanguage).subscribe((res) => {
+                console.log('articles >>>>>>', res);
                 if (res.success) {
                     this.articlesData = res.result ?? [];
                     this.totalRecords = this.articlesData.length;

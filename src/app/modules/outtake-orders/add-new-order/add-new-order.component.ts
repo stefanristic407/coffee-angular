@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DownloadService, RoasterserviceService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
@@ -14,7 +14,6 @@ import { GlobalsService } from '@services';
     selector: 'app-add-new-order',
     templateUrl: './add-new-order.component.html',
     styleUrls: ['./add-new-order.component.scss'],
-    encapsulation: ViewEncapsulation.None,
 })
 export class AddNewOrderComponent implements OnInit {
     roasterId: any;
@@ -66,7 +65,7 @@ export class AddNewOrderComponent implements OnInit {
             { label: this.globals.languageJson?.outtake_order, routerLink: '/outtake-orders' },
             {
                 label: this.outtakeOrderId
-                    ? this.globals.languageJson?.order_id + '#' + this.outtakeOrderId
+                    ? this.globals.languageJson?.order_id + ' #' + this.outtakeOrderId
                     : this.globals.languageJson?.add_new_order,
             },
         ];
@@ -167,6 +166,7 @@ export class AddNewOrderComponent implements OnInit {
                         this.customerDetails = res.result;
                         this.addOrdersForm.get('customer_id').setValue(this.customerDetails.name);
                         this.addOrdersForm.get('company_type').setValue(this.customerDetails.company_type);
+                        this.addOrdersForm.get('company_type').disable();
                     }
                 });
         }
@@ -256,8 +256,10 @@ export class AddNewOrderComponent implements OnInit {
 
     addOrderDetails() {
         this.addOrdersForm.get('roaster_ref_no').enable();
+        this.addOrdersForm.get('company_type').disable();
         const data = this.addOrdersForm.value;
         this.addOrdersForm.get('roaster_ref_no').disable();
+        this.addOrdersForm.get('company_type').disable();
         data.sales_member_id = this.userID;
         data.order_created_by = this.createdID;
         data.company_type = this.addOrdersForm.get('company_type').value

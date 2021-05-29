@@ -198,11 +198,18 @@ export class SelectOrdersComponent implements OnInit {
     }
 
     filterCall() {
+        this.tableValue.map((org) => {
+            COUNTRY_LIST.find((item) => {
+                if (org.origin.toUpperCase() === item.isoCode) {
+                    this.originArray.push(item);
+                }
+            });
+        });
+        this.originArray = this.originArray.filter((v, i, a) => a.findIndex((t) => t.isoCode === v.isoCode) === i);
         this.getTableData();
     }
 
     loadFilterValues() {
-        this.originArray = COUNTRY_LIST;
         this.displayArray = [
             { label: '10', value: 10 },
             { label: '20', value: 20 },

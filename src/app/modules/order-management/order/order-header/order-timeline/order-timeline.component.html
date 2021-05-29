@@ -10,7 +10,7 @@
                     <span class="d-block is-complete"></span>
                     <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
                         <p
-                            class="order-status fnt-13 font-bold text-clr334 mt-md-2 mb-1"
+                            class="order-status fnt-13 fnt-bold text-clr334 mt-md-2 mb-1"
                             [class.text-muted]="index > currentPointIndex"
                         >
                             {{ point.label }}
@@ -25,7 +25,7 @@
                         </p>
                         <ng-template #statusInfo>
                             <p
-                                class="mb-0 fnt-14 fnt-sm-12 text-muted font-bold d-lg-block d-md-none d-sm-block"
+                                class="mb-0 fnt-14 fnt-sm-12 text-muted fnt-bold d-lg-block d-md-none d-sm-block"
                                 *ngIf="(index < 2 || index === 3) && getStatusAuthor(point) as statusAuthor"
                             >
                                 <ng-container *ngIf="index < 2 && statusAuthor.id">By :</ng-container>

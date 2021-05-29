@@ -40,7 +40,7 @@
                         <div class="d-flex flex-column fnt-12">
                             <div class="api-request-header d-flex justify-content-between px-2 py-25">
                                 <span
-                                    class="fnt-14 font-bold text-clr334"
+                                    class="fnt-14 fnt-bold text-clr334"
                                     [routerLink]="['/api-requests-list/generated-key-details']"
                                     [queryParams]="{ id: item.id, status: item.status }"
                                 >
@@ -111,9 +111,7 @@
                                     <span class="text-muted cell-header fnt-14">{{
                                         globals.languageJson?.customer_type
                                     }}</span>
-                                    <span class="text-clr334 fnt-14">{{
-                                        item.org_type == 'hrc' ? 'horeca' : 'Micro roaster'
-                                    }}</span>
+                                    <span class="text-clr334 fnt-14">{{ item.org_type | orgType }}</span>
                                 </div>
                                 <div class="py-3 d-flex">
                                     <span class="text-muted cell-header cell-header fnt-14">{{
@@ -127,7 +125,7 @@
                     <span class="d-none d-md-inline">{{ item.org_name }} </span>
                 </td>
                 <td class="d-none d-md-table-cell text-overflow-ellipsis">
-                    {{ item.org_type == 'hrc' ? 'horeca' : 'Micro roaster' }}
+                    {{ item.org_type == 'hrc' ? 'Partner' : 'Micro roaster' }}
                 </td>
                 <td class="d-none d-md-table-cell text-overflow-ellipsis">
                     {{ item.requested_at | date: 'MMM d, y' }}

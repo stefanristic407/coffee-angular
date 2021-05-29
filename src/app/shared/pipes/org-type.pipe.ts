@@ -9,8 +9,8 @@ export class OrgTypePipe implements PipeTransform {
         const organizations = {
             [OrganizationType.ESTATE]: 'Estate',
             [OrganizationType.FACILITATOR]: 'Facilitaor',
-            [OrganizationType.HORECA]: 'Horeca',
-            [OrganizationType.MICRO_ROASTER]: 'Micro Roaster',
+            [OrganizationType.HORECA]: 'Partner',
+            [OrganizationType.MICRO_ROASTER]: 'Micro-roaster',
             [OrganizationType.ROASTER]: 'Roaster',
             [OrganizationType.SEWN_ADMIN]: 'Admin',
         };

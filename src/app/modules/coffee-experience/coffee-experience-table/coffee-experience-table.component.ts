@@ -4,6 +4,7 @@ import { CustomerServiceService } from '@app/modules/people/customer-management/
 import { GlobalsService, RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { COUNTRY_LIST } from '@constants';
 
 @Component({
     selector: 'app-coffee-experience-table',
@@ -21,12 +22,12 @@ export class CoffeeExperienceTableComponent implements OnInit, OnChanges {
     @Input() customerType: any;
     rangeDates: any;
     selectedOrigin: string;
+    originArray = [];
     items = [
         { label: this.globals.languageJson.home, routerLink: '/features/welcome-aboard' },
         { label: this.globals.languageJson.brand_experience },
         { label: this.globals.languageJson.the_coffee_experience },
     ];
-    originData = [];
     displayItems = [
         { label: this.globals.languageJson.display + ' ' + 10, value: 10 },
         { label: this.globals.languageJson.display + ' ' + 20, value: 20 },
@@ -49,18 +50,14 @@ export class CoffeeExperienceTableComponent implements OnInit, OnChanges {
     ngOnChanges(): void {
         if (this.coffeeExperienceData) {
             this.filteredCoffeeData = this.coffeeExperienceData;
-            const origin = this.coffeeExperienceData.map((res) => {
-                if (res.origin) {
-                    return res.origin.toUpperCase();
-                }
+            this.filteredCoffeeData.map((org) => {
+                COUNTRY_LIST.find((item) => {
+                    if (org.origin.toUpperCase() === item.isoCode) {
+                        this.originArray.push(item);
+                    }
+                });
             });
-            this.originData = [...new Set(origin)];
-            this.originData = this.originData.map((item) => {
-                const transformItem = { label: '', value: '' };
-                transformItem.label = item;
-                transformItem.value = item;
-                return transformItem;
-            });
+            this.originArray = this.originArray.filter((v, i, a) => a.findIndex((t) => t.isoCode === v.isoCode) === i);
         }
     }
 
@@ -78,11 +75,7 @@ export class CoffeeExperienceTableComponent implements OnInit, OnChanges {
     }
 
     getOrdersData() {
-        if (this.selectedOrigin === '') {
-            this.filteredCoffeeData = this.coffeeExperienceData;
-        } else {
-            this.filteredCoffeeData = this.coffeeExperienceData.slice(0, this.filterDisplay);
-        }
+        this.filteredCoffeeData = this.coffeeExperienceData.slice(0, this.filterDisplay);
     }
 
     language() {

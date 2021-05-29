@@ -75,6 +75,7 @@
                                     formControlName="user"
                                     [suggestions]="usersList"
                                     field="name"
+                                    [forceSelection]="true"
                                     (completeMethod)="getUsersList($event)"
                                     placeholder="{{ 'Enter a name or email' | translate }}"
                                     scrollHeight="225px"

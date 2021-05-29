@@ -35,7 +35,7 @@
                     <input
                         type="file"
                         accept="image/png, image/jpeg"
-                        style="display: none"
+                        class="d-none"
                         #bannerFileInput
                         (change)="uploadImage($event, 0, 'recipeCoverImage')"
                     />
@@ -101,7 +101,7 @@
                 <input placeholder="eg. 45 min" formControlName="preparation_time" pInputText />
                 <small
                     *ngIf="recipeForm.controls['preparation_time'].errors?.required"
-                    class="p-error position-absolute p-error"
+                    class="position-absolute p-error"
                 >
                     Required
                 </small>
@@ -168,7 +168,10 @@
                     </div>
                 </div>
 
-                <div class="d-flex col-sm-12 col-md-1 col-lg-1 col-xl-1 w-100 pl-md-0 pl-lg-2 align-items-md-center">
+                <div
+                    *ngIf="recipeForm.controls.ingredients.value?.length > 1"
+                    class="d-flex col-sm-12 col-md-1 col-lg-1 col-xl-1 w-100 pl-md-0 pl-lg-2 align-items-md-center"
+                >
                     <div class="fnt-muli">
                         <span class="editBtn cursor-pointer" (click)="deleteIngredient(i)"> Delete </span>
                     </div>
@@ -223,7 +226,7 @@
                             <label class="d-block align-items-center justify-content-center pointer-item">
                                 <input
                                     type="file"
-                                    style="display: none"
+                                    class="d-none"
                                     #featureImage
                                     (change)="uploadImage($event, 0, 'recipeVideo')"
                                 />
@@ -266,7 +269,7 @@
                                         <input
                                             type="file"
                                             accept="image/png, image/jpeg"
-                                            style="display: none"
+                                            class="d-none"
                                             #stepImageCover
                                             (change)="uploadImage($event, 0, 'stepImage')"
                                         />
@@ -289,7 +292,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2 mb-3">
+                            <div
+                                *ngIf="recipeForm.controls.steps.value?.length > 1"
+                                class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2 mb-3"
+                            >
                                 <div class="fnt-muli">
                                     <span class="editBtn cursor-pointer" (click)="deleteStep(i)"> Delete Step </span>
                                 </div>
@@ -325,7 +331,7 @@
                             <label class="d-block align-items-center justify-content-center pointer-item">
                                 <input
                                     type="file"
-                                    style="display: none"
+                                    class="d-none"
                                     #featureImage
                                     (change)="uploadImage($event, 0, 'recipeVideo')"
                                 />
@@ -364,7 +370,7 @@
                     <div class="d-block align-items-center justify-content-center pointer-item">
                         <input
                             type="file"
-                            style="display: none"
+                            class="d-none"
                             #recipeVideo
                             (change)="uploadImage($event, 0, 'recipeVideo')"
                         />
@@ -431,7 +437,7 @@
                             <input
                                 type="file"
                                 accept="image/png, image/jpeg"
-                                style="display: none"
+                                class="d-none"
                                 #stepImageCover
                                 (change)="uploadImage($event, i, 'stepImage')"
                             />
@@ -453,7 +459,7 @@
                 </div>
                 <div
                     class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2 mb-3 d-none d-md-flex"
-                    *ngIf="recipeForm?.value?.preparation_method == 'steps'"
+                    *ngIf="recipeForm?.value?.preparation_method == 'steps' && recipeForm.controls.steps.value?.length > 1"
                 >
                     <div class="fnt-muli">
                         <span class="editBtn cursor-pointer" (click)="deleteStep(i)"> Delete Step </span>
@@ -479,7 +485,10 @@
                 label="Allow translations by other authors"
                 formControlName="allow_translation"
             ></p-checkbox>
-            <i class="pi pi-info-circle text-clr588 fnt-16 ml-2"></i>
+            <app-info-tooltip
+                    [title]="'translations' | translate"
+                    [description]="'translation-tooltip' | translate"
+            ></app-info-tooltip>
         </div>
         <div class="row mt-2 col-sm-12 m-0">
             <div class="col-md-6 order-2 order-md-1 p-0">

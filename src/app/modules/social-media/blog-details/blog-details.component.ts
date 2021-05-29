@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Location } from '@angular/common';
+import { DUMMY_BLOGS } from '@constants';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-blog-details',
@@ -8,15 +10,20 @@ import { ToastrService } from 'ngx-toastr';
     styleUrls: ['./blog-details.component.scss'],
 })
 export class BlogDetailsComponent implements OnInit {
-    constructor(private router: Router, private toastrService: ToastrService) {}
+    blogs = DUMMY_BLOGS;
+    recentBlogs: any[] = [];
+    blog: any;
 
-    ngOnInit(): void {}
+    constructor(public location: Location, private toastrService: ToastrService, private route: ActivatedRoute) {}
 
-    back() {
-        this.router.navigateByUrl('/social-media/media/blogs');
+    ngOnInit(): void {
+        this.route.params.subscribe((param) => {
+            this.blog = this.blogs.find((blog) => blog.id === Number(param.id));
+            this.getRecentBlogs();
+        });
     }
 
-    copySuccessAlert() {
-        this.toastrService.success('Media url is copied');
+    getRecentBlogs(): void {
+        this.recentBlogs = this.blogs.filter((blog) => blog.id !== this.blog.id);
     }
 }

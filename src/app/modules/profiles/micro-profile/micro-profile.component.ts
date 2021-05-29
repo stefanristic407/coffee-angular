@@ -30,8 +30,8 @@ export class MicroProfileComponent implements OnInit, OnDestroy {
 
         this.profileCreationService.roasterProfile(this.microRoasterId);
         console.log(
-            'profileCreationService.roasteryProfileData?.banner_url',
-            this.profileCreationService.roasteryProfileData?.banner_url,
+            'profileCreationService.organizationProfile?.banner_url',
+            this.profileCreationService.organizationProfile?.banner_url,
         );
     }
 

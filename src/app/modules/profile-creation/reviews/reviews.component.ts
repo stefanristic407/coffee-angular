@@ -10,11 +10,6 @@ import { OrganizationType } from '@enums';
     styleUrls: ['./reviews.component.scss'],
 })
 export class ReviewsComponent implements OnInit {
-    totalstar = 5;
-    newvalue: any = 2;
-    reviewvalue: any = 4;
-    termStatus: any;
-    showRelavant = true;
     roasterId: any;
     reviews: any = [];
     isLoading?: boolean;
@@ -25,9 +20,7 @@ export class ReviewsComponent implements OnInit {
         private cookieService: CookieService,
         public userSrv: UserserviceService,
         private reviewRatingService: ReviewsService,
-    ) {
-        this.termStatus = 'Most relevant';
-    }
+    ) {}
 
     ngOnInit(): void {
         this.roasterId = this.cookieService.get('roaster_id');
@@ -50,12 +43,5 @@ export class ReviewsComponent implements OnInit {
                 this.average = res.result.average;
             }
         });
-    }
-
-    setStatus(term: any) {
-        this.termStatus = term;
-    }
-    toggleRelavant() {
-        this.showRelavant = !this.showRelavant;
     }
 }

@@ -1,0 +1,19 @@
+::ng-deep {
+    .p-overlaypanel {
+        &.translation-overlay {
+            width: 263px;
+            padding: 28px 24px 20px;
+            border-radius: 4px;
+            box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
+            border: solid 0.2px #d6d6d6;
+            background-color: #ffffff;
+            .p-overlaypanel-content {
+                padding: 0;
+            }
+            &:before,
+            &::after {
+                display: none;
+            }
+        }
+    }
+}

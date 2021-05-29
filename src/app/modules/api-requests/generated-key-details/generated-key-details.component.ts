@@ -52,21 +52,19 @@ export class GeneratedKeyDetailsComponent implements OnInit {
     }
 
     supplyBreadCrumb(): void {
-        const obj1: MenuItem = {
-            label: this.globals.languageJson?.home,
-            routerLink: '/',
-        };
-        const obj2: MenuItem = {
-            label: this.globals.languageJson?.api_request,
-            routerLink: '/api-requests-list',
-        };
-        const obj3: MenuItem = {
-            label: this.globals.languageJson?.generated_key,
-            routerLink: '/api-requests-list/generated-key-details',
-        };
-        this.breadCrumbItem.push(obj1);
-        this.breadCrumbItem.push(obj2);
-        this.breadCrumbItem.push(obj3);
+        this.breadCrumbItem = [
+            {
+                label: this.globals.languageJson?.home,
+                routerLink: '/',
+            },
+            {
+                label: this.globals.languageJson?.api_requests,
+                routerLink: '/api-requests-list',
+            },
+            {
+                label: this.globals.languageJson?.generated_key,
+            }
+        ];
     }
 
     viewRoDetails() {

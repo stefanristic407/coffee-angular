@@ -1,59 +1,16 @@
 <div>
-    <p class="fnt-16 fnt-md-18 fnt-bold text-clr334 mb-1 mb-md-2">{{ 'era_of_we_blog' | translate }}</p>
-    <div class="row">
+    <p class="fnt-16 fnt-md-18 fnt-bold text-clr334 mb-2 mb-md-3">{{ 'era_of_we_blog' | translate }}</p>
+    <div class="row gutter-24">
         <div
-            *ngFor="let item of blogData"
-            class="col-md-6 col-lg-4 col-sm-12 mt-md-1 mt-sm-3 mt-xs-3 pl-md-3 pr-md-2 p-lg-3"
+                *ngFor="let blog of blogs"
+                class="col-md-6 col-lg-4 col-12 mb-3 mb-lg-0"
         >
             <app-blog-card
-                [imgUrl]="item.imgUrl"
-                [title]="item.title"
-                [description]="item.description"
-                [link]="item.link"
+                    [imgUrl]="blog.img_url"
+                    [title]="blog.title"
+                    [description]="blog.description | convertToShortDescription: 20"
+                    [link]="'/social-media/blog-details/' + blog.id"
             ></app-blog-card>
         </div>
-        <div class="col-md-6 col-lg-4 col-sm-12 mt-md-1 mt-sm-2 mt-xs-2 pr-md-3 pl-md-2 p-lg-3">
-            <div class="card border-card">
-                <div class="overflow-hidden card-img-top">
-                    <img src="assets/images/onboard-estate-2.jpg" alt="Card image cap" />
-                </div>
-                <div class="card-body">
-                    <h5 class="fnt-16 fnt-md-18 black fnt-700">
-                        Using social platforms, coffee shops take arts & entertai..
-                    </h5>
-                    <p class="fnt-14 text-clr588 pad-card">
-                        There are many variations of passages of Lorem Ipsum available, but the majority have suffered
-                        alteration in some form, by inject..
-                    </p>
-                    <p class="float-right mb-0 pointer-text mt-25">
-                        <a class="arrow-link" routerLink="/social-media/blog-details"> Read more </a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-4 col-sm-12 mt-md-1 mt-sm-2 mt-xs-2 d-none d-lg-block p-md-2 p-lg-3">
-            <div class="card border-card">
-                <div class="overflow-hidden card-img-top">
-                    <img src="assets/images/onboard-estate-3.jpg" alt="Card image cap" />
-                </div>
-                <div class="card-body">
-                    <h5 class="fnt-16 fnt-md-18 black fnt-700">Open for service gives a voice to coffee workers..</h5>
-                    <p class="fnt-14 text-clr588 pad-card">
-                        There are many variations of passages of Lorem Ipsum available, but the majority have suffered
-                        alteration in some form, by inject..
-                    </p>
-                    <p class="float-right mb-0 pointer-text mt-25">
-                        <a class="arrow-link" routerLink="/social-media/blog-details"> Read more </a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <!-- <div class="col-12">
-            <div class="text-center">
-                <button type="submit" class="btn-stroked" routerLink="/social-media/media/blogs">
-                    {{ 'view_all' | translate }}
-                </button>
-            </div>
-        </div> -->
     </div>
 </div>

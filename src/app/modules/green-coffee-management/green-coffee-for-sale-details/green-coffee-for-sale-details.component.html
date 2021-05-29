@@ -80,16 +80,22 @@
                                     <div *ngIf="saleInformation" class="estate-focus">
                                         <ul class="clearfix">
                                             <li>
-                                                <label>Quantity marked for sale</label>
+                                                <label>Quantity bought</label>
                                                 <p>
-                                                    {{ saleInformation.quantity_count }}
-                                                    {{ saleInformation.quantity_type }}/ {{ saleInformation.quantity }}
-                                                    {{ saleInformation.quantity_unit }}
+                                                    {{ orderDetails.quantity * orderDetails.quantity_count }}
+                                                    {{ orderDetails.quantity_unit }}
                                                 </p>
                                             </li>
                                             <li>
-                                                <label>Selling price</label>
-                                                <p>$ {{ saleInformation.price }}/{{ saleInformation.price_unit }}</p>
+                                                <label>Remainign quantity available</label>
+                                                <p>
+                                                    {{ orderDetails.remaining_total_quantity }}
+                                                    {{ orderDetails.quantity_unit }}
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <label>Roaster Ref. No.</label>
+                                                <p>{{ orderDetails.order_reference }}</p>
                                             </li>
                                         </ul>
                                     </div>
@@ -205,7 +211,7 @@
                                                             <label>Availability Name</label>
                                                             <p>
                                                                 {{
-                                                                    orderDetails.availablility_name
+                                                                    orderDetails.availability_name
                                                                         ? orderDetails.availability_name
                                                                         : 'NA'
                                                                 }}

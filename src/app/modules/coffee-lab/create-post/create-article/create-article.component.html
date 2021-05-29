@@ -80,6 +80,10 @@
                 [label]="globals.languageJson?.allow_translations_by_other_authors"
                 formControlName="allow_translation"
             ></p-checkbox>
+            <app-info-tooltip
+                    [title]="'translations' | translate"
+                    [description]="'translation-tooltip' | translate"
+            ></app-info-tooltip>
         </div>
         <div class="row pt-45 pt-lg-5">
             <div class="col-md-6 order-2 order-md-1">

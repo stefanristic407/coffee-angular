@@ -3,7 +3,7 @@
         <div>
             <p-breadcrumb [model]="breadcrumbs"></p-breadcrumb>
         </div>
-        <div class="font-bold" *ngIf="request">
+        <div class="fnt-bold" *ngIf="request">
             <span class="text-clr588">{{ 'date_requested' | translate }}: </span>
             <span class="text-clr334">{{ request.created_at | date: 'd MMM yyyy' }}</span>
         </div>
@@ -11,7 +11,7 @@
     <ng-container *ngIf="request">
         <div class="col-sm-12 col-md-12 col-lg-7 mt-lg-5 p-0">
             <div class="d-flex flex-wrap justify-content-between">
-                <div class="d-flex align-items-center text-clr334 fnt-18 font-bold">
+                <div class="d-flex align-items-center text-clr334 fnt-18 fnt-bold">
                     {{ 'request_details' | translate }}
                 </div>
                 <div>
@@ -68,7 +68,7 @@
                     *ngIf="request.status === RequestStatus.APPROVAL_PENDING"
                 >
                     <ng-container *ngIf="!isRejectMode; else rejectForm">
-                        <div class="text-clr334 font-bold fnt-14 when-receive-container">
+                        <div class="text-clr334 fnt-bold fnt-14 when-receive-container">
                             {{ 'when_you_receive_from_estate' | translate }}
                         </div>
                         <div>
@@ -79,7 +79,7 @@
                         </div>
                     </ng-container>
                     <ng-template #rejectForm>
-                        <div class="text-clr334 font-bold fnt-14">
+                        <div class="text-clr334 fnt-bold fnt-14">
                             {{ 'this_request_has_been_cancelled' | translate }}
                         </div>
                         <div class="reject-form mt-4 pb-4 d-flex flex-column" [formGroup]="rejectReasonForm">
@@ -145,7 +145,7 @@
                 <div *ngIf="request.status === RequestStatus.APPROVED">
                     <div class="d-flex">
                         <img src="assets/images/timeline-check-active.svg" />
-                        <div class="d-flex align-items-center ml-3 text-clr334 font-bold fnt-14">
+                        <div class="d-flex align-items-center ml-3 text-clr334 fnt-bold fnt-14">
                             {{ 'micro_roaster_has_been_notified' }}
                         </div>
                     </div>

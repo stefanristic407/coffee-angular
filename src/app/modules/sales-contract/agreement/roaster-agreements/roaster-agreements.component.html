@@ -140,7 +140,7 @@
                             </div>
                             <div class="bor-bot-d6d6 mx-3 py-3 row">
                                 <div class="col-5 p-0">
-                                    <p class="light-eight fnt-12">Customer name</p>
+                                    <p class="light-eight fnt-12">{{ globals.languageJson?.customer_name }}</p>
                                 </div>
                                 <div class="col-7 p-0">
                                     <p class="fnt-12">{{ data.customer_name }}</p>
@@ -148,7 +148,7 @@
                             </div>
                             <div class="bor-bot-d6d6 mx-3 py-3 row">
                                 <div class="col-5 p-0">
-                                    <p class="light-eight fnt-12">Origin</p>
+                                    <p class="light-eight fnt-12">{{ globals.languageJson?.origin }}</p>
                                 </div>
                                 <div class="col-7 p-0">
                                     <p class="fnt-12">{{ getCountryName(data.origin) }}</p>
@@ -156,7 +156,7 @@
                             </div>
                             <div class="row mx-3 mb-3 pt-3">
                                 <div class="col-5 p-0">
-                                    <p class="light-eight fnt-12">Date added</p>
+                                    <p class="light-eight fnt-12">{{ globals.languageJson?.date_added }}</p>
                                 </div>
                                 <div class="col-7 p-0">
                                     <p class="fnt-12">{{ data.created_at | date: 'M/d/yy, h:mma' }}</p>

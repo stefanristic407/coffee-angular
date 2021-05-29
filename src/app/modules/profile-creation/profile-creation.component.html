@@ -38,7 +38,7 @@
                     {{ subProfileForm.controls.name.value }}
                 </p>
                 <p *ngIf="!isSaveMode" class="fnt-16 fnt-md-18 mb-0 mb-3 fnt-bold text-clr334 text-center text-md-left">
-                    {{ roasteryProfileService.roasteryProfileData?.name }}
+                    {{ roasteryProfileService.organizationProfile?.name }}
                 </p>
             </div>
             <div class="d-none d-md-flex d-lg-none mb-3">
@@ -80,7 +80,7 @@
             <img
                 class="cover-image-profile-banner w-100"
                 *ngIf="isSaveMode && !roasteryProfileService.bannerUrl"
-                [src]="roasteryProfileService.roasteryProfileData?.banner_url || 'assets/images/blank.png'"
+                [src]="roasteryProfileService.organizationProfile?.banner_url || 'assets/images/blank.png'"
                 height="160"
             />
             <img
@@ -93,7 +93,7 @@
                 class="cover-pic text-center"
                 *ngIf="
                     isSaveMode &&
-                    !roasteryProfileService.roasteryProfileData?.banner_url &&
+                    !roasteryProfileService.organizationProfile?.banner_url &&
                     !roasteryProfileService.bannerUrl
                 "
             >
@@ -102,10 +102,10 @@
                     src="assets/images/plus-circle.svg"
                     (click)="bannerFileInput.click()"
                 />
-                <p class="fnt-12 fnt-md-14 font-bold text-clr588 pt-0 pt-md-2 mb-1">
+                <p class="fnt-12 fnt-md-14 fnt-bold text-clr588 pt-0 pt-md-2 mb-1">
                     {{ 'add_cover_image' | translate }}
                 </p>
-                <p class="fnt-12 fnt-md-14 font-bold text-clr588 m-0">{{ 'dimension' | translate }} 1144 x 160</p>
+                <p class="fnt-12 fnt-md-14 fnt-bold text-clr588 m-0">{{ 'dimension' | translate }} 1144 x 160</p>
             </div>
             <input
                 type="file"
@@ -117,14 +117,14 @@
 
             <img
                 class="cover-image-profile-banner w-100"
-                *ngIf="isEditMode && !roasteryProfileService.roasteryProfileData?.banner_url"
+                *ngIf="isEditMode && !roasteryProfileService.organizationProfile?.banner_url"
                 src="assets/images/blank.png"
                 height="160"
             />
             <img
                 class="cover-image-profile-banner w-100"
-                *ngIf="isEditMode && roasteryProfileService.roasteryProfileData?.banner_url"
-                [src]="roasteryProfileService.roasteryProfileData?.banner_url"
+                *ngIf="isEditMode && roasteryProfileService.organizationProfile?.banner_url"
+                [src]="roasteryProfileService.organizationProfile?.banner_url"
                 alt="profile banner image"
                 height="160"
             />
@@ -133,7 +133,7 @@
                 <button
                     *ngIf="
                         isSaveMode &&
-                        (roasteryProfileService.roasteryProfileData?.banner_url || roasteryProfileService.bannerUrl)
+                        (roasteryProfileService.organizationProfile?.banner_url || roasteryProfileService.bannerUrl)
                     "
                     class="btn-raised d-none d-md-flex mr-2"
                     (click)="bannerFileInput.click()"
@@ -146,7 +146,7 @@
                     iconPos="left"
                     *ngIf="
                         isSaveMode &&
-                        (roasteryProfileService.roasteryProfileData?.banner_url || roasteryProfileService.bannerUrl)
+                        (roasteryProfileService.organizationProfile?.banner_url || roasteryProfileService.bannerUrl)
                     "
                     class="fnt-14 btn-trans-nb d-none d-md-flex"
                     (click)="roasteryProfileService.handleDeleteBannerImage()"
@@ -170,14 +170,14 @@
             </div>
 
             <div class="profile-metadata-container pl-3 pr-3 pb-3 p-md-0">
-                <p class="fnt-18 font-bold text-clr334 d-none d-md-block m-0 pt-4" *ngIf="isEditMode">
-                    {{ roasteryProfileService.roasteryProfileData?.name }}
+                <p class="fnt-18 fnt-bold text-clr334 d-none d-md-block m-0 pt-4" *ngIf="isEditMode">
+                    {{ roasteryProfileService.organizationProfile?.name }}
                 </p>
                 <a
-                    class="d-md-none font-16 text-clr334 font-bold"
-                    href="{{ roasteryProfileService.roasteryProfileData?.website }}"
+                    class="d-md-none fnt-16 text-clr334 fnt-bold"
+                    href="{{ roasteryProfileService.organizationProfile?.website }}"
                     target="blank"
-                    >{{ roasteryProfileService.roasteryProfileData?.name }}</a
+                    >{{ roasteryProfileService.organizationProfile?.name }}</a
                 >
                 <form [formGroup]="subProfileForm" *ngIf="isSaveMode">
                     <div class="sewn-form-field w-100 mb-0">
@@ -196,13 +196,13 @@
                         />
                     </div>
                 </form>
-                <p class="fnt-14 text-clr334 mt-2 font-bold d-md-none underline" *ngIf="isEditMode">
-                    {{ roasteryProfileService.roasteryProfileData?.website }}
+                <p class="fnt-14 text-clr334 mt-2 fnt-bold d-md-none underline" *ngIf="isEditMode">
+                    {{ roasteryProfileService.organizationProfile?.website }}
                 </p>
-                <p class="fnt-14 text-clr588 mt-2 font-bold d-none d-md-block" *ngIf="isEditMode">
-                    {{ roasteryProfileService.roasteryProfileData?.website }}
+                <p class="fnt-14 text-clr588 mt-2 fnt-bold d-none d-md-block" *ngIf="isEditMode">
+                    {{ roasteryProfileService.organizationProfile?.website }}
                 </p>
-                <a target="blank" href="{{ roasteryProfileService.roasteryProfileData?.website }}" #link hidden></a>
+                <a target="blank" href="{{ roasteryProfileService.organizationProfile?.website }}" #link hidden></a>
             </div>
         </div>
     </div>

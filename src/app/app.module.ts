@@ -1,7 +1,6 @@
 import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import localeSe from '@angular/common/locales/se';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -104,6 +103,3 @@ export function StartupServiceFactory(startupService: StartupService) {
     bootstrap: [AppComponent],
 })
 export class AppModule {}
-
-// Sweden
-registerLocaleData(localeSe);

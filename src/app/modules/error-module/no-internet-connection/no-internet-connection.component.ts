@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./no-internet-connection.component.scss'],
 })
 export class NoInternetConnectionComponent implements OnInit {
-    constructor() {}
+    constructor(public location: Location) {}
 
     ngOnInit(): void {}
 }

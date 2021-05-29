@@ -8,7 +8,7 @@
     <div class="col-lg-8 mb-4 mb-lg-0">
         <div class="border-main br-4 p-3 py-md-45 px-lg-45">
             <div class="mb-3 d-flex justify-content-between align-items-center">
-                <div class="w-100">
+                <div class="flex-1 overflow-hidden">
                     <app-user-header [prop]="detailsData"></app-user-header>
                 </div>
                 <div>
@@ -16,14 +16,14 @@
                         [selectedItem]="detailsData"
                         forumType="question"
                         [enableEdit]="
-                            organizationId === detailsData.org_id &&
+                            organizationId == detailsData.org_id &&
                             detailsData.org_type === coffeeLabService.organization &&
-                            detailsData.posted_by === authService.currentUser.id
+                            detailsData.user_id == authService.currentUser.id
                         "
                         [enableDelete]="
-                            organizationId === detailsData.org_id &&
+                            organizationId == detailsData.org_id &&
                             detailsData.org_type === coffeeLabService.organization &&
-                            detailsData.posted_by === authService.currentUser.id
+                            detailsData.user_id == authService.currentUser.id
                         "
                         [enableStopPropagation]="false"
                     ></app-forum-menu>
@@ -48,7 +48,7 @@
                             pInputText
                             routerLink="/coffee-lab/create-post/answer"
                             [queryParams]="{
-                                parentForumId: detailsData.id,
+                                parentForumId: detailsData.slug,
                                 parentForumType: 'question',
                                 forumType: 'answer'
                             }"
@@ -64,7 +64,7 @@
                 [ngClass]="{ 'border-bottom-dashed': !last }"
             >
                 <div class="d-flex justify-content-between align-items-center mb-3 mb-md-4">
-                    <div class="w-100">
+                    <div class="flex-1 overflow-hidden">
                         <app-user-header [prop]="answer"></app-user-header>
                     </div>
                     <div>
@@ -76,20 +76,20 @@
                                     [extraInfo]="slug"
                                     [enableSave]="false"
                                     [enableEdit]="
-                                        organizationId === answer.org_id &&
+                                        organizationId == answer.org_id &&
                                         answer.org_type === coffeeLabService.organization &&
-                                        answer.user_id === authService.currentUser.id
+                                        answer.user_id == authService.currentUser.id
                                     "
                                     [enableDelete]="
-                                        organizationId === answer.org_id &&
+                                        organizationId == answer.org_id &&
                                         answer.org_type === coffeeLabService.organization &&
-                                        answer.user_id === authService.currentUser.id
+                                        answer.user_id == authService.currentUser.id
                                     "
-                                    [enableTranslation]="answer?.translations?.length < 3"
+                                    [enableTranslation]="answer?.allow_translation && answer?.translations?.length < 3"
                                     [enableStopPropagation]="false"
                                 ></app-forum-menu>
                             </div>
-                            <div *ngIf="answer?.translations?.length" class="d-none d-md-block">
+                            <div *ngIf="answer?.allow_translation && answer?.translations?.length" class="d-none d-md-block">
                                 <app-translation-dropdown
                                     forumType="question"
                                     [translatedList]="answer?.translations"
@@ -99,7 +99,7 @@
                     </div>
                 </div>
                 <div
-                    *ngIf="answer?.translations?.length"
+                    *ngIf="answer?.allow_translation && answer?.translations?.length"
                     class="d-block d-md-none border-top-main border-bottom-main py-3 mb-3 text-center"
                 >
                     <app-translation-dropdown

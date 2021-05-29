@@ -78,8 +78,8 @@
 
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
-                <td *ngFor="let col of columns" [ngSwitch]="col.field">
-                    <span *ngSwitchCase="'product_name'" [routerLink]="onEdit(rowData)">
+                <td *ngFor="let col of columns" [ngSwitch]="col.field" (click)="onEdit(rowData)">
+                    <span *ngSwitchCase="'product_name'">
                         <div class="d-flex">
                             <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
                                 Product Name
@@ -91,7 +91,7 @@
                         </div>
                     </span>
 
-                    <span *ngSwitchCase="'estate_name'" [routerLink]="onEdit(rowData)">
+                    <span *ngSwitchCase="'estate_name'">
                         <div class="d-flex">
                             <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
                                 Estate Name
@@ -103,7 +103,7 @@
                         </div>
                     </span>
 
-                    <span *ngSwitchCase="'origin'" [routerLink]="onEdit(rowData)">
+                    <span *ngSwitchCase="'origin'">
                         <div class="d-flex">
                             <div></div>
 
@@ -120,7 +120,7 @@
                         </div>
                     </span>
 
-                    <span *ngSwitchCase="'varieties'" [routerLink]="onEdit(rowData)">
+                    <span *ngSwitchCase="'varieties'">
                         <div class="d-flex">
                             <div></div>
 
@@ -129,16 +129,18 @@
                             </span>
                         </div>
                     </span>
-                    <span *ngSwitchCase="'quantity'" [routerLink]="onEdit(rowData)">
+                    <span *ngSwitchCase="'quantity'">
                         <div class="d-flex">
                             <div></div>
 
                             <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
                                 {{ rowData['quantity'] || 'NA' }}
+
+                                <span *ngIf="rowData['quantity']">{{ rowData['quantity_type'] }}</span>
                             </span>
                         </div>
                     </span>
-                    <span *ngSwitchCase="'cup_score'" [routerLink]="onEdit(rowData)">
+                    <span *ngSwitchCase="'cup_score'">
                         <div class="d-flex">
                             <div></div>
 
@@ -148,7 +150,7 @@
                         </div>
                     </span>
 
-                    <span *ngSwitchCase="'status'" [routerLink]="onEdit(rowData)">
+                    <span *ngSwitchCase="'status'">
                         <span *ngIf="!primeTableService.isMobileView">
                             {{ formatStatus(rowData[col.field]) | titlecase }}
                         </span>
@@ -165,7 +167,7 @@
                             <ng-template #mobile_name>
                                 <span class="ml-auto">
                                     <ng-container *ngIf="primeTableService.isMobileView">
-                                        <span class="pull-right brown-cta" [routerLink]="onEdit(rowData)">View </span>
+                                        <span class="pull-right brown-cta">View </span>
                                     </ng-container>
                                 </span>
                             </ng-template>
@@ -174,7 +176,7 @@
 
                     <span *ngSwitchCase="'actions'" class="text-center">
                         <ng-container *ngIf="!primeTableService.isMobileView">
-                            <span class="brown-cta" [routerLink]="onEdit(rowData)">View</span>
+                            <span class="brown-cta">View</span>
                         </ng-container>
                     </span>
 
@@ -186,6 +188,7 @@
                                 placement="left"
                                 [outsideClick]="true"
                                 #pop="bs-popover"
+                                (click)="menuClicked()"
                             >
                                 <p class="mb-0">
                                     <img class="ellipse-image" src="assets/images/ellipses.png" alt="" />

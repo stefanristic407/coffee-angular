@@ -1,4 +1,4 @@
-@import '../../../../theme/styles/variables';
+@import 'variables';
 
 .generted-key-container {
     .active-status {
@@ -6,7 +6,7 @@
     }
 
     .status-paused {
-        color: #f23737 !important;
+        color: $invalid-color !important;
     }
 
     @media screen and (min-width: 768px) and (max-width: 1024px) {

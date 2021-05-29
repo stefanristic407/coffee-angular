@@ -171,13 +171,13 @@
             width: 100%;
             float: left;
             clear: left;
-            border-bottom: 1px solid $primary-border-color;
+            border-bottom: 1px dashed $primary-border-color;
 
             .p-column-title {
                 display: inline-block;
                 min-width: 40%;
                 margin-right: 1rem;
-                font-weight: 500;
+                font-weight: 600;
                 color: $muted-text-color;
             }
 

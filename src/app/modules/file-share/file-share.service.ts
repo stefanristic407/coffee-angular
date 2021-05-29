@@ -25,6 +25,7 @@ export class FileShareService {
     allFiles: any;
     fileTree: any = {};
     mainData: any[] = [];
+    selectedItems = [];
     viewMode: any = new BehaviorSubject('grid');
     viewMode$: any = this.viewMode.asObservable();
     action: any = new BehaviorSubject(Action.EMPTY);
@@ -332,6 +333,53 @@ export class FileShareService {
                     }
                 }
             });
+    }
+
+    deleteItems() {
+        const self = this;
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'delete',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    const promises = [];
+                    this.selectedItems.forEach((element) =>
+                        promises.push(
+                            new Promise((resolve, reject) =>
+                                self.deleteFolderOrFile(element).subscribe((res: any) => {
+                                    if (res.success) {
+                                        resolve(res);
+                                    } else {
+                                        reject();
+                                    }
+                                }),
+                            ),
+                        ),
+                    );
+                    Promise.all(promises)
+                        .then((result) => {
+                            this.toastrService.success('The Selected items were deleted successfully');
+                            this.selectedItems = [];
+                            this.refresh();
+                        })
+                        .catch(() => {
+                            this.toastrService.error('Error while deleting the items');
+                            this.selectedItems = [];
+                            this.refresh();
+                        });
+                }
+            });
+    }
+
+    deleteFolderOrFile(element) {
+        return element.type === FileType.FOLDER
+            ? this.fileSrv.deleteFolder(element.id)
+            : this.fileSrv.deleteFile(element.id);
     }
 
     deleteFolder(id: any) {

@@ -114,7 +114,6 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
         ];
     }
 
-
     loadFilterValues() {
         this.profileArray = [
             { label: 'Light', value: 1 },
@@ -125,35 +124,35 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
         ];
     }
 
-    getData(event) {
-        setTimeout(() => {
-            let queryParams = {};
+    getData(event = null): void {
+        const queryParams = {
+            sort_by: 'created_at',
+            sort_order: 'desc',
+            page: 1,
+            per_page: 10,
+            query: this.termSearch,
+            roast_level: this.profileFilter,
+        };
+        if (event) {
             if (event.sortField) {
-                queryParams = {
-                    sort_by: event.sortField,
-                    sort_order: event.sortOrder === -1 ? 'desc' : 'asc',
-                };
+                queryParams.sort_by = event.sortField;
+                queryParams.sort_order = event.sortOrder === -1 ? 'desc' : 'asc';
             }
-            this.roasterCoffeeBatchsData(queryParams);
-        });
+            queryParams.page = event.first / event.rows + 1;
+        }
+        this.roasterCoffeeBatchsData(queryParams);
     }
 
     // Table data
-    roasterCoffeeBatchsData(postData: any) {
-        postData.roast_level = this.profileFilter || '';
-        postData.query = this.termSearch || '';
-        postData.per_page = 100;
-        if (!postData.sort_by) {
-            postData.sort_by = 'created_at';
-            postData.sort_order = 'desc';
-        }
+    roasterCoffeeBatchsData(queryParams: any) {
         this.tableValue = [];
         this.isLoadingRoastedBatches = true;
-        this.roasterService.getRoasterCoffeeBatchs(postData).subscribe(
+        this.roasterService.getRoasterCoffeeBatchs(queryParams).subscribe(
             (data: any) => {
                 this.isLoadingRoastedBatches = false;
                 if (data.success) {
                     this.tableValue = data.result;
+                    this.totalCount = data.result_info.total_count;
                 } else {
                     this.toastrService.error('Error while getting the roasted coffee batch list!');
                 }

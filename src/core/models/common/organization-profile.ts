@@ -171,8 +171,6 @@ export interface EstateOrganizationProfile {
     total_area: number;
     total_area_unit: string;
     total_employees: number;
-    total_farm_area: number;
-    total_farm_area_unit: string;
     total_polygon_area: number;
     total_production: number;
     total_production_unit: string;

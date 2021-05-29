@@ -1,6 +1,6 @@
 import { FormBuilder } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CommonService, ResizeService } from '@services';
+import { CommonService, GlobalsService, ResizeService } from '@services';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { MenuItem } from 'primeng/api';
 import { ApiResponse, LabelValue } from '@models';
@@ -62,7 +62,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     @ViewChild('requestTable') requestTable: RequestTableComponent;
 
     get customerPropertyName(): string {
-        return this.organizationType === OrganizationType.ESTATE ? 'estate_name' : 'micro_roaster_name';
+        return this.organizationType === OrganizationType.ESTATE ? 'estate' : 'micro-roaster';
     }
 
     constructor(
@@ -72,6 +72,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
         private orderService: OrderManagementService,
         protected resizeService: ResizeService,
         public commonService: CommonService,
+        public globals: GlobalsService,
     ) {
         super(resizeService);
     }
@@ -95,7 +96,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
                     label:
                         this.organizationType === OrganizationType.ESTATE
                             ? 'Purchased Orders of Estates'
-                            : 'Orders & Requests by Micro Roasters',
+                            : this.globals.languageJson?.orders_by_mr,
                 },
             ];
         });
