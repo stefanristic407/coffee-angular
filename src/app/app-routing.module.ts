@@ -114,7 +114,7 @@ export const routes: Routes = [
             },
             {
                 path: 'profile',
-                loadChildren: () => import('./modules/my-profile/my-profile.module').then((m) => m.MyProfileModule),
+                loadChildren: () => import('./modules/profiles/profiles.module').then((m) => m.ProfilesModule),
             },
             {
                 path: 'coffee-experience',
