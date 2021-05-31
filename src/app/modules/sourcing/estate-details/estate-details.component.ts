@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { OrganizationType } from '@enums';
 import { GlobalsService, ChatHandlerService, ResizeService } from '@services';
@@ -24,6 +24,7 @@ export class EstateDetailsComponent extends ResizeableComponent implements OnIni
         public sourcing: SourcingService,
         public chatSrv: ChatHandlerService,
         protected resizeService: ResizeService,
+        private router: Router,
     ) {
         super(resizeService);
         this.userId = this.cookieSrv.get('user_id');
@@ -76,5 +77,9 @@ export class EstateDetailsComponent extends ResizeableComponent implements OnIni
         setTimeout(() => {
             this.reviewsPosition.nativeElement.scrollIntoView({ behavior: 'smooth' });
         }, 100);
+    }
+
+    routeToEstateProfile() {
+        this.router.navigate(['/profile-creation/es/' + this.sourcing.estateId]);
     }
 }
