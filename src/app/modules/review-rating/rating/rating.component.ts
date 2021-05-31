@@ -3,15 +3,16 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService, RoasterserviceService, UserserviceService } from '@services';
+import { GlobalsService, ResizeService, RoasterserviceService, UserserviceService } from '@services';
 import { OrganizationType, OrderType, OrderStatus } from '@enums';
+import { ResizeableComponent } from '@base-components';
 
 @Component({
     selector: 'app-rating',
     templateUrl: './rating.component.html',
     styleUrls: ['./rating.component.scss'],
 })
-export class RatingComponent implements OnInit {
+export class RatingComponent extends ResizeableComponent implements OnInit {
     roasterId: any;
     orgType: OrganizationType;
     orgId: number;
@@ -35,7 +36,9 @@ export class RatingComponent implements OnInit {
         public userSrv: UserserviceService,
         public cookieService: CookieService,
         private toastrService: ToastrService,
+        protected resizeService: ResizeService,
     ) {
+        super(resizeService);
         this.roasterId = this.cookieService.get('roaster_id');
         this.route.paramMap.subscribe((params) => {
             if (params.has('orgType') && params.has('orderId')) {

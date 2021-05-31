@@ -29,14 +29,10 @@
         <div class="row">
             <div class="col-lg-5 mb-4 mb-lg-0">
                 <div class="d-flex m-0">
-                    <app-avatar
-                        [size]="globals.device === 'mobile' ? 39 : 70"
-                        [src]="companyImg"
-                        [name]="orgName"
-                    ></app-avatar>
+                    <app-avatar [size]="(isMobile$ | async) ? 39 : 70" [src]="companyImg" [name]="orgName"></app-avatar>
 
                     <div class="pl-2 pl-md-3">
-                        <ul class="p-0 mb-4">
+                        <ul class="no-bullet-ul p-0 mb-4">
                             <li class="fnt-14 fnt-md-16 lh-normal fnt-bold text-clr334 mb-1 mb-md-2">
                                 {{ orgName }}
                             </li>
@@ -54,17 +50,17 @@
                                     {{ rating }}
                                 </span>
                             </li>
-                            <li class="d-flex">
-                                <span class="d-flex align-items-center">
+                            <li class="row v-gutter-16 align-items-center mx-0">
+                                <span class="col-auto d-flex align-items-center px-0">
                                     <img class="pr-2" src="/assets/images/location-rating.png" alt="" />
                                     <span class="fnt-14 lh-normal fnt-bold text-clr588">
                                         {{ country | country }}
                                     </span>
                                 </span>
-                                <div class="v-divider mx-3"></div>
-                                <a class="arrow-link green" [href]="orgType | profileLink: orgId" target="_blank">{{
-                                    'contact_details' | translate
-                                }}</a>
+                                <div class="v-divider mx-2 mx-md-3"></div>
+                                <a class="arrow-link" [href]="orgType | profileLink: orgId" target="_blank">
+                                    {{ 'contact_details' | translate }}
+                                </a>
                             </li>
                         </ul>
                     </div>
