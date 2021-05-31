@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { GlobalsService, RoasterserviceService } from '@services';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
-import { ToastrService } from 'ngx-toastr';
 import { SourcingService } from '../sourcing/sourcing.service';
+import { PrimeTableService } from '@services';
+import { CoffeeExperienceTableComponent } from './coffee-experience-table/coffee-experience-table.component';
 
 @Component({
     selector: 'app-coffee-experience',
@@ -16,77 +17,43 @@ export class CoffeeExperienceComponent implements OnInit {
         { label: this.globals.languageJson.brand_experience },
         { label: this.globals.languageJson.the_coffee_experience },
     ];
-    queryParams: any;
-    rows = 15;
-    pageNumber = 1;
-    totalRecords;
-    searchTerm: any;
-    customerType = 'orders';
-    coffeeExperienceData: any;
-    roasterId: string;
-    params: any;
+    searchTerm;
+    menuItems: any = [];
+    searchText: string;
+    searchString = '';
+    @ViewChild(CoffeeExperienceTableComponent, { static: false }) coffeeTable;
 
     constructor(
         public globals: GlobalsService,
         public cookieService: CookieService,
-        private coffeeExperienceOrders: RoasterserviceService,
-        private toastrService: ToastrService,
         public sourcingSrv: SourcingService,
+        private primeTableService: PrimeTableService,
     ) {}
 
     ngOnInit(): void {
-        this.roasterId = this.cookieService.get('roaster_id');
-        this.getEstateOrders();
+        this.menuItems = [
+            {
+                label: 'estate_orders',
+                routerLink: [`/coffee-experience/orders`],
+            },
+            {
+                label: 'micro_roaster_orders',
+                routerLink: [`/coffee-experience/mr-orders`],
+            },
+            {
+                label: 'partner_orders',
+                routerLink: [`/coffee-experience/hrc-orders`],
+            },
+            {
+                label: 'outtake_orders',
+                routerLink: [`/coffee-experience/outtake-orders`],
+            },
+        ];
     }
-
-    onTabChange(event) {
-        if (event.index === 0) {
-            this.customerType = 'orders';
-            this.getEstateOrders();
-        } else if (event.index === 1) {
-            this.customerType = 'mr-orders';
-            this.getEstateOrders();
-        } else if (event.index === 2) {
-            this.customerType = 'hrc-orders';
-            this.getEstateOrders();
-        } else if (event.index === 3) {
-            this.customerType = 'outtake-orders';
-            this.getEstateOrders();
-        }
+    onSearch() {
+        this.coffeeTable.search(this.searchString);
     }
-
-    getEstateOrders() {
-        if (this.customerType === 'hrc-orders') {
-            this.params = {
-                page: this.pageNumber,
-                per_page: this.rows,
-                status: 'DELIVERED',
-                sort_order: 'desc',
-            };
-        } else {
-            this.params = {
-                page: this.pageNumber,
-                per_page: this.rows,
-                status: 'RECEIVED',
-                sort_order: 'desc',
-            };
-        }
-        this.coffeeExperienceData = [];
-        this.coffeeExperienceOrders
-            .getCoffeeExperienceOrders(this.roasterId, this.customerType, this.params)
-            .subscribe((res: any) => {
-                if (res.success) {
-                    this.coffeeExperienceData = res.result;
-                    this.totalRecords = res.result_info.total_count;
-                } else {
-                    this.toastrService.error(this.globals.languageJson.error_while_getting_orders);
-                }
-            });
-    }
-    getData(event) {
-        if (event.page > -1) {
-            this.pageNumber = event.page + 1;
-        }
-        this.getEstateOrders();
+    handleChange(event: any) {
+        this.primeTableService.records = [];
     }
 }
