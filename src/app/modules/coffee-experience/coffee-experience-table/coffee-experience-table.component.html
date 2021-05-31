@@ -1,4 +1,284 @@
-<div class="d-flex justify-content-between filter">
+<div class="mt-4">
+    <p-dropdown
+        *ngIf="path === 'orders'"
+        [options]="originArray"
+        [showClear]="true"
+        optionLabel="name"
+        optionValue="isoCode"
+        [(ngModel)]="termStatus"
+        (onChange)="setStatus()"
+        scrollHeight="225px"
+        placeholder="{{ globals.languageJson?.all_origins }}"
+        [autoDisplayFirst]="false"
+        styleClass="round-border mr-2 mb-3 {{ termStatus ? 'highlight' : '' }}"
+    ></p-dropdown>
+    <p-calendar
+        class="ml-md-2 calender"
+        [readonlyInput]="true"
+        placeholder="Date range"
+        selectionMode="range"
+        [formControl]="searchForm.controls['dates']"
+        [showButtonBar]="true"
+        [styleClass]="
+            'round-border mb-25 mb-md-3 mb-lg-4' + (queryParams.from_date || queryParams.to_date ? ' highlight' : '')
+        "
+    >
+    </p-calendar>
+    <div class="float-right mobile-lead">
+        <p-dropdown
+            [options]="displayItems"
+            [showClear]="true"
+            [(ngModel)]="display"
+            (onChange)="setDisplay()"
+            scrollHeight="225px"
+            placeholder="{{ globals.languageJson?.display }}"
+            [autoDisplayFirst]="false"
+            styleClass="round-border mb-3 {{ display ? 'highlight' : '' }}"
+        ></p-dropdown>
+    </div>
+</div>
+
+<!-- Primeng table for Procured Coffee -->
+<div class="coffee-procured">
+    <p-table
+        #procuredCoffeeTable
+        [class.table-mobile]="primeTableService.isMobileView"
+        [value]="primeTableService.records"
+        [columns]="primeTableService._allColumns"
+        [(selection)]="primeTableService.selectedRecords"
+        dataKey="id"
+        styleClass="ui-table-customers"
+        [rows]="primeTableService.rows"
+        [showCurrentPageReport]="false"
+        [loading]="primeTableService.loading"
+        [paginator]="primeTableService.paginationValue"
+        [lazy]="true"
+        (onLazyLoad)="primeTableService.getData($event)"
+        [totalRecords]="primeTableService.totalRecords"
+        [responsive]="primeTableService.isMobileView"
+    >
+        <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <col *ngFor="let col of columns" [style.width]="col.width ? col.width + 'px' : '50px'" />
+            </colgroup>
+        </ng-template>
+
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.sortable === true ? col.field : null">
+                    <span class="primeng-table-header">{{ col.header | translate }}</span>
+                    <p-sortIcon
+                        *ngIf="col.sortable === true"
+                        [field]="col.field"
+                        ariaLabel="Activate to sort"
+                        ariaLabelDesc="Activate to sort in descending order"
+                        ariaLabelAsc="Activate to sort in ascending order"
+                    >
+                    </p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr class="rowClass">
+                <td
+                    *ngFor="let col of columns"
+                    class="order-border"
+                    [ngSwitch]="col.field"
+                    [ngClass]="{ borderNone: col.field === 'order_reference' }"
+                >
+                    <span *ngSwitchCase="'estate_name'" (click)="availabilityPage(rowData)">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                <span *ngIf="path === 'orders'"> {{ 'estate_name' | translate }}</span>
+                                <span *ngIf="path !== 'orders'"> {{ 'customer_name' | translate }}</span>
+                            </span>
+
+                            <span [class.w-50]="primeTableService.isMobileView">
+                                <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                    <span *ngIf="path === 'orders' || path === 'mr-orders' || path === 'hrc-orders'">
+                                        {{ rowData['estate_name'] }}</span
+                                    >
+                                    <span *ngIf="path === 'outtake-orders'"> {{ rowData['customer_name'] }}</span>
+                                </span>
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'customer_name'" (click)="availabilityPage(rowData)">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                {{ 'customer_name' | translate }}
+                            </span>
+
+                            <span [class.w-50]="primeTableService.isMobileView">
+                                {{ rowData['customer_name'] }}
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'rc_total_quantity'" (click)="availabilityPage(rowData)">
+                        <div *ngIf="rowData['customer_type'] === 'hrc-orders'" class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                {{ 'quantity' | translate }}
+                            </span>
+
+                            <span [class.w-50]="primeTableService.isMobileView">
+                                {{ rowData['rc_total_quantity'] }} {{ rowData['rc_total_quantity_unit'] }}
+                            </span>
+                        </div>
+                        <div *ngIf="rowData['customer_type'] === 'mr'" class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                {{ 'quantity' | translate }}
+                            </span>
+
+                            <span [class.w-50]="primeTableService.isMobileView">
+                                {{ rowData['gc_total_quantity'] }} {{ rowData['gc_total_quantity_unit'] }}
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'order_date'" (click)="availabilityPage(rowData)">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                {{ 'ordered_date' | translate }}
+                            </span>
+                            <span [class.w-50]="primeTableService.isMobileView">
+                                {{ rowData['order_date'] | date: 'mediumDate' }}
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'created_at'" (click)="availabilityPage(rowData)">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                {{ 'ordered_date' | translate }}
+                            </span>
+
+                            <span
+                                *ngIf="path === 'orders' || path === 'mr-orders'"
+                                [class.w-50]="primeTableService.isMobileView"
+                            >
+                                {{ rowData['created_at'] | date: 'mediumDate' }}
+                            </span>
+                            <span
+                                *ngIf="path === 'hrc-orders' || path === 'outtake-orders'"
+                                [class.w-50]="primeTableService.isMobileView"
+                            >
+                                {{ rowData['order_date'] | date: 'mediumDate' }}
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'date_received'" (click)="availabilityPage(rowData)">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                {{ 'recieved_date' | translate }}
+                            </span>
+
+                            <span [class.w-50]="primeTableService.isMobileView">
+                                {{ rowData['date_received'] | date: 'mediumDate' }}
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'status'" (click)="availabilityPage(rowData)">
+                        <span *ngIf="!primeTableService.isMobileView">
+                            {{ rowData['status'] | titlecase }}
+                        </span>
+                    </span>
+                    <span *ngSwitchCase="'varieties'" (click)="availabilityPage(rowData)">
+                        <div class="d-flex">
+                            <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
+                                {{ rowData['varieties'] || 'NA' }}
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'origin'" (click)="availabilityPage(rowData)">
+                        <div class="d-flex">
+                            <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
+                                {{ rowData['origin'] | country | translate }}
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'quantity'" (click)="availabilityPage(rowData)">
+                        <span *ngIf="primeTableService.isMobileView" class="w-50">
+                            {{ rowData['quantity'] }}&nbsp; kg
+                        </span>
+                        <span *ngIf="!primeTableService.isMobileView"> {{ rowData['quantity'] }}&nbsp; kg </span>
+                    </span>
+
+                    <span *ngSwitchCase="'id'">
+                        <span *ngIf="!primeTableService.isMobileView" (click)="availabilityPage(rowData)">
+                            {{ rowData[col.field] }}
+                        </span>
+                        <div class="d-flex mobile-header br-4 p-2">
+                            <span *ngIf="primeTableService.isMobileView" class="mobile-heading w-50">
+                                {{ 'order_id' | translate }} #
+                                <span *ngIf="path === 'hrc-orders'">{{ rowData.order_id }}</span>
+                                <span *ngIf="path !== 'hrc-orders'">{{ rowData[col.field] }}</span>
+                            </span>
+                            <span
+                                *ngIf="!primeTableService.isMobileView; else mobile_name"
+                                [class.prime-table-heading]="primeTableService.isMobileView"
+                                class="w-50"
+                            >
+                            </span>
+                            <ng-template #mobile_name>
+                                <span class="ml-auto">
+                                    <ng-container *ngIf="primeTableService.isMobileView">
+                                        <a
+                                            class="menu-arrow"
+                                            [popover]="poplistTemplate"
+                                            placement="left"
+                                            [outsideClick]="true"
+                                            #pop="bs-popover"
+                                        >
+                                            <span class="mb-0">
+                                                <img class="ellipse-image" src="assets/images/ellipses.png" alt="" />
+                                            </span>
+                                        </a>
+                                        <ng-template #poplistTemplate>
+                                            <div id="popover-mobile-content">
+                                                <ul class="list-group custom-popover">
+                                                    <li class="list-group-item">
+                                                        <a
+                                                            *ngIf="path === 'orders'"
+                                                            class="text-clr588 fnt-600 fnt-14"
+                                                            (click)="availabilityPage(rowData)"
+                                                            >{{ 'view_details' | translate }}</a
+                                                        >
+                                                        <a
+                                                            *ngIf="path !== 'orders'"
+                                                            class="text-clr588 fnt-600 fnt-14"
+                                                            (click)="availabilityPage(rowData)"
+                                                            >{{ 'update_details' | translate }}</a
+                                                        >
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </ng-template>
+                                    </ng-container>
+                                </span>
+                            </ng-template>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'actions'" class="text-center" (click)="availabilityPage(rowData)">
+                        <span *ngIf="path === 'orders'">
+                            <ng-container *ngIf="!primeTableService.isMobileView">
+                                <span class="brown-cta">{{ 'view_details' | translate }}</span>
+                            </ng-container>
+                        </span>
+                        <span *ngIf="path !== 'orders'">
+                            <ng-container *ngIf="!primeTableService.isMobileView">
+                                <span class="brown-cta">{{ 'update_details' | translate }}</span>
+                            </ng-container>
+                        </span>
+                    </span>
+                    <span *ngSwitchDefault>
+                        {{ rowData[col.field] }}
+                    </span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<!-- <div class="d-flex justify-content-between filter">
     <div class="d-flex">
         <div *ngIf="customerType === 'orders'">
             <p-dropdown
@@ -561,4 +841,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

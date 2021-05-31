@@ -9,8 +9,10 @@
                     type="text"
                     pInputText
                     class="w-100 {{ searchTerm ? 'highlight' : '' }}"
-                    [(ngModel)]="searchTerm"
+                    [(ngModel)]="searchString"
                     placeholder="{{ 'search_name_order_id' | translate }}"
+                    (input)="onSearch()"
+                    name="filesTerm"
                 />
             </span>
         </div>
@@ -41,60 +43,21 @@
                     type="text"
                     pInputText
                     class="w-100 {{ searchTerm ? 'highlight' : '' }} "
-                    [(ngModel)]="searchTerm"
-                    placeholder="{{ 'search_name_role' | translate }}"
+                    placeholder="Search by order ID"
+                    [(ngModel)]="searchString"
+                    (input)="onSearch()"
+                    name="filesTerm"
                 />
             </span>
         </div>
     </section>
-    <!-- table -->
-    <section>
-        <div class="col-lg-12 col-md-12 px-0 mobile-taggle">
-            <p-tabView class="toggle" (onChange)="onTabChange($event)">
-                <p-tabPanel header="{{ 'estate_orders' | translate }}">
-                    <app-coffee-experience-table
-                        *ngIf="customerType === 'orders'"
-                        [searchTerm]="searchTerm"
-                        [coffeeExperienceData]="coffeeExperienceData"
-                        [customerType]="customerType"
-                    >
-                    </app-coffee-experience-table>
-                </p-tabPanel>
-                <p-tabPanel header="{{ 'micro_roaster_orders' | translate }}">
-                    <app-coffee-experience-table
-                        *ngIf="customerType === 'mr-orders'"
-                        [searchTerm]="searchTerm"
-                        [coffeeExperienceData]="coffeeExperienceData"
-                        [customerType]="customerType"
-                    >
-                    </app-coffee-experience-table>
-                </p-tabPanel>
-                <p-tabPanel header="{{ 'partner_orders' | translate }}">
-                    <app-coffee-experience-table
-                        *ngIf="customerType === 'hrc-orders'"
-                        [searchTerm]="searchTerm"
-                        [coffeeExperienceData]="coffeeExperienceData"
-                        [customerType]="customerType"
-                    >
-                    </app-coffee-experience-table>
-                </p-tabPanel>
-                <p-tabPanel header="{{ 'outtake_orders' | translate }}">
-                    <app-coffee-experience-table
-                        *ngIf="customerType === 'outtake-orders'"
-                        [searchTerm]="searchTerm"
-                        [coffeeExperienceData]="coffeeExperienceData"
-                        [customerType]="customerType"
-                    >
-                    </app-coffee-experience-table>
-                </p-tabPanel>
-            </p-tabView>
-        </div>
-    </section>
-    <p-paginator
-        *ngIf="totalRecords"
-        [rows]="rows"
-        [totalRecords]="totalRecords"
-        (onPageChange)="getData($event)"
-        styleClass="mt-45"
-    ></p-paginator>
+    <!-- tab -->
+    <p-tabMenu [model]="menuItems" styleClass="inner-menu mt-3">
+        <ng-template pTemplate="item" let-item let-i="index">
+            <span class="pl-1">{{ item.label | translate }}</span>
+        </ng-template>
+    </p-tabMenu>
+    <div class="mt-4">
+        <router-outlet> </router-outlet>
+    </div>
 </div>
