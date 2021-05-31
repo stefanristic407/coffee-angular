@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, Input, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -12,7 +12,6 @@ import { COUNTRY_LIST } from '@constants';
     selector: 'app-select-orders',
     templateUrl: './select-orders.component.html',
     styleUrls: ['./select-orders.component.scss'],
-    encapsulation: ViewEncapsulation.None,
 })
 export class SelectOrdersComponent implements OnInit {
     @Output() orderChange = new EventEmitter<any>();
@@ -285,12 +284,6 @@ export class SelectOrdersComponent implements OnInit {
                     this.totalCount = data.result_info?.total_count;
                     this.tableValue = data.result;
                 }
-                // this.roleType = this.tableValue.map((resp) => {
-                //     if (resp.roles) {
-                //         const type = { label: resp.roles, value: resp.roles };
-                //         return type;
-                //     }
-                // });
                 this.loader = false;
             }
         });
