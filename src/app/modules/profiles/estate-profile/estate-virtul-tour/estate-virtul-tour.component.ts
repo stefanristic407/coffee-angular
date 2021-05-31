@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { EstateProfileService } from '../estate-profile.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { MediaPreviewComponent } from '@app/modules/file-share/components/media-preview/media-preview.component';
 
 @Component({
     selector: 'app-estate-virtul-tour',
@@ -8,7 +11,15 @@ import { Component, Input, OnInit } from '@angular/core';
 export class EstateVirtulTourComponent implements OnInit {
     @Input() estateId;
 
-    constructor() {}
+    constructor(public profileCreationService: EstateProfileService, private dialogSrv: DialogService) {}
 
     ngOnInit(): void {}
+
+    preview(item) {
+        this.dialogSrv.open(MediaPreviewComponent, {
+            data: { record: item },
+            showHeader: false,
+            styleClass: 'preview-dialog',
+        });
+    }
 }
