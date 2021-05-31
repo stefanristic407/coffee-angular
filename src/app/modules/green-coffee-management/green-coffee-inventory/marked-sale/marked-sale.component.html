@@ -130,9 +130,13 @@
                         </div>
                     </span>
                     <span *ngSwitchCase="'quantity'">
-                        <div class="d-flex">
-                            <div></div>
-
+                        <div
+                            class="d-flex"
+                            tooltipStyleClass="custom-tooltip"
+                            pTooltip="{{ rowData['quantity_count'] }} {{ rowData['quantity_type'] }} /
+                                {{ rowData['quantity'] }} kg"
+                            tooltipPosition="top"
+                        >
                             <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
                                 {{ rowData['quantity'] || 'NA' }}
 

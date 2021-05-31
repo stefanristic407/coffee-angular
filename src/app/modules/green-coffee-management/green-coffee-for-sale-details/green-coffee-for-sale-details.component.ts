@@ -99,9 +99,10 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
                 if (response && response.success && response.result) {
                     const result = response.result;
                     this.orderDetails.availability_name = result.name;
-                    this.orderDetails.crop_year = result.harvest_date;
+                    this.orderDetails.harvest_year_end = result.harvest_year_end;
+                    this.orderDetails.harvest_year_start = result.harvest_year_start;
                     this.orderDetails.altitude = result.min_altitude + '-' + result.max_altitude;
-                    this.orderDetails.flavours = result.flavours;
+                    this.orderDetails.flavours = result.flavours.map((item) => item.name).join(', ');
                     this.orderDetails.wet_mill = result.wet_milling.name;
                     this.orderDetails.processing = result.wet_milling.process + ',' + result.dry_milling.process;
                     this.orderDetails.moisture = result.dry_milling.moisture_content;

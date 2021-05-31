@@ -170,6 +170,18 @@ export class SelectOrdersComponent implements OnInit {
                     width: 25,
                 },
             ];
+            if (window.innerWidth < 767) {
+                this.tableColumns.map((item, index, array) => {
+                    if (item.field === 'last_login_at') {
+                        array.splice(index, 1);
+                    }
+                    if (item.field === 'status') {
+                        array.splice(index, 1);
+                    }
+                    return item;
+                });
+            }
+            console.log(this.tableColumns);
         } else {
             this.tableColumns = [
                 {

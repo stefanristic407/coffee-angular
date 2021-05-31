@@ -67,7 +67,7 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
         super(resizeService);
         this.roasterId = this.cookieService.get('roaster_id');
         this.primeTableService.rows = 10;
-        this.primeTableService.sortBy = 'created_at';
+        this.primeTableService.sortBy = 'order_date';
     }
 
     @ViewChild('markedTable', { static: true }) table: Table;

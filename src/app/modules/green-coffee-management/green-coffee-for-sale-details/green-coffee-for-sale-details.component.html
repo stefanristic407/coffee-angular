@@ -213,7 +213,7 @@
                                                         </li>
 
                                                         <li>
-                                                            <label>{{ 'gc_order_id' | translate }}</label>
+                                                            <label>{{ 'gc_odrer_id' | translate }}</label>
                                                             <p>
                                                                 {{ orderDetails.id ? orderDetails.id : 'NA' }}
                                                             </p>
@@ -247,12 +247,8 @@
                                                         <li>
                                                             <label>Crop year</label>
                                                             <p>
-                                                                {{
-                                                                    orderDetails.crop_year
-                                                                        | date
-                                                                            : 'MMM,
-                                                                            y'
-                                                                }}
+                                                                {{ orderDetails.harvest_year_start | date: 'MMM' }} -
+                                                                {{ orderDetails.harvest_year_end | date: 'MMM' }}
                                                             </p>
                                                         </li>
                                                         <li>
@@ -265,23 +261,8 @@
                                                         </li>
                                                         <li>
                                                             <label>{{ 'flavor_profile' | translate }}</label>
-                                                            <p
-                                                                *ngIf="
-                                                                    orderDetails.flavours &&
-                                                                    orderDetails.flavours.length > 0
-                                                                "
-                                                            >
-                                                                <span *ngFor="let item of orderDetails.flavours">
-                                                                    {{ item.name }}</span
-                                                                >
-                                                            </p>
-                                                            <p
-                                                                *ngIf="
-                                                                    !orderDetails.flavours ||
-                                                                    orderDetails.flavours.length < 0
-                                                                "
-                                                            >
-                                                                <span> NA</span>
+                                                            <p>
+                                                                <span> {{ orderDetails.flavours }}</span>
                                                             </p>
                                                         </li>
                                                         <li>
