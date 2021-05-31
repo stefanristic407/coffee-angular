@@ -42,6 +42,8 @@ export class PrimeTableService {
     public paginationValue = false;
     public origin: any;
     public status: any;
+    public start_date: any;
+    public end_date: any;
     public query: any;
     public searchQuery: any;
     public customer_type: any;
@@ -100,6 +102,14 @@ export class PrimeTableService {
 
         if (this.to_date) {
             postData = { ...postData, ...{ to_date: this.to_date } };
+        }
+
+        if (this.from_date) {
+            postData = { ...postData, ...{ start_date: this.start_date, end_date: '' } };
+        }
+
+        if (this.end_date) {
+            postData = { ...postData, ...{ end_date: this.end_date } };
         }
 
         // If status is required

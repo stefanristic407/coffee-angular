@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, Input, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -12,7 +12,6 @@ import { COUNTRY_LIST } from '@constants';
     selector: 'app-select-orders',
     templateUrl: './select-orders.component.html',
     styleUrls: ['./select-orders.component.scss'],
-    encapsulation: ViewEncapsulation.None,
 })
 export class SelectOrdersComponent implements OnInit {
     @Output() orderChange = new EventEmitter<any>();
@@ -96,44 +95,45 @@ export class SelectOrdersComponent implements OnInit {
                 {
                     field: 'id',
                     header: this.globals.languageJson?.order_id,
-                    sortable: false,
+                    sortable: true,
                     width: 7,
                 },
                 {
                     field: 'estate_name',
                     header: this.globals.languageJson?.estate_name,
-                    sortable: false,
+                    sortable: true,
                     width: 14,
                 },
                 {
                     field: 'created_at',
                     header: this.globals.languageJson?.ordered_date,
+                    sortable: true,
                     width: 10,
                 },
                 {
                     field: 'origin',
                     header: this.globals.languageJson?.origin,
-                    sortable: false,
+                    sortable: true,
                     width: 8,
                 },
                 {
                     field: 'varieties',
                     header: this.globals.languageJson?.variety,
-                    sortable: false,
+                    sortable: true,
                     width: 12,
                 },
 
                 {
                     field: 'quantity',
                     header: this.globals.languageJson?.quantity,
-                    sortable: false,
+                    sortable: true,
                     width: 8,
                 },
 
                 {
                     field: 'cup_score',
                     header: this.globals.languageJson?.cupping_score,
-                    sortable: false,
+                    sortable: true,
                     width: 10,
                 },
             ];
@@ -142,56 +142,71 @@ export class SelectOrdersComponent implements OnInit {
                 {
                     field: 'firstname',
                     header: this.globals.languageJson?.name,
-                    width: 14,
+                    sortable: true,
+                    width: 20,
                 },
                 {
                     field: 'last_login_at',
                     header: this.globals.languageJson?.last_login,
-                    width: 10,
+                    sortable: true,
+                    width: 15,
                 },
                 {
                     field: 'email',
                     header: this.globals.languageJson?.email,
+                    sortable: true,
                     width: 20,
                 },
                 {
                     field: 'status',
                     header: this.globals.languageJson?.status,
-                    width: 10,
+                    sortable: true,
+                    width: 15,
                 },
                 {
                     field: 'roles',
                     header: this.globals.languageJson?.all_roles,
-                    width: 33,
+                    sortable: true,
+                    width: 25,
                 },
             ];
+            if (window.innerWidth < 767) {
+                this.tableColumns.map((item, index, array) => {
+                    if (item.field === 'last_login_at') {
+                        array.splice(index, 1);
+                    }
+                    if (item.field === 'status') {
+                        array.splice(index, 1);
+                    }
+                    return item;
+                });
+            }
+            console.log(this.tableColumns);
         } else {
             this.tableColumns = [
                 {
-                    field: 'id',
-                    header: this.globals.languageJson?.customer_id,
-                    sortable: false,
-                    width: 7,
-                },
-                {
                     field: 'name',
                     header: this.globals.languageJson?.customer_name,
-                    width: 14,
+                    sortable: true,
+                    width: 20,
                 },
                 {
                     field: 'created_at',
                     header: this.globals.languageJson?.ordered_date,
-                    width: 10,
+                    sortable: true,
+                    width: 20,
                 },
                 {
                     field: 'email',
                     header: this.globals.languageJson?.email,
-                    width: 16,
+                    sortable: true,
+                    width: 35,
                 },
                 {
                     field: 'status',
                     header: this.globals.languageJson?.status,
-                    width: 12,
+                    sortable: true,
+                    width: 20,
                 },
             ];
         }
@@ -281,12 +296,6 @@ export class SelectOrdersComponent implements OnInit {
                     this.totalCount = data.result_info?.total_count;
                     this.tableValue = data.result;
                 }
-                // this.roleType = this.tableValue.map((resp) => {
-                //     if (resp.roles) {
-                //         const type = { label: resp.roles, value: resp.roles };
-                //         return type;
-                //     }
-                // });
                 this.loader = false;
             }
         });

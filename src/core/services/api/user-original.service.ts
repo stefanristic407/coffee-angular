@@ -171,6 +171,11 @@ export class UserserviceService extends ApiService {
         return this.post(this.postUrl, `general/${orgType}/${orgId}/certificates`, 'GET');
     }
 
+    getGeneralVirtualTourFiles(orgId: any, orgType: OrganizationType, query: Object): Observable<any> {
+        const params = this.serializeParams(query);
+        return this.post(this.postUrl, `general/${orgType}/${orgId}/file-manager/all-files?${params}`, 'GET');
+    }
+
     // API Function Name : Roaster Account
     // API Description: This API calls helps to update the Roaster Account profile.
 

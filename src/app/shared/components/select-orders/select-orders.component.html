@@ -51,7 +51,7 @@
     </div>
     <div class="row ml-0 w-100">
         <div class="d-flex justify-content-between w-100">
-            <div class="d-flex">
+            <div class="d-flex flex-column flex-md-row">
                 <p-dropdown
                     *ngIf="selectedType === 'orders'"
                     [options]="originArray"
@@ -167,22 +167,7 @@
                     >
                         <ng-container *ngSwitchCase="'estate_name'">
                             <div class="d-md-none mb-4">
-                                <span class="fnt-16 fnt-md-18 fnt-bold mb-2"
-                                    >{{ 'order_id' | translate }} #{{ rowData.id }}</span
-                                >
-                                <p-tableRadioButton class="float-right" [value]="rowData"></p-tableRadioButton>
-                                <div class="fnt-12 mt-2">
-                                    <span class="text-clr588">{{ 'created_on' | translate }} : </span>
-                                    <span>{{ rowData.created_at | date: 'dd MMM yyyy h:mma' }}</span>
-                                </div>
-                            </div>
-                            <span class="p-column-title"> {{ col.header }} </span>
-                            <span>{{ rowData[col.field] }}</span>
-                        </ng-container>
-
-                        <ng-container *ngSwitchCase="'firstname'">
-                            <div class="d-md-none mb-4">
-                                <div>
+                                <div class="header">
                                     <span class="fnt-16 fnt-md-18 fnt-bold mb-2"
                                         >{{ 'order_id' | translate }} #{{ rowData.id }}</span
                                     >
@@ -197,17 +182,43 @@
                             <span>{{ rowData[col.field] }}</span>
                         </ng-container>
 
+                        <div class="d-none d-md-block">
+                            <ng-container *ngSwitchCase="'firstname'">
+                                <span class="p-column-title"> {{ col.header }} </span>
+                                <span>{{ rowData[col.field] }}</span>
+                            </ng-container>
+                        </div>
+                        <div class="d-md-none">
+                            <ng-container *ngSwitchCase="'firstname'">
+                                <div class="header">
+                                    <span class="fnt-16 fnt-md-18 fnt-bold mb-2">{{ rowData.firstname }}</span>
+                                    <span
+                                        *ngIf="rowData['status'] == 'ACTIVE'"
+                                        class="tableDataFont typeofStatus-active ml-3"
+                                        >&#9679; {{ 'active' | translate }}
+                                    </span>
+                                    <span
+                                        *ngIf="rowData['status'] == 'INACTIVE'"
+                                        class="tableDataFont typeofStatus-disabled ml-3"
+                                        >&#9679; Disabled
+                                    </span>
+                                    <p-tableRadioButton class="float-right" [value]="rowData"></p-tableRadioButton>
+                                </div>
+                                <div class="d-flex fnt-12 justify-content-between mt-2">
+                                    <span class="text-clr588">{{ 'last_login' | translate }}</span>
+                                    <span class="mr-2">{{ rowData.last_login_at | date: 'dd MMM yyyy h:mma' }}</span>
+                                </div>
+                            </ng-container>
+                        </div>
                         <ng-container *ngSwitchCase="'name'">
                             <div class="d-md-none mb-4">
-                                <div>
-                                    <span class="fnt-16 fnt-md-18 fnt-bold mb-2"
-                                        >{{ 'order_id' | translate }} #{{ rowData.id }}</span
-                                    >
+                                <div class="header">
+                                    <span class="fnt-16 fnt-md-18 fnt-bold mb-2">{{ rowData.name }}</span>
                                     <p-tableRadioButton class="float-right" [value]="rowData"></p-tableRadioButton>
                                 </div>
-                                <div class="fnt-12 mt-2">
+                                <div class="d-flex fnt-12 justify-content-between mt-2">
                                     <span class="text-clr588">{{ 'created_on' | translate }} : </span>
-                                    <span>{{ rowData.created_at | date: 'dd MMM yyyy h:mma' }}</span>
+                                    <span class="mr-2">{{ rowData.created_at | date: 'dd MMM yyyy h:mma' }}</span>
                                 </div>
                             </div>
                             <span class="p-column-title"> {{ col.header }} </span>
@@ -219,7 +230,7 @@
                             <span>{{ rowData[col.field] | country | translate }}</span>
                         </ng-container>
 
-                        <ng-container *ngSwitchCase="'last_login_at'">
+                        <ng-container class="web-farm" *ngSwitchCase="'last_login_at'">
                             <span class="p-column-title"> {{ col.header }} </span>
                             <span>{{ rowData[col.field] | date: 'dd MMM yyyy' }}</span>
                         </ng-container>

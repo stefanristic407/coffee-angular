@@ -364,8 +364,8 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
             delete this.queryParams.dates;
 
             this.searchForm.patchValue({ page: 1 }, { emitEvent: false });
-            this.primeTableService.from_date = this.startDate;
-            this.primeTableService.to_date = this.endDate;
+            this.primeTableService.start_date = this.startDate;
+            this.primeTableService.end_date = this.endDate;
             setTimeout(() => {
                 this.table.reset();
             }, 0);

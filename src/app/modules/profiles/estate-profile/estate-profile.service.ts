@@ -15,6 +15,7 @@ export class EstateProfileService {
     userId: string;
     estateUsers: any = [];
     estateContacts: any = [];
+    estateVirtualTourFiles: any = [];
     single: { name: string; value: any }[];
     public organizationProfile: EstateOrganizationProfile;
 
@@ -53,6 +54,7 @@ export class EstateProfileService {
         });
 
         this.getcontactList(estateId);
+        this.getVirtualTourFiles(estateId);
     }
 
     getcontactList(estateId) {
@@ -62,5 +64,19 @@ export class EstateProfileService {
                 console.log(this.estateContacts);
             }
         });
+    }
+
+    getVirtualTourFiles(estateId) {
+        this.userService
+            .getGeneralVirtualTourFiles(estateId, OrganizationType.ESTATE, {
+                file_module: 'Gallery',
+                type_in: 'VIDEO,IMAGE',
+            })
+            .subscribe((res: any) => {
+                if (res.success) {
+                    this.estateVirtualTourFiles = res.result;
+                    console.log(this.estateVirtualTourFiles);
+                }
+            });
     }
 }

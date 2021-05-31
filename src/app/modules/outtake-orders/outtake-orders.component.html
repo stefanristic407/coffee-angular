@@ -294,7 +294,9 @@
 
                         <span *ngSwitchCase="'actions'" class="text-center">
                             <ng-container *ngIf="!primeTableService.isMobileView">
-                                <span class="brown-cta" [routerLink]="onEdit(rowData)">{{ 'view' | translate }}</span>
+                                <span class="brown-cta" [routerLink]="onEdit(rowData)">{{
+                                    'view' | titlecase | translate
+                                }}</span>
                             </ng-container>
                         </span>
 

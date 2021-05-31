@@ -137,6 +137,7 @@ export class AddNewOrderComponent implements OnInit {
         this.roasterService.getsalesMemberDetails(this.roasterId, this.loginUserID).subscribe((res: any) => {
             if (res.success) {
                 this.addOrdersForm.get('created_by').setValue(res.result.firstname + ' ' + res.result.lastname);
+                this.createdID = res.result.id;
             }
         });
     }
@@ -292,6 +293,7 @@ export class AddNewOrderComponent implements OnInit {
                 '-' +
                 ('0' + roastedDate.getDate()).slice(-2);
             data.roasting_time = parseInt(data.roasting_time, 10);
+            data.roasting_temperature = parseInt(data.roasting_temperature, 10);
         } else {
             data.roasted_date = '';
             data.roasted_coffee_total_quantity = 0;
