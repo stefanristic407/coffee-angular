@@ -1,10 +1,8 @@
 @import 'variables';
 
-::ng-deep.p-calendar {
+::ng-deep .date-calender .p-calendar {
     width: 100%;
-    .p-inputtext {
-        margin-left: 0 !important;
-    }
+    padding-left: 0 !important;
     .p-button-icon {
         font-size: 20px;
     }
