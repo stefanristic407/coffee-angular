@@ -31,8 +31,6 @@ export class DashboardEstateComponent implements OnInit, OnDestroy {
                 console.log('estate data: ', res);
                 estateData.length > 4 ? (this.estates = estateData.slice(0, 4)) : (this.estates = estateData);
                 this.estates.map((item: any) => {
-                    const countryName = this.globals.getCountryName(item.country);
-                    item.countryName = countryName;
                     if (item.varieties) {
                         const tags = item.varieties;
                         if (tags.length > 3) {

@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute } from '@angular/router';
+import { OrganizationSlug } from '@enums';
 
 @Component({
     selector: 'app-setup-license',
@@ -60,6 +61,9 @@ export class SetupLicenseComponent implements OnInit {
         this.userService.getCertificateTypes().subscribe((res: any) => {
             if (res.success) {
                 this.certificateList = Object.values(res.result);
+                this.certificateList = this.certificateList.filter((item) => {
+                    return item.tags && item.tags.includes(OrganizationSlug.ROASTER);
+                });
             }
         });
     }
@@ -110,7 +114,6 @@ export class SetupLicenseComponent implements OnInit {
             if (res.success) {
                 const editId = this.route.snapshot.params?.id || '';
                 this.certificationArray = res.result;
-                console.log('certificationArray: ', this.certificationArray);
                 if (editId) {
                     this.certificationArray.map((item, index) => {
                         if (item.id.toString() === editId) {
