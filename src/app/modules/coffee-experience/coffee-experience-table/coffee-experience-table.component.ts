@@ -15,13 +15,14 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Table } from 'primeng/table';
 import { takeUntil } from 'rxjs/operators';
 import * as moment from 'moment';
+import { ResizeableComponent } from '@base-components';
 
 @Component({
     selector: 'app-coffee-experience-table',
     templateUrl: './coffee-experience-table.component.html',
     styleUrls: ['./coffee-experience-table.component.scss'],
 })
-export class CoffeeExperienceTableComponent implements OnInit {
+export class CoffeeExperienceTableComponent extends ResizeableComponent implements OnInit {
     appLanguage?: any;
     orderId: any;
 
@@ -54,13 +55,14 @@ export class CoffeeExperienceTableComponent implements OnInit {
     originArray: any[] = [];
     procuredCoffeeListArray: any[];
     path: string;
+    forms: FormGroup;
     @Input('form')
     set form(value: FormGroup) {
-        this.tableForm = value;
+        this.forms = value;
     }
 
     get form() {
-        return this.tableForm;
+        return this.forms;
     }
     readonly searchForm = this.fb.group({
         dates: this.fb.control(''),
@@ -79,7 +81,7 @@ export class CoffeeExperienceTableComponent implements OnInit {
         public activeRoute: ActivatedRoute,
         protected resizeService: ResizeService,
     ) {
-        // super(resizeService);
+        super(resizeService);
         this.display = 10;
         this.roasterId = this.cookieService.get('roaster_id');
         this.primeTableService.rows = 10;
@@ -94,7 +96,7 @@ export class CoffeeExperienceTableComponent implements OnInit {
         }
     }
 
-    public tableForm: FormGroup;
+    public;
 
     @ViewChild('procuredCoffeeTable', { static: true }) table: Table;
     public isMobile = false;
@@ -338,46 +340,36 @@ export class CoffeeExperienceTableComponent implements OnInit {
         this.primeTableService.url = `/ro/${this.roasterId}/${this.path}`;
         this.initializeTableProcuredCoffee();
         this.primeTableService.form = this.form;
+        this.language();
+        this.getCoffeeExpOrders();
         this.primeTableService.form?.valueChanges.subscribe((data) =>
             setTimeout(() => {
                 this.table.reset();
             }, 100),
         );
-        this.appLanguage = this.globals.languageJson;
-        this.roasterService.getCoffeeExperienceOrders(this.roasterId, this.path).subscribe((res: any) => {
-            res.result.map((org) => {
-                COUNTRY_LIST.find((item) => {
-                    if (org.origin && item.isoCode && org.origin.toUpperCase() === item.isoCode) {
-                        this.originArray.push(item);
-                    }
-                });
-            });
-            this.originArray = this.originArray.filter((v, i, a) => a.findIndex((t) => t.isoCode === v.isoCode) === i);
+        this.searchForm.valueChanges.pipe(takeUntil(this.unsubscribeAll$)).subscribe((value) => {
+            this.startDate = value.dates && value.dates[0] ? moment(value.dates[0]).format('yyyy-MM-DD') : '';
+
+            // Adding 1 day to include selected date into API filter range
+            this.endDate =
+                value.dates && value.dates[1] ? moment(value.dates[1]).add(1, 'day').format('yyyy-MM-DD') : '';
+
+            this.queryParams = {
+                ...value,
+                page: 1,
+                from_date: this.startDate,
+                to_date: this.endDate,
+            };
+
+            delete this.queryParams.dates;
+
+            this.searchForm.patchValue({ page: 1 }, { emitEvent: false });
+            this.primeTableService.from_date = this.startDate;
+            this.primeTableService.to_date = this.endDate;
+            setTimeout(() => {
+                this.table.reset();
+            }, 0);
         });
-        this.language();
-        // this.searchForm.valueChanges.pipe(takeUntil(this.unsubscribeAll$)).subscribe((value) => {
-        //     this.startDate = value.dates && value.dates[0] ? moment(value.dates[0]).format('yyyy-MM-DD') : '';
-
-        //     // Adding 1 day to include selected date into API filter range
-        //     this.endDate =
-        //         value.dates && value.dates[1] ? moment(value.dates[1]).add(1, 'day').format('yyyy-MM-DD') : '';
-
-        //     this.queryParams = {
-        //         ...value,
-        //         page: 1,
-        //         from_date: this.startDate,
-        //         to_date: this.endDate,
-        //     };
-
-        //     delete this.queryParams.dates;
-
-        //     this.searchForm.patchValue({ page: 1 }, { emitEvent: false });
-        //     this.primeTableService.from_date = this.startDate;
-        //     this.primeTableService.to_date = this.endDate;
-        //     setTimeout(() => {
-        //         this.table.reset();
-        //     }, 0);
-        // });
     }
 
     language() {
@@ -400,6 +392,15 @@ export class CoffeeExperienceTableComponent implements OnInit {
         }
 
         this.table.reset();
+    }
+
+    formatStatus(stringVal) {
+        let formatVal = '';
+        if (stringVal) {
+            formatVal = stringVal.toLowerCase().charAt(0).toUpperCase() + stringVal.slice(1).toLowerCase();
+            formatVal = formatVal.replace('_', ' ');
+        }
+        return formatVal.replace('-', '');
     }
 
     availabilityPage(item) {
@@ -429,5 +430,18 @@ export class CoffeeExperienceTableComponent implements OnInit {
                 },
             });
         }
+    }
+
+    getCoffeeExpOrders() {
+        this.roasterService.getCoffeeExperienceOrders(this.roasterId, this.path).subscribe((res: any) => {
+            res.result.map((org) => {
+                COUNTRY_LIST.find((item) => {
+                    if (org.origin && item.isoCode && org.origin.toUpperCase() === item.isoCode) {
+                        this.originArray.push(item);
+                    }
+                });
+            });
+            this.originArray = this.originArray.filter((v, i, a) => a.findIndex((t) => t.isoCode === v.isoCode) === i);
+        });
     }
 }
