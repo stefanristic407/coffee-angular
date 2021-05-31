@@ -11,6 +11,7 @@
                         <div class="source-det-tit d-md-flex">
                             <div class="d-flex justify-content-center mr-md-2 pr-md-1">
                                 <app-avatar
+                                    class="cursor-pointer"
                                     (click)="routeToEstateProfile()"
                                     [size]="(isMobile$ | async) ? 90 : 54"
                                     [src]="sourcing.estate?.company_image_thumbnail_url"
@@ -18,7 +19,10 @@
                                 ></app-avatar>
                             </div>
                             <div class="d-inline-block mt-3 mt-md-0">
-                                <h2 class="fnt-16 fnt-md-18 fnt-bold text-clr24 mb-0" (click)="routeToEstateProfile()">
+                                <h2
+                                    class="fnt-16 fnt-md-18 fnt-bold text-clr24 mb-0 cursor-pointer"
+                                    (click)="routeToEstateProfile()"
+                                >
                                     {{ sourcing.estate?.name || 'NA' }}
                                 </h2>
                                 <div class="d-flex justify-content-center justify-content-md-start align-items-center">
