@@ -156,6 +156,7 @@
                                             <h6>{{ 'lot_size' | translate }}</h6>
                                             <h3>
                                                 {{ sourcing.lot?.total_area || 'NA' }}
+                                                {{ sourcing.lot?.total_area_unit }}
                                             </h3>
                                         </div>
                                     </div>
@@ -241,10 +242,6 @@
                                     </li>
                                     <li>
                                         <label>Irrigation type :</label>
-                                        <p>{{ sourcing.lot?.irrigation_type || 'NA' }}</p>
-                                    </li>
-                                    <li>
-                                        <label>Irrigation Type :</label>
                                         <p>{{ sourcing.lot?.irrigation_type || 'NA' }}</p>
                                     </li>
                                     <li>
