@@ -94,12 +94,17 @@
                                 <span *ngIf="path !== 'orders'"> {{ 'customer_name' | translate }}</span>
                             </span>
 
-                            <span [class.w-50]="primeTableService.isMobileView">
+                            <span *ngIf="!primeTableService.isMobileView" [class.w-50]="primeTableService.isMobileView">
                                 <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
                                     <span *ngIf="path === 'orders' || path === 'mr-orders' || path === 'hrc-orders'">
                                         {{ rowData['estate_name'] }}</span
                                     >
                                     <span *ngIf="path === 'outtake-orders'"> {{ rowData['customer_name'] }}</span>
+                                </span>
+                            </span>
+                            <span *ngIf="!primeTableService.isMobileView">
+                                <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                    {{ rowData['estate_name'] }}
                                 </span>
                             </span>
                         </div>
