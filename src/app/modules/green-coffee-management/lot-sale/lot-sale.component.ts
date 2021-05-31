@@ -115,22 +115,25 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
             {
                 field: 'id',
                 header: this.globals.languageJson?.order_id,
-                width: 10,
+                sortable: false,
+                width: 12,
             },
             {
                 field: 'lot_id',
                 header: this.globals.languageJson?.lot_id,
-                width: 6,
+                sortable: false,
+                width: 10,
             },
             {
                 field: 'estate_name',
                 header: this.globals.languageJson?.estate,
-                width: 10,
+                width: 15,
             },
             {
                 field: 'order_reference',
                 header: this.globals.languageJson?.roaster_ref_no,
-                width: 12,
+                sortable: false,
+                width: 15,
             },
             {
                 field: 'origin',
@@ -140,17 +143,20 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
             {
                 field: 'species',
                 header: this.globals.languageJson?.species,
-                width: 8,
+                sortable: false,
+                width: 12,
             },
             {
                 field: 'varieties',
                 header: this.globals.languageJson?.variety,
-                width: 8,
+                sortable: false,
+                width: 12,
             },
             {
                 field: 'price',
                 header: this.globals.languageJson?.buying_price,
-                width: 10,
+                sortable: false,
+                width: 12,
             },
             {
                 field: 'cup_score',
@@ -160,7 +166,8 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
             {
                 field: 'quantity',
                 header: this.globals.languageJson?.stock_in_hand,
-                width: 13,
+                sortable: false,
+                width: 18,
             },
         ];
     }

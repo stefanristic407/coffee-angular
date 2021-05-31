@@ -30,11 +30,11 @@
     text-decoration: underline;
 }
 
-.sewn-form-field .p-dropdown .p-inputtext {
+::ng-deep .sewn-form-field .p-dropdown .p-inputtext {
     padding-right: 0 !important;
 }
 
-.sewn-form-field .p-inputgroup.custom-addon .p-inputgroup-addon {
+::ng-deep .sewn-form-field .p-inputgroup.custom-addon .p-inputgroup-addon {
     padding: 0.9375rem 0.25rem;
 }
 
