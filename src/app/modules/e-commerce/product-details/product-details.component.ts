@@ -873,12 +873,14 @@ export class ProductDetailsComponent implements OnInit {
         getVariant.patchValue({
             origin: '',
             harvest_year: '',
+            processing: '',
         });
         this.roasterService.getViewOrderDetails(this.roasterId, orderID).subscribe((res) => {
             if (res && res.result) {
                 getVariant.patchValue({
                     origin: res.result.origin?.toUpperCase(),
                     harvest_year: new Date(res.result.harvest_date),
+                    processing: res.result.processing,
                 });
             }
         });

@@ -86,8 +86,8 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             }
         });
         this.weightTypeArray = [
-            { label: 'lbs', value: 'lb' },
-            { label: 'kgs', value: 'kg' },
+            { label: 'lb', value: 'lb' },
+            { label: 'kg', value: 'kg' },
             { label: 'g', value: 'g' },
         ];
         this.grindArray = [
