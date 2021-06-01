@@ -1,3 +1,5 @@
+@import 'variables';
+
 .cert-img {
     height: 24px;
     width: auto;
@@ -85,6 +87,10 @@
 
     @media (min-width: 992px) {
         height: 234px;
+    }
+
+    &.placeholder {
+        border: solid 1px $secondary-border-color;
     }
 }
 
