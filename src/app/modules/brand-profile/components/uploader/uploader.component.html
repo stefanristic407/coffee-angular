@@ -46,6 +46,7 @@
     [id]="inputId"
     type="file"
     [accept]="acceptType"
+    [multiple]="count - files.length > 1"
     (change)="fileChangeEvent($event)"
     style="display: none"
 />

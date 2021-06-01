@@ -94,40 +94,55 @@ export class UploaderComponent extends ResizeableComponent implements OnInit, Co
     }
 
     fileChangeEvent(event: any) {
-        if (event.target.files && event.target.files[0]) {
-            const file = event.target.files[0];
-            if (!file) {
-                this.toastrService.error(`Please select the correct file`);
+        if (event.target.files?.length) {
+            const cnt = event.target.files.length;
+            const requiredFiles = this.count - this.files.length;
+            if (this.count > 1 && cnt > requiredFiles) {
+                this.toastrService.error(`Please select ${requiredFiles} files.`);
+                return;
             }
-            this.upload(file);
-        }
-    }
+            const promises = [];
+            for (let idx = 0; event.target.files[idx]; idx++) {
+                const file = event.target.files[idx];
+                const formData: FormData = new FormData();
+                formData.append('file', file, file.name);
+                formData.append('name', moment().format('YYYYMMDDHHmmss') + '.' + file.name.split('.').pop());
+                formData.append('file_module', this.fileModule);
+                promises.push(
+                    new Promise((resolve, reject) => {
+                        this.fileService.uploadFiles(formData).subscribe(
+                            (res: any) => {
+                                if (res.success) {
+                                    if (this.count > 1) {
+                                        if (this.fileIndex) {
+                                            this.files[this.fileIndex] = res.result;
+                                        } else {
+                                            this.files = this.files.concat([res.result]);
+                                        }
+                                        this.onChange(this.files);
+                                    } else {
+                                        this.files = JSON.parse(JSON.stringify([res.result]));
+                                        this.onChange(res.result);
+                                    }
+                                    resolve(res.success);
+                                } else {
+                                    reject();
+                                }
+                            },
+                            (err) => {
+                                reject();
+                            },
+                        );
+                    }),
+                );
+            }
 
-    upload(file) {
-        const formData: FormData = new FormData();
-        formData.append('file', file, file.name);
-        formData.append('name', moment().format('YYYYMMDDHHmmss') + '.' + file.name.split('.').pop());
-        formData.append('file_module', this.fileModule);
-        this.fileService.uploadFiles(formData).subscribe(
-            (res: any) => {
-                if (res.success) {
-                    if (this.count > 1) {
-                        if (this.fileIndex) {
-                            this.files[this.fileIndex] = res.result;
-                        } else {
-                            this.files = this.files.concat([res.result]);
-                        }
-                        this.onChange(this.files);
-                    } else {
-                        this.files = JSON.parse(JSON.stringify([res.result]));
-                        this.onChange(res.result);
-                    }
-                }
-            },
-            (err: HttpErrorResponse) => {
-                console.log(err);
-            },
-        );
+            Promise.all(promises)
+                .then(() => {})
+                .catch(() => {
+                    this.toastrService.error('Error while uploading');
+                });
+        }
     }
 
     delete(idx) {
