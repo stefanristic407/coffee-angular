@@ -59,7 +59,14 @@ export class GateComponent extends DestroyableComponent implements OnInit {
                     this.goToLogin();
                 }
 
-                this.cookieService.deleteAll();
+                const cookies = this.cookieService.getAll();
+                let keys = Object.keys(cookies);
+                keys = keys.filter((k) => k !== 'version');
+
+                keys.forEach((key) => {
+                    this.cookieService.delete(key);
+                });
+
                 this.cookieService.set('roaster_id', orgId);
                 this.cookieService.set('Auth', token);
                 this.getData();
