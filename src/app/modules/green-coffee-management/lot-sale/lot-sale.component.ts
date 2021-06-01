@@ -13,7 +13,6 @@ import { ResizeableComponent } from '@base-components';
     selector: 'app-lot-sale',
     templateUrl: './lot-sale.component.html',
     styleUrls: ['./lot-sale.component.scss'],
-    encapsulation: ViewEncapsulation.None,
 })
 export class LotSaleComponent extends ResizeableComponent implements OnInit {
     appLanguage?: any;

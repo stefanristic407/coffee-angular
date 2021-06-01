@@ -50,6 +50,7 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
             { label: 'Home', routerLink: '/roaster-dashboard' },
             { label: 'Inventory' },
             { label: 'Green coffee management', routerLink: '/green-coffee-management/green-coffee-inventory' },
+            { label: 'Procured coffee', routerLink: `/green-coffee-management/green-coffee-inventory` },
             { label: `Order #${this.orderID}` },
         ];
     }
