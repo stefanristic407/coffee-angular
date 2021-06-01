@@ -29,10 +29,15 @@ export class AppComponent implements OnInit {
             node.async = true;
             this.doc.getElementsByTagName('head')[0].appendChild(node);
         }
+        this.checkForUpdates();
     }
 
     public checkForUpdates(): void {
-        this.updates.available.subscribe((event) => this.promptUser());
+        console.log('checkForUpdates');
+        this.updates.available.subscribe((event) => {
+            console.log('Service worker:', event);
+            this.promptUser();
+        });
     }
 
     private promptUser(): void {
