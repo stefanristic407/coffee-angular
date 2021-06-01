@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
     }
 
     private checkVersion() {
-        let vCookie = this.cookieService.get('version');
+        const vCookie = this.cookieService.get('version');
 
         if (!vCookie || vCookie !== environment.version) {
             this.cookieService.set('version', environment.version);
