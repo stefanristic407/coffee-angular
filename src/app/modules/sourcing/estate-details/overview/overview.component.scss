@@ -14,6 +14,9 @@ agm-map {
 .media-wrap {
     width: 100%;
     height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (min-width: 768px) {
         height: 234px;

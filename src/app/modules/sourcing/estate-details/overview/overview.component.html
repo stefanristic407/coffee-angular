@@ -184,9 +184,15 @@
 
                         <div class="mt-3 mt-lg-45 br-2 overflow-hidden media-wrap">
                             <app-media
+                                *ngIf="sourcing.estateHomepage?.award_file_url"
                                 [title]="sourcing.estateHomepage?.award_title"
                                 [url]="sourcing.estateHomepage?.award_file_url"
                             ></app-media>
+                            <img
+                                *ngIf="!sourcing.estateHomepage?.award_file_url"
+                                src="assets/images/empty.svg"
+                                alt="Empty"
+                            />
                         </div>
                         <div class="row justify-content-end mx-2 mx-md-0 mt-4 mt-md-45 d-md-none d-lg-flex">
                             <div class="col-12 col-md-6 px-0">
