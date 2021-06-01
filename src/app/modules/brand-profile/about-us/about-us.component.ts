@@ -202,13 +202,18 @@ export class AboutUsComponent implements OnInit {
         };
         this.roasterService.getRoasterUsers(this.roasterId, postData).subscribe((res: any) => {
             if (res.success) {
-                res.result.forEach((element) => {
-                    localArray.push({
-                        id: element.id,
-                        name: `${element.firstname || ''} ${element.lastname || ''}`,
+                if (res.result?.length) {
+                    res.result.forEach((element) => {
+                        const idx = this.members.value.findIndex((item) => item && item.id === element.id);
+                        if (idx < 0) {
+                            localArray.push({
+                                id: element.id,
+                                name: `${element.firstname || ''} ${element.lastname || ''}`,
+                            });
+                        }
                     });
-                });
-                this.autoMembers = localArray;
+                    this.autoMembers = localArray;
+                }
             }
         });
     }
@@ -216,8 +221,8 @@ export class AboutUsComponent implements OnInit {
     getTopContacts() {
         this.userService.getTeamMembers(this.roasterId, 'top-contacts').subscribe((res: any) => {
             if (res.success) {
-                this.topContacts = res.result;
-                res.result.forEach((element) => {
+                this.topContacts = res.result || [];
+                this.topContacts.forEach((element) => {
                     this.members.push(
                         this.fb.control(
                             { id: element.user_id, name: element.name },
