@@ -349,8 +349,6 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
         );
         this.searchForm.valueChanges.pipe(takeUntil(this.unsubscribeAll$)).subscribe((value) => {
             this.startDate = value.dates && value.dates[0] ? moment(value.dates[0]).format('yyyy-MM-DD') : '';
-
-            // Adding 1 day to include selected date into API filter range
             this.endDate =
                 value.dates && value.dates[1] ? moment(value.dates[1]).add(1, 'day').format('yyyy-MM-DD') : '';
 
