@@ -1,13 +1,19 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
+import { SwUpdate } from '@angular/service-worker';
 import { environment } from '@env/environment';
+import { interval } from 'rxjs';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
-    constructor(@Inject(DOCUMENT) private doc: Document) {}
+    constructor(@Inject(DOCUMENT) private doc: Document, public updates: SwUpdate) {
+        if (updates.isEnabled) {
+            interval(60).subscribe(() => updates.checkForUpdate().then(() => console.log('checking for updates')));
+        }
+    }
 
     ngOnInit() {
         const dynamicScripts = [];
@@ -23,5 +29,13 @@ export class AppComponent implements OnInit {
             node.async = true;
             this.doc.getElementsByTagName('head')[0].appendChild(node);
         }
+    }
+
+    public checkForUpdates(): void {
+        this.updates.available.subscribe((event) => this.promptUser());
+    }
+
+    private promptUser(): void {
+        console.log('updating to new version');
     }
 }
