@@ -21,7 +21,7 @@ export class CoffeeExperienceComponent implements OnInit {
     menuItems: any = [];
     searchText: string;
     searchString = '';
-    @ViewChild(CoffeeExperienceTableComponent, { static: false }) coffeeTable;
+    @ViewChild(CoffeeExperienceTableComponent, { static: false }) coffeeTableTab;
 
     constructor(
         public globals: GlobalsService,
@@ -51,7 +51,7 @@ export class CoffeeExperienceComponent implements OnInit {
         ];
     }
     onSearch() {
-        this.coffeeTable.search(this.searchString);
+        this.coffeeTableTab.search(this.searchString);
     }
     handleChange(event: any) {
         this.primeTableService.records = [];

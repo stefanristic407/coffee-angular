@@ -104,7 +104,7 @@ export class PrimeTableService {
             postData = { ...postData, ...{ to_date: this.to_date } };
         }
 
-        if (this.from_date) {
+        if (this.start_date) {
             postData = { ...postData, ...{ start_date: this.start_date, end_date: '' } };
         }
 

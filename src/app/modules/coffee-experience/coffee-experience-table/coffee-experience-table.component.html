@@ -102,10 +102,9 @@
                                     <span *ngIf="path === 'outtake-orders'"> {{ rowData['customer_name'] }}</span>
                                 </span>
                             </span>
+
                             <span *ngIf="!primeTableService.isMobileView">
-                                <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    {{ rowData['estate_name'] }}
-                                </span>
+                                {{ rowData['estate_name'] }}
                             </span>
                         </div>
                     </span>

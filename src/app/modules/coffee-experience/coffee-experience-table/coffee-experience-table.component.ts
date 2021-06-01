@@ -26,7 +26,6 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
     appLanguage?: any;
     orderId: any;
 
-    @Input() searchTerm = '';
     @Input() coffeeExperienceData = [];
     @Input() customerType: any;
     rangeDates: any;
@@ -352,18 +351,34 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
             this.endDate =
                 value.dates && value.dates[1] ? moment(value.dates[1]).add(1, 'day').format('yyyy-MM-DD') : '';
 
-            this.queryParams = {
-                ...value,
-                page: 1,
-                from_date: this.startDate,
-                to_date: this.endDate,
-            };
+            if (this.path !== 'outtake-orders') {
+                this.queryParams = {
+                    ...value,
+                    page: 1,
+                    start_date: this.startDate,
+                    end_date: this.endDate,
+                };
 
-            delete this.queryParams.dates;
+                delete this.queryParams.dates;
 
-            this.searchForm.patchValue({ page: 1 }, { emitEvent: false });
-            this.primeTableService.start_date = this.startDate;
-            this.primeTableService.end_date = this.endDate;
+                this.searchForm.patchValue({ page: 1 }, { emitEvent: false });
+                this.primeTableService.start_date = this.startDate;
+                this.primeTableService.end_date = this.endDate;
+            } else if (this.path === 'outtake-orders') {
+                this.queryParams = {
+                    ...value,
+                    page: 1,
+                    from_date: this.startDate,
+                    to_date: this.endDate,
+                };
+
+                delete this.queryParams.dates;
+
+                this.searchForm.patchValue({ page: 1 }, { emitEvent: false });
+                this.primeTableService.from_date = this.startDate;
+                this.primeTableService.to_date = this.endDate;
+            }
+
             setTimeout(() => {
                 this.table.reset();
             }, 0);
