@@ -158,7 +158,9 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         this.form.controls.email.setValue(this.profileInfo.email);
         this.form.controls.phone.setValue(this.profileInfo.phone);
         this.form.controls.role.setValue(this.role);
-        this.form.controls.birthday.setValue(new Date(this.profileInfo.date_of_birth));
+        if (this.profileInfo.date_of_birth) {
+            this.form.controls.birthday.setValue(new Date(this.profileInfo.date_of_birth));
+        }
     }
 
     onSelectFile(event: any): void {
@@ -246,7 +248,9 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         userInfo.lastname = '';
         userInfo.about_me = this.form.controls.aboutMe.value;
         userInfo.phone = this.form.controls.phone.value;
-        userInfo.date_of_birth = formatDate(this.form.controls.birthday.value, 'yyyy-MM-dd', 'en-US');
+        if (this.form.controls.birthday.value) {
+            userInfo.date_of_birth = formatDate(this.form.controls.birthday.value, 'yyyy-MM-dd', 'en-US');
+        }
 
         if (this.file) {
             this.isUpdatingProfile = true;
