@@ -16,7 +16,9 @@ export class AppComponent implements OnInit {
         private cookieService: CookieService,
     ) {
         if (updates.isEnabled) {
-            interval(60 * 60).subscribe(() => updates.checkForUpdate().then(() => console.log('checking for updates')));
+            interval(60 * 1000).subscribe(() =>
+                updates.checkForUpdate().then(() => console.log('checking for updates')),
+            );
         }
     }
 
