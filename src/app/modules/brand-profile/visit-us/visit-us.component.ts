@@ -163,7 +163,7 @@ export class VisitUsComponent implements OnInit {
     getFAQList() {
         this.userService.getFAQList(this.roasterId).subscribe((res: any) => {
             if (res.success) {
-                this.savedFaqArray = res.result;
+                this.savedFaqArray = res.result || [];
             }
         });
     }
