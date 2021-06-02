@@ -20,7 +20,7 @@ export class PieAreaChartComponent implements OnInit, OnChanges {
             trigger: 'item',
             textStyle: {
                 color: '#232334',
-                fontSize: '12px',
+                fontSize: '12',
                 fontFamily: 'Muli',
             },
         },
@@ -33,10 +33,11 @@ export class PieAreaChartComponent implements OnInit, OnChanges {
                     position: 'inner',
                     fontSize: 14,
                     textStyle: {
-                        fontSize: '12px',
+                        fontSize: '18',
                         fontFamily: 'Muli',
+                        fontWeight: 'bold',
                     },
-                    formatter: '{b}: {d}%',
+                    formatter: '{d}%\n{b}',
                 },
                 labelLine: {
                     show: false,
