@@ -373,7 +373,7 @@
                                             <span class="ellipsis">
                                                 {{
                                                     (product_image?.fileDetails &&
-                                                        product_image?.fileDetails[0].name) ||
+                                                        product_image?.fileDetails[0]?.name) ||
                                                         trackFileName(product_image['fileDetails']['image_url'])
                                                 }}
                                             </span>

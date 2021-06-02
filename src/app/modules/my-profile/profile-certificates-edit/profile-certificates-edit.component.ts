@@ -21,6 +21,7 @@ export class ProfileCertificatesEditComponent implements OnInit {
     selectedCertificationName: any;
     selectedCertificationYear: number;
     yearList: any[] = [];
+    isSavingCertificate = false;
 
     constructor(
         private userService: UserserviceService,
@@ -122,9 +123,9 @@ export class ProfileCertificatesEditComponent implements OnInit {
             formData.append('api_call', `/ro/${this.roasterId}/users/${this.userId}/certificates`);
             formData.append('token', this.cookieService.get('Auth'));
             formData.append('method', 'POST');
-            console.log('api call >>>>>', `/ro/${this.roasterId}/users/${this.userId}/certificates`);
-            console.log('selectedCertificationName >>>>>', this.selectedCertificationName);
+            this.isSavingCertificate = true;
             this.userService.uploadCertificate(formData).subscribe((res: any) => {
+                this.isSavingCertificate = false;
                 if (res.success) {
                     this.toastrService.success('Certificates has been added Successfully');
                     const newRow = {
@@ -159,7 +160,9 @@ export class ProfileCertificatesEditComponent implements OnInit {
             );
             formData.append('token', this.cookieService.get('Auth'));
             formData.append('method', 'PUT');
+            this.isSavingCertificate = true;
             this.userService.uploadCertificate(formData).subscribe((res: any) => {
+                this.isSavingCertificate = false;
                 if (res.success) {
                     this.toastrService.success('Certificates has been updated Successfully');
                     this.certificationArray[this.editingRowIndex] = {

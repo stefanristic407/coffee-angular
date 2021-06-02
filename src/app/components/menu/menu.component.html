@@ -12,12 +12,12 @@
                 <a *ngIf="!menu.href" class="d-inline-block fnt-600" [routerLink]="[menu.routerLink]"
                     >{{ menu.title | translate }}
                 </a>
-                <a *ngIf="menu.href" class="d-inline-block fnt-600" [href]="menu.href" target="_blank"
+                <a *ngIf="menu.href" class="d-inline-block fnt-600" [href]="menu.href" target="_blank" rel="noreferrer"
                     >{{ menu.title | translate }}
                 </a>
             </ng-container>
             <ng-container *ngIf="menu.type == MenuType.SHOPLINK">
-                <a class="d-inline-block fnt-600" [href]="menu.href | shopLink" target="_blank"
+                <a class="d-inline-block fnt-600" [href]="menu.href | shopLink" target="_blank" rel="noreferrer"
                     >{{ menu.title | translate }}
                 </a>
             </ng-container>
@@ -26,7 +26,11 @@
         <a *ngIf="menu.hasSubMenu" class="d-inline-block fnt-600" href="javascript:void(0)" (click)="onClick(menu.id)"
             >{{ menu.title | translate }}
         </a>
-        <ul *ngIf="menu.hasSubMenu; &quot;sub-menu&quot;" class="nav-dropdown mb-0 no-bullet-ul" [id]="'sub-menu-' + menu.id">
+        <ul
+            *ngIf="menu.hasSubMenu; &quot;sub-menu&quot;"
+            class="nav-dropdown mb-0 no-bullet-ul"
+            [id]="'sub-menu-' + menu.id"
+        >
             <app-menu [menuParentId]="menu.id"></app-menu>
         </ul>
     </li>

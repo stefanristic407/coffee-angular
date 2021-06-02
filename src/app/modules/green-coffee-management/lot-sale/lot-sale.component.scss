@@ -1,3 +1,16 @@
+@import 'variables';
+
+::ng-deep.right-dropdown {
+    .p-dropdown-label {
+        padding-right: 0 !important;
+        padding-top: 10px !important;
+        bottom: 0px !important;
+    }
+}
+.right-dropdown-background {
+    background-color: $primary-bg-color;
+}
+
 .text-brown {
     font-size: 14px;
     font-weight: bold;
@@ -138,7 +151,4 @@
 }
 .breadCrumb::-webkit-scrollbar {
     display: none !important;
-}
-::ng-deep .sewn-form-field .dropdownClass .p-inputgroup-addon {
-    padding: 5px !important;
 }

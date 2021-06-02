@@ -86,8 +86,8 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             }
         });
         this.weightTypeArray = [
-            { label: 'lbs', value: 'lb' },
-            { label: 'kgs', value: 'kg' },
+            { label: 'lb', value: 'lb' },
+            { label: 'kg', value: 'kg' },
             { label: 'g', value: 'g' },
         ];
         this.grindArray = [
@@ -293,8 +293,8 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
                 const fsize = e.target.files.item(i).size;
                 const file = Math.round(fsize / 1024);
                 // The size of the file.
-                if (file >= 2048) {
-                    this.toaster.error('File too big, please select a file smaller than 2mb');
+                if (file >= 1024 * 10) {
+                    this.toaster.error('File too big, please select a file smaller than 10mb');
                 } else {
                     const imgFile: any = e.target.files;
                     const reader = new FileReader();

@@ -7,16 +7,22 @@
             <div class="d-flex flex-column flex-md-row">
                 <span class="text-content pr-0 pr-md-6 my-3 my-md-0">
                     {{ 'about_us' | translate }}
-                    <a class="footer-link" [href]="env.termsUserUrl" target="_blank">
+                    <a class="footer-link" [href]="env.termsUserUrl" target="_blank" rel="noreferrer">
                         {{ 'terms_and_condition_user' | translate }}
                     </a>
-                    <a *ngIf="authService.isAdmin" class="footer-link" [href]="env.termsEntityUrl" target="_blank">
+                    <a
+                        *ngIf="authService.isAdmin"
+                        class="footer-link"
+                        [href]="env.termsEntityUrl"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
                         {{ 'terms_and_condition_entity' | translate }}
                     </a>
-                    <a [href]="env.privacyPolicyUrl" target="_blank">
+                    <a [href]="env.privacyPolicyUrl" target="_blank" rel="noreferrer">
                         {{ 'privacy_policy' | translate }}
                     </a>
-                    <a [href]="env.cookiePolicyUrl" target="_blank">
+                    <a [href]="env.cookiePolicyUrl" target="_blank" rel="noreferrer">
                         {{ 'cookie_policy' | translate }}
                     </a>
                 </span>
@@ -30,17 +36,17 @@
                     <img src="assets/images/Sewn-logo.svg" alt="Comany-Logo" />
                 </a>
                 <div class="d-flex mt-3">
-                    <a class="social-logo">
+                    <a class="social-logo" [href]="env.facebookUrl" target="_blank">
                         <img src="assets/images/facebook.svg" alt="social-Logo" />
                     </a>
-                    <a class="social-logo">
+                    <a class="social-logo" [href]="env.twitterUrl" target="_blank">
                         <img src="assets/images/twitter.svg" alt="social-Logo" />
                     </a>
-                    <a class="social-logo">
+                    <a class="social-logo" [href]="env.instagramUrl" target="_blank">
                         <img src="assets/images/instagram.svg" alt="social-Logo" />
                     </a>
-                    <a class="social-logo">
-                        <img src="assets/images/youtube.svg" alt="social-Logo" />
+                    <a class="social-logo" [href]="env.linkedinUrl" target="_blank">
+                        <img src="assets/images/linkedin.svg" alt="social-Logo" />
                     </a>
                 </div>
             </div>
