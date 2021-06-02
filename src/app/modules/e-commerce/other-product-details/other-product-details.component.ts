@@ -292,8 +292,8 @@ export class OtherProductDetailsComponent extends ResizeableComponent implements
                 const fsize = e.target.files.item(i).size;
                 const file = Math.round(fsize / 1024);
                 // The size of the file.
-                if (file >= 2048) {
-                    this.toasterService.error('File too big, please select a file smaller than 2mb');
+                if (file >= 1024 * 10) {
+                    this.toasterService.error('File too big, please select a file smaller than 10mb');
                 } else {
                     const imgFile: any = e.target.files;
                     const reader = new FileReader();
