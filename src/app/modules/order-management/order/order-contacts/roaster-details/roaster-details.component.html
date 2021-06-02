@@ -4,10 +4,12 @@
     </div>
     <div class="pull-left">
         <ul class="details-list p-0 ml-3 mb-4">
-            <li class="fnt-16 fnt-600 text-clr334">{{ companyName }}</li>
+            <li class="fnt-16 fnt-600 text-clr334 cursor-pointer" (click)="routeToEstateProfile()">
+                {{ companyName }}
+            </li>
             <li class="fnt-12 fnt-600 pt-1 cursor-pointer" [routerLink]="[orgType | reviewLink: orderId]">
                 <span class="cursor-pointer">
-                    <img class="" src="assets/images/star-1.svg" alt="User" />
+                    <img class="" src="assets/images/star-1.svg" alt="User" (click)="routeToEstateProfile()" />
                     <span class="star-no pl-1"> {{ rating }}</span>
                 </span>
             </li>
