@@ -118,7 +118,7 @@ export class DefaultSettingsComponent implements OnInit {
             {
                 label: this.isCoffeeDetailsPage
                     ? this.globals.languageJson.orders + ' #' + this.orderId
-                    : this.globals.languageJson.default_settings,
+                    : this.globals.languageJson.roaster_default_settings,
             },
         ];
         this.defaultDetails = {
