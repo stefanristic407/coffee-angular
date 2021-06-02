@@ -1,30 +1,32 @@
 export const PERMISSION_DESCRIPTION: any = {
     'question-answer-management':
-        "Manage other user's profile and certificates in the organisation Invite friends and colleagues to the platform",
+        'Manage your questions and answers on Coffee Lab and set a notification for new assigned questions',
     'recipe-management':
-        "Manage other user's profile and certificates in the organisation Invite friends and colleagues to the platform",
+        'Manage your recipes (edit, translate, etc.)',
     'article-management':
-        "Manage other user's profile and certificates in the organisation Invite friends and colleagues to the platform",
+        'Manage your articles (edit, translate, etc.)',
     'micro-roaster-management':
-        "Manage other user's profile and certificates in the organisation Invite friends and colleagues to the platform",
+        'Invite micro-roasters, manage their agreements and discounts, and allow simulated login',
     'horeca-management':
-        "Manage other user's profile and certificates in the organisation Invite friends and colleagues to the platform",
+        'Invite Partners, manage their agreements and discounts, and allow simulated login',
     'apikey-management':
-        "Manage other user's profile and certificates in the organisation Invite friends and colleagues to the platform",
+        'Manage API key requests from customers',
     'sourcing-management':
-        "Manage other user's profile and certificates in the organisation Invite friends and colleagues to the platform",
+        'Manage your sourcing including availability listing, order types, disputes, chats, order reviews and outtake orders. You can also assign a primary cupping evaluator for estate orders and get payment notifications.',
     'cupping-management':
-        "Manage other user's profile and certificates in the organisation Invite friends and colleagues to the platform",
+        'Assign a primary cupping evaluator for estate orders',
     'roasting-management':
-        "Manage other user's profile and certificates in the organisation Invite friends and colleagues to the platform",
+        'Manage roasting profiles and roasted coffee batches',
     'settings-management':
-        "Manage other user's profile and certificates in the organisation Invite friends and colleagues to the platform",
+        'Manage organisation and VAT settings',
     'brand-profile-management':
-        "Manage other user's profile and certificates in the organisation Invite friends and colleagues to the platform",
+        'Manage your brand profile information, website slug and FAQ content',
     'acl-management':
-        "Manage other user's profile and certificates in the organisation Invite friends and colleagues to the platform",
+        'Manage and assign roles to users',
     'user-management':
-        "Manage other user's profile and certificates in the organisation Invite friends and colleagues to the platform",
+        'Manage user\'s profile and certificates',
     'user-support':
-        "Manage other user's profile and certificates in the organisation Invite friends and colleagues to the platform",
+        'Allow simulated login to user accounts',
+    'products-management':
+        'Manage your B2B and B2C catalogs and view your product reviews',
 };
