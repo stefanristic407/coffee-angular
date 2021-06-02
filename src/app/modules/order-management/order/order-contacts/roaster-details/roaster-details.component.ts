@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { OrganizationType } from '@enums';
 import { ChatHandlerService } from '@services';
@@ -17,7 +18,7 @@ export class RoasterDetailsComponent {
     @Input() userId: number;
     @Input() estateId: number;
 
-    constructor(private chatHandler: ChatHandlerService) {}
+    constructor(private chatHandler: ChatHandlerService, private router: Router) {}
 
     openChat(): void {
         this.chatHandler.openChatThread({
@@ -25,5 +26,9 @@ export class RoasterDetailsComponent {
             org_type: this.orgType,
             org_id: this.estateId,
         });
+    }
+
+    routeToEstateProfile() {
+        this.router.navigate([`profile-creation/es/${this.estateId}`]);
     }
 }
