@@ -29,15 +29,17 @@
                 </div>
             </div>
         </ng-container>
-        <div class="mt-2" *ngIf="editingRowIndex === -1 || !certificationArray.length">
+        <div class="mt-2" *ngIf="(editingRowIndex === -1 || !certificationArray.length) else addAnotherCertificate">
             <ng-container *ngTemplateOutlet="addAndEditTemplate"></ng-container>
         </div>
-        <div class="pt-2 pb-45 pb-md-0">
+        <ng-template #addAnotherCertificate>
+            <div class="pt-2 pb-45 pb-md-0">
             <span class="fnt-muli fnt-14 fnt-bold text-clr60b cursor-pointer" (click)="onAdd()">
                 <i class="pi pi-plus mr-25 fnt-bold fnt-14"></i>
                 Add another certificate
             </span>
-        </div>
+            </div>
+        </ng-template>
     </div>
     <input #myFileInput type="file" class="d-none" (change)="onFileChange($event)" />
 </div>
@@ -92,7 +94,11 @@
                         Attach
                     </div>
                     <div class="d-block d-md-flex btn-container">
-                        <button class="btn-raised px-4 mr-2 mt-3 mt-md-0" (click)="onSave()">Save</button>
+                        <button
+                                class="btn-raised px-4 mr-2 mt-3 mt-md-0"
+                                [disabled]="isSavingCertificate"
+                                (click)="onSave()"
+                        >Save</button>
                         <button class="btn-stroked px-4 mt-3 mt-md-0" (click)="onCancel()" *ngIf="editingRowIndex > -1">
                             Cancel
                         </button>
