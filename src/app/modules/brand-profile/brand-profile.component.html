@@ -10,7 +10,12 @@
                     {{ 'brand_profile_text' | translate }}
                 </div>
             </div>
-            <a class="btn-raised w-mob-100 mb-4" [href]="roasterId | roasterBrandCmsLink: 'about-us'" target="_blank">
+            <a
+                class="btn-raised w-mob-100 mb-4"
+                [href]="roasterId | roasterBrandCmsLink: 'about-us'"
+                target="_blank"
+                rel="noreferrer"
+            >
                 {{ 'edit_on_webpage' | translate }}
             </a>
         </div>

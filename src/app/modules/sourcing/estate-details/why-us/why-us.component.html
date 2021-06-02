@@ -12,7 +12,12 @@
                     {{ 'why_us_award_desp' | translate }}
                 </p>
             </div>
-            <a class="btn-trans-icon zoom-icon" [href]="sourcing.estateHomepage?.licence_file_url" target="_blank">
+            <a
+                class="btn-trans-icon zoom-icon"
+                [href]="sourcing.estateHomepage?.licence_file_url"
+                target="_blank"
+                rel="noreferrer"
+            >
                 {{ 'view_our_brand_guidelines' | translate }}
             </a>
         </div>
@@ -46,6 +51,7 @@
                             class="btn-raised"
                             [href]="sourcing.estateHomepage?.opportunity_file_url"
                             target="_blank"
+                            rel="noreferrer"
                             download
                         >
                             {{ 'download_gtm' | translate }}
