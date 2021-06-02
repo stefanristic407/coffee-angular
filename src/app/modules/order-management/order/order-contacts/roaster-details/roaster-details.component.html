@@ -1,6 +1,11 @@
 <div class="d-flex mt-4 flex-column flex-md-row">
     <div class="p-0">
-        <app-avatar [src]="companyImageThumbnailUrl" [name]="companyName"></app-avatar>
+        <app-avatar
+            class="cursor-pointer"
+            (click)="routeToEstateProfile()"
+            [src]="companyImageThumbnailUrl"
+            [name]="companyName"
+        ></app-avatar>
     </div>
     <div class="pull-left">
         <ul class="details-list p-0 ml-3 mb-4">
@@ -9,7 +14,7 @@
             </li>
             <li class="fnt-12 fnt-600 pt-1 cursor-pointer" [routerLink]="[orgType | reviewLink: orderId]">
                 <span class="cursor-pointer">
-                    <img class="" src="assets/images/star-1.svg" alt="User" (click)="routeToEstateProfile()" />
+                    <img class="" src="assets/images/star-1.svg" alt="User" />
                     <span class="star-no pl-1"> {{ rating }}</span>
                 </span>
             </li>
