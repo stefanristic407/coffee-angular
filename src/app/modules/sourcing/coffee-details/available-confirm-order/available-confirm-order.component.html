@@ -321,9 +321,13 @@
                                     ></p-checkbox>
                                     <label for="terms" class="fnt-14 fnt-600 text-clr334 mb-0 flex-fill">
                                         {{ 'i_have_understood' | translate }}
-                                        <a class="custom-link fnt-14" [href]="env.termsEntityUrl" target="_blank">{{
-                                            'terms_conditions' | translate
-                                        }}</a>
+                                        <a
+                                            class="custom-link fnt-14"
+                                            [href]="env.termsEntityUrl"
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            >{{ 'terms_conditions' | translate }}</a
+                                        >
                                         {{ 'platform_agree' | translate }}.
                                     </label>
                                     <small *ngIf="infoForm.controls.terms.errors?.required" class="p-error">
