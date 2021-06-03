@@ -46,10 +46,9 @@ const routes: Routes = [
         data: { orderType: 'sample' },
     },
     {
-        path: 'prebook-lot',
+        path: 'prebook-lot/:estateId/:lotId',
         component: PrebookConfirmOrderComponent,
         canActivate: [AuthGuard],
-        data: { orderType: 'preBooked' },
     },
     {
         path: 'lot-details/:estateId/:lotId',
