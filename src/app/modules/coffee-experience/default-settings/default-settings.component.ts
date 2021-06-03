@@ -16,7 +16,7 @@ import { Download } from '@models';
     styleUrls: ['./default-settings.component.scss'],
 })
 export class DefaultSettingsComponent implements OnInit {
-    isCoffeeDetailsPage = this.route.snapshot.routeConfig.path !== 'default-settings';
+    isCoffeeDetailsPage = this.activateRoute.snapshot.routeConfig.path !== 'default-settings';
     date1: Date;
     appLanguage?: any;
     coffeeDetailsActive: any = 0;
@@ -66,7 +66,7 @@ export class DefaultSettingsComponent implements OnInit {
         private userService: UserserviceService,
         private toastrService: ToastrService,
         public cookieService: CookieService,
-        public route: ActivatedRoute,
+        public activateRoute: ActivatedRoute,
         public location: Location,
         public dialogSrv: DialogService,
         public downloadService: DownloadService,
@@ -77,28 +77,21 @@ export class DefaultSettingsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.route.queryParams.subscribe((params: any) => {
-            if (params.edit) {
-                this.estateBtn = false;
-            } else {
-                this.estateBtn = true;
-            }
-        });
         this.language();
-        this.getMarketingMaterial();
         if (this.isCoffeeDetailsPage) {
-            if (this.route.snapshot.queryParams.estate_id) {
-                this.orderId = decodeURIComponent(this.route.snapshot.queryParams.estate_id);
-            } else if (this.route.snapshot.queryParams.micro_roasters_id) {
-                this.orderId = decodeURIComponent(this.route.snapshot.queryParams.micro_roasters_id);
-            } else if (this.route.snapshot.queryParams.hrc_id) {
-                this.orderId = decodeURIComponent(this.route.snapshot.queryParams.hrc_id);
-            } else if (this.route.snapshot.queryParams.outtake_orders_id) {
-                this.orderId = decodeURIComponent(this.route.snapshot.queryParams.outtake_orders_id);
+            if (this.activateRoute.snapshot.queryParams.estate_id) {
+                this.orderId = decodeURIComponent(this.activateRoute.snapshot.queryParams.estate_id);
+            } else if (this.activateRoute.snapshot.queryParams.micro_roasters_id) {
+                this.orderId = decodeURIComponent(this.activateRoute.snapshot.queryParams.micro_roasters_id);
+            } else if (this.activateRoute.snapshot.queryParams.hrc_id) {
+                this.orderId = decodeURIComponent(this.activateRoute.snapshot.queryParams.hrc_id);
+            } else if (this.activateRoute.snapshot.queryParams.outtake_orders_id) {
+                this.orderId = decodeURIComponent(this.activateRoute.snapshot.queryParams.outtake_orders_id);
             }
             this.getOrderExperience();
         } else {
             this.getDefaultSetting();
+            this.getMarketingMaterial();
         }
         this.tagOptionList = [
             { select: false, label: 'Investing locally' },
@@ -114,7 +107,12 @@ export class DefaultSettingsComponent implements OnInit {
         this.items = [
             { label: this.globals.languageJson.home, routerLink: '/features/welcome-aboard' },
             { label: this.globals.languageJson.brand_experience },
-            { label: this.globals.languageJson.the_coffee_experience, routerLink: '/coffee-experience' },
+            {
+                label: this.globals.languageJson.the_coffee_experience,
+                command: (event) => {
+                    this.location.back();
+                },
+            },
             {
                 label: this.isCoffeeDetailsPage
                     ? this.globals.languageJson.orders + ' #' + this.orderId
@@ -201,7 +199,7 @@ export class DefaultSettingsComponent implements OnInit {
     }
 
     getOrderExperience() {
-        if (this.route.snapshot.queryParams.estate_id) {
+        if (this.activateRoute.snapshot.queryParams.estate_id) {
             this.userService
                 .getEstateOrdersCoffeeExperience(this.roasterId, this.orderId)
                 .subscribe((response: any) => {
@@ -216,7 +214,7 @@ export class DefaultSettingsComponent implements OnInit {
                     this.coffeeExperienceLink = rep.result;
                 }
             });
-        } else if (this.route.snapshot.queryParams.micro_roasters_id) {
+        } else if (this.activateRoute.snapshot.queryParams.micro_roasters_id) {
             this.userService.getMrOrdersCoffeeExperience(this.roasterId, this.orderId).subscribe((response: any) => {
                 if (response.success) {
                     this.setPageData(response);
@@ -229,7 +227,7 @@ export class DefaultSettingsComponent implements OnInit {
                     this.coffeeExperienceLink = res.result;
                 }
             });
-        } else if (this.route.snapshot.queryParams.hrc_id) {
+        } else if (this.activateRoute.snapshot.queryParams.hrc_id) {
             this.userService.getHrcOrdersCoffeeExperience(this.roasterId, this.orderId).subscribe((response: any) => {
                 if (response.success) {
                     this.setPageData(response);
@@ -242,7 +240,7 @@ export class DefaultSettingsComponent implements OnInit {
                     this.coffeeExperienceLink = rep.result;
                 }
             });
-        } else if (this.route.snapshot.queryParams.outtake_orders_id) {
+        } else if (this.activateRoute.snapshot.queryParams.outtake_orders_id) {
             this.userService
                 .getOuttakeOrdersCoffeeExperience(this.roasterId, this.orderId)
                 .subscribe((response: any) => {
@@ -438,7 +436,7 @@ export class DefaultSettingsComponent implements OnInit {
             image_id: this.fileImageId || this.defaultDetails.image_id,
             video_id: this.fileVideoId || this.defaultDetails.video_id,
         };
-        if (this.route.snapshot.queryParams.micro_roasters_id) {
+        if (this.activateRoute.snapshot.queryParams.micro_roasters_id) {
             this.userService.postMrOrdersCoffeeExperience(this.roasterId, this.orderId, data).subscribe(
                 (res: any) => {
                     this.isSaving = false;
@@ -453,7 +451,7 @@ export class DefaultSettingsComponent implements OnInit {
                     this.toastrService.error('Error while saving the details');
                 },
             );
-        } else if (this.route.snapshot.queryParams.hrc_id) {
+        } else if (this.activateRoute.snapshot.queryParams.hrc_id) {
             this.userService.postHrcOrdersCoffeeExperience(this.roasterId, this.orderId, data).subscribe(
                 (res: any) => {
                     this.isSaving = false;
@@ -468,7 +466,7 @@ export class DefaultSettingsComponent implements OnInit {
                     this.toastrService.error('Error while saving the details');
                 },
             );
-        } else if (this.route.snapshot.queryParams.outtake_orders_id) {
+        } else if (this.activateRoute.snapshot.queryParams.outtake_orders_id) {
             this.userService.postOuttakeOrdersCoffeeExperience(this.roasterId, this.orderId, data).subscribe(
                 (res: any) => {
                     this.isSaving = false;
@@ -564,16 +562,18 @@ export class DefaultSettingsComponent implements OnInit {
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
-                    this.downloadService.imageDownload(this.coffeeExperienceLink.qr_code_url).subscribe(
-                        (res: Download) => {
-                            if (res.state === 'DONE') {
-                                this.toastrService.success('Downloaded successfully');
-                            }
-                        },
-                        (error) => {
-                            this.toastrService.error('Download failed');
-                        },
-                    );
+                    this.downloadService
+                        .imageDownload(this.coffeeExperienceLink.qr_code_url, 'exp-qr-code.svg')
+                        .subscribe(
+                            (res: Download) => {
+                                if (res.state === 'DONE') {
+                                    this.toastrService.success('Downloaded successfully');
+                                }
+                            },
+                            (error) => {
+                                this.toastrService.error('Download failed');
+                            },
+                        );
                 }
             });
     }

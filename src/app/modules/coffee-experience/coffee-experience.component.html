@@ -3,12 +3,12 @@
         <div class="breadcrumb-container">
             <p-breadcrumb [model]="items"></p-breadcrumb>
         </div>
-        <div class="col-md-6 col-lg-4 px-0 web-farm">
+        <div class="px-0 web-farm custom-search-width">
             <span class="custom-search">
                 <input
                     type="text"
                     pInputText
-                    class="w-100 {{ searchTerm ? 'highlight' : '' }}"
+                    class="w-100 {{ searchString ? 'highlight' : '' }}"
                     [(ngModel)]="searchString"
                     placeholder="{{ 'search_name_order_id' | translate }}"
                     (input)="onSearch()"
@@ -33,16 +33,16 @@
                     type="button"
                     routerLink="./default-settings"
                 >
-                    {{ 'default_settings' | translate }}
+                    {{ 'roaster_default_settings' | translate }}
                 </button>
             </div>
         </div>
-        <div class="d-block d-md-none mb-3">
+        <div class="d-block d-md-none mb-3 custom-search-width">
             <span class="custom-search mobile-bord">
                 <input
                     type="text"
                     pInputText
-                    class="w-100 {{ searchTerm ? 'highlight' : '' }} "
+                    class="w-100 {{ searchString ? 'highlight' : '' }} "
                     placeholder="Search by order ID"
                     [(ngModel)]="searchString"
                     (input)="onSearch()"
@@ -58,6 +58,6 @@
         </ng-template>
     </p-tabMenu>
     <div class="mt-4">
-        <router-outlet> </router-outlet>
+        <router-outlet (activate)="onRouterOutletActivate($event)"> </router-outlet>
     </div>
 </div>

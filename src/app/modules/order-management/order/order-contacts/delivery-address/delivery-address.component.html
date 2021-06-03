@@ -5,7 +5,7 @@
     <div
         class="fnt-bold text-clr55c cursor-pointer"
         [routerLink]="['/orders', orgType, order?.id, 'edit']"
-        *ngIf="order && orgType === OrgType.ESTATE && !order.is_fully_serviced_delivery"
+        *ngIf="order && orgType === OrgType.ESTATE && !order.is_fully_serviced_delivery && isNotShipped"
     >
         <img class="mb-1" src="assets/images/icon-edit.svg" />
         <span class="ml-1">{{ 'edit' | translate }}</span>

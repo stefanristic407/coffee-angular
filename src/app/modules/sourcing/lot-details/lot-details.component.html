@@ -311,8 +311,7 @@
         <div class="col-12 col-md-auto">
             <a
                 class="btn-raised w-100"
-                routerLink="/sourcing/prebook-lot"
-                [queryParams]="{ estateId: sourcing.lot?.estate_id, lotId: sourcing.lot?.id }"
+                routerLink="/sourcing/prebook-lot/{{ sourcing.lot?.estate_id }}/{{ sourcing.lot?.id }}"
             >
                 {{ 'pre_book_lot' | translate }}
             </a>

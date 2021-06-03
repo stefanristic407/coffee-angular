@@ -6,7 +6,7 @@
                 <input
                     type="text"
                     pInputText
-                    placeholder="Search by name, role.."
+                    [placeholder]="'search_by_id_name' | translate"
                     [(ngModel)]="term"
                     (ngModelChange)="loadData()"
                 />
@@ -23,7 +23,7 @@
                         type="text"
                         class="w-100"
                         pInputText
-                        placeholder="Search by name, role.."
+                        [placeholder]="'search_by_id_name' | translate"
                         [(ngModel)]="term"
                         (ngModelChange)="loadData()"
                     />

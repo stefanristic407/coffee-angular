@@ -1,3 +1,5 @@
+@import 'variables';
+
 .form-section__inputs {
     border-radius: 4px;
     border: solid 1px #ebebeb;
@@ -5,6 +7,9 @@
     padding: 32px 24px;
     width: 100%;
     margin-bottom: 16px;
+    @media (max-width: 767px) {
+        padding: 16px 12px !important;
+    }
 }
 
 .form-section__inputs--withHead {
@@ -43,7 +48,7 @@
     padding: 5px 10px;
 }
 
-.mt {
+.scan-margin {
     margin-top: -0.5rem;
 }
 
@@ -166,6 +171,24 @@
     font-size: 12px;
 }
 
+.link-wrapper {
+    display: flex;
+    .link-text {
+        padding: 13px 16px;
+        border-radius: 4px;
+        border: solid 1px $secondary-border-color;
+        background: $primary-bg-color;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        border-radius: 4px 0 0 4px !important;
+        white-space: nowrap;
+    }
+    button {
+        white-space: nowrap;
+        border-radius: 0 4px 4px 0 !important;
+    }
+}
+
 .download-qr-link {
     margin-top: 25px;
 }
@@ -199,18 +222,6 @@
 .contact-for-help a:hover {
     text-decoration: none;
     color: #80460b;
-}
-
-@media (max-width: 991px) {
-    .copy-link__value {
-        justify-content: center;
-    }
-    .copy-link__value input {
-        border-radius: 4px;
-        border: solid 1px #ebebeb;
-        background-color: #f8f8f8;
-        margin-bottom: 15px;
-    }
 }
 
 .form-section__inputs .input-head {
@@ -307,11 +318,6 @@
         margin-left: auto;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
-    }
-    .copy-link__value {
-        border-radius: 4px;
-        border: solid 1px #ebebeb;
-        background-color: #f8f8f8;
     }
     .download-qr-link {
         margin-top: 30px;
@@ -592,19 +598,6 @@ label {
 @media (min-width: 320px) and (max-width: 480px) {
     .mob-view {
         margin-bottom: -40px !important;
-    }
-
-    .copy-link input {
-        width: 72% !important;
-
-        border-top-right-radius: 0px !important;
-        border-bottom-right-radius: 0px !important;
-    }
-    .copy-link button {
-        position: relative;
-        bottom: 8px;
-        border-top-left-radius: 0px !important;
-        border-bottom-left-radius: 0px !important;
     }
     .contact-for-help {
         margin-bottom: -16px;

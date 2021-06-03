@@ -64,7 +64,7 @@ export class PrebookConfirmOrderComponent extends ResizeableComponent implements
     ngOnInit(): void {
         this.roasterId = this.cookieService.get('roaster_id');
 
-        this.route.queryParamMap.subscribe((params) => {
+        this.route.paramMap.subscribe((params) => {
             if (params.has('estateId') && params.has('lotId')) {
                 this.sourcing.estateId = +params.get('estateId');
                 this.sourcing.lotId = +params.get('lotId');
@@ -90,7 +90,7 @@ export class PrebookConfirmOrderComponent extends ResizeableComponent implements
     getBasicData() {
         const promises = [];
         promises.push(new Promise((resolve) => this.getRoAddress(resolve)));
-        promises.push(new Promise((resolve) => this.getOrderSettins(resolve)));
+        promises.push(new Promise((resolve) => this.getOrderSettings(resolve)));
         Promise.all(promises).then(() => {
             this.refreshForm();
             this.refreshOrderDetails();
@@ -245,7 +245,7 @@ export class PrebookConfirmOrderComponent extends ResizeableComponent implements
         }
     }
 
-    getOrderSettins(resolve: any = null) {
+    getOrderSettings(resolve: any = null) {
         this.roasterService.getOrderSettings(this.roasterId).subscribe((res: any) => {
             if (res.success) {
                 this.orderSettings = res.result;
@@ -254,20 +254,6 @@ export class PrebookConfirmOrderComponent extends ResizeableComponent implements
                 resolve();
             }
         });
-    }
-
-    getShipInfo(resolve: any = null) {
-        this.userService
-            .getShippingInfo(this.roasterId, this.sourcing.harvestDetail.estate_id)
-            .subscribe((res: any) => {
-                if (res.success) {
-                    this.shipInfo = res.result;
-                    this.shipAddress = res.result.warehouse_address;
-                }
-                if (resolve) {
-                    resolve();
-                }
-            });
     }
 
     getRoAddress(resolve: any = null) {
