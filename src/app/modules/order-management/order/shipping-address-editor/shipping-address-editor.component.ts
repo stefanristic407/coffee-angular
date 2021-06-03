@@ -88,7 +88,11 @@ export class ShippingAddressEditorComponent extends DestroyableComponent impleme
                         this.orderSrv.loadOrderDetails(this.orderId, this.orgType);
                         this.router.navigate(['/orders', this.orgType, this.orderId]);
                     } else {
-                        this.toastrSrv.error('Error while updating shipping address.');
+                        if (response.messages?.delivery_address[0] === 'cannot_change') {
+                            this.toastrSrv.error('Shipping details cannot be updated as the order has been shipped.');
+                        } else {
+                            this.toastrSrv.error('Error while updating shipping address.');
+                        }
                     }
                 },
             });
