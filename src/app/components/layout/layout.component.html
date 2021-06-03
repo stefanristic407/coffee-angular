@@ -225,8 +225,19 @@
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/ft-icon-dashboard.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-dashboard.svg" />
-                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">
+                                    <p class="mb-0 fnt-10 fnt-600 text-clr588">
                                         {{ 'dashboard' | translate }}
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="footer-links__item" [ngClass]="{ active: activeLink === 'COFFEELAB' }">
+                            <a (click)="closeMessagePanel()" [routerLink]="['/coffee-lab']" class="d-inline-block">
+                                <div class="d-flex flex-column align-items-center">
+                                    <img class="in-active" src="assets/images/ft-icon-coffeelab.svg" />
+                                    <img class="active" src="assets/images/ft-icon-active-coffeelab.svg" />
+                                    <p class="mb-0 fnt-10 fnt-600 text-clr588">
+                                        {{ 'coffee_lab' | translate | titlecase }}
                                     </p>
                                 </div>
                             </a>
@@ -245,7 +256,7 @@
                                         src="assets/images/mess-active.svg"
                                     />
                                     <img class="active" src="assets/images/ft-icon-active-message.svg" />
-                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">{{ 'messages' | translate }}</p>
+                                    <p class="mb-0 fnt-10 fnt-600 text-clr588">{{ 'messages' | translate }}</p>
                                 </div>
                             </a>
                         </li>
@@ -258,7 +269,7 @@
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/notification.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-notification.svg" />
-                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">
+                                    <p class="mb-0 fnt-10 fnt-600 text-clr588">
                                         {{ 'notifications' | translate }}
                                     </p>
                                 </div>
@@ -268,13 +279,13 @@
                         <li class="footer-links__item" [ngClass]="{ active: activeLink === 'PROFILES' }">
                             <a
                                 (click)="closeMessagePanel()"
-                                [routerLink]="['/features/roastery-profile/about_roastery']"
+                                [routerLink]="['/roastery-profile']"
                                 class="d-inline-block"
                             >
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/ft-icon-profile.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-profile.svg" />
-                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">{{ 'profile' | translate }}</p>
+                                    <p class="mb-0 fnt-10 fnt-600 text-clr588">{{ 'profile' | translate }}</p>
                                 </div>
                             </a>
                             <div class="ft-dropdown">

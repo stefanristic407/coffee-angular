@@ -48,7 +48,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     notifications: any[];
     readNotification: any;
 
-    activeLink: 'DASHBOARD' | 'MESSAGES' | 'NOTIFICATIONS' | 'PROFILES' | 'UNSET' = 'UNSET';
+    activeLink: 'DASHBOARD' | 'COFFEELAB' | 'MESSAGES' | 'NOTIFICATIONS' | 'PROFILES' | 'UNSET' = 'UNSET';
     userTermsAccepted: boolean;
     orgTermsAccepted: boolean;
 
@@ -343,7 +343,9 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     updateActiveLinkState() {
         if (this.chat.isOpen.value) {
             this.activeLink = 'MESSAGES';
-        } else if (this.router.url.includes('/features/roastery-profile/about_roastery')) {
+        } else if (this.router.url.includes('/coffee-lab')) {
+            this.activeLink = 'COFFEELAB';
+        } else if (this.router.url.includes('/roastery-profile')) {
             this.activeLink = 'PROFILES';
         } else if (this.router.url.includes('/features/notification')) {
             this.activeLink = 'NOTIFICATIONS';
