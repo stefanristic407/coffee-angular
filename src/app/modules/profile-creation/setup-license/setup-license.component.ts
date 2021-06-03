@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute } from '@angular/router';
-import { OrganizationSlug } from '@enums';
+import { CertificateType, OrganizationSlug } from '@enums';
 
 @Component({
     selector: 'app-setup-license',
@@ -62,7 +62,11 @@ export class SetupLicenseComponent implements OnInit {
             if (res.success) {
                 this.certificateList = Object.values(res.result);
                 this.certificateList = this.certificateList.filter((item) => {
-                    return item.tags && item.tags.includes(OrganizationSlug.ROASTER);
+                    return (
+                        item.tags &&
+                        item.tags.includes(OrganizationSlug.ROASTER) &&
+                        item.type !== CertificateType.EraOfWe
+                    );
                 });
             }
         });
