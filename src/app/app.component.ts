@@ -66,5 +66,6 @@ export class AppComponent implements OnInit {
 
     private promptUser(): void {
         console.log('updating to new version');
+        location.reload();
     }
 }
