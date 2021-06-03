@@ -41,7 +41,6 @@ export class AppComponent implements OnInit {
     }
 
     public checkForUpdates(): void {
-        console.log('checkForUpdates');
         this.updates.available.subscribe((event) => {
             console.log('Service worker:', event);
             this.promptUser();
