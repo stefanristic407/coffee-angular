@@ -1,25 +1,23 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
+import { DestroyableComponent } from '@base-components';
 import { environment } from '@env/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { interval } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
 })
-export class AppComponent implements OnInit {
+export class AppComponent extends DestroyableComponent implements OnInit {
     constructor(
         @Inject(DOCUMENT) private doc: Document,
-        public updates: SwUpdate,
+        public swUpdate: SwUpdate,
         private cookieService: CookieService,
     ) {
-        if (updates.isEnabled) {
-            interval(60 * 1000).subscribe(() =>
-                updates.checkForUpdate().then(() => console.log('checking for updates')),
-            );
-        }
+        super();
     }
 
     ngOnInit() {
@@ -40,13 +38,6 @@ export class AppComponent implements OnInit {
         this.checkVersion();
     }
 
-    public checkForUpdates(): void {
-        this.updates.available.subscribe((event) => {
-            console.log('Service worker:', event);
-            this.promptUser();
-        });
-    }
-
     private checkVersion() {
         const vCookie = this.cookieService.get('version');
 
@@ -63,8 +54,16 @@ export class AppComponent implements OnInit {
         }
     }
 
-    private promptUser(): void {
-        console.log('updating to new version');
-        location.reload();
+    private checkForUpdates(): void {
+        if (this.swUpdate.isEnabled) {
+            interval(5 * 60 * 1000)
+                .pipe(takeUntil(this.unsubscribeAll$))
+                .subscribe(() => this.swUpdate.checkForUpdate());
+
+            this.swUpdate.available.pipe(takeUntil(this.unsubscribeAll$)).subscribe((event) => {
+                console.log('updating to new version');
+                location.reload();
+            });
+        }
     }
 }
