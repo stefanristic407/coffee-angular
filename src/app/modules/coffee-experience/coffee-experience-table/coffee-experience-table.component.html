@@ -198,10 +198,18 @@
                         </div>
                     </span>
                     <span *ngSwitchCase="'quantity'" (click)="availabilityPage(rowData)">
-                        <span *ngIf="primeTableService.isMobileView" class="w-50">
+                        <!-- <span *ngIf="primeTableService.isMobileView" class="w-50">
                             {{ rowData['quantity'] }}&nbsp; kg
-                        </span>
-                        <span *ngIf="!primeTableService.isMobileView"> {{ rowData['quantity'] }}&nbsp; kg </span>
+                        </span> -->
+                        <span *ngIf="path === 'orders'">
+                            {{ rowData['quantity'] }} {{ rowData['quantity_type'] | translate }}</span
+                        >
+                        <span *ngIf="path === 'mr-orders'">
+                            {{ rowData['quantity'] }} {{ rowData['quantity_type'] | translate }}</span
+                        >
+                        <span *ngIf="path === 'hrc-orders'">
+                            {{ rowData['quantity'] }} {{ rowData['available_quantity_type'] | translate }}</span
+                        >
                     </span>
 
                     <span *ngSwitchCase="'id'">
