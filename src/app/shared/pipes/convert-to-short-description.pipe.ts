@@ -7,7 +7,7 @@ export class ConvertToShortDescriptionPipe implements PipeTransform {
 
     transform(description: string, count: number): string {
         description = description.trim();
-        const regex = /(?<=>)[^<>]+(?=<)/gm;
+        const regex = />([^<]+)</g;
         let m;
         let plainString = '';
         // tslint:disable-next-line:no-conditional-assignment
@@ -15,10 +15,8 @@ export class ConvertToShortDescriptionPipe implements PipeTransform {
             if (m.index === regex.lastIndex) {
                 regex.lastIndex++;
             }
-            m.forEach((match, groupIndex) => {
-                plainString += match;
-                plainString += ' ';
-            });
+            plainString += m[1];
+            plainString += ' ';
         }
         plainString = plainString || description;
         // tslint:disable-next-line
