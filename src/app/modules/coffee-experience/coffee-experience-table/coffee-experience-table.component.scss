@@ -14,12 +14,31 @@
     padding-right: 0px !important;
 }
 
-@media (max-width: 767px) {
+@media screen and (max-width: 767px) {
+    ::ng-deep .p-datatable.p-datatable-responsive .p-datatable-tbody > tr {
+        width: 297px !important;
+    }
+    ::ng-deep #exp-Table .p-datatable table {
+        margin-top: 1rem !important;
+    }
+    ::ng-deep .menu-arrow {
+        top: 0px !important;
+    }
+
     .mobile-header {
         margin: -0.75rem;
         background-color: $primary-bg-color;
     }
     ::ng-deep .p-datatable.p-datatable-responsive .p-datatable-tbody > tr > td:first-child {
         border-bottom: none !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    ::ng-deep #exp-Table .p-datatable-wrapper {
+        overflow-x: scroll !important;
+    }
+    ::ng-deep #exp-Table .p-datatable table {
+        width: 180% !important;
     }
 }

@@ -1,18 +1,9 @@
-import {
-    Component,
-    OnInit,
-    Input,
-    ViewChild,
-    HostListener,
-    AfterViewInit,
-    AfterContentInit,
-    ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnInit, Input, ViewChild, HostListener } from '@angular/core';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasteryProfileService } from '@services';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { PrimeTableService } from '@services';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Table } from 'primeng/table';
@@ -24,7 +15,6 @@ import { COUNTRY_LIST } from '@constants';
     selector: 'app-coffee-procured-tab',
     templateUrl: './coffee-procured-tab.component.html',
     styleUrls: ['./coffee-procured-tab.component.scss'],
-    encapsulation: ViewEncapsulation.None,
 })
 export class CoffeeProcuredTabComponent implements OnInit {
     termStatus: any;

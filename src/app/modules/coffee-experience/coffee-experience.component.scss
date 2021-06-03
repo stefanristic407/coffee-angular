@@ -25,6 +25,16 @@
     margin-bottom: 40px;
 }
 
+.custom-search-width {
+    width: 26.5%;
+    @media (min-width: 768px) and (max-width: 992px) {
+        width: 43%;
+    }
+    @media (max-width: 767px) {
+        width: 100%;
+    }
+}
+
 @media (max-width: 991px) {
     .give-your-end-users {
         width: 95%;
