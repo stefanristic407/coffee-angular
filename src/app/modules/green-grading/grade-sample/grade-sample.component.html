@@ -6,7 +6,7 @@
                 <input
                     type="text"
                     pInputText
-                    placeholder="Search by order id, estate name"
+                    [placeholder]="'search_by_id_name' | translate"
                     [(ngModel)]="term"
                     (ngModelChange)="onFilter()"
                 />
