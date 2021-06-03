@@ -50,11 +50,6 @@ const routes: Routes = [
                 component: SuccessfulPageComponent,
                 canActivate: [AuthGuard],
             },
-            {
-                path: '',
-                redirectTo: 'roaster-dashboard',
-                pathMatch: 'full',
-            },
         ],
     },
 ];
