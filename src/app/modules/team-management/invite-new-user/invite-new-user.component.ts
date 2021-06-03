@@ -89,24 +89,33 @@ export class InviteNewUserComponent implements OnInit {
         }
     }
     async addUserToRoaster(userInput) {
-        const addUserResponse: any = await this.userService.addUserRoaster(userInput).toPromise();
-        if (addUserResponse && addUserResponse.success) {
+        const existUser: any = await this.userService.getUser({ email: userInput.email }).toPromise();
+        let userId;
+        if (existUser && existUser.success) {
+            userId = existUser.result.id;
+        } else {
+            const addUserResponse: any = await this.userService.addUserRoaster(userInput).toPromise();
+            if (addUserResponse && addUserResponse.success) {
+                userId = addUserResponse.result.user_id;
+            }
+        }
+        if (userId) {
             this.roasterService
-                .assignUserBasedUserRoles(this.roasterID, this.currentRoleID, addUserResponse.result.user_id)
+                .assignUserBasedUserRoles(this.roasterID, this.currentRoleID, userId)
                 .subscribe((res: any) => {
                     if (res.success) {
                         this.toastrService.success('Invite sent successfully');
                         this.router.navigate(['/team-management/manage-role']);
                     } else {
-                        this.showError('assign');
+                        if (res.messages.user_id) {
+                            this.toastrService.error('This user already exists on this portal.');
+                        } else {
+                            this.showError('assign');
+                        }
                     }
                 });
         } else {
-            if (addUserResponse.messages.email) {
-                this.toastrService.error('This email already exists. Try with another one!');
-            } else {
-                this.showError('add');
-            }
+            this.showError('add');
         }
     }
     showError(flag) {
