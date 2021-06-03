@@ -1,3 +1,4 @@
+import { OrderStatus } from '@enums';
 import { AgmGeocoder } from '@agm/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { DestroyableComponent } from '@base-components';
@@ -21,6 +22,19 @@ export class DeliveryAddressComponent extends DestroyableComponent implements On
 
     @Input() orderConfirmation = false;
     @Input() orgType: OrganizationType;
+
+    get isNotShipped() {
+        if (
+            this.order?.status === OrderStatus.Placed ||
+            this.order?.status === OrderStatus.Confirmed ||
+            this.order?.status === OrderStatus.Payment ||
+            this.order?.status === OrderStatus.HarvestReady
+        ) {
+            return true;
+        }
+
+        return false;
+    }
 
     constructor(
         private geoCoder: AgmGeocoder,
