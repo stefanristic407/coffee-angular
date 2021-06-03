@@ -3,6 +3,9 @@
   border: 1px solid #d6d6d6;
   background-color: transparent;
   padding: 8px 16px;
+  @media (max-width: 767px) {
+    padding: 8px 12px;
+  }
 
   &.opened {
     border: 1px solid #30855c;
@@ -33,10 +36,12 @@
     font-size: 14px;
     font-weight: 600;
     color: #747588;
+
     &.selected {
       color: #232334;
       background-color: #f8f8f8;
     }
+
     &:hover {
       color: #232334;
       background-color: #f8f8f8;
