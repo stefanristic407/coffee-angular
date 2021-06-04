@@ -1,0 +1,77 @@
+@import 'variables';
+
+.estate-details-row {
+    width: 706px;
+    .estate-details-item {
+        width: 100%;
+    }
+    .details-image {
+        width: 38px;
+        height: 38px;
+        margin-bottom: 16px;
+    }
+}
+// @media (max-width: 991px) {
+//     .estate-details-row {
+//         width: 100%;
+//     }
+// }
+.services-wrapper {
+    width: 205px;
+    .service-item {
+        padding: 16px;
+        color: #747588;
+        font-weight: 600;
+    }
+    .service-active-item {
+        background: #f8f8f8;
+        margin: 4px;
+        padding: 12px;
+        color: #232334;
+        font-weight: bold;
+    }
+}
+
+@media (max-width: 767px) {
+    .estate-details-row {
+        .estate-details-item {
+            width: 104px;
+        }
+        .details-image {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 8px;
+        }
+    }
+    .w-mob-50 {
+        width: 50%;
+    }
+}
+
+.flo-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -6px -6px 0;
+    .flo-item-container {
+        padding: 6px 6px 0;
+        .flo-item {
+            border-radius: 11.5px;
+            border: solid 0.5px $muted-text-color;
+            padding: 8px;
+        }
+    }
+}
+
+::ng-deep {
+    .breadCrumb .p-breadcrumb ul {
+        width: max-content;
+    }
+    .p-tabview.services-tabview {
+        width: fit-content;
+        .p-tabview-nav {
+            @media (min-width: 768px) {
+                display: none !important;
+            }
+        }
+    }
+}

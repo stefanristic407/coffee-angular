@@ -13,30 +13,26 @@ import { PeopleRoutingModule } from './people-routing.module';
 import { PeopleComponent } from './people.component';
 
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
-import { MicroRoasterDetailsComponent } from './customer-management/micro-roaster-details/micro-roaster-details.component';
-import { HorecaDetailsComponent } from './customer-management/horeca-details/horeca-details.component';
-import { HorecaTableComponent } from './customer-management/horeca-details/horeca-table/horeca-table.component';
-import { DiscountEditComponent } from './customer-management/discount-edit/discount-edit.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CustomerManagementTableComponent } from './customer-management/customer-management-table/customer-management-table.component';
-import { DetailsUserComponent } from './customer-management/details-user/details-user.component';
-import { DetailsDiscountComponent } from './customer-management/details-discount/details-discount.component';
-import { DetailsCustomerStatusComponent } from './customer-management/details-customer-status/details-customer-status.component';
-import { ImportantContactsComponent } from './customer-management/important-contacts/important-contacts.component';
+import { CertificatesComponent } from './customer-management/certificates/certificates.component';
+import { ContactsListComponent } from './customer-management/contacts-list/contacts-list.component';
+import { CustomerContactInfoComponent } from './customer-management/customer-contact-info/customer-contact-info.component';
+import { CustomerDetailsComponent } from './customer-management/customer-details/customer-details.component';
+import { CustomerInfoComponent } from './customer-management/customer-info/customer-info.component';
+import { CustomerPortalInfoComponent } from './customer-management/customer-portal-info/customer-portal-info.component';
 
 @NgModule({
     declarations: [
         PeopleComponent,
         CustomerManagementComponent,
-        MicroRoasterDetailsComponent,
-        HorecaDetailsComponent,
-        HorecaTableComponent,
-        DiscountEditComponent,
         CustomerManagementTableComponent,
-        DetailsUserComponent,
-        DetailsDiscountComponent,
-        DetailsCustomerStatusComponent,
-        ImportantContactsComponent,
+        CertificatesComponent,
+        ContactsListComponent,
+        CustomerContactInfoComponent,
+        CustomerDetailsComponent,
+        CustomerInfoComponent,
+        CustomerPortalInfoComponent,
     ],
     imports: [
         CommonModule,

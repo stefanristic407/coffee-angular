@@ -6,7 +6,11 @@
     >
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="name_customer" class="pl-4 ml-3">
+                <th pSortableColumn="id" class="pl-4 ml-3">
+                    {{ 'customer_id' | translate }}
+                    <p-sortIcon field="name_customer"> </p-sortIcon>
+                </th>
+                <th pSortableColumn="name_customer">
                     {{ (customerType === OrgType.MICRO_ROASTER ? 'customer_name' : 'horeca_name') | translate }}
                     <p-sortIcon field="name_customer"> </p-sortIcon>
                 </th>
@@ -28,6 +32,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-item>
             <tr>
+                <td class="fnt-14" (click)="shareDetails(item)">#{{ item.id }}</td>
                 <td class="fnt-14" (click)="shareDetails(item)">{{ item.name }}</td>
                 <td class="fnt-14" (click)="shareDetails(item)">
                     {{
