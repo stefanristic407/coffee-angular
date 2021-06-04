@@ -276,11 +276,19 @@
                             </a>
                         </li>
 
-                        <li class="footer-links__item" [ngClass]="{ active: activeLink === 'PROFILES' }">
+                        <li
+                            *ngIf="aclService.checkPermission('brand-profile-management'); else myProfileTpl"
+                            class="footer-links__item"
+                            [ngClass]="{ active: activeLink === 'PROFILES' }"
+                        >
                             <a
                                 (click)="closeMessagePanel()"
-                                [routerLink]="['/roastery-profile']"
                                 class="d-inline-block"
+                                [popover]="profileTpl"
+                                placement="bottom"
+                                #popProfile="bs-popover"
+                                container="body"
+                                [outsideClick]="true"
                             >
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/ft-icon-profile.svg" />
@@ -288,39 +296,41 @@
                                     <p class="mb-0 fnt-10 fnt-600 text-clr588">{{ 'profile' | translate }}</p>
                                 </div>
                             </a>
-                            <div class="ft-dropdown">
-                                <div class="ft-dropdown__content">
-                                    <a
-                                        (click)="closeMessagePanel()"
-                                        [routerLink]="['/features/profile-edit']"
-                                        class="ft-dropdown__link d-flex clearfix align-items-center"
-                                    >
-                                        <div class="img float-left mr-2">
-                                            <img
-                                                class="profile-pic"
-                                                [src]="
-                                                    authService.currentUser?.profile_image_thumb_url ||
-                                                    'assets/images/default-avatar.png'
-                                                "
-                                            />
-                                        </div>
-                                        <span class="text-capitalize">{{ 'menu_my_profile' | translate }}</span>
-                                    </a>
-                                    <a
-                                        [routerLink]="['/roastery-profile']"
-                                        class="ft-dropdown__link active d-flex clearfix align-items-center"
-                                    >
-                                        <div class="img float-left mr-2">
-                                            <img
-                                                class="profile-pic"
-                                                [src]="authService.currentOrganization?.company_image_thumbnail_url"
-                                            />
-                                        </div>
-                                        <span class="text-capitalize">{{ 'menu_roastery_profile' | translate }}</span>
-                                    </a>
+
+                            <ng-template #profileTpl>
+                                <div id="popover-mobile-content">
+                                    <ul class="menu-list bottom">
+                                        <li
+                                            *appAclIf="'brand-profile-management'"
+                                            [routerLink]="['/roastery-profile']"
+                                            routerLinkActive="highlight"
+                                            (click)="popProfile.hide()"
+                                        >
+                                            {{ 'menu_roastery_profile' | translate }}
+                                        </li>
+                                        <li
+                                            [routerLink]="['/my-profile']"
+                                            routerLinkActive="highlight"
+                                            (click)="popProfile.hide()"
+                                        >
+                                            {{ 'menu_my_profile' | translate }}
+                                        </li>
+                                    </ul>
                                 </div>
-                            </div>
+                            </ng-template>
                         </li>
+
+                        <ng-template #myProfileTpl>
+                            <li class="footer-links__item" [ngClass]="{ active: activeLink === 'PROFILES' }">
+                                <a (click)="closeMessagePanel()" class="d-inline-block" [routerLink]="['/my-profile']">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <img class="in-active" src="assets/images/ft-icon-profile.svg" />
+                                        <img class="active" src="assets/images/ft-icon-active-profile.svg" />
+                                        <p class="mb-0 fnt-10 fnt-600 text-clr588">{{ 'profile' | translate }}</p>
+                                    </div>
+                                </a>
+                            </li>
+                        </ng-template>
                     </ul>
                 </div>
             </div>

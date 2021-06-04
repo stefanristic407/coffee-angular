@@ -43,6 +43,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     slugList: any;
     sideNavOpened = false;
     showMobFooter = true;
+    profileOpened = false;
     orgData: any[];
 
     notifications: any[];
@@ -68,7 +69,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         private coffeeLabService: CoffeeLabService,
         private idmService: IdmService,
         public authService: AuthService,
-        private aclService: AclService,
+        public aclService: AclService,
     ) {
         super();
     }
@@ -345,7 +346,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
             this.activeLink = 'MESSAGES';
         } else if (this.router.url.includes('/coffee-lab')) {
             this.activeLink = 'COFFEELAB';
-        } else if (this.router.url.includes('/roastery-profile')) {
+        } else if (this.router.url.includes('/roastery-profile') || this.router.url.includes('/my-profile')) {
             this.activeLink = 'PROFILES';
         } else if (this.router.url.includes('/features/notification')) {
             this.activeLink = 'NOTIFICATIONS';
@@ -434,6 +435,13 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
 
     toggleMessagePanel() {
         this.chat.toggle();
+    }
+
+    clickProfile() {
+        this.closeMessagePanel();
+        if (this.aclService.checkPermission('brand-profile-management')) {
+            this.profileOpened = true;
+        }
     }
 
     redirect(event: any) {
