@@ -98,7 +98,7 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
         }
     }
 
-    @ViewChild('procuredCoffeeTable', { static: true }) table: Table;
+    @ViewChild('coffeeExpTable', { static: true }) table: Table;
     public isMobile = false;
 
     @HostListener('window:resize', ['$event'])

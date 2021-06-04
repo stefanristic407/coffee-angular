@@ -12,7 +12,7 @@
                 styleClass="round-border mr-25 mb-25 mb-md-4"
             ></p-dropdown>
         </div>
-        <div class="web-farm">
+        <div>
             <div class="float-right">
                 <div class="btn-trans-icon upload-icon" (click)="onUploadModalOpen()">
                     {{ 'upload' | translate }}
@@ -116,7 +116,7 @@
                                             <ul class="list-group custom-popover">
                                                 <li class="list-group-item">
                                                     <a
-                                                        class="pointer-item"
+                                                        class="pointer-item text-clr588"
                                                         [routerLink]="'/sales-contract/' + customerType + '/' + data.id"
                                                         (click)="pop.hide(); onUpdateModal(data.id)"
                                                         >{{ globals.languageJson?.update }}</a
@@ -124,7 +124,7 @@
                                                 </li>
                                                 <li class="list-group-item">
                                                     <a
-                                                        class="pointer-item"
+                                                        class="pointer-item text-clr588"
                                                         (click)="
                                                             pop.hide();
                                                             onOpenDeleteModal(data.id);
@@ -140,26 +140,26 @@
                             </div>
                             <div class="bor-bot-d6d6 mx-3 py-3 row">
                                 <div class="col-5 p-0">
-                                    <p class="light-eight fnt-12">{{ globals.languageJson?.customer_name }}</p>
+                                    <p class="light-eight fnt-14">{{ globals.languageJson?.customer_name }}</p>
                                 </div>
                                 <div class="col-7 p-0">
-                                    <p class="fnt-12">{{ data.customer_name }}</p>
+                                    <p class="fnt-14">{{ data.customer_name }}</p>
                                 </div>
                             </div>
                             <div class="bor-bot-d6d6 mx-3 py-3 row">
                                 <div class="col-5 p-0">
-                                    <p class="light-eight fnt-12">{{ globals.languageJson?.origin }}</p>
+                                    <p class="light-eight fnt-14">{{ globals.languageJson?.origin }}</p>
                                 </div>
                                 <div class="col-7 p-0">
-                                    <p class="fnt-12">{{ getCountryName(data.origin) }}</p>
+                                    <p class="fnt-14">{{ getCountryName(data.origin) }}</p>
                                 </div>
                             </div>
                             <div class="row mx-3 mb-3 pt-3">
                                 <div class="col-5 p-0">
-                                    <p class="light-eight fnt-12">{{ globals.languageJson?.date_added }}</p>
+                                    <p class="light-eight fnt-14">{{ globals.languageJson?.date_added }}</p>
                                 </div>
                                 <div class="col-7 p-0">
-                                    <p class="fnt-12">{{ data.created_at | date: 'M/d/yy, h:mma' }}</p>
+                                    <p class="fnt-14">{{ data.created_at | date: 'M/d/yy, h:mma' }}</p>
                                 </div>
                             </div>
                         </div>
