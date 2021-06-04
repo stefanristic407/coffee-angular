@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PeopleComponent } from './people.component';
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
-import { MicroRoasterDetailsComponent } from './customer-management/micro-roaster-details/micro-roaster-details.component';
-import { HorecaDetailsComponent } from './customer-management/horeca-details/horeca-details.component';
-import { DiscountEditComponent } from './customer-management/discount-edit/discount-edit.component';
+import { CustomerDetailsComponent } from './customer-management/customer-details/customer-details.component';
 import { AuthGuard } from '@guards';
 
 const routes: Routes = [
@@ -18,19 +16,8 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'micro-roaster-details',
-                component: MicroRoasterDetailsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'horeca-details',
-                component: HorecaDetailsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'pending-details',
-                component: DiscountEditComponent,
-                canActivate: [AuthGuard],
+                path: 'customer-details/:id',
+                component: CustomerDetailsComponent,
             },
             {
                 path: '',

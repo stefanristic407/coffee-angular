@@ -6,3 +6,12 @@ export const organizationTypes = [
     { title: 'Facilitator', value: 'FC' },
     { title: 'Era of we', value: 'SA' },
 ];
+
+export const orgType: any = {
+    Estate: 'estates',
+    HoReCa: 'hrc',
+    'Micro-roaster': 'micro-roasters',
+    Facilitator: 'facilitators',
+    Roaster: 'roasters',
+    EndUser: 'consumers',
+};

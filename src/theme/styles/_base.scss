@@ -320,6 +320,12 @@ input[type='number'] {
     }
 }
 
+@media (max-width: 991px) {
+    .w-tab-100 {
+        width: 100%;
+    }
+}
+
 .divider {
     height: 0;
     border-bottom: dashed 2px #ebebeb;

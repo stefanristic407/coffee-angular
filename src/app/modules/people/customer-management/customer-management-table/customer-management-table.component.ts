@@ -4,7 +4,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { CustomerServiceService } from '../customer-service.service';
 import { NavigationExtras, Router } from '@angular/router';
 import { OrganizationType } from '@enums';
-import { OrgTypePipe } from '@app/shared/pipes/org-type.pipe';
 
 @Component({
     selector: 'app-customer-management-table',
@@ -34,6 +33,7 @@ export class CustomerManagementTableComponent implements OnInit {
         this.sortedMainData = '';
         this.estatetermOrigin = '';
         this.language();
+        console.log(this.customerType);
     }
 
     language() {
@@ -51,24 +51,12 @@ export class CustomerManagementTableComponent implements OnInit {
 
             this.router.navigate(['/people/pending-details']);
         } else {
-            if (this.customerType === OrganizationType.MICRO_ROASTER) {
-                this.folderId = size.id;
-                const navigationExtras: NavigationExtras = {
-                    queryParams: {
-                        folderId: encodeURIComponent(this.folderId),
-                    },
-                };
-                this.router.navigate(['/people/micro-roaster-details'], navigationExtras);
-            } else {
-                this.itemId = size.id;
-                const navigationExtras: NavigationExtras = {
-                    queryParams: {
-                        itemId: encodeURIComponent(this.itemId),
-                        showTable: 1,
-                    },
-                };
-                this.router.navigate(['/people/horeca-details'], navigationExtras);
-            }
+            const navigationExtras: NavigationExtras = {
+                queryParams: {
+                    type: this.customerType,
+                },
+            };
+            this.router.navigate([`/people/customer-details/${size.id}`], navigationExtras);
         }
     }
 
