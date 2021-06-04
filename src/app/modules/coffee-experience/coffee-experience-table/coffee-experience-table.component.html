@@ -54,7 +54,7 @@
         [loading]="primeTableService.loading"
         [paginator]="primeTableService.paginationValue"
         [lazy]="true"
-        (onLazyLoad)="primeTableService.getData($event)"
+        (onLazyLoad)="primeTableService.getData($event); getCoffeeExpOrders($event)"
         [totalRecords]="primeTableService.totalRecords"
         [responsive]="primeTableService.isMobileView"
     >
@@ -196,6 +196,20 @@
                                 {{ rowData['origin'] | country | translate }}
                             </span>
                         </div>
+                    </span>
+                    <span *ngSwitchCase="'roast_level'" (click)="availabilityPage(rowData)">
+                        <span *ngIf="rowData['roast_level'] === 'light-roast'" class="truncate break-word">
+                            Light Roast
+                        </span>
+                        <span *ngIf="rowData['roast_level'] === 'medium-roast'" class="truncate break-word">
+                            Medium Roast
+                        </span>
+                        <span *ngIf="rowData['roast_level'] === 'medium-dark-roast'" class="truncate break-word">
+                            Medium Dark Roast
+                        </span>
+                        <span *ngIf="rowData['roast_level'] === 'dark-roast'" class="truncate break-word">
+                            Dark Roast
+                        </span>
                     </span>
                     <span *ngSwitchCase="'quantity'" (click)="availabilityPage(rowData)">
                         <!-- <span *ngIf="primeTableService.isMobileView" class="w-50">

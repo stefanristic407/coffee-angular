@@ -339,32 +339,6 @@ export class DefaultSettingsComponent implements OnInit {
             return;
         }
         this[parameter] = file;
-        const reader = new FileReader();
-
-        reader.readAsDataURL(file);
-
-        reader.onload = (event: any) => {
-            if (parameter === 'fileVideo') {
-                this.isVideoPreviewPanel = true;
-                this.defaultDetails.video_url = event.target.result;
-            } else {
-                this.isImagePreviewPanel = true;
-                this.defaultDetails.image_url = event.target.result;
-            }
-        };
-    }
-
-    onCancel(): void {
-        this.isEditableMode = false;
-    }
-
-    onSave() {
-        this.isSent = true;
-        if (!this.defaultDetails.description) {
-            return false;
-        }
-        this.isFailedToSave = false;
-        this.isSaving = true;
         this.totalFilesNumber = 0;
         this.filesCount = 0;
         if (this.fileVideo) {
@@ -382,9 +356,11 @@ export class DefaultSettingsComponent implements OnInit {
             this.fileService.uploadFiles(formData).subscribe(
                 (res: any) => {
                     this.fileVideoId = res.result?.id;
+                    this.defaultDetails.video_url = res.result?.url;
                     this.filesCount++;
                     if (this.filesCount === this.totalFilesNumber) {
-                        this.handleSaveData();
+                        this.isVideoPreviewPanel = true;
+                        // this.handleSaveData();
                         this.toastrService.success('Video update successfully');
                     }
                 },
@@ -402,20 +378,38 @@ export class DefaultSettingsComponent implements OnInit {
             formData.append('file_module', 'Coffee-Story');
             this.fileService.uploadFiles(formData).subscribe(
                 (res: any) => {
-                    this.fileImageId = res.result?.id;
-                    this.filesCount++;
-                    if (this.filesCount === this.totalFilesNumber) {
-                        this.handleSaveData();
-                        this.toastrService.success('Image update successfully');
+                    if (res.success) {
+                        this.fileImageId = res.result?.id;
+                        this.defaultDetails.image_url = res.result.url;
+                        this.filesCount++;
+                        this.isImagePreviewPanel = true;
+                        if (this.filesCount === this.totalFilesNumber) {
+                            // this.handleSaveData();
+                            this.toastrService.success('Image update successfully');
+                        }
+                        // this.handleSaveData();
                     }
                 },
-                () => {
+                (err) => {
                     this.handleFailedToSaveData();
                     return;
                 },
             );
         }
-        if (!this.totalFilesNumber) {
+    }
+
+    onCancel(): void {
+        this.isEditableMode = false;
+    }
+
+    onSave() {
+        this.isSent = true;
+        if (!this.defaultDetails.description) {
+            return false;
+        }
+        this.isFailedToSave = false;
+        this.isSaving = true;
+        if (this.totalFilesNumber > 0) {
             this.handleSaveData();
         }
     }

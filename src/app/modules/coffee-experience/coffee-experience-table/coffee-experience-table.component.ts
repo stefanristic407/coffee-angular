@@ -356,7 +356,6 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
         this.initializeTableProcuredCoffee();
         this.primeTableService.form = this.form;
         this.language();
-        this.getCoffeeExpOrders();
         this.primeTableService.form?.valueChanges.subscribe((data) =>
             setTimeout(() => {
                 this.table.reset();
@@ -399,6 +398,7 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
                 this.table.reset();
             }, 0);
         });
+        this.getCoffeeExpOrders();
     }
 
     language() {
@@ -410,7 +410,6 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
         this.table.reset();
     }
     search(item) {
-        console.log(item);
         this.primeTableService.searchQuery = item;
         this.table.reset();
     }
@@ -434,7 +433,6 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
     }
 
     availabilityPage(item) {
-        console.log(item);
         if (this.path === 'orders') {
             this.router.navigate([`/coffee-experience/coffee-details/`], {
                 queryParams: {
@@ -462,16 +460,30 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
         }
     }
 
-    getCoffeeExpOrders() {
-        this.roasterService.getCoffeeExperienceOrders(this.roasterId, this.path).subscribe((res: any) => {
-            res.result.map((org) => {
-                COUNTRY_LIST.find((item) => {
-                    if (org.origin && item.isoCode && org.origin.toUpperCase() === item.isoCode) {
-                        this.originArray.push(item);
-                    }
+    getCoffeeExpOrders(event?) {
+        if (this.path === 'orders') {
+            const queryParams = {
+                sort_order: 'desc',
+                page: this.primeTableService.currentPage,
+                per_page: this.primeTableService.rows,
+                sort_by: 'created_at',
+                status: 'RECEIVED',
+            };
+            this.originArray = [];
+            this.roasterService
+                .getCoffeeExperienceOrders(this.roasterId, this.path, queryParams)
+                .subscribe((res: any) => {
+                    res.result.map((org) => {
+                        COUNTRY_LIST.find((item) => {
+                            if (org.origin && item.isoCode && org.origin.toUpperCase() === item.isoCode) {
+                                this.originArray.push(item);
+                            }
+                        });
+                    });
+                    this.originArray = this.originArray.filter(
+                        (v, i, a) => a.findIndex((t) => t.isoCode === v.isoCode) === i,
+                    );
                 });
-            });
-            this.originArray = this.originArray.filter((v, i, a) => a.findIndex((t) => t.isoCode === v.isoCode) === i);
-        });
+        }
     }
 }
