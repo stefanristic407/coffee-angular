@@ -142,7 +142,12 @@ input[type='number'] {
 }
 
 .bg-f8 {
-    background-color: $primary-bg-color;
+    background: $primary-bg-color;
+}
+.bg-md-f8 {
+    @media (min-width: 768px) {
+        background: $primary-bg-color;
+    }
 }
 .bg-fa {
     background-color: #faf8f4;

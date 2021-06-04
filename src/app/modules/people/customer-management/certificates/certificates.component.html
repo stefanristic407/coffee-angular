@@ -15,31 +15,19 @@
             <div class="d-flex justify-content-md-between overflow-hidden w-100">
                 <div class="d-flex flex-column flex-md-row align-items-md-center overflow-hidden">
                     <p
-                        class="
-                            fnt-muli fnt-14 fnt-600 fnt-md-bold
-                            lh-129 lh-md-normal
-                            text-clr334
-                            mb-2 mb-md-0
-                            ellipsis
-                        "
+                        class="fnt-muli fnt-14 fnt-600 fnt-md-bold lh-129 lh-md-normal text-clr334 mb-2 mb-md-0 ellipsis"
                     >
                         {{ certificate.name }}
                     </p>
                     <p-divider layout="vertical" styleClass="mx-3 py-1 d-none d-md-block"></p-divider>
                     <p
-                        class="
-                            fnt-muli fnt-14 fnt-600 fnt-md-bold
-                            lh-129 lh-md-normal
-                            text-clr588
-                            mb-0
-                            certificate-year
-                        "
+                        class="fnt-muli fnt-14 fnt-600 fnt-md-bold lh-129 lh-md-normal text-clr588 mb-0 certificate-year"
                     >
                         {{ certificate.year }}
                     </p>
                 </div>
                 <a
-                    class="fnt-muli fnt-14 fnt-600 lh-normal text-clr60b cert-view-link d-none d-md-block"
+                    class="fnt-muli fnt-14 fnt-600 lh-normal text-clr60b cert-view-link d-none d-md-flex align-items-center"
                     [href]="certificate.public_url"
                     target="_blank"
                 >
