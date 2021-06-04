@@ -4,9 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService, ResizeService } from '@services';
-import { RoasterserviceService } from '@services';
-import { UserserviceService } from '@services';
+import { GlobalsService, ResizeService, AuthService, RoasterserviceService, UserserviceService } from '@services';
 import { SourcingService } from '../../sourcing.service';
 import { ConfirmComponent } from '@shared';
 import { COUNTRY_LIST } from '@constants';
@@ -47,7 +45,9 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     shipAddress: any;
     roAddress: any;
     addressData: any;
+    billingAddress: any;
     editAddress = false;
+    isBilling = false;
     cities: any[] = [];
 
     // Variables for only prebook order
@@ -65,11 +65,13 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         private roasterService: RoasterserviceService,
         private userService: UserserviceService,
         protected resizeService: ResizeService,
+        public authService: AuthService,
     ) {
         super(resizeService);
     }
 
     ngOnInit(): void {
+        console.log(this.authService.currentOrganization);
         this.roasterId = this.cookieService.get('roaster_id');
         this.route.data.subscribe((data) => {
             this.orderType = data.orderType;
@@ -247,18 +249,19 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         this.changeQuantity();
     }
 
-    refreshAddressForm() {
+    refreshAddressForm(isBilling) {
         this.addressForm = this.fb.group({
             country: ['', Validators.compose([Validators.required])],
-            state: [''],
+            state: ['', Validators.compose([Validators.required])],
             address_line1: ['', Validators.compose([Validators.required])],
             address_line2: [''],
             city: ['', Validators.compose([Validators.required])],
             zipcode: ['', Validators.compose([Validators.required])],
         });
-        this.addressForm.patchValue(this.roAddress);
+        this.addressForm.patchValue(isBilling ? this.billingAddress : this.roAddress);
         this.changeCountry();
         this.editAddress = true;
+        this.isBilling = isBilling;
     }
 
     changeQuantity(event: any = null) {
@@ -395,15 +398,17 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
 
     saveAddress() {
         if (this.addressForm.valid) {
+            const type = this.isBilling ? 'billing' : 'delivery';
+            const id = this.isBilling ? this.billingAddress?.id : this.roAddress?.id;
             const postData = {
-                type: 'shipping',
+                type,
                 ...this.addressForm.value,
             };
-            if (this.roAddress?.id) {
-                this.userService.editAddress(this.roasterId, this.roAddress?.id, postData).subscribe((res: any) => {
+            if (id) {
+                this.userService.editAddress(this.roasterId, id, postData).subscribe((res: any) => {
                     if (res.success) {
                         this.toastrService.success('Address has been Edited');
-                        this.getRoAddress();
+                        this.getRoAddress(null, true);
                         this.editAddress = false;
                     } else {
                         this.toastrService.error('Error while Editing the address');
@@ -413,6 +418,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                 this.userService.addAddresses(this.roasterId, postData).subscribe((res: any) => {
                     if (res.success) {
                         this.toastrService.success('Address has been added');
+                        this.getRoAddress(null, true);
                         this.editAddress = false;
                     } else {
                         this.toastrService.error('Error while adding the address');
@@ -449,10 +455,14 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             });
     }
 
-    getRoAddress(resolve: any = null) {
+    getRoAddress(resolve: any = null, isUpdated?) {
         this.userService.getAddresses(this.roasterId).subscribe((res: any) => {
             if (res.success) {
-                this.roAddress = res.result[0];
+                this.roAddress = res.result?.find((item) => item.type === 'delivery') ?? {};
+                this.billingAddress = res.result?.find((item) => item.type === 'billing') ?? {};
+                if (isUpdated) {
+                    this.addressData = this.roAddress;
+                }
                 if (resolve) {
                     resolve();
                 }
