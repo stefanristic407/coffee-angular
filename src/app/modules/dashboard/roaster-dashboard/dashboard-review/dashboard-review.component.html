@@ -7,23 +7,25 @@
     <div class="row">
         <div class="col-12">
             <div class="review-block">
-                <p class="fnt-16 fnt-bold fnt-muli text-clr334 mb-1 d-md-none">Reviews</p>
+                <p class="fnt-16 fnt-bold fnt-muli text-clr334 mb-2 d-md-none">Reviews</p>
 
-                <h2 class="fnt-16 fnt-lg-32 fnt-bold fnt-muli text-clr334 mb-md-1 mb-0">
+                <h2 class="fnt-32 fnt-bold fnt-muli text-clr334 mb-md-1 mb-0">
                     {{ reviewsSummary?.rating.toFixed(1) || '-' }}
                 </h2>
-                <p class="fnt-8 fnt-lg-14 fnt-bold fnt-muli text-clr588 mb-md-1 mb-0">out of 5</p>
-                <div *ngIf="reviewsSummary" class="d-flex star-wrap mt-1">
-                    <p-rating
-                        [(ngModel)]="reviewsSummary.rating"
-                        [readonly]="true"
-                        [stars]="5"
-                        [cancel]="false"
-                        class="fnt-12 fnt-lg-20"
-                    ></p-rating>
+                <div class="fnt-14 fnt-bold fnt-muli text-clr588">out of 5</div>
+                <div>
+                    <div *ngIf="reviewsSummary" class="d-flex star-wrap mt-md-1 mt-2 mb-45">
+                        <p-rating
+                                [(ngModel)]="reviewsSummary.rating"
+                                [readonly]="true"
+                                [stars]="5"
+                                [cancel]="false"
+                                class="fnt-lg-20"
+                        ></p-rating>
+                    </div>
                 </div>
 
-                <p class="fnt-14 fnt-md-84 fnt-bold fnt-muli text-clr334 pt-md-2 pt-lg-3 mb-3">
+                <p class="fnt-14 fnt-md-84 fnt-bold fnt-muli text-clr334 mb-3">
                     {{ reviewsSummary?.total_review || '-' }} customer reviews
                 </p>
                 <div class="rating-bar" *ngIf="reviewsSummary">
