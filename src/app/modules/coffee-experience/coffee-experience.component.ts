@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { GlobalsService } from '@services';
 import { PrimeTableService } from '@services';
 import { CoffeeExperienceTableComponent } from './coffee-experience-table/coffee-experience-table.component';
+import { CoffeeExpService } from './coffee-experience.service';
 
 @Component({
     selector: 'app-coffee-experience',
@@ -19,9 +20,11 @@ export class CoffeeExperienceComponent implements OnInit {
     TableEvent: any;
     @ViewChild(CoffeeExperienceTableComponent, { static: false }) coffeeTableTab;
 
-    constructor(private globals: GlobalsService, private primeTableService: PrimeTableService) {}
+    constructor(private globals: GlobalsService, private coffeeService: CoffeeExpService) {}
 
     ngOnInit(): void {
+        this.coffeeService.clearSearch();
+        this.searchString = this.coffeeService.search.getValue();
         this.menuItems = [
             {
                 label: 'estate_orders',
@@ -42,11 +45,7 @@ export class CoffeeExperienceComponent implements OnInit {
         ];
     }
     onSearch() {
-        // this.primeTableService.searchQuery = this.searchString;
-        // console.log(this.primeTableService.searchQuery);
-        // this.coffeeTableTab.search(this.searchString);
-        // this.TableEvent.primeTableService.searchQuery = this.searchString;
-        // console.log(this.TableEvent);
+        this.coffeeService.setSearch(this.searchString);
     }
     onRouterOutletActivate(event: any) {
         // console.log(event);
