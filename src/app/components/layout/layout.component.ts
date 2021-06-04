@@ -41,10 +41,9 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     searchResults: string[];
     rolename: any;
     slugList: any;
+    orgData: any[];
     sideNavOpened = false;
     showMobFooter = true;
-    profileOpened = false;
-    orgData: any[];
 
     notifications: any[];
     readNotification: any;
@@ -153,6 +152,10 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
             .pipe(debounce(() => interval(500)))
             .subscribe(this.viewPortSizeChanged);
         this.viewPortSizeChanged();
+    }
+
+    ngOnDestroy(): void {
+        this.socket.destorySocket();
     }
 
     viewPortSizeChanged = () => {
@@ -437,13 +440,6 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         this.chat.toggle();
     }
 
-    clickProfile() {
-        this.closeMessagePanel();
-        if (this.aclService.checkPermission('brand-profile-management')) {
-            this.profileOpened = true;
-        }
-    }
-
     redirect(event: any) {
         this.router.navigateByUrl(event.routerLink);
     }
@@ -458,10 +454,6 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
 
     showFooter() {
         return !this.router.url.includes('/dispute-system/order-chat/');
-    }
-
-    ngOnDestroy(): void {
-        this.socket.destorySocket();
     }
 
     getOrganizations() {

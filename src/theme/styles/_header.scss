@@ -1,3 +1,5 @@
+@import 'variables';
+
 /* header css */
 .company-logo {
     display: inline-block;
@@ -14,7 +16,7 @@
 @media (max-width: 767px) {
     header {
         position: relative;
-        background-color: #ffffff;
+        background-color: $white;
     }
     .search-on-site > .search-on-site__input {
         border: 0 !important;
@@ -81,7 +83,7 @@
         position: absolute;
         top: 20px;
         left: 20px;
-        color: #232334;
+        color: $general-text-color;
         font-size: 23px;
         line-height: 20px;
         font-weight: 600;
@@ -105,7 +107,7 @@
     }
     .sidenav-mb__content {
         padding-top: 60px;
-        background: #ffffff;
+        background: $white;
         height: 100vh;
         width: 83%;
     }
@@ -120,7 +122,7 @@
         width: 100%;
         padding: 20px 0 !important;
         position: relative;
-        background-color: #ffffff;
+        background-color: $white;
         height: 100%;
         z-index: 100;
         overflow-y: auto;
@@ -143,7 +145,7 @@
         border-top: 0 !important;
     }
     .nav-links__item.active {
-        background-color: #f8f8f8 !important;
+        background-color: $primary-bg-color !important;
     }
     .nav-links__item a::after {
         content: '';
@@ -152,7 +154,7 @@
         left: -16px !important;
         width: 3px !important;
         height: 0;
-        background-color: #30855c;
+        background-color: $primary-color;
         z-index: 1;
         transition: 0.3s ease-in-out;
         border-top-right-radius: 4px;
@@ -177,7 +179,7 @@
     }
     .nav-dropdown {
         padding: 0 12px 12px 36px;
-        background-color: #f8f8f8;
+        background-color: $primary-bg-color;
         display: none;
     }
     .nav-dropdown li {
@@ -206,15 +208,15 @@
         left: 0;
         width: 4px;
         height: 1px;
-        background: #232334;
+        background: $general-text-color;
         z-index: 2;
     }
     .nav-dropdown li a {
-        color: #232334 !important;
+        color: $general-text-color !important;
     }
     .active.nav-links__item.arrow::before {
-        border-top: 1.5px solid #3d8462;
-        border-right: 1.5px solid #3d8462;
+        border-top: 1.5px solid $primary-color;
+        border-right: 1.5px solid $primary-color;
         top: calc(35% + 7px);
         transform: rotate(315deg);
     }
@@ -248,8 +250,8 @@
         width: 350px;
     }
     .nav-links__item.arrow:hover::before {
-        border-top: 1.5px solid #3d8462;
-        border-right: 1.5px solid #3d8462;
+        border-top: 1.5px solid $primary-color;
+        border-right: 1.5px solid $primary-color;
         top: calc(35% + 7px);
         transform: rotate(315deg);
     }
@@ -261,8 +263,8 @@
 
 .search-on-site > .search-on-site__input {
     border-radius: 3px;
-    border: solid 0.5px #d6d6d6;
-    background-color: #ffffff;
+    border: solid 0.5px $primary-border-color;
+    background-color: $white;
     padding: 3px 10px;
     width: 100%;
 }
@@ -328,13 +330,13 @@
     transform: translateX(-50%);
     width: 0;
     height: 2px;
-    background-color: #3d8462;
+    background-color: $primary-color;
     transition: 0.4s ease-in-out;
     z-index: 1;
 }
 
 .nav-links__item:hover {
-    background-color: #ffffff;
+    background-color: $white;
 }
 
 .nav-links__item.arrow::before {
@@ -379,7 +381,7 @@
 }
 
 .nav-links__item.active {
-    background-color: #ffffff;
+    background-color: $white;
 }
 
 .nav-links__item.active::after {
@@ -425,7 +427,7 @@
         left: 0;
         width: max-content;
         box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
-        background-color: #ffffff;
+        background-color: $white;
         margin: 0;
         display: none;
         opacity: 0;
@@ -435,7 +437,7 @@
 }
 
 .nav-dropdown li:hover {
-    background-color: #f8f8f8;
+    background-color: $primary-bg-color;
     a {
         color: #242424;
         text-decoration: none;
@@ -471,8 +473,8 @@
 
 @media (min-width: 768px) {
     .nav-links__item.arrow:hover::before {
-        border-top: 1.5px solid #3d8462;
-        border-right: 1.5px solid #3d8462;
+        border-top: 1.5px solid $primary-color;
+        border-right: 1.5px solid $primary-color;
         top: calc(35% + 7px);
         transform: rotate(315deg);
     }
