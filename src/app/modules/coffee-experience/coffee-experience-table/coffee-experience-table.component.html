@@ -187,6 +187,13 @@
                             </span>
                         </div>
                     </span>
+                    <span *ngSwitchCase="'sub_order_id'" (click)="availabilityPage(rowData)">
+                        <div class="d-flex">
+                            <span class="truncate break-word">
+                                {{ rowData['order_id'] }}
+                            </span>
+                        </div>
+                    </span>
                     <span *ngSwitchCase="'origin'" (click)="availabilityPage(rowData)">
                         <div class="d-flex">
                             <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
@@ -228,12 +235,13 @@
 
                     <span *ngSwitchCase="'id'">
                         <span *ngIf="!primeTableService.isMobileView" (click)="availabilityPage(rowData)">
-                            {{ rowData[col.field] }}
+                            <span *ngIf="path === 'hrc-orders'">{{ rowData.main_order_id }}</span>
+                            <span *ngIf="path !== 'hrc-orders'">{{ rowData[col.field] }}</span>
                         </span>
                         <div class="d-flex mobile-header br-4 p-2 p-md-0">
                             <span *ngIf="primeTableService.isMobileView" class="mobile-heading w-50">
                                 {{ 'order_id' | translate }} #
-                                <span *ngIf="path === 'hrc-orders'">{{ rowData.order_id }}</span>
+                                <span *ngIf="path === 'hrc-orders'">{{ rowData.main_order_id }}</span>
                                 <span *ngIf="path !== 'hrc-orders'">{{ rowData[col.field] }}</span>
                             </span>
                             <span

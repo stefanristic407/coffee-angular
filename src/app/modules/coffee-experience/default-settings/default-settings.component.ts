@@ -409,9 +409,7 @@ export class DefaultSettingsComponent implements OnInit {
         }
         this.isFailedToSave = false;
         this.isSaving = true;
-        if (this.totalFilesNumber > 0) {
-            this.handleSaveData();
-        }
+        this.handleSaveData();
     }
 
     handleFailedToSaveData(): void {

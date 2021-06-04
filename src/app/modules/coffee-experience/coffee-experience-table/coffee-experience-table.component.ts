@@ -259,8 +259,14 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
                 this.primeTableService.isMobileView = false;
                 this.primeTableService.allColumns = [
                     {
-                        field: 'order_id',
+                        field: 'id',
                         header: 'Order ID',
+                        sortable: true,
+                        width: 40,
+                    },
+                    {
+                        field: 'sub_order_id',
+                        header: 'Sub Order ID',
                         sortable: true,
                         width: 45,
                     },
@@ -274,13 +280,13 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
                         field: 'product_name',
                         header: 'product_name',
                         sortable: true,
-                        width: 65,
+                        width: 50,
                     },
                     {
                         field: 'order_date',
                         header: 'date_ordered',
                         sortable: true,
-                        width: 40,
+                        width: 45,
                     },
                     {
                         field: 'roast_level',
@@ -298,7 +304,7 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
                         field: 'actions',
                         header: 'actions',
                         sortable: false,
-                        width: 50,
+                        width: 45,
                     },
                 ];
             } else if (this.path === 'outtake-orders') {
