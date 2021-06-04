@@ -19,6 +19,7 @@ export class MicroProfileService {
     roasterContacts: any = [];
     single: { name: string; value: any }[];
     roasterId: string;
+    microRoasterVirtualTourFiles: any = [];
 
     constructor(
         public userService: UserserviceService,
@@ -54,6 +55,7 @@ export class MicroProfileService {
         });
 
         this.getcontactList(microRoasterId);
+        this.getVirtualTourFiles(microRoasterId);
     }
 
     getcontactList(microRoasterId) {
@@ -63,5 +65,18 @@ export class MicroProfileService {
                 console.log(this.roasterContacts);
             }
         });
+    }
+
+    getVirtualTourFiles(microRoasterId) {
+        this.userService
+            .getGeneralVirtualTourFiles(microRoasterId, OrganizationType.MICRO_ROASTER, {
+                file_module: 'Gallery',
+                type_in: 'VIDEO,IMAGE',
+            })
+            .subscribe((res: any) => {
+                if (res.success) {
+                    this.microRoasterVirtualTourFiles = res.result;
+                }
+            });
     }
 }
