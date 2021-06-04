@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalsService } from '@services';
 import { PrimeTableService } from '@services';
 import { CoffeeExperienceTableComponent } from './coffee-experience-table/coffee-experience-table.component';
@@ -17,12 +18,22 @@ export class CoffeeExperienceComponent implements OnInit {
     ];
     menuItems: any = [];
     searchString = '';
-    TableEvent: any;
+    placeholder = 'Search by Order ID';
     @ViewChild(CoffeeExperienceTableComponent, { static: false }) coffeeTableTab;
 
     constructor(private globals: GlobalsService, private coffeeService: CoffeeExpService) {}
 
     ngOnInit(): void {
+        /*if (this.path === 'orders') {
+            this.placeholder = 'Search by Estate name, order ID, order reference';
+        } else if (this.path === 'mr-orders') {
+            this.placeholder = 'Search by Order ID, Customer name or Product name';
+        } else if (this.path === 'hrc-orders') {
+            this.placeholder = 'Search by Sub order ID or Product name';
+        } else if (this.path === 'outtake-orders') {
+            this.placeholder = 'Search by Customer Name or Estate Order ID';
+        }*/
+
         this.coffeeService.clearSearch();
         this.searchString = this.coffeeService.search.getValue();
         this.menuItems = [
