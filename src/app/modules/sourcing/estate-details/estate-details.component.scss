@@ -18,8 +18,7 @@
 }
 
 .banner-img {
-    object-fit: cover;
-    object-position: center;
+    background-color: $primary-bg-color;
     height: 109px;
     width: calc(100% + 2rem);
     @media (min-width: 768px) {
@@ -28,6 +27,13 @@
     }
     @media (min-width: 992px) {
         height: 304px;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
     }
 }
 

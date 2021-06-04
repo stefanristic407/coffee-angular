@@ -27,12 +27,7 @@ export class MicroProfileComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.microRoasterId = this.route.snapshot.params?.id || '';
-
         this.profileCreationService.roasterProfile(this.microRoasterId);
-        console.log(
-            'profileCreationService.organizationProfile?.banner_url',
-            this.profileCreationService.organizationProfile?.banner_url,
-        );
     }
 
     ngOnDestroy() {}

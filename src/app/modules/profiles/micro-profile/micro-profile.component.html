@@ -20,18 +20,6 @@
         <div class="profile-header-details border-md-main br-4 position-relative">
             <img
                 class="cover-image-profile-banner w-100"
-                [src]="profileCreationService.organizationProfile?.banner_url || 'assets/images/blank.png'"
-                height="160"
-            />
-
-            <img
-                class="cover-image-profile-banner w-100"
-                *ngIf="!profileCreationService.organizationProfile?.banner_url"
-                src="assets/images/blank.png"
-                height="160"
-            />
-            <img
-                class="cover-image-profile-banner w-100"
                 *ngIf="profileCreationService.organizationProfile?.banner_url"
                 [src]="profileCreationService.organizationProfile?.banner_url"
                 alt="profile banner image"

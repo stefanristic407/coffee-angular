@@ -3,6 +3,7 @@
 .layout-wrap {
     min-height: calc(100vh + 1px);
 }
+
 .nav-top1 {
     display: flex;
     align-items: center;
@@ -38,24 +39,15 @@
     }
 }
 
-.sectin-footer-mb {
-    opacity: 0;
-    pointer-events: none;
-    &.show {
-        opacity: 1;
-        pointer-events: all;
-    }
-}
-
 .cursor-dots {
     cursor: pointer;
-    color: #747588;
+    color: $muted-text-color;
     font-family: Muli;
 }
 
 .cursor-dots:hover {
     text-decoration: none !important;
-    color: #232334 !important;
+    color: $general-text-color !important;
 }
 
 .profile-name {
@@ -73,13 +65,13 @@
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #747588 !important;
+    color: $muted-text-color !important;
 }
 
 .list-group-item:hover {
-    color: #232334 !important;
+    color: $general-text-color !important;
     font-weight: 600 !important;
-    background-color: #f8f8f8;
+    background-color: $primary-bg-color;
     border-radius: 4px;
 }
 
@@ -120,7 +112,7 @@
     padding: 4px !important;
 }
 .notification-header {
-    background-color: #f8f8f8;
+    background-color: $primary-bg-color;
     margin: 4px;
     display: flex;
     justify-content: space-between;
@@ -164,6 +156,85 @@
         &:before {
             box-shadow: 0 22px 34px 0 rgb(0 0 0 / 8%);
             border-bottom-color: transparent;
+        }
+    }
+}
+
+/* Footer Mobile */
+.sectin-footer-mb {
+    opacity: 0;
+    pointer-events: none;
+    display: block;
+    visibility: visible;
+    padding: 0;
+    background: $white;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 98;
+    transition: 0.4s ease-in-out;
+
+    &.show {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    @media (min-width: 768px) {
+        display: none;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .footer-links__item {
+        position: relative;
+        text-align: center;
+        width: 20%;
+        padding: 7px 0;
+        @media (min-width: 350px) {
+            padding: 10px 10px;
+        }
+
+        &.active {
+            border-bottom: 2px solid $primary-color;
+            background: #ebebeb;
+
+            img.active {
+                display: block !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+            }
+
+            img.in-active {
+                display: none;
+                opacity: 0;
+                visibility: hidden;
+            }
+
+            p {
+                color: $primary-color !important;
+            }
+        }
+
+        img.active {
+            display: none;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        a {
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: none;
+            }
+
+            img {
+                width: 20px;
+                height: 20px;
+                object-fit: contain;
+                margin-bottom: 2px;
+            }
         }
     }
 }

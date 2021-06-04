@@ -1,20 +1,11 @@
-<div *ngIf="isLoading" class="text-center py-5">Loading...</div>
-
-<div *ngIf="!isLoading">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="fnt-12 fnt-md-14 fnt-600 text-clr334 mt-2 mt-md-4 mb-3">
-                {{ 'add_photo_files' | translate }}
-            </div>
-        </div>
-    </div>
+<div *ngIf="microProfileService.microRoasterVirtualTourFiles" class="m-2 mt-4 ml-md-0 mr-md-0 mb-md-0">
     <div class="row">
         <div class="col-lg-12 pl-25 pr-25">
             <div class="row gutter-8 gutter-md-20 v-gutter-8 v-gutter-md-20">
                 <a
                     href="javascript:void(0)"
                     class="col-lg-4 col-6 text-decoration-none"
-                    *ngFor="let mediaItem of tourMedias"
+                    *ngFor="let mediaItem of microProfileService.microRoasterVirtualTourFiles"
                 >
                     <div class="square">
                         <div class="content br-4 overflow-hidden">
@@ -44,4 +35,4 @@
     </div>
 </div>
 
-<div *ngIf="!isLoading && !tourMedias.length && !isSaveMode" class="py-5 text-center">No data to display</div>
+<div *ngIf="!microProfileService.microRoasterVirtualTourFiles?.length" class="py-5 text-center">No data to display</div>
