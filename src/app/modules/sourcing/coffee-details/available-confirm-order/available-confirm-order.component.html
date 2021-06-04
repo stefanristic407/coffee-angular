@@ -110,14 +110,14 @@
                                             </p-inputNumber>
                                             <span class="p-inputgroup-addon">Bags</span>
                                             <small *ngIf="infoForm.controls.quantity.errors?.required" class="p-error">
-                                                Please enter quantity
+                                                {{ 'required' | translate }}
                                             </small>
                                             <small *ngIf="infoForm.controls.quantity.errors?.max" class="p-error">
-                                                Please enter quantity in range of available for sale
+                                                {{ 'quantity_max_error' | translate }}
                                             </small>
                                             <small *ngIf="infoForm.controls.quantity.errors?.min" class="p-error">
-                                                Minimum quantity for shipping is {{ minimumQuantity }}. please order
-                                                above.
+                                                {{ 'minimum_quantity_for_import_is' | translate }}
+                                                {{ minimumQuantity }} bags
                                             </small>
                                         </div>
                                     </div>
