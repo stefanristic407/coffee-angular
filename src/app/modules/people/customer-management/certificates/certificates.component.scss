@@ -1,0 +1,18 @@
+.certificate-image {
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+}
+
+.cert-view-link {
+    &:hover {
+        text-decoration: none !important;
+        color: #80460b;
+    }
+}
+
+@media (min-width: 768px) {
+    .certificate-year {
+        color: #232334 !important;
+    }
+}

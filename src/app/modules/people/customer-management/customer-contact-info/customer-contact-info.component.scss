@@ -1,0 +1,9 @@
+.total-card-wrapper {
+    width: 224px;
+}
+
+@media (max-width: 767px) {
+    .total-card-wrapper {
+        width: 100%;
+    }
+}

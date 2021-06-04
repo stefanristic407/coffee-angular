@@ -1,0 +1,45 @@
+<app-loading *ngIf="loading"></app-loading>
+<div class="main-block" *ngIf="!loading">
+    <div class="overflow-auto d-flex flex-nowrap breadCrumb pb-lg-2">
+        <p-breadcrumb [model]="breadCrumbData"></p-breadcrumb>
+    </div>
+    <div class="pt-45 pt-md-5">
+        <app-customer-info [data]="portalDetails"></app-customer-info>
+    </div>
+    <div class="pt-3 pt-md-4 pt-lg-45">
+        <app-customer-contact-info [data]="portalDetails" [mobileView]="isMobile$ | async"></app-customer-contact-info>
+    </div>
+
+    <div class="border-md-main br-md-4 d-flex flex-wrap p-3 p-md-4 mt-md-45" *ngIf="type === 'Micro'">
+        <p class="w-100 fnt-muli fnt-16 fnt-bold lh-125 text-clr334 mt-2 mb-3 d-block d-md-none">
+            {{ 'roastery_capabilities' | translate }}
+        </p>
+        <div>
+            <p class="fnt-muli fnt-14 fnt-md-18 fnt-600 lh-129 lh-md-normal text-clr588 mb-3 mb-md-4 mb-lg-45">
+                {{ 'roaster_capacity' | translate }}
+            </p>
+            <p class="fnt-muli fnt-28 fnt-md-32 fnt-bold lh-125 lh-md-normal text-clr334 mb-0">
+                {{ portalDetails?.capacity }} {{ portalDetails?.capacity_unit || 'Kg' }}
+            </p>
+        </div>
+        <p-divider layout="vertical" styleClass="mx-25 ml-md-4 mr-md-3"></p-divider>
+        <div class="flex-1">
+            <ul class="flo-list w-100 pb-2 pb-md-3" *ngIf="portalDetails?.capabilities">
+                <div class="flo-item-container" *ngFor="let c of capabilities">
+                    <div class="flo-item fnt-muli fnt-600 fnt-12 lh-1 text-clr588">&#9679;&nbsp;{{ c }}</div>
+                </div>
+            </ul>
+            <p class="fnt-muli fnt-14 fnt-md-16 fnt-600 fnt-md-500 lh-157 lh-md-normal text-clr334 mb-0">
+                We are known for our three main blends Café Blend, Mocha Java and Black Gold.
+            </p>
+        </div>
+    </div>
+    <p-divider type="dashed" styleClass="my-0 d-block d-md-none" *ngIf="type === 'Micro'"></p-divider>
+
+    <div class="mt-4 mt-md-45" *ngIf="type === 'Micro'">
+        <app-certificates [data]="certificates"></app-certificates>
+    </div>
+    <div class="mt-4 mt-md-45">
+        <app-contacts-list [data]="topContacts" [organizationType]="orgType"></app-contacts-list>
+    </div>
+</div>
