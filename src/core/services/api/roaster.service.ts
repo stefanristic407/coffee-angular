@@ -670,7 +670,7 @@ export class RoasterserviceService extends ApiService {
         return this.http.post(this.url, data);
     }
 
-    getCoffeeExperienceOrders(roasterId: any, orderType: string, queryParams = '') {
+    getCoffeeExperienceOrders(roasterId: any, orderType: string, queryParams?: any) {
         const data = { api_call: '', method: '', token: '' };
         data.api_call = `/ro/${roasterId}/${orderType}?` + this.serlialise(queryParams);
         data.method = 'GET';

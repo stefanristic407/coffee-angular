@@ -1,7 +1,5 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GlobalsService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
-import { SourcingService } from '../sourcing/sourcing.service';
 import { PrimeTableService } from '@services';
 import { CoffeeExperienceTableComponent } from './coffee-experience-table/coffee-experience-table.component';
 
@@ -9,7 +7,6 @@ import { CoffeeExperienceTableComponent } from './coffee-experience-table/coffee
     selector: 'app-coffee-experience',
     templateUrl: './coffee-experience.component.html',
     styleUrls: ['./coffee-experience.component.scss'],
-    encapsulation: ViewEncapsulation.None,
 })
 export class CoffeeExperienceComponent implements OnInit {
     items = [
@@ -17,18 +14,12 @@ export class CoffeeExperienceComponent implements OnInit {
         { label: this.globals.languageJson.brand_experience },
         { label: this.globals.languageJson.the_coffee_experience },
     ];
-    searchTerm;
     menuItems: any = [];
-    searchText: string;
     searchString = '';
+    TableEvent: any;
     @ViewChild(CoffeeExperienceTableComponent, { static: false }) coffeeTableTab;
 
-    constructor(
-        public globals: GlobalsService,
-        public cookieService: CookieService,
-        public sourcingSrv: SourcingService,
-        private primeTableService: PrimeTableService,
-    ) {}
+    constructor(private globals: GlobalsService, private primeTableService: PrimeTableService) {}
 
     ngOnInit(): void {
         this.menuItems = [
@@ -51,9 +42,14 @@ export class CoffeeExperienceComponent implements OnInit {
         ];
     }
     onSearch() {
-        this.coffeeTableTab.search(this.searchString);
+        // this.primeTableService.searchQuery = this.searchString;
+        // console.log(this.primeTableService.searchQuery);
+        // this.coffeeTableTab.search(this.searchString);
+        // this.TableEvent.primeTableService.searchQuery = this.searchString;
+        // console.log(this.TableEvent);
     }
-    handleChange(event: any) {
-        this.primeTableService.records = [];
+    onRouterOutletActivate(event: any) {
+        // console.log(event);
+        // this.TableEvent = event;
     }
 }

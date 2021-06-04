@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerServiceService } from '@app/modules/people/customer-management/customer-service.service';
 import {
@@ -95,8 +95,6 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
         }
     }
 
-    public;
-
     @ViewChild('procuredCoffeeTable', { static: true }) table: Table;
     public isMobile = false;
 
@@ -118,32 +116,10 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
                     width: 40,
                 },
                 {
-                    field: 'estate_name',
+                    field: 'name',
                     header: 'estate_name',
                     sortable: false,
                     width: 50,
-                },
-                {
-                    field: 'created_at',
-                    header: 'ordered_date',
-                    sortable: false,
-                    width: 50,
-                },
-            ];
-        } else if (this.path === 'orders') {
-            this.primeTableService.isMobileView = false;
-            this.primeTableService.allColumns = [
-                {
-                    field: 'id',
-                    header: 'Order ID',
-                    sortable: true,
-                    width: 55,
-                },
-                {
-                    field: 'estate_name',
-                    header: 'estate_name',
-                    sortable: true,
-                    width: 60,
                 },
                 {
                     field: 'origin',
@@ -154,184 +130,224 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
                 {
                     field: 'created_at',
                     header: 'ordered_date',
-                    sortable: true,
-                    width: 60,
-                },
-                {
-                    field: 'date_received',
-                    header: 'recieved_date',
-                    sortable: true,
-                    width: 65,
-                },
-                {
-                    field: 'varieties',
-                    header: 'variety',
-                    sortable: true,
-                    width: 45,
-                },
-                {
-                    field: 'quantity',
-                    header: 'quantity',
-                    sortable: true,
-                    width: 50,
-                },
-                {
-                    field: 'cup_score',
-                    header: 'cupping_score',
-                    sortable: true,
-                    width: 65,
-                },
-                {
-                    field: 'actions',
-                    header: 'actions',
-                    sortable: false,
-                    width: 60,
-                },
-            ];
-        } else if (this.path === 'mr-orders') {
-            this.primeTableService.isMobileView = false;
-            this.primeTableService.allColumns = [
-                {
-                    field: 'id',
-                    header: 'Order ID',
-                    sortable: true,
-                    width: 45,
-                },
-                {
-                    field: 'estate_name',
-                    header: 'customer_name',
-                    sortable: true,
-                    width: 60,
-                },
-                {
-                    field: 'product_name',
-                    header: 'product_name',
-                    sortable: true,
-                    width: 60,
-                },
-                {
-                    field: 'created_at',
-                    header: 'date_ordered',
-                    sortable: true,
-                    width: 60,
-                },
-                {
-                    field: 'varieties',
-                    header: 'variety',
-                    sortable: true,
-                    width: 40,
-                },
-                {
-                    field: 'quantity',
-                    header: 'quantity',
-                    sortable: true,
-                    width: 40,
-                },
-                {
-                    field: 'cup_score',
-                    header: 'cupping_score',
-                    sortable: true,
-                    width: 60,
-                },
-                {
-                    field: 'actions',
-                    header: 'actions',
                     sortable: false,
                     width: 50,
                 },
             ];
-        } else if (this.path === 'hrc-orders') {
-            this.primeTableService.isMobileView = false;
-            this.primeTableService.allColumns = [
-                {
-                    field: 'order_id',
-                    header: 'Order ID',
-                    sortable: true,
-                    width: 45,
-                },
-                {
-                    field: 'horeca_name',
-                    header: 'customer_name',
-                    sortable: true,
-                    width: 70,
-                },
-                {
-                    field: 'product_name',
-                    header: 'product_name',
-                    sortable: true,
-                    width: 50,
-                },
-                {
-                    field: 'order_date',
-                    header: 'date_ordered',
-                    sortable: true,
-                    width: 60,
-                },
-                {
-                    field: 'roast_level',
-                    header: 'roast_level',
+            if (this.path !== 'orders') {
+                this.primeTableService.allColumns.splice(2, 1);
+            } else {
+                this.primeTableService.allColumns[2] = {
+                    field: 'origin',
+                    header: 'origin',
                     sortable: true,
                     width: 40,
-                },
-                {
-                    field: 'quantity',
-                    header: 'quantity',
-                    sortable: true,
-                    width: 40,
-                },
-                {
-                    field: 'actions',
-                    header: 'actions',
-                    sortable: false,
-                    width: 50,
-                },
-            ];
-        } else if (this.path === 'outtake-orders') {
-            this.primeTableService.isMobileView = false;
-            this.primeTableService.allColumns = [
-                {
-                    field: 'id',
-                    header: 'Order ID',
-                    sortable: true,
-                    width: 45,
-                },
-                {
-                    field: 'customer_name',
-                    header: 'customer_name',
-                    sortable: true,
-                    width: 70,
-                },
-                {
-                    field: 'product_name',
-                    header: 'product_name',
-                    sortable: true,
-                    width: 50,
-                },
-                {
-                    field: 'order_date',
-                    header: 'date_ordered',
-                    sortable: true,
-                    width: 60,
-                },
-                {
-                    field: 'order_id',
-                    header: 'gc_order_id',
-                    sortable: true,
-                    width: 40,
-                },
-                {
-                    field: 'rc_total_quantity',
-                    header: 'quantity',
-                    sortable: true,
-                    width: 40,
-                },
-                {
-                    field: 'actions',
-                    header: 'actions',
-                    sortable: false,
-                    width: 50,
-                },
-            ];
+                };
+            }
+        } else {
+            if (this.path === 'orders') {
+                this.primeTableService.isMobileView = false;
+                this.primeTableService.allColumns = [
+                    {
+                        field: 'id',
+                        header: 'Order ID',
+                        sortable: true,
+                        width: 55,
+                    },
+                    {
+                        field: 'name',
+                        header: 'estate_name',
+                        sortable: true,
+                        width: 60,
+                    },
+                    {
+                        field: 'origin',
+                        header: 'origin',
+                        sortable: true,
+                        width: 40,
+                    },
+                    {
+                        field: 'created_at',
+                        header: 'ordered_date',
+                        sortable: true,
+                        width: 60,
+                    },
+                    {
+                        field: 'date_received',
+                        header: 'recieved_date',
+                        sortable: true,
+                        width: 65,
+                    },
+                    {
+                        field: 'varieties',
+                        header: 'variety',
+                        sortable: true,
+                        width: 45,
+                    },
+                    {
+                        field: 'quantity',
+                        header: 'quantity',
+                        sortable: true,
+                        width: 50,
+                    },
+                    {
+                        field: 'cup_score',
+                        header: 'cupping_score',
+                        sortable: true,
+                        width: 65,
+                    },
+                    {
+                        field: 'actions',
+                        header: 'actions',
+                        sortable: false,
+                        width: 60,
+                    },
+                ];
+            } else if (this.path === 'mr-orders') {
+                this.primeTableService.isMobileView = false;
+                this.primeTableService.allColumns = [
+                    {
+                        field: 'id',
+                        header: 'Order ID',
+                        sortable: true,
+                        width: 45,
+                    },
+                    {
+                        field: 'name',
+                        header: 'customer_name',
+                        sortable: true,
+                        width: 60,
+                    },
+                    {
+                        field: 'product_name',
+                        header: 'product_name',
+                        sortable: true,
+                        width: 60,
+                    },
+                    {
+                        field: 'created_at',
+                        header: 'date_ordered',
+                        sortable: true,
+                        width: 60,
+                    },
+                    {
+                        field: 'varieties',
+                        header: 'variety',
+                        sortable: true,
+                        width: 40,
+                    },
+                    {
+                        field: 'quantity',
+                        header: 'quantity',
+                        sortable: true,
+                        width: 40,
+                    },
+                    {
+                        field: 'cup_score',
+                        header: 'cupping_score',
+                        sortable: true,
+                        width: 60,
+                    },
+                    {
+                        field: 'actions',
+                        header: 'actions',
+                        sortable: false,
+                        width: 50,
+                    },
+                ];
+            } else if (this.path === 'hrc-orders') {
+                this.primeTableService.isMobileView = false;
+                this.primeTableService.allColumns = [
+                    {
+                        field: 'order_id',
+                        header: 'Order ID',
+                        sortable: true,
+                        width: 45,
+                    },
+                    {
+                        field: 'name',
+                        header: 'customer_name',
+                        sortable: true,
+                        width: 50,
+                    },
+                    {
+                        field: 'product_name',
+                        header: 'product_name',
+                        sortable: true,
+                        width: 65,
+                    },
+                    {
+                        field: 'order_date',
+                        header: 'date_ordered',
+                        sortable: true,
+                        width: 40,
+                    },
+                    {
+                        field: 'roast_level',
+                        header: 'roast_level',
+                        sortable: true,
+                        width: 40,
+                    },
+                    {
+                        field: 'quantity',
+                        header: 'quantity',
+                        sortable: true,
+                        width: 40,
+                    },
+                    {
+                        field: 'actions',
+                        header: 'actions',
+                        sortable: false,
+                        width: 50,
+                    },
+                ];
+            } else if (this.path === 'outtake-orders') {
+                this.primeTableService.isMobileView = false;
+                this.primeTableService.allColumns = [
+                    {
+                        field: 'id',
+                        header: 'Order ID',
+                        sortable: true,
+                        width: 45,
+                    },
+                    {
+                        field: 'customer_name',
+                        header: 'customer_name',
+                        sortable: true,
+                        width: 70,
+                    },
+                    {
+                        field: 'product_name',
+                        header: 'product_name',
+                        sortable: true,
+                        width: 65,
+                    },
+                    {
+                        field: 'order_date',
+                        header: 'date_ordered',
+                        sortable: true,
+                        width: 50,
+                    },
+                    {
+                        field: 'order_id',
+                        header: 'estate_order_id',
+                        sortable: true,
+                        width: 50,
+                    },
+                    {
+                        field: 'gc_total_quantity',
+                        header: 'quantity',
+                        sortable: true,
+                        width: 40,
+                    },
+                    {
+                        field: 'actions',
+                        header: 'actions',
+                        sortable: false,
+                        width: 45,
+                    },
+                ];
+            }
         }
     }
 
@@ -340,7 +356,6 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
         this.initializeTableProcuredCoffee();
         this.primeTableService.form = this.form;
         this.language();
-        this.getCoffeeExpOrders();
         this.primeTableService.form?.valueChanges.subscribe((data) =>
             setTimeout(() => {
                 this.table.reset();
@@ -383,6 +398,7 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
                 this.table.reset();
             }, 0);
         });
+        this.getCoffeeExpOrders();
     }
 
     language() {
@@ -417,7 +433,6 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
     }
 
     availabilityPage(item) {
-        console.log(item);
         if (this.path === 'orders') {
             this.router.navigate([`/coffee-experience/coffee-details/`], {
                 queryParams: {
@@ -445,16 +460,30 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
         }
     }
 
-    getCoffeeExpOrders() {
-        this.roasterService.getCoffeeExperienceOrders(this.roasterId, this.path).subscribe((res: any) => {
-            res.result.map((org) => {
-                COUNTRY_LIST.find((item) => {
-                    if (org.origin && item.isoCode && org.origin.toUpperCase() === item.isoCode) {
-                        this.originArray.push(item);
-                    }
+    getCoffeeExpOrders(event?) {
+        if (this.path === 'orders') {
+            const queryParams = {
+                sort_order: 'desc',
+                page: this.primeTableService.currentPage,
+                per_page: this.primeTableService.rows,
+                sort_by: 'created_at',
+                status: 'RECEIVED',
+            };
+            this.originArray = [];
+            this.roasterService
+                .getCoffeeExperienceOrders(this.roasterId, this.path, queryParams)
+                .subscribe((res: any) => {
+                    res.result.map((org) => {
+                        COUNTRY_LIST.find((item) => {
+                            if (org.origin && item.isoCode && org.origin.toUpperCase() === item.isoCode) {
+                                this.originArray.push(item);
+                            }
+                        });
+                    });
+                    this.originArray = this.originArray.filter(
+                        (v, i, a) => a.findIndex((t) => t.isoCode === v.isoCode) === i,
+                    );
                 });
-            });
-            this.originArray = this.originArray.filter((v, i, a) => a.findIndex((t) => t.isoCode === v.isoCode) === i);
-        });
+        }
     }
 }

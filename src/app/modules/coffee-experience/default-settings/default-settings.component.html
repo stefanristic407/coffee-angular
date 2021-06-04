@@ -22,19 +22,30 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="d-flex align-items-start">
-                                <div class="d-inline-block col-sm-12 col-md-8 col-lg-9 px-0">
+                                <div class="d-inline-block col-sm-12 col-md-9 col-lg-9 px-0">
                                     <div class="page-title">
                                         <span *ngIf="isCoffeeDetailsPage"
-                                            >{{ 'roaster_default_settings' | translate }} #{{
-                                                orderId | translate
-                                            }}</span
+                                            >{{ 'order' | translate }} #{{ orderId }}</span
                                         >
                                         <span *ngIf="!isCoffeeDetailsPage">{{
                                             'roaster_default_settings' | translate
                                         }}</span>
                                     </div>
                                     <div class="page-description">
-                                        {{ 'set_default_settings' | translate }}
+                                        <span *ngIf="!isCoffeeDetailsPage">
+                                            {{ 'set_default_settings' | translate }}</span
+                                        >
+                                        <div class="d-flex flex-column">
+                                            <span *ngIf="isCoffeeDetailsPage" class="d-lg-block d-md-block d-none">{{
+                                                'coffee_experience_text-give' | translate
+                                            }}</span>
+                                            <span *ngIf="isCoffeeDetailsPage" class="d-lg-block d-md-block d-none">{{
+                                                'coffee_experience_text-update' | translate
+                                            }}</span>
+                                            <span *ngIf="isCoffeeDetailsPage" class="d-lg-none d-md-none d-block">
+                                                {{ 'coffee_experience_text' | translate }}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4 col-lg-3 butn-prev-save butn-prev-save--desktop">
@@ -56,7 +67,7 @@
                                         {{ 'save' | translate }}
                                     </button>
                                     <button
-                                        *ngIf="!isEditableMode && estateBtn && !route.snapshot.queryParams.estate_id"
+                                        *ngIf="!isEditableMode && !activateRoute.snapshot.queryParams.estate_id"
                                         type="button"
                                         class="btn-raised px-4"
                                         [disabled]="isSaving"
@@ -181,7 +192,7 @@
                                                 >
                                                     <div class="pr-3">
                                                         <h4 class="mb-0 fnt-14 fnt-700 fnt-muli text-clr334 mb-1">
-                                                            {{ item.certificate_type }}
+                                                            {{ item.certificate_type | certificateName }}
                                                         </h4>
                                                         <span class="d-block fnt-12 fnt-600 fnt-muli text-clr588">{{
                                                             item.year
@@ -192,7 +203,7 @@
                                                             class="fnt-muli fnt-14 fnt-700"
                                                             (click)="viewCertificate(item)"
                                                         >
-                                                            {{ 'view' | translate }}
+                                                            {{ 'view' | titlecase | translate }}
                                                         </button>
                                                     </div>
                                                     <div class="d-block d-md-none">
@@ -314,7 +325,7 @@
                                                     [style.backgroundImage]="'url(' + defaultDetails.image_url + ')'"
                                                 >
                                                     <div class="grey-gradient-container text-white">
-                                                        <div>Image</div>
+                                                        <div>{{ defaultDetails.image_url | fileName: 20 }}</div>
                                                         <div *ngIf="isEditableMode">
                                                             <i
                                                                 class="pi pi-ellipsis-v cursor-pointer line-height-2"
@@ -331,7 +342,10 @@
                                                 </div>
                                             </div>
                                             <div
-                                                *ngIf="!isImagePreviewPanel && !route.snapshot.queryParams.estate_id"
+                                                *ngIf="
+                                                    !isImagePreviewPanel &&
+                                                    !activateRoute.snapshot.queryParams.estate_id
+                                                "
                                                 class="roastery-upload-files"
                                             >
                                                 <div class="roastery-fields">
@@ -342,7 +356,10 @@
                                                             <label class="mb-0">
                                                                 <input
                                                                     type="file"
-                                                                    [disabled]="!estateBtn || !isEditableMode"
+                                                                    [disabled]="
+                                                                        activateRoute.snapshot.queryParams.estate_id ||
+                                                                        !isEditableMode
+                                                                    "
                                                                     (change)="onChooseFile($event.target, 'fileImage')"
                                                                 />
                                                                 <div
@@ -384,7 +401,7 @@
                                                         class="w-100 br-4"
                                                     ></video>
                                                     <div class="grey-gradient-container text-white">
-                                                        <div>Video</div>
+                                                        <div>{{ defaultDetails.video_url | fileName: 20 }}</div>
                                                         <div *ngIf="isEditableMode">
                                                             <i
                                                                 class="pi pi-ellipsis-v cursor-pointer line-height-2"
@@ -401,7 +418,10 @@
                                                 </div>
                                             </div>
                                             <div
-                                                *ngIf="!isVideoPreviewPanel && !route.snapshot.queryParams.estate_id"
+                                                *ngIf="
+                                                    !isVideoPreviewPanel &&
+                                                    !activateRoute.snapshot.queryParams.estate_id
+                                                "
                                                 class="roastery-upload-files"
                                             >
                                                 <div class="roastery-fields">
@@ -412,7 +432,10 @@
                                                             <label class="mb-0">
                                                                 <input
                                                                     type="file"
-                                                                    [disabled]="!estateBtn || !isEditableMode"
+                                                                    [disabled]="
+                                                                        activateRoute.snapshot.queryParams.estate_id ||
+                                                                        !isEditableMode
+                                                                    "
                                                                     (change)="onChooseFile($event.target, 'fileVideo')"
                                                                 />
                                                                 <div
@@ -440,7 +463,7 @@
                                         </div>
                                         <div class="media-container">
                                             <div
-                                                *ngIf="materialOnResponse && !isCoffeeDetailsPage"
+                                                *ngIf="!isCoffeeDetailsPage && materialOnResponse"
                                                 class="existing-media-container material-line"
                                             >
                                                 <div class="content-container d-flex justify-content-center br-4">
@@ -468,7 +491,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div *ngIf="materialOnRequest" class="roastery-upload-files">
+                                            <div
+                                                *ngIf="!isCoffeeDetailsPage && materialOnRequest"
+                                                class="roastery-upload-files"
+                                            >
                                                 <div class="roastery-fields">
                                                     <div>
                                                         <div
@@ -511,10 +537,10 @@
                                     <!--Share your story-->
                                     <div
                                         *ngIf="isCoffeeDetailsPage && coffeeExperienceLink"
-                                        class="form-section__inputs mt"
+                                        class="form-section__inputs scan-margin"
                                     >
                                         <div class="roastery-fields tab">
-                                            <div class="tab-width">
+                                            <div class="tab-width mb-4 mb-md-0">
                                                 <h4 class="fnt-16 fnt-700 fnt-muli text-clr334 tab-bottom-margin">
                                                     {{ 'share_your_story' | translate }}
                                                 </h4>
@@ -522,18 +548,14 @@
                                                     <label class="fnt-14 fnt-600 fnt-muli text-clr588">
                                                         {{ 'share_story_text' | translate }}
                                                     </label>
-                                                    <div
-                                                        class="copy-link__value d-flex d-md-column d-lg-row flex-wrap align-items-center"
-                                                    >
-                                                        <input
-                                                            class="tab-input"
-                                                            type="text"
-                                                            [value]="coffeeExperienceLink?.coffee_story_url"
-                                                            readonly
-                                                        />
+                                                    <div class="link-wrapper">
+                                                        <span class="fnt-14 fnt-600 flex-1 link-text">{{
+                                                            coffeeExperienceLink?.coffee_story_url
+                                                        }}</span>
                                                         <button
-                                                            class="tab-btn"
-                                                            (click)="handleCopyCoffeeExperienceLink()"
+                                                            class="btn-raised"
+                                                            ngxClipboard
+                                                            [cbContent]="coffeeExperienceLink?.coffee_story_url"
                                                         >
                                                             {{ 'copy_link' | translate }}
                                                         </button>
@@ -542,12 +564,8 @@
                                             </div>
                                             <div class="tab-width-right">
                                                 <div class="scan-qr-link text-center">
-                                                    <span
-                                                        class="d-inline-block mx-auto fnt-12 fnt-600 fnt-muli text-clr334 mb-3 mt-3 mt-md-0 mb-lg-4 text-capitalize hideTabView"
-                                                        >or</span
-                                                    >
                                                     <p
-                                                        class="text-md-left fnt-14 fnt-600 fnt-muli text-clr334 mb-3 mb-lg-4 tab-bottom-margin"
+                                                        class="text-md-left fnt-14 fnt-bold fnt-muli text-clr334 mb-3 mb-lg-4 tab-bottom-margin"
                                                     >
                                                         {{ 'scan_download_text' | translate }}
                                                     </p>
@@ -575,7 +593,9 @@
                                         <div class="text-center contact-for-help">
                                             <p class="mb-0 contact-for-help__text">
                                                 {{ 'having_trouble' | translate }}?
-                                                <a class="ml-1" href="#">{{ 'contact_us' | translate }}</a>
+                                                <a class="ml-1" href="mailto:support@eraofwe.com">{{
+                                                    'contact_us' | translate
+                                                }}</a>
                                             </p>
                                         </div>
                                     </div>
@@ -599,11 +619,7 @@
                                         </div>
                                         <div>
                                             <button
-                                                *ngIf="
-                                                    !isEditableMode &&
-                                                    estateBtn &&
-                                                    !route.snapshot.queryParams.estate_id
-                                                "
+                                                *ngIf="!isEditableMode && !activateRoute.snapshot.queryParams.estate_id"
                                                 type="button"
                                                 (click)="isEditableMode = true"
                                                 class="btn-raised w-100"

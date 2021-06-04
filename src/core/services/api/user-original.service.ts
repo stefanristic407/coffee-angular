@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { map, tap } from 'rxjs/operators';
 import { OrganizationType } from '@enums';
 import { ApiService } from './api.service';
+import { ApiResponse } from '@models';
 
 @Injectable({
     providedIn: 'root',
@@ -199,6 +200,10 @@ export class UserserviceService extends ApiService {
             data: body,
         };
         return this.http.post(this.roasterUrl, data);
+    }
+
+    getUser(params: any): Observable<ApiResponse<any>> {
+        return this.post(this.orgPostUrl, `users?${this.serializeParams(params)}`, 'GET');
     }
 
     // API Function Name : Update Edit Member

@@ -41,6 +41,7 @@
 <!-- Primeng table for Procured Coffee -->
 <div class="coffee-procured">
     <p-table
+        id="exp-Table"
         #procuredCoffeeTable
         [class.table-mobile]="primeTableService.isMobileView"
         [value]="primeTableService.records"
@@ -53,7 +54,7 @@
         [loading]="primeTableService.loading"
         [paginator]="primeTableService.paginationValue"
         [lazy]="true"
-        (onLazyLoad)="primeTableService.getData($event)"
+        (onLazyLoad)="primeTableService.getData($event); getCoffeeExpOrders($event)"
         [totalRecords]="primeTableService.totalRecords"
         [responsive]="primeTableService.isMobileView"
     >
@@ -87,24 +88,18 @@
                     [ngSwitch]="col.field"
                     [ngClass]="{ borderNone: col.field === 'order_reference' }"
                 >
-                    <span *ngSwitchCase="'estate_name'" (click)="availabilityPage(rowData)">
+                    <span *ngSwitchCase="'name'" (click)="availabilityPage(rowData)">
                         <div class="d-flex">
                             <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
                                 <span *ngIf="path === 'orders'"> {{ 'estate_name' | translate }}</span>
                                 <span *ngIf="path !== 'orders'"> {{ 'customer_name' | translate }}</span>
                             </span>
 
-                            <span *ngIf="!primeTableService.isMobileView" [class.w-50]="primeTableService.isMobileView">
-                                <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    <span *ngIf="path === 'orders' || path === 'mr-orders' || path === 'hrc-orders'">
-                                        {{ rowData['estate_name'] }}</span
-                                    >
-                                    <span *ngIf="path === 'outtake-orders'"> {{ rowData['customer_name'] }}</span>
-                                </span>
-                            </span>
-
-                            <span *ngIf="!primeTableService.isMobileView">
-                                {{ rowData['estate_name'] }}
+                            <span [class.w-50]="primeTableService.isMobileView">
+                                <span *ngIf="path === 'orders'"> {{ rowData['estate_name'] }}</span>
+                                <span *ngIf="path === 'mr-orders'"> {{ rowData['micro_roaster_name'] }}</span>
+                                <span *ngIf="path === 'hrc-orders'"> {{ rowData['user_name'] }} </span>
+                                <span *ngIf="path === 'outtake-orders'"> {{ rowData['customer_name'] }}</span>
                             </span>
                         </div>
                     </span>
@@ -119,8 +114,8 @@
                             </span>
                         </div>
                     </span>
-                    <span *ngSwitchCase="'rc_total_quantity'" (click)="availabilityPage(rowData)">
-                        <div *ngIf="rowData['customer_type'] === 'hrc-orders'" class="d-flex">
+                    <span *ngSwitchCase="'gc_total_quantity'" (click)="availabilityPage(rowData)">
+                        <div *ngIf="rowData['customer_type'] === 'hrc'" class="d-flex">
                             <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
                                 {{ 'quantity' | translate }}
                             </span>
@@ -194,23 +189,48 @@
                     </span>
                     <span *ngSwitchCase="'origin'" (click)="availabilityPage(rowData)">
                         <div class="d-flex">
-                            <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                <span> {{ 'origin' | translate }}</span>
+                            </span>
+                            <span [class.w-50]="primeTableService.isMobileView" class="truncate break-word">
                                 {{ rowData['origin'] | country | translate }}
                             </span>
                         </div>
                     </span>
-                    <span *ngSwitchCase="'quantity'" (click)="availabilityPage(rowData)">
-                        <span *ngIf="primeTableService.isMobileView" class="w-50">
-                            {{ rowData['quantity'] }}&nbsp; kg
+                    <span *ngSwitchCase="'roast_level'" (click)="availabilityPage(rowData)">
+                        <span *ngIf="rowData['roast_level'] === 'light-roast'" class="truncate break-word">
+                            Light Roast
                         </span>
-                        <span *ngIf="!primeTableService.isMobileView"> {{ rowData['quantity'] }}&nbsp; kg </span>
+                        <span *ngIf="rowData['roast_level'] === 'medium-roast'" class="truncate break-word">
+                            Medium Roast
+                        </span>
+                        <span *ngIf="rowData['roast_level'] === 'medium-dark-roast'" class="truncate break-word">
+                            Medium Dark Roast
+                        </span>
+                        <span *ngIf="rowData['roast_level'] === 'dark-roast'" class="truncate break-word">
+                            Dark Roast
+                        </span>
+                    </span>
+                    <span *ngSwitchCase="'quantity'" (click)="availabilityPage(rowData)">
+                        <!-- <span *ngIf="primeTableService.isMobileView" class="w-50">
+                            {{ rowData['quantity'] }}&nbsp; kg
+                        </span> -->
+                        <span *ngIf="path === 'orders'">
+                            {{ rowData['quantity'] }} {{ rowData['quantity_type'] | translate }}</span
+                        >
+                        <span *ngIf="path === 'mr-orders'">
+                            {{ rowData['quantity'] }} {{ rowData['quantity_type'] | translate }}</span
+                        >
+                        <span *ngIf="path === 'hrc-orders'">
+                            {{ rowData['quantity'] }} {{ rowData['available_quantity_type'] | translate }}</span
+                        >
                     </span>
 
                     <span *ngSwitchCase="'id'">
                         <span *ngIf="!primeTableService.isMobileView" (click)="availabilityPage(rowData)">
                             {{ rowData[col.field] }}
                         </span>
-                        <div class="d-flex mobile-header br-4 p-2">
+                        <div class="d-flex mobile-header br-4 p-2 p-md-0">
                             <span *ngIf="primeTableService.isMobileView" class="mobile-heading w-50">
                                 {{ 'order_id' | translate }} #
                                 <span *ngIf="path === 'hrc-orders'">{{ rowData.order_id }}</span>
@@ -250,7 +270,7 @@
                                                             *ngIf="path !== 'orders'"
                                                             class="text-clr588 fnt-600 fnt-14"
                                                             (click)="availabilityPage(rowData)"
-                                                            >{{ 'update_details' | translate }}</a
+                                                            >{{ 'roaster_update_details' | translate }}</a
                                                         >
                                                     </li>
                                                 </ul>
@@ -269,7 +289,7 @@
                         </span>
                         <span *ngIf="path !== 'orders'">
                             <ng-container *ngIf="!primeTableService.isMobileView">
-                                <span class="brown-cta">{{ 'update_details' | translate }}</span>
+                                <span class="brown-cta">{{ 'roaster_update_details' | translate }}</span>
                             </ng-container>
                         </span>
                     </span>
