@@ -30,6 +30,7 @@ export class DefaultSettingsComponent implements OnInit {
     };
     tagOptionList: any = [];
     certificateDetails: any = [];
+    certificateLinkItem: any;
     isSent = false;
     fileImage: any;
     fileVideo: any;
@@ -126,14 +127,6 @@ export class DefaultSettingsComponent implements OnInit {
             video_id: 0,
             image_id: 0,
         };
-        this.materialMenuItems = [
-            {
-                label: 'Download',
-                command: () => {
-                    this.downloadMaterialFile();
-                },
-            },
-        ];
         this.getGeneralRoasterCertificates();
     }
 
@@ -141,12 +134,14 @@ export class DefaultSettingsComponent implements OnInit {
         this.imageMenuItems = [
             {
                 label: 'Update',
+                icon: 'pi pi-refresh',
                 command: () => {
                     this.updateImage();
                 },
             },
             {
                 label: 'Delete',
+                icon: 'pi pi-times',
                 command: () => {
                     this.deleteImage();
                 },
@@ -155,12 +150,14 @@ export class DefaultSettingsComponent implements OnInit {
         this.videoMenuItems = [
             {
                 label: 'Update',
+                icon: 'pi pi-refresh',
                 command: () => {
                     this.updateVideo();
                 },
             },
             {
                 label: 'Delete',
+                icon: 'pi pi-times',
                 command: () => {
                     this.deleteVideo();
                 },
@@ -168,20 +165,43 @@ export class DefaultSettingsComponent implements OnInit {
         ];
         this.certificateMenuItems = [
             {
+                label: 'View',
+                command: () => {
+                    this.viewCertificate(this.certificateLinkItem);
+                },
+            },
+        ];
+        this.materialMenuItems = [
+            {
                 label: 'Update',
                 icon: 'pi pi-refresh',
-                command: () => {},
+                command: () => {
+                    this.updateMarketing();
+                },
             },
             {
                 label: 'Delete',
                 icon: 'pi pi-times',
-                command: () => {},
+                command: () => {
+                    this.updateMarketing();
+                },
+            },
+            {
+                label: 'Download',
+                icon: 'pi pi-download',
+                command: () => {
+                    this.downloadMaterialFile();
+                },
             },
         ];
     }
 
     updateImage() {
         this.isImagePreviewPanel = false;
+    }
+
+    updateMarketing() {
+        this.materialOnResponse = false;
     }
 
     deleteImage() {
@@ -324,13 +344,17 @@ export class DefaultSettingsComponent implements OnInit {
         this.tagOptionList[index].select = !this.tagOptionList[index].select;
     }
 
-    viewCertificate(item) {
+    viewCertificate(item: any): void {
         const a = document.createElement('a');
         a.href = item.public_url;
         a.target = '_blank';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
+    }
+
+    mobileViewCertificate(item: any): void {
+        this.certificateLinkItem = item;
     }
 
     onChooseFile(target: any, parameter: string) {

@@ -209,7 +209,7 @@
                                                     <div class="d-block d-md-none">
                                                         <i
                                                             class="pi pi-ellipsis-v cursor-pointer line-height-2"
-                                                            (click)="menu.toggle($event)"
+                                                            (click)="menu.toggle($event); mobileViewCertificate(item)"
                                                         ></i>
                                                         <p-menu
                                                             #menu
@@ -492,7 +492,7 @@
                                                 </div>
                                             </div>
                                             <div
-                                                *ngIf="!isCoffeeDetailsPage && materialOnRequest"
+                                                *ngIf="!isCoffeeDetailsPage && !materialOnResponse"
                                                 class="roastery-upload-files"
                                             >
                                                 <div class="roastery-fields">
@@ -502,7 +502,7 @@
                                                         >
                                                             <label class="mb-0">
                                                                 <input
-                                                                    type="file || !isEditableMode "
+                                                                    type="file"
                                                                     accept=".zip,.rar,.7zip"
                                                                     (change)="uploadMarketingMaterial($event)"
                                                                 />
