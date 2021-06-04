@@ -15,14 +15,10 @@ export class CustomerDetailsComponent extends ResizeableComponent implements OnI
     topContacts: any;
     capabilities: any;
     certificates: any;
-    breadCrumbData: any[] = [];
     type: string;
     orgType: string;
     currentServiceIndex: number;
-    orgIndex: any = {
-        hrc: 1,
-        mr: 0,
-    };
+    orgIndex: number;
     employeeList: any[] = [];
     loading = true;
 
@@ -35,63 +31,11 @@ export class CustomerDetailsComponent extends ResizeableComponent implements OnI
         super(resizeService);
     }
 
-    public refreshData(feature, title) {
-        this.breadCrumbData = [
-            {
-                label: 'Home',
-                routerLink: ['/dashboard'],
-                queryParams: {},
-            },
-            {
-                label: 'People',
-                routerLink: ['/customer-management'],
-                queryParams: {},
-            },
-            {
-                label: 'Customer Management',
-                routerLink: ['/customer-management'],
-                queryParams: {},
-            },
-            {
-                label: feature,
-                routerLink: ['/customer-management'],
-                queryParams: { tab: this.orgIndex[feature] },
-            },
-            {
-                label: title,
-            },
-        ];
-    }
-
     ngOnInit(): void {
         this.portalId = this.route.snapshot.paramMap.get('id');
         this.type = this.route.snapshot.queryParamMap.get('type');
         this.orgType = this.type === 'mr' ? 'micro-roasters' : 'hrc';
-        this.breadCrumbData = [
-            {
-                label: 'Home',
-                routerLink: ['/dashboard'],
-                queryParams: {},
-            },
-            {
-                label: 'People',
-                routerLink: ['/customer-management'],
-                queryParams: {},
-            },
-            {
-                label: 'Customer Management',
-                routerLink: ['/customer-management'],
-                queryParams: {},
-            },
-            {
-                label: this.type,
-                routerLink: ['/customer-management'],
-                queryParams: { tab: this.orgIndex[this.type] },
-            },
-            {
-                label: '',
-            },
-        ];
+        this.orgIndex = this.type === 'mr' ? 0 : 1;
         this.getPortalDetails();
         this.getTopContacts();
         this.getCertificates();
@@ -103,7 +47,6 @@ export class CustomerDetailsComponent extends ResizeableComponent implements OnI
             if (res.success && res.result) {
                 this.portalDetails = res.result;
                 this.capabilities = res.result.capabilities ? res.result.capabilities.split(',') : [];
-                this.refreshData(this.type, this.portalDetails.name);
             } else {
                 this.portalDetails = {};
             }
