@@ -52,7 +52,7 @@ export class CustomerManagementComponent implements OnInit {
             this.selectedTab = params.tab;
             if (params.tab) {
                 this.customerType = OrganizationType.HORECA;
-                this.MicroRoastersHoreca();
+                this.getPartnerDetails();
             } else {
                 this.customerType = OrganizationType.MICRO_ROASTER;
                 this.getMicroRoaster();
