@@ -46,7 +46,7 @@ export class CustomerManagementComponent implements OnInit {
     ngOnInit(): void {
         this.route.queryParams.subscribe((params) => {
             this.selectedTab = params.tab;
-            if (params.tab) {
+            if (params.tab === '1') {
                 this.customerType = OrganizationType.HORECA;
                 this.MicroRoastersHoreca();
             } else {
