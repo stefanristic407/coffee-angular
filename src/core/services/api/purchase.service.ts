@@ -17,6 +17,7 @@ import { ApiService } from './api.service';
 import * as moment from 'moment';
 import { toCamelCase } from '@utils';
 import { ORDER_STATUS_ITEMS, ORDER_TYPE_ITEMS } from '@constants';
+import { AuthService } from '../auth';
 
 @Injectable({
     providedIn: 'root',
@@ -24,8 +25,8 @@ import { ORDER_STATUS_ITEMS, ORDER_TYPE_ITEMS } from '@constants';
 export class PurchaseService extends ApiService {
     private readonly endpoint = 'orders';
 
-    constructor(protected cookieSrv: CookieService, protected http: HttpClient) {
-        super(cookieSrv, http);
+    constructor(protected http: HttpClient, protected authService: AuthService) {
+        super(http, authService);
     }
 
     getOrderDetailsById(orderId: number, orgType: OrganizationType): Observable<OrderDetails> {

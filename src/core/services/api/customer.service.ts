@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { ApiResponse } from '@models';
+import { AuthService } from '../auth';
 
 @Injectable({
     providedIn: 'root',
@@ -13,8 +13,8 @@ export class CustomerService extends ApiService {
     customers: any;
     users: any;
 
-    constructor(protected http: HttpClient, protected cookieService: CookieService) {
-        super(cookieService, http);
+    constructor(protected http: HttpClient, protected authService: AuthService) {
+        super(http, authService);
     }
 
     getCustomerStats(): void {

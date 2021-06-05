@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
+import { AuthService } from '../auth';
 import { ApiService } from './api.service';
 
 @Injectable({
@@ -11,8 +12,8 @@ import { ApiService } from './api.service';
 export class ApiRequestService extends ApiService {
     private apiUrl = environment.apiURL + '/ro/api';
 
-    constructor(protected cookieService: CookieService, protected http: HttpClient) {
-        super(cookieService, http);
+    constructor(protected http: HttpClient, protected authService: AuthService) {
+        super(http, authService);
     }
 
     // List of API keys for RO
@@ -47,7 +48,7 @@ export class ApiRequestService extends ApiService {
     getApiKeysRequestRo(roasterData: any): Observable<any> {
         const data = {
             api_call: `/ro/${roasterData.roaster_id}/api-keys/requests/${roasterData.request_id}`,
-            token: this.cookieService.get('Auth'),
+            token: this.getToken(),
             method: 'GET',
         };
         return this.http.post(this.apiUrl, data);
@@ -56,7 +57,7 @@ export class ApiRequestService extends ApiService {
     getGeneratedKeysDetails(roasterData: any): Observable<any> {
         const data = {
             api_call: `/ro/${roasterData.roaster_id}/api-keys/${roasterData.request_id}`,
-            token: this.cookieService.get('Auth'),
+            token: this.getToken(),
             method: 'GET',
         };
         return this.http.post(this.apiUrl, data);
@@ -66,7 +67,7 @@ export class ApiRequestService extends ApiService {
     generateRoApiKey(roasterData: any): Observable<any> {
         const data = {
             api_call: `/ro/${roasterData.roaster_id}/api-keys/requests/${roasterData.request_id}/generate`,
-            token: this.cookieService.get('Auth'),
+            token: this.getToken(),
             method: 'POST',
         };
         return this.http.post(this.apiUrl, data);

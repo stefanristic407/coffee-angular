@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import { toCamelCase } from '@utils';
+import { AuthService } from '../auth';
 
 @Injectable({
     providedIn: 'root',
@@ -13,8 +14,8 @@ import { toCamelCase } from '@utils';
 export class AvailabilityService extends ApiService {
     private readonly endpoint = 'availability/gc';
 
-    constructor(protected cookieSrv: CookieService, protected http: HttpClient) {
-        super(cookieSrv, http);
+    constructor(protected http: HttpClient, protected authService: AuthService) {
+        super(http, authService);
     }
 
     // Available Green Coffee

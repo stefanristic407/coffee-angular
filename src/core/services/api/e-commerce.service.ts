@@ -5,13 +5,14 @@ import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiResponse, UserProfile } from '@models';
+import { AuthService } from '../auth';
 
 @Injectable({
     providedIn: 'root',
 })
 export class ECommerceService extends ApiService {
-    constructor(protected cookieService: CookieService, protected http: HttpClient) {
-        super(cookieService, http);
+    constructor(protected http: HttpClient, protected authService: AuthService) {
+        super(http, authService);
     }
 
     // ------------ ECommerce ------------
@@ -71,7 +72,7 @@ export class ECommerceService extends ApiService {
     uploadProductImage(file: any): Observable<any> {
         const data = new FormData();
         data.append('api_call', `/ro/${this.getOrgId()}/file-manager/files`);
-        data.append('token', this.cookieService.get('Auth'));
+        data.append('token', this.getToken());
         data.append('file', file);
         data.append('file_module', 'Product');
         data.append('name', file.name);

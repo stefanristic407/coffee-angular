@@ -6,11 +6,32 @@ import { BehaviorSubject } from 'rxjs';
     providedIn: 'root',
 })
 export class AuthService {
+    isSimulated = false;
     userSubject = new BehaviorSubject(null);
     organizationSubject = new BehaviorSubject(null);
 
     get token(): any {
-        return this.cookieService.get('Auth');
+        if (this.isSimulated) {
+            const simToken = this.cookieService.get('Sim-Authorization');
+            if (simToken) {
+                return JSON.parse(atob(simToken)).Authorization;
+            }
+        } else {
+            return this.cookieService.get('Authorization');
+        }
+        return null;
+    }
+
+    get orgId(): number {
+        return +this.cookieService.get('roaster_id');
+    }
+
+    get userId(): number {
+        return this.currentUser?.id;
+    }
+
+    get isAuthenticated(): boolean {
+        return !!this.token;
     }
 
     get currentUser(): any {
