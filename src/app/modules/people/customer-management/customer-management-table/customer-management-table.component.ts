@@ -9,7 +9,6 @@ import { OrganizationType } from '@enums';
     selector: 'app-customer-management-table',
     templateUrl: './customer-management-table.component.html',
     styleUrls: ['./customer-management-table.component.scss'],
-    encapsulation: ViewEncapsulation.None,
 })
 export class CustomerManagementTableComponent implements OnInit {
     readonly OrgType = OrganizationType;
@@ -21,8 +20,6 @@ export class CustomerManagementTableComponent implements OnInit {
     @Input() sortedMainData: any;
     @Input() customerType: OrganizationType;
     itemId: any;
-    pages: any;
-    totalRecords = 0;
 
     constructor(
         public router: Router,
@@ -34,11 +31,6 @@ export class CustomerManagementTableComponent implements OnInit {
     ngOnInit(): void {
         this.estatetermOrigin = '';
         this.language();
-        console.log(this.customerType);
-    }
-
-    paginate(event: any) {
-        this.sortedMainData = this.sortedMainData.slice(event.first, event.first + event.rows);
     }
 
     language() {

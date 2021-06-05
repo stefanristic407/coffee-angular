@@ -10,7 +10,7 @@
                     {{ 'customer_id' | translate }}
                     <p-sortIcon field="name_customer"> </p-sortIcon>
                 </th>
-                <th pSortableColumn="name_customer">
+                <th pSortableColumn="name_customer" class="customer-name">
                     {{ (customerType === OrgType.MICRO_ROASTER ? 'customer_name' : 'horeca_name') | translate }}
                     <p-sortIcon field="name_customer"> </p-sortIcon>
                 </th>
