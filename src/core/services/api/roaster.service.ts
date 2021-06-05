@@ -596,19 +596,17 @@ export class RoasterserviceService extends ApiService {
         return this.http.post(this.url, data);
     }
 
-    getMicroRoasters(roaster_id: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/micro-roasters';
-        // data['params'] = params;
-        data['token'] = this.cookieService.get('Auth');
-        data['method'] = 'GET';
-        //  const params = new HttpParams().append( 'file_module', fileModule )
-        // console.log(data);
+    getMicroRoasters(roasterId: any, postData?) {
+        const data = { api_call: '', token: '', method: '' };
+        data.api_call = `/ro/${roasterId}/micro-roasters?${this.serlialise(postData)}`;
+        data.token = this.cookieService.get('Auth');
+        data.method = 'GET';
         return this.http.post(this.url, data);
     }
-    getMicroRoastersHoreca(roaster_id: any) {
+
+    getPartnerDetails(roasterId: any, postData?) {
         const data = { api_call: '', token: '', method: '' };
-        data.api_call = '/ro/' + roaster_id + '/hrc';
+        data.api_call = `/ro/${roasterId}/hrc?${this.serlialise(postData)}`;
         data.token = this.cookieService.get('Auth');
         data.method = 'GET';
         return this.http.post(this.url, data);

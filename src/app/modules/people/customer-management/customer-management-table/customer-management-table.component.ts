@@ -4,7 +4,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { CustomerServiceService } from '../customer-service.service';
 import { NavigationExtras, Router } from '@angular/router';
 import { OrganizationType } from '@enums';
-import { OrgTypePipe } from '@app/shared/pipes/org-type.pipe';
 
 @Component({
     selector: 'app-customer-management-table',
@@ -22,6 +21,8 @@ export class CustomerManagementTableComponent implements OnInit {
     @Input() sortedMainData: any;
     @Input() customerType: OrganizationType;
     itemId: any;
+    pages: any;
+    totalRecords = 0;
 
     constructor(
         public router: Router,
@@ -31,9 +32,12 @@ export class CustomerManagementTableComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.sortedMainData = '';
         this.estatetermOrigin = '';
         this.language();
+    }
+
+    paginate(event: any) {
+        this.sortedMainData = this.sortedMainData.slice(event.first, event.first + event.rows);
     }
 
     language() {

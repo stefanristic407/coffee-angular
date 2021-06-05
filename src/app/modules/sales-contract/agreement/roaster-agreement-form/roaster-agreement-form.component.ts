@@ -125,7 +125,7 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
     }
 
     getHorecaList(): void {
-        this.roasterService.getMicroRoastersHoreca(this.roasterId).subscribe((res: any) => {
+        this.roasterService.getPartnerDetails(this.roasterId).subscribe((res: any) => {
             this.modalDropdownList = [];
             if (res.success) {
                 this.horecaList = res.result;
