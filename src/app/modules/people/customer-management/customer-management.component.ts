@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { OrganizationType } from '@enums';
 import { GlobalsService, RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
@@ -15,6 +16,7 @@ export class CustomerManagementComponent implements OnInit {
     appLanguage?: any;
     customerActive: any = 0;
     searchTerm: any;
+    selectedTab: any = 0;
 
     selectedStatus: any;
     sortedMainData: any;
@@ -40,13 +42,23 @@ export class CustomerManagementComponent implements OnInit {
         private roasterService: RoasterserviceService,
         private toastrService: ToastrService,
         public cookieService: CookieService,
+        private route: ActivatedRoute,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
     }
 
     ngOnInit(): void {
-        this.customerType = OrganizationType.MICRO_ROASTER;
-        this.getMicroRoaster();
+        this.route.queryParams.subscribe((params) => {
+            this.selectedTab = params.tab;
+            if (params.tab) {
+                this.customerType = OrganizationType.HORECA;
+                this.MicroRoastersHoreca();
+            } else {
+                this.customerType = OrganizationType.MICRO_ROASTER;
+                this.getMicroRoaster();
+            }
+        });
+
         this.language();
         this.navItems = [
             { label: this.globals.languageJson?.menu_sales_management },

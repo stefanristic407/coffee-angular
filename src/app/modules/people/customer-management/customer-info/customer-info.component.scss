@@ -1,0 +1,11 @@
+@import 'variables';
+
+.info-label {
+    width: 164px;
+}
+
+@media (min-width: 768px) {
+    .info-label {
+        margin-right: 30px;
+    }
+}

@@ -78,7 +78,7 @@
                 </div>
 
                 <div class="col-lg-12 col-md-12 px-0" id="agreements-nav">
-                    <p-tabView class="toggle" (onChange)="onTabChange($event)">
+                    <p-tabView class="toggle" (onChange)="onTabChange($event)" [(activeIndex)]="selectedTab">
                         <p-tabPanel header="{{ 'micro_roasters' | translate }}">
                             <app-customer-management-table
                                 *ngIf="customerType === OrgType.MICRO_ROASTER"

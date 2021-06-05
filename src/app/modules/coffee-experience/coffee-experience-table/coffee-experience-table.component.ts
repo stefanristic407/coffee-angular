@@ -16,6 +16,7 @@ import { Table } from 'primeng/table';
 import { takeUntil } from 'rxjs/operators';
 import * as moment from 'moment';
 import { ResizeableComponent } from '@base-components';
+import { CoffeeExpService } from '../coffee-experience.service';
 
 @Component({
     selector: 'app-coffee-experience-table',
@@ -55,6 +56,7 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
     procuredCoffeeListArray: any[];
     path: string;
     forms: FormGroup;
+    searchString: string;
     @Input('form')
     set form(value: FormGroup) {
         this.forms = value;
@@ -79,6 +81,7 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
         public fb: FormBuilder,
         public activeRoute: ActivatedRoute,
         protected resizeService: ResizeService,
+        private coffeeService: CoffeeExpService,
     ) {
         super(resizeService);
         this.display = 10;
@@ -358,9 +361,15 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
     }
 
     ngOnInit(): void {
+        this.coffeeService.clearSearch();
+        this.coffeeService.search$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((res: any) => {
+            this.search(res);
+        });
+
         this.primeTableService.url = `/ro/${this.roasterId}/${this.path}`;
         this.initializeTableProcuredCoffee();
         this.primeTableService.form = this.form;
+
         this.language();
         this.primeTableService.form?.valueChanges.subscribe((data) =>
             setTimeout(() => {
@@ -416,7 +425,11 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
         this.table.reset();
     }
     search(item) {
-        this.primeTableService.searchQuery = item;
+        if (this.path === 'orders' || this.path === 'mr-orders') {
+            this.primeTableService.searchQuery = item;
+        } else {
+            this.primeTableService.query = item;
+        }
         this.table.reset();
     }
     setDisplay() {

@@ -1,0 +1,23 @@
+.contact-image {
+    width: 150px;
+    height: 150px;
+}
+.msg-chat {
+    padding: 8px 12px;
+    border-radius: 2px;
+    border: solid 1px #747588;
+    display: flex;
+    width: fit-content;
+    cursor: pointer;
+}
+
+@media (max-width: 767px) {
+    .contact-image {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+    }
+    .msg-chat {
+        border: none !important;
+    }
+}

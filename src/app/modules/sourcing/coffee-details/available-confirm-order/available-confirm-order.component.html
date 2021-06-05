@@ -110,14 +110,14 @@
                                             </p-inputNumber>
                                             <span class="p-inputgroup-addon">Bags</span>
                                             <small *ngIf="infoForm.controls.quantity.errors?.required" class="p-error">
-                                                Please enter quantity
+                                                {{ 'required' | translate }}
                                             </small>
                                             <small *ngIf="infoForm.controls.quantity.errors?.max" class="p-error">
-                                                Please enter quantity in range of available for sale
+                                                {{ 'quantity_max_error' | translate }}
                                             </small>
                                             <small *ngIf="infoForm.controls.quantity.errors?.min" class="p-error">
-                                                Minimum quantity for shipping is {{ minimumQuantity }}. please order
-                                                above.
+                                                {{ 'minimum_quantity_for_import_is' | translate }}
+                                                {{ minimumQuantity }} bags
                                             </small>
                                         </div>
                                     </div>
@@ -171,45 +171,86 @@
                             </div>
                         </div>
                     </div>
-
-                    <div *ngIf="!editAddress" class="col-12 col-md-7 mt-5 px-0">
-                        <div
-                            class="fnt-16 fnt-md-18 fnt-bold text-clr000 d-flex justify-content-between align-items-center"
-                        >
-                            <div *ngIf="(!infoForm.value.service && orderType == 'booked') || orderType == 'sample'">
-                                {{ 'delivery_address' | translate }}
-                            </div>
-                            <div *ngIf="infoForm.value.service && orderType == 'booked'">
-                                {{ 'pickup_address' | translate }}
+                    <div class="row gutter-md-24 gutter-lg-38 mt-5" *ngIf="!editAddress">
+                        <div class="col-12 col-md-6">
+                            <div
+                                class="fnt-16 fnt-md-18 fnt-bold text-clr000 d-flex justify-content-between align-items-center"
+                            >
+                                <div
+                                    *ngIf="(!infoForm.value.service && orderType == 'booked') || orderType == 'sample'"
+                                >
+                                    {{ 'delivery_address' | translate }}
+                                </div>
+                                <div *ngIf="infoForm.value.service && orderType == 'booked'">
+                                    {{ 'pickup_address' | translate }}
+                                </div>
+                                <div
+                                    *ngIf="(!infoForm.value.service && orderType == 'booked') || orderType == 'sample'"
+                                    class="fnt-14 fnt-bold text-clr55c cursor-pointer"
+                                    (click)="refreshAddressForm(false)"
+                                >
+                                    <img class="edit-icon pr-2" src="assets/images/shape-2.png" alt="Edit" />
+                                    Edit shipping details
+                                </div>
                             </div>
                             <div
-                                *ngIf="(!infoForm.value.service && orderType == 'booked') || orderType == 'sample'"
-                                class="fnt-14 fnt-bold text-clr55c cursor-pointer"
-                                (click)="refreshAddressForm()"
+                                class="fnt-14 lh-normal fnt-600 text-clr334 d-md-flex justify-content-between bg-f8 br-4 p-3 p-md-4 mt-2"
                             >
-                                <img class="edit-icon pr-2" src="assets/images/shape-2.png" alt="Edit" />
-                                Edit shipping details
+                                <div class="pr-2">
+                                    {{ addressData?.address_line1 ? addressData.address_line1 + ', ' : '' }}
+                                    {{ addressData?.address_line2 ? addressData.address_line2 + ', ' : '' }}
+                                    {{ addressData?.city }}
+                                    <div>
+                                        {{ addressData?.zipcode ? addressData?.zipcode + ' - ' : ''
+                                        }}{{ addressData?.state }}
+                                    </div>
+                                    <div>{{ addressData?.country | country }}</div>
+                                </div>
+                                <div class="mt-3 mt-md-0">
+                                    <div>{{ authService.currentOrganization?.phone }}</div>
+                                    <div class="pt-3">{{ authService.currentOrganization?.email }}</div>
+                                </div>
                             </div>
                         </div>
-                        <div
-                            class="fnt-14 lh-normal fnt-600 text-clr334 d-md-flex justify-content-between bg-f8 br-4 p-3 p-md-4 mt-2"
-                        >
-                            <div>
-                                {{ addressData?.address_line1 }}, {{ addressData?.address_line2 }},
-                                {{ addressData?.city }}
-                                <div>{{ addressData?.zipcode }}-{{ addressData?.state }}</div>
-                                <div>{{ addressData?.country | country }}</div>
+                        <div class="col-12 col-md-6 mt-4 mt-md-0">
+                            <div
+                                class="fnt-16 fnt-md-18 fnt-bold text-clr000 d-flex justify-content-between align-items-center"
+                            >
+                                <div>
+                                    {{ 'billing_address' | translate }}
+                                </div>
+                                <div
+                                    class="fnt-14 fnt-bold text-clr55c cursor-pointer"
+                                    (click)="refreshAddressForm(true)"
+                                >
+                                    <img class="edit-icon pr-2" src="assets/images/shape-2.png" alt="Edit" />
+                                    {{ 'edit_billing_details' | translate }}
+                                </div>
                             </div>
-                            <div class="mt-3 mt-md-0 d-flex flex-column justify-content-between">
-                                <div>+420 6365719</div>
-                                <div class="pt-3">info@lofbergs.com</div>
+                            <div
+                                class="fnt-14 lh-normal fnt-600 text-clr334 d-md-flex justify-content-between bg-f8 br-4 p-3 p-md-4 mt-2"
+                            >
+                                <div class="pr-2">
+                                    {{ billingAddress?.address_line1 ? billingAddress.address_line1 + ', ' : '' }}
+                                    {{ billingAddress?.address_line2 ? billingAddress.address_line2 + ', ' : '' }}
+                                    {{ billingAddress?.city }}
+                                    <div>
+                                        {{ billingAddress?.zipcode ? billingAddress?.zipcode + ' - ' : ''
+                                        }}{{ billingAddress?.state }}
+                                    </div>
+                                    <div>{{ billingAddress?.country | country }}</div>
+                                </div>
+                                <div class="mt-3 mt-md-0">
+                                    <div>{{ authService.currentOrganization?.phone }}</div>
+                                    <div class="pt-3">{{ authService.currentOrganization?.email }}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div *ngIf="editAddress" class="mt-4 mt-md-45">
                         <div class="fnt-16 fnt-md-18 fnt-bold text-clr000 mb-4">
-                            {{ 'shipping_address' | translate }}
+                            {{ (isBilling ? 'billing_address' : 'shipping_address') | translate }}
                         </div>
                         <form [formGroup]="addressForm" class="form-container">
                             <div class="row">
@@ -234,7 +275,7 @@
                                             </small>
                                         </div>
                                         <div class="col-12 col-md-6 sewn-form-field">
-                                            <label>State</label>
+                                            <label>State<span class="star">*</span></label>
                                             <p-dropdown
                                                 [options]="cities"
                                                 formControlName="state"
@@ -298,8 +339,17 @@
                                                 Please enter zipcode
                                             </small>
                                         </div>
-                                        <div class="col-12 col-md-6 d-flex justify-content-end align-items-center">
-                                            <button type="button" class="btn-raised" (click)="saveAddress()">
+                                        <div
+                                            class="col-12 col-md-6 d-flex d-flex justify-content-end align-items-center"
+                                        >
+                                            <button
+                                                type="button"
+                                                class="btn-stroked mr-2"
+                                                (click)="editAddress = false"
+                                            >
+                                                {{ 'cancel' | translate }}
+                                            </button>
+                                            <button type="button" class="btn-raised ml-2" (click)="saveAddress()">
                                                 {{ 'save_address' | translate }}
                                             </button>
                                         </div>

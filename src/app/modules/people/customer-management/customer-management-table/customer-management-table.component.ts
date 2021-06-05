@@ -34,6 +34,7 @@ export class CustomerManagementTableComponent implements OnInit {
     ngOnInit(): void {
         this.estatetermOrigin = '';
         this.language();
+        console.log(this.customerType);
     }
 
     paginate(event: any) {
@@ -55,24 +56,12 @@ export class CustomerManagementTableComponent implements OnInit {
 
             this.router.navigate(['/people/pending-details']);
         } else {
-            if (this.customerType === OrganizationType.MICRO_ROASTER) {
-                this.folderId = size.id;
-                const navigationExtras: NavigationExtras = {
-                    queryParams: {
-                        folderId: encodeURIComponent(this.folderId),
-                    },
-                };
-                this.router.navigate(['/people/micro-roaster-details'], navigationExtras);
-            } else {
-                this.itemId = size.id;
-                const navigationExtras: NavigationExtras = {
-                    queryParams: {
-                        itemId: encodeURIComponent(this.itemId),
-                        showTable: 1,
-                    },
-                };
-                this.router.navigate(['/people/horeca-details'], navigationExtras);
-            }
+            const navigationExtras: NavigationExtras = {
+                queryParams: {
+                    type: this.customerType,
+                },
+            };
+            this.router.navigate([`/people/customer-details/${size.id}`], navigationExtras);
         }
     }
 

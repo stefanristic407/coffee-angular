@@ -4,7 +4,7 @@
     [style.height]="size + 'px'"
     [style.border]="hasBorder ? '2px solid #fff' : 'none'"
     (mouseenter)="showPopup(myOp, $event)"
-    *ngIf="type !== 'text'"
+    *ngIf="type !== 'text' && type !== 'customerText'"
 >
     <img
         *ngIf="data?.profile_image_thumb_url || data?.profile_image_url || imageUrl"
@@ -24,8 +24,12 @@
         >
     </ng-container>
 </div>
-<span class="text-underline cursor-pointer" *ngIf="type === 'text' && data" (mouseenter)="showPopup(myOp, $event)">
-    {{ name }}
+<span
+    class="fnt-700 text-clr55c fnt-14 fnt-md-18 fnt-muli mb-md-1 mb-0 text-underline cursor-pointer user-name-text"
+    *ngIf="(type === 'text' || type === 'customerText') && data"
+    (mouseenter)="showPopup(myOp, $event)"
+>
+    {{ type === 'customerText' ? 'Admin:' : '' }} {{ name }}
 </span>
 <p-overlayPanel #myOp styleClass="user-details-overlay" appendTo="body">
     <ng-template pTemplate>
