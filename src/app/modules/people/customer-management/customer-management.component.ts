@@ -32,6 +32,10 @@ export class CustomerManagementComponent implements OnInit {
     customerType: OrganizationType;
     navItems: MenuItem[];
     selectedNav: MenuItem;
+    keyword?: string;
+    pages: any;
+    isLoading = false;
+    totalRecords = 0;
 
     constructor(
         public globals: GlobalsService,
@@ -46,12 +50,12 @@ export class CustomerManagementComponent implements OnInit {
     ngOnInit(): void {
         this.route.queryParams.subscribe((params) => {
             this.selectedTab = params.tab;
-            if (params.tab) {
-                this.customerType = OrganizationType.HORECA;
-                this.MicroRoastersHoreca();
-            } else {
+            if (this.selectedTab === '0') {
                 this.customerType = OrganizationType.MICRO_ROASTER;
                 this.getMicroRoaster();
+            } else if (this.selectedTab === '1') {
+                this.customerType = OrganizationType.HORECA;
+                this.getPartnerDetails();
             }
         });
 
@@ -61,6 +65,7 @@ export class CustomerManagementComponent implements OnInit {
             { label: this.globals.languageJson?.customer_management },
         ];
         this.selectedNav = { label: this.globals.languageJson?.home, routerLink: '/' };
+        this.sortedMainData = [];
     }
     language() {
         this.appLanguage = this.globals.languageJson;
@@ -70,15 +75,26 @@ export class CustomerManagementComponent implements OnInit {
     onTabChange(event) {
         if (event.index === 0) {
             this.customerType = OrganizationType.MICRO_ROASTER;
+            this.pages = 0;
             this.getMicroRoaster();
         } else if (event.index === 1) {
             this.customerType = OrganizationType.HORECA;
-            this.MicroRoastersHoreca();
+            this.pages = 0;
+            this.getPartnerDetails();
         }
     }
 
     getMicroRoaster() {
-        this.roasterService.getMicroRoasters(this.roasterId).subscribe((getRoaster: any) => {
+        this.isLoading = true;
+        const params = {
+            sort_by: 'created_at',
+            sort_order: 'desc',
+            page: this.pages ? this.pages + 1 : 1,
+            per_page: 10,
+        };
+        this.sortedMainData = [];
+        this.mainData = [];
+        this.roasterService.getMicroRoasters(this.roasterId, params).subscribe((getRoaster: any) => {
             if (getRoaster.success === true) {
                 if (getRoaster.result == null || getRoaster.result.length === 0) {
                     this.odd = true;
@@ -86,7 +102,9 @@ export class CustomerManagementComponent implements OnInit {
                 } else {
                     this.odd = false;
                     this.mainData = getRoaster.result;
-                    this.sortedMainData = getRoaster.result;
+                    this.totalRecords = getRoaster.result_info.total_count;
+                    this.sortedMainData = this.mainData;
+                    this.isLoading = false;
                 }
             } else {
                 this.odd = true;
@@ -95,8 +113,17 @@ export class CustomerManagementComponent implements OnInit {
         });
     }
 
-    MicroRoastersHoreca() {
-        this.roasterService.getMicroRoastersHoreca(this.roasterId).subscribe((data: any) => {
+    getPartnerDetails() {
+        this.isLoading = true;
+        const params = {
+            sort_by: 'created_at',
+            sort_order: 'desc',
+            page: this.pages ? this.pages + 1 : 1,
+            per_page: 10,
+        };
+        this.sortedMainData = [];
+        this.mainData = [];
+        this.roasterService.getPartnerDetails(this.roasterId, params).subscribe((data: any) => {
             if (data.success === true) {
                 if (data.result == null || data.result.length === 0) {
                     this.odd = true;
@@ -105,6 +132,8 @@ export class CustomerManagementComponent implements OnInit {
                     this.odd = false;
                     this.mainData = data.result;
                     this.sortedMainData = data.result;
+                    this.totalRecords = data.result_info.total_count;
+                    this.isLoading = false;
                 }
                 this.horecaActive++;
             } else {
@@ -119,6 +148,15 @@ export class CustomerManagementComponent implements OnInit {
             this.sortedMainData = this.mainData;
         } else {
             this.sortedMainData = this.mainData.filter((item) => item.status === this.selectedStatus.toUpperCase());
+        }
+    }
+
+    paginate(event: any) {
+        this.pages = event.page;
+        if (this.customerType === 'mr') {
+            this.getMicroRoaster();
+        } else if (this.customerType === 'hrc') {
+            this.getPartnerDetails();
         }
     }
 }

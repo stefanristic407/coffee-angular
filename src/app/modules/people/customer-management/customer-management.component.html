@@ -99,6 +99,14 @@
                         </p-tabPanel>
                     </p-tabView>
                 </div>
+                <app-loading *ngIf="isLoading"></app-loading>
+                <div class="pt-3 pt-md-4 text-center">
+                    <p-paginator
+                        [rows]="10"
+                        [totalRecords]="totalRecords"
+                        (onPageChange)="paginate($event)"
+                    ></p-paginator>
+                </div>
             </div>
         </section>
     </div>
