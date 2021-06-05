@@ -72,4 +72,11 @@ export class CustomerService extends ApiService {
     disableAccount(orgType: any, disableId: any): Observable<any> {
         return this.postWithOrg(this.orgPostUrl, `${orgType}/${disableId}/disable`);
     }
+
+    updateDiscount(orgType: any, id: any, value) {
+        const body = {
+            discount_percentage: value,
+        };
+        return this.postWithOrg(this.orgPostUrl, `${orgType}/${id}/discounts`, 'PUT', body);
+    }
 }
