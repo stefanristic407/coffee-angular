@@ -151,7 +151,12 @@ input[type='number'] {
 }
 
 .bg-f8 {
-    background-color: $primary-bg-color;
+    background: $primary-bg-color;
+}
+.bg-md-f8 {
+    @media (min-width: 768px) {
+        background: $primary-bg-color;
+    }
 }
 .bg-fa {
     background-color: #faf8f4;
@@ -316,6 +321,12 @@ input[type='number'] {
 
 .w-mob-100 {
     @media (max-width: 767px) {
+        width: 100%;
+    }
+}
+
+@media (max-width: 991px) {
+    .w-tab-100 {
         width: 100%;
     }
 }

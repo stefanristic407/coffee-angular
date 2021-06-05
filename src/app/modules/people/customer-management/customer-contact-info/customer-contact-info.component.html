@@ -1,0 +1,102 @@
+<div class="d-flex flex-column flex-md-row">
+    <div class="flex-1 pr-md-2">
+        <div class="border-main br-4 px-md-2 py-md-25">
+            <div class="d-flex flex-column flex-md-row p-3 py-md-25 border-bottom-dashed-primary border-bottom-md-none">
+                <p
+                    class="col-12 col-md-4 fnt-12 fnt-md-14 fnt-bold fnt-md-600 lh-125 lh-md-normal mb-1 mb-md-0 p-0"
+                    [ngClass]="mobileView ? 'text-clr588' : 'text-clr334'"
+                >
+                    {{ 'website' | translate }}
+                </p>
+                <p
+                    class="fnt-14 fnt-bold fnt-md-600 lh-129 lh-md-normal mb-0"
+                    [ngClass]="mobileView ? 'text-clr334' : 'text-clr588'"
+                >
+                    {{ data?.website || '--' }}
+                </p>
+            </div>
+            <div class="d-flex flex-column flex-md-row p-3 py-md-25 border-bottom-dashed-primary border-bottom-md-none">
+                <p
+                    class="col-12 col-md-4 fnt-12 fnt-md-14 fnt-bold fnt-md-600 lh-125 lh-md-normal mb-1 mb-md-0 p-0"
+                    [ngClass]="mobileView ? 'text-clr588' : 'text-clr334'"
+                >
+                    {{ 'email_address' | translate }}
+                </p>
+                <p
+                    class="fnt-14 fnt-bold fnt-md-600 lh-129 lh-md-normal mb-0"
+                    [ngClass]="mobileView ? 'text-clr334' : 'text-clr588'"
+                >
+                    {{ data?.email || '--' }}
+                </p>
+            </div>
+            <div class="d-flex flex-column flex-md-row p-3 py-md-25 border-bottom-dashed-primary border-bottom-md-none">
+                <p
+                    class="col-12 col-md-4 fnt-12 fnt-md-14 fnt-bold fnt-md-600 lh-125 lh-md-normal mb-1 mb-md-0 p-0"
+                    [ngClass]="mobileView ? 'text-clr588' : 'text-clr334'"
+                >
+                    {{ 'phone_number' | translate }}
+                </p>
+                <p
+                    class="fnt-14 fnt-bold fnt-md-600 lh-129 lh-md-normal mb-0"
+                    [ngClass]="mobileView ? 'text-clr334' : 'text-clr588'"
+                >
+                    {{ data?.phone || '--' }}
+                </p>
+            </div>
+            <div class="d-flex flex-column flex-md-row p-3 py-md-25 border-bottom-dashed-primary border-bottom-md-none">
+                <p
+                    class="col-12 col-md-4 fnt-12 fnt-md-14 fnt-bold fnt-md-600 lh-125 lh-md-normal mb-1 mb-md-0 p-0"
+                    [ngClass]="mobileView ? 'text-clr588' : 'text-clr334'"
+                >
+                    {{ 'country' | translate }}
+                </p>
+                <p
+                    class="fnt-14 fnt-bold fnt-md-600 lh-129 lh-md-normal mb-0"
+                    [ngClass]="mobileView ? 'text-clr334' : 'text-clr588'"
+                >
+                    {{ commonService.getCountryName(data?.country) || '--' }}
+                </p>
+            </div>
+            <div class="d-flex flex-column flex-md-row p-3 py-md-25 border-bottom-dashed-primary border-bottom-md-none">
+                <p
+                    class="col-12 col-md-4 fnt-12 fnt-md-14 fnt-bold fnt-md-600 lh-125 lh-md-normal mb-1 mb-md-0 p-0"
+                    [ngClass]="mobileView ? 'text-clr588' : 'text-clr334'"
+                >
+                    {{ 'address' | translate }}
+                </p>
+                <div
+                    class="fnt-14 fnt-bold fnt-md-600 lh-129 lh-md-normal mb-0"
+                    [ngClass]="mobileView ? 'text-clr334' : 'text-clr588'"
+                >
+                    <p>{{ data?.address_line1 || '--' }}</p>
+                    <p *ngIf="data?.address_line2" class="mt-1">{{ data?.address_line2 }}</p>
+                </div>
+            </div>
+            <div class="d-flex flex-column flex-md-row p-3 py-md-25">
+                <p
+                    class="col-12 col-md-4 fnt-12 fnt-md-14 fnt-bold fnt-md-600 lh-125 lh-md-normal mb-1 mb-md-0 p-0"
+                    [ngClass]="mobileView ? 'text-clr588' : 'text-clr334'"
+                >
+                    {{ 'social_media' | translate }}
+                </p>
+                <div
+                    class="fnt-14 fnt-bold fnt-md-600 lh-129 lh-md-normal mb-0"
+                    [ngClass]="mobileView ? 'text-clr334' : 'text-clr588'"
+                >
+                    <p>{{ data?.fb_profile || '--' }}</p>
+                    <p class="mt-1">{{ data?.ig_profile || '--' }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pl-md-2 mt-3 mt-md-0">
+        <div class="total-card-wrapper border-main br-4 p-3 p-md-4">
+            <p class="fnt-18 fnt-bold text-clr334 fnt-muli lh-129 lh-md-normal mb-25">{{ 'discount' | translate }} %</p>
+            <p class="fnt-14 fnt-normal text-clr334 fnt-muli lh-15 mb-0">{{ 'please_enter_discount' | translate }}</p>
+            <p-divider type="dashed" styleClass="my-2 my-md-475"></p-divider>
+            <p class="fnt-40 fnt-bold text-clr334 fnt-muli lh-1.25 lh-md-normal mb-3 px-3 px-md-4">
+                {{ data?.discount || 0 }}%
+            </p>
+        </div>
+    </div>
+</div>
