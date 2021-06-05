@@ -277,7 +277,7 @@
                         </li>
 
                         <li
-                            *ngIf="aclService.checkPermission('brand-profile-management'); else myProfileTpl"
+                            *ngIf="aclService.checkPermission('profile-management'); else myProfileTpl"
                             class="footer-links__item"
                             [ngClass]="{ active: activeLink === 'PROFILES' }"
                         >
@@ -301,7 +301,6 @@
                                 <div id="popover-mobile-content">
                                     <ul class="menu-list bottom">
                                         <li
-                                            *appAclIf="'brand-profile-management'"
                                             [routerLink]="['/roastery-profile']"
                                             routerLinkActive="highlight"
                                             (click)="popProfile.hide()"

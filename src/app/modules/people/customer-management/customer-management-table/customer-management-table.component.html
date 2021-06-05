@@ -10,7 +10,7 @@
                     {{ 'customer_id' | translate }}
                     <p-sortIcon field="name_customer"> </p-sortIcon>
                 </th>
-                <th pSortableColumn="name_customer">
+                <th pSortableColumn="name_customer" class="customer-name">
                     {{ (customerType === OrgType.MICRO_ROASTER ? 'customer_name' : 'horeca_name') | translate }}
                     <p-sortIcon field="name_customer"> </p-sortIcon>
                 </th>
@@ -58,7 +58,7 @@
                 </td>
                 <td class="view-listing" (click)="shareDetails(item)">{{ 'view_details' | translate }}</td>
                 <td id="customer-contract-popup">
-                    <ng-container *ngIf="item.status !== 'PENDING'">
+                    <ng-container>
                         <a
                             class="menu-arrow"
                             [popover]="poplistTemplate"
@@ -72,9 +72,13 @@
                             <div id="popover-mobile-content">
                                 <ul class="list-group custom-popover">
                                     <li class="list-group-item">
-                                        <a class="pointer-item" (click)="pop.hide(); stimulatedLogin(item)">{{
-                                            'simulated_login' | translate
-                                        }}</a>
+                                        <a
+                                            class="pointer-item"
+                                            disabled="item.status !== 'PENDING'"
+                                            [ngClass]="{ 'disabled-pointer': item.status === 'PENDING' }"
+                                            (click)="pop.hide(); stimulatedLogin(item)"
+                                            >{{ 'simulated_login' | translate }}</a
+                                        >
                                     </li>
                                 </ul>
                             </div>

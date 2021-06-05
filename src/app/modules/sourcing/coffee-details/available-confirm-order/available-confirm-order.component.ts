@@ -43,7 +43,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     totalPrice: number;
     shipInfo: any;
     shipAddress: any;
-    roAddress: any;
+    deliveryAddress: any;
     addressData: any;
     billingAddress: any;
     editAddress = false;
@@ -258,7 +258,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             city: ['', Validators.compose([Validators.required])],
             zipcode: ['', Validators.compose([Validators.required])],
         });
-        this.addressForm.patchValue(isBilling ? this.billingAddress : this.roAddress);
+        this.addressForm.patchValue(isBilling ? this.billingAddress : this.deliveryAddress);
         this.changeCountry();
         this.editAddress = true;
         this.isBilling = isBilling;
@@ -290,7 +290,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         if (this.infoForm.value.service) {
             this.addressData = this.shipAddress;
         } else {
-            this.addressData = this.roAddress;
+            this.addressData = this.deliveryAddress;
         }
         this.changeQuantity();
         this.calcMinimumQuanity();
@@ -313,6 +313,16 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
 
     placeOrder() {
         if (this.infoForm.valid) {
+            if (!this.billingAddress?.id) {
+                this.toastrService.error('Please update billing address');
+                return;
+            }
+            if (!this.infoForm.value.service) {
+                if (!this.deliveryAddress?.id) {
+                    this.toastrService.error('Please update delivery address');
+                    return;
+                }
+            }
             this.dialogSrv
                 .open(ConfirmComponent, {
                     data: {
@@ -339,13 +349,15 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     }
 
     submitOrder() {
-        const data = {
+        const data: any = {
             quantity_count: this.infoForm.value.quantity,
-            shipping_address_id: this.roAddress.id,
-            billing_address_id: this.roAddress.id,
+            billing_address_id: this.billingAddress.id,
             prebook_order_id: this.prebookOrderId,
             is_fully_serviced_delivery: this.infoForm.value.service,
         };
+        if (!this.infoForm.value.service) {
+            data.shipping_address_id = this.deliveryAddress.id;
+        }
         this.roasterService.placeOrder(this.roasterId, this.sourcing.harvestId, data).subscribe((res: any) => {
             if (res.success) {
                 this.orderPlaced = true;
@@ -358,8 +370,8 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
 
     submitSample() {
         const doneData = {
-            shipping_address_id: this.addressData.id,
-            billing_address_id: this.addressData.id,
+            shipping_address_id: this.deliveryAddress.id,
+            billing_address_id: this.billingAddress.id,
             prebook_order_id: this.prebookOrderId,
         };
         this.userService.addRequestSample(this.roasterId, this.sourcing.harvestId, doneData).subscribe((res: any) => {
@@ -399,7 +411,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     saveAddress() {
         if (this.addressForm.valid) {
             const type = this.isBilling ? 'billing' : 'delivery';
-            const id = this.isBilling ? this.billingAddress?.id : this.roAddress?.id;
+            const id = this.isBilling ? this.billingAddress?.id : this.deliveryAddress?.id;
             const postData = {
                 type,
                 ...this.addressForm.value,
@@ -455,14 +467,18 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             });
     }
 
-    getRoAddress(resolve: any = null, isUpdated?) {
+    getRoAddress(resolve: any = null, requireUpdating?) {
         this.userService.getAddresses(this.roasterId).subscribe((res: any) => {
             if (res.success) {
-                this.roAddress = res.result?.find((item) => item.type === 'delivery') ?? {};
+                this.deliveryAddress = res.result?.find((item) => item.type === 'delivery') ?? {};
                 this.billingAddress = res.result?.find((item) => item.type === 'billing') ?? {};
-                if (isUpdated) {
-                    this.addressData = this.roAddress;
+                if (requireUpdating && !this.infoForm.value?.service) {
+                    this.addressData = this.deliveryAddress;
                 }
+
+                console.log('this.addressData', this.addressData);
+                console.log('this.deliveryAddress', this.deliveryAddress);
+                console.log('this.billingAddress', this.billingAddress);
                 if (resolve) {
                     resolve();
                 }

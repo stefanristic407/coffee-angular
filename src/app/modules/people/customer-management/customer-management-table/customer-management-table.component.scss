@@ -39,6 +39,10 @@
     margin-top: 5px;
 }
 
+.disabled-pointer {
+    cursor: no-drop;
+}
+
 .estate-orders {
     position: relative;
 }
@@ -83,6 +87,10 @@
     font-weight: 600;
     font-family: 'Muli';
     text-decoration: none !important;
+}
+
+.customer-name {
+    width: 185px;
 }
 
 #customer-contract-popup popover-container {

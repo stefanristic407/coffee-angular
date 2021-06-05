@@ -9,7 +9,6 @@ import { OrganizationType } from '@enums';
     selector: 'app-customer-management-table',
     templateUrl: './customer-management-table.component.html',
     styleUrls: ['./customer-management-table.component.scss'],
-    encapsulation: ViewEncapsulation.None,
 })
 export class CustomerManagementTableComponent implements OnInit {
     readonly OrgType = OrganizationType;
@@ -30,10 +29,8 @@ export class CustomerManagementTableComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.sortedMainData = '';
         this.estatetermOrigin = '';
         this.language();
-        console.log(this.customerType);
     }
 
     language() {
