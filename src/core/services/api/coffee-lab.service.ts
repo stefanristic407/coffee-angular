@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from '@env/environment';
 import { ApiResponse } from '@models';
 import { UplaodService } from '../upload';
+import { AuthService } from '../auth';
 
 @Injectable({
     providedIn: 'root',
@@ -17,20 +18,19 @@ export class CoffeeLabService extends ApiService {
     forumDeleteEvent = new EventEmitter();
     copyCoverImage = new EventEmitter();
     forumLanguage = new BehaviorSubject('en');
-    organization = 'ro';
-    organizationId = this.cookieSrv.get('roaster_id');
+    organization = this.orgType;
 
     get currentForumLanguage(): string {
         return this.forumLanguage.value;
     }
 
     constructor(
-        protected cookieSrv: CookieService,
-        private uploadService: UplaodService,
         protected http: HttpClient,
+        protected authService: AuthService,
+        private uploadService: UplaodService,
         private toastService: ToastrService,
     ) {
-        super(cookieSrv, http);
+        super(http, authService);
     }
 
     dataURItoBlob(dataURI: any): any {
@@ -58,7 +58,7 @@ export class CoffeeLabService extends ApiService {
         const data = {
             api_call: `/general/${type}s?${this.serializeParams(options)}`,
             method: 'GET',
-            token: this.cookieSrv.get('Auth'),
+            token: this.authService.token,
         };
         const httpOptions = {
             headers: new HttpHeaders({ 'Accept-Language': language }),
@@ -68,9 +68,9 @@ export class CoffeeLabService extends ApiService {
 
     getOrganizationForumList(type: string, options?: any, language = this.currentForumLanguage): Observable<any> {
         const data = {
-            api_call: `/${this.organization}/${this.organizationId}/${type}s?${this.serializeParams(options)}`,
+            api_call: `/${this.orgType}/${this.getOrgId()}/${type}s?${this.serializeParams(options)}`,
             method: 'GET',
-            token: this.cookieSrv.get('Auth'),
+            token: this.authService.token,
         };
         const httpOptions = {
             headers: new HttpHeaders({ 'Accept-Language': language }),
@@ -79,7 +79,7 @@ export class CoffeeLabService extends ApiService {
     }
 
     getForumDetails(type: string, idOrSlug: any): Observable<any> {
-        return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/${type}s/${idOrSlug}`, 'GET');
+        return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/${type}s/${idOrSlug}`, 'GET');
     }
 
     getCommentList(type: string, slug: any): any {
@@ -90,26 +90,26 @@ export class CoffeeLabService extends ApiService {
         const commentType = type === 'question' ? 'answers' : 'comments';
         return this.post(
             this.orgPostUrl,
-            `${this.organization}/${this.organizationId}/${type}s/${id}/${commentType}`,
+            `${this.orgType}/${this.getOrgId()}/${type}s/${id}/${commentType}`,
             'POST',
             data,
         );
     }
 
     postForum(type: string, data: any): Observable<any> {
-        return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/${type}s`, 'POST', data);
+        return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/${type}s`, 'POST', data);
     }
 
     updateForum(type: string, id: any, data: any): Observable<any> {
-        return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/${type}s/${id}`, 'PUT', data);
+        return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/${type}s/${id}`, 'PUT', data);
     }
 
     deleteForumById(type: string, id: any): Observable<any> {
-        return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/${type}s/${id}`, 'DELETE');
+        return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/${type}s/${id}`, 'DELETE');
     }
 
     unSaveFormByType(type: string, id: any): Observable<any> {
-        return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/${type}s/${id}/unsave`, 'PUT');
+        return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/${type}s/${id}/unsave`, 'PUT');
     }
 
     getAuthors(type: string): Observable<any> {
@@ -117,27 +117,27 @@ export class CoffeeLabService extends ApiService {
     }
 
     getDrafts(): Observable<any> {
-        return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/drafts`, 'GET');
+        return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/drafts`, 'GET');
     }
 
     getMyForumList(type: string): Observable<any> {
-        return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/${type}s`, 'GET');
+        return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/${type}s`, 'GET');
     }
 
     getSavedForumList(type: string, options: any): Observable<any> {
         return this.post(
             this.orgPostUrl,
-            `${this.organization}/${this.organizationId}/${type}s/saved?${this.serializeParams(options)}`,
+            `${this.orgType}/${this.getOrgId()}/${type}s/saved?${this.serializeParams(options)}`,
             'GET',
         );
     }
 
     saveForum(type: any, id: any): Observable<any> {
-        return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/${type}s/${id}/save`, 'PUT');
+        return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/${type}s/${id}/save`, 'PUT');
     }
 
     postCoffeeRecipe(data: any): Observable<any> {
-        return this.post(this.orgPostUrl, `${this.organization}/${this.organizationId}/recipes`, 'POST', data);
+        return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/recipes`, 'POST', data);
     }
 
     uploadFile(file: any, module: string): Observable<any> {
@@ -148,9 +148,9 @@ export class CoffeeLabService extends ApiService {
             file.name ?? Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
         );
         formData.append('file_module', module);
-        formData.append('api_call', `/${this.organization}/${this.organizationId}/file-manager/files`);
+        formData.append('api_call', `/${this.orgType}/${this.getOrgId()}/file-manager/files`);
         formData.append('method', 'POST');
-        formData.append('token', this.cookieSrv.get('Auth'));
+        formData.append('token', this.authService.token);
         const processId = this.uploadService.addProcess(formData.get('name') as string);
         return this.http
             .post(this.fileUploadUrl, formData, {
@@ -172,18 +172,13 @@ export class CoffeeLabService extends ApiService {
     }
 
     translateForum(type: string, id: any, data: any): Observable<any> {
-        return this.post(
-            this.orgPostUrl,
-            `${this.organization}/${this.organizationId}/${type}s/${id}/translate`,
-            'POST',
-            data,
-        );
+        return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/${type}s/${id}/translate`, 'POST', data);
     }
 
     copyFile(fileId: number) {
         return this.post(
             this.orgPostUrl,
-            `${this.organization}/${this.organizationId}/file-manager/files/${fileId}/copy-image`,
+            `${this.orgType}/${this.getOrgId()}/file-manager/files/${fileId}/copy-image`,
             'POST',
         );
     }

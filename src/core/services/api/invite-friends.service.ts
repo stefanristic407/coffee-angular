@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ApiResponse } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
+import { AuthService } from '../auth';
 import { ApiService } from './api.service';
 
 @Injectable({
@@ -11,8 +12,8 @@ import { ApiService } from './api.service';
 export class InviteFriendsService extends ApiService {
     private readonly endpoint = 'availability-requests';
 
-    constructor(protected cookieSrv: CookieService, protected http: HttpClient) {
-        super(cookieSrv, http);
+    constructor(protected http: HttpClient, protected authService: AuthService) {
+        super(http, authService);
     }
 
     // Invite friends for Organizations

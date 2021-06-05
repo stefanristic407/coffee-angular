@@ -4,14 +4,15 @@ import { LotDetails } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AuthService } from '../auth';
 import { ApiService } from './api.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class LotsService extends ApiService {
-    constructor(protected cookieSrv: CookieService, protected http: HttpClient) {
-        super(cookieSrv, http);
+    constructor(protected http: HttpClient, protected authService: AuthService) {
+        super(http, authService);
     }
 
     getLotDetails(estateId: number, lotId: number): Observable<LotDetails> {

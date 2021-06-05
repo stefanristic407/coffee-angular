@@ -4,14 +4,15 @@ import { OrderDocument } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AuthService } from '../auth';
 import { ApiService } from './api.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class OrderService extends ApiService {
-    constructor(protected cookieSrv: CookieService, protected http: HttpClient) {
-        super(cookieSrv, http);
+    constructor(protected http: HttpClient, protected authService: AuthService) {
+        super(http, authService);
     }
 
     getOrderDocuments(orderId: number, page = 1, perPage = 5): Observable<OrderDocument[]> {

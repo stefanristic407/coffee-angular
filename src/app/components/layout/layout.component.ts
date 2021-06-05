@@ -388,7 +388,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 this.authService.organizationSubject.next(res.result);
                 resolve();
             } else {
-                this.router.navigate(['/auth/login']);
+                this.router.navigate(['/gate']);
             }
         });
     }
@@ -459,6 +459,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     getOrganizations() {
         this.idmService.verifyToken().subscribe((res: any) => {
             if (res.success === true) {
+                console.log('Organizations:', res.result);
                 this.checkOrgRes(res.result);
             }
         });

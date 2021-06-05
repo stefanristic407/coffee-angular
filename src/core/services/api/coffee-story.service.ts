@@ -1,16 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { ApiResponse } from '@models';
+import { AuthService } from '../auth';
 
 @Injectable({
     providedIn: 'root',
 })
 export class CoffeeStoryService extends ApiService {
-    constructor(protected cookieService: CookieService, protected http: HttpClient) {
-        super(cookieService, http);
+    constructor(protected http: HttpClient, protected authService: AuthService) {
+        super(http, authService);
     }
 
     // Public endpoint to get coffee story of a roasted batches
