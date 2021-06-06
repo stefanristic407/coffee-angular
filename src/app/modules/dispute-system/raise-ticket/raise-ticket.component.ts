@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { RoasterserviceService } from '@services';
+import { AuthService, RoasterserviceService } from '@services';
 import { GlobalsService, SocketService, ChatUtilService } from '@services';
 import { MenuItem } from 'primeng/api';
 import { CookieService } from 'ngx-cookie-service';
@@ -37,6 +37,7 @@ export class RaiseTicketComponent implements OnInit {
         private toastrService: ToastrService,
         private socket: SocketService,
         private chatUtil: ChatUtilService,
+        private authService: AuthService,
     ) {}
 
     ngOnInit(): void {
@@ -213,7 +214,7 @@ export class RaiseTicketComponent implements OnInit {
         formData.append('name', file.name);
         formData.append('file_module', 'Dispute');
         formData.append('api_call', '/ro/' + this.roasterID + '/file-manager/files');
-        formData.append('token', this.cookieService.get('Auth'));
+        formData.append('token', this.authService.token);
         this.roasterService.uploadFiles(formData).subscribe(
             (result: any) => {
                 if (result.success && result.result && result.result.id) {

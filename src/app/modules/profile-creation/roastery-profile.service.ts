@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserserviceService } from '@services';
+import { AuthService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
@@ -52,6 +52,7 @@ export class RoasteryProfileService {
         public toastrService: ToastrService,
         public profilePhotoService: ProfilePhotoService,
         public router: Router,
+        private authService: AuthService,
     ) {
         this.userId = this.cookieService.get('user_id');
         this.roasterId = this.cookieService.get('roaster_id');
@@ -239,7 +240,7 @@ export class RoasteryProfileService {
             const formData: FormData = new FormData();
             formData.append('file', blob);
             formData.append('api_call', '/ro/' + this.roasterId + '/company-image');
-            formData.append('token', this.cookieService.get('Auth'));
+            formData.append('token', this.authService.token);
             promises.push(
                 new Promise((resolve, reject) => {
                     this.userService.uploadProfileImage(formData).subscribe((result: any) => {

@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, OnInit, Output, EventEmitter } from '@angu
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from '@services';
+import { AuthService, GlobalsService } from '@services';
 import { RoasteryProfileService } from '@services';
 import { RoasterserviceService } from '@services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -40,6 +40,7 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
         private formBuilder: FormBuilder,
         private activatedRoute: ActivatedRoute,
         public globals: GlobalsService,
+        private authService: AuthService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.customerType = this.activatedRoute.snapshot.params.customerType;
@@ -167,7 +168,7 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
                 formData.append('file_module', 'Agreements');
                 this.roasterId = this.cookieService.get('roaster_id');
                 formData.append('api_call', '/ro/' + this.roasterId + '/file-manager/files');
-                formData.append('token', this.cookieService.get('Auth'));
+                formData.append('token', this.authService.token);
                 this.roasterService.uploadFiles(formData).subscribe((result: any) => {
                     if (result.success) {
                         this.toastrService.success('The file ' + this.fileNameValue + ' uploaded successfully');
@@ -214,7 +215,7 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
             formData.append('file_module', 'Agreements');
             this.roasterId = this.cookieService.get('roaster_id');
             formData.append('api_call', '/ro/' + this.roasterId + '/file-manager/files');
-            formData.append('token', this.cookieService.get('Auth'));
+            formData.append('token', this.authService.token);
             this.roasterService.uploadFiles(formData).subscribe((result: any) => {
                 if (result.success) {
                     this.toastrService.success('The file ' + this.fileNameValue + ' uploaded successfully');
