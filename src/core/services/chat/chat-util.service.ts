@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '@env/environment';
 import { StickerListItem } from '@models';
+import { AuthService } from '../auth';
 @Injectable({
     providedIn: 'root',
 })
@@ -302,7 +303,7 @@ export class ChatUtilService {
         { title: 'Roaster machine', name: 'roaster-machine', path: '' },
     ];
 
-    constructor(private cookieService: CookieService, private http: HttpClient) {
+    constructor(private cookieService: CookieService, private http: HttpClient, private authService: AuthService) {
         this.incomingAudioPlayer.load();
         this.outgoingAudioPlayer.load();
         this.prepareStickers();
@@ -378,7 +379,7 @@ export class ChatUtilService {
         return parseInt(this.cookieService.get(idKey), 10) || null;
     }
     public get TOKEN(): string {
-        let userToken = this.cookieService.get('Auth')?.replace(/\r/g, '')?.split(/\n/)[0];
+        let userToken = this.authService.token?.replace(/\r/g, '')?.split(/\n/)[0];
         if (!userToken && this.ORGANIZATION_TYPE === OrganizationType.CONSUMER) {
             // Check token from Local storage for consumer user
             userToken = localStorage.getItem('coffeeToken') || '';
