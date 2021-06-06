@@ -61,7 +61,7 @@ export class CustomerService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `${partnerType}?${this.serializeParams(options)}`, 'GET');
     }
 
-    getPartners(hrcId, options): Observable<ApiResponse<any>> {
+    getPartners(hrcId, options?): Observable<ApiResponse<any>> {
         return this.postWithOrg(this.orgPostUrl, `hrc/${hrcId}/partners?${this.serializeParams(options)}`, 'GET');
     }
 
