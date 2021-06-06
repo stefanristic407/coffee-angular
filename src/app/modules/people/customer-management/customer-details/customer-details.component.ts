@@ -21,6 +21,7 @@ export class CustomerDetailsComponent extends ResizeableComponent implements OnI
     orgIndex: number;
     employeeList: any[] = [];
     loading = true;
+    partnersList: any[] = [];
 
     constructor(
         public globals: GlobalsService,
@@ -32,14 +33,19 @@ export class CustomerDetailsComponent extends ResizeableComponent implements OnI
     }
 
     ngOnInit(): void {
-        this.portalId = this.route.snapshot.paramMap.get('id');
         this.type = this.route.snapshot.queryParamMap.get('type');
-        this.orgType = this.type === 'mr' ? 'micro-roasters' : 'hrc';
-        this.orgIndex = this.type === 'mr' ? 0 : 1;
-        this.getPortalDetails();
-        this.getTopContacts();
-        this.getCertificates();
-        this.appLanguage = this.globals.languageJson;
+        this.route.params.subscribe((params) => {
+            this.portalId = params.id;
+            this.orgType = this.type === 'mr' ? 'micro-roasters' : 'hrc';
+            this.orgIndex = this.type === 'mr' ? 0 : 1;
+            this.getPortalDetails();
+            this.getTopContacts();
+            this.getCertificates();
+            this.appLanguage = this.globals.languageJson;
+            if (this.type === 'hrc') {
+                this.getPartners();
+            }
+        });
     }
 
     getPortalDetails() {
@@ -68,6 +74,16 @@ export class CustomerDetailsComponent extends ResizeableComponent implements OnI
                 this.certificates = res.result;
             } else {
                 this.certificates = [];
+            }
+        });
+    }
+
+    getPartners() {
+        this.customerService.getPartners(this.portalId).subscribe((res) => {
+            if (res.success) {
+                this.partnersList = res.result ?? [];
+            } else {
+                this.partnersList = [];
             }
         });
     }

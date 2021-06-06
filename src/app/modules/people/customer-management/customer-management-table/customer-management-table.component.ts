@@ -19,6 +19,7 @@ export class CustomerManagementTableComponent implements OnInit {
     @Input() searchTerm = '';
     @Input() sortedMainData: any;
     @Input() customerType: OrganizationType;
+    @Input() isPartners: boolean;
     itemId: any;
 
     constructor(
@@ -38,23 +39,12 @@ export class CustomerManagementTableComponent implements OnInit {
     }
 
     shareDetails(size: any) {
-        if (size.status === 'PENDING') {
-            this.customer.emailId = size.email;
-            if (this.customerType === OrganizationType.MICRO_ROASTER) {
-                this.customer.pendingMrDetails();
-            } else {
-                this.customer.pendingHorecaDetails();
-            }
-
-            this.router.navigate(['/people/pending-details']);
-        } else {
-            const navigationExtras: NavigationExtras = {
-                queryParams: {
-                    type: this.customerType,
-                },
-            };
-            this.router.navigate([`/people/customer-details/${size.id}`], navigationExtras);
-        }
+        const navigationExtras: NavigationExtras = {
+            queryParams: {
+                type: this.customerType,
+            },
+        };
+        this.router.navigate([`/people/customer-details/${size.id}`], navigationExtras);
     }
 
     stimulatedLogin(org) {
