@@ -99,6 +99,10 @@ export class ApiService {
         return this.authService.orgId;
     }
 
+    protected getUserId(): number {
+        return this.authService.userId;
+    }
+
     protected getToken(): string {
         return this.authService.token;
     }
