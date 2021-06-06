@@ -55,7 +55,7 @@
                     </td>
                     <td class="fnt-14">{{ item.created_at | date: 'M/d/yy, h:mm a' }}</td>
                     <td class="fnt-14">{{ item.customer_name }}</td>
-                    <td class="fnt-14">{{ getCountryName(item.origin) }}</td>
+                    <td class="fnt-14">{{ item.origin | country }}</td>
                     <td id="sales-contract-popup">
                         <a
                             class="menu-arrow"
@@ -151,7 +151,7 @@
                                     <p class="light-eight fnt-14">{{ globals.languageJson?.origin }}</p>
                                 </div>
                                 <div class="col-7 p-0">
-                                    <p class="fnt-14">{{ getCountryName(data.origin) }}</p>
+                                    <p class="fnt-14">{{ data.origin | country }}</p>
                                 </div>
                             </div>
                             <div class="row mx-3 mb-3 pt-3">

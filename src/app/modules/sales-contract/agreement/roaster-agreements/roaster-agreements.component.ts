@@ -1,12 +1,8 @@
-// AUTHOR : Gaurav Kunal
-// PAGE DESCRIPTION : This page contains functions of sales contract roaster agreements.
-
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from '@services';
-import { RoasteryProfileService } from '@services';
+import { CommonService, GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@shared';
@@ -40,9 +36,9 @@ export class RoasterAgreementsComponent implements OnInit {
         public cookieService: CookieService,
         public roasterService: RoasterserviceService,
         public toastrService: ToastrService,
-        public roasteryProfileService: RoasteryProfileService,
         public globals: GlobalsService,
         public dialogSrv: DialogService,
+        private commonService: CommonService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
     }
@@ -51,11 +47,6 @@ export class RoasterAgreementsComponent implements OnInit {
         this.estatetermOrigin = '';
         this.customerMob = '';
         this.getAgreements();
-    }
-
-    getCountryName(code: any): void {
-        const country = this.roasteryProfileService.countryList.find((con) => con.isoCode === code);
-        return country ? country.name : '';
     }
 
     getAgreements(event?: any): void {
