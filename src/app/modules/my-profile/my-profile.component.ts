@@ -258,7 +258,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             const formData: FormData = new FormData();
             formData.append('file', this.file);
             formData.append('api_call', '/ro/' + this.roasterId + '/users/' + this.userId + '/profile-image');
-            formData.append('token', this.cookieService.get('Auth'));
+            formData.append('token', this.authService.token);
             this.userOriginalService.uploadProfileImage(formData).subscribe((res: any) => {
                 console.log('upload image result >>>>>>>>>', res);
                 if (res.success) {

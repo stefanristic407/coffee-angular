@@ -530,7 +530,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         portalUrl += `/gate?orgId=${orgId}`;
         // Probably we need to add separate flag for this logic.
         if (!environment.production) {
-            portalUrl += `&token=${this.cookieService.get('Auth')}`;
+            portalUrl += `&token=${this.authService.token}`;
         }
 
         window.open(portalUrl, '_self');

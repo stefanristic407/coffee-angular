@@ -42,9 +42,6 @@ export class RoasterQuickSetupComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.cookieService.get('Auth') === '') {
-            this.router.navigate(['/auth/login']);
-        }
         this.inviteFormArray.push(
             new FormGroup({
                 name: new FormControl('', [Validators.required]),
