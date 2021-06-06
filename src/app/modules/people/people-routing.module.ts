@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PeopleComponent } from './people.component';
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
 import { CustomerDetailsComponent } from './customer-management/customer-details/customer-details.component';
+import { DiscountEditComponent } from './customer-management/discount-edit/discount-edit.component';
 import { AuthGuard } from '@guards';
 
 const routes: Routes = [
@@ -18,6 +19,11 @@ const routes: Routes = [
             {
                 path: 'customer-details/:id',
                 component: CustomerDetailsComponent,
+            },
+            {
+                path: 'pending-details',
+                component: DiscountEditComponent,
+                canActivate: [AuthGuard],
             },
             {
                 path: '',

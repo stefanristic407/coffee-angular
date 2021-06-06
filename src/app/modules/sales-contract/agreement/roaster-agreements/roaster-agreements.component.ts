@@ -53,7 +53,7 @@ export class RoasterAgreementsComponent implements OnInit {
         this.getAgreements();
     }
 
-    getCountryName(code: any): void {
+    getCountryName(code: any) {
         const country = this.roasteryProfileService.countryList.find((con) => con.isoCode === code);
         return country ? country.name : '';
     }
