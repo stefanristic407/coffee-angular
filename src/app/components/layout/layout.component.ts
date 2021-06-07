@@ -33,7 +33,6 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     menuItems: any[];
     selected: string;
     roasterId: any;
-    userId: any;
     loaded = false;
     screenwidth: any = true;
     searchString: string;
@@ -74,6 +73,30 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     }
 
     ngOnInit(): void {
+        new Promise((resolve, reject) => {
+            this.verifyToken(resolve, reject);
+        })
+            .then(() => {
+                this.init();
+            })
+            .catch(() => {
+                this.router.navigateByUrl('/gate');
+            });
+    }
+
+    ngAfterViewInit() {
+        fromEvent(window, 'resize')
+            .pipe(takeUntil(this.unsubscribeAll$))
+            .pipe(debounce(() => interval(500)))
+            .subscribe(this.viewPortSizeChanged);
+        this.viewPortSizeChanged();
+    }
+
+    ngOnDestroy(): void {
+        this.socket.destorySocket();
+    }
+
+    init() {
         this.socket.initSocketService(); // Enable socket service
         this.chat.isOpen.pipe(takeUntil(this.unsubscribeAll$)).subscribe((x) => {
             if (x) {
@@ -96,8 +119,9 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
 
         this.updateActiveLinkState();
         this.roasterId = this.authService.getOrgId();
-        this.userId = this.cookieService.get('user_id');
+
         const promises = [];
+
         promises.push(
             new Promise((resolve) => {
                 this.getUserDetail(resolve);
@@ -126,7 +150,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         });
 
         this.getLoggedInUserRoles();
-        this.getOrganizations();
+        this.getNotificationList();
 
         fromEvent(window, 'scroll')
             .pipe(debounceTime(100))
@@ -142,20 +166,6 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                     this.showMobFooter = true;
                 }
             });
-
-        this.getNotificationList();
-    }
-
-    ngAfterViewInit() {
-        fromEvent(window, 'resize')
-            .pipe(takeUntil(this.unsubscribeAll$))
-            .pipe(debounce(() => interval(500)))
-            .subscribe(this.viewPortSizeChanged);
-        this.viewPortSizeChanged();
-    }
-
-    ngOnDestroy(): void {
-        this.socket.destorySocket();
     }
 
     viewPortSizeChanged = () => {
@@ -456,11 +466,19 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         return !this.router.url.includes('/dispute-system/order-chat/');
     }
 
-    getOrganizations() {
+    verifyToken(resolve, reject) {
         this.idmService.verifyToken().subscribe((res: any) => {
             if (res.success === true) {
                 console.log('Organizations:', res.result);
                 this.checkOrgRes(res.result);
+                if (res.result?.roasters) {
+                    this.authService.setOrgId(res.result.roasters.id);
+                    resolve();
+                } else {
+                    reject();
+                }
+            } else {
+                reject();
             }
         });
     }
