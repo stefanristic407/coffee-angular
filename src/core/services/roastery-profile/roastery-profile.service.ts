@@ -20,7 +20,7 @@ export class RoasteryProfileService {
     savemode = false;
     editmode = true;
     userId: string;
-    roasterId: string;
+    roasterId: number;
     summary: any;
     foundedIn: any;
     website: any;
@@ -68,7 +68,7 @@ export class RoasteryProfileService {
         private authService: AuthService,
     ) {
         this.userId = this.cookieService.get('user_id');
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         this.roasterProfile();
     }
 

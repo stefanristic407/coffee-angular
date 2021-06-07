@@ -286,7 +286,7 @@ export class RoasterserviceService extends ApiService {
     }
 
     deleteRoasterBrand(brandId: string): Observable<any> {
-        const roasterId = this.authService.orgId;
+        const roasterId = this.getOrgId();
         const token = this.authService.token;
         const data = {
             method: 'DELETE',
@@ -444,7 +444,7 @@ export class RoasterserviceService extends ApiService {
 
     // Upload brand profile files
     uploadBrandProfile(file) {
-        const roasterId = this.authService.orgId;
+        const roasterId = this.getOrgId();
         const uploadData = new FormData();
         uploadData.append('api_call', `/ro/${roasterId}/file-manager/files`);
         uploadData.append('method', 'POST');

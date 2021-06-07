@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
-import { GlobalsService } from '@services';
+import { AuthService, GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -29,8 +29,9 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
         public roasterService: RoasterserviceService,
         public cookieService: CookieService,
         private router: Router,
+        private authService: AuthService,
     ) {
-        this.roasterID = this.cookieService.get('roaster_id');
+        this.roasterID = this.authService.getOrgId();
         this.route.params.subscribe((params) => {
             this.orderID = params.orderId;
         });

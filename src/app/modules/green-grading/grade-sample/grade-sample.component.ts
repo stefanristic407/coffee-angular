@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { GlobalsService, GreenGradingService } from '@services';
+import { AuthService, GlobalsService, GreenGradingService } from '@services';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { GenerateReportService } from '../generate-report/generate-report.service';
@@ -51,8 +51,9 @@ export class GradeSampleComponent implements OnInit {
         private toastrService: ToastrService,
         private greenGradingService: GreenGradingService,
         private activeRoute: ActivatedRoute,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
 
     ngOnInit(): void {

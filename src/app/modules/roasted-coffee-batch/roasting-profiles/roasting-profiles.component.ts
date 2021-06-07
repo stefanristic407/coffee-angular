@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { RoasterserviceService } from '@services';
+import { AuthService, RoasterserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { UserserviceService } from '@services';
@@ -57,8 +57,9 @@ export class RoastingProfilesComponent implements OnInit {
         private fb: FormBuilder,
         public sharedService: SharedServiceService,
         private dialogService: DialogService,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
 
     ngOnInit(): void {
@@ -183,27 +184,27 @@ export class RoastingProfilesComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: 'Are you sure you want to delete this profile?'
+                    desp: 'Are you sure you want to delete this profile?',
                 },
                 showHeader: false,
                 styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
-            if (action === 'yes') {
-                this.userService.deleteRoastingProfile(this.roasterId, id).subscribe(
-                    (res) => {
-                        if (res.success) {
-                            this.toastrService.success('Roasted profile deleted successfully');
-                            this.getData();
-                        } else {
+                if (action === 'yes') {
+                    this.userService.deleteRoastingProfile(this.roasterId, id).subscribe(
+                        (res) => {
+                            if (res.success) {
+                                this.toastrService.success('Roasted profile deleted successfully');
+                                this.getData();
+                            } else {
+                                this.toastrService.error('Error while deleting roasting profile');
+                            }
+                        },
+                        (err) => {
                             this.toastrService.error('Error while deleting roasting profile');
-                        }
-                    },
-                    (err) => {
-                        this.toastrService.error('Error while deleting roasting profile');
-                    },
-                );
-            }
-        });
+                        },
+                    );
+                }
+            });
     }
 }

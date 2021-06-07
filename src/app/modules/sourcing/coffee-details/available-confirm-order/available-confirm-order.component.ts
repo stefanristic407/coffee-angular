@@ -72,7 +72,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
 
     ngOnInit(): void {
         console.log(this.authService.currentOrganization);
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         this.route.data.subscribe((data) => {
             this.orderType = data.orderType;
         });

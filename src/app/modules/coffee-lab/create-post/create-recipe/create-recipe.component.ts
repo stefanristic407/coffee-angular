@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { APP_LANGUAGES } from '@constants';
-import { CoffeeLabService } from '@services';
+import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Location } from '@angular/common';
@@ -36,7 +36,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
     imageFileData: any;
     imageFileName: any;
     languageArray = [];
-    organizationId: string;
+    organizationId: number;
     imageIdListStep = [];
     recipeId: any;
     recipe: any;
@@ -130,8 +130,9 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         private router: Router,
         private route: ActivatedRoute,
         private location: Location,
+        private authService: AuthService,
     ) {
-        this.organizationId = this.cookieService.get('roaster_id');
+        this.organizationId = this.authService.getOrgId();
         this.createRecipeForm();
     }
 
@@ -276,7 +277,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         console.log(this.fileEvent);
         this.imageFileName = this.files[0].name;
         const fileList: FileList = this.fileEvent;
-        const maximumFileSize = (type === 'recipeVideo' ? 15 * 1024 : 2 * 1024);
+        const maximumFileSize = type === 'recipeVideo' ? 15 * 1024 : 2 * 1024;
         if (fileList.length > 0) {
             const file: File = fileList[0];
             const fsize = file.size;

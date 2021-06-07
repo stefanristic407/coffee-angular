@@ -50,7 +50,7 @@ export class PrimeTableService {
     public customer_type: any;
     public isMarkedForSale = false;
     constructor(public http: HttpClient, public cookieService: CookieService, private authService: AuthService) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
 
     getData(event: any) {

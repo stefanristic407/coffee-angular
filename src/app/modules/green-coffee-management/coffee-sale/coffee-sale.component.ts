@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalsService } from '@services';
+import { AuthService, GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
@@ -42,8 +42,9 @@ export class CoffeeSaleComponent implements OnInit {
         private fb: FormBuilder,
         private userService: UserserviceService,
         public sharedService: SharedServiceService,
+        private authService: AuthService,
     ) {
-        this.roasterID = this.cookieService.get('roaster_id');
+        this.roasterID = this.authService.getOrgId();
         this.orderID = decodeURIComponent(this.route.snapshot.queryParams.orderId);
         this.breadItems = [
             { label: 'Home', routerLink: '/roaster-dashboard' },

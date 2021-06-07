@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AuthService {
     isSimulated = false;
+    private orgId: number;
     userSubject = new BehaviorSubject(null);
     organizationSubject = new BehaviorSubject(null);
 
@@ -22,8 +23,12 @@ export class AuthService {
         return null;
     }
 
-    get orgId(): number {
-        return +this.cookieService.get('roaster_id');
+    getOrgId(): number {
+        return this.orgId;
+    }
+
+    setOrgId(value: number) {
+        this.orgId = value;
     }
 
     get userId(): number {

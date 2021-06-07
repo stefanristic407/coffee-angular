@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OrganizationType } from '@enums';
-import { GlobalsService, RoasterserviceService } from '@services';
+import { AuthService, GlobalsService, RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
@@ -26,7 +26,7 @@ export class CustomerManagementComponent implements OnInit {
         { label: 'Inactive', value: 'inactive' },
         { label: 'Pending', value: 'pending' },
     ];
-    roasterId: string;
+    roasterId: number;
     odd: boolean;
     horecaActive: any;
     customerType: OrganizationType;
@@ -43,8 +43,9 @@ export class CustomerManagementComponent implements OnInit {
         private toastrService: ToastrService,
         public cookieService: CookieService,
         private route: ActivatedRoute,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
 
     ngOnInit(): void {

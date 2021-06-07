@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GlobalsService } from '@services';
+import { AuthService, GlobalsService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from '@services';
@@ -13,7 +13,7 @@ import * as _ from 'underscore';
     styleUrls: ['./featured-products.component.scss'],
 })
 export class FeaturedProductsComponent implements OnInit {
-    roasterId: string;
+    roasterId: number;
     originItems: any[] = [
         { label: 'Sweden', value: 'se' },
         { label: 'India', value: 'IN' },
@@ -29,8 +29,9 @@ export class FeaturedProductsComponent implements OnInit {
         public userService: UserserviceService,
         public router: Router,
         public roasterService: RoasterserviceService,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
 
     ngOnInit(): void {

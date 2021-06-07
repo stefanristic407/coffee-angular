@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { RoasterserviceService } from '@services';
+import { AuthService, RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { OrderChatType } from '@enums';
@@ -14,7 +14,7 @@ export class AssignUserComponent implements OnInit {
     orderID: any;
     searchFilter = '';
     userDetails: any;
-    roasterId = '';
+    roasterId: number;
     userList: any = [];
     disputeID = '';
     SERVICE_TYPE = OrderChatType.RO_ES;
@@ -27,6 +27,7 @@ export class AssignUserComponent implements OnInit {
         public cookieService: CookieService,
         private router: Router,
         private toasterService: ToastrService,
+        private authService: AuthService,
     ) {}
 
     ngOnInit(): void {
@@ -34,7 +35,7 @@ export class AssignUserComponent implements OnInit {
         this.disputeID = this.route.snapshot.queryParams.disputeID
             ? decodeURIComponent(this.route.snapshot.queryParams.disputeID)
             : undefined;
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
 
     onSearch(event) {

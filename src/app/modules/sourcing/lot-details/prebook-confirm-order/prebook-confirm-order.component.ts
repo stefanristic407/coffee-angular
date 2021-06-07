@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService, ResizeService } from '@services';
+import { AuthService, GlobalsService, ResizeService } from '@services';
 import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
 import { SourcingService } from '../../sourcing.service';
@@ -57,12 +57,13 @@ export class PrebookConfirmOrderComponent extends ResizeableComponent implements
         private roasterService: RoasterserviceService,
         private userService: UserserviceService,
         protected resizeService: ResizeService,
+        private authService: AuthService,
     ) {
         super(resizeService);
     }
 
     ngOnInit(): void {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
 
         this.route.paramMap.subscribe((params) => {
             if (params.has('estateId') && params.has('lotId')) {

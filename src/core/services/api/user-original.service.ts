@@ -58,7 +58,7 @@ export class UserserviceService extends ApiService {
 
     getUsers() {
         const userId = this.authService.userId;
-        const roasterId = this.authService.orgId;
+        const roasterId = this.getOrgId();
         const data = {
             api_call: '/ro/' + roasterId + '/users/' + userId,
             token: this.authService.token,
@@ -1308,7 +1308,7 @@ export class UserserviceService extends ApiService {
     }
 
     updateCuppingType(cupping_report_id: any, body: any): Observable<any> {
-        const roaster_id = Number(this.authService.orgId);
+        const roaster_id = this.getOrgId();
         const data = {
             api_call: `​/ro/${roaster_id}​/cupping-process​/${cupping_report_id}​/cupping-type`,
             token: this.authService.token,
@@ -1319,7 +1319,7 @@ export class UserserviceService extends ApiService {
     }
 
     addEvaluators(cupping_report_id: any, body: any) {
-        const roaster_id = Number(this.authService.orgId);
+        const roaster_id = this.getOrgId();
         const data = {
             api_call: `​/ro/${roaster_id}​/cupping-process​/${cupping_report_id}​/evaluators`,
             token: this.authService.token,
@@ -1563,7 +1563,7 @@ export class UserserviceService extends ApiService {
 
     getNofitication() {
         const organization = 'ro';
-        const organizationId = this.authService.orgId;
+        const organizationId = this.getOrgId();
         const data = {
             api_call: `/${organization}/${organizationId}/notifications`,
             method: 'GET',
@@ -1574,7 +1574,7 @@ export class UserserviceService extends ApiService {
 
     makeAsAllRead() {
         const organization = 'ro';
-        const organizationId = this.authService.orgId;
+        const organizationId = this.getOrgId();
         const data = {
             api_call: `/${organization}/${organizationId}/notifications/read`,
             method: 'PUT',
@@ -1585,7 +1585,7 @@ export class UserserviceService extends ApiService {
 
     makeAsRead(notificationId) {
         const organization = 'ro';
-        const organizationId = this.authService.orgId;
+        const organizationId = this.getOrgId();
         const data = {
             api_call: `/${organization}/${organizationId}/notifications/${notificationId}/read`,
             method: 'PUT',

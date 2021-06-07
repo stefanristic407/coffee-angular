@@ -40,7 +40,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         window.scroll(0, 0);
-        this.organizationId = +this.cookieService.get('roaster_id');
+        this.organizationId = this.authService.getOrgId();
         this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
             this.router.navigate(['/coffee-lab/overview/articles']);
         });

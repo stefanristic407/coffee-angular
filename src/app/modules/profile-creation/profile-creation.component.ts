@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ProfilePhotoService } from './profile-photo/profile-photo.service';
 import { RoasteryProfileService } from './roastery-profile.service';
-import { GlobalsService, UserService, UserserviceService } from '@services';
+import { AuthService, GlobalsService, UserService, UserserviceService } from '@services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -30,7 +30,7 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
 
     subProfileForm: FormGroup;
     isShowAvatarModal: boolean;
-    roasterId: string;
+    roasterId: number;
     isAdminRole = false;
 
     constructor(
@@ -41,12 +41,13 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
         private fb: FormBuilder,
         public cookieService: CookieService,
         private userService: UserService,
+        private authService: AuthService,
     ) {}
 
     ngOnInit(): void {
         this.detectMode();
         this.initialForm();
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         this.checkAdminRole();
     }
 

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { GlobalsService, ResizeService, FileService } from '@services';
+import { GlobalsService, ResizeService, FileService, AuthService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { ResizeableComponent } from '@base-components';
@@ -50,9 +50,10 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         private cookieService: CookieService,
         private fileService: FileService,
         protected resizeService: ResizeService,
+        private authService: AuthService,
     ) {
         super(resizeService);
-        this.roasterID = this.cookieService.get('roaster_id');
+        this.roasterID = this.authService.getOrgId();
     }
 
     ngOnInit(): void {

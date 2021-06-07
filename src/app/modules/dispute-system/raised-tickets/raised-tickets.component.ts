@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
-import { RoasterserviceService, SocketService, ChatUtilService } from '@services';
+import { RoasterserviceService, SocketService, ChatUtilService, AuthService } from '@services';
 import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -36,8 +36,9 @@ export class RaisedTicketsComponent implements OnInit {
         public sharedService: SharedServiceService,
         private socket: SocketService,
         private chatUtil: ChatUtilService,
+        private authService: AuthService,
     ) {
-        this.roasterID = this.cookieService.get('roaster_id');
+        this.roasterID = this.authService.getOrgId();
     }
 
     ngOnInit(): void {
