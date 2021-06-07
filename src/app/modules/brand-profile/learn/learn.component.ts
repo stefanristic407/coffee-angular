@@ -16,7 +16,6 @@ import * as _ from 'lodash';
 })
 export class LearnComponent implements OnInit {
     roasterId: number;
-    roasterSlug: string;
     breadItems: any[];
     infoForm: FormGroup;
 
@@ -31,7 +30,6 @@ export class LearnComponent implements OnInit {
         private authService: AuthService,
     ) {
         this.roasterId = this.authService.getOrgId();
-        this.roasterSlug = this.cookieService.get('roasterSlug');
     }
 
     ngOnInit(): void {

@@ -33,21 +33,10 @@ export class AclService {
         return true;
     }
 
-    loadPermission() {
-        try {
-            const permissionArray = JSON.parse(this.cookieService.get('permissionSlug'));
-            this.permissions = {};
-            permissionArray.forEach((element) => {
-                this.permissions[element] = true;
-            });
-        } catch {
-            this.router.navigateByUrl('/gate');
-        }
-    }
-
-    updatePermission(permissionList: any[]) {
+    loadPermission(permissionList: any[]) {
         const permissionArray = _.pluck(permissionList, 'slug');
-        this.cookieService.set('permissionSlug', JSON.stringify(permissionArray));
-        this.loadPermission();
+        permissionArray.forEach((element) => {
+            this.permissions[element] = true;
+        });
     }
 }

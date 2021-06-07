@@ -26,7 +26,7 @@ export class BrandProfileHeaderComponent implements OnInit {
         public globals: GlobalsService,
         private authService: AuthService,
     ) {
-        this.roasterSlug = this.cookieService.get('roasterSlug');
+        this.roasterSlug = this.authService.currentOrganization.slug;
         this.orgId = this.authService.getOrgId();
     }
 

@@ -45,7 +45,7 @@ export class BrandProfileComponent implements OnInit {
         private authService: AuthService,
     ) {
         this.roasterId = this.authService.getOrgId();
-        this.roasterSlug = this.cookieService.get('roasterSlug');
+        this.roasterSlug = this.authService.currentOrganization.slug;
         this.slug = this.roasterSlug;
     }
 
