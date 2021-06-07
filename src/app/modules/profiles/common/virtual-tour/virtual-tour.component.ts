@@ -16,8 +16,6 @@ export class VirtualTourComponent implements OnInit {
     constructor(public profileService: ProfileService, private dialogSrv: DialogService) {}
 
     ngOnInit(): void {
-        console.log(this.orgType);
-        console.log(this.profileId);
         this.profileService.getVirtualTourFiles(this.orgType, this.profileId);
     }
 
