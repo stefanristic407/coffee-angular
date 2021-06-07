@@ -1,3 +1,4 @@
+import { ProfileService } from './../profile.service';
 import { Injectable } from '@angular/core';
 import { UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
@@ -27,32 +28,34 @@ export class MicroProfileService {
         public roasterService: RoasterserviceService,
         public toastrService: ToastrService,
         public router: Router,
+        private profileService: ProfileService,
     ) {
         this.userId = this.cookieService.get('user_id');
         this.roasterId = this.cookieService.get('roaster_id');
     }
 
     roasterProfile(microRoasterId) {
-        this.userService.getMicroDetails(this.roasterId, microRoasterId).subscribe((result: any) => {
-            console.log('micro roaster details: ', result);
-            if (result.success) {
-                this.organizationProfile = result.result;
-                this.single = [
-                    {
-                        name: 'Female',
-                        value: this.organizationProfile.female_employee_count
-                            ? this.organizationProfile.female_employee_count
-                            : 0,
-                    },
-                    {
-                        name: 'Male',
-                        value: this.organizationProfile.male_employee_count
-                            ? this.organizationProfile.male_employee_count
-                            : 0,
-                    },
-                ];
-            }
-        });
+        this.profileService
+            .getGeneralProfileDetails(OrganizationType.MICRO_ROASTER, microRoasterId)
+            .subscribe((result: any) => {
+                if (result.success) {
+                    this.organizationProfile = result.result;
+                    this.single = [
+                        {
+                            name: 'Female',
+                            value: this.organizationProfile.female_employee_count
+                                ? this.organizationProfile.female_employee_count
+                                : 0,
+                        },
+                        {
+                            name: 'Male',
+                            value: this.organizationProfile.male_employee_count
+                                ? this.organizationProfile.male_employee_count
+                                : 0,
+                        },
+                    ];
+                }
+            });
 
         this.getcontactList(microRoasterId);
         this.getVirtualTourFiles(microRoasterId);
