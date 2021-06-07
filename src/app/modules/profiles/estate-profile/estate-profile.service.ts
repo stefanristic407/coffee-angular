@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { EstateOrganizationProfile } from '@models';
 import { OrganizationType } from '@enums';
+import { ProfileService } from '../profile.service';
 
 @Injectable({
     providedIn: 'root',
@@ -25,6 +26,7 @@ export class EstateProfileService {
         public roasterService: RoasterserviceService,
         public toastrService: ToastrService,
         public router: Router,
+        private profileService: ProfileService,
         private authService: AuthService,
     ) {
         this.userId = this.cookieService.get('user_id');
@@ -32,10 +34,9 @@ export class EstateProfileService {
     }
 
     estateProfile(estateId) {
-        this.userService.getEstateDetails(this.roasterId, estateId).subscribe((result: any) => {
+        this.profileService.getGeneralProfileDetails(OrganizationType.ESTATE, estateId).subscribe((result: any) => {
             if (result.success) {
                 this.organizationProfile = result.result;
-                console.log('estate details: ', this.organizationProfile);
 
                 this.single = [
                     {

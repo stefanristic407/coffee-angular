@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { PartnerOrganizationProfile } from '@models';
 import { OrganizationType } from '@enums';
+import { ProfileService } from '../profile.service';
 
 @Injectable({
     providedIn: 'root',
@@ -24,6 +25,7 @@ export class PartnerProfileService {
         public roasterService: RoasterserviceService,
         public toastrService: ToastrService,
         public router: Router,
+        private profileService: ProfileService,
         private authService: AuthService,
     ) {
         this.userId = this.cookieService.get('user_id');
@@ -31,10 +33,9 @@ export class PartnerProfileService {
     }
 
     partnerProfile(horecaId) {
-        this.userService.getHorecaDetails(this.roasterId, horecaId).subscribe((result: any) => {
+        this.profileService.getGeneralProfileDetails(OrganizationType.HORECA, horecaId).subscribe((result: any) => {
             if (result.success) {
                 this.organizationProfile = result.result;
-                console.log('horeca details: ', this.organizationProfile);
             }
         });
         this.getcontactList(horecaId);
