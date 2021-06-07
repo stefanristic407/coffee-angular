@@ -71,7 +71,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
             { name: 'Inactive', value: 'Inactive' },
             { name: 'Pending', value: 'pending' },
         ];
-        this.loginId = this.cookieService.get('user_id');
+        this.loginId = this.authService.userId;
         this.roasterID = this.authService.getOrgId();
         this.route.queryParams.subscribe((params) => {
             this.currentRoleID = Number(params.roleID);

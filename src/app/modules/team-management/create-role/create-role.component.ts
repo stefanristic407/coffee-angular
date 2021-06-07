@@ -215,7 +215,7 @@ export class CreateRoleComponent implements OnInit {
             });
     }
     getUserBasedRoles(): void {
-        const loggedInUserID = this.cookieService.get('user_id');
+        const loggedInUserID = this.authService.userId;
         this.roasterService.getUserBasedRoles(this.roasterID, loggedInUserID).subscribe((result: any) => {
             if (result) {
                 if (result.result) {

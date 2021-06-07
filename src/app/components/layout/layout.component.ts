@@ -469,7 +469,6 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     verifyToken(resolve, reject) {
         this.idmService.verifyToken().subscribe((res: any) => {
             if (res.success === true) {
-                console.log('Organizations:', res.result);
                 this.checkOrgRes(res.result);
                 if (res.result?.roasters) {
                     this.authService.setOrgId(res.result.roasters.id);

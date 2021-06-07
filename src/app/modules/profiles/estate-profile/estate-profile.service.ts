@@ -13,7 +13,7 @@ import { ProfileService } from '../profile.service';
 })
 export class EstateProfileService {
     roasterId: number;
-    userId: string;
+    userId: number;
     estateUsers: any = [];
     estateContacts: any = [];
     estateVirtualTourFiles: any = [];
@@ -29,7 +29,7 @@ export class EstateProfileService {
         private profileService: ProfileService,
         private authService: AuthService,
     ) {
-        this.userId = this.cookieService.get('user_id');
+        this.userId = this.authService.userId;
         this.roasterId = this.authService.getOrgId();
     }
 

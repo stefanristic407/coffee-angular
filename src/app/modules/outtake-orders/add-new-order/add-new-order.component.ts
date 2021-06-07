@@ -38,7 +38,7 @@ export class AddNewOrderComponent implements OnInit {
     userID: any;
     customerID: any;
     createdID: any;
-    loginUserID: string;
+    loginUserID: number;
     wasteProduced: string;
 
     constructor(
@@ -57,7 +57,7 @@ export class AddNewOrderComponent implements OnInit {
     ) {
         this.roasterId = this.authService.getOrgId();
         this.outtakeOrderId = this.activeRoute.snapshot.params.id;
-        this.loginUserID = this.cookieService.get('user_id');
+        this.loginUserID = this.authService.userId;
     }
 
     ngOnInit(): void {

@@ -112,7 +112,7 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
         private authService: AuthService,
     ) {
         this.roasterId = this.authService.getOrgId();
-        this.userId = this.cookieService.get('user_id');
+        this.userId = this.authService.userId;
     }
 
     ngOnInit(): void {

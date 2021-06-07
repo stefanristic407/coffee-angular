@@ -135,8 +135,6 @@ export class GateComponent extends DestroyableComponent implements OnInit {
             (res: any) => {
                 if (res.success) {
                     this.userTermsAccepted = res.result.terms_accepted;
-                    this.cookieService.set('user_id', res.result.id);
-                    this.cookieService.set('userName', res.result.firstname + ' ' + res.result.lastname);
                     this.cookieService.set('referral_code', res.result.referral_code);
                     resolve();
                 } else {

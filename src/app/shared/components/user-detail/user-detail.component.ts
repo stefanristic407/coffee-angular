@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { organizationTypes } from '@constants';
-import { GlobalsService, UserService, ChatHandlerService } from '@services';
+import { GlobalsService, UserService, ChatHandlerService, AuthService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -26,6 +26,7 @@ export class UserDetailComponent implements OnInit, OnChanges {
         private userService: UserService,
         private chatHandler: ChatHandlerService,
         private cookieService: CookieService,
+        private authService: AuthService,
     ) {}
     ngOnChanges(): void {
         this.orgName = organizationTypes.find((item) => item.value === this.orgType?.toUpperCase())?.title;
@@ -50,7 +51,7 @@ export class UserDetailComponent implements OnInit, OnChanges {
     }
 
     showPopup(element: any, event: any) {
-        const userId = +this.cookieService.get('user_id');
+        const userId = this.authService.userId;
         if (this.data?.id !== userId) {
             element.toggle(event);
         }

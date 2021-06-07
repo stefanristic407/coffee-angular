@@ -26,9 +26,7 @@ export class SocketService implements OnDestroy {
     public authenticationState = new BehaviorSubject<'INIT' | 'IP' | 'FAIL' | 'SUCCESS'>('INIT');
     public socketState = new BehaviorSubject<'INIT' | 'IP' | 'CONNECTED' | 'FAILED' | 'CLOSED'>('INIT');
 
-    constructor(private cookieService: CookieService, private chatUtil: ChatUtilService) {
-        this.initSocketService();
-    }
+    constructor(private cookieService: CookieService, private chatUtil: ChatUtilService) {}
 
     public initSocketService() {
         console.log('SOCKET SERVICE INT CALLED');

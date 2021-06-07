@@ -33,7 +33,7 @@ export class ProfileCertificatesEditComponent implements OnInit {
         private authService: AuthService,
     ) {
         this.roasterId = this.authService.getOrgId();
-        this.userId = this.cookieService.get('user_id');
+        this.userId = this.authService.userId;
     }
 
     ngOnInit(): void {
