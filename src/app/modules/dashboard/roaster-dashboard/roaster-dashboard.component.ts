@@ -14,7 +14,6 @@ import { WelcomeService } from './welcome.service';
 })
 export class RoasterDashboardComponent implements OnInit {
     appLanguage?: any;
-    userName = '';
     roasterId: number;
 
     constructor(
@@ -25,11 +24,10 @@ export class RoasterDashboardComponent implements OnInit {
         private roasterSrv: RoasterserviceService,
         private toastrService: ToastrService,
         private welcomeSrv: WelcomeService,
-        private authService: AuthService,
+        public authService: AuthService,
     ) {}
 
     ngOnInit(): void {
-        this.userName = this.cookieService.get('userName');
         this.roasterId = this.authService.getOrgId();
 
         this.appLanguage = this.globals.languageJson;

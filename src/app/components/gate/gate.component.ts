@@ -95,7 +95,7 @@ export class GateComponent extends DestroyableComponent implements OnInit {
         this.userSrv.getUserPermissions().subscribe(
             (res: any) => {
                 if (res.success) {
-                    this.aclService.updatePermission(res.result);
+                    this.aclService.loadPermission(res.result);
                     resolve();
                 } else {
                     reject();
@@ -111,8 +111,6 @@ export class GateComponent extends DestroyableComponent implements OnInit {
         this.generalSrv.getProfile().subscribe(
             (res: any) => {
                 if (res.success) {
-                    this.cookieService.set('name', res.result.name);
-                    this.cookieService.set('roasterSlug', res.result.slug);
                     this.orgTermsAccepted = res.result.terms_accepted || !('terms_accepted' in res.result);
                     if (res.result.status === 'ACTIVE') {
                         resolve();
@@ -135,9 +133,6 @@ export class GateComponent extends DestroyableComponent implements OnInit {
             (res: any) => {
                 if (res.success) {
                     this.userTermsAccepted = res.result.terms_accepted;
-                    this.cookieService.set('user_id', res.result.id);
-                    this.cookieService.set('userName', res.result.firstname + ' ' + res.result.lastname);
-                    this.cookieService.set('referral_code', res.result.referral_code);
                     resolve();
                 } else {
                     reject();

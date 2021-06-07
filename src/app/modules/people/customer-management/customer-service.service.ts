@@ -11,7 +11,6 @@ import { OrganizationType } from '@enums';
     providedIn: 'root',
 })
 export class CustomerServiceService {
-    estateId: string;
     roasterId: number;
     microId: any;
     horecaId: any;
@@ -54,7 +53,6 @@ export class CustomerServiceService {
         private router: Router,
         private authService: AuthService,
     ) {
-        this.estateId = this.cookieService.get('estate_id');
         this.roasterId = this.authService.getOrgId();
     }
 
@@ -197,7 +195,6 @@ export class CustomerServiceService {
                 this.pendingStatus = this.pendingHorecaList.status;
                 this.pendingType = this.pendingHorecaList.type;
                 this.headerValue = 'HoReCa';
-                console.log(this.pendingHorecaList);
             }
         });
     }

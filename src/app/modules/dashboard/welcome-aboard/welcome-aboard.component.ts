@@ -13,7 +13,6 @@ import { RoasterserviceService } from '@services';
 export class WelcomeAboardComponent implements OnInit {
     appLanguage?: any;
     welcomeActive: any = 0;
-    userName = '';
     roasterId: number;
     welcomeBoardStatus = 0;
     constructor(
@@ -26,7 +25,6 @@ export class WelcomeAboardComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.userName = this.cookieService.get('userName');
         this.roasterId = this.authService.getOrgId();
 
         this.appLanguage = this.globals.languageJson;

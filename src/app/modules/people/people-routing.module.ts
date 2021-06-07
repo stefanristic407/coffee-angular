@@ -5,6 +5,7 @@ import { CustomerManagementComponent } from './customer-management/customer-mana
 import { CustomerDetailsComponent } from './customer-management/customer-details/customer-details.component';
 import { DiscountEditComponent } from './customer-management/discount-edit/discount-edit.component';
 import { AuthGuard } from '@guards';
+import { CustomerPortalInfoComponent } from './customer-management/customer-portal-info/customer-portal-info.component';
 
 const routes: Routes = [
     {

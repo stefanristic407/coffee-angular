@@ -9,11 +9,8 @@ import { CookieService } from 'ngx-cookie-service';
 export class BrandProfileFooterComponent implements OnInit {
     @Input() pageSlug: string;
     @Output() saveClick = new EventEmitter();
-    roasterSlug: string;
 
-    constructor(private cookieService: CookieService) {
-        this.roasterSlug = this.cookieService.get('roasterSlug');
-    }
+    constructor(private cookieService: CookieService) {}
 
     ngOnInit(): void {}
 

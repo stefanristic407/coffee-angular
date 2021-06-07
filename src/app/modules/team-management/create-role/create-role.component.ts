@@ -203,7 +203,6 @@ export class CreateRoleComponent implements OnInit {
             .subscribe((permissionResult: any) => {
                 if (permissionResult.success) {
                     this.toasterService.success('Permission Updated successfully for Edited role.');
-                    this.aclService.loadPermission();
                 } else {
                     if (!permissionResult.success) {
                         this.toasterService.error('System role permissions cannot be altered');
@@ -215,7 +214,7 @@ export class CreateRoleComponent implements OnInit {
             });
     }
     getUserBasedRoles(): void {
-        const loggedInUserID = this.cookieService.get('user_id');
+        const loggedInUserID = this.authService.userId;
         this.roasterService.getUserBasedRoles(this.roasterID, loggedInUserID).subscribe((result: any) => {
             if (result) {
                 if (result.result) {

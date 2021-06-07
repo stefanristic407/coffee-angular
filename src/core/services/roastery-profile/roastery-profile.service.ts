@@ -19,7 +19,6 @@ export class RoasteryProfileService {
     addMediaDiv = false;
     savemode = false;
     editmode = true;
-    userId: string;
     roasterId: number;
     summary: any;
     foundedIn: any;
@@ -67,7 +66,6 @@ export class RoasteryProfileService {
         public router: Router,
         private authService: AuthService,
     ) {
-        this.userId = this.cookieService.get('user_id');
         this.roasterId = this.authService.getOrgId();
         this.roasterProfile();
     }

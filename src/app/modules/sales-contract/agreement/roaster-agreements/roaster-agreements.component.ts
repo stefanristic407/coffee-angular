@@ -11,7 +11,6 @@ import { ConfirmComponent } from '@shared';
     selector: 'app-roaster-agreements',
     templateUrl: './roaster-agreements.component.html',
     styleUrls: ['./roaster-agreements.component.scss'],
-    encapsulation: ViewEncapsulation.None,
 })
 export class RoasterAgreementsComponent implements OnInit {
     estatetermOrigin: any;

@@ -45,7 +45,7 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
 
     ngOnInit(): void {
         this.roasterID = this.authService.getOrgId();
-        this.roasterName = this.cookieService.get('name');
+        this.roasterName = this.authService.currentOrganization.name;
         this.currentDisputeID = this.route.snapshot.queryParams.disputeID
             ? Number(decodeURIComponent(this.route.snapshot.queryParams.disputeID))
             : undefined;

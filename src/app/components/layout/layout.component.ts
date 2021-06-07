@@ -33,7 +33,6 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     menuItems: any[];
     selected: string;
     roasterId: any;
-    userId: any;
     loaded = false;
     screenwidth: any = true;
     searchString: string;
@@ -74,6 +73,30 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     }
 
     ngOnInit(): void {
+        new Promise((resolve, reject) => {
+            this.verifyToken(resolve, reject);
+        })
+            .then(() => {
+                this.init();
+            })
+            .catch(() => {
+                this.router.navigateByUrl('/gate');
+            });
+    }
+
+    ngAfterViewInit() {
+        fromEvent(window, 'resize')
+            .pipe(takeUntil(this.unsubscribeAll$))
+            .pipe(debounce(() => interval(500)))
+            .subscribe(this.viewPortSizeChanged);
+        this.viewPortSizeChanged();
+    }
+
+    ngOnDestroy(): void {
+        this.socket.destorySocket();
+    }
+
+    init() {
         this.socket.initSocketService(); // Enable socket service
         this.chat.isOpen.pipe(takeUntil(this.unsubscribeAll$)).subscribe((x) => {
             if (x) {
@@ -96,8 +119,14 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
 
         this.updateActiveLinkState();
         this.roasterId = this.authService.getOrgId();
-        this.userId = this.cookieService.get('user_id');
+
         const promises = [];
+
+        promises.push(
+            new Promise((resolve, reject) => {
+                this.getUserPermissions(resolve);
+            }),
+        );
         promises.push(
             new Promise((resolve) => {
                 this.getUserDetail(resolve);
@@ -126,7 +155,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         });
 
         this.getLoggedInUserRoles();
-        this.getOrganizations();
+        this.getNotificationList();
 
         fromEvent(window, 'scroll')
             .pipe(debounceTime(100))
@@ -142,20 +171,55 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                     this.showMobFooter = true;
                 }
             });
-
-        this.getNotificationList();
     }
 
-    ngAfterViewInit() {
-        fromEvent(window, 'resize')
-            .pipe(takeUntil(this.unsubscribeAll$))
-            .pipe(debounce(() => interval(500)))
-            .subscribe(this.viewPortSizeChanged);
-        this.viewPortSizeChanged();
+    private verifyToken(resolve, reject) {
+        this.idmService.verifyToken().subscribe((res: any) => {
+            if (res.success === true) {
+                this.checkOrgRes(res.result);
+                if (res.result?.roasters) {
+                    this.authService.setOrgId(res.result.roasters.id);
+                    resolve();
+                } else {
+                    reject();
+                }
+            } else {
+                reject();
+            }
+        });
     }
 
-    ngOnDestroy(): void {
-        this.socket.destorySocket();
+    private getUserPermissions(resolve) {
+        this.userService.getUserPermissions().subscribe((res: any) => {
+            if (res.success) {
+                this.aclService.loadPermission(res.result);
+            }
+            resolve();
+        });
+    }
+
+    private getUserDetail(resolve) {
+        this.userService.getUserDetail().subscribe((res: any) => {
+            if (res.success) {
+                this.userTermsAccepted = res.result.terms_accepted;
+                this.coffeeLabService.forumLanguage.next(res.result.language || 'en');
+                this.authService.userSubject.next(res.result);
+                this.i18NService.use(res.result.language || 'en');
+            }
+            resolve();
+        });
+    }
+
+    private getOrgProfile(resolve) {
+        this.userService.getOrgDetail().subscribe((res: any) => {
+            if (res.result) {
+                this.orgTermsAccepted = res.result.terms_accepted || !('terms_accepted' in res.result);
+                this.authService.organizationSubject.next(res.result);
+                resolve();
+            } else {
+                this.router.navigate(['/gate']);
+            }
+        });
     }
 
     viewPortSizeChanged = () => {
@@ -360,35 +424,10 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         }
     }
 
-    getUserDetail(resolve) {
-        this.aclService.loadPermission();
-        this.userService.getUserDetail().subscribe((res: any) => {
-            if (res.success) {
-                this.userTermsAccepted = res.result.terms_accepted;
-                this.coffeeLabService.forumLanguage.next(res.result.language || 'en');
-                this.authService.userSubject.next(res.result);
-                this.i18NService.use(res.result.language || 'en');
-            }
-            resolve();
-        });
-    }
-
     getLoggedInUserRoles() {
         this.roasterService.getLoggedinUserRoles(this.roasterId).subscribe((res: any) => {
             if (res.success) {
                 this.rolename = res.result[0].name;
-            }
-        });
-    }
-
-    getOrgProfile(resolve) {
-        this.userService.getOrgDetail().subscribe((res: any) => {
-            if (res.result) {
-                this.orgTermsAccepted = res.result.terms_accepted || !('terms_accepted' in res.result);
-                this.authService.organizationSubject.next(res.result);
-                resolve();
-            } else {
-                this.router.navigate(['/gate']);
             }
         });
     }
@@ -454,15 +493,6 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
 
     showFooter() {
         return !this.router.url.includes('/dispute-system/order-chat/');
-    }
-
-    getOrganizations() {
-        this.idmService.verifyToken().subscribe((res: any) => {
-            if (res.success === true) {
-                console.log('Organizations:', res.result);
-                this.checkOrgRes(res.result);
-            }
-        });
     }
 
     checkOrgRes(orgRes: any) {

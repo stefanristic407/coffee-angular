@@ -53,6 +53,15 @@ export class ErrorInterceptor implements HttpInterceptor {
                         }
                         case 403: {
                             // this.showCodeMessage(body.response_code);
+                            const navigationExtras: NavigationExtras = {
+                                queryParams: {
+                                    returnUrl: this.router.url,
+                                },
+                            };
+                            this.router.navigate(
+                                ['/gate'],
+                                this.route.snapshot.queryParams.returnUrl ? {} : navigationExtras,
+                            );
                             break;
                         }
                         case 404: {

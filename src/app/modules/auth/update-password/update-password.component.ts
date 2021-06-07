@@ -30,10 +30,6 @@ export class UpdatePasswordComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        //Auth checking
-        // if (this.cookieService.get("Auth") == "") {
-        //   this.router.navigate(["/auth/login"]);
-        // }
         this.currentPasswordError = '';
         this.passwordError = '';
         this.confirmPasswordError = '';

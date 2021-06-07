@@ -15,7 +15,6 @@ import { ConfirmComponent } from '@shared';
 })
 export class AboutUsComponent implements OnInit {
     roasterId: number;
-    roasterSlug: string;
     breadItems: any[];
     infoForm: FormGroup;
     roasterUsers: any[] = [];
@@ -54,7 +53,6 @@ export class AboutUsComponent implements OnInit {
         private authService: AuthService,
     ) {
         this.roasterId = this.authService.getOrgId();
-        this.roasterSlug = this.cookieService.get('roasterSlug');
     }
 
     ngOnInit(): void {

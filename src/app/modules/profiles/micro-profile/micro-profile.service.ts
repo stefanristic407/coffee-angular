@@ -16,7 +16,7 @@ import { OrganizationType } from '@enums';
 export class MicroProfileService {
     public organizationProfile: MicroOrganizationProfile;
 
-    userId: string;
+    userId: number;
     roasterContacts: any = [];
     single: { name: string; value: any }[];
     roasterId: number;
@@ -31,7 +31,7 @@ export class MicroProfileService {
         private profileService: ProfileService,
         private authService: AuthService,
     ) {
-        this.userId = this.cookieService.get('user_id');
+        this.userId = this.authService.userId;
         this.roasterId = this.authService.getOrgId();
     }
 

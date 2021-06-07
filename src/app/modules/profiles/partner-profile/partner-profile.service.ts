@@ -12,7 +12,7 @@ import { ProfileService } from '../profile.service';
     providedIn: 'root',
 })
 export class PartnerProfileService {
-    userId: string;
+    userId: number;
     horecaId: string;
     operatorUsers: any = [];
     operatorContacts: any = [];
@@ -28,7 +28,7 @@ export class PartnerProfileService {
         private profileService: ProfileService,
         private authService: AuthService,
     ) {
-        this.userId = this.cookieService.get('user_id');
+        this.userId = this.authService.userId;
         this.roasterId = this.authService.getOrgId();
     }
 

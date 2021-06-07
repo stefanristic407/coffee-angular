@@ -1,8 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { OrganizationType } from '@enums';
-import { GlobalsService, ChatHandlerService, ResizeService } from '@services';
+import { GlobalsService, ChatHandlerService, ResizeService, AuthService } from '@services';
 import { SourcingService } from '../sourcing.service';
 import { ResizeableComponent } from '@base-components';
 
@@ -15,19 +14,16 @@ export class EstateDetailsComponent extends ResizeableComponent implements OnIni
     @ViewChild('reviewsPosition') reviewsPosition: ElementRef;
     isLoaded = false;
     selectedTab = 0;
-    userId: string;
 
     constructor(
         public globals: GlobalsService,
         private route: ActivatedRoute,
-        private cookieSrv: CookieService,
         public sourcing: SourcingService,
         public chatSrv: ChatHandlerService,
         protected resizeService: ResizeService,
         private router: Router,
     ) {
         super(resizeService);
-        this.userId = this.cookieSrv.get('user_id');
     }
 
     ngOnInit(): void {

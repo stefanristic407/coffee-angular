@@ -32,7 +32,7 @@ export class AuthService {
     }
 
     get userId(): number {
-        return this.currentUser?.id;
+        return this.currentUser?.id || null;
     }
 
     get isAuthenticated(): boolean {
