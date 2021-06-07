@@ -69,11 +69,6 @@ export class GateComponent extends DestroyableComponent implements OnInit {
         const promises = [];
         promises.push(
             new Promise((resolve, reject) => {
-                this.getUserPermissions(resolve, reject);
-            }),
-        );
-        promises.push(
-            new Promise((resolve, reject) => {
                 this.getProfile(resolve, reject);
             }),
         );
@@ -89,22 +84,6 @@ export class GateComponent extends DestroyableComponent implements OnInit {
             .catch(() => {
                 this.goToLogin();
             });
-    }
-
-    private getUserPermissions(resolve, reject) {
-        this.userSrv.getUserPermissions().subscribe(
-            (res: any) => {
-                if (res.success) {
-                    this.aclService.loadPermission(res.result);
-                    resolve();
-                } else {
-                    reject();
-                }
-            },
-            (err) => {
-                reject();
-            },
-        );
     }
 
     private getProfile(resolve, reject) {
