@@ -1,13 +1,13 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { RoasterserviceService } from '@services';
+import { AuthService, RoasterserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
 import { MenuItem } from 'primeng/api';
-import {ConfirmComponent} from '@shared';
+import { ConfirmComponent } from '@shared';
 import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
@@ -17,7 +17,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 })
 export class RoastedCoffeeBatchesComponent implements OnInit {
     appLanguage?: any;
-    roasterId: string;
+    roasterId: number;
     batchId: string | number | boolean;
     profileArray: any = [];
     profileFilter;
@@ -45,8 +45,9 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
         private fb: FormBuilder,
         public sharedService: SharedServiceService,
         private dialogService: DialogService,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
 
     ngOnInit(): void {
@@ -183,28 +184,28 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: 'Are you sure you want to delete this batch?'
+                    desp: 'Are you sure you want to delete this batch?',
                 },
                 showHeader: false,
                 styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
-            if (action === 'yes') {
-                this.roasterService.deleteRoastedCoffeeBatch(this.roasterId, id).subscribe(
-                    (res) => {
-                        if (res.success) {
-                            this.toastrService.success('Roasted Coffee Batch deleted successfully');
-                            this.roasterCoffeeBatchsData({});
-                        } else {
+                if (action === 'yes') {
+                    this.roasterService.deleteRoastedCoffeeBatch(this.roasterId, id).subscribe(
+                        (res) => {
+                            if (res.success) {
+                                this.toastrService.success('Roasted Coffee Batch deleted successfully');
+                                this.roasterCoffeeBatchsData({});
+                            } else {
+                                this.toastrService.error('Error while deletign the roasting profile');
+                            }
+                        },
+                        (err) => {
                             this.toastrService.error('Error while deletign the roasting profile');
-                        }
-                    },
-                    (err) => {
-                        this.toastrService.error('Error while deletign the roasting profile');
-                    },
-                );
-            }
-        });
+                        },
+                    );
+                }
+            });
     }
 
     menuClicked() {

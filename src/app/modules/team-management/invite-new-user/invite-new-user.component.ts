@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
-import { GlobalsService } from '@services';
+import { AuthService, GlobalsService } from '@services';
 import { RoasterserviceService, UserserviceService } from '@services';
 import { EditUserDetailsComponent } from '../edit-user-details/edit-user-details.component';
 
@@ -28,10 +28,11 @@ export class InviteNewUserComponent implements OnInit {
         public route: ActivatedRoute,
         public userService: UserserviceService,
         private toastrService: ToastrService,
+        private authService: AuthService,
     ) {}
 
     ngOnInit(): void {
-        this.roasterID = this.cookieService.get('roaster_id');
+        this.roasterID = this.authService.getOrgId();
         this.currentRoleID = this.route.snapshot.queryParams.roleID
             ? Number(this.route.snapshot.queryParams.roleID)
             : '';

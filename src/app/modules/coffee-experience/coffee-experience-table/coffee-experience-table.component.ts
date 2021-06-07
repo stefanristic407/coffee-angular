@@ -2,6 +2,7 @@ import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerServiceService } from '@app/modules/people/customer-management/customer-service.service';
 import {
+    AuthService,
     GlobalsService,
     PrimeTableService,
     ResizeService,
@@ -82,10 +83,11 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
         public activeRoute: ActivatedRoute,
         protected resizeService: ResizeService,
         private coffeeService: CoffeeExpService,
+        private authService: AuthService,
     ) {
         super(resizeService);
         this.display = 10;
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         this.primeTableService.rows = 10;
         this.primeTableService.sortBy = 'created_at';
         this.primeTableService.sortOrder = 'desc';

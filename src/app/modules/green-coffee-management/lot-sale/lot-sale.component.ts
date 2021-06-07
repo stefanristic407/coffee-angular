@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalsService, ResizeService } from '@services';
+import { AuthService, GlobalsService, ResizeService } from '@services';
 import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
@@ -49,9 +49,10 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
         private userService: UserserviceService,
         public sharedService: SharedServiceService,
         protected resizeService: ResizeService,
+        private authService: AuthService,
     ) {
         super(resizeService);
-        this.roasterID = this.cookieService.get('roaster_id');
+        this.roasterID = this.authService.getOrgId();
         this.orderID = decodeURIComponent(this.route.snapshot.queryParams.orderId);
         this.lotSaleForm = this.fb.group({
             name: ['', Validators.compose([Validators.required])],

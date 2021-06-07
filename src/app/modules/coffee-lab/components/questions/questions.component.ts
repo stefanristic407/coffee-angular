@@ -22,13 +22,13 @@ export class QuestionsComponent implements OnInit {
         private cookieService: CookieService,
         private router: Router,
         public coffeeLabService: CoffeeLabService,
-        public authService: AuthService
+        public authService: AuthService,
     ) {
         this.pageDesc = this.router.url.split('/')[this.router.url.split('/').length - 2];
     }
 
     ngOnInit(): void {
-        this.organizationId = +this.cookieService.get('roaster_id');
+        this.organizationId = this.authService.getOrgId();
         this.displayData = this.questions.slice(0, 10);
         this.totalRecords = this.questions.length;
         console.log('totalRecords >>>>>>', this.totalRecords);

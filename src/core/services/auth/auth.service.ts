@@ -6,11 +6,37 @@ import { BehaviorSubject } from 'rxjs';
     providedIn: 'root',
 })
 export class AuthService {
+    isSimulated = false;
+    private orgId: number;
     userSubject = new BehaviorSubject(null);
     organizationSubject = new BehaviorSubject(null);
 
     get token(): any {
-        return this.cookieService.get('Auth');
+        if (this.isSimulated) {
+            const simToken = this.cookieService.get('Sim-Authorization');
+            if (simToken) {
+                return JSON.parse(atob(simToken)).Authorization;
+            }
+        } else {
+            return this.cookieService.get('Authorization');
+        }
+        return null;
+    }
+
+    getOrgId(): number {
+        return this.orgId;
+    }
+
+    setOrgId(value: number) {
+        this.orgId = value;
+    }
+
+    get userId(): number {
+        return this.currentUser?.id || null;
+    }
+
+    get isAuthenticated(): boolean {
+        return !!this.token;
     }
 
     get currentUser(): any {

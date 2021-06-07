@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { CoffeeStoryService, DownloadService, GlobalsService } from '@services';
+import { AuthService, CoffeeStoryService, DownloadService, GlobalsService } from '@services';
 import { UserserviceService } from '@services';
 import { RoasterserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
@@ -28,7 +28,7 @@ export class NewRoastedBatchComponent implements OnInit, OnDestroy {
     selectable = true;
     removable = true;
     appLanguage?: any;
-    roasterId: string;
+    roasterId: number;
     roastingProfile: any;
     roasterFlavourProfile: any;
     flavour: any;
@@ -74,8 +74,9 @@ export class NewRoastedBatchComponent implements OnInit, OnDestroy {
         private fb: FormBuilder,
         private coffeeStorySrv: CoffeeStoryService,
         public downloadService: DownloadService,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
 
     ngOnInit(): void {

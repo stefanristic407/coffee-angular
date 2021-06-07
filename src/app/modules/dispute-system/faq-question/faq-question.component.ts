@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { UserserviceService } from '@services';
+import { AuthService, UserserviceService } from '@services';
 import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { MenuItem } from 'primeng/api';
@@ -22,10 +22,11 @@ export class FaqQuestionComponent implements OnInit {
         public router: Router,
         public userService: UserserviceService,
         public cookieService: CookieService,
+        private authService: AuthService,
     ) {}
 
     ngOnInit(): void {
-        this.roasterID = this.cookieService.get('roaster_id');
+        this.roasterID = this.authService.getOrgId();
         this.route.params.subscribe((params) => {
             this.orderID = params.orderId ? params.orderId : '';
         });

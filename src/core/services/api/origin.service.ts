@@ -4,13 +4,14 @@ import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { ApiResponse } from '@models';
+import { AuthService } from '../auth';
 
 @Injectable({
     providedIn: 'root',
 })
 export class OriginService extends ApiService {
-    constructor(protected cookieService: CookieService, protected http: HttpClient) {
-        super(cookieService, http);
+    constructor(protected http: HttpClient, protected authService: AuthService) {
+        super(http, authService);
     }
 
     // List the origins of active estates for RO, ES and MR

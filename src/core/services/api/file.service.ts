@@ -7,18 +7,16 @@ import { ApiResponse } from '@models';
 import { Observable } from 'rxjs';
 import { OrganizationType } from '@enums';
 import { UplaodService } from '../upload';
+import { AuthService } from '../auth';
 
 @Injectable({
     providedIn: 'root',
 })
 export class FileService extends ApiService {
-    constructor(
-        protected cookieService: CookieService,
-        protected http: HttpClient,
-        private uploadService: UplaodService,
-    ) {
-        super(cookieService, http);
+    constructor(protected http: HttpClient, protected authService: AuthService, private uploadService: UplaodService) {
+        super(http, authService);
     }
+
     // ------------ Farmlink Folders ------------
 
     // Delete the folder details
@@ -59,7 +57,7 @@ export class FileService extends ApiService {
     // Upload Farmlink files
     uploadFiles(formData: FormData) {
         formData.append('api_call', `/${this.orgType}/${this.getOrgId()}/file-manager/files`);
-        formData.append('token', this.cookieService.get('Auth'));
+        formData.append('token', this.authService.token);
         formData.append('method', 'POST');
         const processId = this.uploadService.addProcess(formData.get('name') as string);
         return this.http
@@ -72,12 +70,12 @@ export class FileService extends ApiService {
     }
     // Update the file
     updateFile(fileId, formData: FormData) {
-        const orgId = this.cookieService.get('roaster_id');
+        const orgId = this.getOrgId();
         const httpOptions = {
             headers: new HttpHeaders({ Accept: 'application/json' }),
         };
         formData.append('api_call', `/${this.orgType}/${orgId}/file-manager/files/${fileId}`);
-        formData.append('token', this.cookieService.get('Auth'));
+        formData.append('token', this.authService.token);
         return this.http.post(this.putFileUploadUrl, formData, httpOptions);
     }
     // Delete the file details

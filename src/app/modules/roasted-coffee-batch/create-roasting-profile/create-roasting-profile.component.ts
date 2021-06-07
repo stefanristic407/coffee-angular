@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalsService } from '@services';
+import { AuthService, GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserserviceService } from '@services';
@@ -13,7 +13,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class CreateRoastingProfileComponent implements OnInit {
     appLanguage?: any;
-    roasterId: string;
+    roasterId: number;
     profileId: string;
     roastingForm: FormGroup;
     roastLevelArray: any = [];
@@ -27,8 +27,9 @@ export class CreateRoastingProfileComponent implements OnInit {
         private userService: UserserviceService,
         public toastrService: ToastrService,
         private fb: FormBuilder,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
 
     ngOnInit(): void {

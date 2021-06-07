@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { GreenGradingService } from '@services';
+import { AuthService, GreenGradingService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -87,8 +87,12 @@ export class ProcessDetailsComponent implements OnInit {
         dry: {},
     };
 
-    constructor(private greenGradingService: GreenGradingService, private cookieService: CookieService) {
-        this.roasterId = this.cookieService.get('roaster_id');
+    constructor(
+        private greenGradingService: GreenGradingService,
+        private cookieService: CookieService,
+        private authService: AuthService,
+    ) {
+        this.roasterId = this.authService.getOrgId();
     }
 
     ngOnInit(): void {

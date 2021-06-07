@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '@env/environment';
 import { StickerListItem } from '@models';
+import { AuthService } from '../auth';
 @Injectable({
     providedIn: 'root',
 })
@@ -302,7 +303,7 @@ export class ChatUtilService {
         { title: 'Roaster machine', name: 'roaster-machine', path: '' },
     ];
 
-    constructor(private cookieService: CookieService, private http: HttpClient) {
+    constructor(private cookieService: CookieService, private http: HttpClient, private authService: AuthService) {
         this.incomingAudioPlayer.load();
         this.outgoingAudioPlayer.load();
         this.prepareStickers();
@@ -359,26 +360,10 @@ export class ChatUtilService {
     }
 
     public get ORGANIZATION_ID(): number {
-        let idKey = '';
-        if (this.ORGANIZATION_TYPE === OrganizationType.ROASTER) {
-            idKey = 'roaster_id';
-        } else if (this.ORGANIZATION_TYPE === OrganizationType.ESTATE) {
-            idKey = 'estate_id';
-        } else if (this.ORGANIZATION_TYPE === OrganizationType.FACILITATOR) {
-            idKey = 'facilitator_id';
-        } else if (this.ORGANIZATION_TYPE === OrganizationType.MICRO_ROASTER) {
-            idKey = 'micro_roaster_id';
-        } else if (this.ORGANIZATION_TYPE === OrganizationType.HORECA) {
-            idKey = 'horeca_id';
-        } else if (this.ORGANIZATION_TYPE === OrganizationType.SEWN_ADMIN) {
-            return 0;
-        } else if (this.ORGANIZATION_TYPE === OrganizationType.CONSUMER) {
-            return 0;
-        }
-        return parseInt(this.cookieService.get(idKey), 10) || null;
+        return this.authService.getOrgId();
     }
     public get TOKEN(): string {
-        let userToken = this.cookieService.get('Auth')?.replace(/\r/g, '')?.split(/\n/)[0];
+        let userToken = this.authService.token?.replace(/\r/g, '')?.split(/\n/)[0];
         if (!userToken && this.ORGANIZATION_TYPE === OrganizationType.CONSUMER) {
             // Check token from Local storage for consumer user
             userToken = localStorage.getItem('coffeeToken') || '';
@@ -390,7 +375,7 @@ export class ChatUtilService {
         return userToken;
     }
     public get USER_ID(): number | null {
-        let userId = parseInt(this.cookieService.get('user_id'), 10) || null;
+        let userId = this.authService.userId;
         if (!userId && this.ORGANIZATION_TYPE === OrganizationType.CONSUMER) {
             let user = { id: null };
             try {

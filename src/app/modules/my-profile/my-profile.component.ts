@@ -69,8 +69,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             phone: [''],
             birthday: [''],
         });
-        this.roasterId = this.cookieService.get('roaster_id');
-        this.userId = this.cookieService.get('user_id');
+        this.roasterId = this.authService.getOrgId();
+        this.userId = this.authService.userId;
         this.queryUserId = this.activateRoute.snapshot.queryParamMap.get('user_id');
         this.queryOrganization = this.activateRoute.snapshot.queryParamMap.get('organization') || 'ro';
         this.getUserInfo();
@@ -258,7 +258,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             const formData: FormData = new FormData();
             formData.append('file', this.file);
             formData.append('api_call', '/ro/' + this.roasterId + '/users/' + this.userId + '/profile-image');
-            formData.append('token', this.cookieService.get('Auth'));
+            formData.append('token', this.authService.token);
             this.userOriginalService.uploadProfileImage(formData).subscribe((res: any) => {
                 console.log('upload image result >>>>>>>>>', res);
                 if (res.success) {

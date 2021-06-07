@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, QueryList, ViewChildren } from '@angular/core';
 import { Form, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GlobalsService, RoasterserviceService, UserserviceService, ECommerceService } from '@services';
+import { GlobalsService, RoasterserviceService, UserserviceService, ECommerceService, AuthService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
@@ -78,8 +78,9 @@ export class ProductDetailsComponent implements OnInit {
         private roasterService: RoasterserviceService,
         private userService: UserserviceService,
         private eCommerceService: ECommerceService,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
 
     ngOnInit(): void {

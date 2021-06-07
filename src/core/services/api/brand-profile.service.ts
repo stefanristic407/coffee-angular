@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import { OrganizationType } from '@enums';
+import { AuthService } from '../auth';
 
 @Injectable({
     providedIn: 'root',
@@ -14,8 +15,8 @@ import { OrganizationType } from '@enums';
 export class BrandProfileService extends ApiService {
     private readonly endpoint = 'general/es';
 
-    constructor(protected cookieSrv: CookieService, protected http: HttpClient) {
-        super(cookieSrv, http);
+    constructor(protected http: HttpClient, protected authService: AuthService) {
+        super(http, authService);
     }
 
     getEstateProfile(estateId: number): Observable<OrganizationDetails> {

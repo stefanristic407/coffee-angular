@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { maxWordCountValidator, fileCountValidator } from '@utils';
-import { GlobalsService } from '@services';
+import { AuthService, GlobalsService } from '@services';
 import { UserserviceService } from '@services';
 import { RoasterserviceService } from '@services';
 
@@ -15,7 +15,7 @@ import { RoasterserviceService } from '@services';
     styleUrls: ['./sustainability.component.scss'],
 })
 export class SustainabilityComponent implements OnInit {
-    roasterId: string;
+    roasterId: number;
     roasterSlug: string;
     breadItems: any[];
     infoForm: FormGroup;
@@ -28,8 +28,9 @@ export class SustainabilityComponent implements OnInit {
         private cookieService: CookieService,
         private userService: UserserviceService,
         private roasterService: RoasterserviceService,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         this.roasterSlug = this.cookieService.get('roasterSlug');
     }
 

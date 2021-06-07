@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
-import { GlobalsService, UserserviceService, RoasterserviceService } from '@services';
+import { GlobalsService, UserserviceService, RoasterserviceService, AuthService } from '@services';
 import { Location } from '@angular/common';
 
 @Component({
@@ -34,10 +34,11 @@ export class SendRecoveryEmailComponent implements OnInit {
         private toastrService: ToastrService,
         private fb: FormBuilder,
         public location: Location,
+        private authService: AuthService,
     ) {}
 
     ngOnInit(): void {
-        this.roasterID = this.cookieService.get('roaster_id');
+        this.roasterID = this.authService.getOrgId();
         this.currentRoleID = this.route.snapshot.queryParams.roleID
             ? Number(this.route.snapshot.queryParams.roleID)
             : '';

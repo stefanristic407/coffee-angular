@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
-import { UserserviceService } from '@services';
+import { AuthService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { PartnerOrganizationProfile } from '@models';
 import { OrganizationType } from '@enums';
+import { ProfileService } from '../profile.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class PartnerProfileService {
-    userId: string;
+    userId: number;
     horecaId: string;
     operatorUsers: any = [];
     operatorContacts: any = [];
-    roasterId: string;
+    roasterId: number;
     public organizationProfile: PartnerOrganizationProfile;
 
     constructor(
@@ -24,16 +25,17 @@ export class PartnerProfileService {
         public roasterService: RoasterserviceService,
         public toastrService: ToastrService,
         public router: Router,
+        private profileService: ProfileService,
+        private authService: AuthService,
     ) {
-        this.userId = this.cookieService.get('user_id');
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.userId = this.authService.userId;
+        this.roasterId = this.authService.getOrgId();
     }
 
     partnerProfile(horecaId) {
-        this.userService.getHorecaDetails(this.roasterId, horecaId).subscribe((result: any) => {
+        this.profileService.getGeneralProfileDetails(OrganizationType.HORECA, horecaId).subscribe((result: any) => {
             if (result.success) {
                 this.organizationProfile = result.result;
-                console.log('horeca details: ', this.organizationProfile);
             }
         });
         this.getcontactList(horecaId);

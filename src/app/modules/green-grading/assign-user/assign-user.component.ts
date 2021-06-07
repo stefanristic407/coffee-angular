@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService, RoasterserviceService, GreenGradingService } from '@services';
+import { GlobalsService, RoasterserviceService, GreenGradingService, AuthService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { LazyLoadEvent } from 'primeng/api';
 import { Location } from '@angular/common';
@@ -23,7 +23,7 @@ export class AssignUserComponent implements OnInit {
     keywords: string;
     totalCount = 0;
 
-    roasterId: string;
+    roasterId: number;
     orderId: any;
 
     statusList: any[] = [
@@ -52,13 +52,14 @@ export class AssignUserComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         public location: Location,
+        private authService: AuthService,
     ) {}
 
     ngOnInit(): void {
         this.route.params.subscribe(async (params) => {
             this.orderId = params.order_id;
         });
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         this.initializeTable();
         this.loading = true;
         this.getRoleList();

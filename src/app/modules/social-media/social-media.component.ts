@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GlobalsService, UserserviceService } from '@services';
+import { AuthService, GlobalsService, UserserviceService } from '@services';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -47,8 +47,9 @@ export class SocialMediaComponent implements OnInit {
         private toastrService: ToastrService,
         private router: Router,
         private downloads: DownloadService,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
 
     download(socialMediaItem) {

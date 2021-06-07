@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService, ApiRequestService } from '@services';
+import { GlobalsService, ApiRequestService, AuthService } from '@services';
 import * as moment from 'moment';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@app/shared';
@@ -31,7 +31,7 @@ export class GeneratedKeysComponent implements OnInit, OnChanges {
 
     display: any;
     showDisplay = true;
-    roasterID = '';
+    roasterID: number;
     loader = true;
 
     constructor(
@@ -40,10 +40,11 @@ export class GeneratedKeysComponent implements OnInit, OnChanges {
         private apiRequestService: ApiRequestService,
         public globals: GlobalsService,
         public dialogSrv: DialogService,
+        private authService: AuthService,
     ) {
         this.termStatus = '';
         this.display = '10';
-        this.roasterID = this.cookieService.get('roaster_id');
+        this.roasterID = this.authService.getOrgId();
     }
 
     ngOnChanges(): void {

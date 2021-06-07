@@ -3,17 +3,18 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
+import { AuthService } from '../auth';
 
 @Injectable({
     providedIn: 'root',
 })
 export class GreenGradingService extends ApiService {
-    constructor(protected http: HttpClient, protected cookieService: CookieService) {
-        super(cookieService, http);
+    constructor(protected http: HttpClient, protected authService: AuthService) {
+        super(http, authService);
     }
 
     getCuppingInviteList(options = null): Observable<any> {
-        const roasterId = this.cookieService.get('roaster_id');
+        const roasterId = this.getOrgId();
         const params = this.serializeParams(options);
         return this.post(this.orgPostUrl, `ro/${roasterId}/cupping-invite-list?${params}`, 'GET');
     }
@@ -81,7 +82,7 @@ export class GreenGradingService extends ApiService {
     }
 
     addEvaluators(cuppingReportId: any, body: any) {
-        const roasterId = Number(this.cookieService.get('roaster_id'));
+        const roasterId = Number(this.getOrgId());
         return this.post(
             this.orgPostUrl,
             `ro/${roasterId}/cupping-process/${cuppingReportId}/evaluators`,
@@ -99,7 +100,7 @@ export class GreenGradingService extends ApiService {
     }
 
     updateCuppingType(cuppingReportId: any, body: any): Observable<any> {
-        const roasterId = Number(this.cookieService.get('roaster_id'));
+        const roasterId = Number(this.getOrgId());
         return this.post(
             this.orgPostUrl,
             `ro/${roasterId}/cupping-process/${cuppingReportId}/cupping-type`,
@@ -170,7 +171,7 @@ export class GreenGradingService extends ApiService {
     }
 
     assignUser(orderId: string, userId: string) {
-        const roasterId = this.cookieService.get('roaster_id');
+        const roasterId = this.getOrgId();
         return this.post(this.orgPostUrl, `ro/${roasterId}/orders/${orderId}/users/${userId}/assign-evaluator`, 'PUT');
     }
 

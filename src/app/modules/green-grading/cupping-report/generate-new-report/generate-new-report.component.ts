@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GreenGradingService } from '@services';
+import { AuthService, GreenGradingService } from '@services';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { GenerateReportService } from '../../generate-report/generate-report.service';
@@ -35,8 +35,9 @@ export class GenerateNewReportComponent implements OnInit {
         public generateReportService: GenerateReportService,
         private greenGradingService: GreenGradingService,
         public dialogSrv: DialogService,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         this.route.queryParams.subscribe((params) => {
             this.cuppingReportId = params.id;
             this.requestType = params.requestType;

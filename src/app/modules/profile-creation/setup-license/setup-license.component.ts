@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, Input, EventEmitter, ElementRef, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
-import { UserserviceService } from '@services';
+import { AuthService, UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
@@ -37,8 +37,9 @@ export class SetupLicenseComponent implements OnInit {
         private cookieService: CookieService,
         private route: ActivatedRoute,
         public location: Location,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
 
     ngOnInit(): void {
@@ -146,7 +147,7 @@ export class SetupLicenseComponent implements OnInit {
             formData.append('name', certification.type);
             formData.append('year', this.selectedCertificationYear.toString());
             formData.append('api_call', `/ro/${this.roasterId}/certificates`);
-            formData.append('token', this.cookieService.get('Auth'));
+            formData.append('token', this.authService.token);
             formData.append('method', 'POST');
             this.userService.uploadCertificate(formData).subscribe((res: any) => {
                 if (res.success) {
@@ -179,7 +180,7 @@ export class SetupLicenseComponent implements OnInit {
                 'api_call',
                 `/ro/${this.roasterId}/certificates/${this.certificationArray[this.editingRowIndex].id}`,
             );
-            formData.append('token', this.cookieService.get('Auth'));
+            formData.append('token', this.authService.token);
             formData.append('method', 'PUT');
             this.userService.uploadCertificate(formData).subscribe((res: any) => {
                 if (res.success) {

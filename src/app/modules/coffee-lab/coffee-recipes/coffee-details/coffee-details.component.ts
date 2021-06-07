@@ -31,7 +31,7 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
         public location: Location,
         public authService: AuthService,
     ) {
-        this.organizationId = this.cookieService.get('roaster_id');
+        this.organizationId = this.authService.getOrgId();
         this.activatedRoute.params.subscribe((params) => {
             this.id = params.id;
             this.getCoffeeDetails(true);

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { RoasteryProfileService } from '../roastery-profile.service';
-import { AclService, ChatHandlerService, UserService, UserserviceService } from '@services';
+import { AclService, AuthService, ChatHandlerService, UserService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
@@ -109,9 +109,10 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
         private router: Router,
         private chatHandler: ChatHandlerService,
         private aclService: AclService,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
-        this.userId = this.cookieService.get('user_id');
+        this.roasterId = this.authService.getOrgId();
+        this.userId = this.authService.userId;
     }
 
     ngOnInit(): void {
@@ -338,7 +339,7 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
         data.append('description', this.brandForm.controls.description.value);
         data.append('file', this.brandFile);
         data.append('api_call', `/ro/${this.roasterId}/brands`);
-        data.append('token', this.cookieService.get('Auth'));
+        data.append('token', this.authService.token);
         this.roasterService.addRoasterBrand(data).subscribe((res) => {
             this.cancelAddBrand();
             this.getBrands();
@@ -358,7 +359,7 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
             data.append('file', this.brandFile);
         }
         data.append('api_call', `/ro/${this.roasterId}/brands/${this.toEditBrand.id}`);
-        data.append('token', this.cookieService.get('Auth'));
+        data.append('token', this.authService.token);
         data.append('method', 'PUT');
         this.roasterService.updateRoasterBrand(data).subscribe((res) => {
             this.cancelAddBrand();

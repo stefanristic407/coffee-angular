@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { maxWordCountValidator, fileCountValidator } from '@utils';
-import { GlobalsService, RoasterserviceService, UserserviceService } from '@services';
+import { AuthService, GlobalsService, RoasterserviceService, UserserviceService } from '@services';
 import { ConfirmComponent } from '@shared';
 
 @Component({
@@ -14,7 +14,7 @@ import { ConfirmComponent } from '@shared';
     styleUrls: ['./about-us.component.scss'],
 })
 export class AboutUsComponent implements OnInit {
-    roasterId: string;
+    roasterId: number;
     roasterSlug: string;
     breadItems: any[];
     infoForm: FormGroup;
@@ -51,8 +51,9 @@ export class AboutUsComponent implements OnInit {
         public userService: UserserviceService,
         public route: Router,
         public roasterService: RoasterserviceService,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         this.roasterSlug = this.cookieService.get('roasterSlug');
     }
 

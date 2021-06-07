@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { UserserviceService } from '@services';
+import { AuthService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { COUNTRY_LIST } from '@constants';
@@ -31,8 +31,9 @@ export class VatDetailsComponent implements OnInit {
         public cookieService: CookieService,
         public userService: UserserviceService,
         private fb: FormBuilder,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
 
     ngOnInit(): void {

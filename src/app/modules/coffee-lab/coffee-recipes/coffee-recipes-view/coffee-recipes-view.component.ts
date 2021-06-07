@@ -74,7 +74,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.organizationId = +this.cookieService.get('roaster_id');
+        this.organizationId = this.authService.getOrgId();
         this.coffeeLabService.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
             this.forumLanguage = language;
             this.getCoffeeRecipesData();

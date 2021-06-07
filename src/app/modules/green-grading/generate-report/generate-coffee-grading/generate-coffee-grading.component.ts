@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnChanges, Output, Input } from '@angular/core';
-import { GreenGradingService } from '@services';
+import { AuthService, GreenGradingService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -154,8 +154,9 @@ export class GenerateCoffeeGradingComponent implements OnChanges {
         public cookieService: CookieService,
         private toastrService: ToastrService,
         private router: Router,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
 
     ngOnChanges(): void {

@@ -1,5 +1,5 @@
 import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
-import { GlobalsService, PrimeTableService, ResizeService, RoasterserviceService } from '@services';
+import { AuthService, GlobalsService, PrimeTableService, ResizeService, RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { COUNTRY_LIST } from '@constants';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -63,9 +63,10 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
         public primeTableService: PrimeTableService,
         private toastrService: ToastrService,
         protected resizeService: ResizeService,
+        private authService: AuthService,
     ) {
         super(resizeService);
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         this.primeTableService.rows = 10;
         this.primeTableService.sortBy = 'order_date';
     }

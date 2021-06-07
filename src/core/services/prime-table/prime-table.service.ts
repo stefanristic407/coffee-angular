@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Table } from 'primeng/table';
+import { AuthService } from '../auth';
 
 @Injectable({
     providedIn: 'root',
@@ -48,8 +49,8 @@ export class PrimeTableService {
     public searchQuery: any;
     public customer_type: any;
     public isMarkedForSale = false;
-    constructor(public http: HttpClient, public cookieService: CookieService) {
-        this.roasterId = this.cookieService.get('roaster_id');
+    constructor(public http: HttpClient, public cookieService: CookieService, private authService: AuthService) {
+        this.roasterId = this.authService.getOrgId();
     }
 
     getData(event: any) {
@@ -136,7 +137,7 @@ export class PrimeTableService {
         const data = {
             api_call: this.url + '?' + this.serlialise(postData),
             method: 'GET',
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
         };
 
         this.sub = this.http

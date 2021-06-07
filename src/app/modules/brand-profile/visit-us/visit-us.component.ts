@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { COUNTRY_LIST } from '@constants';
 import { maxWordCountValidator } from '@utils';
-import { BrandService, GeneralService, GlobalsService, UserserviceService } from '@services';
+import { AuthService, BrandService, GeneralService, GlobalsService, UserserviceService } from '@services';
 import { ConfirmComponent } from '@shared';
 import * as _ from 'underscore';
 
@@ -18,7 +18,7 @@ import * as _ from 'underscore';
 })
 export class VisitUsComponent implements OnInit {
     public readonly COUNTRY_LIST = COUNTRY_LIST;
-    roasterId: string;
+    roasterId: number;
     roasterSlug: string;
     breadItems: any[];
     infoForm: FormGroup;
@@ -44,8 +44,9 @@ export class VisitUsComponent implements OnInit {
         private userService: UserserviceService,
         public generalService: GeneralService,
         private brandService: BrandService,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         this.roasterSlug = this.cookieService.get('roasterSlug');
     }
     ngOnInit(): void {

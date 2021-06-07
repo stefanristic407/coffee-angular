@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, OnInit, Output, EventEmitter } from '@angu
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from '@services';
+import { AuthService, GlobalsService } from '@services';
 import { RoasteryProfileService } from '@services';
 import { RoasterserviceService } from '@services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     styleUrls: ['./roaster-agreement-form.component.scss'],
 })
 export class RoasterAgreementFormComponent implements OnInit, OnChanges {
-    roasterId: string;
+    roasterId: number;
     agreementfileId: any;
     itemId: any;
     horecaFormGroup: FormGroup;
@@ -41,8 +41,9 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
         private formBuilder: FormBuilder,
         private activatedRoute: ActivatedRoute,
         public globals: GlobalsService,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         this.customerType = this.activatedRoute.snapshot.params.customerType;
         this.selectedItemId = this.activatedRoute.snapshot.params.itemId;
     }
