@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalsService } from '@services';
+import { AuthService, GlobalsService } from '@services';
 import { CustomerServiceService } from '../customer-service.service';
 import { UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class DiscountEditComponent implements OnInit {
     appLanguage?: any;
-    roasterId: string;
+    roasterId: number;
     constructor(
         public globals: GlobalsService,
         public customerService: CustomerServiceService,
@@ -21,8 +21,9 @@ export class DiscountEditComponent implements OnInit {
         private toastrService: ToastrService,
         public route: ActivatedRoute,
         private router: Router,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
     ngOnInit(): void {
         this.appLanguage = this.globals.languageJson;

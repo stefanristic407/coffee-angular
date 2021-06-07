@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     styleUrls: ['./roaster-agreement-form.component.scss'],
 })
 export class RoasterAgreementFormComponent implements OnInit, OnChanges {
-    roasterId: string;
+    roasterId: number;
     agreementfileId: any;
     itemId: any;
     horecaFormGroup: FormGroup;
@@ -42,7 +42,7 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
         public globals: GlobalsService,
         private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         this.customerType = this.activatedRoute.snapshot.params.customerType;
         this.selectedItemId = this.activatedRoute.snapshot.params.itemId;
     }
@@ -166,7 +166,6 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
                 formData.append('file', file, file.name);
                 formData.append('name', this.fileNameValue);
                 formData.append('file_module', 'Agreements');
-                this.roasterId = this.cookieService.get('roaster_id');
                 formData.append('api_call', '/ro/' + this.roasterId + '/file-manager/files');
                 formData.append('token', this.authService.token);
                 this.roasterService.uploadFiles(formData).subscribe((result: any) => {
@@ -213,7 +212,6 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
             formData.append('file', file, file.name);
             formData.append('name', this.fileNameValue);
             formData.append('file_module', 'Agreements');
-            this.roasterId = this.cookieService.get('roaster_id');
             formData.append('api_call', '/ro/' + this.roasterId + '/file-manager/files');
             formData.append('token', this.authService.token);
             this.roasterService.uploadFiles(formData).subscribe((result: any) => {

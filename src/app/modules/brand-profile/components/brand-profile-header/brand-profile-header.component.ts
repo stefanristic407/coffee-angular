@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { GlobalsService } from '@services';
+import { AuthService, GlobalsService } from '@services';
 
 @Component({
     selector: 'app-brand-profile-header',
@@ -21,9 +21,13 @@ export class BrandProfileHeaderComponent implements OnInit {
         'visit-us': 'Add details according to respective sections to create your brand profile website',
     };
 
-    constructor(private cookieService: CookieService, public globals: GlobalsService) {
+    constructor(
+        private cookieService: CookieService,
+        public globals: GlobalsService,
+        private authService: AuthService,
+    ) {
         this.roasterSlug = this.cookieService.get('roasterSlug');
-        this.orgId = +this.cookieService.get('roaster_id');
+        this.orgId = this.authService.getOrgId();
     }
 
     ngOnInit(): void {

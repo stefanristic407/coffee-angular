@@ -32,7 +32,7 @@ export class ProfileCertificatesEditComponent implements OnInit {
         private dialogSrv: DialogService,
         private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         this.userId = this.cookieService.get('user_id');
     }
 

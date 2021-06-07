@@ -96,7 +96,7 @@ export class ApiService {
     }
 
     protected getOrgId(): number {
-        return this.authService.orgId;
+        return this.authService.getOrgId();
     }
 
     protected getUserId(): number {

@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService, ResizeService, RoasterserviceService, UserserviceService } from '@services';
+import { AuthService, GlobalsService, ResizeService, RoasterserviceService, UserserviceService } from '@services';
 import { OrganizationType, OrderType, OrderStatus } from '@enums';
 import { ResizeableComponent } from '@base-components';
 
@@ -37,9 +37,10 @@ export class RatingComponent extends ResizeableComponent implements OnInit {
         public cookieService: CookieService,
         private toastrService: ToastrService,
         protected resizeService: ResizeService,
+        private authService: AuthService,
     ) {
         super(resizeService);
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         this.route.paramMap.subscribe((params) => {
             if (params.has('orgType') && params.has('orderId')) {
                 this.orgType = params.get('orgType') as OrganizationType;

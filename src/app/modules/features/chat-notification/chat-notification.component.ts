@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserserviceService, ChatHandlerService } from '@services';
+import { UserserviceService, ChatHandlerService, AuthService } from '@services';
 import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
 import { RoasterserviceService } from '@services';
@@ -23,7 +23,7 @@ export class ChatNotificationComponent implements OnInit {
     showRelavant: boolean = true;
     farmSize: string;
     quantity: string;
-    roasterId: string;
+    roasterId: number;
     appLanguage?: any;
     preferActive: any = 0;
     resetButtonValue: string = 'Save changes';
@@ -34,8 +34,9 @@ export class ChatNotificationComponent implements OnInit {
         public cookieService: CookieService,
         public globals: GlobalsService,
         private chatHandlerService: ChatHandlerService,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
 
     ngOnInit(): void {

@@ -95,7 +95,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
             });
 
         this.updateActiveLinkState();
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         this.userId = this.cookieService.get('user_id');
         const promises = [];
         promises.push(

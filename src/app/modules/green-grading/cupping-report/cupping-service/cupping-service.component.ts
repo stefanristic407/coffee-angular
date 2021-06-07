@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { GlobalsService } from '@services';
+import { AuthService, GlobalsService } from '@services';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { GreenGradingService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CuppingServiceComponent implements OnInit {
     breadCrumbItems: MenuItem[];
-    roasterId: string;
+    roasterId: number;
     viewType = true;
     serviceId: string;
     cuppingReportId: string;
@@ -146,12 +146,13 @@ export class CuppingServiceComponent implements OnInit {
         private location: Location,
         private toastrService: ToastrService,
         private greenGradingService: GreenGradingService,
+        private authService: AuthService,
     ) {
         this.route.queryParams.subscribe((params) => {
             this.serviceId = params.serviceId;
             this.cuppingReportId = params.cuppingReportId;
             this.requestType = params.requestType;
-            this.roasterId = this.cookieService.get('roaster_id');
+            this.roasterId = this.authService.getOrgId();
             this.ViewCuppingInviteList();
             this.getCuppingScoreDetails();
             this.getEvaluators();

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, Input, OnChanges } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { GreenGradingService } from '@services';
+import { AuthService, GreenGradingService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -15,7 +15,7 @@ export class GenerateCuppingReportComponent implements OnInit, OnChanges {
     @Input() cuppingDetails;
     @Input() selectedCuppingId;
     @Input() fromQueryParam;
-    roasterId: string;
+    roasterId: number;
     evaluatorData: any;
     evaluatorName: any;
     cuppingReportId: any;
@@ -32,8 +32,9 @@ export class GenerateCuppingReportComponent implements OnInit, OnChanges {
         private toastrService: ToastrService,
         private cookieService: CookieService,
         private greenGradingService: GreenGradingService,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
 
     ngOnInit(): void {}

@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, AfterViewInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
-import { CommonService, GlobalsService, RoasterserviceService, UserserviceService } from '@services';
+import { AuthService, CommonService, GlobalsService, RoasterserviceService, UserserviceService } from '@services';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -57,6 +57,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
         public sharedService: SharedServiceService,
         public dialogSrv: DialogService,
         private commonService: CommonService,
+        private authService: AuthService,
     ) {}
 
     ngOnInit(): void {
@@ -71,7 +72,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
             { name: 'Pending', value: 'pending' },
         ];
         this.loginId = this.cookieService.get('user_id');
-        this.roasterID = this.cookieService.get('roaster_id');
+        this.roasterID = this.authService.getOrgId();
         this.route.queryParams.subscribe((params) => {
             this.currentRoleID = Number(params.roleID);
             this.isAddMember = params.isAddMember && params.isAddMember === 'true' ? true : false;

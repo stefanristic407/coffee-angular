@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
-import { UserserviceService, GlobalsService, OriginService, CommonService } from '@services';
+import { UserserviceService, GlobalsService, OriginService, CommonService, AuthService } from '@services';
 import * as _ from 'underscore';
 import { OrganizationType, QuantityUnit } from '@enums';
 import { ApiResponse } from '@models';
@@ -11,7 +11,7 @@ import { DropdownItem } from 'primeng/dropdown';
     providedIn: 'root',
 })
 export class SourcingService {
-    roasterId: string;
+    roasterId: number;
 
     finalCertify: any;
 
@@ -65,8 +65,9 @@ export class SourcingService {
         private commonService: CommonService,
         private originService: OriginService,
         private cookieService: CookieService,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         this.getEstateCertificates();
         this.flavourprofileList();
         this.getOrigins();

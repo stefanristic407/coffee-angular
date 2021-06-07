@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AclService, RoasterserviceService, UserserviceService } from '@services';
+import { AclService, AuthService, RoasterserviceService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem, TreeNode } from 'primeng/api';
@@ -37,8 +37,9 @@ export class CreateRoleComponent implements OnInit {
         private userService: UserserviceService,
         private toasterService: ToastrService,
         private fb: FormBuilder,
+        private authService: AuthService,
     ) {
-        this.roasterID = this.cookieService.get('roaster_id');
+        this.roasterID = this.authService.getOrgId();
         this.activeRoute.params.subscribe((params) => {
             this.roleID = params.id ? params.id : '';
             this.btnValue = this.roleID ? 'Update Role' : 'Add Role';

@@ -69,7 +69,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             phone: [''],
             birthday: [''],
         });
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         this.userId = this.cookieService.get('user_id');
         this.queryUserId = this.activateRoute.snapshot.queryParamMap.get('user_id');
         this.queryOrganization = this.activateRoute.snapshot.queryParamMap.get('organization') || 'ro';

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService, ApiRequestService } from '@services';
+import { GlobalsService, ApiRequestService, AuthService } from '@services';
 import { MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@app/shared';
@@ -22,7 +22,7 @@ export class ApiRequestDetailsComponent implements OnInit {
     showStatus = true;
     isDeletedApiKey = false;
     generatedKeyStep = 0;
-    roasterID = '';
+    roasterID: number;
     keyId = '';
     requestDetailData: any;
     apiKeyId = '';
@@ -36,9 +36,10 @@ export class ApiRequestDetailsComponent implements OnInit {
         private route: ActivatedRoute,
         public globals: GlobalsService,
         public dialogSrv: DialogService,
+        private authService: AuthService,
     ) {
         this.termStatus = '';
-        this.roasterID = this.cookieService.get('roaster_id');
+        this.roasterID = this.authService.getOrgId();
         this.route.queryParams.subscribe((params) => {
             const paramsData = JSON.parse(JSON.stringify(params));
             this.keyId = paramsData.id;

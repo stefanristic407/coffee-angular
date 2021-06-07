@@ -39,7 +39,7 @@ export class SetupLicenseComponent implements OnInit {
         public location: Location,
         private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
 
     ngOnInit(): void {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { RoasterserviceService } from '@services';
+import { AuthService, RoasterserviceService } from '@services';
 import { GlobalsService } from '@services';
 import * as moment from 'moment';
 import { CookieService } from 'ngx-cookie-service';
@@ -38,10 +38,11 @@ export class SelectOrderComponent implements OnInit {
         private toastrService: ToastrService,
         public route: ActivatedRoute,
         public activeRoute: ActivatedRoute,
+        private authService: AuthService,
     ) {}
 
     ngOnInit(): void {
-        this.roasterID = this.cookieService.get('roaster_id');
+        this.roasterID = this.authService.getOrgId();
         this.loadFilterValues();
         this.createRoasterTable();
         if (this.activeRoute.snapshot.queryParams.id) {

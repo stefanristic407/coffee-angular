@@ -111,7 +111,7 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
         private aclService: AclService,
         private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         this.userId = this.cookieService.get('user_id');
     }
 

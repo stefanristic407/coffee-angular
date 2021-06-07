@@ -41,7 +41,7 @@ export class GateComponent extends DestroyableComponent implements OnInit {
     private checkToken() {
         this.route.queryParamMap.pipe(takeUntil(this.unsubscribeAll$)).subscribe((params) => {
             if (params.has('orgId')) {
-                const orgId = params.get('orgId');
+                const orgId = +params.get('orgId');
                 if (params.has('loginType') && params.get('loginType') === 'sim') {
                     this.authService.isSimulated = true;
                 }
@@ -57,7 +57,7 @@ export class GateComponent extends DestroyableComponent implements OnInit {
                     this.cookieService.delete(key);
                 });
 
-                this.cookieService.set('roaster_id', orgId);
+                this.authService.setOrgId(orgId);
                 this.getData();
             } else {
                 this.goToLogin();

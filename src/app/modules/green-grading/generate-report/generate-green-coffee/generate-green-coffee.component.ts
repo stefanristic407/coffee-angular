@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, OnChanges, Output, Input } from '@angular/core';
-import { RoasterserviceService, GreenGradingService } from '@services';
+import { RoasterserviceService, GreenGradingService, AuthService } from '@services';
 import { UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
@@ -26,7 +26,7 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
     @Output() showDetail = new EventEmitter<any>();
     @Input() cuppingDetails;
     @Input() fromQueryParam;
-    roasterId: string;
+    roasterId: number;
     usersList: any = [];
     cuppingReportId: any;
     evaluatorsListArray: any = [];
@@ -44,13 +44,13 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
     constructor(
         private roasterService: RoasterserviceService,
         private toastrService: ToastrService,
-        // private userService: UserserviceService,
         private greenGradingService: GreenGradingService,
         public cookieService: CookieService,
         private primengConfig: PrimeNGConfig,
         private router: Router,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
 
     ngOnInit(): void {

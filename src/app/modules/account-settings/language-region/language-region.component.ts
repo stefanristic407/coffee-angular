@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment-timezone';
-import { GlobalsService, I18NService, UserService, UserserviceService } from '@services';
+import { AuthService, GlobalsService, I18NService, UserService, UserserviceService } from '@services';
 import { Location } from '@angular/common';
 import { APP_LANGUAGES, languages } from '@constants';
 import { ToastrService } from 'ngx-toastr';
@@ -31,8 +31,9 @@ export class LanguageRegionComponent implements OnInit {
         private toastr: ToastrService,
         private cookieService: CookieService,
         public globals: GlobalsService,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
 
     ngOnInit(): void {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { GlobalsService, RoasterserviceService, UserserviceService } from '@services';
+import { AuthService, GlobalsService, RoasterserviceService, UserserviceService } from '@services';
 import { OrganizationType, OrderType, OrderStatus } from '@enums';
 
 @Component({
@@ -28,8 +28,9 @@ export class ReviewRatingsComponent implements OnInit {
         public globals: GlobalsService,
         public roasterSrv: RoasterserviceService,
         public userSrv: UserserviceService,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         this.route.paramMap.subscribe((params) => {
             if (params.has('orgType') && params.has('orderId')) {
                 this.orgType = params.get('orgType') as OrganizationType;

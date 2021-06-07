@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from '@services';
+import { AuthService, GlobalsService } from '@services';
 import { UserserviceService } from '@services';
 import { RoasterserviceService } from '@services';
 import { WelcomeService } from './welcome.service';
@@ -15,7 +15,8 @@ import { WelcomeService } from './welcome.service';
 export class RoasterDashboardComponent implements OnInit {
     appLanguage?: any;
     userName = '';
-    roasterId: string;
+    roasterId: number;
+
     constructor(
         private router: Router,
         private cookieService: CookieService,
@@ -24,11 +25,12 @@ export class RoasterDashboardComponent implements OnInit {
         private roasterSrv: RoasterserviceService,
         private toastrService: ToastrService,
         private welcomeSrv: WelcomeService,
+        private authService: AuthService,
     ) {}
 
     ngOnInit(): void {
         this.userName = this.cookieService.get('userName');
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
 
         this.appLanguage = this.globals.languageJson;
 

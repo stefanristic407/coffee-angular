@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GlobalsService, ResizeService, ECommerceService, FileService } from '@services';
+import { GlobalsService, ResizeService, ECommerceService, FileService, AuthService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
@@ -82,9 +82,10 @@ export class OtherProductDetailsComponent extends ResizeableComponent implements
         private fileService: FileService,
         private eCommerceService: ECommerceService,
         protected resizeService: ResizeService,
+        private authService: AuthService,
     ) {
         super(resizeService);
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
 
     ngOnInit(): void {

@@ -41,7 +41,7 @@ export class RaiseTicketComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.roasterID = this.cookieService.get('roaster_id');
+        this.roasterID = this.authService.getOrgId();
         this.route.params.subscribe((params) => {
             this.orderID = params.orderId ? params.orderId : '';
             this.getOrderDetails();

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DownloadService, FileService, GlobalsService, RoasterserviceService } from '@services';
+import { AuthService, DownloadService, FileService, GlobalsService, RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
@@ -72,8 +72,9 @@ export class DefaultSettingsComponent implements OnInit {
         public dialogSrv: DialogService,
         public downloadService: DownloadService,
         private fileService: FileService,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         this.setMenuItems();
     }
 
