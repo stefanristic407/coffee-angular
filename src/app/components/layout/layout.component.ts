@@ -123,6 +123,11 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         const promises = [];
 
         promises.push(
+            new Promise((resolve, reject) => {
+                this.getUserPermissions(resolve);
+            }),
+        );
+        promises.push(
             new Promise((resolve) => {
                 this.getUserDetail(resolve);
             }),
@@ -166,6 +171,55 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                     this.showMobFooter = true;
                 }
             });
+    }
+
+    private verifyToken(resolve, reject) {
+        this.idmService.verifyToken().subscribe((res: any) => {
+            if (res.success === true) {
+                this.checkOrgRes(res.result);
+                if (res.result?.roasters) {
+                    this.authService.setOrgId(res.result.roasters.id);
+                    resolve();
+                } else {
+                    reject();
+                }
+            } else {
+                reject();
+            }
+        });
+    }
+
+    private getUserPermissions(resolve) {
+        this.userService.getUserPermissions().subscribe((res: any) => {
+            if (res.success) {
+                this.aclService.loadPermission(res.result);
+            }
+            resolve();
+        });
+    }
+
+    private getUserDetail(resolve) {
+        this.userService.getUserDetail().subscribe((res: any) => {
+            if (res.success) {
+                this.userTermsAccepted = res.result.terms_accepted;
+                this.coffeeLabService.forumLanguage.next(res.result.language || 'en');
+                this.authService.userSubject.next(res.result);
+                this.i18NService.use(res.result.language || 'en');
+            }
+            resolve();
+        });
+    }
+
+    private getOrgProfile(resolve) {
+        this.userService.getOrgDetail().subscribe((res: any) => {
+            if (res.result) {
+                this.orgTermsAccepted = res.result.terms_accepted || !('terms_accepted' in res.result);
+                this.authService.organizationSubject.next(res.result);
+                resolve();
+            } else {
+                this.router.navigate(['/gate']);
+            }
+        });
     }
 
     viewPortSizeChanged = () => {
@@ -370,35 +424,10 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         }
     }
 
-    getUserDetail(resolve) {
-        this.aclService.loadPermission();
-        this.userService.getUserDetail().subscribe((res: any) => {
-            if (res.success) {
-                this.userTermsAccepted = res.result.terms_accepted;
-                this.coffeeLabService.forumLanguage.next(res.result.language || 'en');
-                this.authService.userSubject.next(res.result);
-                this.i18NService.use(res.result.language || 'en');
-            }
-            resolve();
-        });
-    }
-
     getLoggedInUserRoles() {
         this.roasterService.getLoggedinUserRoles(this.roasterId).subscribe((res: any) => {
             if (res.success) {
                 this.rolename = res.result[0].name;
-            }
-        });
-    }
-
-    getOrgProfile(resolve) {
-        this.userService.getOrgDetail().subscribe((res: any) => {
-            if (res.result) {
-                this.orgTermsAccepted = res.result.terms_accepted || !('terms_accepted' in res.result);
-                this.authService.organizationSubject.next(res.result);
-                resolve();
-            } else {
-                this.router.navigate(['/gate']);
             }
         });
     }
@@ -464,22 +493,6 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
 
     showFooter() {
         return !this.router.url.includes('/dispute-system/order-chat/');
-    }
-
-    verifyToken(resolve, reject) {
-        this.idmService.verifyToken().subscribe((res: any) => {
-            if (res.success === true) {
-                this.checkOrgRes(res.result);
-                if (res.result?.roasters) {
-                    this.authService.setOrgId(res.result.roasters.id);
-                    resolve();
-                } else {
-                    reject();
-                }
-            } else {
-                reject();
-            }
-        });
     }
 
     checkOrgRes(orgRes: any) {

@@ -19,7 +19,6 @@ import * as _ from 'underscore';
 export class VisitUsComponent implements OnInit {
     public readonly COUNTRY_LIST = COUNTRY_LIST;
     roasterId: number;
-    roasterSlug: string;
     breadItems: any[];
     infoForm: FormGroup;
     profileForm: FormGroup;
@@ -47,7 +46,6 @@ export class VisitUsComponent implements OnInit {
         private authService: AuthService,
     ) {
         this.roasterId = this.authService.getOrgId();
-        this.roasterSlug = this.cookieService.get('roasterSlug');
     }
     ngOnInit(): void {
         this.breadItems = [

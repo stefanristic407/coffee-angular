@@ -203,7 +203,6 @@ export class CreateRoleComponent implements OnInit {
             .subscribe((permissionResult: any) => {
                 if (permissionResult.success) {
                     this.toasterService.success('Permission Updated successfully for Edited role.');
-                    this.aclService.loadPermission();
                 } else {
                     if (!permissionResult.success) {
                         this.toasterService.error('System role permissions cannot be altered');
