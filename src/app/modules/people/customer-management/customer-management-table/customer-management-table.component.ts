@@ -45,7 +45,6 @@ export class CustomerManagementTableComponent implements OnInit {
             } else {
                 this.customer.pendingHorecaDetails();
             }
-
             this.router.navigate(['/people/pending-details']);
         } else {
             const navigationExtras: NavigationExtras = {

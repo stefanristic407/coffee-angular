@@ -196,7 +196,6 @@ export class CustomerServiceService {
                 this.pendingStatus = this.pendingHorecaList.status;
                 this.pendingType = this.pendingHorecaList.type;
                 this.headerValue = 'HoReCa';
-                console.log(this.pendingHorecaList);
             }
         });
     }

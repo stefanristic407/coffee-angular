@@ -6,18 +6,14 @@ import { SharedModule } from './../../shared/shared.module';
 import { RoasterAgreementsComponent } from './agreement/roaster-agreements/roaster-agreements.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { RoasterAgreementFormComponent } from './agreement/roaster-agreement-form/roaster-agreement-form.component';
-
+import { SalesUploaderComponent } from './sales-uploader/sales-uploader.component';
 @NgModule({
-  declarations: [
-    AgreementComponent,
-    RoasterAgreementsComponent,
-    RoasterAgreementFormComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    SalesContractRoutingModule,
-    Ng2SearchPipeModule,
-  ]
+    declarations: [
+        AgreementComponent,
+        RoasterAgreementsComponent,
+        RoasterAgreementFormComponent,
+        SalesUploaderComponent,
+    ],
+    imports: [CommonModule, SharedModule, SalesContractRoutingModule, Ng2SearchPipeModule],
 })
-export class SalesContractModule { }
+export class SalesContractModule {}

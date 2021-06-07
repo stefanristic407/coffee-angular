@@ -4,6 +4,7 @@ import { PeopleComponent } from './people.component';
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
 import { CustomerDetailsComponent } from './customer-management/customer-details/customer-details.component';
 import { AuthGuard } from '@guards';
+import { CustomerPortalInfoComponent } from './customer-management/customer-portal-info/customer-portal-info.component';
 
 const routes: Routes = [
     {

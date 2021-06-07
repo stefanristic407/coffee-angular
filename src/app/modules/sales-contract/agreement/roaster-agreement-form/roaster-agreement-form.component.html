@@ -7,7 +7,7 @@
             {{ 'upload_new_agreement' | translate }}
         </h4>
     </div>
-    <form [formGroup]="horecaFormGroup">
+    <form [formGroup]="horecaFormGroup" class="overflow-hidden">
         <div class="invite-to">
             <div class="pb-2 mt-md-4 pt-md-3 sewn-form-field">
                 <label class="fnt-16 fnt-700 fnt-muli text-clr02 mb-0">
@@ -40,7 +40,7 @@
                     placeholder="Select customer"
                 >
                 </p-dropdown>
-                <small class="p-error" *ngIf="horecaFormGroup.controls.customerId.errors?.required">
+                <small class="p-error mt-md-2" *ngIf="horecaFormGroup.controls.customerId.errors?.required">
                     {{ 'please_select_customer' | translate }}
                 </small>
             </div>
@@ -53,17 +53,14 @@
                         {{ 'please_upload_document' | translate }}</span
                     >
                     <div class="d-flex foot-section mb-2 mb-md-4 mt-2 mt-md-3 pb-md-1">
-                        <div>
-                            <label class="btn-trans-icon upload-icon">
-                                <input
-                                    class="d-none"
-                                    accept="application/pdf"
-                                    type="file"
-                                    (change)="uploadFile($event)"
-                                />
-                                {{ 'upload' | translate }}
-                            </label>
-                            <span class="value-name pl-3">{{ fileNameValue }}</span>
+                        <div class="w-50">
+                            <app-sales-uploader
+                                formControlName="file_id"
+                                [fileDetails]="fileDetails"
+                            ></app-sales-uploader>
+                            <small *ngIf="horecaFormGroup.controls.file_id.errors?.required" class="p-error">
+                                Please upload
+                            </small>
                         </div>
                         <div class="align-btn">
                             <div *ngIf="!isUpdate">
