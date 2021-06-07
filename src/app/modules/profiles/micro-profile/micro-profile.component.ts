@@ -3,6 +3,7 @@ import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { MicroProfileService } from './micro-profile.service';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-micro-profile',
@@ -19,6 +20,7 @@ export class MicroProfileComponent implements OnInit, OnDestroy {
         public globals: GlobalsService,
         public cookieService: CookieService,
         private route: ActivatedRoute,
+        public location: Location,
     ) {
         this.tabIndex = 0;
     }

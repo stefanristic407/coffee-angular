@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalsService } from '@services';
@@ -18,6 +19,7 @@ export class PartnerProfileComponent implements OnInit {
         public globals: GlobalsService,
         public cookieService: CookieService,
         private route: ActivatedRoute,
+        public location: Location,
     ) {}
 
     ngOnInit(): void {

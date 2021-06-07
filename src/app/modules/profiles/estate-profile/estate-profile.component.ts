@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalsService } from '@services';
@@ -19,6 +20,7 @@ export class EstateProfileComponent implements OnInit {
         public globals: GlobalsService,
         public cookieService: CookieService,
         private route: ActivatedRoute,
+        public location: Location,
     ) {
         this.tabIndex = 0;
         this.estateId = this.route.snapshot.params?.id || ''; // 23
