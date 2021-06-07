@@ -61,7 +61,10 @@ export class BrandProfileComponent implements OnInit {
         if (this.slug) {
             this.roasterSrv.updateRoasterSlug(this.roasterId, this.slug).subscribe((res: any) => {
                 if (res.success) {
-                    this.cookieService.set('roasterSlug', this.slug);
+                    this.authService.organizationSubject.next({
+                        ...this.authService.currentOrganization,
+                        slug: this.slug,
+                    });
                     this.roasterSlug = this.slug;
                     this.toastrService.success('Slug updated successfully');
                 } else {
