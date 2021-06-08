@@ -97,16 +97,16 @@ export class ForumMenuComponent implements OnInit {
         let url = '';
         switch (this.forumType) {
             case 'question':
-                url = `${environment.roasterWeb}/coffee-lab/questions/${this.selectedItem.slug}`;
+                url = `${environment.estatesWeb}/coffee-lab/questions/${this.selectedItem.slug}`;
                 break;
             case 'article':
-                url = `${environment.roasterWeb}/coffee-lab/articles/${this.selectedItem.slug}`;
+                url = `${environment.estatesWeb}/coffee-lab/articles/${this.selectedItem.slug}`;
                 break;
             case 'recipe':
-                url = `${environment.roasterWeb}/coffee-lab/recipes/${this.selectedItem.slug}`;
+                url = `${environment.estatesWeb}/coffee-lab/recipes/${this.selectedItem.slug}`;
                 break;
             case 'answer':
-                url = `${environment.roasterWeb}/coffee-lab/questions/${this.extraInfo}?answer=${this.selectedItem.id}`;
+                url = `${environment.estatesWeb}/coffee-lab/questions/${this.extraInfo.slug}?answer=${this.selectedItem.id}`;
                 break;
             case 'comment':
                 break;
@@ -173,11 +173,12 @@ export class ForumMenuComponent implements OnInit {
                 });
                 break;
             case 'answer':
+                console.log('selected item >>>?>>>>>', this.selectedItem);
                 this.router.navigate(['/coffee-lab/create-post/answer'], {
                     queryParams: {
                         forumId: this.selectedItem.answer_id || this.selectedItem.id,
                         parentForumType: 'question',
-                        parentForumId: this.extraInfo,
+                        parentForumId: this.extraInfo?.id || this.selectedItem?.question_id,
                         forumType: 'answer',
                     },
                 });

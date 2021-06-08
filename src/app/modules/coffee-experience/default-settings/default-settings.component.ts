@@ -135,14 +135,12 @@ export class DefaultSettingsComponent implements OnInit {
         this.imageMenuItems = [
             {
                 label: 'Update',
-                icon: 'pi pi-refresh',
                 command: () => {
                     this.updateImage();
                 },
             },
             {
                 label: 'Delete',
-                icon: 'pi pi-times',
                 command: () => {
                     this.deleteImage();
                 },
@@ -151,14 +149,12 @@ export class DefaultSettingsComponent implements OnInit {
         this.videoMenuItems = [
             {
                 label: 'Update',
-                icon: 'pi pi-refresh',
                 command: () => {
                     this.updateVideo();
                 },
             },
             {
                 label: 'Delete',
-                icon: 'pi pi-times',
                 command: () => {
                     this.deleteVideo();
                 },
@@ -175,21 +171,18 @@ export class DefaultSettingsComponent implements OnInit {
         this.materialMenuItems = [
             {
                 label: 'Update',
-                icon: 'pi pi-refresh',
                 command: () => {
                     this.updateMarketing();
                 },
             },
             {
                 label: 'Delete',
-                icon: 'pi pi-times',
                 command: () => {
                     this.updateMarketing();
                 },
             },
             {
                 label: 'Download',
-                icon: 'pi pi-download',
                 command: () => {
                     this.downloadMaterialFile();
                 },

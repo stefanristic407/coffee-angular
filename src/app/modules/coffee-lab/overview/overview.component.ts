@@ -18,13 +18,13 @@ export class OverviewComponent implements OnInit {
             activeIcon: 'assets/images/qa-forum-active.svg',
         },
         {
-            label: 'articles',
+            label: 'posts',
             routerLink: 'articles',
             icon: 'assets/images/article.svg',
             activeIcon: 'assets/images/article-active.svg',
         },
         {
-            label: 'coffee_recipes',
+            label: 'brewing_guides',
             routerLink: 'coffee-recipes',
             icon: 'assets/images/coffee-recipe.svg',
             activeIcon: 'assets/images/coffee-recipe-active.svg',

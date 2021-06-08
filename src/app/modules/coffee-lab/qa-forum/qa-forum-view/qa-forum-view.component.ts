@@ -58,6 +58,9 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
             is_consumer: this.filterBy,
             sort_by: this.sortBy === 'most_answered' ? 'most_answered' : 'posted_at',
             sort_order: this.sortBy === 'most_answered' ? 'desc' : this.sortBy === 'latest' ? 'desc' : 'asc',
+            publish: true,
+            page: 1,
+            per_page: 10000,
         };
         this.isLoading = true;
         this.coffeeLabService.getForumList('question', params, this.forumLanguage).subscribe((res: any) => {
