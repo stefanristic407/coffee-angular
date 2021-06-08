@@ -44,65 +44,58 @@ export class QaPostComponent implements OnInit, OnDestroy {
 
     getPosts(): void {
         this.isLoading = true;
+        const params = {
+            sort_by: this.sortBy === 'most_answered' ? 'most_answered' : 'posted_at',
+            sort_order: this.sortBy === 'most_answered' ? 'desc' : this.sortBy === 'latest' ? 'desc' : 'asc',
+            page: 1,
+            per_page: 10000,
+        };
         if (this.pageDesc === 'saved-posts') {
-            const params = {
-                sort_by: this.sortBy === 'most_answered' ? 'most_answered' : 'created_at',
-                // org_type: 'ro',
-                sort_order: this.sortBy === 'most_answered' ? 'desc' : this.sortBy === 'latest' ? 'desc' : 'asc',
-            };
             this.coffeeLabService.getSavedForumList('question', params).subscribe((res: any) => {
                 this.isLoading = false;
                 if (res.success) {
-                    this.questions = res.result || [];
-                    if (this.questions && this.questions.length > 0) {
-                        this.questions = this.questions.map((item) => {
-                            const answers = 'answers';
-                            item[answers] = [];
-                            if (item.answer_1_content) {
-                                const answerObj1 = {
-                                    answer: item.answer_1_content,
-                                    id: item.answer_1_id,
-                                    org_id: item.answer_1_org_id,
-                                    org_type: item.answer_1_org_type,
-                                    profile_image_url: item.answer_1_profile_image_thumb_url,
-                                    user_id: item.answer_1_user_id,
-                                    user_name: item.answer_1_user_name,
-                                    updated_at: item.answer_1_updated_at,
-                                    created_at: item.answer_1_created_at,
-                                    company_name: item.answer_1_org_name,
-                                };
-                                item.answers.push(answerObj1);
-                                item.total_answers = 1;
-                            }
-                            if (item.answer_2_content) {
-                                const answerObj2 = {
-                                    answer: item.answer_2_content,
-                                    id: item.answer_2_id,
-                                    org_id: item.answer_2_org_id,
-                                    org_type: item.answer_2_org_type,
-                                    profile_image_url: item.answer_2_profile_image_thumb_url,
-                                    user_id: item.answer_2_user_id,
-                                    user_name: item.answer_2_user_name,
-                                    updated_at: item.answer_2_updated_at,
-                                    created_at: item.answer_2_created_at,
-                                    company_name: item.answer_2_org_name,
-                                };
-                                item.answers.push(answerObj2);
-                                item.total_answers += 1;
-                            }
-                            return item;
-                        });
-                    }
+                    this.questions = (res.result || []).map((item) => {
+                        const answers = 'answers';
+                        item[answers] = [];
+                        if (item.answer_1_content) {
+                            const answerObj1 = {
+                                answer: item.answer_1_content,
+                                id: item.answer_1_id,
+                                org_id: item.answer_1_org_id,
+                                org_type: item.answer_1_org_type,
+                                profile_image_url: item.answer_1_profile_image_thumb_url,
+                                user_id: item.answer_1_user_id,
+                                user_name: item.answer_1_user_name,
+                                updated_at: item.answer_1_updated_at,
+                                created_at: item.answer_1_created_at,
+                                company_name: item.answer_1_org_name,
+                            };
+                            item.answers.push(answerObj1);
+                            item.total_answers = 1;
+                        }
+                        if (item.answer_2_content) {
+                            const answerObj2 = {
+                                answer: item.answer_2_content,
+                                id: item.answer_2_id,
+                                org_id: item.answer_2_org_id,
+                                org_type: item.answer_2_org_type,
+                                profile_image_url: item.answer_2_profile_image_thumb_url,
+                                user_id: item.answer_2_user_id,
+                                user_name: item.answer_2_user_name,
+                                updated_at: item.answer_2_updated_at,
+                                created_at: item.answer_2_created_at,
+                                company_name: item.answer_2_org_name,
+                            };
+                            item.answers.push(answerObj2);
+                            item.total_answers += 1;
+                        }
+                        return item;
+                    });
                 } else {
                     this.toastService.error('Cannot get forum data');
                 }
             });
         } else {
-            const params = {
-                sort_by: this.sortBy === 'most_answered' ? 'most_answered' : 'posted_at',
-                // org_type: 'ro',
-                sort_order: this.sortBy === 'most_answered' ? 'desc' : this.sortBy === 'latest' ? 'desc' : 'asc',
-            };
             this.coffeeLabService.getOrganizationForumList('question', params).subscribe((res: any) => {
                 this.isLoading = false;
                 if (res.success) {

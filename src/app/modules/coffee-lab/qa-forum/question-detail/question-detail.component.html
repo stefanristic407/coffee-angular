@@ -48,7 +48,7 @@
                             pInputText
                             routerLink="/coffee-lab/create-post/answer"
                             [queryParams]="{
-                                parentForumId: detailsData.slug,
+                                parentForumId: detailsData.id,
                                 parentForumType: 'question',
                                 forumType: 'answer'
                             }"
@@ -73,7 +73,7 @@
                                 <app-forum-menu
                                     [selectedItem]="answer"
                                     forumType="answer"
-                                    [extraInfo]="slug"
+                                    [extraInfo]="detailsData"
                                     [enableSave]="false"
                                     [enableEdit]="
                                         organizationId == answer.org_id &&

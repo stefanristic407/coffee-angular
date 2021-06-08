@@ -16,10 +16,8 @@ export class AssignedToMeViewComponent implements OnInit {
         { label: 'Oldest', value: 'oldest' },
     ];
     sortBy = 'latest';
-    filterBy = null;
     questions: any[] = [];
     isLoading = false;
-    keyword = '';
 
     constructor(private coffeeLabService: CoffeeLabService, private toastService: ToastrService) {}
 
@@ -30,17 +28,16 @@ export class AssignedToMeViewComponent implements OnInit {
 
     getQuestions(): void {
         const params = {
-            query: this.keyword,
-            posted_user_id: this.filterBy,
             org_type: 'ro',
             sort_by: this.sortBy === 'most_answered' ? 'posted_at' : 'posted_at',
             sort_order: this.sortBy === 'most_answered' ? 'desc' : this.sortBy === 'latest' ? 'desc' : 'asc',
+            page: 1,
+            per_page: 10000,
         };
         this.isLoading = true;
         this.coffeeLabService.getForumList('question', params).subscribe((res: any) => {
             this.isLoading = false;
             if (res.success) {
-                console.log('questions >>>>>>>', res);
                 this.questions = res.result?.questions;
             } else {
                 this.toastService.error('Cannot get forum data');

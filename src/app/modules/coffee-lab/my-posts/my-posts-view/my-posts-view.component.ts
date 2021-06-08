@@ -16,14 +16,14 @@ export class MyPostsViewComponent implements OnInit, AfterViewInit {
             },
         },
         {
-            label: 'article',
+            label: 'posts',
             routerLink: ['article'],
             command: (event) => {
                 this.removeClass(event);
             },
         },
         {
-            label: 'recipe',
+            label: 'brewing_guides',
             routerLink: ['recipe'],
             command: (event) => {
                 this.removeClass(event);

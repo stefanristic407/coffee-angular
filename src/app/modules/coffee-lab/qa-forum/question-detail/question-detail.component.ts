@@ -4,7 +4,6 @@ import { AuthService, CoffeeLabService, GlobalsService } from '@services';
 import { DOCUMENT, Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
-import { CookieService } from 'ngx-cookie-service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -32,7 +31,6 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
         private toastService: ToastrService,
         public authService: AuthService,
         private messageService: MessageService,
-        private cookieService: CookieService,
         public router: Router,
     ) {
         this.activatedRoute.params.subscribe((params) => {
@@ -63,6 +61,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
         const params = {
             sort_by: 'posted_at',
             sort_order: 'desc',
+            publish: true,
         };
         this.coffeeLabService.getForumList('question', params).subscribe((res: any) => {
             if (res.success) {

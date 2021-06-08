@@ -384,6 +384,10 @@ export class NewRoastedBatchComponent implements OnInit, OnDestroy {
             });
     }
 
+    onCopy(): void {
+        this.toastrService.success('Successfully copied');
+    }
+
     ngOnDestroy(): void {
         this.destroy$.next(true);
         this.destroy$.unsubscribe();
