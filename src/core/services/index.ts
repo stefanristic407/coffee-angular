@@ -10,7 +10,6 @@ export * from './i18n';
 export * from './menu';
 export * from './prime-table';
 export * from './resize';
-export * from './roastery-profile';
 export * from './socket';
 export * from './startup';
 export * from './upload';

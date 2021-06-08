@@ -3,6 +3,7 @@ import { COUNTRY_LIST, CONTINIENT_LIST } from '@constants';
 import { OrganizationType } from '@enums';
 import { environment } from '@env/environment';
 import { LabelValue, Country } from '@models';
+import { CookieService } from 'ngx-cookie-service';
 import { SimulatedLoginService } from '../api';
 import { AuthService } from '../auth';
 
@@ -12,7 +13,11 @@ import { AuthService } from '../auth';
 export class CommonService {
     profileUpdateEvent: EventEmitter<any>;
 
-    constructor(private simulatedLoginService: SimulatedLoginService, private authService: AuthService) {
+    constructor(
+        private simulatedLoginService: SimulatedLoginService,
+        private authService: AuthService,
+        private cookieService: CookieService,
+    ) {
         this.profileUpdateEvent = new EventEmitter<any>();
     }
 
@@ -104,7 +109,7 @@ export class CommonService {
         portalUrl += `/gate?orgId=${orgId}&loginType=sim`;
         // Probably we need to add separate flag for this logic.
         if (!environment.production) {
-            portalUrl += `&token=${token}`;
+            this.cookieService.set('Sim-Authorization', token);
         }
 
         window.open(portalUrl);
