@@ -47,7 +47,12 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     }
 
     getArticleList(): any {
-        this.coffeeLabService.getForumList('article').subscribe((res: any) => {
+        const params = {
+            sort_by: 'created_at',
+            sort_order: 'desc',
+            publish: true,
+        };
+        this.coffeeLabService.getForumList('article', params).subscribe((res: any) => {
             if (res.success) {
                 this.relatedData = res.result
                     .filter((item: any) => item.id !== this.idOrSlug && item.slug !== this.idOrSlug)

@@ -145,6 +145,9 @@
                         <span *ngIf="st.image_url"><img [src]="st.image_url" class="w-100 pb-3" /></span>
                     </div>
                 </div>
+                <div class="pt-4" *ngIf="detailsData?.original_details?.id">
+                    <app-original-view [detailsData]="detailsData" forumType="recipe"></app-original-view>
+                </div>
                 <div class="pt-3 pt-md-4 pt-lg-45">
                     <app-comments
                         [commentData]="commentData"

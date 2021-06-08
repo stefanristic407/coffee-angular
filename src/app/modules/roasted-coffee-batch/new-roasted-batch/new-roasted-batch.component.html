@@ -338,15 +338,13 @@
                         [src]="orderDetails.estate_profile_image_thumbnail_url || 'assets/images/default-avatar.png'"
                     >
                     </app-avatar>
-                    <div>
-                        <ul class="details-list ml-2">
-                            <li class="fnt-14 lh-15 fnt-600">
-                                {{ orderDetails.estate_name }}
-                            </li>
-                            <li class="fnt-12 fnt-600 text-clr588 pt-1">
-                                {{ 'coffee_estate' | translate }}
-                            </li>
-                        </ul>
+                    <div class="ml-2">
+                        <div class="fnt-14 fnt-600 mb-1">
+                            {{ orderDetails.estate_name }}
+                        </div>
+                        <div class="fnt-12 fnt-600 text-clr588">
+                            {{ 'coffee_estate' | translate }}
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -429,7 +427,7 @@
             <p class="fnt-14 fnt-600 mb-2 text-clr588">{{ 'share_coffee_experience_link' | translate }}!</p>
             <div class="link-wrapper">
                 <span class="fnt-14 fnt-600 flex-1 link-text">{{ coffeeStory.coffee_story_url }}</span>
-                <button class="btn-raised" ngxClipboard [cbContent]="coffeeStory.coffee_story_url">
+                <button (click)="onCopy()" class="btn-raised" ngxClipboard [cbContent]="coffeeStory.coffee_story_url">
                     {{ 'copy_link' | translate }}
                 </button>
             </div>

@@ -1,6 +1,6 @@
 <div class="coffee-recipes-view-container">
     <div *ngIf="pageDesc === 'overview'" class="fnt-18 fnt-md-24 font-weight-bold d-md-none">
-        {{ 'recipes' | translate }}
+        {{ 'brewing_guides' | translate }}
     </div>
     <div *ngIf="pageDesc === 'overview'" class="row justify-content-lg-between pt-3 pt-md-0 gutter-32">
         <div class="col-lg-8">
@@ -18,7 +18,7 @@
                         [queryParams]="{ type: 'recipe' }"
                         type="text"
                         pInputText
-                        [placeholder]="'start_making_a_recipe' | translate"
+                        [placeholder]="'start_making_a_brewing_guide' | translate"
                     />
                 </div>
             </div>
@@ -31,7 +31,7 @@
                     pInputText
                     [(ngModel)]="searchQuery"
                     (ngModelChange)="getCoffeeRecipesData()"
-                    [placeholder]="'search_recipes' | translate"
+                    [placeholder]="'search_for_brewing_guides' | translate"
                 />
             </div>
         </div>
@@ -42,7 +42,7 @@
         class="d-none d-md-flex flex-column align-items-center flex-md-row justify-content-md-between pb-lg-3 pb-md-0 pt-md-4 pt-lg-45"
     >
         <h1 class="fnt-18 fnt-md-24 fnt-muli fnt-bold text-clr334 mb-0">
-            {{ 'recipes' | translate }}
+            {{ 'brewing_guides' | translate }}
         </h1>
         <span class="custom-search h-fit-content mt-3 mt-md-0 d-lg-none">
             <input
@@ -50,8 +50,8 @@
                 type="text"
                 pInputText
                 [(ngModel)]="searchQuery"
-                (ngModelChange)="getCoffeeRecipesData()"
-                [placeholder]="'search_recipes' | translate"
+                (ngModelChange)="reloadPageData()"
+                [placeholder]="'search_for_brewing_guides' | translate"
             />
         </span>
     </div>
@@ -68,7 +68,7 @@
                     optionValue="value"
                     [showClear]="true"
                     [(ngModel)]="label"
-                    (onChange)="getCoffeeRecipesData()"
+                    (ngModelChange)="reloadPageData()"
                     placeholder="Levels"
                     styleClass="round-border"
                 >
@@ -81,7 +81,7 @@
                     optionValue="value"
                     [showClear]="true"
                     [(ngModel)]="isAvailableTranslation"
-                    (onChange)="getCoffeeRecipesData()"
+                    (ngModelChange)="reloadPageData()"
                     [placeholder]="'translation_available' | translate"
                     styleClass="round-border"
                 >
@@ -93,7 +93,7 @@
                     type="text"
                     pInputText
                     [(ngModel)]="searchIngredient"
-                    (ngModelChange)="getCoffeeRecipesData()"
+                    (ngModelChange)="reloadPageData()"
                     styleClass="ingredient-field"
                     [placeholder]="'search_by_ingredient' | translate"
                 />
@@ -105,14 +105,14 @@
                 optionLabel="label"
                 optionValue="value"
                 [(ngModel)]="selectedOrder"
-                (onChange)="getCoffeeRecipesData()"
+                (onChange)="reloadPageData()"
                 styleClass="no-border mobile-ui"
             >
             </p-dropdown>
         </div>
     </div>
     <div class="coffee-wrapper" *ngIf="!isLoading">
-        <div class="col-12 col-md-6 col-lg-4 px-0 py-2 p-md-2" *ngFor="let coffee of displayData">
+        <div class="col-12 col-md-6 col-lg-4 px-0 py-2 p-md-2" *ngFor="let coffee of coffeeRecipeData">
             <div
                 class="border-main br-4 p-3 py-md-4 px-lg-4 coffee-item"
                 [routerLink]="'/coffee-lab/recipes/' + coffee.slug"
@@ -163,14 +163,6 @@
             </div>
         </div>
     </div>
-    <div class="w-100" *ngIf="totalRecords && !isLoading">
-        <p-paginator
-            [rows]="rows"
-            [totalRecords]="totalRecords"
-            (onPageChange)="paginate($event)"
-            styleClass="mt-45"
-        ></p-paginator>
-    </div>
     <app-loading *ngIf="isLoading"></app-loading>
     <div *ngIf="!isLoading && !coffeeRecipeData.length" class="text-center my-4 fnt-muli text-clr24">
         <app-empty
@@ -191,5 +183,13 @@
                 ) | translate
             "
         ></app-empty>
+    </div>
+    <div class="pt-3 pt-md-4 w-100 text-center" *ngIf="totalRecords && !hidePaginator">
+        <p-paginator
+                #paginator
+                [rows]="perPage"
+                [totalRecords]="totalRecords"
+                (onPageChange)="paginate($event)"
+        ></p-paginator>
     </div>
 </div>

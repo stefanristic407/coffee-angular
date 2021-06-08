@@ -11,9 +11,6 @@ import { SavedPostsViewComponent } from '@modules/coffee-lab/saved-posts/saved-p
 import { CoffeeDetailsComponent } from './coffee-recipes/coffee-details/coffee-details.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { QuestionDetailComponent } from '@modules/coffee-lab/qa-forum/question-detail/question-detail.component';
-import { CreateQuestionComponent } from '@modules/coffee-lab/create-post/create-question/create-question.component';
-import { CreateArticleComponent } from '@modules/coffee-lab/create-post/create-article/create-article.component';
-import { CreateRecipeComponent } from '@modules/coffee-lab/create-post/create-recipe/create-recipe.component';
 import { TabContainerComponent } from '@modules/coffee-lab/create-post/tab-container/tab-container.component';
 import { CreateAnswerComponent } from '@modules/coffee-lab/create-post/create-answer/create-answer.component';
 import { AssignedToMeViewComponent } from '@modules/coffee-lab/assigned-to-me/assigned-to-me-view/assigned-to-me-view.component';
@@ -109,13 +106,6 @@ const routes: Routes = [
                     {
                         path: 'tab',
                         component: TabContainerComponent,
-                        children: [
-                            {
-                                path: 'recipe',
-                                component: CreateRecipeComponent,
-                                data: { type: 'recipe' },
-                            },
-                        ],
                     },
                     {
                         path: 'answer',

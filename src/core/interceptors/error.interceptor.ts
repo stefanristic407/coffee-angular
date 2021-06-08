@@ -40,19 +40,12 @@ export class ErrorInterceptor implements HttpInterceptor {
                         }
                         case 401: {
                             this.showErrorMessage(body.messages);
-                            const navigationExtras: NavigationExtras = {
-                                queryParams: {
-                                    returnUrl: this.router.url,
-                                },
-                            };
-                            this.router.navigate(
-                                ['/gate'],
-                                this.route.snapshot.queryParams.returnUrl ? {} : navigationExtras,
-                            );
+                            this.goToGate();
                             break;
                         }
                         case 403: {
-                            // this.showCodeMessage(body.response_code);
+                            this.showCodeMessage(body.response_code);
+                            this.goToGate();
                             break;
                         }
                         case 404: {
@@ -72,15 +65,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 switch (error.status) {
                     case 401: {
                         this.showErrorMessage(error.error.messages);
-                        const navigationExtras: NavigationExtras = {
-                            queryParams: {
-                                returnUrl: this.router.url,
-                            },
-                        };
-                        this.router.navigate(
-                            ['/gate'],
-                            this.route.snapshot.queryParams.returnUrl ? {} : navigationExtras,
-                        );
+                        this.goToGate();
                         break;
                     }
                     case 403: {
@@ -126,5 +111,14 @@ export class ErrorInterceptor implements HttpInterceptor {
             errorTexts.push(`${this.translateService.instant(key)} ${errors}.`);
         });
         this.toastrService.error(errorTexts.join('\n'));
+    }
+
+    goToGate() {
+        const navigationExtras: NavigationExtras = {
+            queryParams: {
+                returnUrl: this.router.url,
+            },
+        };
+        this.router.navigate(['/gate'], this.route.snapshot.queryParams.returnUrl ? {} : navigationExtras);
     }
 }
