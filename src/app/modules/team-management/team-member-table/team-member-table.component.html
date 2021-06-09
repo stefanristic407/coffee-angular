@@ -349,7 +349,7 @@
                         'enable_account' | translate
                     }}</a>
                 </li>
-                <li *ngIf="rowData.status == UserStatus.ACTIVE" class="list-group-item">
+                <li *ngIf="rowData.status == 'ACTIVE' && rowData.id != loginId" class="list-group-item">
                     <a class="cursor-pointer" (click)="simulatedLogin(rowData.id)">{{
                         'simulated_login' | translate
                     }}</a>
