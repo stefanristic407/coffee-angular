@@ -516,3 +516,42 @@ span.star {
     margin: 0;
     padding: 0;
 }
+
+.status-badge {
+    position: relative;
+
+    &::before {
+        content: '\A';
+        position: relative;
+        top: -1px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 8px;
+    }
+
+    &.active,
+    &.ACTIVE {
+        color: #649a2b;
+        &::before {
+            background: #649a2b;
+        }
+    }
+
+    &.pending,
+    &.PENDING {
+        color: #f19634;
+        &::before {
+            background: #f19634;
+        }
+    }
+
+    &.inactive,
+    &.INACTIVE {
+        color: #979797;
+        &::before {
+            background: #979797;
+        }
+    }
+}

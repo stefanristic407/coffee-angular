@@ -9,7 +9,7 @@ import { MenuItem } from 'primeng/api';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators';
 import { ChatHandlerService } from '@services';
-import { OrganizationType } from '@enums';
+import { OrganizationType, UserStatus } from '@enums';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@shared';
 
@@ -19,6 +19,7 @@ import { ConfirmComponent } from '@shared';
     styleUrls: ['./team-member-table.component.scss'],
 })
 export class TeamMemberTableComponent implements OnInit, AfterViewInit {
+    readonly UserStatus = UserStatus;
     roasterID: any;
     breadCrumbItem: MenuItem[] = [];
     selectedRole;
